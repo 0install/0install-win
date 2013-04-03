@@ -372,7 +372,7 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The specified MIME type is unknown..
+        ///   Looks up a localized string similar to The archive MIME type &apos;{0}&apos; is not supported..
         /// </summary>
         internal static string UnknownMimeType {
             get {

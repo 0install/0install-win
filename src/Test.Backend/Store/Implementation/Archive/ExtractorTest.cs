@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.IO;
 using Common.Storage;
 using ICSharpCode.SharpZipLib.Zip;
@@ -46,6 +47,13 @@ namespace ZeroInstall.Store.Implementation.Archive
                 using (var extractor = Extractor.CreateExtractor(null, path, 0, tempDir))
                     Assert.IsInstanceOf(typeof(ZipExtractor), extractor);
             }
+        }
+
+        [Test(Description = "Ensures Extractor.VerifySupport() correctly distinguishes between supported and not supported archive MIME types.")]
+        public void TestVerifySupport()
+        {
+            Assert.DoesNotThrow(() => Extractor.VerifySupport("application/zip"));
+            Assert.Throws<NotSupportedException>(() => Extractor.VerifySupport("test/format"));
         }
     }
 }

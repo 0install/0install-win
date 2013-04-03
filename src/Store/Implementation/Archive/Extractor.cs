@@ -74,10 +74,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// <summary>
         /// <see cref="TargetDir"/> and <see cref="Destination"/> combined.
         /// </summary>
-        protected string EffectiveTargetDir
-        {
-            get { return string.IsNullOrEmpty(Destination) ? TargetDir : Path.Combine(TargetDir, Destination); }
-        }
+        protected string EffectiveTargetDir { get { return string.IsNullOrEmpty(Destination) ? TargetDir : Path.Combine(TargetDir, Destination); } }
         #endregion
 
         #region Constructor
@@ -102,9 +99,36 @@ namespace ZeroInstall.Store.Implementation.Archive
 
         #region Factory methods
         /// <summary>
+        /// Verifies that a archives of a specific MIME type are supported.
+        /// </summary>
+        /// <param name="mimeType">The MIME type of archive format of the stream.</param>
+        /// <returns>The newly created <see cref="Extractor"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown if the <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
+        public static void VerifySupport(string mimeType)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
+            #endregion
+
+            switch (mimeType)
+            {
+                case "application/zip":
+                case "application/x-tar":
+                case "application/x-compressed-tar":
+                case "application/x-bzip-compressed-tar":
+                case "application/x-lzma-compressed-tar":
+                case "application/x-ruby-gem":
+                    return;
+
+                default:
+                    throw new NotSupportedException(string.Format(Resources.UnknownMimeType, mimeType));
+            }
+        }
+
+        /// <summary>
         /// Creates a new <see cref="Extractor"/> for extracting a sub-directory from an archive stream.
         /// </summary>
-        /// <param name="mimeType">The MIME type of archive format of the stream; must not be <see langword="null"/>.</param>
+        /// <param name="mimeType">The MIME type of archive format of the stream.</param>
         /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <returns>The newly created <see cref="Extractor"/>.</returns>
@@ -113,6 +137,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         public static Extractor CreateExtractor(string mimeType, Stream stream, string target)
         {
             #region Sanity checks
+            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
             if (stream == null) throw new ArgumentNullException("stream");
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
@@ -139,8 +164,9 @@ namespace ZeroInstall.Store.Implementation.Archive
                 case "application/x-ruby-gem":
                     extractor = new RubyGemExtractor(stream, target);
                     break;
+
                 default:
-                    throw new NotSupportedException(Resources.UnknownMimeType);
+                    throw new NotSupportedException(string.Format(Resources.UnknownMimeType, mimeType));
             }
 
             return extractor;

@@ -225,7 +225,7 @@ Festgelegt in der Konfigurationsdatei '{1}'.</value>
     <value>Konnte den Schreibschutz für '{0}' nicht aktivieren.</value>
   </data>
   <data name="UnknownMimeType" xml:space="preserve">
-    <value>Der angegebene MIME Typ ist unbekannt.</value>
+    <value>Der Archiv MIME Typ '{0}' wird nicht unterstützt.</value>
   </data>
   <data name="WrongPassphrase" xml:space="preserve">
     <value>Die Passphrase die Sie eingegeben haben ist inkorrekt.</value>

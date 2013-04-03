@@ -225,7 +225,7 @@ Specified in the configuration file '{1}'.</value>
     <value>Unable to enable write protection for '{0}'.</value>
   </data>
   <data name="UnknownMimeType" xml:space="preserve">
-    <value>The specified MIME type is unknown.</value>
+    <value>The archive MIME type '{0}' is not supported.</value>
   </data>
   <data name="WrongPassphrase" xml:space="preserve">
     <value>The passphrase you entered is incorrect.</value>
