@@ -56,7 +56,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="SingleFile"/>.</returns>
         private SingleFile CloneFile()
         {
-            return new SingleFile {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Location = Location, Size = Size, Destination = Destination};
+            return new SingleFile {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Location = Location, Size = Size, Destination = Destination};
         }
 
         /// <summary>

@@ -139,7 +139,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Command"/>.</returns>
         public Command Clone()
         {
-            var newCommand = new Command {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, Path = Path};
+            var newCommand = new Command {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Name = Name, Path = Path};
             newCommand.Arguments.AddAll(Arguments.CloneElements());
             newCommand.Bindings.AddAll(Bindings.CloneElements());
             if (WorkingDir != null) newCommand.WorkingDir = WorkingDir.Clone();

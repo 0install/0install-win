@@ -65,7 +65,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="InterfaceReference"/>.</returns>
         public InterfaceReference Clone()
         {
-            return new InterfaceReference {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Target = Target};
+            return new InterfaceReference {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Target = Target};
         }
 
         object ICloneable.Clone()

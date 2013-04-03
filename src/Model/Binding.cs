@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
@@ -27,8 +28,8 @@ namespace ZeroInstall.Model
     /// Bindings can appear in <see cref="Dependency"/>s, in which case they tell a component how to find its dependency,
     /// or in <see cref="Element"/>, where they tell a component how to find itself.
     /// </remarks>
-    [XmlType("binding", Namespace = Feed.XmlNamespace)]
-    public abstract class Binding : FeedElement, ICloneable
+    [XmlType("binding-base", Namespace = Feed.XmlNamespace)]
+    public class Binding : FeedElement, ICloneable
     {
         /// <summary>
         /// Creates a deep copy of this <see cref="Binding"/> instance.

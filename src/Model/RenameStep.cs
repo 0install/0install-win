@@ -71,7 +71,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="RenameStep"/>.</returns>
         public IRecipeStep CloneRecipeStep()
         {
-            return new RenameStep {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Source = Source, Destination = Destination};
+            return new RenameStep {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Source = Source, Destination = Destination};
         }
         #endregion
 

@@ -117,7 +117,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="EntryPoint"/>.</returns>
         public EntryPoint Clone()
         {
-            var newEntryPoint = new EntryPoint {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Command = Command, BinaryName = BinaryName, NeedsTerminal = NeedsTerminal};
+            var newEntryPoint = new EntryPoint {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Command = Command, BinaryName = BinaryName, NeedsTerminal = NeedsTerminal};
             newEntryPoint.Names.AddAll(Names.CloneElements());
             newEntryPoint.Summaries.AddAll(Summaries.CloneElements());
             newEntryPoint.Descriptions.AddAll(Descriptions.CloneElements());

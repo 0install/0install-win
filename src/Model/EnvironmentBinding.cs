@@ -116,7 +116,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="EnvironmentBinding"/>.</returns>
         public override Binding Clone()
         {
-            return new EnvironmentBinding {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, Value = Value, Insert = Insert, Mode = Mode, Separator = Separator, Default = Default};
+            return new EnvironmentBinding {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Name = Name, Value = Value, Insert = Insert, Mode = Mode, Separator = Separator, Default = Default};
         }
         #endregion
 
