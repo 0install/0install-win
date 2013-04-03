@@ -16,10 +16,8 @@
  */
 
 using System;
-using System.Collections.Generic;
+using Common;
 using Common.Storage;
-using Common.Tasks;
-using Moq;
 using NUnit.Framework;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
@@ -55,12 +53,17 @@ namespace ZeroInstall.Commands
             bool stale;
             SolverMock.Setup(x => x.Solve(requirements, noRefreshPolicy, out stale)).Returns(selectionsOld).Verifiable(); // No refresh Solve()
             SolverMock.Setup(x => x.Solve(requirements, Policy, out stale)).Returns(selectionsNew).Verifiable(); // Refresh Solve()
-            CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub1.xml")).Returns(new Feed {Uri = new Uri("http://0install.de/feeds/test/sub1.xml"), Elements = {new Implementation {ID = "id1"}}});
-            CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(new Feed {Uri = new Uri("http://0install.de/feeds/test/sub2.xml"), Elements = {new Implementation {ID = "id2"}}});
-            CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub3.xml")).Returns(new Feed {Uri = new Uri("http://0install.de/feeds/test/sub3.xml"), Elements = {new Implementation {ID = "id3"}}});
+
+            var impl1 = new Implementation {ID = "id1"};
+            var impl2 = new Implementation {ID = "id2"};
+            var impl3 = new Implementation {ID = "id3"};
+            CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub1.xml")).Returns(new Feed {Uri = new Uri("http://0install.de/feeds/test/sub1.xml"), Elements = {impl1}});
+            CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(new Feed {Uri = new Uri("http://0install.de/feeds/test/sub2.xml"), Elements = {impl2}});
+            CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub3.xml")).Returns(new Feed {Uri = new Uri("http://0install.de/feeds/test/sub3.xml"), Elements = {impl3}});
 
             // Download uncached implementations
-            FetcherMock.Setup(x => x.FetchImplementations(It.IsAny<IEnumerable<Implementation>>(), It.IsAny<ITaskHandler>())).Verifiable();
+            FetcherMock.Setup(x => x.FetchImplementations(
+                new[] {impl1, impl2, impl3}.IsEquivalent(), Policy.Handler)).Verifiable();
 
             // Check for <replaced-by>
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(FeedTest.CreateTestFeed());
