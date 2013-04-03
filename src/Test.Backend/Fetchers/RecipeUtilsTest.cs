@@ -39,9 +39,10 @@ namespace ZeroInstall.Fetchers
             {
                 using (FileStream stream = File.Create(archiveFile))
                     Store.Implementation.Archive.TestData.GetTestZipArchiveStream().CopyTo(stream);
-                var downloadedFiles = new[] {archiveFile};
 
+                var downloadedFiles = new[] {archiveFile};
                 var recipe = new Recipe {Steps = {new Archive {MimeType = "application/zip", Destination = "subDir"}}};
+
                 using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler(), null))
                 {
                     // /dest/symlink [S]
@@ -61,11 +62,15 @@ namespace ZeroInstall.Fetchers
         public void TestApplyRecipeSingleFile()
         {
             using (var singleFile = new TemporaryFile("0install-unit-tests"))
+            using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
                 File.WriteAllText(singleFile, "data");
-                var downloadedFiles = new[] {singleFile};
+                using (FileStream stream = File.Create(archiveFile))
+                    Store.Implementation.Archive.TestData.GetTestZipArchiveStream().CopyTo(stream);
 
-                var recipe = new Recipe {Steps = {new SingleFile {Destination = "subdir2/executable"}}};
+                var downloadedFiles = new[] {archiveFile, singleFile};
+                var recipe = new Recipe {Steps = {new Archive {MimeType = "application/zip"}, new SingleFile {Destination = "subdir2/executable"}}};
+
                 using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler(), null))
                 {
                     // /subdir2/executable [!X]
@@ -85,8 +90,8 @@ namespace ZeroInstall.Fetchers
             {
                 using (FileStream stream = File.Create(archiveFile))
                     Store.Implementation.Archive.TestData.GetTestZipArchiveStream().CopyTo(stream);
-                var downloadedFiles = new[] {archiveFile};
 
+                var downloadedFiles = new[] {archiveFile};
                 var recipe = new Recipe
                 {
                     Steps =
@@ -96,6 +101,7 @@ namespace ZeroInstall.Fetchers
                         new RemoveStep {Path = "subdir2"}
                     }
                 };
+
                 using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler(), null))
                 {
                     if (!MonoUtils.IsUnix)
@@ -122,8 +128,8 @@ namespace ZeroInstall.Fetchers
             {
                 using (FileStream stream = File.Create(archiveFile))
                     Store.Implementation.Archive.TestData.GetTestZipArchiveStream().CopyTo(stream);
-                var downloadedFiles = new[] {archiveFile};
 
+                var downloadedFiles = new[] {archiveFile};
                 var recipe = new Recipe
                 {
                     Steps =
@@ -133,6 +139,7 @@ namespace ZeroInstall.Fetchers
                         new RenameStep {Source = "subdir2/executable", Destination = "subdir2/executable2"}
                     }
                 };
+
                 using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler(), null))
                 {
                     if (!MonoUtils.IsUnix)

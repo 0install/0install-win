@@ -148,7 +148,7 @@ namespace ZeroInstall.Fetchers
             // Update in flag files aswell
             string xbitFile = Path.Combine(workingDir, ".xbit");
             if (FlagUtils.GetExternalFlags(".xbit", workingDir).Contains(destinationPath))
-                FlagUtils.RemoveExternalFlag(xbitFile, destinationPath);
+                FlagUtils.RemoveExternalFlag(xbitFile, destination);
         }
 
         /// <summary>
