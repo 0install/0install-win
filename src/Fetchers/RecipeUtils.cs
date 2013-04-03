@@ -42,7 +42,7 @@ namespace ZeroInstall.Fetchers
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>.</param>
         /// <returns>A <see cref="TemporaryDirectory"/> with the resulting directory content.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if <paramref name="recipe"/> contains unknown <see cref="IRecipeStep"/>s.</exception>
+        /// <exception cref="NotSupportedException">Thrown if <paramref name="recipe"/> contains unknown step types.</exception>
         public static TemporaryDirectory ApplyRecipe(Recipe recipe, IEnumerable<TemporaryFile> downloadedFiles, ITaskHandler handler, object tag)
         {
             #region Sanity checks
@@ -50,6 +50,9 @@ namespace ZeroInstall.Fetchers
             if (downloadedFiles == null) throw new ArgumentNullException("downloadedFiles");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
+
+            if (recipe.UnknownElements.Length != 0)
+                throw new NotSupportedException(string.Format(Resources.UnknownRecipeStepType, recipe.UnknownElements[0].Name));
 
             var workingDir = new TemporaryDirectory("0install-recipe");
 
