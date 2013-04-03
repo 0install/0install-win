@@ -51,14 +51,46 @@ namespace Common.Collections
         {
             var applyCalledFor = new List<int>();
             var rollbackCalledFor = new List<int>();
-            Assert.Throws<Exception>(() => new[] {1, 2, 3}.ApplyWithRollback(value =>
+            Assert.Throws<ArgumentException>(() => new[] {1, 2, 3}.ApplyWithRollback(value =>
             {
                 applyCalledFor.Add(value);
-                if (value == 2) throw new Exception("Test exception");
+                if (value == 2) throw new ArgumentException("Test exception");
             }, rollbackCalledFor.Add), "Exceptions should be passed through after rollback.");
 
             CollectionAssert.AreEqual(new[] {1, 2}, applyCalledFor);
             CollectionAssert.AreEqual(new[] {2, 1}, rollbackCalledFor);
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="EnumerableUtils.Try{T}"/> correctly handles fail conditions followed by success conditions.
+        /// </summary>
+        [Test]
+        public void TestTrySucceed()
+        {
+            var actionCalledFor = new List<int>();
+            new[] {1, 2, 3}.Try(value =>
+            {
+                actionCalledFor.Add(value);
+                if (value == 1) throw new ArgumentException("Test exception");
+            });
+
+            CollectionAssert.AreEqual(new[] {1, 2}, actionCalledFor);
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="EnumerableUtils.Try{T}"/> correctly handles pure fail conditions.
+        /// </summary>
+        [Test]
+        public void TestTryFail()
+        {
+            var actionCalledFor = new List<int>();
+            Assert.Throws<ArgumentException>(() => new[] {1, 2, 3}.Try(value =>
+            {
+                actionCalledFor.Add(value);
+                throw new ArgumentException("Test exception");
+            }), "Last exceptions should be passed through.");
+
+            CollectionAssert.AreEqual(new[] {1, 2, 3}, actionCalledFor);
         }
 
         #region Private inner class

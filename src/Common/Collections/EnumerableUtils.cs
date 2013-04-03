@@ -207,6 +207,39 @@ namespace Common.Collections
                 throw;
             }
         }
+
+        /// <summary>
+        /// Applies an operation for the first possible element of a collection.
+        /// If the operation succeeds the remaining elements are ignored. If the operation fails it is repeated for the next element.
+        /// </summary>
+        /// <typeparam name="T">The type of elements to operate on.</typeparam>
+        /// <param name="elements">The elements to apply the action for.</param>
+        /// <param name="action">The action to apply to an element.</param>
+        /// <exception cref="Exception">The exception thrown by <paramref name="action"/> for the last element of <paramref name="elements"/>.</exception>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Last excption is rethrown, other exceptions are logged")]
+        public static void Try<T>(this IEnumerable<T> elements, Action<T> action)
+        {
+            #region Sanity checks
+            if (elements == null) throw new ArgumentNullException("elements");
+            if (action == null) throw new ArgumentNullException("action");
+            #endregion
+
+            Exception lastException = null;
+            foreach (var element in elements)
+            {
+                try
+                {
+                    action(element);
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex);
+                    lastException = ex;
+                }
+            }
+            if (lastException != null) throw lastException;
+        }
         #endregion
 
         #region Merge
