@@ -76,7 +76,7 @@ namespace Common.Collections
         /// <summary>
         /// Calls <see cref="ICloneable.Clone"/> for every element in a collection and returns the results as a new collection.
         /// </summary>
-        public static IEnumerable<T> CloneElements<T>(this IEnumerable<T> enumerable) where T: ICloneable
+        public static IEnumerable<T> CloneElements<T>(this IEnumerable<T> enumerable) where T : ICloneable
         {
             return enumerable.Select(entry => (T)entry.Clone());
         }
@@ -224,21 +224,22 @@ namespace Common.Collections
             if (action == null) throw new ArgumentNullException("action");
             #endregion
 
-            Exception lastException = null;
-            foreach (var element in elements)
+            var enumerator = elements.GetEnumerator();
+            if (!enumerator.MoveNext()) return;
+
+            while (true)
             {
                 try
                 {
-                    action(element);
+                    action(enumerator.Current);
                     return;
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex);
-                    lastException = ex;
+                    if (enumerator.MoveNext()) Log.Error(ex); // Log exception and try next element
+                    else throw; // Rethrow exception if there are no more elements
                 }
             }
-            if (lastException != null) throw lastException;
         }
         #endregion
 
@@ -266,12 +267,12 @@ namespace Common.Collections
             // ReSharper disable CompareNonConstrainedGenericWithNull
             foreach (var mine in mineList.Where(mine => mine != null).
                 // Entry in mineList, but not in theirsList
-                Where(mine => !theirsList.Contains(mine)))
+                                          Where(mine => !theirsList.Contains(mine)))
                 removed(mine);
 
             foreach (var theirs in theirsList.Where(theirs => theirs != null).
                 // Entry in theirsList, but not in mineList
-                Where(theirs => !mineList.Contains(theirs)))
+                                              Where(theirs => !mineList.Contains(theirs)))
                 added(theirs);
             // ReSharper restore CompareNonConstrainedGenericWithNull
         }
