@@ -136,7 +136,7 @@ namespace ZeroInstall.Fetchers
 
                 if (recipe.Steps.All(step => step is Archive))
                 { // Optimized special case for archive-only recipes
-                    AddArchives(downloadedFiles, recipe.Steps.Cast<Archive>().ToArray(), manifestDigest, handler);
+                    AddArchives(downloadedFiles, recipe.Steps.Cast<Archive>(), manifestDigest, handler);
                 }
                 else
                 {
@@ -178,7 +178,7 @@ namespace ZeroInstall.Fetchers
                 StartOffset = archive.StartOffset
             });
 
-            Store.AddArchives(archiveFileInfos, manifestDigest, handler);
+            Store.AddArchives(archiveFileInfos.ToList(), manifestDigest, handler);
         }
     }
 }
