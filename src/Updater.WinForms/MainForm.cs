@@ -87,12 +87,14 @@ Retry:
                     #region Error handling
                 catch (IOException ex)
                 {
-                    if (Msg.YesNo(this, ex.Message + Resources.TryAgain, MsgSeverity.Error)) goto Retry;
+                    // If already admin, ask whether to retry
+                    if (WindowsUtils.IsAdministrator && Msg.YesNo(this, ex.Message + "\n" + Resources.TryAgain, MsgSeverity.Error)) goto Retry;
                     else throw;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    if (Msg.YesNo(this, ex.Message + Resources.TryAgain, MsgSeverity.Error)) goto Retry;
+                    // If already admin, ask whether to retry
+                    if (WindowsUtils.IsAdministrator && Msg.YesNo(this, ex.Message + "\n" + Resources.TryAgain, MsgSeverity.Error)) goto Retry;
                     else throw;
                 }
                 #endregion
