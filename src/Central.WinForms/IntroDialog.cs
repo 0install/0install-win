@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Model;
@@ -112,16 +113,12 @@ namespace ZeroInstall.Central.WinForms
                 {2000, labelSubtitles.Hide},
                 // Run app
                 {1000, () => PrintSubtitles(Resources.IntroSubtitlesRunApp)},
-                {2000, () => DrawRectangle(catalogList.GetTile("fake:cool_app"), new Rectangle(248, 7, 59, 21))},
-                {500, catalogList.GetTile("fake:cool_app").Refresh},
-                {500, () => DrawRectangle(catalogList.GetTile("fake:cool_app"), new Rectangle(248, 7, 59, 21))},
+                {2000, () => FlashRectangle(catalogList.GetTile("fake:cool_app").buttonRun)},
                 {4000, catalogList.GetTile("fake:cool_app").Refresh},
                 {1000, labelSubtitles.Hide},
                 // Add app
                 {2000, () => PrintSubtitles(Resources.IntroSubtitlesAddApp)},
-                {4000, () => DrawRectangle(catalogList.GetTile("fake:cool_app"), new Rectangle(280, 33, 27, 21))},
-                {500, catalogList.GetTile("fake:cool_app").Refresh},
-                {500, () => DrawRectangle(catalogList.GetTile("fake:cool_app"), new Rectangle(280, 33, 27, 21))},
+                {4000, () => FlashRectangle(catalogList.GetTile("fake:cool_app").buttonAdd)},
                 {2000, () => { catalogList.GetTile("fake:cool_app").Status = AppStatus.Added; }},
                 {3000, catalogList.GetTile("fake:cool_app").Refresh},
                 {1000, labelSubtitles.Hide},
@@ -135,9 +132,7 @@ namespace ZeroInstall.Central.WinForms
                 {1000, labelSubtitles.Hide},
                 // Integrate app
                 {1000, () => PrintSubtitles(Resources.IntroSubtitlesIntegrateApp)},
-                {5000, () => DrawRectangle(appList.GetTile("fake:cool_app"), new Rectangle(248, 33, 27, 21))},
-                {500, appList.GetTile("fake:cool_app").Refresh},
-                {500, () => DrawRectangle(appList.GetTile("fake:cool_app"), new Rectangle(248, 33, 27, 21))},
+                {5000, () => FlashRectangle(appList.GetTile("fake:cool_app").buttonIntegrate)},
                 {2000, () => { appList.GetTile("fake:cool_app").Status = AppStatus.Integrated; }},
                 {3000, appList.GetTile("fake:cool_app").Refresh},
                 {1500, labelSubtitles.Hide},
@@ -177,19 +172,20 @@ namespace ZeroInstall.Central.WinForms
             textBox.SelectionLength = 0;
         }
 
-        private static readonly SizeF _originalAutoScaleSize = new SizeF(6, 13);
-
-        private void DrawRectangle(Control target, Rectangle rectangle)
+        private static void FlashRectangle(Control target)
         {
-            using (var graphics = target.CreateGraphics())
-            using (var pen = new Pen(Color.Red, AutoScaleDimensions.Height / _originalAutoScaleSize.Height * 6))
-            {
-                graphics.DrawRectangle(pen, new Rectangle(
-                    (int)(AutoScaleDimensions.Width / _originalAutoScaleSize.Width * rectangle.X),
-                    (int)(AutoScaleDimensions.Height / _originalAutoScaleSize.Height * rectangle.Y),
-                    (int)(AutoScaleDimensions.Width / _originalAutoScaleSize.Width * rectangle.Width),
-                    (int)(AutoScaleDimensions.Height / _originalAutoScaleSize.Height * rectangle.Height)));
-            }
+            DrawRectangle(target);
+            Thread.Sleep(500);
+            target.Parent.Refresh();
+            Thread.Sleep(500);
+            DrawRectangle(target);
+        }
+
+        private static void DrawRectangle(Control target)
+        {
+            using (var graphics = target.Parent.CreateGraphics())
+            using (var pen = new Pen(Color.Red, 4))
+                graphics.DrawRectangle(pen, new Rectangle(target.Location, target.Size));
         }
 
         private void ScheduleNextAction()

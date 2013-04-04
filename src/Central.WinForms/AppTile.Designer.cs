@@ -226,8 +226,8 @@
         private System.Windows.Forms.PictureBox pictureBoxIcon;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Label labelSummary;
-        private Common.Controls.SplitButton buttonRun;
-        private System.Windows.Forms.Button buttonAdd;
+        internal Common.Controls.SplitButton buttonRun;
+        internal System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.LinkLabel linkLabelDetails;
         private Common.Controls.TrackingProgressBar trackingProgressBar;
         private System.ComponentModel.BackgroundWorker iconDownloadWorker;
@@ -236,8 +236,8 @@
         private System.Windows.Forms.ToolStripMenuItem buttonSelectCommand;
         private System.Windows.Forms.ToolStripSeparator runMenuSeparator;
         private System.Windows.Forms.ToolStripMenuItem buttonUpdate;
-        private System.Windows.Forms.Button buttonRemove;
-        private System.Windows.Forms.Button buttonIntegrate;
+        internal System.Windows.Forms.Button buttonRemove;
+        internal System.Windows.Forms.Button buttonIntegrate;
         private System.Windows.Forms.ToolTip toolTip;
     }
 }
