@@ -37,9 +37,6 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
         {
             InitializeComponent();
 
-            // State variables
-            string cryptoKey = null;
-
             // Wizard pages
             var welcomePage = new ResetWelcomePage();
             var config = Config.Load();
@@ -62,24 +59,15 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
                 PushPage(changeCryptoKeyPage);
             };
             existingCryptoKeyPage.ResetKey += () => PushPage(resetCryptoKeyPage);
-            changeCryptoKeyPage.Continue += delegate(string newKey)
-            {
-                cryptoKey = newKey;
-                PushPage(cryptoKeyChangedPaged);
-            };
-            resetCryptoKeyPage.Continue += delegate(string newKey)
-            {
-                cryptoKey = newKey;
-                PushPage(cryptoKeyChangedPaged);
-            };
-            cryptoKeyChangedPaged.OK += delegate
+            Action<string> newKeySet = delegate(string newKey)
             {
                 try
                 {
                     config = Config.Load();
-                    config.SyncCryptoKey = cryptoKey;
+                    config.SyncCryptoKey = newKey;
                     config.Save();
-                    Close();
+
+                    PushPage(cryptoKeyChangedPaged);
                 }
                     #region Error handling
                 catch (IOException ex)
@@ -100,6 +88,9 @@ namespace ZeroInstall.Central.WinForms.SyncConfig
                 }
                 #endregion
             };
+            changeCryptoKeyPage.Continue += newKeySet;
+            resetCryptoKeyPage.Continue += newKeySet;
+            cryptoKeyChangedPaged.OK += Close;
             resetServerPage.Continue += () => PushPage(resetServerFinishedPage);
             resetServerFinishedPage.Done += Close;
             resetClientPage.Continue += () => PushPage(resetClientFinishedPage);
