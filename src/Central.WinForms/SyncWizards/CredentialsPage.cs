@@ -1,0 +1,107 @@
+﻿/*
+ * Copyright 2010-2013 Bastian Eicher
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
+using System.ComponentModel;
+using System.Net;
+using System.Net.Cache;
+using System.Windows.Forms;
+using Common;
+using Common.Controls;
+using ZeroInstall.Central.WinForms.Properties;
+using ZeroInstall.DesktopIntegration;
+
+namespace ZeroInstall.Central.WinForms.SyncWizards
+{
+    internal partial class CredentialsPage : UserControl
+    {
+        public Uri ServerUri;
+
+        public event Action<SyncServer> Continue;
+
+        public CredentialsPage()
+        {
+            InitializeComponent();
+        }
+
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+            buttonContinue.Enabled = !string.IsNullOrEmpty(textBoxUsername.Text) && !string.IsNullOrEmpty(textBoxPassword.Text);
+        }
+
+        private void buttonContinue_Click(object sender, EventArgs e)
+        {
+            Parent.Parent.Enabled = false;
+            credentialsCheckWorker.RunWorkerAsync(new SyncServer
+            {
+                Uri = ServerUri,
+                Username = textBoxUsername.Text,
+                Password = textBoxPassword.Text
+            });
+        }
+
+        private void credentialsCheckWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            CheckCredentials((SyncServer)e.Argument);
+        }
+
+        private void credentialsCheckWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Parent.Parent.Enabled = true;
+            if (e.Error == null)
+            {
+                Continue(new SyncServer
+                {
+                    Uri = ServerUri,
+                    Username = textBoxUsername.Text,
+                    Password = textBoxPassword.Text
+                });
+            }
+            else if (!(e.Error is OperationCanceledException)) Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
+        }
+
+        private static void CheckCredentials(SyncServer server)
+        {
+            var appListUri = new Uri(server.Uri, new Uri("app-list", UriKind.Relative));
+
+            var request = WebRequest.Create(appListUri);
+            request.Method = "HEAD";
+            request.Credentials = server.Credentials;
+            request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
+            request.Timeout = WebClientTimeout.DefaultTimeout;
+
+            try
+            {
+                request.GetResponse();
+            }
+                #region Error handling
+            catch (WebException ex)
+            {
+                // Wrap exception to add context information
+                if (ex.Status == WebExceptionStatus.ProtocolError)
+                {
+                    var response = ex.Response as HttpWebResponse;
+                    if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
+                        throw new WebException(Resources.SyncCredentialsInvalid, ex);
+                }
+
+                throw;
+            }
+            #endregion
+        }
+    }
+}

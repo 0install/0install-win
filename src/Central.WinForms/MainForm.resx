@@ -173,8 +173,8 @@
   <data name="&gt;&gt;catalogWorker.Type" xml:space="preserve">
     <value>System.ComponentModel.BackgroundWorker, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonSyncReset.Name" xml:space="preserve">
-    <value>buttonSyncReset</value>
+  <data name="&gt;&gt;buttonSyncTroubleshoot.Name" xml:space="preserve">
+    <value>buttonSyncTroubleshoot</value>
   </data>
   <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
@@ -243,7 +243,7 @@
   <data name="labelLastCatalogError.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="buttonSyncReset.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="buttonSyncTroubleshoot.Size" type="System.Drawing.Size, System.Drawing">
     <value>162, 22</value>
   </data>
   <data name="rootTable.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
@@ -444,7 +444,7 @@
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
   </data>
-  <data name="&gt;&gt;buttonSyncReset.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonSyncTroubleshoot.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="labelLastCatalogError.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -1051,7 +1051,7 @@
   <data name="buttonOptions.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
   </data>
-  <data name="buttonSyncReset.Text" xml:space="preserve">
+  <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
     <value>&amp;Troubleshooting</value>
   </data>
   <data name="&gt;&gt;catalogList.Type" xml:space="preserve">

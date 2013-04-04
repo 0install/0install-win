@@ -38,7 +38,7 @@
             this.buttonSync = new Common.Controls.SplitButton();
             this.menuSync = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.butonSyncSetup = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonSyncReset = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonSyncTroubleshoot = new System.Windows.Forms.ToolStripMenuItem();
             this.appList = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
             this.labelLoadingCatalog = new System.Windows.Forms.Label();
@@ -128,7 +128,7 @@
             resources.ApplyResources(this.menuSync, "menuSync");
             this.menuSync.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.butonSyncSetup,
-            this.buttonSyncReset});
+            this.buttonSyncTroubleshoot});
             this.menuSync.Name = "menuSync";
             // 
             // butonSyncSetup
@@ -137,11 +137,11 @@
             this.butonSyncSetup.Name = "butonSyncSetup";
             this.butonSyncSetup.Click += new System.EventHandler(this.butonSyncSetup_Click);
             // 
-            // buttonSyncReset
+            // buttonSyncTroubleshoot
             // 
-            resources.ApplyResources(this.buttonSyncReset, "buttonSyncReset");
-            this.buttonSyncReset.Name = "buttonSyncReset";
-            this.buttonSyncReset.Click += new System.EventHandler(this.buttonSyncReset_Click);
+            resources.ApplyResources(this.buttonSyncTroubleshoot, "buttonSyncTroubleshoot");
+            this.buttonSyncTroubleshoot.Name = "buttonSyncTroubleshoot";
+            this.buttonSyncTroubleshoot.Click += new System.EventHandler(this.buttonSyncTroubleshoot_Click);
             // 
             // appList
             // 
@@ -344,7 +344,7 @@
         private System.Windows.Forms.ToolStripMenuItem buttonIntro;
         private System.Windows.Forms.ContextMenuStrip menuSync;
         private System.Windows.Forms.ToolStripMenuItem butonSyncSetup;
-        private System.Windows.Forms.ToolStripMenuItem buttonSyncReset;
+        private System.Windows.Forms.ToolStripMenuItem buttonSyncTroubleshoot;
 
     }
 }
