@@ -299,7 +299,7 @@ namespace Common
         {
             if (ex == null) return;
             Error(ex.Message);
-            if (ex.InnerException != null) Error(ex.InnerException);
+            if (ex.InnerException != null && ex.InnerException.Message != ex.Message) Error(ex.InnerException);
         }
         #endregion
     }
