@@ -82,7 +82,7 @@ namespace ZeroInstall.Store.Management.WinForms
                 var nodes = new NamedCollection<Node>();
 
                 // List feeds/interfaces
-                var feedCache = FeedCacheProvider.CreateDefault();
+                var feedCache = FeedCacheFactory.CreateDefault();
                 var feeds = FeedUtils.GetFeeds(feedCache);
                 foreach (Feed feed in feeds)
                     AddWithIncrement(nodes, new FeedNode(this, feedCache, feed));
@@ -91,7 +91,7 @@ namespace ZeroInstall.Store.Management.WinForms
                 IStore store;
                 try
                 {
-                    store = StoreProvider.CreateDefault();
+                    store = StoreFactory.CreateDefault();
                 }
                     #region Error handling
                 catch (IOException ex)

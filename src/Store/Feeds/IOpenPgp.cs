@@ -24,7 +24,7 @@ namespace ZeroInstall.Store.Feeds
     /// <summary>
     /// Provides access to an encryption/signature system compatible with the OpenPGP standard.
     /// </summary>
-    /// <remarks>This is an application of the strategy pattern. Implementations of this interface are immutable (excpet for the <see cref="Verbose"/> option) and thread-safe.</remarks>
+    /// <remarks>Implementations of this interface are immutable (excpet for the <see cref="Verbose"/> option) and thread-safe.</remarks>
     public interface IOpenPgp
     {
         /// <summary>Log all unprocessed tool output to the console.</summary>

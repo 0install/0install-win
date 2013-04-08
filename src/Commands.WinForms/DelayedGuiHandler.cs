@@ -35,7 +35,7 @@ namespace ZeroInstall.Commands.WinForms
     {
         #region Variables
         /// <summary>The actual GUI to show with a delay.</summary>
-        private GuiHandler _target;
+        private volatile GuiHandler _target;
 
         /// <summary>The number of milliseconds by which to delay the initial display of the GUI.</summary>
         private int _delay;
@@ -74,8 +74,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private GuiHandler InitTarget()
         {
-            // Thread-safe singleton with double-check
-            if (_target != null) return _target;
+            // Thread-safe "private" singleton
             lock (_targetLock)
             {
                 if (_target != null) return _target;
@@ -93,8 +92,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void ApplyToTarget(Action<GuiHandler> action)
         {
-            // Thread-safe singleton with double-check
-            if (_target != null) action(_target);
+            // Thread-safe "private" singleton
             lock (_targetLock)
             {
                 if (_target != null) action(_target);

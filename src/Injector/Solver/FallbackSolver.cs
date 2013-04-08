@@ -22,6 +22,7 @@ namespace ZeroInstall.Injector.Solver
     /// <summary>
     /// Wraps to solvers always passing requests to the first one intially and falling back to second one should the first one fail.
     /// </summary>
+    /// <remarks>This class is immutable and thread-safe.</remarks>
     public class FallbackSolver : ISolver
     {
         /// <summary>

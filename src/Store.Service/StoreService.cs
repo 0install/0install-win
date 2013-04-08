@@ -97,7 +97,7 @@ namespace ZeroInstall.Store.Service
         private MarshalByRefObject CreateStore()
         {
             // Use first custom machine-wide location or fallback to default
-            string path = StoreProvider.GetImplementationDirs(false).First();
+            string path = StoreFactory.GetImplementationDirs(false).First();
 
             return new SecureStore(path, WindowsIdentity.GetCurrent(), eventLog);
         }

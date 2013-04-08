@@ -57,7 +57,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             // Return an existing icon or get a new one from the cache
             if (!File.Exists(iconFilePath) || (DateTime.UtcNow - File.GetLastWriteTimeUtc(iconFilePath) > _freshness))
-                File.Copy(IconCacheProvider.CreateDefault().GetIcon(icon.Location, handler), iconFilePath, true);
+                File.Copy(IconCacheProvider.GetInstance().GetIcon(icon.Location, handler), iconFilePath, true);
             return iconFilePath;
         }
     }

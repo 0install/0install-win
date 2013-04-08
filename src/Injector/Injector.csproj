@@ -99,7 +99,7 @@
     <Compile Include="Solver\SimpleSolver.cs" />
     <Compile Include="Solver\SolverFeedCache.cs" />
     <Compile Include="Solver\SolverException.cs" />
-    <Compile Include="Solver\SolverProvider.cs" />
+    <Compile Include="Solver\SolverFactory.cs" />
     <Compile Include="Solver\ExternalSolver.cs" />
     <Compile Include="Solver\IExternalSolverControl.cs" />
     <Compile Include="Solver\ExternalSolverControlNative.cs" />

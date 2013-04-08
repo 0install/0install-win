@@ -318,7 +318,7 @@ namespace ZeroInstall.Publish.Cli
             }
             else
             {
-                var openPgp = OpenPgpProvider.CreateDefault();
+                var openPgp = OpenPgpFactory.CreateDefault();
                 if (options.XmlSign)
                 { // Signing explicitly requested
                     if (signedFeed.SecretKey == null)
@@ -361,7 +361,7 @@ namespace ZeroInstall.Publish.Cli
         {
             if (options.XmlSign)
             {
-                var openPgp = OpenPgpProvider.CreateDefault();
+                var openPgp = OpenPgpFactory.CreateDefault();
                 var signedCatalog = new SignedCatalog(catalog, openPgp.GetSecretKey(options.Key));
 
                 // Ask for passphrase to unlock secret key

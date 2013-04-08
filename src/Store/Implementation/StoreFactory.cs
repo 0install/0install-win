@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Creates <see cref="IStore"/> instances.
     /// </summary>
-    public static class StoreProvider
+    public static class StoreFactory
     {
         /// <summary>
         /// Creates an <see cref="IStore"/> instance that uses the default cache locations.
@@ -78,7 +78,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 try
                 {
-                    stores.Add(IpcStoreProvider.ServiceProxy);
+                    stores.Add(IpcStoreProvider.GetServiceProxy());
                 }
                     #region Error handling
                 catch (RemotingException)

@@ -86,7 +86,7 @@ namespace ZeroInstall.Central.WinForms
                     // Ensure all relevant directories are created
                     Policy.CreateDefault(new SilentHandler());
 
-                    appList.IconCache = catalogList.IconCache = IconCacheProvider.CreateDefault();
+                    appList.IconCache = catalogList.IconCache = IconCacheProvider.GetInstance();
                 }
                     #region Error handling
                 catch (IOException ex)

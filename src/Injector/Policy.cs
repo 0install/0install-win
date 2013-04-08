@@ -117,7 +117,7 @@ namespace ZeroInstall.Injector
 
         #region Factory method
         /// <summary>
-        /// Creates a new policy using the default <see cref="Config"/>, <see cref="FeedCacheProvider"/>, <see cref="SolverProvider"/> and <see cref="FetcherProvider"/>.
+        /// Creates a new policy using the default <see cref="Config"/>, <see cref="FeedCacheFactory"/>, <see cref="SolverFactory"/> and <see cref="FetcherFactory"/>.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.</param>
         /// <exception cref="IOException">Thrown if there was a problem accessing a configuration file or one of the stores.</exception>
@@ -126,8 +126,8 @@ namespace ZeroInstall.Injector
         public static Policy CreateDefault(IHandler handler)
         {
             return new Policy(
-                Config.Load(), new FeedManager(FeedCacheProvider.CreateDefault()),
-                FetcherProvider.CreateDefault(), OpenPgpProvider.CreateDefault(), SolverProvider.Default, handler);
+                Config.Load(), new FeedManager(FeedCacheFactory.CreateDefault()),
+                FetcherFactory.CreateDefault(), OpenPgpFactory.CreateDefault(), SolverFactory.CreateDefault(), handler);
         }
         #endregion
 

@@ -81,9 +81,9 @@ namespace ZeroInstall.Store.Feeds
             // Find all files whose names begin with an URL protocol
             var files = Directory.GetFiles(DirectoryPath, "http*").
                 // Take the file name itself and use URL encoding to get the original URL
-                Select(path => ModelUtils.Unescape(Path.GetFileName(path) ?? "")).
+                                  Select(path => ModelUtils.Unescape(Path.GetFileName(path) ?? "")).
                 // Filter out temporary/junk files
-                Where(ModelUtils.IsValidUri).ToList();
+                                  Where(ModelUtils.IsValidUri).ToList();
 
             // Return as a C-sorted list
             files.Sort(StringComparer.Ordinal);
@@ -102,18 +102,16 @@ namespace ZeroInstall.Store.Feeds
 
             string path = Path.Combine(DirectoryPath, ModelUtils.Escape(iconUrl.ToString()));
 
-            // Download missing icons
-            if (!File.Exists(path))
-            { // Only allow one icon download at a time
-                lock (_lock)
-                { // Perform double-check (inside and outside lock) to prevent race-conditions
-                    if (!File.Exists(path))
+            // Prevent file-exists race conditions
+            lock (_lock)
+            {
+                // Download missing icons
+                if (!File.Exists(path))
+                {
+                    using (var atomic = new AtomicWrite(path))
                     {
-                        using (var atomic = new AtomicWrite(path))
-                        {
-                            handler.RunTask(new DownloadFile(iconUrl, atomic.WritePath), null);
-                            atomic.Commit();
-                        }
+                        handler.RunTask(new DownloadFile(iconUrl, atomic.WritePath), null);
+                        atomic.Commit();
                     }
                 }
             }

@@ -15,19 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace ZeroInstall.Store.Feeds
+namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// Provides <see cref="IOpenPgp"/> instances.
+    /// Creates <see cref="ISolver"/> instances.
     /// </summary>
-    public static class OpenPgpProvider
+    public static class SolverFactory
     {
         /// <summary>
-        /// Creates an instance of the default implementation of <see cref="IOpenPgp"/>.
+        /// Creates an <see cref="ISolver"/> instance.
         /// </summary>
-        public static IOpenPgp CreateDefault()
+        public static ISolver CreateDefault()
         {
-            return new GnuPG();
+            //return new FallbackSolver(new SimpleSolver(), new ExternalSolver());
+            return new ExternalSolver();
         }
     }
 }

@@ -24,16 +24,16 @@ namespace ZeroInstall.Fetchers
     /// <summary>
     /// Creates <see cref="IFetcher"/> instances.
     /// </summary>
-    public static class FetcherProvider
+    public static class FetcherFactory
     {
         /// <summary>
-        /// Creates an <see cref="IFetcher"/> instance that uses <see cref="StoreProvider.CreateDefault"/>.
+        /// Creates an <see cref="IFetcher"/> instance that uses <see cref="StoreFactory.CreateDefault"/>.
         /// </summary>
         /// <exception cref="IOException">Thrown if there was a problem accessing a configuration file or one of the stores.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to a configuration file or one of the stores was not permitted.</exception>
         public static IFetcher CreateDefault()
         {
-            return new SequentialFetcher(StoreProvider.CreateDefault());
+            return new SequentialFetcher(StoreFactory.CreateDefault());
         }
     }
 }

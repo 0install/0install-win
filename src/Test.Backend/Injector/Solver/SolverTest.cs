@@ -45,7 +45,7 @@ namespace ZeroInstall.Injector.Solver
 
             //_cacheMock = new Mock<IFeedCache>(MockBehavior.Strict);
             _policy = new Policy(
-                new Config(), new FeedManager(FeedCacheProvider.CreateDefault()),
+                new Config(), new FeedManager(FeedCacheFactory.CreateDefault()),
                 new Mock<IFetcher>().Object, new Mock<IOpenPgp>().Object, _solver, new SilentHandler());
         }
 

@@ -63,11 +63,11 @@
     <Compile Include="Feeds\IIconCache.cs" />
     <Compile Include="Feeds\IOpenPgp.cs" />
     <Compile Include="Feeds\MemoryFeedCache.cs" />
-    <Compile Include="Feeds\OpenPgpProvider.cs" />
+    <Compile Include="Feeds\OpenPgpFactory.cs" />
     <Compile Include="Feeds\OpenPgpSignature.cs" />
     <Compile Include="Feeds\IFeedCache.cs" />
     <Compile Include="Feeds\DiskFeedCache.cs" />
-    <Compile Include="Feeds\FeedCacheProvider.cs" />
+    <Compile Include="Feeds\FeedCacheFactory.cs" />
     <Compile Include="Feeds\GnuPG.cs" />
     <Compile Include="Feeds\OpenPgpSecretKey.cs" />
     <Compile Include="Feeds\SignatureException.cs" />
@@ -96,7 +96,7 @@
     <Compile Include="Implementation\ManifestGenerator.cs" />
     <Compile Include="Implementation\IpcStoreProvider.cs" />
     <Compile Include="Implementation\RemoteStores.cs" />
-    <Compile Include="Implementation\StoreProvider.cs" />
+    <Compile Include="Implementation\StoreFactory.cs" />
     <Compile Include="Implementation\CompositeStore.cs" />
     <Compile Include="Implementation\IStore.cs" />
     <Compile Include="Implementation\DirectoryStore.cs" />

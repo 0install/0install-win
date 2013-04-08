@@ -28,6 +28,7 @@ namespace ZeroInstall.Fetchers
     /// <summary>
     /// Downloads <see cref="Implementation"/>s, extracts them and adds them to an <see cref="IStore"/>.
     /// </summary>
+    /// <remarks>This is an application of the strategy pattern.</remarks>
     public interface IFetcher
     {
         /// <summary>

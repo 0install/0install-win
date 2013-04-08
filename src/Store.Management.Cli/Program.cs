@@ -110,7 +110,7 @@ namespace ZeroInstall.Store.Management.Cli
 
             try
             {
-                _store = StoreProvider.CreateDefault();
+                _store = StoreFactory.CreateDefault();
                 return (int)ExecuteArgs(restArgs, new CliTaskHandler());
             }
                 #region Error handling

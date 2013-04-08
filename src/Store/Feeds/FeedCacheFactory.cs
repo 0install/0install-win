@@ -24,7 +24,7 @@ namespace ZeroInstall.Store.Feeds
     /// <summary>
     /// Creates <see cref="IFeedCache"/> instances.
     /// </summary>
-    public static class FeedCacheProvider
+    public static class FeedCacheFactory
     {
         /// <summary>
         /// Creates an <see cref="IFeedCache"/> instance that uses the default cache location in the user profile.

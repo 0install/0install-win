@@ -293,7 +293,7 @@ namespace ZeroInstall.Publish
             {
                 try
                 {
-                    StoreProvider.CreateDefault().AddDirectory(path, digest, handler);
+                    StoreFactory.CreateDefault().AddDirectory(path, digest, handler);
                 }
                 catch (ImplementationAlreadyInStoreException)
                 {}

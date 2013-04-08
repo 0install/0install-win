@@ -35,7 +35,7 @@ namespace ZeroInstall.Store.Feeds
         /// </summary>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        public static IIconCache CreateDefault()
+        public static IIconCache GetInstance()
         {
             // Share one instance globally to prevent race-conditions
             // Thread-safe singleton with double-check
