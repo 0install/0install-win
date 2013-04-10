@@ -100,65 +100,6 @@ namespace ZeroInstall.Injector.Solver
         }
         #endregion
 
-        #region Human readable
-        /// <summary>
-        /// Generates a human-readable representation of the implementation selection hierachy.
-        /// </summary>
-        /// <param name="store">A store to search for implementation storage locations.</param>
-        public string GetHumanReadable(IStore store)
-        {
-            var builder = new StringBuilder();
-            PrintNode(builder, new C5.HashSet<string>(), store, "", InterfaceID);
-            return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
-        }
-
-        /// <summary>
-        /// Helper method for <see cref="GetHumanReadable"/> that recursivley writes information about <see cref="ImplementationSelection"/>s to a <see cref="StringBuilder"/>.
-        /// </summary>
-        /// <param name="builder">The string builder to write the output to.</param>
-        /// <param name="handled">A list of interface IDs that have already been handled; used to prevent infinite recursion.</param>
-        /// <param name="store">A store to search for implementation storage locations.</param>
-        /// <param name="indent">An indention prefix for the current recursion level (to create a visual hierachy).</param>
-        /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
-        private void PrintNode(StringBuilder builder, C5.HashSet<string> handled, IStore store, string indent, string interfaceID)
-        {
-            // Prevent infinite recursion
-            if (handled.Contains(interfaceID)) return;
-            handled.Add(interfaceID);
-
-            builder.AppendLine(indent + "- URI: " + interfaceID);
-            try
-            {
-                var implementation = this[interfaceID];
-                builder.AppendLine(indent + "  Version: " + implementation.Version);
-                builder.AppendLine(indent + "  Path: " + (implementation.LocalPath ?? implementation.GetPath(store) ?? Resources.NotCached));
-
-                indent += "    ";
-
-                // Recurse into regular dependencies
-                foreach (var dependency in implementation.Dependencies)
-                    PrintNode(builder, handled, store, indent, dependency.Interface);
-
-                if (!implementation.Commands.IsEmpty)
-                {
-                    var command = implementation.Commands.First;
-
-                    // Recurse into command dependencies
-                    foreach (var dependency in command.Dependencies)
-                        PrintNode(builder, handled, store, indent, dependency.Interface);
-
-                    // Recurse into runner dependency
-                    if (command.Runner != null)
-                        PrintNode(builder, handled, store, indent, command.Runner.Interface);
-                }
-            }
-            catch (KeyNotFoundException)
-            {
-                builder.AppendLine(indent + "  " + Resources.NoSelectedVersion);
-            }
-        }
-        #endregion
-
         #region Query
         /// <summary>
         /// Returns the <see cref="ImplementationSelection"/> for a specific interface.
