@@ -16,13 +16,16 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Net;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Injector
 {
@@ -126,6 +129,57 @@ namespace ZeroInstall.Injector
             return new Policy(
                 Config.Load(), new FeedManager(FeedCacheFactory.CreateDefault()),
                 FetcherFactory.CreateDefault(), OpenPgpFactory.CreateDefault(), SolverFactory.CreateDefault(), handler);
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Strategy shortcuts
+        /// <summary>
+        /// Shortcut to <see cref="ISolver.Solve"/> strategy method.
+        /// </summary>
+        /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
+        /// <param name="staleFeeds">Returns <see langword="true"/> if one or more of the <see cref="Model.Feed"/>s used by the solver have passed <see cref="Injector.Config.Freshness"/>.</param>
+        /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
+        /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="requirements"/> is incomplete.</exception>
+        /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
+        /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
+        public Selections Solve(Requirements requirements, out bool staleFeeds)
+        {
+            return Solver.Solve(requirements, this, out staleFeeds);
+        }
+
+        /// <summary>
+        /// Shortcut to <see cref="ISolver.Solve"/> strategy method.
+        /// </summary>
+        /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
+        /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
+        /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="requirements"/> is incomplete.</exception>
+        /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
+        /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
+        public Selections Solve(Requirements requirements)
+        {
+            bool staleFeeds;
+            return Solver.Solve(requirements, this, out staleFeeds);
+        }
+
+        /// <summary>
+        /// Shortcut to <see cref="IFetcher.Fetch"/> strategy method.
+        /// </summary>
+        /// <param name="implementations">The <see cref="Model.Implementation"/>s to be downloaded.</param>
+        /// <exception cref="OperationCanceledException">Thrown if a download or IO task was canceled from another thread.</exception>
+        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
+        /// <exception cref="NotSupportedException">Thrown if a file format, protocal, etc. is unknown or not supported.</exception>
+        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="IFetcher.Store"/> is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">Thrown an <see cref="Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        public void Fetch(IEnumerable<Implementation> implementations)
+        {
+            Fetcher.Fetch(implementations, Handler);
         }
         #endregion
 
