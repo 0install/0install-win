@@ -108,7 +108,7 @@ namespace ZeroInstall.Commands
 
             try
             {
-                UncachedImplementations = GetUncachedImplementations(Selections).ToList();
+                UncachedImplementations = Selections.GetUncachedImplementations(Policy).ToList();
             }
                 #region Error handling
             catch (InvalidDataException ex)
@@ -119,18 +119,6 @@ namespace ZeroInstall.Commands
             #endregion
 
             return result;
-        }
-
-        /// <summary>
-        /// Helper utilitiy that combines <see cref="Selections.GetUncachedImplementations"/> and <see cref="ImplementationSelection.GetOriginalImplementation"/>.
-        /// Provides suitable input for <see cref="IFetcher.FetchImplementations"/>.
-        /// </summary>
-        /// <param name="selections">The <see cref="Selections"/> to scan for uncached implementations.</param>
-        /// <returns>Clones of the original <see cref="Implementation"/>s.</returns>
-        private IEnumerable<Implementation> GetUncachedImplementations(Selections selections)
-        {
-            return selections.GetUncachedImplementations(Policy.Fetcher.Store).
-                Select(impl => impl.GetOriginalImplementation(Policy.FeedManager.Cache).CloneImplementation());
         }
 
         /// <summary>

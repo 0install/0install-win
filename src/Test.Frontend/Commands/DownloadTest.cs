@@ -39,7 +39,7 @@ namespace ZeroInstall.Commands
         public override void TestNormal()
         {
             var requirements = RequirementsTest.CreateTestRequirements();
-            var selections = SelectionsTest.CreateTestSelections();
+            var selections = SelectionsUtilsTest.CreateTestSelections();
 
             var testFeed1 = FeedTest.CreateTestFeed();
             testFeed1.Uri = new Uri("http://0install.de/feeds/test/sub1.xml");
@@ -88,7 +88,7 @@ namespace ZeroInstall.Commands
             };
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(testFeed2);
 
-            var selections = SelectionsTest.CreateTestSelections();
+            var selections = SelectionsUtilsTest.CreateTestSelections();
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 selections.SaveXml(tempFile);

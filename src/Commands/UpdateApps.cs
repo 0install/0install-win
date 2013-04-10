@@ -122,7 +122,7 @@ namespace ZeroInstall.Commands
         private void DownloadUncachedImplementations(IEnumerable<ImplementationSelection> selectedImplementations)
         {
             var selections = new Selections(selectedImplementations);
-            var uncachedImplementations = selections.GetUncachedImplementations(Policy.Fetcher.Store).ToList();
+            var uncachedImplementations = selections.GetUncachedImplementationSelections(Policy.Fetcher.Store).ToList();
 
             // Do not waste time on Fetcher subsystem if nothing is missing from cache
             if (uncachedImplementations.Count == 0) return;
@@ -132,7 +132,7 @@ namespace ZeroInstall.Commands
 
             try
             {
-                var toDownload = uncachedImplementations.Select(impl => impl.GetOriginalImplementation(Policy.FeedManager.Cache).CloneImplementation());
+                var toDownload = uncachedImplementations.GetOriginalImplementations(Policy.FeedManager.Cache);
                 Policy.Fetcher.FetchImplementations(toDownload, Policy.Handler);
             }
                 #region Error handling

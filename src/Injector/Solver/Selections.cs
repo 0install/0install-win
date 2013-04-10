@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
@@ -187,36 +186,6 @@ namespace ZeroInstall.Injector.Solver
         public bool ContainsImplementation(string interfaceID)
         {
             return _implementations.Any(implementation => implementation.InterfaceID == interfaceID);
-        }
-        #endregion
-
-        #region Implementations
-        /// <summary>
-        /// Returns a list of any downloadable <see cref="ImplementationSelection"/>s that are missing from an <see cref="IStore"/>.
-        /// </summary>
-        /// <param name="searchStore">The locations to search for cached <see cref="Implementation"/>s.</param>
-        /// <remarks>Feed files may be downloaded, no implementations are downloaded.</remarks>
-        /// <exception cref="KeyNotFoundException">Thrown if a <see cref="Feed"/> or <see cref="Implementation"/> is missing.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the feed file could not be parsed.</exception>
-        public IEnumerable<ImplementationSelection> GetUncachedImplementations(IStore searchStore)
-        {
-            #region Sanity checks
-            if (searchStore == null) throw new ArgumentNullException("searchStore");
-            #endregion
-
-            return Implementations.Where(implementation =>
-                // Local paths are considered to be always available
-                string.IsNullOrEmpty(implementation.LocalPath) &&
-                    // Don't try to download PackageImplementations
-                    string.IsNullOrEmpty(implementation.Package) &&
-                    // Don't try to fetch virutal feeds
-                    (string.IsNullOrEmpty(implementation.FromFeed) || !implementation.FromFeed.StartsWith(ImplementationSelection.DistributionFeedPrefix)) &&
-                    // Don't download implementations that are already in the store
-                    !searchStore.Contains(implementation.ManifestDigest) &&
-                    // Ignore implementations without an ID
-                    !string.IsNullOrEmpty(implementation.ID));
         }
         #endregion
     }

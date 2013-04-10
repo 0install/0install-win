@@ -102,7 +102,7 @@
     <Compile Include="Model\GenericBindingTest.cs" />
     <Compile Include="Model\RequirementsTest.cs" />
     <Compile Include="Injector\Solver\SelectionCandidateTest.cs" />
-    <Compile Include="Injector\Solver\SelectionsTest.cs" />
+    <Compile Include="Injector\Solver\SelectionsUtilsTest.cs" />
     <Compile Include="Injector\Solver\SimpleSolverTest.cs" />
     <Compile Include="Injector\Solver\SolverTest.cs" />
     <Compile Include="Model\ArchitectureTest.cs" />
