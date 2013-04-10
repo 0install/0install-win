@@ -66,7 +66,7 @@ namespace ZeroInstall.Commands
             SolverMock.Setup(x => x.Solve(requirements, refreshPolicy, out stale)).Returns(selections).Verifiable(); // Refresh Solve() because there are uncached implementations
 
             // Download uncached implementations
-            FetcherMock.Setup(x => x.FetchImplementations(new[] {testImplementation1, testImplementation2}, Policy.Handler)).Verifiable();
+            FetcherMock.Setup(x => x.Fetch(new[] {testImplementation1, testImplementation2}, Policy.Handler)).Verifiable();
 
             Assert.AreEqual(0, Command.Execute());
         }

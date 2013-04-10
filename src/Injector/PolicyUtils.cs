@@ -32,7 +32,7 @@ namespace ZeroInstall.Injector
     public static class PolicyUtils
     {
         /// <summary>
-        /// Solves the dependencies for a specific feed.
+        /// Shortcut to <see cref="ISolver.Solve"/>.
         /// </summary>
         /// <param name="policy">Provides class dependencies.</param>
         /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
@@ -49,7 +49,7 @@ namespace ZeroInstall.Injector
         }
 
         /// <summary>
-        /// Solves the dependencies for a specific feed.
+        /// Shortcut to <see cref="ISolver.Solve"/>.
         /// </summary>
         /// <param name="policy">Provides class dependencies.</param>
         /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
@@ -66,7 +66,7 @@ namespace ZeroInstall.Injector
         }
 
         /// <summary>
-        /// Downloads a set of <see cref="Implementation"/>s to the <see cref="Store"/> and returns once this process is complete.
+        /// Shortcut to <see cref="IFetcher.Fetch"/>.
         /// </summary>
         /// <param name="policy">Provides class dependencies.</param>
         /// <param name="implementations">The <see cref="Model.Implementation"/>s to be downloaded.</param>
@@ -76,9 +76,9 @@ namespace ZeroInstall.Injector
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="IFetcher.Store"/> is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown an <see cref="Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
-        public static void FetchImplementations(this Policy policy, IEnumerable<Implementation> implementations)
+        public static void Fetch(this Policy policy, IEnumerable<Implementation> implementations)
         {
-            policy.Fetcher.FetchImplementations(implementations, policy.Handler);
+            policy.Fetcher.Fetch(implementations, policy.Handler);
         }
     }
 }

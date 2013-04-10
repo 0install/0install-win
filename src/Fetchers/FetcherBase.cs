@@ -69,7 +69,7 @@ namespace ZeroInstall.Fetchers
         //--------------------//
 
         /// <inheritdoc/>
-        public abstract void FetchImplementations(IEnumerable<Implementation> implementations, ITaskHandler handler);
+        public abstract void Fetch(IEnumerable<Implementation> implementations, ITaskHandler handler);
 
         protected void FetchImplementation(Implementation implementation, ITaskHandler handler)
         {

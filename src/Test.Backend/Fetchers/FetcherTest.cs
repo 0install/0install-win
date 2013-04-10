@@ -145,7 +145,7 @@ namespace ZeroInstall.Fetchers
             _storeMock.Setup(x => x.Contains(digest)).Returns(false).Verifiable();
             _storeMock.Setup(x => x.AddArchives(archiveInfos.IsEqual(), digest, _handler)).Verifiable();
 
-            _fetcher.FetchImplementations(new[] {testImplementation}, _handler);
+            _fetcher.Fetch(new[] {testImplementation}, _handler);
         }
 
         private void TestDownload(Predicate<string> directoryCheck, params RetrievalMethod[] retrievalMethod)
@@ -157,7 +157,7 @@ namespace ZeroInstall.Fetchers
             _storeMock.Setup(x => x.Contains(digest)).Returns(false).Verifiable();
             _storeMock.Setup(x => x.AddDirectory(It.Is<string>(path => directoryCheck(path)), digest, _handler)).Verifiable();
 
-            _fetcher.FetchImplementations(new[] {testImplementation}, _handler);
+            _fetcher.Fetch(new[] {testImplementation}, _handler);
         }
         #endregion
 
@@ -168,7 +168,7 @@ namespace ZeroInstall.Fetchers
             var testImplementation = new Implementation {ManifestDigest = digest, RetrievalMethods = {new Recipe()}};
 
             _storeMock.Setup(x => x.Contains(digest)).Returns(true).Verifiable();
-            _fetcher.FetchImplementations(new[] {testImplementation}, _handler);
+            _fetcher.Fetch(new[] {testImplementation}, _handler);
         }
 
         [Test]
@@ -176,7 +176,7 @@ namespace ZeroInstall.Fetchers
         {
             var implementation = new Implementation {ManifestDigest = new ManifestDigest(sha256New: "test123")};
 
-            Assert.Throws<NotSupportedException>(() => _fetcher.FetchImplementations(new[] {implementation}, new SilentTaskHandler()));
+            Assert.Throws<NotSupportedException>(() => _fetcher.Fetch(new[] {implementation}, new SilentTaskHandler()));
         }
 
         [Test]
@@ -188,7 +188,7 @@ namespace ZeroInstall.Fetchers
                 RetrievalMethods = {new Archive {MimeType = "test/format"}}
             };
 
-            Assert.Throws<NotSupportedException>(() => _fetcher.FetchImplementations(new[] {implementation}, new SilentTaskHandler()));
+            Assert.Throws<NotSupportedException>(() => _fetcher.Fetch(new[] {implementation}, new SilentTaskHandler()));
         }
 
         [Test]
@@ -200,7 +200,7 @@ namespace ZeroInstall.Fetchers
                 RetrievalMethods = {new Recipe {Steps = {new Archive {MimeType = "application/zip"}, new Archive {MimeType = "test/format"}}}}
             };
 
-            Assert.Throws<NotSupportedException>(() => _fetcher.FetchImplementations(new[] {implementation}, new SilentTaskHandler()));
+            Assert.Throws<NotSupportedException>(() => _fetcher.Fetch(new[] {implementation}, new SilentTaskHandler()));
         }
     }
 }

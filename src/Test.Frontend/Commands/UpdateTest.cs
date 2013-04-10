@@ -62,7 +62,7 @@ namespace ZeroInstall.Commands
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub3.xml")).Returns(new Feed {Uri = new Uri("http://0install.de/feeds/test/sub3.xml"), Elements = {impl3}});
 
             // Download uncached implementations
-            FetcherMock.Setup(x => x.FetchImplementations(
+            FetcherMock.Setup(x => x.Fetch(
                 new[] {impl1, impl2, impl3}.IsEquivalent(), Policy.Handler)).Verifiable();
 
             // Check for <replaced-by>

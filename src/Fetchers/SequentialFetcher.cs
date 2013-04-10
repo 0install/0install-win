@@ -40,7 +40,7 @@ namespace ZeroInstall.Fetchers
         {}
 
         /// <inheritdoc/>
-        public override void FetchImplementations(IEnumerable<Implementation> implementations, ITaskHandler handler)
+        public override void Fetch(IEnumerable<Implementation> implementations, ITaskHandler handler)
         {
             #region Sanity checks
             if (implementations == null) throw new ArgumentNullException("implementations");

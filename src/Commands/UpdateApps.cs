@@ -130,7 +130,7 @@ namespace ZeroInstall.Commands
             try
             {
                 var toDownload = uncachedImplementations.GetOriginalImplementations(Policy.FeedManager.Cache);
-                Policy.FetchImplementations(toDownload);
+                Policy.Fetch(toDownload);
             }
                 #region Error handling
             catch
