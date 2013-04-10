@@ -96,7 +96,7 @@
     <Compile Include="Solver\Selections.cs" />
     <Compile Include="Solver\ImplementationSelection.cs" />
     <Compile Include="Solver\ISolver.cs" />
-    <Compile Include="Solver\SelectionsPrinter.cs" />
+    <Compile Include="Solver\SelectionsFormatter.cs" />
     <Compile Include="Solver\SelectionsUtils.cs" />
     <Compile Include="Solver\SimpleSolver.cs" />
     <Compile Include="Solver\SolverFeedCache.cs" />
