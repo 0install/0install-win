@@ -249,7 +249,7 @@ namespace ZeroInstall.DesktopIntegration
                     var memoryStream = new MemoryStream();
                     AppList.SaveXmlZip(memoryStream, _cryptoKey, null);
 
-                    // Prevent race conditions by only allowing replacement of older data
+                    // Prevent "lost updates" (race conditions) by only allowing replacement of older data
                     if (resetMode == SyncResetMode.None && !string.IsNullOrEmpty(webClient.ResponseHeaders[HttpResponseHeader.ETag]))
                         webClient.Headers[HttpRequestHeader.IfMatch] = webClient.ResponseHeaders[HttpResponseHeader.ETag];
                     try
@@ -264,7 +264,7 @@ namespace ZeroInstall.DesktopIntegration
                         {
                             var response = ex.Response as HttpWebResponse;
                             if (response != null && response.StatusCode == HttpStatusCode.PreconditionFailed)
-                            { // Precondition failure indicates a race condition
+                            { // Precondition failure indicates a "lost update" (race condition)
                                 // Wait for a randomized interval before retrying
                                 Thread.Sleep(_random.Next(250, 1500));
                                 Handler.CancellationToken.ThrowIfCancellationRequested();

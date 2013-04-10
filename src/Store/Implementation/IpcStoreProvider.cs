@@ -69,6 +69,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <exception cref="RemotingException">Thrown if there is a problem connecting with the store service.</exception>
         /// <remarks>Always returns the same instance. Opens named pipes on first call. Connection is only established on demand.</remarks>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "May throw exceptions")]
         public static IStore GetServiceProxy()
         {
             // Thread-safe singleton with double-check
