@@ -109,11 +109,8 @@ namespace ZeroInstall.Commands
 
             // Run solver for each app
             var implementations = new List<ImplementationSelection>();
-            Policy.Handler.RunTask(new ForEachTask<Requirements>(Resources.CheckingForUpdates, targets.ToList(), requirements =>
-            {
-                bool staleFeeds;
-                implementations.AddRange(Policy.Solver.Solve(requirements, Policy, out staleFeeds).Implementations);
-            }), null);
+            Policy.Handler.RunTask(new ForEachTask<Requirements>(Resources.CheckingForUpdates, targets.ToList(),
+                requirements => implementations.AddRange(Policy.Solve(requirements).Implementations)), null);
 
             // Deduplicate selections
             return implementations.Distinct(new ManifestDigestPartialEqualityComparer<ImplementationSelection>());
@@ -133,7 +130,7 @@ namespace ZeroInstall.Commands
             try
             {
                 var toDownload = uncachedImplementations.GetOriginalImplementations(Policy.FeedManager.Cache);
-                Policy.Fetcher.FetchImplementations(toDownload, Policy.Handler);
+                Policy.FetchImplementations(toDownload);
             }
                 #region Error handling
             catch

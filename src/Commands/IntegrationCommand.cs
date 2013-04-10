@@ -115,16 +115,6 @@ namespace ZeroInstall.Commands
                 }
             }
         }
-
-        /// <summary>
-        /// Runs the <see cref="Policy.Solver"/> and discards the result. Used to ensure <paramref name="interfaceID"/> specifies a runnable application.
-        /// </summary>
-        /// <exception cref="SolverException">Thrown if the <see cref="Policy.Solver"/> could not ensure <paramref name="interfaceID"/> specifies a runnable application.</exception>
-        private void TryToSolve(string interfaceID)
-        {
-            bool temp;
-            Policy.Solver.Solve(new Requirements {InterfaceID = interfaceID}, Policy, out temp);
-        }
         #endregion
     }
 }

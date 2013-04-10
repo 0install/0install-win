@@ -170,7 +170,7 @@ namespace ZeroInstall.Commands
 
             try
             {
-                Selections = Policy.Solver.Solve(Requirements, Policy, out StaleFeeds);
+                Selections = Policy.Solve(Requirements, out StaleFeeds);
             }
                 #region Error handling
             catch

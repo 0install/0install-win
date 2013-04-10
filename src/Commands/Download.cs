@@ -132,7 +132,7 @@ namespace ZeroInstall.Commands
 
             try
             {
-                Policy.Fetcher.FetchImplementations(UncachedImplementations, Policy.Handler);
+                Policy.FetchImplementations(UncachedImplementations);
             }
                 #region Error handling
             catch
