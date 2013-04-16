@@ -33,7 +33,7 @@ namespace ZeroInstall.Injector
     /// Uses the stderr stream to inform the user about the progress of tasks and ask the user questions.
     /// Provides hooks for specializition in derived implementations.
     /// </summary>
-    public class CliHandlerBase : CliTaskHandler, IHandler
+    public class CliHandler : CliTaskHandler, IHandler
     {
         /// <inheritdoc />
         public bool Batch { get; set; }
@@ -133,11 +133,11 @@ namespace ZeroInstall.Injector
         /// <inheritdoc />
         public virtual void ShowIntegrateApp(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
         {
-            // Stub to be overriden
+            throw new NeedGuiException(Resources.IntegrateAppUseGui);
         }
 
         /// <inheritdoc/>
-        public virtual bool ShowConfig(Config config)
+        public bool ShowConfig(Config config)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");

@@ -171,6 +171,9 @@ Switching to mirror.</value>
   <data name="ImplementationNotInSelection" xml:space="preserve">
     <value>Unable to find implementation for interface '{0}' in the selection.</value>
   </data>
+  <data name="IntegrateAppUseGui" xml:space="preserve">
+    <value>Please use the GUI version of Zero Install or specify explicit integration options using command-line arguments.</value>
+  </data>
   <data name="MissingBindingName" xml:space="preserve">
     <value>Missing name in {0} binding.</value>
   </data>

@@ -171,6 +171,9 @@ Wechsle zu Mirror.</value>
   <data name="ImplementationNotInSelection" xml:space="preserve">
     <value>Die Implementierung für das Interface '{0}' konnte in den Selections nicht gefunden werden.</value>
   </data>
+  <data name="IntegrateAppUseGui" xml:space="preserve">
+    <value>Bitte verwenden Sie die GUI Version von Zero Install oder geben Sie explizite Integrationsoptionen mit Befehlszeilenargumenten an.</value>
+  </data>
   <data name="MissingBindingName" xml:space="preserve">
     <value>Fehlender Name in {0} Binding.</value>
   </data>
