@@ -36,7 +36,7 @@ namespace ZeroInstall.Injector.Solver
         public static string GetHumanReadable(this Selections selections, IStore store)
         {
             var builder = new StringBuilder();
-            selections.PrintNode(builder, new C5.HashSet<string>(), store, "", selections.InterfaceID);
+            PrintNode(selections, builder, new C5.HashSet<string>(), store, "", selections.InterfaceID);
             return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
         }
 
@@ -49,7 +49,7 @@ namespace ZeroInstall.Injector.Solver
         /// <param name="store">A store to search for implementation storage locations.</param>
         /// <param name="indent">An indention prefix for the current recursion level (to create a visual hierachy).</param>
         /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
-        private static void PrintNode(this Selections selections, StringBuilder builder, C5.HashSet<string> handled, IStore store, string indent, string interfaceID)
+        private static void PrintNode(Selections selections, StringBuilder builder, C5.HashSet<string> handled, IStore store, string indent, string interfaceID)
         {
             // Prevent infinite recursion
             if (handled.Contains(interfaceID)) return;
@@ -66,7 +66,7 @@ namespace ZeroInstall.Injector.Solver
 
                 // Recurse into regular dependencies
                 foreach (var dependency in implementation.Dependencies)
-                    selections.PrintNode(builder, handled, store, indent, dependency.Interface);
+                    PrintNode(selections, builder, handled, store, indent, dependency.Interface);
 
                 if (!implementation.Commands.IsEmpty)
                 {
@@ -74,11 +74,11 @@ namespace ZeroInstall.Injector.Solver
 
                     // Recurse into command dependencies
                     foreach (var dependency in command.Dependencies)
-                        selections.PrintNode(builder, handled, store, indent, dependency.Interface);
+                        PrintNode(selections, builder, handled, store, indent, dependency.Interface);
 
                     // Recurse into runner dependency
                     if (command.Runner != null)
-                        selections.PrintNode(builder, handled, store, indent, command.Runner.Interface);
+                        PrintNode(selections, builder, handled, store, indent, command.Runner.Interface);
                 }
             }
             catch (KeyNotFoundException)

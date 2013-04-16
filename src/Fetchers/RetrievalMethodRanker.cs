@@ -26,11 +26,15 @@ namespace ZeroInstall.Fetchers
     public sealed class RetrievalMethodRanker : IComparer<RetrievalMethod>
     {
         #region Singleton
+        /// <summary>
+        /// Singleton pattern.
+        /// </summary>
         public static readonly RetrievalMethodRanker Instance = new RetrievalMethodRanker();
 
         private RetrievalMethodRanker() {}
         #endregion
 
+        /// <inheritdoc/>
         public int Compare(RetrievalMethod x, RetrievalMethod y)
         {
             if (x is DownloadRetrievalMethod && y is Recipe) return -1;
