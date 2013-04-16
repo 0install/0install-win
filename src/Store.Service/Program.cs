@@ -91,63 +91,84 @@ namespace ZeroInstall.Store.Service
         /// <returns>The process exit code.</returns>
         private static int HandleCommand(string command, bool silent)
         {
-            var controller = new ServiceController("0store-service");
             switch (command)
             {
                 case "install":
-                {
-                    using (var process = Process.Start(
-                        new ProcessStartInfo(InstallUtilPath, Application.ExecutablePath.EscapeArgument())
-                        {WindowStyle = (silent ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal)}))
-                    {
-                        process.WaitForExit();
-
-                        if (!silent)
-                        {
-                            if (process.ExitCode == 0) Msg.Inform(null, Resources.InstallSuccess, MsgSeverity.Info);
-                            else Msg.Inform(null, Resources.InstallFail, MsgSeverity.Error);
-                        }
-                        return process.ExitCode;
-                    }
-                }
-
+                    return Install(silent);
                 case "uninstall":
-                {
-                    if (controller.Status == ServiceControllerStatus.Running) controller.Stop();
-
-                    using (var process = Process.Start(
-                        new ProcessStartInfo(InstallUtilPath, new[] {"/u", Application.ExecutablePath}.JoinEscapeArguments())
-                        {WindowStyle = (silent ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal)}))
-                    {
-                        process.WaitForExit();
-
-                        if (!silent)
-                        {
-                            if (process.ExitCode == 0) Msg.Inform(null, Resources.UninstallSuccess, MsgSeverity.Info);
-                            else Msg.Inform(null, Resources.UninstallFail, MsgSeverity.Error);
-                        }
-                        return process.ExitCode;
-                    }
-                }
-
+                    return Uninstall(silent);
                 case "start":
-                    controller.Start();
-                    if (!silent) Msg.Inform(null, Resources.StartSuccess, MsgSeverity.Info);
-                    return 0;
-
+                    return Start(silent);
                 case "stop":
-                    controller.Stop();
-                    if (!silent) Msg.Inform(null, Resources.StopSuccess, MsgSeverity.Info);
+                    Stop(silent);
                     return 0;
-
                 case "status":
-                    Msg.Inform(null, (controller.Status == ServiceControllerStatus.Running ? Resources.StatusRunning : Resources.StatusStopped), MsgSeverity.Info);
-                    return 0;
-
+                    Status();return 0;
                 default:
                     Msg.Inform(null, string.Format(Resources.UnkownCommand, "0store-service (install|uninstall|start|stop|status) [--silent]"), MsgSeverity.Error);
                     return 1;
             }
+        }
+
+        private static int Install(bool silent)
+        {
+            using (var process = Process.Start(
+                new ProcessStartInfo(InstallUtilPath, Application.ExecutablePath.EscapeArgument())
+                {WindowStyle = (silent ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal)}))
+            {
+                process.WaitForExit();
+
+                if (!silent)
+                {
+                    if (process.ExitCode == 0) Msg.Inform(null, Resources.InstallSuccess, MsgSeverity.Info);
+                    else Msg.Inform(null, Resources.InstallFail, MsgSeverity.Error);
+                }
+                return process.ExitCode;
+            }
+        }
+
+        private static int Uninstall(bool silent)
+        {
+            var controller = new ServiceController("0store-service");
+
+            if (controller.Status == ServiceControllerStatus.Running) controller.Stop();
+
+            using (var process = Process.Start(
+                new ProcessStartInfo(InstallUtilPath, new[] { "/u", Application.ExecutablePath }.JoinEscapeArguments()) { WindowStyle = (silent ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal) }))
+            {
+                process.WaitForExit();
+
+                if (!silent)
+                {
+                    if (process.ExitCode == 0) Msg.Inform(null, Resources.UninstallSuccess, MsgSeverity.Info);
+                    else Msg.Inform(null, Resources.UninstallFail, MsgSeverity.Error);
+                }
+                return process.ExitCode;
+            }
+        }
+
+        private static int Start(bool silent)
+        {
+            var controller = new ServiceController("0store-service");
+
+            controller.Start();
+            if (!silent) Msg.Inform(null, Resources.StartSuccess, MsgSeverity.Info);
+            return 0;
+        }
+
+        private static void Stop(bool silent)
+        {
+            var controller = new ServiceController("0store-service");
+
+            controller.Stop();
+            if (!silent) Msg.Inform(null, Resources.StopSuccess, MsgSeverity.Info);
+        }
+
+        private static void Status()
+        {
+            var controller = new ServiceController("0store-service");
+
+            Msg.Inform(null, (controller.Status == ServiceControllerStatus.Running ? Resources.StatusRunning : Resources.StatusStopped), MsgSeverity.Info);
         }
 
         /// <summary>

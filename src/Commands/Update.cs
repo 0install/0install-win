@@ -74,12 +74,7 @@ namespace ZeroInstall.Commands
 
             try
             {
-                // Run solver with refresh forced off to get the old values
-                var noRefreshPolicy = Policy.Clone();
-                noRefreshPolicy.FeedManager.Refresh = false;
-                _oldSelections = Policy.Solver.Solve(Requirements, noRefreshPolicy, out StaleFeeds);
-
-                // Rerun solver in refresh mode to get the new values
+                _oldSelections = SolveOld();
                 Policy.FeedManager.Refresh = true;
                 Solve();
             }
@@ -101,6 +96,16 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Helpers
+        /// <summary>
+        /// Run solver with refresh forced off to get the old values
+        /// </summary>
+        private Selections SolveOld()
+        {
+            var noRefreshPolicy = Policy.Clone();
+            noRefreshPolicy.FeedManager.Refresh = false;
+            return Policy.Solver.Solve(Requirements, noRefreshPolicy, out StaleFeeds);
+        }
+
         /// <summary>
         /// Shows a list of changes found by the update process.
         /// </summary>
