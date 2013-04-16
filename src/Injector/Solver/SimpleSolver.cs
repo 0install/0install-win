@@ -38,6 +38,12 @@ namespace ZeroInstall.Injector.Solver
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
+            // Fill in default architecture values
+            requirements = requirements.Clone();
+            requirements.Architecture = new Architecture(
+                (requirements.Architecture.OS == OS.All) ? Architecture.CurrentSystem.OS : requirements.Architecture.OS,
+                (requirements.Architecture.Cpu == Cpu.All) ? Architecture.CurrentSystem.Cpu : requirements.Architecture.Cpu);
+
             return new SolveProcess(policy).Run(requirements, out staleFeeds);
         }
 
