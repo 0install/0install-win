@@ -1,17 +1,21 @@
 ﻿open ZeroInstall.Model
 open ZeroInstall.Injector
 open ZeroInstall.Injector.Solver
- 
+
+let policy = Policy.CreateDefault(new CliHandler())
+
+let select requirements = policy.Solve requirements
+
+let download requirements =
+    let selections = select requirements
+    policy.Fetch (selections.GetUncachedImplementations(policy))
+    selections
+
 let run requirements =
-   let policy = Policy.CreateDefault(new CliHandler())
-   let selections = policy.Solve(requirements)
-   let missing = selections.GetUncachedImplementations(policy)
-   policy.Fetch(missing)
-   let executor = new Executor(selections, policy.Fetcher.Store)
-   executor.Start()
+    let selections = download requirements
+    (new Executor (selections, policy.Fetcher.Store)).Start()
 
 [<EntryPoint>]
 let main args = 
-   let requirements = new Requirements(InterfaceID = args.[0])
-   let proc = run requirements
-   0 // exit code
+    ignore (run (new Requirements(InterfaceID = args.[0])))
+    0
