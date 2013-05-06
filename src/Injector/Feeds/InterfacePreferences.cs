@@ -67,7 +67,7 @@ namespace ZeroInstall.Injector.Feeds
         [Description("Zero ore more additional feeds containing implementations of this interface.")]
         [XmlElement("feed")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-            public C5.LinkedList<FeedReference> Feeds
+        public C5.LinkedList<FeedReference> Feeds
         {
             get { return _feeds; }
         }

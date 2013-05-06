@@ -62,7 +62,7 @@ namespace ZeroInstall.Injector.Feeds
         /// </summary>
         [XmlElement("key")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-            public C5.LinkedList<Key> Keys
+        public C5.LinkedList<Key> Keys
         {
             get { return _keys; }
         }

@@ -107,10 +107,13 @@ namespace ZeroInstall.Injector
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
         private void ApplyDependencyBindings(IDependencyContainer dependencyContainer, ProcessStartInfo startInfo)
         {
-            foreach (var dependency in dependencyContainer.Dependencies.
-                // Essential dependencies bust be bound, others only if they were selected
-                Where(dependency => dependency.Importance == Importance.Essential || Selections.ContainsImplementation(dependency.Interface)))
+            foreach (var dependency in dependencyContainer.Dependencies.Where(IsEssentialOrSelected))
                 ApplyBindings(dependency, Selections[dependency.Interface], startInfo);
+        }
+
+        private bool IsEssentialOrSelected(Dependency dependency)
+        {
+            return dependency.Importance == Importance.Essential || Selections.ContainsImplementation(dependency.Interface);
         }
         #endregion
 

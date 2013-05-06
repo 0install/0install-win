@@ -42,8 +42,7 @@ namespace ZeroInstall.Store.Management
 
             foreach (var curFeed in feeds)
             {
-                var impl = curFeed.Elements.OfType<Model.Implementation>().
-                    FirstOrDefault(implementation => implementation.ManifestDigest.PartialEquals(digest));
+                var impl = curFeed.Elements.OfType<Model.Implementation>().FirstOrDefault(implementation => implementation.ManifestDigest.PartialEquals(digest));
                 if (impl != null)
                 {
                     feed = curFeed;

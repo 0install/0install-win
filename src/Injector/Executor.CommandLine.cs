@@ -134,7 +134,7 @@ namespace ZeroInstall.Injector
             if (string.IsNullOrEmpty(Wrapper)) return;
 
             var wrapper = WindowsUtils.SplitArgs(Wrapper);
-            commandLine.InsertRange(0, Array.ConvertAll(wrapper, arg => new Arg { Value = arg }));
+            commandLine.InsertRange(0, Array.ConvertAll(wrapper, arg => new Arg {Value = arg}));
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         private static void AppendUserArgs(string[] arguments, List<ArgBase> commandLine)
         {
-            commandLine.AddRange(Array.ConvertAll(arguments, arg => new Arg { Value = arg }));
+            commandLine.AddRange(Array.ConvertAll(arguments, arg => new Arg {Value = arg}));
         }
         #endregion
 
