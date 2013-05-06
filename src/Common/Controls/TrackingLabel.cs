@@ -196,7 +196,6 @@ namespace Common.Controls
         /// <remarks>Must be called from the UI thread. Only call if <see cref="ITask.State"/> is <see cref="TaskState.Data"/>.</remarks>
         private void OnProgressChanged(bool unitsByte, long unitsProcessed, long unitsTotal)
         {
-
             string text = (unitsByte
                 ? unitsProcessed.FormatBytes(CultureInfo.CurrentCulture)
                 : unitsProcessed.ToString(CultureInfo.CurrentCulture));

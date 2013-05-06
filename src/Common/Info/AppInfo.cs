@@ -68,7 +68,7 @@ namespace Common.Info
         /// <summary>
         /// Information about the current operating system.
         /// </summary>
-        public static AppInfo Current { get; private set;  }
+        public static AppInfo Current { get; private set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2207:InitializeValueTypeStaticFieldsInline")]
         static AppInfo()
@@ -80,7 +80,7 @@ namespace Common.Info
             // Try to determine assembly title, fall back to assembly name on failure
             var assemblyTitleAttributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
             string name = (assemblyTitleAttributes.Length > 0 ? ((AssemblyTitleAttribute)assemblyTitleAttributes[0]).Title : assemblyInfo.Name);
-            
+
             // Try to determine copyright information
             string copyright = null;
             var assemblyCopyrightAttributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);

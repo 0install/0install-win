@@ -397,7 +397,7 @@ namespace Common.Utils
 
                 case PlatformID.Win32NT:
                     // Find NTFS ACL inheritance starting at any level
-                    WalkDirectory(directory, dir => ToggleWriteProtectionWinNT(dir, false), file => {});
+                    WalkDirectory(directory, dir => ToggleWriteProtectionWinNT(dir, false), file => { });
 
                     // Remove any classic read-only attributes
                     try

@@ -83,7 +83,7 @@ namespace Common.Info
         /// <summary>
         /// Information about the current operating system.
         /// </summary>
-        public static OSInfo Current { get; private set;  }
+        public static OSInfo Current { get; private set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2207:InitializeValueTypeStaticFieldsInline")]
         static OSInfo()
