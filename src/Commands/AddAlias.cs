@@ -60,7 +60,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public AddAlias(Policy policy) : base(policy)
+        public AddAlias(Resolver resolver) : base(resolver)
         {
             Options.Add("resolve", Resources.OptionAliasResolve, unused => _resolve = true);
             Options.Add("remove", Resources.OptionAliasRemove, unused => _remove = true);
@@ -78,7 +78,7 @@ namespace ZeroInstall.Commands
 
             if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
 
-            using (var integrationManager = new IntegrationManager(MachineWide, Policy.Handler))
+            using (var integrationManager = new IntegrationManager(MachineWide, Resolver.Handler))
             {
                 if (_resolve || _remove)
                 {
@@ -108,7 +108,7 @@ namespace ZeroInstall.Commands
             var appAlias = GetAppAlias(integrationManager.AppList, aliasName, out appEntry);
             if (appAlias == null)
             {
-                Policy.Handler.Output(Resources.AppAlias, string.Format(Resources.AliasNotFound, aliasName));
+                Resolver.Handler.Output(Resources.AppAlias, string.Format(Resources.AliasNotFound, aliasName));
                 return 1;
             }
 
@@ -116,14 +116,14 @@ namespace ZeroInstall.Commands
             {
                 string result = appEntry.InterfaceID;
                 if (!string.IsNullOrEmpty(appAlias.Command)) result += Environment.NewLine + "Command: " + appAlias.Command;
-                Policy.Handler.Output(Resources.AppAlias, result);
+                Resolver.Handler.Output(Resources.AppAlias, result);
             }
             if (_remove)
             {
                 integrationManager.RemoveAccessPoints(appEntry, new AccessPoint[] {appAlias});
 
                 // Show a "integration complete" message (but not in batch mode, since it is not important enough)
-                Policy.Handler.Output(Resources.AppAlias, string.Format(Resources.AliasRemoved, aliasName, appEntry.Name));
+                Resolver.Handler.Output(Resources.AppAlias, string.Format(Resources.AliasRemoved, aliasName, appEntry.Name));
             }
             return 0;
         }
@@ -138,7 +138,7 @@ namespace ZeroInstall.Commands
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
         private int CreateAlias(IIntegrationManager integrationManager, string aliasName, string interfaceID, string command)
         {
-            Policy.Handler.ShowProgressUI();
+            Resolver.Handler.ShowProgressUI();
 
             // Check this before modifying the environment
             bool needsReopenTerminal = NeedsReopenTerminal(integrationManager.MachineWide);
@@ -149,7 +149,7 @@ namespace ZeroInstall.Commands
             var alias = new AppAlias {Name = aliasName, Command = command};
             try
             {
-                integrationManager.AddAccessPoints(appEntry, Policy.FeedManager.GetFeed(interfaceID, Policy), new AccessPoint[] {alias});
+                integrationManager.AddAccessPoints(appEntry, Resolver.FeedManager.GetFeed(interfaceID), new AccessPoint[] {alias});
             }
                 #region Error handling
             catch (InvalidOperationException ex)
@@ -160,9 +160,9 @@ namespace ZeroInstall.Commands
             #endregion
 
             // Show a "integration complete" message (but not in batch mode, since it is not important enough)
-            if (!Policy.Handler.Batch)
+            if (!Resolver.Handler.Batch)
             {
-                Policy.Handler.Output(
+                Resolver.Handler.Output(
                     Resources.DesktopIntegration,
                     string.Format(needsReopenTerminal ? Resources.AliasCreatedReopenTerminal : Resources.AliasCreated, aliasName, appEntry.Name));
             }

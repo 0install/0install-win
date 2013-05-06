@@ -29,6 +29,7 @@ using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.Windows;
 using ZeroInstall.Hooking;
 using ZeroInstall.Injector;
+using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using EntryPoint = ZeroInstall.Hooking.EntryPoint;
@@ -41,7 +42,7 @@ namespace ZeroInstall.Commands
     internal sealed class RunHook : IDisposable
     {
         #region Variables
-        private readonly Policy _policy;
+        private readonly IHandler _handler;
 
         private readonly InterfaceFeed _target;
 
@@ -60,15 +61,14 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Hooks into the creation of new processes on the current thread to inject API hooks.
         /// </summary>
-        /// <param name="policy">Provides additional class dependencies.</param>
         /// <param name="executor">The executor used to launch the new process.</param>
+        /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the main implementation is not cached (possibly because it is installed natively).</exception>
-        public RunHook(Policy policy, Executor executor)
+        public RunHook(Executor executor, IFeedManager feedManager, IHandler handler)
         {
-            _policy = policy;
-
             string interfaceID = executor.Selections.InterfaceID;
-            _target = new InterfaceFeed(interfaceID, policy.FeedManager.GetFeed(interfaceID, policy));
+            _target = new InterfaceFeed(interfaceID, feedManager.GetFeed(interfaceID));
 
             var mainImplementation = executor.Selections.MainImplementation;
             _implementationDir = executor.GetImplementationPath(mainImplementation);
@@ -81,6 +81,8 @@ namespace ZeroInstall.Commands
             _hookW.ThreadACL.SetInclusiveACL(new[] {Thread.CurrentThread.ManagedThreadId});
             _hookA = LocalHook.Create(LocalHook.GetProcAddress("kernel32.dll", "CreateProcessA"), new UnsafeNativeMethods.DCreateProcessA(CreateProcessACallback), null);
             _hookA.ThreadACL.SetInclusiveACL(new[] {Thread.CurrentThread.ManagedThreadId});
+
+            _handler = handler;
         }
         #endregion
 
@@ -105,11 +107,11 @@ namespace ZeroInstall.Commands
                     string registryCommandLine;
                     try
                     { // Try to use a machine-wide stub if possible
-                        registryCommandLine = StubBuilder.GetRunStub(_target, command.Name, true, _policy.Handler);
+                        registryCommandLine = StubBuilder.GetRunStub(_target, command.Name, true, _handler);
                     }
                     catch (InvalidOperationException)
                     { // Fall back to per-user stub
-                        registryCommandLine = StubBuilder.GetRunStub(_target, command.Name, false, _policy.Handler);
+                        registryCommandLine = StubBuilder.GetRunStub(_target, command.Name, false, _handler);
                     }
 
                     // Apply filter with normal and with escaped string
@@ -120,8 +122,8 @@ namespace ZeroInstall.Commands
 
             // Redirect Windows SPAD commands to Zero Install
             foreach (var defaultProgram in _target.Feed.CapabilityLists.
-                Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
-                SelectMany(capabilityList => capabilityList.Entries.OfType<Model.Capabilities.DefaultProgram>()))
+                                                   Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
+                                                   SelectMany(capabilityList => capabilityList.Entries.OfType<Model.Capabilities.DefaultProgram>()))
             {
                 if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.Reinstall))
                     filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.Reinstall, defaultProgram.InstallCommands.ReinstallArgs, "--machine --batch --add=defaults " + _target.InterfaceID.EscapeArgument()));
@@ -193,7 +195,7 @@ namespace ZeroInstall.Commands
         private string GetIconPath(string command)
         {
             var icon = _target.Feed.GetIcon(Icon.MimeTypeIco, command);
-            if (icon.HasValue) return IconProvider.GetIconPath(icon.Value, false, _policy.Handler);
+            if (icon.HasValue) return IconProvider.GetIconPath(icon.Value, false, _handler);
             else return null;
         }
         #endregion

@@ -49,6 +49,9 @@
     <Reference Include="Moq">
       <HintPath>..\..\lib\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="Moq.Contrib">
+      <HintPath>..\..\lib\Moq.Contrib.dll</HintPath>
+    </Reference>
     <Reference Include="C5">
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
@@ -72,8 +75,8 @@
     <Compile Include="Collections\StringMappedCollectionTest.cs" />
     <Compile Include="Controls\TrackingLabelTest.cs" />
     <Compile Include="Controls\TrackingProgressBarTest.cs" />
-    <Compile Include="Matchers.cs" />
     <Compile Include="MicroServer.cs" />
+    <Compile Include="MoqExtensions.cs" />
     <Compile Include="Tasks\DownloadFileTest.cs" />
     <Compile Include="Tasks\ForEachTaskTest.cs" />
     <Compile Include="Tasks\MockTask.cs" />

@@ -23,6 +23,7 @@ using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -51,7 +52,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Update(Policy policy) : base(policy)
+        public Update(Resolver resolver) : base(resolver)
         {
             //Options.Remove("o|offline");
             //Options.Remove("r|refresh");
@@ -70,18 +71,18 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs.JoinEscapeArguments(), "");
             if (SelectionsDocument) throw new NotSupportedException(Resources.NoSelectionsDocumentUpdate);
 
-            Policy.Handler.ShowProgressUI();
+            Resolver.Handler.ShowProgressUI();
 
             try
             {
                 _oldSelections = SolveOld();
-                Policy.FeedManager.Refresh = true;
+                Resolver.FeedManager.Refresh = true;
                 Solve();
             }
                 #region Error handling
             catch (SolverException ex)
             {
-                Policy.Handler.Output(Resources.UpdateProblem, ex.Message);
+                Resolver.Handler.Output(Resources.UpdateProblem, ex.Message);
                 return 1;
             }
             #endregion
@@ -101,9 +102,16 @@ namespace ZeroInstall.Commands
         /// </summary>
         private Selections SolveOld()
         {
-            var noRefreshPolicy = Policy.Clone();
-            noRefreshPolicy.FeedManager.Refresh = false;
-            return Policy.Solver.Solve(Requirements, noRefreshPolicy, out StaleFeeds);
+            bool previousRefresh = Resolver.FeedManager.Refresh;
+            Resolver.FeedManager.Refresh = false;
+            try
+            {
+                return Resolver.Solver.Solve(Requirements, out StaleFeeds);
+            }
+            finally
+            {
+                Resolver.FeedManager.Refresh = previousRefresh;
+            }
         }
 
         /// <summary>
@@ -143,7 +151,7 @@ namespace ZeroInstall.Commands
             }
 
             // Detect replaced feeds
-            var feed = Policy.FeedManager.Cache.GetFeed(Requirements.InterfaceID);
+            Feed feed = Resolver.FeedCache.GetFeed(Requirements.InterfaceID);
             if (feed.ReplacedBy != null)
             {
                 builder.AppendLine(string.Format(Resources.FeedReplaced, Requirements.InterfaceID, feed.ReplacedBy.Target));
@@ -154,12 +162,12 @@ namespace ZeroInstall.Commands
             {
                 // Display the list of changes
                 string message = (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
-                Policy.Handler.Output(Resources.ChangesFound, message);
+                Resolver.Handler.Output(Resources.ChangesFound, message);
             }
             else
             {
                 // Show a "nothing changed" message (but not in batch mode, since it is not important enough)
-                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.ChangesFound, Resources.NoUpdatesFound);
+                if (!Resolver.Handler.Batch) Resolver.Handler.Output(Resources.ChangesFound, Resources.NoUpdatesFound);
             }
         }
         #endregion

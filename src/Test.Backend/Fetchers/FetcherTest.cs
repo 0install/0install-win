@@ -34,18 +34,18 @@ namespace ZeroInstall.Fetchers
     /// </summary>
     public abstract class FetcherTest
     {
-        #region Common
+        #region Shared
         private readonly ITaskHandler _handler = new SilentTaskHandler();
         private Mock<IStore> _storeMock;
         private IFetcher _fetcher;
 
-        protected abstract IFetcher CreateFetcher(IStore store);
+        protected abstract IFetcher CreateFetcher(IStore store, ITaskHandler handler);
 
         [SetUp]
         public void SetUp()
         {
             _storeMock = new Mock<IStore>();
-            _fetcher = CreateFetcher(_storeMock.Object);
+            _fetcher = CreateFetcher(_storeMock.Object, _handler);
         }
 
         [TearDown]
@@ -145,7 +145,7 @@ namespace ZeroInstall.Fetchers
             _storeMock.Setup(x => x.Contains(digest)).Returns(false).Verifiable();
             _storeMock.Setup(x => x.AddArchives(archiveInfos.IsEqual(), digest, _handler)).Verifiable();
 
-            _fetcher.Fetch(new[] {testImplementation}, _handler);
+            _fetcher.Fetch(new[] {testImplementation});
         }
 
         private void TestDownload(Predicate<string> directoryCheck, params RetrievalMethod[] retrievalMethod)
@@ -157,7 +157,7 @@ namespace ZeroInstall.Fetchers
             _storeMock.Setup(x => x.Contains(digest)).Returns(false).Verifiable();
             _storeMock.Setup(x => x.AddDirectory(It.Is<string>(path => directoryCheck(path)), digest, _handler)).Verifiable();
 
-            _fetcher.Fetch(new[] {testImplementation}, _handler);
+            _fetcher.Fetch(new[] {testImplementation});
         }
         #endregion
 
@@ -168,7 +168,7 @@ namespace ZeroInstall.Fetchers
             var testImplementation = new Implementation {ManifestDigest = digest, RetrievalMethods = {new Recipe()}};
 
             _storeMock.Setup(x => x.Contains(digest)).Returns(true).Verifiable();
-            _fetcher.Fetch(new[] {testImplementation}, _handler);
+            _fetcher.Fetch(new[] {testImplementation});
         }
 
         [Test]
@@ -176,7 +176,7 @@ namespace ZeroInstall.Fetchers
         {
             var implementation = new Implementation {ManifestDigest = new ManifestDigest(sha256New: "test123")};
 
-            Assert.Throws<NotSupportedException>(() => _fetcher.Fetch(new[] {implementation}, new SilentTaskHandler()));
+            Assert.Throws<NotSupportedException>(() => _fetcher.Fetch(new[] {implementation}));
         }
 
         [Test]
@@ -188,7 +188,7 @@ namespace ZeroInstall.Fetchers
                 RetrievalMethods = {new Archive {MimeType = "test/format"}}
             };
 
-            Assert.Throws<NotSupportedException>(() => _fetcher.Fetch(new[] {implementation}, new SilentTaskHandler()));
+            Assert.Throws<NotSupportedException>(() => _fetcher.Fetch(new[] {implementation}));
         }
 
         [Test]
@@ -200,7 +200,7 @@ namespace ZeroInstall.Fetchers
                 RetrievalMethods = {new Recipe {Steps = {new Archive {MimeType = "application/zip"}, new Archive {MimeType = "test/format"}}}}
             };
 
-            Assert.Throws<NotSupportedException>(() => _fetcher.Fetch(new[] {implementation}, new SilentTaskHandler()));
+            Assert.Throws<NotSupportedException>(() => _fetcher.Fetch(new[] {implementation}));
         }
     }
 }

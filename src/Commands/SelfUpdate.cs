@@ -58,11 +58,11 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public SelfUpdate(Policy policy) : base(policy)
+        public SelfUpdate(Resolver resolver) : base(resolver)
         {
             NoWait = true;
-            Policy.FeedManager.Refresh = true;
-            Policy.Config.AllowApiHooking = false;
+            Resolver.FeedManager.Refresh = true;
+            Resolver.Config.AllowApiHooking = false;
             Requirements.CommandName = "update";
 
             //Options.Remove("no-wait");
@@ -80,7 +80,7 @@ namespace ZeroInstall.Commands
         {
             if (Options.Parse(args).Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs.JoinEscapeArguments(), "");
 
-            Requirements.InterfaceID = Policy.Config.SelfUpdateID;
+            Requirements.InterfaceID = Resolver.Config.SelfUpdateID;
 
             // Always pass in the installation directory to the updater as an argument
             AdditionalArgs.Add(Locations.InstallBase);
@@ -98,7 +98,7 @@ namespace ZeroInstall.Commands
             if (File.Exists(Path.Combine(Locations.PortableBase, "_no_self_update_check"))) throw new NotSupportedException(Resources.NoSelfUpdateDisabled);
             if (StoreUtils.PathInAStore(Locations.InstallBase)) throw new NotSupportedException(Resources.NoSelfUpdateStore);
 
-            Policy.Handler.ShowProgressUI();
+            Resolver.Handler.ShowProgressUI();
             Solve();
             SelectionsUI();
 
@@ -108,13 +108,13 @@ namespace ZeroInstall.Commands
             if (!_force && currentVersion >= newVersion)
             {
                 // Show a "nothing changed" message (but not in batch mode, since it is not important enough)
-                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.ChangesFound, Resources.NoUpdatesFound);
+                if (!Resolver.Handler.Batch) Resolver.Handler.Output(Resources.ChangesFound, Resources.NoUpdatesFound);
                 return 1;
             }
 
             DownloadUncachedImplementations();
 
-            Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+            Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
             return LaunchImplementation();
         }
         #endregion

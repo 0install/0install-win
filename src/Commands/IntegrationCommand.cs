@@ -22,12 +22,12 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        protected IntegrationCommand(Policy policy) : base(policy)
+        protected IntegrationCommand(Resolver resolver) : base(resolver)
         {
-            Options.Add("batch", Resources.OptionBatch, unused => Policy.Handler.Batch = true);
+            Options.Add("batch", Resources.OptionBatch, unused => Resolver.Handler.Batch = true);
 
-            Options.Add("o|offline", Resources.OptionOffline, unused => Policy.Config.NetworkUse = NetworkLevel.Offline);
-            Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.FeedManager.Refresh = true);
+            Options.Add("o|offline", Resources.OptionOffline, unused => Resolver.Config.NetworkUse = NetworkLevel.Offline);
+            Options.Add("r|refresh", Resources.OptionRefresh, unused => Resolver.FeedManager.Refresh = true);
 
             Options.Add("m|machine", Resources.OptionMachine, unused => MachineWide = true);
         }
@@ -75,7 +75,7 @@ namespace ZeroInstall.Commands
         /// <param name="integrationManager">Manages desktop integration operations.</param>
         /// <param name="interfaceID">The interface ID to create an <see cref="AppEntry"/> for. Will be updated if <see cref="Feed.ReplacedBy"/> is set and accepted by the user.</param>
         /// <exception cref="InvalidOperationException">Thrown if the application is already in the list.</exception>
-        /// <exception cref="SolverException">Thrown if the <see cref="Policy.Solver"/> could not ensure <paramref name="interfaceID"/> specifies a runnable application.</exception>
+        /// <exception cref="SolverException">Thrown if the <see cref="ISolver"/> could not ensure <paramref name="interfaceID"/> specifies a runnable application.</exception>
         protected AppEntry CreateAppEntry(IIntegrationManager integrationManager, ref string interfaceID)
         {
             #region Sanity checks
@@ -83,14 +83,14 @@ namespace ZeroInstall.Commands
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
-            var feed = Policy.FeedManager.GetFeed(interfaceID, Policy);
+            var feed = Resolver.FeedManager.GetFeed(interfaceID);
             DetectReplacement(ref interfaceID, ref feed);
             //TryToSolve(interfaceID);
 
             var appEntry = integrationManager.AddApp(interfaceID, feed);
 
             // Pre-download application in background for later use
-            if (Policy.Config.EffectiveNetworkUse == NetworkLevel.Full)
+            if (Resolver.Config.EffectiveNetworkUse == NetworkLevel.Full)
             {
                 // ToDo: Automatically switch to GTK# on Linux
                 ProcessUtils.LaunchAssembly("0install-win", "download --batch " + interfaceID.EscapeArgument());
@@ -106,12 +106,12 @@ namespace ZeroInstall.Commands
         {
             if (feed.ReplacedBy != null)
             {
-                if (Policy.Handler.AskQuestion(
+                if (Resolver.Handler.AskQuestion(
                     string.Format(Resources.FeedReplacedAsk, feed.Name, interfaceID, feed.ReplacedBy.Target),
                     string.Format(Resources.FeedReplaced, interfaceID, feed.ReplacedBy.Target)))
                 {
                     interfaceID = feed.ReplacedBy.Target.ToString();
-                    feed = Policy.FeedManager.GetFeed(interfaceID, Policy);
+                    feed = Resolver.FeedManager.GetFeed(interfaceID);
                 }
             }
         }

@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands
         /// <summary>Cached <see cref="ISolver"/> results.</summary>
         protected Selections Selections;
 
-        /// <summary>Indicates the user provided a pre-created <see cref="Selections"/> XML document instead of using the <see cref="Policy.Solver"/>.</summary>
+        /// <summary>Indicates the user provided a pre-created <see cref="Selections"/> XML document instead of using the <see cref="Resolver.Solver"/>.</summary>
         protected bool SelectionsDocument;
 
         /// <summary>Indicates the user wants a UI to audit the selections.</summary>
@@ -54,7 +54,7 @@ namespace ZeroInstall.Commands
         /// <summary>Indicates the user wants a machine-readable output.</summary>
         protected bool ShowXml;
 
-        /// <summary>Indicates that one or more of the <see cref="Model.Feed"/>s used by the <see cref="Policy.Solver"/> should be updated.</summary>
+        /// <summary>Indicates that one or more of the <see cref="Model.Feed"/>s used by the <see cref="Resolver.Solver"/> should be updated.</summary>
         protected bool StaleFeeds;
         #endregion
 
@@ -78,18 +78,18 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Selection(Policy policy) : base(policy)
+        public Selection(Resolver resolver) : base(resolver)
         {
-            Options.Add("batch", Resources.OptionBatch, unused => Policy.Handler.Batch = true);
+            Options.Add("batch", Resources.OptionBatch, unused => Resolver.Handler.Batch = true);
             Options.Add("g|gui", Resources.OptionGui, unused => ShowSelectionsUI = true);
 
-            Options.Add("o|offline", Resources.OptionOffline, unused => Policy.Config.NetworkUse = NetworkLevel.Offline);
-            Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.FeedManager.Refresh = true);
+            Options.Add("o|offline", Resources.OptionOffline, unused => Resolver.Config.NetworkUse = NetworkLevel.Offline);
+            Options.Add("r|refresh", Resources.OptionRefresh, unused => Resolver.FeedManager.Refresh = true);
 
             Options.Add("with-store=", Resources.OptionWithStore, delegate(string path)
             {
                 if (string.IsNullOrEmpty(path)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--with-store"), "with-store");
-                Policy.Fetcher.Store = new CompositeStore(new DirectoryStore(path), Policy.Fetcher.Store);
+                Resolver.Store = new CompositeStore(new DirectoryStore(path), Resolver.Store);
             });
 
             Requirements.FromCommandLine(Options);
@@ -135,19 +135,19 @@ namespace ZeroInstall.Commands
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs.JoinEscapeArguments(), "");
 
-            Policy.Handler.ShowProgressUI();
+            Resolver.Handler.ShowProgressUI();
 
             Solve();
             SelectionsUI();
 
             // If any of the feeds are getting old rerun solver in refresh mode
-            if (StaleFeeds && Policy.Config.EffectiveNetworkUse == NetworkLevel.Full)
+            if (StaleFeeds && Resolver.Config.EffectiveNetworkUse == NetworkLevel.Full)
             {
-                Policy.FeedManager.Refresh = true;
+                Resolver.FeedManager.Refresh = true;
                 Solve();
             }
 
-            Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
+            Resolver.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             return 0;
         }
         #endregion
@@ -169,33 +169,33 @@ namespace ZeroInstall.Commands
 
             try
             {
-                Selections = Policy.Solve(Requirements, out StaleFeeds);
+                Selections = Resolver.Solver.Solve(Requirements, out StaleFeeds);
             }
                 #region Error handling
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway
-                Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+                Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
                 throw;
             }
             #endregion
 
-            Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+            Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
             return Selections;
         }
 
         /// <summary>
-        /// Allows the user to modify <see cref="Policy"/> and <see cref="Selections"/>.
+        /// Allows the user to modify <see cref="Selections"/>.
         /// </summary>
         protected void SelectionsUI()
         {
-            Policy.Handler.ShowSelections(Selections, Policy.FeedManager.Cache);
+            Resolver.Handler.ShowSelections(Selections, Resolver.FeedCache);
 
             // Allow the user to trigger a Solver rerun after modifying preferences
             if (ShowSelectionsUI && !SelectionsDocument)
-                Policy.Handler.AuditSelections(Solve);
+                Resolver.Handler.AuditSelections(Solve);
 
-            Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+            Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace ZeroInstall.Commands
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
         protected string GetSelectionsOutput()
         {
-            return ShowXml ? Selections.ToXmlString() : Selections.GetHumanReadable(Policy.Fetcher.Store);
+            return ShowXml ? Selections.ToXmlString() : Selections.GetHumanReadable(Resolver.Store);
         }
         #endregion
     }

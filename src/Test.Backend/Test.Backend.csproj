@@ -49,6 +49,9 @@
     <Reference Include="Moq">
       <HintPath>..\..\lib\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="Moq.Contrib">
+      <HintPath>..\..\lib\Moq.Contrib.dll</HintPath>
+    </Reference>
     <Reference Include="C5">
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
@@ -95,14 +98,13 @@
     <Compile Include="Fetchers\TestData.cs" />
     <Compile Include="Injector\ExecutorTest.cs" />
     <Compile Include="Injector\ConfigTest.cs" />
-    <Compile Include="Injector\Feeds\MockFeedManager.cs" />
     <Compile Include="Injector\Feeds\FeedManagerTest.cs" />
     <Compile Include="Injector\Solver\ImplementationSelectionTest.cs" />
     <Compile Include="Injector\Solver\ExternalSolverTest.cs" />
     <Compile Include="Model\GenericBindingTest.cs" />
     <Compile Include="Model\RequirementsTest.cs" />
     <Compile Include="Injector\Solver\SelectionCandidateTest.cs" />
-    <Compile Include="Injector\Solver\SelectionsUtilsTest.cs" />
+    <Compile Include="Injector\Solver\SelectionsManagerTest.cs" />
     <Compile Include="Injector\Solver\SimpleSolverTest.cs" />
     <Compile Include="Injector\Solver\SolverTest.cs" />
     <Compile Include="Model\ArchitectureTest.cs" />
@@ -129,6 +131,7 @@
     <Compile Include="Model\VersionRangeTest.cs" />
     <Compile Include="Model\XmlUnknownTest.cs" />
     <Compile Include="DesktopIntegration\AppListTest.cs" />
+    <Compile Include="TestWithResolver.cs" />
     <Compile Include="Store\Feeds\DiskIconCacheTest.cs" />
     <Compile Include="Store\Feeds\MemoryFeedCacheTest.cs" />
     <Compile Include="Store\Feeds\DiskFeedCacheTest.cs" />

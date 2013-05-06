@@ -57,7 +57,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Digest(Policy policy) : base(policy)
+        public Digest(Resolver resolver) : base(resolver)
         {
             Options.Add("manifest", Resources.OptionManifest, unused => _printManifest = true);
             Options.Add("digest", Resources.OptionDigest, unused => _printDigest = true);
@@ -108,14 +108,14 @@ namespace ZeroInstall.Commands
                     throw new OptionException(Resources.TooManyArguments, "");
             }
 
-            Policy.Handler.ShowProgressUI();
+            Resolver.Handler.ShowProgressUI();
 
             Manifest manifest;
             if (Directory.Exists(path))
             { // Manifest for directory
                 if (!string.IsNullOrEmpty(subdir)) throw new OptionException(Resources.TooManyArguments, "");
 
-                manifest = Manifest.Generate(path, _algorithm, Policy.Handler, null);
+                manifest = Manifest.Generate(path, _algorithm, Resolver.Handler, null);
             }
             else if (File.Exists(path))
             { // Manifest for archive
@@ -124,10 +124,10 @@ namespace ZeroInstall.Commands
                     using (var extractor = Extractor.CreateExtractor(null, path, 0, tempDir))
                     {
                         extractor.SubDir = subdir;
-                        Policy.Handler.RunTask(extractor, null);
+                        Resolver.Handler.RunTask(extractor, null);
                     }
 
-                    manifest = Manifest.Generate(tempDir, _algorithm, Policy.Handler, null);
+                    manifest = Manifest.Generate(tempDir, _algorithm, Resolver.Handler, null);
                 }
             }
             else throw new FileNotFoundException(string.Format(Resources.FileOrDirNotFound, path));
@@ -139,7 +139,7 @@ namespace ZeroInstall.Commands
                 if (_printDigest) output += "\n" + manifest.CalculateDigest();
             }
             else output = manifest.CalculateDigest();
-            Policy.Handler.Output("Manifest digest", output);
+            Resolver.Handler.Output("Manifest digest", output);
             return 0;
         }
         #endregion

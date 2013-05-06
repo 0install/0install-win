@@ -48,6 +48,9 @@
     <Reference Include="Moq">
       <HintPath>..\..\lib\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="Moq.Contrib">
+      <HintPath>..\..\lib\Moq.Contrib.dll</HintPath>
+    </Reference>
     <Reference Include="C5">
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>

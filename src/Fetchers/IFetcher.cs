@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
@@ -32,21 +31,15 @@ namespace ZeroInstall.Fetchers
     public interface IFetcher
     {
         /// <summary>
-        /// The location to store the downloaded and unpacked <see cref="Model.Implementation"/>s in.
-        /// </summary>
-        IStore Store { get; set; }
-
-        /// <summary>
         /// Downloads a set of <see cref="Implementation"/>s to the <see cref="Store"/> and returns once this process is complete.
         /// </summary>
         /// <param name="implementations">The <see cref="Model.Implementation"/>s to be downloaded.</param>
-        /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         /// <exception cref="OperationCanceledException">Thrown if a download or IO task was canceled from another thread.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="NotSupportedException">Thrown if a file format, protocal, etc. is unknown or not supported.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="IFetcher.Store"/> is not permitted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="IStore"/> is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown an <see cref="Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
-        void Fetch(IEnumerable<Implementation> implementations, ITaskHandler handler);
+        void Fetch(IEnumerable<Implementation> implementations);
     }
 }

@@ -16,7 +16,6 @@
  */
 
 using NUnit.Framework;
-using Moq;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
@@ -24,10 +23,10 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// Contains test methods for <see cref="SelectionsUtils"/>.
+    /// Contains test methods for <see cref="SelectionsManager"/>.
     /// </summary>
     [TestFixture]
-    public class SelectionsUtilsTest
+    public class SelectionsManagerTest : TestWithResolver<SelectionsManager>
     {
         #region Helpers
         /// <summary>
@@ -54,17 +53,15 @@ namespace ZeroInstall.Injector.Solver
             selections.Implementations.Add(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"});
 
             // Pretend the first implementation isn't cached, the second is and the third isn't
-            var storeMock = new Mock<IStore>(MockBehavior.Strict);
+            var storeMock = Resolver.GetMock<IStore>();
             storeMock.Setup(x => x.Contains(selections.Implementations[0].ManifestDigest)).Returns(false).Verifiable();
             storeMock.Setup(x => x.Contains(selections.Implementations[1].ManifestDigest)).Returns(true).Verifiable();
             storeMock.Setup(x => x.Contains(default(ManifestDigest))).Returns(false).Verifiable();
 
-            var implementationSelections = selections.GetUncachedImplementationSelections(storeMock.Object);
+            var implementationSelections = Target.GetUncachedImplementationSelections(selections);
 
             // Only the first implementation should be listed as uncached
             CollectionAssert.AreEquivalent(new[] {selections.Implementations[0]}, implementationSelections);
-
-            storeMock.Verify();
         }
 
         [Test]
@@ -78,15 +75,13 @@ namespace ZeroInstall.Injector.Solver
                 new ImplementationSelection {ID = impl2.ID, InterfaceID = "http://0install.de/feeds/test/feed2.xml", FromFeed = "http://0install.de/feeds/test/sub2.xml"}
             };
 
-            var cacheMock = new Mock<IFeedCache>(MockBehavior.Strict);
+            var cacheMock = Resolver.GetMock<IFeedCache>();
             cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/feed1.xml")).Returns(new Feed {Elements = {impl1}}).Verifiable();
             cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(new Feed {Elements = {impl2}}).Verifiable();
 
-            var implementations = implementationSelections.GetOriginalImplementations(cacheMock.Object);
+            var implementations = Target.GetOriginalImplementations(implementationSelections);
 
             CollectionAssert.AreEquivalent(new[] {impl1, impl2}, implementations);
-
-            cacheMock.Verify();
         }
     }
 }

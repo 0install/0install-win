@@ -18,14 +18,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Commands
 {
@@ -44,7 +43,7 @@ namespace ZeroInstall.Commands
         /// <summary>Indicates the user wants the implementation locations on the disk.</summary>
         private bool _show;
 
-        /// <summary><see cref="Implementation"/>s referenced in <see cref="Selection.Selections"/> that are not available in the <see cref="IFetcher.Store"/>.</summary>
+        /// <summary><see cref="Implementation"/>s referenced in <see cref="Selection.Selections"/> that are not available in the <see cref="IStore"/>.</summary>
         protected ICollection<Implementation> UncachedImplementations;
         #endregion
 
@@ -56,12 +55,12 @@ namespace ZeroInstall.Commands
         public override string ActionTitle { get { return Resources.ActionDownload; } }
 
         /// <inheritdoc/>
-        public override int GuiDelay { get { return Policy.Handler.Batch ? 1000 : 0; } }
+        public override int GuiDelay { get { return Resolver.Handler.Batch ? 1000 : 0; } }
         #endregion
 
         #region Constructor
         /// <inheritdoc/>
-        public Download(Policy policy) : base(policy)
+        public Download(Resolver resolver) : base(resolver)
         {
             Options.Add("show", Resources.OptionShow, unused => _show = true);
         }
@@ -76,25 +75,25 @@ namespace ZeroInstall.Commands
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs.JoinEscapeArguments(), "");
 
-            Policy.Handler.ShowProgressUI();
+            Resolver.Handler.ShowProgressUI();
 
             Solve();
 
             // If any of the feeds are getting old or any implementations need to be downloaded rerun solver in refresh mode (unless it was already in that mode to begin with)
-            if ((StaleFeeds || UncachedImplementations.Count != 0) && !Policy.FeedManager.Refresh)
+            if ((StaleFeeds || UncachedImplementations.Count != 0) && !Resolver.FeedManager.Refresh)
             {
-                Policy.FeedManager.Refresh = true;
+                Resolver.FeedManager.Refresh = true;
                 Solve();
             }
             SelectionsUI();
 
             DownloadUncachedImplementations();
 
-            if (_show) Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
+            if (_show) Resolver.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             else
             {
                 // Show a "download complete" message (but not in batch mode, since it is not important enough)
-                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
+                if (!Resolver.Handler.Batch) Resolver.Handler.Output(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
             }
             return 0;
         }
@@ -108,7 +107,7 @@ namespace ZeroInstall.Commands
 
             try
             {
-                UncachedImplementations = Selections.GetUncachedImplementations(Policy).ToList();
+                UncachedImplementations = Resolver.SelectionsManager.GetUncachedImplementations(Selections);
             }
                 #region Error handling
             catch (InvalidDataException ex)
@@ -122,7 +121,7 @@ namespace ZeroInstall.Commands
         }
 
         /// <summary>
-        /// Downloads any <see cref="Model.Implementation"/>s in <see cref="Selection"/> that are missing from <see cref="IFetcher.Store"/>.
+        /// Downloads any <see cref="Model.Implementation"/>s in <see cref="Selection"/> that are missing from <see cref="IStore"/>.
         /// </summary>
         /// <remarks>Makes sure <see cref="ISolver"/> ran with up-to-date feeds before downloading any implementations.</remarks>
         protected void DownloadUncachedImplementations()
@@ -132,13 +131,13 @@ namespace ZeroInstall.Commands
 
             try
             {
-                Policy.Fetch(UncachedImplementations);
+                Resolver.Fetcher.Fetch(UncachedImplementations);
             }
                 #region Error handling
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway
-                Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+                Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
                 throw;
             }
             #endregion

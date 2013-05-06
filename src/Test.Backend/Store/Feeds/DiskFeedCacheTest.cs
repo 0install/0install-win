@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.Feeds
         {
             // Create a temporary cache
             _tempDir = new TemporaryDirectory("0install-unit-tests");
-            _cache = new DiskFeedCache(_tempDir);
+            _cache = new DiskFeedCache(_tempDir, new Mock<IOpenPgp>().Object);
 
             // Add some dummy feeds to the cache
             _feed1 = FeedTest.CreateTestFeed();
@@ -105,7 +105,7 @@ namespace ZeroInstall.Store.Feeds
         {
             var result = new OpenPgpSignature[0];
 
-            var signatures = _cache.GetSignatures("http://0install.de/feeds/test/test1.xml", new Mock<IOpenPgp>().Object);
+            var signatures = _cache.GetSignatures("http://0install.de/feeds/test/test1.xml");
 
             CollectionAssert.AreEqual(signatures, result);
         }

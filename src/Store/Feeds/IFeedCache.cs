@@ -52,13 +52,12 @@ namespace ZeroInstall.Store.Feeds
         /// Determines which signatures a <see cref="Feed"/> from this cache is signed with.
         /// </summary>
         /// <param name="feedID">The canonical ID used to identify the feed.</param>
-        /// <param name="openPgp">The OpenPGP-compatible system used to validate the signatures.</param>
         /// <returns>A list of signatures found, both valid and invalid.</returns>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedID"/> was not found in the cache.</exception>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
         /// <exception cref="SignatureException">Thrown if the signature data could not be handled.</exception>
-        IEnumerable<OpenPgpSignature> GetSignatures(string feedID, IOpenPgp openPgp);
+        IEnumerable<OpenPgpSignature> GetSignatures(string feedID);
 
         /// <summary>
         /// Adds a new <see cref="Feed"/> to the cache. Only do this after the feed source has been verified and trusted and replay attacks filtered!

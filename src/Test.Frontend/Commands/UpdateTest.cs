@@ -33,26 +33,22 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override FrontendCommand GetCommand()
         {
-            return new Update(Policy);
+            return new Update(Resolver);
         }
 
         [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
         public override void TestNormal()
         {
             var requirements = RequirementsTest.CreateTestRequirements();
-            var selectionsOld = SelectionsUtilsTest.CreateTestSelections();
-            var selectionsNew = SelectionsUtilsTest.CreateTestSelections();
+            var selectionsOld = SelectionsManagerTest.CreateTestSelections();
+            var selectionsNew = SelectionsManagerTest.CreateTestSelections();
             selectionsNew.Implementations[1].Version = new ImplementationVersion("2.0");
             selectionsNew.Implementations.Add(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/sub3.xml", ID = "id3", Version = new ImplementationVersion("0.1")});
 
-            var noRefreshPolicy = Policy.Clone();
-            noRefreshPolicy.FeedManager.Refresh = false;
-
-            Policy.FeedManager.Refresh = true;
+            Resolver.FeedManager.Refresh = true;
 
             bool stale;
-            SolverMock.Setup(x => x.Solve(requirements, noRefreshPolicy, out stale)).Returns(selectionsOld).Verifiable(); // No refresh Solve()
-            SolverMock.Setup(x => x.Solve(requirements, Policy, out stale)).Returns(selectionsNew).Verifiable(); // Refresh Solve()
+            SolverMock.Setup(x => x.Solve(requirements, out stale)).ReturnsInOrder(selectionsOld, selectionsNew).Verifiable();
 
             var impl1 = new Implementation {ID = "id1"};
             var impl2 = new Implementation {ID = "id2"};
@@ -63,7 +59,7 @@ namespace ZeroInstall.Commands
 
             // Download uncached implementations
             FetcherMock.Setup(x => x.Fetch(
-                new[] {impl1, impl2, impl3}.IsEquivalent(), Policy.Handler)).Verifiable();
+                new[] {impl1, impl2, impl3}.IsEquivalent())).Verifiable();
 
             // Check for <replaced-by>
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(FeedTest.CreateTestFeed());
@@ -75,7 +71,7 @@ namespace ZeroInstall.Commands
         [Test(Description = "Ensures local Selections XMLs are rejected.")]
         public override void TestImportSelections()
         {
-            var selections = SelectionsUtilsTest.CreateTestSelections();
+            var selections = SelectionsManagerTest.CreateTestSelections();
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 selections.SaveXml(tempFile);

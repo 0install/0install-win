@@ -54,7 +54,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public SyncApps(Policy policy) : base(policy)
+        public SyncApps(Resolver resolver) : base(resolver)
         {
             Options.Add("reset=", Resources.OptionSyncReset, (SyncResetMode mode) => _syncResetMode = mode);
         }
@@ -71,14 +71,14 @@ namespace ZeroInstall.Commands
 
             if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
 
-            using (_syncManager = Policy.CreateSync(MachineWide))
+            using (_syncManager = SyncUtils.CreateSync(Resolver, MachineWide))
             {
-                Policy.Handler.ShowProgressUI();
+                Resolver.Handler.ShowProgressUI();
                 Sync();
             }
 
             // Pre-download new applications in background for later use
-            //if (Policy.Config.EffectiveNetworkUse == NetworkLevel.Full)
+            //if (Resolver.Config.EffectiveNetworkUse == NetworkLevel.Full)
             //{
             //    // ToDo: Automatically switch to GTK# on Linux
             //    ProcessUtils.LaunchHelperAssembly("0install-win", "maintenance --batch");
@@ -102,7 +102,7 @@ namespace ZeroInstall.Commands
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway
-                Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+                Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
                 throw;
             }
             #endregion

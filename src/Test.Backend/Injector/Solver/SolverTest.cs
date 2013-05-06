@@ -16,57 +16,37 @@
  */
 
 using Common.Storage;
+using Common.Tasks;
 using NUnit.Framework;
-using Moq;
-using ZeroInstall.Fetchers;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
     /// Contains common code for testing specific <see cref="ISolver"/> implementations.
     /// </summary>
-    public abstract class SolverTest
+    public abstract class SolverTest<T> : TestWithResolver<T> where T : class, ISolver
     {
-        #region Shared
-        private readonly ISolver _solver;
-        //private Mock<IFeedCache> _cacheMock;
-
-        private Policy _policy;
-        private LocationsRedirect _redirect;
-
-        [SetUp]
-        public void SetUp()
+        #region Helpers
+        private static Feed CreateTestFeed()
         {
-            // Don't store generated executables settings in real user profile
-            _redirect = new LocationsRedirect("0install-unit-tests");
-
-            //_cacheMock = new Mock<IFeedCache>(MockBehavior.Strict);
-            _policy = new Policy(
-                new Config(), new FeedManager(FeedCacheFactory.CreateDefault()),
-                new Mock<IFetcher>().Object, new Mock<IOpenPgp>().Object, _solver, new SilentHandler());
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _redirect.Dispose();
-
-            //_cacheMock.Verify();
+            return new Feed
+            {
+                Name = "Test",
+                Summaries = {"Test"},
+                Elements = {new Implementation {ID = "test", Version = new ImplementationVersion("1.0"), LocalPath = ".", Main = "test"}}
+            };
         }
         #endregion
 
-        protected SolverTest(ISolver solver)
+        #region Shared
+        public override void SetUp()
         {
-            _solver = solver;
+            base.SetUp();
+            Resolver.GetMock<IHandler>().Setup(x => x.CancellationToken).Returns(new CancellationToken());
         }
-
-        private static Feed CreateTestFeed()
-        {
-            return new Feed {Name = "Test", Summaries = {"Test"}, Elements = {new Implementation {ID = "test", Version = new ImplementationVersion("1.0"), LocalPath = ".", Main = "test"}}};
-        }
+        #endregion
 
         [Test]
         public void TestBasic()
@@ -75,13 +55,13 @@ namespace ZeroInstall.Injector.Solver
             {
                 var testFeed = CreateTestFeed();
                 testFeed.Normalize(feedFile);
-                //_cacheMock.Setup(x => x.Contains(feedFile)).Returns(true);
-                //_cacheMock.Setup(x => x.GetFeed(feedFile)).Returns(testFeed);
+                var feedManagerMock = Resolver.GetMock<IFeedManager>();
+                bool temp = false;
+                feedManagerMock.Setup(x => x.GetFeed(feedFile, ref temp)).Returns(testFeed).Verifiable();
                 testFeed.SaveXml(feedFile);
 
                 bool staleFeeds;
-                /*var selections =*/
-                _solver.Solve(new Requirements {InterfaceID = feedFile}, _policy, out staleFeeds);
+                var selections = Target.Solve(new Requirements {InterfaceID = feedFile}, out staleFeeds);
             }
         }
     }

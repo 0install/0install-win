@@ -47,15 +47,28 @@ namespace ZeroInstall.Injector.Solver
         }
 
         /// <inheritdoc/>
-        public Selections Solve(Requirements requirements, Policy policy, out bool staleFeeds)
+        public Selections Solve(Requirements requirements, out bool staleFeeds)
         {
             try
             {
-                return _firstSolver.Solve(requirements, policy, out staleFeeds);
+                return _firstSolver.Solve(requirements, out staleFeeds);
             }
             catch (SolverException)
             {
-                return _secondSolver.Solve(requirements, policy, out staleFeeds);
+                return _secondSolver.Solve(requirements, out staleFeeds);
+            }
+        }
+
+        /// <inheritdoc/>
+        public Selections Solve(Requirements requirements)
+        {
+            try
+            {
+                return _firstSolver.Solve(requirements);
+            }
+            catch (SolverException)
+            {
+                return _secondSolver.Solve(requirements);
             }
         }
     }

@@ -43,8 +43,8 @@ namespace ZeroInstall.Central.WinForms.SyncWizards
 
         private void resetWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var policy = Policy.CreateDefault(this);
-            using (var sync = policy.CreateSync(MachineWide))
+            var resolver = new Resolver(this);
+            using (var sync = SyncUtils.CreateSync(resolver, MachineWide))
                 sync.Sync(SyncResetMode.Client);
         }
 

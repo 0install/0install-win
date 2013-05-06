@@ -35,24 +35,38 @@ namespace ZeroInstall.Injector.Feeds
     /// </summary>
     public class FeedManager : FeedManagerBase, IEquatable<FeedManager>
     {
-        #region Constructor
+        #region Dependencies
+        private readonly TrustManager _trustManager;
+        private readonly IHandler _handler;
+
         /// <summary>
-        /// Creates a new cache based on the given path to a cache directory.
+        /// Creates a new feed manager.
         /// </summary>
+        /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
         /// <param name="cache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
-        public FeedManager(IFeedCache cache) : base(cache)
-        {}
+        /// <param name="trustManager">Methods for verifying signatures and user trust.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
+        public FeedManager(Config config, IFeedCache cache, TrustManager trustManager, IHandler handler)
+            : base(config, cache)
+        {
+            #region Sanity checks
+            if (trustManager == null) throw new ArgumentNullException("trustManager");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            _trustManager = trustManager;
+            _handler = handler;
+        }
         #endregion
 
         //--------------------//
 
         #region Get feed
         /// <inheritdoc/>
-        public override Feed GetFeed(string feedID, Policy policy, ref bool stale)
+        public override Feed GetFeed(string feedID, ref bool stale)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
             // Assume invalid URIs are local paths
@@ -62,18 +76,18 @@ namespace ZeroInstall.Injector.Feeds
 
             try
             {
-                if (Refresh) DownloadFeed(feedUrl, policy);
+                if (Refresh) DownloadFeed(feedUrl);
                 else if (!Cache.Contains(feedID))
                 {
                     // Do not download in offline mode
-                    if (policy.Config.EffectiveNetworkUse == NetworkLevel.Offline)
+                    if (Config.EffectiveNetworkUse == NetworkLevel.Offline)
                         throw new IOException(string.Format(Resources.FeedNotCachedOffline, feedID));
 
                     // Try to download missing feed
-                    DownloadFeed(feedUrl, policy);
+                    DownloadFeed(feedUrl);
                 }
 
-                return LoadCachedFeed(feedID, policy, out stale);
+                return LoadCachedFeed(feedID, out stale);
             }
                 #region Error handling
             catch (KeyNotFoundException ex)
@@ -119,21 +133,20 @@ namespace ZeroInstall.Injector.Feeds
         /// Loads a <see cref="Feed"/> from the <see cref="FeedManagerBase.Cache"/>.
         /// </summary>
         /// <param name="feedID">The ID used to identify the feed. Must be an HTTP(S) URL.</param>
-        /// <param name="policy">Provides additional class dependencies.</param>
         /// <param name="stale">Indicates that the returned <see cref="Feed"/> should be updated.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedID"/> was not found in the cache.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
-        private Feed LoadCachedFeed(string feedID, Policy policy, out bool stale)
+        private Feed LoadCachedFeed(string feedID, out bool stale)
         {
             // Detect when feeds get out-of-date
             // ToDo: Evaluate caching the last check value somewhere
             var preferences = FeedPreferences.LoadForSafe(feedID);
             TimeSpan lastChecked = DateTime.UtcNow - preferences.LastChecked;
             TimeSpan lastCheckAttempt = DateTime.UtcNow - GetLastCheckAttempt(feedID);
-            stale = (lastChecked > policy.Config.Freshness && lastCheckAttempt > _failedCheckDelay);
+            stale = (lastChecked > Config.Freshness && lastCheckAttempt > _failedCheckDelay);
 
             try
             {
@@ -159,7 +172,6 @@ namespace ZeroInstall.Injector.Feeds
         /// Downloads a <see cref="Feed"/> into the <see cref="FeedManagerBase.Cache"/> validating its signatures.
         /// </summary>
         /// <param name="url">The URL of download the feed from.</param>
-        /// <param name="policy">Provides additional class dependencies.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="url"/> is an invalid interface ID.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="url"/> was not found in the cache.</exception>
@@ -167,33 +179,33 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
         [SuppressMessage("Microsoft.Usage", "CA2200:RethrowToPreserveStackDetails", Justification = "Rethrow the outer instead of the inner exception")]
-        private void DownloadFeed(Uri url, Policy policy)
+        private void DownloadFeed(Uri url)
         {
             SetLastCheckAttempt(url.ToString());
 
             // ToDo: Add tracking and better cancellation support
-            policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+            _handler.CancellationToken.ThrowIfCancellationRequested();
             using (var webClient = new WebClientTimeout())
             {
                 try
                 {
-                    ImportFeed(url, null, webClient.DownloadData(url), policy);
-                    policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+                    ImportFeed(url, null, webClient.DownloadData(url));
+                    _handler.CancellationToken.ThrowIfCancellationRequested();
                 }
                 catch (WebException ex)
                 {
                     if (url.Host == "localhost" || url.Host == "127.0.0.1") throw;
-                    policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+                    _handler.CancellationToken.ThrowIfCancellationRequested();
                     Log.Warn(string.Format(Resources.FeedDownloadErrorSwitchToMirror, url, ex.Message));
 
-                    var mirrorUrl = new Uri(policy.Config.FeedMirror, string.Format(
+                    var mirrorUrl = new Uri(Config.FeedMirror, string.Format(
                         "feeds/{0}/{1}/{2}/latest.xml",
                         url.Scheme,
                         url.Host,
                         string.Concat(url.Segments).TrimStart('/').Replace("/", "%23")));
                     try
                     {
-                        ImportFeed(url, mirrorUrl, webClient.DownloadData(mirrorUrl), policy);
+                        ImportFeed(url, mirrorUrl, webClient.DownloadData(mirrorUrl));
                     }
                     catch (WebException)
                     {
@@ -201,25 +213,24 @@ namespace ZeroInstall.Injector.Feeds
                         throw ex;
                     }
 
-                    policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+                    _handler.CancellationToken.ThrowIfCancellationRequested();
                 }
             }
-            policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+            _handler.CancellationToken.ThrowIfCancellationRequested();
         }
         #endregion
 
         #region Import feed
         /// <inheritdoc/>
-        public override void ImportFeed(Uri uri, Uri mirrorUri, byte[] data, Policy policy)
+        public override void ImportFeed(Uri uri, Uri mirrorUri, byte[] data)
         {
             #region Sanity checks
             if (uri == null) throw new ArgumentNullException("uri");
             if (data == null) throw new ArgumentNullException("data");
-            if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
-            var newSignature = TrustUtils.CheckTrust(uri, mirrorUri, data, policy);
-            DetectAttacks(uri, data, policy, newSignature);
+            var newSignature = _trustManager.CheckTrust(uri, mirrorUri, data);
+            DetectAttacks(uri, data, newSignature);
 
             // Add to cache and remember time
             Cache.Add(uri.ToString(), data);
@@ -234,11 +245,10 @@ namespace ZeroInstall.Injector.Feeds
         /// </summary>
         /// <param name="uri">The URI the feed originally came from.</param>
         /// <param name="data">The data of the feed.</param>
-        /// <param name="policy">Provides additional class dependencies.</param>
         /// <param name="signature">The first trusted signature for the feed.</param>
         /// <exception cref="InvalidInterfaceIDException">Thrown if feed substitution or another interface URI-related problem was detected.</exception>
         /// <exception cref="ReplayAttackException">Thrown if a replay attack was detected.</exception>
-        private void DetectAttacks(Uri uri, byte[] data, Policy policy, ValidSignature signature)
+        private void DetectAttacks(Uri uri, byte[] data, ValidSignature signature)
         {
             // Detect feed substitution 
             var feed = XmlStorage.LoadXml<Feed>(new MemoryStream(data));
@@ -248,7 +258,7 @@ namespace ZeroInstall.Injector.Feeds
             // Detect replay attacks
             try
             {
-                var oldSignature = Cache.GetSignatures(uri.ToString(), policy.OpenPgp).OfType<ValidSignature>().FirstOrDefault();
+                var oldSignature = Cache.GetSignatures(uri.ToString()).OfType<ValidSignature>().FirstOrDefault();
                 if (oldSignature != null && signature.Timestamp < oldSignature.Timestamp) throw new ReplayAttackException(uri, oldSignature.Timestamp, signature.Timestamp);
             }
             catch (KeyNotFoundException)

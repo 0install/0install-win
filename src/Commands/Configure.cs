@@ -44,7 +44,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Configure(Policy policy) : base(policy)
+        public Configure(Resolver resolver) : base(resolver)
         {}
         #endregion
 
@@ -59,9 +59,9 @@ namespace ZeroInstall.Commands
             switch (AdditionalArgs.Count)
             {
                 case 0:
-                    if (Policy.Handler.ShowConfig(Policy.Config))
+                    if (Resolver.Handler.ShowConfig(Resolver.Config))
                     { // Only save if the user confirmed the changes
-                        Policy.Config.Save();
+                        Resolver.Config.Save();
                     }
                     return 0;
 
@@ -87,17 +87,17 @@ namespace ZeroInstall.Commands
             string value;
             try
             {
-                value = Policy.Config.GetOption(key);
+                value = Resolver.Config.GetOption(key);
             }
                 #region Error handling
             catch (KeyNotFoundException)
             {
-                Policy.Handler.Output("Configuration error", string.Format("Unknown option '{0}'", key));
+                Resolver.Handler.Output("Configuration error", string.Format("Unknown option '{0}'", key));
                 return 1;
             }
             #endregion
 
-            Policy.Handler.Output(key, value);
+            Resolver.Handler.Output(key, value);
             return 0;
         }
 
@@ -109,22 +109,22 @@ namespace ZeroInstall.Commands
         {
             try
             {
-                Policy.Config.SetOption(key, value);
+                Resolver.Config.SetOption(key, value);
             }
                 #region Error handling
             catch (KeyNotFoundException)
             {
-                Policy.Handler.Output("Configuration error", string.Format("Unknown option '{0}'", key));
+                Resolver.Handler.Output("Configuration error", string.Format("Unknown option '{0}'", key));
                 return 1;
             }
             catch (FormatException ex)
             {
-                Policy.Handler.Output("Configuration error", ex.Message);
+                Resolver.Handler.Output("Configuration error", ex.Message);
                 return 1;
             }
             #endregion
 
-            Policy.Config.Save();
+            Resolver.Config.Save();
             return 0;
         }
         #endregion

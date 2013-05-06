@@ -1,13 +1,13 @@
 ﻿import ZeroInstall.Model
 import ZeroInstall.Injector
-import ZeroInstall.Injector.Solver
- 
-def Main(args as (string)):
-    run(Requirements(InterfaceID:args[0]))
- 
-def run(requirements):
-    policy = Policy.CreateDefault(CliHandler())
-    selections = policy.Solve(requirements)
-    missing = SelectionsUtils.GetUncachedImplementations(selections, policy)
-    policy.Fetch(missing)
-    Executor(selections, policy.Fetcher.Store).Start()
+
+def run(resolver as Resolver, requirements):
+    selections = resolver.Solver.Solve(requirements)
+    missing = resolver.SelectionsManager.GetUncachedImplementations(selections)
+    resolver.Fetcher.Fetch(missing)
+    Executor(selections, resolver.Store).Start()
+
+def Main(argv as (string)):
+    run(
+        Resolver(CliHandler()),
+        Requirements(InterfaceID:argv[0]))

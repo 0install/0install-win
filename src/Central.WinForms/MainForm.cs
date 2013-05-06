@@ -31,13 +31,14 @@ using Common.Info;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
+using ZeroInstall.Commands;
 using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -66,7 +67,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 Program.ConfigureTaskbar(this, Text, null, null);
 
-                var syncLink = new WindowsUtils.ShellLink(buttonSync.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), Commands.SyncApps.Name);
+                var syncLink = new WindowsUtils.ShellLink(buttonSync.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), SyncApps.Name);
                 var cacheLink = new WindowsUtils.ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Store.Management.WinForms.Program.ExeName + ".exe"), null);
                 WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[] {syncLink, cacheLink});
             };
@@ -84,7 +85,8 @@ namespace ZeroInstall.Central.WinForms
                 try
                 {
                     // Ensure all relevant directories are created
-                    Policy.CreateDefault(new SilentHandler());
+                    Config.Load();
+                    StoreFactory.CreateDefault();
 
                     appList.IconCache = catalogList.IconCache = IconCacheProvider.GetInstance();
                 }
@@ -144,6 +146,13 @@ namespace ZeroInstall.Central.WinForms
                 if (tabControlApps.SelectedTab == tabPageAppList) appList.PerformScroll(e.Delta);
                 else if (tabControlApps.SelectedTab == tabPageCatalog) catalogList.PerformScroll(e.Delta);
             };
+        }
+        #endregion
+
+        #region Resolver
+        private Resolver GetResolver()
+        {
+            return new Resolver(new MinimalHandler(this));
         }
         #endregion
 
@@ -295,8 +304,8 @@ namespace ZeroInstall.Central.WinForms
 
         private void appListWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var policy = Policy.CreateDefault(new MinimalHandler(this));
-            policy.Config.NetworkUse = NetworkLevel.Minimal; // Don't update already cached feeds, even if they are stale
+            var resolver = GetResolver();
+            resolver.Config.NetworkUse = NetworkLevel.Minimal;
 
             var feedsToLoad = (IDictionary<AppTile, string>)e.Argument;
             foreach (var pair in feedsToLoad)
@@ -306,7 +315,7 @@ namespace ZeroInstall.Central.WinForms
                 try
                 {
                     // Load and parse the feed
-                    var feed = policy.FeedManager.GetFeed(pair.Value, policy);
+                    var feed = resolver.FeedManager.GetFeed(pair.Value);
 
                     // Send it to the UI thread
                     var tile = pair.Key;
@@ -361,7 +370,7 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         private void LoadCatalogCached()
         {
-            _currentCatalog = CatalogManager.GetCached();
+            _currentCatalog = GetResolver().CatalogManager.GetCached();
             _currentCatalog.Feeds.Apply(QueueCatalogTile);
             catalogList.AddQueuedTiles();
             catalogList.ShowCategories();
@@ -385,7 +394,7 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                e.Result = CatalogManager.GetOnline(Policy.CreateDefault(new MinimalHandler(this)));
+                e.Result = GetResolver().CatalogManager.GetOnline();
             }
                 #region Error handling
             catch (WebException ex)
@@ -483,8 +492,8 @@ namespace ZeroInstall.Central.WinForms
             else
             {
                 ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                    ? new[] {Commands.SyncApps.Name, "--machine"}
-                    : new[] {Commands.SyncApps.Name}));
+                    ? new[] {SyncApps.Name, "--machine"}
+                    : new[] {SyncApps.Name}));
             }
         }
 
@@ -557,8 +566,8 @@ namespace ZeroInstall.Central.WinForms
         private void buttonUpdateAll_Click(object sender, EventArgs e)
         {
             ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                ? new[] {Commands.UpdateApps.Name, "--machine"}
-                : new[] {Commands.UpdateApps.Name}));
+                ? new[] {UpdateApps.Name, "--machine"}
+                : new[] {UpdateApps.Name}));
         }
 
         private void buttonUpdateAllClean_Click(object sender, EventArgs e)
@@ -566,8 +575,8 @@ namespace ZeroInstall.Central.WinForms
             if (!Msg.YesNo(this, Resources.UpdateAllCleanWillRemove, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
 
             ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                ? new[] {Commands.UpdateApps.Name, "--clean", "--machine"}
-                : new[] {Commands.UpdateApps.Name, "--clean"}));
+                ? new[] {UpdateApps.Name, "--clean", "--machine"}
+                : new[] {UpdateApps.Name, "--clean"}));
         }
 
         private void buttonRefreshCatalog_Click(object sender, EventArgs e)
@@ -594,7 +603,7 @@ namespace ZeroInstall.Central.WinForms
         {
             if (!Msg.YesNo(this, Resources.OptionsAdvancedWarn, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
 
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {Commands.Configure.Name}));
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {Configure.Name}));
         }
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)
@@ -694,8 +703,8 @@ namespace ZeroInstall.Central.WinForms
         private void AddCustomInterface(string interfaceID)
         {
             ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                ? new[] {Commands.AddApp.Name, "--machine", interfaceID}
-                : new[] {Commands.AddApp.Name, interfaceID}));
+                ? new[] {AddApp.Name, "--machine", interfaceID}
+                : new[] {AddApp.Name, interfaceID}));
             tabControlApps.SelectTab(tabPageAppList);
         }
         #endregion

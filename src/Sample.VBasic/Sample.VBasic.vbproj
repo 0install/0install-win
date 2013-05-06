@@ -59,6 +59,10 @@
     <Compile Include="MinimalZeroInstall.vb" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Commands\Commands.csproj">
+      <Project>{606c7fb6-2c58-11e0-8161-7159dfd72085}</Project>
+      <Name>Commands</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{81af4fa5-44f7-4010-8769-b85b8b542fa2}</Project>
       <Name>Common</Name>
@@ -79,6 +83,9 @@
       <Project>{bd330a44-dabf-43e9-83b4-0750f8f1db9d}</Project>
       <Name>Store</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="My Project\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

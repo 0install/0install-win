@@ -26,7 +26,6 @@ using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
@@ -88,13 +87,13 @@ namespace ZeroInstall.Commands
         protected Mock<IOpenPgp> OpenPgpMock { get; private set; }
         protected Mock<ISolver> SolverMock { get; private set; }
         protected Mock<IFetcher> FetcherMock { get; private set; }
-        protected Policy Policy { get; private set; }
+        protected Resolver Resolver { get; private set; }
 
         /// <summary>The command to be tested.</summary>
         protected FrontendCommand Command { get; private set; }
         #endregion
 
-        /// <summary>Creates an instance of the command type to be tested using <see cref="_handler"/> and <see cref="Policy"/>.</summary>
+        /// <summary>Creates an instance of the command type to be tested using <see cref="_handler"/> and <see cref="Resolver"/>.</summary>
         protected abstract FrontendCommand GetCommand();
 
         private LocationsRedirect _redirect;
@@ -116,10 +115,15 @@ namespace ZeroInstall.Commands
             OpenPgpMock = _mockRepository.Create<IOpenPgp>();
             SolverMock = _mockRepository.Create<ISolver>();
             FetcherMock = _mockRepository.Create<IFetcher>(MockBehavior.Loose);
-            FetcherMock.Setup(x => x.Store).Returns(new Mock<IStore>().Object);
-            Policy = new Policy(
-                new Config(), new MockFeedManager(CacheMock.Object),
-                FetcherMock.Object, OpenPgpMock.Object, SolverMock.Object, _handler);
+            Resolver = new Resolver(_handler)
+            {
+                Config = new Config(),
+                FeedCache = CacheMock.Object,
+                Store = new Mock<IStore>().Object,
+                Fetcher = FetcherMock.Object,
+                OpenPgp = OpenPgpMock.Object,
+                Solver = SolverMock.Object
+            };
 
             Command = GetCommand();
         }

@@ -39,12 +39,12 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        protected AddRemoveFeedCommand(Policy policy) : base(policy)
+        protected AddRemoveFeedCommand(Resolver resolver) : base(resolver)
         {
-            Options.Add("batch", Resources.OptionBatch, unused => Policy.Handler.Batch = true);
+            Options.Add("batch", Resources.OptionBatch, unused => Resolver.Handler.Batch = true);
 
-            Options.Add("o|offline", Resources.OptionOffline, unused => Policy.Config.NetworkUse = NetworkLevel.Offline);
-            Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.FeedManager.Refresh = true);
+            Options.Add("o|offline", Resources.OptionOffline, unused => Resolver.Config.NetworkUse = NetworkLevel.Offline);
+            Options.Add("r|refresh", Resources.OptionRefresh, unused => Resolver.FeedManager.Refresh = true);
         }
         #endregion
 
@@ -55,7 +55,7 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
             if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments, "");
 
-            Policy.Handler.ShowProgressUI();
+            Resolver.Handler.ShowProgressUI();
 
             string feedID;
             IEnumerable<string> interfaces;
@@ -67,10 +67,10 @@ namespace ZeroInstall.Commands
             else
             { // Determine interfaces from feed content (<feed-for> tags)
                 feedID = GetCanonicalID(AdditionalArgs[0]);
-                var feed = Policy.FeedManager.GetFeed(feedID, Policy);
+                var feed = Resolver.FeedManager.GetFeed(feedID);
                 if (feed.FeedFor.IsEmpty)
                 {
-                    Policy.Handler.Output(Resources.FeedManagement, string.Format(Resources.MissingFeedFor, feedID));
+                    Resolver.Handler.Output(Resources.FeedManagement, string.Format(Resources.MissingFeedFor, feedID));
                     return 1;
                 }
                 interfaces = feed.FeedFor.Map(reference => reference.Target.ToString());
@@ -78,9 +78,9 @@ namespace ZeroInstall.Commands
             var modified = ApplyFeedToInterfaces(feedID, interfaces);
 
             // Show a confirmation message (but not in batch mode, since it is not important enough)
-            if (!Policy.Handler.Batch)
+            if (!Resolver.Handler.Batch)
             {
-                Policy.Handler.Output(Resources.FeedManagement, (modified.Count == 0)
+                Resolver.Handler.Output(Resources.FeedManagement, (modified.Count == 0)
                     ? NoneModifiedMessage
                     : string.Format(ModifiedMessage, "\n".Join(modified)));
             }

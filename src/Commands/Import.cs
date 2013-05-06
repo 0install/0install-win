@@ -48,9 +48,9 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Import(Policy policy) : base(policy)
+        public Import(Resolver resolver) : base(resolver)
         {
-            Options.Add("batch", Resources.OptionBatch, unused => Policy.Handler.Batch = true);
+            Options.Add("batch", Resources.OptionBatch, unused => Resolver.Handler.Batch = true);
         }
         #endregion
 
@@ -63,12 +63,12 @@ namespace ZeroInstall.Commands
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
 
-            Policy.Handler.ShowProgressUI();
+            Resolver.Handler.ShowProgressUI();
             foreach (var file in ArgumentUtils.GetFiles(AdditionalArgs, "*.xml"))
             {
-                Policy.FeedManager.ImportFeed(
+                Resolver.FeedManager.ImportFeed(
                     XmlStorage.LoadXml<Feed>(file.FullName).Uri, new Uri(file.FullName),
-                    File.ReadAllBytes(file.FullName), Policy);
+                    File.ReadAllBytes(file.FullName));
             }
             return 0;
         }

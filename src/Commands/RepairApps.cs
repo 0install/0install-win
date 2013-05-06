@@ -52,7 +52,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public RepairApps(Policy policy) : base(policy)
+        public RepairApps(Resolver resolver) : base(resolver)
         {}
         #endregion
 
@@ -67,9 +67,9 @@ namespace ZeroInstall.Commands
 
             if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
 
-            Policy.Handler.ShowProgressUI();
-            using (var integrationManager = new IntegrationManager(MachineWide, Policy.Handler))
-                integrationManager.Repair(feedID => Policy.FeedManager.GetFeed(feedID, Policy));
+            Resolver.Handler.ShowProgressUI();
+            using (var integrationManager = new IntegrationManager(MachineWide, Resolver.Handler))
+                integrationManager.Repair(feedID => Resolver.FeedManager.GetFeed(feedID));
             return 0;
         }
         #endregion

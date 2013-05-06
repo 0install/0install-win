@@ -82,7 +82,7 @@ namespace ZeroInstall.Store.Management.WinForms
                 var nodes = new NamedCollection<Node>();
 
                 // List feeds/interfaces
-                var feedCache = FeedCacheFactory.CreateDefault();
+                var feedCache = FeedCacheFactory.CreateDefault(OpenPgpFactory.CreateDefault());
                 var feeds = FeedUtils.GetFeeds(feedCache);
                 foreach (Feed feed in feeds)
                     AddWithIncrement(nodes, new FeedNode(this, feedCache, feed));
@@ -213,13 +213,13 @@ namespace ZeroInstall.Store.Management.WinForms
         {
             try
             {
-                Process.Start(new ProcessStartInfo(Path.Combine(Locations.InstallBase, "0store-win.exe")) { Verb = "runas", ErrorDialog = true });
+                Process.Start(new ProcessStartInfo(Path.Combine(Locations.InstallBase, "0store-win.exe")) {Verb = "runas", ErrorDialog = true});
                 Close();
             }
             catch (FileNotFoundException)
-            { }
+            {}
             catch (Win32Exception)
-            { }
+            {}
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
@@ -296,6 +296,11 @@ namespace ZeroInstall.Store.Management.WinForms
         #endregion
 
         #region Handler
+        /// <summary>
+        /// Always returns 1.
+        /// </summary>
+        public int Verbosity { get { return 1; } set { } }
+
         private readonly CancellationToken _cancellationToken = new CancellationToken();
 
         /// <inheritdoc/>

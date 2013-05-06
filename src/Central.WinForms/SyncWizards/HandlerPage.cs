@@ -65,6 +65,11 @@ namespace ZeroInstall.Central.WinForms.SyncWizards
         }
 
         /// <summary>
+        /// Always returns 1.
+        /// </summary>
+        public int Verbosity { get { return 1; } set { } }
+
+        /// <summary>
         /// Always returns <see langword="true"/>.
         /// </summary>
         public bool Batch { get { return true; } set { } }

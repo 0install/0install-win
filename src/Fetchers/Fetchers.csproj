@@ -62,7 +62,6 @@
     <Compile Include="FetcherBase.cs" />
     <Compile Include="RecipeUtils.cs" />
     <Compile Include="RetrievalMethodRanker.cs" />
-    <Compile Include="FetcherFactory.cs" />
     <Compile Include="SequentialFetcher.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IFetcher.cs" />

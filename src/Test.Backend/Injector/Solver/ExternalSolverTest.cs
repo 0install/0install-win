@@ -23,9 +23,6 @@ namespace ZeroInstall.Injector.Solver
     /// Runs test methods for <see cref="ExternalSolver"/>.
     /// </summary>
     [TestFixture(Ignore = true, IgnoreReason = "External solver is not reliably testable yet")]
-    public class ExternalSolverTest : SolverTest
-    {
-        public ExternalSolverTest() : base(new ExternalSolver())
-        {}
-    }
+    public class ExternalSolverTest : SolverTest<ExternalSolver>
+    {}
 }

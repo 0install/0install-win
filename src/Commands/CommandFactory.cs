@@ -42,7 +42,7 @@ namespace ZeroInstall.Commands
         /// Creates a nw <see cref="FrontendCommand"/> based on a name.
         /// </summary>
         /// <param name="commandName">The command name to look for; case-insensitive; may be <see langword="null"/>.</param>
-        /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         /// <returns>The requested <see cref="FrontendCommand"/> or <see cref="DefaultCommand"/> if <paramref name="commandName"/> was <see langword="null"/>.</returns>
         /// <exception cref="OptionException">Thrown if <paramref name="commandName"/> is an unknown command.</exception>
         /// <exception cref="IOException">Thrown if there was a problem accessing a configuration file or one of the stores.</exception>
@@ -50,55 +50,55 @@ namespace ZeroInstall.Commands
         /// <exception cref="InvalidDataException">Thrown if a configuration file is damaged.</exception>
         private static FrontendCommand GetCommand(string commandName, IHandler handler)
         {
-            var policy = Policy.CreateDefault(handler);
-            if (string.IsNullOrEmpty(commandName)) return new DefaultCommand(policy);
+            var resolver = new Resolver(handler);
+            if (string.IsNullOrEmpty(commandName)) return new DefaultCommand(resolver);
             switch (commandName.ToLowerInvariant())
             {
                 case Selection.Name:
-                    return new Selection(policy);
+                    return new Selection(resolver);
                 case Download.Name:
-                    return new Download(policy);
+                    return new Download(resolver);
                 case Update.Name:
-                    return new Update(policy);
+                    return new Update(resolver);
                 case Run.Name:
-                    return new Run(policy);
+                    return new Run(resolver);
                 case SelfUpdate.Name:
-                    return new SelfUpdate(policy);
+                    return new SelfUpdate(resolver);
                 case Import.Name:
-                    return new Import(policy);
+                    return new Import(resolver);
                 case List.Name:
-                    return new List(policy);
+                    return new List(resolver);
                 case Configure.Name:
-                    return new Configure(policy);
+                    return new Configure(resolver);
                 case AddFeed.Name:
-                    return new AddFeed(policy);
+                    return new AddFeed(resolver);
                 case RemoveFeed.Name:
-                    return new RemoveFeed(policy);
+                    return new RemoveFeed(resolver);
                 case ListFeeds.Name:
-                    return new ListFeeds(policy);
+                    return new ListFeeds(resolver);
                 case Digest.Name:
-                    return new Digest(policy);
+                    return new Digest(resolver);
                 case AddApp.Name:
                 case AddApp.AltName:
-                    return new AddApp(policy);
+                    return new AddApp(resolver);
                 case RemoveApp.Name:
                 case RemoveApp.AltName:
                 case RemoveApp.AltName2:
-                    return new RemoveApp(policy);
+                    return new RemoveApp(resolver);
                 case IntegrateApp.Name:
                 case IntegrateApp.AltName:
-                    return new IntegrateApp(policy);
+                    return new IntegrateApp(resolver);
                 case AddAlias.Name:
                 case AddAlias.AltName:
-                    return new AddAlias(policy);
+                    return new AddAlias(resolver);
                 case UpdateApps.Name:
                 case UpdateApps.AltName:
-                    return new UpdateApps(policy);
+                    return new UpdateApps(resolver);
                 case RepairApps.Name:
                 case RepairApps.AltName:
-                    return new RepairApps(policy);
+                    return new RepairApps(resolver);
                 case SyncApps.Name:
-                    return new SyncApps(policy);
+                    return new SyncApps(resolver);
                 default:
                     throw new OptionException(string.Format(Resources.UnknownCommand, commandName), null);
             }
@@ -110,7 +110,7 @@ namespace ZeroInstall.Commands
         /// Parses command-line arguments, automatically creating an appropriate <see cref="FrontendCommand"/>.
         /// </summary>
         /// <param name="args">The command-line arguments to be parsed.</param>
-        /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         /// <returns>The newly created <see cref="FrontendCommand"/> after <see cref="FrontendCommand.Parse"/> has been called.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the user asked to see help information, version information, etc..</exception>
         /// <exception cref="OptionException">Thrown if <paramref name="args"/> contains unknown options or specified an unknown command.</exception>

@@ -32,14 +32,14 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override FrontendCommand GetCommand()
         {
-            return new Download(Policy);
+            return new Download(Resolver);
         }
 
         [Test(Description = "Ensures all options are parsed and handled correctly.")]
         public override void TestNormal()
         {
             var requirements = RequirementsTest.CreateTestRequirements();
-            var selections = SelectionsUtilsTest.CreateTestSelections();
+            var selections = SelectionsManagerTest.CreateTestSelections();
 
             var testFeed1 = FeedTest.CreateTestFeed();
             testFeed1.Uri = new Uri("http://0install.de/feeds/test/sub1.xml");
@@ -56,17 +56,13 @@ namespace ZeroInstall.Commands
             };
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(testFeed2);
 
-            var refreshPolicy = Policy.Clone();
-            refreshPolicy.FeedManager.Refresh = true;
-
             Command.Parse(new[] {"http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0"});
 
             bool stale;
-            SolverMock.Setup(x => x.Solve(requirements, Policy, out stale)).Returns(selections).Verifiable(); // First Solve()
-            SolverMock.Setup(x => x.Solve(requirements, refreshPolicy, out stale)).Returns(selections).Verifiable(); // Refresh Solve() because there are uncached implementations
+            SolverMock.Setup(x => x.Solve(requirements, out stale)).Returns(selections).Verifiable();
 
             // Download uncached implementations
-            FetcherMock.Setup(x => x.Fetch(new[] {testImplementation1, testImplementation2}, Policy.Handler)).Verifiable();
+            FetcherMock.Setup(x => x.Fetch(new[] {testImplementation1, testImplementation2})).Verifiable();
 
             Assert.AreEqual(0, Command.Execute());
         }
@@ -88,7 +84,7 @@ namespace ZeroInstall.Commands
             };
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(testFeed2);
 
-            var selections = SelectionsUtilsTest.CreateTestSelections();
+            var selections = SelectionsManagerTest.CreateTestSelections();
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 selections.SaveXml(tempFile);

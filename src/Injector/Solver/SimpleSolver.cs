@@ -21,21 +21,51 @@ using System.Linq;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// Solves simple tree-like dependencies (no support for loops, diamonds, etc.).
+    /// Solves simple tree-like dependencies in requirements (no support for loops, diamonds, etc.).
     /// </summary>
     /// <remarks>This class is immutable and thread-safe.</remarks>
     public sealed class SimpleSolver : ISolver
     {
+        #region Dependencies
+        private readonly Config _config;
+        private readonly IFeedManager _feedManager;
+        private readonly IStore _store;
+        private readonly IHandler _handler;
+
+        /// <summary>
+        /// Creates a new simple solver.
+        /// </summary>
+        /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
+        /// <param name="store">Used to check which <see cref="Implementation"/>s are already cached.</param>
+        /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
+        public SimpleSolver(Config config, IFeedManager feedManager, IStore store, IHandler handler)
+        {
+            #region Sanity checks
+            if (config == null) throw new ArgumentNullException("config");
+            if (feedManager == null) throw new ArgumentNullException("feedManager");
+            if (store == null) throw new ArgumentNullException("store");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            _config = config;
+            _store = store;
+            _feedManager = feedManager;
+            _handler = handler;
+        }
+        #endregion
+
         /// <inheritdoc/>
-        public Selections Solve(Requirements requirements, Policy policy, out bool staleFeeds)
+        public Selections Solve(Requirements requirements, out bool staleFeeds)
         {
             #region Sanity checks
             if (requirements == null) throw new ArgumentNullException("requirements");
-            if (policy == null) throw new ArgumentNullException("policy");
+            if (string.IsNullOrEmpty(requirements.InterfaceID)) throw new ArgumentException(Resources.MissingInterfaceID, "requirements");
             #endregion
 
             // Fill in default architecture values
@@ -44,20 +74,35 @@ namespace ZeroInstall.Injector.Solver
                 (requirements.Architecture.OS == OS.All) ? Architecture.CurrentSystem.OS : requirements.Architecture.OS,
                 (requirements.Architecture.Cpu == Cpu.All) ? Architecture.CurrentSystem.Cpu : requirements.Architecture.Cpu);
 
-            return new SolveProcess(policy).Run(requirements, out staleFeeds);
+            var process = new SolveProcess(_config, _store, _handler, new SolverFeedCache(_feedManager));
+            return process.Run(requirements, out staleFeeds);
+        }
+
+        /// <inheritdoc/>
+        public Selections Solve(Requirements requirements)
+        {
+            bool temp;
+            return Solve(requirements, out temp);
         }
 
         private class SolveProcess
         {
-            private readonly Policy _policy;
+            #region Dependencies
+            private readonly Config _config;
+            private readonly IStore _store;
+            private readonly IHandler _handler;
             private readonly SolverFeedCache _feedCache;
-            private Selections _selections;
 
-            public SolveProcess(Policy policy)
+            public SolveProcess(Config config, IStore store, IHandler handler, SolverFeedCache feedCache)
             {
-                _policy = policy;
-                _feedCache = new SolverFeedCache(policy);
+                _config = config;
+                _store = store;
+                _handler = handler;
+                _feedCache = feedCache;
             }
+            #endregion
+
+            private Selections _selections;
 
             public Selections Run(Requirements requirements, out bool staleFeeds)
             {
@@ -76,7 +121,7 @@ namespace ZeroInstall.Injector.Solver
 
             private void AddSelection(Requirements requirements)
             {
-                _policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+                _handler.CancellationToken.ThrowIfCancellationRequested();
 
                 var candidates = new List<SelectionCandidate>();
 
@@ -118,7 +163,7 @@ namespace ZeroInstall.Injector.Solver
 
                 // ToDo: Detect cyclic or cross-references
                 foreach (var dependency in implementation.Dependencies.
-                    Where(dependency => string.IsNullOrEmpty(dependency.Use) || (dependency.Use == "testing" && requirements.CommandName == "test")))
+                                                          Where(dependency => string.IsNullOrEmpty(dependency.Use) || (dependency.Use == "testing" && requirements.CommandName == "test")))
                 {
                     AddSelection(new Requirements
                     {
@@ -145,7 +190,7 @@ namespace ZeroInstall.Injector.Solver
                     var candidate = new SelectionCandidate(feedID, implementation, feedPreferences[implementation.ID], requirements);
 
                     // Exclude non-cached implementations when in offline-mode
-                    if (candidate.IsSuitable && _policy.Config.EffectiveNetworkUse == NetworkLevel.Offline && !_policy.Fetcher.Store.Contains(implementation.ManifestDigest))
+                    if (candidate.IsSuitable && _config.EffectiveNetworkUse == NetworkLevel.Offline && !_store.Contains(implementation.ManifestDigest))
                     {
                         candidate.IsSuitable = false;
                         candidate.Notes = Resources.SelectionCandidateNoteNotCached;
@@ -160,7 +205,7 @@ namespace ZeroInstall.Injector.Solver
             private void SortCandidates(List<SelectionCandidate> candidates, InterfacePreferences interfacePreferences)
             {
                 var stabilityPolicy = interfacePreferences.StabilityPolicy;
-                if (stabilityPolicy == Stability.Unset) stabilityPolicy = _policy.Config.HelpWithTesting ? Stability.Testing : Stability.Stable;
+                if (stabilityPolicy == Stability.Unset) stabilityPolicy = _config.HelpWithTesting ? Stability.Testing : Stability.Stable;
 
                 candidates.Sort((x, y) =>
                 {
@@ -171,10 +216,10 @@ namespace ZeroInstall.Injector.Solver
                     if (x.EffectiveStability != Stability.Preferred && y.EffectiveStability == Stability.Preferred) return 1;
 
                     // Prefer available implementations next if we have limited network access
-                    if (_policy.Config.EffectiveNetworkUse != NetworkLevel.Full)
+                    if (_config.EffectiveNetworkUse != NetworkLevel.Full)
                     {
-                        bool xCached = _policy.Fetcher.Store.Contains(x.Implementation.ManifestDigest);
-                        bool yCached = _policy.Fetcher.Store.Contains(x.Implementation.ManifestDigest);
+                        bool xCached = _store.Contains(x.Implementation.ManifestDigest);
+                        bool yCached = _store.Contains(x.Implementation.ManifestDigest);
 
                         if (xCached && !yCached) return -1;
                         if (!xCached && yCached) return 1;
@@ -195,10 +240,10 @@ namespace ZeroInstall.Injector.Solver
                     // ToDo: Slightly prefer languages specialised to our country
 
                     // Slightly prefer cached versions
-                    if (_policy.Config.EffectiveNetworkUse == NetworkLevel.Full)
+                    if (_config.EffectiveNetworkUse == NetworkLevel.Full)
                     {
-                        bool xCached = _policy.Fetcher.Store.Contains(x.Implementation.ManifestDigest);
-                        bool yCached = _policy.Fetcher.Store.Contains(x.Implementation.ManifestDigest);
+                        bool xCached = _store.Contains(x.Implementation.ManifestDigest);
+                        bool yCached = _store.Contains(x.Implementation.ManifestDigest);
 
                         if (xCached && !yCached) return -1;
                         if (!xCached && yCached) return 1;

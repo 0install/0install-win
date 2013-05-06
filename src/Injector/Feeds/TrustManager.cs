@@ -24,36 +24,64 @@ using System.Xml;
 using Common;
 using Common.Controls;
 using ZeroInstall.Injector.Properties;
+using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector.Feeds
 {
     /// <summary>
-    /// Utility methods for verifying signatures and user trust.
+    /// Methods for verifying signatures and user trust.
     /// </summary>
-    public static class TrustUtils
+    public class TrustManager
     {
+        #region Dependencies
+        private readonly Config _config;
+        private readonly IOpenPgp _openPgp;
+        private readonly IFeedCache _feedCache;
+        private readonly IHandler _handler;
+
+        /// <summary>
+        /// Creates a new trust manager.
+        /// </summary>
+        /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
+        /// <param name="openPgp">The OpenPGP-compatible system used to validate the signatures.</param>
+        /// <param name="feedCache">Provides access to a cache of <see cref="Feed"/>s that were downloaded via HTTP(S).</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions.</param>
+        public TrustManager(Config config, IOpenPgp openPgp, IFeedCache feedCache, IHandler handler)
+        {
+            #region Sanity checks
+            if (config == null) throw new ArgumentNullException("config");
+            if (openPgp == null) throw new ArgumentNullException("openPgp");
+            if (feedCache == null) throw new ArgumentNullException("feedCache");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            _config = config;
+            _openPgp = openPgp;
+            _feedCache = feedCache;
+            _handler = handler;
+        }
+        #endregion
+
         /// <summary>
         /// Checks whether a remote feed or catalog file has a a valid and trusted signature. Downloads missing GPG keys for verification and interactivley asks the user to approve new keys.
         /// </summary>
         /// <param name="uri">The URI the feed or catalog file originally came from.</param>
         /// <param name="mirrorUri">The URI or local file path the file was actually loaded from; <see langword="null"/> if it is identical to <paramref name="uri"/>.</param>
         /// <param name="data">The data of the file.</param>
-        /// <param name="policy">Provides additional class dependencies.</param>
         /// <exception cref="SignatureException">Thrown if no trusted signature was found.</exception>
         [SuppressMessage("Microsoft.Usage", "CA2234:PassSystemUriObjectsInsteadOfStrings")]
-        public static ValidSignature CheckTrust(Uri uri, Uri mirrorUri, byte[] data, Policy policy)
+        public ValidSignature CheckTrust(Uri uri, Uri mirrorUri, byte[] data)
         {
             #region Sanity checks
             if (uri == null) throw new ArgumentNullException("uri");
             if (data == null) throw new ArgumentNullException("data");
-            if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
             var domain = new Domain(uri.Host);
             KeyImported:
             var trustDB = TrustDB.LoadSafe();
-            var signatures = FeedUtils.GetSignatures(policy.OpenPgp, data);
+            var signatures = FeedUtils.GetSignatures(_openPgp, data);
 
             // Try to find already trusted key
             // ReSharper disable PossibleMultipleEnumeration
@@ -68,12 +96,12 @@ namespace ZeroInstall.Injector.Feeds
             trustedSignature = validSignatures.FirstOrDefault(sig =>
             {
                 bool goodVote;
-                var keyInformation = GetKeyInformation(sig.Fingerprint, out goodVote, policy) ?? Resources.NoKeyInfoServerData;
+                var keyInformation = GetKeyInformation(sig.Fingerprint, out goodVote) ?? Resources.NoKeyInfoServerData;
 
                 // Automatically trust key if known and voted good by key server (unless the feed was already seen/cached)
-                return (policy.Config.AutoApproveKeys && goodVote && !policy.FeedManager.Cache.Contains(uri.ToString())) ||
+                return (_config.AutoApproveKeys && goodVote && !_feedCache.Contains(uri.ToString())) ||
                     // Otherwise ask user
-                    policy.Handler.AskQuestion(string.Format(Resources.AskKeyTrust, uri, sig.Fingerprint, keyInformation, domain), Resources.UntrustedKeys);
+                    _handler.AskQuestion(string.Format(Resources.AskKeyTrust, uri, sig.Fingerprint, keyInformation, domain), Resources.UntrustedKeys);
             });
             if (trustedSignature != null)
             {
@@ -101,7 +129,7 @@ namespace ZeroInstall.Injector.Feeds
                     try
                     {
                         // ToDo: Add tracking and better cancellation support
-                        policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+                        _handler.CancellationToken.ThrowIfCancellationRequested();
                         using (var webClient = new WebClientTimeout())
                             keyData = webClient.DownloadData(keyUri);
                     }
@@ -113,8 +141,8 @@ namespace ZeroInstall.Injector.Feeds
                     }
                     #endregion
                 }
-                policy.Handler.CancellationToken.ThrowIfCancellationRequested();
-                policy.OpenPgp.ImportKey(keyData);
+                _handler.CancellationToken.ThrowIfCancellationRequested();
+                _openPgp.ImportKey(keyData);
                 goto KeyImported; // Re-evaluate signatures after importing new key material
             }
 
@@ -126,15 +154,14 @@ namespace ZeroInstall.Injector.Feeds
         /// </summary>
         /// <param name="fingerprint">The fingerprint of the key to check.</param>
         /// <param name="goodVote">Returns <see langword="true"/> if the server indicated that the key is trustworthy.</param>
-        /// <param name="policy">Provides additional class dependencies.</param>
         /// <returns>Human-readable information about the key or <see langword="null"/> if the server failed to provide a response.</returns>
-        private static string GetKeyInformation(string fingerprint, out bool goodVote, Policy policy)
+        private string GetKeyInformation(string fingerprint, out bool goodVote)
         {
             try
             {
                 // ToDo: Add better cancellation support
-                var xmlReader = XmlReader.Create(policy.Config.KeyInfoServer + "key/" + fingerprint);
-                policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+                var xmlReader = XmlReader.Create(_config.KeyInfoServer + "key/" + fingerprint);
+                _handler.CancellationToken.ThrowIfCancellationRequested();
                 if (!xmlReader.ReadToFollowing("item"))
                 {
                     goodVote = false;

@@ -1,17 +1,17 @@
 ﻿Imports ZeroInstall.Model
 Imports ZeroInstall.Injector
-Imports ZeroInstall.Injector.Solver
 
 Module MinimalZeroInstall
     Sub Main(ByVal args As String())
-      Run(New Requirements() With {.InterfaceID = args(0)})
+        Run(
+            New Resolver(New CliHandler()),
+            New Requirements() With {.InterfaceID = args(0)})
     End Sub
 
-    Private Sub Run(requirements As Requirements)
-        Dim myPolicy = Policy.CreateDefault(New CliHandler())
-        Dim selections = myPolicy.Solve(requirements)
-        Dim missing = selections.GetUncachedImplementations(myPolicy)
-        myPolicy.Fetch(missing)
-        Call New Executor(selections, myPolicy.Fetcher.Store).Start()
+    Private Sub Run(resolver As Resolver, requirements As Requirements)
+        Dim selections = Resolver.Solver.Solve(requirements)
+        Dim missing = resolver.SelectionsManager.GetUncachedImplementations(selections)
+        resolver.Fetcher.Fetch(missing)
+        Call New Executor(selections, resolver.Store).Start()
     End Sub
 End Module

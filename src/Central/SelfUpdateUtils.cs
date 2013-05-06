@@ -57,13 +57,13 @@ namespace ZeroInstall.Central
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
         public static ImplementationVersion Check()
         {
-            var policy = Policy.CreateDefault(new SilentHandler());
-            if (policy.Config.EffectiveNetworkUse == NetworkLevel.Offline) return null;
-            policy.FeedManager.Refresh = true;
+            var resolver = new Resolver(new SilentHandler());
+            if (resolver.Config.EffectiveNetworkUse == NetworkLevel.Offline) return null;
+            resolver.FeedManager.Refresh = true;
 
             // Run solver
-            var requirements = new Requirements {InterfaceID = policy.Config.SelfUpdateID, CommandName = "update"};
-            var selections = policy.Solve(requirements);
+            var requirements = new Requirements {InterfaceID = resolver.Config.SelfUpdateID, CommandName = "update"};
+            var selections = resolver.Solver.Solve(requirements);
 
             // Report version of current update if it is newer than the already installed version
             var currentVersion = new ImplementationVersion(AppInfo.Current.Version);

@@ -29,6 +29,11 @@ namespace Common.Tasks
     /// </summary>
     public class SilentTaskHandler : MarshalByRefObject, ITaskHandler
     {
+        /// <summary>
+        /// Always returns 0.
+        /// </summary>
+        public int Verbosity { get { return 0; } set { } }
+
         private readonly CancellationToken _cancellationToken = new CancellationToken();
 
         /// <inheritdoc/>

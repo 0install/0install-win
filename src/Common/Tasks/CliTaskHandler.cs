@@ -30,6 +30,9 @@ namespace Common.Tasks
     /// </summary>
     public class CliTaskHandler : MarshalByRefObject, ITaskHandler
     {
+        /// <inheritdoc />
+        public int Verbosity { get; set; }
+
         private readonly CancellationToken _cancellationToken = new CancellationToken();
 
         /// <inheritdoc/>

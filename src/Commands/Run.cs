@@ -62,12 +62,12 @@ namespace ZeroInstall.Commands
         public override string ActionTitle { get { return Resources.ActionRun; } }
 
         /// <inheritdoc/>
-        public override int GuiDelay { get { return Policy.FeedManager.Refresh ? 0 : 1500; } }
+        public override int GuiDelay { get { return Resolver.FeedManager.Refresh ? 0 : 1500; } }
         #endregion
 
         #region Constructor
         /// <inheritdoc/>
-        public Run(Policy policy) : base(policy)
+        public Run(Resolver resolver) : base(resolver)
         {
             //Options.Remove("xml");
             //Options.Remove("show");
@@ -95,14 +95,14 @@ namespace ZeroInstall.Commands
         {
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
 
-            Policy.Handler.ShowProgressUI();
+            Resolver.Handler.ShowProgressUI();
 
             Solve();
 
             // If any implementations need to be downloaded rerun solver in refresh mode (unless it was already in that mode to begin with)
-            if (UncachedImplementations.Count != 0 && !Policy.FeedManager.Refresh)
+            if (UncachedImplementations.Count != 0 && !Resolver.FeedManager.Refresh)
             {
-                Policy.FeedManager.Refresh = true;
+                Resolver.FeedManager.Refresh = true;
                 Solve();
             }
             SelectionsUI();
@@ -110,13 +110,13 @@ namespace ZeroInstall.Commands
             DownloadUncachedImplementations();
 
             // If any of the feeds are getting old spawn background update process
-            if (StaleFeeds && Policy.Config.EffectiveNetworkUse == NetworkLevel.Full)
+            if (StaleFeeds && Resolver.Config.EffectiveNetworkUse == NetworkLevel.Full)
             {
                 // ToDo: Automatically switch to GTK# on Linux
                 ProcessUtils.LaunchAssembly("0install-win", "update --batch " + Requirements.ToCommandLineArgs());
             }
 
-            Policy.Handler.CancellationToken.ThrowIfCancellationRequested();
+            Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
             return LaunchImplementation();
         }
         #endregion
@@ -136,18 +136,18 @@ namespace ZeroInstall.Commands
                 throw new OptionException(Resources.NoRunWithEmptyCommand, "--command");
 
             // Prevent the user from pressing any buttons once the child process is being launched
-            Policy.Handler.DisableProgressUI();
+            Resolver.Handler.DisableProgressUI();
 
             // Prepare new child process
-            var executor = new Executor(Selections, Policy.Fetcher.Store) {Main = _main, Wrapper = _wrapper};
+            var executor = new Executor(Selections, Resolver.Store) {Main = _main, Wrapper = _wrapper};
 
             // Hook into process launching if API hooking is applicable
             RunHook runHook = null;
-            if (Policy.Config.AllowApiHooking && WindowsUtils.IsWindows)
+            if (Resolver.Config.AllowApiHooking && WindowsUtils.IsWindows)
             {
                 try
                 {
-                    runHook = new RunHook(Policy, executor);
+                    runHook = new RunHook(executor, Resolver.FeedManager, Resolver.Handler);
                 }
                     #region Error handling
                 catch (ImplementationNotFoundException)
@@ -169,7 +169,7 @@ namespace ZeroInstall.Commands
                 if (runHook != null) runHook.Dispose();
             }
 
-            Policy.Handler.CloseProgressUI();
+            Resolver.Handler.CloseProgressUI();
 
             if (process == null) return 0;
             try

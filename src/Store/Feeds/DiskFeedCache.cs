@@ -36,26 +36,31 @@ namespace ZeroInstall.Store.Feeds
     /// </remarks>
     public sealed class DiskFeedCache : IFeedCache
     {
+        #region Dependencies
+        private readonly IOpenPgp _openPgp;
+
+        /// <summary>
+        /// Creates a new disk-based cache.
+        /// </summary>
+        /// <param name="path">A fully qualified directory path.</param>
+        /// <param name="openPgp">Provides access to an encryption/signature system compatible with the OpenPGP standard.</param>
+        public DiskFeedCache(string path, IOpenPgp openPgp)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (openPgp == null) throw new ArgumentNullException("openPgp");
+            #endregion
+
+            DirectoryPath = path;
+            _openPgp = openPgp;
+        }
+        #endregion
+
         #region Properties
         /// <summary>
         /// The directory containing the cached <see cref="Feed"/>s.
         /// </summary>
         public string DirectoryPath { get; private set; }
-        #endregion
-
-        #region Constructor
-        /// <summary>
-        /// Creates a new disk-based cache.
-        /// </summary>
-        /// <param name="path">A fully qualified directory path.</param>
-        public DiskFeedCache(string path)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            #endregion
-
-            DirectoryPath = path;
-        }
         #endregion
 
         //--------------------//
@@ -118,15 +123,14 @@ namespace ZeroInstall.Store.Feeds
         }
 
         /// <inheritdoc/>
-        public IEnumerable<OpenPgpSignature> GetSignatures(string feedID, IOpenPgp openPgp)
+        public IEnumerable<OpenPgpSignature> GetSignatures(string feedID)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
             ModelUtils.ValidateInterfaceID(feedID);
-            if (openPgp == null) throw new ArgumentNullException("openPgp");
             #endregion
 
-            return FeedUtils.GetSignatures(openPgp, File.ReadAllBytes(GetPath(feedID)));
+            return FeedUtils.GetSignatures(_openPgp, File.ReadAllBytes(GetPath(feedID)));
         }
 
         /// <summary>

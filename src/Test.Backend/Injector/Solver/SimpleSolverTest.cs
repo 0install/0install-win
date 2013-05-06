@@ -23,9 +23,6 @@ namespace ZeroInstall.Injector.Solver
     /// Runs test methods for <see cref="SimpleSolver"/>.
     /// </summary>
     [TestFixture]
-    public class SimpleSolverTest : SolverTest
-    {
-        public SimpleSolverTest() : base(new SimpleSolver())
-        {}
-    }
+    public class SimpleSolverTest : SolverTest<SimpleSolver>
+    {}
 }

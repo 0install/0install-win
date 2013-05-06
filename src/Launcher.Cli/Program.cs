@@ -64,7 +64,7 @@ namespace ZeroInstall.Launcher.Cli
             FrontendCommand command;
             try
             {
-                command = new Run(Policy.CreateDefault(handler));
+                command = new Run(new Resolver(handler));
                 command.Parse(args);
             }
                 #region Error handling
@@ -160,7 +160,7 @@ namespace ZeroInstall.Launcher.Cli
             catch (DigestMismatchException ex)
             {
                 Log.Error(ex);
-                if (command.Policy.Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
+                if (handler.Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
                 return 1;
             }
             catch (SignatureException ex)

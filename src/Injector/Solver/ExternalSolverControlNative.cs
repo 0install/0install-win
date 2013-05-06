@@ -27,6 +27,13 @@ namespace ZeroInstall.Injector.Solver
     /// </summary>
     internal sealed class ExternalSolverControlNative : CliAppControl, IExternalSolverControl
     {
+        private readonly IHandler _handler;
+
+        public ExternalSolverControlNative(IHandler handler)
+        {
+            _handler = handler;
+        }
+
         /// <inheritdoc/>
         protected override string AppBinary { get { return "python"; } }
 
@@ -52,9 +59,9 @@ namespace ZeroInstall.Injector.Solver
         }
 
         /// <inheritdoc/>
-        public string ExecuteSolver(string arguments, IHandler handler)
+        public string ExecuteSolver(string arguments)
         {
-            var errorParser = new ExternalSolverErrorParser(handler);
+            var errorParser = new ExternalSolverErrorParser(_handler);
             var result = Execute(arguments, null, errorParser.HandleStdErrorLine);
             errorParser.Flush(); // Handle any left-over error messages
             return result;

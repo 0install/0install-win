@@ -32,13 +32,10 @@ namespace ZeroInstall.Store.Feeds
     /// <summary>
     /// Provides access to the signature functions of GnuPG.
     /// </summary>
-    /// <remarks>This class is immutable (excpet for the <see cref="Verbose"/> option) and thread-safe.</remarks>
+    /// <remarks>This class is immutable and thread-safe.</remarks>
     public class GnuPG : BundledCliAppControl, IOpenPgp
     {
         #region Properties
-        /// <inheritdoc/>
-        public bool Verbose { get; set; }
-
         /// <inheritdoc/>
         protected override string AppBinary { get { return "gpg"; } }
 
@@ -222,7 +219,7 @@ namespace ZeroInstall.Store.Feeds
         /// <returns>Always <see langword="null"/>.</returns>
         private string ErrorHandlerLog(string line)
         {
-            if (Verbose) Log.Info(line);
+            Log.Info(line);
             return null;
         }
         #endregion

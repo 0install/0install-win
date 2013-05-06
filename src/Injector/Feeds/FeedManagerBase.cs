@@ -24,57 +24,66 @@ namespace ZeroInstall.Injector.Feeds
 {
     /// <summary>
     /// A common base class for feed managers. Implements properties, cloning and equating.
-    /// Does not implement <see cref="GetFeed(string,ZeroInstall.Injector.Policy)"/> and <see cref="ImportFeed"/>.
+    /// Does not implement <see cref="GetFeed(string)"/> and <see cref="ImportFeed"/>.
     /// </summary>
     public abstract class FeedManagerBase : IFeedManager, ICloneable, IEquatable<FeedManagerBase>
     {
-        #region Properties
-        /// <inheritdoc/>
-        public IFeedCache Cache { get; private set; }
+        #region Dependencies
+        /// <summary>
+        /// User settings controlling network behaviour, solving, etc.
+        /// </summary>
+        protected readonly Config Config;
 
-        /// <inheritdoc/>
-        public bool Refresh { get; set; }
-        #endregion
+        /// <summary>
+        /// The disk-based cache to store downloaded <see cref="Feed"/>s.
+        /// </summary>
+        protected readonly IFeedCache Cache;
 
-        #region Constructor
         /// <summary>
         /// Creates a new cache based on the given path to a cache directory.
         /// </summary>
+        /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
         /// <param name="cache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
-        protected FeedManagerBase(IFeedCache cache)
+        protected FeedManagerBase(Config config, IFeedCache cache)
         {
             #region Sanity checks
+            if (config == null) throw new ArgumentNullException("config");
             if (cache == null) throw new ArgumentNullException("cache");
             #endregion
 
+            Config = config;
             Cache = cache;
         }
+        #endregion
+
+        #region Properties
+        /// <inheritdoc/>
+        public bool Refresh { get; set; }
         #endregion
 
         //--------------------//
 
         #region Get feed
         /// <inheritdoc/>
-        public abstract Feed GetFeed(string feedID, Policy policy, ref bool stale);
+        public abstract Feed GetFeed(string feedID, ref bool stale);
 
         /// <inheritdoc/>
-        public Feed GetFeed(string feedID, Policy policy)
+        public Feed GetFeed(string feedID)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
             bool stale = false;
-            var feed = GetFeed(feedID, policy, ref stale);
+            var feed = GetFeed(feedID, ref stale);
 
             // Detect outdated feed
-            if (stale && !Refresh && policy.Config.EffectiveNetworkUse == NetworkLevel.Full)
+            if (stale && !Refresh && Config.EffectiveNetworkUse == NetworkLevel.Full)
             {
                 Refresh = true;
                 try
                 {
-                    feed = GetFeed(feedID, policy, ref stale);
+                    feed = GetFeed(feedID, ref stale);
                 }
                 catch (WebException)
                 {
@@ -89,8 +98,10 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Import feed
         /// <inheritdoc/>
-        public abstract void ImportFeed(Uri uri, Uri mirrorUri, byte[] data, Policy policy);
+        public abstract void ImportFeed(Uri uri, Uri mirrorUri, byte[] data);
         #endregion
+
+        //--------------------//
 
         #region Clone
         /// <summary>

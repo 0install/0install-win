@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public RemoveFeed(Policy policy) : base(policy)
+        public RemoveFeed(Resolver resolver) : base(resolver)
         {}
         #endregion
 

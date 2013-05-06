@@ -75,8 +75,8 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestListAllTemp()
         {
-            _mockStore1.Setup(x => x.ListAllTemp()).Returns(new[] { "abc" }).Verifiable();
-            _mockStore2.Setup(x => x.ListAllTemp()).Returns(new[] { "def" }).Verifiable();
+            _mockStore1.Setup(x => x.ListAllTemp()).Returns(new[] {"abc"}).Verifiable();
+            _mockStore2.Setup(x => x.ListAllTemp()).Returns(new[] {"def"}).Verifiable();
             CollectionAssert.AreEquivalent(new[] {"abc", "def"}, _testStore.ListAllTemp(), "Should combine results from all stores");
         }
         #endregion

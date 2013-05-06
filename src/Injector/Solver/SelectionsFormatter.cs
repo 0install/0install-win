@@ -35,6 +35,10 @@ namespace ZeroInstall.Injector.Solver
         /// <param name="store">A store to search for implementation storage locations.</param>
         public static string GetHumanReadable(this Selections selections, IStore store)
         {
+            #region Sanity checks
+            if (selections == null) throw new ArgumentNullException("selections");
+            #endregion
+
             var builder = new StringBuilder();
             PrintNode(selections, builder, new C5.HashSet<string>(), store, "", selections.InterfaceID);
             return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break

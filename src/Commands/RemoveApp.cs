@@ -48,12 +48,12 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS] (PET-NAME|INTERFACE)"; } }
 
         /// <inheritdoc/>
-        public override int GuiDelay { get { return Policy.FeedManager.Refresh ? 0 : 1000; } }
+        public override int GuiDelay { get { return Resolver.FeedManager.Refresh ? 0 : 1000; } }
         #endregion
 
         #region Constructor
         /// <inheritdoc/>
-        public RemoveApp(Policy policy) : base(policy)
+        public RemoveApp(Resolver resolver) : base(resolver)
         {}
         #endregion
 
@@ -73,7 +73,7 @@ namespace ZeroInstall.Commands
             catch (KeyNotFoundException ex)
             {
                 // Show a "nothing to do" message (but not in batch mode, since it is not important enough));
-                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);
+                if (!Resolver.Handler.Batch) Resolver.Handler.Output(Resources.AppList, ex.Message);
                 return 0;
             }
 

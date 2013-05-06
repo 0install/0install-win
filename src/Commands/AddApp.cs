@@ -44,12 +44,12 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS] INTERFACE"; } }
 
         /// <inheritdoc/>
-        public override int GuiDelay { get { return Policy.FeedManager.Refresh ? 0 : 1000; } }
+        public override int GuiDelay { get { return Resolver.FeedManager.Refresh ? 0 : 1000; } }
         #endregion
 
         #region Constructor
         /// <inheritdoc/>
-        public AddApp(Policy policy) : base(policy)
+        public AddApp(Resolver resolver) : base(resolver)
         {}
         #endregion
 
@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands
             catch (InvalidOperationException ex)
             {
                 // Show a "nothing to do" message if there is an existing AppEntry (but not in batch mode, since it is not important enough));
-                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.AppList, ex.Message);
+                if (!Resolver.Handler.Batch) Resolver.Handler.Output(Resources.AppList, ex.Message);
             }
             return 0;
         }

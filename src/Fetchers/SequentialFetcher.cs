@@ -32,24 +32,26 @@ namespace ZeroInstall.Fetchers
     /// </summary>
     public class SequentialFetcher : FetcherBase
     {
+        #region Dependencies
         /// <summary>
         /// Creates a new sequential download fetcher.
         /// </summary>
         /// <param name="store">The location to store the downloaded and unpacked <see cref="Model.Implementation"/>s in.</param>
-        public SequentialFetcher(IStore store) : base(store)
+        /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
+        public SequentialFetcher(IStore store, ITaskHandler handler) : base(store, handler)
         {}
+        #endregion
 
         /// <inheritdoc/>
-        public override void Fetch(IEnumerable<Implementation> implementations, ITaskHandler handler)
+        public override void Fetch(IEnumerable<Implementation> implementations)
         {
             #region Sanity checks
             if (implementations == null) throw new ArgumentNullException("implementations");
-            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             foreach (var implementation in implementations)
             {
-                handler.CancellationToken.ThrowIfCancellationRequested();
+                Handler.CancellationToken.ThrowIfCancellationRequested();
 
                 // Use mutex to detect concurrent download of same implementation in other processes
                 using (var mutex = new Mutex(false, "0install-fetcher-" + implementation.ManifestDigest.AvailableDigests.First()))
@@ -59,7 +61,7 @@ namespace ZeroInstall.Fetchers
                         while (!mutex.WaitOne(100, false)) // NOTE: Might be blocked more than once
                         {
                             // Wait for mutex to be released
-                            handler.RunTask(new WaitTask(Resources.DownloadInAnotherWindow, mutex), implementation.ManifestDigest);
+                            Handler.RunTask(new WaitTask(Resources.DownloadInAnotherWindow, mutex), implementation.ManifestDigest);
                         }
                     }
                         #region Error handling
@@ -76,7 +78,7 @@ namespace ZeroInstall.Fetchers
                         Store.Flush();
                         if (Store.Contains(implementation.ManifestDigest)) return;
 
-                        FetchImplementation(implementation, handler);
+                        FetchImplementation(implementation);
                     }
                     finally
                     {

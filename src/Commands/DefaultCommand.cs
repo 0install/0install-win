@@ -21,8 +21,8 @@ using Common.Info;
 using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
-using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
+using ZeroInstall.Commands.Properties;
 
 namespace ZeroInstall.Commands
 {
@@ -51,11 +51,11 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public DefaultCommand(Policy policy) : base(policy)
+        public DefaultCommand(Resolver resolver) : base(resolver)
         {
             Options.Add("V|version", Resources.OptionVersion, unused =>
             {
-                Policy.Handler.Output(Resources.VersionInformation, AppInfo.Current.Name + " " + AppInfo.Current.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Current.Copyright + Environment.NewLine + Resources.LicenseInfo);
+                Resolver.Handler.Output(Resources.VersionInformation, AppInfo.Current.Name + " " + AppInfo.Current.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Current.Copyright + Environment.NewLine + Resources.LicenseInfo);
                 throw new OperationCanceledException(); // Don't handle any of the other arguments
             });
         }

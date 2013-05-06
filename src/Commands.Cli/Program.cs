@@ -171,7 +171,7 @@ namespace ZeroInstall.Commands.Cli
             catch (DigestMismatchException ex)
             {
                 Log.Error(ex);
-                if (command.Policy.Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
+                if (handler.Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
                 return 1;
             }
             catch (SolverException ex)

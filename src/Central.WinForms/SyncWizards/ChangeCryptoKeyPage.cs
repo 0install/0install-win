@@ -54,10 +54,10 @@ namespace ZeroInstall.Central.WinForms.SyncWizards
         private void resetWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var newKey = (string)e.Argument;
-            var policy = Policy.CreateDefault(this);
-            using (var sync = policy.CreateSync(MachineWide, OldKey))
+            var resolver = new Resolver(this);
+            using (var sync = SyncUtils.CreateSync(resolver, MachineWide, OldKey))
                 sync.Sync(SyncResetMode.None);
-            using (var sync = policy.CreateSync(MachineWide, newKey))
+            using (var sync = SyncUtils.CreateSync(resolver, MachineWide, newKey))
                 sync.Sync(SyncResetMode.Server);
         }
 

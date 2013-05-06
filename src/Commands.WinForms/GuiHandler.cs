@@ -54,6 +54,9 @@ namespace ZeroInstall.Commands.WinForms
         public CancellationToken CancellationToken { get { return _cancellationToken; } }
 
         /// <inheritdoc />
+        public int Verbosity { get; set; }
+
+        /// <inheritdoc />
         public bool Batch { get; set; }
 
         private string _actionTitle;

@@ -29,12 +29,13 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// Creates an <see cref="IFeedCache"/> instance that uses the default cache location in the user profile.
         /// </summary>
+        /// <param name="openPgp">Provides access to an encryption/signature system compatible with the OpenPGP standard.</param>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        public static IFeedCache CreateDefault()
+        public static IFeedCache CreateDefault(IOpenPgp openPgp)
         {
             // Recreate memory-caching layer for each call to prevent long-running caches from going out of sync with disk because of changes made by other processes
-            return new MemoryFeedCache(new DiskFeedCache(Locations.GetCacheDirPath("0install.net", false, "interfaces")));
+            return new MemoryFeedCache(new DiskFeedCache(Locations.GetCacheDirPath("0install.net", false, "interfaces"), openPgp));
         }
     }
 }

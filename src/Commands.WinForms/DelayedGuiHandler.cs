@@ -128,6 +128,20 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Pass-through
         // Keep local read cache, assume no inner changes
+        private int _verbosity;
+
+        /// <inheritdoc />
+        public int Verbosity
+        {
+            get { return _verbosity; }
+            set
+            {
+                _verbosity = value;
+                ApplyToTarget(target => target.Verbosity = value);
+            }
+        }
+
+        // Keep local read cache, assume no inner changes
         private bool _batch;
 
         /// <inheritdoc />

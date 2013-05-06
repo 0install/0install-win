@@ -29,12 +29,7 @@ namespace ZeroInstall.Injector.Feeds
     public interface IFeedManager
     {
         /// <summary>
-        /// The cache to retrieve <see cref="Feed"/>s from and store downloaded <see cref="Feed"/>s to.
-        /// </summary>
-        IFeedCache Cache { get; }
-
-        /// <summary>
-        /// Set to <see langword="true"/> to re-download <see cref="Feed"/>s even if they are already in the <see cref="Cache"/>.
+        /// Set to <see langword="true"/> to re-download <see cref="Feed"/>s even if they are already in the <see cref="IFeedCache"/>.
         /// </summary>
         bool Refresh { get; set; }
 
@@ -42,45 +37,42 @@ namespace ZeroInstall.Injector.Feeds
         /// Returns a specific <see cref="Feed"/>.
         /// </summary>
         /// <param name="feedID">The canonical ID used to identify the feed.</param>
-        /// <param name="policy">Provides additional class dependencies.</param>
         /// <param name="stale">Is set to <see langword="true"/> if the returned feed has passed <see cref="Config.Freshness"/>.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
-        /// <remarks><see cref="Feed"/>s are always served from the <see cref="Cache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
+        /// <remarks><see cref="Feed"/>s are always served from the <see cref="IFeedCache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
         /// <exception cref="SignatureException">Thrown if the signature data of a remote feed file could not be verified.</exception>
-        Feed GetFeed(string feedID, Policy policy, ref bool stale);
+        Feed GetFeed(string feedID, ref bool stale);
 
         /// <summary>
         /// Returns a specific <see cref="Feed"/> and automatically tries to update an existing one if it has become stale.
         /// </summary>
         /// <param name="feedID">The canonical ID used to identify the feed.</param>
-        /// <param name="policy">Provides additional class dependencies.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
-        /// <remarks><see cref="Feed"/>s are always served from the <see cref="Cache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
+        /// <remarks><see cref="Feed"/>s are always served from the <see cref="IFeedCache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
         /// <exception cref="SignatureException">Thrown if the signature data of a remote feed file could not be verified.</exception>
-        Feed GetFeed(string feedID, Policy policy);
+        Feed GetFeed(string feedID);
 
         /// <summary>
-        /// Imports a remote <see cref="Feed"/> into the <see cref="Cache"/> after verifying its signature.
+        /// Imports a remote <see cref="Feed"/> into the <see cref="IFeedCache"/> after verifying its signature.
         /// </summary>
         /// <param name="uri">The URI the feed originally came from.</param>
         /// <param name="mirrorUri">The URI or local file path the feed was actually loaded from; <see langword="null"/> if it is identical to <paramref name="uri"/>.</param>
         /// <param name="data">The data of the feed.</param>
-        /// <param name="policy">Provides additional class dependencies.</param>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="data"/> list the same URI as <paramref name="uri"/>.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the feed file or the cache is not permitted.</exception>
         /// <exception cref="SignatureException">Thrown if the signature data of the feed file could not be handled or if no signatures were trusted.</exception>
-        void ImportFeed(Uri uri, Uri mirrorUri, byte[] data, Policy policy);
+        void ImportFeed(Uri uri, Uri mirrorUri, byte[] data);
 
         /// <summary>
         /// Creates a shallow copy of this feed manager.

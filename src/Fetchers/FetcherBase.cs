@@ -33,95 +33,82 @@ namespace ZeroInstall.Fetchers
     /// </summary>
     public abstract class FetcherBase : MarshalByRefObject, IFetcher
     {
-        #region Properties
-        private IStore _store;
+        #region Dependencies
+        protected readonly IStore Store;
+        protected readonly ITaskHandler Handler;
 
-        /// <inheritdoc/>
-        public IStore Store
-        {
-            get { return _store; }
-            set
-            {
-                #region Sanity checks
-                if (value == null) throw new ArgumentNullException("value");
-                #endregion
-
-                _store = value;
-            }
-        }
-        #endregion
-
-        #region Constructor
         /// <summary>
         /// Creates a new download fetcher.
         /// </summary>
         /// <param name="store">The location to store the downloaded and unpacked <see cref="Model.Implementation"/>s in.</param>
-        protected FetcherBase(IStore store)
+        /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
+        protected FetcherBase(IStore store, ITaskHandler handler)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             Store = store;
+            Handler = handler;
         }
         #endregion
 
         //--------------------//
 
         /// <inheritdoc/>
-        public abstract void Fetch(IEnumerable<Implementation> implementations, ITaskHandler handler);
+        public abstract void Fetch(IEnumerable<Implementation> implementations);
 
-        protected void FetchImplementation(Implementation implementation, ITaskHandler handler)
+        protected void FetchImplementation(Implementation implementation)
         {
             #region Sanity checks
             if (implementation == null) throw new ArgumentNullException("implementation");
-            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             if (implementation.RetrievalMethods.Count == 0) throw new NotSupportedException(Resources.NoRetrievalMethod);
 
             implementation.RetrievalMethods.OrderBy(x => x, RetrievalMethodRanker.Instance).
-                           Try(retrievalMethod => ApplyRetrievalMethod(retrievalMethod, implementation.ManifestDigest, handler));
+                           Try(retrievalMethod => ApplyRetrievalMethod(retrievalMethod, implementation.ManifestDigest));
         }
 
-        private void ApplyRetrievalMethod(RetrievalMethod retrievalMethod, ManifestDigest manifestDigest, ITaskHandler handler)
+        private void ApplyRetrievalMethod(RetrievalMethod retrievalMethod, ManifestDigest manifestDigest)
         {
-            handler.CancellationToken.ThrowIfCancellationRequested();
+            Handler.CancellationToken.ThrowIfCancellationRequested();
 
             try
             {
                 new PerTypeDispatcher<RetrievalMethod>(false)
                 {
-                    (Archive archive) => ApplyArchive(archive, manifestDigest, handler),
-                    (SingleFile singleFile) => ApplySingleFile(singleFile, manifestDigest, handler),
-                    (Recipe recipe) => ApplyRecipe(recipe, manifestDigest, handler)
+                    (Archive archive) => ApplyArchive(archive, manifestDigest),
+                    (SingleFile singleFile) => ApplySingleFile(singleFile, manifestDigest),
+                    (Recipe recipe) => ApplyRecipe(recipe, manifestDigest)
                 }.Dispatch(retrievalMethod);
             }
             catch (ImplementationAlreadyInStoreException)
             {}
         }
 
-        private void ApplyArchive(Archive archive, ManifestDigest manifestDigest, ITaskHandler handler)
+        private void ApplyArchive(Archive archive, ManifestDigest manifestDigest)
         {
             // Fail fast on unsupported archive type
             Extractor.VerifySupport(archive.MimeType);
 
-            using (var downloadedFile = DownloadFile(archive, manifestDigest, handler))
-                AddArchives(new[] {downloadedFile}, new[] {archive}, manifestDigest, handler);
+            using (var downloadedFile = DownloadFile(archive, manifestDigest))
+                AddArchives(new[] {downloadedFile}, new[] {archive}, manifestDigest);
         }
 
-        private void ApplySingleFile(SingleFile singleFile, ManifestDigest manifestDigest, ITaskHandler handler)
+        private void ApplySingleFile(SingleFile singleFile, ManifestDigest manifestDigest)
         {
             using (var tempDir = new TemporaryDirectory("0install-fetcher"))
             {
-                using (var downloadedFile = DownloadFile(singleFile, manifestDigest, handler))
+                using (var downloadedFile = DownloadFile(singleFile, manifestDigest))
                     RecipeUtils.ApplySingleFile(singleFile, downloadedFile, tempDir);
 
-                Store.AddDirectory(tempDir, manifestDigest, handler);
+                Store.AddDirectory(tempDir, manifestDigest, Handler);
             }
         }
 
-        private void ApplyRecipe(Recipe recipe, ManifestDigest manifestDigest, ITaskHandler handler)
+        private void ApplyRecipe(Recipe recipe, ManifestDigest manifestDigest)
         {
             // Fail fast on unsupported archive type
             foreach (var archive in recipe.Steps.OfType<Archive>()) Extractor.VerifySupport(archive.MimeType);
@@ -131,17 +118,17 @@ namespace ZeroInstall.Fetchers
             {
                 // ReSharper disable LoopCanBeConvertedToQuery
                 foreach (var downloadStep in recipe.Steps.OfType<DownloadRetrievalMethod>())
-                    downloadedFiles.Add(DownloadFile(downloadStep, manifestDigest, handler));
+                    downloadedFiles.Add(DownloadFile(downloadStep, manifestDigest));
                 // ReSharper restore LoopCanBeConvertedToQuery
 
                 if (recipe.Steps.All(step => step is Archive))
                 { // Optimized special case for archive-only recipes
-                    AddArchives(downloadedFiles, recipe.Steps.Cast<Archive>(), manifestDigest, handler);
+                    AddArchives(downloadedFiles, recipe.Steps.Cast<Archive>(), manifestDigest);
                 }
                 else
                 {
-                    using (var recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, handler, manifestDigest))
-                        Store.AddDirectory(recipeDir, manifestDigest, handler);
+                    using (var recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, Handler, manifestDigest))
+                        Store.AddDirectory(recipeDir, manifestDigest, Handler);
                 }
             }
             finally
@@ -150,12 +137,12 @@ namespace ZeroInstall.Fetchers
             }
         }
 
-        private static TemporaryFile DownloadFile(DownloadRetrievalMethod retrievalMethod, ManifestDigest manifestDigest, ITaskHandler handler)
+        private TemporaryFile DownloadFile(DownloadRetrievalMethod retrievalMethod, ManifestDigest manifestDigest)
         {
             var tempFile = new TemporaryFile("0install-fetcher");
             try
             {
-                handler.RunTask(new DownloadFile(retrievalMethod.Location, tempFile, retrievalMethod.DownloadSize), manifestDigest);
+                Handler.RunTask(new DownloadFile(retrievalMethod.Location, tempFile, retrievalMethod.DownloadSize), manifestDigest);
                 return tempFile;
             }
                 #region Error handling
@@ -167,7 +154,7 @@ namespace ZeroInstall.Fetchers
             #endregion
         }
 
-        private void AddArchives(IList<TemporaryFile> files, IEnumerable<Archive> archives, ManifestDigest manifestDigest, ITaskHandler handler)
+        private void AddArchives(IList<TemporaryFile> files, IEnumerable<Archive> archives, ManifestDigest manifestDigest)
         {
             var archiveFileInfos = archives.Select((archive, i) => new ArchiveFileInfo
             {
@@ -178,7 +165,7 @@ namespace ZeroInstall.Fetchers
                 StartOffset = archive.StartOffset
             });
 
-            Store.AddArchives(archiveFileInfos.ToList(), manifestDigest, handler);
+            Store.AddArchives(archiveFileInfos.ToList(), manifestDigest, Handler);
         }
     }
 }

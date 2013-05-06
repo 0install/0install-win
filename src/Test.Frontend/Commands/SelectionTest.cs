@@ -32,17 +32,17 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override FrontendCommand GetCommand()
         {
-            return new Selection(Policy);
+            return new Selection(Resolver);
         }
 
         [Test(Description = "Ensures all options are parsed and handled correctly.")]
         public virtual void TestNormal()
         {
             var requirements = RequirementsTest.CreateTestRequirements();
-            var selections = SelectionsUtilsTest.CreateTestSelections();
+            var selections = SelectionsManagerTest.CreateTestSelections();
 
             bool stale;
-            SolverMock.Setup(x => x.Solve(requirements, Policy, out stale)).Returns(selections).Verifiable();
+            SolverMock.Setup(x => x.Solve(requirements, out stale)).Returns(selections).Verifiable();
             AssertParseExecuteResult(selections, selections.ToXmlString(), 0,
                 "--xml", "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0");
         }
@@ -50,7 +50,7 @@ namespace ZeroInstall.Commands
         [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
         public virtual void TestImportSelections()
         {
-            var selections = SelectionsUtilsTest.CreateTestSelections();
+            var selections = SelectionsManagerTest.CreateTestSelections();
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 selections.SaveXml(tempFile);

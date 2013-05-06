@@ -97,9 +97,9 @@ namespace ZeroInstall.Store.Feeds
         }
 
         /// <inheritdoc/>
-        public IEnumerable<OpenPgpSignature> GetSignatures(string feedID, IOpenPgp openPgp)
+        public IEnumerable<OpenPgpSignature> GetSignatures(string feedID)
         {
-            return _backingCache.GetSignatures(feedID, openPgp);
+            return _backingCache.GetSignatures(feedID);
         }
         #endregion
 

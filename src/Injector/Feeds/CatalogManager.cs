@@ -34,25 +34,53 @@ namespace ZeroInstall.Injector.Feeds
     /// <summary>
     /// Provides access to remote and local <see cref="Catalog"/>s. Handles downloading, signature verification and caching.
     /// </summary>
-    public static class CatalogManager
+    public class CatalogManager
     {
-        #region Cached
+        #region Constants
         private const string CacheMutexName = "ZeroInstall.Injector.Feeds.CatalogManager.Cache";
+        #endregion
 
-        /// <summary>The file used to cache a merged view of all used catalogs.</summary>
-        private static string CacheFilePath { get { return Path.Combine(Locations.GetCacheDirPath("0install.net", false), "catalog.xml"); } }
+        #region Dependencies
+        private readonly string _cacheFilePath;
+        private readonly TrustManager _trustManager;
 
+        /// <summary>
+        /// Creates a new catalog manager.
+        /// </summary>
+        /// <param name="cacheFilePath">The file used to cache a merged view of all used catalogs.</param>
+        /// <param name="trustManager">Methods for verifying signatures and user trust.</param>
+        public CatalogManager(string cacheFilePath, TrustManager trustManager)
+        {
+            #region Sanity checks
+            if (cacheFilePath == null) throw new ArgumentNullException("cacheFilePath");
+            if (trustManager == null) throw new ArgumentNullException("trustManager");
+            #endregion
+
+            _cacheFilePath = cacheFilePath;
+            _trustManager = trustManager;
+        }
+
+        /// <summary>
+        /// Creates a new catalog manager.
+        /// </summary>
+        /// <param name="trustManager">Methods for verifying signatures and user trust.</param>
+        public CatalogManager(TrustManager trustManager)
+            : this(Path.Combine(Locations.GetCacheDirPath("0install.net", false), "catalog.xml"), trustManager)
+        {}
+        #endregion
+
+        #region Cached
         /// <summary>
         /// Loads the last result of <see cref="GetOnline"/>.
         /// </summary>
         /// <returns>A valid <see cref="Catalog"/>. Returns an empty <see cref="Catalog"/> if the cache could not be loaded.</returns>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Uncached file system access")]
-        public static Catalog GetCached()
+        public Catalog GetCached()
         {
             try
             {
                 using (new MutexLock(CacheMutexName))
-                    return XmlStorage.LoadXml<Catalog>(CacheFilePath);
+                    return XmlStorage.LoadXml<Catalog>(_cacheFilePath);
             }
                 #region Error handling
             catch (FileNotFoundException)
@@ -88,19 +116,19 @@ namespace ZeroInstall.Injector.Feeds
         /// <summary>
         /// Downloads and merges all <see cref="Catalog"/>s specified by the configuration files.
         /// </summary>
-        /// <param name="policy">Provides additional class dependencies.</param>
         /// <returns>A merged <see cref="Catalog"/> view.</returns>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="SignatureException">Thrown if the signature data of a remote catalog file could not be verified.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public static Catalog GetOnline(Policy policy)
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs network IO and has side-effects")]
+        public Catalog GetOnline()
         {
             var catalogs = GetCatalogSources().Select(delegate(string source)
             {
                 // Download remote catalogs and open local catalogs
                 Uri catalogUrl;
                 return ModelUtils.TryParseUri(source, out catalogUrl)
-                    ? DownloadCatalog(catalogUrl, policy)
+                    ? DownloadCatalog(catalogUrl)
                     : XmlStorage.LoadXml<Catalog>(source);
             });
             var catalog = Catalog.Merge(catalogs);
@@ -109,7 +137,7 @@ namespace ZeroInstall.Injector.Feeds
             try
             {
                 using (new MutexLock(CacheMutexName))
-                    catalog.SaveXml(CacheFilePath);
+                    catalog.SaveXml(_cacheFilePath);
             }
                 #region Error handling
             catch (IOException ex)
@@ -131,15 +159,14 @@ namespace ZeroInstall.Injector.Feeds
         /// Downloads and parses a remote catalog file.
         /// </summary>
         /// <param name="url">The URL to download the catalog file from.</param>
-        /// <param name="policy">Provides additional class dependencies.</param>
         /// <returns>The parsed <see cref="Catalog"/>.</returns>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="SignatureException">Thrown if the signature data of a remote catalog file could not be verified.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        private static Catalog DownloadCatalog(Uri url, Policy policy)
+        private Catalog DownloadCatalog(Uri url)
         {
             var data = new WebClientTimeout().DownloadData(url);
-            TrustUtils.CheckTrust(url, null, data, policy);
+            _trustManager.CheckTrust(url, null, data);
             return XmlStorage.LoadXml<Catalog>(new MemoryStream(data));
         }
         #endregion

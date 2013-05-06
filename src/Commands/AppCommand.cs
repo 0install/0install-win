@@ -38,7 +38,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        protected AppCommand(Policy policy) : base(policy)
+        protected AppCommand(Resolver resolver) : base(resolver)
         {}
         #endregion
 
@@ -54,9 +54,9 @@ namespace ZeroInstall.Commands
 
             if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
 
-            Policy.Handler.ShowProgressUI();
+            Resolver.Handler.ShowProgressUI();
             string interfaceID = GetCanonicalID(AdditionalArgs[0]);
-            using (var integrationManager = new CategoryIntegrationManager(MachineWide, Policy.Handler))
+            using (var integrationManager = new CategoryIntegrationManager(MachineWide, Resolver.Handler))
                 return ExecuteHelper(integrationManager, interfaceID);
         }
 

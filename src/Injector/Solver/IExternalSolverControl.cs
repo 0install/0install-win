@@ -28,9 +28,8 @@ namespace ZeroInstall.Injector.Solver
         /// Runs the external solver, processes its output and waits until it has terminated.
         /// </summary>
         /// <param name="arguments">Command-line arguments to launch the solver with.</param>
-        /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
         /// <returns>The solver's complete output to the stdout-stream.</returns>
         /// <exception cref="IOException">Thrown if the external solver could not be launched.</exception>
-        string ExecuteSolver(string arguments, IHandler handler);
+        string ExecuteSolver(string arguments);
     }
 }

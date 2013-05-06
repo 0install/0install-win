@@ -182,11 +182,11 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             // Make sure the feed is in the cache
-            var policy = Policy.CreateDefault(new MinimalHandler(this));
+            var resolver = new Resolver(new MinimalHandler(this));
             Feed feed;
             try
             {
-                feed = policy.FeedManager.GetFeed(feedID, policy);
+                feed = resolver.FeedManager.GetFeed(feedID);
             }
                 #region Error handling
             catch (OperationCanceledException)
@@ -303,8 +303,8 @@ namespace ZeroInstall.Commands.WinForms
 
                 // ToDo: Get selection candidates from Solver
                 foreach (var candidate in feed.Elements.OfType<Implementation>().
-                    Select(implementation => GetSelectionCandidate(feedID, implementation, feedPreferences)).
-                    Where(candidate => checkBoxShowAllVersions.Checked || candidate.IsSuitable))
+                                               Select(implementation => GetSelectionCandidate(feedID, implementation, feedPreferences)).
+                                               Where(candidate => checkBoxShowAllVersions.Checked || candidate.IsSuitable))
                     candidates.Add(candidate);
             }
             dataGridVersions.DataSource = candidates;

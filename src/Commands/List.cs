@@ -46,7 +46,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public List(Policy policy) : base(policy)
+        public List(Resolver resolver) : base(resolver)
         {}
         #endregion
 
@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands
                     throw new OptionException(Resources.TooManyArguments, "");
             }
 
-            Policy.Handler.Output(Resources.FoundFeeds, GetList(pattern));
+            Resolver.Handler.Output(Resources.FoundFeeds, GetList(pattern));
             return 0;
         }
 
@@ -83,7 +83,7 @@ namespace ZeroInstall.Commands
         private string GetList(string pattern)
         {
             var builder = new StringBuilder();
-            var feeds = Policy.FeedManager.Cache.ListAll();
+            var feeds = Resolver.FeedCache.ListAll();
             foreach (string entry in feeds.Where(entry => pattern == null || entry.Contains(pattern)))
                 builder.AppendLine(entry);
             return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break

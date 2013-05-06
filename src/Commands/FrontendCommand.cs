@@ -47,6 +47,11 @@ namespace ZeroInstall.Commands
     public abstract class FrontendCommand
     {
         #region Variables
+        /// <summary>
+        /// Provides dependencies.
+        /// </summary>
+        protected readonly Resolver Resolver;
+
         /// <summary>Indicates whether <see cref="Parse"/> has already been called.</summary>
         protected bool IsParsed;
 
@@ -112,11 +117,6 @@ namespace ZeroInstall.Commands
             }
         }
 
-        /// <summary>
-        /// Combines UI access, preferences and resources used to solve dependencies and download implementations.
-        /// </summary>
-        public Policy Policy { get; private set; }
-
         private AppList _appList;
 
         /// <summary>
@@ -164,17 +164,19 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Creates a new command.
         /// </summary>
-        /// <param name="policy">Provides additional class dependencies.</param>
-        protected FrontendCommand(Policy policy)
+        protected FrontendCommand(Resolver resolver)
         {
-            Policy = policy;
+            #region Sanity checks
+            if (resolver == null) throw new ArgumentNullException("resolver");
+            #endregion
 
+            Resolver = resolver;
             Options.Add("?|h|help", Resources.OptionHelp, unused =>
             {
-                Policy.Handler.Output(Resources.CommandLineArguments, HelpText);
+                Resolver.Handler.Output(Resources.CommandLineArguments, HelpText);
                 throw new OperationCanceledException(); // Don't handle any of the other arguments
             });
-            Options.Add("v|verbose", Resources.OptionVerbose, unused => Policy.Verbosity++);
+            Options.Add("v|verbose", Resources.OptionVerbose, unused => Resolver.Handler.Verbosity++);
         }
         #endregion
 
@@ -258,7 +260,7 @@ namespace ZeroInstall.Commands
                         if (AppList.Contains(id)) return id;
 
                         // ... short names...
-                        var feed = CatalogManager.GetCached().FindByShortName(id);
+                        var feed = Resolver.CatalogManager.GetCached().FindByShortName(id);
                         if (feed != null)
                         {
                             Log.Info(string.Format(Resources.ResolvedUsingCatalog, id, feed.Uri));

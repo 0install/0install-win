@@ -26,15 +26,14 @@ namespace ZeroInstall.Injector.Solver
     /// </summary>
     internal class SolverFeedCache
     {
-        private readonly Policy _policy;
+        private readonly IFeedManager _feedManager;
+        private readonly Dictionary<string, Feed> _feedCache = new Dictionary<string, Feed>();
 
         public bool StaleFeeds;
 
-        private readonly Dictionary<string, Feed> _feedCache = new Dictionary<string, Feed>();
-
-        public SolverFeedCache(Policy policy)
+        public SolverFeedCache(IFeedManager feedManager)
         {
-            _policy = policy;
+            _feedManager = feedManager;
         }
 
         public Feed GetFeed(string feedID)
@@ -44,7 +43,7 @@ namespace ZeroInstall.Injector.Solver
                 Feed feed;
                 if (!_feedCache.TryGetValue(feedID, out feed))
                 {
-                    feed = _policy.FeedManager.GetFeed(feedID, _policy, ref StaleFeeds);
+                    feed = _feedManager.GetFeed(feedID, ref StaleFeeds);
                     _feedCache.Add(feedID, feed);
                 }
                 return feed;

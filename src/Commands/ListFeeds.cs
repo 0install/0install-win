@@ -46,7 +46,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public ListFeeds(Policy policy) : base(policy)
+        public ListFeeds(Resolver resolver) : base(resolver)
         {}
         #endregion
 
@@ -68,7 +68,7 @@ namespace ZeroInstall.Commands
             foreach (var feedReference in preferences.Feeds)
                 builder.AppendLine(feedReference.Source);
 
-            Policy.Handler.Output(string.Format(Resources.FeedsRegistered, interfaceID), builder.ToString());
+            Resolver.Handler.Output(string.Format(Resources.FeedsRegistered, interfaceID), builder.ToString());
             return 0;
         }
         #endregion

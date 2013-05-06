@@ -28,23 +28,42 @@ namespace ZeroInstall.Injector.Solver
     /// <summary>
     /// Contains helper methods for filtering <see cref="Selections"/>.
     /// </summary>
-    public static class SelectionsUtils
+    public class SelectionsManager
     {
+        #region Dependencies
+        private readonly IFeedCache _feedCache;
+        private readonly IStore _store;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="feedCache">Used to load <see cref="Feed"/>s containing the original <see cref="Implementation"/>s.</param>
+        /// <param name="store">The locations to search for cached <see cref="Implementation"/>s.</param>
+        public SelectionsManager(IFeedCache feedCache, IStore store)
+        {
+            #region Sanity checks
+            if (feedCache == null) throw new ArgumentNullException("feedCache");
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
+            _feedCache = feedCache;
+            _store = store;
+        }
+        #endregion
+
         /// <summary>
         /// Returns a list of any downloadable <see cref="ImplementationSelection"/>s that are missing from an <see cref="IStore"/>.
         /// </summary>
         /// <param name="selections">The selections to search for <see cref="ImplementationSelection"/>s that are missing.</param>
-        /// <param name="searchStore">The locations to search for cached <see cref="Implementation"/>s.</param>
         /// <remarks>Feed files may be downloaded, no implementations are downloaded.</remarks>
         /// <exception cref="KeyNotFoundException">Thrown if a <see cref="Feed"/> or <see cref="Implementation"/> is missing.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the feed file could not be parsed.</exception>
-        public static IEnumerable<ImplementationSelection> GetUncachedImplementationSelections(this Selections selections, IStore searchStore)
+        public IEnumerable<ImplementationSelection> GetUncachedImplementationSelections(Selections selections)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
-            if (searchStore == null) throw new ArgumentNullException("searchStore");
             #endregion
 
             return selections.Implementations.Where(implementation =>
@@ -55,7 +74,7 @@ namespace ZeroInstall.Injector.Solver
                     // Don't try to fetch virutal feeds
                     (string.IsNullOrEmpty(implementation.FromFeed) || !implementation.FromFeed.StartsWith(ImplementationSelection.DistributionFeedPrefix)) &&
                     // Don't download implementations that are already in the store
-                    !searchStore.Contains(implementation.ManifestDigest) &&
+                    !_store.Contains(implementation.ManifestDigest) &&
                     // Ignore implementations without an ID
                     !string.IsNullOrEmpty(implementation.ID));
         }
@@ -64,31 +83,27 @@ namespace ZeroInstall.Injector.Solver
         /// Retrieves the original <see cref="Implementation"/>s these selections were based on.
         /// </summary>
         /// <param name="implementationSelections">The implementation selections to base the search of</param>
-        /// <param name="feedCache">Used to load <see cref="Feed"/>s containing the original <see cref="Implementation"/>s.</param>
         /// <returns></returns>
-        public static IEnumerable<Implementation> GetOriginalImplementations(this IEnumerable<ImplementationSelection> implementationSelections, IFeedCache feedCache)
+        public IEnumerable<Implementation> GetOriginalImplementations(IEnumerable<ImplementationSelection> implementationSelections)
         {
             #region Sanity checks
             if (implementationSelections == null) throw new ArgumentNullException("implementationSelections");
-            if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
-            return implementationSelections.Select(impl => feedCache.GetFeed(impl.FromFeed ?? impl.InterfaceID)[impl.ID].CloneImplementation());
+            return implementationSelections.Select(impl => _feedCache.GetFeed(impl.FromFeed ?? impl.InterfaceID)[impl.ID].CloneImplementation());
         }
 
         /// <summary>
         /// Combines <see cref="GetUncachedImplementationSelections"/> and <see cref="GetOriginalImplementations"/>.
         /// </summary>
         /// <param name="selections">The selections to search for <see cref="ImplementationSelection"/>s that are missing.</param>
-        /// <param name="policy">Provides the <see cref="IStore"/> and <see cref="IFeedCache"/>.</param>
-        public static IEnumerable<Implementation> GetUncachedImplementations(this Selections selections, Policy policy)
+        public ICollection<Implementation> GetUncachedImplementations(Selections selections)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
-            if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
-            return selections.GetUncachedImplementationSelections(policy.Fetcher.Store).GetOriginalImplementations(policy.FeedManager.Cache);
+            return GetOriginalImplementations(GetUncachedImplementationSelections(selections)).ToList();
         }
     }
 }

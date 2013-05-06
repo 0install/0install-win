@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.Store.Implementation;
 
@@ -26,9 +27,9 @@ namespace ZeroInstall.Fetchers
     [TestFixture]
     public class SequentialFetcherTest : FetcherTest
     {
-        protected override IFetcher CreateFetcher(IStore store)
+        protected override IFetcher CreateFetcher(IStore store, ITaskHandler handler)
         {
-            return new SequentialFetcher(store);
+            return new SequentialFetcher(store, handler);
         }
     }
 }

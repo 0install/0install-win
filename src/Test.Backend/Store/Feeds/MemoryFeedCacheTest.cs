@@ -87,11 +87,10 @@ namespace ZeroInstall.Store.Feeds
         public void TestGetSignautes()
         {
             var result = new OpenPgpSignature[0];
-            var openPgp = new Mock<IOpenPgp>().Object;
 
             // Expect pass-through
-            _backingCacheMock.Setup(x => x.GetSignatures("http://0install.de/feeds/test/test1.xml", openPgp)).Returns(result).Verifiable();
-            var signatures = _cache.GetSignatures("http://0install.de/feeds/test/test1.xml", openPgp);
+            _backingCacheMock.Setup(x => x.GetSignatures("http://0install.de/feeds/test/test1.xml")).Returns(result).Verifiable();
+            var signatures = _cache.GetSignatures("http://0install.de/feeds/test/test1.xml");
 
             CollectionAssert.AreEqual(signatures, result);
         }
