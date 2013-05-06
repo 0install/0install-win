@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Moq.Contrib</name>
+    </assembly>
+    <members>
+        <member name="T:Moq.AutoMockContainer">
+            <summary>
+            Auto-mocking factory that can create an instance of the 
+            class under test and automatically inject mocks for all its dependencies.
+            </summary>
+            <remarks>
+            Note that only interface dependencies will be mocked for now.
+            </remarks>
+        </member>
+        <member name="T:Moq.IResolve">
+            <summary>
+            Interface implemented by the <see cref="T:Moq.AutoMockContainer"/> so that 
+            the <c>Register</c> overloads can receive a creation 
+            function for the service, rather than just a type.
+            </summary>
+        </member>
+        <member name="M:Moq.IResolve.Resolve``1">
+            <summary>
+            Resolves a required service of the given type.
+            </summary>
+        </member>
+        <member name="M:Moq.AutoMockContainer.#ctor(Moq.MockRepository)">
+            <summary>
+            Initializes the container with the <see cref="T:Moq.MockRepository"/> that
+            will be used to create dependent mocks.
+            </summary>
+        </member>
+        <member name="M:Moq.AutoMockContainer.GetMock``1">
+            <summary>
+            Gets or creates a mock for the given type, with 
+            the default behavior specified by the factory.
+            </summary>
+        </member>
+        <member name="M:Moq.AutoMockContainer.Create``1">
+            <summary>
+            Creates an instance of a class under test, 
+            injecting all necessary dependencies as mocks.
+            </summary>
+            <typeparam name="T">Requested object type.</typeparam>
+        </member>
+        <member name="M:Moq.AutoMockContainer.Create``1(System.Func{Moq.IResolve,``0})">
+            <summary>
+            Creates an instance of a class under test using 
+            the given activator function.
+            </summary>
+            <typeparam name="T">Requested object type.</typeparam>
+        </member>
+        <member name="M:Moq.AutoMockContainer.Register``2">
+            <summary>
+            Registers and resolves the given service on the container.
+            </summary>
+            <typeparam name="TService">Service</typeparam>
+            <typeparam name="TImplementation">The implementation of the service.</typeparam>
+        </member>
+        <member name="M:Moq.AutoMockContainer.Register``1(``0)">
+            <summary>
+            Registers the given service instance on the container.
+            </summary>
+            <typeparam name="TService">Service type.</typeparam>
+            <param name="instance">Service instance.</param>
+        </member>
+        <member name="M:Moq.AutoMockContainer.Register``1(System.Func{Moq.IResolve,``0})">
+            <summary>
+            Registers the given service creation delegate on the container.
+            </summary>
+            <typeparam name="TService">Service type.</typeparam>
+        </member>
+        <member name="M:Moq.AutoMockContainer.Resolve``1">
+            <summary>
+            Resolves a required service of the given type.
+            </summary>
+        </member>
+        <member name="T:Moq.AutoMockContainer.MoqRegistrationSource">
+            <summary> 
+            Resolves unknown interfaces and Mocks using 
+            the <see cref="T:Moq.MockRepository"/> from the scope. 
+            </summary>
+        </member>
+        <member name="M:Moq.AutoMockContainer.MoqRegistrationSource.TryGetRegistration(Autofac.Service,Autofac.IComponentRegistration@)">
+            <summary>
+            Retrieve a registration for an unregistered service, to be used
+            by the container.
+            </summary>
+            <param name="service">The service that was requested.</param>
+            <param name="registration">A registration providing the service.</param>
+            <returns>
+            True if the registration could be created.
+            </returns>
+        </member>
+        <member name="T:Moq.Mvc.HttpApplicationStateMock">
+            <summary>
+            Mock the complete HttpApplicationState object hierarchy
+            </summary>
+        </member>
+        <member name="T:Moq.Mvc.HttpCachePolicyBaseMock">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Moq.Mvc.HttpContextMock">
+            <summary>
+            Complete object model for mocking the MVC Http context
+            </summary>
+        </member>
+        <member name="M:Moq.Mvc.HttpContextMock.#ctor">
+            <summary>
+            Default Constructor
+            </summary>
+        </member>
+        <member name="M:Moq.Mvc.HttpContextMock.VerifyContext">
+            <summary>
+            Verify only the mock expectations marked as Verifiable
+            </summary>
+        </member>
+        <member name="M:Moq.Mvc.HttpContextMock.VerifyContextsAll">
+            <summary>
+            Very all the mock expectations
+            </summary>
+        </member>
+        <member name="P:Moq.Mvc.HttpContextMock.HttpApplicationState">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Moq.Mvc.HttpContextMock.HttpRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Moq.Mvc.HttpContextMock.HttpResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Moq.Mvc.HttpContextMock.HttpServerUtility">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Moq.Mvc.HttpContextMock.HttpSessionState">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Moq.Mvc.HttpRequestMock">
+            <summary>
+            Mock the complete HttpRequestBase object hierarchy
+            </summary>
+        </member>
+        <member name="M:Moq.Mvc.HttpRequestMock.#ctor">
+            <summary>
+            Default Constructor
+            </summary>
+        </member>
+        <member name="T:Moq.Mvc.HttpResponseMock">
+            <summary>
+            Mock the complete HttpResponseBase object hierarchy
+            </summary>
+        </member>
+        <member name="M:Moq.Mvc.HttpResponseMock.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Moq.Mvc.HttpResponseMock.VerifyResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Moq.Mvc.HttpResponseMock.VerifyResponseAll">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Moq.Mvc.HttpResponseMock.Cache">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Moq.Mvc.HttpResponseMock.Output">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Moq.Mvc.HttpResponseMock.OutputStream">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Moq.Mvc.HttpServerUtilityMock">
+            <summary>
+            Mock the complete HttpServerUtilityBase object hierarchy
+            </summary>
+        </member>
+        <member name="T:Moq.Mvc.HttpSessionStateMock">
+            <summary>
+            Mock the complete HttpSessionStateBase object hierarchy
+            </summary>
+        </member>
+        <member name="T:ThisAssembly">
+            <group name="overview" title="Overview" order="0" />
+            <group name="Setupations" title="Setting Setupations" order="1" />
+            <group name="returns" title="Returning values from members" order="2" />
+            <group name="verification" title="Verifying Setupations" order="3" />
+            <group name="advanced" title="Advanced scenarios" order="99" />
+            <group name="factory" title="Using MockFactory for consistency across mocks" order="4" />
+        </member>
+    </members>
+</doc>
