@@ -101,7 +101,7 @@ namespace ZeroInstall.Capture
             #endregion
 
             return RegUtils.GetSubKeyNames(typeKey, "shell").
-                Select(verbName => GetVerb(typeKey, commandMapper, verbName)).Where(verb => verb != null);
+                            Select(verbName => GetVerb(typeKey, commandMapper, verbName)).Where(verb => verb != null);
         }
 
         /// <summary>

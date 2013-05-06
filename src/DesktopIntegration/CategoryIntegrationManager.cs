@@ -164,8 +164,8 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             foreach (var defaultProgram in appEntry.CapabilityLists.
-                Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
-                SelectMany(capabilityList => capabilityList.Entries.OfType<Capabilities.DefaultProgram>()))
+                                                    Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
+                                                    SelectMany(capabilityList => capabilityList.Entries.OfType<Capabilities.DefaultProgram>()))
                 Windows.DefaultProgram.ToggleIconsVisible(defaultProgram, iconsVisible);
         }
         #endregion

@@ -220,7 +220,7 @@ namespace ZeroInstall.Model
         public virtual void Normalize(string feedID)
         {
             // Convert legacy launch commands
-            if (Main != null) Commands.Add(new Command { Name = Command.NameRun, Path = Main });
+            if (Main != null) Commands.Add(new Command {Name = Command.NameRun, Path = Main});
             if (SelfTest != null) Commands.Add(new Command {Name = Command.NameTest, Path = SelfTest});
         }
 

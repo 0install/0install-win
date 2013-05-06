@@ -52,9 +52,9 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             return appEntry.CapabilityLists.
-                Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
-                SelectMany(capabilityList => capabilityList.Entries.SelectMany(capability => capability.ConflictIDs)).
-                Select(conflictID => "capability:" + conflictID);
+                            Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
+                            SelectMany(capabilityList => capabilityList.Entries.SelectMany(capability => capability.ConflictIDs)).
+                            Select(conflictID => "capability:" + conflictID);
         }
         #endregion
 

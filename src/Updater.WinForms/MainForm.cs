@@ -79,7 +79,7 @@ namespace ZeroInstall.Updater.WinForms
                 bool serviceWasRunning = _updateProcess.StopService();
 
                 SetStatus(Resources.CopyFiles);
-Retry:
+                Retry:
                 try
                 {
                     _updateProcess.CopyFiles();

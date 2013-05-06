@@ -103,7 +103,8 @@ namespace ZeroInstall.Store.Service
                     Stop(silent);
                     return 0;
                 case "status":
-                    Status();return 0;
+                    Status();
+                    return 0;
                 default:
                     Msg.Inform(null, string.Format(Resources.UnkownCommand, "0store-service (install|uninstall|start|stop|status) [--silent]"), MsgSeverity.Error);
                     return 1;
@@ -134,7 +135,7 @@ namespace ZeroInstall.Store.Service
             if (controller.Status == ServiceControllerStatus.Running) controller.Stop();
 
             using (var process = Process.Start(
-                new ProcessStartInfo(InstallUtilPath, new[] { "/u", Application.ExecutablePath }.JoinEscapeArguments()) { WindowStyle = (silent ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal) }))
+                new ProcessStartInfo(InstallUtilPath, new[] {"/u", Application.ExecutablePath}.JoinEscapeArguments()) {WindowStyle = (silent ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal)}))
             {
                 process.WaitForExit();
 
