@@ -31,7 +31,8 @@ namespace ZeroInstall.Fetchers
         /// </summary>
         public static readonly RetrievalMethodRanker Instance = new RetrievalMethodRanker();
 
-        private RetrievalMethodRanker() {}
+        private RetrievalMethodRanker()
+        {}
         #endregion
 
         /// <inheritdoc/>

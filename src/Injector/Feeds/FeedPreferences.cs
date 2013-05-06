@@ -58,7 +58,7 @@ namespace ZeroInstall.Injector.Feeds
         [Description("A list of implementation-specific user-overrides.")]
         [XmlElement("implementation")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-            public C5.LinkedList<ImplementationPreferences> Implementations
+        public C5.LinkedList<ImplementationPreferences> Implementations
         {
             get { return _implementations; }
         }

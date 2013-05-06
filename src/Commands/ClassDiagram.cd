@@ -16,7 +16,7 @@
       <Method Name="Update" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQABEBAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAQgAAAAAAQABEBAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Update.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -73,7 +73,7 @@
       <Method Name="Run" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAEAAAAAAAgAAQAAAAAAAQABQAIAAAAgAACAAAAAAA=</HashCode>
+      <HashCode>AAAEAAAAAAAgAAQAAAAAAAQEBQAIAAAAgAACAAAAAAA=</HashCode>
       <FileName>Run.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -95,7 +95,7 @@
       <Method Name="SupportedValues" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAgAIAAAAkgAAQAAAMAAAQEBAAIAAAAAAAAACBEAAA=</HashCode>
+      <HashCode>AAAgAIAAAAkgAAQAAAEAAAQEBAAIAAAAAAAAACBECAA=</HashCode>
       <FileName>FrontendCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -122,7 +122,7 @@
   <Class Name="ZeroInstall.Commands.CommandFactory">
     <Position X="7" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAA=</HashCode>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAQAAAAAAAAAAAAEAAAABAAAA=</HashCode>
       <FileName>CommandFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -132,7 +132,7 @@
       <Method Name="AddApp" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAIAAAAAAAAAAAAAAE=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQEAAAIAIAAAAAAAAAAAAE=</HashCode>
       <FileName>AddApp.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -142,7 +142,7 @@
       <Method Name="IntegrateApp" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAgAAAAAAAAAIQAAAAIAgAQABAABAAAAAE=</HashCode>
+      <HashCode>AAACAAAAAAAgAAAAAAAAAIQEAAAIAoAQABAABAAAAAE=</HashCode>
       <FileName>IntegrateApp.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -152,7 +152,7 @@
       <Method Name="RemoveApp" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAIAAAAAAAAAAAAAAE=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAASEAAAIAIAAAAAAAAAAAAE=</HashCode>
       <FileName>RemoveApp.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -162,7 +162,7 @@
       <Method Name="AppCommand" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAEBAAAAAAAAAAAAAAAAAE=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAAAAAAAAAE=</HashCode>
       <FileName>AppCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -172,7 +172,7 @@
       <Method Name="IntegrationCommand" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAABAAAAAgAAAAAAAAAAAAAAAAAAgAAEAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAACAAgAAEAAAAAAAAAA=</HashCode>
       <FileName>IntegrationCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -182,7 +182,7 @@
       <Method Name="AddAlias" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAIAAAAAAAgAAUAAAAAAAQEBAAAAAEAAAAEAAAAIAA=</HashCode>
+      <HashCode>AAAIAAAAAAAgAAUAAAAAAAQEBAAAAIEAAAAEAAAAIAA=</HashCode>
       <FileName>AddAlias.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -207,7 +207,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.SelfUpdate">
-    <Position X="3.25" Y="17.75" Width="2" />
+    <Position X="3.25" Y="18" Width="2" />
     <Members>
       <Method Name="SelfUpdate" Hidden="true" />
     </Members>
@@ -229,14 +229,14 @@
   <Class Name="ZeroInstall.Commands.RepairApps">
     <Position X="20.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEBAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEBAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>RepairApps.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.UpdateApps">
     <Position X="18.75" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgBAQAAAAAQCQEhAAAAAAAAAAAAAAAQAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgBAQAAAAAQCQEhAAAAIAAAAAAAAAAQAA=</HashCode>
       <FileName>UpdateApps.cs</FileName>
     </TypeIdentifier>
   </Class>
