@@ -26,16 +26,15 @@
       <steps class="ordered">
         <step>
           <content>
-            <para>First step</para>
+            <para>Add references to ZeroInstall.Model.dll and ZeroInstall.Injector.dll.</para>
           </content>
         </step>
         <step>
           <content>
-            <para>Second step</para>
+            <para>Make sure the GnuPG and Solver directories are copied to your build directory.</para>
           </content>
         </step>
       </steps>
-      <conclusion>...</conclusion>
     </procedure>
 
     <procedure>
@@ -43,16 +42,30 @@
       <steps class="ordered">
         <step>
           <content>
-            <para>First step</para>
+            <para>Instantiate a <codeEntityReference>T:ZeroInstall.Injector.Resolver</codeEntityReference>.</para>
           </content>
         </step>
         <step>
           <content>
-            <para>Second step</para>
+            <para><codeEntityReference>T:ZeroInstall.Injector.Resolver.Solver</codeEntityReference></para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para><codeEntityReference>T:ZeroInstall.Injector.Resolver.SelectionsManager</codeEntityReference></para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para><codeEntityReference>T:ZeroInstall.Injector.Resolver.Fetcher</codeEntityReference></para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para><codeEntityReference>T:ZeroInstall.Injector.Executor</codeEntityReference></para>
           </content>
         </step>
       </steps>
-      <conclusion>...</conclusion>
     </procedure>
   </developerWalkthroughDocument>
 </topic>

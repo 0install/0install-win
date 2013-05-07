@@ -57,7 +57,7 @@
   			<listItem>Run the user interface on a sperate thread so it won't block the task's execution.</listItem>
               <listItem>Implement the <codeEntityReference>T:ZeroInstall.Injector.IHandler</codeEntityReference> interface.</listItem>
               <listItem>Pass the <codeEntityReference>T:ZeroInstall.Injector.IHandler</codeEntityReference> implementation to
-                <codeEntityReference>T:ZeroInstall.Injector.Policy</codeEntityReference>.</listItem>
+                <codeEntityReference>T:ZeroInstall.Injector.Resolver</codeEntityReference>.</listItem>
 		  </list>
         </para>
         <para>

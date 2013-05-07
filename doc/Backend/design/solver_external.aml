@@ -7,7 +7,7 @@
       <para>
         The <application>Zero Install for Windows</application> implementation
         currently uses a subset of the existing Python implementation
-        (<externalLink><linkText>git://repo.or.cz/zeroinstall/solver.git</linkText><linkUri>http://repo.or.cz/w/zeroinstall/solver.git</linkUri><linkTarget>_blank</linkTarget></externalLink>)
+        (<externalLink><linkText>https://github.com/0install/0install</linkText><linkUri>https://github.com/0install/0install</linkUri><linkTarget>_blank</linkTarget></externalLink>)
         for downloading feeds and solving dependencies.
       </para>
       <para>

@@ -6,10 +6,10 @@
     <introduction>
       <para>
         Zero Install operations often start off with simple method calls that
-        end up triggering a lot of secondary task. For example, a method
-        designed to launch an application may trigger downloads and
-        extractions for missing implementations. Such methods have parameters
-        that allow you to provide callback delegates to be informed about new
+        end up triggering numerous of secondary tasks. For example, a method
+        designed to launch an application may trigger downloads and archive
+        extractions for missing implementations. Such methods have a parameter
+        that allows you to provide a callback object to be informed about new
         trackable tasks.
       </para>
     </introduction>
@@ -20,7 +20,7 @@
         <para>
           When you call a method that triggers background tasks, the method
           itself will run synchronously and only return once the entire
-          operation has been completed. The callback delegates may be called
+          operation has been completed. The callback object may be called
           intermittently and indicate that a new background task has been
           started and may now be tracked. The callbacks will block the original
           method. Therefor you should only use them to set up progress tracking
