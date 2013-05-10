@@ -18,6 +18,7 @@
 using System;
 using Common;
 using Common.Storage;
+using Moq;
 using NUnit.Framework;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
@@ -48,7 +49,7 @@ namespace ZeroInstall.Commands
             Resolver.FeedManager.Refresh = true;
 
             bool stale;
-            SolverMock.Setup(x => x.Solve(requirements, out stale)).ReturnsInOrder(selectionsOld, selectionsNew).Verifiable();
+            SolverMock.SetupSequence(x => x.Solve(requirements, out stale)).Returns(selectionsOld).Returns(selectionsNew);
 
             var impl1 = new Implementation {ID = "id1"};
             var impl2 = new Implementation {ID = "id2"};

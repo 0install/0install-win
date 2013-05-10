@@ -5,11 +5,15 @@ let resolver = new Resolver(new CliHandler())
 let solve = resolver.Solver.Solve
 let uncached = resolver.SelectionsManager.GetUncachedImplementations
 let fetch = resolver.Fetcher.Fetch
-let execute selections = ignore ((new Executor (selections, resolver.Store)).Start())
+let execute selections = (new Executor (selections, resolver.Store)).Start()
+
+let run requirements =
+    let selections = solve requirements
+    fetch (uncached selections)
+    execute selections
 
 [<EntryPoint>]
 let main args = 
-    let selections = solve (new Requirements(InterfaceID = args.[0]))
-    fetch (uncached selections)
-    execute selections
+    let requirements = new Requirements(InterfaceID = args.[0])
+    ignore (run requirements)
     0

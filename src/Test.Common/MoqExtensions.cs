@@ -28,14 +28,6 @@ namespace Common
     public static class MoqExtensions
     {
         /// <summary>
-        /// Makes a function call return a list of values in order when called multiple times.
-        /// </summary>
-        public static IReturnsResult<T> ReturnsInOrder<T, TResult>(this ISetup<T, TResult> setup, params TResult[] results) where T : class
-        {
-            return setup.Returns(new Queue<TResult>(results).Dequeue);
-        }
-
-        /// <summary>
         /// Ensures a collection is equal to this one (same elements in same order).
         /// </summary>
         [Matcher]
