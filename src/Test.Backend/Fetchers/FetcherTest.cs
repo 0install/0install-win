@@ -130,22 +130,24 @@ namespace ZeroInstall.Fetchers
         private void TestDownloadArchives(params Archive[] archives)
         {
             var digest = new ManifestDigest(sha256New: "test123");
-
             var archiveInfos = archives.Select(archive => new ArchiveFileInfo {SubDir = archive.Extract, Destination = archive.Destination, MimeType = archive.MimeType, StartOffset = archive.StartOffset});
-            RetrievalMethod retrievalMethod;
-            if (archives.Length == 1) retrievalMethod = archives[0];
-            else
-            {
-                var recipe = new Recipe();
-                recipe.Steps.AddAll(archives);
-                retrievalMethod = recipe;
-            }
-            var testImplementation = new Implementation {ManifestDigest = digest, RetrievalMethods = {retrievalMethod}};
+            var testImplementation = new Implementation {ManifestDigest = digest, RetrievalMethods = {GetRetrievalMethod(archives)}};
 
             _storeMock.Setup(x => x.Contains(digest)).Returns(false).Verifiable();
             _storeMock.Setup(x => x.AddArchives(archiveInfos.IsEqual(), digest, _handler)).Verifiable();
 
             _fetcher.Fetch(new[] {testImplementation});
+        }
+
+        private static RetrievalMethod GetRetrievalMethod(Archive[] archives)
+        {
+            if (archives.Length == 1) return archives[0];
+            else
+            {
+                var recipe = new Recipe();
+                recipe.Steps.AddAll(archives);
+                return recipe;
+            }
         }
 
         private void TestDownload(Predicate<string> directoryCheck, params RetrievalMethod[] retrievalMethod)
