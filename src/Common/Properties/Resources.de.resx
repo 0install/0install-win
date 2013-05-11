@@ -132,6 +132,9 @@
   <data name="CannotAddCollectionToSelf" xml:space="preserve">
     <value>Die Collection kann nicht zu sich selbst hinzugefügt werden.</value>
   </data>
+  <data name="CannotCanonicalizeDacl" xml:space="preserve">
+    <value>Die DACL kann nicht in eine kanonische Form überfürht werden, da es dabei zu einem Informationsverlust kommen könnte.</value>
+  </data>
   <data name="DestinationDirExist" xml:space="preserve">
     <value>Das Zielverzeichnis existiert bereits.</value>
   </data>

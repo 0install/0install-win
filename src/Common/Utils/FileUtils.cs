@@ -22,13 +22,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using Common.Properties;
-#if FS_SECURITY
-using System.ComponentModel;
 using System.Security.AccessControl;
 using System.Security.Principal;
+using Common.Properties;
+
+#if FS_SECURITY
 
 #endif
 
@@ -333,10 +334,64 @@ namespace Common.Utils
 
             // Inherit rules from container and remove any custom rules
             acl = getAcl();
+            acl.CanonicalizeAcl();
             acl.SetAccessRuleProtection(false, true);
             foreach (FileSystemAccessRule rule in acl.GetAccessRules(true, false, typeof(NTAccount)))
                 acl.RemoveAccessRule(rule);
             setAcl(acl);
+        }
+
+        /// <summary>
+        /// Fixes ACLs that are not canonical (not ordered correctly).
+        /// </summary>
+        public static void CanonicalizeAcl(this NativeObjectSecurity objectSecurity)
+        {
+            #region Sanity checks
+            if (objectSecurity == null) throw new ArgumentNullException("objectSecurity");
+            #endregion
+
+            if (objectSecurity.AreAccessRulesCanonical) return;
+
+            var securityDescriptor = new RawSecurityDescriptor(objectSecurity.GetSecurityDescriptorSddlForm(AccessControlSections.Access));
+            var denied = new List<CommonAce>();
+            var deniedObject = new List<CommonAce>();
+            var allowed = new List<CommonAce>();
+            var allowedObject = new List<CommonAce>();
+            var inherited = new List<CommonAce>();
+            foreach (CommonAce ace in securityDescriptor.DiscretionaryAcl)
+            {
+                if ((ace.AceFlags & AceFlags.Inherited) == AceFlags.Inherited) inherited.Add(ace);
+                else
+                {
+                    switch (ace.AceType)
+                    {
+                        case AceType.AccessDenied:
+                            denied.Add(ace);
+                            break;
+                        case AceType.AccessDeniedObject:
+                            deniedObject.Add(ace);
+                            break;
+                        case AceType.AccessAllowed:
+                            allowed.Add(ace);
+                            break;
+                        case AceType.AccessAllowedObject:
+                            allowedObject.Add(ace);
+                            break;
+                    }
+                }
+            }
+
+            int aceIndex = 0;
+            var newDacl = new RawAcl(securityDescriptor.DiscretionaryAcl.Revision, securityDescriptor.DiscretionaryAcl.Count);
+            denied.ForEach(ace => newDacl.InsertAce(aceIndex++, ace));
+            deniedObject.ForEach(ace => newDacl.InsertAce(aceIndex++, ace));
+            allowed.ForEach(ace => newDacl.InsertAce(aceIndex++, ace));
+            allowedObject.ForEach(ace => newDacl.InsertAce(aceIndex++, ace));
+            inherited.ForEach(ace => newDacl.InsertAce(aceIndex++, ace));
+
+            if (aceIndex != securityDescriptor.DiscretionaryAcl.Count) throw new InvalidOperationException(Resources.CannotCanonicalizeDacl);
+            securityDescriptor.DiscretionaryAcl = newDacl;
+            objectSecurity.SetSecurityDescriptorSddlForm(securityDescriptor.GetSddlForm(AccessControlSections.Access), AccessControlSections.Access);
         }
         #endregion
 
@@ -437,6 +492,7 @@ namespace Common.Utils
             try
             {
                 var acl = directory.GetAccessControl();
+                acl.CanonicalizeAcl();
                 if (enable) acl.AddAccessRule(_denyEveryoneWrite);
                 else acl.RemoveAccessRule(_denyEveryoneWrite);
                 directory.SetAccessControl(acl);
