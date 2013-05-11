@@ -102,7 +102,7 @@ namespace Common.Utils
         /// </summary>
         /// <param name="data">The data to fill the stream with.</param>
         /// <returns>A filled stream with the position set to zero.</returns>
-        public static Stream ToStream(this string data)
+        public static MemoryStream ToStream(this string data)
         {
             #region Sanity checks
             if (data == null) throw new ArgumentNullException("data");
