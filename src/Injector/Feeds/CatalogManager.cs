@@ -41,33 +41,23 @@ namespace ZeroInstall.Injector.Feeds
         #endregion
 
         #region Dependencies
-        private readonly string _cacheFilePath;
-        private readonly TrustManager _trustManager;
+        private readonly ITrustManager _trustManager;
 
         /// <summary>
         /// Creates a new catalog manager.
         /// </summary>
-        /// <param name="cacheFilePath">The file used to cache a merged view of all used catalogs.</param>
         /// <param name="trustManager">Methods for verifying signatures and user trust.</param>
-        public CatalogManager(string cacheFilePath, TrustManager trustManager)
+        public CatalogManager(ITrustManager trustManager)
         {
             #region Sanity checks
-            if (cacheFilePath == null) throw new ArgumentNullException("cacheFilePath");
             if (trustManager == null) throw new ArgumentNullException("trustManager");
             #endregion
 
-            _cacheFilePath = cacheFilePath;
             _trustManager = trustManager;
         }
-
-        /// <summary>
-        /// Creates a new catalog manager.
-        /// </summary>
-        /// <param name="trustManager">Methods for verifying signatures and user trust.</param>
-        public CatalogManager(TrustManager trustManager)
-            : this(Path.Combine(Locations.GetCacheDirPath("0install.net", false), "catalog.xml"), trustManager)
-        {}
         #endregion
+
+        private readonly string _cacheFilePath = Path.Combine(Locations.GetCacheDirPath("0install.net", false), "catalog.xml");
 
         #region Cached
         /// <summary>

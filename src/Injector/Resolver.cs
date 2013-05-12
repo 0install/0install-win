@@ -36,7 +36,7 @@ namespace ZeroInstall.Injector
         private IOpenPgp _openPgp;
         private IFeedCache _feedCache;
         private IStore _store;
-        private TrustManager _trustManager;
+        private ITrustManager _trustManager;
         private CatalogManager _catalogManager;
         private ISolver _solver;
         private IFetcher _fetcher;
@@ -82,7 +82,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Methods for verifying signatures and user trust.
         /// </summary>
-        public TrustManager TrustManager { get { return Get(ref _trustManager, () => new TrustManager(Config, OpenPgp, FeedCache, Handler)); } set { _trustManager = value; } }
+        public ITrustManager TrustManager { get { return Get(ref _trustManager, () => new TrustManager(Config, OpenPgp, FeedCache, Handler)); } set { _trustManager = value; } }
 
         private IFeedManager _feedManager;
 

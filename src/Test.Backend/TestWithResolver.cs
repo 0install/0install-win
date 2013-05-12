@@ -16,10 +16,10 @@
  */
 
 using Common.Storage;
+using Common.Tasks;
 using Moq;
 using NUnit.Framework;
 using ZeroInstall.Injector;
-using ZeroInstall.Injector.Feeds;
 
 namespace ZeroInstall
 {
@@ -44,7 +44,6 @@ namespace ZeroInstall
         {
             Resolver = new AutoMockContainer(_repository = new MockRepository(MockBehavior.Loose));
             Resolver.Register(Config = new Config());
-            Resolver.Register(Resolver.Create<TrustManager>());
             Target = Resolver.Create<T>();
 
             _redirect = new LocationsRedirect("0install-unit-tests");
@@ -55,6 +54,11 @@ namespace ZeroInstall
         {
             _redirect.Dispose();
             _repository.VerifyAll();
+        }
+
+        protected void ProvideCancellationToken()
+        {
+            Resolver.GetMock<IHandler>().SetupGet(x => x.CancellationToken).Returns(new CancellationToken());
         }
     }
 }

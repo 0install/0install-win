@@ -32,7 +32,7 @@ namespace ZeroInstall.Injector.Feeds
     /// <summary>
     /// Methods for verifying signatures and user trust.
     /// </summary>
-    public class TrustManager
+    public class TrustManager : ITrustManager
     {
         #region Dependencies
         private readonly Config _config;
@@ -93,16 +93,7 @@ namespace ZeroInstall.Injector.Feeds
             // ReSharper restore AccessToModifiedClosure
 
             // Try to find valid key and ask user to approve it
-            trustedSignature = validSignatures.FirstOrDefault(sig =>
-            {
-                bool goodVote;
-                var keyInformation = GetKeyInformation(sig.Fingerprint, out goodVote) ?? Resources.NoKeyInfoServerData;
-
-                // Automatically trust key if known and voted good by key server (unless the feed was already seen/cached)
-                return (_config.AutoApproveKeys && goodVote && !_feedCache.Contains(uri.ToString())) ||
-                    // Otherwise ask user
-                    _handler.AskQuestion(string.Format(Resources.AskKeyTrust, uri, sig.Fingerprint, keyInformation, domain), Resources.UntrustedKeys);
-            });
+            trustedSignature = validSignatures.FirstOrDefault(signature => IsKeyApproved(uri, signature, domain));
             if (trustedSignature != null)
             {
                 // Add newly approved key to trust database
@@ -149,6 +140,18 @@ namespace ZeroInstall.Injector.Feeds
             throw new SignatureException(string.Format(Resources.FeedNoTrustedSignatures, uri));
         }
 
+        private bool IsKeyApproved(Uri uri, ValidSignature signature, Domain domain)
+        {
+            bool goodVote;
+            var keyInformation = GetKeyInformation(signature.Fingerprint, out goodVote) ?? Resources.NoKeyInfoServerData;
+
+            // Automatically trust key for _new_ feeds if  voted good by key server
+            if (_config.AutoApproveKeys && goodVote && !_feedCache.Contains(uri.ToString())) return true;
+
+            // Otherwise ask user
+            return _handler.AskQuestion(string.Format(Resources.AskKeyTrust, uri, signature.Fingerprint, keyInformation, domain), Resources.UntrustedKeys);
+        }
+
         /// <summary>
         /// Retrieves information about a OpenPGP key from the <see cref="Config.KeyInfoServer"/>.
         /// </summary>
@@ -157,10 +160,17 @@ namespace ZeroInstall.Injector.Feeds
         /// <returns>Human-readable information about the key or <see langword="null"/> if the server failed to provide a response.</returns>
         private string GetKeyInformation(string fingerprint, out bool goodVote)
         {
+            if (_config.KeyInfoServer == null)
+            {
+                goodVote = false;
+                return null;
+            }
+
             try
             {
                 // ToDo: Add better cancellation support
-                var xmlReader = XmlReader.Create(_config.KeyInfoServer + "key/" + fingerprint);
+                var keyInfoUri = new Uri(_config.KeyInfoServer, "key/" + fingerprint);
+                var xmlReader = XmlReader.Create(keyInfoUri.ToString());
                 _handler.CancellationToken.ThrowIfCancellationRequested();
                 if (!xmlReader.ReadToFollowing("item"))
                 {

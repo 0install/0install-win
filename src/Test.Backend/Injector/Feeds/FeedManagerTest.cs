@@ -20,10 +20,9 @@ using System.Collections.Generic;
 using System.IO;
 using Common;
 using Common.Storage;
-using Common.Tasks;
 using Common.Utils;
-using NUnit.Framework;
 using Moq;
+using NUnit.Framework;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 
@@ -46,8 +45,8 @@ namespace ZeroInstall.Injector.Feeds
         }
         #endregion
 
-        [Test(Description = "Ensures local feed files are loaded correctly.")]
-        public void TestLocal()
+        [Test]
+        public void Local()
         {
             var feed = new Feed();
 
@@ -63,15 +62,41 @@ namespace ZeroInstall.Injector.Feeds
             }
         }
 
-        [Test(Description = "Ensures missing local feed files are reported correctly.")]
-        public void TestLocalMissing()
+        [Test]
+        public void LocalMissing()
         {
             bool stale = true;
             Assert.Throws<FileNotFoundException>(() => Target.GetFeed("invalid-" + Path.GetRandomFileName(), ref stale));
         }
 
-        [Test(Description = "Ensures cached feeds that are not stale are returned correctly.")]
-        public void TestCachedFresh()
+        [Test]
+        public void DownloadFromMirror()
+        {
+            var feed = FeedTest.CreateTestFeed();
+            feed.Uri = new Uri("http://invalid/directory/feed.xml");
+            var data = feed.ToXmlString().ToStream().ToArray();
+
+            // No previous feed
+            _feedCacheMock.Setup(x => x.Contains(feed.Uri.ToString())).Returns(false).Verifiable();
+            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>().Verifiable();
+
+            _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
+            _feedCacheMock.Setup(x => x.GetFeed(feed.Uri.ToString())).Returns(feed).Verifiable();
+            using (var mirrorServer = new MicroServer("feeds/http/invalid/directory%23feed.xml/latest.xml", new MemoryStream(data)))
+            {
+                // ReSharper disable AccessToDisposedClosure
+                Resolver.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, mirrorServer.FileUri, data)).
+                         Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
+                // ReSharper restore AccessToDisposedClosure
+
+                Config.FeedMirror = mirrorServer.ServerUri;
+                ProvideCancellationToken();
+                Assert.AreEqual(feed, Target.GetFeed(feed.Uri.ToString()));
+            }
+        }
+
+        [Test]
+        public void DetectFreshCached()
         {
             var feed = new Feed();
 
@@ -85,8 +110,8 @@ namespace ZeroInstall.Injector.Feeds
             Assert.IsFalse(stale);
         }
 
-        [Test(Description = "Ensures cached feeds that are stale are returned correctly.")]
-        public void TestCachedStale()
+        [Test]
+        public void DetectStatleCached()
         {
             var feed = new Feed();
 
@@ -100,42 +125,11 @@ namespace ZeroInstall.Injector.Feeds
             Assert.IsTrue(stale);
         }
 
-        [Test]
-        public void TestDownloadMirror()
-        {
-            var feed = FeedTest.CreateTestFeed();
-            feed.Uri = new Uri("http://invalid/directory/feed.xml");
-            var data = SignFeed(feed, false);
-
-            // Pre-trust signature key
-            var trustDB = new TrustDB();
-            trustDB.TrustKey("fingerprint", new Domain(feed.Uri.Host));
-            trustDB.Save();
-
-            // No previous feed
-            _feedCacheMock.Setup(x => x.Contains(feed.Uri.ToString())).Returns(false).Verifiable();
-            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>().Verifiable();
-
-            _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
-            _feedCacheMock.Setup(x => x.GetFeed(feed.Uri.ToString())).Returns(feed).Verifiable();
-            using (var mirrorServer = new MicroServer("feeds/http/invalid/directory%23feed.xml/latest.xml", new MemoryStream(data)))
-            {
-                Config.FeedMirror = mirrorServer.ServerUri;
-                Resolver.GetMock<IHandler>().SetupGet(x => x.CancellationToken).Returns(new CancellationToken());
-                Assert.AreEqual(feed, Target.GetFeed(feed.Uri.ToString()));
-            }
-        }
-
         [Test(Description = "Ensures valid feeds are correctly imported.")]
-        public void TestImportFeed()
+        public void Import()
         {
             var feed = FeedTest.CreateTestFeed();
-            var data = SignFeed(feed, false);
-
-            // Pre-trust signature key
-            var trustDB = new TrustDB();
-            trustDB.TrustKey("fingerprint", new Domain(feed.Uri.Host));
-            trustDB.Save();
+            var data = SignFeed(feed);
 
             // No previous feed
             _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>().Verifiable();
@@ -144,175 +138,20 @@ namespace ZeroInstall.Injector.Feeds
             Target.ImportFeed(feed.Uri, null, data);
         }
 
-        private const string KeyInfoResponse = @"<?xml version='1.0'?><key-lookup><item vote=""good"">Key information</item></key-lookup>";
-
-        [Test(Description = "Ensures feeds signed with keys that are not trusted are rejected.")]
-        public void TestImportUntrustKey()
-        {
-            var feed = FeedTest.CreateTestFeed();
-            var data = SignFeed(feed, false);
-
-            using (var keyInfoServer = new MicroServer("key/fingerprint", KeyInfoResponse.ToStream()))
-            {
-                Config.KeyInfoServer = keyInfoServer.ServerUri;
-                Config.AutoApproveKeys = false;
-
-                // Ensure key information is relayed and then reject new key
-                Resolver.GetMock<IHandler>().Setup(x => x.AskQuestion(It.IsRegex("Key information"), It.IsAny<string>())).Returns(false).Verifiable();
-
-                Resolver.GetMock<IHandler>().SetupGet(x => x.CancellationToken).Returns(new CancellationToken());
-                Assert.Throws<SignatureException>(() => Target.ImportFeed(feed.Uri, null, data));
-                Assert.IsFalse(TrustDB.LoadSafe().IsTrusted("fingerprint", new Domain(feed.Uri.Host)));
-            }
-        }
-
-        [Test(Description = "Ensures feeds signed with keys that are newly trusted are accepted.")]
-        public void TestImportTrustKey()
-        {
-            var feed = FeedTest.CreateTestFeed();
-            var data = SignFeed(feed, false);
-
-            using (var keyInfoServer = new MicroServer("key/fingerprint", KeyInfoResponse.ToStream()))
-            {
-                Config.KeyInfoServer = keyInfoServer.ServerUri;
-                Config.AutoApproveKeys = false;
-
-                // No previous feed
-                _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>().Verifiable();
-
-                // Ensure key information is relayed and then accept new key
-                Resolver.GetMock<IHandler>().Setup(x => x.AskQuestion(It.IsRegex("Key information"), It.IsAny<string>())).Returns(true).Verifiable();
-
-                _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
-                Resolver.GetMock<IHandler>().SetupGet(x => x.CancellationToken).Returns(new CancellationToken());
-                Target.ImportFeed(feed.Uri, null, data);
-                Assert.IsTrue(TrustDB.LoadSafe().IsTrusted("fingerprint", new Domain(feed.Uri.Host)));
-            }
-        }
-
-        [Test(Description = "Ensures feeds signed with keys known by the key server get trusted automatically.")]
-        public void TestImportAutoTrustKey()
-        {
-            var feed = FeedTest.CreateTestFeed();
-            var data = SignFeed(feed, false);
-
-            using (var keyInfoServer = new MicroServer("key/fingerprint", KeyInfoResponse.ToStream()))
-            {
-                Config.KeyInfoServer = keyInfoServer.ServerUri;
-                Config.AutoApproveKeys = true;
-
-                // No previous feed
-                _feedCacheMock.Setup(x => x.Contains(feed.Uri.ToString())).Returns(false).Verifiable();
-                _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>().Verifiable();
-
-                _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
-                Resolver.GetMock<IHandler>().SetupGet(x => x.CancellationToken).Returns(new CancellationToken());
-                Target.ImportFeed(feed.Uri, null, data);
-                Assert.IsTrue(TrustDB.LoadSafe().IsTrusted("fingerprint", new Domain(feed.Uri.Host)));
-            }
-        }
-
-        [Test(Description = "Ensures feeds signed with changed keys do not get trusted automatically.")]
-        public void TestImportNoAutoTrustChangedKey()
-        {
-            var feed = FeedTest.CreateTestFeed();
-            var data = SignFeed(feed, false);
-
-            using (var keyInfoServer = new MicroServer("key/fingerprint", KeyInfoResponse.ToStream()))
-            {
-                Config.KeyInfoServer = keyInfoServer.ServerUri;
-                Config.AutoApproveKeys = true;
-
-                // Previous feed already in cache
-                _feedCacheMock.Setup(x => x.Contains(feed.Uri.ToString())).Returns(true).Verifiable();
-
-                // Ensure key information is relayed and then reject new key
-                Resolver.GetMock<IHandler>().Setup(x => x.AskQuestion(It.IsRegex("Key information"), It.IsAny<string>())).Returns(false).Verifiable();
-
-                Resolver.GetMock<IHandler>().SetupGet(x => x.CancellationToken).Returns(new CancellationToken());
-                Assert.Throws<SignatureException>(() => Target.ImportFeed(feed.Uri, null, data));
-                Assert.IsFalse(TrustDB.LoadSafe().IsTrusted("fingerprint", new Domain(feed.Uri.Host)));
-            }
-        }
-
-        [Test(Description = "Ensures feeds signed with keys with no key information server data are handled correctly.")]
-        public void TestImportNoKeyInfo()
-        {
-            var feed = FeedTest.CreateTestFeed();
-            var data = SignFeed(feed, false);
-
-            using (var keyInfoServer = new MicroServer("key/other_fingerprint", "invalid".ToStream())) // Cause an error 404
-            {
-                Config.KeyInfoServer = keyInfoServer.ServerUri;
-                Config.AutoApproveKeys = true; // Should not do anything if the key info server does not recognize the key
-
-                // No previous feed
-                _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>().Verifiable();
-
-                // Ensure key information is relayed and then accept new key
-                Resolver.GetMock<IHandler>().Setup(x => x.AskQuestion(It.IsAny<string>(), It.IsAny<string>())).Returns(true).Verifiable();
-
-                _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
-                Target.ImportFeed(feed.Uri, null, data);
-                Assert.IsTrue(TrustDB.LoadSafe().IsTrusted("fingerprint", new Domain(feed.Uri.Host)));
-            }
-        }
-
-        [Test(Description = "Ensures feeds signed with new keys are correctly imported.")]
-        public void TestImportMissingKey()
-        {
-            // Provide PGP key file via HTTP
-            var keyData = new byte[] {1, 2, 3, 4, 5};
-
-            var feed = FeedTest.CreateTestFeed();
-            var data = SignFeed(feed, true);
-            Resolver.GetMock<IOpenPgp>().Setup(x => x.ImportKey(keyData));
-
-            // Pre-trust signature key
-            var trustDB = new TrustDB();
-            trustDB.TrustKey("fingerprint", new Domain(feed.Uri.Host));
-            trustDB.Save();
-
-            // No previous feed
-            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>().Verifiable();
-
-            _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
-            Resolver.GetMock<IHandler>().SetupGet(x => x.CancellationToken).Returns(new CancellationToken());
-            using (var keyServer = new MicroServer("id.gpg", new MemoryStream(keyData)))
-                Target.ImportFeed(feed.Uri, keyServer.FileUri, data);
-        }
-
-        [Test(Description = "Ensures feeds without signatures are rejected.")]
-        public void TestImportFeedMissingSignature()
-        {
-            var feed = FeedTest.CreateTestFeed();
-            Assert.Throws<SignatureException>(() => Target.ImportFeed(feed.Uri, null, feed.ToArray()));
-        }
-
         [Test(Description = "Ensures feeds with incorrect URIs are rejected.")]
-        public void TestImportFeedIncorrectUri()
+        public void ImportIncorrectUri()
         {
             var feed = FeedTest.CreateTestFeed();
-            var data = SignFeed(feed, false);
-
-            // Pre-trust signature key
-            var trustDB = new TrustDB();
-            trustDB.TrustKey("fingerprint", new Domain("invalid"));
-            trustDB.Save();
+            var data = feed.ToXmlString().ToStream().ToArray();
 
             Assert.Throws<InvalidInterfaceIDException>(() => Target.ImportFeed(new Uri("http://invalid/"), null, data));
         }
 
         [Test(Description = "Ensures replay attacks are detected.")]
-        public void TestImportFeedReplayAttack()
+        public void ImportReplayAttack()
         {
             var feed = FeedTest.CreateTestFeed();
-            var data = SignFeed(feed, false);
-
-            // Pre-trust signature key
-            var trustDB = new TrustDB();
-            trustDB.TrustKey("fingerprint", new Domain(feed.Uri.Host));
-            trustDB.Save();
+            var data = SignFeed(feed);
 
             // Newer signautre present => replay attack
             _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Returns(new[] {new ValidSignature("fingerprint", new DateTime(2002, 1, 1))}).Verifiable();
@@ -324,34 +163,13 @@ namespace ZeroInstall.Injector.Feeds
         /// Generates a byte array containing a feed and a mock signature. Configures <see cref="IOpenPgp"/> to validate this signature.
         /// </summary>
         /// <param name="feed">The feed to "sign".</param>
-        /// <param name="missingFirst">Make <see cref="IOpenPgp"/> report that the key file for the signature is missing and needs to be downloaded the first time it is queried and then that it is valid.</param>
         /// <returns>A byte array containing the serialized <paramref name="feed"/> and its mock signature.</returns>
-        private byte[] SignFeed(Feed feed, bool missingFirst)
+        private byte[] SignFeed(Feed feed)
         {
-            var stream = new MemoryStream();
-            feed.SaveXml(stream);
-            var feedData = stream.ToArray(); // Only feed data without signature
-            var signature = new byte[] {1, 2, 3};
-
-            // Add the Base64 encoded signature to the end of the stream
-            var writer = new StreamWriter(stream, FeedUtils.Encoding) {NewLine = "\n", AutoFlush = true};
-            writer.Write(FeedUtils.SignatureBlockStart);
-            writer.WriteLine(Convert.ToBase64String(signature));
-            writer.Write(FeedUtils.SignatureBlockEnd);
-
-            if (missingFirst)
-            {
-                Resolver.GetMock<IOpenPgp>().SetupSequence(x => x.Verify(feedData, signature)).
-                         Returns(new[] {new MissingKeySignature("id")}).
-                         Returns(new[] {new ValidSignature("fingerprint", new DateTime(2000, 1, 1))});
-            }
-            else
-            {
-                Resolver.GetMock<IOpenPgp>().Setup(x => x.Verify(feedData, signature)).
-                         Returns(new[] {new ValidSignature("fingerprint", new DateTime(2000, 1, 1))}).Verifiable();
-            }
-
-            return stream.ToArray(); // Feed data with signature
+            var data = feed.ToXmlString().ToStream().ToArray();
+            Resolver.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, null, data)).
+                     Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
+            return data;
         }
     }
 }

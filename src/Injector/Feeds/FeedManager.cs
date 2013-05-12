@@ -33,37 +33,47 @@ namespace ZeroInstall.Injector.Feeds
     /// <summary>
     /// Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.
     /// </summary>
-    public class FeedManager : FeedManagerBase, IEquatable<FeedManager>
+    public class FeedManager : IFeedManager
     {
         #region Dependencies
-        private readonly TrustManager _trustManager;
+        private readonly Config _config;
+        private readonly IFeedCache _feedCache;
+        private readonly ITrustManager _trustManager;
         private readonly IHandler _handler;
 
         /// <summary>
         /// Creates a new feed manager.
         /// </summary>
         /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
-        /// <param name="cache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
+        /// <param name="feedCache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
         /// <param name="trustManager">Methods for verifying signatures and user trust.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public FeedManager(Config config, IFeedCache cache, TrustManager trustManager, IHandler handler)
-            : base(config, cache)
+        public FeedManager(Config config, IFeedCache feedCache, ITrustManager trustManager, IHandler handler)
         {
             #region Sanity checks
+            if (config == null) throw new ArgumentNullException("config");
+            if (feedCache == null) throw new ArgumentNullException("feedCache");
             if (trustManager == null) throw new ArgumentNullException("trustManager");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
+            _config = config;
+            _feedCache = feedCache;
             _trustManager = trustManager;
             _handler = handler;
         }
+        #endregion
+
+        #region Properties
+        /// <inheritdoc/>
+        public bool Refresh { get; set; }
         #endregion
 
         //--------------------//
 
         #region Get feed
         /// <inheritdoc/>
-        public override Feed GetFeed(string feedID, ref bool stale)
+        public Feed GetFeed(string feedID, ref bool stale)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
@@ -72,22 +82,22 @@ namespace ZeroInstall.Injector.Feeds
             // Assume invalid URIs are local paths
             Uri feedUrl;
             if (!ModelUtils.TryParseUri(feedID, out feedUrl))
-                return LoadLocalFeed(feedID);
+                return LoadLocal(feedID);
 
             try
             {
-                if (Refresh) DownloadFeed(feedUrl);
-                else if (!Cache.Contains(feedID))
+                if (Refresh) Download(feedUrl);
+                else if (!_feedCache.Contains(feedID))
                 {
                     // Do not download in offline mode
-                    if (Config.EffectiveNetworkUse == NetworkLevel.Offline)
+                    if (_config.EffectiveNetworkUse == NetworkLevel.Offline)
                         throw new IOException(string.Format(Resources.FeedNotCachedOffline, feedID));
 
                     // Try to download missing feed
-                    DownloadFeed(feedUrl);
+                    Download(feedUrl);
                 }
 
-                return LoadCachedFeed(feedID, out stale);
+                return LoadCached(feedID, out stale);
             }
                 #region Error handling
             catch (KeyNotFoundException ex)
@@ -96,6 +106,34 @@ namespace ZeroInstall.Injector.Feeds
                 throw new IOException(ex.Message, ex);
             }
             #endregion
+        }
+
+        /// <inheritdoc/>
+        public Feed GetFeed(string feedID)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            #endregion
+
+            bool stale = false;
+            var feed = GetFeed(feedID, ref stale);
+
+            // Detect outdated feed
+            if (stale && !Refresh && _config.EffectiveNetworkUse == NetworkLevel.Full)
+            {
+                Refresh = true;
+                try
+                {
+                    feed = GetFeed(feedID, ref stale);
+                }
+                catch (WebException)
+                {
+                    // Ignore missing internet connection and just keep outdated feed for now
+                }
+                Refresh = false;
+            }
+
+            return feed;
         }
         #endregion
 
@@ -107,14 +145,14 @@ namespace ZeroInstall.Injector.Feeds
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
-        private Feed LoadLocalFeed(string feedID)
+        private Feed LoadLocal(string feedID)
         {
             if (File.Exists(feedID))
             {
                 // Use cache even for local files since there may be in-memory caching
                 try
                 {
-                    return Cache.GetFeed(feedID);
+                    return _feedCache.GetFeed(feedID);
                 }
                     #region Error handling
                 catch (InvalidDataException ex)
@@ -130,7 +168,7 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Cached
         /// <summary>
-        /// Loads a <see cref="Feed"/> from the <see cref="FeedManagerBase.Cache"/>.
+        /// Loads a <see cref="Feed"/> from the <see cref="_feedCache"/>.
         /// </summary>
         /// <param name="feedID">The ID used to identify the feed. Must be an HTTP(S) URL.</param>
         /// <param name="stale">Indicates that the returned <see cref="Feed"/> should be updated.</param>
@@ -139,18 +177,18 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedID"/> was not found in the cache.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
-        private Feed LoadCachedFeed(string feedID, out bool stale)
+        private Feed LoadCached(string feedID, out bool stale)
         {
             // Detect when feeds get out-of-date
             // ToDo: Evaluate caching the last check value somewhere
             var preferences = FeedPreferences.LoadForSafe(feedID);
             TimeSpan lastChecked = DateTime.UtcNow - preferences.LastChecked;
             TimeSpan lastCheckAttempt = DateTime.UtcNow - GetLastCheckAttempt(feedID);
-            stale = (lastChecked > Config.Freshness && lastCheckAttempt > _failedCheckDelay);
+            stale = (lastChecked > _config.Freshness && lastCheckAttempt > _failedCheckDelay);
 
             try
             {
-                return Cache.GetFeed(feedID);
+                return _feedCache.GetFeed(feedID);
             }
                 #region Error handling
             catch (InvalidDataException ex)
@@ -169,7 +207,7 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Download
         /// <summary>
-        /// Downloads a <see cref="Feed"/> into the <see cref="FeedManagerBase.Cache"/> validating its signatures.
+        /// Downloads a <see cref="Feed"/> into the <see cref="_feedCache"/> validating its signatures.
         /// </summary>
         /// <param name="url">The URL of download the feed from.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
@@ -179,7 +217,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
         [SuppressMessage("Microsoft.Usage", "CA2200:RethrowToPreserveStackDetails", Justification = "Rethrow the outer instead of the inner exception")]
-        private void DownloadFeed(Uri url)
+        private void Download(Uri url)
         {
             SetLastCheckAttempt(url.ToString());
 
@@ -198,7 +236,7 @@ namespace ZeroInstall.Injector.Feeds
                     _handler.CancellationToken.ThrowIfCancellationRequested();
                     Log.Warn(string.Format(Resources.FeedDownloadErrorSwitchToMirror, url, ex.Message));
 
-                    var mirrorUrl = new Uri(Config.FeedMirror, string.Format(
+                    var mirrorUrl = new Uri(_config.FeedMirror, string.Format(
                         "feeds/{0}/{1}/{2}/latest.xml",
                         url.Scheme,
                         url.Host,
@@ -222,7 +260,7 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Import feed
         /// <inheritdoc/>
-        public override void ImportFeed(Uri uri, Uri mirrorUri, byte[] data)
+        public void ImportFeed(Uri uri, Uri mirrorUri, byte[] data)
         {
             #region Sanity checks
             if (uri == null) throw new ArgumentNullException("uri");
@@ -233,7 +271,7 @@ namespace ZeroInstall.Injector.Feeds
             DetectAttacks(uri, data, newSignature);
 
             // Add to cache and remember time
-            Cache.Add(uri.ToString(), data);
+            _feedCache.Add(uri.ToString(), data);
             var preferences = FeedPreferences.LoadForSafe(uri.ToString());
             preferences.LastChecked = DateTime.UtcNow;
             preferences.Normalize();
@@ -258,7 +296,7 @@ namespace ZeroInstall.Injector.Feeds
             // Detect replay attacks
             try
             {
-                var oldSignature = Cache.GetSignatures(uri.ToString()).OfType<ValidSignature>().FirstOrDefault();
+                var oldSignature = _feedCache.GetSignatures(uri.ToString()).OfType<ValidSignature>().FirstOrDefault();
                 if (oldSignature != null && signature.Timestamp < oldSignature.Timestamp) throw new ReplayAttackException(uri, oldSignature.Timestamp, signature.Timestamp);
             }
             catch (KeyNotFoundException)
@@ -300,30 +338,6 @@ namespace ZeroInstall.Injector.Feeds
 
             // Set modification time to now
             File.WriteAllText(path, "");
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Equality
-        /// <inheritdoc/>
-        public bool Equals(FeedManager other)
-        {
-            return base.Equals(other);
-        }
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(FeedManager) && Equals((FeedManager)obj);
-        }
-
-        /// <inheritdoc/>
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
         }
         #endregion
     }

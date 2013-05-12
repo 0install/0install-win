@@ -16,7 +16,6 @@
  */
 
 using Common.Storage;
-using Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
@@ -40,14 +39,6 @@ namespace ZeroInstall.Injector.Solver
         }
         #endregion
 
-        #region Shared
-        public override void SetUp()
-        {
-            base.SetUp();
-            Resolver.GetMock<IHandler>().Setup(x => x.CancellationToken).Returns(new CancellationToken());
-        }
-        #endregion
-
         [Test]
         public void TestBasic()
         {
@@ -61,6 +52,8 @@ namespace ZeroInstall.Injector.Solver
                 testFeed.SaveXml(feedFile);
 
                 bool staleFeeds;
+
+                ProvideCancellationToken();
                 var selections = Target.Solve(new Requirements {InterfaceID = feedFile}, out staleFeeds);
             }
         }
