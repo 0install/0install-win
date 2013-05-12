@@ -154,7 +154,7 @@ namespace ZeroInstall.Commands
 
         #region Helpers
         /// <summary>
-        /// Runs <see cref="ISolver.Solve"/> (unless <see cref="SelectionsDocument"/> is <see langword="true"/>) and stores the result in <see cref="Selections"/>.
+        /// Runs <see cref="ISolver.Solve(ZeroInstall.Model.Requirements,out bool)"/> (unless <see cref="SelectionsDocument"/> is <see langword="true"/>) and stores the result in <see cref="Selections"/>.
         /// </summary>
         /// <returns>The same result as stored in <see cref="Selections"/>.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>

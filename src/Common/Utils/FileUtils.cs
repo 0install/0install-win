@@ -344,7 +344,7 @@ namespace Common.Utils
         /// <summary>
         /// Fixes ACLs that are not canonical (not ordered correctly).
         /// </summary>
-        public static void CanonicalizeAcl(this NativeObjectSecurity objectSecurity)
+        public static void CanonicalizeAcl(this ObjectSecurity objectSecurity)
         {
             #region Sanity checks
             if (objectSecurity == null) throw new ArgumentNullException("objectSecurity");
