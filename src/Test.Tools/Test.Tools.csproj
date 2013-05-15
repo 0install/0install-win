@@ -105,12 +105,12 @@
     <Compile Include="Capture\CommandMapperTest.cs" />
     <Compile Include="Publish\FeedUtilsTest.cs" />
     <Compile Include="Publish\ImplementationUtilsTest.cs" />
-    <Compile Include="Publish\WinForms\ControlHelpersTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Capture\Cli\" />
     <Folder Include="Capture\WinForms\" />
     <Folder Include="Publish\Cli\" />
+    <Folder Include="Publish\WinForms\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
