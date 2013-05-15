@@ -152,7 +152,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="addButton">The button used to add new <typeparamref name="TSpecialEntry"/>s to <typeparamref name="TContainer"/>s.</param>
         /// <param name="getEditDialog">A delegate describing how to get a dialog to edit a <typeparamref name="TSpecialEntry"/>.</param>
         /// <param name="getPointer">A delegate describing how to get a pointer to read/write the value to be modified.</param>
-        private void SetupFeedStructureHooks<TContainer, TAbstractEntry, TSpecialEntry>(Button addButton, MapAction<TSpecialEntry, Form> getEditDialog, MapAction<TContainer, PropertyPointer<TAbstractEntry>> getPointer)
+        private void SetupFeedStructureHooks<TContainer, TAbstractEntry, TSpecialEntry>(Button addButton, Func<TSpecialEntry, Form> getEditDialog, Func<TContainer, PropertyPointer<TAbstractEntry>> getPointer)
             where TContainer : class
             where TAbstractEntry : class, ICloneable
             where TSpecialEntry : class, TAbstractEntry, new()
@@ -235,7 +235,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="addButton">The button used to add new <typeparamref name="TSpecialEntry"/>s to <typeparamref name="TContainer"/>s.</param>
         /// <param name="getEditDialog">A delegate describing how to get a dialog to edit a <typeparamref name="TSpecialEntry"/>.</param>
         /// <param name="getList">A delegate describing how to get a collection of <typeparamref name="TAbstractEntry"/>s from a <typeparamref name="TContainer"/>.</param>
-        private void SetupFeedStructureHooks<TContainer, TAbstractEntry, TSpecialEntry>(Button addButton, MapAction<TSpecialEntry, Form> getEditDialog, MapAction<TContainer, System.Collections.Generic.IList<TAbstractEntry>> getList)
+        private void SetupFeedStructureHooks<TContainer, TAbstractEntry, TSpecialEntry>(Button addButton, Func<TSpecialEntry, Form> getEditDialog, Func<TContainer, System.Collections.Generic.IList<TAbstractEntry>> getList)
             where TContainer : class
             where TAbstractEntry : class, ICloneable
             where TSpecialEntry : class, TAbstractEntry, new()
@@ -867,7 +867,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="data">An object potentially of the type <typeparamref name="TContainer"/>.</param>
         /// <param name="getChildren">A delegate describing how to get a collection of <typeparamref name="TEntry"/>s from a <typeparamref name="TContainer"/>.</param>
         /// <returns>An array of <see cref="TreeNode"/>s representing the <typeparamref name="TEntry"/>s in <paramref name="data"/> if any.</returns>
-        private static TreeNode[] BuildTreeNodesHelper<TContainer, TEntry>(object data, MapAction<TContainer, IEnumerable<TEntry>> getChildren)
+        private static TreeNode[] BuildTreeNodesHelper<TContainer, TEntry>(object data, Func<TContainer, IEnumerable<TEntry>> getChildren)
             where TContainer : class
             where TEntry : class
         {
