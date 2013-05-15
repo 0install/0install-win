@@ -120,10 +120,6 @@
     <Compile Include="Controls\SummariesTabControl.Designer.cs">
       <DependentUpon>SummariesTabControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\GenericEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\IEntryEditor.cs" />
     <Compile Include="FeedManager.cs">
       <SubType>Component</SubType>
     </Compile>
