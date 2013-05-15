@@ -389,7 +389,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void InitializeEditingHooks()
         {
-            _feedEditing.Update += OnUpdate;
+            _feedEditing.Updated += OnUpdate;
             _feedEditing.UndoEnabled += value => feedEditorToolStrip.UndoEnabled = value;
             _feedEditing.RedoEnabled += value => feedEditorToolStrip.RedoEnabled = value;
 
