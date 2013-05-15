@@ -22,7 +22,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
-using Common.Utils;
 using ZeroInstall.Model;
 using Binding = ZeroInstall.Model.Binding;
 
@@ -106,7 +105,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <param name="data">An object potentially of the type <typeparamref name="TContainer"/>.</param>
         /// <param name="getChildren">A delegate describing how to get a collection of <typeparamref name="TEntry"/>s from a <typeparamref name="TContainer"/>.</param>
         /// <returns>An array of <see cref="TreeNode"/>s representing the <typeparamref name="TEntry"/>s in <paramref name="data"/> if any.</returns>
-        private TreeNode[] BuildTreeNodesHelper<TContainer, TEntry>(object data, MapAction<TContainer, IEnumerable<TEntry>> getChildren)
+        private TreeNode[] BuildTreeNodesHelper<TContainer, TEntry>(object data, Func<TContainer, IEnumerable<TEntry>> getChildren)
             where TContainer : class
             where TEntry : class
         {
@@ -121,7 +120,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
         //_feedEditing.ExecuteCommand(new SetValueCommand<TAbstractEntry>(getPointer(container), new TSpecialEntry()));
         //_feedEditing.ExecuteCommand(new AddToCollection<TAbstractEntry>(getList(container), new TSpecialEntry()));
         //RebuildTreeNodes();
-        
 
         private void SetupNodeBindings()
         {
@@ -143,7 +141,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             //SetupListNodeBinding<Implementation, RetrievalMethod, Recipe, RecipeDialog>(implementation => implementation.RetrievalMethods);
         }
 
-        private void SetupPropertyNodeBinding<TContainer, TEntry, TEditor>(MapAction<TContainer, PropertyPointer<TEntry>> getPointer)
+        private void SetupPropertyNodeBinding<TContainer, TEntry, TEditor>(Func<TContainer, PropertyPointer<TEntry>> getPointer)
             where TContainer : class
             where TEntry : class, ICloneable, new()
             where TEditor : class, IEntryEditor<TEntry>, new()
@@ -173,14 +171,14 @@ namespace ZeroInstall.Publish.WinForms.Controls
             };
         }
 
-        private void SetupPropertyNodeBinding<TContainer, TEntry>(MapAction<TContainer, PropertyPointer<TEntry>> getPointer)
+        private void SetupPropertyNodeBinding<TContainer, TEntry>(Func<TContainer, PropertyPointer<TEntry>> getPointer)
             where TContainer : class
             where TEntry : class, ICloneable, new()
         {
             SetupPropertyNodeBinding<TContainer, TEntry, EditorDialog<TEntry>>(getPointer);
         }
 
-        private void SetupListNodeBinding<TContainer, TAbstractEntry, TSpecialEntry, TEditor>(MapAction<TContainer, IList<TAbstractEntry>> getList)
+        private void SetupListNodeBinding<TContainer, TAbstractEntry, TSpecialEntry, TEditor>(Func<TContainer, IList<TAbstractEntry>> getList)
             where TContainer : class
             where TAbstractEntry : class, ICloneable
             where TSpecialEntry : class, TAbstractEntry, new()
@@ -241,7 +239,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             };
         }
 
-        private void SetupListNodeBinding<TContainer, TAbstractEntry, TSpecialEntry>(MapAction<TContainer, IList<TAbstractEntry>> getList)
+        private void SetupListNodeBinding<TContainer, TAbstractEntry, TSpecialEntry>(Func<TContainer, IList<TAbstractEntry>> getList)
             where TContainer : class
             where TAbstractEntry : class, ICloneable
             where TSpecialEntry : class, TAbstractEntry, new()
