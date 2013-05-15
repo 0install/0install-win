@@ -21,10 +21,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Common;
-using Common.Undo;
+using Common.Controls;
 using Common.Utils;
 using ZeroInstall.Model;
-using ZeroInstall.Publish.WinForms.Dialogs;
 using Binding = ZeroInstall.Model.Binding;
 
 namespace ZeroInstall.Publish.WinForms.Controls
@@ -178,7 +177,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             where TContainer : class
             where TEntry : class, ICloneable, new()
         {
-            SetupPropertyNodeBinding<TContainer, TEntry, GenericEditor<TEntry>>(getPointer);
+            SetupPropertyNodeBinding<TContainer, TEntry, EditorDialog<TEntry>>(getPointer);
         }
 
         private void SetupListNodeBinding<TContainer, TAbstractEntry, TSpecialEntry, TEditor>(MapAction<TContainer, IList<TAbstractEntry>> getList)
@@ -247,7 +246,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             where TAbstractEntry : class, ICloneable
             where TSpecialEntry : class, TAbstractEntry, new()
         {
-            SetupListNodeBinding<TContainer, TAbstractEntry, TSpecialEntry, GenericEditor<TSpecialEntry>>(getList);
+            SetupListNodeBinding<TContainer, TAbstractEntry, TSpecialEntry, EditorDialog<TSpecialEntry>>(getList);
         }
         #endregion
     }

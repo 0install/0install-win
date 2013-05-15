@@ -27,7 +27,7 @@ namespace ZeroInstall.Commands.WinForms
     /// <summary>
     /// A dialog form used for displaying and manipulating <see cref="Config"/> settings.
     /// </summary>
-    public sealed class ConfigForm : EditDialog<Config>
+    public sealed class ConfigForm : EditorDialog<Config>
     {
         private ConfigForm()
         {

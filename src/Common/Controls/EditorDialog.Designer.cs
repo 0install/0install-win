@@ -1,6 +1,6 @@
 ﻿namespace Common.Controls
 {
-    partial class EditDialog<T>
+    partial class EditorDialog<T>
     {
         /// <summary>
         /// Required designer variable.

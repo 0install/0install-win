@@ -143,6 +143,7 @@
     <Compile Include="Storage\TemporaryWorkingDirectory.cs" />
     <Compile Include="Storage\AtomicWrite.cs" />
     <Compile Include="Undo\IUndoCommand.cs" />
+    <Compile Include="Undo\CommandManager.cs" />
     <Compile Include="Undo\PreExecutedCommand.cs" />
     <Compile Include="Undo\PropertyChangedCommand.cs" />
     <Compile Include="Undo\SimpleCommand.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="Values\Design\EnumXmlConverter.cs" />
     <Compile Include="Values\Design\StructConverter.cs" />
     <Compile Include="Values\Design\TimeSpanEditor.cs" />
+    <Compile Include="Controls\IEntryEditor.cs" />
     <Compile Include="Controls\ErrorReportForm.ErrorReport.cs" />
     <Compile Include="Controls\IContextMenu.cs" />
     <Compile Include="Controls\IHighlightColor.cs" />
@@ -216,11 +218,11 @@
     <Compile Include="Controls\TimeSpanControl.Designer.cs">
       <DependentUpon>TimeSpanControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\EditDialog.cs">
+    <Compile Include="Controls\EditorDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\EditDialog.Designer.cs">
-      <DependentUpon>EditDialog.cs</DependentUpon>
+    <Compile Include="Controls\EditorDialog.Designer.cs">
+      <DependentUpon>EditorDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ResettablePropertyGrid.cs">
       <SubType>Component</SubType>
