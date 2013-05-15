@@ -30,7 +30,6 @@ using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
@@ -240,14 +239,7 @@ namespace ZeroInstall.Commands
 
             try
             {
-                if (id.StartsWith("alias:"))
-                { // Look up AppEntry (and thus interface ID) belonging to an alias
-                    string aliasName = id.Substring("alias:".Length);
-                    AppEntry appEntry;
-                    AddAlias.GetAppAlias(AppList, aliasName, out appEntry);
-                    if (appEntry == null) throw new InvalidInterfaceIDException(string.Format(Resources.AliasNotFound, aliasName));
-                    return appEntry.InterfaceID;
-                }
+                if (id.StartsWith("alias:")) return ResolveAliasId(id);
                 else if (id.StartsWith("file:///")) return FileUtils.UnifySlashes(id.Substring(WindowsUtils.IsWindows ? 8 : 7));
                 else if (id.StartsWith("file:/")) throw new ArgumentException(Resources.FilePrefixAbsoluteUsage);
                 else if (id.StartsWith("file:")) return Path.GetFullPath(FileUtils.UnifySlashes(id.Substring(5)));
@@ -284,6 +276,17 @@ namespace ZeroInstall.Commands
                 throw new InvalidInterfaceIDException(ex.Message, ex);
             }
             #endregion
+        }
+
+        private string ResolveAliasId(string id)
+        {
+            string aliasName = id.Substring("alias:".Length);
+
+            AppEntry appEntry;
+            AddAlias.GetAppAlias(AppList, aliasName, out appEntry);
+
+            if (appEntry == null) throw new InvalidInterfaceIDException(string.Format(Resources.AliasNotFound, aliasName));
+            return appEntry.InterfaceID;
         }
 
         /// <summary>
