@@ -51,7 +51,7 @@ namespace Common.Undo
         /// Is raised when the content of the data has been updated.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
-        public event Action Update;
+        public event Action Updated;
 
         /// <summary>
         /// Is raised when the availability of the <see cref="Undo"/> operation has changed.
@@ -65,9 +65,9 @@ namespace Common.Undo
         [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "Cannot rename System.Action<T>.")]
         public event Action<bool> RedoEnabled;
 
-        protected void OnUpdate()
+        protected void OnUpdated()
         {
-            if (Update != null) Update();
+            if (Updated != null) Updated();
         }
 
         protected void OnUndoEnabled(bool value)
@@ -126,7 +126,7 @@ namespace Common.Undo
             }
             OnRedoEnabled(true);
 
-            OnUpdate();
+            OnUpdated();
         }
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace Common.Undo
             OnRedoEnabled(RedoStack.Count > 0);
             OnUndoEnabled(true);
 
-            OnUpdate();
+            OnUpdated();
         }
 
         /// <summary>
