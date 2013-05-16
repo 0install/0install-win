@@ -29,10 +29,10 @@ using Common.Properties;
 namespace Common.Collections
 {
     /// <summary>
-    /// Calls different delegates based on the runtime types of objects.
+    /// Calls different action delegates based on the runtime types of objects.
+    /// Types must be exact matches. Inheritance is not considered.
     /// </summary>
     /// <typeparam name="TBase">The common base type of all objects to be dispatched.</typeparam>
-    /// <remarks>Types must be exact matches. Inheritance is not considered.</remarks>
     [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
     public class PerTypeDispatcher<TBase> : IEnumerable<KeyValuePair<Type, Action<object>>> where TBase : class
     {
@@ -63,7 +63,7 @@ namespace Common.Collections
         /// <summary>
         /// Adds a dispatch delegate.
         /// </summary>
-        /// <typeparam name="TSpecific">The specific type to call the delegate for.</typeparam>
+        /// <typeparam name="TSpecific">The specific type to call the delegate for. Does not match subtypes</typeparam>
         /// <param name="action">The delegate to call.</param>
         public void Add<TSpecific>(Action<TSpecific> action) where TSpecific : TBase
         {

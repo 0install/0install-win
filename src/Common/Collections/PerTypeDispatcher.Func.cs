@@ -29,15 +29,15 @@ using Common.Properties;
 namespace Common.Collections
 {
     /// <summary>
-    /// Calls different delegates with return values based on the runtime types of objects.
+    /// Calls different function delegates (with return values) based on the runtime types of objects.
+    /// Types must be exact matches. Inheritance is not considered.
     /// </summary>
     /// <typeparam name="TBase">The common base type of all objects to be dispatched.</typeparam>
     /// <typeparam name="TResult">The return value of the delegates.</typeparam>
-    /// <remarks>Types must be exact matches. Inheritance is not considered.</remarks>
     [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
-    public class PerTypeDispatcher<TBase, TResult> : IEnumerable<KeyValuePair<Type, Func<object, TResult>>> where TBase : class
+    public class PerTypeDispatcher<TBase, TResult> : IEnumerable<KeyValuePair<Type, Func<TBase, TResult>>> where TBase : class
     {
-        private readonly Dictionary<Type, Func<object, TResult>> _map = new Dictionary<Type, Func<object, TResult>>();
+        private readonly Dictionary<Type, Func<TBase, TResult>> _map = new Dictionary<Type, Func<TBase, TResult>>();
 
         /// <summary><see langword="true"/> to silently ignore dispatch attempts on unknown types; <see langword="false"/> to throw exceptions.</summary>
         private readonly bool _ignoreMissing;
@@ -51,7 +51,7 @@ namespace Common.Collections
             _ignoreMissing = ignoreMissing;
         }
 
-        public IEnumerator<KeyValuePair<Type, Func<object, TResult>>> GetEnumerator()
+        public IEnumerator<KeyValuePair<Type, Func<TBase, TResult>>> GetEnumerator()
         {
             return _map.GetEnumerator();
         }
@@ -64,7 +64,7 @@ namespace Common.Collections
         /// <summary>
         /// Adds a dispatch delegate.
         /// </summary>
-        /// <typeparam name="TSpecific">The specific type to call the delegate for.</typeparam>
+        /// <typeparam name="TSpecific">The specific type to call the delegate for. Does not match subtypes.</typeparam>
         /// <param name="function">The delegate to call.</param>
         public void Add<TSpecific>(Func<TSpecific, TResult> function) where TSpecific : TBase
         {
@@ -84,7 +84,7 @@ namespace Common.Collections
             #endregion
 
             var type = element.GetType();
-            Func<object, TResult> function;
+            Func<TBase, TResult> function;
             if (_map.TryGetValue(type, out function)) return function(element);
             else
             {
