@@ -107,7 +107,8 @@
     <Compile Include="Collections\IMergeable.cs" />
     <Compile Include="Collections\EnumerableUtils.cs" />
     <Compile Include="Collections\CultureComparer.cs" />
-    <Compile Include="Collections\PerTypeDispatcher.cs" />
+    <Compile Include="Collections\PerTypeDispatcher.Action.cs" />
+    <Compile Include="Collections\PerTypeDispatcher.Func.cs" />
     <Compile Include="Collections\INamedCollection.cs" />
     <Compile Include="Collections\LanguageCollection.cs" />
     <Compile Include="Collections\NamedCollection.cs" />

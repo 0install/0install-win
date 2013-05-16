@@ -41,7 +41,7 @@ namespace Common.Collections
         {}
 
         [Test]
-        public void TestDispatch()
+        public void TestDispatchAction()
         {
             var sub1Orig = new Sub1();
             Sub1 sub1Dispatched = null;
@@ -62,10 +62,33 @@ namespace Common.Collections
         }
 
         [Test]
-        public void TestDispatchExceptions()
+        public void TestDispatchActionExceptions()
         {
             Assert.Throws<KeyNotFoundException>(() => new PerTypeDispatcher<Base>(false) {(Sub1 sub1) => { }}.Dispatch(new Sub2()));
             Assert.DoesNotThrow(() => new PerTypeDispatcher<Base>(true) {(Sub1 sub1) => { }}.Dispatch(new Sub2()));
+        }
+
+        [Test]
+        public void TestDispatchFunc()
+        {
+            var sub1Orig = new Sub1();
+            var sub2Orig = new Sub2();
+
+            var dispatcher = new PerTypeDispatcher<Base, Base>(false)
+            {
+                (Sub1 sub1) => sub1,
+                (Sub2 sub2) => sub2
+            };
+
+            Assert.AreSame(sub1Orig, dispatcher.Dispatch(sub1Orig));
+            Assert.AreSame(sub2Orig, dispatcher.Dispatch(sub2Orig));
+        }
+
+        [Test]
+        public void TestDispatchFuncExceptions()
+        {
+            Assert.Throws<KeyNotFoundException>(() => new PerTypeDispatcher<Base, Base>(false) {(Sub1 sub1) => sub1}.Dispatch(new Sub2()));
+            Assert.DoesNotThrow(() => new PerTypeDispatcher<Base, Base>(true) {(Sub1 sub1) => sub1}.Dispatch(new Sub2()));
         }
     }
 }
