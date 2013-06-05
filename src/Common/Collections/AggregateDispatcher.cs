@@ -39,6 +39,7 @@ namespace Common.Collections
         where TBase : class
     {
         private readonly List<Func<TBase, IEnumerable<TResultElement>>> _delegates = new List<Func<TBase, IEnumerable<TResultElement>>>();
+
         public IEnumerator<Func<TBase, IEnumerable<TResultElement>>> GetEnumerator()
         {
             return _delegates.GetEnumerator();
