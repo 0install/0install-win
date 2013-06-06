@@ -145,6 +145,7 @@
     <Compile Include="Storage\TemporaryWorkingDirectory.cs" />
     <Compile Include="Storage\AtomicWrite.cs" />
     <Compile Include="Undo\IUndoCommand.cs" />
+    <Compile Include="Undo\ICommandExecutor.cs" />
     <Compile Include="Undo\CommandManager.cs" />
     <Compile Include="Undo\PreExecutedCommand.cs" />
     <Compile Include="Undo\PropertyChangedCommand.cs" />

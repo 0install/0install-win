@@ -27,9 +27,9 @@ using System.Diagnostics.CodeAnalysis;
 namespace Common.Undo
 {
     /// <summary>
-    /// A base class for managing <see cref="IUndoCommand"/>s.
+    /// A class for managing <see cref="IUndoCommand"/>s.
     /// </summary>
-    public abstract class CommandManager
+    public class CommandManager : ICommandExecutor
     {
         #region Variables
         /// <summary>Entries used by the undo-system to undo changes</summary>
@@ -82,10 +82,7 @@ namespace Common.Undo
         #endregion
 
         #region Commands
-        /// <summary>
-        /// Executes an <see cref="IUndoCommand"/> and stores it for later undo-operations.
-        /// </summary>
-        /// <param name="command">The command to be executed.</param>
+        /// <inheritdoc/>
         public void ExecuteCommand(IUndoCommand command)
         {
             #region Sanity checks
