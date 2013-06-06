@@ -47,9 +47,7 @@ namespace Common.Undo
         #endregion
 
         #region Events
-        /// <summary>
-        /// Is raised when the content of the data has been updated.
-        /// </summary>
+        /// <inheritdoc/>
         [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
         public event Action Updated;
 

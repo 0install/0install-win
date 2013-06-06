@@ -24,7 +24,7 @@ namespace Common.Controls
     /// Provides an interface to a dialog that edits a single object.
     /// </summary>
     /// <typeparam name="T">The type of object to edit.</typeparam>
-    public interface IEditorDialog<T> : IDisposable where T : class
+    public interface IEditorDialog<T> : IDisposable
     {
         /// <summary>
         /// Displays a modal dialog for editing an element.
