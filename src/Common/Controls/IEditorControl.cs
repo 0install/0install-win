@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using Common.Undo;
 
 namespace Common.Controls
@@ -29,11 +30,13 @@ namespace Common.Controls
         /// <summary>
         /// The element to be edited.
         /// </summary>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         T Target { get; set; }
 
         /// <summary>
         /// An optional undo system to use for editing.
         /// </summary>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         ICommandExecutor CommandExecutor { get; set; }
     }
 }

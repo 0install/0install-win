@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Common.Properties;
 using Common.Undo;
@@ -36,9 +37,11 @@ namespace Common.Controls
         private readonly MultiPropertyTracker _tracker;
 
         /// <inheritdoc/>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public T Target { get { return propertyGrid.SelectedObject as T; } set { propertyGrid.SelectedObject = value; } }
 
         /// <inheritdoc/>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Undo.ICommandExecutor CommandExecutor { get; set; }
 
         public EditorControl()
