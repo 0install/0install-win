@@ -21,10 +21,10 @@ using System.Windows.Forms;
 namespace Common.Controls
 {
     /// <summary>
-    /// Provides an interface to a dialog that edits a single element in a feed.
+    /// Provides an interface to a dialog that edits a single object.
     /// </summary>
-    /// <typeparam name="T">The type of element to edit.</typeparam>
-    public interface IEntryEditor<T> : IDisposable where T : class
+    /// <typeparam name="T">The type of object to edit.</typeparam>
+    public interface IEditorDialog<T> : IDisposable where T : class
     {
         /// <summary>
         /// Displays a modal dialog for editing an element.

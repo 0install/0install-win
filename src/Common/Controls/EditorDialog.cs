@@ -30,7 +30,7 @@ namespace Common.Controls
     /// Edits arbritary types of elements using a <see cref="PropertyGrid"/>.
     /// </summary>
     /// <typeparam name="T">The type of element to edit.</typeparam>
-    public partial class EditorDialog<T> : OKCancelDialog, IEntryEditor<T> where T : class
+    public partial class EditorDialog<T> : OKCancelDialog, IEditorDialog<T> where T : class
     {
         public EditorDialog()
         {

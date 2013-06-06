@@ -165,7 +165,7 @@
     <Compile Include="Values\Design\EnumXmlConverter.cs" />
     <Compile Include="Values\Design\StructConverter.cs" />
     <Compile Include="Values\Design\TimeSpanEditor.cs" />
-    <Compile Include="Controls\IEntryEditor.cs" />
+    <Compile Include="Controls\IEditorDialog.cs" />
     <Compile Include="Controls\ErrorReportForm.ErrorReport.cs" />
     <Compile Include="Controls\IContextMenu.cs" />
     <Compile Include="Controls\IHighlightColor.cs" />

@@ -29,7 +29,7 @@ using ZeroInstall.Publish.WinForms.Controls;
 
 namespace ZeroInstall.Publish.WinForms.Dialogs
 {
-    public partial class RecipeDialog : OKCancelDialog, IEntryEditor<Recipe>, IDigestProvider
+    public partial class RecipeDialog : OKCancelDialog, IEditorDialog<Recipe>, IDigestProvider
     {
         public DialogResult ShowDialog(IWin32Window owner, Recipe element)
         {

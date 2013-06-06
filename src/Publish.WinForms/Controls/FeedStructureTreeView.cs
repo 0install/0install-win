@@ -144,7 +144,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void SetupPropertyNodeBinding<TContainer, TEntry, TEditor>(Func<TContainer, PropertyPointer<TEntry>> getPointer)
             where TContainer : class
             where TEntry : class, ICloneable, new()
-            where TEditor : class, IEntryEditor<TEntry>, new()
+            where TEditor : class, IEditorDialog<TEntry>, new()
         {
             NodeMouseDoubleClick += delegate(object sender, TreeNodeMouseClickEventArgs nodeArgs)
             {
@@ -182,7 +182,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             where TContainer : class
             where TAbstractEntry : class, ICloneable
             where TSpecialEntry : class, TAbstractEntry, new()
-            where TEditor : class, IEntryEditor<TSpecialEntry>, new()
+            where TEditor : class, IEditorDialog<TSpecialEntry>, new()
         {
             NodeMouseDoubleClick += delegate(object sender, TreeNodeMouseClickEventArgs nodeArgs)
             {

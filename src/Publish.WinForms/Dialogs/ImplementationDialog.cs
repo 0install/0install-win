@@ -23,7 +23,7 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.Dialogs
 {
-    public partial class ImplementationDialog : OKCancelDialog, IEntryEditor<Implementation>
+    public partial class ImplementationDialog : OKCancelDialog, IEditorDialog<Implementation>
     {
         public DialogResult ShowDialog(IWin32Window owner, Implementation element)
         {

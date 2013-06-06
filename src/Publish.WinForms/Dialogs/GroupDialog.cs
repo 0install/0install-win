@@ -24,7 +24,7 @@ using System.IO;
 
 namespace ZeroInstall.Publish.WinForms.Dialogs
 {
-    public partial class GroupDialog : OKCancelDialog, IEntryEditor<Group>
+    public partial class GroupDialog : OKCancelDialog, IEditorDialog<Group>
     {
         public DialogResult ShowDialog(IWin32Window owner, Group element)
         {

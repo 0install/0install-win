@@ -26,7 +26,7 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
     /// The OK button is only enabled if the user set all controls of this form with right
     /// values.
     /// </summary>
-    public partial class ArchiveDialog : OKCancelDialog, IEntryEditor<Archive>, IDigestProvider
+    public partial class ArchiveDialog : OKCancelDialog, IEditorDialog<Archive>, IDigestProvider
     {
         public DialogResult ShowDialog(IWin32Window owner, Archive element)
         {
