@@ -89,25 +89,25 @@ namespace Common.Controls
         [DefaultValue(true), Description("Toggle the visibility of the search box."), Category("Appearance")]
         public bool ShowSearchBox { get { return textSearch.Visible; } set { textSearch.Visible = value; } }
 
-        private INamedCollection<T> _entries;
+        private NamedCollection<T> _nodes;
 
         /// <summary>
         /// The <see cref="INamed{T}"/> (and optionally <see cref="IContextMenu"/>) objects to be listed in the tree.
         /// </summary>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "This control is supposed to represent a live and mutable collection")]
-        public INamedCollection<T> Entries
+        public NamedCollection<T> Nodes
         {
-            get { return _entries; }
+            get { return _nodes; }
             set
             {
                 // Keep track of any changes within the collection
-                if (_entries != null) _entries.CollectionChanged -= UpdateList;
-                _entries = value;
-                if (_entries != null) _entries.CollectionChanged += UpdateList;
+                if (_nodes != null) _nodes.CollectionChanged -= UpdateList;
+                _nodes = value;
+                if (_nodes != null) _nodes.CollectionChanged += UpdateList;
 
                 _checkedEntries.Clear();
-                UpdateList();
+                UpdateList(null);
             }
         }
 
@@ -123,7 +123,7 @@ namespace Common.Controls
             set
             {
                 _selectedEntry = value;
-                UpdateList();
+                UpdateList(null);
                 OnSelectedEntryChanged();
             }
         }
@@ -148,7 +148,7 @@ namespace Common.Controls
             set
             {
                 _separator = value;
-                UpdateList();
+                UpdateList(null);
             }
         }
 
@@ -173,7 +173,7 @@ namespace Common.Controls
         #region Search control
         private void textSearch_TextChanged(object sender, EventArgs e)
         {
-            UpdateList();
+            UpdateList(null);
         }
         #endregion
 
@@ -193,22 +193,22 @@ namespace Common.Controls
             string name = treeView.SelectedNode.Name;
 
             // Don't use the property, to prevent a loop
-            _selectedEntry = _entries.Contains(name) ? _entries[name] : null;
+            _selectedEntry = _nodes.Contains(name) ? _nodes[name] : null;
             OnSelectedEntryChanged();
         }
 
         /// <summary>
-        /// Updates the filtered <see cref="TreeView"/> representation of <see cref="Entries"/>
+        /// Updates the filtered <see cref="TreeView"/> representation of <see cref="Nodes"/>
         /// </summary>
-        private void UpdateList()
+        private void UpdateList(object sender)
         {
             // Suppress events to prevent infinite loops
             _supressEvents = true;
 
             treeView.Nodes.Clear();
-            if (_entries != null)
+            if (_nodes != null)
             {
-                foreach (T entry in _entries)
+                foreach (T entry in _nodes)
                 {
                     // The currently selected entry and checked entries are always visible
                     // Note: Compare name to handle cloned entries
@@ -331,9 +331,9 @@ namespace Common.Controls
                 node.Checked = e.Node.Checked;
 
             // Maintain a list of currently checked bottom-level entries
-            if (Entries.Contains(e.Node.Name))
+            if (Nodes.Contains(e.Node.Name))
             {
-                T entry = Entries[e.Node.Name];
+                T entry = Nodes[e.Node.Name];
                 if (e.Node.Checked) _checkedEntries.Add(entry);
                 else _checkedEntries.Remove(entry);
                 OnCheckedEntriesChanged();

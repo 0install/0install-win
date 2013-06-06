@@ -72,6 +72,7 @@
     <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="AppMutex.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="NamedComparer.cs" />
     <Compile Include="NeedGuiException.cs" />
     <Compile Include="NotAdminException.cs" />
     <Compile Include="MutexLock.cs" />
@@ -110,7 +111,6 @@
     <Compile Include="Collections\CultureComparer.cs" />
     <Compile Include="Collections\PerTypeDispatcher.Action.cs" />
     <Compile Include="Collections\PerTypeDispatcher.Func.cs" />
-    <Compile Include="Collections\INamedCollection.cs" />
     <Compile Include="Collections\LanguageCollection.cs" />
     <Compile Include="Collections\NamedCollection.cs" />
     <Compile Include="Collections\LocalizableStringCollection.cs" />

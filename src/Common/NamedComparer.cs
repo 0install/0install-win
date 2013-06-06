@@ -21,20 +21,28 @@
  */
 
 using System;
-using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace Common
 {
     /// <summary>
-    /// An object that has a unique human-readable name that can be used for identification in lists and sorting and that can be modified.
+    /// Compares <see cref="INamed{T}"/> objects based on their <see cref="INamed{T}.Name"/> in a case-insensitive way.
     /// </summary>
-    /// <see cref="Collections.NamedCollection{T}"/>
-    public interface INamed<T> : IComparable<T>
+    public class NamedComparer<T> : IComparer<T>, IEqualityComparer<T> where T : INamed<T>
     {
-        /// <summary>
-        /// A unique human-readable name for the object.
-        /// </summary>
-        [Description("A unique name for the object.")]
-        string Name { get; set; }
+        public int Compare(T x, T y)
+        {
+            return StringComparer.OrdinalIgnoreCase.Compare(x.Name, y.Name);
+        }
+
+        public bool Equals(T x, T y)
+        {
+            return StringComparer.OrdinalIgnoreCase.Equals(x.Name, y.Name);
+        }
+
+        public int GetHashCode(T obj)
+        {
+            return StringComparer.OrdinalIgnoreCase.GetHashCode(obj.Name);
+        }
     }
 }

@@ -22,9 +22,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Common.Properties;
+using Common.Utils;
 
 namespace Common.Collections
 {
@@ -32,113 +32,51 @@ namespace Common.Collections
     /// A keyed collection (pseudo-dictionary) of <see cref="INamed{T}"/> objects. Elements are automatically maintained in an alphabetically sorted order. Suitable for XML serialization.
     /// </summary>
     /// <remarks>Correct behavior with duplicate names or renaming without using the <see cref="Rename"/> method is not guaranteed!</remarks>
-    // ToDo: Reimplement without KeyedCollection to be able to use more efficent sorting
-    public class NamedCollection<T> : KeyedCollection<string, T>, INamedCollection<T>, ICloneable where T : INamed<T>
+    public class NamedCollection<T> : C5.TreeSet<T> where T : INamed<T>
     {
-        #region Events
-        /// <inheritdoc/>
-        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
-        public event Action CollectionChanged;
+        private static readonly NamedComparer<T> _comparer = new NamedComparer<T>();
 
-        private void OnAfterChanged()
-        {
-            if (CollectionChanged != null) CollectionChanged();
-        }
-        #endregion
-
-        #region Constructor
         /// <summary>
         /// Creates a new case-insensitive named collection.
         /// </summary>
-        public NamedCollection() : base(StringComparer.OrdinalIgnoreCase)
+        public NamedCollection() : base(_comparer)
         {}
-        #endregion
 
-        //--------------------//
+        /// <summary>
+        /// Gets the element with the specified key.
+        /// </summary>
+        /// <param name="name">The key of the element to get.</param>
+        /// <returns>The element with the specified key. If an element with the specified key is not found, an exception is thrown.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
+        /// <exception cref="KeyNotFoundException">An element with the specified key does not exist in the dictionary.</exception>
+        public T this[string name] { get { return this.First(x => StringUtils.EqualsIgnoreCase(x.Name, name)); } }
 
-        #region Key access
-        /// <inheritdoc/>
-        protected override string GetKeyForItem(T item)
+        /// <summary>
+        /// Determines whether the collection contains an element with the specified key.
+        /// </summary>
+        /// <param name="name">The key to locate in the dictionary.</param>
+        /// <returns><see langword="true"/> if the dictionary contains an element with the specified key; otherwise, <see langword="false"/>.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
+        public bool Contains(string name)
         {
-            return item.Name;
+            return this.Any(x => StringUtils.EqualsIgnoreCase(x.Name, name));
         }
-        #endregion
 
-        #region Rename
-        /// <inheritdoc/>
+        /// <summary>
+        /// Changes the <see cref="INamed{T}.Name"/> of an entry.
+        /// </summary>
+        /// <param name="entry">The entry in the collection to be renamed.</param>
+        /// <param name="newName">The new name for the collection</param>
+        /// <exception cref="InvalidOperationException">Thrown if an entry with the name <paramref name="newName"/> is already contained within the collection.</exception>
+        /// <remarks>This method must be used instead of directly modifying the <see cref="INamed{T}.Name"/> property to ensure the directory lookup structures stay in sync.</remarks>
         public void Rename(T entry, string newName)
         {
             if (entry.Name == newName) return;
             if (Contains(newName)) throw new InvalidOperationException(Resources.KeyAlreadyPresent);
 
-            ChangeItemKey(entry, newName);
+            Remove(entry);
             entry.Name = newName;
-
-            Sort();
-
-            OnAfterChanged();
+            Add(entry);
         }
-        #endregion
-
-        #region Sort
-        /// <summary>
-        /// Sorts all elements alphabetically by their <see cref="INamed{T}.Name"/>.
-        /// </summary>
-        private void Sort()
-        {
-            var items = Items as List<T>;
-            if (items != null)
-                items.Sort((x, y) => string.CompareOrdinal(x.Name, y.Name));
-        }
-        #endregion
-
-        #region Hooks
-        /// <inheritdoc/>
-        protected override void InsertItem(int index, T item)
-        {
-            base.InsertItem(index, item);
-            Sort();
-            OnAfterChanged();
-        }
-
-        /// <inheritdoc/>
-        protected override void SetItem(int index, T item)
-        {
-            base.SetItem(index, item);
-            Sort();
-            OnAfterChanged();
-        }
-
-        /// <inheritdoc/>
-        protected override void RemoveItem(int index)
-        {
-            base.RemoveItem(index);
-            OnAfterChanged();
-        }
-
-        /// <inheritdoc/>
-        protected override void ClearItems()
-        {
-            base.ClearItems();
-            OnAfterChanged();
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Clone
-        /// <summary>
-        /// Creates a shallow copy of this collection (elements are not cloned).
-        /// </summary>
-        /// <returns>The cloned collection.</returns>
-        public virtual object Clone()
-        {
-            var newCollection = new NamedCollection<T>();
-            foreach (T entry in this)
-                newCollection.Add(entry);
-
-            return newCollection;
-        }
-        #endregion
     }
 }

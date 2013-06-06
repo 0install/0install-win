@@ -105,7 +105,7 @@ namespace ZeroInstall.Central.WinForms
                 var trustDB = TrustDB.LoadSafe();
                 var trustNodes = new NamedCollection<TrustNode>();
                 trustDB.Keys.Apply(key => key.Domains.Apply(domain => trustNodes.Add(new TrustNode(key.Fingerprint, domain))));
-                _treeViewTrustedKeys.Entries = trustNodes;
+                _treeViewTrustedKeys.Nodes = trustNodes;
             }
                 #region Error handling
             catch (IOException ex)
@@ -149,7 +149,7 @@ namespace ZeroInstall.Central.WinForms
 
                 // Write list of trusted keys
                 var trustDB = new TrustDB();
-                foreach (var trustNode in _treeViewTrustedKeys.Entries)
+                foreach (var trustNode in _treeViewTrustedKeys.Nodes)
                     trustDB.TrustKey(trustNode.Fingerprint, trustNode.Domain);
                 trustDB.Save();
             }
@@ -314,7 +314,7 @@ namespace ZeroInstall.Central.WinForms
             var checkedNodes = _treeViewTrustedKeys.CheckedEntries.ToList();
 
             if (!Msg.YesNo(this, string.Format(Resources.RemoveCheckedKeys, checkedNodes.Count), MsgSeverity.Warn)) return;
-            foreach (var node in checkedNodes.ToList()) _treeViewTrustedKeys.Entries.Remove(node);
+            foreach (var node in checkedNodes.ToList()) _treeViewTrustedKeys.Nodes.Remove(node);
         }
         #endregion
 

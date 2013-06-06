@@ -36,6 +36,22 @@ namespace Common.Collections
     {
         #region LINQ
         /// <summary>
+        /// Appends an element to a list.
+        /// </summary>
+        public static IEnumerable<T> Concat<T>(this IEnumerable<T> enumeration, T element)
+        {
+            return enumeration.Concat(new[] {element});
+        }
+
+        /// <summary>
+        /// Prepends an element to a list.
+        /// </summary>
+        public static IEnumerable<T> Concat<T>(this T element, IEnumerable<T> enumeration)
+        {
+            return new[] {element}.Concat(enumeration);
+        }
+
+        /// <summary>
         /// Returns the first element in a list or throws a custom exception if no element exists.
         /// </summary>
         /// <param name="source">The list to get the first element from.</param>

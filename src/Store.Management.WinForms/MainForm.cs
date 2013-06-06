@@ -143,7 +143,7 @@ namespace ZeroInstall.Store.Management.WinForms
                 foreach (string directory in store.ListAllTemp())
                     AddWithIncrement(nodes, new TempDirectoryNode(this, store, directory));
 
-                _treeView.Entries = nodes;
+                _treeView.Nodes = nodes;
                 _treeView.SelectedEntry = null;
                 buttonVerify.Enabled = buttonRemove.Enabled = false;
 
