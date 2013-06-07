@@ -169,9 +169,10 @@ namespace Common.StructureEditor
         #region XML
         private void ToXmlString()
         {
-            xmlTextBox.Text = _selectedNode.Entry.ToXmlString()
-                                            .GetRightPartAtFirstOccurrence('\n')
-                                            .Replace("\n", Environment.NewLine);
+            xmlTextBox.Text = _selectedNode
+                .Entry.ToXmlString()
+                .GetRightPartAtFirstOccurrence('\n')
+                .Replace("\n", Environment.NewLine);
         }
 
         private void buttonXmlUpdate_Click(object sender, EventArgs e)

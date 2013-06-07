@@ -86,13 +86,8 @@ namespace Common.Values.Design
         }
 
         // ReSharper disable StaticFieldInGenericType
-        private static readonly string[] _values;
+        private static readonly string[] _values = (from T value in Enum.GetValues(typeof(T)) select value.ConvertToString()).ToArray();
         // ReSharper restore StaticFieldInGenericType
-
-        static EnumXmlConverter()
-        {
-            _values = (from T value in Enum.GetValues(typeof(T)) select value.ConvertToString()).ToArray();
-        }
 
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
