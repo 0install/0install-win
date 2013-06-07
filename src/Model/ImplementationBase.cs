@@ -125,11 +125,20 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the implementation in the form "Implementation: ID (Version)". Not safe for parsing!
+        /// Returns the implementation in the form "Implementation: Comma-seperated list of set values". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("Implementation: {0} ({1})", ID, Version);
+            string result = "Implementation: " + ID + ", ";
+            if (Architecture != default(Architecture)) result += Architecture + ", ";
+            if (Version != null) result += Version + ", ";
+            if (Released != default(DateTime)) result += Released.ToShortDateString() + ", ";
+            if (Stability != default(Stability)) result += Stability + ", ";
+            if (!string.IsNullOrEmpty(License)) result += License + ", ";
+            if (Main != null) result += Main + ", ";
+
+            // Remove last two characters
+            return result.Substring(0, result.Length - 2);
         }
         #endregion
 

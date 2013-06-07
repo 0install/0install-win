@@ -105,20 +105,17 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the group in the form "Group: Comma-seperated names of the set values". Not safe for parsing!
+        /// Returns the group in the form "Group: Comma-seperated list of set values". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
             string result = "Group: ";
-            if (!Languages.IsEmpty) result += "Languages, ";
-            if (Architecture != default(Architecture)) result += "Architecture, ";
-            if (Version != null) result += "Version, ";
-            if (Released != default(DateTime)) result += "Released, ";
-            if (Stability != default(Stability)) result += "Stability, ";
-            if (!string.IsNullOrEmpty(License)) result += "License, ";
-            if (Main != null) result += "Main, ";
-            if (SelfTest != null) result += "SelfTest, ";
-            if (!string.IsNullOrEmpty(DocDir)) result += "DocDir, ";
+            if (Architecture != default(Architecture)) result += Architecture + ", ";
+            if (Version != null) result += Version + ", ";
+            if (Released != default(DateTime)) result += Released.ToShortDateString() + ", ";
+            if (Stability != default(Stability)) result += Stability + ", ";
+            if (!string.IsNullOrEmpty(License)) result += License +", ";
+            if (Main != null) result += Main + ", ";
 
             // Remove last two characters
             return result.Substring(0, result.Length - 2);
