@@ -85,6 +85,7 @@
     <Compile Include="Tasks\SimpleTaskTest.cs" />
     <Compile Include="Undo\CollectionTest.cs" />
     <Compile Include="Undo\CompositeCommandTest.cs" />
+    <Compile Include="Undo\ReplaceInListTest.cs" />
     <Compile Include="Undo\SetLocalizableStringTest.cs" />
     <Compile Include="AppMutexText.cs" />
     <Compile Include="Utils\ArchiveUtilsTest.cs" />
