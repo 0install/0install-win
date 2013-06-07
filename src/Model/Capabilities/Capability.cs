@@ -32,6 +32,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <summary>
         /// Indicates whether this capability can be registered only machine-wide and not per-user on Windows systems.
         /// </summary>
+        [Browsable(false)]
         [XmlIgnore]
         public abstract bool WindowsMachineWideOnly { get; }
 
@@ -48,6 +49,7 @@ namespace ZeroInstall.Model.Capabilities
         /// Collisions in this namespace indicate that the concered <see cref="Capability"/>s are in conflict cannot be registered on a single system at the same time.
         /// </summary>
         /// <remarks>These identifiers are not guaranteed to stay the same between versions. They should not be stored in files but instead always generated on demand.</remarks>
+        [Browsable(false)]
         [XmlIgnore]
         public abstract IEnumerable<string> ConflictIDs { get; }
         #endregion

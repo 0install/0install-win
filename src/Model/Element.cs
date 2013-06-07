@@ -203,7 +203,7 @@ namespace ZeroInstall.Model
         /// A list of commands that can be used to launch this implementation.
         /// </summary>
         /// <remarks>This will eventually replace <see cref="Main"/> and <see cref="SelfTest"/>.</remarks>
-        [Category("Execution"), Description("A list of commands that can be used to launch this implementation.")]
+        [Browsable(false)]
         [XmlElement("command")]
         public C5.ArrayList<Command> Commands { get { return _commands; } }
         #endregion

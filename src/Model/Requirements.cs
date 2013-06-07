@@ -80,7 +80,7 @@ namespace ZeroInstall.Model
         /// The natural language(s) to look for.
         /// </summary>
         /// <example>For example, the value "en_GB fr" would be search for British English or French.</example>
-        [Description("The natural language(s) to look for.")]
+        [Browsable(false)]
         [XmlIgnore]
         public LanguageCollection Languages { get { return _languages; } }
 

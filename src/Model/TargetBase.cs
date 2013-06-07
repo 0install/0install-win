@@ -39,7 +39,7 @@ namespace ZeroInstall.Model
         /// The natural language(s) which an <see cref="Model.Implementation"/> supports.
         /// </summary>
         /// <example>For example, the value "en_GB fr" would be used for a package supporting British English and French.</example>
-        [Category("Release"), Description("The natural language(s) which an implementation supports.")]
+        [Browsable(false)]
         [XmlIgnore]
         public LanguageCollection Languages { get { return _languages; } }
 
