@@ -222,10 +222,7 @@
       <DependentUpon>TimeSpanControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\EditorControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\EditorControl.Designer.cs">
-      <DependentUpon>EditorControl.cs</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\EditorDialog.cs">
       <SubType>Form</SubType>

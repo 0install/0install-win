@@ -20,25 +20,23 @@
  * THE SOFTWARE.
  */
 
-using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Common.Properties;
 using Common.Undo;
 
 namespace Common.Controls
 {
     /// <summary>
-    /// Edits arbitrary types of elements using a <see cref="ResettablePropertyGrid"/>. Provides optional <see cref="Common.Undo"/> support.
+    /// Edits arbitrary types of elements using a <see cref="PropertyGrid"/>. Provides optional <see cref="Common.Undo"/> support.
     /// </summary>
     /// <typeparam name="T">The type of element to edit.</typeparam>
-    public partial class EditorControl<T> : UserControl, IEditorControl<T> where T : class
+    public class EditorControl<T> : ResettablePropertyGrid, IEditorControl<T> where T : class
     {
         private readonly MultiPropertyTracker _tracker;
 
         /// <inheritdoc/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public T Target { get { return propertyGrid.SelectedObject as T; } set { propertyGrid.SelectedObject = value; } }
+        public T Target { get { return SelectedObject as T; } set { SelectedObject = value; } }
 
         /// <inheritdoc/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -46,26 +44,12 @@ namespace Common.Controls
 
         public EditorControl()
         {
-            InitializeComponent();
-            buttonResetValue.Text = Resources.ResetValue;
-
-            _tracker = new MultiPropertyTracker(propertyGrid);
-        }
-
-        private void propertyGrid_SelectedGridItemChanged(object sender, SelectedGridItemChangedEventArgs e)
-        {
-            buttonResetValue.Enabled = propertyGrid.CanResetSelectedProperty;
-        }
-
-        private void buttonResetValue_Click(object sender, EventArgs e)
-        {
-            propertyGrid.ResetSelectedProperty();
-        }
-
-        private void propertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
-        {
-            if (CommandExecutor != null)
-                CommandExecutor.ExecuteCommand(_tracker.GetCommand(e.ChangedItem));
+            _tracker = new MultiPropertyTracker(this);
+            PropertyValueChanged += delegate(object sender, PropertyValueChangedEventArgs e)
+            {
+                if (CommandExecutor != null)
+                    CommandExecutor.ExecuteCommand(_tracker.GetCommand(e.ChangedItem));
+            };
         }
     }
 }

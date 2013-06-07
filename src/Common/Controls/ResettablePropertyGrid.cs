@@ -28,12 +28,17 @@ namespace Common.Controls
     /// <summary>
     /// A <see cref="PropertyGrid"/> that provides a "reset value" option in its context menu.
     /// </summary>
-    public sealed class ResettablePropertyGrid : PropertyGrid
+    public class ResettablePropertyGrid : PropertyGrid
     {
         public ResettablePropertyGrid()
         {
             var menuItem = new ToolStripMenuItem {Text = Resources.ResetValue};
-            menuItem.Click += delegate { ResetSelectedProperty(); };
+            menuItem.Click += delegate
+            {
+                object oldValue = SelectedGridItem.Value;
+                ResetSelectedProperty();
+                OnPropertyValueChanged(new PropertyValueChangedEventArgs(SelectedGridItem, oldValue));
+            };
             ContextMenuStrip = new ContextMenuStrip {Items = {menuItem}};
 
             SelectedGridItemChanged += delegate { menuItem.Enabled = CanResetSelectedProperty; };

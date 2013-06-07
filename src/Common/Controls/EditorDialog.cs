@@ -37,7 +37,7 @@ namespace Common.Controls
         {
             TabIndex = 0,
             Location = new System.Drawing.Point(12, 12),
-            Size = new System.Drawing.Size(290, 267),
+            Size = new System.Drawing.Size(290, 238),
             Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom
         };
 
