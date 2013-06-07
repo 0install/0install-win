@@ -74,6 +74,7 @@ namespace Common.StructureEditor
                         pointer.Value,
                         commandExecutor => new TEditor {Target = pointer.Value, CommandExecutor = commandExecutor},
                         pointer.Value.ToXmlString,
+                        (commandExecutor, value) => commandExecutor.ExecuteCommand(new SetValueCommand<TProperty>(pointer, XmlStorage.FromXmlString<TProperty>(value))),
                         commandExecutor => commandExecutor.ExecuteCommand(new SetValueCommand<TProperty>(pointer, null)));
                 }
             }

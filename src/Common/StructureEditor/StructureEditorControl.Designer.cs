@@ -35,16 +35,14 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonRemove = new System.Windows.Forms.ToolStripButton();
             this.treeView = new System.Windows.Forms.TreeView();
+            this.buttonXmlUpdate = new System.Windows.Forms.Button();
             this.xmlTextBox = new System.Windows.Forms.TextBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.menuRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.horizontalSplitter.Panel1.SuspendLayout();
             this.horizontalSplitter.Panel2.SuspendLayout();
             this.horizontalSplitter.SuspendLayout();
             this.verticalSplitter.Panel1.SuspendLayout();
             this.verticalSplitter.SuspendLayout();
             this.toolStrip.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // horizontalSplitter
@@ -60,9 +58,10 @@
             // 
             // horizontalSplitter.Panel2
             // 
+            this.horizontalSplitter.Panel2.Controls.Add(this.buttonXmlUpdate);
             this.horizontalSplitter.Panel2.Controls.Add(this.xmlTextBox);
             this.horizontalSplitter.Size = new System.Drawing.Size(150, 150);
-            this.horizontalSplitter.SplitterDistance = 104;
+            this.horizontalSplitter.SplitterDistance = 103;
             this.horizontalSplitter.SplitterWidth = 12;
             this.horizontalSplitter.TabIndex = 0;
             // 
@@ -76,7 +75,7 @@
             // 
             this.verticalSplitter.Panel1.Controls.Add(this.toolStrip);
             this.verticalSplitter.Panel1.Controls.Add(this.treeView);
-            this.verticalSplitter.Size = new System.Drawing.Size(150, 104);
+            this.verticalSplitter.Size = new System.Drawing.Size(150, 103);
             this.verticalSplitter.SplitterDistance = 79;
             this.verticalSplitter.SplitterWidth = 12;
             this.verticalSplitter.TabIndex = 0;
@@ -121,9 +120,20 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeView.Location = new System.Drawing.Point(0, 28);
             this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(79, 76);
+            this.treeView.Size = new System.Drawing.Size(79, 75);
             this.treeView.TabIndex = 0;
             this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
+            // 
+            // buttonXmlUpdate
+            // 
+            this.buttonXmlUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonXmlUpdate.Location = new System.Drawing.Point(94, 12);
+            this.buttonXmlUpdate.Name = "buttonXmlUpdate";
+            this.buttonXmlUpdate.Size = new System.Drawing.Size(56, 23);
+            this.buttonXmlUpdate.TabIndex = 1;
+            this.buttonXmlUpdate.Text = "Update";
+            this.buttonXmlUpdate.UseVisualStyleBackColor = true;
+            this.buttonXmlUpdate.Click += new System.EventHandler(this.buttonXmlUpdate_Click);
             // 
             // xmlTextBox
             // 
@@ -133,32 +143,12 @@
             this.xmlTextBox.Multiline = true;
             this.xmlTextBox.Name = "xmlTextBox";
             this.xmlTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.xmlTextBox.Size = new System.Drawing.Size(150, 34);
+            this.xmlTextBox.Size = new System.Drawing.Size(150, 35);
             this.xmlTextBox.TabIndex = 0;
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuRemove});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(150, 24);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.Visible = false;
-            // 
-            // menuRemove
-            // 
-            this.menuRemove.Name = "menuRemove";
-            this.menuRemove.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.menuRemove.Size = new System.Drawing.Size(62, 20);
-            this.menuRemove.Text = "&Remove";
-            this.menuRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
             // StructureEditorControl
             // 
             this.Controls.Add(this.horizontalSplitter);
-            this.Controls.Add(this.menuStrip1);
             this.Name = "StructureEditorControl";
             this.horizontalSplitter.Panel1.ResumeLayout(false);
             this.horizontalSplitter.Panel2.ResumeLayout(false);
@@ -169,10 +159,7 @@
             this.verticalSplitter.ResumeLayout(false);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -186,7 +173,6 @@
         private System.Windows.Forms.ToolStripDropDownButton buttonAdd;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton buttonRemove;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem menuRemove;
+        private System.Windows.Forms.Button buttonXmlUpdate;
     }
 }

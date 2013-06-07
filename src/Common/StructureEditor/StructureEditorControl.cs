@@ -105,18 +105,19 @@ namespace Common.StructureEditor
         #endregion
 
         #region Build nodes
-        private Node _selectedNode;
+        private Node _reselectNode;
 
         private void RebuildTree()
         {
-            _selectedNode = treeView.SelectedNode as Node;
-
             treeView.Nodes.Clear();
-            treeView.Nodes.AddRange(BuildNodes(this));
 
-            treeView.Nodes[0].Expand();
+            _reselectNode = null;
+            treeView.Nodes.AddRange(BuildNodes(this));
+            _selectedNode = _reselectNode ?? (Node)treeView.Nodes[0];
             treeView.SelectedNode = _selectedNode;
-            if (_selectedNode != null) _selectedNode.Expand();
+            _selectedNode.Expand();
+
+            UpdateEditorControl();
         }
 
         private TreeNode[] BuildNodes(object target)
@@ -127,38 +128,60 @@ namespace Common.StructureEditor
 
         private Node BuildNode(EntryInfo entry)
         {
-            var node = new Node(entry, BuildNodes(entry.Instance));
-            if (_selectedNode != null && entry.Instance == _selectedNode.Entry.Instance)
-                _selectedNode = node;
+            var node = new Node(entry, BuildNodes(entry.Target));
+            if (_selectedNode != null && entry.Target == _selectedNode.Entry.Target)
+                _reselectNode = node;
             return node;
         }
         #endregion
 
         #region Selection
-        private Control _editorControl;
+        private Node _selectedNode;
 
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            var node = e.Node as Node;
-            buttonRemove.Enabled = (node != null && node != treeView.Nodes[0]);
-            if (node == null) return;
+            _selectedNode = (Node)e.Node;
+            buttonRemove.Enabled = (e.Node != treeView.Nodes[0]);
 
+            UpdateEditorControl();
+            ToXmlString();
+        }
+        #endregion
+
+        #region Editor control
+        private Control _editorControl;
+
+        private void UpdateEditorControl()
+        {
             if (_editorControl != null)
             {
                 verticalSplitter.Panel2.Controls.Remove(_editorControl);
                 _editorControl.Dispose();
             }
 
-            var editorControl = node.Entry.GetEditorControl(CommandExecutor);
+            var editorControl = _selectedNode.Entry.GetEditorControl(CommandExecutor);
             editorControl.Dock = DockStyle.Fill;
             verticalSplitter.Panel2.Controls.Add(editorControl);
             _editorControl = editorControl;
+        }
+        #endregion
 
-            xmlTextBox.Text = node.Entry.ToXmlString()
-                                  .Replace(" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"", "")
-                                  .Replace(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", "")
-                                  .GetRightPartAtFirstOccurrence('\n')
-                                  .Replace("\n", Environment.NewLine);
+        #region XML
+        private void ToXmlString()
+        {
+            xmlTextBox.Text = _selectedNode.Entry.ToXmlString()
+                                            .GetRightPartAtFirstOccurrence('\n')
+                                            .Replace("\n", Environment.NewLine);
+        }
+
+        private void buttonXmlUpdate_Click(object sender, EventArgs e)
+        {
+            FromXmlString();
+        }
+
+        private void FromXmlString()
+        {
+            _selectedNode.Entry.FromXmlString(CommandExecutor, xmlTextBox.Text);
         }
         #endregion
 
@@ -166,11 +189,7 @@ namespace Common.StructureEditor
         private void buttonAdd_DropDownOpening(object sender, EventArgs e)
         {
             buttonAdd.DropDownItems.Clear();
-
-            var node = treeView.SelectedNode as Node;
-            if (node == null) return;
-
-            BuildAddDropDownMenu(node.Entry.Instance);
+            BuildAddDropDownMenu(_selectedNode.Entry.Target);
         }
 
         private void BuildAddDropDownMenu(object instance)
@@ -188,11 +207,9 @@ namespace Common.StructureEditor
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
-            var node = treeView.SelectedNode as Node;
-            if (node == null || node == treeView.Nodes[0]) return;
-
-            treeView.SelectedNode = node.Parent;
-            node.Entry.Delete(CommandExecutor);
+            var delete = _selectedNode.Entry.Delete; // Remember target even if selection changes
+            treeView.SelectedNode = treeView.SelectedNode.Parent; // Select parent before deleting
+            delete(CommandExecutor);
         }
         #endregion
     }

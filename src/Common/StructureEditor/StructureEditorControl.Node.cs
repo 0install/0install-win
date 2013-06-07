@@ -31,7 +31,7 @@ namespace Common.StructureEditor
             public readonly EntryInfo Entry;
 
             public Node(EntryInfo entry, TreeNode[] children)
-                : base(entry.Instance.ToString(), children)
+                : base(entry.Target.ToString(), children)
             {
                 Entry = entry;
 

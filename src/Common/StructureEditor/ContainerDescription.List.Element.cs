@@ -66,6 +66,7 @@ namespace Common.StructureEditor
                             element,
                             commandExecutor => new TEditor {Target = element, CommandExecutor = commandExecutor},
                             element.ToXmlString,
+                            (commandExecutor, value) => commandExecutor.ExecuteCommand(new ReplaceInList<TList>(list, element, XmlStorage.FromXmlString<TElement>(value))),
                             commandExecutor => commandExecutor.ExecuteCommand(new RemoveFromCollection<TList>(list, element))));
                 }
 

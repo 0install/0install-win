@@ -27,16 +27,18 @@ namespace Common.StructureEditor
 {
     internal class EntryInfo
     {
-        public readonly object Instance;
+        public readonly object Target;
         public readonly Func<Undo.ICommandExecutor, Control> GetEditorControl;
         public readonly Func<string> ToXmlString;
+        public readonly Action<Undo.ICommandExecutor, string> FromXmlString;
         public readonly Action<Undo.ICommandExecutor> Delete;
 
-        public EntryInfo(object instance, Func<Undo.ICommandExecutor, Control> getEditorControl, Func<string> toXmlString, Action<Undo.ICommandExecutor> delete)
+        public EntryInfo(object target, Func<Undo.ICommandExecutor, Control> getEditorControl, Func<string> toXmlString, Action<Undo.ICommandExecutor, string> fromXmlString, Action<Undo.ICommandExecutor> delete)
         {
-            Instance = instance;
+            Target = target;
             GetEditorControl = getEditorControl;
             ToXmlString = toXmlString;
+            FromXmlString = fromXmlString;
             Delete = delete;
         }
     }
