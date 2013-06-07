@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using Common.Utils;
+using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model
 {
@@ -35,6 +36,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("The type of the archive as a MIME type. If missing, the type is guessed from the extension on the location attribute. This value is case-insensitive.")]
         [XmlAttribute("type"), DefaultValue("")]
+        [TypeConverter(typeof(ArchiveMimeTypeConverter))]
         public string MimeType { get; set; }
 
         /// <summary>

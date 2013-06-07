@@ -81,7 +81,10 @@
     <Compile Include="Binding.cs" />
     <Compile Include="Constraint.cs" />
     <Compile Include="Dependency.cs" />
+    <Compile Include="Design\ArchiveMimeTypeConverter.cs" />
     <Compile Include="Design\ArgBaseConverter.cs" />
+    <Compile Include="Design\IconMimeTypeConverter.cs" />
+    <Compile Include="Design\UseConverter.cs" />
     <Compile Include="DownloadRetrievalMethod.cs" />
     <Compile Include="GenericBinding.cs" />
     <Compile Include="SingleFile.cs" />

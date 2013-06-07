@@ -53,7 +53,7 @@ namespace Common.Values.Design
                 {
                     try
                     {
-                        return constructor.Invoke(new object[] {stringValue});
+                        return string.IsNullOrEmpty(stringValue) ? null : constructor.Invoke(new object[] {stringValue});
                     }
                     catch (Exception ex)
                     {

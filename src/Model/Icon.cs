@@ -18,9 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Xml;
 using System.Xml.Serialization;
-using Common.Utils;
 using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model
@@ -63,6 +61,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("The MIME type of the icon. This value is case-insensitive.")]
         [XmlAttribute("type")]
+        [TypeConverter(typeof(IconMimeTypeConverter))]
         public string MimeType { get; set; }
         #endregion
 

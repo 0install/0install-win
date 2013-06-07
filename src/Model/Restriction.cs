@@ -60,8 +60,9 @@ namespace ZeroInstall.Model
 
         /// <summary>
         /// A more flexible alternative to <see cref="Constraints"/>.
+        /// Each range is in the form "START..!END". The range matches versions where START &lt;= VERSION &lt; END. The start or end may be omitted. A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version.
         /// </summary>
-        [Description("A more flexible alternative to &lt;version&gt;s.")]
+        [Description("A more flexible alternative to Constraints.\nEach range is in the form \"START..!END\". The range matches versions where START < VERSION < END. The start or end may be omitted. A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version.")]
         [XmlIgnore]
         public VersionRange Versions { get; set; }
 

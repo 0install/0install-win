@@ -23,6 +23,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Xml.Serialization;
 using Common.Utils;
 
@@ -72,5 +73,31 @@ namespace Common.Values.Design
                 return enumValue.GetEnumAttributeValue((XmlEnumAttribute attribute) => attribute.Name);
             return base.ConvertTo(context, culture, value, destinationType);
         }
+
+        #region Value range
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
+        public override bool GetStandardValuesExclusive(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
+        // ReSharper disable StaticFieldInGenericType
+        private static readonly string[] _values;
+        // ReSharper restore StaticFieldInGenericType
+
+        static EnumXmlConverter()
+        {
+            _values = (from T value in Enum.GetValues(typeof(T)) select value.ConvertToString()).ToArray();
+        }
+
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+        {
+            return new StandardValuesCollection(_values);
+        }
+        #endregion
     }
 }

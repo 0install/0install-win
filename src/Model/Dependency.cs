@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Collections;
+using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model
 {
@@ -61,6 +62,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("This can be used to indicate that this dependency is only needed in some cases.")]
         [XmlAttribute("use"), DefaultValue("")]
+        [TypeConverter(typeof(UseConverter))]
         public string Use { get; set; }
 
         /// <summary>
