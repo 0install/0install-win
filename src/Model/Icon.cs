@@ -103,7 +103,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Icon"/>.</returns>
         public Icon Clone()
         {
-            return new Icon { UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Location = Location, MimeType = MimeType};
+            return new Icon {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Location = Location, MimeType = MimeType};
         }
 
         object ICloneable.Clone()

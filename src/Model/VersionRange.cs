@@ -18,8 +18,8 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Common.Values.Design;
 using Common.Utils;
+using Common.Values.Design;
 
 namespace ZeroInstall.Model
 {

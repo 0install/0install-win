@@ -76,7 +76,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <returns>The new copy of the <see cref="FileTypeExtension"/>.</returns>
         public FileTypeExtension Clone()
         {
-            return new FileTypeExtension { UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Value = Value, MimeType = MimeType,PerceivedType = PerceivedType};
+            return new FileTypeExtension {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Value = Value, MimeType = MimeType, PerceivedType = PerceivedType};
         }
 
         object ICloneable.Clone()

@@ -114,7 +114,7 @@ namespace ZeroInstall.Model
             if (Version != null) result += Version + ", ";
             if (Released != default(DateTime)) result += Released.ToShortDateString() + ", ";
             if (Stability != default(Stability)) result += Stability + ", ";
-            if (!string.IsNullOrEmpty(License)) result += License +", ";
+            if (!string.IsNullOrEmpty(License)) result += License + ", ";
             if (Main != null) result += Main + ", ";
 
             // Remove last two characters
