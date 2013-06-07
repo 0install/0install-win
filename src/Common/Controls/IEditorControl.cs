@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.ComponentModel;
 using Common.Undo;
 
@@ -25,7 +24,7 @@ namespace Common.Controls
     /// Provides an interface to a control that edits a single object.
     /// </summary>
     /// <typeparam name="T">The type of object to edit.</typeparam>
-    public interface IEditorControl<T> : IDisposable
+    public interface IEditorControl<T>
     {
         /// <summary>
         /// The element to be edited.

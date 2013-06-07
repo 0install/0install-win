@@ -97,6 +97,7 @@ namespace Common.Undo
             // Only enable the buttons that still have a use
             OnUndoEnabled(true);
             OnRedoEnabled(false);
+            OnUpdated();
 
             Changed = true;
         }
