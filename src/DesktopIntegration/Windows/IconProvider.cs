@@ -49,6 +49,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static string GetIconPath(Icon icon, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
+            if (icon == null) throw new ArgumentNullException("icon");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 

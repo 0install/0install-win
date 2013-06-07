@@ -86,9 +86,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             // Set icon if available
             var icon = target.Feed.GetIcon(Icon.MimeTypeIco, command);
-            if (icon.HasValue)
+            if (icon != null)
             {
-                string iconPath = IconCacheProvider.GetInstance().GetIcon(icon.Value.Location, handler);
+                string iconPath = IconCacheProvider.GetInstance().GetIcon(icon.Location, handler);
                 compilerParameters.CompilerOptions += " /win32icon:" + iconPath.EscapeArgument();
             }
 

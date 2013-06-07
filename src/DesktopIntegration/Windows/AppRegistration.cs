@@ -95,7 +95,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                 // Set icon if available
                 var icon = target.Feed.GetIcon(Icon.MimeTypeIco, null);
-                if (icon.HasValue) capabilitiesKey.SetValue(RegValueAppIcon, IconProvider.GetIconPath(icon.Value, machineWide, handler) + ",0");
+                if (icon != null) capabilitiesKey.SetValue(RegValueAppIcon, IconProvider.GetIconPath(icon, machineWide, handler) + ",0");
 
                 using (var fileAssocsKey = capabilitiesKey.CreateSubKey(RegSubKeyFileAssocs))
                 {

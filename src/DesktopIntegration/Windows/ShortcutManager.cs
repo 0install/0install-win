@@ -69,7 +69,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             // Set icon if available
             var icon = target.Feed.GetIcon(Icon.MimeTypeIco, command);
-            if (icon.HasValue) shortcut.IconLocation = IconProvider.GetIconPath(icon.Value, machineWide, handler);
+            if (icon != null) shortcut.IconLocation = IconProvider.GetIconPath(icon, machineWide, handler);
 
             shortcut.Save();
 #endif

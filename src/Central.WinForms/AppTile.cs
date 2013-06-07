@@ -102,7 +102,7 @@ namespace ZeroInstall.Central.WinForms
                 {
                     // Load application icon in background
                     var icon = value.GetIcon(Icon.MimeTypePng, null);
-                    if (icon.HasValue) iconDownloadWorker.RunWorkerAsync(icon.Value.Location);
+                    if (icon != null) iconDownloadWorker.RunWorkerAsync(icon.Location);
                     else pictureBoxIcon.Image = Resources.App; // Fall back to default icon
                 }
                 else pictureBoxIcon.Image = Resources.App; // Fall back to default icon
