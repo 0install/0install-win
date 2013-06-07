@@ -65,7 +65,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// User-friendly names for the command. If not present, <see cref="Command"/> is used instead.
         /// </summary>
-        [Description("Localized user-friendly names for the command. If not present, Command is used instead.")]
+        [Browsable(false)]
         [XmlElement("name")]
         public LocalizableStringCollection Names { get { return _names; } }
 
@@ -74,7 +74,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Short one-line descriptions for different languages; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills").
         /// </summary>
-        [Description("Short one-line descriptions for different languages; the first word should not be upper-case unless it is a proper noun (e.g. \"cures all ills\").")]
+        [Browsable(false)]
         [XmlElement("summary")]
         public LocalizableStringCollection Summaries { get { return _summaries; } }
 
@@ -83,7 +83,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Full descriptions for different languages, which can be several paragraphs long.
         /// </summary>
-        [Description("Full descriptions for different languages, which can be several paragraphs long.")]
+        [Browsable(false)]
         [XmlElement("description")]
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }
 

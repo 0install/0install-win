@@ -39,7 +39,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this group.
         /// </summary>
-        [Category("Implementation"), Description("A list of groups and implementations contained within this group.")]
+        [Browsable(false)]
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
         public C5.ArrayList<Element> Elements { get { return _elements; } }
         #endregion

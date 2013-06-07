@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
@@ -64,6 +65,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of <see cref="Feed"/>s contained within this catalog.
         /// </summary>
+        [Browsable(false)]
         [XmlElement("interface", typeof(Feed), Namespace = Feed.XmlNamespace)]
         public C5.ArrayList<Feed> Feeds { get { return _feeds; } }
         #endregion

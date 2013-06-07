@@ -70,7 +70,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of command-line arguments to be passed to an implementation executable.
         /// </summary>
-        [Description("A list of command-line arguments to be passed to an implementation executable.")]
+        [Browsable(false)]
         [XmlElement(typeof(Arg)), XmlElement(typeof(ForEachArgs))]
         public C5.ArrayList<ArgBase> Arguments { get { return _arguments; } }
 
@@ -80,7 +80,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
-        [Description("A list of bindings for implementations to locate dependencies.")]
+        [Browsable(false)]
         [XmlElement(typeof(GenericBinding)), XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding)), XmlElement(typeof(ExecutableInVar)), XmlElement(typeof(ExecutableInPath))]
         public C5.ArrayList<Binding> Bindings { get { return _bindings; } }
 
@@ -97,7 +97,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of interfaces this command depends upon.
         /// </summary>
-        [Description("A list of interfaces this command depends upon.")]
+        [Browsable(false)]
         [XmlElement("requires")]
         public C5.ArrayList<Dependency> Dependencies { get { return _dependencies; } }
 

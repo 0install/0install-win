@@ -102,7 +102,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <summary>
         /// Localized human-readable descriptions of the verb as an alternative to <see cref="Name"/>.
         /// </summary>
-        [Description("Localized human-readable descriptions of the verb as an alternative to Name.")]
+        [Browsable(false)]
         [XmlElement("description")]
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }
         #endregion

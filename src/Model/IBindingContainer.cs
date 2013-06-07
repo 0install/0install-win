@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
@@ -28,7 +27,6 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
-        [Description("A list of bindings for implementations to locate dependencies.")]
         [XmlElement(typeof(GenericBinding)), XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding)), XmlElement(typeof(ExecutableInVar)), XmlElement(typeof(ExecutableInPath))]
         C5.ArrayList<Binding> Bindings { get; }
     }

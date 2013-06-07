@@ -39,7 +39,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <summary>
         /// Human-readable descriptions of the AutoPlay operation in different languages.
         /// </summary>
-        [Category("Interface"), Description("Human-readable descriptions of the AutoPlay operation in different languages.")]
+        [Browsable(false)]
         [XmlElement("description")]
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }
 

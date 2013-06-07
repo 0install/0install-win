@@ -172,7 +172,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of interfaces this implementation depends upon.
         /// </summary>
-        [Category("Execution"), Description("A list of interfaces this implementation depends upon.")]
+        [Browsable(false)]
         [XmlElement("requires")]
         public C5.ArrayList<Dependency> Dependencies { get { return _dependencies; } }
 
@@ -182,7 +182,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of interfaces that are restricted to specific versions when used.
         /// </summary>
-        [Description("A list of interfaces that are restricted to specific versions when used.")]
+        [Browsable(false)]
         [XmlElement("restricts")]
         public C5.ArrayList<Restriction> Restrictions { get { return _restrictions; } }
 
@@ -192,7 +192,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
-        [Description("A list of bindings for implementations to locate dependencies.")]
+        [Browsable(false)]
         [XmlElement(typeof(GenericBinding)), XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding)), XmlElement(typeof(ExecutableInVar)), XmlElement(typeof(ExecutableInPath))]
         public C5.ArrayList<Binding> Bindings { get { return _bindings; } }
 

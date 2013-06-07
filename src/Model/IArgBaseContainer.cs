@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
@@ -28,7 +27,6 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of command-line arguments to be passed to an executable.
         /// </summary>
-        [Description("A list of command-line arguments to be passed to an executable.")]
         [XmlElement(typeof(Arg)), XmlElement(typeof(ForEachArgs))]
         C5.ArrayList<ArgBase> Arguments { get; }
     }

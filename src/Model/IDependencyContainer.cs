@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
@@ -28,14 +27,12 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of interfaces this implementation depends upon.
         /// </summary>
-        [Category("Execution"), Description("A list of interfaces this implementation depends upon.")]
         [XmlElement("requires")]
         C5.ArrayList<Dependency> Dependencies { get; }
 
         /// <summary>
         /// A list of interfaces that are restricted to specific versions when used.
         /// </summary>
-        [Category("Execution"), Description("A list of interfaces that are restricted to specific versions when used.")]
         [XmlElement("restricts")]
         C5.ArrayList<Restriction> Restrictions { get; }
     }
