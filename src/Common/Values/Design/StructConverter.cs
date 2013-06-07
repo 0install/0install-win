@@ -125,7 +125,7 @@ namespace Common.Values.Design
             if (culture == null) throw new ArgumentNullException("culture");
             #endregion
 
-            return culture.TextInfo.ListSeparator + " ";
+            return culture.TextInfo.ListSeparator;
         }
 
         /// <summary>The number of arguments the constructor of <typeparamref name="T"/> has.</summary>

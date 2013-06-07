@@ -29,7 +29,7 @@ namespace ZeroInstall.Model
     /// <seealso cref="Feed.EntryPoints"/>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
-    [XmlType("entry-point", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("entry-point", Namespace = Feed.XmlNamespace), XmlType("entry-point", Namespace = Feed.XmlNamespace)]
     public sealed class EntryPoint : FeedElement, ICloneable, IEquatable<EntryPoint>
     {
         #region Properties

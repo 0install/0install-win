@@ -26,7 +26,7 @@ namespace ZeroInstall.Model
     /// </summary>
     /// <remarks>This is to support legacy programs which can't properly locate their installation directory.</remarks>
     [Serializable]
-    [XmlType("working-dir", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("working-dir", Namespace = Feed.XmlNamespace), XmlType("working-dir", Namespace = Feed.XmlNamespace)]
     public sealed class WorkingDir : FeedElement, ICloneable, IEquatable<WorkingDir>
     {
         #region Properties

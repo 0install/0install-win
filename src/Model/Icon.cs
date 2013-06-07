@@ -27,7 +27,7 @@ namespace ZeroInstall.Model
     /// An icon for an interface.
     /// </summary>
     [Serializable]
-    [XmlType("icon", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("icon", Namespace = Feed.XmlNamespace), XmlType("icon", Namespace = Feed.XmlNamespace)]
     public class Icon : XmlUnknown, ICloneable, IEquatable<Icon>
     {
         #region Constants

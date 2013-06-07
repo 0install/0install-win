@@ -27,7 +27,7 @@ namespace ZeroInstall.Model
     /// <remarks>An interface may have one or more actual feeds backing it.</remarks>
     /// <seealso cref="Feed.Feeds"/>
     [Serializable]
-    [XmlType("feed-reference", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("feed-reference", Namespace = Feed.XmlNamespace), XmlType("feed-reference", Namespace = Feed.XmlNamespace)]
     public sealed class FeedReference : TargetBase, ICloneable, IEquatable<FeedReference>
     {
         #region Properties

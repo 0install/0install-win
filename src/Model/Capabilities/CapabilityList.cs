@@ -30,7 +30,7 @@ namespace ZeroInstall.Model.Capabilities
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
-    [XmlType("capabilities", Namespace = XmlNamespace)]
+    [XmlRoot("capabilities", Namespace = XmlNamespace), XmlType("capabilities", Namespace = XmlNamespace)]
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
     public sealed class CapabilityList : XmlUnknown, ICloneable, IEquatable<CapabilityList>
     {

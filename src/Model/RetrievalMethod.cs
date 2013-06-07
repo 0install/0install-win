@@ -23,7 +23,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// A retrieval method is a way of getting a copy of an <see cref="Model.Implementation"/>.
     /// </summary>
-    [XmlType("retrieval-method", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("retrieval-method", Namespace = Feed.XmlNamespace), XmlType("retrieval-method", Namespace = Feed.XmlNamespace)]
     public abstract class RetrievalMethod : FeedElement, ICloneable
     {
         /// <summary>

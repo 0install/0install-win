@@ -207,16 +207,16 @@
     </TypeIdentifier>
   </Enum>
   <Enum Name="ZeroInstall.Model.Cpu">
-    <Position X="8.25" Y="3" Width="1.5" />
+    <Position X="8.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAEAgAAAAACAAACAAABAAAAAAABAIAAAAAAAFA=</HashCode>
+      <HashCode>AAAAAAAFAgAAAAACAAACAAABAEAAAAAAAIAAAAAAABA=</HashCode>
       <FileName>Architecture.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="ZeroInstall.Model.OS">
     <Position X="8.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAABAAAAAAAAAAAAAAABAAAAAAJIAABAAQBA=</HashCode>
+      <HashCode>AQAAAAAAAABAAAAAAAAAAAAAAAAAACAAAJIAABAAQBA=</HashCode>
       <FileName>Architecture.cs</FileName>
     </TypeIdentifier>
   </Enum>

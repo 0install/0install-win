@@ -28,7 +28,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
-    [XmlType("recipe", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("recipe", Namespace = Feed.XmlNamespace), XmlType("recipe", Namespace = Feed.XmlNamespace)]
     public sealed class Recipe : RetrievalMethod, IEquatable<Recipe>
     {
         #region Properties

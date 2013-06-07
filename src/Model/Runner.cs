@@ -29,7 +29,7 @@ namespace ZeroInstall.Model
     /// <seealso cref="Model.Command.Runner"/>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
-    [XmlType("runner", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("runner", Namespace = Feed.XmlNamespace), XmlType("runner", Namespace = Feed.XmlNamespace)]
     public class Runner : Dependency, IArgBaseContainer, IEquatable<Runner>
     {
         #region Properties

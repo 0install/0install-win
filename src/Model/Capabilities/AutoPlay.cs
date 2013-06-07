@@ -29,7 +29,7 @@ namespace ZeroInstall.Model.Capabilities
     /// </summary>
     /// <remarks>A <see cref="FileType"/> is used for actually executing the application.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
-    [XmlType("auto-play", Namespace = CapabilityList.XmlNamespace)]
+    [XmlRoot("auto-play", Namespace = CapabilityList.XmlNamespace), XmlType("auto-play", Namespace = CapabilityList.XmlNamespace)]
     public sealed class AutoPlay : IconCapability, IEquatable<AutoPlay>
     {
         #region Properties

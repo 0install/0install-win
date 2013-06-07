@@ -25,7 +25,7 @@ namespace ZeroInstall.Model
     /// Restricts the set of versions from which the injector may choose an <see cref="Implementation"/>. 
     /// </summary>
     [Serializable]
-    [XmlType("constraint", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("constraint", Namespace = Feed.XmlNamespace), XmlType("constraint", Namespace = Feed.XmlNamespace)]
     public class Constraint : FeedElement, ICloneable, IEquatable<Constraint>
     {
         #region Properties

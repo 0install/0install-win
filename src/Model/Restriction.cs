@@ -29,7 +29,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
-    [XmlType("restriction", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("restriction", Namespace = Feed.XmlNamespace), XmlType("restriction", Namespace = Feed.XmlNamespace)]
     public class Restriction : FeedElement, ICloneable, IEquatable<Restriction>
     {
         #region Properties

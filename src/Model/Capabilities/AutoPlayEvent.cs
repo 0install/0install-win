@@ -24,7 +24,7 @@ namespace ZeroInstall.Model.Capabilities
     /// <summary>
     /// Names a specific <see cref="AutoPlay"/> event.
     /// </summary>
-    [XmlType("event", Namespace = CapabilityList.XmlNamespace)]
+    [XmlRoot("event", Namespace = CapabilityList.XmlNamespace), XmlType("event", Namespace = CapabilityList.XmlNamespace)]
     public class AutoPlayEvent : XmlUnknown, ICloneable, IEquatable<AutoPlayEvent>
     {
         #region Constants

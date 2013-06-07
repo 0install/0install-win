@@ -46,7 +46,7 @@ namespace ZeroInstall.Model
     /// Make a chosen <see cref="Implementation"/> available by setting environment variables.
     /// </summary>
     [Serializable]
-    [XmlType("environment", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("environment", Namespace = Feed.XmlNamespace), XmlType("environment", Namespace = Feed.XmlNamespace)]
     public sealed class EnvironmentBinding : Binding, IEquatable<EnvironmentBinding>
     {
         #region Properties

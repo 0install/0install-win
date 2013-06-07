@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model.Capabilities
 {
@@ -25,6 +26,8 @@ namespace ZeroInstall.Model.Capabilities
     /// Lists the commands the application registeres for use by Windows' "Set Program Access and Defaults". Will be transparently replaced with Zero Install commands at runtime.
     /// </summary>
     /// <remarks>These strings are used for registry filtering. They are never actually executed.</remarks>
+    [TypeConverter(typeof(InstallCommandsConverter))]
+    [Serializable]
     [XmlType("install-commands", Namespace = CapabilityList.XmlNamespace)]
     public struct InstallCommands : IEquatable<InstallCommands>
     {

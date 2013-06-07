@@ -27,7 +27,7 @@ namespace ZeroInstall.Model
     /// Represents an archive to be downloaded and extracted.
     /// </summary>
     [Serializable]
-    [XmlType("archive", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("archive", Namespace = Feed.XmlNamespace), XmlType("archive", Namespace = Feed.XmlNamespace)]
     public sealed class Archive : DownloadRetrievalMethod, IEquatable<Archive>
     {
         #region Properties

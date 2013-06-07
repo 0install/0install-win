@@ -64,7 +64,7 @@ namespace ZeroInstall.Model.Design
             if (propertyValues == null) throw new ArgumentNullException("propertyValues");
             #endregion
 
-            return new ManifestDigest(propertyValues["Sha1"].ToString(), propertyValues["Sha1New"].ToString(), propertyValues["Sha256"].ToString(), propertyValues["Sha256New"].ToString());
+            return new ManifestDigest((string)propertyValues["Sha1"], (string)propertyValues["Sha1New"], (string)propertyValues["Sha256"], (string)propertyValues["Sha256New"]);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace ZeroInstall.Model
     /// Represents a single file to be downloaded.
     /// </summary>
     [Serializable]
-    [XmlType("file", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("file", Namespace = Feed.XmlNamespace), XmlType("file", Namespace = Feed.XmlNamespace)]
     public sealed class SingleFile : DownloadRetrievalMethod, IEquatable<SingleFile>
     {
         #region Properties

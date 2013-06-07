@@ -29,7 +29,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
-    [XmlType("group", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("group", Namespace = Feed.XmlNamespace), XmlType("group", Namespace = Feed.XmlNamespace)]
     public sealed class Group : Element, IElementContainer, IEquatable<Group>
     {
         #region Properties

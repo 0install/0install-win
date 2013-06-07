@@ -24,7 +24,7 @@ namespace ZeroInstall.Model.Capabilities
     /// <summary>
     /// Describes a specific file extension.
     /// </summary>
-    [XmlType("extension", Namespace = CapabilityList.XmlNamespace)]
+    [XmlRoot("extension", Namespace = CapabilityList.XmlNamespace), XmlType("extension", Namespace = CapabilityList.XmlNamespace)]
     public class FileTypeExtension : XmlUnknown, ICloneable, IEquatable<FileTypeExtension>
     {
         #region Constants

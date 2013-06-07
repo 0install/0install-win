@@ -46,7 +46,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
-    [XmlType("depedency", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("dependency", Namespace = Feed.XmlNamespace), XmlType("depedency", Namespace = Feed.XmlNamespace)]
     public class Dependency : Restriction, IBindingContainer, IEquatable<Dependency>
     {
         #region Properties

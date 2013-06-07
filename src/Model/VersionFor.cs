@@ -24,7 +24,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Represents version restrictions for a specific sub-implementation in a selection process.
     /// </summary>
-    [XmlType("version-for", Namespace = Feed.XmlNamespace)]
+    [XmlRoot("version-for", Namespace = Feed.XmlNamespace), XmlType("version-for", Namespace = Feed.XmlNamespace)]
     public class VersionFor : ICloneable, IEquatable<VersionFor>
     {
         #region Properties
