@@ -93,7 +93,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Zero or more icons to represent the command.
         /// </summary>
-        [Description("Zero or more icons to represent the command.")]
+        [Browsable(false)]
         [XmlElement("icon")]
         public C5.ArrayList<Icon> Icons { get { return _icons; } }
         #endregion

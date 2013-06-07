@@ -35,7 +35,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <summary>
         /// A list of all available operations for the element.
         /// </summary>
-        [Description("A list of all available operations for the element.")]
+        [Browsable(false)]
         [XmlElement("verb")]
         public C5.ArrayList<Verb> Verbs { get { return _verbs; } }
         #endregion

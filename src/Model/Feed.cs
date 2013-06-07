@@ -131,7 +131,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Zero or more icons to represent the program.
         /// </summary>
-        [Category("Interface"), Description("Zero or more icons to represent the program.")]
+        [Browsable(false)]
         [XmlElement("icon")]
         public C5.ArrayList<Icon> Icons { get { return _icons; } }
 
@@ -141,7 +141,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Zero or more categories as defined by the freedesktop.org menu specification.
         /// </summary>
-        [Category("Interface"), Description("Zero or more categories as defined by the freedesktop.org menu specification.")]
+        [Browsable(false)]
         [XmlElement("category")]
         public C5.ArrayList<string> Categories { get { return _categories; } }
 
@@ -163,7 +163,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Zero ore more additional feeds containing implementations of this interface.
         /// </summary>
-        [Category("Feed"), Description("Zero ore more additional feeds containing implementations of this interface.")]
+        [Browsable(false)]
         [XmlElement("feed")]
         public C5.ArrayList<FeedReference> Feeds { get { return _feeds; } }
 
@@ -173,14 +173,14 @@ namespace ZeroInstall.Model
         /// <summary>
         /// The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
         /// </summary>
-        [Category("Feed"), Description("The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.")]
+        [Browsable(false)]
         [XmlElement("feed-for")]
         public C5.ArrayList<InterfaceReference> FeedFor { get { return _feedFor; } }
 
         /// <summary>
         /// This feed's interface <see cref="Uri"/> has been replaced by the given interface. Any references to the old URI should be updated to use the new one.
         /// </summary>
-        [Category("Feed"), Description("This feed's interface has been replaced by the given interface. Any references to the old URI should be updated to use the new one.")]
+        [Browsable(false)]
         [XmlElement("replaced-by")]
         public InterfaceReference ReplacedBy { get; set; }
 
@@ -190,7 +190,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this interface.
         /// </summary>
-        [Category("Implementation"), Description("A list of groups and implementations contained within this interface.")]
+        [Browsable(false)]
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
         public C5.ArrayList<Element> Elements { get { return _elements; } }
 
@@ -200,7 +200,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of <see cref="EntryPoint"/>s for starting this interface.
         /// </summary>
-        [Category("Implementation"), Description("A list of EntryPoints for starting this interface.")]
+        [Browsable(false)]
         [XmlElement("entry-point")]
         public C5.ArrayList<EntryPoint> EntryPoints { get { return _entryPoints; } }
 
@@ -210,7 +210,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A set of <see cref="Capability"/> lists for different architectures.
         /// </summary>
-        [Description("A set of Capability lists for different architectures.")]
+        [Browsable(false)]
         [XmlElement("capabilities", Namespace = CapabilityList.XmlNamespace)]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<CapabilityList> CapabilityLists
@@ -368,7 +368,7 @@ namespace ZeroInstall.Model
         /// <param name="mimeType">The <see cref="Icon.MimeType"/> to try to find. Will only return exact matches.</param>
         /// <param name="command">The name of the command the icon should represent; may be <see langword="null"/>.</param>
         /// <returns>The best matching icon that was found or <see langword="null"/> if no matching icon was found.</returns>
-        public Icon? GetIcon(string mimeType, string command)
+        public Icon GetIcon(string mimeType, string command)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");

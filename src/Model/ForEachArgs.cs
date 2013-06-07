@@ -52,8 +52,8 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of command-line arguments to be passed to an executable. "${item}" will be substituted with each for-each value.
         /// </summary>
-        [Description("A list of command-line arguments to be passed to an executable. \"${item}\" will be substituted with each for-each value.")]
-        [XmlElement]
+        [Browsable(false)]
+        [XmlElement("arg")]
         public C5.ArrayList<Arg> Arguments { get { return _arguments; } }
         #endregion
 

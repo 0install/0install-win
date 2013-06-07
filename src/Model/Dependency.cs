@@ -76,7 +76,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
-        [Description("A list of bindings for implementations to locate dependencies.")]
+        [Browsable(false)]
         [XmlElement(typeof(GenericBinding)), XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding)), XmlElement(typeof(ExecutableInVar)), XmlElement(typeof(ExecutableInPath))]
         public C5.ArrayList<Binding> Bindings { get { return _bindings; } }
         #endregion

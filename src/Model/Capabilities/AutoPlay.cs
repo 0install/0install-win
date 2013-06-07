@@ -64,7 +64,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <summary>
         /// The IDs of the events this action can handle.
         /// </summary>
-        [Description("The IDs of the events this action can handle.")]
+        [Browsable(false)]
         [XmlElement("event")]
         public C5.ArrayList<AutoPlayEvent> Events { get { return _events; } }
 

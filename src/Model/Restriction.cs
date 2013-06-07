@@ -54,7 +54,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of version <see cref="Constraint"/>s that must be fulfilled.
         /// </summary>
-        [Description("A list of version constraints that must be fulfilled.")]
+        [Browsable(false)]
         [XmlElement("version")]
         public C5.ArrayList<Constraint> Constraints { get { return _constraints; } }
 

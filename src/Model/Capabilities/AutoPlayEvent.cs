@@ -25,7 +25,7 @@ namespace ZeroInstall.Model.Capabilities
     /// Names a specific <see cref="AutoPlay"/> event.
     /// </summary>
     [XmlType("event", Namespace = CapabilityList.XmlNamespace)]
-    public struct AutoPlayEvent : IEquatable<AutoPlayEvent>
+    public class AutoPlayEvent : XmlUnknown, ICloneable, IEquatable<AutoPlayEvent>
     {
         #region Constants
         /// <summary>
@@ -57,36 +57,47 @@ namespace ZeroInstall.Model.Capabilities
         }
         #endregion
 
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="AutoPlayEvent"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="AutoPlayEvent"/>.</returns>
+        public AutoPlayEvent Clone()
+        {
+            return new AutoPlayEvent {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name};
+        }
+
+        object ICloneable.Clone()
+        {
+            return Clone();
+        }
+        #endregion
+
         #region Equality
         /// <inheritdoc/>
         public bool Equals(AutoPlayEvent other)
         {
-            return other.Name == Name;
-        }
-
-        /// <inheritdoc/>
-        public static bool operator ==(AutoPlayEvent left, AutoPlayEvent right)
-        {
-            return left.Equals(right);
-        }
-
-        /// <inheritdoc/>
-        public static bool operator !=(AutoPlayEvent left, AutoPlayEvent right)
-        {
-            return !left.Equals(right);
+            if (other == null) return false;
+            return base.Equals(other) && other.Name == Name;
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
             return obj is AutoPlayEvent && Equals((AutoPlayEvent)obj);
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return (Name ?? "").GetHashCode();
+            unchecked
+            {
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Name ?? "").GetHashCode();
+                return result;
+            }
         }
         #endregion
     }

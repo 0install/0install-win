@@ -25,7 +25,7 @@ namespace ZeroInstall.Model.Capabilities
     /// Describes a specific file extension.
     /// </summary>
     [XmlType("extension", Namespace = CapabilityList.XmlNamespace)]
-    public struct FileTypeExtension : IEquatable<FileTypeExtension>
+    public class FileTypeExtension : XmlUnknown, ICloneable, IEquatable<FileTypeExtension>
     {
         #region Constants
         /// <summary>
@@ -69,29 +69,35 @@ namespace ZeroInstall.Model.Capabilities
         }
         #endregion
 
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="FileTypeExtension"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="FileTypeExtension"/>.</returns>
+        public FileTypeExtension Clone()
+        {
+            return new FileTypeExtension { UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Value = Value, MimeType = MimeType,PerceivedType = PerceivedType};
+        }
+
+        object ICloneable.Clone()
+        {
+            return Clone();
+        }
+        #endregion
+
         #region Equality
         /// <inheritdoc/>
         public bool Equals(FileTypeExtension other)
         {
-            return other.Value == Value && other.MimeType == MimeType && other.PerceivedType == PerceivedType;
-        }
-
-        /// <inheritdoc/>
-        public static bool operator ==(FileTypeExtension left, FileTypeExtension right)
-        {
-            return left.Equals(right);
-        }
-
-        /// <inheritdoc/>
-        public static bool operator !=(FileTypeExtension left, FileTypeExtension right)
-        {
-            return !left.Equals(right);
+            if (other == null) return false;
+            return base.Equals(other) && other.Value == Value && other.MimeType == MimeType && other.PerceivedType == PerceivedType;
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
             return obj is FileTypeExtension && Equals((FileTypeExtension)obj);
         }
 
@@ -100,7 +106,8 @@ namespace ZeroInstall.Model.Capabilities
         {
             unchecked
             {
-                int result = (Value ?? "").GetHashCode();
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Value ?? "").GetHashCode();
                 result = (result * 397) ^ (MimeType ?? "").GetHashCode();
                 result = (result * 397) ^ (PerceivedType ?? "").GetHashCode();
                 return result;

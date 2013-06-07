@@ -98,7 +98,6 @@
     <Compile Include="Group.cs" />
     <Compile Include="IArgBaseContainer.cs" />
     <Compile Include="IBindingContainer.cs" />
-    <Compile Include="Design\IconConverter.cs" />
     <Compile Include="IDependencyContainer.cs" />
     <Compile Include="ImplementationBase.cs" />
     <Compile Include="IElementContainer.cs" />

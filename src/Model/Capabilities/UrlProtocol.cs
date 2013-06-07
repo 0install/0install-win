@@ -42,7 +42,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <summary>
         /// A well-known protocol prefix such as "http". Should be empty and set in <see cref="Capability.ID"/> instead if it is a custom protocol.
         /// </summary>
-        [Description("The protocoles prefix such as \"http\". Should be empty and set in ID instead if it is a custom protocol.")]
+        [Browsable(false)]
         [XmlElement("known-prefix")]
         public C5.ArrayList<KnownProtocolPrefix> KnownPrefixes { get { return _knownPrefixes; } }
 

@@ -49,7 +49,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <summary>
         /// Zero or more icons to represent the capability. Used for things like file icons.
         /// </summary>
-        [Description("Zero or more icons to represent the capability. Used for things like file icons.")]
+        [Browsable(false)]
         [XmlElement("icon", Namespace = Feed.XmlNamespace)]
         public C5.ArrayList<Icon> Icons { get { return _icons; } }
         #endregion

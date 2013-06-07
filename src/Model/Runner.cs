@@ -46,7 +46,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of command-line arguments to be passed to the runner before the path of the implementation.
         /// </summary>
-        [Description("A list of command-line arguments to be passed to the runner before the path of the implementation.")]
+        [Browsable(false)]
         [XmlElement(typeof(Arg)), XmlElement(typeof(ForEachArgs))]
         public C5.ArrayList<ArgBase> Arguments { get { return _arguments; } }
         #endregion

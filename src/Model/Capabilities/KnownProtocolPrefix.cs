@@ -25,7 +25,7 @@ namespace ZeroInstall.Model.Capabilities
     /// Names a well-known protocol prefix. Use this for protocols that are shared accross many applications (e.g. HTTP, FTP) but not for application-specific protocols.
     /// </summary>
     [XmlType("known-prefix", Namespace = CapabilityList.XmlNamespace)]
-    public struct KnownProtocolPrefix : IEquatable<KnownProtocolPrefix>
+    public class KnownProtocolPrefix : XmlUnknown, ICloneable, IEquatable<KnownProtocolPrefix>
     {
         #region Properties
         /// <summary>
@@ -48,36 +48,47 @@ namespace ZeroInstall.Model.Capabilities
         }
         #endregion
 
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="KnownProtocolPrefix"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="KnownProtocolPrefix"/>.</returns>
+        public KnownProtocolPrefix Clone()
+        {
+            return new KnownProtocolPrefix {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Value = Value};
+        }
+
+        object ICloneable.Clone()
+        {
+            return Clone();
+        }
+        #endregion
+
         #region Equality
         /// <inheritdoc/>
         public bool Equals(KnownProtocolPrefix other)
         {
-            return other.Value == Value;
-        }
-
-        /// <inheritdoc/>
-        public static bool operator ==(KnownProtocolPrefix left, KnownProtocolPrefix right)
-        {
-            return left.Equals(right);
-        }
-
-        /// <inheritdoc/>
-        public static bool operator !=(KnownProtocolPrefix left, KnownProtocolPrefix right)
-        {
-            return !left.Equals(right);
+            if (other == null) return false;
+            return base.Equals(other) && other.Value == Value;
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
             return obj is KnownProtocolPrefix && Equals((KnownProtocolPrefix)obj);
         }
 
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return (Value ?? "").GetHashCode();
+            unchecked
+            {
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Value ?? "").GetHashCode();
+                return result;
+            }
         }
         #endregion
     }

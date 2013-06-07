@@ -42,7 +42,7 @@ namespace ZeroInstall.Model.Capabilities
         /// <summary>
         /// A list of all file extensions associated with this file type.
         /// </summary>
-        [Description("A list of all file extensions associated with this file type.")]
+        [Browsable(false)]
         [XmlElement("extension")]
         public C5.ArrayList<FileTypeExtension> Extensions { get { return _extensions; } }
 

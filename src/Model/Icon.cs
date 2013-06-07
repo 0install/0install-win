@@ -28,10 +28,9 @@ namespace ZeroInstall.Model
     /// <summary>
     /// An icon for an interface.
     /// </summary>
-    [TypeConverter(typeof(IconConverter))]
     [Serializable]
     [XmlType("icon", Namespace = Feed.XmlNamespace)]
-    public struct Icon : IEquatable<Icon>
+    public class Icon : XmlUnknown, ICloneable, IEquatable<Icon>
     {
         #region Constants
         /// <summary>
@@ -65,21 +64,21 @@ namespace ZeroInstall.Model
         [Description("The MIME type of the icon. This value is case-insensitive.")]
         [XmlAttribute("type")]
         public string MimeType { get; set; }
-
-        /// <summary>
-        /// Contains any unknown additional XML attributes.
-        /// </summary>
-        [XmlAnyAttribute, NonSerialized]
-        public XmlAttribute[] UnknownAttributes;
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Creates a new icon sturcture with pre-set values.
+        /// Creates an empty icon.
+        /// </summary>
+        public Icon()
+        {}
+
+        /// <summary>
+        /// Creates a new icon with pre-set values.
         /// </summary>
         /// <param name="location">The URL used to locate the icon.</param>
         /// <param name="mimeType">The MIME type of the icon.</param>
-        public Icon(Uri location, string mimeType) : this()
+        public Icon(Uri location, string mimeType)
         {
             Location = location;
             MimeType = mimeType;
@@ -98,29 +97,35 @@ namespace ZeroInstall.Model
         }
         #endregion
 
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Icon"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Icon"/>.</returns>
+        public Icon Clone()
+        {
+            return new Icon { UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Location = Location, MimeType = MimeType};
+        }
+
+        object ICloneable.Clone()
+        {
+            return Clone();
+        }
+        #endregion
+
         #region Equality
         /// <inheritdoc/>
         public bool Equals(Icon other)
         {
-            return other.LocationString == LocationString && StringUtils.EqualsIgnoreCase(other.MimeType, MimeType);
-        }
-
-        /// <inheritdoc/>
-        public static bool operator ==(Icon left, Icon right)
-        {
-            return left.Equals(right);
-        }
-
-        /// <inheritdoc/>
-        public static bool operator !=(Icon left, Icon right)
-        {
-            return !left.Equals(right);
+            if (other == null) return false;
+            return base.Equals(other) && other.Location == Location && other.MimeType == MimeType;
         }
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
             return obj is Icon && Equals((Icon)obj);
         }
 
@@ -129,8 +134,9 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = (Location != null ? Location.GetHashCode() : 0);
-                if (MimeType != null) result = (result * 397) ^ StringComparer.OrdinalIgnoreCase.GetHashCode(MimeType);
+                int result = base.GetHashCode();
+                if (Location != null) result = (result * 397) ^ Location.GetHashCode();
+                if (MimeType != null) result = (result * 397) ^ MimeType.GetHashCode();
                 return result;
             }
         }

@@ -35,7 +35,6 @@ namespace ZeroInstall.Model
         /// <summary>
         /// The URI used to locate the interface.
         /// </summary>
-        [Description("The URI used to locate the interface.")]
         [XmlIgnore]
         public Uri Target { get; set; }
 
