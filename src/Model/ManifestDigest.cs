@@ -71,7 +71,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Lists all contained manifest digests sorted from best (safest) to worst.
         /// </summary>
-        [XmlIgnore]
+        [XmlIgnore, Browsable(false)]
         public IEnumerable<string> AvailableDigests
         {
             get

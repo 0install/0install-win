@@ -73,6 +73,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A merged view of <see cref="Constraints"/> and <see cref="Versions"/>.
         /// </summary>
+        [XmlIgnore, Browsable(false)]
         public VersionRange EffectiveVersions { get { return Constraints.Aggregate(Versions ?? new VersionRange(), (current, constraint) => current.Intersect(constraint)); } }
         #endregion
 

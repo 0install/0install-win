@@ -125,11 +125,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the implementation in the form "Version (ID)". Not safe for parsing!
+        /// Returns the implementation in the form "Implementation: ID (Version)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} ({1})", Version, ID);
+            return string.Format("Implementation: {0} ({1})", ID, Version);
         }
         #endregion
 
