@@ -160,6 +160,23 @@
     <Compile Include="Undo\RemoveFromCollection.cs" />
     <Compile Include="Undo\SetLocalizableString.cs" />
     <Compile Include="Undo\CompositeCommand.cs" />
+    <Compile Include="StructureEditor\ChildInfo.cs" />
+    <Compile Include="StructureEditor\EntryInfo.cs" />
+    <Compile Include="StructureEditor\ContainerDescription.cs" />
+    <Compile Include="StructureEditor\ContainerDescription.Property.cs" />
+    <Compile Include="StructureEditor\ContainerDescription.List.cs" />
+    <Compile Include="StructureEditor\ContainerDescription.List.Element.cs" />
+    <Compile Include="StructureEditor\IListDescription.cs" />
+    <Compile Include="StructureEditor\StructureEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StructureEditor\StructureEditorControl.Designer.cs">
+      <DependentUpon>StructureEditorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StructureEditor\StructureEditorControl.Node.cs">
+      <DependentUpon>StructureEditorControl.cs</DependentUpon>
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Values\Design\EnumDescriptionConverter.cs" />
     <Compile Include="Values\Design\StringConstructorConverter.cs" />
     <Compile Include="Values\Design\EnumXmlConverter.cs" />
@@ -321,6 +338,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\ClearButton.png" />
+    <None Include="Resources\CreateButton.png" />
+    <None Include="Resources\DeleteButton.png" />
     <None Include="Resources\Error.png" />
     <None Include="Resources\Info.png" />
     <Content Include="Resources\Warning.png" />

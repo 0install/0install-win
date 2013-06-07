@@ -16,8 +16,8 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Common;
 using Common.Cli;
@@ -48,27 +48,24 @@ namespace ZeroInstall.Publish.WinForms
             if (args.Length == 0) Application.Run(new MainForm());
             else
             {
-                ICollection<FileInfo> files;
                 try
                 {
-                    files = ArgumentUtils.GetFiles(args, "*.xml");
+                    var files = ArgumentUtils.GetFiles(args, "*.xml");
+
+                    if (files.Count == 1)
+                    {
+                        var mainForm = new MainForm();
+                        mainForm.LoadFeed(files.First().FullName);
+                        Application.Run(mainForm);
+                    }
+                    else MassSignForm.Show(files);
                 }
                     #region Error handling
-                catch (FileNotFoundException ex)
+                catch (IOException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    return;
                 }
                 #endregion
-
-                if (files.Count == 1)
-                {
-                    var filesEnumerator = files.GetEnumerator();
-                    filesEnumerator.MoveNext();
-                    Application.Run(new MainForm(filesEnumerator.Current));
-                }
-                else
-                    MassSignForm.Show(files);
             }
         }
     }

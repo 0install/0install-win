@@ -49,7 +49,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -78,23 +77,8 @@
     <Compile Include="Controls\ArchiveControl.Designer.cs">
       <DependentUpon>ArchiveControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ArgumentsControl.cs">
+    <Compile Include="Controls\FeedEditorControl.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\ArgumentsControl.Designer.cs">
-      <DependentUpon>ArgumentsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\FeedEditorToolStrip.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\FeedEditorToolStrip.Designer.cs">
-      <DependentUpon>FeedEditorToolStrip.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\FeedStructureTreeView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\FeedStructureTreeView.Designer.cs">
-      <DependentUpon>FeedStructureTreeView.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\IconManagementControl.cs">
       <SubType>UserControl</SubType>
@@ -102,53 +86,11 @@
     <Compile Include="Controls\IconManagementControl.Designer.cs">
       <DependentUpon>IconManagementControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\KeyCombinationShortcut.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\KeyCombinationShortcut.Designer.cs">
-      <DependentUpon>KeyCombinationShortcut.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\LocalizableTextControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\LocalizableTextControl.Designer.cs">
       <DependentUpon>LocalizableTextControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SummariesTabControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\SummariesTabControl.Designer.cs">
-      <DependentUpon>SummariesTabControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FeedManager.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="FeedManager.Designer.cs">
-      <DependentUpon>FeedManager.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\CommandDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\CommandDialog.Designer.cs">
-      <DependentUpon>CommandDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\ExecutableInPathDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\ExecutableInPathDialog.Designer.cs">
-      <DependentUpon>ExecutableInPathDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\ExecutableInVarDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\ExecutableInVarDialog.Designer.cs">
-      <DependentUpon>ExecutableInVarDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\RunnerDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\RunnerDialog.Designer.cs">
-      <DependentUpon>RunnerDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\IDigestProvider.cs" />
     <Compile Include="ManifestUtils.cs" />
@@ -157,25 +99,6 @@
     </Compile>
     <Compile Include="Dialogs\ArchiveDialog.Designer.cs">
       <DependentUpon>ArchiveDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ControlHelpers.cs" />
-    <Compile Include="Dialogs\DependencyDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\DependencyDialog.Designer.cs">
-      <DependentUpon>DependencyDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\EnvironmentBindingDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\EnvironmentBindingDialog.Designer.cs">
-      <DependentUpon>EnvironmentBindingDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\FeedReferenceControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\FeedReferenceControl.Designer.cs">
-      <DependentUpon>FeedReferenceControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ManifestDigestDialog.cs">
       <SubType>Form</SubType>
@@ -189,30 +112,12 @@
     <Compile Include="Dialogs\ImplementationDialog.Designer.cs">
       <DependentUpon>ImplementationDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\WorkingDirDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\WorkingDirDialog.Designer.cs">
-      <DependentUpon>WorkingDirDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\OverlayBindingDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\OverlayBindingDialog.Designer.cs">
-      <DependentUpon>OverlayBindingDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\PackageImplementationDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\PackageImplementationDialog.Designer.cs">
-      <DependentUpon>PackageImplementationDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="MassSignForm.cs">
       <SubType>Form</SubType>
@@ -243,15 +148,6 @@
     <EmbeddedResource Include="Controls\ArchiveControl.resx">
       <DependentUpon>ArchiveControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ArgumentsControl.resx">
-      <DependentUpon>ArgumentsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\FeedEditorToolStrip.resx">
-      <DependentUpon>FeedEditorToolStrip.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\FeedStructureTreeView.resx">
-      <DependentUpon>FeedStructureTreeView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\IconManagementControl.de.resx">
       <DependentUpon>IconManagementControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -262,32 +158,8 @@
     <EmbeddedResource Include="Controls\LocalizableTextControl.resx">
       <DependentUpon>LocalizableTextControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SummariesTabControl.resx">
-      <DependentUpon>SummariesTabControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FeedManager.resx">
-      <DependentUpon>FeedManager.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ArchiveDialog.resx">
       <DependentUpon>ArchiveDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\CommandDialog.resx">
-      <DependentUpon>CommandDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\ExecutableInPathDialog.resx">
-      <DependentUpon>ExecutableInPathDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\ExecutableInVarDialog.resx">
-      <DependentUpon>ExecutableInVarDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DependencyDialog.resx">
-      <DependentUpon>DependencyDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\EnvironmentBindingDialog.resx">
-      <DependentUpon>EnvironmentBindingDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\FeedReferenceControl.resx">
-      <DependentUpon>FeedReferenceControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ManifestDigestDialog.resx">
       <DependentUpon>ManifestDigestDialog.cs</DependentUpon>
@@ -295,21 +167,9 @@
     <EmbeddedResource Include="Dialogs\ImplementationDialog.resx">
       <DependentUpon>ImplementationDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\RunnerDialog.resx">
-      <DependentUpon>RunnerDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\WorkingDirDialog.resx">
-      <DependentUpon>WorkingDirDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\OverlayBindingDialog.resx">
-      <DependentUpon>OverlayBindingDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\PackageImplementationDialog.resx">
-      <DependentUpon>PackageImplementationDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MassSignForm.resx">
       <DependentUpon>MassSignForm.cs</DependentUpon>

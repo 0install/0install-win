@@ -118,10 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AskForPassphrase" xml:space="preserve">
-    <value>Bitte geben Sie die GnuPG Passphrase für {0} ein.</value>
-  </data>
-  <data name="AskForPassphraseTitle" xml:space="preserve">
-    <value>GnuPG Passphrase eingeben</value>
+    <value>Bitte geben Sie die GnuPG Passphrase für {0} ein:</value>
   </data>
   <data name="AutoDetect" xml:space="preserve">
     <value>(automatisch)</value>
@@ -137,24 +134,22 @@ Ungespeicherte Änderungen verwerfen</value>
     <value>Der Feed hat nicht das richtige Format</value>
   </data>
   <data name="ImageFormatNotSupported" xml:space="preserve">
-    <value>Das Bildformat wird von ZeroInstall nicht unterstützt.</value>
+    <value>Das Bildformat wird von Zero Install nicht unterstützt.</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>&amp;Speichern
 Änderungen speichern</value>
   </data>
   <data name="SaveQuestion" xml:space="preserve">
-    <value>Achtung, ungespeicherte Änderungen gehen verloren.
-Möchten Sie die Änderungen speichern?</value>
+    <value>Möchten Sie die Änderungen speichern?</value>
   </data>
   <data name="WrongPassphrase" xml:space="preserve">
-    <value>Passphrase falsch.
-Bitte geben Sie die GnuPG Passphrase für {0} erneut ein.</value>
+    <value>Passphrase falsch.</value>
   </data>
-	<data name="HintTextMultiline">
-		<value xml:space="preserve">Eine komplette, u.U. mehrzeilige Beschreibung.</value>
-	</data>
-	<data name="HintTextSinlgeLine">
-		<value xml:space="preserve">Eine kurze, einzeilige Beschreibung.</value>
-	</data>
+  <data name="HintTextMultiline">
+    <value xml:space="preserve">Eine komplette, u.U. mehrzeilige Beschreibung.</value>
+  </data>
+  <data name="HintTextSinlgeLine">
+    <value xml:space="preserve">Eine kurze, einzeilige Beschreibung.</value>
+  </data>
 </root>

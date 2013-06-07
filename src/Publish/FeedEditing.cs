@@ -31,35 +31,34 @@ namespace ZeroInstall.Publish
     {
         #region Properties
         /// <summary>
-        /// The feed to be editted.
-        /// </summary>
-        public SignedFeed Feed { get; private set; }
-
-        /// <summary>
         /// The path of the file the <see cref="Feed"/> was loaded from. <see langword="null"/> if none.
         /// </summary>
         public string Path { get; private set; }
+
+        /// <summary>
+        /// The (optionally signed) feed being edited.
+        /// </summary>
+        public SignedFeed SignedFeed { get; private set; }
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Starts with an empty <see cref="ZeroInstall.Model.Feed"/>.
+        /// Starts with a <see cref="ZeroInstall.Model.Feed"/> loaded from a file.
         /// </summary>
-        public FeedEditing()
+        /// <param name="signedFeed">The feed to be editted.</param>
+        /// <param name="path">The path of the file the <paramref name="signedFeed"/> was loaded from.</param>
+        public FeedEditing(SignedFeed signedFeed, string path)
         {
-            Feed = new SignedFeed(new Feed(), null);
+            Path = path;
+            SignedFeed = signedFeed;
         }
 
         /// <summary>
-        /// Starts with a <see cref="ZeroInstall.Model.Feed"/> loaded from a file.
+        /// Starts with an empty <see cref="ZeroInstall.Model.Feed"/>.
         /// </summary>
-        /// <param name="feed">The feed to be editted.</param>
-        /// <param name="path">The path of the file the <paramref name="feed"/> was loaded from.</param>
-        public FeedEditing(SignedFeed feed, string path)
-        {
-            Feed = feed;
-            Path = path;
-        }
+        public FeedEditing()
+            : this(new SignedFeed(new Feed(), null), null)
+        {}
         #endregion
 
         /// <summary>
@@ -87,18 +86,18 @@ namespace ZeroInstall.Publish
         }
 
         /// <summary>
-        /// Saves <see cref="Feed"/> to an XML file, adds the default stylesheet and signs it with <see cref="SignedFeed.SecretKey"/> (if specified).
+        /// Saves <see cref="Feed"/> to an XML file, adds the default stylesheet and signs it with <see cref="Publish.SignedFeed.SecretKey"/> (if specified).
         /// </summary>
         /// <remarks>Writing and signing the feed file are performed as an atomic operation (i.e. if signing fails an existing file remains unchanged).</remarks>
         /// <param name="path">The file to save in.</param>
-        /// <param name="passphrase">The passphrase to use to unlock the secret key; may be <see langword="null"/> if <see cref="SignedFeed.SecretKey"/> is <see langword="null"/>.</param>
+        /// <param name="passphrase">The passphrase to use to unlock the secret key; may be <see langword="null"/> if <see cref="Publish.SignedFeed.SecretKey"/> is <see langword="null"/>.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         public void Save(string path, string passphrase)
         {
-            Feed.Save(path, passphrase);
+            SignedFeed.Save(path, passphrase);
 
             Path = path;
             Reset();

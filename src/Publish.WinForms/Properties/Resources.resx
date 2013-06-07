@@ -127,7 +127,7 @@
     <value>Downloading image for preview...</value>
   </data>
   <data name="FeedNotValid" xml:space="preserve">
-    <value>The feed has not the right format.</value>
+    <value>The feed does not have the correct format.</value>
   </data>
   <data name="DiscardChanges" xml:space="preserve">
     <value>&amp;Discard
@@ -138,23 +138,18 @@ Discard unsaved changes</value>
 Save changes</value>
   </data>
   <data name="SaveQuestion" xml:space="preserve">
-    <value>Attention, unsaved changes will be deleted.
-Do you like to save the changes?</value>
+    <value>Do you want to save the changes?</value>
   </data>
   <data name="AskForPassphrase" xml:space="preserve">
-    <value>Please enter the GnuPG passphrase for {0}</value>
-  </data>
-  <data name="AskForPassphraseTitle" xml:space="preserve">
-    <value>Enter GnuPG passphrase</value>
+    <value>Please enter the GnuPG passphrase for {0}:</value>
   </data>
   <data name="WrongPassphrase" xml:space="preserve">
-    <value>Wrong passphrase entered.
-Please retry entering the GnuPG passphrase for {0}</value>
+    <value>Wrong passphrase entered.</value>
   </data>
-	<data name="HintTextMultiline">
-		<value xml:space="preserve">a full description, which can be several paragraphs long</value>
-	</data>
-	<data name="HintTextSinlgeLine">
-		<value xml:space="preserve">a short one-line description</value>
-	</data>
+  <data name="HintTextMultiline">
+    <value xml:space="preserve">a full description, which can be several paragraphs long</value>
+  </data>
+  <data name="HintTextSinlgeLine">
+    <value xml:space="preserve">a short one-line description</value>
+  </data>
 </root>
