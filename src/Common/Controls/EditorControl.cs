@@ -42,6 +42,8 @@ namespace Common.Controls
 
         public EditorControl()
         {
+            ToolbarVisible = false;
+
             PropertyValueChanged += delegate(object sender, PropertyValueChangedEventArgs e)
             {
                 if (CommandExecutor != null)

@@ -30,23 +30,26 @@ namespace Common.Controls
     /// </summary>
     public class ResettablePropertyGrid : PropertyGrid
     {
+        private readonly ToolStripMenuItem _menuReset = new ToolStripMenuItem {Text = Resources.ResetValue};
+
         public ResettablePropertyGrid()
         {
-            var menuItem = new ToolStripMenuItem {Text = Resources.ResetValue};
-            menuItem.Click += delegate
+            _menuReset.Click += delegate
             {
                 object oldValue = SelectedGridItem.Value;
                 ResetSelectedProperty();
                 OnPropertyValueChanged(new PropertyValueChangedEventArgs(SelectedGridItem, oldValue));
             };
-            ContextMenuStrip = new ContextMenuStrip {Items = {menuItem}};
-
-            SelectedGridItemChanged += delegate { menuItem.Enabled = CanResetSelectedProperty; };
+            ContextMenuStrip = new ContextMenuStrip { Items = { _menuReset } };
         }
 
-        /// <summary>
-        /// Indicates whether <see cref="PropertyGrid.ResetSelectedProperty"/> will work.
-        /// </summary>
-        public bool CanResetSelectedProperty { get { return SelectedGridItem != null && SelectedGridItem.PropertyDescriptor != null && SelectedGridItem.PropertyDescriptor.CanResetValue(SelectedGridItem.Parent.Value); } }
+        protected override void OnSelectedGridItemChanged(SelectedGridItemChangedEventArgs e)
+        {
+            _menuReset.Enabled =
+                e.NewSelection != null && e.NewSelection.PropertyDescriptor != null && e.NewSelection.Parent != null &&
+                e.NewSelection.PropertyDescriptor.CanResetValue(e.NewSelection.Parent.Value ?? SelectedObject);
+            
+            base.OnSelectedGridItemChanged(e);
+        }
     }
 }
