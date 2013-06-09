@@ -32,8 +32,6 @@ namespace Common.Controls
     /// <typeparam name="T">The type of element to edit.</typeparam>
     public class EditorControl<T> : ResettablePropertyGrid, IEditorControl<T> where T : class
     {
-        private readonly MultiPropertyTracker _tracker;
-
         /// <inheritdoc/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public T Target { get { return SelectedObject as T; } set { SelectedObject = value; } }
@@ -44,11 +42,10 @@ namespace Common.Controls
 
         public EditorControl()
         {
-            _tracker = new MultiPropertyTracker(this);
             PropertyValueChanged += delegate(object sender, PropertyValueChangedEventArgs e)
             {
                 if (CommandExecutor != null)
-                    CommandExecutor.ExecuteCommand(_tracker.GetCommand(e.ChangedItem));
+                    CommandExecutor.ExecuteCommand(new PropertyChangedCommand(Target, e));
             };
         }
     }
