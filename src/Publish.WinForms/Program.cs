@@ -45,19 +45,14 @@ namespace ZeroInstall.Publish.WinForms
 
         private static void Run(string[] args)
         {
-            if (args.Length == 0) Application.Run(new MainForm());
+            if (args.Length == 0) Application.Run(new MainForm(new FeedEditing()));
             else
             {
                 try
                 {
                     var files = ArgumentUtils.GetFiles(args, "*.xml");
 
-                    if (files.Count == 1)
-                    {
-                        var mainForm = new MainForm();
-                        mainForm.LoadFeed(files.First().FullName);
-                        Application.Run(mainForm);
-                    }
+                    if (files.Count == 1) Application.Run(new MainForm(FeedEditing.Load(files.First().FullName)));
                     else MassSignForm.Show(files);
                 }
                     #region Error handling

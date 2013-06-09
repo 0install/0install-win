@@ -26,15 +26,49 @@ namespace ZeroInstall.Publish.WinForms
 {
     public partial class MainForm : Form
     {
+        #region Properties
+        private FeedEditing _feedEditing;
+
+        /// <summary>
+        /// The feed currently being edited.
+        /// </summary>
+        private FeedEditing FeedEditing
+        {
+            get { return _feedEditing; }
+            set
+            {
+                _feedEditing = value;
+
+                menuUndo.Enabled = buttonUndo.Enabled = menuRedo.Enabled = buttonRedo.Enabled = false;
+                if (_feedEditing != null)
+                {
+                    _feedEditing.UndoEnabled += state => menuUndo.Enabled = buttonUndo.Enabled = state;
+                    _feedEditing.RedoEnabled += state => menuRedo.Enabled = buttonRedo.Enabled = state;
+
+                    feedEditorControl.Target = _feedEditing.SignedFeed.Feed;
+                    feedEditorControl.CommandExecutor = _feedEditing;
+                }
+
+                comboBoxKeys.SelectedItem = FeedEditing.SignedFeed.SecretKey;
+            }
+        }
+        #endregion
+
         #region Constructor
-        public MainForm()
+        /// <summary>
+        /// Creates a new feed editing form.
+        /// </summary>
+        /// <param name="feedEditing">The feed to open on start up.</param>
+        public MainForm(FeedEditing feedEditing)
         {
             InitializeComponent();
 
-// ReSharper disable CoVariantArrayConversion
+            // ReSharper disable CoVariantArrayConversion
             comboBoxKeys.Items.AddRange(OpenPgpFactory.CreateDefault().ListSecretKeys());
-// ReSharper restore CoVariantArrayConversion
+            // ReSharper restore CoVariantArrayConversion
             comboBoxKeys.Items.Add("");
+
+            FeedEditing = feedEditing;
         }
         #endregion
 
@@ -112,29 +146,6 @@ namespace ZeroInstall.Publish.WinForms
         }
         #endregion
 
-        #region Feed Editing
-        private FeedEditing _feedEditing;
-
-        private FeedEditing FeedEditing
-        {
-            get { return _feedEditing; }
-            set
-            {
-                _feedEditing = value;
-
-                menuUndo.Enabled = buttonUndo.Enabled = menuRedo.Enabled = buttonRedo.Enabled = false;
-                if (_feedEditing != null)
-                {
-                    _feedEditing.UndoEnabled += state => menuUndo.Enabled = buttonUndo.Enabled = state;
-                    _feedEditing.RedoEnabled += state => menuRedo.Enabled = buttonRedo.Enabled = state;
-
-                    feedEditorControl.Target = _feedEditing.SignedFeed.Feed;
-                    feedEditorControl.CommandExecutor = _feedEditing;
-                }
-            }
-        }
-        #endregion
-
         #region Storage
         private void NewFeed()
         {
@@ -150,7 +161,7 @@ namespace ZeroInstall.Publish.WinForms
 
             openFileDialog.FileName = "";
             if (openFileDialog.ShowDialog(this) != DialogResult.OK) throw new OperationCanceledException();
-            LoadFeed(openFileDialog.FileName);
+            FeedEditing = FeedEditing.Load(openFileDialog.FileName);
         }
 
         private void SaveFeed()
@@ -166,6 +177,27 @@ namespace ZeroInstall.Publish.WinForms
             SaveFeed(saveFileDialog.FileName);
         }
 
+        private void SaveFeed(string path)
+        {
+            var key = FeedEditing.SignedFeed.SecretKey;
+            if (key == null) FeedEditing.Save(path, null);
+            else
+            {
+                string passphrase = InputBox.Show(this, Text, string.Format(Resources.AskForPassphrase, key), "", true);
+                Retry:
+                if (passphrase == null) throw new OperationCanceledException();
+                try
+                {
+                    FeedEditing.Save(path, passphrase);
+                }
+                catch (WrongPassphraseException)
+                {
+                    passphrase = InputBox.Show(this, Text, Resources.WrongPassphrase + "\n" + string.Format(Resources.AskForPassphrase, key), "", true);
+                    goto Retry;
+                }
+            }
+        }
+
         private void AskForChangeSave()
         {
             if (FeedEditing.Changed)
@@ -177,33 +209,6 @@ namespace ZeroInstall.Publish.WinForms
                         break;
                     case DialogResult.Cancel:
                         throw new OperationCanceledException();
-                }
-            }
-        }
-
-        public void LoadFeed(string path)
-        {
-            FeedEditing = FeedEditing.Load(path);
-            comboBoxKeys.SelectedItem = FeedEditing.SignedFeed.SecretKey;
-        }
-
-        public void SaveFeed(string path)
-        {
-            var key = FeedEditing.SignedFeed.SecretKey;
-            if (key == null) FeedEditing.Save(path, null);
-            else
-            {
-                string passphrase = InputBox.Show(this, Text, string.Format(Resources.AskForPassphrase, key), "", true);
-            Retry:
-                if (passphrase == null) throw new OperationCanceledException();
-                try
-                {
-                    FeedEditing.Save(path, passphrase);
-                }
-                catch (WrongPassphraseException)
-                {
-                    passphrase = InputBox.Show(this, Text, Resources.WrongPassphrase + "\n" + string.Format(Resources.AskForPassphrase, key), "", true);
-                    goto Retry;
                 }
             }
         }
