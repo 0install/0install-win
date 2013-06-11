@@ -103,7 +103,10 @@ namespace ZeroInstall.Model
         [Test]
         public void TestPrettyUnescape()
         {
-            Assert.AreEqual("http://0install.de/feeds/test/test1.xml", ModelUtils.PrettyUnescape("http:##0install.de#feeds#test#test1.xml"));
+            Assert.AreEqual(
+                "http://0install.de/feeds/test/test1.xml",
+                // Colon is preserved on POSIX systems but not on other OSes
+                ModelUtils.PrettyUnescape(MonoUtils.IsUnix ? "http:##0install.de#feeds#test#test1.xml" : "http%3a##0install.de#feeds#test#test1.xml"));
         }
     }
 }

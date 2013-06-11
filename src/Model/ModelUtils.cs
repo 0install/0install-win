@@ -128,6 +128,9 @@ namespace ZeroInstall.Model
             if (escaped == null) throw new ArgumentNullException("escaped");
             #endregion
 
+            // Do not encode : on Unixoid systems
+            if (MonoUtils.IsUnix) escaped = escaped.Replace(":", "%3a");
+
             // Decode # as slash
             return Unescape(escaped.Replace("#", "%2f"));
         }

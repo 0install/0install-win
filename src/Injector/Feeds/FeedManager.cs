@@ -320,7 +320,7 @@ namespace ZeroInstall.Injector.Feeds
             // Determine timestamp file path
             var file = new FileInfo(Path.Combine(
                 Locations.GetCacheDirPath("0install.net", false, "injector", "last-check-attempt"),
-                ModelUtils.Escape(feedID).Replace("%2f", "#")));
+                ModelUtils.PrettyEscape(feedID)));
 
             // Check last modification time
             return file.Exists ? file.LastWriteTimeUtc : new DateTime();
@@ -334,7 +334,7 @@ namespace ZeroInstall.Injector.Feeds
             // Determine timestamp file path
             string path = Path.Combine(
                 Locations.GetCacheDirPath("0install.net", false, "injector", "last-check-attempt"),
-                ModelUtils.Escape(feedID).Replace("%2f", "#"));
+                ModelUtils.PrettyEscape(feedID));
 
             // Set modification time to now
             File.WriteAllText(path, "");
