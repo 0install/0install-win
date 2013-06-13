@@ -20,8 +20,6 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>..\..\build\Sample\Debug\</OutputPath>
-    <DocumentationFile>Sample.VBasic.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,8 +28,6 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>..\..\build\Sample\Release\</OutputPath>
-    <DocumentationFile>Sample.VBasic.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -40,7 +36,7 @@
     <OptionCompare>Binary</OptionCompare>
   </PropertyGroup>
   <PropertyGroup>
-    <OptionStrict>Off</OptionStrict>
+    <OptionStrict>On</OptionStrict>
   </PropertyGroup>
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
@@ -62,10 +58,6 @@
     <ProjectReference Include="..\Backend\Backend.csproj">
       <Project>{8caa29b1-94b6-46c2-af82-e049d35775c5}</Project>
       <Name>Backend %28Backend\Backend%29</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Commands\Commands.csproj">
-      <Project>{606c7fb6-2c58-11e0-8161-7159dfd72085}</Project>
-      <Name>Commands</Name>
     </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{81af4fa5-44f7-4010-8769-b85b8b542fa2}</Project>
