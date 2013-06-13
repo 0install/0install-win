@@ -20,6 +20,8 @@
  * THE SOFTWARE.
  */
 
+using System;
+using System.Security.Permissions;
 using System.Windows.Forms;
 using Common.Properties;
 
@@ -43,8 +45,13 @@ namespace Common.Controls
             ContextMenuStrip = new ContextMenuStrip { Items = { _menuReset } };
         }
 
+        [PermissionSet(SecurityAction.LinkDemand, Name = "FullTrust")]
         protected override void OnSelectedGridItemChanged(SelectedGridItemChangedEventArgs e)
         {
+            #region Sanity checks
+            if (e == null) throw new ArgumentNullException("e");
+            #endregion
+
             _menuReset.Enabled =
                 e.NewSelection != null && e.NewSelection.PropertyDescriptor != null && e.NewSelection.Parent != null &&
                 e.NewSelection.PropertyDescriptor.CanResetValue(e.NewSelection.Parent.Value ?? SelectedObject);
