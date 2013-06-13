@@ -18,6 +18,7 @@
 using System;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands
 {

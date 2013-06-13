@@ -20,7 +20,7 @@ using System.Windows.Forms;
 using Common.Controls;
 using Common.Storage;
 using ZeroInstall.Commands.WinForms.Properties;
-using ZeroInstall.Injector;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands.WinForms
 {

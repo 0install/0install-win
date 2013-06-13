@@ -22,6 +22,7 @@ using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands
 {

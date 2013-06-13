@@ -23,6 +23,7 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands
 {

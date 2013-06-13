@@ -30,6 +30,7 @@ using Common.Storage;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Central.WinForms

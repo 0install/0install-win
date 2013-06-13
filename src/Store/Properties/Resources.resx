@@ -203,6 +203,14 @@ Specified in the configuration file '{1}'.</value>
     <value>There was a problem accessing the implementation store '{0}'.
 Specified in the configuration file '{1}'.</value>
   </data>
+  <data name="ProblemLoadingConfigFile" xml:space="preserve">
+    <value>There was a problem loading a configuration file.
+You can delete the file '{0}' to fix the problem.</value>
+  </data>
+  <data name="ProblemLoadingConfigValue" xml:space="preserve">
+    <value>There was a problem loading the configuration value '{0}'.
+You can delete the file '{1}' to fix the problem. Other settings may also be lost.</value>
+  </data>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>A fully qualified/rooted path is required.</value>
   </data>

@@ -21,6 +21,7 @@ using System.IO;
 using System.Threading;
 using Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Injector
 {

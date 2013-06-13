@@ -21,6 +21,7 @@ using Common;
 using Common.Controls;
 using ZeroInstall.Commands;
 using ZeroInstall.Injector;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Central.WinForms.SyncWizards
 {

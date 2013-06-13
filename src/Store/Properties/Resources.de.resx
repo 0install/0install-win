@@ -203,6 +203,14 @@ Festgelegt in der Konfigurationsdatei '{1}'.</value>
     <value>Es gab ein Problem beim Zugriff auf den Implementierungs-Store '{0}'.
 Festgelegt in der Konfigurationsdatei '{1}'.</value>
   </data>
+  <data name="ProblemLoadingConfigFile" xml:space="preserve">
+    <value>Es gab ein Problem beim Laden einer Konfigurationsdatei.
+Sie können die Datei '{0}' löschen, um das Problem zu beheben.</value>
+  </data>
+  <data name="ProblemLoadingConfigValue" xml:space="preserve">
+    <value>Es gab ein Problem beim Laden des Konfigurationswerts '{0}'.
+Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen womöglich auch andere Einstellungen verloren.</value>
+  </data>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>Ein vollständig qualifizierter/gewurzelter Pfad wird benötigt.</value>
   </data>

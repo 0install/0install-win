@@ -53,9 +53,6 @@
     <Reference Include="C5">
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
-    <Reference Include="INIFileParser">
-      <HintPath>..\..\lib\INIFileParser.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\lib\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -63,7 +60,6 @@
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="CliHandler.cs" />
-    <Compile Include="Config.cs" />
     <Compile Include="Executor.Bindings.cs" />
     <Compile Include="Executor.CommandLine.cs" />
     <Compile Include="Feeds\CatalogManager.cs" />

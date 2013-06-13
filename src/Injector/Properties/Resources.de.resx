@@ -198,14 +198,6 @@ Wechsle zu Mirror.</value>
   <data name="NotInterfaceID" xml:space="preserve">
     <value>Das Interface '{0}' fängt nicht mit 'http:' an und ist auch existiert auch nicht als Datei '{1}'.</value>
   </data>
-  <data name="ProblemLoadingConfigFile" xml:space="preserve">
-    <value>Es gab ein Problem beim Laden einer Konfigurationsdatei.
-Sie können die Datei '{0}' löschen, um das Problem zu beheben.</value>
-  </data>
-  <data name="ProblemLoadingConfigValue" xml:space="preserve">
-    <value>Es gab ein Problem beim Laden des Konfigurationswerts '{0}'.
-Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen womöglich auch andere Einstellungen verloren.</value>
-  </data>
   <data name="ReplayAttack" xml:space="preserve">
     <value>Eine mögliche Replay-Attacke wurde erkannt. Änderungszeit des neuen Feeds liegt vor der der alten Version.
 Feed ID: {0}

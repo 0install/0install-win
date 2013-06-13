@@ -25,6 +25,7 @@ using Common;
 using Common.Controls;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector.Feeds

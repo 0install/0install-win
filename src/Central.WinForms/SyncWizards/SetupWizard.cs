@@ -23,6 +23,7 @@ using Common.Utils;
 using ZeroInstall.Commands;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Central.WinForms.SyncWizards
 {

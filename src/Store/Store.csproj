@@ -44,6 +44,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="LinqBridge">
       <HintPath>..\..\lib\LinqBridge.dll</HintPath>
@@ -54,9 +55,13 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="INIFileParser">
+      <HintPath>..\..\lib\INIFileParser.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Feeds\DiskIconCache.cs" />
     <Compile Include="Feeds\IconCacheProvider.cs" />
     <Compile Include="Feeds\IIconCache.cs" />

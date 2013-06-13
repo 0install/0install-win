@@ -198,14 +198,6 @@ Switching to mirror.</value>
   <data name="NotInterfaceID" xml:space="preserve">
     <value>The interface '{0}' doesn't start with 'http:' and doesn't exist as a file '{1}' either.</value>
   </data>
-  <data name="ProblemLoadingConfigFile" xml:space="preserve">
-    <value>There was a problem loading a configuration file.
-You can delete the file '{0}' to fix the problem.</value>
-  </data>
-  <data name="ProblemLoadingConfigValue" xml:space="preserve">
-    <value>There was a problem loading the configuration value '{0}'.
-You can delete the file '{1}' to fix the problem. Other settings may also be lost.</value>
-  </data>
   <data name="ReplayAttack" xml:space="preserve">
     <value>A possible replay attack was detected. The new feed's modification time is before old version.
 Feed ID: {0}

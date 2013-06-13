@@ -21,6 +21,7 @@ using System.Linq;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Injector.Solver
