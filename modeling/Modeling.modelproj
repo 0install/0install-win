@@ -23,6 +23,62 @@
   <Import Project="$(VSToolsPath)\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" Condition="false" />
   <ItemGroup>
+    <Content Include="Class\Feeds.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Class\Feeds.Feed.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Class\Feeds.classdiagram</DependentUpon>
+    </Content>
+    <Content Include="Class\Fetchers.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Class\Fetchers.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Class\Fetchers.classdiagram</DependentUpon>
+    </Content>
+    <Content Include="Class\Handler.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Class\Handler.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Class\Handler.classdiagram</DependentUpon>
+    </Content>
+    <Content Include="Class\Model.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Class\Model.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Class\Model.classdiagram</DependentUpon>
+    </Content>
+    <Content Include="Class\Policy.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Class\Policy.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Class\Policy.classdiagram</DependentUpon>
+    </Content>
+    <Content Include="Class\Solver.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Class\Solver.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Class\Solver.classdiagram</DependentUpon>
+    </Content>
+    <Content Include="Class\Store.Implementation.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Class\Store.Implementation.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Class\Store.Implementation.classdiagram</DependentUpon>
+    </Content>
+    <Content Include="Class\Tasks.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Class\Tasks.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Class\Tasks.classdiagram</DependentUpon>
+    </Content>
     <Content Include="ModelDefinition\Package_0100.uml">
       <SubType>Content</SubType>
     </Content>
@@ -30,9 +86,6 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="ModelDefinition\Package_1145.uml">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="NamespaceOverview.dgml">
       <SubType>Content</SubType>
     </Content>
     <Content Include="ModelDefinition\Package1_1629.uml">
@@ -74,126 +127,46 @@
     <Content Include="ModelDefinition\Package_1749.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="References\Central.dgml">
+    <Content Include="Sequence\DirectoryStore_AddArchive.sequencediagram">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="References\Command.dgml">
+    <Content Include="Sequence\DirectoryStore_AddArchive.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Sequence\DirectoryStore_AddArchive.sequencediagram</DependentUpon>
+    </Content>
+    <Content Include="Sequence\Hooking_CreateProccess.sequencediagram">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="References\Store.dgml">
+    <Content Include="Sequence\Hooking_CreateProccess.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Sequence\Hooking_CreateProccess.sequencediagram</DependentUpon>
+    </Content>
+    <Content Include="Sequence\Hooking_RegQueryValueEx.sequencediagram">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="References\All.dgml">
+    <Content Include="Sequence\Hooking_RegQueryValueEx.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Sequence\Hooking_RegQueryValueEx.sequencediagram</DependentUpon>
+    </Content>
+    <Content Include="Sequence\ManifestGenerator_RunTask.sequencediagram">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="References\Simplified.dgml">
+    <Content Include="Sequence\ManifestGenerator_RunTask.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Sequence\ManifestGenerator_RunTask.sequencediagram</DependentUpon>
+    </Content>
+    <Content Include="Sequence\StoreService_AddArchives.sequencediagram">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="References\Tools.dgml">
+    <Content Include="Sequence\StoreService_AddArchives.sequencediagram.layout">
       <SubType>Content</SubType>
+      <DependentUpon>Sequence\StoreService_AddArchives.sequencediagram</DependentUpon>
     </Content>
-    <Content Include="SolutionStructure.dgml">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UML\Class\Fetchers.classdiagram">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UML\Class\Fetchers.classdiagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>UML\Class\Fetchers.classdiagram</DependentUpon>
-    </Content>
-    <Content Include="UML\Class\Handler.classdiagram">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UML\Class\Handler.classdiagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>UML\Class\Handler.classdiagram</DependentUpon>
-    </Content>
-    <Content Include="UML\Class\Solver.classdiagram">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UML\Class\Solver.classdiagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>UML\Class\Solver.classdiagram</DependentUpon>
-    </Content>
-    <Content Include="UML\Class\Model.classdiagram">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UML\Class\Model.classdiagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>UML\Class\Model.classdiagram</DependentUpon>
-    </Content>
-    <Content Include="UML\Class\Feeds.classdiagram">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UML\Class\Feeds.Feed.classdiagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>UML\Class\Feeds.classdiagram</DependentUpon>
-    </Content>
-    <Content Include="UML\Class\Policy.classdiagram">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UML\Class\Policy.classdiagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>UML\Class\Policy.classdiagram</DependentUpon>
-    </Content>
-    <Content Include="UML\Class\Store.Implementation.classdiagram">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UML\Class\Store.Implementation.classdiagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>UML\Class\Store.Implementation.classdiagram</DependentUpon>
-    </Content>
-    <Content Include="UML\Class\Tasks.classdiagram">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UML\Class\Tasks.classdiagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>UML\Class\Tasks.classdiagram</DependentUpon>
-    </Content>
-    <Content Include="UML\Sequence\DirectoryStore_AddArchive.sequencediagram">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UML\Sequence\DirectoryStore_AddArchive.sequencediagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>UML\Sequence\DirectoryStore_AddArchive.sequencediagram</DependentUpon>
-    </Content>
-    <Content Include="UML\Sequence\Hooking_CreateProccess.sequencediagram">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UML\Sequence\Hooking_CreateProccess.sequencediagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>UML\Sequence\Hooking_CreateProccess.sequencediagram</DependentUpon>
-    </Content>
-    <Content Include="UML\Sequence\Hooking_RegQueryValueEx.sequencediagram">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UML\Sequence\Hooking_RegQueryValueEx.sequencediagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>UML\Sequence\Hooking_RegQueryValueEx.sequencediagram</DependentUpon>
-    </Content>
-    <Content Include="UML\Sequence\ManifestGenerator_RunTask.sequencediagram">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UML\Sequence\ManifestGenerator_RunTask.sequencediagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>UML\Sequence\ManifestGenerator_RunTask.sequencediagram</DependentUpon>
-    </Content>
-    <Content Include="UML\Sequence\StoreService_AddArchives.sequencediagram">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UML\Sequence\StoreService_AddArchives.sequencediagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>UML\Sequence\StoreService_AddArchives.sequencediagram</DependentUpon>
-    </Content>
+    <Folder Include="Class\" />
     <Folder Include="ModelDefinition\" />
     <Content Include="ModelDefinition\Architecture.uml">
       <SubType>Content</SubType>
     </Content>
-    <Folder Include="UML" />
-    <Folder Include="References" />
-    <Folder Include="UML\Class" />
-    <Folder Include="UML\Activity" />
-    <Folder Include="UML\Sequence" />
+    <Folder Include="Sequence\" />
   </ItemGroup>
 </Project>

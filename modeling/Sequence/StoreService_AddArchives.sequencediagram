@@ -622,7 +622,7 @@
               <messageOccurrenceSpecificationMoniker Id="142e1bfe-213f-448f-b446-1218dbc79c46" LastKnownName="MessageOccurrenceSpecification62" />
             </receiveEvent>
           </message>
-          <message Id="decf14e5-486b-445e-8981-3d7066be9e29" name="take ownership of temporay directory" messageKind="Complete" messageSort="SynchCall" createSelfMessage="true">
+          <message Id="decf14e5-486b-445e-8981-3d7066be9e29" name="take ownership of temporary directory" messageKind="Complete" messageSort="SynchCall" createSelfMessage="true">
             <elementDefinition Id="083f8e45-27b7-4a45-bec4-a009808bf40a" />
             <sendEvent>
               <messageOccurrenceSpecificationMoniker Id="572c17f1-54d5-4a52-8f08-80afd38f7b2b" LastKnownName="MessageOccurrenceSpecification69" />
