@@ -29,7 +29,7 @@ using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Injector.Feeds
+namespace ZeroInstall.Injector
 {
     /// <summary>
     /// Methods for verifying signatures and user trust.

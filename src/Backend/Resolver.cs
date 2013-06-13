@@ -18,7 +18,6 @@
 using System;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store;

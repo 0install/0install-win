@@ -20,7 +20,6 @@ using System.IO;
 using Common;
 using Common.Storage;
 using Common.Utils;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store;

@@ -32,7 +32,6 @@ using Common.Controls;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;

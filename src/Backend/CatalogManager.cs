@@ -26,7 +26,7 @@ using Common;
 using Common.Controls;
 using Common.Storage;
 using ZeroInstall.Backend.Properties;
-using ZeroInstall.Injector.Feeds;
+using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Trust;
 
@@ -38,7 +38,7 @@ namespace ZeroInstall.Backend
     public class CatalogManager
     {
         #region Constants
-        private const string CacheMutexName = "ZeroInstall.Injector.Feeds.CatalogManager.Cache";
+        private const string CacheMutexName = "ZeroInstall.Backend.CatalogManager.Cache";
         #endregion
 
         #region Dependencies

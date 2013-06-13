@@ -58,38 +58,42 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
-    <Compile Include="Executor.Bindings.cs" />
-    <Compile Include="Executor.CommandLine.cs" />
-    <Compile Include="Feeds\FeedManager.cs" />
-    <Compile Include="Feeds\IFeedManager.cs" />
-    <Compile Include="Feeds\ITrustManager.cs" />
-    <Compile Include="Feeds\ReplayAttackException.cs" />
-    <Compile Include="Feeds\TrustManager.cs" />
-    <Compile Include="IHandler.cs" />
-    <Compile Include="Executor.cs" />
     <Compile Include="CommandException.cs" />
+    <Compile Include="Executor.Bindings.cs">
+      <DependentUpon>Executor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Executor.CommandLine.cs">
+      <DependentUpon>Executor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Executor.cs" />
+    <Compile Include="FeedManager.cs" />
+    <Compile Include="IFeedManager.cs" />
+    <Compile Include="IHandler.cs" />
+    <Compile Include="ImplementationSelection.cs" />
+    <Compile Include="ITrustManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="ReplayAttackException.cs" />
     <None Include="runenv.cs" />
-    <Compile Include="Solver\FallbackSolver.cs" />
     <Compile Include="SelectionCandidate.cs" />
     <Compile Include="Selections.cs" />
-    <Compile Include="ImplementationSelection.cs" />
-    <Compile Include="Solver\ISolver.cs" />
     <Compile Include="SelectionsFormatter.cs" />
     <Compile Include="SelectionsManager.cs" />
-    <Compile Include="Solver\SimpleSolver.cs" />
-    <Compile Include="Solver\SolverFeedCache.cs" />
-    <Compile Include="Solver\SolverException.cs" />
     <Compile Include="Solver\ExternalSolver.cs" />
-    <Compile Include="Solver\IExternalSolverControl.cs" />
-    <Compile Include="Solver\ExternalSolverControlNative.cs" />
     <Compile Include="Solver\ExternalSolverControlBundled.cs" />
+    <Compile Include="Solver\ExternalSolverControlNative.cs" />
     <Compile Include="Solver\ExternalSolverErrorParser.cs" />
+    <Compile Include="Solver\FallbackSolver.cs" />
+    <Compile Include="Solver\IExternalSolverControl.cs" />
+    <Compile Include="Solver\ISolver.cs" />
+    <Compile Include="Solver\SimpleSolver.cs" />
+    <Compile Include="Solver\SolverException.cs" />
+    <Compile Include="Solver\SolverFeedCache.cs" />
+    <Compile Include="TrustManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

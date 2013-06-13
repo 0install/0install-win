@@ -24,7 +24,6 @@ using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;

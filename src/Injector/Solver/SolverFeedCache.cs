@@ -16,7 +16,6 @@
  */
 
 using System.Collections.Generic;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Injector.Solver

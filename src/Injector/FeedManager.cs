@@ -30,7 +30,7 @@ using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Injector.Feeds
+namespace ZeroInstall.Injector
 {
     /// <summary>
     /// Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.

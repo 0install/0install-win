@@ -17,7 +17,6 @@
 
 using Common.Storage;
 using NUnit.Framework;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Injector.Solver

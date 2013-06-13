@@ -29,7 +29,6 @@ using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.Windows;
 using ZeroInstall.Hooking;
 using ZeroInstall.Injector;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using EntryPoint = ZeroInstall.Hooking.EntryPoint;

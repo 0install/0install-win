@@ -22,7 +22,7 @@ using System.Security.Permissions;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Store.Feeds;
 
-namespace ZeroInstall.Injector.Feeds
+namespace ZeroInstall.Injector
 {
     /// <summary>
     /// Indicates a feed file that downloaded by the <see cref="FeedManager"/> is older than a version already located in the <see cref="IFeedCache"/>.

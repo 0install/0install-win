@@ -101,8 +101,8 @@
     <Compile Include="Fetchers\TestData.cs" />
     <Compile Include="Injector\ExecutorTest.cs" />
     <Compile Include="Store\ConfigTest.cs" />
-    <Compile Include="Injector\Feeds\FeedManagerTest.cs" />
-    <Compile Include="Injector\Feeds\TrustManagerTest.cs" />
+    <Compile Include="Injector\FeedManagerTest.cs" />
+    <Compile Include="Injector\TrustManagerTest.cs" />
     <Compile Include="Injector\ImplementationSelectionTest.cs" />
     <Compile Include="Injector\Solver\ExternalSolverTest.cs" />
     <Compile Include="Model\GenericBindingTest.cs" />
