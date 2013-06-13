@@ -26,7 +26,7 @@ using ZeroInstall.Solvers.Properties;
 namespace ZeroInstall.Solvers
 {
     /// <summary>
-    /// Helper class for <see cref="Process.StandardError"/> for parsing <see cref="ExternaProcessa.
+    /// Helper class for <see cref="ExternalSolver"/> for parsing <see cref="Process.StandardError"/> data.
     /// </summary>
     internal class ExternalSolverErrorParser
     {

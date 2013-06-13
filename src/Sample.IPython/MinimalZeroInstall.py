@@ -14,4 +14,4 @@ def run(resolver, requirements):
 import sys
 run(
     Resolver(CliHandler()),
-    Requirements(InterfaceID = sys.argv[0]))
+    Requirements(InterfaceID = sys.argv[0])) # sys.argv[1]
