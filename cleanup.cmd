@@ -34,6 +34,7 @@ rd /s /q src\Injector\obj > NUL 2>&1
 rd /s /q src\Model\obj > NUL 2>&1
 rd /s /q src\DesktopIntegration\obj > NUL 2>&1
 rd /s /q src\Store\obj > NUL 2>&1
+rd /s /q src\Solvers\obj > NUL 2>&1
 rd /s /q src\Test.Common\obj > NUL 2>&1
 rd /s /q src\Test.Backend\obj > NUL 2>&1
 rd /s /q src\Test.Frontend\obj > NUL 2>&1
