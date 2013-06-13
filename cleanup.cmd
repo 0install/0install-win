@@ -45,7 +45,6 @@ rd /s /q src\Capture.Cli\obj > NUL 2>&1
 rd /s /q src\Capture.WinForms\obj > NUL 2>&1
 rd /s /q src\Updater\obj > NUL 2>&1
 rd /s /q src\Updater.WinForms\obj > NUL 2>&1
-rd /s /q src\Modeling\obj > NUL 2>&1
 rd /s /q src\TestResults > NUL 2>&1
 
 rem Remove MonoDevelop user preferences
