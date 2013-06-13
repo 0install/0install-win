@@ -23,7 +23,7 @@ using Common.Storage;
 namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
-    /// Creates <see cref="IIconCache"/> instances.
+    /// Provides <see cref="IIconCache"/> instances.
     /// </summary>
     public static class IconCacheProvider
     {
