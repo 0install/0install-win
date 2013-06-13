@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" Layout="Sugiyama" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="(Namespace=Common)" Category="CodeSchema_Namespace" IsDragSource="True" Label="Common" />
+    <Node Id="(Namespace=ZeroInstall.Capture.Cli)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Capture.Cli" />
+    <Node Id="(Namespace=ZeroInstall.Capture.WinForms)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Capture.WinForms" />
+    <Node Id="(Namespace=ZeroInstall.Central.WinForms)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Central.WinForms" />
+    <Node Id="(Namespace=ZeroInstall.Commands.Cli)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Commands.Cli" />
+    <Node Id="(Namespace=ZeroInstall.Commands.WinForms)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Commands.WinForms" />
+    <Node Id="(Namespace=ZeroInstall.DesktopIntegration)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.DesktopIntegration" />
+    <Node Id="(Namespace=ZeroInstall.Fetchers)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Fetchers" />
+    <Node Id="(Namespace=ZeroInstall.Injector)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Injector" />
+    <Node Id="(Namespace=ZeroInstall.Launcher.Cli)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Launcher.Cli" />
+    <Node Id="(Namespace=ZeroInstall.Model)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Model" />
+    <Node Id="(Namespace=ZeroInstall.Publish.Cli)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Publish.Cli" />
+    <Node Id="(Namespace=ZeroInstall.Publish.WinForms)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Publish.WinForms" />
+    <Node Id="(Namespace=ZeroInstall.Store)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Store" />
+    <Node Id="(Namespace=ZeroInstall.Store.Service)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Store.Service" />
+    <Node Id="(Namespace=ZeroInstall.Updater)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Updater" />
+    <Node Id="@10" Category="CodeSchema_Project" IsDragSource="True" Label="Store.Service">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@12" Category="CodeSchema_Project" IsDragSource="True" Label="Store">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@14" Category="CodeSchema_Project" IsDragSource="True" Label="Capture">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@16" Category="CodeSchema_Project" IsDragSource="True" Label="Publish">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@18" Category="CodeSchema_Project" IsDragSource="True" Label="Capture.Cli">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@2" Category="SolutionFolder" IsDragSource="True" Label="Backend">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@20" Category="CodeSchema_Project" IsDragSource="True" Label="Publish.Cli">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@22" Category="CodeSchema_Project" IsDragSource="True" Label="Launcher.Cli">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@24" Category="CodeSchema_Project" IsDragSource="True" Label="Commands.Cli">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@26" Category="CodeSchema_Project" IsDragSource="True" Label="Central">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@28" Category="CodeSchema_Project" IsDragSource="True" Label="Model">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@30" Category="CodeSchema_Project" IsDragSource="True" Label="DesktopIntegration">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@32" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Common">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@34" Category="CodeSchema_Project" IsDragSource="True" Label="Common">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@36" Category="CodeSchema_Project" IsDragSource="True" Label="Updater">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@38" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@4" Category="SolutionFolder" IsDragSource="True" Label="Frontend">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@40" Category="CodeSchema_Project" IsDragSource="True" Label="Commands">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@42" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Tools">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@44" Category="CodeSchema_Project" IsDragSource="True" Label="Capture.WinForms">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@46" Category="CodeSchema_Project" IsDragSource="True" Label="Publish.WinForms">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@48" Category="CodeSchema_Project" IsDragSource="True" Label="Central.WinForms">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@50" Category="CodeSchema_Project" IsDragSource="True" Label="Updater.WinForms">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@52" Category="CodeSchema_Project" IsDragSource="True" Label="Commands.WinForms">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@54" Category="CodeSchema_Project" IsDragSource="True" Label="Fetchers">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@56" Category="SolutionFolder" IsDragSource="True" Label="Updater">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@58" Category="SolutionFolder" IsDragSource="True" Label="Tools">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@6" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Backend">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@8" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Frontend">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="NewGroup1" Category="ExeFile" Group="Expanded" Label="0install-win.exe" />
+    <Node Id="NewGroup11" Category="DllFile" Group="Expanded" Label="ZeroInstall.Store.dll" />
+    <Node Id="NewGroup12" Category="DllFile" Group="Expanded" Label="ZeroInstall.Injector.dll" />
+    <Node Id="NewGroup13" Category="UnitTests" Group="Expanded" Label="Test.Tools.dll" />
+    <Node Id="NewGroup14" Category="UnitTests" Group="Expanded" Label="Test.Frontend.dll" />
+    <Node Id="NewGroup15" Category="UnitTests" Group="Expanded" Label="Test.Backend.dll" />
+    <Node Id="NewGroup16" Category="UnitTests" Group="Expanded" Label="Test.Common.dll" />
+    <Node Id="NewGroup17" Category="ExeFile" Group="Expanded" Label="0publish.exe" />
+    <Node Id="NewGroup18" Category="DllFile" Group="Expanded" Label="ZeroInstall.Publish.dll" />
+    <Node Id="NewGroup19" Category="DllFile" Group="Expanded" Label="ZeroInstall.DesktopIntegration.dll" />
+    <Node Id="NewGroup2" Category="ExeFile" Group="Expanded" Label="0publish-win.exe" />
+    <Node Id="NewGroup20" Category="ExeFile" Group="Expanded" Label="0install.exe" />
+    <Node Id="NewGroup21" Category="DllFile" Group="Expanded" Label="ZeroInstall.Capture.dll" />
+    <Node Id="NewGroup22" Category="ExeFile" Group="Expanded" Label="0capture.exe" />
+    <Node Id="NewGroup23" Category="DllFile" Group="Expanded" Label="ZeroInstall.Fetchers.dll" />
+    <Node Id="NewGroup24" Category="ExeFile" Group="Expanded" Label="0capture-win.exe" />
+    <Node Id="NewGroup25" Category="DllFile" Group="Expanded" Label="ZeroInstall.Updater.dll" />
+    <Node Id="NewGroup26" Category="ExeFile" Group="Expanded" Label="0update-win.exe" />
+    <Node Id="NewGroup3" Category="ExeFile" Group="Expanded" Label="0launch.exe" />
+    <Node Id="NewGroup4" Category="DllFile" Group="Expanded" Label="ZeroInstall.Commands.dll" />
+    <Node Id="NewGroup5" Category="DllFile" Group="Expanded" Label="ZeroInstall.Central.dll" />
+    <Node Id="NewGroup6" Category="ExeFile" Group="Expanded" Label="ZeroInstall.exe" />
+    <Node Id="NewGroup7" Category="ExeFile" Group="Expanded" Label="StoreService.exe" />
+    <Node Id="NewGroup8" Category="DllFile" Group="Expanded" Label="ZeroInstall.Model.dll" />
+    <Node Id="NewGroup9" Category="DllFile" Group="Expanded" Label="Common.dll" />
+  </Nodes>
+  <Links>
+    <Link Source="@2" Target="@12" Category="Contains" />
+    <Link Source="@2" Target="@28" Category="Contains" />
+    <Link Source="@2" Target="@30" Category="Contains" />
+    <Link Source="@2" Target="@32" Category="Contains" />
+    <Link Source="@2" Target="@34" Category="Contains" />
+    <Link Source="@2" Target="@38" Category="Contains" />
+    <Link Source="@2" Target="@54" Category="Contains" />
+    <Link Source="@2" Target="@6" Category="Contains" />
+    <Link Source="@4" Target="@10" Category="Contains" />
+    <Link Source="@4" Target="@22" Category="Contains" />
+    <Link Source="@4" Target="@24" Category="Contains" />
+    <Link Source="@4" Target="@26" Category="Contains" />
+    <Link Source="@4" Target="@40" Category="Contains" />
+    <Link Source="@4" Target="@48" Category="Contains" />
+    <Link Source="@4" Target="@52" Category="Contains" />
+    <Link Source="@4" Target="@8" Category="Contains" />
+    <Link Source="@56" Target="@36" Category="Contains" />
+    <Link Source="@56" Target="@50" Category="Contains" />
+    <Link Source="@58" Target="@14" Category="Contains" />
+    <Link Source="@58" Target="@16" Category="Contains" />
+    <Link Source="@58" Target="@18" Category="Contains" />
+    <Link Source="@58" Target="@20" Category="Contains" />
+    <Link Source="@58" Target="@42" Category="Contains" />
+    <Link Source="@58" Target="@44" Category="Contains" />
+    <Link Source="@58" Target="@46" Category="Contains" />
+    <Link Source="NewGroup1" Target="(Namespace=ZeroInstall.Commands.WinForms)" Category="Contains" />
+    <Link Source="NewGroup1" Target="@52" Category="Contains" />
+    <Link Source="NewGroup11" Target="(Namespace=ZeroInstall.Store)" Category="Contains" />
+    <Link Source="NewGroup11" Target="@12" Category="Contains" />
+    <Link Source="NewGroup12" Target="(Namespace=ZeroInstall.Injector)" Category="Contains" />
+    <Link Source="NewGroup12" Target="@38" Category="Contains" />
+    <Link Source="NewGroup13" Target="@42" Category="Contains" />
+    <Link Source="NewGroup14" Target="@8" Category="Contains" />
+    <Link Source="NewGroup15" Target="@6" Category="Contains" />
+    <Link Source="NewGroup16" Target="@32" Category="Contains" />
+    <Link Source="NewGroup17" Target="(Namespace=ZeroInstall.Publish.Cli)" Category="Contains" />
+    <Link Source="NewGroup17" Target="@20" Category="Contains" />
+    <Link Source="NewGroup18" Target="@16" Category="Contains" />
+    <Link Source="NewGroup19" Target="(Namespace=ZeroInstall.DesktopIntegration)" Category="Contains" />
+    <Link Source="NewGroup19" Target="@30" Category="Contains" />
+    <Link Source="NewGroup2" Target="(Namespace=ZeroInstall.Publish.WinForms)" Category="Contains" />
+    <Link Source="NewGroup2" Target="@46" Category="Contains" />
+    <Link Source="NewGroup20" Target="(Namespace=ZeroInstall.Commands.Cli)" Category="Contains" />
+    <Link Source="NewGroup20" Target="@24" Category="Contains" />
+    <Link Source="NewGroup21" Target="@14" Category="Contains" />
+    <Link Source="NewGroup22" Target="(Namespace=ZeroInstall.Capture.Cli)" Category="Contains" />
+    <Link Source="NewGroup22" Target="@18" Category="Contains" />
+    <Link Source="NewGroup23" Target="(Namespace=ZeroInstall.Fetchers)" Category="Contains" />
+    <Link Source="NewGroup23" Target="@54" Category="Contains" />
+    <Link Source="NewGroup24" Target="(Namespace=ZeroInstall.Capture.WinForms)" Category="Contains" />
+    <Link Source="NewGroup24" Target="@44" Category="Contains" />
+    <Link Source="NewGroup25" Target="(Namespace=ZeroInstall.Updater)" Category="Contains" />
+    <Link Source="NewGroup25" Target="@36" Category="Contains" />
+    <Link Source="NewGroup26" Target="@50" Category="Contains" />
+    <Link Source="NewGroup3" Target="(Namespace=ZeroInstall.Launcher.Cli)" Category="Contains" />
+    <Link Source="NewGroup3" Target="@22" Category="Contains" />
+    <Link Source="NewGroup4" Target="@40" Category="Contains" />
+    <Link Source="NewGroup5" Target="@26" Category="Contains" />
+    <Link Source="NewGroup6" Target="(Namespace=ZeroInstall.Central.WinForms)" Category="Contains" />
+    <Link Source="NewGroup6" Target="@48" Category="Contains" />
+    <Link Source="NewGroup7" Target="(Namespace=ZeroInstall.Store.Service)" Category="Contains" />
+    <Link Source="NewGroup7" Target="@10" Category="Contains" />
+    <Link Source="NewGroup8" Target="(Namespace=ZeroInstall.Model)" Category="Contains" />
+    <Link Source="NewGroup8" Target="@28" Category="Contains" />
+    <Link Source="NewGroup9" Target="(Namespace=Common)" Category="Contains" />
+    <Link Source="NewGroup9" Target="@34" Category="Contains" />
+  </Links>
+  <Categories>
+    <Category Id="CodeSchema_Block" Label="Block" BasedOn="CodeSchema_Statement" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="Blocks" />
+    <Category Id="CodeSchema_Namespace" Label="Namespace" BasedOn="CodeSchema_Block" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Type" Icon="CodeSchema_Namespace" IsProviderRoot="False" NavigationActionLabel="Namespaces" />
+    <Category Id="CodeSchema_Project" Label="Project" BasedOn="CodeSchema_Block" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_SourceFile" Icon="CodeSchema_Project" IsProviderRoot="False" NavigationActionLabel="Projects" />
+    <Category Id="CodeSchema_SourceFile" Label="Source File" BasedOn="File" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Type" Icon="File" IsProviderRoot="False" NavigationActionLabel="Files" />
+    <Category Id="CodeSchema_Statement" Label="Statement" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="Statement" />
+    <Category Id="Contains" Label="Contains" CanBeDataDriven="False" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Contained By" IsContainment="True" OutgoingActionLabel="Contains" />
+    <Category Id="DllFile" Background="#FF004A7F" IsTag="True" />
+    <Category Id="ExeFile" Background="#FF7DC633" IsTag="True" />
+    <Category Id="File" Label="File" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" Icon="File" IsProviderRoot="False" NavigationActionLabel="Files" />
+    <Category Id="SolutionFolder" Label="Solution Folder" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="Solution Folders" />
+    <Category Id="UnitTests" Background="#FF008080" IsTag="True" />
+  </Categories>
+  <Properties>
+    <Property Id="Background" Label="Background" Description="The background color" DataType="System.Windows.Media.Brush" />
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
+    <Property Id="DefaultAction" Label="DefaultAction" Description="DefaultAction" DataType="System.String" />
+    <Property Id="GraphDirection" DataType="Microsoft.VisualStudio.Progression.Layout.GraphDirection" />
+    <Property Id="Group" Label="Group" Description="Display the node as a group" DataType="Microsoft.VisualStudio.Progression.GraphModel.GroupStyle" />
+    <Property Id="Icon" Label="Icon" Description="Icon" DataType="System.String" />
+    <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
+    <Property Id="IsContainment" DataType="System.Boolean" />
+    <Property Id="IsDragSource" Label="IsDragSource" Description="IsDragSource" DataType="System.Boolean" />
+    <Property Id="IsProviderRoot" Label="IsProviderRoot" Description="IsProviderRoot" DataType="System.Boolean" />
+    <Property Id="IsTag" DataType="System.Boolean" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="Layout" DataType="System.String" />
+    <Property Id="NavigationActionLabel" Label="NavigationActionLabel" Description="NavigationActionLabel" DataType="System.String" />
+    <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
+  </Properties>
+  <QualifiedNames>
+    <Name Id="Assembly" Label="Assembly" ValueType="Uri" />
+    <Name Id="Namespace" Label="Namespace" ValueType="System.String" />
+  </QualifiedNames>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Solution Folder" ValueLabel="True">
+      <Condition Expression="HasCategory('SolutionFolder')" />
+      <Setter Property="Icon" Value="File" />
+      <Setter Property="Background" Value="#FFC0C0C0" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="exe File" ValueLabel="True">
+      <Condition Expression="HasCategory('ExeFile')" />
+      <Setter Property="Background" Value="#FF008000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="dll File" ValueLabel="True">
+      <Condition Expression="HasCategory('DllFile')" />
+      <Setter Property="Background" Value="#FF0000A0" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Unit tests" ValueLabel="Has category">
+      <Condition Expression="HasCategory('UnitTests')" />
+      <Setter Property="Background" Value="#FF008080" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Project" ValueLabel="True">
+      <Condition Expression="HasCategory('CodeSchema_Project')" />
+      <Setter Property="Icon" Value="pack://application:,,,/Microsoft.VisualStudio.Progression.VSPackage;component/Icons/Project.png" />
+      <Setter Property="Background" Value="#FFC0C0C0" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Namespace" ValueLabel="True">
+      <Condition Expression="HasCategory('CodeSchema_Namespace')" />
+      <Setter Property="Icon" Value="pack://application:,,,/Microsoft.VisualStudio.Progression.VSPackage;component/Icons/Namespace.png" />
+      <Setter Property="Background" Value="#FFC0C0C0" />
+    </Style>
+  </Styles>
+  <IdentifierAliases>
+    <Alias n="1" Uri="Assembly=$(VsSolutionUri)/Backend" />
+    <Alias n="2" Id="(@1)" />
+    <Alias n="3" Uri="Assembly=$(VsSolutionUri)/Frontend" />
+    <Alias n="4" Id="(@3)" />
+    <Alias n="5" Uri="Assembly=$(VsSolutionUri)/Test.Backend/Test.Backend.csproj" />
+    <Alias n="6" Id="(@5)" />
+    <Alias n="7" Uri="Assembly=$(VsSolutionUri)/Test.Frontend/Test.Frontend.csproj" />
+    <Alias n="8" Id="(@7)" />
+    <Alias n="9" Uri="Assembly=$(VsSolutionUri)/Store.Service/Store.Service.csproj" />
+    <Alias n="10" Id="(@9)" />
+    <Alias n="11" Uri="Assembly=$(VsSolutionUri)/Store/Store.csproj" />
+    <Alias n="12" Id="(@11)" />
+    <Alias n="13" Uri="Assembly=$(VsSolutionUri)/Capture/Capture.csproj" />
+    <Alias n="14" Id="(@13)" />
+    <Alias n="15" Uri="Assembly=$(VsSolutionUri)/Publish/Publish.csproj" />
+    <Alias n="16" Id="(@15)" />
+    <Alias n="17" Uri="Assembly=$(VsSolutionUri)/Capture.Cli/Capture.Cli.csproj" />
+    <Alias n="18" Id="(@17)" />
+    <Alias n="19" Uri="Assembly=$(VsSolutionUri)/Publish.Cli/Publish.Cli.csproj" />
+    <Alias n="20" Id="(@19)" />
+    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/Launcher.Cli/Launcher.Cli.csproj" />
+    <Alias n="22" Id="(@21)" />
+    <Alias n="23" Uri="Assembly=$(VsSolutionUri)/Commands.Cli/Commands.Cli.csproj" />
+    <Alias n="24" Id="(@23)" />
+    <Alias n="25" Uri="Assembly=$(VsSolutionUri)/Central/Central.csproj" />
+    <Alias n="26" Id="(@25)" />
+    <Alias n="27" Uri="Assembly=$(VsSolutionUri)/Model/Model.csproj" />
+    <Alias n="28" Id="(@27)" />
+    <Alias n="29" Uri="Assembly=$(VsSolutionUri)/DesktopIntegration/DesktopIntegration.csproj" />
+    <Alias n="30" Id="(@29)" />
+    <Alias n="31" Uri="Assembly=$(VsSolutionUri)/Test.Common/Test.Common.csproj" />
+    <Alias n="32" Id="(@31)" />
+    <Alias n="33" Uri="Assembly=$(VsSolutionUri)/Common/Common.csproj" />
+    <Alias n="34" Id="(@33)" />
+    <Alias n="35" Uri="Assembly=$(VsSolutionUri)/Updater/Updater.csproj" />
+    <Alias n="36" Id="(@35)" />
+    <Alias n="37" Uri="Assembly=$(VsSolutionUri)/Injector/Injector.csproj" />
+    <Alias n="38" Id="(@37)" />
+    <Alias n="39" Uri="Assembly=$(VsSolutionUri)/Commands/Commands.csproj" />
+    <Alias n="40" Id="(@39)" />
+    <Alias n="41" Uri="Assembly=$(VsSolutionUri)/Test.Tools/Test.Tools.csproj" />
+    <Alias n="42" Id="(@41)" />
+    <Alias n="43" Uri="Assembly=$(VsSolutionUri)/Capture.WinForms/Capture.WinForms.csproj" />
+    <Alias n="44" Id="(@43)" />
+    <Alias n="45" Uri="Assembly=$(VsSolutionUri)/Publish.WinForms/Publish.WinForms.csproj" />
+    <Alias n="46" Id="(@45)" />
+    <Alias n="47" Uri="Assembly=$(VsSolutionUri)/Central.WinForms/Central.WinForms.csproj" />
+    <Alias n="48" Id="(@47)" />
+    <Alias n="49" Uri="Assembly=$(VsSolutionUri)/Updater.WinForms/Updater.WinForms.csproj" />
+    <Alias n="50" Id="(@49)" />
+    <Alias n="51" Uri="Assembly=$(VsSolutionUri)/Commands.WinForms/Commands.WinForms.csproj" />
+    <Alias n="52" Id="(@51)" />
+    <Alias n="53" Uri="Assembly=$(VsSolutionUri)/Fetchers/Fetchers.csproj" />
+    <Alias n="54" Id="(@53)" />
+    <Alias n="55" Uri="Assembly=$(VsSolutionUri)/Updater" />
+    <Alias n="56" Id="(@55)" />
+    <Alias n="57" Uri="Assembly=$(VsSolutionUri)/Tools" />
+    <Alias n="58" Id="(@57)" />
+  </IdentifierAliases>
+  <Paths>
+    <Path Id="adba7a08-3121-4f27-8893-6cd7093743b2.OutputPath" Value="..\..\build\Frontend\Debug\ZeroInstall.exe" />
+    <Path Id="VsSolution" Value=".." />
+    <Path Id="VsSolutionUri" Value=".." />
+  </Paths>
+</DirectedGraph>
