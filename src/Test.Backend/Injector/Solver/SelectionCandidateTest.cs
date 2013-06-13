@@ -16,8 +16,8 @@
  */
 
 using NUnit.Framework;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector.Solver
 {

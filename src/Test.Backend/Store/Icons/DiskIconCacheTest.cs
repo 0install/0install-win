@@ -24,7 +24,7 @@ using Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Store.Feeds
+namespace ZeroInstall.Store.Icons
 {
     /// <summary>
     /// Contains test methods for <see cref="DiskIconCache"/>.

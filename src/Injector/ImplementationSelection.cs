@@ -21,8 +21,8 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Xml.Serialization;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector
 {

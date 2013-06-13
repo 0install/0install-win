@@ -4,7 +4,7 @@ using System.IO;
 using System.Net;
 using Common.Tasks;
 
-namespace ZeroInstall.Store.Feeds
+namespace ZeroInstall.Store.Icons
 {
     /// <summary>
     /// Provides access to a cache of icon files that were downloaded via HTTP(S).

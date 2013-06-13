@@ -25,7 +25,7 @@ using Common.Controls;
 using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Icons;
 
 namespace ZeroInstall.Central.WinForms
 {

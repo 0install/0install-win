@@ -62,10 +62,7 @@
     <Compile Include="Executor.CommandLine.cs" />
     <Compile Include="Feeds\CatalogManager.cs" />
     <Compile Include="Feeds\FeedManager.cs" />
-    <Compile Include="Feeds\FeedPreferences.cs" />
     <Compile Include="Feeds\IFeedManager.cs" />
-    <Compile Include="Feeds\ImplementationPreferences.cs" />
-    <Compile Include="Feeds\InterfacePreferences.cs" />
     <Compile Include="Feeds\ITrustManager.cs" />
     <Compile Include="Feeds\ReplayAttackException.cs" />
     <Compile Include="Feeds\TrustManager.cs" />

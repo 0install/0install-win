@@ -17,9 +17,8 @@
 
 using Common.Storage;
 using NUnit.Framework;
-using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Injector.Feeds
+namespace ZeroInstall.Store.Trust
 {
     /// <summary>
     /// Contains test methods for <see cref="TrustDB"/>.

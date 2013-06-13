@@ -126,6 +126,24 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error loading feed preferences for &apos;{0}&apos;. Reverting to default values..
+        /// </summary>
+        internal static string ErrorLoadingFeedPrefs {
+            get {
+                return ResourceManager.GetString("ErrorLoadingFeedPrefs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading interface preferences for &apos;{0}&apos;. Reverting to default values..
+        /// </summary>
+        internal static string ErrorLoadingInterfacePrefs {
+            get {
+                return ResourceManager.GetString("ErrorLoadingInterfacePrefs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error loading the trust database. Reverting to default values..
         /// </summary>
         internal static string ErrorLoadingTrustDB {

@@ -19,7 +19,6 @@ using System;
 using Common;
 using Common.Tasks;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
@@ -96,10 +95,10 @@ namespace ZeroInstall.Injector
         void ShowSelections(Selections selections, IFeedCache feedCache);
 
         /// <summary>
-        /// Allows the user to modify the <see cref="InterfacePreferences"/> and rerun the solver if desired.
+        /// Allows the user to modify the interface preferences and rerun the solver if desired.
         /// Returns once the user is satisfied with her choice. Will be ignored by non-GUI intefaces.
         /// </summary>
-        /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the solver needs to be rerun.</param>
+        /// <param name="solveCallback">Called after interface preferences have been changed and the solver needs to be rerun.</param>
         /// <remarks>
         ///   <para>Only call this between <see cref="ShowSelections"/> and <see cref="CloseProgressUI"/>.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>

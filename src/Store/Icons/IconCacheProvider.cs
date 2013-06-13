@@ -20,7 +20,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Common.Storage;
 
-namespace ZeroInstall.Store.Feeds
+namespace ZeroInstall.Store.Icons
 {
     /// <summary>
     /// Provides <see cref="IIconCache"/> instances.

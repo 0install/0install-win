@@ -23,7 +23,7 @@ using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Icons;
 
 namespace ZeroInstall.DesktopIntegration.Windows
 {

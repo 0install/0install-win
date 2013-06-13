@@ -23,7 +23,7 @@ using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Store.Feeds
+namespace ZeroInstall.Store.Icons
 {
     /// <summary>
     /// Provides access to a disk-based cache of icon files that were downloaded via HTTP(S).

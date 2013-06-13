@@ -20,7 +20,7 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Injector.Feeds
+namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
     /// Stores user-specific preferences for an <see cref="Model.Implementation"/>.

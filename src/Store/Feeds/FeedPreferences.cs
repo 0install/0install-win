@@ -24,10 +24,10 @@ using System.Xml.Serialization;
 using Common;
 using Common.Storage;
 using Common.Utils;
-using ZeroInstall.Injector.Properties;
+using ZeroInstall.Store.Properties;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Injector.Feeds
+namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
     /// Stores user-specific preferences for a <see cref="Model.Feed"/>.

@@ -21,9 +21,8 @@ using System.IO;
 using System.Threading;
 using Common.Storage;
 using NUnit.Framework;
-using ZeroInstall.Store;
 
-namespace ZeroInstall.Injector
+namespace ZeroInstall.Store
 {
     /// <summary>
     /// Contains test methods for <see cref="Config"/>.

@@ -17,9 +17,9 @@
 
 using System;
 using System.ComponentModel;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector
 {

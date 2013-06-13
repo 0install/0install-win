@@ -31,7 +31,7 @@ using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Icons;
 using Icon = ZeroInstall.Model.Icon;
 
 namespace ZeroInstall.Central.WinForms

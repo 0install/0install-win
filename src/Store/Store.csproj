@@ -63,22 +63,19 @@
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="Feeds\DiskIconCache.cs" />
-    <Compile Include="Feeds\IconCacheProvider.cs" />
-    <Compile Include="Feeds\IIconCache.cs" />
-    <Compile Include="Trust\Domain.cs" />
-    <Compile Include="Trust\IOpenPgp.cs" />
-    <Compile Include="Feeds\MemoryFeedCache.cs" />
-    <Compile Include="Trust\OpenPgpFactory.cs" />
-    <Compile Include="Trust\OpenPgpSignature.cs" />
-    <Compile Include="Feeds\IFeedCache.cs" />
     <Compile Include="Feeds\DiskFeedCache.cs" />
     <Compile Include="Feeds\FeedCacheFactory.cs" />
-    <Compile Include="Trust\GnuPG.cs" />
-    <Compile Include="Trust\OpenPgpSecretKey.cs" />
-    <Compile Include="Trust\SignatureException.cs" />
-    <Compile Include="Trust\WrongPassphraseException.cs" />
+    <Compile Include="Feeds\FeedPreferences.cs" />
+    <Compile Include="Feeds\FeedUtils.cs" />
+    <Compile Include="Feeds\IFeedCache.cs" />
+    <Compile Include="Feeds\ImplementationPreferences.cs" />
+    <Compile Include="Feeds\InterfacePreferences.cs" />
+    <Compile Include="Feeds\MemoryFeedCache.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Icons\DiskIconCache.cs" />
+    <Compile Include="Icons\IconCacheProvider.cs" />
+    <Compile Include="Icons\IIconCache.cs" />
+    <Compile Include="Implementation\Archive\ArchiveFileInfo.cs" />
     <Compile Include="Implementation\Archive\Extractor.cs" />
     <Compile Include="Implementation\Archive\RubyGemExtractor.cs" />
     <Compile Include="Implementation\Archive\TarBz2Extractor.cs" />
@@ -86,27 +83,25 @@
     <Compile Include="Implementation\Archive\TarGzExtractor.cs" />
     <Compile Include="Implementation\Archive\TarLzmaExtractor.cs" />
     <Compile Include="Implementation\Archive\ZipExtractor.cs" />
+    <Compile Include="Implementation\CompositeStore.cs" />
+    <Compile Include="Implementation\DigestMismatchException.cs" />
+    <Compile Include="Implementation\DirectoryStore.cs" />
     <Compile Include="Implementation\FlagUtils.cs" />
     <Compile Include="Implementation\ImplementationAlreadyInStoreException.cs" />
-    <Compile Include="Implementation\Archive\ArchiveFileInfo.cs" />
-    <Compile Include="Implementation\DigestMismatchException.cs" />
-    <Compile Include="Implementation\Manifest.cs" />
-    <Compile Include="Implementation\ManifestNode.cs" />
-    <Compile Include="Implementation\ManifestDirectory.cs" />
-    <Compile Include="Implementation\ManifestFileBase.cs" />
-    <Compile Include="Implementation\ManifestNormalFile.cs" />
-    <Compile Include="Implementation\ManifestExecutableFile.cs" />
-    <Compile Include="Implementation\ManifestSymlink.cs" />
     <Compile Include="Implementation\ImplementationNotFoundException.cs" />
+    <Compile Include="Implementation\IpcStoreProvider.cs" />
+    <Compile Include="Implementation\IStore.cs" />
+    <Compile Include="Implementation\Manifest.cs" />
+    <Compile Include="Implementation\ManifestDirectory.cs" />
+    <Compile Include="Implementation\ManifestExecutableFile.cs" />
+    <Compile Include="Implementation\ManifestFileBase.cs" />
     <Compile Include="Implementation\ManifestFormat.cs" />
     <Compile Include="Implementation\ManifestGenerator.cs" />
-    <Compile Include="Implementation\IpcStoreProvider.cs" />
+    <Compile Include="Implementation\ManifestNode.cs" />
+    <Compile Include="Implementation\ManifestNormalFile.cs" />
+    <Compile Include="Implementation\ManifestSymlink.cs" />
     <Compile Include="Implementation\RemoteStores.cs" />
     <Compile Include="Implementation\StoreFactory.cs" />
-    <Compile Include="Implementation\CompositeStore.cs" />
-    <Compile Include="Implementation\IStore.cs" />
-    <Compile Include="Implementation\DirectoryStore.cs" />
-    <Compile Include="Feeds\FeedUtils.cs" />
     <Compile Include="Implementation\StoreUtils.cs" />
     <Compile Include="Management\ImplementationUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,8 +110,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Trust\Domain.cs" />
+    <Compile Include="Trust\GnuPG.cs" />
+    <Compile Include="Trust\IOpenPgp.cs" />
     <Compile Include="Trust\Key.cs" />
+    <Compile Include="Trust\OpenPgpFactory.cs" />
+    <Compile Include="Trust\OpenPgpSecretKey.cs" />
+    <Compile Include="Trust\OpenPgpSignature.cs" />
+    <Compile Include="Trust\SignatureException.cs" />
     <Compile Include="Trust\TrustDB.cs" />
+    <Compile Include="Trust\WrongPassphraseException.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
