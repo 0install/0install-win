@@ -103,12 +103,12 @@
     <Compile Include="Store\ConfigTest.cs" />
     <Compile Include="Injector\Feeds\FeedManagerTest.cs" />
     <Compile Include="Injector\Feeds\TrustManagerTest.cs" />
-    <Compile Include="Injector\Solver\ImplementationSelectionTest.cs" />
+    <Compile Include="Injector\ImplementationSelectionTest.cs" />
     <Compile Include="Injector\Solver\ExternalSolverTest.cs" />
     <Compile Include="Model\GenericBindingTest.cs" />
     <Compile Include="Model\RequirementsTest.cs" />
-    <Compile Include="Injector\Solver\SelectionCandidateTest.cs" />
-    <Compile Include="Injector\Solver\SelectionsManagerTest.cs" />
+    <Compile Include="Injector\SelectionCandidateTest.cs" />
+    <Compile Include="Injector\SelectionsManagerTest.cs" />
     <Compile Include="Injector\Solver\SimpleSolverTest.cs" />
     <Compile Include="Injector\Solver\SolverTest.cs" />
     <Compile Include="Model\ArchitectureTest.cs" />

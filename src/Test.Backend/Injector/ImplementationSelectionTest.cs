@@ -19,7 +19,7 @@ using System.Globalization;
 using NUnit.Framework;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Injector
 {
     /// <summary>
     /// Contains test methods for <see cref="ImplementationSelection"/>.

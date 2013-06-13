@@ -16,11 +16,12 @@
  */
 
 using NUnit.Framework;
+using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Injector
 {
     /// <summary>
     /// Contains test methods for <see cref="SelectionsManager"/>.

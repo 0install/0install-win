@@ -19,7 +19,7 @@ using NUnit.Framework;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Injector
 {
     /// <summary>
     /// Contains test methods for <see cref="SelectionCandidate"/>.

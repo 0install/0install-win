@@ -18,7 +18,7 @@
 using Common.Storage;
 using NDesk.Options;
 using NUnit.Framework;
-using ZeroInstall.Injector.Solver;
+using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
