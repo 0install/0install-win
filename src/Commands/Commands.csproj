@@ -118,10 +118,6 @@
       <Project>{F48937E1-3763-465F-9F12-6CBBBFF61784}</Project>
       <Name>DesktopIntegration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fetchers\Fetchers.csproj">
-      <Project>{37C09DC0-86FA-422C-B7EA-6970BF348ED0}</Project>
-      <Name>Fetchers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Hooking\Hooking.csproj">
       <Project>{08A3AE07-4A76-4DE7-8CC7-CDB8A5014707}</Project>
       <Name>Hooking</Name>

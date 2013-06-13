@@ -17,6 +17,7 @@
 
 using Common.Tasks;
 using NUnit.Framework;
+using ZeroInstall.Injector;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Fetchers

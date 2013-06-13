@@ -22,6 +22,7 @@ using Common.Collections;
 using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.Fetchers.Properties;
+using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Implementation.Archive;

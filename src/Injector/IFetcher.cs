@@ -22,7 +22,7 @@ using System.Net;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Fetchers
+namespace ZeroInstall.Injector
 {
     /// <summary>
     /// Downloads <see cref="Implementation"/>s, extracts them and adds them to an <see cref="IStore"/>.

@@ -64,11 +64,6 @@
       <Project>{81af4fa5-44f7-4010-8769-b85b8b542fa2}</Project>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Fetchers\Fetchers.csproj">
-      <Name>Fetchers</Name>
-      <Project>{37c09dc0-86fa-422c-b7ea-6970bf348ed0}</Project>
-      <Private>True</Private>
-    </ProjectReference>
     <ProjectReference Include="..\Injector\Injector.csproj">
       <Name>Injector</Name>
       <Project>{33df4c92-ac4a-4a36-89a2-db334be3d229}</Project>

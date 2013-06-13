@@ -42,8 +42,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ServiceProcess" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml" />
     <Reference Include="LinqBridge">
       <HintPath>..\..\lib\LinqBridge.dll</HintPath>
     </Reference>

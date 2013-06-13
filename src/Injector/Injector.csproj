@@ -44,7 +44,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="LinqBridge">
       <HintPath>..\..\lib\LinqBridge.dll</HintPath>
@@ -68,6 +67,7 @@
     <Compile Include="Executor.cs" />
     <Compile Include="FeedManager.cs" />
     <Compile Include="IFeedManager.cs" />
+    <Compile Include="IFetcher.cs" />
     <Compile Include="IHandler.cs" />
     <Compile Include="ImplementationSelection.cs" />
     <Compile Include="ISolver.cs" />
