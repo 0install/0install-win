@@ -56,6 +56,22 @@ namespace Common.Utils
         }
         #endregion
 
+        #region Exists
+        /// <summary>
+        /// Ensures <see cref="FileUtils.ExistsCaseSensitive"/> correctly detects case mismatches.
+        /// </summary>
+        [Test]
+        public void TestExistsCaseSensitive()
+        {
+            using (var tempDir = new TemporaryDirectory("unit-tests"))
+            {
+                File.WriteAllText(Path.Combine(tempDir, "test"), "");
+                Assert.IsTrue(FileUtils.ExistsCaseSensitive(Path.Combine(tempDir, "test")));
+                Assert.IsFalse(FileUtils.ExistsCaseSensitive(Path.Combine(tempDir, "Test")));
+            }
+        }
+        #endregion
+
         #region Temp
         /// <summary>
         /// Creates a temporary fileusing <see cref="FileUtils.GetTempFile"/>, ensures it is empty and deletes it again.

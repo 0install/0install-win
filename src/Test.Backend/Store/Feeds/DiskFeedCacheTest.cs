@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Common.Storage;
@@ -79,6 +80,13 @@ namespace ZeroInstall.Store.Feeds
         }
 
         [Test]
+        public void TestContainsCaseSensitive()
+        {
+            Assert.IsTrue(_cache.Contains("http://0install.de/feeds/test/test1.xml"));
+            Assert.IsFalse(_cache.Contains("http://0install.de/feeds/test/Test1.xml"), "Should not be case-sensitive");
+        }
+
+        [Test]
         public void TestListAll()
         {
             var feeds = _cache.ListAll();
@@ -98,6 +106,13 @@ namespace ZeroInstall.Store.Feeds
                 _feed1.SaveXml(localFeed);
                 Assert.AreEqual(_feed1, _cache.GetFeed(localFeed), "Should provide local feed files without them actually being in the cache");
             }
+        }
+
+        [Test]
+        public void TestGetFeedCaseSensitive()
+        {
+            Assert.DoesNotThrow(() => _cache.GetFeed("http://0install.de/feeds/test/test1.xml"));
+            Assert.Throws<KeyNotFoundException>(() => _cache.GetFeed("http://0install.de/feeds/test/Test1.xml"), "Should not be case-sensitive");
         }
 
         [Test]
@@ -125,8 +140,8 @@ namespace ZeroInstall.Store.Feeds
         [Test]
         public void TestRemove()
         {
+            Assert.IsTrue(_cache.Contains("http://0install.de/feeds/test/test1.xml"));
             _cache.Remove("http://0install.de/feeds/test/test1.xml");
-            Assert.DoesNotThrow(() => _cache.Remove("http://0install.de/feeds/test/test1.xml"));
             Assert.IsFalse(_cache.Contains("http://0install.de/feeds/test/test1.xml"));
             Assert.IsTrue(_cache.Contains("http://0install.de/feeds/test/test2.xml"));
         }

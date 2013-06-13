@@ -82,7 +82,7 @@ namespace ZeroInstall.Store.Feeds
                 return false;
             }
 
-            return File.Exists(Path.Combine(DirectoryPath, ModelUtils.Escape(feedID))) ||
+            return FileUtils.ExistsCaseSensitive(Path.Combine(DirectoryPath, ModelUtils.Escape(feedID))) ||
                 // Local files are passed through directly
                 File.Exists(feedID);
         }
@@ -114,9 +114,9 @@ namespace ZeroInstall.Store.Feeds
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            ModelUtils.ValidateInterfaceID(feedID);
             #endregion
 
+            ModelUtils.ValidateInterfaceID(feedID);
             var feed = XmlStorage.LoadXml<Feed>(GetPath(feedID));
             feed.Normalize(feedID);
             return feed;
@@ -127,9 +127,9 @@ namespace ZeroInstall.Store.Feeds
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            ModelUtils.ValidateInterfaceID(feedID);
             #endregion
 
+            ModelUtils.ValidateInterfaceID(feedID);
             return FeedUtils.GetSignatures(_openPgp, File.ReadAllBytes(GetPath(feedID)));
         }
 
@@ -141,8 +141,9 @@ namespace ZeroInstall.Store.Feeds
         {
             if (ModelUtils.IsValidUri(feedID))
             {
-                string path = Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
-                if (File.Exists(path)) return path;
+                string fileName = ModelUtils.Escape(feedID);
+                string path = Path.Combine(DirectoryPath, fileName);
+                if (FileUtils.ExistsCaseSensitive(path)) return path;
                 else throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
             }
             else
@@ -158,10 +159,10 @@ namespace ZeroInstall.Store.Feeds
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            ModelUtils.ValidateInterfaceID(feedID);
             if (data == null) throw new ArgumentNullException("data");
             #endregion
 
+            ModelUtils.ValidateInterfaceID(feedID);
             if (!Directory.Exists(DirectoryPath)) Directory.CreateDirectory(DirectoryPath);
 
             try
@@ -199,10 +200,10 @@ namespace ZeroInstall.Store.Feeds
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            ModelUtils.ValidateInterfaceID(feedID);
             #endregion
 
-            File.Delete(Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)));
+            ModelUtils.ValidateInterfaceID(feedID);
+            File.Delete(GetPath(feedID));
         }
         #endregion
 

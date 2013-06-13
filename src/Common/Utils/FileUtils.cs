@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Principal;
 using Common.Properties;
@@ -60,6 +61,20 @@ namespace Common.Utils
             #endregion
 
             return Path.IsPathRooted(path) || path.EndsWith("..") || path.Contains(".." + Path.DirectorySeparatorChar);
+        }
+        #endregion
+
+        #region Exists
+        /// <summary>
+        /// Like <see cref="File.Exists"/> but case-sensitive, even on Windows.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static bool ExistsCaseSensitive(string path)
+        {
+            return File.Exists(path) &&
+                // Make sure the file found is a string-exact match
+                Directory.GetFiles(Path.GetDirectoryName(path) ?? Environment.CurrentDirectory, Path.GetFileName(path)).Contains(path);
         }
         #endregion
 
