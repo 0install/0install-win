@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</ProjectGuid>
+    <ProjectGuid>{E82511A6-0126-4FC2-AABD-0310C66FA2D8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZeroInstall.Injector</RootNamespace>
-    <AssemblyName>ZeroInstall.Injector</AssemblyName>
+    <RootNamespace>ZeroInstall.Solvers</RootNamespace>
+    <AssemblyName>ZeroInstall.Solvers</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\build\Backend\Debug\</OutputPath>
-    <DocumentationFile>..\..\build\Backend\Debug\ZeroInstall.Injector.xml</DocumentationFile>
+    <DocumentationFile>..\..\build\Backend\Debug\ZeroInstall.Solvers.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -34,7 +34,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\build\Backend\Release\</OutputPath>
-    <DocumentationFile>..\..\build\Backend\Release\ZeroInstall.Injector.xml</DocumentationFile>
+    <DocumentationFile>..\..\build\Backend\Release\ZeroInstall.Solvers.xml</DocumentationFile>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -52,40 +52,23 @@
     <Reference Include="C5">
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\lib\Newtonsoft.Json.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
-    <Compile Include="CommandException.cs" />
-    <Compile Include="Executor.Bindings.cs">
-      <DependentUpon>Executor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Executor.CommandLine.cs">
-      <DependentUpon>Executor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Executor.cs" />
-    <Compile Include="FeedManager.cs" />
-    <Compile Include="IFeedManager.cs" />
-    <Compile Include="IHandler.cs" />
-    <Compile Include="ImplementationSelection.cs" />
-    <Compile Include="ISolver.cs" />
-    <Compile Include="ITrustManager.cs" />
+    <Compile Include="ExternalSolver.cs" />
+    <Compile Include="ExternalSolverControlBundled.cs" />
+    <Compile Include="ExternalSolverControlNative.cs" />
+    <Compile Include="ExternalSolverErrorParser.cs" />
+    <Compile Include="FallbackSolver.cs" />
+    <Compile Include="IExternalSolverControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="ReplayAttackException.cs" />
-    <None Include="runenv.cs" />
-    <Compile Include="SelectionCandidate.cs" />
-    <Compile Include="Selections.cs" />
-    <Compile Include="SelectionsFormatter.cs" />
-    <Compile Include="SelectionsManager.cs" />
-    <Compile Include="SolverException.cs" />
-    <Compile Include="TrustManager.cs" />
+    <Compile Include="SimpleSolver.cs" />
+    <Compile Include="SolverFeedCache.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -106,6 +89,10 @@
       <Project>{F48937E1-3763-465F-9F12-6CBBBFF61784}</Project>
       <Name>DesktopIntegration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Injector\Injector.csproj">
+      <Project>{33df4c92-ac4a-4a36-89a2-db334be3d229}</Project>
+      <Name>Injector</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
@@ -116,9 +103,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="runenv.clr2.template" />
-    <EmbeddedResource Include="runenv.clr4.template" />
-    <EmbeddedResource Include="runenv.sh.template" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">

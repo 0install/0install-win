@@ -4,7 +4,7 @@ using Common.Utils;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Injector.Solver;
+using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Store;
 

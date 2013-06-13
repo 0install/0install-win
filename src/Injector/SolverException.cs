@@ -19,7 +19,7 @@ using System;
 using System.Runtime.Serialization;
 using ZeroInstall.Injector.Properties;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Injector
 {
     /// <summary>
     /// Represents errors that occurred in an <see cref="ISolver"/> implementation.

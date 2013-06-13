@@ -20,12 +20,13 @@ using System.IO;
 using Common;
 using Common.Storage;
 using Common.Utils;
-using ZeroInstall.Injector.Properties;
+using ZeroInstall.Injector;
+using ZeroInstall.Solvers.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Solvers
 {
     /// <summary>
     /// Uses an external process to solve requirements.

@@ -4,8 +4,8 @@ using System.Resources;
 using System.Runtime.InteropServices;
 
 // Assembly info
-[assembly: AssemblyTitle("Zero Install Injector Library")]
-[assembly: AssemblyDescription("Code for launching implementations and injecting the selected dependencies.")]
+[assembly: AssemblyTitle("Zero Install Solver Library")]
+[assembly: AssemblyDescription("Code for solving dependencies.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: NeutralResourcesLanguage("en")]
 
@@ -14,4 +14,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("baa28528-7b64-49f6-8d79-b07c465dc95c")]
+[assembly: Guid("8b3651ad-3221-4eb0-a36d-19cd19aba065")]

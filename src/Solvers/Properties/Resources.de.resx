@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AskKeyTrust" xml:space="preserve">
+    <value>Feed: {0}
+- Gültige Signatur von {1}
+- {2}
+Möchten Sie diesem Key zum Signieren von Feeds von '{3}' vertrauen?
+</value>
+  </data>
+  <data name="BindingNotSupportedOnCurrentOS" xml:space="preserve">
+    <value>{0} Bindings werden auf diesem Betriebsystem derzeit nicht unterstützt.</value>
+  </data>
+  <data name="CommandLineEmpty" xml:space="preserve">
+    <value>Die resultierende Befehlszeile ist leer.</value>
+  </data>
+  <data name="EnvironmentBindingValueInvalid" xml:space="preserve">
+    <value>&lt;environment&gt; Bindings müssen entweder ein 'value' oder ein 'insert' Attribut enthalten.</value>
+  </data>
+  <data name="ExternalSolverOutputErrror" xml:space="preserve">
+    <value>Die Ausgabe des externen Solvers konnte nicht verarbeitet werden.</value>
+  </data>
+  <data name="FeedDownloadErrorSwitchToMirror" xml:space="preserve">
+    <value>Fehler beim Runterladen des Feeds '{0}':
+{1}
+Wechsle zu Mirror.</value>
+  </data>
+  <data name="FeedNotCachedOffline" xml:space="preserve">
+    <value>Der Feed '{0}' ist nicht gecacht und Zero Install befindet sich derzeit im Off-Line Modus.</value>
+  </data>
+  <data name="FeedNoTrustedSignatures" xml:space="preserve">
+    <value>Der Feed '{0}' wurde mit keinem vertrauten Schlüssel signiert.</value>
+  </data>
+  <data name="FeedUriMismatch" xml:space="preserve">
+    <value>Das &lt;interface&gt; uri Attribut ('{0}') stimmt nicht mit der URL von der der Feed runtergeladen wurde ('{1}') überin.</value>
+  </data>
+  <data name="FeedUriMissing" xml:space="preserve">
+    <value>Das &lt;interface&gt; uri Attribut fehlt. Sollte '{0}' sein.</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>Datei nicht gefunden: {0}</value>
+  </data>
+  <data name="IllegalCharInBindingName" xml:space="preserve">
+    <value>Ungültiges Zeichen im {0} Binding Namen.</value>
+  </data>
+  <data name="ImplementationNotInSelection" xml:space="preserve">
+    <value>Die Implementierung für das Interface '{0}' konnte in den Selections nicht gefunden werden.</value>
+  </data>
+  <data name="MissingBindingName" xml:space="preserve">
+    <value>Fehlender Name in {0} Binding.</value>
+  </data>
+  <data name="MissingInterfaceID" xml:space="preserve">
+    <value>Es wurde kein Interface angegeben.</value>
+  </data>
+  <data name="NoImplementationsPassed" xml:space="preserve">
+    <value>Es muss mindestens eine Implementierung übergeben werden.</value>
+  </data>
+  <data name="NoKeyInfoServerData" xml:space="preserve">
+    <value>Der Keyinformationsserver konnte keine weiteren Informationen über diesen Key zur Verfügung stellen.</value>
+  </data>
+  <data name="NoSelectedVersion" xml:space="preserve">
+    <value>Keine ausgewählte Version</value>
+  </data>
+  <data name="NotCached" xml:space="preserve">
+    <value>(nicht gecacht)</value>
+  </data>
+  <data name="NotInterfaceID" xml:space="preserve">
+    <value>Das Interface '{0}' fängt nicht mit 'http:' an und ist auch existiert auch nicht als Datei '{1}'.</value>
+  </data>
+  <data name="ReplayAttack" xml:space="preserve">
+    <value>Eine mögliche Replay-Attacke wurde erkannt. Änderungszeit des neuen Feeds liegt vor der der alten Version.
+Feed ID: {0}
+Alte Zeit: {1}
+Neue Zeit: {2}</value>
+  </data>
+  <data name="SelectionCandidateNoteBuggy" xml:space="preserve">
+    <value>Fehlerhafte Implementierung</value>
+  </data>
+  <data name="SelectionCandidateNoteIncompatibleArchitecture" xml:space="preserve">
+    <value>Inkompatibles Betriebsystem oder CPU</value>
+  </data>
+  <data name="SelectionCandidateNoteInsecure" xml:space="preserve">
+    <value>Unsichere Implementierung</value>
+  </data>
+  <data name="SelectionCandidateNoteNotCached" xml:space="preserve">
+    <value>Implementierung nicht im Cache (derzeit im Off-Line Modus)</value>
+  </data>
+  <data name="SelectionCandidateNoteSource" xml:space="preserve">
+    <value>Nicht ausführbare Quellcode Implementierung</value>
+  </data>
+  <data name="SelectionCandidateNoteVersionMismatch" xml:space="preserve">
+    <value>Implementierungsversion zu alt oder zu neu</value>
+  </data>
+  <data name="SolverProblem" xml:space="preserve">
+    <value>Der Solver ist auf ein unerwartetes Problem gestoßen.</value>
+  </data>
+  <data name="UnableToLoadKeyFile" xml:space="preserve">
+    <value>Konnte GnuPG Schlüsseldatei für '{0}' nicht laden.</value>
+  </data>
+  <data name="UnableToParseKeyInfo" xml:space="preserve">
+    <value>Konnte Schlüsselinformationen für '{0}' nicht verarbeiten.</value>
+  </data>
+  <data name="UnableToRetrieveKeyInfo" xml:space="preserve">
+    <value>Konnte Schlüsselinformationen für '{0}' nicht abfragen.</value>
+  </data>
+  <data name="UntrustedKeys" xml:space="preserve">
+    <value>Der Feed ist mit nicht-vertrauten Keys signiert!</value>
+  </data>
+  <data name="WokringDirDuplicate" xml:space="preserve">
+    <value>Das Arbeitsverzeichnis wurde bereits von einem vorangehenden Command geändert.</value>
+  </data>
+  <data name="WorkingDirInvalidPath" xml:space="preserve">
+    <value>Das Arbeitsverzeichnis enthält einen ungültigen Pfad (möglicherweise ein Sicherheitsrisiko).</value>
+  </data>
+</root>

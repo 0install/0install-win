@@ -23,7 +23,6 @@ using Common.Storage;
 using Common.Utils;
 using NUnit.Framework;
 using Moq;
-using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 

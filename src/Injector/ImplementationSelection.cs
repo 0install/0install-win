@@ -138,7 +138,7 @@ namespace ZeroInstall.Injector
         ///   A list of implementations that were considered for selection before this one was chosen.
         ///   This collection must _not_ be modified once it has been passed into this constructor!
         /// </param>
-        internal ImplementationSelection(IEnumerable<KeyValuePair<string, FeedPreferences>> feeds, IEnumerable<SelectionCandidate> candidates)
+        public ImplementationSelection(IEnumerable<KeyValuePair<string, FeedPreferences>> feeds, IEnumerable<SelectionCandidate> candidates)
         {
             _candidates = candidates;
             _feeds = feeds;

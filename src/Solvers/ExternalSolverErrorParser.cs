@@ -20,12 +20,13 @@ using System.Diagnostics;
 using System.Text;
 using System.Web;
 using Common;
-using ZeroInstall.Injector.Properties;
+using ZeroInstall.Injector;
+using ZeroInstall.Solvers.Properties;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Solvers
 {
     /// <summary>
-    /// Helper class for <see cref="ExternalSolver"/> for parsing <see cref="Process.StandardError"/> data.
+    /// Helper class for <see cref="Process.StandardError"/> for parsing <see cref="ExternaProcessa.
     /// </summary>
     internal class ExternalSolverErrorParser
     {

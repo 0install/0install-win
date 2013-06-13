@@ -20,7 +20,7 @@ using System.IO;
 using ZeroInstall.Model;
 using ZeroInstall.Store;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Injector
 {
     /// <summary>
     /// Chooses a set of <see cref="Model.Implementation"/>s to satisfy the requirements of a program and its user. 

@@ -83,6 +83,10 @@
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Solvers\Solvers.csproj">
+      <Project>{e82511a6-0126-4fc2-aabd-0310c66fa2d8}</Project>
+      <Name>Solvers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Store\Store.csproj">
       <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
       <Name>Store</Name>
@@ -104,13 +108,13 @@
     <Compile Include="Injector\FeedManagerTest.cs" />
     <Compile Include="Injector\TrustManagerTest.cs" />
     <Compile Include="Injector\ImplementationSelectionTest.cs" />
-    <Compile Include="Injector\Solver\ExternalSolverTest.cs" />
+    <Compile Include="Solver\ExternalSolverTest.cs" />
     <Compile Include="Model\GenericBindingTest.cs" />
     <Compile Include="Model\RequirementsTest.cs" />
     <Compile Include="Injector\SelectionCandidateTest.cs" />
     <Compile Include="Injector\SelectionsManagerTest.cs" />
-    <Compile Include="Injector\Solver\SimpleSolverTest.cs" />
-    <Compile Include="Injector\Solver\SolverTest.cs" />
+    <Compile Include="Solver\SimpleSolverTest.cs" />
+    <Compile Include="Solver\SolverTest.cs" />
     <Compile Include="Model\ArchitectureTest.cs" />
     <Compile Include="Model\ArchiveTest.cs" />
     <Compile Include="Model\Capabilities\CapabilityListTest.cs" />

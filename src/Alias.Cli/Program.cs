@@ -29,7 +29,6 @@ using ZeroInstall.Alias.Cli.Properties;
 using ZeroInstall.Backend;
 using ZeroInstall.Injector;
 using ZeroInstall.Commands;
-using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Trust;

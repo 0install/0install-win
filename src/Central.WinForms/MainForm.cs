@@ -35,7 +35,7 @@ using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Injector.Solver;
+using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Icons;

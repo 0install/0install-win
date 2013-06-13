@@ -15,9 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Solvers
 {
     /// <summary>
     /// Wraps to solvers always passing requests to the first one intially and falling back to second one should the first one fail.

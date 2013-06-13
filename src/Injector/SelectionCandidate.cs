@@ -37,7 +37,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// The implementation this selection candidate references.
         /// </summary>
-        internal Implementation Implementation { get; private set; }
+        public Implementation Implementation { get; private set; }
 
         /// <summary>
         /// The file name or URL of the feed listing the implementation.
@@ -84,13 +84,13 @@ namespace ZeroInstall.Injector
         /// Human-readable notes about the implementation, e.g. "not suitable for this architecture".
         /// </summary>
         [Description("Human-readable notes about the implementation, e.g. \"not suitable for this architecture\".")]
-        public string Notes { get; internal set; }
+        public string Notes { get; set; }
 
         /// <summary>
         /// Indicates wether this implementation fullfills all specified <see cref="Requirements"/>.
         /// </summary>
         [Browsable(false)]
-        public bool IsSuitable { get; internal set; }
+        public bool IsSuitable { get; set; }
         #endregion
 
         #region Constructor

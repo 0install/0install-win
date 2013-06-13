@@ -30,7 +30,6 @@ using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector;
-using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Trust;

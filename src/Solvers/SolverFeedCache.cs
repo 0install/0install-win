@@ -16,9 +16,10 @@
  */
 
 using System.Collections.Generic;
+using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Solvers
 {
     /// <summary>
     /// An internal helper class for <see cref="ISolver"/>s that caches results from <see cref="IFeedManager"/> .

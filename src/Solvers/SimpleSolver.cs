@@ -18,13 +18,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ZeroInstall.Injector.Properties;
+using ZeroInstall.Injector;
+using ZeroInstall.Solvers.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Solvers
 {
     /// <summary>
     /// Solves simple tree-like dependencies in requirements (no support for loops, diamonds, etc.).

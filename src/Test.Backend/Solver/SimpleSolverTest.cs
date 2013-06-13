@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2010-2013 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,21 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.IO;
+using NUnit.Framework;
+using ZeroInstall.Solvers;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Solver
 {
     /// <summary>
-    /// Interacts with the external process used by <see cref="ExternalSolver"/>.
+    /// Runs test methods for <see cref="SimpleSolver"/>.
     /// </summary>
-    internal interface IExternalSolverControl
-    {
-        /// <summary>
-        /// Runs the external solver, processes its output and waits until it has terminated.
-        /// </summary>
-        /// <param name="arguments">Command-line arguments to launch the solver with.</param>
-        /// <returns>The solver's complete output to the stdout-stream.</returns>
-        /// <exception cref="IOException">Thrown if the external solver could not be launched.</exception>
-        string ExecuteSolver(string arguments);
-    }
+    [TestFixture]
+    public class SimpleSolverTest : SolverTest<SimpleSolver>
+    {}
 }
