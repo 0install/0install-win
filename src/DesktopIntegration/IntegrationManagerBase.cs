@@ -232,7 +232,9 @@ namespace ZeroInstall.DesktopIntegration
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             if (feed == null) throw new ArgumentNullException("feed");
             if (accessPoints == null) throw new ArgumentNullException("accessPoints");
+            // ReSharper disable PossibleUnintendedReferenceComparison
             if (appEntry.AccessPoints != null && appEntry.AccessPoints.Entries == accessPoints) throw new ArgumentException("Must not be equal to appEntry.AccessPoints.Entries", "accessPoints");
+            // ReSharper restore PossibleUnintendedReferenceComparison
             #endregion
 
             // Skip entries with mismatching hostname

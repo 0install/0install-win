@@ -42,7 +42,9 @@ namespace Common.Controls
 
         public EditorControl()
         {
+            // ReSharper disable DoNotCallOverridableMethodsInConstructor
             ToolbarVisible = false;
+            // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
             PropertyValueChanged += delegate(object sender, PropertyValueChangedEventArgs e)
             {

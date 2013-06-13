@@ -42,7 +42,10 @@ namespace Common.Controls
                 ResetSelectedProperty();
                 OnPropertyValueChanged(new PropertyValueChangedEventArgs(SelectedGridItem, oldValue));
             };
-            ContextMenuStrip = new ContextMenuStrip { Items = { _menuReset } };
+
+            // ReSharper disable DoNotCallOverridableMethodsInConstructor
+            ContextMenuStrip = new ContextMenuStrip {Items = {_menuReset}};
+            // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
         [PermissionSet(SecurityAction.LinkDemand, Name = "FullTrust")]
@@ -54,8 +57,8 @@ namespace Common.Controls
 
             _menuReset.Enabled =
                 e.NewSelection != null && e.NewSelection.PropertyDescriptor != null && e.NewSelection.Parent != null &&
-                e.NewSelection.PropertyDescriptor.CanResetValue(e.NewSelection.Parent.Value ?? SelectedObject);
-            
+                    e.NewSelection.PropertyDescriptor.CanResetValue(e.NewSelection.Parent.Value ?? SelectedObject);
+
             base.OnSelectedGridItemChanged(e);
         }
     }
