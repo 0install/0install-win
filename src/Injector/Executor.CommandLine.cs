@@ -27,7 +27,6 @@ using Common.Collections;
 using Common.Utils;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
-using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Injector

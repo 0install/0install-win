@@ -23,7 +23,7 @@ using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Injector
 {
     /// <summary>
     /// Contains helper methods for filtering <see cref="Selections"/>.

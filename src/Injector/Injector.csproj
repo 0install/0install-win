@@ -83,12 +83,12 @@
     </Compile>
     <None Include="runenv.cs" />
     <Compile Include="Solver\FallbackSolver.cs" />
-    <Compile Include="Solver\SelectionCandidate.cs" />
-    <Compile Include="Solver\Selections.cs" />
-    <Compile Include="Solver\ImplementationSelection.cs" />
+    <Compile Include="SelectionCandidate.cs" />
+    <Compile Include="Selections.cs" />
+    <Compile Include="ImplementationSelection.cs" />
     <Compile Include="Solver\ISolver.cs" />
-    <Compile Include="Solver\SelectionsFormatter.cs" />
-    <Compile Include="Solver\SelectionsManager.cs" />
+    <Compile Include="SelectionsFormatter.cs" />
+    <Compile Include="SelectionsManager.cs" />
     <Compile Include="Solver\SimpleSolver.cs" />
     <Compile Include="Solver\SolverFeedCache.cs" />
     <Compile Include="Solver\SolverException.cs" />
@@ -97,7 +97,6 @@
     <Compile Include="Solver\ExternalSolverControlNative.cs" />
     <Compile Include="Solver\ExternalSolverControlBundled.cs" />
     <Compile Include="Solver\ExternalSolverErrorParser.cs" />
-    <None Include="Solver\ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -128,11 +127,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="Feeds\ClassDiagram.cd" />
     <None Include="Feeds\trust.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Solver\ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="runenv.clr2.template" />

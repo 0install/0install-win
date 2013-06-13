@@ -23,10 +23,8 @@ using System.Text;
 using System.Xml.Serialization;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
-using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Injector
 {
     /// <summary>
     /// An executable implementation of a <see cref="Feed"/> as a part of a <see cref="Selections"/>.
@@ -115,7 +113,7 @@ namespace ZeroInstall.Injector.Solver
         private readonly IEnumerable<SelectionCandidate> _candidates;
 
         /// <summary>
-        /// The implementations that were considered by the <see cref="ISolver"/> before this one was chosen.
+        /// The implementations that were considered by the solver before this one was chosen.
         /// </summary>
         [Category("Selection"), Description("The implementations that were considered by the solver before this one was chosen.")]
         [XmlIgnore]

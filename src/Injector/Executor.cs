@@ -23,7 +23,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
-using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Injector

@@ -20,17 +20,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 using Common.Collections;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Represents a set of <see cref="ImplementationBase"/>s chosen by an <see cref="ISolver"/>.
+    /// Represents a set of <see cref="ImplementationBase"/>s chosen by a solver.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("selections", Namespace = Feed.XmlNamespace), XmlType("selections", Namespace = Feed.XmlNamespace)]

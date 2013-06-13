@@ -21,15 +21,15 @@ using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Represents an <see cref="Implementation"/> that is available to an <see cref="ISolver"/> for selection.
+    /// Represents an <see cref="Implementation"/> that is available to a solver for selection.
     /// </summary>
     public class SelectionCandidate
     {
         #region Variables
-        /// <summary>The preferences controlling how the <see cref="ISolver"/> evaluates this candidate.</summary>
+        /// <summary>The preferences controlling how the solver evaluates this candidate.</summary>
         private readonly ImplementationPreferences _implementationPreferences;
         #endregion
 
@@ -99,7 +99,7 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         /// <param name="feedID">The file name or URL of the feed listing the implementation.</param>
         /// <param name="implementation">The implementation this selection candidate references.</param>
-        /// <param name="implementationPreferences">The preferences controlling how the <see cref="ISolver"/> evaluates this candidate.</param>
+        /// <param name="implementationPreferences">The preferences controlling how the solver evaluates this candidate.</param>
         /// <param name="requirements">A set of requirements/restrictions the <paramref name="implementation"/> needs to fullfill for <see cref="IsSuitable"/> to be <see langword="true"/>.</param>
         public SelectionCandidate(string feedID, Implementation implementation, ImplementationPreferences implementationPreferences, Requirements requirements)
         {

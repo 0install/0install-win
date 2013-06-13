@@ -21,7 +21,7 @@ using System.Text;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Injector
 {
     /// <summary>
     /// Formats <see cref="Selections"/> for string output.
