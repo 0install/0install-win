@@ -25,11 +25,12 @@ using System.Text;
 using Common;
 using Common.Controls;
 using Common.Storage;
-using ZeroInstall.Injector.Properties;
+using ZeroInstall.Backend.Properties;
+using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Injector.Feeds
+namespace ZeroInstall.Backend
 {
     /// <summary>
     /// Provides access to remote and local <see cref="Catalog"/>s. Handles downloading, signature verification and caching.

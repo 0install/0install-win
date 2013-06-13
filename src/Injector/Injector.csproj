@@ -60,7 +60,6 @@
     <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="Executor.Bindings.cs" />
     <Compile Include="Executor.CommandLine.cs" />
-    <Compile Include="Feeds\CatalogManager.cs" />
     <Compile Include="Feeds\FeedManager.cs" />
     <Compile Include="Feeds\IFeedManager.cs" />
     <Compile Include="Feeds\ITrustManager.cs" />

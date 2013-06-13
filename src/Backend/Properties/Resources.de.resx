@@ -126,4 +126,10 @@
   <data name="Try0installWin" xml:space="preserve">
     <value>Probieren Sie den Befehl '0install-win' anstelle von '0install'.</value>
   </data>
+  <data name="UnableToCacheCatalog" xml:space="preserve">
+    <value>Konnte den runtergeladenen Anwendungskatalog nicht cachen.</value>
+  </data>
+  <data name="UnableToLoadCachedCatalog" xml:space="preserve">
+    <value>Konnte den gecachten Anwendungskatalog nicht von der Festplatte laden.</value>
+  </data>
 </root>

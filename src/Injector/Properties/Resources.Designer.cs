@@ -322,24 +322,6 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to cache the downloaded application catalog..
-        /// </summary>
-        internal static string UnableToCacheCatalog {
-            get {
-                return ResourceManager.GetString("UnableToCacheCatalog", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unable to load cached application catalog from disk..
-        /// </summary>
-        internal static string UnableToLoadCachedCatalog {
-            get {
-                return ResourceManager.GetString("UnableToLoadCachedCatalog", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Unable to download GnuPG key file for &apos;{0}&apos;..
         /// </summary>
         internal static string UnableToLoadKeyFile {

@@ -86,5 +86,23 @@ namespace ZeroInstall.Backend.Properties {
                 return ResourceManager.GetString("Try0installWin", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to cache the downloaded application catalog..
+        /// </summary>
+        internal static string UnableToCacheCatalog {
+            get {
+                return ResourceManager.GetString("UnableToCacheCatalog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to load cached application catalog from disk..
+        /// </summary>
+        internal static string UnableToLoadCachedCatalog {
+            get {
+                return ResourceManager.GetString("UnableToLoadCachedCatalog", resourceCulture);
+            }
+        }
     }
 }

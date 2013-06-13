@@ -126,4 +126,10 @@
   <data name="Try0installWin" xml:space="preserve">
     <value>Try using the command '0install-win' instead of '0install'.</value>
   </data>
+  <data name="UnableToCacheCatalog" xml:space="preserve">
+    <value>Unable to cache the downloaded application catalog.</value>
+  </data>
+  <data name="UnableToLoadCachedCatalog" xml:space="preserve">
+    <value>Unable to load cached application catalog from disk.</value>
+  </data>
 </root>
