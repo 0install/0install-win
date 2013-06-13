@@ -100,6 +100,7 @@
     <Compile Include="Implementation\ManifestNode.cs" />
     <Compile Include="Implementation\ManifestNormalFile.cs" />
     <Compile Include="Implementation\ManifestSymlink.cs" />
+    <Compile Include="Implementation\RecipeUtils.cs" />
     <Compile Include="Implementation\RemoteStores.cs" />
     <Compile Include="Implementation\StoreFactory.cs" />
     <Compile Include="Implementation\StoreUtils.cs" />

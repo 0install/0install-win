@@ -22,12 +22,11 @@ using Common.Tasks;
 using Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Fetchers
+namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Contains test methods for <see cref="Fetchers.RecipeUtils"/>.
+    /// Contains test methods for <see cref="RecipeUtils"/>.
     /// </summary>
     [TestFixture]
     public class RecipeUtilsTest
@@ -38,10 +37,10 @@ namespace ZeroInstall.Fetchers
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
                 using (FileStream stream = File.Create(archiveFile))
-                    Store.Implementation.Archive.TestData.GetTestZipArchiveStream().CopyTo(stream);
+                    Archive.TestData.GetTestZipArchiveStream().CopyTo(stream);
 
                 var downloadedFiles = new[] {archiveFile};
-                var recipe = new Recipe {Steps = {new Archive {MimeType = "application/zip", Destination = "subDir"}}};
+                var recipe = new Recipe {Steps = {new Model.Archive {MimeType = "application/zip", Destination = "subDir"}}};
 
                 using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler(), null))
                 {
@@ -66,10 +65,10 @@ namespace ZeroInstall.Fetchers
             {
                 File.WriteAllText(singleFile, "data");
                 using (FileStream stream = File.Create(archiveFile))
-                    Store.Implementation.Archive.TestData.GetTestZipArchiveStream().CopyTo(stream);
+                    Archive.TestData.GetTestZipArchiveStream().CopyTo(stream);
 
                 var downloadedFiles = new[] {archiveFile, singleFile};
-                var recipe = new Recipe {Steps = {new Archive {MimeType = "application/zip"}, new SingleFile {Destination = "subdir2/executable"}}};
+                var recipe = new Recipe {Steps = {new Model.Archive {MimeType = "application/zip"}, new SingleFile {Destination = "subdir2/executable"}}};
 
                 using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler(), null))
                 {
@@ -89,14 +88,14 @@ namespace ZeroInstall.Fetchers
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
                 using (FileStream stream = File.Create(archiveFile))
-                    Store.Implementation.Archive.TestData.GetTestZipArchiveStream().CopyTo(stream);
+                    Archive.TestData.GetTestZipArchiveStream().CopyTo(stream);
 
                 var downloadedFiles = new[] {archiveFile};
                 var recipe = new Recipe
                 {
                     Steps =
                     {
-                        new Archive {MimeType = "application/zip"},
+                        new Model.Archive {MimeType = "application/zip"},
                         new RemoveStep {Path = "symlink"},
                         new RemoveStep {Path = "subdir2"}
                     }
@@ -127,14 +126,14 @@ namespace ZeroInstall.Fetchers
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
                 using (FileStream stream = File.Create(archiveFile))
-                    Store.Implementation.Archive.TestData.GetTestZipArchiveStream().CopyTo(stream);
+                    Archive.TestData.GetTestZipArchiveStream().CopyTo(stream);
 
                 var downloadedFiles = new[] {archiveFile};
                 var recipe = new Recipe
                 {
                     Steps =
                     {
-                        new Archive {MimeType = "application/zip"},
+                        new Model.Archive {MimeType = "application/zip"},
                         new RenameStep {Source = "symlink", Destination = "subdir3/symlink2"},
                         new RenameStep {Source = "subdir2/executable", Destination = "subdir2/executable2"}
                     }
@@ -178,7 +177,7 @@ namespace ZeroInstall.Fetchers
         {
             using (var tempArchive = new TemporaryFile("0install-unit-tests"))
             {
-                Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new Archive {Destination = "../destination"}}}, new[] {tempArchive}, new SilentTaskHandler(), null),
+                Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new Model.Archive {Destination = "../destination"}}}, new[] {tempArchive}, new SilentTaskHandler(), null),
                     "Should reject breakout path in Archive.Destination");
             }
 

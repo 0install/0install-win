@@ -356,6 +356,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A recipe step contains an invalid path (potentially a security risk): {0}.
+        /// </summary>
+        internal static string RecipeInvalidPath {
+            get {
+                return ResourceManager.GetString("RecipeInvalidPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A fully qualified/rooted path is required..
         /// </summary>
         internal static string RootedPathRequired {
@@ -424,6 +433,15 @@ namespace ZeroInstall.Store.Properties {
         internal static string UnknownMimeType {
             get {
                 return ResourceManager.GetString("UnknownMimeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The recipe step type &apos;{0}&apos; is unknown..
+        /// </summary>
+        internal static string UnknownRecipeStepType {
+            get {
+                return ResourceManager.GetString("UnknownRecipeStepType", resourceCulture);
             }
         }
         

@@ -158,7 +158,7 @@
     <Compile Include="Store\Implementation\ManifestTest.cs" />
     <Compile Include="Store\Implementation\CompositeStoreTest.cs" />
     <Compile Include="Store\Implementation\DirectoryStoreTest.cs" />
-    <Compile Include="Fetchers\RecipeUtilsTest.cs" />
+    <Compile Include="Store\Implementation\RecipeUtilsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Store\Implementation\Archive\testArchive.gem" />

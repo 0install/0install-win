@@ -16,6 +16,7 @@
  */
 
 using System.Collections.Generic;
+using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Fetchers

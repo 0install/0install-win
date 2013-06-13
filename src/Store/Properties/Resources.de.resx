@@ -220,6 +220,9 @@ Sie können die Datei '{0}' löschen, um das Problem zu beheben.</value>
     <value>Es gab ein Problem beim Laden des Konfigurationswerts '{0}'.
 Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen womöglich auch andere Einstellungen verloren.</value>
   </data>
+  <data name="RecipeInvalidPath" xml:space="preserve">
+    <value>Das Recipe enthält einen ungültigen Pfad (möglicherweise ein Sicherheitsrisiko): {0}</value>
+  </data>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>Ein vollständig qualifizierter/gewurzelter Pfad wird benötigt.</value>
   </data>
@@ -243,6 +246,9 @@ Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen wom
   </data>
   <data name="UnknownMimeType" xml:space="preserve">
     <value>Der Archiv MIME Typ '{0}' wird nicht unterstützt.</value>
+  </data>
+  <data name="UnknownRecipeStepType" xml:space="preserve">
+    <value>Der Recipe Schritt Typ '{0}' ist unbekannten.</value>
   </data>
   <data name="WrongPassphrase" xml:space="preserve">
     <value>Die Passphrase die Sie eingegeben haben ist inkorrekt.</value>

@@ -59,7 +59,6 @@
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="FetcherBase.cs" />
-    <Compile Include="RecipeUtils.cs" />
     <Compile Include="RetrievalMethodRanker.cs" />
     <Compile Include="SequentialFetcher.cs" />
     <Compile Include="GlobalSuppressions.cs" />
