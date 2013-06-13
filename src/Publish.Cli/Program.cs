@@ -27,7 +27,7 @@ using Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Cli.Properties;
-using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish.Cli
 {

@@ -16,7 +16,7 @@
  */
 
 using System;
-using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Injector.Feeds
 {

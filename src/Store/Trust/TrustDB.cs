@@ -22,10 +22,10 @@ using System.Linq;
 using System.Xml.Serialization;
 using Common;
 using Common.Storage;
-using ZeroInstall.Injector.Properties;
+using ZeroInstall.Store.Properties;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Injector.Feeds
+namespace ZeroInstall.Store.Trust
 {
     /// <summary>
     /// A database of OpenPGP the users trusts to sign <see cref="Feed"/>s.

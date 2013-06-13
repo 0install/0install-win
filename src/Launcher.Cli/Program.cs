@@ -31,8 +31,8 @@ using ZeroInstall.Commands;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Launcher.Cli.Properties;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Launcher.Cli
 {

@@ -18,7 +18,7 @@
 using System.Collections.Generic;
 using System.IO;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish.Cli
 {

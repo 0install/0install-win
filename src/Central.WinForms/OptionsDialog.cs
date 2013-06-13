@@ -28,10 +28,10 @@ using Common.Collections;
 using Common.Controls;
 using Common.Storage;
 using ZeroInstall.Central.WinForms.Properties;
-using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Central.WinForms
 {

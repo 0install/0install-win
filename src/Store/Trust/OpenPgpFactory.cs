@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace ZeroInstall.Store.Feeds
+namespace ZeroInstall.Store.Trust
 {
     /// <summary>
     /// Creates <see cref="IOpenPgp"/> instances.

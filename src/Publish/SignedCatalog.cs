@@ -20,7 +20,7 @@ using System.IO;
 using Common.Cli;
 using Common.Storage;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish
 {

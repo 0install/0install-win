@@ -140,6 +140,9 @@ Actual value: {1}</value>
   <data name="DirectoryNotFound" xml:space="preserve">
     <value>The directory '{0}' could not be found.</value>
   </data>
+  <data name="ErrorLoadingTrustDB" xml:space="preserve">
+    <value>Error loading the trust database. Reverting to default values.</value>
+  </data>
   <data name="ExtractingArchive" xml:space="preserve">
     <value>Extracting archive ({0})</value>
   </data>

@@ -23,6 +23,7 @@ using Common.Utils;
 using Moq;
 using NUnit.Framework;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Injector.Feeds
 {

@@ -23,6 +23,7 @@ using Common;
 using Common.Cli;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Store.Feeds
 {
@@ -37,7 +38,7 @@ namespace ZeroInstall.Store.Feeds
         /// </summary>
         /// <param name="cache">The <see cref="IFeedCache"/> to load <see cref="Feed"/>s from.</param>
         /// <returns>The parsed <see cref="Feed"/>s.</returns>
-        public static IEnumerable<Feed> GetFeeds(IFeedCache cache)
+        public static IEnumerable<Feed> GetAll(this IFeedCache cache)
         {
             #region Sanity checks
             if (cache == null) throw new ArgumentNullException("cache");

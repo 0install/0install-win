@@ -126,6 +126,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error loading the trust database. Reverting to default values..
+        /// </summary>
+        internal static string ErrorLoadingTrustDB {
+            get {
+                return ResourceManager.GetString("ErrorLoadingTrustDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Extracting archive ({0}).
         /// </summary>
         internal static string ExtractingArchive {

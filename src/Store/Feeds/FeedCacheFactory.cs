@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using Common.Storage;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Store.Feeds
 {

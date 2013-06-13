@@ -139,9 +139,6 @@ Möchten Sie diesem Key zum Signieren von Feeds von '{3}' vertrauen?
   <data name="ErrorLoadingInterfacePrefs" xml:space="preserve">
     <value>Fehler beim Laden der Interface-Präfernzen für '{0}'. Falle auf Standardwerte zurück.</value>
   </data>
-  <data name="ErrorLoadingTrustDB" xml:space="preserve">
-    <value>Fehler beim Laden der Trust Datenbank. Falle auf Standardwerte zurück.</value>
-  </data>
   <data name="ExternalSolverOutputErrror" xml:space="preserve">
     <value>Die Ausgabe des externen Solvers konnte nicht verarbeitet werden.</value>
   </data>

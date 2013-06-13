@@ -24,6 +24,7 @@ using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Store.Feeds
 {

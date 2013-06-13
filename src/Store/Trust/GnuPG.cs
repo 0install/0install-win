@@ -25,9 +25,10 @@ using Common.Cli;
 using Common.Collections;
 using Common.Storage;
 using Common.Utils;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Store.Feeds
+namespace ZeroInstall.Store.Trust
 {
     /// <summary>
     /// Provides access to the signature functions of GnuPG.

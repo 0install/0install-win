@@ -61,16 +61,13 @@
     <Compile Include="Executor.Bindings.cs" />
     <Compile Include="Executor.CommandLine.cs" />
     <Compile Include="Feeds\CatalogManager.cs" />
-    <Compile Include="Feeds\Domain.cs" />
     <Compile Include="Feeds\FeedManager.cs" />
     <Compile Include="Feeds\FeedPreferences.cs" />
     <Compile Include="Feeds\IFeedManager.cs" />
     <Compile Include="Feeds\ImplementationPreferences.cs" />
     <Compile Include="Feeds\InterfacePreferences.cs" />
     <Compile Include="Feeds\ITrustManager.cs" />
-    <Compile Include="Feeds\Key.cs" />
     <Compile Include="Feeds\ReplayAttackException.cs" />
-    <Compile Include="Feeds\TrustDB.cs" />
     <Compile Include="Feeds\TrustManager.cs" />
     <Compile Include="IHandler.cs" />
     <Compile Include="Executor.cs" />
@@ -127,10 +124,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Feeds\ClassDiagram.cd" />
-    <None Include="Feeds\trust.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Solver\ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>

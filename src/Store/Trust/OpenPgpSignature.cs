@@ -18,7 +18,7 @@
 using System;
 using Common.Utils;
 
-namespace ZeroInstall.Store.Feeds
+namespace ZeroInstall.Store.Trust
 {
     /// <summary>
     /// Represents a signature checked by an <see cref="IOpenPgp"/> implementation.

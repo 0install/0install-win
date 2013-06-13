@@ -21,6 +21,7 @@ using System.Text;
 using NUnit.Framework;
 using Moq;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Store.Feeds
 {
@@ -31,7 +32,7 @@ namespace ZeroInstall.Store.Feeds
     public class FeedUtilsTest
     {
         /// <summary>
-        /// Ensures <see cref="FeedUtils.GetFeeds"/> correctly loads <see cref="Feed"/>s from an <see cref="IFeedCache"/>, skipping any exceptions.
+        /// Ensures <see cref="FeedUtils.GetAll"/> correctly loads <see cref="Feed"/>s from an <see cref="IFeedCache"/>, skipping any exceptions.
         /// </summary>
         [Test]
         public void TestGetFeeds()
@@ -46,7 +47,7 @@ namespace ZeroInstall.Store.Feeds
             cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test2.xml")).Throws(new IOException("Fake IO exception for testing")).Verifiable();
             cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test3.xml")).Returns(feed3).Verifiable();
 
-            CollectionAssert.AreEqual(new[] {feed1, feed3}, FeedUtils.GetFeeds(cacheMock.Object));
+            CollectionAssert.AreEqual(new[] {feed1, feed3}, cacheMock.Object.GetAll());
         }
 
         private const string FeedText = "Feed data\n";

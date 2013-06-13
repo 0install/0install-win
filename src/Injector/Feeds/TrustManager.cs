@@ -27,6 +27,7 @@ using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Injector.Feeds
 {

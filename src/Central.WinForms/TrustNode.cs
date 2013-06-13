@@ -18,7 +18,7 @@
 using System;
 using System.ComponentModel;
 using Common;
-using ZeroInstall.Injector.Feeds;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Central.WinForms
 {

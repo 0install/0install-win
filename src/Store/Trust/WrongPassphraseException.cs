@@ -24,7 +24,7 @@ using System;
 using System.Runtime.Serialization;
 using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Store.Feeds
+namespace ZeroInstall.Store.Trust
 {
     /// <summary>
     /// Indicates that an incorrect passphrase was passed to <see cref="GnuPG"/>.

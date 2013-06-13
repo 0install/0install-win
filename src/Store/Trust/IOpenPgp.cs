@@ -18,8 +18,9 @@
 using System.Collections.Generic;
 using System.IO;
 using Common.Cli;
+using ZeroInstall.Store.Feeds;
 
-namespace ZeroInstall.Store.Feeds
+namespace ZeroInstall.Store.Trust
 {
     /// <summary>
     /// Provides access to an encryption/signature system compatible with the OpenPGP standard.

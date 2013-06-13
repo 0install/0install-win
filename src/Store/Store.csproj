@@ -58,6 +58,7 @@
     <Reference Include="INIFileParser">
       <HintPath>..\..\lib\INIFileParser.dll</HintPath>
     </Reference>
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
@@ -65,17 +66,18 @@
     <Compile Include="Feeds\DiskIconCache.cs" />
     <Compile Include="Feeds\IconCacheProvider.cs" />
     <Compile Include="Feeds\IIconCache.cs" />
-    <Compile Include="Feeds\IOpenPgp.cs" />
+    <Compile Include="Trust\Domain.cs" />
+    <Compile Include="Trust\IOpenPgp.cs" />
     <Compile Include="Feeds\MemoryFeedCache.cs" />
-    <Compile Include="Feeds\OpenPgpFactory.cs" />
-    <Compile Include="Feeds\OpenPgpSignature.cs" />
+    <Compile Include="Trust\OpenPgpFactory.cs" />
+    <Compile Include="Trust\OpenPgpSignature.cs" />
     <Compile Include="Feeds\IFeedCache.cs" />
     <Compile Include="Feeds\DiskFeedCache.cs" />
     <Compile Include="Feeds\FeedCacheFactory.cs" />
-    <Compile Include="Feeds\GnuPG.cs" />
-    <Compile Include="Feeds\OpenPgpSecretKey.cs" />
-    <Compile Include="Feeds\SignatureException.cs" />
-    <Compile Include="Feeds\WrongPassphraseException.cs" />
+    <Compile Include="Trust\GnuPG.cs" />
+    <Compile Include="Trust\OpenPgpSecretKey.cs" />
+    <Compile Include="Trust\SignatureException.cs" />
+    <Compile Include="Trust\WrongPassphraseException.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Implementation\Archive\Extractor.cs" />
     <Compile Include="Implementation\Archive\RubyGemExtractor.cs" />
@@ -113,6 +115,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Trust\Key.cs" />
+    <Compile Include="Trust\TrustDB.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -138,6 +142,10 @@
     <None Include="Implementation\Archive\ClassDiagram.cd" />
     <None Include="Implementation\Manifest.cd" />
     <None Include="Implementation\Store.cd" />
+    <None Include="Trust\ClassDiagram.cd" />
+    <None Include="Trust\trust.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -17,6 +17,7 @@
 
 using Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Injector.Feeds
 {

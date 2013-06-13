@@ -18,7 +18,7 @@
 using System;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.Injector.Feeds
+namespace ZeroInstall.Store.Trust
 {
     /// <summary>
     /// A specific domain with feeds a <see cref="Key"/> is trusted to sign.

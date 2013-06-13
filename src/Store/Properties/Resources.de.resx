@@ -140,6 +140,9 @@ Tatsächlicher Wert: {1}</value>
   <data name="DirectoryNotFound" xml:space="preserve">
     <value>Das Verzeichnis '{0}' konnte nicht gefunden werden.</value>
   </data>
+  <data name="ErrorLoadingTrustDB" xml:space="preserve">
+    <value>Fehler beim Laden der Trust Datenbank. Falle auf Standardwerte zurück.</value>
+  </data>
   <data name="ExtractingArchive" xml:space="preserve">
     <value>Entpacke Archiv ({0})</value>
   </data>

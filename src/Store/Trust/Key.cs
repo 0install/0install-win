@@ -19,7 +19,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.Injector.Feeds
+namespace ZeroInstall.Store.Trust
 {
     /// <summary>
     /// A known OpenPGP key, trusted to sign feeds from a certain set of domains.

@@ -19,7 +19,7 @@ using System;
 using System.Runtime.Serialization;
 using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Store.Feeds
+namespace ZeroInstall.Store.Trust
 {
     /// <summary>
     /// Indicates an <see cref="IOpenPgp"/> implementation detected a problem with a digital signature.

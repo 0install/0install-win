@@ -34,6 +34,7 @@ using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Management.WinForms.Nodes;
 using ZeroInstall.Store.Management.WinForms.Properties;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Store.Management.WinForms
 {
@@ -83,7 +84,7 @@ namespace ZeroInstall.Store.Management.WinForms
 
                 // List feeds/interfaces
                 var feedCache = FeedCacheFactory.CreateDefault(OpenPgpFactory.CreateDefault());
-                var feeds = FeedUtils.GetFeeds(feedCache);
+                var feeds = feedCache.GetAll();
                 foreach (Feed feed in feeds)
                     AddWithIncrement(nodes, new FeedNode(this, feedCache, feed));
 

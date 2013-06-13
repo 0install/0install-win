@@ -139,9 +139,6 @@ Do you want to trust this key to sign feeds from '{3}'?
   <data name="ErrorLoadingInterfacePrefs" xml:space="preserve">
     <value>Error loading interface preferences for '{0}'. Reverting to default values.</value>
   </data>
-  <data name="ErrorLoadingTrustDB" xml:space="preserve">
-    <value>Error loading the trust database. Reverting to default values.</value>
-  </data>
   <data name="ExternalSolverOutputErrror" xml:space="preserve">
     <value>The output of the external solver could not be processed.</value>
   </data>
