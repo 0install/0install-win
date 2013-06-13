@@ -59,6 +59,10 @@
     <Compile Include="MinimalZeroInstall.vb" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Backend\Backend.csproj">
+      <Project>{8caa29b1-94b6-46c2-af82-e049d35775c5}</Project>
+      <Name>Backend %28Backend\Backend%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Commands\Commands.csproj">
       <Project>{606c7fb6-2c58-11e0-8161-7159dfd72085}</Project>
       <Name>Commands</Name>

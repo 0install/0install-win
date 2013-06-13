@@ -19,7 +19,7 @@ using System;
 using System.IO;
 using Common.Info;
 using Common.Storage;
-using ZeroInstall.Injector;
+using ZeroInstall.Backend;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store;

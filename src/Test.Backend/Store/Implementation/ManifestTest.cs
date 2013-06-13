@@ -23,7 +23,7 @@ using Common.Tasks;
 using Common.Utils;
 using NUnit.Framework;
 using Moq;
-using ZeroInstall.Injector;
+using ZeroInstall.Backend;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Implementation

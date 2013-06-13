@@ -22,6 +22,7 @@ using System.Diagnostics.CodeAnalysis;
 using Common;
 using Common.Utils;
 using NDesk.Options;
+using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;

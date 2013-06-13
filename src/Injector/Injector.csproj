@@ -44,7 +44,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="LinqBridge">
@@ -59,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
-    <Compile Include="CliHandler.cs" />
     <Compile Include="Executor.Bindings.cs" />
     <Compile Include="Executor.CommandLine.cs" />
     <Compile Include="Feeds\CatalogManager.cs" />
@@ -74,7 +72,6 @@
     <Compile Include="Feeds\ReplayAttackException.cs" />
     <Compile Include="Feeds\TrustDB.cs" />
     <Compile Include="Feeds\TrustManager.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IHandler.cs" />
     <Compile Include="Executor.cs" />
     <Compile Include="CommandException.cs" />
@@ -84,9 +81,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Resolver.cs" />
     <None Include="runenv.cs" />
-    <Compile Include="SilentHandler.cs" />
     <Compile Include="Solver\FallbackSolver.cs" />
     <Compile Include="Solver\SelectionCandidate.cs" />
     <Compile Include="Solver\Selections.cs" />
@@ -122,10 +117,6 @@
     <ProjectReference Include="..\DesktopIntegration\DesktopIntegration.csproj">
       <Project>{F48937E1-3763-465F-9F12-6CBBBFF61784}</Project>
       <Name>DesktopIntegration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fetchers\Fetchers.csproj">
-      <Project>{37C09DC0-86FA-422C-B7EA-6970BF348ED0}</Project>
-      <Name>Fetchers</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>

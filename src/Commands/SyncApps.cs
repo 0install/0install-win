@@ -19,9 +19,9 @@ using System;
 using Common;
 using Common.Utils;
 using NDesk.Options;
+using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Injector;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands

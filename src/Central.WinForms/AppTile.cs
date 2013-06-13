@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Tasks;
 using Common.Utils;
+using ZeroInstall.Backend;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;

@@ -18,12 +18,13 @@
 using System;
 using Common.Tasks;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 
-namespace ZeroInstall.Injector
+namespace ZeroInstall.Backend
 {
     /// <summary>
     /// Ignores progress reports and silently answer all questions with "No".

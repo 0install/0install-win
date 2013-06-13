@@ -14,6 +14,7 @@ del src\*.suo > NUL 2>&1
 del src\*.user > NUL 2>&1
 del src\*.cache > NUL 2>&1
 rd /s /q src\Alias.Cli\obj > NUL 2>&1
+rd /s /q src\Backend\obj > NUL 2>&1
 rd /s /q src\Central\obj > NUL 2>&1
 rd /s /q src\Central.WinForms\obj > NUL 2>&1
 rd /s /q src\Central.Gtk\obj > NUL 2>&1

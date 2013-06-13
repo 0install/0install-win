@@ -21,7 +21,7 @@ using Common.Info;
 using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
-using ZeroInstall.Injector;
+using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 
 namespace ZeroInstall.Commands

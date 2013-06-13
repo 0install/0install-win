@@ -1,4 +1,5 @@
-﻿import ZeroInstall.Model
+﻿import ZeroInstall.Backend
+import ZeroInstall.Model
 import ZeroInstall.Injector
 
 def run(resolver as Resolver, requirements):

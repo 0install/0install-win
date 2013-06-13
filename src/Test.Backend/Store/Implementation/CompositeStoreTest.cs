@@ -20,7 +20,7 @@ using System.IO;
 using Common.Tasks;
 using NUnit.Framework;
 using Moq;
-using ZeroInstall.Injector;
+using ZeroInstall.Backend;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation.Archive;
 

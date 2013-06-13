@@ -171,17 +171,11 @@ Wechsle zu Mirror.</value>
   <data name="ImplementationNotInSelection" xml:space="preserve">
     <value>Die Implementierung für das Interface '{0}' konnte in den Selections nicht gefunden werden.</value>
   </data>
-  <data name="IntegrateAppUseGui" xml:space="preserve">
-    <value>Bitte verwenden Sie die GUI Version von Zero Install oder geben Sie explizite Integrationsoptionen mit Befehlszeilenargumenten an.</value>
-  </data>
   <data name="MissingBindingName" xml:space="preserve">
     <value>Fehlender Name in {0} Binding.</value>
   </data>
   <data name="MissingInterfaceID" xml:space="preserve">
     <value>Es wurde kein Interface angegeben.</value>
-  </data>
-  <data name="NoAuditInCli" xml:space="preserve">
-    <value>Der grafische Policy-Editor ist im Befehlszeilenmodus nicht verfügbar.</value>
   </data>
   <data name="NoImplementationsPassed" xml:space="preserve">
     <value>Es muss mindestens eine Implementierung übergeben werden.</value>
@@ -224,9 +218,6 @@ Neue Zeit: {2}</value>
   </data>
   <data name="SolverProblem" xml:space="preserve">
     <value>Der Solver ist auf ein unerwartetes Problem gestoßen.</value>
-  </data>
-  <data name="Try0installWin" xml:space="preserve">
-    <value>Probieren Sie den Befehl '0install-win' anstelle von '0install'.</value>
   </data>
   <data name="UnableToCacheCatalog" xml:space="preserve">
     <value>Konnte den runtergeladenen Anwendungskatalog nicht cachen.</value>

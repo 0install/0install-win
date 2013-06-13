@@ -45,7 +45,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
     <Reference Include="EasyHook">
       <HintPath>..\..\lib\EasyHook.dll</HintPath>
     </Reference>

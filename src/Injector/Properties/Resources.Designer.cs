@@ -211,15 +211,6 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please use the GUI version of Zero Install or specify explicit integration options using command-line arguments..
-        /// </summary>
-        internal static string IntegrateAppUseGui {
-            get {
-                return ResourceManager.GetString("IntegrateAppUseGui", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Missing name in {0} binding..
         /// </summary>
         internal static string MissingBindingName {
@@ -234,15 +225,6 @@ namespace ZeroInstall.Injector.Properties {
         internal static string MissingInterfaceID {
             get {
                 return ResourceManager.GetString("MissingInterfaceID", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The graphical policy editor is not available in command-line mode..
-        /// </summary>
-        internal static string NoAuditInCli {
-            get {
-                return ResourceManager.GetString("NoAuditInCli", resourceCulture);
             }
         }
         
@@ -363,15 +345,6 @@ namespace ZeroInstall.Injector.Properties {
         internal static string SolverProblem {
             get {
                 return ResourceManager.GetString("SolverProblem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Try using the command &apos;0install-win&apos; instead of &apos;0install&apos;..
-        /// </summary>
-        internal static string Try0installWin {
-            get {
-                return ResourceManager.GetString("Try0installWin", resourceCulture);
             }
         }
         

@@ -17,6 +17,7 @@
 
 using System;
 using ZeroInstall.Fetchers;
+using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
@@ -24,7 +25,7 @@ using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Injector
+namespace ZeroInstall.Backend
 {
     /// <summary>
     /// A light-weight, hard-coded dependency injection resolver/container. Instantiates classes and their dependencies transparently on first use.

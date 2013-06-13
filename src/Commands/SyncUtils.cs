@@ -16,8 +16,8 @@
  */
 
 using System;
+using ZeroInstall.Backend;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Injector;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands

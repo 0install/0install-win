@@ -17,8 +17,8 @@
 
 using System;
 using System.Collections.Generic;
+using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
 

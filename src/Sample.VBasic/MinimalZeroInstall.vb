@@ -1,4 +1,5 @@
-﻿Imports ZeroInstall.Model
+﻿Imports ZeroInstall.Backend
+Imports ZeroInstall.Model
 Imports ZeroInstall.Injector
 
 Module MinimalZeroInstall

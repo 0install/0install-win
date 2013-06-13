@@ -22,6 +22,7 @@ using Common.Storage;
 using Common.Utils;
 using NUnit.Framework;
 using Moq;
+using ZeroInstall.Backend;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Fetchers;

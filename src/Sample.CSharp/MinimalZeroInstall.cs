@@ -1,5 +1,6 @@
-﻿using ZeroInstall.Injector;
+﻿using ZeroInstall.Backend;
 using ZeroInstall.Model;
+using ZeroInstall.Injector;
 
 internal static class MinimalZeroInstall
 {

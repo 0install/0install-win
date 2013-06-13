@@ -18,8 +18,8 @@
 using System;
 using System.Collections.Generic;
 using NDesk.Options;
+using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Injector;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands

@@ -49,6 +49,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Backend\Backend.csproj">
+      <Name>Backend (Backend\Backend)</Name>
+      <Project>{8caa29b1-94b6-46c2-af82-e049d35775c5}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Commands\Commands.csproj">
       <Name>Commands</Name>
       <Project>{606c7fb6-2c58-11e0-8161-7159dfd72085}</Project>

@@ -18,9 +18,9 @@
 using System;
 using System.ComponentModel;
 using Common;
+using ZeroInstall.Backend;
 using ZeroInstall.Commands;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Injector;
 
 namespace ZeroInstall.Central.WinForms.SyncWizards
 {

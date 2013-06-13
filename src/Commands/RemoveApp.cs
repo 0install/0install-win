@@ -17,9 +17,9 @@
 
 using System;
 using System.Collections.Generic;
+using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Injector;
 
 namespace ZeroInstall.Commands
 {

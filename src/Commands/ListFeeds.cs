@@ -19,8 +19,8 @@ using System;
 using System.IO;
 using System.Text;
 using NDesk.Options;
+using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
 
 namespace ZeroInstall.Commands

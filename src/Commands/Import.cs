@@ -20,8 +20,8 @@ using System.IO;
 using Common.Cli;
 using Common.Storage;
 using NDesk.Options;
+using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands

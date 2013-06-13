@@ -26,6 +26,7 @@ using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Alias.Cli.Properties;
+using ZeroInstall.Backend;
 using ZeroInstall.Injector;
 using ZeroInstall.Commands;
 using ZeroInstall.Injector.Solver;

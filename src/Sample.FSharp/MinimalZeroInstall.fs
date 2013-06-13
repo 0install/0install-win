@@ -1,4 +1,5 @@
-﻿open ZeroInstall.Model
+﻿open ZeroInstall.Backend
+open ZeroInstall.Model
 open ZeroInstall.Injector
 
 let resolver = new Resolver(new CliHandler())

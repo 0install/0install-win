@@ -18,8 +18,8 @@
 using System;
 using Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.Backend;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
 using FileType = ZeroInstall.Model.Capabilities.FileType;

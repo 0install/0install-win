@@ -1,8 +1,9 @@
 ﻿#import clr
-#clr.AddReferenceToFile("ZeroInstall.Model.dll", "ZeroInstall.Injector.dll")
+#clr.AddReferenceToFile("ZeroInstall.Backend.dll", "ZeroInstall.Model.dll", "ZeroInstall.Injector.dll")
 
+from ZeroInstall.Backend import Resolver, CliHandler
 from ZeroInstall.Model import Requirements
-from ZeroInstall.Injector import Resolver, CliHandler, Executor
+from ZeroInstall.Injector import Executor
 
 def run(resolver, requirements):
     selections = resolver.Solver.Solve(requirements)

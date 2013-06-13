@@ -117,130 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AskKeyTrust" xml:space="preserve">
-    <value>Feed: {0}
-- Valid signature from {1}
-- {2}
-Do you want to trust this key to sign feeds from '{3}'?
-</value>
+  <data name="IntegrateAppUseGui" xml:space="preserve">
+    <value>Bitte verwenden Sie die GUI Version von Zero Install oder geben Sie explizite Integrationsoptionen mit Befehlszeilenargumenten an.</value>
   </data>
-  <data name="BindingNotSupportedOnCurrentOS" xml:space="preserve">
-    <value>{0} bindings are currently not supported on this operating system.</value>
+  <data name="NoAuditInCli" xml:space="preserve">
+    <value>Der grafische Policy-Editor ist im Befehlszeilenmodus nicht verfügbar.</value>
   </data>
-  <data name="CommandLineEmpty" xml:space="preserve">
-    <value>The resulting command-line is empty.</value>
-  </data>
-  <data name="EnvironmentBindingValueInvalid" xml:space="preserve">
-    <value>&lt;environment&gt; bindings must contain either a 'value' or an 'insert' attribute.</value>
-  </data>
-  <data name="ErrorLoadingFeedPrefs" xml:space="preserve">
-    <value>Error loading feed preferences for '{0}'. Reverting to default values.</value>
-  </data>
-  <data name="ErrorLoadingInterfacePrefs" xml:space="preserve">
-    <value>Error loading interface preferences for '{0}'. Reverting to default values.</value>
-  </data>
-  <data name="ErrorLoadingTrustDB" xml:space="preserve">
-    <value>Error loading the trust database. Reverting to default values.</value>
-  </data>
-  <data name="ExternalSolverOutputErrror" xml:space="preserve">
-    <value>The output of the external solver could not be processed.</value>
-  </data>
-  <data name="FeedDownloadErrorSwitchToMirror" xml:space="preserve">
-    <value>Error while downloading feed '{0}':
-{1}
-Switching to mirror.</value>
-  </data>
-  <data name="FeedNotCachedOffline" xml:space="preserve">
-    <value>The feed '{0}' is not cached and Zero Install is currently in off-line mode.</value>
-  </data>
-  <data name="FeedNoTrustedSignatures" xml:space="preserve">
-    <value>The feed '{0}' was not signed with any trusted keys.</value>
-  </data>
-  <data name="FeedUriMismatch" xml:space="preserve">
-    <value>The &lt;interface&gt; uri attribute ('{0}') does not match the URL the feed was downloaded from ('{1}').</value>
-  </data>
-  <data name="FeedUriMissing" xml:space="preserve">
-    <value>The &lt;interface&gt; uri attribute missing. Should be '{0}'.</value>
-  </data>
-  <data name="FileNotFound" xml:space="preserve">
-    <value>File not found: {0}</value>
-  </data>
-  <data name="IllegalCharInBindingName" xml:space="preserve">
-    <value>Illegal character in {0} binding name.</value>
-  </data>
-  <data name="ImplementationNotInSelection" xml:space="preserve">
-    <value>Unable to find implementation for interface '{0}' in the selection.</value>
-  </data>
-  <data name="MissingBindingName" xml:space="preserve">
-    <value>Missing name in {0} binding.</value>
-  </data>
-  <data name="MissingInterfaceID" xml:space="preserve">
-    <value>No interface was specified.</value>
-  </data>
-  <data name="NoImplementationsPassed" xml:space="preserve">
-    <value>At least one implementation must be passed.</value>
-  </data>
-  <data name="NoKeyInfoServerData" xml:space="preserve">
-    <value>The key information server was unable to provide any additional information about this key.</value>
-  </data>
-  <data name="NoSelectedVersion" xml:space="preserve">
-    <value>No selected version</value>
-  </data>
-  <data name="NotCached" xml:space="preserve">
-    <value>(not cached)</value>
-  </data>
-  <data name="NotInterfaceID" xml:space="preserve">
-    <value>The interface '{0}' doesn't start with 'http:' and doesn't exist as a file '{1}' either.</value>
-  </data>
-  <data name="ReplayAttack" xml:space="preserve">
-    <value>A possible replay attack was detected. The new feed's modification time is before old version.
-Feed ID: {0}
-Old time: {1}
-New time: {2}</value>
-  </data>
-  <data name="SelectionCandidateNoteBuggy" xml:space="preserve">
-    <value>Buggy implementation</value>
-  </data>
-  <data name="SelectionCandidateNoteIncompatibleArchitecture" xml:space="preserve">
-    <value>Incompatible operating system or CPU</value>
-  </data>
-  <data name="SelectionCandidateNoteInsecure" xml:space="preserve">
-    <value>Insecure implementation</value>
-  </data>
-  <data name="SelectionCandidateNoteNotCached" xml:space="preserve">
-    <value>Implementation not in cache (currently in off-line mode)</value>
-  </data>
-  <data name="SelectionCandidateNoteSource" xml:space="preserve">
-    <value>Non-executable source implementation</value>
-  </data>
-  <data name="SelectionCandidateNoteVersionMismatch" xml:space="preserve">
-    <value>Implementation version too old or too new</value>
-  </data>
-  <data name="SolverProblem" xml:space="preserve">
-    <value>The solver encountered an unexpected problem.</value>
-  </data>
-  <data name="UnableToCacheCatalog" xml:space="preserve">
-    <value>Unable to cache the downloaded application catalog.</value>
-  </data>
-  <data name="UnableToLoadCachedCatalog" xml:space="preserve">
-    <value>Unable to load cached application catalog from disk.</value>
-  </data>
-  <data name="UnableToLoadKeyFile" xml:space="preserve">
-    <value>Unable to download GnuPG key file for '{0}'.</value>
-  </data>
-  <data name="UnableToParseKeyInfo" xml:space="preserve">
-    <value>Unable to parse key information for '{0}'.</value>
-  </data>
-  <data name="UnableToRetrieveKeyInfo" xml:space="preserve">
-    <value>Unable to retrieve key information for '{0}'.</value>
-  </data>
-  <data name="UntrustedKeys" xml:space="preserve">
-    <value>The feed is signed with untrusted keys!</value>
-  </data>
-  <data name="WokringDirDuplicate" xml:space="preserve">
-    <value>The working directory has already been changed by a previous command.</value>
-  </data>
-  <data name="WorkingDirInvalidPath" xml:space="preserve">
-    <value>The working directory contains an invalid path (potentially a security risk).</value>
+  <data name="Try0installWin" xml:space="preserve">
+    <value>Probieren Sie den Befehl '0install-win' anstelle von '0install'.</value>
   </data>
 </root>

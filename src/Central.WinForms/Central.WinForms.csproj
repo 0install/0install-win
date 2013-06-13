@@ -384,6 +384,10 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Backend\Backend.csproj">
+      <Project>{8caa29b1-94b6-46c2-af82-e049d35775c5}</Project>
+      <Name>Backend %28Backend\Backend%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Central\Central.csproj">
       <Project>{47DF9A89-30C2-40B8-8DAC-363E4A4BD6B5}</Project>
       <Name>Central</Name>
