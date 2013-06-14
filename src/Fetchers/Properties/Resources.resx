@@ -126,7 +126,10 @@
   <data name="FileNotExpectedSize" xml:space="preserve">
     <value>The file downloaded from {0} doesn't have the expected size. Was supposed to be {1} bytes but was actually {2} bytes.</value>
   </data>
+  <data name="NoManifestDigest" xml:space="preserve">
+    <value>No manifest digest for implementation '{0}' found.</value>
+  </data>
   <data name="NoRetrievalMethod" xml:space="preserve">
-    <value>No working retrieval method found.</value>
+    <value>No working retrieval method found for implementation '{0}' found.</value>
   </data>
 </root>

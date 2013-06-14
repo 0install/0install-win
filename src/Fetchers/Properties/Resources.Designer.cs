@@ -88,7 +88,16 @@ namespace ZeroInstall.Fetchers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No working retrieval method found..
+        ///   Looks up a localized string similar to No manifest digest for implementation &apos;{0}&apos; found..
+        /// </summary>
+        internal static string NoManifestDigest {
+            get {
+                return ResourceManager.GetString("NoManifestDigest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No working retrieval method found for implementation &apos;{0}&apos; found..
         /// </summary>
         internal static string NoRetrievalMethod {
             get {

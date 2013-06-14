@@ -66,7 +66,8 @@ namespace ZeroInstall.Fetchers
             if (implementation == null) throw new ArgumentNullException("implementation");
             #endregion
 
-            if (implementation.RetrievalMethods.Count == 0) throw new NotSupportedException(Resources.NoRetrievalMethod);
+            if (!implementation.ManifestDigest.AvailableDigests.Any()) throw new NotSupportedException(string.Format(Resources.NoManifestDigest, implementation.ID));
+            if (implementation.RetrievalMethods.Count == 0) throw new NotSupportedException(string.Format(Resources.NoRetrievalMethod, implementation.ID));
 
             implementation.RetrievalMethods.OrderBy(x => x, RetrievalMethodRanker.Instance).
                            Try(retrievalMethod => ApplyRetrievalMethod(retrievalMethod, implementation.ManifestDigest));

@@ -53,15 +53,18 @@ namespace ZeroInstall.Fetchers
             {
                 Handler.CancellationToken.ThrowIfCancellationRequested();
 
+                var manifestDigest = implementation.ManifestDigest;
+                if (!manifestDigest.AvailableDigests.Any()) throw new NotSupportedException(string.Format(Resources.NoManifestDigest, implementation.ID));
+
                 // Use mutex to detect concurrent download of same implementation in other processes
-                using (var mutex = new Mutex(false, "0install-fetcher-" + implementation.ManifestDigest.AvailableDigests.First()))
+                using (var mutex = new Mutex(false, "0install-fetcher-" + manifestDigest.AvailableDigests.First()))
                 {
                     try
                     {
                         while (!mutex.WaitOne(100, false)) // NOTE: Might be blocked more than once
                         {
                             // Wait for mutex to be released
-                            Handler.RunTask(new WaitTask(Resources.DownloadInAnotherWindow, mutex), implementation.ManifestDigest);
+                            Handler.RunTask(new WaitTask(Resources.DownloadInAnotherWindow, mutex), manifestDigest);
                         }
                     }
                         #region Error handling
@@ -76,7 +79,7 @@ namespace ZeroInstall.Fetchers
                     {
                         // Check if another process added the implementation in the meantime
                         Store.Flush();
-                        if (Store.Contains(implementation.ManifestDigest)) return;
+                        if (Store.Contains(manifestDigest)) return;
 
                         FetchImplementation(implementation);
                     }
