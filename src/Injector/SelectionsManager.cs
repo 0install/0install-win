@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Selection;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 

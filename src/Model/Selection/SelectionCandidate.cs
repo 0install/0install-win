@@ -17,11 +17,10 @@
 
 using System;
 using System.ComponentModel;
-using ZeroInstall.Injector.Properties;
-using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
+using ZeroInstall.Model.Preferences;
+using ZeroInstall.Model.Properties;
 
-namespace ZeroInstall.Injector
+namespace ZeroInstall.Model.Selection
 {
     /// <summary>
     /// Represents an <see cref="Implementation"/> that is available to a solver for selection.

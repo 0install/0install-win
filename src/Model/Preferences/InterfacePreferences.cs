@@ -23,10 +23,9 @@ using System.Linq;
 using System.Xml.Serialization;
 using Common;
 using Common.Storage;
-using ZeroInstall.Store.Properties;
-using ZeroInstall.Model;
+using ZeroInstall.Model.Properties;
 
-namespace ZeroInstall.Store.Feeds
+namespace ZeroInstall.Model.Preferences
 {
     /// <summary>
     /// Stores user-specific preferences for an interface.

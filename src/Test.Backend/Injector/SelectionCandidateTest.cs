@@ -17,7 +17,8 @@
 
 using NUnit.Framework;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
+using ZeroInstall.Model.Preferences;
+using ZeroInstall.Model.Selection;
 
 namespace ZeroInstall.Injector
 {

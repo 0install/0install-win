@@ -33,6 +33,8 @@ using ZeroInstall.Backend;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Preferences;
+using ZeroInstall.Model.Selection;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;
 

@@ -25,6 +25,8 @@ using Common.Utils;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Preferences;
+using ZeroInstall.Model.Selection;
 using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Commands.WinForms

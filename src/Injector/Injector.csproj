@@ -69,7 +69,6 @@
     <Compile Include="IFeedManager.cs" />
     <Compile Include="IFetcher.cs" />
     <Compile Include="IHandler.cs" />
-    <Compile Include="ImplementationSelection.cs" />
     <Compile Include="ISolver.cs" />
     <Compile Include="ITrustManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,8 +79,6 @@
     </Compile>
     <Compile Include="ReplayAttackException.cs" />
     <None Include="runenv.cs" />
-    <Compile Include="SelectionCandidate.cs" />
-    <Compile Include="Selections.cs" />
     <Compile Include="SelectionsFormatter.cs" />
     <Compile Include="SelectionsManager.cs" />
     <Compile Include="SolverException.cs" />

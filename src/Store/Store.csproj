@@ -65,11 +65,8 @@
     <Compile Include="Config.cs" />
     <Compile Include="Feeds\DiskFeedCache.cs" />
     <Compile Include="Feeds\FeedCacheFactory.cs" />
-    <Compile Include="Feeds\FeedPreferences.cs" />
     <Compile Include="Feeds\FeedUtils.cs" />
     <Compile Include="Feeds\IFeedCache.cs" />
-    <Compile Include="Feeds\ImplementationPreferences.cs" />
-    <Compile Include="Feeds\InterfacePreferences.cs" />
     <Compile Include="Feeds\MemoryFeedCache.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Icons\DiskIconCache.cs" />

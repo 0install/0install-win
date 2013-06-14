@@ -24,6 +24,7 @@ using Common.Utils;
 using Moq;
 using NUnit.Framework;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Preferences;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;
 

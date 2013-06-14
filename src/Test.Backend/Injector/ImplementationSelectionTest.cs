@@ -18,6 +18,7 @@
 using System.Globalization;
 using NUnit.Framework;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Selection;
 
 namespace ZeroInstall.Injector
 {

@@ -123,8 +123,17 @@
   <data name="CommandNotFound" xml:space="preserve">
     <value>Der Command '{0}' konnte nicht gefunden werden.</value>
   </data>
+  <data name="ErrorLoadingFeedPrefs" xml:space="preserve">
+    <value>Fehler beim Laden der Feed-Präfernzen für '{0}'. Falle auf Standardwerte zurück.</value>
+  </data>
+  <data name="ErrorLoadingInterfacePrefs" xml:space="preserve">
+    <value>Fehler beim Laden der Interface-Präfernzen für '{0}'. Falle auf Standardwerte zurück.</value>
+  </data>
   <data name="FeedNotInCatalog" xml:space="preserve">
     <value>Feed '{0}' konnte nicht im Katalog gefunden werden.</value>
+  </data>
+  <data name="ImplementationNotInSelection" xml:space="preserve">
+    <value>Die Implementierung für das Interface '{0}' konnte in den Selections nicht gefunden werden.</value>
   </data>
   <data name="InvalidDigest" xml:space="preserve">
     <value>Der Digest '{0}' hat nicht die Form 'Algorithmus=Wert'.</value>
@@ -152,6 +161,24 @@
   </data>
   <data name="NoSuitableIconFound" xml:space="preserve">
     <value>Es wurde kein geeignetes Icon gefunden.</value>
+  </data>
+  <data name="SelectionCandidateNoteBuggy" xml:space="preserve">
+    <value>Fehlerhafte Implementierung</value>
+  </data>
+  <data name="SelectionCandidateNoteIncompatibleArchitecture" xml:space="preserve">
+    <value>Inkompatibles Betriebsystem oder CPU</value>
+  </data>
+  <data name="SelectionCandidateNoteInsecure" xml:space="preserve">
+    <value>Unsichere Implementierung</value>
+  </data>
+  <data name="SelectionCandidateNoteNotCached" xml:space="preserve">
+    <value>Implementierung nicht im Cache (derzeit im Off-Line Modus)</value>
+  </data>
+  <data name="SelectionCandidateNoteSource" xml:space="preserve">
+    <value>Nicht ausführbare Quellcode Implementierung</value>
+  </data>
+  <data name="SelectionCandidateNoteVersionMismatch" xml:space="preserve">
+    <value>Implementierungsversion zu alt oder zu neu</value>
   </data>
   <data name="UnknownCpu" xml:space="preserve">
     <value>Unbekannte CPU.</value>

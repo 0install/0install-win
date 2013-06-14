@@ -140,12 +140,6 @@ Actual value: {1}</value>
   <data name="DirectoryNotFound" xml:space="preserve">
     <value>The directory '{0}' could not be found.</value>
   </data>
-  <data name="ErrorLoadingFeedPrefs" xml:space="preserve">
-    <value>Error loading feed preferences for '{0}'. Reverting to default values.</value>
-  </data>
-  <data name="ErrorLoadingInterfacePrefs" xml:space="preserve">
-    <value>Error loading interface preferences for '{0}'. Reverting to default values.</value>
-  </data>
   <data name="ErrorLoadingTrustDB" xml:space="preserve">
     <value>Error loading the trust database. Reverting to default values.</value>
   </data>

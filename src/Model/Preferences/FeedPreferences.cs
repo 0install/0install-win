@@ -24,10 +24,9 @@ using System.Xml.Serialization;
 using Common;
 using Common.Storage;
 using Common.Utils;
-using ZeroInstall.Store.Properties;
-using ZeroInstall.Model;
+using ZeroInstall.Model.Properties;
 
-namespace ZeroInstall.Store.Feeds
+namespace ZeroInstall.Model.Preferences
 {
     /// <summary>
     /// Stores user-specific preferences for a <see cref="Model.Feed"/>.

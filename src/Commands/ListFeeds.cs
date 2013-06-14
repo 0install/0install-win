@@ -21,7 +21,7 @@ using System.Text;
 using NDesk.Options;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Store.Feeds;
+using ZeroInstall.Model.Preferences;
 
 namespace ZeroInstall.Commands
 {

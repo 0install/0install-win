@@ -87,7 +87,13 @@
     <Compile Include="Design\IconMimeTypeConverter.cs" />
     <Compile Include="Design\UseConverter.cs" />
     <Compile Include="DownloadRetrievalMethod.cs" />
+    <Compile Include="Preferences\FeedPreferences.cs" />
     <Compile Include="GenericBinding.cs" />
+    <Compile Include="Preferences\ImplementationPreferences.cs" />
+    <Compile Include="Selection\ImplementationSelection.cs" />
+    <Compile Include="Preferences\InterfacePreferences.cs" />
+    <Compile Include="Selection\SelectionCandidate.cs" />
+    <Compile Include="Selection\Selections.cs" />
     <Compile Include="SingleFile.cs" />
     <Compile Include="ForEachArgs.cs" />
     <Compile Include="ManifestDigestPartialEqualityComparer.cs" />

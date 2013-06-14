@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
+using ZeroInstall.Model.Preferences;
 
 namespace ZeroInstall.Commands
 {

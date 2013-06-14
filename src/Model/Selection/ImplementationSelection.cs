@@ -21,10 +21,9 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Xml.Serialization;
-using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
+using ZeroInstall.Model.Preferences;
 
-namespace ZeroInstall.Injector
+namespace ZeroInstall.Model.Selection
 {
     /// <summary>
     /// An executable implementation of a <see cref="Feed"/> as a part of a <see cref="Selections"/>.

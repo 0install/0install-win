@@ -19,6 +19,7 @@ using System;
 using Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Preferences;
 
 namespace ZeroInstall.Store.Feeds
 {

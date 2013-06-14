@@ -18,9 +18,8 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using ZeroInstall.Model;
 
-namespace ZeroInstall.Store.Feeds
+namespace ZeroInstall.Model.Preferences
 {
     /// <summary>
     /// Stores user-specific preferences for an <see cref="Model.Implementation"/>.

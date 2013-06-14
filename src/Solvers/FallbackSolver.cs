@@ -17,6 +17,7 @@
 
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Selection;
 
 namespace ZeroInstall.Solvers
 {

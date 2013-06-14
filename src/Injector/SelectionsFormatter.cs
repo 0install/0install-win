@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using ZeroInstall.Injector.Properties;
+using ZeroInstall.Model.Selection;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Injector

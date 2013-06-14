@@ -175,15 +175,6 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to find implementation for interface &apos;{0}&apos; in the selection..
-        /// </summary>
-        internal static string ImplementationNotInSelection {
-            get {
-                return ResourceManager.GetString("ImplementationNotInSelection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Missing name in {0} binding..
         /// </summary>
         internal static string MissingBindingName {
@@ -255,60 +246,6 @@ namespace ZeroInstall.Injector.Properties {
         internal static string ReplayAttack {
             get {
                 return ResourceManager.GetString("ReplayAttack", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Buggy implementation.
-        /// </summary>
-        internal static string SelectionCandidateNoteBuggy {
-            get {
-                return ResourceManager.GetString("SelectionCandidateNoteBuggy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Incompatible operating system or CPU.
-        /// </summary>
-        internal static string SelectionCandidateNoteIncompatibleArchitecture {
-            get {
-                return ResourceManager.GetString("SelectionCandidateNoteIncompatibleArchitecture", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Insecure implementation.
-        /// </summary>
-        internal static string SelectionCandidateNoteInsecure {
-            get {
-                return ResourceManager.GetString("SelectionCandidateNoteInsecure", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Implementation not in cache (currently in off-line mode).
-        /// </summary>
-        internal static string SelectionCandidateNoteNotCached {
-            get {
-                return ResourceManager.GetString("SelectionCandidateNoteNotCached", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Non-executable source implementation.
-        /// </summary>
-        internal static string SelectionCandidateNoteSource {
-            get {
-                return ResourceManager.GetString("SelectionCandidateNoteSource", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Implementation version too old or too new.
-        /// </summary>
-        internal static string SelectionCandidateNoteVersionMismatch {
-            get {
-                return ResourceManager.GetString("SelectionCandidateNoteVersionMismatch", resourceCulture);
             }
         }
         

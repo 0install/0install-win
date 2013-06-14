@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Selection;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Injector

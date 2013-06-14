@@ -140,12 +140,6 @@ Tatsächlicher Wert: {1}</value>
   <data name="DirectoryNotFound" xml:space="preserve">
     <value>Das Verzeichnis '{0}' konnte nicht gefunden werden.</value>
   </data>
-  <data name="ErrorLoadingFeedPrefs" xml:space="preserve">
-    <value>Fehler beim Laden der Feed-Präfernzen für '{0}'. Falle auf Standardwerte zurück.</value>
-  </data>
-  <data name="ErrorLoadingInterfacePrefs" xml:space="preserve">
-    <value>Fehler beim Laden der Interface-Präfernzen für '{0}'. Falle auf Standardwerte zurück.</value>
-  </data>
   <data name="ErrorLoadingTrustDB" xml:space="preserve">
     <value>Fehler beim Laden der Trust Datenbank. Falle auf Standardwerte zurück.</value>
   </data>

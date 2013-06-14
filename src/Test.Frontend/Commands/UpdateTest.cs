@@ -22,6 +22,7 @@ using Moq;
 using NUnit.Framework;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Selection;
 
 namespace ZeroInstall.Commands
 {

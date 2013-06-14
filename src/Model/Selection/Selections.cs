@@ -22,10 +22,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
 using Common.Collections;
-using ZeroInstall.Injector.Properties;
-using ZeroInstall.Model;
+using ZeroInstall.Model.Properties;
 
-namespace ZeroInstall.Injector
+namespace ZeroInstall.Model.Selection
 {
     /// <summary>
     /// Represents a set of <see cref="ImplementationBase"/>s chosen by a solver.

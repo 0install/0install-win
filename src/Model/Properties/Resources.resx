@@ -123,8 +123,17 @@
   <data name="CommandNotFound" xml:space="preserve">
     <value>Unable to find command '{0}'.</value>
   </data>
+  <data name="ErrorLoadingFeedPrefs" xml:space="preserve">
+    <value>Error loading feed preferences for '{0}'. Reverting to default values.</value>
+  </data>
+  <data name="ErrorLoadingInterfacePrefs" xml:space="preserve">
+    <value>Error loading interface preferences for '{0}'. Reverting to default values.</value>
+  </data>
   <data name="FeedNotInCatalog" xml:space="preserve">
     <value>Unable to find feed '{0}' in catalog.</value>
+  </data>
+  <data name="ImplementationNotInSelection" xml:space="preserve">
+    <value>Unable to find implementation for interface '{0}' in the selection.</value>
   </data>
   <data name="InvalidDigest" xml:space="preserve">
     <value>Digest '{0}' is not in the form 'algorithm=value'.</value>
@@ -152,6 +161,24 @@
   </data>
   <data name="NoSuitableIconFound" xml:space="preserve">
     <value>No suitable icon was found.</value>
+  </data>
+  <data name="SelectionCandidateNoteBuggy" xml:space="preserve">
+    <value>Buggy implementation</value>
+  </data>
+  <data name="SelectionCandidateNoteIncompatibleArchitecture" xml:space="preserve">
+    <value>Incompatible operating system or CPU</value>
+  </data>
+  <data name="SelectionCandidateNoteInsecure" xml:space="preserve">
+    <value>Insecure implementation</value>
+  </data>
+  <data name="SelectionCandidateNoteNotCached" xml:space="preserve">
+    <value>Implementation not in cache (currently in off-line mode)</value>
+  </data>
+  <data name="SelectionCandidateNoteSource" xml:space="preserve">
+    <value>Non-executable source implementation</value>
+  </data>
+  <data name="SelectionCandidateNoteVersionMismatch" xml:space="preserve">
+    <value>Implementation version too old or too new</value>
   </data>
   <data name="UnknownCpu" xml:space="preserve">
     <value>Unknown CPU.</value>
