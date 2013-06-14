@@ -72,6 +72,7 @@
     <Compile Include="Icons\DiskIconCache.cs" />
     <Compile Include="Icons\IconCacheProvider.cs" />
     <Compile Include="Icons\IIconCache.cs" />
+    <Compile Include="IHandler.cs" />
     <Compile Include="Implementation\Archive\ArchiveFileInfo.cs" />
     <Compile Include="Implementation\Archive\Extractor.cs" />
     <Compile Include="Implementation\Archive\RubyGemExtractor.cs" />

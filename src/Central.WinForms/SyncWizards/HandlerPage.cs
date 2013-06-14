@@ -19,6 +19,7 @@ using System;
 using System.Windows.Forms;
 using Common.Controls;
 using Common.Tasks;
+using ZeroInstall.Backend;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
@@ -32,7 +33,7 @@ namespace ZeroInstall.Central.WinForms.SyncWizards
     /// <summary>
     /// Base class for <see cref="Wizard"/> pages that implemented a rudimentary <see cref="IHandler"/> without cancellation support.
     /// </summary>
-    internal partial class HandlerPage : UserControl, IHandler
+    internal partial class HandlerPage : UserControl, IBackendHandler
     {
         protected readonly bool MachineWide;
 

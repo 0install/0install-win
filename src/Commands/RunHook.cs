@@ -30,6 +30,7 @@ using ZeroInstall.DesktopIntegration.Windows;
 using ZeroInstall.Hooking;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementation;
 using EntryPoint = ZeroInstall.Hooking.EntryPoint;
 

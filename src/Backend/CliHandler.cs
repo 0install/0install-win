@@ -23,7 +23,6 @@ using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Backend.Properties;
-using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Store;
@@ -35,7 +34,7 @@ namespace ZeroInstall.Backend
     /// Uses the stderr stream to inform the user about the progress of tasks and ask the user questions.
     /// Provides hooks for specializition in derived implementations.
     /// </summary>
-    public class CliHandler : CliTaskHandler, IHandler
+    public class CliHandler : CliTaskHandler, IBackendHandler
     {
         /// <inheritdoc />
         public bool Batch { get; set; }

@@ -22,9 +22,9 @@ using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using Common.Tasks;
+using ZeroInstall.Backend;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Store;
@@ -36,7 +36,7 @@ namespace ZeroInstall.Commands.WinForms
     /// Uses <see cref="System.Windows.Forms"/> to inform the user about the progress of tasks and ask the user questions.
     /// </summary>
     /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
-    public sealed class GuiHandler : MarshalByRefObject, IHandler, IDisposable
+    public sealed class GuiHandler : MarshalByRefObject, IBackendHandler, IDisposable
     {
         #region Variables
         private ProgressForm _form;

@@ -58,7 +58,7 @@ namespace ZeroInstall.Commands.Cli
             if (args == null) args = new string[0];
             if (args.Length == 0) args = new[] {"--help"};
 
-            IHandler handler = new CliHandler();
+            IBackendHandler handler = new CliHandler();
             FrontendCommand command;
             try
             {

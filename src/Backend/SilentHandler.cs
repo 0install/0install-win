@@ -18,7 +18,6 @@
 using System;
 using Common.Tasks;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Store;
@@ -29,7 +28,7 @@ namespace ZeroInstall.Backend
     /// <summary>
     /// Ignores progress reports and silently answer all questions with "No".
     /// </summary>
-    public class SilentHandler : SilentTaskHandler, IHandler
+    public class SilentHandler : SilentTaskHandler, IBackendHandler
     {
         /// <summary>
         /// Always returns <see langword="true"/>.

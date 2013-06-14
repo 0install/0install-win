@@ -22,7 +22,6 @@ using System.Linq;
 using NDesk.Options;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
@@ -49,7 +48,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="IOException">Thrown if there was a problem accessing a configuration file or one of the stores.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to a configuration file or one of the stores was not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if a configuration file is damaged.</exception>
-        private static FrontendCommand GetCommand(string commandName, IHandler handler)
+        private static FrontendCommand GetCommand(string commandName, IBackendHandler handler)
         {
             var resolver = new Resolver(handler);
             if (string.IsNullOrEmpty(commandName)) return new DefaultCommand(resolver);
@@ -119,7 +118,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if a configuration file is damaged.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown when trying to set an invalid interface ID.</exception>
-        public static FrontendCommand CreateAndParse(IEnumerable<string> args, IHandler handler)
+        public static FrontendCommand CreateAndParse(IEnumerable<string> args, IBackendHandler handler)
         {
             #region Sanity checks
             if (args == null) throw new ArgumentNullException("args");

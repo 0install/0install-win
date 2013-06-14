@@ -40,6 +40,7 @@ namespace ZeroInstall.Backend
         private IFeedCache _feedCache;
         private IStore _store;
         private ITrustManager _trustManager;
+        private IFeedManager _feedManager;
         private CatalogManager _catalogManager;
         private ISolver _solver;
         private IFetcher _fetcher;
@@ -51,7 +52,7 @@ namespace ZeroInstall.Backend
         /// Creates a new dependency resolver
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public Resolver(IHandler handler)
+        public Resolver(IBackendHandler handler)
         {
             Handler = handler;
         }
@@ -60,7 +61,7 @@ namespace ZeroInstall.Backend
         /// <summary>
         /// A callback object used when the the user needs to be asked questions or informed about download and IO tasks.
         /// </summary>
-        public IHandler Handler { get; private set; }
+        public IBackendHandler Handler { get; private set; }
 
         /// <summary>
         /// User settings controlling network behaviour, solving, etc.
@@ -86,8 +87,6 @@ namespace ZeroInstall.Backend
         /// Methods for verifying signatures and user trust.
         /// </summary>
         public ITrustManager TrustManager { get { return Get(ref _trustManager, () => new TrustManager(Config, OpenPgp, FeedCache, Handler)); } set { _trustManager = value; } }
-
-        private IFeedManager _feedManager;
 
         /// <summary>
         /// Allows configuration of the source used to request <see cref="Feed"/>s.

@@ -68,7 +68,6 @@
     <Compile Include="FeedManager.cs" />
     <Compile Include="IFeedManager.cs" />
     <Compile Include="IFetcher.cs" />
-    <Compile Include="IHandler.cs" />
     <Compile Include="ISolver.cs" />
     <Compile Include="ITrustManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

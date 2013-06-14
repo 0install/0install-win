@@ -20,7 +20,7 @@ using System.IO;
 using Common.Cli;
 using Common.Storage;
 using Common.Utils;
-using ZeroInstall.Injector;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Solvers
 {

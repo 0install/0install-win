@@ -33,12 +33,6 @@ namespace Common.Tasks
     public interface ITaskHandler
     {
         /// <summary>
-        /// The detail level of messages printed to the console or log file.
-        /// 0 = normal, 1 = verbose, 2 = very verbose
-        /// </summary>
-        int Verbosity { get; set; }
-
-        /// <summary>
         /// Signaled when the user wishes to cancel the current process.
         /// </summary>
         CancellationToken CancellationToken { get; }

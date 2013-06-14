@@ -22,6 +22,7 @@ using System.Web;
 using Common;
 using ZeroInstall.Injector;
 using ZeroInstall.Solvers.Properties;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Solvers
 {

@@ -75,7 +75,7 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Properties
-        private IHandler _handler;
+        private IBackendHandler _handler;
 
         /// <summary>The content of the last <see cref="MockHandler.ShowSelections"/> call.</summary>
         private Selections _selections;
@@ -140,7 +140,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Verifies that calling <see cref="FrontendCommand.Parse"/> and <see cref="FrontendCommand.Execute"/> causes a specific reuslt.
         /// </summary>
-        /// <param name="selections">The expected value for a <see cref="IHandler.ShowSelections"/> call; <see langword="null"/> if none.</param>
+        /// <param name="selections">The expected value for a <see cref="IBackendHandler.ShowSelections"/> call; <see langword="null"/> if none.</param>
         /// <param name="output">The expected string for a <see cref="IHandler.Output"/> call; <see langword="null"/> if none.</param>
         /// <param name="exitStatus">The expected exit status code returned by <see cref="FrontendCommand.Execute"/>.</param>
         /// <param name="args">The arguments to pass to <see cref="FrontendCommand.Parse"/>.</param>

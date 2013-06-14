@@ -19,7 +19,7 @@ using System.Diagnostics;
 using System.IO;
 using Common.Cli;
 using Common.Storage;
-using ZeroInstall.Injector;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Solvers
 {
