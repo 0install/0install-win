@@ -18,10 +18,8 @@
 using System;
 using Common.Storage;
 using NUnit.Framework;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Preferences;
 
-namespace ZeroInstall.Store.Feeds
+namespace ZeroInstall.Model.Preferences
 {
     /// <summary>
     /// Contains test methods for <see cref="InterfacePreferences"/>.

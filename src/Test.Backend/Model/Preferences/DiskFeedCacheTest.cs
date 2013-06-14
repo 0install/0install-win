@@ -23,10 +23,10 @@ using Common.Storage;
 using Common.Utils;
 using NUnit.Framework;
 using Moq;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Store.Feeds
+namespace ZeroInstall.Model.Preferences
 {
     /// <summary>
     /// Contains test methods for <see cref="DiskFeedCache"/>.

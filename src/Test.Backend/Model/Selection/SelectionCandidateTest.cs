@@ -16,11 +16,9 @@
  */
 
 using NUnit.Framework;
-using ZeroInstall.Model;
 using ZeroInstall.Model.Preferences;
-using ZeroInstall.Model.Selection;
 
-namespace ZeroInstall.Injector
+namespace ZeroInstall.Model.Selection
 {
     /// <summary>
     /// Contains test methods for <see cref="SelectionCandidate"/>.
