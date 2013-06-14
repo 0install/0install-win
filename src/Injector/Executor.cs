@@ -29,7 +29,7 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Executes a set of <see cref="ImplementationSelection"/>s as a program using dependency injection.
+    /// Executes a set of <see cref="Selections"/> as a program using dependency injection.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public partial class Executor

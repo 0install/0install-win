@@ -155,12 +155,12 @@ namespace ZeroInstall.Store.Service
                 }
                 catch (Exception ex)
                 {
-                    _eventLog.WriteEntry(string.Format(Resources.FailedToAddImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.First(), DirectoryPath) + Environment.NewLine + ex.Message, EventLogEntryType.Error);
+                    _eventLog.WriteEntry(string.Format(Resources.FailedToAddImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), DirectoryPath) + Environment.NewLine + ex.Message, EventLogEntryType.Error);
                     throw;
                 }
                 #endregion
 
-                _eventLog.WriteEntry(string.Format(Resources.SuccessfullyAddedImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.First(), DirectoryPath));
+                _eventLog.WriteEntry(string.Format(Resources.SuccessfullyAddedImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), DirectoryPath));
             }
         }
         #endregion
