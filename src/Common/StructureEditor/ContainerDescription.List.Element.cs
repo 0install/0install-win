@@ -63,11 +63,16 @@ namespace Common.StructureEditor
                 {
                     return list.OfType<TElement>().Select(element =>
                         new EntryInfo(
-                            element,
-                            commandExecutor => new TEditor {Target = element, CommandExecutor = commandExecutor},
-                            element.ToXmlString,
-                            (commandExecutor, value) => commandExecutor.ExecuteCommand(new ReplaceInList<TList>(list, element, XmlStorage.FromXmlString<TElement>(value))),
-                            commandExecutor => commandExecutor.ExecuteCommand(new RemoveFromCollection<TList>(list, element))));
+                            target: element,
+                            getEditorControl: commandExecutor => new TEditor {Target = element, CommandExecutor = commandExecutor},
+                            toXmlString: element.ToXmlString,
+                            fromXmlString: (commandExecutor, value) =>
+                            {
+                                var newElement = XmlStorage.FromXmlString<TElement>(value);
+                                commandExecutor.ExecuteCommand(new ReplaceInList<TList>(list, element, newElement));
+                                return newElement;
+                            },
+                            delete: commandExecutor => commandExecutor.ExecuteCommand(new RemoveFromCollection<TList>(list, element))));
                 }
 
                 public ChildInfo GetPossibleChildFor(IList<TList> list)

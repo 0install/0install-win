@@ -61,6 +61,9 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.TextEditor">
+      <HintPath>..\..\lib\ICSharpCode.TextEditor.dll</HintPath>
+    </Reference>
     <Reference Include="SevenZip">
       <HintPath>..\..\lib\SevenZip.dll</HintPath>
     </Reference>
@@ -286,6 +289,12 @@
     </Compile>
     <Compile Include="Controls\SplitButton.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\LiveEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\LiveEditor.Designer.cs">
+      <DependentUpon>LiveEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Wizard.cs">
       <SubType>Form</SubType>

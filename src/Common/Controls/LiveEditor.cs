@@ -1,0 +1,121 @@
+﻿/*
+ * Copyright 2006-2013 Bastian Eicher
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+using Common.Properties;
+using ICSharpCode.TextEditor.Document;
+
+namespace Common.Controls
+{
+    /// <summary>
+    /// A text editor that automatically validates changes using an external callback after a short period of no input.
+    /// </summary>
+    public partial class LiveEditor : UserControl
+    {
+        private bool _suppressUpdate;
+
+        /// <summary>
+        /// Raised when changes have accumulated after a short period of no input.
+        /// </summary>
+        [Description("Raised when changes have accumulated after a short period of no input.")]
+        public event Action<string> LiveUpdate;
+
+        public LiveEditor()
+        {
+            InitializeComponent();
+        }
+
+        /// <summary>
+        /// Sets a new text to be edited.
+        /// </summary>
+        /// <param name="text">The text to set.</param>
+        /// <param name="format">The format named used to determine the highlighting scheme (e.g. XML).</param>
+        public void SetText(string text, string format)
+        {
+            _suppressUpdate = true;
+            textEditor.BeginUpdate();
+            textEditor.Document.TextContent = text;
+            textEditor.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy(format);
+            textEditor.Document.UndoStack.ClearAll();
+            textEditor.EndUpdate();
+            textEditor.Refresh();
+            _suppressUpdate = false;
+
+            SetStatus(Resources.Info, "OK");
+        }
+
+        private void textEditor_TextChanged(object sender, EventArgs e)
+        {
+            if (_suppressUpdate) return;
+
+            timer.Stop();
+            SetStatus(null, "Changed...");
+            timer.Start();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                OnLiveUpdate();
+            }
+            catch (Exception ex)
+            {
+                SetStatus(Resources.Error, ex.Message);
+            }
+        }
+
+        private void textEditor_Validating(object sender, CancelEventArgs e)
+        {
+            if (timer.Enabled)
+            { // pending changes
+                try
+                {
+                    OnLiveUpdate();
+                }
+                catch (Exception ex)
+                {
+                    SetStatus(Resources.Error, ex.Message);
+                    e.Cancel = true;
+                }
+            }
+        }
+
+        private void OnLiveUpdate()
+        {
+            timer.Stop();
+
+            if (LiveUpdate != null) LiveUpdate(textEditor.Text);
+            SetStatus(Resources.Info, "OK");
+            textEditor.Document.UndoStack.ClearAll();
+        }
+        
+        private void SetStatus(Image image, string message)
+        {
+            labelStatus.Image = image;
+            labelStatus.Text = message;
+        }
+    }
+}

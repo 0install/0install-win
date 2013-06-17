@@ -25,15 +25,17 @@ using System.Windows.Forms;
 
 namespace Common.StructureEditor
 {
+    public delegate object XmlParseDelegate(Undo.ICommandExecutor commandExecutor, string xmlText);
+
     internal class EntryInfo
     {
         public readonly object Target;
         public readonly Func<Undo.ICommandExecutor, Control> GetEditorControl;
         public readonly Func<string> ToXmlString;
-        public readonly Action<Undo.ICommandExecutor, string> FromXmlString;
+        public readonly XmlParseDelegate FromXmlString;
         public readonly Action<Undo.ICommandExecutor> Delete;
 
-        public EntryInfo(object target, Func<Undo.ICommandExecutor, Control> getEditorControl, Func<string> toXmlString, Action<Undo.ICommandExecutor, string> fromXmlString, Action<Undo.ICommandExecutor> delete)
+        public EntryInfo(object target, Func<Undo.ICommandExecutor, Control> getEditorControl, Func<string> toXmlString, XmlParseDelegate fromXmlString, Action<Undo.ICommandExecutor> delete)
         {
             Target = target;
             GetEditorControl = getEditorControl;

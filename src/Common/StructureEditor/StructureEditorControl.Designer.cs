@@ -35,8 +35,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonRemove = new System.Windows.Forms.ToolStripButton();
             this.treeView = new System.Windows.Forms.TreeView();
-            this.buttonXmlUpdate = new System.Windows.Forms.Button();
-            this.xmlTextBox = new System.Windows.Forms.TextBox();
+            this.xmlEditor = new Common.Controls.LiveEditor();
             this.horizontalSplitter.Panel1.SuspendLayout();
             this.horizontalSplitter.Panel2.SuspendLayout();
             this.horizontalSplitter.SuspendLayout();
@@ -58,8 +57,7 @@
             // 
             // horizontalSplitter.Panel2
             // 
-            this.horizontalSplitter.Panel2.Controls.Add(this.buttonXmlUpdate);
-            this.horizontalSplitter.Panel2.Controls.Add(this.xmlTextBox);
+            this.horizontalSplitter.Panel2.Controls.Add(this.xmlEditor);
             this.horizontalSplitter.Size = new System.Drawing.Size(150, 150);
             this.horizontalSplitter.SplitterDistance = 103;
             this.horizontalSplitter.SplitterWidth = 12;
@@ -124,27 +122,14 @@
             this.treeView.TabIndex = 0;
             this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
             // 
-            // buttonXmlUpdate
+            // xmlEditor
             // 
-            this.buttonXmlUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonXmlUpdate.Location = new System.Drawing.Point(94, 12);
-            this.buttonXmlUpdate.Name = "buttonXmlUpdate";
-            this.buttonXmlUpdate.Size = new System.Drawing.Size(56, 23);
-            this.buttonXmlUpdate.TabIndex = 1;
-            this.buttonXmlUpdate.Text = "Update";
-            this.buttonXmlUpdate.UseVisualStyleBackColor = true;
-            this.buttonXmlUpdate.Click += new System.EventHandler(this.buttonXmlUpdate_Click);
-            // 
-            // xmlTextBox
-            // 
-            this.xmlTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xmlTextBox.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.xmlTextBox.Location = new System.Drawing.Point(0, 0);
-            this.xmlTextBox.Multiline = true;
-            this.xmlTextBox.Name = "xmlTextBox";
-            this.xmlTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.xmlTextBox.Size = new System.Drawing.Size(150, 35);
-            this.xmlTextBox.TabIndex = 0;
+            this.xmlEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xmlEditor.Location = new System.Drawing.Point(0, 0);
+            this.xmlEditor.Name = "xmlEditor";
+            this.xmlEditor.Size = new System.Drawing.Size(150, 35);
+            this.xmlEditor.TabIndex = 0;
+            this.xmlEditor.LiveUpdate += new System.Action<string>(this.xmlEditor_LiveUpdate);
             // 
             // StructureEditorControl
             // 
@@ -152,7 +137,6 @@
             this.Name = "StructureEditorControl";
             this.horizontalSplitter.Panel1.ResumeLayout(false);
             this.horizontalSplitter.Panel2.ResumeLayout(false);
-            this.horizontalSplitter.Panel2.PerformLayout();
             this.horizontalSplitter.ResumeLayout(false);
             this.verticalSplitter.Panel1.ResumeLayout(false);
             this.verticalSplitter.Panel1.PerformLayout();
@@ -167,12 +151,11 @@
 
         private System.Windows.Forms.SplitContainer horizontalSplitter;
         private System.Windows.Forms.SplitContainer verticalSplitter;
-        private System.Windows.Forms.TextBox xmlTextBox;
         private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripDropDownButton buttonAdd;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton buttonRemove;
-        private System.Windows.Forms.Button buttonXmlUpdate;
+        private Controls.LiveEditor xmlEditor;
     }
 }

@@ -25,16 +25,17 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Common.Collections;
-using Common.Controls;
 using Common.Properties;
+using Common.Undo;
 using Common.Utils;
+using ICSharpCode.TextEditor;
 
 namespace Common.StructureEditor
 {
     /// <summary>
     /// A universal editor for hierarchical structures with undo support.
     /// </summary>
-    public partial class StructureEditorControl<T> : UserControl, IEditorControl<T>
+    public partial class StructureEditorControl<T> : UserControl
         where T : class, new()
     {
         #region Properties
@@ -53,20 +54,20 @@ namespace Common.StructureEditor
             }
         }
 
-        private Undo.ICommandExecutor _commandExecutor;
+        private CommandManager _commandManager;
 
         /// <summary>
         /// The undo system to use for editing. Required!
         /// </summary>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Undo.ICommandExecutor CommandExecutor
+        public CommandManager CommandManager
         {
-            get { return _commandExecutor; }
+            get { return _commandManager; }
             set
             {
-                if (_commandExecutor != null) _commandExecutor.Updated -= RebuildTree;
-                _commandExecutor = value;
-                if (_commandExecutor != null) _commandExecutor.Updated += RebuildTree;
+                if (_commandManager != null) _commandManager.Updated -= RebuildTree;
+                _commandManager = value;
+                if (_commandManager != null) _commandManager.Updated += RebuildTree;
             }
         }
         #endregion
@@ -84,6 +85,26 @@ namespace Common.StructureEditor
         #endregion
 
         //--------------------//
+
+        #region Undo
+        /// <summary>
+        /// Passes through to <see cref="Common.Undo.CommandManager.Undo"/> or <see cref="TextEditorControl.Undo"/>.
+        /// </summary>
+        public void Undo()
+        {
+            if (xmlEditor.textEditor.EnableUndo) xmlEditor.textEditor.Undo();
+            else CommandManager.Undo();
+        }
+
+        /// <summary>
+        /// Passes through to <see cref="Common.Undo.CommandManager.Redo"/> or <see cref="TextEditorControl.Redo"/>.
+        /// </summary>
+        public void Redo()
+        {
+            if (xmlEditor.textEditor.EnableRedo) xmlEditor.textEditor.Redo();
+            else CommandManager.Redo();
+        }
+        #endregion
 
         #region Describe
         private readonly AggregateDispatcher<object, EntryInfo> _getEntries = new AggregateDispatcher<object, EntryInfo>();
@@ -159,7 +180,7 @@ namespace Common.StructureEditor
                 _editorControl.Dispose();
             }
 
-            var editorControl = _selectedNode.Entry.GetEditorControl(CommandExecutor);
+            var editorControl = _selectedNode.Entry.GetEditorControl(CommandManager);
             editorControl.Dock = DockStyle.Fill;
             verticalSplitter.Panel2.Controls.Add(editorControl);
             _editorControl = editorControl;
@@ -169,20 +190,17 @@ namespace Common.StructureEditor
         #region XML
         private void ToXmlString()
         {
-            xmlTextBox.Text = _selectedNode
+            string xmlString = ((Node)treeView.SelectedNode)
                 .Entry.ToXmlString()
                 .GetRightPartAtFirstOccurrence('\n')
                 .Replace("\n", Environment.NewLine);
+
+            xmlEditor.SetText(xmlString, "XML");
         }
 
-        private void buttonXmlUpdate_Click(object sender, EventArgs e)
+        private void xmlEditor_LiveUpdate(string text)
         {
-            FromXmlString();
-        }
-
-        private void FromXmlString()
-        {
-            _selectedNode.Entry.FromXmlString(CommandExecutor, xmlTextBox.Text);
+            ((Node)treeView.SelectedNode).Entry.FromXmlString(CommandManager, text);
         }
         #endregion
 
@@ -201,7 +219,7 @@ namespace Common.StructureEditor
                 else
                 {
                     ChildInfo child1 = child;
-                    buttonAdd.DropDownItems.Add(new ToolStripMenuItem(child.Name, null, delegate { child1.Create(CommandExecutor); }));
+                    buttonAdd.DropDownItems.Add(new ToolStripMenuItem(child.Name, null, delegate { child1.Create(CommandManager); }));
                 }
             }
         }
@@ -210,7 +228,7 @@ namespace Common.StructureEditor
         {
             var delete = _selectedNode.Entry.Delete; // Remember target even if selection changes
             treeView.SelectedNode = treeView.SelectedNode.Parent; // Select parent before deleting
-            delete(CommandExecutor);
+            delete(CommandManager);
         }
         #endregion
     }

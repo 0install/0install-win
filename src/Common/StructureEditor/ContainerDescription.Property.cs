@@ -71,11 +71,16 @@ namespace Common.StructureEditor
                 if (pointer.Value != null)
                 {
                     yield return new EntryInfo(
-                        pointer.Value,
-                        commandExecutor => new TEditor {Target = pointer.Value, CommandExecutor = commandExecutor},
-                        pointer.Value.ToXmlString,
-                        (commandExecutor, value) => commandExecutor.ExecuteCommand(new SetValueCommand<TProperty>(pointer, XmlStorage.FromXmlString<TProperty>(value))),
-                        commandExecutor => commandExecutor.ExecuteCommand(new SetValueCommand<TProperty>(pointer, null)));
+                        target: pointer.Value,
+                        getEditorControl: commandExecutor => new TEditor {Target = pointer.Value, CommandExecutor = commandExecutor},
+                        toXmlString: pointer.Value.ToXmlString,
+                        fromXmlString: (commandExecutor, value) =>
+                        {
+                            var newElement = XmlStorage.FromXmlString<TProperty>(value);
+                            commandExecutor.ExecuteCommand(new SetValueCommand<TProperty>(pointer, newElement));
+                            return newElement;
+                        },
+                        delete: commandExecutor => commandExecutor.ExecuteCommand(new SetValueCommand<TProperty>(pointer, null)));
                 }
             }
 

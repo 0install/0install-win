@@ -46,7 +46,7 @@ namespace ZeroInstall.Publish.WinForms
                     _feedEditing.RedoEnabled += state => menuRedo.Enabled = buttonRedo.Enabled = state;
 
                     feedEditorControl.Target = _feedEditing.SignedFeed.Feed;
-                    feedEditorControl.CommandExecutor = _feedEditing;
+                    feedEditorControl.CommandManager = _feedEditing;
                 }
 
                 comboBoxKeys.SelectedItem = FeedEditing.SignedFeed.SecretKey;
@@ -127,12 +127,12 @@ namespace ZeroInstall.Publish.WinForms
 
         private void menuUndo_Click(object sender, EventArgs e)
         {
-            FeedEditing.Undo();
+            feedEditorControl.Undo();
         }
 
         private void menuRedo_Click(object sender, EventArgs e)
         {
-            FeedEditing.Redo();
+            feedEditorControl.Redo();
         }
 
         private void menuExit_Click(object sender, EventArgs e)
