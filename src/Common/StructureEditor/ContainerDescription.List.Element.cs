@@ -78,8 +78,14 @@ namespace Common.StructureEditor
 
                 public ChildInfo GetPossibleChildFor(IList<TList> list)
                 {
-                    return new ChildInfo(typeof(TElement).Name, executor => executor.ExecuteCommand(
-                        new AddToCollection<TList>(list, new TElement())));
+                    return new ChildInfo(
+                        name: typeof(TElement).Name,
+                        create: executor =>
+                        {
+                            var newElement = new TElement();
+                            executor.ExecuteCommand(new AddToCollection<TList>(list, newElement));
+                            return newElement;
+                        });
                 }
             }
         }

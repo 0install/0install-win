@@ -194,7 +194,7 @@ namespace Common.StructureEditor
         #region XML
         private void ToXmlString()
         {
-            string xmlString = ((Node)treeView.SelectedNode)
+            string xmlString = _selectedNode
                 .Entry.ToXmlString()
                 .GetRightPartAtFirstOccurrence('\n')
                 .Replace("\n", Environment.NewLine);
@@ -204,7 +204,7 @@ namespace Common.StructureEditor
 
         private void xmlEditor_LiveUpdate(string text)
         {
-            ((Node)treeView.SelectedNode).Entry.FromXmlString(CommandManager, text);
+            object newObj = _selectedNode.Entry.FromXmlString(CommandManager, text);
         }
         #endregion
 
@@ -223,7 +223,10 @@ namespace Common.StructureEditor
                 else
                 {
                     ChildInfo child1 = child;
-                    buttonAdd.DropDownItems.Add(new ToolStripMenuItem(child.Name, null, delegate { child1.Create(CommandManager); }));
+                    buttonAdd.DropDownItems.Add(new ToolStripMenuItem(child.Name, null, delegate
+                    {
+                        object newObj = child1.Create(CommandManager);
+                    }));
                 }
             }
         }

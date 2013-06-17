@@ -25,8 +25,17 @@ using System.Windows.Forms;
 
 namespace Common.StructureEditor
 {
+    /// <summary>
+    /// Parses an XML string and stores the result in the structure.
+    /// </summary>
+    /// <param name="commandExecutor">Used to update the structure.</param>
+    /// <param name="xmlText">The XML string to parse.</param>
+    /// <returns>A reference to the newly created object.</returns>
     public delegate object XmlParseDelegate(Undo.ICommandExecutor commandExecutor, string xmlText);
 
+    /// <summary>
+    /// Information and callbacks for a specific entry in the structure.
+    /// </summary>
     internal class EntryInfo
     {
         public readonly object Target;

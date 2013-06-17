@@ -20,20 +20,26 @@
  * THE SOFTWARE.
  */
 
-using System;
 using Common.Undo;
 
 namespace Common.StructureEditor
 {
     /// <summary>
-    /// 
+    /// Creates a new object and stores the result in the structure.
+    /// </summary>
+    /// <param name="commandExecutor">Used to update the structure.</param>
+    /// <returns>A reference to the newly created object.</returns>
+    public delegate object CreateDelegate(ICommandExecutor commandExecutor);
+
+    /// <summary>
+    /// Information and callbacks for a potential new child node in the structure.
     /// </summary>
     internal class ChildInfo
     {
-        public readonly String Name;
-        public readonly Action<ICommandExecutor> Create;
+        public readonly string Name;
+        public readonly CreateDelegate Create;
 
-        public ChildInfo(string name, Action<ICommandExecutor> create)
+        public ChildInfo(string name, CreateDelegate create)
         {
             Name = name;
             Create = create;

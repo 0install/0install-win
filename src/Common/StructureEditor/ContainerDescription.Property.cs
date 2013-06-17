@@ -88,8 +88,14 @@ namespace Common.StructureEditor
             {
                 return new[]
                 {
-                    new ChildInfo(typeof(TProperty).Name, executor => executor.ExecuteCommand(
-                        new SetValueCommand<TProperty>(_getPointer(container), new TProperty())))
+                    new ChildInfo(
+                        name: typeof(TProperty).Name,
+                        create: executor =>
+                        {
+                            var newElement = new TProperty();
+                            executor.ExecuteCommand(new SetValueCommand<TProperty>(_getPointer(container), newElement));
+                            return newElement;
+                        })
                 };
             }
         }
