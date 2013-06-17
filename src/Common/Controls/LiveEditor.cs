@@ -23,6 +23,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using Common.Properties;
 using ICSharpCode.TextEditor.Document;
@@ -68,6 +69,7 @@ namespace Common.Controls
 
         private void textEditor_TextChanged(object sender, EventArgs e)
         {
+            textEditor.Document.MarkerStrategy.RemoveAll(marker => true);
             if (_suppressUpdate) return;
 
             if (timer.Enabled) timer.Stop();
@@ -90,7 +92,7 @@ namespace Common.Controls
         private void textEditor_Validating(object sender, CancelEventArgs e)
         {
             if (timer.Enabled)
-            { // ensure pending validation is not lost
+            { // Ensure pending validation is not lost
                 try
                 {
                     ValidateContent();
@@ -115,8 +117,24 @@ namespace Common.Controls
         private void HandleError(Exception ex)
         {
             SetStatus(Resources.Error, ex.Message);
+
+            if (ex is InvalidDataException && ex.Source == "System.Xml" && ex.InnerException != null)
+            {
+                // Parse exception message for position of the error
+                int lineStart = ex.Message.LastIndexOf('(') + 1;
+                int lineLength = ex.Message.LastIndexOf(',') - lineStart;
+                int charStart = ex.Message.LastIndexOf(' ') + 1;
+                int charLength = ex.Message.LastIndexOf(')') - charStart;
+                int lineNumber = int.Parse(ex.Message.Substring(lineStart, lineLength)) - 1;
+                int charNumber = int.Parse(ex.Message.Substring(charStart, charLength)) - 1;
+
+                int lineOffset = textEditor.Document.GetLineSegment(lineNumber).Offset;
+                textEditor.Document.MarkerStrategy.AddMarker(
+                    new TextMarker(lineOffset + charNumber, 10, TextMarkerType.WaveLine) {ToolTip = ex.InnerException.Message});
+                textEditor.Refresh();
+            }
         }
-        
+
         private void SetStatus(Image image, string message)
         {
             labelStatus.Image = image;
