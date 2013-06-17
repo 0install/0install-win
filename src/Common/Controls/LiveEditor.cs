@@ -40,7 +40,7 @@ namespace Common.Controls
         /// Raised when changes have accumulated after a short period of no input.
         /// </summary>
         [Description("Raised when changes have accumulated after a short period of no input.")]
-        public event Action<string> LiveUpdate;
+        public event Action<string> ContentChanged;
 
         public LiveEditor()
         {
@@ -52,7 +52,7 @@ namespace Common.Controls
         /// </summary>
         /// <param name="text">The text to set.</param>
         /// <param name="format">The format named used to determine the highlighting scheme (e.g. XML).</param>
-        public void SetText(string text, string format)
+        public void SetContent(string text, string format)
         {
             _suppressUpdate = true;
             textEditor.BeginUpdate();
@@ -70,8 +70,8 @@ namespace Common.Controls
         {
             if (_suppressUpdate) return;
 
-            timer.Stop();
-            SetStatus(null, "Changed...");
+            if (timer.Enabled) timer.Stop();
+            else SetStatus(null, "Changed...");
             timer.Start();
         }
 
@@ -79,37 +79,42 @@ namespace Common.Controls
         {
             try
             {
-                OnLiveUpdate();
+                ValidateContent();
             }
             catch (Exception ex)
             {
-                SetStatus(Resources.Error, ex.Message);
+                HandleError(ex);
             }
         }
 
         private void textEditor_Validating(object sender, CancelEventArgs e)
         {
             if (timer.Enabled)
-            { // pending changes
+            { // ensure pending validation is not lost
                 try
                 {
-                    OnLiveUpdate();
+                    ValidateContent();
                 }
                 catch (Exception ex)
                 {
-                    SetStatus(Resources.Error, ex.Message);
+                    HandleError(ex);
                     e.Cancel = true;
                 }
             }
         }
 
-        private void OnLiveUpdate()
+        private void ValidateContent()
         {
             timer.Stop();
 
-            if (LiveUpdate != null) LiveUpdate(textEditor.Text);
+            if (ContentChanged != null) ContentChanged(textEditor.Text);
             SetStatus(Resources.Info, "OK");
             textEditor.Document.UndoStack.ClearAll();
+        }
+
+        private void HandleError(Exception ex)
+        {
+            SetStatus(Resources.Error, ex.Message);
         }
         
         private void SetStatus(Image image, string message)

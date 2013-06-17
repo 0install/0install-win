@@ -130,6 +130,8 @@ namespace Common.StructureEditor
 
         private void RebuildTree()
         {
+            treeView.BeginUpdate();
+
             treeView.Nodes.Clear();
 
             _reselectNode = null;
@@ -137,6 +139,8 @@ namespace Common.StructureEditor
             _selectedNode = _reselectNode ?? (Node)treeView.Nodes[0];
             treeView.SelectedNode = _selectedNode;
             _selectedNode.Expand();
+
+            treeView.EndUpdate();
 
             UpdateEditorControl();
         }
@@ -195,7 +199,7 @@ namespace Common.StructureEditor
                 .GetRightPartAtFirstOccurrence('\n')
                 .Replace("\n", Environment.NewLine);
 
-            xmlEditor.SetText(xmlString, "XML");
+            xmlEditor.SetContent(xmlString, "XML");
         }
 
         private void xmlEditor_LiveUpdate(string text)

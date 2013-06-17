@@ -77,7 +77,7 @@ namespace Common.StructureEditor
                         fromXmlString: (commandExecutor, value) =>
                         {
                             var newElement = XmlStorage.FromXmlString<TProperty>(value);
-                            commandExecutor.ExecuteCommand(new SetValueCommand<TProperty>(pointer, newElement));
+                            if (!newElement.Equals(pointer.Value)) commandExecutor.ExecuteCommand(new SetValueCommand<TProperty>(pointer, newElement));
                             return newElement;
                         },
                         delete: commandExecutor => commandExecutor.ExecuteCommand(new SetValueCommand<TProperty>(pointer, null)));
