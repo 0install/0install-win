@@ -36,7 +36,7 @@ namespace Common.StructureEditor
     /// A universal editor for hierarchical structures with undo support.
     /// </summary>
     public partial class StructureEditorControl<T> : UserControl
-        where T : class, new()
+        where T : class, IEquatable<T>, new()
     {
         #region Properties
         private T _target;

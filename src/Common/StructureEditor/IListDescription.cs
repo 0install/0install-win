@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 using Common.Controls;
@@ -36,7 +37,7 @@ namespace Common.StructureEditor
         /// <returns>The "this" pointer for use in a "Fluent API" style.</returns>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "Generics used as type-safe reflection replacement.")]
         IListDescription<TList> AddElement<TElement, TEditor>()
-            where TElement : class, TList, new()
+            where TElement : class, TList, IEquatable<TElement>, new()
             where TEditor : Control, IEditorControl<TElement>, new();
 
         /// <summary>
@@ -46,6 +47,6 @@ namespace Common.StructureEditor
         /// <returns>The "this" pointer for use in a "Fluent API" style.</returns>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "Generics used as type-safe reflection replacement.")]
         IListDescription<TList> AddElement<TElement>()
-            where TElement : class, TList, new();
+            where TElement : class, TList, IEquatable<TElement>, new();
     }
 }

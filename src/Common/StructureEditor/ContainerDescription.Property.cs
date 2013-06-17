@@ -41,7 +41,7 @@ namespace Common.StructureEditor
         /// <returns>The "this" pointer for use in a "Fluent API" style.</returns>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "Generics used as type-safe reflection replacement.")]
         public ContainerDescription<TContainer> AddProperty<TProperty, TEditor>(Func<TContainer, PropertyPointer<TProperty>> getPointer)
-            where TProperty : class, new()
+            where TProperty : class, IEquatable<TProperty>, new()
             where TEditor : Control, IEditorControl<TProperty>, new()
         {
             _descriptions.Add(new PropertyDescription<TProperty, TEditor>(getPointer));
@@ -49,13 +49,13 @@ namespace Common.StructureEditor
         }
 
         public ContainerDescription<TContainer> AddProperty<TProperty>(Func<TContainer, PropertyPointer<TProperty>> getPointer)
-            where TProperty : class, new()
+            where TProperty : class, IEquatable<TProperty>, new()
         {
             return AddProperty<TProperty, EditorControl<TProperty>>(getPointer);
         }
 
         private class PropertyDescription<TProperty, TEditor> : DescriptionBase
-            where TProperty : class, new()
+            where TProperty : class, IEquatable<TProperty>, new()
             where TEditor : Control, IEditorControl<TProperty>, new()
         {
             private readonly Func<TContainer, PropertyPointer<TProperty>> _getPointer;

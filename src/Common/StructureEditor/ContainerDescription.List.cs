@@ -54,7 +54,7 @@ namespace Common.StructureEditor
         /// <returns>The "this" pointer for use in a "Fluent API" style.</returns>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "Generics used as type-safe reflection replacement.")]
         public ContainerDescription<TContainer> AddPlainList<TElement, TEditor>(Func<TContainer, IList<TElement>> getList)
-            where TElement : class, new()
+            where TElement : class, IEquatable<TElement>, new()
             where TEditor : Control, IEditorControl<TElement>, new()
         {
             var listDescription = new ListDescription<TElement>(getList);
@@ -70,7 +70,7 @@ namespace Common.StructureEditor
         /// <param name="getList">A function to retrieve the list from the container.</param>
         /// <returns>The "this" pointer for use in a "Fluent API" style.</returns>
         public ContainerDescription<TContainer> AddPlainList<TElement>(Func<TContainer, IList<TElement>> getList)
-            where TElement : class, new()
+            where TElement : class, IEquatable<TElement>, new()
         {
             var listDescription = new ListDescription<TElement>(getList);
             listDescription.AddElement<TElement>();

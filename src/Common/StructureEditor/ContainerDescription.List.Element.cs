@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -35,7 +36,7 @@ namespace Common.StructureEditor
         {
             /// <inheritdoc/>
             public IListDescription<TList> AddElement<TElement, TEditor>()
-                where TElement : class, TList, new()
+                where TElement : class, TList, IEquatable<TElement>, new()
                 where TEditor : Control, IEditorControl<TElement>, new()
             {
                 _descriptions.Add(new ElementDescription<TElement, TEditor>());
@@ -44,7 +45,7 @@ namespace Common.StructureEditor
 
             /// <inheritdoc/>
             public IListDescription<TList> AddElement<TElement>()
-                where TElement : class, TList, new()
+                where TElement : class, TList, IEquatable<TElement>, new()
             {
                 return AddElement<TElement, EditorControl<TElement>>();
             }
@@ -56,7 +57,7 @@ namespace Common.StructureEditor
             }
 
             private class ElementDescription<TElement, TEditor> : IElementDescription
-                where TElement : class, TList, new()
+                where TElement : class, TList, IEquatable<TElement>, new()
                 where TEditor : Control, IEditorControl<TElement>, new()
             {
                 public IEnumerable<EntryInfo> GetEntrysIn(IList<TList> list)
