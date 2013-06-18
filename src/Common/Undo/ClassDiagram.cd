@@ -8,12 +8,12 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Common.Undo.SimpleCommand">
-    <Position X="3.75" Y="0.5" Width="1.75" />
+    <Position X="3.25" Y="0.5" Width="1.75" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAARAQAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAJAAAAAAAAABAQAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Undo\SimpleCommand.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -21,9 +21,10 @@
   <Class Name="Common.Undo.CollectionCommand&lt;T&gt;">
     <Position X="2.75" Y="2.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAQAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAQAAAAAgAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>Undo\CollectionCommand.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Common.Undo.CompositeCommand">
     <Position X="6.5" Y="2.5" Width="1.75" />
@@ -74,16 +75,18 @@
   <Class Name="Common.Undo.SetInList&lt;T&gt;">
     <Position X="4.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAAAAACAAAAAAAAAAAAAAAgAAAAACQAAAAAAAAAA=</HashCode>
+      <HashCode>AAIAAAAAACAAAAAAAAAAAAAAAgAAAAACQAAgAAAAAAA=</HashCode>
       <FileName>Undo\SetInList.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Common.Undo.SetValueCommand&lt;T&gt;">
     <Position X="0.5" Y="2.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAAAAAAAACAAAAAAiAAAAAAAAAAAAIAAAA=</HashCode>
+      <HashCode>AAIAAAAAAAAAAAAAAACAAAAAAiAAAAAAAAAgAAIAAAA=</HashCode>
       <FileName>Undo\SetValueCommand.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Common.Undo.MultiPropertyTracker">
     <Position X="12.5" Y="5.5" Width="1.75" />
@@ -97,6 +100,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Undo\IUndoCommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Common.Undo.IValueCommand">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Undo\IValueCommand.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

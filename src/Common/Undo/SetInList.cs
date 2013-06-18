@@ -28,11 +28,16 @@ namespace Common.Undo
     /// Replaces an entry in a <see cref="IList{T}"/> with a new one.
     /// </summary>
     /// <typeparam name="T">The type of elements the list contains.</typeparam>
-    public sealed class SetInList<T> : SimpleCommand
+    public sealed class SetInList<T> : SimpleCommand, IValueCommand
     {
         #region Variables
         private readonly IList<T> _list;
         private readonly T _oldElement, _newElement;
+        #endregion
+
+        #region Properties
+        /// <inheritdoc/>
+        public object Value { get { return _newElement; } }
         #endregion
 
         #region Constructor

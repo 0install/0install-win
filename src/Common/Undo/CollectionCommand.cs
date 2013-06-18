@@ -28,7 +28,7 @@ namespace Common.Undo
     /// An undo command that adds or removes an element from a collection.
     /// </summary>
     /// <typeparam name="T">The type of elements the collection contains.</typeparam>
-    public abstract class CollectionCommand<T> : SimpleCommand
+    public abstract class CollectionCommand<T> : SimpleCommand, IValueCommand
     {
         #region Variables
         /// <summary>
@@ -40,6 +40,11 @@ namespace Common.Undo
         /// The element to be added or removed from <see cref="Collection"/>.
         /// </summary>
         protected readonly T Element;
+        #endregion
+
+        #region Properties
+        /// <inheritdoc/>
+        public object Value { get { return Element; } }
         #endregion
 
         #region Constructor

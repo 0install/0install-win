@@ -30,12 +30,20 @@ namespace Common.Undo
     /// </summary>
     /// <typeparam name="T">The type of elements the list contains.</typeparam>
     [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix", Justification = "The complete name is not ambiguous.")]
-    public class ReplaceInList<T> : SimpleCommand
+    public class ReplaceInList<T> : SimpleCommand, IValueCommand
     {
+        #region Variables
         private readonly IList<T> _list;
         private readonly T _oldElement;
         private readonly T _newElement;
+        #endregion
 
+        #region Properties
+        /// <inheritdoc/>
+        public object Value { get { return _newElement; } }
+        #endregion
+
+        #region Constructor
         /// <summary>
         /// Creates a new replace in list command.
         /// </summary>
@@ -48,7 +56,11 @@ namespace Common.Undo
             _oldElement = oldElement;
             _newElement = newElement;
         }
+        #endregion
 
+        //--------------------//
+
+        #region Undo / Redo
         protected override void OnExecute()
         {
             int index = _list.IndexOf(_oldElement);
@@ -60,5 +72,6 @@ namespace Common.Undo
             int index = _list.IndexOf(_newElement);
             _list[index] = _oldElement;
         }
+        #endregion
     }
 }

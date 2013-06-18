@@ -28,12 +28,17 @@ namespace Common.Undo
     /// An undo command that uses a delegates for getting and setting values from a backing model.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class SetValueCommand<T> : SimpleCommand
+    public class SetValueCommand<T> : SimpleCommand, IValueCommand
     {
         #region Variables
         private readonly PropertyPointer<T> _pointer;
         private readonly T _newValue;
         private T _oldValue;
+        #endregion
+
+        #region Properties
+        /// <inheritdoc/>
+        public object Value { get { return _newValue; } }
         #endregion
 
         #region Constructor
