@@ -63,9 +63,7 @@ namespace Common.Controls
         /// <param name="format">The format named used to determine the highlighting scheme (e.g. XML).</param>
         public void SetContent(string text, string format)
         {
-            if (TextEditor != null) Controls.Remove(TextEditor);
-
-            TextEditor = new TextEditorControl
+            var textEditor = new TextEditorControl
             {
                 Location = new Point(0, 0),
                 Size = Size - new Size(0, statusStrip.Height),
@@ -78,9 +76,12 @@ namespace Common.Controls
                     HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy(format)
                 }
             };
-            TextEditor.TextChanged += TextEditor_TextChanged;
-            TextEditor.Validating += TextEditor_Validating;
-            Controls.Add(TextEditor);
+            textEditor.TextChanged += TextEditor_TextChanged;
+            textEditor.Validating += TextEditor_Validating;
+
+            Controls.Add(textEditor);
+            if (TextEditor != null) Controls.Remove(TextEditor);
+            TextEditor = textEditor;
 
             SetStatus(Resources.Info, "OK");
         }
