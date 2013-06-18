@@ -129,7 +129,7 @@
             this.xmlEditor.Name = "xmlEditor";
             this.xmlEditor.Size = new System.Drawing.Size(150, 35);
             this.xmlEditor.TabIndex = 0;
-            this.xmlEditor.ContentChanged += new System.Action<string>(this.xmlEditor_LiveUpdate);
+            this.xmlEditor.ContentChanged += new System.Action<string>(this.xmlEditor_ContentChanged);
             // 
             // StructureEditorControl
             // 

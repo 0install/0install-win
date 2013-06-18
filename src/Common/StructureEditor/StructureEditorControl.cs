@@ -86,26 +86,6 @@ namespace Common.StructureEditor
 
         //--------------------//
 
-        #region Undo
-        /// <summary>
-        /// Passes through to <see cref="Common.Undo.CommandManager.Undo"/> or <see cref="TextEditorControl.Undo"/>.
-        /// </summary>
-        public void Undo()
-        {
-            if (xmlEditor.textEditor.EnableUndo) xmlEditor.textEditor.Undo();
-            else CommandManager.Undo();
-        }
-
-        /// <summary>
-        /// Passes through to <see cref="Common.Undo.CommandManager.Redo"/> or <see cref="TextEditorControl.Redo"/>.
-        /// </summary>
-        public void Redo()
-        {
-            if (xmlEditor.textEditor.EnableRedo) xmlEditor.textEditor.Redo();
-            else CommandManager.Redo();
-        }
-        #endregion
-
         #region Describe
         private readonly AggregateDispatcher<object, EntryInfo> _getEntries = new AggregateDispatcher<object, EntryInfo>();
         private readonly AggregateDispatcher<object, ChildInfo> _getPossibleChildren = new AggregateDispatcher<object, ChildInfo>();
@@ -136,9 +116,8 @@ namespace Common.StructureEditor
 
             _reselectNode = null;
             treeView.Nodes.AddRange(BuildNodes(this));
-            _selectedNode = _reselectNode ?? (Node)treeView.Nodes[0];
-            treeView.SelectedNode = _selectedNode;
-            _selectedNode.Expand();
+            treeView.SelectedNode = _reselectNode ?? (Node)treeView.Nodes[0];
+            SelectedNode.Expand();
 
             treeView.EndUpdate();
 
@@ -154,18 +133,39 @@ namespace Common.StructureEditor
         private Node BuildNode(EntryInfo entry)
         {
             var node = new Node(entry, BuildNodes(entry.Target));
-            if (_selectedNode != null && entry.Target == _selectedNode.Entry.Target)
+            if (SelectedNode != null && entry.Target == SelectedNode.Entry.Target)
                 _reselectNode = node;
             return node;
         }
         #endregion
 
+        #region Undo
+        /// <summary>
+        /// Passes through to <see cref="Common.Undo.CommandManager.Undo"/> or <see cref="TextEditorControl.Undo"/>.
+        /// </summary>
+        public void Undo()
+        {
+            if (xmlEditor.textEditor.EnableUndo) xmlEditor.textEditor.Undo();
+            else CommandManager.Undo();
+        }
+
+        /// <summary>
+        /// Passes through to <see cref="Common.Undo.CommandManager.Redo"/> or <see cref="TextEditorControl.Redo"/>.
+        /// </summary>
+        public void Redo()
+        {
+            if (xmlEditor.textEditor.EnableRedo) xmlEditor.textEditor.Redo();
+            else CommandManager.Redo();
+        }
+        #endregion
+
+        //--------------------//
+
         #region Selection
-        private Node _selectedNode;
+        private Node SelectedNode { get { return (Node)treeView.SelectedNode; } }
 
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            _selectedNode = (Node)e.Node;
             buttonRemove.Enabled = (e.Node != treeView.Nodes[0]);
 
             UpdateEditorControl();
@@ -173,46 +173,11 @@ namespace Common.StructureEditor
         }
         #endregion
 
-        #region Editor control
-        private Control _editorControl;
-
-        private void UpdateEditorControl()
-        {
-            if (_editorControl != null)
-            {
-                verticalSplitter.Panel2.Controls.Remove(_editorControl);
-                _editorControl.Dispose();
-            }
-
-            var editorControl = _selectedNode.Entry.GetEditorControl(CommandManager);
-            editorControl.Dock = DockStyle.Fill;
-            verticalSplitter.Panel2.Controls.Add(editorControl);
-            _editorControl = editorControl;
-        }
-        #endregion
-
-        #region XML
-        private void ToXmlString()
-        {
-            string xmlString = _selectedNode
-                .Entry.ToXmlString()
-                .GetRightPartAtFirstOccurrence('\n')
-                .Replace("\n", Environment.NewLine);
-
-            xmlEditor.SetContent(xmlString, "XML");
-        }
-
-        private void xmlEditor_LiveUpdate(string text)
-        {
-            object newObj = _selectedNode.Entry.FromXmlString(CommandManager, text);
-        }
-        #endregion
-
         #region Add/remove
         private void buttonAdd_DropDownOpening(object sender, EventArgs e)
         {
             buttonAdd.DropDownItems.Clear();
-            BuildAddDropDownMenu(_selectedNode.Entry.Target);
+            BuildAddDropDownMenu(SelectedNode.Entry.Target);
         }
 
         private void BuildAddDropDownMenu(object instance)
@@ -233,9 +198,40 @@ namespace Common.StructureEditor
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
-            var delete = _selectedNode.Entry.Delete; // Remember target even if selection changes
+            var delete = SelectedNode.Entry.Delete; // Remember target even if selection changes
             treeView.SelectedNode = treeView.SelectedNode.Parent; // Select parent before deleting
             delete(CommandManager);
+        }
+        #endregion
+
+        #region Editor control
+        private Control _editorControl;
+
+        private void UpdateEditorControl()
+        {
+            if (_editorControl != null)
+            {
+                verticalSplitter.Panel2.Controls.Remove(_editorControl);
+                _editorControl.Dispose();
+            }
+
+            var editorControl = SelectedNode.Entry.GetEditorControl(CommandManager);
+            editorControl.Dock = DockStyle.Fill;
+            verticalSplitter.Panel2.Controls.Add(editorControl);
+            _editorControl = editorControl;
+        }
+        #endregion
+
+        #region XML editor
+        private void ToXmlString()
+        {
+            string xmlString = SelectedNode.Entry.ToXmlString().GetRightPartAtFirstOccurrence('\n');
+            xmlEditor.SetContent(xmlString, "XML");
+        }
+
+        private void xmlEditor_ContentChanged(string text)
+        {
+            object newObj = SelectedNode.Entry.FromXmlString(CommandManager, text);
         }
         #endregion
     }
