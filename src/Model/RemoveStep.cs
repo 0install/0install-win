@@ -26,7 +26,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [Serializable]
     [XmlRoot("remove", Namespace = Feed.XmlNamespace), XmlType("remove", Namespace = Feed.XmlNamespace)]
-    public sealed class RemoveStep : FeedElement, IRecipeStep, IEquatable<RemoveStep>
+    public sealed class RemoveStep : FeedElement, IRecipeStep, IEquatable<RemoveStep>, ICloneable
     {
         #region Properties
         /// <summary>
@@ -65,6 +65,11 @@ namespace ZeroInstall.Model
         public IRecipeStep CloneRecipeStep()
         {
             return new RemoveStep {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Path = Path};
+        }
+
+        object ICloneable.Clone()
+        {
+            return CloneRecipeStep();
         }
         #endregion
 
