@@ -132,14 +132,6 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         }
         #endregion
 
-        #region Buttons
-        private void ButtonShowManifestDigestClick(object sender, EventArgs e)
-        {
-            using (var dialog = new ManifestDigestDialog(_implementation.ManifestDigest))
-                dialog.ShowDialog();
-        }
-        #endregion
-
         #region Dialog buttons
         /// <summary>
         /// Saves the values from the filled controls to <see cref="_implementation"/> and closes the window.

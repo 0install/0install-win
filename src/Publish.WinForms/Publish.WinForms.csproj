@@ -86,20 +86,7 @@
     <Compile Include="Controls\LocalizableTextControl.Designer.cs">
       <DependentUpon>LocalizableTextControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\IDigestProvider.cs" />
     <Compile Include="ManifestUtils.cs" />
-    <Compile Include="Dialogs\ArchiveDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\ArchiveDialog.Designer.cs">
-      <DependentUpon>ArchiveDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\ManifestDigestDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\ManifestDigestDialog.Designer.cs">
-      <DependentUpon>ManifestDigestDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\ImplementationDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,12 +108,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Dialogs\RecipeDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\RecipeDialog.Designer.cs">
-      <DependentUpon>RecipeDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\TargetBaseControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -152,12 +133,6 @@
     <EmbeddedResource Include="Controls\LocalizableTextControl.resx">
       <DependentUpon>LocalizableTextControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\ArchiveDialog.resx">
-      <DependentUpon>ArchiveDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\ManifestDigestDialog.resx">
-      <DependentUpon>ManifestDigestDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ImplementationDialog.resx">
       <DependentUpon>ImplementationDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -181,9 +156,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Dialogs\RecipeDialog.resx">
-      <DependentUpon>RecipeDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\TargetBaseControl.resx">
       <DependentUpon>TargetBaseControl.cs</DependentUpon>
     </EmbeddedResource>

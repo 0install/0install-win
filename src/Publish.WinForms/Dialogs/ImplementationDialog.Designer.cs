@@ -50,7 +50,6 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
             this.hintTextBoxID = new Common.Controls.HintTextBox();
             this.labelID = new System.Windows.Forms.Label();
             this.checkBoxSettingDateEnable = new System.Windows.Forms.CheckBox();
-            this.buttonShowManifestDigest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -302,20 +301,9 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
             this.checkBoxSettingDateEnable.UseVisualStyleBackColor = true;
             this.checkBoxSettingDateEnable.CheckedChanged += new System.EventHandler(this.CheckBoxSettingDateEnableCheckedChanged);
             // 
-            // buttonShowManifestDigest
-            // 
-            this.buttonShowManifestDigest.Location = new System.Drawing.Point(16, 302);
-            this.buttonShowManifestDigest.Name = "buttonShowManifestDigest";
-            this.buttonShowManifestDigest.Size = new System.Drawing.Size(128, 23);
-            this.buttonShowManifestDigest.TabIndex = 1005;
-            this.buttonShowManifestDigest.Text = "Show Manifest Digests";
-            this.buttonShowManifestDigest.UseVisualStyleBackColor = true;
-            this.buttonShowManifestDigest.Click += new System.EventHandler(this.ButtonShowManifestDigestClick);
-            // 
             // ImplementationDialog
             // 
             this.ClientSize = new System.Drawing.Size(530, 376);
-            this.Controls.Add(this.buttonShowManifestDigest);
             this.Controls.Add(this.checkBoxSettingDateEnable);
             this.Controls.Add(this.labelID);
             this.Controls.Add(this.hintTextBoxID);
@@ -360,7 +348,6 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
             this.Controls.SetChildIndex(this.hintTextBoxID, 0);
             this.Controls.SetChildIndex(this.labelID, 0);
             this.Controls.SetChildIndex(this.checkBoxSettingDateEnable, 0);
-            this.Controls.SetChildIndex(this.buttonShowManifestDigest, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -388,6 +375,5 @@ namespace ZeroInstall.Publish.WinForms.Dialogs
         private Common.Controls.HintTextBox hintTextBoxID;
         private System.Windows.Forms.Label labelID;
         private System.Windows.Forms.CheckBox checkBoxSettingDateEnable;
-        private System.Windows.Forms.Button buttonShowManifestDigest;
     }
 }
