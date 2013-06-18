@@ -145,7 +145,7 @@ namespace Common.StructureEditor
         /// </summary>
         public void Undo()
         {
-            if (xmlEditor.textEditor.EnableUndo) xmlEditor.textEditor.Undo();
+            if (xmlEditor.TextEditor.EnableUndo) xmlEditor.TextEditor.Undo();
             else CommandManager.Undo();
         }
 
@@ -154,7 +154,7 @@ namespace Common.StructureEditor
         /// </summary>
         public void Redo()
         {
-            if (xmlEditor.textEditor.EnableRedo) xmlEditor.textEditor.Redo();
+            if (xmlEditor.TextEditor.EnableRedo) xmlEditor.TextEditor.Redo();
             else CommandManager.Redo();
         }
         #endregion

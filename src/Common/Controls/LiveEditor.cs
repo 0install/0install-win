@@ -27,6 +27,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Common.Properties;
+using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
 
 namespace Common.Controls
@@ -36,8 +37,6 @@ namespace Common.Controls
     /// </summary>
     public partial class LiveEditor : UserControl
     {
-        private bool _suppressUpdate;
-
         /// <summary>
         /// Raised when changes have accumulated after a short period of no input.
         /// </summary>
@@ -45,11 +44,17 @@ namespace Common.Controls
         [Description("Raised when changes have accumulated after a short period of no input.")]
         public event Action<string> ContentChanged;
 
+        /// <summary>
+        /// The text editor control used internally.
+        /// </summary>
+        internal TextEditorControl TextEditor { get; private set; }
+
         public LiveEditor()
         {
             InitializeComponent();
         }
 
+        #region Set content
         /// <summary>
         /// Sets a new text to be edited.
         /// </summary>
@@ -57,22 +62,35 @@ namespace Common.Controls
         /// <param name="format">The format named used to determine the highlighting scheme (e.g. XML).</param>
         public void SetContent(string text, string format)
         {
-            _suppressUpdate = true;
-            textEditor.BeginUpdate();
-            textEditor.Document.TextContent = text;
-            textEditor.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy(format);
-            textEditor.Document.UndoStack.ClearAll();
-            textEditor.EndUpdate();
-            textEditor.Refresh();
-            _suppressUpdate = false;
+            if (TextEditor != null) Controls.Remove(TextEditor);
+
+            TextEditor = new TextEditorControl
+            {
+                Location = new Point(0, 0),
+                Size = Size - new Size(0, statusStrip.Height),
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
+                TabIndex = 0,
+                ShowVRuler = false,
+                Document =
+                {
+                    TextContent = text,
+                    HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy(format)
+                }
+            };
+            TextEditor.TextChanged += TextEditor_TextChanged;
+            TextEditor.Validating += TextEditor_Validating;
+            Controls.Add(TextEditor);
 
             SetStatus(Resources.Info, "OK");
         }
+        #endregion
 
-        private void textEditor_TextChanged(object sender, EventArgs e)
+        //--------------------//
+
+        #region Events
+        private void TextEditor_TextChanged(object sender, EventArgs e)
         {
-            textEditor.Document.MarkerStrategy.RemoveAll(marker => true);
-            if (_suppressUpdate) return;
+            TextEditor.Document.MarkerStrategy.RemoveAll(marker => true);
 
             if (timer.Enabled) timer.Stop();
             else SetStatus(null, "Changed...");
@@ -80,20 +98,7 @@ namespace Common.Controls
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Invalid user input may cause arbitrary exceptions.")]
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                ValidateContent();
-            }
-            catch (Exception ex)
-            {
-                HandleError(ex);
-            }
-        }
-
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Invalid user input may cause arbitrary exceptions.")]
-        private void textEditor_Validating(object sender, CancelEventArgs e)
+        private void TextEditor_Validating(object sender, CancelEventArgs e)
         {
             if (timer.Enabled)
             { // Ensure pending validation is not lost
@@ -109,13 +114,28 @@ namespace Common.Controls
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Invalid user input may cause arbitrary exceptions.")]
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                ValidateContent();
+            }
+            catch (Exception ex)
+            {
+                HandleError(ex);
+            }
+        }
+        #endregion
+
+        #region Validation
         private void ValidateContent()
         {
             timer.Stop();
 
-            if (ContentChanged != null) ContentChanged(textEditor.Text);
+            if (ContentChanged != null) ContentChanged(TextEditor.Text);
             SetStatus(Resources.Info, "OK");
-            textEditor.Document.UndoStack.ClearAll();
+            TextEditor.Document.UndoStack.ClearAll();
         }
 
         private void HandleError(Exception ex)
@@ -132,10 +152,10 @@ namespace Common.Controls
                 int lineNumber = int.Parse(ex.Message.Substring(lineStart, lineLength)) - 1;
                 int charNumber = int.Parse(ex.Message.Substring(charStart, charLength)) - 1;
 
-                int lineOffset = textEditor.Document.GetLineSegment(lineNumber).Offset;
-                textEditor.Document.MarkerStrategy.AddMarker(
+                int lineOffset = TextEditor.Document.GetLineSegment(lineNumber).Offset;
+                TextEditor.Document.MarkerStrategy.AddMarker(
                     new TextMarker(lineOffset + charNumber, 10, TextMarkerType.WaveLine) {ToolTip = ex.InnerException.Message});
-                textEditor.Refresh();
+                TextEditor.Refresh();
             }
         }
 
@@ -144,5 +164,6 @@ namespace Common.Controls
             labelStatus.Image = image;
             labelStatus.Text = message;
         }
+        #endregion
     }
 }

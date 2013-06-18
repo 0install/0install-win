@@ -29,26 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.textEditor = new ICSharpCode.TextEditor.TextEditorControl();
+            this.TextEditor = new ICSharpCode.TextEditor.TextEditorControl();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.labelStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // textEditor
-            // 
-            this.textEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textEditor.IsReadOnly = false;
-            this.textEditor.Location = new System.Drawing.Point(0, 0);
-            this.textEditor.Name = "textEditor";
-            this.textEditor.ShowVRuler = false;
-            this.textEditor.Size = new System.Drawing.Size(150, 125);
-            this.textEditor.TabIndex = 0;
-            this.textEditor.TextChanged += new System.EventHandler(this.textEditor_TextChanged);
-            this.textEditor.Validating += new System.ComponentModel.CancelEventHandler(this.textEditor_Validating);
             // 
             // statusStrip
             // 
@@ -77,7 +63,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.statusStrip);
-            this.Controls.Add(this.textEditor);
             this.Name = "LiveEditor";
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
@@ -88,7 +73,6 @@
 
         #endregion
 
-        internal ICSharpCode.TextEditor.TextEditorControl textEditor;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel labelStatus;
         private System.Windows.Forms.Timer timer;
