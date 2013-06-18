@@ -1,0 +1,31 @@
+# HG changeset patch
+# User Bastian Eicher <bastian@eicher.net>
+# Date 1371561644 -7200
+# Node ID 8bfda17c525c991c000bb68298896676bb404ae8
+# Parent  9a547ae4aa73bc162de89cea25da29e246a3c7f2
+Mono compatability
+
+diff -r 9a547ae4aa73 -r 8bfda17c525c Project/Src/Document/HighlightingStrategy/HighlightingDefinitionParser.cs
+--- a/Project/Src/Document/HighlightingStrategy/HighlightingDefinitionParser.cs	Tue Jun 18 15:28:23 2013 +0200
++++ b/Project/Src/Document/HighlightingStrategy/HighlightingDefinitionParser.cs	Tue Jun 18 15:20:44 2013 +0200
+@@ -32,7 +32,7 @@
+ 				List<ValidationEventArgs> errors = null;
+ 				XmlReaderSettings settings = new XmlReaderSettings();
+ 				Stream shemaStream = typeof(HighlightingDefinitionParser).Assembly.GetManifestResourceStream("ICSharpCode.TextEditor.Resources.Mode.xsd");
+-				settings.Schemas.Add("", new XmlTextReader(shemaStream));
++				settings.Schemas.Add(null, new XmlTextReader(shemaStream));
+ 				settings.Schemas.ValidationEventHandler += delegate(object sender, ValidationEventArgs args) {
+ 					if (errors == null) {
+ 						errors = new List<ValidationEventArgs>();
+diff -r 9a547ae4aa73 -r 8bfda17c525c Project/Src/Gui/TextAreaControl.cs
+--- a/Project/Src/Gui/TextAreaControl.cs	Tue Jun 18 15:28:23 2013 +0200
++++ b/Project/Src/Gui/TextAreaControl.cs	Tue Jun 18 15:20:44 2013 +0200
+@@ -219,6 +219,8 @@
+ 		
+ 		public void AdjustScrollBars()
+ 		{
++			if (this.textArea == null) return;
++
+ 			adjustScrollBarsOnNextUpdate = false;
+ 			vScrollBar.Minimum = 0;
+ 			// number of visible lines in document (folding!)

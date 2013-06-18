@@ -37,7 +37,7 @@ Self-compiled managed DLL: ICSharpCode.SharpZipLib.dll
 ICSharpCode.TextEditor
 http://www.icsharpcode.net/OpenSource/SD/
 GNU LGPL: http://www.gnu.org/copyleft/lesser.html
-Source unmodified
+Applied patches: ICSharpCode.TextEditor.*.patch
 Self-compiled managed DLL: ICSharpCode.TextEditor.dll
 
 LZMA SDK 4.65
