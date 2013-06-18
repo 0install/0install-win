@@ -50,7 +50,6 @@ namespace Common.StructureEditor
             {
                 _target = value;
                 RebuildTree();
-                treeView.SelectedNode = treeView.Nodes[0];
             }
         }
 
@@ -80,7 +79,7 @@ namespace Common.StructureEditor
             buttonRemove.Image = Resources.DeleteButton;
 
             Describe<StructureEditorControl<T>>()
-                .AddProperty(x => new PropertyPointer<T>(() => Target, value => Target = value));
+                .AddProperty(x => new PropertyPointer<T>(() => _target, value => _target = value));
         }
         #endregion
 
@@ -122,13 +121,10 @@ namespace Common.StructureEditor
             };
 
             treeView.BeginUpdate();
-
             treeView.Nodes.Clear();
-
             treeView.Nodes.AddRange(buildNodes(this));
             treeView.SelectedNode = reselectNode ?? (Node)treeView.Nodes[0];
-            SelectedNode.Expand();
-
+            treeView.SelectedNode.Expand();
             treeView.EndUpdate();
         }
         #endregion
@@ -210,9 +206,7 @@ namespace Common.StructureEditor
             if (_selectedTarget != _xmlTarget) ToXmlString();
             _xmlTarget = null;
         }
-        #endregion
 
-        #region Editor control
         private Control _editorControl;
 
         private void UpdateEditorControl()
