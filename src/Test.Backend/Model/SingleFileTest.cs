@@ -32,7 +32,7 @@ namespace ZeroInstall.Model
         /// </summary>
         internal static SingleFile CreateTestSingleFile()
         {
-            return new SingleFile {Location = new Uri("http://0install.de/files/test/test.exe"), Size = 128, Destination = "dest"};
+            return new SingleFile {Href = new Uri("http://0install.de/files/test/test.exe"), Size = 128, Destination = "dest"};
         }
         #endregion
 

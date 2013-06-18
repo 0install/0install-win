@@ -379,11 +379,11 @@ namespace ZeroInstall.Model
             var entryPoint = GetEntryPoint(command);
             if (entryPoint != null)
             {
-                var suitableCommandIcons = entryPoint.Icons.FindAll(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Location != null);
+                var suitableCommandIcons = entryPoint.Icons.FindAll(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
                 if (!suitableCommandIcons.IsEmpty) return suitableCommandIcons.First;
             }
 
-            var suitableFeedIcons = Icons.FindAll(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Location != null);
+            var suitableFeedIcons = Icons.FindAll(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
             if (!suitableFeedIcons.IsEmpty) return suitableFeedIcons.First;
 
             return null;

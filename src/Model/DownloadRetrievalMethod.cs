@@ -33,14 +33,14 @@ namespace ZeroInstall.Model
         /// The URL used to locate the file.
         /// </summary>
         [XmlIgnore, Browsable(false)]
-        public Uri Location { get; set; }
+        public Uri Href { get; set; }
 
         /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="Location"/>
+        /// <seealso cref="Href"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [DisplayName("Location"), Description("The URL used to locate the file.")]
+        [DisplayName("Href"), Description("The URL used to locate the file.")]
         [XmlAttribute("href"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string LocationString { get { return (Location == null ? null : Location.ToString()); } set { Location = (value == null ? null : new Uri(value)); } }
+        public string HrefString { get { return (Href == null ? null : Href.ToString()); } set { Href = (value == null ? null : new Uri(value)); } }
 
         /// <summary>
         /// The size of the file in bytes. The file must have the given size or it will be rejected.
@@ -68,7 +68,7 @@ namespace ZeroInstall.Model
         public bool Equals(DownloadRetrievalMethod other)
         {
             if (other == null) return false;
-            return base.Equals(other) && other.Location == Location && other.Size == Size;
+            return base.Equals(other) && other.Href == Href && other.Size == Size;
         }
 
         /// <inheritdoc/>
@@ -77,7 +77,7 @@ namespace ZeroInstall.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                if (Location != null) result = (result * 397) ^ Location.GetHashCode();
+                if (Href != null) result = (result * 397) ^ Href.GetHashCode();
                 result = (result * 397) ^ Size.GetHashCode();
                 return result;
             }

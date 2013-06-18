@@ -47,14 +47,14 @@ namespace ZeroInstall.Model
         /// The URL used to locate the icon.
         /// </summary>
         [XmlIgnore, Browsable(false)]
-        public Uri Location { get; set; }
+        public Uri Href { get; set; }
 
         /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="Location"/>
+        /// <seealso cref="Href"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [DisplayName("Location"), Description("The URL used to locate the icon.")]
+        [DisplayName("Href"), Description("The URL used to locate the icon.")]
         [XmlAttribute("href"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string LocationString { get { return (Location == null ? null : Location.ToString()); } set { Location = (value == null ? null : new Uri(value)); } }
+        public string HrefString { get { return (Href == null ? null : Href.ToString()); } set { Href = (value == null ? null : new Uri(value)); } }
 
         /// <summary>
         /// The MIME type of the icon. This value is case-insensitive.
@@ -79,7 +79,7 @@ namespace ZeroInstall.Model
         /// <param name="mimeType">The MIME type of the icon.</param>
         public Icon(Uri location, string mimeType)
         {
-            Location = location;
+            Href = location;
             MimeType = mimeType;
         }
         #endregion
@@ -92,7 +92,7 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            return string.Format("Icon: {0} ({1})", Location, MimeType);
+            return string.Format("Icon: {0} ({1})", Href, MimeType);
         }
         #endregion
 
@@ -103,7 +103,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Icon"/>.</returns>
         public Icon Clone()
         {
-            return new Icon {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Location = Location, MimeType = MimeType};
+            return new Icon {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Href = Href, MimeType = MimeType};
         }
 
         object ICloneable.Clone()
@@ -117,7 +117,7 @@ namespace ZeroInstall.Model
         public bool Equals(Icon other)
         {
             if (other == null) return false;
-            return base.Equals(other) && other.Location == Location && other.MimeType == MimeType;
+            return base.Equals(other) && other.Href == Href && other.MimeType == MimeType;
         }
 
         /// <inheritdoc/>
@@ -134,7 +134,7 @@ namespace ZeroInstall.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                if (Location != null) result = (result * 397) ^ Location.GetHashCode();
+                if (Href != null) result = (result * 397) ^ Href.GetHashCode();
                 if (MimeType != null) result = (result * 397) ^ MimeType.GetHashCode();
                 return result;
             }

@@ -203,7 +203,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             }
             // set other hintTextBoxes
             if (_archive.StartOffset != default(long)) hintTextBoxStartOffset.Text = _archive.StartOffset.ToString(CultureInfo.CurrentCulture);
-            if (!string.IsNullOrEmpty(_archive.LocationString)) uriTextBoxArchiveUrl.Text = _archive.LocationString;
+            if (!string.IsNullOrEmpty(_archive.HrefString)) uriTextBoxArchiveUrl.Text = _archive.HrefString;
 
             // build treeViewSubDirectory
             if (string.IsNullOrEmpty(_archive.Extract)) return;
@@ -465,7 +465,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             if (startOffset >= 0) _archive.StartOffset = startOffset;
             if (comboBoxArchiveFormat.SelectedIndex != 0) _archive.MimeType = comboBoxArchiveFormat.Text;
             Uri uri;
-            if (Uri.TryCreate(uriTextBoxArchiveUrl.Text, UriKind.RelativeOrAbsolute, out uri)) _archive.Location = uri;
+            if (Uri.TryCreate(uriTextBoxArchiveUrl.Text, UriKind.RelativeOrAbsolute, out uri)) _archive.Href = uri;
             _archive.Size = new FileInfo(hintTextBoxLocalArchive.Text).Length;
         }
 

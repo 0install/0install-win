@@ -45,7 +45,7 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            return string.Format("SingleFile: {0} ({1}) => {2}", Location, Size, Destination);
+            return string.Format("SingleFile: {0} ({1}) => {2}", Href, Size, Destination);
         }
         #endregion
 
@@ -56,7 +56,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="SingleFile"/>.</returns>
         private SingleFile CloneFile()
         {
-            return new SingleFile {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Location = Location, Size = Size, Destination = Destination};
+            return new SingleFile {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Href = Href, Size = Size, Destination = Destination};
         }
 
         /// <summary>

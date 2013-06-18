@@ -32,7 +32,7 @@ namespace ZeroInstall.Model
     {
         #region Properties
         /// <summary>
-        /// The type of the archive as a MIME type. If missing, the type is guessed from the extension on the <see cref="DownloadRetrievalMethod.Location"/> attribute. This value is case-insensitive.
+        /// The type of the archive as a MIME type. If missing, the type is guessed from the extension on the <see cref="DownloadRetrievalMethod.Href"/> attribute. This value is case-insensitive.
         /// </summary>
         [Description("The type of the archive as a MIME type. If missing, the type is guessed from the extension on the location attribute. This value is case-insensitive.")]
         [XmlAttribute("type"), DefaultValue("")]
@@ -72,10 +72,10 @@ namespace ZeroInstall.Model
         public override void Normalize()
         {
             // If the MIME type is already set or the location is missing, we have nothing to do here
-            if (!string.IsNullOrEmpty(MimeType) || string.IsNullOrEmpty(LocationString)) return;
+            if (!string.IsNullOrEmpty(MimeType) || string.IsNullOrEmpty(HrefString)) return;
 
             // Guess the MIME type based on the file extension
-            MimeType = ArchiveUtils.GuessMimeType(LocationString);
+            MimeType = ArchiveUtils.GuessMimeType(HrefString);
         }
         #endregion
 
@@ -87,7 +87,7 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            string result = string.Format("Archive: {0} ({1}, {2} + {3}, {4})", Location, MimeType, Size, StartOffset, Extract);
+            string result = string.Format("Archive: {0} ({1}, {2} + {3}, {4})", Href, MimeType, Size, StartOffset, Extract);
             if (!string.IsNullOrEmpty(Destination)) result += " => " + Destination;
             return result;
         }
@@ -100,7 +100,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Archive"/>.</returns>
         private Archive CloneArchive()
         {
-            return new Archive {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Location = Location, Size = Size, MimeType = MimeType, StartOffset = StartOffset, Extract = Extract, Destination = Destination};
+            return new Archive {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Href = Href, Size = Size, MimeType = MimeType, StartOffset = StartOffset, Extract = Extract, Destination = Destination};
         }
 
         /// <summary>

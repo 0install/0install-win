@@ -195,7 +195,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             var mimeType = (comboBoxIconType.Text == Resources.AutoDetect
                 ? ImageUtils.GuessImageFormat(uriTextBoxIconUrl.Uri.ToString())
                 : (ImageFormat)comboBoxIconType.SelectedItem);
-            var icon = new Icon {Location = uriTextBoxIconUrl.Uri};
+            var icon = new Icon {Href = uriTextBoxIconUrl.Uri};
             if (mimeType != null) icon.MimeType = _mimeTypeTranslator[mimeType];
 
             // if nothing is selected add to the end of the list, else insert behind the selected item.
@@ -224,7 +224,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             if (listBoxIconsUrls.SelectedIndex < 0) return;
 
             var icon = _icons[listBoxIconsUrls.SelectedIndex];
-            uriTextBoxIconUrl.Text = icon.LocationString;
+            uriTextBoxIconUrl.Text = icon.HrefString;
 
             foreach (var supportedImageFormat in _supportedImageFormats)
             {

@@ -215,7 +215,7 @@ namespace ZeroInstall.Publish
 
             // Download the file
             var downloadedFile = new TemporaryFile("0publish");
-            handler.RunTask(new DownloadFile(retrievalMethod.Location, downloadedFile), null); // Defer task to handler
+            handler.RunTask(new DownloadFile(retrievalMethod.Href, downloadedFile), null); // Defer task to handler
 
             // Set downloaded file size
             retrievalMethod.Size = new FileInfo(downloadedFile).Length;
