@@ -70,7 +70,8 @@ namespace Common.StructureEditor
                             fromXmlString: (commandExecutor, value) =>
                             {
                                 var newElement = XmlStorage.FromXmlString<TElement>(value);
-                                if (!newElement.Equals(element)) commandExecutor.ExecuteCommand(new ReplaceInList<TList>(list, element, newElement));
+                                if (newElement.Equals(element)) return null;
+                                commandExecutor.ExecuteCommand(new ReplaceInList<TList>(list, element, newElement));
                                 return newElement;
                             },
                             delete: commandExecutor => commandExecutor.ExecuteCommand(new RemoveFromCollection<TList>(list, element))));

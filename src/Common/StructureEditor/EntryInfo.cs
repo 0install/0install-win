@@ -30,7 +30,7 @@ namespace Common.StructureEditor
     /// </summary>
     /// <param name="commandExecutor">Used to update the structure.</param>
     /// <param name="xmlText">The XML string to parse.</param>
-    /// <returns>A reference to the newly created object.</returns>
+    /// <returns>A reference to the newly created object; <see langword="null"/> if nothing was changed.</returns>
     public delegate object XmlParseDelegate(Undo.ICommandExecutor commandExecutor, string xmlText);
 
     /// <summary>
