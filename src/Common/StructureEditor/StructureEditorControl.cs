@@ -166,7 +166,7 @@ namespace Common.StructureEditor
 
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            buttonRemove.Enabled = (e.Node != treeView.Nodes[0]);
+            buttonRemove.Enabled = (treeView.Nodes.Count > 0 && e.Node != treeView.Nodes[0]);
 
             UpdateEditorControl();
             ToXmlString();

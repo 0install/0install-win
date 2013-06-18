@@ -40,27 +40,25 @@ namespace ZeroInstall.Publish.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
-            Run(args);
-        }
-
-        private static void Run(string[] args)
-        {
             if (args.Length == 0) Application.Run(new MainForm(new FeedEditing()));
             else
             {
-                try
+                var files = ArgumentUtils.GetFiles(args, "*.xml");
+                if (files.Count == 1)
                 {
-                    var files = ArgumentUtils.GetFiles(args, "*.xml");
-
-                    if (files.Count == 1) Application.Run(new MainForm(FeedEditing.Load(files.First().FullName)));
-                    else MassSignForm.Show(files);
+                    string path = files.First().FullName;
+                    try
+                    {
+                        Application.Run(new MainForm(FeedEditing.Load(path)));
+                    }
+                        #region Error handling
+                    catch (IOException ex)
+                    {
+                        Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    }
+                    #endregion
                 }
-                    #region Error handling
-                catch (IOException ex)
-                {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                }
-                #endregion
+                else MassSignForm.Show(files);
             }
         }
     }
