@@ -514,7 +514,7 @@ namespace Common.Utils
             }
             catch (ArgumentException)
             {
-                // NOTE: Workaround for .NET API glitch
+                // WORKAROUND: .NET API glitch
             }
         }
         #endregion

@@ -217,15 +217,15 @@ namespace Common.StructureEditor
 
         private void UpdateEditorControl()
         {
+            var editorControl = SelectedNode.Entry.GetEditorControl(CommandManager);
+            editorControl.Dock = DockStyle.Fill;
+            verticalSplitter.Panel2.Controls.Add(editorControl);
+
             if (_editorControl != null)
             {
                 verticalSplitter.Panel2.Controls.Remove(_editorControl);
                 _editorControl.Dispose();
             }
-
-            var editorControl = SelectedNode.Entry.GetEditorControl(CommandManager);
-            editorControl.Dock = DockStyle.Fill;
-            verticalSplitter.Panel2.Controls.Add(editorControl);
             _editorControl = editorControl;
         }
 

@@ -27,6 +27,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Common.Properties;
+using Common.Utils;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
 
@@ -144,18 +145,25 @@ namespace Common.Controls
 
             if (ex is InvalidDataException && ex.Source == "System.Xml" && ex.InnerException != null)
             {
-                // Parse exception message for position of the error
-                int lineStart = ex.Message.LastIndexOf('(') + 1;
-                int lineLength = ex.Message.LastIndexOf(',') - lineStart;
-                int charStart = ex.Message.LastIndexOf(' ') + 1;
-                int charLength = ex.Message.LastIndexOf(')') - charStart;
-                int lineNumber = int.Parse(ex.Message.Substring(lineStart, lineLength)) - 1;
-                int charNumber = int.Parse(ex.Message.Substring(charStart, charLength)) - 1;
+                if (MonoUtils.IsUnix)
+                { // WORKAROUND: ICSharpCode.TextEditor's MarkerStrategy does not work on Mono
+                    SetStatus(Resources.Error, ex.InnerException.Message);
+                }
+                else
+                {
+                    // Parse exception message for position of the error
+                    int lineStart = ex.Message.LastIndexOf('(') + 1;
+                    int lineLength = ex.Message.LastIndexOf(',') - lineStart;
+                    int charStart = ex.Message.LastIndexOf(' ') + 1;
+                    int charLength = ex.Message.LastIndexOf(')') - charStart;
+                    int lineNumber = int.Parse(ex.Message.Substring(lineStart, lineLength)) - 1;
+                    int charNumber = int.Parse(ex.Message.Substring(charStart, charLength)) - 1;
 
-                int lineOffset = TextEditor.Document.GetLineSegment(lineNumber).Offset;
-                TextEditor.Document.MarkerStrategy.AddMarker(
-                    new TextMarker(lineOffset + charNumber, 10, TextMarkerType.WaveLine) {ToolTip = ex.InnerException.Message});
-                TextEditor.Refresh();
+                    int lineOffset = TextEditor.Document.GetLineSegment(lineNumber).Offset;
+                    TextEditor.Document.MarkerStrategy.AddMarker(
+                        new TextMarker(lineOffset + charNumber, 10, TextMarkerType.WaveLine) {ToolTip = ex.InnerException.Message});
+                    TextEditor.Refresh();
+                }
             }
         }
 
