@@ -23,6 +23,7 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 using Common.Undo;
+using Common.Utils;
 
 namespace Common.Controls
 {
@@ -46,11 +47,23 @@ namespace Common.Controls
             ToolbarVisible = false;
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
-            PropertyValueChanged += delegate(object sender, PropertyValueChangedEventArgs e)
+            if (MonoUtils.IsUnix)
+            { // WORKAROUND: e.OldValue is not reliable on Mono, use MultiPropertyTracker instead
+                var tracker = new MultiPropertyTracker(this);
+                PropertyValueChanged += delegate(object sender, PropertyValueChangedEventArgs e)
+                {
+                    if (CommandExecutor != null)
+                        CommandExecutor.ExecuteCommand(tracker.GetCommand(e.ChangedItem));
+                };
+            }
+            else
             {
-                if (CommandExecutor != null)
-                    CommandExecutor.ExecuteCommand(new PropertyChangedCommand(Target, e));
-            };
+                PropertyValueChanged += delegate(object sender, PropertyValueChangedEventArgs e)
+                {
+                    if (CommandExecutor != null)
+                        CommandExecutor.ExecuteCommand(new PropertyChangedCommand(Target, e));
+                };
+            }
         }
     }
 }
