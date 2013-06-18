@@ -93,7 +93,11 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public bool Equals(Runner other)
         {
-            return base.Equals(other) && Command == other.Command;
+            if (other == null) return false;
+            if (!base.Equals(other)) return false;
+            if (Command != other.Command) return false;
+            if (!Arguments.SequencedEquals(other.Arguments)) return false;
+            return true;
         }
 
         /// <inheritdoc/>
@@ -109,7 +113,10 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                return (base.GetHashCode() * 397) ^ (Command ?? "").GetHashCode();
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Command ?? "").GetHashCode();
+                result = (result * 397) ^ Arguments.GetSequencedHashCode();
+                return result;
             }
         }
         #endregion
