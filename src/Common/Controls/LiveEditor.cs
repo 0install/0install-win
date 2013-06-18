@@ -147,7 +147,7 @@ namespace Common.Controls
             {
                 if (MonoUtils.IsUnix)
                 { // WORKAROUND: ICSharpCode.TextEditor's MarkerStrategy does not work on Mono
-                    SetStatus(Resources.Error, ex.InnerException.Message);
+                    SetStatus(Resources.Error, ex.Message + ":" + ex.InnerException.Message);
                 }
                 else
                 {
