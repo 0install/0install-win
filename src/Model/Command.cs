@@ -107,7 +107,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of interfaces that are restricted to specific versions when used.
         /// </summary>
-        [Description("A list of interfaces that are restricted to specific versions when used.")]
+        [Browsable(false)]
         [XmlElement("restricts")]
         public C5.ArrayList<Restriction> Restrictions { get { return _restrictions; } }
 

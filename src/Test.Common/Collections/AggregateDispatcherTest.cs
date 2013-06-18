@@ -48,8 +48,8 @@ namespace Common.Collections
                 (Sub2 sub2) => new[] {"sub2"}
             };
 
-            CollectionAssert.AreEqual(new[] { "sub1" }, dispatcher.Dispatch(new Sub1()));
-            CollectionAssert.AreEqual(new[] { "sub1", "sub2" }, dispatcher.Dispatch(new Sub2()));
+            CollectionAssert.AreEqual(new[] {"sub1"}, dispatcher.Dispatch(new Sub1()));
+            CollectionAssert.AreEqual(new[] {"sub1", "sub2"}, dispatcher.Dispatch(new Sub2()));
         }
 
         [Test]

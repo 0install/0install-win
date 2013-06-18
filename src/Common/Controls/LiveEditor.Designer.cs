@@ -44,6 +44,7 @@
             this.textEditor.IsReadOnly = false;
             this.textEditor.Location = new System.Drawing.Point(0, 0);
             this.textEditor.Name = "textEditor";
+            this.textEditor.ShowVRuler = false;
             this.textEditor.Size = new System.Drawing.Size(150, 125);
             this.textEditor.TabIndex = 0;
             this.textEditor.TextChanged += new System.EventHandler(this.textEditor_TextChanged);
