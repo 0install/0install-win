@@ -29,7 +29,7 @@ namespace Common.StructureEditor
     /// </summary>
     /// <param name="commandExecutor">Used to update the structure.</param>
     /// <returns>A reference to the newly created object.</returns>
-    public delegate object CreateDelegate(ICommandExecutor commandExecutor);
+    internal delegate object Create(ICommandExecutor commandExecutor);
 
     /// <summary>
     /// Information and callbacks for a potential new child node in the structure.
@@ -37,9 +37,9 @@ namespace Common.StructureEditor
     internal class ChildInfo
     {
         public readonly string Name;
-        public readonly CreateDelegate Create;
+        public readonly Create Create;
 
-        public ChildInfo(string name, CreateDelegate create)
+        public ChildInfo(string name, Create create)
         {
             Name = name;
             Create = create;

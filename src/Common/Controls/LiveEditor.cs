@@ -22,6 +22,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -40,6 +41,7 @@ namespace Common.Controls
         /// <summary>
         /// Raised when changes have accumulated after a short period of no input.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "Cannot rename System.Action<T>")]
         [Description("Raised when changes have accumulated after a short period of no input.")]
         public event Action<string> ContentChanged;
 
@@ -77,6 +79,7 @@ namespace Common.Controls
             timer.Start();
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Invalid user input may cause arbitrary exceptions.")]
         private void timer_Tick(object sender, EventArgs e)
         {
             try
@@ -89,6 +92,7 @@ namespace Common.Controls
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Invalid user input may cause arbitrary exceptions.")]
         private void textEditor_Validating(object sender, CancelEventArgs e)
         {
             if (timer.Enabled)

@@ -31,7 +31,7 @@ namespace Common.StructureEditor
     /// <param name="commandExecutor">Used to update the structure.</param>
     /// <param name="xmlText">The XML string to parse.</param>
     /// <returns>A reference to the newly created object; <see langword="null"/> if nothing was changed.</returns>
-    public delegate object XmlParseDelegate(Undo.ICommandExecutor commandExecutor, string xmlText);
+    internal delegate object FromXmlString(Undo.ICommandExecutor commandExecutor, string xmlText);
 
     /// <summary>
     /// Information and callbacks for a specific entry in the structure.
@@ -41,10 +41,10 @@ namespace Common.StructureEditor
         public readonly object Target;
         public readonly Func<Undo.ICommandExecutor, Control> GetEditorControl;
         public readonly Func<string> ToXmlString;
-        public readonly XmlParseDelegate FromXmlString;
+        public readonly FromXmlString FromXmlString;
         public readonly Action<Undo.ICommandExecutor> Delete;
 
-        public EntryInfo(object target, Func<Undo.ICommandExecutor, Control> getEditorControl, Func<string> toXmlString, XmlParseDelegate fromXmlString, Action<Undo.ICommandExecutor> delete)
+        public EntryInfo(object target, Func<Undo.ICommandExecutor, Control> getEditorControl, Func<string> toXmlString, FromXmlString fromXmlString, Action<Undo.ICommandExecutor> delete)
         {
             Target = target;
             GetEditorControl = getEditorControl;

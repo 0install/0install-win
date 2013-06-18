@@ -297,11 +297,6 @@ namespace ZeroInstall.Store.Management.WinForms
         #endregion
 
         #region Handler
-        /// <summary>
-        /// Always returns 1.
-        /// </summary>
-        public int Verbosity { get { return 1; } set { } }
-
         private readonly CancellationToken _cancellationToken = new CancellationToken();
 
         /// <inheritdoc/>
