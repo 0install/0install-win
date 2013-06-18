@@ -67,12 +67,10 @@ namespace Common.StructureEditor
                             target: element,
                             getEditorControl: commandExecutor => new TEditor {Target = element, CommandExecutor = commandExecutor},
                             toXmlString: element.ToXmlString,
-                            fromXmlString: (commandExecutor, value) =>
+                            fromXmlString: xmlString =>
                             {
-                                var newElement = XmlStorage.FromXmlString<TElement>(value);
-                                if (newElement.Equals(element)) return null;
-                                commandExecutor.ExecuteCommand(new ReplaceInList<TList>(list, element, newElement));
-                                return newElement;
+                                var newValue = XmlStorage.FromXmlString<TElement>(xmlString);
+                                return newValue.Equals(element) ? null : new ReplaceInList<TList>(list, element, newValue);
                             },
                             delete: commandExecutor => commandExecutor.ExecuteCommand(new RemoveFromCollection<TList>(list, element))));
                 }
@@ -81,12 +79,7 @@ namespace Common.StructureEditor
                 {
                     return new ChildInfo(
                         name: typeof(TElement).Name,
-                        create: executor =>
-                        {
-                            var newElement = new TElement();
-                            executor.ExecuteCommand(new AddToCollection<TList>(list, newElement));
-                            return newElement;
-                        });
+                        create: () => new AddToCollection<TList>(list, new TElement()));
                 }
             }
         }

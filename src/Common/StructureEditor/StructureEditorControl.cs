@@ -106,36 +106,30 @@ namespace Common.StructureEditor
         #endregion
 
         #region Build nodes
-        private Node _reselectNode;
-
         private void RebuildTree()
         {
+            Node reselectNode = null;
+            Func<object, TreeNode[]> buildNodes = null;
+            buildNodes = target =>
+            {
+                var nodes = _getEntries.Dispatch(target).Select(entry =>
+                {
+                    var node = new Node(entry, buildNodes(entry.Target));
+                    if (entry.Target == _selectedTarget) reselectNode = node;
+                    return node;
+                });
+                return nodes.Cast<TreeNode>().ToArray();
+            };
+
             treeView.BeginUpdate();
 
             treeView.Nodes.Clear();
 
-            _reselectNode = null;
-            treeView.Nodes.AddRange(BuildNodes(this));
-            treeView.SelectedNode = _reselectNode ?? (Node)treeView.Nodes[0];
+            treeView.Nodes.AddRange(buildNodes(this));
+            treeView.SelectedNode = reselectNode ?? (Node)treeView.Nodes[0];
             SelectedNode.Expand();
 
             treeView.EndUpdate();
-
-            UpdateEditorControl();
-        }
-
-        private TreeNode[] BuildNodes(object target)
-        {
-            var nodes = _getEntries.Dispatch(target).Select(BuildNode);
-            return nodes.Cast<TreeNode>().ToArray();
-        }
-
-        private Node BuildNode(EntryInfo entry)
-        {
-            var node = new Node(entry, BuildNodes(entry.Target));
-            if (SelectedNode != null && entry.Target == SelectedNode.Entry.Target)
-                _reselectNode = node;
-            return node;
         }
         #endregion
 
@@ -161,18 +155,6 @@ namespace Common.StructureEditor
 
         //--------------------//
 
-        #region Selection
-        private Node SelectedNode { get { return (Node)treeView.SelectedNode; } }
-
-        private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            buttonRemove.Enabled = (treeView.Nodes.Count > 0 && e.Node != treeView.Nodes[0]);
-
-            UpdateEditorControl();
-            ToXmlString();
-        }
-        #endregion
-
         #region Add/remove
         private void buttonAdd_DropDownOpening(object sender, EventArgs e)
         {
@@ -190,7 +172,9 @@ namespace Common.StructureEditor
                     ChildInfo child1 = child;
                     buttonAdd.DropDownItems.Add(new ToolStripMenuItem(child.Name, null, delegate
                     {
-                        object newObj = child1.Create(CommandManager);
+                        var command = child1.Create();
+                        _selectedTarget = command.Value;
+                        CommandManager.ExecuteCommand(command);
                     }));
                 }
             }
@@ -201,6 +185,30 @@ namespace Common.StructureEditor
             var delete = SelectedNode.Entry.Delete; // Remember target even if selection changes
             treeView.SelectedNode = treeView.SelectedNode.Parent; // Select parent before deleting
             delete(CommandManager);
+        }
+        #endregion
+
+        #region Selection
+        private object _selectedTarget;
+        private object _editingTarget;
+        private object _xmlTarget;
+
+        private Node SelectedNode { get { return (Node)treeView.SelectedNode; } }
+
+        private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            buttonRemove.Enabled = (treeView.Nodes.Count > 0 && e.Node != treeView.Nodes[0]);
+            _selectedTarget = SelectedNode.Entry.Target;
+
+            if (_selectedTarget == _editingTarget) _editorControl.Refresh();
+            else
+            {
+                UpdateEditorControl();
+                _editingTarget = _selectedTarget;
+            }
+
+            if (_selectedTarget != _xmlTarget) ToXmlString();
+            _xmlTarget = null;
         }
         #endregion
 
@@ -220,9 +228,7 @@ namespace Common.StructureEditor
             verticalSplitter.Panel2.Controls.Add(editorControl);
             _editorControl = editorControl;
         }
-        #endregion
 
-        #region XML editor
         private void ToXmlString()
         {
             string xmlString = SelectedNode.Entry.ToXmlString().GetRightPartAtFirstOccurrence('\n');
@@ -231,7 +237,10 @@ namespace Common.StructureEditor
 
         private void xmlEditor_ContentChanged(string text)
         {
-            object newObj = SelectedNode.Entry.FromXmlString(CommandManager, text);
+            var command = SelectedNode.Entry.FromXmlString(text);
+            if (command == null) return;
+            _xmlTarget = _selectedTarget = command.Value;
+            CommandManager.ExecuteCommand(command);
         }
         #endregion
     }

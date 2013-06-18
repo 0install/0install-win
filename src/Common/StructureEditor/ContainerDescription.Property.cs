@@ -74,12 +74,10 @@ namespace Common.StructureEditor
                         target: pointer.Value,
                         getEditorControl: commandExecutor => new TEditor {Target = pointer.Value, CommandExecutor = commandExecutor},
                         toXmlString: pointer.Value.ToXmlString,
-                        fromXmlString: (commandExecutor, value) =>
+                        fromXmlString: xmlString =>
                         {
-                            var newElement = XmlStorage.FromXmlString<TProperty>(value);
-                            if (newElement.Equals(pointer.Value)) return null;
-                            commandExecutor.ExecuteCommand(new SetValueCommand<TProperty>(pointer, newElement));
-                            return newElement;
+                            var newValue = XmlStorage.FromXmlString<TProperty>(xmlString);
+                            return newValue.Equals(pointer.Value) ? null : new SetValueCommand<TProperty>(pointer, newValue);
                         },
                         delete: commandExecutor => commandExecutor.ExecuteCommand(new SetValueCommand<TProperty>(pointer, null)));
                 }
@@ -91,12 +89,7 @@ namespace Common.StructureEditor
                 {
                     new ChildInfo(
                         name: typeof(TProperty).Name,
-                        create: executor =>
-                        {
-                            var newElement = new TProperty();
-                            executor.ExecuteCommand(new SetValueCommand<TProperty>(_getPointer(container), newElement));
-                            return newElement;
-                        })
+                        create: () => new SetValueCommand<TProperty>(_getPointer(container), new TProperty()))
                 };
             }
         }
