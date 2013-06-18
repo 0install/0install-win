@@ -38,14 +38,14 @@ namespace ZeroInstall.Model.Preferences
         /// <summary>
         /// The URI of the interface to be configured.
         /// </summary>
-        [Description("The URI of the interface to be configured.")]
-        [XmlIgnore]
+        [XmlIgnore, Browsable(false)]
         public Uri Uri { get; set; }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Uri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [XmlAttribute("uri"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DisplayName("Uri"), Description("The URI of the interface to be configured.")]
+        [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public String UriString { get { return (Uri == null ? null : Uri.ToString()); } set { Uri = (value == null ? null : new Uri(value)); } }
 
         private Stability _stabilityPolicy = Stability.Unset;

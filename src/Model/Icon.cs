@@ -46,14 +46,14 @@ namespace ZeroInstall.Model
         /// <summary>
         /// The URL used to locate the icon.
         /// </summary>
-        [Description("The URL used to locate the icon.")]
-        [XmlIgnore]
+        [XmlIgnore, Browsable(false)]
         public Uri Location { get; set; }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Location"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [XmlAttribute("href"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        [DisplayName("Location"), Description("The URL used to locate the icon.")]
+        [XmlAttribute("href"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string LocationString { get { return (Location == null ? null : Location.ToString()); } set { Location = (value == null ? null : new Uri(value)); } }
 
         /// <summary>
