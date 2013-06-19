@@ -146,10 +146,4 @@ Ungespeicherte Änderungen verwerfen</value>
   <data name="WrongPassphrase" xml:space="preserve">
     <value>Passphrase falsch.</value>
   </data>
-  <data name="HintTextMultiline">
-    <value xml:space="preserve">Eine komplette, u.U. mehrzeilige Beschreibung.</value>
-  </data>
-  <data name="HintTextSinlgeLine">
-    <value xml:space="preserve">Eine kurze, einzeilige Beschreibung.</value>
-  </data>
 </root>

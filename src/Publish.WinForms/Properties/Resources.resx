@@ -147,9 +147,6 @@ Save changes</value>
     <value>Wrong passphrase entered.</value>
   </data>
   <data name="HintTextMultiline">
-    <value xml:space="preserve">a full description, which can be several paragraphs long</value>
-  </data>
-  <data name="HintTextSinlgeLine">
-    <value xml:space="preserve">a short one-line description</value>
+    <value xml:space="preserve">Eine komplette, u.U. mehrzeilige Beschreibung.</value>
   </data>
 </root>

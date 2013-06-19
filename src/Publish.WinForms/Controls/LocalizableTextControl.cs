@@ -25,7 +25,6 @@ using System.Windows.Forms;
 using C5;
 using Common;
 using Common.Collections;
-using ZeroInstall.Publish.WinForms.Properties;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -54,13 +53,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 {
                     Size = new Size(Size.Width, 83);
                     hintTextBoxSummary.Size = new Size(hintTextBoxSummary.Size.Width, 79);
-                    hintTextBoxSummary.HintText = Resources.HintTextMultiline;
                 }
                 else
                 {
                     Size = new Size(Size.Width, 23);
                     hintTextBoxSummary.Size = new Size(hintTextBoxSummary.Size.Width, 20);
-                    hintTextBoxSummary.HintText = Resources.HintTextSinlgeLine;
                 }
             }
         }
@@ -91,7 +88,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private const string TranslatedLanguageMarker = "* ";
         #endregion
 
-        #region
+        #region Variables
         private BindingList<ToStringWrapper<CultureInfo>> _comboBoxEntries;
         #endregion
 

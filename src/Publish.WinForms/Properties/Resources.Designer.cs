@@ -98,7 +98,7 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The feed has not the right format..
+        ///   Looks up a localized string similar to The feed does not have the correct format..
         /// </summary>
         internal static string FeedNotValid {
             get {
@@ -107,20 +107,11 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to a full description, which can be several paragraphs long.
+        ///   Looks up a localized string similar to Eine komplette, u.U. mehrzeilige Beschreibung..
         /// </summary>
         internal static string HintTextMultiline {
             get {
                 return ResourceManager.GetString("HintTextMultiline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to a short one-line description.
-        /// </summary>
-        internal static string HintTextSinlgeLine {
-            get {
-                return ResourceManager.GetString("HintTextSinlgeLine", resourceCulture);
             }
         }
         
