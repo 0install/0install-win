@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.Cryptography;
@@ -23,7 +24,13 @@ using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using Common.Storage;
+using Common.Tasks;
 using Common.Utils;
+using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Management.WinForms.Properties;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Store.Management.WinForms
 {
@@ -46,7 +53,7 @@ namespace ZeroInstall.Store.Management.WinForms
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        public static void Main()
+        public static void Main(string[] args)
         {
             WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
 
@@ -64,7 +71,46 @@ namespace ZeroInstall.Store.Management.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
-            Application.Run(new MainForm());
+            if (args.Length > 0 && args[0] == "purge")
+            {
+                if (Msg.YesNo(null, Resources.ConfirmPurge, MsgSeverity.Warn))
+                {
+                    try
+                    {
+                        Purge();
+                    }
+                        #region Error handling
+                    catch (OperationCanceledException)
+                    {}
+                    catch (KeyNotFoundException ex)
+                    {
+                        Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    }
+                    catch (IOException ex)
+                    {
+                        Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    }
+                    #endregion
+                }
+            }
+            else Application.Run(new MainForm());
+        }
+
+        /// <summary>
+        /// Deletes all cache entries.
+        /// </summary>
+        private static void Purge()
+        {
+            var store = StoreFactory.CreateDefault();
+            TrackingDialog.Run(null, new ForEachTask<ManifestDigest>(Resources.DeletingEntries, store.ListAll(), store.Remove), null);
+            TrackingDialog.Run(null, new ForEachTask<string>(Resources.DeletingEntries, store.ListAllTemp(), path => Directory.Delete(path, true)), null);
+
+            var feedCache = FeedCacheFactory.CreateDefault(OpenPgpFactory.CreateDefault());
+            foreach (string feedID in feedCache.ListAll()) feedCache.Remove(feedID);
         }
 
         /// <summary>

@@ -610,7 +610,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)
         {
-            ProcessUtils.RunAsync(Store.Management.WinForms.Program.Main);
+            ProcessUtils.RunAsync(() => Store.Management.WinForms.Program.Main(new string[0]));
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)
