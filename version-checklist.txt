@@ -4,5 +4,5 @@
 /src/AssemblyInfo.Tools.cs
 
 Optional:
-/VERSION_Updater
+/VERSION_UPDATER
 /src/AssemblyInfo.Updater.cs
