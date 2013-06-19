@@ -36,6 +36,8 @@ zip -q -9 -j "%TargetDir%\zero-install.zip" "%~dp0..\license.txt"
 if errorlevel 1 pause
 zip -q -9 -j "%TargetDir%\zero-install.zip" "%~dp0..\3rd party code.txt"
 if errorlevel 1 pause
+zip -q -9 -j "%TargetDir%\zero-install.zip" "%~dp0_portable"
+if errorlevel 1 pause
 cd /d "%~dp0"
 echo ##teamcity[publishArtifacts 'build/Setup/zero-install.zip']
 
