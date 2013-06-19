@@ -17,8 +17,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Common.Tasks;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Properties;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Store.Management
 {
@@ -30,11 +36,11 @@ namespace ZeroInstall.Store.Management
         /// <summary>
         /// Tries to find an <see cref="Model.Implementation"/> with a specific <see cref="ManifestDigest"/> in a list of <see cref="Feed"/>s.
         /// </summary>
-        /// <param name="digest">The digest to search for.</param>
         /// <param name="feeds">The list of <see cref="Feed"/>s to search in.</param>
+        /// <param name="digest">The digest to search for.</param>
         /// <param name="feed">Returns the <see cref="Feed"/> a match was found in; <see langword="null"/> if no match found.</param>
         /// <returns>The matching <see cref="Model.Implementation"/>; <see langword="null"/> if no match found.</returns>
-        public static Model.Implementation GetImplementation(ManifestDigest digest, IEnumerable<Feed> feeds, out Feed feed)
+        public static Model.Implementation GetImplementation(this IEnumerable<Feed> feeds, ManifestDigest digest, out Feed feed)
         {
             #region Sanity checks
             if (feeds == null) throw new ArgumentNullException("feeds");
@@ -52,6 +58,19 @@ namespace ZeroInstall.Store.Management
 
             feed = null;
             return null;
+        }
+
+        /// <summary>
+        /// Removes all implementations from a store.
+        /// </summary>
+        /// <param name="store">The store to be purged.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        /// <exception cref="IOException">Thrown if an implementation could not be deleted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
+        public static void Purge(this IStore store, ITaskHandler handler)
+        {
+            handler.RunTask(new ForEachTask<ManifestDigest>(Resources.PurgingCache, store.ListAll(), store.Remove), null);
+            handler.RunTask(new ForEachTask<string>(Resources.RemovingTempFiles, store.ListAllTemp(), path => Directory.Delete(path, true)), null);
         }
     }
 }

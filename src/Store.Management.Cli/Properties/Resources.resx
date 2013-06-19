@@ -136,11 +136,11 @@ To add a subdirectory of an archive to the store:
 The actual digest is calculated and compared to the given one. If they don't match, the operation is rejected.</value>
   </data>
   <data name="DetailsAudit" xml:space="preserve">
-    <value>Verifies  every  implementation in each of the given cache directories, or in all of the default cache directories if no arguments are given. This will detect any packages which have been tampered with since they were unpacked.
+    <value>Verifies every  implementation in each of the given cache directories, or in all of the default cache directories if no arguments are given. This will detect any packages which have been tampered with since they were unpacked.
 See the 'verify' command for details of the verification performed on each package.</value>
   </data>
   <data name="DetailsCopy" xml:space="preserve">
-    <value>To  copy an implementation (a directory with a name in the form "algorithm=value"), use the 'copy' command. This is similar to performing a normal recursive directory copy followed by a '0store verify' to check that the name matches the contents.
+    <value>To copy an implementation (a directory with a name in the form "algorithm=value"), use the 'copy' command. This is similar to performing a normal recursive directory copy followed by a '0store verify' to check that the name matches the contents.
 
 Examples:
 Windows: 0store copy %localappdata%\0install.net\implementations\sha256=XXX %localappdata%\0install.net\implementations\
@@ -177,6 +177,10 @@ Supported algorithms: {0}</value>
 This reads in all the manifest files in the cache directory and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one file and replaces it (atomically) with a hard-link to the other.
 
 Implementations using the old 'sha1' algorithm are not optimised.</value>
+  </data>
+  <data name="DetailsPurge" xml:space="preserve">
+    <value>Removes all implementations in each of the given cache directories, or in all of the default cache directories if no arguments are given.
+Use this command to clean up a system before uninstalling Zero Install.</value>
   </data>
   <data name="DetailsRemove" xml:space="preserve">
     <value>To remove an item from the store:
@@ -249,6 +253,9 @@ Try 0store --help</value>
   </data>
   <data name="UsageOptimize" xml:space="preserve">
     <value>0store optimise [CACHE+]</value>
+  </data>
+  <data name="UsagePurge" xml:space="preserve">
+    <value>0store purge [CACHE+]</value>
   </data>
   <data name="UsageRemove" xml:space="preserve">
     <value>0store remove DIGEST+</value>

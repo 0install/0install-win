@@ -178,6 +178,10 @@ Dies liest alle Manifest-Dateien im Cache-Verzeichnis ein und sucht nach Duplika
 
 Implementierungen mit dem alten "sha1"-Algorithmus werden nicht optimiert.</value>
   </data>
+  <data name="DetailsPurge" xml:space="preserve">
+    <value>Entfernt alle Implementierungen in jedem der angegebenen Cache-Verzeichnisse oder in allen Default Cache-Verzeichnissen falls keine Argumente angegeben werden.
+Verwenden Sie diesen Befehl um ein System vor der Deinstallation von Zero Install zu bereinigen.</value>
+  </data>
   <data name="DetailsRemove" xml:space="preserve">
     <value>Um ein Element aus dem Store zu entfernen:
 0store remove sha256=XXX</value>

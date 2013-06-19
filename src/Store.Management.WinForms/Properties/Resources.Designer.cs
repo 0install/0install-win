@@ -70,7 +70,8 @@ namespace ZeroInstall.Store.Management.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to remove all applications in the Zero Install cache? These files can downloaded again if needed..
+        ///   Looks up a localized string similar to Do you want to remove all applications in the Zero Install cache?
+        ///These files can downloaded again if needed..
         /// </summary>
         internal static string ConfirmPurge {
             get {
@@ -133,7 +134,8 @@ namespace ZeroInstall.Store.Management.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No, keep.
+        ///   Looks up a localized string similar to No
+        ///Keep.
         /// </summary>
         internal static string NoKeep {
             get {
@@ -205,7 +207,8 @@ namespace ZeroInstall.Store.Management.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Yes, delete.
+        ///   Looks up a localized string similar to Yes
+        ///Delete.
         /// </summary>
         internal static string YesDelete {
             get {

@@ -41,13 +41,13 @@ namespace ZeroInstall.Store.Management
             var feeds = new[] {feed1, feed2};
 
             Feed feed;
-            Assert.AreEqual(implementation1, ImplementationUtils.GetImplementation(digest1, feeds, out feed));
+            Assert.AreEqual(implementation1, feeds.GetImplementation(digest1, out feed));
             Assert.AreEqual(feed1, feed);
 
-            Assert.AreEqual(implementation2, ImplementationUtils.GetImplementation(digest2, feeds, out feed));
+            Assert.AreEqual(implementation2, feeds.GetImplementation(digest2, out feed));
             Assert.AreEqual(feed2, feed);
 
-            Assert.IsNull(ImplementationUtils.GetImplementation(new ManifestDigest(sha256: "invalid"), feeds, out feed), "No implementation should have been found");
+            Assert.IsNull(feeds.GetImplementation(new ManifestDigest(sha256: "invalid"), out feed), "No implementation should have been found");
             Assert.IsNull(feed, "No feed should have been found");
         }
     }

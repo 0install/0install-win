@@ -338,11 +338,29 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Purging cache.
+        /// </summary>
+        internal static string PurgingCache {
+            get {
+                return ResourceManager.GetString("PurgingCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A recipe step contains an invalid path (potentially a security risk): {0}.
         /// </summary>
         internal static string RecipeInvalidPath {
             get {
                 return ResourceManager.GetString("RecipeInvalidPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing temporary files.
+        /// </summary>
+        internal static string RemovingTempFiles {
+            get {
+                return ResourceManager.GetString("RemovingTempFiles", resourceCulture);
             }
         }
         

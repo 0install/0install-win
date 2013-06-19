@@ -24,9 +24,9 @@ using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Implementation.Archive;
 using ZeroInstall.Store.Management.Cli.Properties;
-using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Store.Management.Cli
 {
@@ -112,8 +112,27 @@ namespace ZeroInstall.Store.Management.Cli
             else
             {
                 for (int i = 1; i < args.Count; i++)
+                {
+                    if (!Directory.Exists(args[i])) throw new DirectoryNotFoundException("Not found: " + args[i]);
                     new DirectoryStore(args[i]).Optimise(handler);
+                }
             }
+        }
+        #endregion
+
+        #region Purge
+        private static ErrorLevel Purge(IList<string> args, ITaskHandler handler)
+        {
+            if (args.Count == 1) _store.Purge(handler);
+            else
+            {
+                for (int i = 1; i < args.Count; i++)
+                {
+                    if (!Directory.Exists(args[i])) throw new DirectoryNotFoundException("Not found: " + args[i]);
+                    new DirectoryStore(args[i]).Purge(handler);
+                }
+            }
+            return ErrorLevel.OK;
         }
         #endregion
 
@@ -143,6 +162,7 @@ namespace ZeroInstall.Store.Management.Cli
                 var result = ErrorLevel.OK;
                 for (int i = 1; i < args.Count; i++)
                 {
+                    if (!Directory.Exists(args[i])) throw new DirectoryNotFoundException("Not found: " + args[i]);
                     ErrorLevel tempResult = AuditStore(new DirectoryStore(args[i]), handler);
                     if (tempResult > result) result = tempResult; // Remember only the worst error level
                 }

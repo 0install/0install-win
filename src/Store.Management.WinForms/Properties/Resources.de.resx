@@ -121,7 +121,8 @@
     <value>Alle geprüften Implementierungen sind in Ordnung.</value>
   </data>
   <data name="ConfirmPurge" xml:space="preserve">
-    <value>Möchten Sie alle Anwendungen im Zero Install Cache entfernen? Diese Dateien können bei Bedarf erneut heruntergeladen werden.</value>
+    <value>Möchten Sie alle Anwendungen im Zero Install Cache entfernen?
+Diese Dateien können bei Bedarf erneut heruntergeladen werden.</value>
   </data>
   <data name="DeleteCheckedEntries" xml:space="preserve">
     <value>Möchten Sie die {0} angehakten Elemente aus dem Cache löschen?</value>

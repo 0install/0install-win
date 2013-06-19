@@ -213,7 +213,7 @@ namespace ZeroInstall.Store.Management.Cli
         #region Help
         private static void PrintUsage()
         {
-            var usages = new[] {Resources.UsageAdd, Resources.UsageAudit, Resources.UsageCopy, Resources.UsageFind, Resources.UsageList, Resources.UsageManifest, Resources.UsageOptimize, Resources.UsageRemove, Resources.UsageVerify};
+            var usages = new[] {Resources.UsageAdd, Resources.UsageAudit, Resources.UsageCopy, Resources.UsageFind, Resources.UsageList, Resources.UsageManifest, Resources.UsageOptimize, Resources.UsagePurge, Resources.UsageRemove, Resources.UsageVerify};
             Console.WriteLine(Resources.Usage + '\t' + string.Join(Environment.NewLine + '\t', usages) + '\n');
         }
 
@@ -228,6 +228,7 @@ namespace ZeroInstall.Store.Management.Cli
             Console.WriteLine(@"MANAGE" + Environment.NewLine + Environment.NewLine + Resources.DetailsManage + Environment.NewLine + Environment.NewLine + Environment.NewLine);
             string supportedFormats = ", ".Join(ManifestFormat.All.Select(format => format.ToString()));
             Console.WriteLine(@"MANIFEST" + Environment.NewLine + Environment.NewLine + string.Format(Resources.DetailsManifest, supportedFormats) + Environment.NewLine + Environment.NewLine + Environment.NewLine);
+            Console.WriteLine(@"PURGE" + Environment.NewLine + Environment.NewLine + Resources.DetailsPurge + Environment.NewLine + Environment.NewLine + Environment.NewLine);
             Console.WriteLine(@"REMOVE" + Environment.NewLine + Environment.NewLine + Resources.DetailsRemove + Environment.NewLine + Environment.NewLine + Environment.NewLine);
             Console.WriteLine(@"VERIFY" + Environment.NewLine + Environment.NewLine + Resources.DetailsVerify);
         }
@@ -266,10 +267,6 @@ namespace ZeroInstall.Store.Management.Cli
                     Find(args);
                     return ErrorLevel.OK;
 
-                case "remove":
-                    Remove(args);
-                    return ErrorLevel.OK;
-
                 case "list":
                     List(args);
                     return ErrorLevel.OK;
@@ -285,6 +282,13 @@ namespace ZeroInstall.Store.Management.Cli
 
                 case "optimise":
                     Optimise(args, handler);
+                    return ErrorLevel.OK;
+
+                case "purge":
+                    return Purge(args, handler);
+
+                case "remove":
+                    Remove(args);
                     return ErrorLevel.OK;
 
                 case "verify":

@@ -26,11 +26,8 @@ using Common.Controls;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.Model;
-using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Management.WinForms.Properties;
-using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Store.Management.WinForms
 {
@@ -73,11 +70,11 @@ namespace ZeroInstall.Store.Management.WinForms
 
             if (args.Length > 0 && args[0] == "purge")
             {
-                if (Msg.YesNo(null, Resources.ConfirmPurge, MsgSeverity.Warn))
+                if (Msg.YesNo(null, Resources.ConfirmPurge, MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
                 {
                     try
                     {
-                        Purge();
+                        StoreFactory.CreateDefault().Purge(new GuiTaskHandler());
                     }
                         #region Error handling
                     catch (OperationCanceledException)
@@ -98,19 +95,6 @@ namespace ZeroInstall.Store.Management.WinForms
                 }
             }
             else Application.Run(new MainForm());
-        }
-
-        /// <summary>
-        /// Deletes all cache entries.
-        /// </summary>
-        private static void Purge()
-        {
-            var store = StoreFactory.CreateDefault();
-            TrackingDialog.Run(null, new ForEachTask<ManifestDigest>(Resources.DeletingEntries, store.ListAll(), store.Remove), null);
-            TrackingDialog.Run(null, new ForEachTask<string>(Resources.DeletingEntries, store.ListAllTemp(), path => Directory.Delete(path, true)), null);
-
-            var feedCache = FeedCacheFactory.CreateDefault(OpenPgpFactory.CreateDefault());
-            foreach (string feedID in feedCache.ListAll()) feedCache.Remove(feedID);
         }
 
         /// <summary>

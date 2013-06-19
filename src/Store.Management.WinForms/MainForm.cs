@@ -115,7 +115,7 @@ namespace ZeroInstall.Store.Management.WinForms
                     try
                     {
                         Feed feed;
-                        var implementation = ImplementationUtils.GetImplementation(digest, feeds, out feed);
+                        var implementation = feeds.GetImplementation(digest, out feed);
 
                         ImplementationNode implementationNode;
                         if (feed == null) implementationNode = new OrphanedImplementationNode(this, store, digest);

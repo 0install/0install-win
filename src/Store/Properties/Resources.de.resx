@@ -214,8 +214,14 @@ Sie können die Datei '{0}' löschen, um das Problem zu beheben.</value>
     <value>Es gab ein Problem beim Laden des Konfigurationswerts '{0}'.
 Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen womöglich auch andere Einstellungen verloren.</value>
   </data>
+  <data name="PurgingCache" xml:space="preserve">
+    <value>Leere cache</value>
+  </data>
   <data name="RecipeInvalidPath" xml:space="preserve">
     <value>Das Recipe enthält einen ungültigen Pfad (möglicherweise ein Sicherheitsrisiko): {0}</value>
+  </data>
+  <data name="RemovingTempFiles" xml:space="preserve">
+    <value>Entferne temporäre Dateien</value>
   </data>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>Ein vollständig qualifizierter/gewurzelter Pfad wird benötigt.</value>
