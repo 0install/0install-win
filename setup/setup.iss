@@ -25,12 +25,8 @@ de.compile_netfx=.NET Assemblies zum schnelleren Anwendugsstart vorkompilieren..
 ;Used by downloader
 appname=Zero Install
 
-en.AddToPath=Add to System &PATH (recommended)
-de.AddToPath=Zum System &PATH hinzufügen (empfohlen)
 en.CacheManagement=Cache management
 de.CacheManagement=Cache Verwaltung
-en.DeleteCache=Do you want to delete the Zero Install cache (installed applications)? These files can be re-downloaded again.
-de.DeleteCache=Möchten Sie den Zero Install Cache (installierte Anwendungen) löschen? Diese Dateien können erneut heruntergeladen werden.
 
 [Setup]
 OutputDir=..\build\Setup
@@ -53,7 +49,9 @@ VersionInfoTextVersion=Zero Install for Windows v{#Version} Setup
 VersionInfoVersion={#Version}
 VersionInfoCompany=0install.de
 DefaultGroupName=Zero Install
+DisableWelcomePage=true
 DisableProgramGroupPage=true
+DisableReadyPage=true
 ArchitecturesInstallIn64BitMode=x64 ia64
 PrivilegesRequired=admin
 ChangesAssociations=true
@@ -67,19 +65,10 @@ Compression=lzma/ultra
 SolidCompression=true
 
 [Languages]
-Name: de; MessagesFile: compiler:Languages\German.isl; LicenseFile: License_de.rtf
-Name: en; MessagesFile: compiler:Default.isl; LicenseFile: License_en.rtf
-
-[InstallDelete]
-;Remove NanoGrid shortcuts
-Name: {commondesktop}\Zero Install.url; Type: files
-Name: {commonprograms}\Zero Install\Zero Install.url; Type: files
-
-;Remove obsolete files from previous versions
-Name: {app}\Python; Type: filesandordirs
-Name: {app}\*.xml; Type: files
-Name: {app}\ZeroInstall.MyApps.dll; Type: files
-Name: {app}\de\ZeroInstall.MyApps.resources.dll; Type: files
+Name: de; MessagesFile: compiler:Languages\German.isl
+; LicenseFile: License_de.rtf
+Name: en; MessagesFile: compiler:Default.isl
+; LicenseFile: License_en.rtf
 
 [Files]
 Source: ..\license.txt; DestDir: {app}; Flags: ignoreversion
@@ -96,15 +85,11 @@ Source: ..\bundled\Solver\*; DestDir: {app}\Solver; Flags: ignoreversion recurse
 Root: HKLM32; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty
 Root: HKLM64; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty; Check: IsWin64
 
-[Tasks]
-Name: desktopicon; Description: {cm:CreateDesktopIcon}
-Name: modifypath; Description: {cm:AddToPath}
 [Icons]
 ;Name: {group}\{cm:UninstallProgram,Zero Install}; Filename: {uninstallexe}
-;Name: {group}\Website; Filename: http://0install.de/
 Name: {group}\Zero Install; Filename: {app}\ZeroInstall.exe
 Name: {group}\{cm:CacheManagement}; Filename: {app}\0store-win.exe; IconFilename: {app}\0store-win.exe; Flags: excludefromshowinnewinstall
-Name: {commondesktop}\Zero Install; Filename: {app}\ZeroInstall.exe; Tasks: desktopicon
+Name: {commondesktop}\Zero Install; Filename: {app}\ZeroInstall.exe
 
 [Run]
 ;Pre-compile .NET executables and their dependencies
@@ -152,6 +137,14 @@ Name: {app}\*.InstallLog; Type: files
 Name: {app}; Type: dirifempty
 
 [Code]
+procedure CurPageChanged(CurPageID: Integer);
+begin
+  if CurPageID = wpSelectDir then
+    WizardForm.NextButton.Caption := SetupMessage(msgButtonInstall)
+  //else
+  //  WizardForm.NextButton.Caption := SetupMessage(msgButtonNext);
+end;
+
 function InitializeSetup(): Boolean;
 begin
 	// Determine the exact Windows version, including Service pack
@@ -196,7 +189,7 @@ begin
 		// Stop the Zero Install Store Service if it is running
 		Exec(ExpandConstant('{app}\0store-service.exe'), 'stop --silent', '', SW_SHOW, ewWaitUntilTerminated, ResultCode);
 	end else if CurStep = ssPostInstall then begin
-		if IsTaskSelected('modifypath') then ModPath();
+		ModPath();
 	end;
 end;
 
@@ -207,20 +200,13 @@ var
 	selectedTasks: String;
 begin
 	if CurUninstallStep = usUninstall then begin
+		// Remove Zero Install from PATH
+		ModPath();
+
 		// Uninstall the Zero Install Store Service if it is installed
 		Exec(ExpandConstant('{app}\0store-service.exe'), 'uninstall --silent', '', SW_SHOW, ewWaitUntilTerminated, ResultCode);
 
-		// Remove Zero Install from PATH
-		if LoadStringFromFile(ExpandConstant('{app}\uninsTasks.txt'), selectedTasks) then begin
-			if Pos('modifypath', selectedTasks) > 0 then ModPath();
-		end;
-		DeleteFile(ExpandConstant('{app}\\uninsTasks.txt'))
-
-		// Clean implementation cache
-		//if MsgBox(CustomMessage('DeleteCache'), mbConfirmation, MB_YESNO) = IDYES
-		//then begin
-		//	DelTree(ExpandConstant('{localappdata}\0install.net'), true, true, true);
-		//	DelTree(ExpandConstant('{commonappdata}\0install.net\implementations'), true, true, true);
-		//end;
+		// Purge cache
+		Exec(ExpandConstant('{app}\0store-win.exe'), 'purge', '', SW_SHOW, ewWaitUntilTerminated, ResultCode);
 	end;
 end;

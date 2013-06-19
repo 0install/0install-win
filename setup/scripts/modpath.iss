@@ -61,12 +61,6 @@ begin
 
 			// Write new path
 			RegWriteStringValue(HKEY_LOCAL_MACHINE, 'SYSTEM\CurrentControlSet\Control\Session Manager\Environment', 'Path', newpath);
-
 		end;
-
-		// Write file to flag modifypath was selected
-		//   Workaround since IsTaskSelected() cannot be called at uninstall and AppName and AppId cannot be "read" in Code section
-		if IsUninstaller() = false then
-			SaveStringToFile(ExpandConstant('{app}') + '\uninsTasks.txt', WizardSelectedTasks(False), False);
 	end;
 end;
