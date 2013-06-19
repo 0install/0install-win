@@ -137,7 +137,6 @@ namespace Common.Controls
 
             if (ContentChanged != null) ContentChanged(TextEditor.Text);
             SetStatus(Resources.Info, "OK");
-            TextEditor.Document.UndoStack.ClearAll();
         }
 
         private void HandleError(Exception ex)

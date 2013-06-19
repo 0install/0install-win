@@ -235,6 +235,7 @@ namespace Common.StructureEditor
             if (command == null) return;
             _xmlTarget = _selectedTarget = command.Value;
             CommandManager.ExecuteCommand(command);
+            xmlEditor.TextEditor.Document.UndoStack.ClearAll();
         }
         #endregion
     }
