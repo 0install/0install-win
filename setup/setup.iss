@@ -3,7 +3,6 @@
   #define Version "0.1"
 #endif
 
-;Automatic dependency download and installation
 #include "scripts\fileversion.iss"
 #include "scripts\winversion.iss"
 #include "scripts\products.iss"
@@ -13,7 +12,6 @@
 #include "scripts\products\dotnetfx20.iss"
 #include "scripts\products\dotnetfx20sp1.iss"
 #include "scripts\products\dotnetfx20sp2.iss"
-
 #include "scripts\modpath.iss"
 
 [CustomMessages]
@@ -29,20 +27,31 @@ en.CacheManagement=Cache management
 de.CacheManagement=Cache Verwaltung
 
 [Setup]
+#ifdef PerUser
+  PrivilegesRequired=lowest
+  OutputBaseFilename=zero-install-per-user
+  AppName=Zero Install (per-user)
+  AppID=Zero Install (per-user)
+  UninstallDisplayName=Zero Install (per-user)
+  ;DefaultDirName={userpf}\Zero Install
+  DefaultDirName={%userprofile}\Zero Install
+#else
+  PrivilegesRequired=admin
+  OutputBaseFilename=zero-install
+  AppName=Zero Install
+  AppID=Zero Install
+  UninstallDisplayName=Zero Install
+  DefaultDirName={pf}\Zero Install
+#endif
 OutputDir=..\build\Setup
-OutputBaseFilename=zero-install
 
-;General settings
 ShowLanguageDialog=auto
 MinVersion=0,5.0
-DefaultDirName={pf}\Zero Install
-AppName=Zero Install
 AppVersion={#Version}
 AppVerName=Zero Install for Windows v{#Version}
-AppCopyright=Copyright 2010-2013 Bastian Eicher and others
+AppCopyright=Copyright 2010-2013 Bastian Eicher et al
 AppPublisher=0install.de
 AppPublisherURL=http://0install.de/
-AppID=Zero Install
 AppMutex=Zero Install
 VersionInfoDescription=Zero Install Setup
 VersionInfoTextVersion=Zero Install for Windows v{#Version} Setup
@@ -53,11 +62,8 @@ DisableWelcomePage=true
 DisableProgramGroupPage=true
 DisableReadyPage=true
 ArchitecturesInstallIn64BitMode=x64 ia64
-PrivilegesRequired=admin
-ChangesAssociations=true
 ChangesEnvironment=yes
 UninstallDisplayIcon={app}\ZeroInstall.exe
-UninstallDisplayName=Zero Install
 SetupIconFile=Setup.ico
 WizardImageFile=WizModernImage.bmp
 WizardSmallImageFile=WizModernSmallImage.bmp
@@ -66,24 +72,27 @@ SolidCompression=true
 
 [Languages]
 Name: de; MessagesFile: compiler:Languages\German.isl
-; LicenseFile: License_de.rtf
 Name: en; MessagesFile: compiler:Default.isl
-; LicenseFile: License_en.rtf
 
 [Files]
 Source: ..\license.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\3rd party code.txt; DestDir: {app}; Flags: ignoreversion
-Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,*.xml; DestDir: {app}; Flags: ignoreversion recursesubdirs
+#ifdef PerUser
+  Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,*.xml,0store-service.*; DestDir: {app}; Flags: ignoreversion recursesubdirs
+#else
+  Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,*.xml; DestDir: {app}; Flags: ignoreversion recursesubdirs
+#endif
 Source: ..\bundled\GnuPG\*; DestDir: {app}\GnuPG; Flags: ignoreversion recursesubdirs
 Source: ..\bundled\Solver\*; DestDir: {app}\Solver; Flags: ignoreversion recursesubdirs
 
-[Dirs]
-;ToDo: Suppress inherited permissions from {commonappdata}
-;Name: {commonappdata}\0install.net; Flags: uninsneveruninstall; Permissions: admins-full
-
 [Registry]
-Root: HKLM32; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty
-Root: HKLM64; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty; Check: IsWin64
+#ifdef PerUser
+  Root: HKCU32; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty
+  Root: HKCU64; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty; Check: IsWin64
+#else
+  Root: HKLM32; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty
+  Root: HKLM64; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty; Check: IsWin64
+#endif
 
 [Icons]
 ;Name: {group}\{cm:UninstallProgram,Zero Install}; Filename: {uninstallexe}
@@ -92,37 +101,16 @@ Name: {group}\{cm:CacheManagement}; Filename: {app}\0store-win.exe; IconFilename
 Name: {commondesktop}\Zero Install; Filename: {app}\ZeroInstall.exe
 
 [Run]
-;Pre-compile .NET executables and their dependencies
-;Filename: {dotnet20}\ngen.exe; Parameters: install ZeroInstall.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-;Filename: {dotnet20}\ngen.exe; Parameters: install 0install.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-;Filename: {dotnet20}\ngen.exe; Parameters: install 0install-win.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-;Filename: {dotnet20}\ngen.exe; Parameters: install 0launch.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-;Filename: {dotnet20}\ngen.exe; Parameters: install 0store.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-;Filename: {dotnet20}\ngen.exe; Parameters: install 0store-win.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-;Filename: {dotnet20}\ngen.exe; Parameters: install 0store-service.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-
-;Restart the Zero Install Store Service if it is installed
-Filename: {app}\0store-service.exe; Parameters: start --silent
-
-;Pre-compile XML serialization assemblies (are not explicit dependencies, therefore need to be listed separately)
-;Filename: {dotnet20}\ngen.exe; Parameters: install ZeroInstall.Model.XmlSerializers.dll /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-;Filename: {dotnet20}\ngen.exe; Parameters: install ZeroInstall.Injector.XmlSerializers.dll /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-;Filename: {dotnet20}\ngen.exe; Parameters: install ZeroInstall.DesktopIntegration.XmlSerializers.dll /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-
+#ifndef PerUser
+  Filename: {app}\0store-service.exe; Parameters: start --silent
+#endif
 Filename: {app}\ZeroInstall.exe; Description: {cm:LaunchProgram,Zero Install}; Flags: nowait postinstall runasoriginaluser skipifsilent
 
 [UninstallRun]
-;Remove pre-compiled .NET files
-;Filename: {dotnet20}\ngen.exe; Parameters: uninstall ZeroInstall.exe; WorkingDir: {app}; Flags: runhidden
-;Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0install.exe; WorkingDir: {app}; Flags: runhidden
-;Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0install-win.exe; WorkingDir: {app}; Flags: runhidden
-;Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0launch.exe; WorkingDir: {app}; Flags: runhidden
-;Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0store.exe; WorkingDir: {app}; Flags: runhidden
-;Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0store-win.exe; WorkingDir: {app}; Flags: runhidden
-;Filename: {dotnet20}\ngen.exe; Parameters: uninstall 0store-service.exe; WorkingDir: {app}; Flags: runhidden
-;Filename: {dotnet20}\ngen.exe; Parameters: uninstall ZeroInstall.Model.XmlSerializers.dll; WorkingDir: {app}; Flags: runhidden
-;Filename: {dotnet20}\ngen.exe; Parameters: uninstall ZeroInstall.Injector.XmlSerializers.dll; WorkingDir: {app}; Flags: runhidden
-;Filename: {dotnet20}\ngen.exe; Parameters: uninstall ZeroInstall.DesktopIntegration.XmlSerializers.dll WorkingDir: {app}; Flags: runhidden
+#ifndef PerUser
+  Filename: {app}\0store-service.exe; Parameters: "uninstall --silent"; RunOnceId: UninstallService
+#endif
+Filename: {app}\0store-win.exe; Parameters: "purge"; RunOnceId: PurgeCache
 
 [UninstallDelete]
 ;Remove files added by post-installation updates
@@ -134,15 +122,16 @@ Name: {app}\.manifest; Type: files
 Name: {app}\.xbit; Type: files
 Name: {app}\.symlink; Type: files
 Name: {app}\*.InstallLog; Type: files
+Name: {app}\*.pdb; Type: files
 Name: {app}; Type: dirifempty
 
 [Code]
 procedure CurPageChanged(CurPageID: Integer);
 begin
-  if CurPageID = wpSelectDir then
+  if CurPageID = wpSelectDir then begin
+    // Label button "Install" instead of "Next"
     WizardForm.NextButton.Caption := SetupMessage(msgButtonInstall)
-  //else
-  //  WizardForm.NextButton.Caption := SetupMessage(msgButtonNext);
+  end;
 end;
 
 function InitializeSetup(): Boolean;
@@ -189,24 +178,15 @@ begin
 		// Stop the Zero Install Store Service if it is running
 		Exec(ExpandConstant('{app}\0store-service.exe'), 'stop --silent', '', SW_SHOW, ewWaitUntilTerminated, ResultCode);
 	end else if CurStep = ssPostInstall then begin
+		// Add Zero Install to PATH
 		ModPath();
 	end;
 end;
 
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
-var
-	ResultCode: Integer;
-	appdir: String;
-	selectedTasks: String;
 begin
 	if CurUninstallStep = usUninstall then begin
 		// Remove Zero Install from PATH
 		ModPath();
-
-		// Uninstall the Zero Install Store Service if it is installed
-		Exec(ExpandConstant('{app}\0store-service.exe'), 'uninstall --silent', '', SW_SHOW, ewWaitUntilTerminated, ResultCode);
-
-		// Purge cache
-		Exec(ExpandConstant('{app}\0store-win.exe'), 'purge', '', SW_SHOW, ewWaitUntilTerminated, ResultCode);
 	end;
 end;

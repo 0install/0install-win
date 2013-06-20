@@ -72,21 +72,21 @@ namespace ZeroInstall.Central.WinForms
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
             // Store installation location in registry to allow other applications or bootstrappers to locate Zero Install
-            if (!Locations.IsPortable && WindowsUtils.IsWindows && WindowsUtils.IsAdministrator)
+            if (!Locations.IsPortable && WindowsUtils.IsWindows && StoreUtils.PathInAStore(Locations.InstallBase))
             {
-                // Do not store the location if Zero Install itself was launched as a Zero Install implementation
-                if (StoreUtils.PathInAStore(Locations.InstallBase))
+                try
                 {
-                    try
+                    if (WindowsUtils.IsAdministrator)
                     {
                         Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
                         if (WindowsUtils.Is64BitProcess) Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
                     }
-                        #region Error handling
-                    catch (SecurityException)
-                    {}
-                    #endregion
+                    else Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
                 }
+                    #region Error handling
+                catch (SecurityException)
+                {}
+                #endregion
             }
 
             bool machineWide = args.Any(arg => arg == "-m" || arg == "--machine");
