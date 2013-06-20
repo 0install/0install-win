@@ -34,7 +34,7 @@ de.CacheManagement=Cache Verwaltung
   AppID=Zero Install (per-user)
   UninstallDisplayName=Zero Install (per-user)
   ;DefaultDirName={userpf}\Zero Install
-  DefaultDirName={%userprofile}\Zero Install
+  DefaultDirName={userappdata}\Programs\Zero Install
 #else
   PrivilegesRequired=admin
   OutputBaseFilename=zero-install
