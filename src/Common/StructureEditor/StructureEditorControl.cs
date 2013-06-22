@@ -25,10 +25,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Common.Collections;
+using Common.Controls;
 using Common.Properties;
 using Common.Undo;
 using Common.Utils;
-using ICSharpCode.TextEditor;
 
 namespace Common.StructureEditor
 {
@@ -118,7 +118,7 @@ namespace Common.StructureEditor
 
         #region Undo
         /// <summary>
-        /// Passes through to <see cref="Common.Undo.CommandManager.Undo"/> or <see cref="TextEditorControl.Undo"/>.
+        /// Pass through to <see cref="LiveEditor"/> or <see cref="CommandManager"/>.
         /// </summary>
         public void Undo()
         {
@@ -127,7 +127,7 @@ namespace Common.StructureEditor
         }
 
         /// <summary>
-        /// Passes through to <see cref="Common.Undo.CommandManager.Redo"/> or <see cref="TextEditorControl.Redo"/>.
+        /// Pass through to <see cref="LiveEditor"/> or <see cref="CommandManager"/>.
         /// </summary>
         public void Redo()
         {
@@ -167,7 +167,7 @@ namespace Common.StructureEditor
         {
             var delete = SelectedNode.Entry.Delete; // Remember target even if selection changes
             treeView.SelectedNode = treeView.SelectedNode.Parent; // Select parent before deleting
-            delete(CommandManager);
+            CommandManager.Execute(delete());
         }
         #endregion
 
