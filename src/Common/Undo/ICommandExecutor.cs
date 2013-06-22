@@ -31,7 +31,7 @@ namespace Common.Undo
     public interface ICommandExecutor
     {
         /// <summary>
-        /// Is raised when a command has been executed.
+        /// Is raised after an <see cref="IUndoCommand"/> has been executed.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
         event Action Updated;

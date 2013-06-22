@@ -45,7 +45,6 @@ namespace ZeroInstall.Publish.WinForms
                     _feedEditing.UndoEnabled += state => menuUndo.Enabled = buttonUndo.Enabled = state;
                     _feedEditing.RedoEnabled += state => menuRedo.Enabled = buttonRedo.Enabled = state;
 
-                    feedEditorControl.Target = _feedEditing.SignedFeed.Feed;
                     feedEditorControl.CommandManager = _feedEditing;
                 }
 

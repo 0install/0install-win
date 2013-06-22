@@ -27,18 +27,16 @@ namespace ZeroInstall.Publish
     /// <summary>
     /// Represents a <see cref="Feed"/> being edited using <see cref="IUndoCommand"/>s.
     /// </summary>
-    public class FeedEditing : CommandManager
+    public class FeedEditing : CommandManager<Feed>
     {
         #region Properties
-        /// <summary>
-        /// The path of the file the <see cref="Feed"/> was loaded from. <see langword="null"/> if none.
-        /// </summary>
-        public string Path { get; private set; }
-
         /// <summary>
         /// The (optionally signed) feed being edited.
         /// </summary>
         public SignedFeed SignedFeed { get; private set; }
+
+        /// <inheritdoc/>
+        public override Feed Target { get { return SignedFeed.Feed; } set { SignedFeed.Feed = value; } }
         #endregion
 
         #region Constructor
@@ -62,7 +60,7 @@ namespace ZeroInstall.Publish
         #endregion
 
         /// <summary>
-        /// Uses <see cref="CommandManager.UndoEnabled"/> and <see cref="CommandManager.RedoEnabled"/> to enable the appropriate buttons based on the current state of the Undo system.
+        /// Uses <see cref="CommandManager{T}.UndoEnabled"/> and <see cref="CommandManager{T}.RedoEnabled"/> to enable the appropriate buttons based on the current state of the Undo system.
         /// </summary>
         /// <param name="commandPending">Pretend another command has already been executed.</param>
         public void UpdateButtonStatus(bool commandPending)

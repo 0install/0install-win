@@ -27,9 +27,10 @@ using System.Diagnostics.CodeAnalysis;
 namespace Common.Undo
 {
     /// <summary>
-    /// A class for managing <see cref="IUndoCommand"/>s.
+    /// Controls editing a target using <see cref="IUndoCommand"/>s.
     /// </summary>
-    public class CommandManager : ICommandExecutor
+    /// <typeparam name="T">The type of the root object being edited.</typeparam>
+    public abstract class CommandManager<T> : ICommandExecutor
     {
         #region Variables
         /// <summary>Entries used by the undo-system to undo changes</summary>
@@ -41,7 +42,17 @@ namespace Common.Undo
 
         #region Properties
         /// <summary>
-        /// Indicates the file has unsaved changes
+        /// The root object being edited.
+        /// </summary>
+        public abstract T Target { get; set; }
+        
+        /// <summary>
+        /// The path of the file the <see cref="Target"/> was loaded from. <see langword="null"/> if none.
+        /// </summary>
+        public string Path { get; protected set; }
+
+        /// <summary>
+        /// Indicates whether the <see cref="Target"/> has unsaved changes.
         /// </summary>
         public bool Changed { get; private set; }
         #endregion

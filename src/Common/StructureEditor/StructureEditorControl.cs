@@ -39,27 +39,13 @@ namespace Common.StructureEditor
         where T : class, IEquatable<T>, new()
     {
         #region Properties
-        private T _target;
-
-        /// <inheritdoc/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public T Target
-        {
-            get { return _target; }
-            set
-            {
-                _target = value;
-                RebuildTree();
-            }
-        }
-
-        private CommandManager _commandManager;
+        private CommandManager<T> _commandManager;
 
         /// <summary>
         /// The undo system to use for editing. Required!
         /// </summary>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public CommandManager CommandManager
+        public CommandManager<T> CommandManager
         {
             get { return _commandManager; }
             set
@@ -67,6 +53,7 @@ namespace Common.StructureEditor
                 if (_commandManager != null) _commandManager.Updated -= RebuildTree;
                 _commandManager = value;
                 if (_commandManager != null) _commandManager.Updated += RebuildTree;
+                RebuildTree();
             }
         }
         #endregion
@@ -79,7 +66,7 @@ namespace Common.StructureEditor
             buttonRemove.Image = Resources.DeleteButton;
 
             Describe<StructureEditorControl<T>>()
-                .AddProperty(x => new PropertyPointer<T>(() => _target, value => _target = value));
+                .AddProperty(x => new PropertyPointer<T>(() => CommandManager.Target, value => CommandManager.Target = value));
         }
         #endregion
 
