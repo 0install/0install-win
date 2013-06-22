@@ -59,16 +59,6 @@ namespace ZeroInstall.Publish
         {}
         #endregion
 
-        /// <summary>
-        /// Uses <see cref="CommandManager{T}.UndoEnabled"/> and <see cref="CommandManager{T}.RedoEnabled"/> to enable the appropriate buttons based on the current state of the Undo system.
-        /// </summary>
-        /// <param name="commandPending">Pretend another command has already been executed.</param>
-        public void UpdateButtonStatus(bool commandPending)
-        {
-            OnUndoEnabled(commandPending || UndoStack.Count > 0);
-            OnRedoEnabled(!commandPending && RedoStack.Count > 0);
-        }
-
         #region Storage
         /// <summary>
         /// Loads a <see cref="Feed"/> from an XML file (feed).
