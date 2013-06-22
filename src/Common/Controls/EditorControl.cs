@@ -53,7 +53,7 @@ namespace Common.Controls
                 PropertyValueChanged += delegate(object sender, PropertyValueChangedEventArgs e)
                 {
                     if (CommandExecutor != null)
-                        CommandExecutor.ExecuteCommand(tracker.GetCommand(e.ChangedItem));
+                        CommandExecutor.Execute(tracker.GetCommand(e.ChangedItem));
                 };
             }
             else
@@ -61,7 +61,7 @@ namespace Common.Controls
                 PropertyValueChanged += delegate(object sender, PropertyValueChangedEventArgs e)
                 {
                     if (CommandExecutor != null)
-                        CommandExecutor.ExecuteCommand(new PropertyChangedCommand(Target, e));
+                        CommandExecutor.Execute(new PropertyChangedCommand(Target, e));
                 };
             }
         }

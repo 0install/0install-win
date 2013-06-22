@@ -157,7 +157,7 @@ namespace Common.StructureEditor
                     {
                         var command = child1.Create();
                         _selectedTarget = command.Value;
-                        CommandManager.ExecuteCommand(command);
+                        CommandManager.Execute(command);
                     }));
                 }
             }
@@ -221,7 +221,7 @@ namespace Common.StructureEditor
             var command = SelectedNode.Entry.FromXmlString(text);
             if (command == null) return;
             _xmlTarget = _selectedTarget = command.Value;
-            CommandManager.ExecuteCommand(command);
+            CommandManager.Execute(command);
             xmlEditor.TextEditor.Document.UndoStack.ClearAll();
         }
         #endregion

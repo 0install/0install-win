@@ -92,7 +92,7 @@ namespace Common.Undo
 
         #region Commands
         /// <inheritdoc/>
-        public void ExecuteCommand(IUndoCommand command)
+        public void Execute(IUndoCommand command)
         {
             #region Sanity checks
             if (command == null) throw new ArgumentNullException("command");
@@ -114,7 +114,7 @@ namespace Common.Undo
         }
 
         /// <summary>
-        /// Undoes the last action performed by <see cref="ExecuteCommand"/>.
+        /// Undoes the last action performed by <see cref="Execute"/>.
         /// </summary>
         public void Undo()
         {

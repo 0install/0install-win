@@ -32,7 +32,7 @@ namespace ZeroInstall.Central.WinForms
     {
         #region Inner classes
         /// <summary>
-        /// Wraps <see cref="EntryPoint"/>s so that their ToXmlString methods return localized names.
+        /// Wraps <see cref="EntryPoint"/>s so that their <see cref="object.ToString"/> methods return localized names.
         /// </summary>
         private class EntryPointWrapper : ToStringWrapper<EntryPoint>
         {
