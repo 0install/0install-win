@@ -1,0 +1,12 @@
+syntax: glob
+build
+*.VisualState.xml
+TestResult.xml
+obj
+*.bak
+*.cache
+*.suo
+*.user
+_ReSharper.*
+_TeamCity.*
+bundled/Solver
