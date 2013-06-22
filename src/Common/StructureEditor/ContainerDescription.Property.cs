@@ -79,7 +79,7 @@ namespace Common.StructureEditor
                             var newValue = XmlStorage.FromXmlString<TProperty>(xmlString);
                             return newValue.Equals(pointer.Value) ? null : new SetValueCommand<TProperty>(pointer, newValue);
                         },
-                        delete: () => new SetValueCommand<TProperty>(pointer, null));
+                        deleteCommand: new SetValueCommand<TProperty>(pointer, null));
                 }
             }
 

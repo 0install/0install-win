@@ -165,9 +165,9 @@ namespace Common.StructureEditor
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
-            var delete = SelectedNode.Entry.Delete; // Remember target even if selection changes
+            var deleteCommand = SelectedNode.Entry.DeleteCommand;
             treeView.SelectedNode = treeView.SelectedNode.Parent; // Select parent before deleting
-            CommandManager.Execute(delete());
+            CommandManager.Execute(deleteCommand);
         }
         #endregion
 

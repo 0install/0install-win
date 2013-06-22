@@ -72,7 +72,7 @@ namespace Common.StructureEditor
                                 var newValue = XmlStorage.FromXmlString<TElement>(xmlString);
                                 return newValue.Equals(element) ? null : new ReplaceInList<TList>(list, element, newValue);
                             },
-                            delete: () => new RemoveFromCollection<TList>(list, element)));
+                            deleteCommand: new RemoveFromCollection<TList>(list, element)));
                 }
 
                 public ChildInfo GetPossibleChildFor(IList<TList> list)

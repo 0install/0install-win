@@ -35,15 +35,15 @@ namespace Common.StructureEditor
         public readonly Func<Undo.ICommandExecutor, Control> GetEditorControl;
         public readonly Func<string> ToXmlString;
         public readonly Func<string, IValueCommand> FromXmlString;
-        public readonly Func<IUndoCommand> Delete;
+        public readonly IUndoCommand DeleteCommand;
 
-        public EntryInfo(object target, Func<Undo.ICommandExecutor, Control> getEditorControl, Func<string> toXmlString, Func<string, IValueCommand> fromXmlString, Func<IUndoCommand> delete)
+        public EntryInfo(object target, Func<Undo.ICommandExecutor, Control> getEditorControl, Func<string> toXmlString, Func<string, IValueCommand> fromXmlString, IUndoCommand deleteCommand)
         {
             Target = target;
             GetEditorControl = getEditorControl;
             ToXmlString = toXmlString;
             FromXmlString = fromXmlString;
-            Delete = delete;
+            DeleteCommand = deleteCommand;
         }
     }
 }
