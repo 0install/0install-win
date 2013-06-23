@@ -26,6 +26,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
     {
         public FeedStructureEditor()
         {
+            DescribeRoot();
+
             Describe<Feed>()
                 .AddPlainList(x => x.Icons)
                 .AddPlainList(x => x.EntryPoints)

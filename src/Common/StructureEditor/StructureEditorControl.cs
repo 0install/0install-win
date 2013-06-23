@@ -35,7 +35,8 @@ namespace Common.StructureEditor
     /// <summary>
     /// A universal editor for hierarchical structures with undo support.
     /// </summary>
-    public partial class StructureEditorControl<T> : UserControl
+    /// <remarks>Derive and call <see cref="DescribeRoot"/> or <see cref="DescribeRoot{TEditor}"/> as well as <see cref="Describe{TContainer}"/> in the constructor.</remarks>
+    public abstract partial class StructureEditorControl<T> : UserControl
         where T : class, IEquatable<T>, new()
     {
         #region Properties
@@ -59,14 +60,11 @@ namespace Common.StructureEditor
         #endregion
 
         #region Constructor
-        public StructureEditorControl()
+        protected StructureEditorControl()
         {
             InitializeComponent();
             buttonAdd.Image = Resources.AddButton;
             buttonRemove.Image = Resources.DeleteButton;
-
-            Describe<StructureEditorControl<T>>()
-                .AddProperty(x => new PropertyPointer<T>(() => CommandManager.Target, value => CommandManager.Target = value));
         }
         #endregion
 
@@ -81,13 +79,33 @@ namespace Common.StructureEditor
         /// </summary>
         /// <typeparam name="TContainer">The type of the container to describe.</typeparam>
         /// <returns>The <see cref="ContainerDescription{TContainer}"/> for use in a "Fluent API" style.</returns>
-        public ContainerDescription<TContainer> Describe<TContainer>()
+        protected ContainerDescription<TContainer> Describe<TContainer>()
             where TContainer : class
         {
             var description = new ContainerDescription<TContainer>();
             _getEntries.Add<TContainer>(container => description.GetEntrysIn(container).ToList());
             _getPossibleChildren.Add<TContainer>(container => description.GetPossibleChildrenFor(container).ToList());
             return description;
+        }
+
+        /// <summary>
+        /// Set up handling for the root element with a generic editor.
+        /// </summary>
+        protected void DescribeRoot()
+        {
+            Describe<StructureEditorControl<T>>()
+                .AddProperty(x => new PropertyPointer<T>(() => CommandManager.Target, value => CommandManager.Target = value));
+        }
+
+        /// <summary>
+        /// Set up handling for the root element with a custom editor.
+        /// </summary>
+        /// <typeparam name="TEditor">An editor for modifying the content of the root.</typeparam>
+        protected void DescribeRoot<TEditor>()
+            where TEditor : Control, IEditorControl<T>, new()
+        {
+            Describe<StructureEditorControl<T>>()
+                .AddProperty<T, TEditor>(x => new PropertyPointer<T>(() => CommandManager.Target, value => CommandManager.Target = value));
         }
         #endregion
 
