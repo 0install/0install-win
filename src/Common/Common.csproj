@@ -216,9 +216,6 @@
     <Compile Include="Controls\ErrorBox.Designer.cs">
       <DependentUpon>ErrorBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\AddRemoveTabControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controls\TrackingLabel.cs">
       <SubType>Component</SubType>
     </Compile>
