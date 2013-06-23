@@ -67,7 +67,7 @@ namespace Common.Controls
             {
                 Location = new Point(0, 0),
                 Size = Size - new Size(0, statusStrip.Height),
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
+                Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom,
                 TabIndex = 0,
                 ShowVRuler = false,
                 Document =
