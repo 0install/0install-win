@@ -181,11 +181,21 @@ namespace Common.StructureEditor
             }
         }
 
-        private void buttonRemove_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Removes the currently selected entry;
+        /// </summary>
+        public void Remove()
         {
-            var deleteCommand = SelectedNode.Entry.DeleteCommand;
+            if (SelectedNode == null || treeView.SelectedNode == treeView.Nodes[0]) return;
+
+            var deleteCommand = SelectedNode.Entry.RemoveCommand;
             treeView.SelectedNode = treeView.SelectedNode.Parent; // Select parent before deleting
             CommandManager.Execute(deleteCommand);
+        }
+
+        private void buttonRemove_Click(object sender, EventArgs e)
+        {
+            Remove();
         }
         #endregion
 

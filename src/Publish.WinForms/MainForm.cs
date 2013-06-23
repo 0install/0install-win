@@ -124,6 +124,11 @@ namespace ZeroInstall.Publish.WinForms
             {}
         }
 
+        private void menuExit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
         private void menuUndo_Click(object sender, EventArgs e)
         {
             feedStructureEditor.Undo();
@@ -134,9 +139,9 @@ namespace ZeroInstall.Publish.WinForms
             feedStructureEditor.Redo();
         }
 
-        private void menuExit_Click(object sender, EventArgs e)
+        private void menuRemove_Click(object sender, EventArgs e)
         {
-            Close();
+            feedStructureEditor.Remove();
         }
 
         private void comboBoxKeys_SelectedIndexChanged(object sender, EventArgs e)
