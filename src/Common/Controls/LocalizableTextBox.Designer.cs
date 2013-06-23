@@ -1,4 +1,4 @@
-﻿namespace ZeroInstall.Publish.WinForms.Controls
+﻿namespace Common.Controls
 {
     partial class LocalizableTextBox
     {

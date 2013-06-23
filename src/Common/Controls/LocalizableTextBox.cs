@@ -20,10 +20,8 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Common.Collections;
-using Common.Controls;
-using Common.Undo;
 
-namespace ZeroInstall.Publish.WinForms.Controls
+namespace Common.Controls
 {
     /// <summary>
     /// A control for editing a <see cref="LocalizableStringCollection"/>.
@@ -47,7 +45,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         /// <inheritdoc/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Common.Undo.ICommandExecutor CommandExecutor { get; set; }
+        public Undo.ICommandExecutor CommandExecutor { get; set; }
         #endregion
 
         public LocalizableTextBox()
@@ -84,7 +82,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             var language = comboBoxLanguage.SelectedItem as Language;
             if (language == null) return;
 
-            var command = new SetLocalizableString(Target, new LocalizableString(textBox.Text, language.Culture));
+            var command = new Undo.SetLocalizableString(Target, new LocalizableString(textBox.Text, language.Culture));
             CommandExecutor.Execute(command);
         }
 

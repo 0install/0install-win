@@ -53,7 +53,7 @@
             this.menuRedo = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.feedEditorControl = new ZeroInstall.Publish.WinForms.Controls.FeedEditorControl();
+            this.feedStructureEditor = new ZeroInstall.Publish.WinForms.Controls.FeedStructureEditor();
             this.toolStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -264,20 +264,20 @@
             this.menuExit.Text = "E&xit";
             this.menuExit.Click += new System.EventHandler(this.menuExit_Click);
             // 
-            // feedEditorControl
+            // feedStructureEditor
             // 
-            this.feedEditorControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.feedEditorControl.Location = new System.Drawing.Point(0, 49);
-            this.feedEditorControl.Name = "feedEditorControl";
-            this.feedEditorControl.Padding = new System.Windows.Forms.Padding(12);
-            this.feedEditorControl.Size = new System.Drawing.Size(584, 502);
-            this.feedEditorControl.TabIndex = 1;
+            this.feedStructureEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.feedStructureEditor.Location = new System.Drawing.Point(0, 49);
+            this.feedStructureEditor.Name = "feedStructureEditor";
+            this.feedStructureEditor.Padding = new System.Windows.Forms.Padding(12);
+            this.feedStructureEditor.Size = new System.Drawing.Size(584, 502);
+            this.feedStructureEditor.TabIndex = 1;
             // 
             // MainForm
             // 
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(584, 551);
-            this.Controls.Add(this.feedEditorControl);
+            this.Controls.Add(this.feedStructureEditor);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -309,7 +309,7 @@
         private System.Windows.Forms.ToolStripLabel labelGnuPG;
         private System.Windows.Forms.ToolStripComboBox comboBoxKeys;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
-        private Controls.FeedEditorControl feedEditorControl;
+        private Controls.FeedStructureEditor feedStructureEditor;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.MenuStrip menuStrip1;

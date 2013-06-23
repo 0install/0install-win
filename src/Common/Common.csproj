@@ -192,6 +192,12 @@
     <Compile Include="Controls\IContextMenu.cs" />
     <Compile Include="Controls\IHighlightColor.cs" />
     <Compile Include="Controls\RtfBuilder.cs" />
+    <Compile Include="Controls\LocalizableTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\LocalizableTextBox.Designer.cs">
+      <DependentUpon>LocalizableTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\InputBox.cs">
       <SubType>Form</SubType>
     </Compile>

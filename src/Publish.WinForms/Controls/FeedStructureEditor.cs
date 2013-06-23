@@ -22,9 +22,9 @@ using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
-    public class FeedEditorControl : StructureEditorControl<Feed>
+    public class FeedStructureEditor : StructureEditorControl<Feed>
     {
-        public FeedEditorControl()
+        public FeedStructureEditor()
         {
             Describe<Feed>()
                 .AddPlainList(x => x.Icons)
