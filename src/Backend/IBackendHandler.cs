@@ -33,10 +33,10 @@ namespace ZeroInstall.Backend
         /// <summary>
         /// Provides information for a potential GUI backing this handler.
         /// </summary>
-        /// <param name="actionTitle">A short title describing what the command being executed does; may be <see langword="null"/>.</param>
+        /// <param name="actionTitle">A delegate that returns a short title describing what the command being executed does.</param>
         /// <param name="delay">The number of milliseconds by which to delay the initial display of the GUI.</param>
         /// <remarks>Should be called before <see cref="IHandler.ShowProgressUI"/>.</remarks>
-        void SetGuiHints(string actionTitle, int delay);
+        void SetGuiHints(Func<string> actionTitle, int delay);
 
         /// <summary>
         /// Shows the user the <see cref="Selections"/> made by the solver.

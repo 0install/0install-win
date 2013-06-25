@@ -79,7 +79,7 @@ namespace ZeroInstall.Central.WinForms.SyncWizards
         /// <summary>
         /// Does nothing.
         /// </summary>
-        public void SetGuiHints(string actionTitle, int delay)
+        public void SetGuiHints(Func<string> actionTitle, int delay)
         {}
 
         public void ShowProgressUI()

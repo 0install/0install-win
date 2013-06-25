@@ -157,7 +157,7 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <inheritdoc />
-        public void SetGuiHints(string actionTitle, int delay)
+        public void SetGuiHints(Func<string> actionTitle, int delay)
         {
             _delay = delay;
             ApplyToTarget(target => target.SetGuiHints(actionTitle, delay));

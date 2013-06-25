@@ -63,9 +63,13 @@ namespace ZeroInstall.Commands.WinForms
         private string _actionTitle;
 
         /// <inheritdoc />
-        public void SetGuiHints(string actionTitle, int delay)
+        public void SetGuiHints(Func<string> actionTitle, int delay)
         {
-            _actionTitle = actionTitle;
+            #region Sanity checks
+            if (actionTitle == null) throw new ArgumentNullException("actionTitle");
+            #endregion
+
+            _actionTitle = actionTitle();
         }
         #endregion
 
