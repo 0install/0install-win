@@ -63,7 +63,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public Download(Resolver resolver) : base(resolver)
         {
-            Options.Add("show", Resources.OptionShow, unused => _show = true);
+            Options.Add("show", () => Resources.OptionShow, unused => _show = true);
         }
         #endregion
 

@@ -50,7 +50,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public Import(Resolver resolver) : base(resolver)
         {
-            Options.Add("batch", Resources.OptionBatch, unused => Resolver.Handler.Batch = true);
+            Options.Add("batch", () => Resources.OptionBatch, unused => Resolver.Handler.Batch = true);
         }
         #endregion
 

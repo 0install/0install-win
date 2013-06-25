@@ -25,12 +25,12 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected IntegrationCommand(Resolver resolver) : base(resolver)
         {
-            Options.Add("batch", Resources.OptionBatch, unused => Resolver.Handler.Batch = true);
+            Options.Add("batch", () => Resources.OptionBatch, unused => Resolver.Handler.Batch = true);
 
-            Options.Add("o|offline", Resources.OptionOffline, unused => Resolver.Config.NetworkUse = NetworkLevel.Offline);
-            Options.Add("r|refresh", Resources.OptionRefresh, unused => Resolver.FeedManager.Refresh = true);
+            Options.Add("o|offline", () => Resources.OptionOffline, unused => Resolver.Config.NetworkUse = NetworkLevel.Offline);
+            Options.Add("r|refresh", () => Resources.OptionRefresh, unused => Resolver.FeedManager.Refresh = true);
 
-            Options.Add("m|machine", Resources.OptionMachine, unused => MachineWide = true);
+            Options.Add("m|machine", () => Resources.OptionMachine, unused => MachineWide = true);
         }
         #endregion
 

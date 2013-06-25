@@ -38,26 +38,26 @@ namespace ZeroInstall.Commands
             if (options == null) throw new ArgumentNullException("options");
             #endregion
 
-            options.Add("command=", Resources.OptionCommand, command => requirements.CommandName = command);
-            options.Add("version=", Resources.OptionVersionRange,
+            options.Add("command=", () => Resources.OptionCommand, command => requirements.CommandName = command);
+            options.Add("version=", () => Resources.OptionVersionRange,
                 (VersionRange range) => requirements.Versions = range);
-            options.Add("version-for==", Resources.OptionVersionRangeFor,
+            options.Add("version-for==", () => Resources.OptionVersionRangeFor,
                 (string interfaceID, VersionRange range) => requirements.VersionsFor.Add(new VersionFor {InterfaceID = interfaceID, Versions = range}));
-            options.Add("before=", Resources.OptionBefore, delegate(ImplementationVersion version)
+            options.Add("before=", () => Resources.OptionBefore, delegate(ImplementationVersion version)
             {
                 if (requirements.Versions == null) requirements.Versions = new VersionRange();
                 requirements.Versions = requirements.Versions.Intersect(new Constraint {Before = version});
             });
-            options.Add("not-before=", Resources.OptionNotBefore, delegate(ImplementationVersion version)
+            options.Add("not-before=", () => Resources.OptionNotBefore, delegate(ImplementationVersion version)
             {
                 if (requirements.Versions == null) requirements.Versions = new VersionRange();
                 requirements.Versions = requirements.Versions.Intersect(new Constraint {NotBefore = version});
             });
-            options.Add("s|source", Resources.OptionSource,
+            options.Add("s|source", () => Resources.OptionSource,
                 unused => requirements.Architecture = new Architecture(requirements.Architecture.OS, Cpu.Source));
-            options.Add("os=", Resources.OptionOS + "\n" + FrontendCommand.SupportedValues(Architecture.KnownOS),
+            options.Add("os=", () => Resources.OptionOS + "\n" + FrontendCommand.SupportedValues(Architecture.KnownOS),
                 (OS os) => requirements.Architecture = new Architecture(os, requirements.Architecture.Cpu));
-            options.Add("cpu=", Resources.OptionCpu + "\n" + FrontendCommand.SupportedValues(Architecture.KnownCpu),
+            options.Add("cpu=", () => Resources.OptionCpu + "\n" + FrontendCommand.SupportedValues(Architecture.KnownCpu),
                 (Cpu cpu) => requirements.Architecture = new Architecture(requirements.Architecture.OS, cpu));
         }
     }

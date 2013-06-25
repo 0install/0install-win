@@ -53,7 +53,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public DefaultCommand(Resolver resolver) : base(resolver)
         {
-            Options.Add("V|version", Resources.OptionVersion, unused =>
+            Options.Add("V|version", () => Resources.OptionVersion, unused =>
             {
                 Resolver.Handler.Output(Resources.VersionInformation, AppInfo.Current.Name + " " + AppInfo.Current.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Current.Copyright + Environment.NewLine + Resources.LicenseInfo);
                 throw new OperationCanceledException(); // Don't handle any of the other arguments

@@ -73,19 +73,19 @@ namespace ZeroInstall.Commands
         {
             string categoryList = ", ".Join(CategoryIntegrationManager.Categories);
 
-            Options.Add("a|add=", Resources.OptionAppAdd + "\n" + Resources.OptionAppCategory + categoryList, category =>
+            Options.Add("a|add=", () => Resources.OptionAppAdd + "\n" + Resources.OptionAppCategory + categoryList, category =>
             {
                 category = category.ToLower();
                 if (!CategoryIntegrationManager.Categories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "add");
                 _addCategories.Add(category);
             });
-            Options.Add("x|remove=", Resources.OptionAppRemove + "\n" + Resources.OptionAppCategory + categoryList, category =>
+            Options.Add("x|remove=", () => Resources.OptionAppRemove + "\n" + Resources.OptionAppCategory + categoryList, category =>
             {
                 category = category.ToLower();
                 if (!CategoryIntegrationManager.Categories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "remove");
                 _removeCategories.Add(category);
             });
-            Options.Add("i|import=", Resources.OptionAppImport, path => _importLists.Add(path));
+            Options.Add("i|import=", () => Resources.OptionAppImport, path => _importLists.Add(path));
         }
         #endregion
 

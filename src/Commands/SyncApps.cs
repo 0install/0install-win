@@ -57,7 +57,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public SyncApps(Resolver resolver) : base(resolver)
         {
-            Options.Add("reset=", Resources.OptionSyncReset, (SyncResetMode mode) => _syncResetMode = mode);
+            Options.Add("reset=", () => Resources.OptionSyncReset, (SyncResetMode mode) => _syncResetMode = mode);
         }
         #endregion
 

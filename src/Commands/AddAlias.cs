@@ -62,8 +62,8 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public AddAlias(Resolver resolver) : base(resolver)
         {
-            Options.Add("resolve", Resources.OptionAliasResolve, unused => _resolve = true);
-            Options.Add("remove", Resources.OptionAliasRemove, unused => _remove = true);
+            Options.Add("resolve", () => Resources.OptionAliasResolve, unused => _resolve = true);
+            Options.Add("remove", () => Resources.OptionAliasRemove, unused => _remove = true);
         }
         #endregion
 

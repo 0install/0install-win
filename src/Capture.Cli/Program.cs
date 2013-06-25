@@ -146,16 +146,16 @@ namespace ZeroInstall.Capture.Cli
             {
                 // Version information
                 {
-                    "V|version", Resources.OptionVersion, unused =>
+                    "V|version", () => Resources.OptionVersion, unused =>
                     {
                         var assembly = Assembly.GetEntryAssembly().GetName();
                         Console.WriteLine(@"Zero Install Capture CLI v{0}", assembly.Version);
                         throw new OperationCanceledException();
                     }
                 },
-                {"f|force", Resources.OptionForce, unused => parseResults.Force = true},
+                {"f|force", () => Resources.OptionForce, unused => parseResults.Force = true},
                 {
-                    "installation-dir=", Resources.OptionInstallationDir, value =>
+                    "installation-dir=", () => Resources.OptionInstallationDir, value =>
                     {
                         try
                         {
@@ -175,13 +175,13 @@ namespace ZeroInstall.Capture.Cli
                         #endregion
                     }
                 },
-                {"main-exe=", Resources.OptionMainExe, value => parseResults.MainExe = value},
-                {"files", Resources.OptionFiles, unused => parseResults.GetFiles = true}
+                {"main-exe=", () => Resources.OptionMainExe, value => parseResults.MainExe = value},
+                {"files", () => Resources.OptionFiles, unused => parseResults.GetFiles = true}
             };
             #endregion
 
             #region Help text
-            options.Add("h|help|?", Resources.OptionHelp, unused =>
+            options.Add("h|help|?", () => Resources.OptionHelp, unused =>
             {
                 PrintUsage();
                 Console.WriteLine(Resources.Options);

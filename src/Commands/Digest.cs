@@ -59,9 +59,9 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public Digest(Resolver resolver) : base(resolver)
         {
-            Options.Add("manifest", Resources.OptionManifest, unused => _printManifest = true);
-            Options.Add("digest", Resources.OptionDigest, unused => _printDigest = true);
-            Options.Add("algorithm=", Resources.OptionAlgorithm + "\n" + SupportedValues(ManifestFormat.All),
+            Options.Add("manifest", () => Resources.OptionManifest, unused => _printManifest = true);
+            Options.Add("digest", () => Resources.OptionDigest, unused => _printDigest = true);
+            Options.Add("algorithm=", () => Resources.OptionAlgorithm + "\n" + SupportedValues(ManifestFormat.All),
                 delegate(string algorithm)
                 {
                     try

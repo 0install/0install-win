@@ -63,7 +63,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public UpdateApps(Resolver resolver) : base(resolver)
         {
-            Options.Add("c|clean", Resources.OptionClean, unused => _clean = true);
+            Options.Add("c|clean", () => Resources.OptionClean, unused => _clean = true);
         }
         #endregion
 

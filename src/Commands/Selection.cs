@@ -82,13 +82,13 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public Selection(Resolver resolver) : base(resolver)
         {
-            Options.Add("batch", Resources.OptionBatch, unused => Resolver.Handler.Batch = true);
-            Options.Add("g|gui", Resources.OptionGui, unused => ShowSelectionsUI = true);
+            Options.Add("batch", () => Resources.OptionBatch, unused => Resolver.Handler.Batch = true);
+            Options.Add("g|gui", () => Resources.OptionGui, unused => ShowSelectionsUI = true);
 
-            Options.Add("o|offline", Resources.OptionOffline, unused => Resolver.Config.NetworkUse = NetworkLevel.Offline);
-            Options.Add("r|refresh", Resources.OptionRefresh, unused => Resolver.FeedManager.Refresh = true);
+            Options.Add("o|offline", () => Resources.OptionOffline, unused => Resolver.Config.NetworkUse = NetworkLevel.Offline);
+            Options.Add("r|refresh", () => Resources.OptionRefresh, unused => Resolver.FeedManager.Refresh = true);
 
-            Options.Add("with-store=", Resources.OptionWithStore, delegate(string path)
+            Options.Add("with-store=", () => Resources.OptionWithStore, delegate(string path)
             {
                 if (string.IsNullOrEmpty(path)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--with-store"), "with-store");
                 Resolver.Store = new CompositeStore(new DirectoryStore(path), Resolver.Store);
@@ -96,7 +96,7 @@ namespace ZeroInstall.Commands
 
             Requirements.FromCommandLine(Options);
 
-            Options.Add("xml", Resources.OptionXml, unused => ShowXml = true);
+            Options.Add("xml", () => Resources.OptionXml, unused => ShowXml = true);
         }
         #endregion
 

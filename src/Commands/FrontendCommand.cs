@@ -171,12 +171,12 @@ namespace ZeroInstall.Commands
             #endregion
 
             Resolver = resolver;
-            Options.Add("?|h|help", Resources.OptionHelp, unused =>
+            Options.Add("?|h|help", () => Resources.OptionHelp, unused =>
             {
                 Resolver.Handler.Output(Resources.CommandLineArguments, HelpText);
                 throw new OperationCanceledException(); // Don't handle any of the other arguments
             });
-            Options.Add("v|verbose", Resources.OptionVerbose, unused => Resolver.Handler.Verbosity++);
+            Options.Add("v|verbose", () => Resources.OptionVerbose, unused => Resolver.Handler.Verbosity++);
         }
         #endregion
 

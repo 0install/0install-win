@@ -176,7 +176,7 @@ namespace ZeroInstall.Store.Management.Cli
             {
                 // Mode selection
                 {
-                    "V|version", Resources.OptionVersion, unused =>
+                    "V|version", () => Resources.OptionVersion, unused =>
                     {
                         Console.WriteLine(AppInfo.Current.Name + ' ' + AppInfo.Current.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Current.Copyright + Environment.NewLine + Resources.LicenseInfo);
                         throw new OperationCanceledException(); // Don't handle any of the other arguments
@@ -184,7 +184,7 @@ namespace ZeroInstall.Store.Management.Cli
                 },
                 // Documentation
                 {
-                    "man", Resources.OptionMan, unused =>
+                    "man", () => Resources.OptionMan, unused =>
                     {
                         PrintManual();
                         throw new OperationCanceledException(); // Don't handle any of the other arguments
@@ -194,7 +194,7 @@ namespace ZeroInstall.Store.Management.Cli
             #endregion
 
             #region Help text
-            options.Add("h|help|?", Resources.OptionHelp, unused =>
+            options.Add("h|help|?", () => Resources.OptionHelp, unused =>
             {
                 PrintUsage();
                 Console.WriteLine(Resources.Options);

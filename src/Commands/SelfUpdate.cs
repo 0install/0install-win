@@ -68,7 +68,7 @@ namespace ZeroInstall.Commands
             //Options.Remove("no-wait");
             //Options.Remove("refresh");
 
-            Options.Add("force", Resources.OptionForceSelfUpdate, unused => _force = true);
+            Options.Add("force", () => Resources.OptionForceSelfUpdate, unused => _force = true);
         }
         #endregion
 
