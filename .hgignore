@@ -7,6 +7,7 @@ obj
 *.cache
 *.suo
 *.user
+*.DotSettings
 _ReSharper.*
 _TeamCity.*
 bundled/Solver

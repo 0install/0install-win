@@ -1,8 +1,4 @@
-# HG changeset patch
-# User Bastian Eicher <bastian@eicher.net>
-# Date 1371561644 -7200
-# Node ID 8bfda17c525c991c000bb68298896676bb404ae8
-# Parent  9a547ae4aa73bc162de89cea25da29e246a3c7f2
+# Bastian Eicher <bastian@eicher.net>
 Mono compatability
 
 diff -r 9a547ae4aa73 -r 8bfda17c525c Project/Src/Document/HighlightingStrategy/HighlightingDefinitionParser.cs
