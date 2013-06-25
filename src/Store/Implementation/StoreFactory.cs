@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting;
 using System.Text;
 using Common.Storage;
 using Common.Utils;
@@ -74,19 +73,7 @@ namespace ZeroInstall.Store.Implementation
             }
 
             // Store service
-            if (WindowsUtils.IsWindowsNT && !Locations.IsPortable)
-            {
-                try
-                {
-                    stores.Add(IpcStoreProvider.GetServiceProxy());
-                }
-                    #region Error handling
-                catch (RemotingException)
-                {
-                    // Ignore remoting errors in case service is offline
-                }
-                #endregion
-            }
+            if (WindowsUtils.IsWindowsNT && !Locations.IsPortable) stores.Add(new IpcStore());
 
             return stores;
         }

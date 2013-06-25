@@ -16,7 +16,12 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Common;
+using Common.Tasks;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -35,6 +40,113 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             return ManifestFormat.All.Any(format => path.Contains(format.Prefix + format.Separator));
+        }
+
+        /// <summary>
+        /// Wrapper for <see cref="IStore.ListAll"/>, handling exceptions.
+        /// </summary>
+        public static IEnumerable<ManifestDigest> ListAllSafe(this IStore store)
+        {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
+            try
+            {
+                return store.ListAll();
+            }
+                #region Error handling
+            catch (UnauthorizedAccessException)
+            {
+                // Ignore authorization errors since listing is not a critical task
+                return new ManifestDigest[0];
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Wrapper for <see cref="IStore.ListAllTemp"/>, handling exceptions.
+        /// </summary>
+        public static IEnumerable<string> ListAllTempSafe(this IStore store)
+        {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
+            try
+            {
+                return store.ListAllTemp();
+            }
+                #region Error handling
+            catch (UnauthorizedAccessException)
+            {
+                // Ignore authorization errors since listing is not a critical task
+                return new string[0];
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Wrapper for <see cref="IStore.GetPath"/>, handling exceptions.
+        /// </summary>
+        public static string GetPathSafe(this IStore store, ManifestDigest manifestDigest)
+        {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
+            try
+            {
+                return store.GetPath(manifestDigest);
+            }
+                #region Error handling
+            catch (UnauthorizedAccessException)
+            {
+                return null;
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Wrapper for <see cref="IStore.Remove"/>, handling exceptions.
+        /// </summary>
+        public static bool RemoveSafe(this IStore store, ManifestDigest manifestDigest)
+        {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
+            if (store.Contains(manifestDigest))
+            {
+                store.Remove(manifestDigest);
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Wrapper for <see cref="IStore.Optimise"/>, handling exceptions.
+        /// </summary>
+        public static void OptimiseSafe(this IStore store, ITaskHandler handler)
+        {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
+            try
+            {
+                store.Optimise(handler);
+            }
+                #region Sanity checks
+            catch (IOException ex)
+            {
+                Log.Error(ex);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error(ex);
+            }
+            #endregion
         }
     }
 }

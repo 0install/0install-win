@@ -87,7 +87,7 @@
     <Compile Include="Implementation\FlagUtils.cs" />
     <Compile Include="Implementation\ImplementationAlreadyInStoreException.cs" />
     <Compile Include="Implementation\ImplementationNotFoundException.cs" />
-    <Compile Include="Implementation\IpcStoreProvider.cs" />
+    <Compile Include="Implementation\IpcStore.Connection.cs" />
     <Compile Include="Implementation\IStore.cs" />
     <Compile Include="Implementation\Manifest.cs" />
     <Compile Include="Implementation\ManifestDirectory.cs" />
@@ -99,7 +99,7 @@
     <Compile Include="Implementation\ManifestNormalFile.cs" />
     <Compile Include="Implementation\ManifestSymlink.cs" />
     <Compile Include="Implementation\RecipeUtils.cs" />
-    <Compile Include="Implementation\RemoteStores.cs" />
+    <Compile Include="Implementation\IpcStore.cs" />
     <Compile Include="Implementation\StoreFactory.cs" />
     <Compile Include="Implementation\StoreUtils.cs" />
     <Compile Include="Management\ImplementationUtils.cs" />

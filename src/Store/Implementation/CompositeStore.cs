@@ -99,7 +99,7 @@ namespace ZeroInstall.Store.Implementation
             }
 
             // Check if any store contains the implementation
-            if (_stores.Any(store => store.ContainsSafe(manifestDigest)))
+            if (_stores.Any(store => store.Contains(manifestDigest)))
             {
                 lock (_containsCache) _containsCache[manifestDigest] = true;
                 return true;
@@ -114,7 +114,7 @@ namespace ZeroInstall.Store.Implementation
         public bool Contains(string directory)
         {
             // Check if any store contains the implementation
-            return _stores.Any(store => store.ContainsSafe(directory));
+            return _stores.Any(store => store.Contains(directory));
         }
         #endregion
 
@@ -255,9 +255,9 @@ namespace ZeroInstall.Store.Implementation
 
             // Verify in every store that contains the implementation
             bool verified = false;
-            foreach (var store in _stores.Where(store => store.ContainsSafe(manifestDigest)))
+            foreach (var store in _stores.Where(store => store.Contains(manifestDigest)))
             {
-                store.VerifySafe(manifestDigest, handler);
+                store.Verify(manifestDigest, handler);
                 verified = true;
             }
             if (!verified) throw new ImplementationNotFoundException(manifestDigest);
@@ -273,7 +273,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Try to audit all contained stores
-            return _stores.Select(store => store.AuditSafe(handler)).
+            return _stores.Select(store => store.Audit(handler)).
                            Where(problems => problems != null).SelectMany(problems => problems);
         }
         #endregion

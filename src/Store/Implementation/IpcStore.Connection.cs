@@ -28,10 +28,7 @@ using System.Security.Principal;
 
 namespace ZeroInstall.Store.Implementation
 {
-    /// <summary>
-    /// Provides access to <see cref="IStore"/>s running in other proccesses via IPC.
-    /// </summary>
-    public static class IpcStoreProvider
+    public partial class IpcStore
     {
         #region Constants
         /// <summary>
@@ -50,7 +47,7 @@ namespace ZeroInstall.Store.Implementation
         public static readonly CommonSecurityDescriptor IpcAcl;
 
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "Must build ACL during init")]
-        static IpcStoreProvider()
+        static IpcStore()
         {
             var dacl = new DiscretionaryAcl(false, false, 1);
             dacl.AddAccess(AccessControlType.Allow, new SecurityIdentifier(WellKnownSidType.CreatorOwnerSid, null), -1, InheritanceFlags.None, PropagationFlags.None);
@@ -70,7 +67,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="RemotingException">Thrown if there is a problem connecting with the store service.</exception>
         /// <remarks>Always returns the same instance. Opens named pipes on first call. Connection is only established on demand.</remarks>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "May throw exceptions")]
-        public static IStore GetServiceProxy()
+        private static IStore GetServiceProxy()
         {
             // Thread-safe singleton with double-check
             if (_store == null)

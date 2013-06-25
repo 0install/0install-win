@@ -70,19 +70,19 @@ namespace ZeroInstall.Store.Service
             _serverChannel = new IpcServerChannel(
                 new Hashtable
                 {
-                    {"name", IpcStoreProvider.IpcPortName},
-                    {"portName", IpcStoreProvider.IpcPortName},
+                    {"name", IpcStore.IpcPortName},
+                    {"portName", IpcStore.IpcPortName},
                     {"secure", true}, {"impersonate", true} // Use identity of client in server threads
                 },
                 new BinaryServerFormatterSinkProvider {TypeFilterLevel = TypeFilterLevel.Full} // Allow deserialization of custom types
 #if !__MonoCS__
-                , IpcStoreProvider.IpcAcl
+                , IpcStore.IpcAcl
 #endif
                 );
             _clientChannel = new IpcClientChannel(
                 new Hashtable
                 {
-                    {"name", IpcStoreProvider.IpcPortName + ".Callback"},
+                    {"name", IpcStore.IpcPortName + ".Callback"},
                 },
                 new BinaryClientFormatterSinkProvider());
         }
@@ -119,7 +119,7 @@ namespace ZeroInstall.Store.Service
                 ChannelServices.RegisterChannel(_serverChannel, false);
                 ChannelServices.RegisterChannel(_clientChannel, false);
                 _store = CreateStore();
-                _objRef = RemotingServices.Marshal(_store, IpcStoreProvider.IpcObjectUri, typeof(IStore));
+                _objRef = RemotingServices.Marshal(_store, IpcStore.IpcObjectUri, typeof(IStore));
             }
                 #region Error handling
             catch (IOException ex)
