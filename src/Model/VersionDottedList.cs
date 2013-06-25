@@ -135,12 +135,14 @@ namespace ZeroInstall.Model
         //--------------------//
 
         #region Static helpers
+        private static readonly Regex _dottedListPattern = new Regex(@"^(\d+(\.\d+)*)$");
+
         /// <summary>
         /// Checks whether a string represents a valid dotted-list.
         /// </summary>
         public static bool IsValid(string value)
         {
-            return Regex.IsMatch(value, @"^(\d+(\.\d+)*)$");
+            return _dottedListPattern.IsMatch(value);
         }
         #endregion
     }

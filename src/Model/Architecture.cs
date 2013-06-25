@@ -183,29 +183,11 @@ namespace ZeroInstall.Model
             if (string.IsNullOrEmpty(architecture)) throw new ArgumentNullException("architecture");
             #endregion
 
-            // Split string
             var architectureArray = architecture.Split('-');
             if (architectureArray.Length != 2) throw new ArgumentException(Resources.ArchitectureStringFormat, "architecture");
-            string os = architectureArray[0];
-            string cpu = architectureArray[1];
 
-            try
-            {
-                OS = os.ConvertFromString<OS>();
-                Cpu = cpu.ConvertFromString<Cpu>();
-            }
-                #region Error handling
-            catch (ArgumentNullException ex)
-            {
-                throw new ArgumentException(Resources.ArchitectureStringFormat, architecture, ex);
-            }
-            catch (ArgumentException)
-            {
-                // Gracefully handle unknown entries as unsupported platforms
-                OS = OS.Unknown;
-                Cpu = Cpu.Unknown;
-            }
-            #endregion
+            OS = ParseOSString(architectureArray[0]);
+            Cpu = ParseCpuString(architectureArray[1]);
         }
 
         /// <summary>
@@ -217,6 +199,50 @@ namespace ZeroInstall.Model
         {
             OS = os;
             Cpu = cpu;
+        }
+        #endregion
+
+        #region Parse string
+        private static OS ParseOSString(string os)
+        {
+            //try { return os.ConvertFromString<OS>(); }
+            //catch (ArgumentException) { return OS.Unknown; }
+
+            // NOTE: Use hard-coded switch instead of reflection-based code for better performance
+            switch (os)
+            {
+                case "*": return OS.All;
+                case "Linux": return OS.Linux;
+                case "Solaris": return OS.Solaris;
+                case "FreeBSD": return OS.FreeBSD;
+                case "MacOSX": return OS.MacOSX;
+                case "Darwin": return OS.Darwin;
+                case "Cygwin": return OS.Cygwin;
+                case "POSIX": return OS.Posix;
+                case "Windows": return OS.Windows;
+                default: return OS.Unknown;
+            }
+        }
+
+        private static Cpu ParseCpuString(string cpu)
+        {
+            //try { return cpu.ConvertFromString<Cpu>(); }
+            //catch (ArgumentException) { return Cpu.Unknown; }
+
+            // NOTE: Use hard-coded switch instead of reflection-based code for better performance
+            switch (cpu)
+            {
+                case "*": return Cpu.All;
+                case "i386": return Cpu.I386;
+                case "i486": return Cpu.I486;
+                case "i586": return Cpu.I586;
+                case "i686": return Cpu.I686;
+                case "x86_64": return Cpu.X64;
+                case "ppc": return Cpu.PPC;
+                case "ppc64": return Cpu.PPC64;
+                case "src": return Cpu.Source;
+                default: return Cpu.Unknown;
+            }
         }
         #endregion
 
