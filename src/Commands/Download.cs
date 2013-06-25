@@ -90,7 +90,7 @@ namespace ZeroInstall.Commands
 
             DownloadUncachedImplementations();
 
-            if (_show) Resolver.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
+            if (_show || ShowXml) Resolver.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             else
             {
                 // Show a "download complete" message (but not in batch mode, since it is not important enough)
