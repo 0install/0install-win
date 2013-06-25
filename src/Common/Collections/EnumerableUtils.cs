@@ -25,7 +25,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Common.Properties;
-using Common.Utils;
 
 namespace Common.Collections
 {
@@ -351,24 +350,6 @@ namespace Common.Collections
             where T : class, IMergeable<T>
         {
             return elements.FirstOrDefault(element => element != null && element.MergeID == id);
-        }
-        #endregion
-
-        #region Convert
-        /// <summary>
-        /// Calls <see cref="AttributeUtils.ConvertFromString{TType}"/> for each element of a collection.
-        /// </summary>
-        public static IEnumerable<TType> ConvertFromString<TType>(this IEnumerable<string> collection)
-        {
-            return collection.Select(element => element.ConvertFromString<TType>());
-        }
-
-        /// <summary>
-        /// Calls <see cref="AttributeUtils.ConvertToString{TType}"/> for each element of a collection.
-        /// </summary>
-        public static IEnumerable<string> ConvertToString<TType>(this IEnumerable<TType> value)
-        {
-            return value.Select(element => element.ConvertToString());
         }
         #endregion
     }
