@@ -71,7 +71,7 @@ namespace Common.Undo
             }
             catch (KeyNotFoundException)
             {}
-            _collection.Set(_entry.Value, _entry.Language);
+            _collection.Set(_entry.Language, _entry.Value);
         }
         #endregion
 
@@ -81,7 +81,7 @@ namespace Common.Undo
         /// </summary>
         protected override void OnUndo()
         {
-            _collection.Set(_previousValue, _entry.Language);
+            _collection.Set(_entry.Language, _previousValue);
         }
         #endregion
     }

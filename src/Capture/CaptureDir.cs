@@ -194,8 +194,8 @@ namespace ZeroInstall.Capture
             var feed = new Feed
             {
                 Name = appName ?? "Application name",
-                Summaries = {new LocalizableString("Short summary")},
-                Descriptions = {new LocalizableString(appDescription ?? "Application description")},
+                Summaries = {"Short summary"},
+                Descriptions = {appDescription ?? "Application description"},
                 Elements = {group},
                 CapabilityLists = {capabilities}
             };

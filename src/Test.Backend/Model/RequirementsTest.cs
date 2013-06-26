@@ -61,7 +61,7 @@ namespace ZeroInstall.Model
         public void TestClone()
         {
             var requirements1 = CreateTestRequirements();
-            requirements1.Languages.Add(new CultureInfo("fr"));
+            requirements1.Languages.Add("fr");
             var requirements2 = requirements1.Clone();
 
             // Ensure data stayed the same

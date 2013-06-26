@@ -22,17 +22,23 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Xml.Serialization;
 
 namespace Common.Collections
 {
     /// <summary>
-    /// A string with an optionally associated language that can be XML serialized to an element with an xml:lang tag.
+    /// A string with an associated language that can be XML serialized to an element with an xml:lang tag.
     /// </summary>
     public sealed class LocalizableString : IEquatable<LocalizableString>, ICloneable
     {
+        #region Variables
+        /// <summary>
+        /// The default language: english with an invariant country.
+        /// </summary>
+        public static readonly CultureInfo DefaultLanguage = new CultureInfo("en");
+        #endregion
+
         #region Properties
         /// <summary>
         /// The actual string value to store.
@@ -41,7 +47,7 @@ namespace Common.Collections
         [XmlText]
         public string Value { get; set; }
 
-        private CultureInfo _language;
+        private CultureInfo _language = DefaultLanguage;
 
         /// <summary>
         /// The language of the <see cref="Value"/>; must not be <see langword="null"/>.
@@ -57,13 +63,13 @@ namespace Common.Collections
                 if (value == null) throw new ArgumentNullException("value");
                 #endregion
 
-                _language = value;
+                _language = value.Equals(CultureInfo.InvariantCulture) ? DefaultLanguage : value;
             }
         }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Language"/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         [XmlAttribute("lang", Namespace = "http://www.w3.org/XML/1998/namespace", DataType = "language") /* Will be serialized as xml:lang, must be done this way for Mono */]
         public string LanguageString
         {
@@ -72,42 +78,11 @@ namespace Common.Collections
             {
                 Language = string.IsNullOrEmpty(value)
                     // Default to English language
-                    ? new CultureInfo("en")
+                    ? DefaultLanguage
                     // Handle Unix-style language codes (even though they are not actually valid in XML)
                     : new CultureInfo(value.Replace("_", "-"));
             }
         }
-        #endregion
-
-        #region Contructor
-        /// <summary>
-        /// Creates a new string with an associated language.
-        /// </summary>
-        /// <param name="value">The actual string value to store.</param>
-        /// <param name="language">The language of the <paramref name="value"/>; must not be <see langword="null"/>.</param>
-        public LocalizableString(string value, CultureInfo language)
-        {
-            #region Sanity checks
-            if (language == null) throw new ArgumentNullException("language");
-            #endregion
-
-            Value = value;
-            Language = language;
-        }
-
-        /// <summary>
-        /// Creates a new <code>en</code> string.
-        /// </summary>
-        /// <param name="value">The actual string value to store.</param>
-        public LocalizableString(string value) : this(value, new CultureInfo("en"))
-        {}
-
-        /// <summary>
-        /// Creates an empty <code>en</code> string.
-        /// </summary>
-        [SuppressMessage("Microsoft.Globalization", "CA1304:SpecifyCultureInfo", Justification = "In this case the language is part of the data to be stored and not used for localizing the output formatting")]
-        public LocalizableString() : this(null)
-        {}
         #endregion
 
         //--------------------//
@@ -126,7 +101,7 @@ namespace Common.Collections
         {
             if (ReferenceEquals(null, other)) return false;
 
-            return other.Value == Value && other.LanguageString == LanguageString;
+            return other.Value == Value && Language.Equals(other.Language);
         }
 
         /// <inheritdoc/>
@@ -154,8 +129,8 @@ namespace Common.Collections
         {
             unchecked
             {
-                int result = (Value != null ? Value.GetHashCode() : 0);
-                if (LanguageString != null) result = (result * 397) ^ LanguageString.GetHashCode();
+                int result = Language.GetHashCode();
+                if (Value != null) result = (result * 397) ^ Value.GetHashCode();
                 return result;
             }
         }
@@ -168,7 +143,7 @@ namespace Common.Collections
         /// <returns>The cloned string.</returns>
         public LocalizableString Clone()
         {
-            return new LocalizableString(Value, Language);
+            return new LocalizableString {Language = Language, Value = Value};
         }
 
         object ICloneable.Clone()

@@ -44,8 +44,8 @@ namespace ZeroInstall.Model
                 Homepage = new Uri("http://0install.de/"),
                 Feeds = {new FeedReference {Source = "hhttp://0install.de/feeds/test/sub1.xml"}},
                 FeedFor = {new InterfaceReference {Target = new Uri("http://0install.de/feeds/test/super1.xml")}},
-                Summaries = {"Default summary", {"German summary", new CultureInfo("de-DE")}},
-                Descriptions = {"Default description", {"German description", new CultureInfo("de-DE")}},
+                Summaries = {"Default summary", {"de-DE", "German summary"}},
+                Descriptions = {"Default description", {"de-DE", "German description"}},
                 Icons = {new Icon(new Uri("http://0install.de/feeds/images/test.png"), Icon.MimeTypePng), new Icon(new Uri("http://0install.de/feeds/images/test.ico"), Icon.MimeTypeIco)},
                 Elements = {CreateTestImplementation(), CreateTestPackageImplementation(), CreateTestGroup()},
                 CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()},
@@ -55,8 +55,8 @@ namespace ZeroInstall.Model
                     {
                         Command = Command.NameRun,
                         BinaryName = "myapp",
-                        Names = {"Entry name", {"German entry name", new CultureInfo("de-DE")}},
-                        Summaries = {"Entry summary", {"German entry summary", new CultureInfo("de-DE")}},
+                        Names = {"Entry name", {"de-DE", "German entry name"}},
+                        Summaries = {"Entry summary", {"de-DE", "German entry summary"}},
                         Icons = {new Icon(new Uri("http://0install.de/feeds/images/test_command.png"), Icon.MimeTypePng), new Icon(new Uri("http://0install.de/feeds/images/test_command.ico"), Icon.MimeTypeIco)}
                     }
                 }
@@ -74,7 +74,7 @@ namespace ZeroInstall.Model
                 ManifestDigest = new ManifestDigest(sha256: "123"),
                 Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
-                Languages = {new CultureInfo("en-US")},
+                Languages = {"en-US"},
                 Commands = {CommandTest.CreateTestCommand1()},
                 DocDir = "doc",
                 Stability = Stability.Developer,
@@ -122,7 +122,7 @@ namespace ZeroInstall.Model
                 Distributions = {"RPM"},
                 Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
-                Languages = {new CultureInfo("en-US")},
+                Languages = {"en-US"},
                 Commands = {CommandTest.CreateTestCommand1()},
                 DocDir = "doc",
                 Stability = Stability.Developer,

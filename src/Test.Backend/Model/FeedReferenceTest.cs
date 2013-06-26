@@ -35,7 +35,7 @@ namespace ZeroInstall.Model
             var reference1 = new FeedReference
             {
                 Source = "http://0install.de/feeds/test/test1.xml",
-                Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")}
+                Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {"en-US"}
             };
             var reference2 = reference1.Clone();
 
@@ -55,13 +55,13 @@ namespace ZeroInstall.Model
             {
                 Source = "http://0install.de/feeds/test/test1.xml",
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
-                Languages = {new CultureInfo("en-US")}
+                Languages = {"en-US"}
             };
             var reference2 = new FeedReference
             {
                 Source = "http://0install.de/feeds/test/test1.xml",
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
-                Languages = {new CultureInfo("en-US")}
+                Languages = {"en-US"}
             };
             Assert.AreEqual(reference1, reference2);
 
@@ -69,14 +69,14 @@ namespace ZeroInstall.Model
             {
                 Source = "http://0install.de/feeds/test/test1.xml",
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
-                Languages = {new CultureInfo("de-DE")}
+                Languages = {"de-DE"}
             };
             Assert.AreNotEqual(reference1, reference2);
 
             reference2 = new FeedReference
             {
                 Source = "http://0install.de/feeds/test/test1.xml",
-                Languages = {new CultureInfo("en-US")}
+                Languages = {"en-US"}
             };
             Assert.AreNotEqual(reference1, reference2);
         }

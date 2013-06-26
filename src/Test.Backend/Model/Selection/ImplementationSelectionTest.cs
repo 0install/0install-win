@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Globalization;
 using NUnit.Framework;
 
 namespace ZeroInstall.Model.Selection
@@ -37,7 +36,7 @@ namespace ZeroInstall.Model.Selection
                 InterfaceID = "http://0install.de/feeds/test/test1.xml",
                 FromFeed = "http://0install.de/feeds/test/sub1.xml",
                 ID = "id1", ManifestDigest = new ManifestDigest(sha256: "123"), Version = new ImplementationVersion("1.0"),
-                Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
+                Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {"en-US"},
                 DocDir = "doc", Stability = Stability.Developer,
                 Bindings =
                 {
@@ -67,7 +66,7 @@ namespace ZeroInstall.Model.Selection
                 InterfaceID = "http://0install.de/feeds/test/test2.xml",
                 FromFeed = "http://0install.de/feeds/test/sub2.xml",
                 ID = "id2", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0"),
-                Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
+                Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {"en-US"},
                 DocDir = "doc", Stability = Stability.Developer,
                 Bindings =
                 {

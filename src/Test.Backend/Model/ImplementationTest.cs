@@ -16,7 +16,6 @@
  */
 
 using System.Collections.Generic;
-using System.Globalization;
 using Common.Utils;
 using NUnit.Framework;
 
@@ -37,7 +36,7 @@ namespace ZeroInstall.Model
             return new Implementation
             {
                 ID = "id", ManifestDigest = new ManifestDigest(sha256: "123"), Version = new ImplementationVersion("1.0"),
-                Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
+                Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {"en-US"},
                 Main = "executable", DocDir = "doc", Stability = Stability.Developer,
                 Bindings = {EnvironmentBindingTest.CreateTestBinding()},
                 RetrievalMethods = {ArchiveTest.CreateTestArchive(), new Recipe {Steps = {ArchiveTest.CreateTestArchive()}}},

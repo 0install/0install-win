@@ -20,7 +20,6 @@
  * THE SOFTWARE.
  */
 
-using System.Collections.Generic;
 using System.Globalization;
 using Common.Storage;
 using NUnit.Framework;
@@ -39,10 +38,10 @@ namespace Common.Collections
             var collection1 = new LocalizableStringCollection
             {
                 "neutralValue",
-                {"americaValue", new CultureInfo("en-US")},
-                {"gbValue", new CultureInfo("en-GB")},
-                {"germanValue", new CultureInfo("de")},
-                {"germanyValue", new CultureInfo("de-DE")}
+                {"en-US", "americaValue"},
+                {"en-GB", "gbValue"},
+                {"de", "germanValue"},
+                {"de-DE", "germanyValue"}
             };
 
             // Serialize and deserialize data
@@ -62,10 +61,10 @@ namespace Common.Collections
             var dictionary = new LocalizableStringCollection
             {
                 "neutralValue",
-                {"germanyValue", new CultureInfo("de-DE")}
+                {"de-DE", "germanyValue"}
             };
 
-            Assert.IsTrue(dictionary.ContainsExactLanguage(new CultureInfo("en")), "Unspecified language should default to English generic");
+            Assert.IsTrue(dictionary.ContainsExactLanguage(LocalizableString.DefaultLanguage), "Unspecified language should default to English generic");
             Assert.IsTrue(dictionary.ContainsExactLanguage(new CultureInfo("de-DE")));
             Assert.IsFalse(dictionary.ContainsExactLanguage(new CultureInfo("de")));
             Assert.IsFalse(dictionary.ContainsExactLanguage(new CultureInfo("de-AT")));
@@ -78,15 +77,15 @@ namespace Common.Collections
             var dictionary = new LocalizableStringCollection
             {
                 "neutralValue",
-                {"germanyValue", new CultureInfo("de-DE")},
+                {"de-DE", "germanyValue"},
                 // Intential duplicates (should be ignored)
                 "neutralValue",
-                {"germanyValue", new CultureInfo("de-DE")}
+                {"de-DE", "germanyValue"}
             };
 
-            dictionary.RemoveAll(new CultureInfo("en"));
-            Assert.IsFalse(dictionary.ContainsExactLanguage(new CultureInfo("en")), "Unspecified language should default to English generic");
-            dictionary.RemoveAll(new CultureInfo("de-DE"));
+            dictionary.Set(LocalizableString.DefaultLanguage, null);
+            Assert.IsFalse(dictionary.ContainsExactLanguage(LocalizableString.DefaultLanguage), "Unspecified language should default to English generic");
+            dictionary.Set(new CultureInfo("de-DE"), null);
             Assert.IsFalse(dictionary.ContainsExactLanguage(new CultureInfo("de-DE")));
         }
 
@@ -96,16 +95,16 @@ namespace Common.Collections
             var dictionary = new LocalizableStringCollection
             {
                 "neutralValue",
-                {"germanyValue", new CultureInfo("de-DE")},
+                {"de-DE", "germanyValue"},
                 // Intential duplicates (should be removed)
                 "neutralValue",
-                {"germanyValue", new CultureInfo("de-DE")}
+                {"de-DE", "germanyValue"}
             };
 
-            dictionary.Set("neutralValue2");
-            dictionary.Set("germanyValue2", new CultureInfo("de-DE"));
+            dictionary.Set(LocalizableString.DefaultLanguage, "neutralValue2");
+            dictionary.Set(new CultureInfo("de-DE"), "germanyValue2");
 
-            Assert.AreEqual("neutralValue2", dictionary.GetExactLanguage(new CultureInfo("en")));
+            Assert.AreEqual("neutralValue2", dictionary.GetExactLanguage(LocalizableString.DefaultLanguage));
             Assert.AreEqual("germanyValue2", dictionary.GetExactLanguage(new CultureInfo("de-DE")));
         }
 
@@ -115,19 +114,19 @@ namespace Common.Collections
             var dictionary = new LocalizableStringCollection
             {
                 "neutralValue",
-                {"americaValue", new CultureInfo("en-US")},
-                {"gbValue", new CultureInfo("en-GB")},
-                {"germanValue", new CultureInfo("de")},
-                {"germanyValue", new CultureInfo("de-DE")}
+                {"en-US", "americaValue"},
+                {"en-GB", "gbValue"},
+                {"de", "germanValue"},
+                {"de-DE", "germanyValue"}
             };
 
-            Assert.AreEqual("neutralValue", dictionary.GetExactLanguage(new CultureInfo("en")), "Unspecified language should default to English generic");
+            Assert.AreEqual("neutralValue", dictionary.GetExactLanguage(LocalizableString.DefaultLanguage), "Unspecified language should default to English generic");
             Assert.AreEqual("americaValue", dictionary.GetExactLanguage(new CultureInfo("en-US")));
-            Assert.Throws<KeyNotFoundException>(() => dictionary.GetExactLanguage(new CultureInfo("en-CA")));
+            Assert.IsNull(dictionary.GetExactLanguage(new CultureInfo("en-CA")));
             Assert.AreEqual("gbValue", dictionary.GetExactLanguage(new CultureInfo("en-GB")));
             Assert.AreEqual("germanValue", dictionary.GetExactLanguage(new CultureInfo("de")));
             Assert.AreEqual("germanyValue", dictionary.GetExactLanguage(new CultureInfo("de-DE")));
-            Assert.Throws<KeyNotFoundException>(() => dictionary.GetExactLanguage(new CultureInfo("de-AT")));
+            Assert.IsNull(dictionary.GetExactLanguage(new CultureInfo("de-AT")));
         }
 
         [Test]
@@ -135,14 +134,14 @@ namespace Common.Collections
         {
             var dictionary = new LocalizableStringCollection
             {
-                {"germanValue", new CultureInfo("de")},
-                {"germanyValue", new CultureInfo("de-DE")},
-                {"americaValue", new CultureInfo("en-US")},
-                {"gbValue", new CultureInfo("en-GB")},
+                {"de", "germanValue"},
+                {"de-DE", "germanyValue"},
+                {"en-US", "americaValue"},
+                {"en-GB", "gbValue"},
                 "neutralValue"
             };
 
-            Assert.AreEqual("neutralValue", dictionary.GetBestLanguage(new CultureInfo("en")), "Unspecified language should default to English generic");
+            Assert.AreEqual("neutralValue", dictionary.GetBestLanguage(LocalizableString.DefaultLanguage), "Unspecified language should default to English generic");
             Assert.AreEqual("americaValue", dictionary.GetBestLanguage(new CultureInfo("en-US")));
             Assert.AreEqual("neutralValue", dictionary.GetBestLanguage(new CultureInfo("en-CA")), "No exact match, should fall back to English generic");
             Assert.AreEqual("gbValue", dictionary.GetBestLanguage(new CultureInfo("en-GB")));
@@ -151,10 +150,10 @@ namespace Common.Collections
             Assert.AreEqual("germanValue", dictionary.GetBestLanguage(new CultureInfo("de-AT")), "No exact match, should fall back to German generic");
             Assert.AreEqual("neutralValue", dictionary.GetBestLanguage(new CultureInfo("es-ES")), "No match, should fall back to English generic");
 
-            dictionary.RemoveAll(new CultureInfo("en"));
+            dictionary.Set(LocalizableString.DefaultLanguage, null);
             Assert.AreEqual("americaValue", dictionary.GetBestLanguage(new CultureInfo("es-ES")), "No English generic, should fall back to English US");
 
-            dictionary.RemoveAll(new CultureInfo("en-US"));
+            dictionary.Set(new CultureInfo("en-US"), null);
             Assert.AreEqual("germanValue", dictionary.GetBestLanguage(new CultureInfo("es-ES")), "No English US, should fall back to first entry in collection");
         }
     }

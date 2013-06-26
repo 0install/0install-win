@@ -82,7 +82,7 @@ namespace Common.Controls
             var language = comboBoxLanguage.SelectedItem as Language;
             if (language == null) return;
 
-            var command = new Undo.SetLocalizableString(Target, new LocalizableString(textBox.Text, language.Culture));
+            var command = new Undo.SetLocalizableString(Target, new LocalizableString {Language = language.Culture, Value = textBox.Text});
             CommandExecutor.Execute(command);
         }
 
