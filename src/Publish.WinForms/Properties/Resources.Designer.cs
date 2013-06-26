@@ -70,15 +70,6 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (auto detect).
-        /// </summary>
-        internal static string AutoDetect {
-            get {
-                return ResourceManager.GetString("AutoDetect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &amp;Discard
         ///Discard unsaved changes.
         /// </summary>
@@ -91,9 +82,9 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Downloading image for preview....
         /// </summary>
-        internal static string Downloading_image_for_preview {
+        internal static string DownloadingPeviewImage {
             get {
-                return ResourceManager.GetString("Downloading_image_for_preview", resourceCulture);
+                return ResourceManager.GetString("DownloadingPeviewImage", resourceCulture);
             }
         }
         
@@ -140,6 +131,15 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         internal static string SaveQuestion {
             get {
                 return ResourceManager.GetString("SaveQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong MIME type! Should be {0}..
+        /// </summary>
+        internal static string WrongMimeType {
+            get {
+                return ResourceManager.GetString("WrongMimeType", resourceCulture);
             }
         }
         

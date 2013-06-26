@@ -117,21 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoDetect" xml:space="preserve">
-    <value>(auto detect)</value>
+  <data name="AskForPassphrase" xml:space="preserve">
+    <value>Please enter the GnuPG passphrase for {0}:</value>
   </data>
-  <data name="ImageFormatNotSupported" xml:space="preserve">
-    <value>The image format is not supported by Zero Install.</value>
+  <data name="DiscardChanges" xml:space="preserve">
+    <value>&amp;Discard
+Discard unsaved changes</value>
   </data>
-  <data name="Downloading_image_for_preview" xml:space="preserve">
+  <data name="DownloadingPeviewImage" xml:space="preserve">
     <value>Downloading image for preview...</value>
   </data>
   <data name="FeedNotValid" xml:space="preserve">
     <value>The feed does not have the correct format.</value>
   </data>
-  <data name="DiscardChanges" xml:space="preserve">
-    <value>&amp;Discard
-Discard unsaved changes</value>
+  <data name="HintTextMultiline" xml:space="preserve">
+    <value>Eine komplette, u.U. mehrzeilige Beschreibung.</value>
+  </data>
+  <data name="ImageFormatNotSupported" xml:space="preserve">
+    <value>The image format is not supported by Zero Install.</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>&amp;Save
@@ -140,13 +143,10 @@ Save changes</value>
   <data name="SaveQuestion" xml:space="preserve">
     <value>Do you want to save the changes?</value>
   </data>
-  <data name="AskForPassphrase" xml:space="preserve">
-    <value>Please enter the GnuPG passphrase for {0}:</value>
+  <data name="WrongMimeType" xml:space="preserve">
+    <value>Wrong MIME type! Should be {0}.</value>
   </data>
   <data name="WrongPassphrase" xml:space="preserve">
     <value>Wrong passphrase entered.</value>
-  </data>
-  <data name="HintTextMultiline">
-    <value xml:space="preserve">Eine komplette, u.U. mehrzeilige Beschreibung.</value>
   </data>
 </root>

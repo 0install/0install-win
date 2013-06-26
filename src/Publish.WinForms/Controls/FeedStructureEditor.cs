@@ -36,7 +36,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 .AddPlainList("capabilities", x => x.CapabilityLists);
 
             Describe<IIconContainer>()
-                .AddPlainList("icon", x => x.Icons);
+                .AddPlainList<Icon, IconEditor>("icon", x => x.Icons);
 
             Describe<IElementContainer>()
                 .AddList(x => x.Elements)

@@ -120,14 +120,11 @@
   <data name="AskForPassphrase" xml:space="preserve">
     <value>Bitte geben Sie die GnuPG Passphrase für {0} ein:</value>
   </data>
-  <data name="AutoDetect" xml:space="preserve">
-    <value>(automatisch)</value>
-  </data>
   <data name="DiscardChanges" xml:space="preserve">
     <value>&amp;Verwerfen
 Ungespeicherte Änderungen verwerfen</value>
   </data>
-  <data name="Downloading_image_for_preview" xml:space="preserve">
+  <data name="DownloadingPeviewImage" xml:space="preserve">
     <value>Das Bild wird zur Vorschau heruntergeladen...</value>
   </data>
   <data name="FeedNotValid" xml:space="preserve">
@@ -142,6 +139,9 @@ Ungespeicherte Änderungen verwerfen</value>
   </data>
   <data name="SaveQuestion" xml:space="preserve">
     <value>Möchten Sie die Änderungen speichern?</value>
+  </data>
+  <data name="WrongMimeType" xml:space="preserve">
+    <value>Falscher MIME Typ! Sollte {0} sein.</value>
   </data>
   <data name="WrongPassphrase" xml:space="preserve">
     <value>Passphrase falsch.</value>
