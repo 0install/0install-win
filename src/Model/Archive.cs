@@ -83,11 +83,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the archive in the form "Archive: Location (MimeType, Size + StartOffset, Extract) => Destination". Not safe for parsing!
+        /// Returns the archive in the form "Location (MimeType, Size + StartOffset, Extract) => Destination". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            string result = string.Format("Archive: {0} ({1}, {2} + {3}, {4})", Href, MimeType, Size, StartOffset, Extract);
+            string result = string.Format("{0} ({1}, {2} + {3}, {4})", Href, MimeType, Size, StartOffset, Extract);
             if (!string.IsNullOrEmpty(Destination)) result += " => " + Destination;
             return result;
         }

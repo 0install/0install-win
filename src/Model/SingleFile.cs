@@ -41,11 +41,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the file in the form "SingleFile: Location (Size) => Destination". Not safe for parsing!
+        /// Returns the file in the form "Location (Size) => Destination". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("SingleFile: {0} ({1}) => {2}", Href, Size, Destination);
+            return string.Format("{0} ({1}) => {2}", Href, Size, Destination);
         }
         #endregion
 

@@ -100,11 +100,11 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Conversion
         /// <summary>
-        /// Returns the capability in the form "DefaultProgram: Service (ID)". Not safe for parsing!
+        /// Returns the capability in the form "Service (ID)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("DefaultProgram : {0} ({1})", Service, ID);
+            return string.Format("{0} ({1})", Service, ID);
         }
         #endregion
 

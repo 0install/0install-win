@@ -48,11 +48,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the binding in the form "ExecutableInVar: Name = Command". Not safe for parsing!
+        /// Returns the binding in the form "Name = Command". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("ExecutableInVar: {0} = {1}", Name, Command);
+            return string.Format("{0} = {1}", Name, Command);
         }
         #endregion
 

@@ -65,7 +65,7 @@ namespace ZeroInstall.Model
             string[] parts = value.Split('-');
 
             // Ensure the first part is a dotted list
-            if (!VersionDottedList.IsValid(parts[0])) throw new ArgumentException(Resources.MustStartWithDottedList, "value");
+            if (!VersionDottedList.IsValid(parts[0])) throw new ArgumentException(Resources.MustStartWithDottedList);
             _firstPart = new VersionDottedList(parts[0]);
 
             // Iterate through all additional parts
@@ -119,10 +119,12 @@ namespace ZeroInstall.Model
         /// </summary>        
         public override string ToString()
         {
-            var output = new StringBuilder(_firstPart.ToString());
+            var output = new StringBuilder();
+            output.Append(_firstPart);
 
             // Separate additional parts with hyphens
-            foreach (var part in _additionalParts) output.Append("-" + part);
+            if (_additionalParts != null)
+                foreach (var part in _additionalParts) output.Append("-" + part);
 
             return output.ToString();
         }

@@ -102,11 +102,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the EntryPoint in the form "EntryPoint: Command". Not safe for parsing!
+        /// Returns the EntryPoint in the form "Command (BinaryName)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return "EntryPoint: " + Command;
+            return string.IsNullOrEmpty(BinaryName) ? Command : Command + " (" + BinaryName + ")";
         }
         #endregion
 

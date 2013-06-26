@@ -82,11 +82,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the dependency in the form "Restriction: Interface". Not safe for parsing!
+        /// Returns the dependency in the form "Interface". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return "Restriction: " + Interface;
+            return Interface;
         }
         #endregion
 

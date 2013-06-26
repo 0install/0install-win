@@ -31,7 +31,6 @@ namespace ZeroInstall.Model.Capabilities
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlRoot("capabilities", Namespace = XmlNamespace), XmlType("capabilities", Namespace = XmlNamespace)]
-    [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
     public sealed class CapabilityList : XmlUnknown, ICloneable, IEquatable<CapabilityList>
     {
         #region Constants
@@ -93,11 +92,11 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Conversion
         /// <summary>
-        /// Returns the capability list in the form "Capabilities for Architecture". Not safe for parsing!
+        /// Returns the capability list in the form "Architecture". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return String.Format("Capabilities for {0}", Architecture);
+            return Architecture.ToString();
         }
         #endregion
 

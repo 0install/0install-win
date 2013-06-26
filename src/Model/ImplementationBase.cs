@@ -125,11 +125,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the implementation in the form "Implementation: Comma-seperated list of set values". Not safe for parsing!
+        /// Returns the implementation in the form "Comma-seperated list of set values". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            string result = "Implementation: " + ID + ", ";
+            string result = ID + ", ";
             if (Architecture != default(Architecture)) result += Architecture + ", ";
             if (Version != null) result += Version + ", ";
             if (Released != default(DateTime)) result += Released.ToShortDateString() + ", ";

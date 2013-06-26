@@ -99,13 +99,13 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the binding in the form "EnvironmentBinding: Name = Value (Mode, Default)". Not safe for parsing!
+        /// Returns the binding in the form "Name = Value (Mode, Default)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
             return (string.IsNullOrEmpty(Insert))
-                ? string.Format("EnvironmentBinding: {0} = {1} ({2})", Name, Value, Mode)
-                : string.Format("EnvironmentBinding: {0} = Impl+{1} ({2})", Name, Insert, Mode);
+                ? string.Format("{0} = {1} ({2})", Name, Value, Mode)
+                : string.Format("{0} = Impl+{1} ({2})", Name, Insert, Mode);
         }
         #endregion
 

@@ -64,11 +64,11 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Conversion
         /// <summary>
-        /// Returns the capability in the form "AppRegistration: CapabilityRegPath". Not safe for parsing!
+        /// Returns the capability in the form "CapabilityRegPath". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("AppRegistration: {0}", CapabilityRegPath);
+            return CapabilityRegPath;
         }
         #endregion
 

@@ -42,11 +42,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the binding in the form "WorkingDir: Source". Not safe for parsing!
+        /// Returns the binding in the form "Source". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("WorkingDir: {0}", Source);
+            return Source;
         }
         #endregion
 

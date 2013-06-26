@@ -58,11 +58,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the constraint in the form "Constraint: NotBefore =&lt; Ver %lt; Before". Not safe for parsing!
+        /// Returns the constraint in the form "NotBefore =&lt; Ver %lt; Before". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("Constraint: {0} =< Ver < {1}", NotBefore, Before);
+            return string.Format("{0} =< Ver < {1}", NotBefore, Before);
         }
         #endregion
 

@@ -49,11 +49,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the remove step in the form "Remove: Path". Not safe for parsing!
+        /// Returns the remove step in the form "Path". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("Remove: {0}", Path);
+            return Path;
         }
         #endregion
 

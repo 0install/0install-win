@@ -56,11 +56,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the rename step in the form "Rename: Source => Destination". Not safe for parsing!
+        /// Returns the rename step in the form "Source => Destination". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("Rename: {0} => {1}", Source, Destination);
+            return string.Format("{0} => {1}", Source, Destination);
         }
         #endregion
 

@@ -420,11 +420,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the feed/interface in the form "Inteface Name (Uri)". Not safe for parsing!
+        /// Returns the feed/interface in the form "Name (Uri)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("Interface {0} ({1})", Name, Uri);
+            return string.Format("{0} ({1})", Name, Uri);
         }
         #endregion
 

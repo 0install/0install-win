@@ -105,11 +105,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the group in the form "Group: Comma-seperated list of set values". Not safe for parsing!
+        /// Returns the group in the form "Comma-seperated list of set values". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            string result = "Group: ";
+            string result = "";
             if (Architecture != default(Architecture)) result += Architecture + ", ";
             if (Version != null) result += Version + ", ";
             if (Released != default(DateTime)) result += Released.ToShortDateString() + ", ";

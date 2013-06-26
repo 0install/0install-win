@@ -43,13 +43,13 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the feed reference in the form "FeedReference: Source (Architecture, Languages)". Not safe for parsing!
+        /// Returns the feed reference in the form "Source (Architecture, Languages)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
             return (Languages.IsEmpty)
-                ? string.Format("FeedReference: {0} ({1})", Source, Architecture)
-                : string.Format("FeedReference: {0} ({1}, {2})", Source, Architecture, Languages);
+                ? string.Format("{0} ({1})", Source, Architecture)
+                : string.Format("{0} ({1}, {2})", Source, Architecture, Languages);
         }
         #endregion
 

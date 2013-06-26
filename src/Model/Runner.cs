@@ -55,13 +55,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the runner in the form "Runner: Interface (Command)". Not safe for parsing!
+        /// Returns the runner in the form "Interface (Command)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            string result = "Runner: " + Interface;
-            if (!string.IsNullOrEmpty(Command)) result += " (" + Command + ")";
-            return result;
+            return string.IsNullOrEmpty(Command) ? Interface : Interface + " (" + Command + ")";
         }
         #endregion
 

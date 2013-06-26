@@ -88,11 +88,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the icon in the form "Icon: Location (MimeType)". Not safe for parsing!
+        /// Returns the icon in the form "Location (MimeType)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("Icon: {0} ({1})", Href, MimeType);
+            return string.Format("{0} ({1})", Href, MimeType);
         }
         #endregion
 

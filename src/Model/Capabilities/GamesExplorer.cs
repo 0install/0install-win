@@ -43,11 +43,11 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Conversion
         /// <summary>
-        /// Returns the capability in the form "GamesExplorer". Not safe for parsing!
+        /// Returns the capability in the form "-". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("GamesExplorer");
+            return "-";
         }
         #endregion
 

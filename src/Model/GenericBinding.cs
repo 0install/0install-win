@@ -48,11 +48,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the binding in the form "GenericBinding: Path = Command". Not safe for parsing!
+        /// Returns the binding in the form "Path = Command". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("GenericBinding: {0} = {1}", Path, Command);
+            return string.Format("{0} = {1}", Path, Command);
         }
         #endregion
 

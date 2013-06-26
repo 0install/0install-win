@@ -87,11 +87,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the dependency in the form "Dependency: Interface (Use)". Not safe for parsing!
+        /// Returns the dependency in the form "Interface (Use)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            string result = "Dependency: " + Interface;
+            string result =  Interface;
             if (!string.IsNullOrEmpty(Use)) result += " (" + Use + ")";
             return result;
         }

@@ -61,11 +61,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the for-each instruction in the form "ForEachArgs: ItemFrom [Args]". Not safe for parsing!
+        /// Returns the for-each instruction in the form "ItemFrom". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("ForEachArgs: {0} {1}", ItemFrom, Arguments);
+            return ItemFrom;
         }
         #endregion
 

@@ -124,11 +124,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the Command in the form "Command: Name (Path)". Not safe for parsing!
+        /// Returns the Command in the form "Name (Path)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return "Command: " + Name + " (" + Path + ")";
+            return Name + " (" + Path + ")";
         }
         #endregion
 

@@ -79,11 +79,11 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Conversion
         /// <summary>
-        /// Returns the install info in the form "InstallCommands: Reinstall ReinstallArgs, ShowIcons ShowIconsArgs, HideIcons HideIconsArgs". Not safe for parsing!
+        /// Returns the install info in the form "Reinstall ReinstallArgs, ShowIcons ShowIconsArgs, HideIcons HideIconsArgs". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("InstallCommands: {0} {1}, {2} {3}, {4} {5}", Reinstall, ReinstallArgs, ShowIcons, ShowIconsArgs, HideIcons, HideIconsArgs);
+            return string.Format("{0} {1}, {2} {3}, {4} {5}", Reinstall, ReinstallArgs, ShowIcons, ShowIconsArgs, HideIcons, HideIconsArgs);
         }
         #endregion
 

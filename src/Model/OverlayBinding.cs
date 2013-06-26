@@ -59,11 +59,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the binding in the form "OverlayBinding: Source => MountPoint". Not safe for parsing!
+        /// Returns the binding in the form "Source => MountPoint". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("OverlayBinding: {0} => {1}", Source, MountPoint);
+            return string.Format("{0} => {1}", Source, MountPoint);
         }
         #endregion
 

@@ -60,11 +60,11 @@ namespace ZeroInstall.Model.Capabilities
 
         #region Conversion
         /// <summary>
-        /// Returns the capability in the form "ContextMenu: ID". Not safe for parsing!
+        /// Returns the capability in the form "ID". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("ContextMenu: {0}", ID);
+            return ID;
         }
         #endregion
 

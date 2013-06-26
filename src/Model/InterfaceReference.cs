@@ -50,11 +50,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the interface reference in the form "InterfaceReference: Target". Not safe for parsing!
+        /// Returns the interface reference in the form "Target". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return "InterfaceReference: " + Target;
+            return string.Format("{0}", Target);
         }
         #endregion
 

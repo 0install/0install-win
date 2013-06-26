@@ -124,11 +124,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the implementation in the form "PackageImplementation: Package (Distributions)". Not safe for parsing!
+        /// Returns the implementation in the form "Package (Distributions)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("PackageImplementation: {0} ({1})", Package, DistributionsString);
+            return string.Format("{0} ({1})", Package, DistributionsString);
         }
         #endregion
 

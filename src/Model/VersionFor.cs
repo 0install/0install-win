@@ -73,7 +73,7 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0}: {1}", InterfaceID, Versions);
+            return InterfaceID + ": " + Versions;
         }
         #endregion
 
