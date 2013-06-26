@@ -23,8 +23,8 @@
 using System;
 using System.IO;
 using Common.Storage;
-using NUnit.Framework;
 using Moq;
+using NUnit.Framework;
 
 namespace Common.Utils
 {

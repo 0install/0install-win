@@ -76,7 +76,7 @@ namespace ZeroInstall.Publish.WinForms
 
         //--------------------//
 
-        #region Events
+        #region Event handlers
         private void comboBoxSecretKey_SelectedValueChanged(object sender, EventArgs e)
         {
             buttonOK.Enabled = (comboBoxSecretKey.SelectedItem is OpenPgpSecretKey);

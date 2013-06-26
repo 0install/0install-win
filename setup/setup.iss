@@ -77,11 +77,7 @@ Name: en; MessagesFile: compiler:Default.isl
 [Files]
 Source: ..\license.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\3rd party code.txt; DestDir: {app}; Flags: ignoreversion
-#ifdef PerUser
-  Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,*.xml,0store-service.*; DestDir: {app}; Flags: ignoreversion recursesubdirs
-#else
-  Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,*.xml; DestDir: {app}; Flags: ignoreversion recursesubdirs
-#endif
+Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,*.xml; DestDir: {app}; Flags: ignoreversion recursesubdirs
 Source: ..\bundled\GnuPG\*; DestDir: {app}\GnuPG; Flags: ignoreversion recursesubdirs
 Source: ..\bundled\Solver\*; DestDir: {app}\Solver; Flags: ignoreversion recursesubdirs
 

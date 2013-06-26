@@ -45,7 +45,7 @@ namespace Common.Undo
         /// The root object being edited.
         /// </summary>
         public abstract T Target { get; set; }
-        
+
         /// <summary>
         /// The path of the file the <see cref="Target"/> was loaded from. <see langword="null"/> if none.
         /// </summary>

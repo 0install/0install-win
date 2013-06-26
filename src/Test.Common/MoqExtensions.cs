@@ -17,7 +17,6 @@
 
 using System.Collections.Generic;
 using Moq;
-using Moq.Language.Flow;
 using NUnit.Framework.Constraints;
 
 namespace Common

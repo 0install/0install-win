@@ -20,9 +20,9 @@
  * THE SOFTWARE.
  */
 
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace Common.Tasks

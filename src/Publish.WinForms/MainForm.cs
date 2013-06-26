@@ -71,7 +71,7 @@ namespace ZeroInstall.Publish.WinForms
         }
         #endregion
 
-        #region Events
+        #region Event handlers
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             try

@@ -141,6 +141,7 @@ namespace Common.Controls
         /// A text to be displayed in <see cref="SystemColors.GrayText"/> when <see cref="TextBox.Text"/> is empty.
         /// </summary>
         [Description("A text to be displayed in gray when Text is empty."), Category("Appearance"), Localizable(true)]
+        [DefaultValue("")]
         public string HintText
         {
             get { return _hintText; }

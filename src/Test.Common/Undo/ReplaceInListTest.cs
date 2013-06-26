@@ -41,10 +41,10 @@ namespace Common.Undo
             var command = new ReplaceInList<string>(list, "b", "x");
 
             command.Execute();
-            CollectionAssert.AreEqual(new[] { "a", "x", "c" }, list);
+            CollectionAssert.AreEqual(new[] {"a", "x", "c"}, list);
 
             command.Undo();
-            CollectionAssert.AreEqual(new[] { "a", "b", "c" }, list);
+            CollectionAssert.AreEqual(new[] {"a", "b", "c"}, list);
         }
     }
 }

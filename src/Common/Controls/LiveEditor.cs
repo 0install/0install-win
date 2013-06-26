@@ -89,7 +89,7 @@ namespace Common.Controls
 
         //--------------------//
 
-        #region Events
+        #region Event handlers
         private void TextEditor_TextChanged(object sender, EventArgs e)
         {
             TextEditor.Document.MarkerStrategy.RemoveAll(marker => true);
