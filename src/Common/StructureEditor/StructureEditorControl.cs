@@ -51,9 +51,9 @@ namespace Common.StructureEditor
             get { return _commandManager; }
             set
             {
-                if (_commandManager != null) _commandManager.Updated -= RebuildTree;
+                if (_commandManager != null) _commandManager.Updated -= RebuildOnIdle;
                 _commandManager = value;
-                if (_commandManager != null) _commandManager.Updated += RebuildTree;
+                if (_commandManager != null) _commandManager.Updated += RebuildOnIdle;
                 RebuildTree();
             }
         }
@@ -112,6 +112,9 @@ namespace Common.StructureEditor
         #endregion
 
         #region Build nodes
+        /// <summary>
+        /// Rebuilds the <see cref="treeView"/> node while attempting to retain the current selection.
+        /// </summary>
         private void RebuildTree()
         {
             Node reselectNode = null;
@@ -133,6 +136,20 @@ namespace Common.StructureEditor
             treeView.SelectedNode = reselectNode ?? (Node)treeView.Nodes[0];
             treeView.SelectedNode.Expand();
             treeView.EndUpdate();
+        }
+
+        /// <summary>
+        /// Schedules <see cref="RebuildTree"/> to be called once on the next <see cref="Application.Idle"/>.
+        /// </summary>
+        private void RebuildOnIdle()
+        {
+            EventHandler rebuild = null;
+            rebuild = delegate
+            {
+                RebuildTree();
+                Application.Idle -= rebuild;
+            };
+            Application.Idle += rebuild;
         }
         #endregion
 
