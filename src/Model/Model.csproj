@@ -87,6 +87,8 @@
     <Compile Include="Design\IconMimeTypeConverter.cs" />
     <Compile Include="Design\UseConverter.cs" />
     <Compile Include="DownloadRetrievalMethod.cs" />
+    <Compile Include="IDescription.cs" />
+    <Compile Include="ISummary.cs" />
     <Compile Include="Preferences\FeedPreferences.cs" />
     <Compile Include="GenericBinding.cs" />
     <Compile Include="Preferences\ImplementationPreferences.cs" />

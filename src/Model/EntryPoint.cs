@@ -30,7 +30,7 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlRoot("entry-point", Namespace = Feed.XmlNamespace), XmlType("entry-point", Namespace = Feed.XmlNamespace)]
-    public sealed class EntryPoint : FeedElement, ICloneable, IEquatable<EntryPoint>
+    public sealed class EntryPoint : FeedElement, ISummary, ICloneable, IEquatable<EntryPoint>
     {
         #region Properties
         /// <summary>
@@ -71,18 +71,14 @@ namespace ZeroInstall.Model
 
         private readonly LocalizableStringCollection _summaries = new LocalizableStringCollection();
 
-        /// <summary>
-        /// Short one-line descriptions for different languages; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills").
-        /// </summary>
+        /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("summary")]
         public LocalizableStringCollection Summaries { get { return _summaries; } }
 
         private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
 
-        /// <summary>
-        /// Full descriptions for different languages, which can be several paragraphs long.
-        /// </summary>
+        /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("description")]
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }

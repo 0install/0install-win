@@ -23,57 +23,58 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
-    public partial class FeedEditor : UserControl, IEditorControl<Feed>
+    public class SummaryEditor<T> : DescriptionEditor<T>, IEditorControl<T>
+        where T : class, ISummary
     {
         #region Properties
         /// <inheritdoc/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Feed Target
+        public override T Target
         {
-            get { return _editorControl.Target; }
             set
             {
-                _editorControl.Target = value;
-                textBoxSummary.Target = value.Summaries;
-                textBoxDescription.Target = value.Descriptions;
+                _textBoxSummary.Target = value.Summaries;
+                base.Target = value;
             }
         }
 
         /// <inheritdoc/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Common.Undo.ICommandExecutor CommandExecutor
+        public override Common.Undo.ICommandExecutor CommandExecutor
         {
-            get { return _editorControl.CommandExecutor; }
             set
             {
-                _editorControl.CommandExecutor = value;
-                textBoxSummary.CommandExecutor = textBoxDescription.CommandExecutor = value;
+                _textBoxSummary.CommandExecutor = value;
+                base.CommandExecutor = value;
             }
         }
         #endregion
 
         #region Constructor
-        private readonly EditorControl<Feed> _editorControl;
+        private readonly LocalizableTextBox _textBoxSummary;
 
-        public FeedEditor()
+        public SummaryEditor()
         {
-            InitializeComponent();
-            _editorControl = new EditorControl<Feed>
+            Controls.Add(_textBoxSummary = new LocalizableTextBox
             {
-                Location = new Point(0, textBoxDescription.Bottom + 6),
-                Size = new Size(Width, Height - textBoxDescription.Bottom - 6),
-                Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom,
-                TabIndex = textBoxDescription.TabIndex + 1
-            };
-            Controls.Add(_editorControl);
+                Location = new Point(0, 0),
+                Size = new Size(Width, 23),
+                Multiline = false,
+                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
+                HintText = "Summary",
+                TabIndex = 0
+            });
+
+            // Shift existing controls down
+            TextBoxDescription.Location = new Point(0, _textBoxSummary.Bottom + 6);
+            EditorControl.Location = new Point(0, TextBoxDescription.Bottom + 6);
+            EditorControl.Size = new Size(Width, Height - TextBoxDescription.Bottom - 6);
         }
         #endregion
 
         public override void Refresh()
         {
-            textBoxDescription.Refresh();
-            textBoxSummary.Refresh();
-            _editorControl.Refresh();
+            _textBoxSummary.Refresh();
             base.Refresh();
         }
     }

@@ -28,7 +28,7 @@ namespace ZeroInstall.Model.Capabilities
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("verb", Namespace = CapabilityList.XmlNamespace), XmlType("verb", Namespace = CapabilityList.XmlNamespace)]
-    public sealed class Verb : XmlUnknown, ICloneable, IEquatable<Verb>
+    public sealed class Verb : XmlUnknown, IDescription, ICloneable, IEquatable<Verb>
     {
         #region Constants
         /// <summary>
@@ -99,9 +99,7 @@ namespace ZeroInstall.Model.Capabilities
 
         private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
 
-        /// <summary>
-        /// Localized human-readable descriptions of the verb as an alternative to <see cref="Name"/>.
-        /// </summary>
+        /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("description")]
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }

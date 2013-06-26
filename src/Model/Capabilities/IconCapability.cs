@@ -31,14 +31,12 @@ namespace ZeroInstall.Model.Capabilities
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [XmlType("icon-capability", Namespace = CapabilityList.XmlNamespace)]
-    public abstract class IconCapability : DefaultCapability
+    public abstract class IconCapability : DefaultCapability, IDescription
     {
         #region Properties
         private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
 
-        /// <summary>
-        /// Human-readable descriptions of the AutoPlay operation in different languages.
-        /// </summary>
+        /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("description")]
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }

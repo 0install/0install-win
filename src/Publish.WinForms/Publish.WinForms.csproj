@@ -71,11 +71,11 @@
     <Compile Include="Controls\ArchiveControl.Designer.cs">
       <DependentUpon>ArchiveControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\FeedEditor.cs">
+    <Compile Include="Controls\DescriptionEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\FeedEditor.Designer.cs">
-      <DependentUpon>FeedEditor.cs</DependentUpon>
+    <Compile Include="Controls\SummaryEditor.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\FeedStructureEditor.cs">
       <SubType>UserControl</SubType>

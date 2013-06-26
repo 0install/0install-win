@@ -26,14 +26,14 @@ namespace ZeroInstall.Publish.WinForms.Controls
     {
         public FeedStructureEditor()
         {
-            DescribeRoot<FeedEditor>("interface");
+            DescribeRoot<SummaryEditor<Feed>>("interface");
 
             Describe<Feed>()
                 .AddPlainList("icon", x => x.Icons)
                 .AddPlainList("feed", x => x.Feeds)
                 .AddPlainList("feed-for", x => x.FeedFor)
                 .AddProperty("replaced-by", x => new PropertyPointer<InterfaceReference>(() => x.ReplacedBy, value => x.ReplacedBy = value))
-                .AddPlainList("entry-point", x => x.EntryPoints)
+                .AddPlainList<EntryPoint, SummaryEditor<EntryPoint>>("entry-point", x => x.EntryPoints)
                 .AddPlainList("capabilities", x => x.CapabilityLists);
 
             Describe<EntryPoint>()
@@ -88,18 +88,18 @@ namespace ZeroInstall.Publish.WinForms.Controls
             Describe<CapabilityList>()
                 .AddList(x => x.Entries)
                 .AddElement<AppRegistration>("registration")
-                .AddElement<AutoPlay>("auto-play")
+                .AddElement<AutoPlay, DescriptionEditor<AutoPlay>>("auto-play")
                 .AddElement<ComServer>("com-server")
                 .AddElement<ContextMenu>("context-menu")
-                .AddElement<DefaultProgram>("default-program")
-                .AddElement<FileType>("file-type")
+                .AddElement<DefaultProgram, DescriptionEditor<DefaultProgram>>("default-program")
+                .AddElement<FileType, DescriptionEditor<FileType>>("file-type")
                 .AddElement<GamesExplorer>("games-explorer")
-                .AddElement<UrlProtocol>("url-protocol");
+                .AddElement<UrlProtocol, DescriptionEditor<UrlProtocol>>("url-protocol");
             Describe<AutoPlay>().AddPlainList("event", x => x.Events);
             Describe<FileType>().AddPlainList("extension", x => x.Extensions);
             Describe<UrlProtocol>().AddPlainList("known-prefix", x => x.KnownPrefixes);
             Describe<IconCapability>().AddPlainList("icon", x => x.Icons);
-            Describe<VerbCapability>().AddPlainList("verb", x => x.Verbs);
+            Describe<VerbCapability>().AddPlainList<Verb, DescriptionEditor<Verb>>("verb", x => x.Verbs);
         }
 
         //        var digestProvider = editor as IDigestProvider;

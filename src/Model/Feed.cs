@@ -40,7 +40,7 @@ namespace ZeroInstall.Model
     [XmlRoot("interface", Namespace = XmlNamespace), XmlType("interface", Namespace = XmlNamespace)]
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
     //[XmlNamespace("caps", CapabilityList.XmlNamespace)]
-    public sealed class Feed : XmlUnknown, IElementContainer, ICloneable, IEquatable<Feed>
+    public sealed class Feed : XmlUnknown, IElementContainer, ISummary, ICloneable, IEquatable<Feed>
     {
         #region Constants
         /// <summary>
@@ -84,7 +84,7 @@ namespace ZeroInstall.Model
         /// <summary>A string representation of <see cref="Uri"/>.</summary>
         /// <seealso cref="Uri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [DisplayName("Uri"), Category("Feed"), Description("This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).")]
+        [DisplayName(@"Uri"), Category("Feed"), Description("This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).")]
         [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string UriString { get { return (Uri == null ? null : Uri.ToString()); } set { Uri = (value == null ? null : new Uri(value)); } }
 
@@ -97,18 +97,14 @@ namespace ZeroInstall.Model
 
         private readonly LocalizableStringCollection _summaries = new LocalizableStringCollection();
 
-        /// <summary>
-        /// Short one-line descriptions for different languages; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills").
-        /// </summary>
+        /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("summary")]
         public LocalizableStringCollection Summaries { get { return _summaries; } }
 
         private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
 
-        /// <summary>
-        /// Full descriptions for different languages, which can be several paragraphs long.
-        /// </summary>
+        /// <inheritdoc/>
         [Browsable(false)]
         [XmlElement("description")]
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }
