@@ -17,20 +17,19 @@
 
 using System.ComponentModel;
 using System.Xml.Serialization;
-using Common.Collections;
 
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// An object that has localizable descriptions.
+    /// An object that contains <see cref="Icons"/>s.
     /// </summary>
-    public interface IDescription
+    public interface IIconContainer
     {
         /// <summary>
-        /// Full descriptions for different languages, which can be several paragraphs long.
+        /// Zero or more icons.
         /// </summary>
         [Browsable(false)]
-        [XmlElement("description")]
-        LocalizableStringCollection Descriptions { get; }
+        [XmlElement("icon")]
+        C5.ArrayList<Icon> Icons { get; }
     }
 }

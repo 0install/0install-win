@@ -28,7 +28,7 @@ namespace ZeroInstall.Model.Capabilities
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("verb", Namespace = CapabilityList.XmlNamespace), XmlType("verb", Namespace = CapabilityList.XmlNamespace)]
-    public sealed class Verb : XmlUnknown, IDescription, ICloneable, IEquatable<Verb>
+    public sealed class Verb : XmlUnknown, IDescriptionContainer, ICloneable, IEquatable<Verb>
     {
         #region Constants
         /// <summary>

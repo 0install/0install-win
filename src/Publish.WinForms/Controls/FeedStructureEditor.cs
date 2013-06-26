@@ -29,14 +29,13 @@ namespace ZeroInstall.Publish.WinForms.Controls
             DescribeRoot<SummaryEditor<Feed>>("interface");
 
             Describe<Feed>()
-                .AddPlainList("icon", x => x.Icons)
                 .AddPlainList("feed", x => x.Feeds)
                 .AddPlainList("feed-for", x => x.FeedFor)
                 .AddProperty("replaced-by", x => new PropertyPointer<InterfaceReference>(() => x.ReplacedBy, value => x.ReplacedBy = value))
                 .AddPlainList<EntryPoint, SummaryEditor<EntryPoint>>("entry-point", x => x.EntryPoints)
                 .AddPlainList("capabilities", x => x.CapabilityLists);
 
-            Describe<EntryPoint>()
+            Describe<IIconContainer>()
                 .AddPlainList("icon", x => x.Icons);
 
             Describe<IElementContainer>()
@@ -98,7 +97,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
             Describe<AutoPlay>().AddPlainList("event", x => x.Events);
             Describe<FileType>().AddPlainList("extension", x => x.Extensions);
             Describe<UrlProtocol>().AddPlainList("known-prefix", x => x.KnownPrefixes);
-            Describe<IconCapability>().AddPlainList("icon", x => x.Icons);
             Describe<VerbCapability>().AddPlainList<Verb, DescriptionEditor<Verb>>("verb", x => x.Verbs);
         }
 

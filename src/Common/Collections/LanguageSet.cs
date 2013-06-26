@@ -39,7 +39,7 @@ namespace Common.Collections
     [Editor(typeof(LanguageSetEditor), typeof(UITypeEditor))]
     public sealed class LanguageSet : C5.TreeSet<CultureInfo>
     {
-        #region Variables
+        #region Constants
         /// <summary>
         /// All valid languages.
         /// </summary>

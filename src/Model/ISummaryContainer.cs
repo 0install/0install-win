@@ -24,7 +24,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// An object that has localizable summaries and descriptions.
     /// </summary>
-    public interface ISummary : IDescription
+    public interface ISummaryContainer : IDescriptionContainer
     {
         /// <summary>
         /// Short one-line descriptions for different languages; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills").

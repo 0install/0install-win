@@ -31,7 +31,7 @@ namespace ZeroInstall.Model.Capabilities
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [XmlType("icon-capability", Namespace = CapabilityList.XmlNamespace)]
-    public abstract class IconCapability : DefaultCapability, IDescription
+    public abstract class IconCapability : DefaultCapability, IIconContainer, IDescriptionContainer
     {
         #region Properties
         private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();

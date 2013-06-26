@@ -40,7 +40,7 @@ namespace ZeroInstall.Model
     [XmlRoot("interface", Namespace = XmlNamespace), XmlType("interface", Namespace = XmlNamespace)]
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
     //[XmlNamespace("caps", CapabilityList.XmlNamespace)]
-    public sealed class Feed : XmlUnknown, IElementContainer, ISummary, ICloneable, IEquatable<Feed>
+    public sealed class Feed : XmlUnknown, IElementContainer, ISummaryContainer, IIconContainer, ICloneable, IEquatable<Feed>
     {
         #region Constants
         /// <summary>

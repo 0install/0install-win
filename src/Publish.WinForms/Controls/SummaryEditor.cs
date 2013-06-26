@@ -24,7 +24,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Publish.WinForms.Controls
 {
     public class SummaryEditor<T> : DescriptionEditor<T>, IEditorControl<T>
-        where T : class, ISummary
+        where T : class, ISummaryContainer
     {
         #region Properties
         /// <inheritdoc/>

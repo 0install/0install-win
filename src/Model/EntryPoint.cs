@@ -30,7 +30,7 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlRoot("entry-point", Namespace = Feed.XmlNamespace), XmlType("entry-point", Namespace = Feed.XmlNamespace)]
-    public sealed class EntryPoint : FeedElement, ISummary, ICloneable, IEquatable<EntryPoint>
+    public sealed class EntryPoint : FeedElement, IIconContainer, ISummaryContainer, ICloneable, IEquatable<EntryPoint>
     {
         #region Properties
         /// <summary>
