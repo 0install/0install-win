@@ -74,21 +74,32 @@ namespace ZeroInstall.Model
         public string ArchitectureString { get { return Architecture.ToString(); } set { Architecture = new Architecture(value); } }
 
         // Order is always alphabetical, duplicate entries are not allowed
-        private readonly LanguageCollection _languages = new LanguageCollection();
+        private LanguageSet _languages = new LanguageSet();
 
         /// <summary>
         /// The natural language(s) to look for.
         /// </summary>
         /// <example>For example, the value "en_GB fr" would be search for British English or French.</example>
-        [Browsable(false)]
+        [Description("The natural language(s) to look for.")]
         [XmlIgnore]
-        public LanguageCollection Languages { get { return _languages; } }
+        public LanguageSet Languages
+        {
+            get { return _languages; }
+            set
+            {
+                #region Sanity checks
+                if (value == null) throw new ArgumentNullException("value");
+                #endregion
+
+                _languages = value;
+            }
+        }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Architecture"/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         [XmlAttribute("langs"), DefaultValue("")]
-        public string LanguagesString { get { return _languages.ToString(); } set { _languages.FromString(value); } }
+        public string LanguagesString { get { return _languages.ToString(); } set { _languages = new LanguageSet(value); } }
 
         /// <summary>
         /// The range of versions of the implementation that can be chosen. <see langword="null"/> for no limit.

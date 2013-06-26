@@ -33,15 +33,6 @@ namespace Common.Controls
     public partial class LocalizableTextBox : UserControl, IEditorControl<LocalizableStringCollection>
     {
         #region Variables
-        private static readonly IEnumerable<CultureInfo> _languages;
-
-        static LocalizableTextBox()
-        {
-            var cultures = CultureInfo.GetCultures(CultureTypes.FrameworkCultures);
-            Array.Sort(cultures, new CultureComparer());
-            _languages = cultures.Skip(1);
-        }
-
         private CultureInfo _selectedLanguage;
         private bool _textBoxDirty;
         #endregion
@@ -94,7 +85,7 @@ namespace Common.Controls
         {
             var setLanguages = new List<CultureInfo>();
             var unsetLanguages = new List<CultureInfo>();
-            foreach (var language in _languages)
+            foreach (var language in LanguageSet.AllValid)
             {
                 if (Target.ContainsExactLanguage(language)) setLanguages.Add(language);
                 else unsetLanguages.Add(language);

@@ -25,33 +25,30 @@ using NUnit.Framework;
 namespace Common.Collections
 {
     /// <summary>
-    /// Contains test methods for <see cref="LanguageCollection"/>.
+    /// Contains test methods for <see cref="LanguageSet"/>.
     /// </summary>
     [TestFixture]
-    public class LanguageCollectionTest
+    public class LanguageSetTest
     {
         [Test]
         public void TestToString()
         {
-            var collection = new LanguageCollection {"en-US", "de"};
+            var collection = new LanguageSet {"en-US", "de"};
             Assert.AreEqual("de en_US", collection.ToString());
         }
 
         [Test]
         public void TestFromString()
         {
-            var collection = new LanguageCollection();
-            collection.FromString("en_US de");
-            CollectionAssert.AreEquivalent(new LanguageCollection {"de", "en-US"}, collection);
+            CollectionAssert.AreEquivalent(new LanguageSet { "de", "en-US" }, new LanguageSet("en_US de"));
         }
 
         [Test]
         public void TestDuplicateDetection()
         {
-            var collection = new LanguageCollection();
-            collection.FromString("en_US");
+            var collection = new LanguageSet("en_US");
             Assert.IsFalse(collection.Add("en-US"));
-            CollectionAssert.AreEquivalent(new LanguageCollection {"en-US"}, collection);
+            CollectionAssert.AreEquivalent(new LanguageSet {"en-US"}, collection);
         }
     }
 }

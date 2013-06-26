@@ -114,7 +114,7 @@
     <Compile Include="Collections\CultureComparer.cs" />
     <Compile Include="Collections\PerTypeDispatcher.Action.cs" />
     <Compile Include="Collections\PerTypeDispatcher.Func.cs" />
-    <Compile Include="Collections\LanguageCollection.cs" />
+    <Compile Include="Collections\LanguageSet.cs" />
     <Compile Include="Collections\NamedCollection.cs" />
     <Compile Include="Collections\LocalizableStringCollection.cs" />
     <Compile Include="Collections\LocalizableString.cs" />
@@ -182,6 +182,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Values\Design\EnumDescriptionConverter.cs" />
+    <Compile Include="Values\Design\LanguageSetEditor.cs" />
     <Compile Include="Values\Design\StringConstructorConverter.cs" />
     <Compile Include="Values\Design\EnumXmlConverter.cs" />
     <Compile Include="Values\Design\StructConverter.cs" />

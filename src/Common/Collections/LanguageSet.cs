@@ -20,23 +20,60 @@
  * THE SOFTWARE.
  */
 
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing.Design;
 using System.Globalization;
+using System.Linq;
 using System.Text;
+using Common.Values.Design;
 
 namespace Common.Collections
 {
     /// <summary>
-    /// A collection of languages that can be serialized as a simple space-separated list of ISO language codes.
+    /// A set of languages that can be serialized as a simple space-separated list of ISO language codes.
     /// </summary>
     /// <remarks>Uses Unix-style language codes with an underscore (_) separator.</remarks>
-    public sealed class LanguageCollection : C5.TreeSet<CultureInfo>
+    [TypeConverter(typeof(StringConstructorConverter<LanguageSet>))]
+    [Editor(typeof(LanguageSetEditor), typeof(UITypeEditor))]
+    public sealed class LanguageSet : C5.TreeSet<CultureInfo>
     {
+        #region Variables
+        /// <summary>
+        /// All valid languages.
+        /// </summary>
+        internal static readonly IEnumerable<CultureInfo> AllValid;
+
+        static LanguageSet()
+        {
+            var cultures = CultureInfo.GetCultures(CultureTypes.FrameworkCultures);
+            Array.Sort(cultures, new CultureComparer());
+            AllValid = cultures.Skip(1);
+        }
+        #endregion
+
         #region Constructor
         /// <summary>
         /// Creates a new empty language collection.
         /// </summary>
-        public LanguageCollection() : base(new CultureComparer())
+        public LanguageSet() : base(new CultureComparer())
         {}
+        
+        /// <summary>
+        /// Deserializes a space-separated list of languages codes (in the same format as used by the $LANG environment variable).
+        /// </summary>
+        public LanguageSet(string value) : this()
+        {
+            if (string.IsNullOrEmpty(value)) return;
+
+            // Replace list by parsing input string split by spaces
+            foreach (string language in value.Split(' '))
+            {
+                // .NET uses a hypen while Unix uses an underscore as a separator
+                Add(new CultureInfo(language.Replace('_', '-')));
+            }
+        }
         #endregion
 
         //--------------------//
@@ -71,23 +108,6 @@ namespace Common.Collections
 
             // Return without trailing whitespaces
             return output.ToString().TrimEnd();
-        }
-
-        /// <summary>
-        /// Deserializes a space-separated list of languages codes (in the same format as used by the $LANG environment variable).
-        /// </summary>
-        public void FromString(string value)
-        {
-            Clear();
-
-            if (string.IsNullOrEmpty(value)) return;
-
-            // Replace list by parsing input string split by spaces
-            foreach (string language in value.Split(' '))
-            {
-                // .NET uses a hypen while Unix uses an underscore as a separator
-                Add(new CultureInfo(language.Replace('_', '-')));
-            }
         }
         #endregion
     }
