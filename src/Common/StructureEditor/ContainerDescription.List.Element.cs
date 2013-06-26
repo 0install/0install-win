@@ -35,19 +35,19 @@ namespace Common.StructureEditor
         private partial class ListDescription<TList>
         {
             /// <inheritdoc/>
-            public IListDescription<TList> AddElement<TElement, TEditor>()
+            public IListDescription<TList> AddElement<TElement, TEditor>(string name)
                 where TElement : class, TList, IEquatable<TElement>, new()
                 where TEditor : Control, IEditorControl<TElement>, new()
             {
-                _descriptions.Add(new ElementDescription<TElement, TEditor>());
+                _descriptions.Add(new ElementDescription<TElement, TEditor>(name));
                 return this;
             }
 
             /// <inheritdoc/>
-            public IListDescription<TList> AddElement<TElement>()
+            public IListDescription<TList> AddElement<TElement>(string name)
                 where TElement : class, TList, IEquatable<TElement>, new()
             {
-                return AddElement<TElement, EditorControl<TElement>>();
+                return AddElement<TElement, EditorControl<TElement>>(name);
             }
 
             private interface IElementDescription
@@ -60,10 +60,18 @@ namespace Common.StructureEditor
                 where TElement : class, TList, IEquatable<TElement>, new()
                 where TEditor : Control, IEditorControl<TElement>, new()
             {
+                private readonly string _name;
+
+                public ElementDescription(string name)
+                {
+                    _name = name;
+                }
+
                 public IEnumerable<EntryInfo> GetEntrysIn(IList<TList> list)
                 {
                     return list.OfType<TElement>().Select(element =>
                         new EntryInfo(
+                            name: _name,
                             target: element,
                             getEditorControl: commandExecutor => new TEditor {Target = element, CommandExecutor = commandExecutor},
                             toXmlString: element.ToXmlString,
@@ -78,7 +86,7 @@ namespace Common.StructureEditor
                 public ChildInfo GetPossibleChildFor(IList<TList> list)
                 {
                     return new ChildInfo(
-                        name: typeof(TElement).Name,
+                        name: _name,
                         create: () => new AddToCollection<TList>(list, new TElement()));
                 }
             }

@@ -26,76 +26,80 @@ namespace ZeroInstall.Publish.WinForms.Controls
     {
         public FeedStructureEditor()
         {
-            DescribeRoot();
+            DescribeRoot("interface");
 
             Describe<Feed>()
-                .AddPlainList(x => x.Icons)
-                .AddPlainList(x => x.EntryPoints)
-                .AddPlainList(x => x.CapabilityLists);
+                .AddPlainList("icon", x => x.Icons)
+                .AddPlainList("feed", x => x.Feeds)
+                .AddPlainList("feed-for", x => x.FeedFor)
+                .AddProperty("replaced-by", x => new PropertyPointer<InterfaceReference>(() => x.ReplacedBy, value => x.ReplacedBy = value))
+                .AddPlainList("entry-point", x => x.EntryPoints)
+                .AddPlainList("capabilities", x => x.CapabilityLists);
 
             Describe<EntryPoint>()
-                .AddPlainList(x => x.Icons);
+                .AddPlainList("icon", x => x.Icons);
 
             Describe<IElementContainer>()
                 .AddList(x => x.Elements)
-                .AddElement<Implementation>()
-                .AddElement<PackageImplementation>()
-                .AddElement<Group>();
+                .AddElement<Implementation>("implementation")
+                .AddElement<PackageImplementation>("package-implementation")
+                .AddElement<Group>("group");
 
             Describe<IDependencyContainer>()
-                .AddPlainList(x => x.Dependencies)
-                .AddPlainList(x => x.Restrictions);
+                .AddPlainList("dependency", x => x.Dependencies)
+                .AddPlainList("restriction", x => x.Restrictions);
 
             Describe<Restriction>()
-                .AddPlainList(x => x.Constraints);
+                .AddPlainList("version", x => x.Constraints);
 
             Describe<IBindingContainer>()
                 .AddList(x => x.Bindings)
-                .AddElement<EnvironmentBinding>()
-                .AddElement<OverlayBinding>()
-                .AddElement<ExecutableInVar>()
-                .AddElement<ExecutableInPath>();
+                .AddElement<GenericBinding>("binding")
+                .AddElement<EnvironmentBinding>("environment-binding")
+                .AddElement<OverlayBinding>("overlay-binding")
+                .AddElement<ExecutableInVar>("executable-in-var")
+                .AddElement<ExecutableInPath>("executable-in-path");
 
             Describe<Command>()
-                .AddProperty(x => new PropertyPointer<Runner>(() => x.Runner, value => x.Runner = value))
-                .AddProperty(x => new PropertyPointer<WorkingDir>(() => x.WorkingDir, value => x.WorkingDir = value));
+                .AddProperty("runner", x => new PropertyPointer<Runner>(() => x.Runner, value => x.Runner = value))
+                .AddProperty("working-dir", x => new PropertyPointer<WorkingDir>(() => x.WorkingDir, value => x.WorkingDir = value));
 
             Describe<IArgBaseContainer>()
                 .AddList(x => x.Arguments)
-                .AddElement<Arg>()
-                .AddElement<ForEachArgs>();
-            Describe<ForEachArgs>().AddPlainList(x => x.Arguments);
+                .AddElement<Arg>("arg")
+                .AddElement<ForEachArgs>("for-each");
+            Describe<ForEachArgs>().AddPlainList("arg", x => x.Arguments);
 
             Describe<Element>()
-                .AddPlainList(x => x.Commands);
+                .AddPlainList("command", x => x.Commands);
 
             Describe<Implementation>()
                 .AddList(implementation => implementation.RetrievalMethods)
-                .AddElement<Archive>()
-                .AddElement<Recipe>();
+                .AddElement<Archive>("archive")
+                .AddElement<Recipe>("recipe");
 
             Describe<Recipe>()
                 .AddList(x => x.Steps)
-                .AddElement<Archive>()
-                .AddElement<SingleFile>()
-                .AddElement<RenameStep>()
-                .AddElement<RemoveStep>();
+                .AddElement<Archive>("archive")
+                .AddElement<SingleFile>("single-file")
+                .AddElement<RenameStep>("rename")
+                .AddElement<RemoveStep>("remove");
 
             Describe<CapabilityList>()
                 .AddList(x => x.Entries)
-                .AddElement<AppRegistration>()
-                .AddElement<AutoPlay>()
-                .AddElement<ComServer>()
-                .AddElement<ContextMenu>()
-                .AddElement<DefaultProgram>()
-                .AddElement<FileType>()
-                .AddElement<GamesExplorer>()
-                .AddElement<UrlProtocol>();
-            Describe<AutoPlay>().AddPlainList(x => x.Events);
-            Describe<FileType>().AddPlainList(x => x.Extensions);
-            Describe<UrlProtocol>().AddPlainList(x => x.KnownPrefixes);
-            Describe<IconCapability>().AddPlainList(x => x.Icons);
-            Describe<VerbCapability>().AddPlainList(x => x.Verbs);
+                .AddElement<AppRegistration>("registration")
+                .AddElement<AutoPlay>("auto-play")
+                .AddElement<ComServer>("com-server")
+                .AddElement<ContextMenu>("context-menu")
+                .AddElement<DefaultProgram>("default-program")
+                .AddElement<FileType>("file-type")
+                .AddElement<GamesExplorer>("games-explorer")
+                .AddElement<UrlProtocol>("url-protocol");
+            Describe<AutoPlay>().AddPlainList("event", x => x.Events);
+            Describe<FileType>().AddPlainList("extension", x => x.Extensions);
+            Describe<UrlProtocol>().AddPlainList("known-prefix", x => x.KnownPrefixes);
+            Describe<IconCapability>().AddPlainList("icon", x => x.Icons);
+            Describe<VerbCapability>().AddPlainList("verb", x => x.Verbs);
         }
 
         //        var digestProvider = editor as IDigestProvider;

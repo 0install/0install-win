@@ -32,21 +32,23 @@ namespace Common.StructureEditor
         /// <summary>
         /// Adds a list element type to the description.
         /// </summary>
+        /// <param name="name">The name of the element type.</param>
         /// <typeparam name="TElement">The type of a specific element type in the list.</typeparam>
         /// <typeparam name="TEditor">An editor for modifying this type of element.</typeparam>
         /// <returns>The "this" pointer for use in a "Fluent API" style.</returns>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "Generics used as type-safe reflection replacement.")]
-        IListDescription<TList> AddElement<TElement, TEditor>()
+        IListDescription<TList> AddElement<TElement, TEditor>(string name)
             where TElement : class, TList, IEquatable<TElement>, new()
             where TEditor : Control, IEditorControl<TElement>, new();
 
         /// <summary>
         /// Adds a list element type to the description.
         /// </summary>
+        /// <param name="name">The name of the element type.</param>
         /// <typeparam name="TElement">The type of a specific element type in the list.</typeparam>
         /// <returns>The "this" pointer for use in a "Fluent API" style.</returns>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "Generics used as type-safe reflection replacement.")]
-        IListDescription<TList> AddElement<TElement>()
+        IListDescription<TList> AddElement<TElement>(string name)
             where TElement : class, TList, IEquatable<TElement>, new();
     }
 }

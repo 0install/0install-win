@@ -91,21 +91,23 @@ namespace Common.StructureEditor
         /// <summary>
         /// Set up handling for the root element with a generic editor.
         /// </summary>
-        protected void DescribeRoot()
+        /// <param name="name">The name of the root element.</param>
+        protected void DescribeRoot(string name)
         {
             Describe<StructureEditorControl<T>>()
-                .AddProperty(x => new PropertyPointer<T>(() => CommandManager.Target, value => CommandManager.Target = value));
+                .AddProperty(name, x => new PropertyPointer<T>(() => CommandManager.Target, value => CommandManager.Target = value));
         }
 
         /// <summary>
         /// Set up handling for the root element with a custom editor.
         /// </summary>
         /// <typeparam name="TEditor">An editor for modifying the content of the root.</typeparam>
-        protected void DescribeRoot<TEditor>()
+        /// <param name="name">The name of the root element.</param>
+        protected void DescribeRoot<TEditor>(string name)
             where TEditor : Control, IEditorControl<T>, new()
         {
             Describe<StructureEditorControl<T>>()
-                .AddProperty<T, TEditor>(x => new PropertyPointer<T>(() => CommandManager.Target, value => CommandManager.Target = value));
+                .AddProperty<T, TEditor>(name, x => new PropertyPointer<T>(() => CommandManager.Target, value => CommandManager.Target = value));
         }
         #endregion
 

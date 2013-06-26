@@ -37,21 +37,29 @@ namespace Common.StructureEditor
         /// </summary>
         /// <typeparam name="TProperty">The type of the property.</typeparam>
         /// <typeparam name="TEditor">An editor for modifying the content of the property.</typeparam>
+        /// <param name="name">The name of the property.</param>
         /// <param name="getPointer">A function to retrieve a pointer to property in the container.</param>
         /// <returns>The "this" pointer for use in a "Fluent API" style.</returns>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "Generics used as type-safe reflection replacement.")]
-        public ContainerDescription<TContainer> AddProperty<TProperty, TEditor>(Func<TContainer, PropertyPointer<TProperty>> getPointer)
+        public ContainerDescription<TContainer> AddProperty<TProperty, TEditor>(string name, Func<TContainer, PropertyPointer<TProperty>> getPointer)
             where TProperty : class, IEquatable<TProperty>, new()
             where TEditor : Control, IEditorControl<TProperty>, new()
         {
-            _descriptions.Add(new PropertyDescription<TProperty, TEditor>(getPointer));
+            _descriptions.Add(new PropertyDescription<TProperty, TEditor>(name, getPointer));
             return this;
         }
 
-        public ContainerDescription<TContainer> AddProperty<TProperty>(Func<TContainer, PropertyPointer<TProperty>> getPointer)
+        /// <summary>
+        /// Adds a property to the description.
+        /// </summary>
+        /// <typeparam name="TProperty">The type of the property.</typeparam>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="getPointer">A function to retrieve a pointer to property in the container.</param>
+        /// <returns>The "this" pointer for use in a "Fluent API" style.</returns>
+        public ContainerDescription<TContainer> AddProperty<TProperty>(string name, Func<TContainer, PropertyPointer<TProperty>> getPointer)
             where TProperty : class, IEquatable<TProperty>, new()
         {
-            return AddProperty<TProperty, EditorControl<TProperty>>(getPointer);
+            return AddProperty<TProperty, EditorControl<TProperty>>(name, getPointer);
         }
 
         private class PropertyDescription<TProperty, TEditor> : DescriptionBase
@@ -59,10 +67,12 @@ namespace Common.StructureEditor
             where TEditor : Control, IEditorControl<TProperty>, new()
         {
             private readonly Func<TContainer, PropertyPointer<TProperty>> _getPointer;
+            private readonly string _name;
 
-            public PropertyDescription(Func<TContainer, PropertyPointer<TProperty>> getPointer)
+            public PropertyDescription(string name, Func<TContainer, PropertyPointer<TProperty>> getPointer)
             {
                 _getPointer = getPointer;
+                _name = name;
             }
 
             public override IEnumerable<EntryInfo> GetEntrysIn(TContainer container)
@@ -71,6 +81,7 @@ namespace Common.StructureEditor
                 if (pointer.Value != null)
                 {
                     yield return new EntryInfo(
+                        name: _name,
                         target: pointer.Value,
                         getEditorControl: commandExecutor => new TEditor {Target = pointer.Value, CommandExecutor = commandExecutor},
                         toXmlString: pointer.Value.ToXmlString,
@@ -88,7 +99,7 @@ namespace Common.StructureEditor
                 return new[]
                 {
                     new ChildInfo(
-                        name: typeof(TProperty).Name,
+                        name: _name,
                         create: () => new SetValueCommand<TProperty>(_getPointer(container), new TProperty()))
                 };
             }

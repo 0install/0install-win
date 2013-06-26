@@ -51,14 +51,15 @@ namespace Common.StructureEditor
         /// <typeparam name="TElement">The type of elements in the list.</typeparam>
         /// <typeparam name="TEditor">An editor for modifying this type of element.</typeparam>
         /// <param name="getList">A function to retrieve the list from the container.</param>
+        /// <param name="name">The name of the element type.</param>
         /// <returns>The "this" pointer for use in a "Fluent API" style.</returns>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "Generics used as type-safe reflection replacement.")]
-        public ContainerDescription<TContainer> AddPlainList<TElement, TEditor>(Func<TContainer, IList<TElement>> getList)
+        public ContainerDescription<TContainer> AddPlainList<TElement, TEditor>(string name, Func<TContainer, IList<TElement>> getList)
             where TElement : class, IEquatable<TElement>, new()
             where TEditor : Control, IEditorControl<TElement>, new()
         {
             var listDescription = new ListDescription<TElement>(getList);
-            listDescription.AddElement<TElement, TEditor>();
+            listDescription.AddElement<TElement, TEditor>(name);
             _descriptions.Add(listDescription);
             return this;
         }
@@ -67,13 +68,14 @@ namespace Common.StructureEditor
         /// Adds a list with only one type of element to the description.
         /// </summary>
         /// <typeparam name="TElement">The type of elements in the list.</typeparam>
+        /// <param name="name">The name of the element type.</param>
         /// <param name="getList">A function to retrieve the list from the container.</param>
         /// <returns>The "this" pointer for use in a "Fluent API" style.</returns>
-        public ContainerDescription<TContainer> AddPlainList<TElement>(Func<TContainer, IList<TElement>> getList)
+        public ContainerDescription<TContainer> AddPlainList<TElement>(string name, Func<TContainer, IList<TElement>> getList)
             where TElement : class, IEquatable<TElement>, new()
         {
             var listDescription = new ListDescription<TElement>(getList);
-            listDescription.AddElement<TElement>();
+            listDescription.AddElement<TElement>(name);
             _descriptions.Add(listDescription);
             return this;
         }
