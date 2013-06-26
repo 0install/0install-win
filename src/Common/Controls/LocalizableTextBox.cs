@@ -15,11 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Common.Collections;
+using Common.Undo;
 
 namespace Common.Controls
 {
@@ -28,6 +32,20 @@ namespace Common.Controls
     /// </summary>
     public partial class LocalizableTextBox : UserControl, IEditorControl<LocalizableStringCollection>
     {
+        #region Variables
+        private static readonly IEnumerable<CultureInfo> _languages;
+
+        static LocalizableTextBox()
+        {
+            var cultures = CultureInfo.GetCultures(CultureTypes.FrameworkCultures);
+            Array.Sort(cultures, new CultureComparer());
+            _languages = cultures.Skip(1);
+        }
+
+        private CultureInfo _selectedLanguage;
+        private bool _textBoxDirty;
+        #endregion
+
         #region Properties
         private LocalizableStringCollection _target;
 
@@ -39,57 +57,116 @@ namespace Common.Controls
             set
             {
                 _target = value;
-                FillComboBoxLanguages();
+                FillComboBox();
+                FillTextBox();
             }
         }
 
         /// <inheritdoc/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Undo.ICommandExecutor CommandExecutor { get; set; }
+
+        /// <summary>
+        /// Controls whether the text can span more than one line.
+        /// </summary>
+        [DefaultValue(true)]
+        [Category("Behavior"), Description("Controls whether the text can span more than one line.")]
+        public bool Multiline { get { return textBox.Multiline; } set { textBox.Multiline = value; } }
+
+        /// <summary>
+        /// A text to be displayed in <see cref="SystemColors.GrayText"/> when the text box is empty.
+        /// </summary>
+        [Description("A text to be displayed in gray when Text is empty."), Category("Appearance"), Localizable(true)]
+        public string HintText { get { return textBox.HintText; } set { textBox.HintText = value; } }
         #endregion
 
+        #region Constructor
         public LocalizableTextBox()
         {
             InitializeComponent();
         }
+        #endregion
 
-        private static readonly CultureInfo[] _cultures = CultureInfo.GetCultures(CultureTypes.FrameworkCultures);
+        //--------------------//
 
-        private void FillComboBoxLanguages()
+        #region Fill
+        private void FillComboBox()
         {
-            var languages = _cultures.Select(culture => new Language {Culture = culture, IsValueSet = Target.ContainsExactLanguage(culture)});
+            var setLanguages = new List<CultureInfo>();
+            var unsetLanguages = new List<CultureInfo>();
+            foreach (var language in _languages)
+            {
+                if (Target.ContainsExactLanguage(language)) setLanguages.Add(language);
+                else unsetLanguages.Add(language);
+            }
+
+            if (_selectedLanguage == null)
+                _selectedLanguage = setLanguages.Count == 0 ? LocalizableString.DefaultLanguage : setLanguages[0];
 
             comboBoxLanguage.BeginUpdate();
-            comboBoxLanguage.DataSource = languages;
+            comboBoxLanguage.Items.Clear();
+            foreach (var language in setLanguages) comboBoxLanguage.Items.Add(language);
+            foreach (var language in unsetLanguages) comboBoxLanguage.Items.Add(language);
+            comboBoxLanguage.SelectedItem = _selectedLanguage;
             comboBoxLanguage.EndUpdate();
         }
 
-        private class Language
+        private void FillTextBox()
         {
-            public CultureInfo Culture;
-            public bool IsValueSet;
-
-            public override string ToString()
+            try
             {
-                return IsValueSet
-                    ? "* " + Culture.IetfLanguageTag
-                    : Culture.IetfLanguageTag;
+                textBox.Text = Target.GetExactLanguage(_selectedLanguage);
             }
+            catch (KeyNotFoundException)
+            {
+                textBox.Text = "";
+            }
+            _textBoxDirty = false;
+        }
+        #endregion
+
+        #region Apply
+        private void ApplyValue()
+        {
+            string newValue = string.IsNullOrEmpty(textBox.Text) ? null : textBox.Text;
+
+            if (Target.GetExactLanguage(_selectedLanguage) == newValue) return;
+
+            if (CommandExecutor == null) Target.Set(_selectedLanguage, newValue);
+            else CommandExecutor.Execute(new SetLocalizableString(Target, new LocalizableString {Language = _selectedLanguage, Value = newValue}));
+        }
+        #endregion
+
+        #region Event handlers
+        private void comboBoxLanguage_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            _selectedLanguage = (CultureInfo)comboBoxLanguage.SelectedItem;
+            FillTextBox();
+        }
+
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+            _textBoxDirty = true;
         }
 
         private void textBox_Validating(object sender, CancelEventArgs e)
         {
-            var language = comboBoxLanguage.SelectedItem as Language;
-            if (language == null) return;
+            if (_selectedLanguage == null) return;
 
-            var command = new Undo.SetLocalizableString(Target, new LocalizableString {Language = language.Culture, Value = textBox.Text});
-            CommandExecutor.Execute(command);
+            if (_textBoxDirty)
+            {
+                ApplyValue();
+                _textBoxDirty = false;
+            }
         }
 
         public override void Refresh()
         {
-            FillComboBoxLanguages();
+            FillComboBox();
+            FillTextBox();
+
             base.Refresh();
         }
+        #endregion
     }
 }
