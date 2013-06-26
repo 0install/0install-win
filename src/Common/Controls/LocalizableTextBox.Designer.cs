@@ -48,11 +48,12 @@
             this.textBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox.Location = new System.Drawing.Point(59, 0);
+            this.textBox.HintText = null;
+            this.textBox.Location = new System.Drawing.Point(66, 0);
             this.textBox.Multiline = true;
             this.textBox.Name = "textBox";
             this.textBox.ShowClearButton = true;
-            this.textBox.Size = new System.Drawing.Size(91, 150);
+            this.textBox.Size = new System.Drawing.Size(84, 150);
             this.textBox.TabIndex = 1;
             this.textBox.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             this.textBox.Validating += new System.ComponentModel.CancelEventHandler(this.textBox_Validating);
