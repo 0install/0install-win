@@ -87,12 +87,6 @@
       <DependentUpon>IconManagementControl.cs</DependentUpon>
     </Compile>
     <Compile Include="ManifestUtils.cs" />
-    <Compile Include="Dialogs\ImplementationDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\ImplementationDialog.Designer.cs">
-      <DependentUpon>ImplementationDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -114,12 +108,6 @@
     <Compile Include="Controls\TargetBaseControl.Designer.cs">
       <DependentUpon>TargetBaseControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\GroupDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\GroupDialog.Designer.cs">
-      <DependentUpon>GroupDialog.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Controls\ArchiveControl.resx">
       <DependentUpon>ArchiveControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -129,9 +117,6 @@
     <EmbeddedResource Include="Controls\IconManagementControl.resx">
       <DependentUpon>IconManagementControl.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\ImplementationDialog.resx">
-      <DependentUpon>ImplementationDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -155,9 +140,6 @@
     </Compile>
     <EmbeddedResource Include="Controls\TargetBaseControl.resx">
       <DependentUpon>TargetBaseControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\GroupDialog.resx">
-      <DependentUpon>GroupDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
