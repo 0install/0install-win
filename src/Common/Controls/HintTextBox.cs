@@ -182,8 +182,7 @@ namespace Common.Controls
         #region Constructor
         public HintTextBox()
         {
-            // Since TextBoxes start off empty, hint texts are visible by default
-            IsHintTextVisible = true;
+            ShowHintText();
 
             _buttonClear.Click += delegate
             {
