@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Design;
 using System.Globalization;
 using System.Linq;
@@ -35,6 +36,7 @@ namespace Common.Collections
     /// A set of languages that can be serialized as a simple space-separated list of ISO language codes.
     /// </summary>
     /// <remarks>Uses Unix-style language codes with an underscore (_) separator.</remarks>
+    [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "A Set is a special case of a Collection.")]
     [TypeConverter(typeof(StringConstructorConverter<LanguageSet>))]
     [Editor(typeof(LanguageSetEditor), typeof(UITypeEditor))]
     public sealed class LanguageSet : C5.TreeSet<CultureInfo>
@@ -45,6 +47,7 @@ namespace Common.Collections
         /// </summary>
         internal static readonly IEnumerable<CultureInfo> AllValid;
 
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "Data must be sorted before use.")]
         static LanguageSet()
         {
             var cultures = CultureInfo.GetCultures(CultureTypes.FrameworkCultures);

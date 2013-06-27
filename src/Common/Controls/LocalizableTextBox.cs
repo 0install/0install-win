@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
@@ -40,6 +41,7 @@ namespace Common.Controls
         private LocalizableStringCollection _target;
 
         /// <inheritdoc/>
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Target collection is injected from outside.")]
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public LocalizableStringCollection Target
         {

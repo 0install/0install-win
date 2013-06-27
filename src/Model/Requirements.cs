@@ -80,6 +80,7 @@ namespace ZeroInstall.Model
         /// The natural language(s) to look for.
         /// </summary>
         /// <example>For example, the value "en_GB fr" would be search for British English or French.</example>
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Complete set can be replaced by PropertyGrid.")]
         [Description("The natural language(s) to look for.")]
         [XmlIgnore]
         public LanguageSet Languages
