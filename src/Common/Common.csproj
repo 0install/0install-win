@@ -188,6 +188,7 @@
     <Compile Include="Values\Design\StructConverter.cs" />
     <Compile Include="Values\Design\TimeSpanEditor.cs" />
     <Compile Include="Controls\IEditorControl.cs" />
+    <Compile Include="Controls\IEditorControlContainerRef.cs" />
     <Compile Include="Controls\IEditorDialog.cs" />
     <Compile Include="Controls\IContextMenu.cs" />
     <Compile Include="Controls\IHighlightColor.cs" />

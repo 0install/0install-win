@@ -35,7 +35,7 @@ namespace Common.StructureEditor
         private partial class ListDescription<TList>
         {
             /// <inheritdoc/>
-            public IListDescription<TList> AddElement<TElement, TEditor>(string name)
+            public IListDescription<TContainer, TList> AddElement<TElement, TEditor>(string name)
                 where TElement : class, TList, IEquatable<TElement>, new()
                 where TEditor : Control, IEditorControl<TElement>, new()
             {
@@ -44,7 +44,16 @@ namespace Common.StructureEditor
             }
 
             /// <inheritdoc/>
-            public IListDescription<TList> AddElement<TElement>(string name)
+            public IListDescription<TContainer, TList> AddElementContainerRef<TElement, TEditor>(string name)
+                where TElement : class, TList, IEquatable<TElement>, new()
+                where TEditor : Control, IEditorControlContainerRef<TElement, TContainer>, new()
+            {
+                _descriptions.Add(new ElementDescriptionContainerRef<TElement, TEditor>(name));
+                return this;
+            }
+
+            /// <inheritdoc/>
+            public IListDescription<TContainer, TList> AddElement<TElement>(string name)
                 where TElement : class, TList, IEquatable<TElement>, new()
             {
                 return AddElement<TElement, EditorControl<TElement>>(name);
@@ -52,7 +61,7 @@ namespace Common.StructureEditor
 
             private interface IElementDescription
             {
-                IEnumerable<EntryInfo> GetEntrysIn(IList<TList> list);
+                IEnumerable<EntryInfo> GetEntrysIn(TContainer container, IList<TList> list);
                 ChildInfo GetPossibleChildFor(IList<TList> list);
             }
 
@@ -67,13 +76,13 @@ namespace Common.StructureEditor
                     _name = name;
                 }
 
-                public IEnumerable<EntryInfo> GetEntrysIn(IList<TList> list)
+                public IEnumerable<EntryInfo> GetEntrysIn(TContainer container, IList<TList> list)
                 {
                     return list.OfType<TElement>().Select(element =>
                         new EntryInfo(
                             name: _name,
                             target: element,
-                            getEditorControl: commandExecutor => new TEditor {Target = element, CommandExecutor = commandExecutor},
+                            getEditorControl: commandExecutor => CreateEditor(container, element, commandExecutor),
                             toXmlString: element.ToXmlString,
                             fromXmlString: xmlString =>
                             {
@@ -83,11 +92,29 @@ namespace Common.StructureEditor
                             removeCommand: new RemoveFromCollection<TList>(list, element)));
                 }
 
+                protected virtual TEditor CreateEditor(TContainer container, TElement value, Undo.ICommandExecutor commandExecutor)
+                {
+                    return new TEditor {Target = value, CommandExecutor = commandExecutor};
+                }
+
                 public ChildInfo GetPossibleChildFor(IList<TList> list)
                 {
                     return new ChildInfo(
                         name: _name,
                         create: () => new AddToCollection<TList>(list, new TElement()));
+                }
+            }
+
+            private class ElementDescriptionContainerRef<TElement, TEditor> : ElementDescription<TElement, TEditor>
+                where TElement : class, TList, IEquatable<TElement>, new()
+                where TEditor : Control, IEditorControlContainerRef<TElement, TContainer>, new()
+            {
+                public ElementDescriptionContainerRef(string name) : base(name)
+                {}
+
+                protected override TEditor CreateEditor(TContainer container, TElement value, Undo.ICommandExecutor commandExecutor)
+                {
+                    return new TEditor {Target = value, ContainerRef = container, CommandExecutor = commandExecutor};
                 }
             }
         }

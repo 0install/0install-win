@@ -50,6 +50,23 @@ namespace Common.StructureEditor
         }
 
         /// <summary>
+        /// Adds a property to the description. Gives the <typeparamref name="TEditor"/> access to the <typeparamref name="TContainer"/>.
+        /// </summary>
+        /// <typeparam name="TProperty">The type of the property.</typeparam>
+        /// <typeparam name="TEditor">An editor for modifying the content of the property.</typeparam>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="getPointer">A function to retrieve a pointer to property in the container.</param>
+        /// <returns>The "this" pointer for use in a "Fluent API" style.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "Generics used as type-safe reflection replacement.")]
+        public ContainerDescription<TContainer> AddPropertyContainerRef<TProperty, TEditor>(string name, Func<TContainer, PropertyPointer<TProperty>> getPointer)
+            where TProperty : class, IEquatable<TProperty>, new()
+            where TEditor : Control, IEditorControlContainerRef<TProperty, TContainer>, new()
+        {
+            _descriptions.Add(new PropertyDescriptionContainerRef<TProperty, TEditor>(name, getPointer));
+            return this;
+        }
+
+        /// <summary>
         /// Adds a property to the description.
         /// </summary>
         /// <typeparam name="TProperty">The type of the property.</typeparam>
@@ -66,13 +83,13 @@ namespace Common.StructureEditor
             where TProperty : class, IEquatable<TProperty>, new()
             where TEditor : Control, IEditorControl<TProperty>, new()
         {
-            private readonly Func<TContainer, PropertyPointer<TProperty>> _getPointer;
             private readonly string _name;
+            private readonly Func<TContainer, PropertyPointer<TProperty>> _getPointer;
 
             public PropertyDescription(string name, Func<TContainer, PropertyPointer<TProperty>> getPointer)
             {
-                _getPointer = getPointer;
                 _name = name;
+                _getPointer = getPointer;
             }
 
             public override IEnumerable<EntryInfo> GetEntrysIn(TContainer container)
@@ -83,7 +100,7 @@ namespace Common.StructureEditor
                     yield return new EntryInfo(
                         name: _name,
                         target: pointer.Value,
-                        getEditorControl: commandExecutor => new TEditor {Target = pointer.Value, CommandExecutor = commandExecutor},
+                        getEditorControl: commandExecutor => CreateEditor(container, pointer.Value, commandExecutor),
                         toXmlString: pointer.Value.ToXmlString,
                         fromXmlString: xmlString =>
                         {
@@ -94,6 +111,11 @@ namespace Common.StructureEditor
                 }
             }
 
+            protected virtual TEditor CreateEditor(TContainer container, TProperty value, Undo.ICommandExecutor commandExecutor)
+            {
+                return new TEditor {Target = value, CommandExecutor = commandExecutor};
+            }
+
             public override IEnumerable<ChildInfo> GetPossibleChildrenFor(TContainer container)
             {
                 return new[]
@@ -102,6 +124,19 @@ namespace Common.StructureEditor
                         name: _name,
                         create: () => new SetValueCommand<TProperty>(_getPointer(container), new TProperty()))
                 };
+            }
+        }
+
+        private class PropertyDescriptionContainerRef<TProperty, TEditor> : PropertyDescription<TProperty, TEditor>
+            where TProperty : class, IEquatable<TProperty>, new()
+            where TEditor : Control, IEditorControlContainerRef<TProperty, TContainer>, new()
+        {
+            public PropertyDescriptionContainerRef(string name, Func<TContainer, PropertyPointer<TProperty>> getPointer) : base(name, getPointer)
+            {}
+
+            protected override TEditor CreateEditor(TContainer container, TProperty value, Undo.ICommandExecutor commandExecutor)
+            {
+                return new TEditor {Target = value, ContainerRef = container, CommandExecutor = commandExecutor};
             }
         }
     }

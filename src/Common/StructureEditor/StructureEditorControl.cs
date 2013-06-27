@@ -22,6 +22,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Forms;
 using Common.Collections;
@@ -103,6 +104,7 @@ namespace Common.StructureEditor
         /// </summary>
         /// <typeparam name="TEditor">An editor for modifying the content of the root.</typeparam>
         /// <param name="name">The name of the root element.</param>
+        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "Generics used as type-safe reflection replacement.")]
         protected void DescribeRoot<TEditor>(string name)
             where TEditor : Control, IEditorControl<T>, new()
         {
