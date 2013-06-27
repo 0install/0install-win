@@ -65,7 +65,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Indicates whether this recipe contains steps of unknown type and therefore can not be processed.
         /// </summary>
-        [Description("Indicates whether this recipe contains steps of unknown type and therefore can not be processed.")]
+        [Browsable(false)]
         [XmlIgnore]
         public bool ContainsUnknownSteps { get { return UnknownElements != null && UnknownElements.Length > 0; } }
         #endregion
