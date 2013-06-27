@@ -43,14 +43,14 @@ namespace Common.Collections
     {
         #region Constants
         /// <summary>
-        /// All valid languages.
+        /// All valid languages in alphabetical order.
         /// </summary>
         internal static readonly IEnumerable<CultureInfo> AllValid;
 
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "Data must be sorted before use.")]
         static LanguageSet()
         {
-            var cultures = CultureInfo.GetCultures(CultureTypes.FrameworkCultures);
+            var cultures = CultureInfo.GetCultures(CultureTypes.NeutralCultures | CultureTypes.SpecificCultures);
             Array.Sort(cultures, new CultureComparer());
             AllValid = cultures.Skip(1);
         }
