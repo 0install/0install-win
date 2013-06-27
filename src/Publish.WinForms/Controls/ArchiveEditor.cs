@@ -34,8 +34,29 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
-    public partial class ArchiveControl : UserControl
+    public partial class ArchiveEditor : UserControl, IEditorControlContainerRef<Archive, Implementation>
     {
+        #region Properties
+        private Archive _target;
+
+        /// <inheritdoc/>
+        public Archive Target
+        {
+            get { return _target; }
+            set
+            {
+                _target = value;
+                Refresh();
+            }
+        }
+
+        /// <inheritdoc/>
+        public Implementation ContainerRef { get; set; }
+
+        /// <inheritdoc/>
+        public Common.Undo.ICommandExecutor CommandExecutor { get; set; }
+        #endregion
+
         #region Attributes
         /// <summary>
         /// The <see cref="Archive" /> to be displayed and edited by this form.
@@ -164,7 +185,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         #endregion
 
         #region Initialization
-        public ArchiveControl()
+        public ArchiveEditor()
         {
             InitializeComponent();
             InitializeComboBoxArchiveFormat();

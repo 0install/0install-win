@@ -3,7 +3,7 @@ using System.IO;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
-    partial class ArchiveControl
+    partial class ArchiveEditor
     {
         /// <summary> 
         /// Required designer variable.

@@ -65,11 +65,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Tools.cs" />
-    <Compile Include="Controls\ArchiveControl.cs">
+    <Compile Include="Controls\ArchiveEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ArchiveControl.Designer.cs">
-      <DependentUpon>ArchiveControl.cs</DependentUpon>
+    <Compile Include="Controls\ArchiveEditor.Designer.cs">
+      <DependentUpon>ArchiveEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\DescriptionEditor.cs">
       <SubType>UserControl</SubType>
@@ -108,9 +108,6 @@
     <Compile Include="Controls\TargetBaseControl.Designer.cs">
       <DependentUpon>TargetBaseControl.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Controls\ArchiveControl.resx">
-      <DependentUpon>ArchiveControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>

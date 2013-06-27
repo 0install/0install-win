@@ -74,7 +74,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
             Describe<Implementation>()
                 .AddList(implementation => implementation.RetrievalMethods)
-                .AddElement<Archive>("archive")
+                .AddElementContainerRef<Archive, ArchiveEditor>("archive")
                 .AddElement<Recipe>("recipe");
 
             Describe<Recipe>()
