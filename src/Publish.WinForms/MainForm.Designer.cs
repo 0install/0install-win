@@ -33,7 +33,6 @@
             this.buttonNew = new System.Windows.Forms.ToolStripButton();
             this.buttonOpen = new System.Windows.Forms.ToolStripButton();
             this.buttonSave = new System.Windows.Forms.ToolStripButton();
-            this.buttonSaveAs = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.buttonUndo = new System.Windows.Forms.ToolStripButton();
             this.buttonRedo = new System.Windows.Forms.ToolStripButton();
@@ -53,9 +52,9 @@
             this.menuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuUndo = new System.Windows.Forms.ToolStripMenuItem();
             this.menuRedo = new System.Windows.Forms.ToolStripMenuItem();
-            this.feedStructureEditor = new ZeroInstall.Publish.WinForms.Controls.FeedStructureEditor();
             this.menuSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.feedStructureEditor = new ZeroInstall.Publish.WinForms.Controls.FeedStructureEditor();
             this.toolStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -66,7 +65,6 @@
             this.buttonNew,
             this.buttonOpen,
             this.buttonSave,
-            this.buttonSaveAs,
             this.toolStripSeparator,
             this.buttonUndo,
             this.buttonRedo,
@@ -106,16 +104,6 @@
             this.buttonSave.Size = new System.Drawing.Size(23, 22);
             this.buttonSave.Text = "Save";
             this.buttonSave.Click += new System.EventHandler(this.menuSave_Click);
-            // 
-            // buttonSaveAs
-            // 
-            this.buttonSaveAs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonSaveAs.Image = ((System.Drawing.Image)(resources.GetObject("buttonSaveAs.Image")));
-            this.buttonSaveAs.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonSaveAs.Name = "buttonSaveAs";
-            this.buttonSaveAs.Size = new System.Drawing.Size(23, 22);
-            this.buttonSaveAs.Text = "Save as...";
-            this.buttonSaveAs.Click += new System.EventHandler(this.menuSaveAs_Click);
             // 
             // toolStripSeparator
             // 
@@ -268,15 +256,6 @@
             this.menuRedo.Text = "&Redo";
             this.menuRedo.Click += new System.EventHandler(this.menuRedo_Click);
             // 
-            // feedStructureEditor
-            // 
-            this.feedStructureEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.feedStructureEditor.Location = new System.Drawing.Point(0, 49);
-            this.feedStructureEditor.Name = "feedStructureEditor";
-            this.feedStructureEditor.Padding = new System.Windows.Forms.Padding(12);
-            this.feedStructureEditor.Size = new System.Drawing.Size(584, 502);
-            this.feedStructureEditor.TabIndex = 1;
-            // 
             // menuSeparator3
             // 
             this.menuSeparator3.Name = "menuSeparator3";
@@ -289,6 +268,15 @@
             this.menuRemove.Size = new System.Drawing.Size(173, 22);
             this.menuRemove.Text = "&Remove";
             this.menuRemove.Click += new System.EventHandler(this.menuRemove_Click);
+            // 
+            // feedStructureEditor
+            // 
+            this.feedStructureEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.feedStructureEditor.Location = new System.Drawing.Point(0, 49);
+            this.feedStructureEditor.Name = "feedStructureEditor";
+            this.feedStructureEditor.Padding = new System.Windows.Forms.Padding(12);
+            this.feedStructureEditor.Size = new System.Drawing.Size(584, 502);
+            this.feedStructureEditor.TabIndex = 1;
             // 
             // MainForm
             // 
@@ -320,7 +308,6 @@
         private System.Windows.Forms.ToolStripButton buttonNew;
         private System.Windows.Forms.ToolStripButton buttonOpen;
         private System.Windows.Forms.ToolStripButton buttonSave;
-        private System.Windows.Forms.ToolStripButton buttonSaveAs;
         private System.Windows.Forms.ToolStripButton buttonUndo;
         private System.Windows.Forms.ToolStripButton buttonRedo;
         private System.Windows.Forms.ToolStripLabel labelGnuPG;
