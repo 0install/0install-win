@@ -184,7 +184,7 @@ namespace ZeroInstall.Publish.WinForms
         private void SaveFeed(string path)
         {
             var key = FeedEditing.SignedFeed.SecretKey;
-            if (key == null) FeedEditing.Save(path, null);
+            if (key == null) FeedEditing.Save(path);
             else
             {
                 string passphrase = InputBox.Show(this, Text, string.Format(Resources.AskForPassphrase, key), "", true);

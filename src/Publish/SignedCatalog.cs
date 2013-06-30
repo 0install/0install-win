@@ -89,7 +89,7 @@ namespace ZeroInstall.Publish
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        public void Save(string path, string passphrase)
+        public void Save(string path, string passphrase = null)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");

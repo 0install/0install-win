@@ -67,7 +67,7 @@ namespace ZeroInstall.Central.WinForms
 
             HandleCreated += delegate
             {
-                Program.ConfigureTaskbar(this, Text, null, null);
+                Program.ConfigureTaskbar(this, Text);
 
                 var syncLink = new WindowsUtils.ShellLink(buttonSync.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), SyncApps.Name);
                 var cacheLink = new WindowsUtils.ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Store.Management.WinForms.Program.ExeName + ".exe"), null);

@@ -217,7 +217,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="tag">An object used to associate a <see cref="ITask"/> with a specific process; may be <see langword="null"/>.</param>
         /// <returns>A manifest for the directory.</returns>
         /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
-        public static Manifest Generate(string path, ManifestFormat format, ITaskHandler handler, object tag)
+        public static Manifest Generate(string path, ManifestFormat format, ITaskHandler handler, object tag = null)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -248,7 +248,7 @@ namespace ZeroInstall.Store.Implementation
             if (format == null) throw new ArgumentNullException("format");
             #endregion
 
-            return Generate(path, format, handler, null).Save(Path.Combine(path, ".manifest"));
+            return Generate(path, format, handler).Save(Path.Combine(path, ".manifest"));
         }
 
         /// <summary>
@@ -265,7 +265,7 @@ namespace ZeroInstall.Store.Implementation
             // Generate manifest for each available format...
             foreach (var format in ManifestFormat.Recommended)
                 // ... and add the resulting digest to the return value
-                ManifestDigest.ParseID(Generate(path, format, handler, null).CalculateDigest(), ref digest);
+                ManifestDigest.ParseID(Generate(path, format, handler).CalculateDigest(), ref digest);
 
             return digest;
         }

@@ -102,7 +102,7 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Task tracking
         /// <inheritdoc />
-        public void RunTask(ITask task, object tag)
+        public void RunTask(ITask task, object tag = null)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
@@ -201,7 +201,7 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Question
         /// <inheritdoc />
-        public bool AskQuestion(string question, string batchInformation)
+        public bool AskQuestion(string question, string batchInformation = null)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(question)) throw new ArgumentNullException("question");

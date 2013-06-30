@@ -249,7 +249,7 @@ namespace ZeroInstall.Store.Management.Cli
                     using (var extractor = Extractor.CreateExtractor(null, path, 0, tempDir))
                     {
                         if (args.Count >= 3) extractor.SubDir = args[2];
-                        handler.RunTask(extractor, null);
+                        handler.RunTask(extractor);
                     }
 
                     manifest = Manifest.Generate(tempDir, format, handler, path);

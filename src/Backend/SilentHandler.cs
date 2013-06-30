@@ -65,7 +65,7 @@ namespace ZeroInstall.Backend
         }
 
         /// <inheritdoc />
-        public virtual bool AskQuestion(string question, string batchInformation)
+        public virtual bool AskQuestion(string question, string batchInformation = null)
         {
             return false;
         }

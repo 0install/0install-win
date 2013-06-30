@@ -46,7 +46,7 @@ namespace Common.Controls
         /// </summary>
         /// <param name="title">The title of th dialog to display.</param>
         /// <param name="icon">The icon for the dialog to display in the task bar; may be <see langword="null"/>.</param>
-        public AsyncWaitDialog(string title, Icon icon)
+        public AsyncWaitDialog(string title, Icon icon = null)
         {
             InitializeComponent();
 

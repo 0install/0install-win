@@ -40,7 +40,7 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <inheritdoc/>
-        public override bool AskQuestion(string question, string batchInformation)
+        public override bool AskQuestion(string question, string batchInformation = null)
         {
             bool result = false;
             _owner.Invoke((Action)(() => result = Msg.YesNo(_owner, question, MsgSeverity.Info)));

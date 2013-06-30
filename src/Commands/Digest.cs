@@ -115,7 +115,7 @@ namespace ZeroInstall.Commands
             { // Manifest for directory
                 if (!string.IsNullOrEmpty(subdir)) throw new OptionException(Resources.TooManyArguments, "");
 
-                manifest = Manifest.Generate(path, _algorithm, Resolver.Handler, null);
+                manifest = Manifest.Generate(path, _algorithm, Resolver.Handler);
             }
             else if (File.Exists(path))
             { // Manifest for archive
@@ -124,10 +124,10 @@ namespace ZeroInstall.Commands
                     using (var extractor = Extractor.CreateExtractor(null, path, 0, tempDir))
                     {
                         extractor.SubDir = subdir;
-                        Resolver.Handler.RunTask(extractor, null);
+                        Resolver.Handler.RunTask(extractor);
                     }
 
-                    manifest = Manifest.Generate(tempDir, _algorithm, Resolver.Handler, null);
+                    manifest = Manifest.Generate(tempDir, _algorithm, Resolver.Handler);
                 }
             }
             else throw new FileNotFoundException(string.Format(Resources.FileOrDirNotFound, path));

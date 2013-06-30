@@ -74,7 +74,7 @@ namespace ZeroInstall.Store
         ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
         /// </remarks>
-        bool AskQuestion(string question, string batchInformation);
+        bool AskQuestion(string question, string batchInformation = null);
 
         /// <summary>
         /// Displays multi-line text to the user.

@@ -58,11 +58,11 @@ namespace ZeroInstall.Central.WinForms.SyncWizards
 
         private readonly object _taskLock = new object();
 
-        public void RunTask(ITask task, object tag)
+        public void RunTask(ITask task, object tag = null)
         {
             lock (_taskLock) // Prevent multiple concurrent tasks
             {
-                Invoke(new Action(() => TrackingDialog.Run(this, task, null)));
+                Invoke(new Action(() => TrackingDialog.Run(this, task)));
             }
         }
 
@@ -95,7 +95,7 @@ namespace ZeroInstall.Central.WinForms.SyncWizards
             Invoke(new Action(() => labelWorking.Visible = false));
         }
 
-        public bool AskQuestion(string question, string batchInformation)
+        public bool AskQuestion(string question, string batchInformation = null)
         {
             throw new NotImplementedException();
         }

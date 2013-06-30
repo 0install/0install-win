@@ -60,7 +60,7 @@ namespace ZeroInstall.Store.Management.WinForms
             else if (WindowsUtils.IsWindowsNT) buttonRunAsAdmin.Visible = true;
 
             Shown += delegate { RefreshList(); };
-            HandleCreated += delegate { Program.ConfigureTaskbar(this, Text, null, null); };
+            HandleCreated += delegate { Program.ConfigureTaskbar(this, Text); };
 
             _treeView.SelectedEntryChanged += OnSelectedEntryChanged;
             _treeView.CheckedEntriesChanged += OnCheckedEntriesChanged;
@@ -229,7 +229,7 @@ namespace ZeroInstall.Store.Management.WinForms
             {
                 try
                 {
-                    RunTask(new ForEachTask<Node>(Resources.DeletingEntries, _treeView.CheckedEntries, entry => entry.Delete()), null);
+                    RunTask(new ForEachTask<Node>(Resources.DeletingEntries, _treeView.CheckedEntries, entry => entry.Delete()));
                 }
                     #region Error handling
                 catch (OperationCanceledException)
@@ -303,7 +303,7 @@ namespace ZeroInstall.Store.Management.WinForms
         public CancellationToken CancellationToken { get { return _cancellationToken; } }
 
         /// <inheritdoc/>
-        public void RunTask(ITask task, object tag)
+        public void RunTask(ITask task, object tag = null)
         {
             // Handle events coming from a non-UI thread, block caller
             Invoke(new Action(() => TrackingDialog.Run(this, task, Icon)));

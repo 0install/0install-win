@@ -56,7 +56,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="cancelCallback">To be called when the user wishes to cancel the current process.</param>
         /// <param name="actionTitle">A short title describing what the command being executed does; may be <see langword="null"/>.</param>
-        public ProgressForm(Action cancelCallback, string actionTitle)
+        public ProgressForm(Action cancelCallback, string actionTitle = null)
         {
             #region Sanity checks
             if (cancelCallback == null) throw new ArgumentNullException("cancelCallback");

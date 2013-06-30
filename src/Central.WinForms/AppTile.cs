@@ -102,7 +102,7 @@ namespace ZeroInstall.Central.WinForms
                 if (_iconCache != null)
                 {
                     // Load application icon in background
-                    var icon = value.GetIcon(Icon.MimeTypePng, null);
+                    var icon = value.GetIcon(Icon.MimeTypePng);
                     if (icon != null) iconDownloadWorker.RunWorkerAsync(icon.Href);
                     else pictureBoxIcon.Image = Resources.App; // Fall back to default icon
                 }
@@ -154,7 +154,7 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="appName">The name of the application this tile represents.</param>
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
         /// <param name="iconCache">The icon cache used to retrieve icons specified in <see cref="Feed"/>; may be <see langword="null"/>.</param>
-        public AppTile(bool machineWide, string interfaceID, string appName, AppStatus status, IIconCache iconCache)
+        public AppTile(bool machineWide, string interfaceID, string appName, AppStatus status, IIconCache iconCache = null)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");

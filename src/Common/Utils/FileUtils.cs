@@ -305,7 +305,7 @@ namespace Common.Utils
         /// <param name="directory">The directory to walk.</param>
         /// <param name="dirAction">The action to perform for every found directory (including the starting <paramref name="directory"/>); may be <see langword="null"/>.</param>
         /// <param name="fileAction">The action to perform for every found file; may be <see langword="null"/>.</param>
-        public static void WalkDirectory(this DirectoryInfo directory, Action<DirectoryInfo> dirAction, Action<FileInfo> fileAction)
+        public static void WalkDirectory(this DirectoryInfo directory, Action<DirectoryInfo> dirAction = null, Action<FileInfo> fileAction = null)
         {
             #region Sanity checks
             if (directory == null) throw new ArgumentNullException("directory");
@@ -467,12 +467,14 @@ namespace Common.Utils
 
                 case PlatformID.Win32NT:
                     // Find NTFS ACL inheritance starting at any level
-                    WalkDirectory(directory, dir => ToggleWriteProtectionWinNT(dir, false), file => { });
+                    WalkDirectory(directory, dir => ToggleWriteProtectionWinNT(dir, false));
 
                     // Remove any classic read-only attributes
                     try
                     {
-                        WalkDirectory(directory, dir => dir.Attributes = FileAttributes.Normal, file => file.IsReadOnly = false);
+                        WalkDirectory(directory,
+                            dir => dir.Attributes = FileAttributes.Normal,
+                            file => file.IsReadOnly = false);
                     }
                     catch (ArgumentException)
                     {}

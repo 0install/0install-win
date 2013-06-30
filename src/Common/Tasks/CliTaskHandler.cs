@@ -42,7 +42,7 @@ namespace Common.Tasks
         private readonly object _taskLock = new object();
 
         /// <inheritdoc />
-        public void RunTask(ITask task, object tag)
+        public void RunTask(ITask task, object tag = null)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");

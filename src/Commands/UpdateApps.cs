@@ -110,7 +110,7 @@ namespace ZeroInstall.Commands
             // Run solver for each app
             var implementations = new List<ImplementationSelection>();
             Resolver.Handler.RunTask(new ForEachTask<Requirements>(Resources.CheckingForUpdates, targets.ToList(),
-                requirements => implementations.AddRange(Resolver.Solver.Solve(requirements).Implementations)), null);
+                requirements => implementations.AddRange(Resolver.Solver.Solve(requirements).Implementations)));
 
             // Deduplicate selections
             return implementations.Distinct(new ManifestDigestPartialEqualityComparer<ImplementationSelection>());
@@ -146,8 +146,7 @@ namespace ZeroInstall.Commands
         {
             var toDelete = Resolver.Store.ListAll().
                                     Except(digestsToKeep, new ManifestDigestPartialEqualityComparer()).ToList();
-            Resolver.Handler.RunTask(new ForEachTask<ManifestDigest>(Resources.RemovingOutdated, toDelete,
-                Resolver.Store.Remove), null);
+            Resolver.Handler.RunTask(new ForEachTask<ManifestDigest>(Resources.RemovingOutdated, toDelete, Resolver.Store.Remove));
         }
         #endregion
     }

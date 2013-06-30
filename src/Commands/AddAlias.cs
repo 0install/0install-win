@@ -136,7 +136,7 @@ namespace ZeroInstall.Commands
         /// <param name="interfaceID">The interface ID the alias shall point to.</param>
         /// <param name="command">A command within the interface the alias shall point to; may be <see langword="null"/>.</param>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        private int CreateAlias(IIntegrationManager integrationManager, string aliasName, string interfaceID, string command)
+        private int CreateAlias(IIntegrationManager integrationManager, string aliasName, string interfaceID, string command = null)
         {
             Resolver.Handler.ShowProgressUI();
 

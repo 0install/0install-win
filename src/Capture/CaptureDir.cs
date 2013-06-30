@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security;
-using Common.Collections;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Capture.Properties;
@@ -155,7 +154,7 @@ namespace ZeroInstall.Capture
         /// Creates a local path <see cref="Implementation"/> from the installation directory.
         /// </summary>
         /// <param name="installationDir">The fully qualified path to the installation directory; may be <see langword="null"/>.</param>
-        private Implementation GetImplementation(string installationDir)
+        private Implementation GetImplementation(string installationDir = null)
         {
             string implementationDir = Path.Combine(DirectoryPath, "implementation");
             if (Directory.Exists(implementationDir)) Directory.Delete(implementationDir, true);
@@ -180,7 +179,7 @@ namespace ZeroInstall.Capture
         /// <param name="capabilities">A list of capabilities that were detected.</param>
         /// <param name="commands">A list of commands that can be uses to start the application.</param>
         /// <param name="implementation">An implementation to add to the main group; may be <see langword="null"/>.</param>
-        private static Feed BuildFeed(string appName, string appDescription, CapabilityList capabilities, IEnumerable<Command> commands, Implementation implementation)
+        private static Feed BuildFeed(string appName, string appDescription, CapabilityList capabilities, IEnumerable<Command> commands, Implementation implementation = null)
         {
             #region Sanity checks
             if (capabilities == null) throw new ArgumentNullException("capabilities");

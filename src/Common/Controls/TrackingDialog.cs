@@ -47,7 +47,7 @@ namespace Common.Controls
         /// </summary>
         /// <param name="task">The trackable task to execute and display.</param>
         /// <param name="icon">The icon for the dialog to display in the task bar; may be <see langword="null"/>.</param>
-        private TrackingDialog(ITask task, Icon icon)
+        private TrackingDialog(ITask task, Icon icon = null)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
@@ -120,7 +120,7 @@ namespace Common.Controls
         /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
         /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskState.WebError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="ITask.State"/> is not <see cref="TaskState.Ready"/>.</exception>
-        public static void Run(IWin32Window owner, ITask task, Icon icon)
+        public static void Run(IWin32Window owner, ITask task, Icon icon = null)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");

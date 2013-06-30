@@ -46,7 +46,7 @@ namespace ZeroInstall.Store.Implementation
             try
             {
                 // Generate manifest, write it to a file and read the file again
-                return Manifest.Generate(tempDir, ManifestFormat.Sha1New, new SilentHandler(), null);
+                return Manifest.Generate(tempDir, ManifestFormat.Sha1New, new SilentHandler());
             }
             finally
             { // Clean up
@@ -102,19 +102,19 @@ namespace ZeroInstall.Store.Implementation
             {
                 Assert.AreEqual(
                     Manifest.CreateDotFile(packageDir, ManifestFormat.Sha1, new SilentHandler()),
-                    Manifest.Generate(packageDir, ManifestFormat.Sha1, new SilentHandler(), null).CalculateDigest(),
+                    Manifest.Generate(packageDir, ManifestFormat.Sha1, new SilentHandler()).CalculateDigest(),
                     "sha1 dot file and digest should match");
                 Assert.AreEqual(
                     Manifest.CreateDotFile(packageDir, ManifestFormat.Sha1New, new SilentHandler()),
-                    Manifest.Generate(packageDir, ManifestFormat.Sha1New, new SilentHandler(), null).CalculateDigest(),
+                    Manifest.Generate(packageDir, ManifestFormat.Sha1New, new SilentHandler()).CalculateDigest(),
                     "sha1new dot file and digest should match");
                 Assert.AreEqual(
                     Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, new SilentHandler()),
-                    Manifest.Generate(packageDir, ManifestFormat.Sha256, new SilentHandler(), null).CalculateDigest(),
+                    Manifest.Generate(packageDir, ManifestFormat.Sha256, new SilentHandler()).CalculateDigest(),
                     "sha256 dot file and digest should match");
                 Assert.AreEqual(
                     Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256New, new SilentHandler()),
-                    Manifest.Generate(packageDir, ManifestFormat.Sha256New, new SilentHandler(), null).CalculateDigest(),
+                    Manifest.Generate(packageDir, ManifestFormat.Sha256New, new SilentHandler()).CalculateDigest(),
                     "sha256new dot file and digest should match");
             }
             finally
@@ -150,7 +150,7 @@ namespace ZeroInstall.Store.Implementation
             string packageDir = DirectoryStoreTest.CreateArtificialPackage();
             try
             {
-                var manifest = Manifest.Generate(packageDir, ManifestFormat.Sha1New, new SilentHandler(), null);
+                var manifest = Manifest.Generate(packageDir, ManifestFormat.Sha1New, new SilentHandler());
                 Assert.AreEqual("D /subdir\nF 606ec6e9bd8a8ff2ad14e5fade3f264471e82251 946684800 3 file.txt\n", manifest.ToString().Replace(Environment.NewLine, "\n"));
             }
             finally
@@ -290,7 +290,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 var handlerMock = new Mock<ITaskHandler>(MockBehavior.Strict);
                 handlerMock.Setup(x => x.RunTask(It.IsAny<ITask>(), It.IsAny<string>())).Verifiable();
-                Manifest.Generate(packageDir, ManifestFormat.Sha256, handlerMock.Object, null);
+                Manifest.Generate(packageDir, ManifestFormat.Sha256, handlerMock.Object);
                 handlerMock.Verify();
             }
             finally
@@ -308,7 +308,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 Directory.CreateDirectory(Path.Combine(package, "target"));
                 FileUtils.CreateSymlink(Path.Combine(package, "source"), "target");
-                var manifest = Manifest.Generate(package, ManifestFormat.Sha256New, new SilentHandler(), null);
+                var manifest = Manifest.Generate(package, ManifestFormat.Sha256New, new SilentHandler());
 
                 Assert.IsTrue(manifest[0] is ManifestSymlink, "Unexpected manifest:\n" + manifest);
                 Assert.AreEqual("source", ((ManifestSymlink)manifest[0]).SymlinkName, "Unexpected manifest:\n" + manifest);

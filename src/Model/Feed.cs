@@ -324,7 +324,7 @@ namespace ZeroInstall.Model
         /// <param name="language">The language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
         /// <param name="command">The name of the command the name should represent; may be <see langword="null"/>.</param>
         /// <returns>The best matching name that was found.</returns>
-        public string GetBestName(CultureInfo language, string command)
+        public string GetBestName(CultureInfo language, string command = null)
         {
             if (string.IsNullOrEmpty(command)) command = Command.NameRun;
 
@@ -344,7 +344,7 @@ namespace ZeroInstall.Model
         /// <param name="language">The language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
         /// <param name="command">The name of the command the summary should represent; may be <see langword="null"/>.</param>
         /// <returns>The best matching summary that was found; <see langword="null"/> if no matching summary was found.</returns>
-        public string GetBestSummary(CultureInfo language, string command)
+        public string GetBestSummary(CultureInfo language, string command = null)
         {
             if (string.IsNullOrEmpty(command)) command = Command.NameRun;
 
@@ -364,7 +364,7 @@ namespace ZeroInstall.Model
         /// <param name="mimeType">The <see cref="Icon.MimeType"/> to try to find. Will only return exact matches.</param>
         /// <param name="command">The name of the command the icon should represent; may be <see langword="null"/>.</param>
         /// <returns>The best matching icon that was found or <see langword="null"/> if no matching icon was found.</returns>
-        public Icon GetIcon(string mimeType, string command)
+        public Icon GetIcon(string mimeType, string command = null)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");

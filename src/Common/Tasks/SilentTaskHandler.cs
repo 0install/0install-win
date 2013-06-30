@@ -35,7 +35,7 @@ namespace Common.Tasks
         public CancellationToken CancellationToken { get { return _cancellationToken; } }
 
         /// <inheritdoc />
-        public void RunTask(ITask task, object tag)
+        public void RunTask(ITask task, object tag = null)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");

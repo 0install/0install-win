@@ -80,7 +80,7 @@ namespace ZeroInstall.Backend
 
         #region Question
         /// <inheritdoc />
-        public bool AskQuestion(string question, string batchInformation)
+        public bool AskQuestion(string question, string batchInformation = null)
         {
             if (Batch)
             {

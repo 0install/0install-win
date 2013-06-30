@@ -47,7 +47,7 @@ namespace ZeroInstall.Publish.WinForms
             foreach (var generator in ManifestFormat.Recommended.Select(format => new ManifestGenerator(path, format)))
             {
                 // ... and add the resulting digest to the return value
-                TrackingDialog.Run(owner, generator, null);
+                TrackingDialog.Run(owner, generator);
                 ManifestDigest.ParseID(generator.Result.CalculateDigest(), ref digest);
             }
 

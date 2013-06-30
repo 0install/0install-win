@@ -110,7 +110,7 @@ namespace ZeroInstall.Store.Icons
                 {
                     using (var atomic = new AtomicWrite(path))
                     {
-                        handler.RunTask(new DownloadFile(iconUrl, atomic.WritePath), null);
+                        handler.RunTask(new DownloadFile(iconUrl, atomic.WritePath));
                         atomic.Commit();
                     }
                 }

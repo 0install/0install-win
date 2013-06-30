@@ -79,7 +79,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                     {
                         try
                         {
-                            Parent.RunTask(new SimpleTask(Resources.DeletingImplementations, Delete), null);
+                            Parent.RunTask(new SimpleTask(Resources.DeletingImplementations, Delete));
                         }
                             #region Error handling
                         catch (KeyNotFoundException ex)

@@ -394,7 +394,7 @@ namespace Common.Utils
         /// <param name="relaunchName">The user-friendly name to associate with <paramref name="relaunchCommand"/>; may be <see langword="null"/>.</param>
         /// <remarks>The application ID is used to group related windows in the taskbar.</remarks>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "COM calls throw unpredictable exceptions and this methods successful execution is not critical.")]
-        public static void SetWindowAppID(IntPtr hwnd, string appID, string relaunchCommand, string relaunchIcon, string relaunchName)
+        public static void SetWindowAppID(IntPtr hwnd, string appID, string relaunchCommand = null, string relaunchIcon = null, string relaunchName = null)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(appID)) throw new ArgumentNullException("appID");
