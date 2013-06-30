@@ -86,7 +86,7 @@ namespace Common.Controls
         {
             var setLanguages = new List<CultureInfo>();
             var unsetLanguages = new List<CultureInfo>();
-            foreach (var language in LanguageSet.AllValid)
+            foreach (var language in LanguageSet.KnownLanguages)
             {
                 if (Target.ContainsExactLanguage(language)) setLanguages.Add(language);
                 else unsetLanguages.Add(language);

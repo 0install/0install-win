@@ -65,7 +65,7 @@ namespace Common.Values.Design
                 listBox.Items.Add(language);
                 listBox.SetItemChecked(i++, true);
             }
-            foreach (var language in LanguageSet.AllValid.Where(lang => !languages.Contains(lang)))
+            foreach (var language in LanguageSet.KnownLanguages.Except(languages))
                 listBox.Items.Add(language);
 
             editorService.DropDownControl(listBox);
