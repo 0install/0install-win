@@ -428,20 +428,20 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The archive MIME type &apos;{0}&apos; is not supported..
-        /// </summary>
-        internal static string UnknownMimeType {
-            get {
-                return ResourceManager.GetString("UnknownMimeType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The recipe step type &apos;{0}&apos; is unknown..
         /// </summary>
         internal static string UnknownRecipeStepType {
             get {
                 return ResourceManager.GetString("UnknownRecipeStepType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The archive MIME type &apos;{0}&apos; is not supported..
+        /// </summary>
+        internal static string UnsupportedArchiveMimeType {
+            get {
+                return ResourceManager.GetString("UnsupportedArchiveMimeType", resourceCulture);
             }
         }
         

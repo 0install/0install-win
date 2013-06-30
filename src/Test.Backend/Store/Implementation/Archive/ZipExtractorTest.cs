@@ -73,7 +73,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void TestFileExtract()
         {
             using (var archive = TestData.GetTestZipArchiveStream())
-            using (var extractor = Extractor.CreateExtractor("application/zip", archive, _sandbox))
+            using (var extractor = Extractor.CreateExtractor(Model.Archive.MimeTypeZip, archive, _sandbox))
                 extractor.RunSync(null);
 
             Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "subdir1/regular")), "Should extract file 'regular'");
@@ -86,7 +86,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void ExtractionIntoFolder()
         {
-            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), _sandbox))
+            using (var extractor = Extractor.CreateExtractor(Model.Archive.MimeTypeZip, new MemoryStream(_archiveData), _sandbox))
                 extractor.RunSync(null);
 
             Assert.IsTrue(Directory.Exists(_sandbox));
@@ -122,7 +122,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void ExtractionOfSubDir()
         {
-            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), _sandbox))
+            using (var extractor = Extractor.CreateExtractor(Model.Archive.MimeTypeZip, new MemoryStream(_archiveData), _sandbox))
             {
                 extractor.SubDir = "/sub/folder/";
                 extractor.RunSync(null);
@@ -138,7 +138,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void EnsureSubDirDoesNotTouchFileNames()
         {
-            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), _sandbox))
+            using (var extractor = Extractor.CreateExtractor(Model.Archive.MimeTypeZip, new MemoryStream(_archiveData), _sandbox))
             {
                 extractor.SubDir = "/sub/folder/nested";
                 extractor.RunSync(null);
@@ -153,7 +153,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         {
             File.WriteAllText(Path.Combine(_sandbox, "file1"), @"Wrong content");
             File.WriteAllText(Path.Combine(_sandbox, "file0"), @"This file should not be touched");
-            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), _sandbox))
+            using (var extractor = Extractor.CreateExtractor(Model.Archive.MimeTypeZip, new MemoryStream(_archiveData), _sandbox))
                 extractor.RunSync(null);
 
             Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "file0")), "Extractor cleaned directory.");

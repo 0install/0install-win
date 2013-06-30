@@ -327,7 +327,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             if (comboBoxArchiveFormat.SelectedIndex == 0)
             {
-                var guessMimeType = ArchiveUtils.GuessMimeType(fileName);
+                var guessMimeType = Archive.GuessMimeType(fileName);
                 ArchiveMimeType archiveMimeType;
                 var archiveMimeTypeSucceeded = ArchiveMimeType.TryCreateFromDescription(guessMimeType, out archiveMimeType);
 

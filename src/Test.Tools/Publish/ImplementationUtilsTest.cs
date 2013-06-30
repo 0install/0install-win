@@ -52,7 +52,7 @@ namespace ZeroInstall.Publish
                 var archive = new Archive {Href = microServer.FileUri};
                 ImplementationUtils.DownloadArchive(archive, new SilentTaskHandler()).Dispose();
 
-                Assert.AreEqual("application/zip", archive.MimeType);
+                Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
                 Assert.AreEqual(originalStream.Length, archive.Size);
             }
         }
@@ -86,7 +86,7 @@ namespace ZeroInstall.Publish
                 var recipe = new Recipe {Steps = {archive}};
                 ImplementationUtils.DownloadRecipe(recipe, new SilentTaskHandler()).Dispose();
 
-                Assert.AreEqual("application/zip", archive.MimeType);
+                Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
                 Assert.AreEqual(originalStream.Length, archive.Size);
             }
         }
@@ -104,7 +104,7 @@ namespace ZeroInstall.Publish
                 Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
 
                 var archive = (Archive)implementation.RetrievalMethods[0];
-                Assert.AreEqual("application/zip", archive.MimeType);
+                Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
                 Assert.AreEqual(originalStream.Length, archive.Size);
             }
         }
@@ -139,7 +139,7 @@ namespace ZeroInstall.Publish
                 Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
 
                 var archive = (Archive)((Recipe)implementation.RetrievalMethods[0]).Steps[0];
-                Assert.AreEqual("application/zip", archive.MimeType);
+                Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
                 Assert.AreEqual(originalStream.Length, archive.Size);
             }
         }
@@ -158,7 +158,7 @@ namespace ZeroInstall.Publish
                 Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
 
                 var archive = (Archive)implementation.RetrievalMethods[0];
-                Assert.AreEqual("application/zip", archive.MimeType);
+                Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
                 Assert.AreEqual(originalStream.Length, archive.Size);
             }
         }
@@ -195,7 +195,7 @@ namespace ZeroInstall.Publish
                 Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
 
                 var archive = (Archive)((Recipe)implementation.RetrievalMethods[0]).Steps[0];
-                Assert.AreEqual("application/zip", archive.MimeType);
+                Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
                 Assert.AreEqual(originalStream.Length, archive.Size);
             }
         }

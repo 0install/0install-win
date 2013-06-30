@@ -62,7 +62,7 @@ namespace ZeroInstall.Fetchers
             using (var server = new MicroServer("archive.zip", TestData.GetZipArchiveStream()))
             {
                 TestDownloadArchives(
-                    new Archive {Href = server.FileUri, MimeType = "application/zip", Size = TestData.ZipArchiveSize, Extract = "extract", Destination = "destination"});
+                    new Archive {Href = server.FileUri, MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveSize, Extract = "extract", Destination = "destination"});
             }
         }
 
@@ -72,8 +72,8 @@ namespace ZeroInstall.Fetchers
             using (var server = new MicroServer("archive.zip", TestData.GetZipArchiveStream()))
             {
                 TestDownloadArchives(
-                    new Archive {Href = server.FileUri, MimeType = "application/zip", Size = TestData.ZipArchiveSize, Extract = "extract1", Destination = "destination1"},
-                    new Archive {Href = server.FileUri, MimeType = "application/zip", Size = TestData.ZipArchiveSize, Extract = "extract2", Destination = "destination2"});
+                    new Archive {Href = server.FileUri, MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveSize, Extract = "extract1", Destination = "destination1"},
+                    new Archive {Href = server.FileUri, MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveSize, Extract = "extract2", Destination = "destination2"});
             }
         }
 
@@ -102,7 +102,7 @@ namespace ZeroInstall.Fetchers
                     {
                         Steps =
                         {
-                            new Archive {Href = serverArchive.FileUri, MimeType = "application/zip", Size = TestData.ZipArchiveSize},
+                            new Archive {Href = serverArchive.FileUri, MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveSize},
                             new RenameStep {Source = "executable", Destination = "executable2"},
                             new SingleFile {Href = serverSingleFile.FileUri, Size = TestData.RegularString.Length, Destination = "regular2"}
                         }
@@ -119,7 +119,7 @@ namespace ZeroInstall.Fetchers
                 TestDownload(
                     dirPath => File.Exists(Path.Combine(dirPath, "regular")),
                     // broken: wrong size
-                    new Archive {Href = serverArchive.FileUri, MimeType = "application/zip", Size = 0},
+                    new Archive {Href = serverArchive.FileUri, MimeType = Archive.MimeTypeZip, Size = 0},
                     // broken: unknown archive format
                     new Archive {Href = serverArchive.FileUri, MimeType = "test/format", Size = TestData.ZipArchiveSize},
                     // works
@@ -200,7 +200,7 @@ namespace ZeroInstall.Fetchers
             var implementation = new Implementation
             {
                 ManifestDigest = new ManifestDigest(sha256New: "test123"),
-                RetrievalMethods = {new Recipe {Steps = {new Archive {MimeType = "application/zip"}, new Archive {MimeType = "test/format"}}}}
+                RetrievalMethods = {new Recipe {Steps = {new Archive {MimeType = Archive.MimeTypeZip}, new Archive {MimeType = "test/format"}}}}
             };
 
             Assert.Throws<NotSupportedException>(() => _fetcher.Fetch(new[] {implementation}));

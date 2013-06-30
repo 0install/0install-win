@@ -132,7 +132,6 @@
     <Compile Include="Utils\WindowsUtils.Platform.cs" />
     <Compile Include="Utils\WindowsUtils.Properties.cs" />
     <Compile Include="Utils\WindowsUtils.Taskbar.cs" />
-    <Compile Include="Utils\ArchiveUtils.cs" />
     <Compile Include="Utils\LzmaUtils.cs" />
     <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Utils\MonoUtils.cs" />

@@ -244,11 +244,11 @@ You can delete the file '{1}' to fix the problem. Other settings may also be los
   <data name="UnableToWriteProtect" xml:space="preserve">
     <value>Unable to enable write protection for '{0}'.</value>
   </data>
-  <data name="UnknownMimeType" xml:space="preserve">
-    <value>The archive MIME type '{0}' is not supported.</value>
-  </data>
   <data name="UnknownRecipeStepType" xml:space="preserve">
     <value>The recipe step type '{0}' is unknown.</value>
+  </data>
+  <data name="UnsupportedArchiveMimeType" xml:space="preserve">
+    <value>The archive MIME type '{0}' is not supported.</value>
   </data>
   <data name="WrongPassphrase" xml:space="preserve">
     <value>The passphrase you entered is incorrect.</value>

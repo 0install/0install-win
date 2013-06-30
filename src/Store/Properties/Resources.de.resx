@@ -244,11 +244,11 @@ Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen wom
   <data name="UnableToWriteProtect" xml:space="preserve">
     <value>Konnte den Schreibschutz für '{0}' nicht aktivieren.</value>
   </data>
-  <data name="UnknownMimeType" xml:space="preserve">
-    <value>Der Archiv MIME Typ '{0}' wird nicht unterstützt.</value>
-  </data>
   <data name="UnknownRecipeStepType" xml:space="preserve">
     <value>Der Recipe Schritt Typ '{0}' ist unbekannten.</value>
+  </data>
+  <data name="UnsupportedArchiveMimeType" xml:space="preserve">
+    <value>Der Archiv MIME Typ '{0}' wird nicht unterstützt.</value>
   </data>
   <data name="WrongPassphrase" xml:space="preserve">
     <value>Die Passphrase die Sie eingegeben haben ist inkorrekt.</value>

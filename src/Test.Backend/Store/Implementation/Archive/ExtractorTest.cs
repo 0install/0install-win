@@ -52,7 +52,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test(Description = "Ensures Extractor.VerifySupport() correctly distinguishes between supported and not supported archive MIME types.")]
         public void TestVerifySupport()
         {
-            Assert.DoesNotThrow(() => Extractor.VerifySupport("application/zip"));
+            Assert.DoesNotThrow(() => Extractor.VerifySupport(Model.Archive.MimeTypeZip));
             Assert.Throws<NotSupportedException>(() => Extractor.VerifySupport("test/format"));
         }
     }

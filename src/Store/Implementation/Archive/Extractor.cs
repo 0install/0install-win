@@ -112,16 +112,16 @@ namespace ZeroInstall.Store.Implementation.Archive
 
             switch (mimeType)
             {
-                case "application/zip":
-                case "application/x-tar":
-                case "application/x-compressed-tar":
-                case "application/x-bzip-compressed-tar":
-                case "application/x-lzma-compressed-tar":
-                case "application/x-ruby-gem":
+                case Model.Archive.MimeTypeZip:
+                case Model.Archive.MimeTypeTar:
+                case Model.Archive.MimeTypeTarGzip:
+                case Model.Archive.MimeTypeTarBzip:
+                case Model.Archive.MimeTypeTarLzma:
+                case Model.Archive.MimeTypeRubyGem:
                     return;
 
                 default:
-                    throw new NotSupportedException(string.Format(Resources.UnknownMimeType, mimeType));
+                    throw new NotSupportedException(string.Format(Resources.UnsupportedArchiveMimeType, mimeType));
             }
         }
 
@@ -146,27 +146,27 @@ namespace ZeroInstall.Store.Implementation.Archive
             Extractor extractor;
             switch (mimeType)
             {
-                case "application/zip":
+                case Model.Archive.MimeTypeZip:
                     extractor = new ZipExtractor(stream, target);
                     break;
-                case "application/x-tar":
+                case Model.Archive.MimeTypeTar:
                     extractor = new TarExtractor(stream, target);
                     break;
-                case "application/x-compressed-tar":
+                case Model.Archive.MimeTypeTarGzip:
                     extractor = new TarGzExtractor(stream, target);
                     break;
-                case "application/x-bzip-compressed-tar":
+                case Model.Archive.MimeTypeTarBzip:
                     extractor = new TarBz2Extractor(stream, target);
                     break;
-                case "application/x-lzma-compressed-tar":
+                case Model.Archive.MimeTypeTarLzma:
                     extractor = new TarLzmaExtractor(stream, target);
                     break;
-                case "application/x-ruby-gem":
+                case Model.Archive.MimeTypeRubyGem:
                     extractor = new RubyGemExtractor(stream, target);
                     break;
 
                 default:
-                    throw new NotSupportedException(string.Format(Resources.UnknownMimeType, mimeType));
+                    throw new NotSupportedException(string.Format(Resources.UnsupportedArchiveMimeType, mimeType));
             }
 
             return extractor;
@@ -191,7 +191,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             #endregion
 
             // Try to guess missing MIME type
-            if (string.IsNullOrEmpty(mimeType)) mimeType = ArchiveUtils.GuessMimeType(path);
+            if (string.IsNullOrEmpty(mimeType)) mimeType = Model.Archive.GuessMimeType(path);
 
             var stream = File.OpenRead(path);
             try

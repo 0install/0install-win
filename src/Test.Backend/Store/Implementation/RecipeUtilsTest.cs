@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Implementation
                     Archive.TestData.GetTestZipArchiveStream().CopyTo(stream);
 
                 var downloadedFiles = new[] {archiveFile};
-                var recipe = new Recipe {Steps = {new Model.Archive {MimeType = "application/zip", Destination = "subDir"}}};
+                var recipe = new Recipe {Steps = {new Model.Archive {MimeType = Model.Archive.MimeTypeZip, Destination = "subDir"}}};
 
                 using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler(), null))
                 {
@@ -68,7 +68,7 @@ namespace ZeroInstall.Store.Implementation
                     Archive.TestData.GetTestZipArchiveStream().CopyTo(stream);
 
                 var downloadedFiles = new[] {archiveFile, singleFile};
-                var recipe = new Recipe {Steps = {new Model.Archive {MimeType = "application/zip"}, new SingleFile {Destination = "subdir2/executable"}}};
+                var recipe = new Recipe {Steps = {new Model.Archive {MimeType = Model.Archive.MimeTypeZip}, new SingleFile {Destination = "subdir2/executable"}}};
 
                 using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler(), null))
                 {
@@ -95,7 +95,7 @@ namespace ZeroInstall.Store.Implementation
                 {
                     Steps =
                     {
-                        new Model.Archive {MimeType = "application/zip"},
+                        new Model.Archive {MimeType = Model.Archive.MimeTypeZip},
                         new RemoveStep {Path = "symlink"},
                         new RemoveStep {Path = "subdir2"}
                     }
@@ -133,7 +133,7 @@ namespace ZeroInstall.Store.Implementation
                 {
                     Steps =
                     {
-                        new Model.Archive {MimeType = "application/zip"},
+                        new Model.Archive {MimeType = Model.Archive.MimeTypeZip},
                         new RenameStep {Source = "symlink", Destination = "subdir3/symlink2"},
                         new RenameStep {Source = "subdir2/executable", Destination = "subdir2/executable2"}
                     }

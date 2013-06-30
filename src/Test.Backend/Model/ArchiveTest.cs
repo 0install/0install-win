@@ -32,7 +32,7 @@ namespace ZeroInstall.Model
         /// </summary>
         internal static Archive CreateTestArchive()
         {
-            return new Archive {Href = new Uri("http://0install.de/files/test/test.exe"), MimeType = "application/zip", Size = 128, StartOffset = 16, Extract = "extract", Destination = "dest"};
+            return new Archive {Href = new Uri("http://0install.de/files/test/test.exe"), MimeType = Archive.MimeTypeZip, Size = 128, StartOffset = 16, Extract = "extract", Destination = "dest"};
         }
         #endregion
 

@@ -33,7 +33,7 @@ namespace ZeroInstall.Model.Design
 
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(new[] {"application/zip", "application/x-tar", "application/x-compressed-tar", "application/x-bzip-compressed-tar", "application/x-lzma-compressed-tar", "application/x-rpm", "application/x-deb", "application/vnd.ms-cab-compressed"});
+            return new StandardValuesCollection(Archive.KnownMimeTypes);
         }
     }
 }

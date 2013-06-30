@@ -30,6 +30,53 @@ namespace ZeroInstall.Model
     [XmlRoot("archive", Namespace = Feed.XmlNamespace), XmlType("archive", Namespace = Feed.XmlNamespace)]
     public sealed class Archive : DownloadRetrievalMethod, IEquatable<Archive>
     {
+        #region Constants
+        /// <summary>
+        /// A <see cref="MimeType"/> value for archives.
+        /// </summary>
+        public const string
+            MimeTypeZip = "application/zip",
+            MimeTypeTar = "application/x-tar",
+            MimeTypeTarGzip = "application/x-compressed-tar",
+            MimeTypeTarBzip = "application/x-bzip-compressed-tar",
+            MimeTypeTarLzma = "application/x-lzma-compressed-tar",
+            MimeTypeRubyGem = "application/x-ruby-gem",
+            MimeTypeCab = "application/vnd.ms-cab-compressed",
+            MimeTypeDeb = "application/x-deb",
+            MimeTypeRpm = "application/x-rpm",
+            MimeTypeDmg = "application/x-apple-diskimage";
+
+        /// <summary>
+        /// All known <see cref="MimeType"/> values for archives.
+        /// </summary>
+        public static readonly string[] KnownMimeTypes = new[] {MimeTypeZip, MimeTypeTar, MimeTypeTarGzip, MimeTypeTarBzip, MimeTypeTarLzma, MimeTypeRubyGem, MimeTypeCab, MimeTypeDeb, MimeTypeRpm, MimeTypeDmg};
+
+        /// <summary>
+        /// Tries to guess the MIME type of an archive file by looking at its file extension.
+        /// </summary>
+        /// <param name="fileName">The file name to analyze.</param>
+        /// <returns>The MIME type if it could be guessed; <see langword="null"/> otherwise.</returns>
+        /// <remarks>The file's content is not analyzed.</remarks>
+        public static string GuessMimeType(string fileName)
+        {
+            #region Sanity checks
+            if (String.IsNullOrEmpty(fileName)) throw new ArgumentNullException("fileName");
+            #endregion
+
+            if (fileName.EndsWithIgnoreCase(".zip")) return MimeTypeZip;
+            if (fileName.EndsWithIgnoreCase(".tar")) return MimeTypeTar;
+            if (fileName.EndsWithIgnoreCase(".tar.gz") || fileName.EndsWithIgnoreCase(".tgz")) return MimeTypeTarGzip;
+            if (fileName.EndsWithIgnoreCase(".tar.bz2") || fileName.EndsWithIgnoreCase(".tbz2") || fileName.EndsWithIgnoreCase(".tbz")) return MimeTypeTarBzip;
+            if (fileName.EndsWithIgnoreCase(".tar.lzma")) return MimeTypeTarLzma;
+            if (fileName.EndsWithIgnoreCase(".gem")) return MimeTypeRubyGem;
+            if (fileName.EndsWithIgnoreCase(".cab")) return MimeTypeCab;
+            if (fileName.EndsWithIgnoreCase(".deb")) return MimeTypeDeb;
+            if (fileName.EndsWithIgnoreCase(".rpm")) return MimeTypeRpm;
+            if (fileName.EndsWithIgnoreCase(".dmg")) return MimeTypeDmg;
+            return null;
+        }
+        #endregion
+
         #region Properties
         /// <summary>
         /// The type of the archive as a MIME type. If missing, the type is guessed from the extension on the <see cref="DownloadRetrievalMethod.Href"/> attribute. This value is case-insensitive.
@@ -72,10 +119,10 @@ namespace ZeroInstall.Model
         public override void Normalize()
         {
             // If the MIME type is already set or the location is missing, we have nothing to do here
-            if (!string.IsNullOrEmpty(MimeType) || string.IsNullOrEmpty(HrefString)) return;
+            if (!String.IsNullOrEmpty(MimeType) || String.IsNullOrEmpty(HrefString)) return;
 
             // Guess the MIME type based on the file extension
-            MimeType = ArchiveUtils.GuessMimeType(HrefString);
+            MimeType = GuessMimeType(HrefString);
         }
         #endregion
 
@@ -87,8 +134,8 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            string result = string.Format("{0} ({1}, {2} + {3}, {4})", Href, MimeType, Size, StartOffset, Extract);
-            if (!string.IsNullOrEmpty(Destination)) result += " => " + Destination;
+            string result = String.Format("{0} ({1}, {2} + {3}, {4})", Href, MimeType, Size, StartOffset, Extract);
+            if (!String.IsNullOrEmpty(Destination)) result += " => " + Destination;
             return result;
         }
         #endregion
