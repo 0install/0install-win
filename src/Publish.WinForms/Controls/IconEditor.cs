@@ -53,8 +53,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             InitializeComponent();
 
-            comboBoxMimeType.Items.Add(Icon.MimeTypePng);
-            comboBoxMimeType.Items.Add(Icon.MimeTypeIco);
+            // ReSharper disable CoVariantArrayConversion
+            comboBoxMimeType.Items.AddRange(Icon.KnownMimeTypes);
+            // ReSharper restore CoVariantArrayConversion
         }
         #endregion
 

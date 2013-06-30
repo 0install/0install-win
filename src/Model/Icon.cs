@@ -40,6 +40,11 @@ namespace ZeroInstall.Model
         /// The <see cref="MimeType"/> value for Windows ICO icons.
         /// </summary>
         public const string MimeTypeIco = "image/vnd.microsoft.icon";
+
+        /// <summary>
+        /// All known <see cref="MimeType"/> values for icons.
+        /// </summary>
+        public static readonly string[] KnownMimeTypes = new[] {MimeTypePng, MimeTypeIco};
         #endregion
 
         #region Properties

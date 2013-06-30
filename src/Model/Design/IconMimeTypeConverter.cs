@@ -33,7 +33,7 @@ namespace ZeroInstall.Model.Design
 
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(new[] {Icon.MimeTypePng, Icon.MimeTypeIco});
+            return new StandardValuesCollection(Icon.KnownMimeTypes);
         }
     }
 }
