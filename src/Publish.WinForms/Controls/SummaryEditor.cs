@@ -23,7 +23,11 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
-    public class SummaryEditor<T> : DescriptionEditor<T>, IEditorControl<T>
+    /// <summary>
+    /// A common base for <see cref="ISummaryContainer"/> editors.
+    /// </summary>
+    /// <typeparam name="T">The type of <see cref="ISummaryContainer"/> to edit.</typeparam>
+    public class SummaryEditor<T> : DescriptionEditor<T>
         where T : class, ISummaryContainer
     {
         #region Properties

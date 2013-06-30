@@ -21,13 +21,15 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
-using Common;
 using Common.Controls;
 using ZeroInstall.Publish.WinForms.Properties;
 using Icon = ZeroInstall.Model.Icon;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
+    /// <summary>
+    /// Edits <see cref="Icon"/> instances.
+    /// </summary>
     public partial class IconEditor : UserControl, IEditorControl<Icon>
     {
         #region Properties
@@ -146,7 +148,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             if (comboBoxMimeType.Text == Target.MimeType) return;
 
             if (CommandExecutor == null) Target.MimeType = comboBoxMimeType.Text;
-            else CommandExecutor.Execute(new Common.Undo.SetValueCommand<string>(new PropertyPointer<string>(() => Target.MimeType, value => Target.MimeType = value), comboBoxMimeType.Text));
+            else CommandExecutor.Execute(new Common.Undo.SetValueCommand<string>(() => Target.MimeType, value => Target.MimeType = value, comboBoxMimeType.Text));
         }
 
         private void uriTextBoxUrl_Validated(object sender, EventArgs e)
@@ -154,7 +156,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             if (!uriTextBoxUrl.IsValid || uriTextBoxUrl.Uri == Target.Href) return;
 
             if (CommandExecutor == null) Target.Href = uriTextBoxUrl.Uri;
-            else CommandExecutor.Execute(new Common.Undo.SetValueCommand<Uri>(new PropertyPointer<Uri>(() => Target.Href, value => Target.Href = value), uriTextBoxUrl.Uri));
+            else CommandExecutor.Execute(new Common.Undo.SetValueCommand<Uri>(() => Target.Href, value => Target.Href = value, uriTextBoxUrl.Uri));
         }
 
         public override void Refresh()

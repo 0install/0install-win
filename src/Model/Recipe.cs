@@ -97,11 +97,11 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the archive in the form "Location (MimeType, Size + StartOffset) => Extract". Not safe for parsing!
+        /// Returns the recipe in the form "X steps". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} Archives", Steps.Count);
+            return string.Format("{0} steps", Steps.Count);
         }
         #endregion
 

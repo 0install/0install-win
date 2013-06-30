@@ -23,6 +23,10 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
+    /// <summary>
+    /// A common base for <see cref="IDependencyContainer"/> editors.
+    /// </summary>
+    /// <typeparam name="T">The type of <see cref="IDependencyContainer"/> to edit.</typeparam>
     public class DescriptionEditor<T> : UserControl, IEditorControl<T>
         where T : class, IDescriptionContainer
     {

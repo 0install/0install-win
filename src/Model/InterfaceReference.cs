@@ -41,7 +41,7 @@ namespace ZeroInstall.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Target"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [DisplayName("Target"), Description("The URI used to locate the interface.")]
+        [DisplayName(@"Target"), Description("The URI used to locate the interface.")]
         [XmlAttribute("interface"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string TargetString { get { return (Target == null ? null : Target.ToString()); } set { Target = (value == null ? null : new Uri(value)); } }
         #endregion
