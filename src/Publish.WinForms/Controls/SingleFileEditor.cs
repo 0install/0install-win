@@ -22,13 +22,13 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Publish.WinForms.Controls
 {
     /// <summary>
-    /// Edits <see cref="Archive"/> instances.
+    /// Edits <see cref="SingleFile"/> instances.
     /// </summary>
-    public class ArchiveEditor : DownloadRetrievalMethodEditor<Archive>
+    public class SingleFileEditor : DownloadRetrievalMethodEditor<SingleFile>
     {
         protected override TemporaryDirectory Download(ITaskHandler handler)
         {
-            return ImplementationUtils.DownloadArchive(Target, handler, CommandExecutor);
+            return ImplementationUtils.DownloadSingleFile(Target, handler, CommandExecutor);
         }
     }
 }

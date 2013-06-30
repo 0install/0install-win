@@ -15,20 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common.Storage;
-using Common.Tasks;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
     /// <summary>
-    /// Edits <see cref="Archive"/> instances.
+    /// A common base for <see cref="DownloadRetrievalMethod"/> editors.
     /// </summary>
-    public class ArchiveEditor : DownloadRetrievalMethodEditor<Archive>
+    /// <typeparam name="T">The type of <see cref="DownloadRetrievalMethod"/> to edit.</typeparam>
+    public abstract class DownloadRetrievalMethodEditor<T> : RetrievalMethodEditor<T>
+        where T : DownloadRetrievalMethod
     {
-        protected override TemporaryDirectory Download(ITaskHandler handler)
-        {
-            return ImplementationUtils.DownloadArchive(Target, handler, CommandExecutor);
-        }
     }
 }

@@ -22,6 +22,9 @@ using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
+    /// <summary>
+    /// A hierarchial <see cref="Feed"/> editor with Undo support.
+    /// </summary>
     public class FeedStructureEditor : StructureEditorControl<Feed>
     {
         public FeedStructureEditor()
@@ -75,12 +78,13 @@ namespace ZeroInstall.Publish.WinForms.Controls
             Describe<Implementation>()
                 .AddList(implementation => implementation.RetrievalMethods)
                 .AddElementContainerRef<Archive, ArchiveEditor>("archive")
-                .AddElement<Recipe>("recipe");
+                .AddElementContainerRef<SingleFile, SingleFileEditor>("file")
+                .AddElementContainerRef<Recipe, RecipeEditor>("recipe");
 
             Describe<Recipe>()
                 .AddList(x => x.Steps)
-                .AddElement<Archive>("archive")
-                .AddElement<SingleFile>("single-file")
+                .AddElement<Archive, ArchiveEditor>("archive")
+                .AddElement<SingleFile, SingleFileEditor>("single-file")
                 .AddElement<RenameStep>("rename")
                 .AddElement<RemoveStep>("remove");
 
