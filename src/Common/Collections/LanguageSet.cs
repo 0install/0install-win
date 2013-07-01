@@ -62,7 +62,7 @@ namespace Common.Collections
         /// </summary>
         public LanguageSet() : base(new CultureComparer())
         {}
-        
+
         /// <summary>
         /// Deserializes a space-separated list of languages codes (in the same format as used by the $LANG environment variable).
         /// </summary>

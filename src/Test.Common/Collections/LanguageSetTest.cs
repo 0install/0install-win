@@ -40,7 +40,7 @@ namespace Common.Collections
         [Test]
         public void TestFromString()
         {
-            CollectionAssert.AreEquivalent(new LanguageSet { "de", "en-US" }, new LanguageSet("en_US de"));
+            CollectionAssert.AreEquivalent(new LanguageSet {"de", "en-US"}, new LanguageSet("en_US de"));
         }
 
         [Test]

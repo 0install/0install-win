@@ -47,6 +47,7 @@ namespace Common.Controls
             ToolbarVisible = false;
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
+#if FS_SECURITY
             if (MonoUtils.IsUnix)
             { // WORKAROUND: e.OldValue is not reliable on Mono, use MultiPropertyTracker instead
                 var tracker = new MultiPropertyTracker(this);
@@ -57,6 +58,7 @@ namespace Common.Controls
                 };
             }
             else
+#endif
             {
                 PropertyValueChanged += delegate(object sender, PropertyValueChangedEventArgs e)
                 {

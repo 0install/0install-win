@@ -97,11 +97,13 @@ namespace ZeroInstall.Publish
             // Convert sha256 to sha256new
             if (!string.IsNullOrEmpty(implementation.ManifestDigest.Sha256) && string.IsNullOrEmpty(implementation.ManifestDigest.Sha256New))
             {
-                implementation.ManifestDigest = new ManifestDigest(
+                var newDigest = new ManifestDigest(
                     implementation.ManifestDigest.Sha1,
                     implementation.ManifestDigest.Sha1New,
                     implementation.ManifestDigest.Sha256,
                     implementation.ManifestDigest.Sha256.Base16Decode().Base32Encode());
+                if (commandExecutor == null) implementation.ManifestDigest = newDigest;
+                else commandExecutor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, newDigest));
             }
 
             new PerTypeDispatcher<RetrievalMethod>(true)
@@ -224,8 +226,11 @@ namespace ZeroInstall.Publish
 
             // Set downloaded file size
             long newSize = new FileInfo(downloadedFile).Length;
-            if (commandExecutor == null) retrievalMethod.Size = newSize;
-            else commandExecutor.Execute(new SetValueCommand<long>(() => retrievalMethod.Size, value => retrievalMethod.Size = value, newSize));
+            if (retrievalMethod.Size != newSize)
+            {
+                if (commandExecutor == null) retrievalMethod.Size = newSize;
+                else commandExecutor.Execute(new SetValueCommand<long>(() => retrievalMethod.Size, value => retrievalMethod.Size = value, newSize));
+            }
 
             return downloadedFile;
         }
