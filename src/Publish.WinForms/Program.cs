@@ -43,22 +43,30 @@ namespace ZeroInstall.Publish.WinForms
             if (args.Length == 0) Application.Run(new MainForm(new FeedEditing()));
             else
             {
-                var files = ArgumentUtils.GetFiles(args, "*.xml");
-                if (files.Count == 1)
+                try
                 {
-                    string path = files.First().FullName;
-                    try
+                    var files = ArgumentUtils.GetFiles(args, "*.xml");
+                    if (files.Count == 1)
                     {
-                        Application.Run(new MainForm(FeedEditing.Load(path)));
+                        string path = files.First().FullName;
+                            Application.Run(new MainForm(FeedEditing.Load(path)));
                     }
-                        #region Error handling
-                    catch (IOException ex)
-                    {
-                        Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    }
-                    #endregion
+                    else MassSignForm.Show(files);
                 }
-                else MassSignForm.Show(files);
+                    #region Error handling
+                catch (IOException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                }
+                catch (InvalidDataException ex)
+                {
+                    Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Warn);
+                }
+                #endregion
             }
         }
     }

@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.IO;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
@@ -165,7 +166,27 @@ namespace ZeroInstall.Publish.WinForms
 
             openFileDialog.FileName = "";
             if (openFileDialog.ShowDialog(this) != DialogResult.OK) throw new OperationCanceledException();
-            FeedEditing = FeedEditing.Load(openFileDialog.FileName);
+            try
+            {
+                FeedEditing = FeedEditing.Load(openFileDialog.FileName);
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                throw new OperationCanceledException();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                throw new OperationCanceledException();
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Warn);
+                throw new OperationCanceledException();
+            }
+            #endregion
         }
 
         private void SaveFeed()
@@ -183,23 +204,38 @@ namespace ZeroInstall.Publish.WinForms
 
         private void SaveFeed(string path)
         {
-            var key = FeedEditing.SignedFeed.SecretKey;
-            if (key == null) FeedEditing.Save(path);
-            else
+            try
             {
-                string passphrase = InputBox.Show(this, Text, string.Format(Resources.AskForPassphrase, key), "", true);
-                Retry:
-                if (passphrase == null) throw new OperationCanceledException();
-                try
+                var key = FeedEditing.SignedFeed.SecretKey;
+                if (key == null) FeedEditing.Save(path);
+                else
                 {
-                    FeedEditing.Save(path, passphrase);
-                }
-                catch (WrongPassphraseException)
-                {
-                    passphrase = InputBox.Show(this, Text, Resources.WrongPassphrase + "\n" + string.Format(Resources.AskForPassphrase, key), "", true);
-                    goto Retry;
+                    string passphrase = InputBox.Show(this, Text, string.Format(Resources.AskForPassphrase, key), "", true);
+                    Retry:
+                    if (passphrase == null) throw new OperationCanceledException();
+                    try
+                    {
+                        FeedEditing.Save(path, passphrase);
+                    }
+                    catch (WrongPassphraseException)
+                    {
+                        passphrase = InputBox.Show(this, Text, Resources.WrongPassphrase + "\n" + string.Format(Resources.AskForPassphrase, key), "", true);
+                        goto Retry;
+                    }
                 }
             }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                throw new OperationCanceledException();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                throw new OperationCanceledException();
+            }
+            #endregion
         }
 
         private void AskForChangeSave()
