@@ -79,14 +79,16 @@ namespace ZeroInstall.Publish
                 implementationDir.Dispose();
             }
         }
+        #endregion
 
+        #region Add missing
         /// <summary>
         /// Adds missing data (by downloading and infering) to an <see cref="Implementation"/>.
         /// </summary>
         /// <param name="implementation">The <see cref="Implementation"/> to add data to.</param>
         /// <param name="store"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="commandExecutor">Used to apply missing properties in an undoable fashion; may be <see langword="null"/>.</param>
+        /// <param name="commandExecutor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
         public static void AddMissing(Implementation implementation, bool store, ITaskHandler handler, ICommandExecutor commandExecutor = null)
         {
             #region Sanity checks
@@ -94,47 +96,45 @@ namespace ZeroInstall.Publish
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // Convert sha256 to sha256new
-            if (!string.IsNullOrEmpty(implementation.ManifestDigest.Sha256) && string.IsNullOrEmpty(implementation.ManifestDigest.Sha256New))
+            ConvertSha256ToSha256New(implementation, commandExecutor);
+
+            var downloadDispatcher = new PerTypeDispatcher<RetrievalMethod, TemporaryDirectory>(true)
             {
-                var newDigest = new ManifestDigest(
-                    implementation.ManifestDigest.Sha1,
-                    implementation.ManifestDigest.Sha1New,
-                    implementation.ManifestDigest.Sha256,
-                    implementation.ManifestDigest.Sha256.Base16Decode().Base32Encode());
-                if (commandExecutor == null) implementation.ManifestDigest = newDigest;
-                else commandExecutor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, newDigest));
+                (Archive archive) => DownloadArchive(archive, handler, commandExecutor),
+                (SingleFile file) => DownloadSingleFile(file, handler, commandExecutor),
+                (Recipe recipe) => DownloadRecipe(recipe, handler, commandExecutor)
+            };
+
+            foreach (var retrievalMethod in implementation.RetrievalMethods)
+            {
+                if (implementation.ManifestDigest == default(ManifestDigest) || IsDownloadSizeMissing(retrievalMethod))
+                {
+                    using (var tempDir = downloadDispatcher.Dispatch(retrievalMethod))
+                        UpdateDigest(implementation, tempDir, store, handler, commandExecutor);
+                }
             }
 
-            new PerTypeDispatcher<RetrievalMethod>(true)
-            {
-                (Archive archive) =>
-                { // Download archive if digest or archive information is missing
-                    if (implementation.ManifestDigest == default(ManifestDigest) || archive.Size == 0)
-                    {
-                        using (var tempDir = DownloadArchive(archive, handler, commandExecutor))
-                            UpdateDigest(implementation, tempDir, store, handler);
-                    }
-                },
-                (SingleFile file) =>
-                { // Download single file if digest or file information is missing
-                    if (implementation.ManifestDigest == default(ManifestDigest) || file.Size == 0)
-                    {
-                        using (var tempDir = DownloadSingleFile(file, handler, commandExecutor))
-                            UpdateDigest(implementation, tempDir, store, handler);
-                    }
-                },
-                (Recipe recipe) =>
-                { // Download recipe if digest is missing
-                    if (implementation.ManifestDigest == default(ManifestDigest))
-                    {
-                        using (var tempDir = DownloadRecipe(recipe, handler, commandExecutor))
-                            implementation.ManifestDigest = GenerateDigest(tempDir, store, handler);
-                    }
-                }
-            }.Dispatch(implementation.RetrievalMethods);
-
             if (string.IsNullOrEmpty(implementation.ID)) implementation.ID = "sha1new=" + implementation.ManifestDigest.Sha1New;
+        }
+
+        private static void ConvertSha256ToSha256New(Implementation implementation, ICommandExecutor commandExecutor = null)
+        {
+            if (string.IsNullOrEmpty(implementation.ManifestDigest.Sha256) || !string.IsNullOrEmpty(implementation.ManifestDigest.Sha256New)) return;
+
+            var digest = new ManifestDigest(
+                implementation.ManifestDigest.Sha1,
+                implementation.ManifestDigest.Sha1New,
+                implementation.ManifestDigest.Sha256,
+                implementation.ManifestDigest.Sha256.Base16Decode().Base32Encode());
+
+            if (commandExecutor == null) implementation.ManifestDigest = digest;
+            else commandExecutor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, digest));
+        }
+
+        private static bool IsDownloadSizeMissing(RetrievalMethod retrievalMethod)
+        {
+            var downloadRetrievalMethod = retrievalMethod as DownloadRetrievalMethod;
+            return downloadRetrievalMethod != null && downloadRetrievalMethod.Size == 0;
         }
         #endregion
 
@@ -144,7 +144,7 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="archive">The <see cref="Archive"/> to be downloaded.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="commandExecutor">Used to apply missing properties in an undoable fashion; may be <see langword="null"/>.</param>
+        /// <param name="commandExecutor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
         /// <returns>A temporary directory containing the contents of the archive.</returns>
         public static TemporaryDirectory DownloadArchive(Archive archive, ITaskHandler handler, ICommandExecutor commandExecutor = null)
         {
@@ -176,7 +176,7 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="file">The <see cref="SingleFile"/> to be downloaded.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="commandExecutor">Used to apply missing properties in an undoable fashion; may be <see langword="null"/>.</param>
+        /// <param name="commandExecutor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
         /// <returns>A temporary directory containing the file.</returns>
         public static TemporaryDirectory DownloadSingleFile(SingleFile file, ITaskHandler handler, ICommandExecutor commandExecutor = null)
         {
@@ -208,7 +208,7 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="retrievalMethod">The <see cref="DownloadRetrievalMethod"/> to be downloaded.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="commandExecutor">Used to apply missing properties in an undoable fashion; may be <see langword="null"/>.</param>
+        /// <param name="commandExecutor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
         /// <returns>A downloaded file.</returns>
         private static TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor commandExecutor)
         {
@@ -240,7 +240,7 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="recipe">The <see cref="Recipe"/> to be applied.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="commandExecutor">Used to apply missing properties in an undoable fashion; may be <see langword="null"/>.</param>
+        /// <param name="commandExecutor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
         /// <returns>A temporary directory containing the result of the recipe.</returns>
         public static TemporaryDirectory DownloadRecipe(Recipe recipe, ITaskHandler handler, ICommandExecutor commandExecutor = null)
         {
@@ -276,13 +276,16 @@ namespace ZeroInstall.Publish
         /// <param name="path">The path of the directory to generate the digest for.</param>
         /// <param name="store"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <returns>The newly generated digest.</returns>
-        private static void UpdateDigest(Implementation implementation, string path, bool store, ITaskHandler handler)
+        /// <param name="commandExecutor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
+        private static void UpdateDigest(Implementation implementation, string path, bool store, ITaskHandler handler, ICommandExecutor commandExecutor = null)
         {
             var digest = GenerateDigest(path, store, handler);
 
             if (implementation.ManifestDigest == default(ManifestDigest))
-                implementation.ManifestDigest = digest;
+            {
+                if (commandExecutor == null) implementation.ManifestDigest = digest;
+                else commandExecutor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, digest));
+            }
             if (digest != implementation.ManifestDigest)
                 throw new DigestMismatchException(implementation.ManifestDigest.ToString(), null, digest.ToString(), null);
         }

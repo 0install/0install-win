@@ -56,27 +56,37 @@ namespace ZeroInstall.Publish.WinForms.Controls
         protected void CheckDigest()
         {
             if (ContainerRef == null) return;
-
             var handler = new GuiTaskHandler();
-            using (var tempDir = Download(handler))
-            {
-                var digest = ImplementationUtils.GenerateDigest(tempDir, false, handler);
 
-                if (ContainerRef.ManifestDigest == default(ManifestDigest)) UpdateDigest(digest);
-                else if (digest != ContainerRef.ManifestDigest)
-                {
-                    if (Msg.YesNo(this, "Digest mismatch. Replace?", MsgSeverity.Warn))
-                        UpdateDigest(digest);
-                }
+            var digest = GenerateDigest(handler);
+            if (ContainerRef.ManifestDigest == default(ManifestDigest)) UpdateDigest(digest);
+            else if (digest != ContainerRef.ManifestDigest)
+            {
+                if (Msg.YesNo(this, "Digest mismatch. Replace?", MsgSeverity.Warn))
+                    UpdateDigest(digest);
             }
+        }
+
+        private ManifestDigest GenerateDigest(ITaskHandler handler)
+        {
+            using (var tempDir = Download(handler))
+                return ImplementationUtils.GenerateDigest(tempDir, false, handler);
         }
 
         protected abstract TemporaryDirectory Download(ITaskHandler handler);
 
         private void UpdateDigest(ManifestDigest digest)
         {
-            if (CommandExecutor == null) ContainerRef.ManifestDigest = digest;
-            else CommandExecutor.Execute(new SetValueCommand<ManifestDigest>(() => ContainerRef.ManifestDigest, value => ContainerRef.ManifestDigest = value, digest));
+            if (CommandExecutor == null)
+            {
+                ContainerRef.ManifestDigest = digest;
+                if (string.IsNullOrEmpty(ContainerRef.ID)) ContainerRef.ID = "sha1new=" + digest.Sha1New;
+            }
+            else
+            {
+                var setDigestCommand = new SetValueCommand<ManifestDigest>(() => ContainerRef.ManifestDigest, value => ContainerRef.ManifestDigest = value, digest);
+                CommandExecutor.Execute(setDigestCommand);
+            }
         }
     }
 }
