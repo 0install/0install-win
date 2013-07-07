@@ -45,7 +45,7 @@ namespace Common.Collections
             if (language == null) throw new ArgumentNullException("language");
             #endregion
 
-            Add(new LocalizableString {Language = new CultureInfo(language), Value = value});
+            Add(new LocalizableString {LanguageString = language, Value = value});
         }
 
         /// <summary>

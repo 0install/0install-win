@@ -73,8 +73,15 @@ namespace Common.Collections
             // Replace list by parsing input string split by spaces
             foreach (string language in value.Split(' '))
             {
-                // .NET uses a hypen while Unix uses an underscore as a separator
-                Add(new CultureInfo(language.Replace('_', '-')));
+                // Handle Unix-style language codes (even though they are not actually valid in XML)
+                try
+                {
+                    Add(new CultureInfo(language.Replace('_', '-')));
+                }
+                catch (ArgumentException)
+                {
+                    Log.Error("Ignoring unknown language code: " + language);
+                }
             }
         }
         #endregion
@@ -105,7 +112,7 @@ namespace Common.Collections
             var output = new StringBuilder();
             foreach (var language in this)
             {
-                // .NET uses a hypen while Unix uses an underscore as a separator
+                // .NET uses a hyphen while Unix uses an underscore as a separator
                 output.Append(language.ToString().Replace('-', '_') + ' ');
             }
 

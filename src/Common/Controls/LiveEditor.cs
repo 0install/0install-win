@@ -134,36 +134,40 @@ namespace Common.Controls
         private void ValidateContent()
         {
             timer.Stop();
+            if (ContentChanged == null) return;
 
-            if (ContentChanged != null) ContentChanged(TextEditor.Text);
-            SetStatus(Resources.Info, "OK");
+            string warning = null;
+            LogEntryEventHandler handleLogEntry = (severity, message) => { if (severity >= LogSeverity.Warn) warning = message; };
+
+            Log.NewEntry += handleLogEntry;
+            ContentChanged(TextEditor.Text);
+            Log.NewEntry -= handleLogEntry;
+
+            if (warning == null) SetStatus(Resources.Info, "OK");
+            else SetStatus(Resources.Error, warning);
         }
 
         private void HandleError(Exception ex)
         {
-            SetStatus(Resources.Error, ex.Message);
+            if (!MonoUtils.IsUnix && ex is InvalidDataException && ex.Source == "System.Xml" && ex.InnerException != null)
+            { // Parse XML exception message for position of the error
+                int lineStart = ex.Message.LastIndexOf('(') + 1;
+                int lineLength = ex.Message.LastIndexOf(',') - lineStart;
+                int charStart = ex.Message.LastIndexOf(' ') + 1;
+                int charLength = ex.Message.LastIndexOf(')') - charStart;
+                int lineNumber = int.Parse(ex.Message.Substring(lineStart, lineLength)) - 1;
+                int charNumber = int.Parse(ex.Message.Substring(charStart, charLength)) - 1;
 
-            if (ex is InvalidDataException && ex.Source == "System.Xml" && ex.InnerException != null)
+                int lineOffset = TextEditor.Document.GetLineSegment(lineNumber).Offset;
+                TextEditor.Document.MarkerStrategy.AddMarker(
+                    new TextMarker(lineOffset + charNumber, 10, TextMarkerType.WaveLine) {ToolTip = ex.InnerException.Message});
+                TextEditor.Refresh();
+            }
+            else
             {
-                if (MonoUtils.IsUnix)
-                { // WORKAROUND: ICSharpCode.TextEditor's MarkerStrategy does not work on Mono
-                    SetStatus(Resources.Error, ex.Message + ":" + ex.InnerException.Message);
-                }
-                else
-                {
-                    // Parse exception message for position of the error
-                    int lineStart = ex.Message.LastIndexOf('(') + 1;
-                    int lineLength = ex.Message.LastIndexOf(',') - lineStart;
-                    int charStart = ex.Message.LastIndexOf(' ') + 1;
-                    int charLength = ex.Message.LastIndexOf(')') - charStart;
-                    int lineNumber = int.Parse(ex.Message.Substring(lineStart, lineLength)) - 1;
-                    int charNumber = int.Parse(ex.Message.Substring(charStart, charLength)) - 1;
-
-                    int lineOffset = TextEditor.Document.GetLineSegment(lineNumber).Offset;
-                    TextEditor.Document.MarkerStrategy.AddMarker(
-                        new TextMarker(lineOffset + charNumber, 10, TextMarkerType.WaveLine) {ToolTip = ex.InnerException.Message});
-                    TextEditor.Refresh();
-                }
+                SetStatus(Resources.Error, ex.InnerException == null
+                    ? ex.Message
+                    : ex.Message + "\n" + ex.InnerException.Message);
             }
         }
 

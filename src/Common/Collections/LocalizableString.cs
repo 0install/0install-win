@@ -76,11 +76,18 @@ namespace Common.Collections
             get { return Language.ToString(); }
             set
             {
-                Language = string.IsNullOrEmpty(value)
-                    // Default to English language
-                    ? DefaultLanguage
-                    // Handle Unix-style language codes (even though they are not actually valid in XML)
-                    : new CultureInfo(value.Replace("_", "-"));
+                try
+                {
+                    Language = string.IsNullOrEmpty(value)
+                        // Default to English language
+                        ? DefaultLanguage
+                        // Handle Unix-style language codes (even though they are not actually valid in XML)
+                        : new CultureInfo(value.Replace("_", "-"));
+                }
+                catch (ArgumentException)
+                {
+                    Log.Error("Ignoring unknown language code: " + value);
+                }
             }
         }
         #endregion
