@@ -81,12 +81,12 @@ namespace ZeroInstall.Model
         [XmlIgnore, Browsable(false)]
         public Uri Uri { get; set; }
 
-        /// <summary>A string representation of <see cref="Uri"/>.</summary>
+        /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="Uri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [DisplayName(@"Uri"), Category("Feed"), Description("This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).")]
         [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string UriString { get { return (Uri == null ? null : Uri.ToString()); } set { Uri = (value == null ? null : new Uri(value)); } }
+        public string UriString { get { return (Uri == null ? null : Uri.ToString()); } set { Uri = (string.IsNullOrEmpty(value) ? null : new Uri(value)); } }
 
         /// <summary>
         /// A short name to identify the interface (e.g. "Foo").
@@ -112,14 +112,14 @@ namespace ZeroInstall.Model
         /// <summary>
         /// The URL of a web-page describing this interface in more detail.
         /// </summary>
-        [Category("Interface"), Description("The URL of a web-page describing this interface in more detail.")]
-        [XmlIgnore]
+        [XmlIgnore, Browsable(false)]
         public Uri Homepage { get; set; }
 
-        /// <summary>Used for XML serialization.</summary>
+        /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="Homepage"/>
-        [XmlElement("homepage"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string HomepageString { get { return Homepage != null ? Homepage.ToString() : null; } set { Homepage = (value == null ? null : new Uri(value)); } }
+        [DisplayName(@"Homepage"), Category("Interface"), Description("The URL of a web-page describing this interface in more detail.")]
+        [XmlElement("homepage"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string HomepageString { get { return Homepage != null ? Homepage.ToString() : null; } set { Homepage = (string.IsNullOrEmpty(value) ? null : new Uri(value)); } }
 
         // Preserve order
         private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();

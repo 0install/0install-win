@@ -54,18 +54,18 @@ namespace ZeroInstall.Model
         [XmlIgnore, Browsable(false)]
         public Uri Href { get; set; }
 
-        /// <summary>Used for XML serialization.</summary>
+        /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="Href"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [DisplayName(@"Href"), Description("The URL used to locate the icon.")]
         [XmlAttribute("href"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string HrefString { get { return (Href == null ? null : Href.ToString()); } set { Href = (value == null ? null : new Uri(value)); } }
+        public string HrefString { get { return (Href == null ? null : Href.ToString()); } set { Href = (string.IsNullOrEmpty(value) ? null : new Uri(value)); } }
 
         /// <summary>
         /// The MIME type of the icon. This value is case-insensitive.
         /// </summary>
         [Description("The MIME type of the icon. This value is case-insensitive.")]
-        [XmlAttribute("type")]
+        [XmlAttribute("type"), DefaultValue("")]
         [TypeConverter(typeof(IconMimeTypeConverter))]
         public string MimeType { get; set; }
         #endregion

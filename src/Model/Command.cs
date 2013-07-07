@@ -87,7 +87,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Switches the working directory of the process on startup to a location within the <see cref="Model.Implementation"/>.
         /// </summary>
-        [Description("Switches the working directory of the process on startup to a location within the implementation.")]
+        [Browsable(false)]
         [XmlElement("working-dir")]
         public WorkingDir WorkingDir { get; set; }
 
@@ -115,7 +115,7 @@ namespace ZeroInstall.Model
         /// An interface that needs be used as a runner for this command. The <see cref="Path"/> is passed to that interface as an argument.
         /// </summary>
         /// <remarks>Usefull for launching things like Java JARs or Python scripts.</remarks>
-        [Description("An interface that needs be used as a runner for this command. Path is passed to that interface as an argument.")]
+        [Browsable(false)]
         [XmlElement("runner")]
         public Runner Runner { get; set; }
         #endregion

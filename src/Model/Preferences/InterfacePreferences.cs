@@ -41,12 +41,12 @@ namespace ZeroInstall.Model.Preferences
         [XmlIgnore, Browsable(false)]
         public Uri Uri { get; set; }
 
-        /// <summary>Used for XML serialization.</summary>
+        /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="Uri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [DisplayName(@"Uri"), Description("The URI of the interface to be configured.")]
-        [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public String UriString { get { return (Uri == null ? null : Uri.ToString()); } set { Uri = (value == null ? null : new Uri(value)); } }
+        [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public String UriString { get { return (Uri == null ? null : Uri.ToString()); } set { Uri = (string.IsNullOrEmpty(value) ? null : new Uri(value)); } }
 
         private Stability _stabilityPolicy = Stability.Unset;
 
