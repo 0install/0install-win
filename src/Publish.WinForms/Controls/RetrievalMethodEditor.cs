@@ -22,6 +22,7 @@ using Common.Storage;
 using Common.Tasks;
 using Common.Undo;
 using ZeroInstall.Model;
+using ICommandExecutor = Common.Undo.ICommandExecutor;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -50,43 +51,44 @@ namespace ZeroInstall.Publish.WinForms.Controls
         public Implementation ContainerRef { get; set; }
 
         /// <inheritdoc/>
-        public Common.Undo.ICommandExecutor CommandExecutor { get; set; }
+        public ICommandExecutor CommandExecutor { get; set; }
         #endregion
 
         protected void CheckDigest()
         {
             if (ContainerRef == null) return;
-            var handler = new GuiTaskHandler();
 
-            var digest = GenerateDigest(handler);
-            if (ContainerRef.ManifestDigest == default(ManifestDigest)) UpdateDigest(digest);
+            var commandCollector = new CommandCollector();
+            CheckDigest(new GuiTaskHandler(), commandCollector);
+            var command = commandCollector.BuildComposite();
+
+            if (CommandExecutor == null) command.Execute();
+            else CommandExecutor.Execute(command);
+        }
+
+        private void CheckDigest(ITaskHandler handler, ICommandExecutor executor)
+        {
+            var digest = GenerateDigest(handler, executor);
+            if (ContainerRef.ManifestDigest == default(ManifestDigest)) UpdateDigest(digest, executor);
             else if (digest != ContainerRef.ManifestDigest)
             {
                 if (Msg.YesNo(this, "Digest mismatch. Replace?", MsgSeverity.Warn))
-                    UpdateDigest(digest);
+                    UpdateDigest(digest, executor);
             }
         }
 
-        private ManifestDigest GenerateDigest(ITaskHandler handler)
+        private ManifestDigest GenerateDigest(ITaskHandler handler, ICommandExecutor executor)
         {
-            using (var tempDir = Download(handler))
+            using (var tempDir = Download(handler, executor))
                 return ImplementationUtils.GenerateDigest(tempDir, false, handler);
         }
 
-        protected abstract TemporaryDirectory Download(ITaskHandler handler);
+        protected abstract TemporaryDirectory Download(ITaskHandler handler, ICommandExecutor executor);
 
-        private void UpdateDigest(ManifestDigest digest)
+        private void UpdateDigest(ManifestDigest digest, ICommandExecutor executor)
         {
-            if (CommandExecutor == null)
-            {
-                ContainerRef.ManifestDigest = digest;
-                if (string.IsNullOrEmpty(ContainerRef.ID)) ContainerRef.ID = "sha1new=" + digest.Sha1New;
-            }
-            else
-            {
-                var setDigestCommand = new SetValueCommand<ManifestDigest>(() => ContainerRef.ManifestDigest, value => ContainerRef.ManifestDigest = value, digest);
-                CommandExecutor.Execute(setDigestCommand);
-            }
+            var setDigestCommand = new SetValueCommand<ManifestDigest>(() => ContainerRef.ManifestDigest, value => ContainerRef.ManifestDigest = value, digest);
+            executor.Execute(setDigestCommand);
         }
     }
 }

@@ -18,6 +18,7 @@
 using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.Model;
+using ICommandExecutor = Common.Undo.ICommandExecutor;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -26,9 +27,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
     /// </summary>
     public class ArchiveEditor : DownloadRetrievalMethodEditor<Archive>
     {
-        protected override TemporaryDirectory Download(ITaskHandler handler)
+        protected override TemporaryDirectory Download(ITaskHandler handler, ICommandExecutor executor)
         {
-            return ImplementationUtils.DownloadArchive(Target, handler, CommandExecutor);
+            return ImplementationUtils.DownloadArchive(Target, handler, executor);
         }
     }
 }

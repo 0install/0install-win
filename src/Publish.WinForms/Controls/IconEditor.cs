@@ -64,7 +64,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         #region Preview
         /// <summary>
-        /// Tries to download the image with the url from <see cref="uriTextBoxUrl"/> and shows it in <see cref="pictureBoxPreview"/>.
+        /// Tries to download the image with the url from <see cref="textBoxUrl"/> and shows it in <see cref="pictureBoxPreview"/>.
         /// Sets the right <see cref="ImageFormat"/> from the downloaded image in <see cref="comboBoxMimeType"/>.
         /// Error messages will be shown in <see cref="lableStatus"/>.
         /// </summary>
@@ -72,7 +72,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <param name="e">Not used.</param>
         private void buttonPreview_Click(object sender, EventArgs e)
         {
-            if (!uriTextBoxUrl.IsValid || uriTextBoxUrl.Uri == null) return;
+            if (!textBoxUrl.IsValid || textBoxUrl.Uri == null) return;
 
             pictureBoxPreview.Image = null;
             ShowStatusMessage(SystemColors.ControlText, Resources.DownloadingPeviewImage);
@@ -80,7 +80,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             Image icon;
             try
             {
-                icon = GetImageFromUrl(uriTextBoxUrl.Uri);
+                icon = GetImageFromUrl(textBoxUrl.Uri);
             }
                 #region Error handling
             catch (WebException ex)
@@ -154,16 +154,16 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         private void uriTextBoxUrl_Validated(object sender, EventArgs e)
         {
-            if (!uriTextBoxUrl.IsValid || uriTextBoxUrl.Uri == Target.Href) return;
+            if (!textBoxUrl.IsValid || textBoxUrl.Uri == Target.Href) return;
 
-            if (CommandExecutor == null) Target.Href = uriTextBoxUrl.Uri;
-            else CommandExecutor.Execute(new Common.Undo.SetValueCommand<Uri>(() => Target.Href, value => Target.Href = value, uriTextBoxUrl.Uri));
+            if (CommandExecutor == null) Target.Href = textBoxUrl.Uri;
+            else CommandExecutor.Execute(new Common.Undo.SetValueCommand<Uri>(() => Target.Href, value => Target.Href = value, textBoxUrl.Uri));
         }
 
         public override void Refresh()
         {
             comboBoxMimeType.Text = _target.MimeType;
-            uriTextBoxUrl.Uri = _target.Href;
+            textBoxUrl.Uri = _target.Href;
             base.Refresh();
         }
         #endregion
