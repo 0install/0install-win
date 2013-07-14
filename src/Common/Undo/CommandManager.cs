@@ -58,7 +58,9 @@ namespace Common.Undo
         #endregion
 
         #region Events
-        /// <inheritdoc/>
+        /// <summary>
+        /// Is raised after an <see cref="IUndoCommand"/> has been executed.
+        /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
         public event Action Updated;
 

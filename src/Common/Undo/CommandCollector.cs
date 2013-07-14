@@ -21,19 +21,32 @@
  */
 
 using System;
-using System.Diagnostics.CodeAnalysis;
+using System.Collections.Generic;
 
 namespace Common.Undo
 {
     /// <summary>
-    /// An object that can execute <see cref="IUndoCommand"/>s.
+    /// Collects <see cref="IUndoCommand"/>s into a <see cref="CompositeCommand"/> instead of executing them right away.
     /// </summary>
-    public interface ICommandExecutor
+    public class CommandCollector : ICommandExecutor
     {
+        private readonly List<IUndoCommand> _commands = new List<IUndoCommand>();
+
         /// <summary>
-        /// Executes an <see cref="IUndoCommand"/> and stores it for later undo-operations.
+        /// Store an <see cref="IUndoCommand"/> for later execution.
         /// </summary>
-        /// <param name="command">The command to be executed.</param>
-        void Execute(IUndoCommand command);
+        /// <param name="command">The command to be stored.</param>
+        public void Execute(IUndoCommand command)
+        {
+            _commands.Add(command);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="CompositeCommand"/> containing all <see cref="IUndoCommand"/>s collected so far.
+        /// </summary>
+        public IUndoCommand BuildComposite()
+        {
+            return new CompositeCommand(_commands);
+        }
     }
 }
