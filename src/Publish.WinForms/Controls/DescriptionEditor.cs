@@ -20,6 +20,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Common.Controls;
 using ZeroInstall.Model;
+using ICommandExecutor = Common.Undo.ICommandExecutor;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -45,7 +46,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         /// <inheritdoc/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public virtual Common.Undo.ICommandExecutor CommandExecutor
+        public virtual ICommandExecutor CommandExecutor
         {
             get { return EditorControl.CommandExecutor; }
             set

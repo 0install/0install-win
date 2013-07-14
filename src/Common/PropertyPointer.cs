@@ -60,7 +60,7 @@ namespace Common
         /// <param name="setValue">A delegate that sets the valuel.</param>
         /// <param name="defaultValue">The default value of the property</param>
         /// <param name="needsEncoding">Indicates that this property needs to be encoded (e.g. as base64) before it can be stored in a file.</param>
-        public PropertyPointer(Func<T> getValue, Action<T> setValue, T defaultValue, bool needsEncoding)
+        public PropertyPointer(Func<T> getValue, Action<T> setValue, T defaultValue = default(T), bool needsEncoding = false)
         {
             #region Sanity checks
             if (getValue == null) throw new ArgumentNullException("getValue");
@@ -72,25 +72,6 @@ namespace Common
             _defaultValue = defaultValue;
             _needsEncoding = needsEncoding;
         }
-
-        /// <summary>
-        /// Creates a property pointer.
-        /// </summary>
-        /// <param name="getValue">A delegate that returns the current value.</param>
-        /// <param name="setValue">A delegate that sets the valuel.</param>
-        /// <param name="defaultValue">The default value of the property</param>
-        public PropertyPointer(Func<T> getValue, Action<T> setValue, T defaultValue)
-            : this(getValue, setValue, defaultValue, false)
-        {}
-
-        /// <summary>
-        /// Creates a property pointer.
-        /// </summary>
-        /// <param name="getValue">A delegate that returns the current value.</param>
-        /// <param name="setValue">A delegate that sets the valuel.</param>
-        public PropertyPointer(Func<T> getValue, Action<T> setValue)
-            : this(getValue, setValue, default(T))
-        {}
     }
 
     /// <summary>
@@ -125,6 +106,21 @@ namespace Common
             return new PropertyPointer<string>(
                 () => pointer.Value.ToString(CultureInfo.InvariantCulture),
                 value => pointer.Value = int.Parse(value),
+                pointer.DefaultValue.ToString(CultureInfo.InvariantCulture));
+        }
+
+        /// <summary>
+        /// Wraps an <see cref="long"/> pointer in a <see cref="string"/> pointer (using parsing and <see cref="object.ToString"/>.
+        /// </summary>
+        public static PropertyPointer<string> ToStringPointer(this PropertyPointer<long> pointer)
+        {
+            #region Sanity checks
+            if (pointer == null) throw new ArgumentNullException("pointer");
+            #endregion
+
+            return new PropertyPointer<string>(
+                () => pointer.Value.ToString(CultureInfo.InvariantCulture),
+                value => pointer.Value = long.Parse(value),
                 pointer.DefaultValue.ToString(CultureInfo.InvariantCulture));
         }
 

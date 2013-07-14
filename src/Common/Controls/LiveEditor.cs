@@ -162,6 +162,8 @@ namespace Common.Controls
                 TextEditor.Document.MarkerStrategy.AddMarker(
                     new TextMarker(lineOffset + charNumber, 10, TextMarkerType.WaveLine) {ToolTip = ex.InnerException.Message});
                 TextEditor.Refresh();
+
+                SetStatus(Resources.Error, ex.Message);
             }
             else
             {

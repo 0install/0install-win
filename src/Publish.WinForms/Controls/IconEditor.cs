@@ -23,6 +23,7 @@ using System.Net;
 using System.Windows.Forms;
 using Common.Controls;
 using ZeroInstall.Publish.WinForms.Properties;
+using ICommandExecutor = Common.Undo.ICommandExecutor;
 using Icon = ZeroInstall.Model.Icon;
 
 namespace ZeroInstall.Publish.WinForms.Controls
@@ -47,7 +48,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         }
 
         /// <inheritdoc/>
-        public Common.Undo.ICommandExecutor CommandExecutor { get; set; }
+        public ICommandExecutor CommandExecutor { get; set; }
         #endregion
 
         #region Contructor

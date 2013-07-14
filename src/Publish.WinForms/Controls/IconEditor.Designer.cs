@@ -42,7 +42,7 @@
             // 
             this.labelUrl.AutoSize = true;
             this.labelUrl.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelUrl.Location = new System.Drawing.Point(-3, 32);
+            this.labelUrl.Location = new System.Drawing.Point(0, 32);
             this.labelUrl.Name = "labelUrl";
             this.labelUrl.Size = new System.Drawing.Size(56, 13);
             this.labelUrl.TabIndex = 2;
@@ -53,9 +53,9 @@
             this.comboBoxMimeType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxMimeType.FormattingEnabled = true;
-            this.comboBoxMimeType.Location = new System.Drawing.Point(68, 0);
+            this.comboBoxMimeType.Location = new System.Drawing.Point(71, 0);
             this.comboBoxMimeType.Name = "comboBoxMimeType";
-            this.comboBoxMimeType.Size = new System.Drawing.Size(82, 21);
+            this.comboBoxMimeType.Size = new System.Drawing.Size(79, 21);
             this.comboBoxMimeType.TabIndex = 1;
             this.comboBoxMimeType.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxMimeType_Validating);
             // 
@@ -79,7 +79,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMimeType.AutoSize = true;
             this.labelMimeType.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelMimeType.Location = new System.Drawing.Point(-3, 3);
+            this.labelMimeType.Location = new System.Drawing.Point(0, 3);
             this.labelMimeType.Name = "labelMimeType";
             this.labelMimeType.Size = new System.Drawing.Size(65, 13);
             this.labelMimeType.TabIndex = 0;
@@ -114,9 +114,9 @@
             this.uriTextBoxUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.uriTextBoxUrl.HintText = "HTTP Address";
-            this.uriTextBoxUrl.Location = new System.Drawing.Point(68, 29);
+            this.uriTextBoxUrl.Location = new System.Drawing.Point(71, 29);
             this.uriTextBoxUrl.Name = "uriTextBoxUrl";
-            this.uriTextBoxUrl.Size = new System.Drawing.Size(82, 20);
+            this.uriTextBoxUrl.Size = new System.Drawing.Size(79, 20);
             this.uriTextBoxUrl.TabIndex = 3;
             this.uriTextBoxUrl.Validated += new System.EventHandler(this.uriTextBoxUrl_Validated);
             // 

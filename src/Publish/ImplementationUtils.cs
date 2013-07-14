@@ -88,21 +88,21 @@ namespace ZeroInstall.Publish
         /// <param name="implementation">The <see cref="Implementation"/> to add data to.</param>
         /// <param name="store"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="commandExecutor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
-        public static void AddMissing(Implementation implementation, bool store, ITaskHandler handler, ICommandExecutor commandExecutor = null)
+        /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
+        public static void AddMissing(Implementation implementation, bool store, ITaskHandler handler, ICommandExecutor executor = null)
         {
             #region Sanity checks
             if (implementation == null) throw new ArgumentNullException("implementation");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            ConvertSha256ToSha256New(implementation, commandExecutor);
+            ConvertSha256ToSha256New(implementation, executor);
 
             var downloadDispatcher = new PerTypeDispatcher<RetrievalMethod, TemporaryDirectory>(true)
             {
-                (Archive archive) => DownloadArchive(archive, handler, commandExecutor),
-                (SingleFile file) => DownloadSingleFile(file, handler, commandExecutor),
-                (Recipe recipe) => DownloadRecipe(recipe, handler, commandExecutor)
+                (Archive archive) => DownloadArchive(archive, handler, executor),
+                (SingleFile file) => DownloadSingleFile(file, handler, executor),
+                (Recipe recipe) => DownloadRecipe(recipe, handler, executor)
             };
 
             foreach (var retrievalMethod in implementation.RetrievalMethods)
@@ -110,14 +110,14 @@ namespace ZeroInstall.Publish
                 if (implementation.ManifestDigest == default(ManifestDigest) || IsDownloadSizeMissing(retrievalMethod))
                 {
                     using (var tempDir = downloadDispatcher.Dispatch(retrievalMethod))
-                        UpdateDigest(implementation, tempDir, store, handler, commandExecutor);
+                        UpdateDigest(implementation, tempDir, store, handler, executor);
                 }
             }
 
             if (string.IsNullOrEmpty(implementation.ID)) implementation.ID = "sha1new=" + implementation.ManifestDigest.Sha1New;
         }
 
-        private static void ConvertSha256ToSha256New(Implementation implementation, ICommandExecutor commandExecutor = null)
+        private static void ConvertSha256ToSha256New(Implementation implementation, ICommandExecutor executor = null)
         {
             if (string.IsNullOrEmpty(implementation.ManifestDigest.Sha256) || !string.IsNullOrEmpty(implementation.ManifestDigest.Sha256New)) return;
 
@@ -127,8 +127,8 @@ namespace ZeroInstall.Publish
                 implementation.ManifestDigest.Sha256,
                 implementation.ManifestDigest.Sha256.Base16Decode().Base32Encode());
 
-            if (commandExecutor == null) implementation.ManifestDigest = digest;
-            else commandExecutor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, digest));
+            if (executor == null) implementation.ManifestDigest = digest;
+            else executor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, digest));
         }
 
         private static bool IsDownloadSizeMissing(RetrievalMethod retrievalMethod)
@@ -144,16 +144,16 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="archive">The <see cref="Archive"/> to be downloaded.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="commandExecutor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
+        /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
         /// <returns>A temporary directory containing the contents of the archive.</returns>
-        public static TemporaryDirectory DownloadArchive(Archive archive, ITaskHandler handler, ICommandExecutor commandExecutor = null)
+        public static TemporaryDirectory DownloadArchive(Archive archive, ITaskHandler handler, ICommandExecutor executor = null)
         {
             #region Sanity checks
             if (archive == null) throw new ArgumentNullException("archive");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            using (var downloadedFile = Download(archive, handler, commandExecutor))
+            using (var downloadedFile = Download(archive, handler, executor))
             {
                 var extractionDir = new TemporaryDirectory("0publish");
                 try
@@ -176,16 +176,16 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="file">The <see cref="SingleFile"/> to be downloaded.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="commandExecutor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
+        /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
         /// <returns>A temporary directory containing the file.</returns>
-        public static TemporaryDirectory DownloadSingleFile(SingleFile file, ITaskHandler handler, ICommandExecutor commandExecutor = null)
+        public static TemporaryDirectory DownloadSingleFile(SingleFile file, ITaskHandler handler, ICommandExecutor executor = null)
         {
             #region Sanity checks
             if (file == null) throw new ArgumentNullException("file");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            using (var downloadedFile = Download(file, handler, commandExecutor))
+            using (var downloadedFile = Download(file, handler, executor))
             {
                 var extractionDir = new TemporaryDirectory("0publish");
                 try
@@ -208,9 +208,9 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="retrievalMethod">The <see cref="DownloadRetrievalMethod"/> to be downloaded.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="commandExecutor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
+        /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
         /// <returns>A downloaded file.</returns>
-        private static TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor commandExecutor)
+        private static TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
@@ -228,8 +228,8 @@ namespace ZeroInstall.Publish
             long newSize = new FileInfo(downloadedFile).Length;
             if (retrievalMethod.Size != newSize)
             {
-                if (commandExecutor == null) retrievalMethod.Size = newSize;
-                else commandExecutor.Execute(new SetValueCommand<long>(() => retrievalMethod.Size, value => retrievalMethod.Size = value, newSize));
+                if (executor == null) retrievalMethod.Size = newSize;
+                else executor.Execute(new SetValueCommand<long>(() => retrievalMethod.Size, value => retrievalMethod.Size = value, newSize));
             }
 
             return downloadedFile;
@@ -240,9 +240,9 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="recipe">The <see cref="Recipe"/> to be applied.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="commandExecutor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
+        /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
         /// <returns>A temporary directory containing the result of the recipe.</returns>
-        public static TemporaryDirectory DownloadRecipe(Recipe recipe, ITaskHandler handler, ICommandExecutor commandExecutor = null)
+        public static TemporaryDirectory DownloadRecipe(Recipe recipe, ITaskHandler handler, ICommandExecutor executor = null)
         {
             #region Sanity checks
             if (recipe == null) throw new ArgumentNullException("recipe");
@@ -254,7 +254,7 @@ namespace ZeroInstall.Publish
             {
                 // ReSharper disable LoopCanBeConvertedToQuery
                 foreach (var step in recipe.Steps.OfType<DownloadRetrievalMethod>())
-                    downloadedFiles.Add(Download(step, handler, commandExecutor));
+                    downloadedFiles.Add(Download(step, handler, executor));
                 // ReSharper restore LoopCanBeConvertedToQuery
 
                 // Apply the recipe
@@ -276,15 +276,15 @@ namespace ZeroInstall.Publish
         /// <param name="path">The path of the directory to generate the digest for.</param>
         /// <param name="store"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="commandExecutor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
-        private static void UpdateDigest(Implementation implementation, string path, bool store, ITaskHandler handler, ICommandExecutor commandExecutor = null)
+        /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
+        private static void UpdateDigest(Implementation implementation, string path, bool store, ITaskHandler handler, ICommandExecutor executor = null)
         {
             var digest = GenerateDigest(path, store, handler);
 
             if (implementation.ManifestDigest == default(ManifestDigest))
             {
-                if (commandExecutor == null) implementation.ManifestDigest = digest;
-                else commandExecutor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, digest));
+                if (executor == null) implementation.ManifestDigest = digest;
+                else executor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, digest));
             }
             if (digest != implementation.ManifestDigest)
                 throw new DigestMismatchException(implementation.ManifestDigest.ToString(), null, digest.ToString(), null);

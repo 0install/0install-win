@@ -82,7 +82,7 @@ namespace Common.StructureEditor
                         new EntryInfo(
                             name: _name,
                             target: element,
-                            getEditorControl: commandExecutor => CreateEditor(container, element, commandExecutor),
+                            getEditorControl: executor => CreateEditor(container, element, executor),
                             toXmlString: element.ToXmlString,
                             fromXmlString: xmlString =>
                             {
@@ -92,9 +92,9 @@ namespace Common.StructureEditor
                             removeCommand: new RemoveFromCollection<TList>(list, element)));
                 }
 
-                protected virtual TEditor CreateEditor(TContainer container, TElement value, Undo.ICommandExecutor commandExecutor)
+                protected virtual TEditor CreateEditor(TContainer container, TElement value, Undo.ICommandExecutor executor)
                 {
-                    return new TEditor {Target = value, CommandExecutor = commandExecutor};
+                    return new TEditor {Target = value, CommandExecutor = executor};
                 }
 
                 public ChildInfo GetPossibleChildFor(IList<TList> list)
@@ -112,9 +112,9 @@ namespace Common.StructureEditor
                 public ElementDescriptionContainerRef(string name) : base(name)
                 {}
 
-                protected override TEditor CreateEditor(TContainer container, TElement value, Undo.ICommandExecutor commandExecutor)
+                protected override TEditor CreateEditor(TContainer container, TElement value, Undo.ICommandExecutor executor)
                 {
-                    return new TEditor {Target = value, ContainerRef = container, CommandExecutor = commandExecutor};
+                    return new TEditor {Target = value, ContainerRef = container, CommandExecutor = executor};
                 }
             }
         }

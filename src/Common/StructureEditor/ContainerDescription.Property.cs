@@ -100,7 +100,7 @@ namespace Common.StructureEditor
                     yield return new EntryInfo(
                         name: _name,
                         target: pointer.Value,
-                        getEditorControl: commandExecutor => CreateEditor(container, pointer.Value, commandExecutor),
+                        getEditorControl: executor => CreateEditor(container, pointer.Value, executor),
                         toXmlString: pointer.Value.ToXmlString,
                         fromXmlString: xmlString =>
                         {
@@ -111,9 +111,9 @@ namespace Common.StructureEditor
                 }
             }
 
-            protected virtual TEditor CreateEditor(TContainer container, TProperty value, Undo.ICommandExecutor commandExecutor)
+            protected virtual TEditor CreateEditor(TContainer container, TProperty value, Undo.ICommandExecutor executor)
             {
-                return new TEditor {Target = value, CommandExecutor = commandExecutor};
+                return new TEditor {Target = value, CommandExecutor = executor};
             }
 
             public override IEnumerable<ChildInfo> GetPossibleChildrenFor(TContainer container)
@@ -134,9 +134,9 @@ namespace Common.StructureEditor
             public PropertyDescriptionContainerRef(string name, Func<TContainer, PropertyPointer<TProperty>> getPointer) : base(name, getPointer)
             {}
 
-            protected override TEditor CreateEditor(TContainer container, TProperty value, Undo.ICommandExecutor commandExecutor)
+            protected override TEditor CreateEditor(TContainer container, TProperty value, Undo.ICommandExecutor executor)
             {
-                return new TEditor {Target = value, ContainerRef = container, CommandExecutor = commandExecutor};
+                return new TEditor {Target = value, ContainerRef = container, CommandExecutor = executor};
             }
         }
     }
