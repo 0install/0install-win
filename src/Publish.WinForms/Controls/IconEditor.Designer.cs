@@ -57,7 +57,6 @@
             this.comboBoxMimeType.Name = "comboBoxMimeType";
             this.comboBoxMimeType.Size = new System.Drawing.Size(79, 21);
             this.comboBoxMimeType.TabIndex = 1;
-            this.comboBoxMimeType.Validating += new System.ComponentModel.CancelEventHandler(this.comboBoxMimeType_Validating);
             // 
             // lableStatus
             // 
@@ -113,12 +112,12 @@
             this.textBoxUrl.AllowDrop = true;
             this.textBoxUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxUrl.HttpOnly = true;
             this.textBoxUrl.HintText = "HTTP Address";
             this.textBoxUrl.Location = new System.Drawing.Point(71, 29);
             this.textBoxUrl.Name = "textBoxUrl";
             this.textBoxUrl.Size = new System.Drawing.Size(79, 20);
             this.textBoxUrl.TabIndex = 3;
-            this.textBoxUrl.Validated += new System.EventHandler(this.uriTextBoxUrl_Validated);
             // 
             // IconEditor
             // 

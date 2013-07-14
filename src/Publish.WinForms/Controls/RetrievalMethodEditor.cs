@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using Common.Storage;
@@ -30,28 +29,12 @@ namespace ZeroInstall.Publish.WinForms.Controls
     /// A common base for <see cref="RetrievalMethod"/> editors.
     /// </summary>
     /// <typeparam name="T">The type of <see cref="RetrievalMethod"/> to edit.</typeparam>
-    public abstract class RetrievalMethodEditor<T> : UserControl, IEditorControlContainerRef<T, Implementation>
+    public abstract class RetrievalMethodEditor<T> : EditorControlBase<T>, IEditorControlContainerRef<T, Implementation>
         where T : RetrievalMethod
     {
         #region Properties
-        private T _target;
-
-        /// <inheritdoc/>
-        public T Target
-        {
-            get { return _target; }
-            set
-            {
-                _target = value;
-                Refresh();
-            }
-        }
-
         /// <inheritdoc/>
         public Implementation ContainerRef { get; set; }
-
-        /// <inheritdoc/>
-        public ICommandExecutor CommandExecutor { get; set; }
         #endregion
 
         protected void CheckDigest()

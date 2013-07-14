@@ -15,12 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Common.Controls;
 using ZeroInstall.Model;
-using ICommandExecutor = Common.Undo.ICommandExecutor;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -28,65 +26,32 @@ namespace ZeroInstall.Publish.WinForms.Controls
     /// A common base for <see cref="IDependencyContainer"/> editors.
     /// </summary>
     /// <typeparam name="T">The type of <see cref="IDependencyContainer"/> to edit.</typeparam>
-    public class DescriptionEditor<T> : UserControl, IEditorControl<T>
+    public class DescriptionEditor<T> : EditorControlBase<T>
         where T : class, IDescriptionContainer
     {
-        #region Properties
-        /// <inheritdoc/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public virtual T Target
-        {
-            get { return EditorControl.Target; }
-            set
-            {
-                EditorControl.Target = value;
-                TextBoxDescription.Target = value.Descriptions;
-            }
-        }
-
-        /// <inheritdoc/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public virtual ICommandExecutor CommandExecutor
-        {
-            get { return EditorControl.CommandExecutor; }
-            set
-            {
-                EditorControl.CommandExecutor = value;
-                TextBoxDescription.CommandExecutor = value;
-            }
-        }
-        #endregion
-
-        #region Constructor
         protected readonly LocalizableTextBox TextBoxDescription;
         protected readonly EditorControl<T> EditorControl;
 
         public DescriptionEditor()
         {
-            Controls.Add(TextBoxDescription = new LocalizableTextBox
+            TextBoxDescription = new LocalizableTextBox
             {
                 Location = new Point(0, 0),
                 Size = new Size(Width, 76),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
                 TabIndex = 1,
                 HintText = "Description"
-            });
+            };
+            RegisterControl(TextBoxDescription, () => Target.Descriptions);
 
-            Controls.Add(EditorControl = new EditorControl<T>
+            EditorControl = new EditorControl<T>
             {
                 Location = new Point(0, TextBoxDescription.Bottom + 6),
                 Size = new Size(Width, Height - TextBoxDescription.Bottom - 6),
                 Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom,
                 TabIndex = 2
-            });
-        }
-        #endregion
-
-        public override void Refresh()
-        {
-            TextBoxDescription.Refresh();
-            EditorControl.Refresh();
-            base.Refresh();
+            };
+            RegisterControl(EditorControl, () => Target);
         }
     }
 }

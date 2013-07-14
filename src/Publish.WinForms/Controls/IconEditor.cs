@@ -20,10 +20,9 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
-using System.Windows.Forms;
+using Common;
 using Common.Controls;
 using ZeroInstall.Publish.WinForms.Properties;
-using ICommandExecutor = Common.Undo.ICommandExecutor;
 using Icon = ZeroInstall.Model.Icon;
 
 namespace ZeroInstall.Publish.WinForms.Controls
@@ -31,30 +30,14 @@ namespace ZeroInstall.Publish.WinForms.Controls
     /// <summary>
     /// Edits <see cref="Icon"/> instances.
     /// </summary>
-    public partial class IconEditor : UserControl, IEditorControl<Icon>
+    public partial class IconEditor : EditorControlBase<Icon>
     {
-        #region Properties
-        private Icon _target;
-
-        /// <inheritdoc/>
-        public Icon Target
-        {
-            get { return _target; }
-            set
-            {
-                _target = value;
-                Refresh();
-            }
-        }
-
-        /// <inheritdoc/>
-        public ICommandExecutor CommandExecutor { get; set; }
-        #endregion
-
-        #region Contructor
+        #region Constructor
         public IconEditor()
         {
             InitializeComponent();
+            RegisterControl(textBoxUrl, new PropertyPointer<Uri>(() => Target.Href, value => Target.Href = value));
+            RegisterControl(comboBoxMimeType, new PropertyPointer<string>(() => Target.MimeType, value => Target.MimeType = value));
 
             // ReSharper disable CoVariantArrayConversion
             comboBoxMimeType.Items.AddRange(Icon.KnownMimeTypes);
@@ -140,31 +123,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
             lableStatus.Text = message;
             lableStatus.ForeColor = color;
             lableStatus.Visible = true;
-        }
-        #endregion
-
-        #region Event handlers
-        private void comboBoxMimeType_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (comboBoxMimeType.Text == Target.MimeType) return;
-
-            if (CommandExecutor == null) Target.MimeType = comboBoxMimeType.Text;
-            else CommandExecutor.Execute(new Common.Undo.SetValueCommand<string>(() => Target.MimeType, value => Target.MimeType = value, comboBoxMimeType.Text));
-        }
-
-        private void uriTextBoxUrl_Validated(object sender, EventArgs e)
-        {
-            if (!textBoxUrl.IsValid || textBoxUrl.Uri == Target.Href) return;
-
-            if (CommandExecutor == null) Target.Href = textBoxUrl.Uri;
-            else CommandExecutor.Execute(new Common.Undo.SetValueCommand<Uri>(() => Target.Href, value => Target.Href = value, textBoxUrl.Uri));
-        }
-
-        public override void Refresh()
-        {
-            comboBoxMimeType.Text = _target.MimeType;
-            textBoxUrl.Uri = _target.Href;
-            base.Refresh();
         }
         #endregion
     }

@@ -18,10 +18,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Globalization;
-using System.Windows.Forms;
 using Common.Collections;
 using Common.Undo;
 
@@ -30,7 +28,7 @@ namespace Common.Controls
     /// <summary>
     /// A control for editing a <see cref="LocalizableStringCollection"/>.
     /// </summary>
-    public partial class LocalizableTextBox : UserControl, IEditorControl<LocalizableStringCollection>
+    public partial class LocalizableTextBox : EditorControlBase<LocalizableStringCollection>
     {
         #region Variables
         private CultureInfo _selectedLanguage;
@@ -38,26 +36,6 @@ namespace Common.Controls
         #endregion
 
         #region Properties
-        private LocalizableStringCollection _target;
-
-        /// <inheritdoc/>
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Target collection is injected from outside.")]
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public LocalizableStringCollection Target
-        {
-            get { return _target; }
-            set
-            {
-                _target = value;
-                FillComboBox();
-                FillTextBox();
-            }
-        }
-
-        /// <inheritdoc/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Undo.ICommandExecutor CommandExecutor { get; set; }
-
         /// <summary>
         /// Controls whether the text can span more than one line.
         /// </summary>

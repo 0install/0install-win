@@ -15,12 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Common.Controls;
 using ZeroInstall.Model;
-using ICommandExecutor = Common.Undo.ICommandExecutor;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -31,36 +29,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
     public class SummaryEditor<T> : DescriptionEditor<T>
         where T : class, ISummaryContainer
     {
-        #region Properties
-        /// <inheritdoc/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public override T Target
-        {
-            set
-            {
-                _textBoxSummary.Target = value.Summaries;
-                base.Target = value;
-            }
-        }
-
-        /// <inheritdoc/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public override ICommandExecutor CommandExecutor
-        {
-            set
-            {
-                _textBoxSummary.CommandExecutor = value;
-                base.CommandExecutor = value;
-            }
-        }
-        #endregion
-
-        #region Constructor
-        private readonly LocalizableTextBox _textBoxSummary;
-
         public SummaryEditor()
         {
-            Controls.Add(_textBoxSummary = new LocalizableTextBox
+            var textBoxSummary = new LocalizableTextBox
             {
                 Location = new Point(0, 0),
                 Size = new Size(Width, 23),
@@ -68,19 +39,13 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
                 HintText = "Summary",
                 TabIndex = 0
-            });
+            };
+            RegisterControl(textBoxSummary, () => Target.Summaries);
 
             // Shift existing controls down
-            TextBoxDescription.Location = new Point(0, _textBoxSummary.Bottom + 6);
+            TextBoxDescription.Location = new Point(0, textBoxSummary.Bottom + 6);
             EditorControl.Location = new Point(0, TextBoxDescription.Bottom + 6);
             EditorControl.Size = new Size(Width, Height - TextBoxDescription.Bottom - 6);
-        }
-        #endregion
-
-        public override void Refresh()
-        {
-            _textBoxSummary.Refresh();
-            base.Refresh();
         }
     }
 }

@@ -17,7 +17,7 @@
 
 using System;
 using System.Drawing;
-using System.Globalization;
+using Common;
 using Common.Controls;
 using ZeroInstall.Model;
 
@@ -30,32 +30,13 @@ namespace ZeroInstall.Publish.WinForms.Controls
     public abstract class DownloadRetrievalMethodEditor<T> : RetrievalMethodEditor<T>
         where T : DownloadRetrievalMethod
     {
-        private readonly UriTextBox _textBoxUrl;
-        private readonly HintTextBox _textBoxSize;
-
         protected DownloadRetrievalMethodEditor()
         {
-            _textBoxUrl = new UriTextBox {HintText = "HTTP/FTP URL"};
-            _textBoxUrl.Validated += UpdateHref;
-            Controls.Add(_textBoxUrl);
+            var textBoxUrl = new UriTextBox {HintText = "HTTP/FTP URL"};
+            RegisterControl(textBoxUrl, new PropertyPointer<Uri>(() => Target.Href, value => Target.Href = value));
 
-            _textBoxSize = new HintTextBox {HintText = "in bytes", Location = new Point(0, _textBoxUrl.Bottom)};
-            Controls.Add(_textBoxSize);
-        }
-
-        private void UpdateHref(object sender, EventArgs e)
-        {
-            if (!_textBoxUrl.IsValid || _textBoxUrl.Uri == Target.Href) return;
-
-            if (CommandExecutor == null) Target.Href = _textBoxUrl.Uri;
-            else CommandExecutor.Execute(new Common.Undo.SetValueCommand<Uri>(() => Target.Href, value => Target.Href = value, _textBoxUrl.Uri));
-        }
-
-        public override void Refresh()
-        {
-            _textBoxUrl.Uri = Target.Href;
-            _textBoxSize.Text = Target.Size.ToString(CultureInfo.InvariantCulture);
-            base.Refresh();
+            var textBoxSize = new HintTextBox {HintText = "in bytes", Location = new Point(0, textBoxUrl.Bottom)};
+            RegisterControl(textBoxSize, new PropertyPointer<long>(() => Target.Size, value => Target.Size = value).ToStringPointer());
         }
     }
 }

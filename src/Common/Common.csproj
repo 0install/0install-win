@@ -246,6 +246,9 @@
     <Compile Include="Controls\TimeSpanControl.Designer.cs">
       <DependentUpon>TimeSpanControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\EditorControlBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\EditorControl.cs">
       <SubType>Component</SubType>
     </Compile>
