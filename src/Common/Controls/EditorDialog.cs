@@ -26,14 +26,14 @@ using System.Windows.Forms;
 namespace Common.Controls
 {
     /// <summary>
-    /// Edits arbitrary types of elements using an <see cref="EditorControl{T}"/>.
+    /// Edits arbitrary types of elements using an <see cref="GenericEditorControl{T}"/>.
     /// </summary>
     /// <typeparam name="T">The type of element to edit.</typeparam>
     public partial class EditorDialog<T> : OKCancelDialog, IEditorDialog<T> where T : class
     {
         #region Constructor
         // Don't use WinForms designer for this, since it doesn't understand generics
-        private readonly EditorControl<T> _editor = new EditorControl<T>
+        private readonly GenericEditorControl<T> _editor = new GenericEditorControl<T>
         {
             TabIndex = 0,
             Location = new System.Drawing.Point(12, 12),

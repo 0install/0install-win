@@ -76,7 +76,7 @@ namespace Common.StructureEditor
         public ContainerDescription<TContainer> AddProperty<TProperty>(string name, Func<TContainer, PropertyPointer<TProperty>> getPointer)
             where TProperty : class, IEquatable<TProperty>, new()
         {
-            return AddProperty<TProperty, EditorControl<TProperty>>(name, getPointer);
+            return AddProperty<TProperty, GenericEditorControl<TProperty>>(name, getPointer);
         }
 
         private class PropertyDescription<TProperty, TEditor> : DescriptionBase

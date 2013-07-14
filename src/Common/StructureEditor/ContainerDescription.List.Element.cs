@@ -56,7 +56,7 @@ namespace Common.StructureEditor
             public IListDescription<TContainer, TList> AddElement<TElement>(string name)
                 where TElement : class, TList, IEquatable<TElement>, new()
             {
-                return AddElement<TElement, EditorControl<TElement>>(name);
+                return AddElement<TElement, GenericEditorControl<TElement>>(name);
             }
 
             private interface IElementDescription

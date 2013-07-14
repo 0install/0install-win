@@ -249,7 +249,7 @@
     <Compile Include="Controls\EditorControlBase.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\EditorControl.cs">
+    <Compile Include="Controls\GenericEditorControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\EditorDialog.cs">

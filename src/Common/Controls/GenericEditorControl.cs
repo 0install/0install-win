@@ -31,7 +31,7 @@ namespace Common.Controls
     /// Edits arbitrary types of elements using a <see cref="PropertyGrid"/>. Provides optional <see cref="Common.Undo"/> support.
     /// </summary>
     /// <typeparam name="T">The type of element to edit.</typeparam>
-    public class EditorControl<T> : ResettablePropertyGrid, IEditorControl<T> where T : class
+    public sealed class GenericEditorControl<T> : ResettablePropertyGrid, IEditorControl<T> where T : class
     {
         /// <inheritdoc/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -41,7 +41,7 @@ namespace Common.Controls
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Undo.ICommandExecutor CommandExecutor { get; set; }
 
-        public EditorControl()
+        public GenericEditorControl()
         {
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             ToolbarVisible = false;
