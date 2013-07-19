@@ -95,13 +95,33 @@ namespace Common.Controls
                     if (CommandExecutor == null) pointer.Value = control.Text;
                     else CommandExecutor.Execute(new Undo.SetValueCommand<string>(pointer, control.Text));
                 }
-                catch (ArgumentException ex)
+                    #region Error handling
+                catch (Exception ex)
                 {
                     Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                    control.Text = pointer.Value;
                 }
+                #endregion
             };
 
             OnRefresh += () => control.Text = pointer.Value;
+        }
+
+        /// <summary>
+        /// Hooks a <see cref="ComboBox"/> in to the live editing and Undo system.
+        /// </summary>
+        /// <param name="control">The control to hook up (is automatically added to <see cref="Control.Controls"/>).</param>
+        /// <param name="pointer">Read/write access to the value the <paramref name="control"/> represents.</param>
+        protected void RegisterControl(ComboBox control, PropertyPointer<string> pointer)
+        {
+            // Setting ComboBox.Text will only work reliably if the value is in the Items list
+            OnRefresh += () =>
+            {
+                if (pointer.Value != null && !control.Items.Contains(pointer.Value))
+                    control.Items.Add(pointer.Value);
+            };
+
+            RegisterControl((Control)control, pointer);
         }
 
         /// <summary>
