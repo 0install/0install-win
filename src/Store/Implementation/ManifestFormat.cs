@@ -53,12 +53,12 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// All currently supported <see cref="ManifestFormat"/>s listed from best (safest) to worst.
         /// </summary>
-        public static readonly ManifestFormat[] All = new[] {_sha256New, _sha256, _sha1New, _sha1};
+        public static readonly ManifestFormat[] All = {_sha256New, _sha256, _sha1New, _sha1};
 
         /// <summary>
         /// All currently supported and non-deprecated <see cref="ManifestFormat"/>s listed from best (safest) to worst.
         /// </summary>
-        public static readonly ManifestFormat[] Recommended = new[] {_sha256New, _sha256, _sha1New};
+        public static readonly ManifestFormat[] Recommended = {_sha256New, _sha256, _sha1New};
         #endregion
 
         #region Factory methods

@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Globalization;
 using NUnit.Framework;
 
 namespace ZeroInstall.Model

@@ -269,6 +269,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SyncWizards\ChangeCryptoKeyPage.de.resx">
       <DependentUpon>ChangeCryptoKeyPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SyncWizards\ChangeCryptoKeyPage.resx">
       <DependentUpon>ChangeCryptoKeyPage.cs</DependentUpon>
@@ -276,9 +277,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SyncWizards\CredentialsPage.de.resx">
       <DependentUpon>CredentialsPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SyncWizards\CryptoKeyChangedPage.de.resx">
       <DependentUpon>CryptoKeyChangedPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SyncWizards\ExistingCryptoKeyPage.de.resx">
       <DependentUpon>ExistingCryptoKeyPage.cs</DependentUpon>

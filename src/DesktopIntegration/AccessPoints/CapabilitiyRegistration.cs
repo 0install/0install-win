@@ -97,8 +97,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            if (!WindowsUtils.IsWindows) return;
-
             // Unregister all applicable capabilities
             foreach (var capabilityList in appEntry.CapabilityLists.Filter(AreCapabilitiesApplicable))
             {

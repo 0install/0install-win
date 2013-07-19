@@ -47,7 +47,6 @@ namespace Common
         private static int _port = MinimumPort;
 
         private HttpListener _listener;
-        private readonly Thread _listenerThread;
         private readonly string _resourceName;
         #endregion
 
@@ -89,8 +88,7 @@ namespace Common
             ServerUri = new Uri(StartListening());
             FileUri = new Uri(ServerUri, resourceName);
 
-            _listenerThread = new Thread(Listen);
-            _listenerThread.Start();
+            new Thread(Listen).Start();
         }
 
         /// <summary>

@@ -21,7 +21,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using Common;
-using ZeroInstall.Injector;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Central.WinForms.SyncWizards

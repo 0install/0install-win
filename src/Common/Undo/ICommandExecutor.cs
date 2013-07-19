@@ -20,9 +20,6 @@
  * THE SOFTWARE.
  */
 
-using System;
-using System.Diagnostics.CodeAnalysis;
-
 namespace Common.Undo
 {
     /// <summary>

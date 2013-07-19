@@ -279,6 +279,7 @@ namespace ZeroInstall.Model
             var feed = CreateTestFeed();
 
             Assert.AreEqual(CreateTestImplementation(), feed[new ManifestDigest(sha256: "123")]);
+            // ReSharper disable once UnusedVariable
             Assert.Throws<KeyNotFoundException>(() => { var dummy = feed[new ManifestDigest(sha256: "456")]; });
         }
 

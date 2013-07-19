@@ -18,7 +18,6 @@
 using System.Collections.Generic;
 using System.IO;
 using Common.Cli;
-using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Store.Trust
 {

@@ -228,10 +228,10 @@ namespace ZeroInstall.Store
             _metaData = new Dictionary<string, PropertyPointer<string>>
             {
                 {"freshness", new PropertyPointer<TimeSpan>(() => Freshness, value => Freshness = value, _defaultFreshness).ToStringPointer()},
-                {"help_with_testing", new PropertyPointer<bool>(() => HelpWithTesting, value => HelpWithTesting = value, false).ToStringPointer()},
+                {"help_with_testing", new PropertyPointer<bool>(() => HelpWithTesting, value => HelpWithTesting = value).ToStringPointer()},
                 {"network_use", GetNetworkUseConverter()},
                 {"auto_approve_keys", new PropertyPointer<bool>(() => AutoApproveKeys, value => AutoApproveKeys = value, true).ToStringPointer()},
-                {"allow_api_hooking", new PropertyPointer<bool>(() => AllowApiHooking, value => AllowApiHooking = value, false).ToStringPointer()},
+                {"allow_api_hooking", new PropertyPointer<bool>(() => AllowApiHooking, value => AllowApiHooking = value).ToStringPointer()},
                 {"feed_mirror", new PropertyPointer<Uri>(() => FeedMirror, value => FeedMirror = value, new Uri(DefaultFeedMirror)).ToStringPointer()},
                 {"key_info_server", new PropertyPointer<Uri>(() => KeyInfoServer, value => KeyInfoServer = value, new Uri(DefaultKeyInfoServer)).ToStringPointer()},
                 {"self_update_id", new PropertyPointer<string>(() => SelfUpdateID, value => SelfUpdateID = value, DefaultSelfUpdateID)},

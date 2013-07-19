@@ -48,7 +48,7 @@ namespace Common.Controls
         /// <param name="defaultText">The default text to show pre-entered in the input field.</param>
         /// <param name="password">Shall the input characters be hidden as a password?</param>
         /// <returns>The text the user entered if she pressed OK; otherwise <see langword="null"/>.</returns>
-        public static string Show(IWin32Window owner, string title, string prompt, string defaultText, bool password)
+        public static string Show(IWin32Window owner, string title, string prompt, string defaultText = "", bool password = false)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");
@@ -63,31 +63,6 @@ namespace Common.Controls
                 ShowInTaskbar = (owner == null)
             })
                 return (inputBox.ShowDialog(owner) == DialogResult.OK) ? inputBox.textInput.Text : null;
-        }
-
-        /// <summary>
-        /// Displays an input box asking the the user to input some text.
-        /// </summary>
-        /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
-        /// <param name="title">The window title to use.</param>
-        /// <param name="prompt">The prompt to display.</param>
-        /// <param name="defaultText">The default text to show pre-entered in the input field.</param>
-        /// <returns>The text the user entered if she pressed OK; otherwise <see langword="null"/>.</returns>
-        public static string Show(IWin32Window owner, string title, string prompt, string defaultText)
-        {
-            return Show(owner, title, prompt, defaultText, false);
-        }
-
-        /// <summary>
-        /// Displays an input box asking the the user to input some text.
-        /// </summary>
-        /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
-        /// <param name="title">The window title to use.</param>
-        /// <param name="prompt">The prompt to display.</param>
-        /// <returns>The text the user entered if she pressed OK; otherwise <see langword="null"/>.</returns>
-        public static string Show(IWin32Window owner, string title, string prompt)
-        {
-            return Show(owner, title, prompt, "");
         }
         #endregion
 

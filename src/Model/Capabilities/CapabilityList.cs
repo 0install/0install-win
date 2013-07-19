@@ -21,7 +21,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using C5;
 using Common.Collections;
-using Common.Storage;
 
 namespace ZeroInstall.Model.Capabilities
 {

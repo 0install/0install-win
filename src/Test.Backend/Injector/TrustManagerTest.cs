@@ -42,7 +42,7 @@ namespace ZeroInstall.Injector
         private static readonly byte[] _combinedBytes = Encoding.UTF8.GetBytes(FeedText + FeedUtils.SignatureBlockStart + _signatureBase64 + FeedUtils.SignatureBlockEnd);
 
         private static readonly ValidSignature _signature = new ValidSignature("123abc", new DateTime(2000, 1, 1));
-        private static readonly byte[] _keyData = new byte[] {16, 32, 64};
+        private static readonly byte[] _keyData = {16, 32, 64};
 
         private const string KeyInfoResponse = @"<?xml version='1.0'?><key-lookup><item vote=""good"">Key information</item></key-lookup>";
         #endregion

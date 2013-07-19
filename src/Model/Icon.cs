@@ -44,7 +44,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// All known <see cref="MimeType"/> values for icons.
         /// </summary>
-        public static readonly string[] KnownMimeTypes = new[] {MimeTypePng, MimeTypeIco};
+        public static readonly string[] KnownMimeTypes = {MimeTypePng, MimeTypeIco};
         #endregion
 
         #region Properties

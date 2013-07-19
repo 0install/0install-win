@@ -48,12 +48,14 @@ namespace ZeroInstall.Solver
                 testFeed.Normalize(feedFile);
                 var feedManagerMock = Resolver.GetMock<IFeedManager>();
                 bool temp = false;
-                feedManagerMock.Setup(x => x.GetFeed(feedFile, ref temp)).Returns(testFeed).Verifiable();
+                string feedPath = feedFile.Path;
+                feedManagerMock.Setup(x => x.GetFeed(feedPath, ref temp)).Returns(testFeed).Verifiable();
                 testFeed.SaveXml(feedFile);
 
                 bool staleFeeds;
 
                 ProvideCancellationToken();
+                // ReSharper disable once UnusedVariable
                 var selections = Target.Solve(new Requirements {InterfaceID = feedFile}, out staleFeeds);
             }
         }

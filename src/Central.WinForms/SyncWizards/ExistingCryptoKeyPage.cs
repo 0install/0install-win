@@ -27,7 +27,6 @@ using Common.Storage;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Injector;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Central.WinForms.SyncWizards

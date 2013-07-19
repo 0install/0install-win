@@ -19,7 +19,6 @@ using Common.Storage;
 using Common.Tasks;
 using Moq;
 using NUnit.Framework;
-using ZeroInstall.Injector;
 using ZeroInstall.Store;
 
 namespace ZeroInstall
