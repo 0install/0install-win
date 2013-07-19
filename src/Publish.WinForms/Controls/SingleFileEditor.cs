@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using Common;
 using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.Model;
@@ -25,7 +27,22 @@ namespace ZeroInstall.Publish.WinForms.Controls
     /// <summary>
     /// Edits <see cref="SingleFile"/> instances.
     /// </summary>
-    public class SingleFileEditor : DownloadRetrievalMethodEditor<SingleFile>
+    public partial class SingleFileEditor : SingleFileEditorShim
+    {
+        public SingleFileEditor()
+        {
+            InitializeComponent();
+
+            RegisterControl(textBoxSize, new PropertyPointer<long>(() => Target.Size, value => Target.Size = value).ToStringPointer());
+            RegisterControl(textBoxUrl, new PropertyPointer<Uri>(() => Target.Href, value => Target.Href = value));
+            RegisterControl(textBoxDestination, new PropertyPointer<string>(() => Target.Destination, value => Target.Destination = value));
+        }
+    }
+
+    /// <summary>
+    /// Non-generic base class for <see cref="SingleFileEditor"/>, because WinForms editor can not handle generics.
+    /// </summary>
+    public class SingleFileEditorShim : DownloadRetrievalMethodEditor<SingleFile>
     {
         protected override TemporaryDirectory Download(ITaskHandler handler, ICommandExecutor executor)
         {

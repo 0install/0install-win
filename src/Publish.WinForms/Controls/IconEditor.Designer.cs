@@ -42,7 +42,7 @@
             // 
             this.labelUrl.AutoSize = true;
             this.labelUrl.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelUrl.Location = new System.Drawing.Point(0, 32);
+            this.labelUrl.Location = new System.Drawing.Point(0, 30);
             this.labelUrl.Name = "labelUrl";
             this.labelUrl.Size = new System.Drawing.Size(56, 13);
             this.labelUrl.TabIndex = 2;
@@ -112,9 +112,9 @@
             this.textBoxUrl.AllowDrop = true;
             this.textBoxUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxUrl.HttpOnly = true;
             this.textBoxUrl.HintText = "HTTP Address";
-            this.textBoxUrl.Location = new System.Drawing.Point(71, 29);
+            this.textBoxUrl.HttpOnly = true;
+            this.textBoxUrl.Location = new System.Drawing.Point(71, 27);
             this.textBoxUrl.Name = "textBoxUrl";
             this.textBoxUrl.Size = new System.Drawing.Size(79, 20);
             this.textBoxUrl.TabIndex = 3;

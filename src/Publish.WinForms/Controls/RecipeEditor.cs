@@ -25,7 +25,18 @@ namespace ZeroInstall.Publish.WinForms.Controls
     /// <summary>
     /// Edits <see cref="Recipe"/> instances.
     /// </summary>
-    public class RecipeEditor : RetrievalMethodEditor<Recipe>
+    public partial class RecipeEditor : RecipeEditorShim
+    {
+        public RecipeEditor()
+        {
+            InitializeComponent();
+        }
+    }
+
+    /// <summary>
+    /// Non-generic base class for <see cref="RecipeEditor"/>, because WinForms editor can not handle generics.
+    /// </summary>
+    public class RecipeEditorShim : RetrievalMethodEditor<Recipe>
     {
         protected override TemporaryDirectory Download(ITaskHandler handler, ICommandExecutor executor)
         {

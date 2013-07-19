@@ -30,7 +30,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
     /// <summary>
     /// Edits <see cref="Icon"/> instances.
     /// </summary>
-    public partial class IconEditor : EditorControlBase<Icon>
+    public partial class IconEditor : IconEditorShim
     {
         #region Constructor
         public IconEditor()
@@ -126,4 +126,10 @@ namespace ZeroInstall.Publish.WinForms.Controls
         }
         #endregion
     }
+
+    /// <summary>
+    /// Non-generic base class for <see cref="IconEditor"/>, because WinForms editor can not handle generics.
+    /// </summary>
+    public class IconEditorShim : EditorControlBase<Icon>
+    {}
 }

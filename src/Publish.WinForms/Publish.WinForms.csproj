@@ -68,6 +68,9 @@
     <Compile Include="Controls\ArchiveEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\ArchiveEditor.Designer.cs">
+      <DependentUpon>ArchiveEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\DescriptionEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -77,11 +80,17 @@
     <Compile Include="Controls\RecipeEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\RecipeEditor.Designer.cs">
+      <DependentUpon>RecipeEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RetrievalMethodEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\SingleFileEditor.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SingleFileEditor.Designer.cs">
+      <DependentUpon>SingleFileEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\SummaryEditor.cs">
       <SubType>UserControl</SubType>

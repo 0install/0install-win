@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using Common;
 using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.Model;
@@ -25,7 +27,28 @@ namespace ZeroInstall.Publish.WinForms.Controls
     /// <summary>
     /// Edits <see cref="Archive"/> instances.
     /// </summary>
-    public class ArchiveEditor : DownloadRetrievalMethodEditor<Archive>
+    public partial class ArchiveEditor : ArchiveEditorShim
+    {
+        public ArchiveEditor()
+        {
+            InitializeComponent();
+
+            RegisterControl(textBoxSize, new PropertyPointer<long>(() => Target.Size, value => Target.Size = value).ToStringPointer());
+            RegisterControl(comboBoxMimeType, new PropertyPointer<string>(() => Target.MimeType, value => Target.MimeType = value));
+            RegisterControl(textBoxUrl, new PropertyPointer<Uri>(() => Target.Href, value => Target.Href = value));
+            RegisterControl(textBoxExtract, new PropertyPointer<string>(() => Target.Extract, value => Target.Extract = value));
+            RegisterControl(textBoxDestination, new PropertyPointer<string>(() => Target.Destination, value => Target.Destination = value));
+
+            // ReSharper disable CoVariantArrayConversion
+            comboBoxMimeType.Items.AddRange(Archive.KnownMimeTypes);
+            // ReSharper restore CoVariantArrayConversion
+        }
+    }
+
+    /// <summary>
+    /// Non-generic base class for <see cref="ArchiveEditor"/>, because WinForms editor can not handle generics.
+    /// </summary>
+    public class ArchiveEditorShim : DownloadRetrievalMethodEditor<Archive>
     {
         protected override TemporaryDirectory Download(ITaskHandler handler, ICommandExecutor executor)
         {
