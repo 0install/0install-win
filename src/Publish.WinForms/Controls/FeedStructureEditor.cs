@@ -84,7 +84,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             Describe<Recipe>()
                 .AddList(x => x.Steps)
                 .AddElement<Archive, ArchiveEditor>("archive")
-                .AddElement<SingleFile, SingleFileEditor>("single-file")
+                .AddElement<SingleFile, SingleFileEditor>("file")
                 .AddElement<RenameStep>("rename")
                 .AddElement<RemoveStep>("remove");
 
