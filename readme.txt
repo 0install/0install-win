@@ -3,7 +3,7 @@ The directory "lib" contains pre-compiled 3rd party libraries. Their licensing c
 The directory "doc" contains scripts for generating source code and developer documentation.
 The directory "modeling" contains UML and other diagrams.
 The directory "setup" contains scripts for creating a Windows Installer.
-The directory "bundled" contains a portable GnuPG distribution (Windows only) and an external solver (multiple platforms). See below how these files are aquired.
+The directory "bundled" contains a portable GnuPG distribution (Windows only) and an external solver (all platforms). See below how these files are aquired.
 The directory "build" contains the results of various compilation processes. It is created on first usage. It can contain the following subdirectories:
 - Backend: Contains the libraries forming the Zero Install Backend.
 - Frontend: Contains the executables for the Zero Install Frontend plus all required libraries (including the Backend).
@@ -16,14 +16,9 @@ To add a portable GnuPG distribution:
 - Copy iconv.dll (e.g. from a GTK+ installation) into "bundled/GnuPG".
 
 To add the external solver:
-- Install Python 2.7.x for Windows.
-- Install compatible versions of pygobject, pywin32 and py2exe.
-- Perform a Git clone of git://repo.or.cz/zeroinstall/solver.git.
-- Open a console and change the current directory to the GIT checkout.
-- Call "python setup.py py2exe".
-- Copy the content of the "dist" directory as well as the "0solve" file to bundled/Solver.
+- Run "bundled/download-solver.ps1" on Windows.
 or
-- Run "bundled/download-solver.ps1".
+- Run "bundled/download-solver.sh" on Linux.
 
 
 
@@ -55,4 +50,5 @@ Note: You must perform a Debug build first (using MonoDevelop or "src/build.sh")
 
 Environment variables:
 
-$ZEROINSTALL_PORTABLE_BASE: Used by the C# to to inform the Python code of Portable mode.
+$ZEROINSTALL_PORTABLE_BASE: Set by the C# code to to inform the Python code of Portable mode.
+$ZEROINSTALL_EXTERNAL_STORE: Set by the C# code to make the Python code delegate extracting archives back to the C# implementation.

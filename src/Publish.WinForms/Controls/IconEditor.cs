@@ -28,7 +28,7 @@ using Icon = ZeroInstall.Model.Icon;
 namespace ZeroInstall.Publish.WinForms.Controls
 {
     /// <summary>
-    /// Edits <see cref="Icon"/> instances.
+    /// Edits <see cref="Model.Icon"/> instances.
     /// </summary>
     public partial class IconEditor : IconEditorShim
     {
@@ -128,7 +128,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
     }
 
     /// <summary>
-    /// Non-generic base class for <see cref="IconEditor"/>, because WinForms editor can not handle generics.
+    /// Non-generic base class for <see cref="IconEditor"/>, because WinForms editor cannot handle generics.
     /// </summary>
     public class IconEditorShim : EditorControlBase<Icon>
     {}

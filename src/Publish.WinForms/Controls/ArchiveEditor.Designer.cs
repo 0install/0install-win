@@ -52,11 +52,9 @@
             // 
             // textBoxUrl
             // 
-            this.textBoxUrl.AccessibleName = "HTTP/FTP URL";
             this.textBoxUrl.AllowDrop = true;
             this.textBoxUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxUrl.ForeColor = System.Drawing.Color.Red;
             this.textBoxUrl.HintText = "HTTP/FTP URL";
             this.textBoxUrl.Location = new System.Drawing.Point(77, 0);
             this.textBoxUrl.Name = "textBoxUrl";
@@ -99,7 +97,6 @@
             // 
             // textBoxSize
             // 
-            this.textBoxSize.AccessibleName = "in bytes";
             this.textBoxSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSize.HintText = "in bytes";
@@ -122,7 +119,6 @@
             // 
             // textBoxExtract
             // 
-            this.textBoxExtract.AccessibleName = "the directory to extract from";
             this.textBoxExtract.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxExtract.HintText = "the directory to extract from";
@@ -145,7 +141,6 @@
             // 
             // textBoxDestination
             // 
-            this.textBoxDestination.AccessibleName = "the directory to extract to";
             this.textBoxDestination.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxDestination.HintText = "the directory to extract to";

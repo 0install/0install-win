@@ -108,7 +108,6 @@
             // 
             // textBoxUrl
             // 
-            this.textBoxUrl.AccessibleName = "HTTP Address";
             this.textBoxUrl.AllowDrop = true;
             this.textBoxUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));

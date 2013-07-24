@@ -17,8 +17,8 @@
 
 using Common.Storage;
 using Common.Tasks;
+using Common.Undo;
 using ZeroInstall.Model;
-using ICommandExecutor = Common.Undo.ICommandExecutor;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -34,7 +34,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
     }
 
     /// <summary>
-    /// Non-generic base class for <see cref="RecipeEditor"/>, because WinForms editor can not handle generics.
+    /// Non-generic base class for <see cref="RecipeEditor"/>, because WinForms editor cannot handle generics.
     /// </summary>
     public class RecipeEditorShim : RetrievalMethodEditor<Recipe>
     {

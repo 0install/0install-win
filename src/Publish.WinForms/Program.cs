@@ -49,7 +49,7 @@ namespace ZeroInstall.Publish.WinForms
                     if (files.Count == 1)
                     {
                         string path = files.First().FullName;
-                            Application.Run(new MainForm(FeedEditing.Load(path)));
+                        Application.Run(new MainForm(FeedEditing.Load(path)));
                     }
                     else MassSignForm.Show(files);
                 }

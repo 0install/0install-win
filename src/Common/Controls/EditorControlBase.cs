@@ -88,12 +88,13 @@ namespace Common.Controls
 
             control.Validated += delegate
             {
-                if (control.Text == pointer.Value) return;
+                string text = (control.Text == "") ? null : control.Text;
+                if (text == pointer.Value) return;
 
                 try
                 {
-                    if (CommandExecutor == null) pointer.Value = control.Text;
-                    else CommandExecutor.Execute(new Undo.SetValueCommand<string>(pointer, control.Text));
+                    if (CommandExecutor == null) pointer.Value = text;
+                    else CommandExecutor.Execute(new Undo.SetValueCommand<string>(pointer, text));
                 }
                     #region Error handling
                 catch (Exception ex)
@@ -159,6 +160,26 @@ namespace Common.Controls
             TargetChanged += () => control.Target = getTarget();
             CommandExecutorChanged += () => control.CommandExecutor = CommandExecutor;
             OnRefresh += control.Refresh;
+        }
+
+        /// <summary>
+        /// Hooks a <see cref="CheckBox"/> in to the live editing and Undo system.
+        /// </summary>
+        /// <param name="control">The control to hook up (is automatically added to <see cref="Control.Controls"/>).</param>
+        /// <param name="pointer">Read/write access to the value the <paramref name="control"/> represents.</param>
+        protected void RegisterControl(CheckBox control, PropertyPointer<bool> pointer)
+        {
+            Controls.Add(control);
+
+            control.CheckedChanged += delegate
+            {
+                if (control.Checked == pointer.Value) return;
+
+                if (CommandExecutor == null) pointer.Value = control.Checked;
+                else CommandExecutor.Execute(new Undo.SetValueCommand<bool>(pointer, control.Checked));
+            };
+
+            OnRefresh += () => control.Checked = pointer.Value;
         }
         #endregion
     }

@@ -19,8 +19,8 @@ using System;
 using Common;
 using Common.Storage;
 using Common.Tasks;
+using Common.Undo;
 using ZeroInstall.Model;
-using ICommandExecutor = Common.Undo.ICommandExecutor;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -40,7 +40,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
     }
 
     /// <summary>
-    /// Non-generic base class for <see cref="SingleFileEditor"/>, because WinForms editor can not handle generics.
+    /// Non-generic base class for <see cref="SingleFileEditor"/>, because WinForms editor cannot handle generics.
     /// </summary>
     public class SingleFileEditorShim : DownloadRetrievalMethodEditor<SingleFile>
     {
