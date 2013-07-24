@@ -69,69 +69,43 @@ namespace ZeroInstall.Fetchers
             if (!implementation.ManifestDigest.AvailableDigests.Any()) throw new NotSupportedException(string.Format(Resources.NoManifestDigest, implementation.ID));
             if (implementation.RetrievalMethods.Count == 0) throw new NotSupportedException(string.Format(Resources.NoRetrievalMethod, implementation.ID));
 
-            implementation.RetrievalMethods.OrderBy(x => x, RetrievalMethodRanker.Instance).
-                           Try(retrievalMethod => ApplyRetrievalMethod(retrievalMethod, implementation.ManifestDigest));
+            // Try retrieveal methods sorted by preference until one works
+            implementation.RetrievalMethods
+                .OrderBy(x => x, RetrievalMethodRanker.Instance)
+                .Try(retrievalMethod => Download(retrievalMethod, implementation.ManifestDigest));
         }
 
-        private void ApplyRetrievalMethod(RetrievalMethod retrievalMethod, ManifestDigest manifestDigest)
+        private void Download(RetrievalMethod retrievalMethod, ManifestDigest manifestDigest)
         {
-            Handler.CancellationToken.ThrowIfCancellationRequested();
-
             try
             {
-                new PerTypeDispatcher<RetrievalMethod>(false)
-                {
-                    (Archive archive) => ApplyArchive(archive, manifestDigest),
-                    (SingleFile singleFile) => ApplySingleFile(singleFile, manifestDigest),
-                    (Recipe recipe) => ApplyRecipe(recipe, manifestDigest)
-                }.Dispatch(retrievalMethod);
+                // Treat everything as a Recipe for easier handling
+                Download(
+                    retrievalMethod as Recipe ?? new Recipe {Steps = {(IRecipeStep)retrievalMethod}},
+                    manifestDigest);
             }
             catch (ImplementationAlreadyInStoreException)
             {}
         }
 
-        private void ApplyArchive(Archive archive, ManifestDigest manifestDigest)
+        private void Download(Recipe recipe, ManifestDigest manifestDigest)
         {
-            // Fail fast on unsupported archive type
-            Extractor.VerifySupport(archive.MimeType);
+            Handler.CancellationToken.ThrowIfCancellationRequested();
 
-            using (var downloadedFile = DownloadFile(archive, manifestDigest))
-                AddArchives(new[] {downloadedFile}, new[] {archive}, manifestDigest);
-        }
-
-        private void ApplySingleFile(SingleFile singleFile, ManifestDigest manifestDigest)
-        {
-            using (var tempDir = new TemporaryDirectory("0install-fetcher"))
-            {
-                using (var downloadedFile = DownloadFile(singleFile, manifestDigest))
-                    RecipeUtils.ApplySingleFile(singleFile, downloadedFile, tempDir);
-
-                Store.AddDirectory(tempDir, manifestDigest, Handler);
-            }
-        }
-
-        private void ApplyRecipe(Recipe recipe, ManifestDigest manifestDigest)
-        {
             // Fail fast on unsupported archive type
             foreach (var archive in recipe.Steps.OfType<Archive>()) Extractor.VerifySupport(archive.MimeType);
 
             var downloadedFiles = new List<TemporaryFile>();
             try
             {
-                // ReSharper disable LoopCanBeConvertedToQuery
                 foreach (var downloadStep in recipe.Steps.OfType<DownloadRetrievalMethod>())
                     downloadedFiles.Add(DownloadFile(downloadStep, manifestDigest));
-                // ReSharper restore LoopCanBeConvertedToQuery
 
+                // More efficient special-case handling for Archive-only handling
                 if (recipe.Steps.All(step => step is Archive))
-                { // Optimized special case for archive-only recipes
-                    AddArchives(downloadedFiles, recipe.Steps.Cast<Archive>(), manifestDigest);
-                }
+                    ApplyArchives(downloadedFiles, recipe.Steps.Cast<Archive>(), manifestDigest);
                 else
-                {
-                    using (var recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, Handler, manifestDigest))
-                        Store.AddDirectory(recipeDir, manifestDigest, Handler);
-                }
+                    ApplyRecipe(downloadedFiles, recipe, manifestDigest);
             }
             finally
             {
@@ -156,7 +130,7 @@ namespace ZeroInstall.Fetchers
             #endregion
         }
 
-        private void AddArchives(IList<TemporaryFile> files, IEnumerable<Archive> archives, ManifestDigest manifestDigest)
+        private void ApplyArchives(IList<TemporaryFile> files, IEnumerable<Archive> archives, ManifestDigest manifestDigest)
         {
             var archiveFileInfos = archives.Select((archive, i) => new ArchiveFileInfo
             {
@@ -168,6 +142,12 @@ namespace ZeroInstall.Fetchers
             });
 
             Store.AddArchives(archiveFileInfos.ToList(), manifestDigest, Handler);
+        }
+
+        private void ApplyRecipe(IEnumerable<TemporaryFile> files, Recipe recipe, ManifestDigest manifestDigest)
+        {
+            using (var recipeDir = RecipeUtils.ApplyRecipe(recipe, files, Handler, manifestDigest))
+                Store.AddDirectory(recipeDir, manifestDigest, Handler);
         }
     }
 }
