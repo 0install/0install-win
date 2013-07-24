@@ -22,6 +22,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Runtime.Remoting;
 using System.Windows.Forms;
 using Common.Tasks;
 using Common.Utils;
@@ -82,8 +83,15 @@ namespace Common.Controls
         /// </summary>
         private void HookOut()
         {
-            _task.StateChanged -= OnStateChanged;
-            _task.ProgressChanged -= OnProgressChanged;
+            try
+            {
+                _task.StateChanged -= OnStateChanged;
+                _task.ProgressChanged -= OnProgressChanged;
+            }
+            catch (RemotingException)
+            {
+                // Ignore timed out connections or terminated processes if the task is completed or being canceled anyway
+            }
         }
 
         /// <summary>
