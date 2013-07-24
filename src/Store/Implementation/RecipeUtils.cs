@@ -136,7 +136,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             #region Path validation
-            if (string.IsNullOrEmpty(step.Destination)) throw new IOException(string.Format(Resources.RecipeInvalidPath, "(empty)"));
+            if (string.IsNullOrEmpty(step.Destination)) throw new IOException(Resources.FileMissingDest);
             string destination = FileUtils.UnifySlashes(step.Destination);
             if (FileUtils.IsBreakoutPath(destination)) throw new IOException(string.Format(Resources.RecipeInvalidPath, destination));
             #endregion

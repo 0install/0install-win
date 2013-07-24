@@ -149,6 +149,9 @@ Actual value: {1}</value>
   <data name="FeedNotInCache" xml:space="preserve">
     <value>'{0}' could not be located in the feed cache. Looked for file at: {1}</value>
   </data>
+  <data name="FileMissingDest" xml:space="preserve">
+    <value>A &lt;file&gt; tag is missing a dest attribute.</value>
+  </data>
   <data name="FileToSignNotFound" xml:space="preserve">
     <value>The file to be signed could not be found.</value>
   </data>
