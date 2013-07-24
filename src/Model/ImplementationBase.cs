@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -129,16 +130,16 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            string result = ID + ", ";
-            if (Architecture != default(Architecture)) result += Architecture + ", ";
-            if (Version != null) result += Version + ", ";
-            if (Released != default(DateTime)) result += Released.ToShortDateString() + ", ";
-            if (Stability != default(Stability)) result += Stability + ", ";
-            if (!string.IsNullOrEmpty(License)) result += License + ", ";
-            if (Main != null) result += Main + ", ";
+            var parts = new List<string>();
+            if (!string.IsNullOrEmpty(ID)) parts.Add(License);
+            if (Architecture != default(Architecture)) parts.Add(Architecture.ToString());
+            if (Version != null) parts.Add(Version.ToString());
+            if (Released != default(DateTime)) parts.Add(Released.ToShortDateString());
+            if (Stability != default(Stability)) parts.Add(Stability.ToString());
+            if (!string.IsNullOrEmpty(License)) parts.Add(License);
+            if (!string.IsNullOrEmpty(Main)) parts.Add(Main);
 
-            // Remove last two characters
-            return result.Substring(0, result.Length - 2);
+            return ", ".Join(parts);
         }
         #endregion
 
