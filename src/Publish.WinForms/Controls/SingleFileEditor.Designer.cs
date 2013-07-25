@@ -52,7 +52,7 @@
             // 
             this.textBoxSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxSize.HintText = "in bytes";
+            this.textBoxSize.HintText = "in bytes (required)";
             this.textBoxSize.Location = new System.Drawing.Point(77, 26);
             this.textBoxSize.Name = "textBoxSize";
             this.textBoxSize.Size = new System.Drawing.Size(73, 20);
@@ -73,7 +73,7 @@
             this.textBoxUrl.AllowDrop = true;
             this.textBoxUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxUrl.HintText = "HTTP/FTP URL";
+            this.textBoxUrl.HintText = "HTTP/FTP URL (required)";
             this.textBoxUrl.Location = new System.Drawing.Point(77, 0);
             this.textBoxUrl.Name = "textBoxUrl";
             this.textBoxUrl.Size = new System.Drawing.Size(73, 20);
@@ -95,7 +95,7 @@
             // 
             this.textBoxDestination.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxDestination.HintText = "the local file name to use";
+            this.textBoxDestination.HintText = "the local file name to use (required)";
             this.textBoxDestination.Location = new System.Drawing.Point(77, 52);
             this.textBoxDestination.Name = "textBoxDestination";
             this.textBoxDestination.Size = new System.Drawing.Size(73, 20);

@@ -54,7 +54,7 @@
             // 
             this.textBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxName.HintText = "The application\'s name";
+            this.textBoxName.HintText = "the application\'s name (required)";
             this.textBoxName.Location = new System.Drawing.Point(66, 0);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(84, 20);
@@ -74,7 +74,7 @@
             this.textBoxUri.AllowDrop = true;
             this.textBoxUri.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxUri.HintText = "Where the feed will be uploaded";
+            this.textBoxUri.HintText = "HTTP URI where the feed will be uploaded (required, unless local-only)";
             this.textBoxUri.HttpOnly = true;
             this.textBoxUri.Location = new System.Drawing.Point(66, 26);
             this.textBoxUri.Name = "textBoxUri";
@@ -85,7 +85,7 @@
             // 
             this.textBoxSummary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxSummary.HintText = "Summary";
+            this.textBoxSummary.HintText = "Summary (required)";
             this.textBoxSummary.Location = new System.Drawing.Point(0, 52);
             this.textBoxSummary.MinimumSize = new System.Drawing.Size(65, 22);
             this.textBoxSummary.Multiline = false;
@@ -110,7 +110,7 @@
             this.textBoxHomepage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxHomepage.ForeColor = System.Drawing.Color.Empty;
-            this.textBoxHomepage.HintText = "Website with information about the application";
+            this.textBoxHomepage.HintText = "website with information about the application";
             this.textBoxHomepage.Location = new System.Drawing.Point(66, 163);
             this.textBoxHomepage.Name = "textBoxHomepage";
             this.textBoxHomepage.Size = new System.Drawing.Size(84, 20);

@@ -111,7 +111,7 @@
             this.textBoxUrl.AllowDrop = true;
             this.textBoxUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxUrl.HintText = "HTTP Address";
+            this.textBoxUrl.HintText = "HTTP Address (required)";
             this.textBoxUrl.HttpOnly = true;
             this.textBoxUrl.Location = new System.Drawing.Point(71, 27);
             this.textBoxUrl.Name = "textBoxUrl";
