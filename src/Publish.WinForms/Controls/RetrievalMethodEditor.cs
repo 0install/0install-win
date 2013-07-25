@@ -15,12 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.Drawing;
+using System.IO;
+using System.Net;
+using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using Common.Storage;
 using Common.Tasks;
 using Common.Undo;
 using ZeroInstall.Model;
+using ICommandExecutor = Common.Undo.ICommandExecutor;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -31,17 +37,73 @@ namespace ZeroInstall.Publish.WinForms.Controls
     public abstract class RetrievalMethodEditor<T> : EditorControlBase<T>, IEditorControlContainerRef<T, Implementation>
         where T : RetrievalMethod
     {
-        #region Properties
-        /// <inheritdoc/>
-        public Implementation ContainerRef { get; set; }
+        #region Variables
+        private readonly Button _buttonUpdateImplementation;
         #endregion
 
-        protected void CheckDigest()
+        #region Properties
+        private Implementation _containerRef;
+        /// <inheritdoc/>
+        public virtual Implementation ContainerRef
         {
-            if (ContainerRef == null) return;
+            get { return _containerRef; }
+            set
+            {
+                _containerRef = value;
+                _buttonUpdateImplementation.Visible = (value != null);
+            }
+        }
+        #endregion
 
+        #region Constructor
+        protected RetrievalMethodEditor()
+        {
+            Controls.Add(_buttonUpdateImplementation = new Button
+            {
+                Size = new Size(123, 23),
+                Location = new Point(14, 150),
+                Anchor = AnchorStyles.Top,
+                TabIndex = 1000,
+                Text = "Update implementation",
+                UseVisualStyleBackColor = true,
+                Visible = false
+            });
+            _buttonUpdateImplementation.Click += buttonUpdate_Click;
+        }
+        #endregion
+
+        private void buttonUpdate_Click(object sender, EventArgs e)
+        {
             var commandCollector = new CommandCollector();
-            CheckDigest(new GuiTaskHandler(), commandCollector);
+            try
+            {
+                CheckDigest(new GuiTaskHandler(), commandCollector);
+            }
+                #region Error handling
+            catch (OperationCanceledException)
+            {}
+            catch (ArgumentException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                return;
+            }
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                return;
+            }
+            catch (WebException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                return;
+            }
+            #endregion
+
             var command = commandCollector.BuildComposite();
 
             if (CommandExecutor == null) command.Execute();
