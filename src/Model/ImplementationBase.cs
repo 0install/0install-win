@@ -131,14 +131,13 @@ namespace ZeroInstall.Model
         public override string ToString()
         {
             var parts = new List<string>();
-            if (!string.IsNullOrEmpty(ID)) parts.Add(License);
+            if (!string.IsNullOrEmpty(ID)) parts.Add(ID);
             if (Architecture != default(Architecture)) parts.Add(Architecture.ToString());
             if (Version != null) parts.Add(Version.ToString());
             if (Released != default(DateTime)) parts.Add(Released.ToShortDateString());
             if (Stability != default(Stability)) parts.Add(Stability.ToString());
             if (!string.IsNullOrEmpty(License)) parts.Add(License);
             if (!string.IsNullOrEmpty(Main)) parts.Add(Main);
-
             return ", ".Join(parts);
         }
         #endregion
