@@ -1,3 +1,6 @@
+Directory structure
+===================
+
 - The directory `src` contains the Visual Studio project with the actual source code.
 - The directory `lib` contains pre-compiled 3rd party libraries. Their licensing conditions are detailed in `3rd party code.txt`.
 - The directory `doc` contains scripts for generating source code and developer documentation.
