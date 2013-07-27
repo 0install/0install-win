@@ -36,7 +36,7 @@ Note: Please read `setup/readme.txt` aswell for information about required tools
 Open `UnitTests.nunit` with the NUnit GUI (http://nunit.org/) to run the unit tests.
 Note: You must perform a Debug build first (using Visual Studio or `src/build.cmd`) before you can run the unit tests.
 
-`version`, `version-tools` and `version-updater` contain the version numbers used by the build scripts.
+`VERSION`, `VERSION_TOOLS` and `VERSION_UPDATER` contain the version numbers used by the build scripts.
 Keep in sync with the version numbers in `src/AssemblyInfo.*.cs`!
 
 
