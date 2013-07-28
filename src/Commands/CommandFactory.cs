@@ -32,7 +32,7 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public static class CommandFactory
     {
-        #region Valid commands
+        #region Command list
         /// <summary>
         /// A list of command names (without alternatives) as used in command-line arguments in lower-case.
         /// </summary>
@@ -58,6 +58,8 @@ namespace ZeroInstall.Commands
                     return new Selection(resolver);
                 case Download.Name:
                     return new Download(resolver);
+                case Fetch.Name:
+                    return new Fetch(resolver);
                 case Update.Name:
                     return new Update(resolver);
                 case Run.Name:

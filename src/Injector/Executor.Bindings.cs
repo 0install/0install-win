@@ -374,9 +374,14 @@ namespace ZeroInstall.Injector
             }
             _runEnvPendings.Clear();
 
-            // Make sure archives always get extracted by .NET code even if a Python-version of Zero Install is executed
             if (WindowsUtils.IsWindows)
+            {
+                // Download implementations with .NET code even if a Python-version of Zero Install is executed
+                startInfo.EnvironmentVariables["ZEROINSTALL_EXTERNAL_FETCHER"] = new[] {Path.Combine(Locations.InstallBase, "0install.exe"), "fetch"}.JoinEscapeArguments();
+
+                // Extracted archvies with .NET code even if a Python-version of Zero Install is executed
                 startInfo.EnvironmentVariables["ZEROINSTALL_EXTERNAL_STORE"] = Path.Combine(Locations.InstallBase, "0store.exe");
+            }
         }
         #endregion
 
