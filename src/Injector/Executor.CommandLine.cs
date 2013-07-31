@@ -172,12 +172,17 @@ namespace ZeroInstall.Injector
                 (Arg arg) => result.Add(StringUtils.ExpandUnixVariables(arg.Value, environmentVariables)),
                 (ForEachArgs forEach) =>
                 {
-                    var items = environmentVariables[forEach.ItemFrom].Split(
-                        new[] {forEach.Separator ?? Path.PathSeparator.ToString(CultureInfo.InvariantCulture)}, StringSplitOptions.None);
-                    foreach (string item in items)
+                    string valueToSplit = environmentVariables[forEach.ItemFrom];
+                    if (!string.IsNullOrEmpty(valueToSplit))
                     {
-                        environmentVariables["item"] = item;
-                        result.AddRange(forEach.Arguments.Select(arg => StringUtils.ExpandUnixVariables(arg.Value, environmentVariables)));
+                        string[] items = valueToSplit.Split(
+                            new[] {forEach.Separator ?? Path.PathSeparator.ToString(CultureInfo.InvariantCulture)}, StringSplitOptions.None);
+                        foreach (string item in items)
+                        {
+                            environmentVariables["item"] = item;
+                            result.AddRange(forEach.Arguments.Select(arg => StringUtils.ExpandUnixVariables(arg.Value, environmentVariables)));
+                        }
+                        environmentVariables.Remove("item");
                     }
                 }
             }.Dispatch(commandLine);
