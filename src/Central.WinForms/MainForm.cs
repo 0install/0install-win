@@ -486,7 +486,7 @@ namespace ZeroInstall.Central.WinForms
             }
             #endregion
 
-            if (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey))
+            if (!config.SyncServer.IsFile && (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey)))
             {
                 using (var wizard = new SyncWizards.SetupWizard(_machineWide))
                     wizard.ShowDialog(this);

@@ -29,7 +29,6 @@ using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
-using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -187,7 +186,7 @@ namespace ZeroInstall.DesktopIntegration
                             var response = ex.Response as HttpWebResponse;
                             if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
                                 throw new WebException(Resources.SyncCredentialsInvalid, ex);
-                            break;
+                            else throw;
 
                         case WebExceptionStatus.Timeout:
                             // In case of timeout retry exactly once
@@ -197,9 +196,13 @@ namespace ZeroInstall.DesktopIntegration
                                 Handler.CancellationToken.ThrowIfCancellationRequested();
                                 goto Retry;
                             }
+                            else throw;
+                            
+                        default:
+                            if (ex.InnerException.InnerException is FileNotFoundException) appListData = new byte[0];
+                            else throw;
                             break;
                     }
-                    throw;
                 }
                 #endregion
 
@@ -249,9 +252,12 @@ namespace ZeroInstall.DesktopIntegration
                     var memoryStream = new MemoryStream();
                     AppList.SaveXmlZip(memoryStream, _cryptoKey, null);
 
-                    // Prevent "lost updates" (race conditions) by only allowing replacement of older data
-                    if (resetMode == SyncResetMode.None && !string.IsNullOrEmpty(webClient.ResponseHeaders[HttpResponseHeader.ETag]))
-                        webClient.Headers[HttpRequestHeader.IfMatch] = webClient.ResponseHeaders[HttpResponseHeader.ETag];
+                    // Prevent "lost updates" (race conditions) with HTTP ETags
+                    if (resetMode == SyncResetMode.None && (appListUri.Scheme == "http" || appListUri.Scheme == "https"))
+                    {
+                        if (!string.IsNullOrEmpty(webClient.ResponseHeaders[HttpResponseHeader.ETag]))
+                            webClient.Headers[HttpRequestHeader.IfMatch] = webClient.ResponseHeaders[HttpResponseHeader.ETag];
+                    }
                     try
                     {
                         // ToDo: Allow cancel
@@ -292,8 +298,8 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="resetClient">Set to <see langword="true"/> to completly replace the contents of <see cref="IIntegrationManager.AppList"/> with <paramref name="remoteAppList"/> instead of merging the two.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="Capabilities.Capability"/> is invalid.</exception>
-        /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Capabilities.Capability"/>s is invalid.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="ZeroInstall.Model.Capabilities.Capability"/> is invalid.</exception>
+        /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="ZeroInstall.Model.Capabilities.Capability"/>s is invalid.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="InvalidOperationException">Thrown if one or more new <see cref="AccessPoint"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>

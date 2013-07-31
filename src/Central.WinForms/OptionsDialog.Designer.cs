@@ -128,7 +128,6 @@
             // 
             this.textBoxSyncServer.AllowDrop = true;
             resources.ApplyResources(this.textBoxSyncServer, "textBoxSyncServer");
-            this.textBoxSyncServer.HttpOnly = true;
             this.textBoxSyncServer.Name = "textBoxSyncServer";
             // 
             // labelServer
