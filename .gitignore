@@ -10,4 +10,5 @@ obj
 *.DotSettings
 _ReSharper.*
 _TeamCity.*
+_dotTrace.*
 bundled/Solver
