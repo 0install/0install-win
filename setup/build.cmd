@@ -27,7 +27,7 @@ if errorlevel 1 pause
 cd /d "%~dp0..\build\Frontend\Release"
 zip -q -9 -r "%TargetDir%\zero-install.zip" . --exclude .svn *.log *.mdb *.vshost.exe Test.* nunit.* Mono.* *.pdb *.xml
 if errorlevel 1 pause
-zip -q -9 -j "%TargetDir%\zero-install.zip" "%~dp0..\license.txt"
+zip -q -9 -j "%TargetDir%\zero-install.zip" "%~dp0..\COPYING.txt"
 if errorlevel 1 pause
 zip -q -9 -j "%TargetDir%\zero-install.zip" "%~dp0..\3rd party code.txt"
 if errorlevel 1 pause
@@ -37,12 +37,12 @@ cd /d "%~dp0"
 echo ##teamcity[publishArtifacts 'build/Setup/zero-install.zip']
 
 echo ##teamcity[progressMessage 'Building TAR.BZ2 archive']
-bsdtar -cjf "%TargetDir%\zero-install-%version%.tar.bz2" --exclude=.svn --exclude=*.log --exclude=*.mdb --exclude=*.vshost.exe --exclude=Test.* --exclude=nunit.* --exclude=Mono.* --exclude=*.pdb --exclude=*.xml -C "%~dp0.." "license.txt" -C "%~dp0.." "3rd party code.txt" -C "%~dp0..\bundled" GnuPG Solver -C "%~dp0..\build\Frontend\Release" .
+bsdtar -cjf "%TargetDir%\zero-install-%version%.tar.bz2" --exclude=.svn --exclude=*.log --exclude=*.mdb --exclude=*.vshost.exe --exclude=Test.* --exclude=nunit.* --exclude=Mono.* --exclude=*.pdb --exclude=*.xml -C "%~dp0.." "COPYING.txt" -C "%~dp0.." "3rd party code.txt" -C "%~dp0..\bundled" GnuPG Solver -C "%~dp0..\build\Frontend\Release" .
 if errorlevel 1 pause
 echo ##teamcity[publishArtifacts 'build/Setup/zero-install-%version%.tar.bz2']
 
 echo ##teamcity[progressMessage 'Building Tools archive']
-bsdtar -cjf "%TargetDir%\zero-install-tools-%version_tools%.tar.bz2" --exclude=.svn --exclude=*.log --exclude=*.mdb --exclude=*.vshost.exe --exclude=Test.* --exclude=nunit.* --exclude=Mono.* --exclude=*.pdb --exclude=*.xml -C "%~dp0.." "license.txt" -C "%~dp0.." "3rd party code.txt" -C "%~dp0..\build\Tools\Release" .
+bsdtar -cjf "%TargetDir%\zero-install-tools-%version_tools%.tar.bz2" --exclude=.svn --exclude=*.log --exclude=*.mdb --exclude=*.vshost.exe --exclude=Test.* --exclude=nunit.* --exclude=Mono.* --exclude=*.pdb --exclude=*.xml -C "%~dp0.." "COPYING.txt" -C "%~dp0.." "3rd party code.txt" -C "%~dp0..\build\Tools\Release" .
 if errorlevel 1 pause
 echo ##teamcity[publishArtifacts 'build/Setup/zero-install-tools-%version_tools%.tar.bz2']
 
@@ -52,7 +52,7 @@ zip -q -9 -r "%TargetDir%\zero-install-tools-dev.zip" GnuPG
 cd /d "%~dp0..\build\Tools\Release"
 zip -q -9 -r "%TargetDir%\zero-install-tools-dev.zip" . --exclude=.svn --exclude *.log *.mdb *.vshost.exe Test.* nunit.* Mono.*
 if errorlevel 1 pause
-zip -q -9 -j "%TargetDir%\zero-install-tools-dev.zip" "%~dp0..\license.txt"
+zip -q -9 -j "%TargetDir%\zero-install-tools-dev.zip" "%~dp0..\COPYING.txt"
 if errorlevel 1 pause
 zip -q -9 -j "%TargetDir%\zero-install-tools-dev.zip" "%~dp0..\3rd party code.txt"
 if errorlevel 1 pause
@@ -65,7 +65,7 @@ zip -q -9 -r "%TargetDir%\zero-install-backend-dev.zip" GnuPG Solver
 cd /d "%~dp0..\build\Backend\Release"
 zip -q -9 -r "%TargetDir%\zero-install-backend-dev.zip" . --exclude .svn *.log *.mdb *.vshost.exe Test.* nunit.* Mono.*
 if errorlevel 1 pause
-zip -q -9 -j "%TargetDir%\zero-install-backend-dev.zip" "%~dp0..\license.txt"
+zip -q -9 -j "%TargetDir%\zero-install-backend-dev.zip" "%~dp0..\COPYING.txt"
 if errorlevel 1 pause
 zip -q -9 -j "%TargetDir%\zero-install-backend-dev.zip" "%~dp0..\3rd party code.txt"
 if errorlevel 1 pause

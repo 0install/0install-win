@@ -75,7 +75,7 @@ Name: de; MessagesFile: compiler:Languages\German.isl
 Name: en; MessagesFile: compiler:Default.isl
 
 [Files]
-Source: ..\license.txt; DestDir: {app}; Flags: ignoreversion
+Source: ..\COPYING.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\3rd party code.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,*.xml; DestDir: {app}; Flags: ignoreversion recursesubdirs
 Source: ..\bundled\GnuPG\*; DestDir: {app}\GnuPG; Flags: ignoreversion recursesubdirs
