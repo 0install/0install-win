@@ -1,14 +1,14 @@
 syntax: glob
-build
+build/
+bundled/Solver/
 *.VisualState.xml
 TestResult.xml
-obj
 *.bak
 *.cache
 *.suo
 *.user
 *.DotSettings
-_ReSharper.*
-_TeamCity.*
-_dotTrace.*
-bundled/Solver
+obj/
+_ReSharper.*/
+_TeamCity.*/
+_dotTrace.*/
