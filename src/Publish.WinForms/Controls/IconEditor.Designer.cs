@@ -28,25 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelUrl = new System.Windows.Forms.Label();
+            this.labelHref = new System.Windows.Forms.Label();
             this.comboBoxMimeType = new System.Windows.Forms.ComboBox();
             this.lableStatus = new System.Windows.Forms.Label();
             this.labelMimeType = new System.Windows.Forms.Label();
             this.buttonPreview = new System.Windows.Forms.Button();
             this.pictureBoxPreview = new System.Windows.Forms.PictureBox();
-            this.textBoxUrl = new Common.Controls.UriTextBox();
+            this.textBoxHref = new Common.Controls.UriTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).BeginInit();
             this.SuspendLayout();
             // 
-            // labelUrl
+            // labelHref
             // 
-            this.labelUrl.AutoSize = true;
-            this.labelUrl.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelUrl.Location = new System.Drawing.Point(0, 30);
-            this.labelUrl.Name = "labelUrl";
-            this.labelUrl.Size = new System.Drawing.Size(56, 13);
-            this.labelUrl.TabIndex = 2;
-            this.labelUrl.Text = "Icon URL:";
+            this.labelHref.AutoSize = true;
+            this.labelHref.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.labelHref.Location = new System.Drawing.Point(0, 30);
+            this.labelHref.Name = "labelHref";
+            this.labelHref.Size = new System.Drawing.Size(56, 13);
+            this.labelHref.TabIndex = 2;
+            this.labelHref.Text = "Icon URL:";
             // 
             // comboBoxMimeType
             // 
@@ -106,22 +106,22 @@
             this.pictureBoxPreview.TabIndex = 19;
             this.pictureBoxPreview.TabStop = false;
             // 
-            // textBoxUrl
+            // textBoxHref
             // 
-            this.textBoxUrl.AllowDrop = true;
-            this.textBoxUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBoxHref.AllowDrop = true;
+            this.textBoxHref.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxUrl.HintText = "HTTP Address (required)";
-            this.textBoxUrl.HttpOnly = true;
-            this.textBoxUrl.Location = new System.Drawing.Point(71, 27);
-            this.textBoxUrl.Name = "textBoxUrl";
-            this.textBoxUrl.Size = new System.Drawing.Size(79, 20);
-            this.textBoxUrl.TabIndex = 3;
+            this.textBoxHref.HintText = "HTTP Address (required)";
+            this.textBoxHref.HttpOnly = true;
+            this.textBoxHref.Location = new System.Drawing.Point(71, 27);
+            this.textBoxHref.Name = "textBoxHref";
+            this.textBoxHref.Size = new System.Drawing.Size(79, 20);
+            this.textBoxHref.TabIndex = 3;
             // 
             // IconEditor
             // 
-            this.Controls.Add(this.textBoxUrl);
-            this.Controls.Add(this.labelUrl);
+            this.Controls.Add(this.textBoxHref);
+            this.Controls.Add(this.labelHref);
             this.Controls.Add(this.comboBoxMimeType);
             this.Controls.Add(this.lableStatus);
             this.Controls.Add(this.labelMimeType);
@@ -136,12 +136,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Label labelUrl;
+        private System.Windows.Forms.Label labelHref;
         private System.Windows.Forms.ComboBox comboBoxMimeType;
         private System.Windows.Forms.Label lableStatus;
         private System.Windows.Forms.Label labelMimeType;
         private System.Windows.Forms.Button buttonPreview;
         private System.Windows.Forms.PictureBox pictureBoxPreview;
-        private Common.Controls.UriTextBox textBoxUrl;
+        private Common.Controls.UriTextBox textBoxHref;
     }
 }

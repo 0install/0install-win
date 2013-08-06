@@ -28,57 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelsize = new System.Windows.Forms.Label();
-            this.textBoxSize = new Common.Controls.HintTextBox();
-            this.labelUrl = new System.Windows.Forms.Label();
-            this.textBoxUrl = new Common.Controls.UriTextBox();
             this.labelDestination = new System.Windows.Forms.Label();
             this.textBoxDestination = new Common.Controls.HintTextBox();
             this.SuspendLayout();
-            // 
-            // labelsize
-            // 
-            this.labelsize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelsize.AutoSize = true;
-            this.labelsize.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelsize.Location = new System.Drawing.Point(0, 29);
-            this.labelsize.Name = "labelsize";
-            this.labelsize.Size = new System.Drawing.Size(47, 13);
-            this.labelsize.TabIndex = 2;
-            this.labelsize.Text = "File size:";
-            // 
-            // textBoxSize
-            // 
-            this.textBoxSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxSize.HintText = "in bytes (required)";
-            this.textBoxSize.Location = new System.Drawing.Point(77, 26);
-            this.textBoxSize.Name = "textBoxSize";
-            this.textBoxSize.Size = new System.Drawing.Size(73, 20);
-            this.textBoxSize.TabIndex = 3;
-            // 
-            // labelUrl
-            // 
-            this.labelUrl.AutoSize = true;
-            this.labelUrl.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelUrl.Location = new System.Drawing.Point(0, 3);
-            this.labelUrl.Name = "labelUrl";
-            this.labelUrl.Size = new System.Drawing.Size(69, 13);
-            this.labelUrl.TabIndex = 0;
-            this.labelUrl.Text = "Source URL:";
-            // 
-            // textBoxUrl
-            // 
-            this.textBoxUrl.AllowDrop = true;
-            this.textBoxUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxUrl.HintText = "HTTP/FTP URL (required)";
-            this.textBoxUrl.Location = new System.Drawing.Point(77, 0);
-            this.textBoxUrl.Name = "textBoxUrl";
-            this.textBoxUrl.Size = new System.Drawing.Size(73, 20);
-            this.textBoxUrl.TabIndex = 1;
-            this.textBoxUrl.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // labelDestination
             // 
@@ -109,10 +61,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.labelDestination);
             this.Controls.Add(this.textBoxDestination);
-            this.Controls.Add(this.labelsize);
-            this.Controls.Add(this.textBoxSize);
-            this.Controls.Add(this.labelUrl);
-            this.Controls.Add(this.textBoxUrl);
             this.Name = "SingleFileEditor";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -121,10 +69,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label labelsize;
-        private Common.Controls.HintTextBox textBoxSize;
-        private System.Windows.Forms.Label labelUrl;
-        private Common.Controls.UriTextBox textBoxUrl;
         private System.Windows.Forms.Label labelDestination;
         private Common.Controls.HintTextBox textBoxDestination;
 

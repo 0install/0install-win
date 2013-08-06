@@ -38,11 +38,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
     public abstract class RetrievalMethodEditor<T> : EditorControlBase<T>, IEditorControlContainerRef<T, Implementation>
         where T : RetrievalMethod
     {
-        #region Variables
-        private readonly Label _labelUpdateHint;
-        private readonly Button _buttonUpdate;
-        #endregion
-
         #region Properties
         private Implementation _containerRef;
 
@@ -61,6 +56,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
         #endregion
 
         #region Constructor
+        private readonly Label _labelUpdateHint;
+        private readonly Button _buttonUpdate;
+
         protected RetrievalMethodEditor()
         {
             Controls.Add(_labelUpdateHint = new Label

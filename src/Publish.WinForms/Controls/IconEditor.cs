@@ -36,7 +36,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         public IconEditor()
         {
             InitializeComponent();
-            RegisterControl(textBoxUrl, new PropertyPointer<Uri>(() => Target.Href, value => Target.Href = value));
+            RegisterControl(textBoxHref, new PropertyPointer<Uri>(() => Target.Href, value => Target.Href = value));
             RegisterControl(comboBoxMimeType, new PropertyPointer<string>(() => Target.MimeType, value => Target.MimeType = value));
 
             // ReSharper disable CoVariantArrayConversion
@@ -47,7 +47,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         #region Preview
         /// <summary>
-        /// Tries to download the image with the url from <see cref="textBoxUrl"/> and shows it in <see cref="pictureBoxPreview"/>.
+        /// Tries to download the image with the url from <see cref="textBoxHref"/> and shows it in <see cref="pictureBoxPreview"/>.
         /// Sets the right <see cref="ImageFormat"/> from the downloaded image in <see cref="comboBoxMimeType"/>.
         /// Error messages will be shown in <see cref="lableStatus"/>.
         /// </summary>
@@ -55,7 +55,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <param name="e">Not used.</param>
         private void buttonPreview_Click(object sender, EventArgs e)
         {
-            if (!textBoxUrl.IsValid || textBoxUrl.Uri == null) return;
+            if (!textBoxHref.IsValid || textBoxHref.Uri == null) return;
 
             pictureBoxPreview.Image = null;
             ShowStatusMessage(SystemColors.ControlText, Resources.DownloadingPeviewImage);
@@ -63,7 +63,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             Image icon;
             try
             {
-                icon = GetImageFromUrl(textBoxUrl.Uri);
+                icon = GetImageFromUrl(textBoxHref.Uri);
             }
                 #region Error handling
             catch (WebException ex)
