@@ -64,9 +64,9 @@
             this.labelUrl.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.labelUrl.Location = new System.Drawing.Point(0, 3);
             this.labelUrl.Name = "labelUrl";
-            this.labelUrl.Size = new System.Drawing.Size(71, 13);
+            this.labelUrl.Size = new System.Drawing.Size(69, 13);
             this.labelUrl.TabIndex = 0;
-            this.labelUrl.Text = "Archive URL:";
+            this.labelUrl.Text = "Source URL:";
             // 
             // textBoxUrl
             // 
@@ -78,6 +78,7 @@
             this.textBoxUrl.Name = "textBoxUrl";
             this.textBoxUrl.Size = new System.Drawing.Size(73, 20);
             this.textBoxUrl.TabIndex = 1;
+            this.textBoxUrl.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // labelDestination
             // 
@@ -100,6 +101,7 @@
             this.textBoxDestination.Name = "textBoxDestination";
             this.textBoxDestination.Size = new System.Drawing.Size(73, 20);
             this.textBoxDestination.TabIndex = 5;
+            this.textBoxDestination.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // SingleFileEditor
             // 

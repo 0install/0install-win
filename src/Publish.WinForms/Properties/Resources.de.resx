@@ -133,12 +133,30 @@ Ungespeicherte Änderungen verwerfen</value>
   <data name="ImageFormatNotSupported" xml:space="preserve">
     <value>Das Bildformat wird von Zero Install nicht unterstützt.</value>
   </data>
+  <data name="ManifestDigestChanged" xml:space="preserve">
+    <value>Manifest Digest hat sich eventuell geändert.</value>
+  </data>
+  <data name="ManifestDigestMissing" xml:space="preserve">
+    <value>Manifest Digest noch nicht berechnet.</value>
+  </data>
+  <data name="PleaseClick" xml:space="preserve">
+    <value>Bitte klicken Sie:</value>
+  </data>
+  <data name="ReplaceManifestDigest" xml:space="preserve">
+    <value>Manifest Digest stimmt nicht überein. Ersetzen?</value>
+  </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>&amp;Speichern
 Änderungen speichern</value>
   </data>
   <data name="SaveQuestion" xml:space="preserve">
     <value>Möchten Sie die Änderungen speichern?</value>
+  </data>
+  <data name="SizeMissing" xml:space="preserve">
+    <value>Dateigröße noch nicht bestimmt.</value>
+  </data>
+  <data name="UpdateImplementation" xml:space="preserve">
+    <value>Implementierung aktualisieren</value>
   </data>
   <data name="WrongMimeType" xml:space="preserve">
     <value>Falscher MIME Typ! Sollte {0} sein.</value>

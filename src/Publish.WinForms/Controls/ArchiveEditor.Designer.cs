@@ -46,9 +46,9 @@
             this.labelUrl.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.labelUrl.Location = new System.Drawing.Point(0, 3);
             this.labelUrl.Name = "labelUrl";
-            this.labelUrl.Size = new System.Drawing.Size(71, 13);
+            this.labelUrl.Size = new System.Drawing.Size(69, 13);
             this.labelUrl.TabIndex = 0;
-            this.labelUrl.Text = "Archive URL:";
+            this.labelUrl.Text = "Source URL:";
             // 
             // textBoxUrl
             // 
@@ -60,6 +60,7 @@
             this.textBoxUrl.Name = "textBoxUrl";
             this.textBoxUrl.Size = new System.Drawing.Size(73, 20);
             this.textBoxUrl.TabIndex = 1;
+            this.textBoxUrl.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // labelMimeType
             // 
@@ -67,10 +68,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMimeType.AutoSize = true;
             this.labelMimeType.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelMimeType.Location = new System.Drawing.Point(0, 29);
+            this.labelMimeType.Location = new System.Drawing.Point(0, 55);
             this.labelMimeType.Name = "labelMimeType";
             this.labelMimeType.Size = new System.Drawing.Size(65, 13);
-            this.labelMimeType.TabIndex = 2;
+            this.labelMimeType.TabIndex = 4;
             this.labelMimeType.Text = "MIME Type:";
             // 
             // comboBoxMimeType
@@ -78,10 +79,10 @@
             this.comboBoxMimeType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxMimeType.FormattingEnabled = true;
-            this.comboBoxMimeType.Location = new System.Drawing.Point(77, 26);
+            this.comboBoxMimeType.Location = new System.Drawing.Point(77, 52);
             this.comboBoxMimeType.Name = "comboBoxMimeType";
             this.comboBoxMimeType.Size = new System.Drawing.Size(73, 21);
-            this.comboBoxMimeType.TabIndex = 3;
+            this.comboBoxMimeType.TabIndex = 5;
             // 
             // labelSize
             // 
@@ -89,10 +90,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelSize.AutoSize = true;
             this.labelSize.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelSize.Location = new System.Drawing.Point(0, 56);
+            this.labelSize.Location = new System.Drawing.Point(0, 29);
             this.labelSize.Name = "labelSize";
             this.labelSize.Size = new System.Drawing.Size(47, 13);
-            this.labelSize.TabIndex = 4;
+            this.labelSize.TabIndex = 2;
             this.labelSize.Text = "File size:";
             // 
             // textBoxSize
@@ -100,10 +101,10 @@
             this.textBoxSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSize.HintText = "in bytes (required)";
-            this.textBoxSize.Location = new System.Drawing.Point(77, 53);
+            this.textBoxSize.Location = new System.Drawing.Point(77, 26);
             this.textBoxSize.Name = "textBoxSize";
             this.textBoxSize.Size = new System.Drawing.Size(73, 20);
-            this.textBoxSize.TabIndex = 5;
+            this.textBoxSize.TabIndex = 3;
             // 
             // labelExtract
             // 
@@ -126,6 +127,7 @@
             this.textBoxExtract.Name = "textBoxExtract";
             this.textBoxExtract.Size = new System.Drawing.Size(73, 20);
             this.textBoxExtract.TabIndex = 7;
+            this.textBoxExtract.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // labelDestination
             // 
@@ -148,6 +150,7 @@
             this.textBoxDestination.Name = "textBoxDestination";
             this.textBoxDestination.Size = new System.Drawing.Size(73, 20);
             this.textBoxDestination.TabIndex = 9;
+            this.textBoxDestination.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // ArchiveEditor
             // 

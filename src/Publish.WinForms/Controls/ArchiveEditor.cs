@@ -21,6 +21,7 @@ using Common.Storage;
 using Common.Tasks;
 using Common.Undo;
 using ZeroInstall.Model;
+using ZeroInstall.Publish.WinForms.Properties;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -43,6 +44,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
             comboBoxMimeType.Items.AddRange(Archive.KnownMimeTypes);
             // ReSharper restore CoVariantArrayConversion
         }
+
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+            ShowUpdateHint(Resources.ManifestDigestChanged);
+        }
     }
 
     /// <summary>
@@ -50,6 +56,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
     /// </summary>
     public class ArchiveEditorShim : DownloadRetrievalMethodEditor<Archive>
     {
+        /// <inheritdoc/>
         protected override TemporaryDirectory Download(ITaskHandler handler, ICommandExecutor executor)
         {
             return ImplementationUtils.DownloadArchive(Target, handler, executor);

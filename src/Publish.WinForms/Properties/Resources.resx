@@ -136,12 +136,30 @@ Discard unsaved changes</value>
   <data name="ImageFormatNotSupported" xml:space="preserve">
     <value>The image format is not supported by Zero Install.</value>
   </data>
+  <data name="ManifestDigestChanged" xml:space="preserve">
+    <value>Manifest digest may have changed.</value>
+  </data>
+  <data name="ManifestDigestMissing" xml:space="preserve">
+    <value>Manifest digest not calculated yet.</value>
+  </data>
+  <data name="PleaseClick" xml:space="preserve">
+    <value>Please click:</value>
+  </data>
+  <data name="ReplaceManifestDigest" xml:space="preserve">
+    <value>Manifest digest mismatch. Replace?</value>
+  </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>&amp;Save
 Save changes</value>
   </data>
   <data name="SaveQuestion" xml:space="preserve">
     <value>Do you want to save the changes?</value>
+  </data>
+  <data name="SizeMissing" xml:space="preserve">
+    <value>File size not determined yet.</value>
+  </data>
+  <data name="UpdateImplementation" xml:space="preserve">
+    <value>Update implementation</value>
   </data>
   <data name="WrongMimeType" xml:space="preserve">
     <value>Wrong MIME type! Should be {0}.</value>

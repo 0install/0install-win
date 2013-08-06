@@ -16,6 +16,7 @@
  */
 
 using ZeroInstall.Model;
+using ZeroInstall.Publish.WinForms.Properties;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -25,5 +26,14 @@ namespace ZeroInstall.Publish.WinForms.Controls
     /// <typeparam name="T">The type of <see cref="DownloadRetrievalMethod"/> to edit.</typeparam>
     public abstract class DownloadRetrievalMethodEditor<T> : RetrievalMethodEditor<T>
         where T : DownloadRetrievalMethod
-    {}
+    {
+        /// <summary>
+        /// Displays hints explaining why calling "Update" may be required.
+        /// </summary>
+        protected override void UpdateHint()
+        {
+            if (Target.Size == 0) ShowUpdateHint(Resources.SizeMissing);
+            else base.UpdateHint();
+        }
+    }
 }

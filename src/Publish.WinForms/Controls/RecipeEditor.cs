@@ -38,6 +38,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
     /// </summary>
     public class RecipeEditorShim : RetrievalMethodEditor<Recipe>
     {
+        /// <inheritdoc/>
         protected override TemporaryDirectory Download(ITaskHandler handler, ICommandExecutor executor)
         {
             return ImplementationUtils.DownloadRecipe(Target, handler, executor);
