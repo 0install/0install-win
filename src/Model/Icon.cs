@@ -24,8 +24,11 @@ using ZeroInstall.Model.Design;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// An icon for an interface.
+    /// An icon representing an application. Is used in the Catalog GUI as well as for desktop icons, menu entries, etc..
     /// </summary>
+    /// <seealso cref="Feed.Icons"/>
+    /// <seealso cref="EntryPoint.Icons"/>
+    [Description("An icon representing an application. Is used in the Catalog GUI as well as for desktop icons, menu entries, etc..")]
     [Serializable]
     [XmlRoot("icon", Namespace = Feed.XmlNamespace), XmlType("icon", Namespace = Feed.XmlNamespace)]
     public class Icon : XmlUnknown, ICloneable, IEquatable<Icon>

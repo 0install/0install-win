@@ -38,8 +38,8 @@ namespace ZeroInstall.Model
     ///   </code>
     /// </para>
     /// </remarks>
-    [TypeConverter(typeof(StringConstructorConverter<ImplementationVersion>))]
     [Serializable]
+    [TypeConverter(typeof(StringConstructorConverter<ImplementationVersion>))]
     public sealed class ImplementationVersion : IEquatable<ImplementationVersion>, IComparable<ImplementationVersion>
     {
         #region Variables

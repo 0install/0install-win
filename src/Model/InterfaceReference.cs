@@ -23,10 +23,11 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A reference to an interface URI.
-    /// </summary> 
-    /// <remarks>An interface may have one or more actual feeds backing it.</remarks>
+    /// A reference to an interface URI, e.g. for specifying which interface this feed implements or by which interface it is replaced.
+    /// </summary>
     /// <seealso cref="Feed.FeedFor"/>
+    /// <seealso cref="Feed.ReplacedBy"/>
+    [Description("A reference to an interface URI, e.g. for specifying which interface this feed implements or by which interface it is replaced.")]
     [Serializable]
     [XmlRoot("interface-reference", Namespace = Feed.XmlNamespace), XmlType("interface-reference", Namespace = Feed.XmlNamespace)]
     public sealed class InterfaceReference : FeedElement, ICloneable, IEquatable<InterfaceReference>

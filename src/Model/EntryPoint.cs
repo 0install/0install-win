@@ -28,6 +28,7 @@ namespace ZeroInstall.Model
     /// </summary>
     /// <seealso cref="Feed.EntryPoints"/>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Description("Associates a command with a user-friendly name and description.")]
     [Serializable]
     [XmlRoot("entry-point", Namespace = Feed.XmlNamespace), XmlType("entry-point", Namespace = Feed.XmlNamespace)]
     public sealed class EntryPoint : FeedElement, IIconContainer, ISummaryContainer, ICloneable, IEquatable<EntryPoint>

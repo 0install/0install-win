@@ -25,10 +25,12 @@ using Common.Utils;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// All attributes of the group are inherited by any child groups and <see cref="Implementation"/>s as defaults, but can be overridden there.
-    /// All <see cref="Dependency"/>s and <see cref="Binding"/>s are inherited (sub-groups may add more <see cref="Dependency"/>s and <see cref="Binding"/>s to the list, but cannot remove anything).
+    /// All attributes of a group are inherited by any child <seealso cref="Group"/>s and <see cref="Implementation"/>s as defaults, but can be overridden there.
+    /// All <see cref="Dependency"/>s and <see cref="Binding"/>s are inherited (sub-groups may add more <see cref="Dependency"/>s and <see cref="Binding"/>s to the list, but cannot remove any).
     /// </summary>
+    /// <seealso cref="Feed.Elements"/>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Description("All attributes of a group are inherited by any child Groups and Implementations as defaults, but can be overridden there. All Dependencys and Bindings are inherited (sub-groups may add more Dependencys and Bindings to the list, but cannot remove any).")]
     [Serializable]
     [XmlRoot("group", Namespace = Feed.XmlNamespace), XmlType("group", Namespace = Feed.XmlNamespace)]
     public sealed class Group : Element, IElementContainer, IEquatable<Group>

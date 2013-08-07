@@ -22,8 +22,10 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Represents version restrictions for a specific sub-implementation in a selection process.
+    /// A version restriction for a specific sub-implementation in a selection process.
     /// </summary>
+    [Description("A version restriction for a specific sub-implementation in a selection process.")]
+    [Serializable]
     [XmlRoot("version-for", Namespace = Feed.XmlNamespace), XmlType("version-for", Namespace = Feed.XmlNamespace)]
     public class VersionFor : ICloneable, IEquatable<VersionFor>
     {

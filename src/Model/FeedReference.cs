@@ -22,10 +22,10 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// An additional feed for an interface.
+    /// A linked feed that contains more implementations of this feed's interface. Is treated by the solver as if it were part of the main feed.
     /// </summary>
-    /// <remarks>An interface may have one or more actual feeds backing it.</remarks>
     /// <seealso cref="Feed.Feeds"/>
+    [Description("A linked feed that contains more implementations of this feed's interface. Is treated by the solver as if it were part of the main feed.")]
     [Serializable]
     [XmlRoot("feed-reference", Namespace = Feed.XmlNamespace), XmlType("feed-reference", Namespace = Feed.XmlNamespace)]
     public sealed class FeedReference : TargetBase, ICloneable, IEquatable<FeedReference>

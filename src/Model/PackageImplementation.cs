@@ -25,14 +25,11 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// An implementation of a <see cref="Feed"/> provided by a distribution-specific package manager.
+    /// An implementation provided by a distribution-specific package manager instead of Zero Install.
     /// </summary>
-    /// <remarks>
-    /// Unlike a normal <see cref="Model.Implementation"/>, a distribution package does not resolve to a directory.
-    /// Any <see cref="Binding"/>s inside <see cref="Dependency"/>s for the <see cref="Feed"/> will be ignored; it is assumed that the requiring component knows how to use the packaged version without further help.
-    /// Therefore, adding<see cref="PackageImplementation"/>s to your <see cref="Feed"/> considerably weakens the guarantees you are making about what the requestor may get. 
-    /// </remarks>
+    /// <remarks>Any <see cref="Binding"/>s inside <see cref="Dependency"/>s for the <see cref="Feed"/> will be ignored; it is assumed that the requiring component knows how to use the packaged version without further help.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Description("An implementation provided by a distribution-specific package manager instead of Zero Install.")]
     [Serializable]
     [XmlRoot("package-implementation", Namespace = Feed.XmlNamespace), XmlType("package-implementation", Namespace = Feed.XmlNamespace)]
     public sealed class PackageImplementation : Element, IEquatable<PackageImplementation>

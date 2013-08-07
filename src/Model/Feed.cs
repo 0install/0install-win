@@ -36,6 +36,7 @@ namespace ZeroInstall.Model
     /// Feeds downloaded from remote locations are protected from tampering by a OpenPGP signature.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Description("A feed contains all the information required to download and execute an application.")]
     [Serializable]
     [XmlRoot("interface", Namespace = XmlNamespace), XmlType("interface", Namespace = XmlNamespace)]
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
@@ -125,7 +126,7 @@ namespace ZeroInstall.Model
         private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
 
         /// <summary>
-        /// Zero or more icons to represent the program.
+        /// Zero or more icons to represent the application.
         /// </summary>
         [Browsable(false)]
         [XmlElement("icon")]

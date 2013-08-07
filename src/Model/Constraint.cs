@@ -22,8 +22,9 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Restricts the set of versions from which the injector may choose an <see cref="Implementation"/>. 
+    /// Restricts the set of versions from which the injector may choose an <see cref="Implementation"/>.
     /// </summary>
+    [Description("Restricts the set of versions from which the injector may choose an implementation.")]
     [Serializable]
     [XmlRoot("constraint", Namespace = Feed.XmlNamespace), XmlType("constraint", Namespace = Feed.XmlNamespace)]
     public class Constraint : FeedElement, ICloneable, IEquatable<Constraint>

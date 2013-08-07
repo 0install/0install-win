@@ -24,6 +24,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Zero Install will not know how to run a program using generic bindings itself, but it will include them in any selections documents it creates, which can then be executed by your custom code.
     /// </summary>
+    [Description("Zero Install will not know how to run a program using generic bindings itself, but it will include them in any selections documents it creates, which can then be executed by your custom code.")]
     [Serializable]
     [XmlRoot("binding", Namespace = Feed.XmlNamespace), XmlType("binding", Namespace = Feed.XmlNamespace)]
     public sealed class GenericBinding : Binding, IEquatable<GenericBinding>

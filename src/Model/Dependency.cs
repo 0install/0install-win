@@ -45,6 +45,7 @@ namespace ZeroInstall.Model
     /// A reference to an interface that is required as dependency.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Description("A reference to an interface that is required as dependency.")]
     [Serializable]
     [XmlRoot("dependency", Namespace = Feed.XmlNamespace), XmlType("depedency", Namespace = Feed.XmlNamespace)]
     public class Dependency : Restriction, IBindingContainer, IEquatable<Dependency>

@@ -25,9 +25,10 @@ using Common.Collections;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A reference to an interface that is restricted to specific versions when used.
+    /// Applies constraints on an interface without creating a dependency.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Description("Applies constraints on an interface without creating a dependency.")]
     [Serializable]
     [XmlRoot("restriction", Namespace = Feed.XmlNamespace), XmlType("restriction", Namespace = Feed.XmlNamespace)]
     public class Restriction : FeedElement, ICloneable, IEquatable<Restriction>

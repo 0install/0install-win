@@ -24,10 +24,11 @@ using Common.Collections;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A reference to an interface that is required by an <see cref="Command"/> as a runner.
+    /// A special kind of dependency: the program that is used to run this one. For example, a Python program might specify Python as its runner.
     /// </summary>
     /// <seealso cref="Model.Command.Runner"/>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Description("A special kind of dependency: the program that is used to run this one. For example, a Python program might specify Python as its runner.")]
     [Serializable]
     [XmlRoot("runner", Namespace = Feed.XmlNamespace), XmlType("runner", Namespace = Feed.XmlNamespace)]
     public class Runner : Dependency, IArgBaseContainer, IEquatable<Runner>

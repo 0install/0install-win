@@ -25,7 +25,6 @@ namespace ZeroInstall.Model
     /// Represents an individual non-disjoint part of a <see cref="VersionRange"/>.
     /// </summary>
     /// <remarks>This class is immutable and thread-safe.</remarks>
-    [Serializable]
     internal abstract class VersionRangePart
     {
         #region Factory
@@ -76,6 +75,7 @@ namespace ZeroInstall.Model
     }
 
     #region Specific types
+    [Serializable]
     internal sealed class VersionRangeExact : VersionRangePart
     {
         private readonly ImplementationVersion _version;
@@ -130,6 +130,7 @@ namespace ZeroInstall.Model
         #endregion
     }
 
+    [Serializable]
     internal sealed class VersionRangeExclude : VersionRangePart
     {
         private readonly ImplementationVersion _version;
@@ -184,6 +185,7 @@ namespace ZeroInstall.Model
         #endregion
     }
 
+    [Serializable]
     internal sealed class VersionRangeRange : VersionRangePart
     {
         private readonly ImplementationVersion _startVersion;

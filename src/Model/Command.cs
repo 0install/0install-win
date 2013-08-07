@@ -28,6 +28,7 @@ namespace ZeroInstall.Model
     /// </summary>
     /// <seealso cref="Element.Commands"/>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Description("A command says how to run an implementation as a program.")]
     [Serializable]
     [XmlRoot("command", Namespace = Feed.XmlNamespace), XmlType("command", Namespace = Feed.XmlNamespace)]
     public class Command : FeedElement, IArgBaseContainer, IBindingContainer, IDependencyContainer, ICloneable, IEquatable<Command>
@@ -85,7 +86,7 @@ namespace ZeroInstall.Model
         public C5.ArrayList<Binding> Bindings { get { return _bindings; } }
 
         /// <summary>
-        /// Switches the working directory of the process on startup to a location within the <see cref="Model.Implementation"/>.
+        /// Switches the working directory of a process on startup to a location within an implementation.
         /// </summary>
         [Browsable(false)]
         [XmlElement("working-dir")]
@@ -112,9 +113,8 @@ namespace ZeroInstall.Model
         public C5.ArrayList<Restriction> Restrictions { get { return _restrictions; } }
 
         /// <summary>
-        /// An interface that needs be used as a runner for this command. The <see cref="Path"/> is passed to that interface as an argument.
+        /// A special kind of dependency: the program that is used to run this one. For example, a Python program might specify Python as its runner.
         /// </summary>
-        /// <remarks>Usefull for launching things like Java JARs or Python scripts.</remarks>
         [Browsable(false)]
         [XmlElement("runner")]
         public Runner Runner { get; set; }

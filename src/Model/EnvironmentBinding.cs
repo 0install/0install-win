@@ -45,6 +45,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Make a chosen <see cref="Implementation"/> available by setting environment variables.
     /// </summary>
+    [Description("Make a chosen implementation available by setting environment variables.")]
     [Serializable]
     [XmlRoot("environment", Namespace = Feed.XmlNamespace), XmlType("environment", Namespace = Feed.XmlNamespace)]
     public sealed class EnvironmentBinding : Binding, IEquatable<EnvironmentBinding>

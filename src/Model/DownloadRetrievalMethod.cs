@@ -25,7 +25,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Represents a retrieval method that downloads data from the net.
     /// </summary>
-    [Serializable]
+    [XmlType("download-retrieval-method", Namespace = Feed.XmlNamespace)]
     public abstract class DownloadRetrievalMethod : RetrievalMethod, IRecipeStep, IEquatable<DownloadRetrievalMethod>
     {
         #region Properties

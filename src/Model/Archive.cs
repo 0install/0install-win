@@ -24,8 +24,9 @@ using ZeroInstall.Model.Design;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Represents an archive to be downloaded and extracted.
+    /// Retrieves an implementation by downloading and extracting an archive.
     /// </summary>
+    [Description("Retrieves an implementation by downloading and extracting an archive.")]
     [Serializable]
     [XmlRoot("archive", Namespace = Feed.XmlNamespace), XmlType("archive", Namespace = Feed.XmlNamespace)]
     public sealed class Archive : DownloadRetrievalMethod, IEquatable<Archive>

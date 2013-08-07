@@ -26,10 +26,12 @@ using Common.Utils;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A set of requirements/restrictions imposed by the user on the implementation selection process.
+    /// A set of requirements/restrictions imposed by the user on the <see cref="Implementation"/> selection process.
     /// </summary>
     /// <remarks>This is used as input for the solver.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Description("A set of requirements/restrictions imposed by the user on the Implementation selection process.")]
+    [Serializable]
     [XmlRoot("requirements", Namespace = Feed.XmlNamespace), XmlType("requirements", Namespace = Feed.XmlNamespace)]
     public class Requirements : ICloneable, IEquatable<Requirements>
     {

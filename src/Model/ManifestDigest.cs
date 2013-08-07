@@ -28,12 +28,13 @@ using ZeroInstall.Model.Design;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Stores digests of the .manifest file using various hashing algorithms.
+    /// A manifest digest is a means of uniquely identifying an <see cref="Implementation"/> and verifying its contents.
     /// </summary>
-    /// <remarks>A manifest digest is a means of uniquely identifying an <see cref="Implementation"/> and verifying its contents.</remarks>
+    /// <remarks>Stores digests of the .manifest file using various hashing algorithms.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for string sorting in UI lists")]
-    [TypeConverter(typeof(ManifestDigestConverter))]
+    [Description("A manifest digest is a means of uniquely identifying an Implementation and verifying its contents.")]
     [Serializable]
+    [TypeConverter(typeof(ManifestDigestConverter))]
     [XmlType("manifest-digest", Namespace = Feed.XmlNamespace)]
     public struct ManifestDigest : IEquatable<ManifestDigest>, IComparable<ManifestDigest>
     {

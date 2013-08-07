@@ -30,10 +30,11 @@ namespace ZeroInstall.Model
 {
     /// <summary>
     /// Contains a list of <see cref="Feed"/>s, reduced to only contain information relevant for overview lists.
-    /// For specific <see cref="Implementation"/>s the original <see cref="Feed"/>s are feteched.
+    /// For specific <see cref="Implementation"/>s, fetch the original <see cref="Feed"/>s.
     /// Catalogs downloaded from remote locations are protected from tampering by a OpenPGP signature.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Description("Contains a list of feeds, reduced to only contain information relevant for overview lists.")]
     [Serializable]
     [XmlRoot("catalog", Namespace = XmlNamespace), XmlType("catalog", Namespace = XmlNamespace)]
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]

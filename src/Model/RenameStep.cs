@@ -24,6 +24,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Renames or moves a file or directory. It is an error if the source or destination are outside the implementation.
     /// </summary>
+    [Description("Renames or moves a file or directory. It is an error if the source or destination are outside the implementation.")]
     [Serializable]
     [XmlRoot("rename", Namespace = Feed.XmlNamespace), XmlType("rename", Namespace = Feed.XmlNamespace)]
     public sealed class RenameStep : FeedElement, IRecipeStep, IEquatable<RenameStep>, ICloneable

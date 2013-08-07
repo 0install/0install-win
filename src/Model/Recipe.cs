@@ -24,9 +24,10 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A recipe is a list of <see cref="IRecipeStep"/>s used to create an <see cref="Model.Implementation"/> directory.
+    /// Retrieves an implementation by applying a list of <see cref="IRecipeStep"/>s, such as downloading and combining multiple archives.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Description("Retrieves an implementation by applying a list of recipe steps, such as downloading and combining multiple archives.")]
     [Serializable]
     [XmlRoot("recipe", Namespace = Feed.XmlNamespace), XmlType("recipe", Namespace = Feed.XmlNamespace)]
     public sealed class Recipe : RetrievalMethod, IEquatable<Recipe>

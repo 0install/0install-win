@@ -125,6 +125,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Describes a combination of an operating system and a CPU architecture.
     /// </summary>
+    [Description("Describes a combination of an operating system and a CPU architecture.")]
     [Serializable]
     [TypeConverter(typeof(ArchitectureConverter))]
     public struct Architecture : IEquatable<Architecture>

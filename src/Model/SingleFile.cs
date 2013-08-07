@@ -22,8 +22,9 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Represents a single file to be downloaded.
+    /// Retrieves an implementation by downloading a single file.
     /// </summary>
+    [Description("Retrieves an implementation by downloading a single file.")]
     [Serializable]
     [XmlRoot("file", Namespace = Feed.XmlNamespace), XmlType("file", Namespace = Feed.XmlNamespace)]
     public sealed class SingleFile : DownloadRetrievalMethod, IEquatable<SingleFile>

@@ -22,9 +22,10 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Make a chosen <see cref="Model.Implementation"/> available by overlaying it onto another part of the file-system.
+    /// Make a chosen <see cref="Implementation"/> available by overlaying it onto another part of the file-system.
     /// </summary>
     /// <remarks>This is to support legacy programs which use hard-coded paths.</remarks>
+    [Description("Make a chosen Implementation available by overlaying it onto another part of the file-system.")]
     [Serializable]
     [XmlRoot("overlay", Namespace = Feed.XmlNamespace), XmlType("overlay", Namespace = Feed.XmlNamespace)]
     public sealed class OverlayBinding : Binding, IEquatable<OverlayBinding>

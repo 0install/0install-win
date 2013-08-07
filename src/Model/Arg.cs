@@ -24,6 +24,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// A single command-line arguments to be passed to an executable.
     /// </summary>
+    [Description("A single command-line arguments to be passed to an executable.")]
     [Serializable]
     [XmlRoot("arg", Namespace = Feed.XmlNamespace), XmlType("arg", Namespace = Feed.XmlNamespace)]
     public class Arg : ArgBase, IEquatable<Arg>

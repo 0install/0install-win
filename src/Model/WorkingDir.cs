@@ -22,9 +22,11 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Switches the working directory of a process on startup to a location within an <see cref="Model.Implementation"/>.
+    /// Switches the working directory of a process on startup to a location within an implementation.
+    /// Useful for supporting legacy Windows applications which do not properly locate their installation directory.
     /// </summary>
-    /// <remarks>This is to support legacy programs which can't properly locate their installation directory.</remarks>
+    /// <seealso cref="Command.WorkingDir"/>
+    [Description("Switches the working directory of a process on startup to a location within an implementation. Useful for supporting legacy Windows applications which do not properly locate their installation directory.")]
     [Serializable]
     [XmlRoot("working-dir", Namespace = Feed.XmlNamespace), XmlType("working-dir", Namespace = Feed.XmlNamespace)]
     public sealed class WorkingDir : FeedElement, ICloneable, IEquatable<WorkingDir>
