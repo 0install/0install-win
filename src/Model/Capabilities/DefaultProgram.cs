@@ -24,8 +24,10 @@ using Common.Collections;
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Represents an application's ability to provide some service (e.g. default web-browser, default e-mail client).
+    /// Can act as the default provider for a well-known service such web-browser, e-mail client.
     /// </summary>
+    [Description("Can act as the default provider for a well-known service such web-browser, e-mail client.")]
+    [Serializable]
     [XmlType("default-program", Namespace = CapabilityList.XmlNamespace)]
     public sealed class DefaultProgram : VerbCapability, IEquatable<DefaultProgram>
     {

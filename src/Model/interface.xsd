@@ -63,7 +63,7 @@
           <xsd:element ref="feed:icon">
             <xsd:annotation>
               <xsd:documentation>
-                An icon to use for the program.
+                Zero or more icons representing the application. Used in the Catalog GUI as well as for desktop icons, menu entries, etc..
               </xsd:documentation>
             </xsd:annotation>
           </xsd:element>
@@ -84,7 +84,7 @@
           <xsd:element name="feed" type="feed:feed-reference">
             <xsd:annotation>
               <xsd:documentation>
-                An additional feed containing implementations of this interface.
+                A linked feed that contains more implementations of this feed's interface. Is treated by the solver as if it were part of the main feed.
               </xsd:documentation>
             </xsd:annotation>
           </xsd:element>
@@ -230,7 +230,7 @@
           <xsd:element name="icon" type="feed:icon">
             <xsd:annotation>
               <xsd:documentation>
-                An icon to represent the command.
+                An icon representing the command. Used for desktop icons, menu entries, etc..
               </xsd:documentation>
             </xsd:annotation>
           </xsd:element>
@@ -334,7 +334,7 @@
   <xsd:complexType name="implementation">
     <xsd:annotation>
       <xsd:documentation>
-        An implementation is a specific version of an application, e.g. Firefox 3.6 for Windows.
+        An implementation is a specific version of an application that can be downloaded and executed (e.g. Firefox 3.6 for Windows).
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
@@ -374,7 +374,7 @@
   <xsd:complexType name="package-implementation">
     <xsd:annotation>
       <xsd:documentation>
-        An implementation provided by a distribution-specific package manager.
+        An implementation provided by a distribution-specific package manager instead of Zero Install.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
@@ -402,7 +402,8 @@
   <xsd:complexType name="group">
     <xsd:annotation>
       <xsd:documentation>
-        All attributes of the group are inherited by any child groups and implementations as defaults, but can be overridden there. All dependencies and bindings are inherited (sub-groups may add more dependencies and bidnings to the list, but cannot remove anything).
+        All attributes of a group are inherited by any child groups and implementations as defaults, but can be overridden there.
+        All dependencies and bindings are inherited (sub-groups may add more dependencies and bindings to the list, but cannot remove any).
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
@@ -429,7 +430,6 @@
   <xsd:complexType name="manifest-digest">
     <xsd:annotation>
       <xsd:documentation>
-        Stores digests of the .manifest file using various hashing algorithms.
         A manifest digest is a means of uniquely identifying an implementation and verifying its contents.
       </xsd:documentation>
     </xsd:annotation>
@@ -572,7 +572,7 @@
           <xsd:element name="version" type="feed:constraint">
             <xsd:annotation>
               <xsd:documentation>
-                Restricts the versions that are allowed.
+                Restricts the versions of an implementation that are allowed without creating a dependency on the implementation if its was not already chosen.
               </xsd:documentation>
             </xsd:annotation>
           </xsd:element>
@@ -631,7 +631,7 @@
   <xsd:complexType name="runner">
     <xsd:annotation>
       <xsd:documentation>
-        A reference to an interface that is required by an command as a runner.
+        A special kind of dependency: the program that is used to run this one. For example, a Python program might specify Python as its runner.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
@@ -858,8 +858,8 @@
   <xsd:complexType name="working-dir">
     <xsd:annotation>
       <xsd:documentation>
-        Switches the working directory of a process on startup to a location within an implementation
-        This is to support legacy programs which can't properly locate their installation directory.
+        Switches the working directory of a process on startup to a location within an implementation.
+        Useful for supporting legacy Windows applications which do not properly locate their installation directory.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:attribute name="src" type="xsd:string">
@@ -910,7 +910,7 @@
   <xsd:complexType name="archive">
     <xsd:annotation>
       <xsd:documentation>
-        Represents an archive to be downloaded and extracted.
+        Retrieves an implementation by downloading and extracting an archive.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
@@ -950,7 +950,7 @@
   <xsd:complexType name="file">
     <xsd:annotation>
       <xsd:documentation>
-        Represents an single file to be downloaded.
+        Retrieves an implementation by downloading a single file.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
@@ -968,7 +968,7 @@
   <xsd:complexType name="recipe">
     <xsd:annotation>
       <xsd:documentation>
-        A recipe is a list of recipe steps used to create an implementation directory.
+        Retrieves an implementation by applying a list of recipe steps, such as downloading and combining multiple archives.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>

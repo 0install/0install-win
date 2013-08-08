@@ -126,7 +126,7 @@ namespace ZeroInstall.Model
         private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
 
         /// <summary>
-        /// Zero or more icons to represent the application.
+        /// Zero or more icons representing the application. Used in the Catalog GUI as well as for desktop icons, menu entries, etc..
         /// </summary>
         [Browsable(false)]
         [XmlElement("icon")]
@@ -177,6 +177,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// This feed's interface <see cref="Uri"/> has been replaced by the given interface. Any references to the old URI should be updated to use the new one.
         /// </summary>
+        /// <seealso cref="ImplementationBase.ManifestDigest"/>
         [Browsable(false)]
         [XmlElement("replaced-by")]
         public InterfaceReference ReplacedBy { get; set; }

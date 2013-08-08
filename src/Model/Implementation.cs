@@ -24,11 +24,11 @@ using Common.Collections;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// An implementation is a specific version of an application that can be downloaded and executed.
+    /// An implementation is a specific version of an application that can be downloaded and executed (e.g. Firefox 3.6 for Windows).
     /// </summary>
     /// <seealso cref="Feed.Elements"/>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    [Description("An implementation is a specific version of an application that can be downloaded and executed.")]
+    [Description("An implementation is a specific version of an application that can be downloaded and executed (e.g. Firefox 3.6 for Windows).")]
     [Serializable]
     [XmlRoot("implementation", Namespace = Feed.XmlNamespace), XmlType("implementation", Namespace = Feed.XmlNamespace)]
     public sealed class Implementation : ImplementationBase, IEquatable<Implementation>

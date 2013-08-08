@@ -25,10 +25,11 @@ using Common.Collections;
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Represents an application's ability to act as an AutoPlay handler for certain events.
+    /// An application's ability to handle one or more AutoPlay events.
     /// </summary>
-    /// <remarks>A <see cref="FileType"/> is used for actually executing the application.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
+    [Description("An application's ability to handle one or more AutoPlay events.")]
+    [Serializable]
     [XmlRoot("auto-play", Namespace = CapabilityList.XmlNamespace), XmlType("auto-play", Namespace = CapabilityList.XmlNamespace)]
     public sealed class AutoPlay : IconCapability, IEquatable<AutoPlay>
     {

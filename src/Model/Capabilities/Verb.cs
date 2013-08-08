@@ -24,9 +24,11 @@ using Common.Collections;
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Describes the mapping of an action/verb (e.g. open, edit) to a <see cref="Model.Command"/>.
+    /// The mapping of an action/verb (e.g. open, edit) to a <see cref="Model.Command"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Description("The mapping of an action/verb (e.g. open, edit) to a Command.")]
+    [Serializable]
     [XmlRoot("verb", Namespace = CapabilityList.XmlNamespace), XmlType("verb", Namespace = CapabilityList.XmlNamespace)]
     public sealed class Verb : XmlUnknown, IDescriptionContainer, ICloneable, IEquatable<Verb>
     {

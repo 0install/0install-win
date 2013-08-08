@@ -22,8 +22,10 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Describes a specific file extension.
+    /// A specific file extension used to identify a file type.
     /// </summary>
+    [Description("A specific file extension used to identify a file type.")]
+    [Serializable]
     [XmlRoot("extension", Namespace = CapabilityList.XmlNamespace), XmlType("extension", Namespace = CapabilityList.XmlNamespace)]
     public class FileTypeExtension : XmlUnknown, ICloneable, IEquatable<FileTypeExtension>
     {

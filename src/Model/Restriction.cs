@@ -25,10 +25,10 @@ using Common.Collections;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Applies constraints on an interface without creating a dependency.
+    /// Restricts the versions of an <see cref="Implementation"/> that are allowed without creating a dependency on the implementation if its was not already chosen.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    [Description("Applies constraints on an interface without creating a dependency.")]
+    [Description("Restricts the versions of an Implementation that are allowed without creating a dependency on the implementation if its was not already chosen.")]
     [Serializable]
     [XmlRoot("restriction", Namespace = Feed.XmlNamespace), XmlType("restriction", Namespace = Feed.XmlNamespace)]
     public class Restriction : FeedElement, ICloneable, IEquatable<Restriction>

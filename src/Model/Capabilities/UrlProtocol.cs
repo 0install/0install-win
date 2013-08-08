@@ -25,9 +25,11 @@ using Common.Collections;
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Represents an application's ability to handle a certain URL protocol (e.g. HTTP).
+    /// An application's ability to handle a certain URL protocol such as HTTP.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
+    [Description("An application's ability to handle a certain URL protocol such as HTTP.")]
+    [Serializable]
     [XmlRoot("url-protocol", Namespace = CapabilityList.XmlNamespace), XmlType("url-protocol", Namespace = CapabilityList.XmlNamespace)]
     public sealed class UrlProtocol : VerbCapability, IEquatable<UrlProtocol>
     {

@@ -88,7 +88,7 @@ namespace ZeroInstall.Model
         private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
 
         /// <summary>
-        /// Zero or more icons to represent the command.
+        /// Zero or more icons representing the command. Used for desktop icons, menu entries, etc..
         /// </summary>
         [Browsable(false)]
         [XmlElement("icon")]

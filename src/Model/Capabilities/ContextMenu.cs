@@ -23,8 +23,10 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Represents an application's entry in a file manager's context menu.
+    /// An entry in the file manager's context menu for all file types.
     /// </summary>
+    [Description("An entry in the file manager's context menu for all file types.")]
+    [Serializable]
     [XmlRoot("context-menu", Namespace = CapabilityList.XmlNamespace), XmlType("context-menu", Namespace = CapabilityList.XmlNamespace)]
     public sealed class ContextMenu : DefaultCapability, IEquatable<ContextMenu>
     {

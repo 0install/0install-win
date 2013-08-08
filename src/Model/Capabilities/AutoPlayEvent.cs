@@ -22,8 +22,10 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Names a specific <see cref="AutoPlay"/> event.
+    /// A specific <see cref="AutoPlay"/> event such as "Audio CD inserted".
     /// </summary>
+    [Description("A specific AutoPlay event such as \"Audio CD inserted\".")]
+    [Serializable]
     [XmlRoot("event", Namespace = CapabilityList.XmlNamespace), XmlType("event", Namespace = CapabilityList.XmlNamespace)]
     public class AutoPlayEvent : XmlUnknown, ICloneable, IEquatable<AutoPlayEvent>
     {

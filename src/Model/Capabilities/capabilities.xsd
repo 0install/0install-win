@@ -55,8 +55,7 @@
   <xsd:complexType name="registration">
     <xsd:annotation>
       <xsd:documentation>
-        Indicates that an application should be listed in Windows Vista/7's "Set your Default Programs" UI.
-        The actual integration information is pulled from the other capabilities.
+        Indicates that an application should be listed in the "Set your Default Programs" UI (Windows Vista and later).
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
@@ -141,7 +140,7 @@
   <xsd:complexType name="verb">
     <xsd:annotation>
       <xsd:documentation>
-        Describes the mapping of an action/verb (e.g. open, edit) to a command.
+        The mapping of an action/verb (e.g. open, edit) to a command.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
@@ -185,7 +184,7 @@
   <xsd:complexType name="file-type">
     <xsd:annotation>
       <xsd:documentation>
-        Represents an application's ability to handle a certain file type.
+        An application's ability to open a certain file type.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
@@ -199,7 +198,7 @@
   <xsd:complexType name="extension">
     <xsd:annotation>
       <xsd:documentation>
-        Describes a specific file extension.
+        A specific file extension used to identify a file type.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:attribute name="value" type="xsd:string" use="required">
@@ -227,7 +226,7 @@
   <xsd:complexType name="url-protocol">
     <xsd:annotation>
       <xsd:documentation>
-        Represents an application's ability to handle a certain URL protocol (e.g. HTTP).
+        An application's ability to handle a certain URL protocol such as HTTP.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
@@ -241,7 +240,7 @@
   <xsd:complexType name="known-prefix">
     <xsd:annotation>
       <xsd:documentation>
-        Names a well-known protocol prefix. Use this for protocols that are shared accross many applications (e.g. HTTP, FTP) but not for application-specific protocols.
+        Names a well-known protocol prefix. Used for protocols that are shared accross many applications (e.g. HTTP, FTP) but not for application-specific protocols.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:attribute name="value" type="xsd:string" use="required">
@@ -255,7 +254,7 @@
   <xsd:complexType name="default-program">
     <xsd:annotation>
       <xsd:documentation>
-        Represents an application's ability to provide some service (e.g. default web-browser, default e-mail client).
+        Can act as the default provider for a well-known service such web-browser, e-mail client.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
@@ -276,7 +275,8 @@
   <xsd:complexType name="install-commands">
     <xsd:annotation>
       <xsd:documentation>
-        Lists the commands the application registeres for use by Windows' "Set Program Access and Defaults". Will be transparently replaced with Zero Install commands at runtime.
+        Lists the commands the application normally registers for use by Windows' "Set Program Access and Defaults".
+        Used by registry virtualization to stand in for the actual Zero Install commands at runtime.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:attribute name="reinstall" type="xsd:string">
@@ -325,7 +325,7 @@
   <xsd:complexType name="auto-play">
     <xsd:annotation>
       <xsd:documentation>
-        Represents an application's ability to act as an AutoPlay handler for certain events.
+        An application's ability to handle one or more AutoPlay events.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
@@ -341,7 +341,7 @@
           <xsd:element name="event" type="caps:event">
             <xsd:annotation>
               <xsd:documentation>
-                Names a specific AutoPlay event. Required!
+                A specific <see cref="AutoPlay"/> event such as "Audio CD inserted". Required!
               </xsd:documentation>
             </xsd:annotation>
           </xsd:element>
@@ -375,7 +375,7 @@
   <xsd:complexType name="context-menu">
     <xsd:annotation>
       <xsd:documentation>
-        Represents an application's entry in a file manager's context menu.
+        An entry in the file manager's context menu for all file types.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
@@ -412,7 +412,7 @@
   <xsd:complexType name="com-server">
     <xsd:annotation>
       <xsd:documentation>
-        Represents an application's ability to act as a COM server.
+        An application's ability to act as a COM server.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>

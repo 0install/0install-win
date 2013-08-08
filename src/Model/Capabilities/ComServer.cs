@@ -17,13 +17,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
-    /// Represents an application's ability to act as a COM server.
+    /// An application's ability to act as a COM server.
     /// </summary>
+    [Description("An application's ability to act as a COM server.")]
+    [Serializable]
     [XmlRoot("com-server", Namespace = CapabilityList.XmlNamespace), XmlType("com-server", Namespace = CapabilityList.XmlNamespace)]
     public sealed class ComServer : Capability, IEquatable<ComServer>
     {

@@ -30,7 +30,7 @@ namespace ZeroInstall.Model
     /// </summary>
     /// <seealso cref="Feed.Elements"/>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    [Description("All attributes of a group are inherited by any child Groups and Implementations as defaults, but can be overridden there. All Dependencys and Bindings are inherited (sub-groups may add more Dependencys and Bindings to the list, but cannot remove any).")]
+    [Description("All attributes of a group are inherited by any child Groups and Implementations as defaults, but can be overridden there.\nAll Dependencies and Bindings are inherited (sub-groups may add more Dependencies and Bindings to the list, but cannot remove any).")]
     [Serializable]
     [XmlRoot("group", Namespace = Feed.XmlNamespace), XmlType("group", Namespace = Feed.XmlNamespace)]
     public sealed class Group : Element, IElementContainer, IEquatable<Group>

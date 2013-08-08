@@ -51,9 +51,9 @@ namespace ZeroInstall.Model
         private ManifestDigest _manifestDigest;
 
         /// <summary>
-        /// Digests of the .manifest file using various hashing algorithms.
+        /// A manifest digest is a means of uniquely identifying an <see cref="Implementation"/> and verifying its contents.
         /// </summary>
-        [Category("Identity"), Description("Digests of the .manifest file using various hashing algorithms.")]
+        [Category("Identity"), Description("A manifest digest is a means of uniquely identifying an Implementation and verifying its contents.")]
         [XmlElement("manifest-digest")]
         public ManifestDigest ManifestDigest { get { return _manifestDigest; } set { _manifestDigest = value; } }
         #endregion
