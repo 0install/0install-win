@@ -96,7 +96,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 .AddElement<ContextMenu>("context-menu")
                 .AddElement<DefaultProgram, DescriptionEditor<DefaultProgram>>("default-program")
                 .AddElement<FileType, DescriptionEditor<FileType>>("file-type")
-                .AddElement<GamesExplorer>("games-explorer")
                 .AddElement<UrlProtocol, DescriptionEditor<UrlProtocol>>("url-protocol");
             Describe<AutoPlay>().AddPlainList("event", x => x.Events);
             Describe<FileType>().AddPlainList("extension", x => x.Extensions);

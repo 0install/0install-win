@@ -79,7 +79,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                     dispatcher.Add((Capabilities.UrlProtocol urlProtocol) => Windows.UrlProtocol.Register(target, urlProtocol, false, machineWide, handler));
                     dispatcher.Add((Capabilities.AutoPlay autoPlay) => Windows.AutoPlay.Register(target, autoPlay, false, machineWide, handler));
                     dispatcher.Add((Capabilities.ComServer comServer) => Windows.ComServer.Register(target, comServer, machineWide, handler));
-                    dispatcher.Add((Capabilities.GamesExplorer gamesExplorer) => Windows.GamesExplorer.Register(target, gamesExplorer, machineWide, handler));
                     if (machineWide || WindowsUtils.IsWindows8)
                         dispatcher.Add((Capabilities.AppRegistration appRegistration) => Windows.AppRegistration.Register(target, appRegistration, capabilityList.Entries.OfType<Capabilities.VerbCapability>(), machineWide, handler));
                     if (machineWide)
@@ -107,7 +106,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                     dispatcher.Add((Capabilities.UrlProtocol urlProtocol) => Windows.UrlProtocol.Unregister(urlProtocol, false, machineWide));
                     dispatcher.Add((Capabilities.AutoPlay autoPlay) => Windows.AutoPlay.Unregister(autoPlay, false, machineWide));
                     dispatcher.Add((Capabilities.ComServer comServer) => Windows.ComServer.Unregister(comServer, machineWide));
-                    dispatcher.Add((Capabilities.GamesExplorer gamesExplorer) => Windows.GamesExplorer.Unregister(gamesExplorer, machineWide));
                     if (machineWide || WindowsUtils.IsWindows8)
                         dispatcher.Add((Capabilities.AppRegistration appRegistration) => Windows.AppRegistration.Unregister(appRegistration, machineWide));
                     if (machineWide)

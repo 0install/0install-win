@@ -25,7 +25,6 @@
       <xsd:element name="file-type" type="caps:file-type" />
       <xsd:element name="default-program" type="caps:default-program" />
       <xsd:element name="url-protocol" type="caps:url-protocol" />
-      <xsd:element name="games-explorer" type="caps:games-explorer" />
     </xsd:choice>
     <xsd:attribute name="arch" type="xsd:string">
       <xsd:annotation>
@@ -397,16 +396,6 @@
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:complexType name="games-explorer">
-    <xsd:annotation>
-      <xsd:documentation>
-        Represents an application's listing in the Windows Games Explorer.
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent>
-      <xsd:extension base="caps:capability" />
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="com-server">

@@ -47,7 +47,6 @@ namespace ZeroInstall.Model.Capabilities
                     new DefaultProgram {ID = "default-program", Descriptions = {"My mail client"}, Icons = {testIcon}, Verbs = {testVerb}, Service = "Mail", InstallCommands = new InstallCommands {ShowIcons = "helper.exe --show", HideIcons = "helper.exe --hide", Reinstall = "helper.exe --reinstall.exe"}},
                     new FileType {ID = "my_ext1", Descriptions = {"Text file"}, Icons = {testIcon}, Extensions = {new FileTypeExtension {Value = "txt", MimeType = "text/plain"}}, Verbs = {testVerb}},
                     new FileType {ID = "my_ext2", Descriptions = {"JPG image"}, Icons = {testIcon}, Extensions = {new FileTypeExtension {Value = "jpg", MimeType = "image/jpg"}}, Verbs = {testVerb}},
-                    new GamesExplorer {ID = "games-explorer"},
                     new UrlProtocol {ID = "my_protocol", Descriptions = {"My protocol"}, Icons = {testIcon}, Verbs = {testVerb}, KnownPrefixes = {new KnownProtocolPrefix {Value = "my-protocol"}}}
                 }
             };

@@ -72,7 +72,6 @@
     <Compile Include="Capabilities\InstallCommands.cs" />
     <Compile Include="Capabilities\KnownProtocolPrefix.cs" />
     <Compile Include="Capabilities\Verb.cs" />
-    <Compile Include="Capabilities\GamesExplorer.cs" />
     <Compile Include="Capabilities\UrlProtocol.cs" />
     <Compile Include="Capabilities\VerbCapability.cs" />
     <Compile Include="Command.cs" />

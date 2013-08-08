@@ -66,7 +66,7 @@ namespace ZeroInstall.Model.Capabilities
         /// A list of <see cref="Capability"/>s.
         /// </summary>
         [Description("A list of capabilities.")]
-        [XmlElement(typeof(AppRegistration)), XmlElement(typeof(AutoPlay)), XmlElement(typeof(ComServer)), XmlElement(typeof(ContextMenu)), XmlElement(typeof(DefaultProgram)), XmlElement(typeof(FileType)), XmlElement(typeof(GamesExplorer)), XmlElement(typeof(UrlProtocol))]
+        [XmlElement(typeof(AppRegistration)), XmlElement(typeof(AutoPlay)), XmlElement(typeof(ComServer)), XmlElement(typeof(ContextMenu)), XmlElement(typeof(DefaultProgram)), XmlElement(typeof(FileType)), XmlElement(typeof(UrlProtocol))]
         public ArrayList<Capability> Entries { get { return _entries; } }
         #endregion
 

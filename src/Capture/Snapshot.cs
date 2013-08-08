@@ -78,9 +78,6 @@ namespace ZeroInstall.Capture
         /// <summary>A list of (COM-based) property sheets for all file-system entries.</summary>
         public string[] AllPropertySheets;
 
-        /// <summary>A list of applications registered in the Windows Games Explorer.</summary>
-        public string[] Games;
-
         /// <summary>A list of program installation directories.</summary>
         public string[] ProgramsDirs;
         #endregion
@@ -146,8 +143,6 @@ namespace ZeroInstall.Capture
             snapshot.AllContextMenuSimple = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + "\\" + ContextMenu.RegKeyContextMenuSimplePostfix);
             snapshot.AllContextMenuExtended = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + "\\" + ContextMenu.RegKeyContextMenuExtendedPostfix);
             snapshot.AllPropertySheets = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + "\\" + ContextMenu.RegKeyPropertySheetsPostfix);
-
-            snapshot.Games = RegUtils.GetSubKeyNames(Registry.LocalMachine, GamesExplorer.RegKeyMachineGames);
         }
 
         /// <summary>
@@ -296,7 +291,6 @@ namespace ZeroInstall.Capture
                 AllContextMenuSimple = newSnapshot.AllContextMenuSimple.GetAddedElements(oldSnapshot.AllContextMenuSimple),
                 AllContextMenuExtended = newSnapshot.AllContextMenuExtended.GetAddedElements(oldSnapshot.AllContextMenuExtended),
                 AllPropertySheets = newSnapshot.AllPropertySheets.GetAddedElements(oldSnapshot.AllPropertySheets),
-                Games = newSnapshot.Games.GetAddedElements(oldSnapshot.Games),
                 ProgramsDirs = newSnapshot.ProgramsDirs.GetAddedElements(oldSnapshot.ProgramsDirs, StringComparer.OrdinalIgnoreCase)
             };
         }

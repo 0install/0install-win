@@ -125,7 +125,6 @@ namespace ZeroInstall.Capture
                 CollectContextMenus(snapshotDiff, commandMapper, capabilities);
                 CollectAutoPlays(snapshotDiff, commandMapper, capabilities);
                 CollectComServers(snapshotDiff.ClassIDs, commandMapper, capabilities);
-                CollectGames(snapshotDiff.Games, commandMapper, capabilities);
 
                 CollectDefaultPrograms(snapshotDiff, commandMapper, capabilities, ref appName);
 

@@ -62,7 +62,6 @@
     <Compile Include="CaptureDir.cs" />
     <Compile Include="CaptureDir.DefaultProgram.cs" />
     <Compile Include="CaptureDir.FileType.cs" />
-    <Compile Include="CaptureDir.GamesExplorer.cs" />
     <Compile Include="CaptureDir.UrlProtocol.cs" />
     <Compile Include="CommandMapper.cs" />
     <Compile Include="GlobalSuppressions.cs" />
