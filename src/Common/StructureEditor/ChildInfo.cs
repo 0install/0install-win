@@ -31,11 +31,13 @@ namespace Common.StructureEditor
     internal class ChildInfo
     {
         public readonly string Name;
+        public readonly string Description;
         public readonly Func<IValueCommand> Create;
 
-        public ChildInfo(string name, Func<IValueCommand> create)
+        public ChildInfo(string name, string description, Func<IValueCommand> create)
         {
             Name = name;
+            Description = description;
             Create = create;
         }
     }

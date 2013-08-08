@@ -197,7 +197,8 @@ namespace Common.StructureEditor
                         var command = child1.Create();
                         _selectedTarget = command.Value;
                         CommandManager.Execute(command);
-                    }));
+                    })
+                    {ToolTipText = child.Description});
                 }
             }
         }

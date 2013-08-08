@@ -22,11 +22,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Common.Controls;
 using Common.Storage;
 using Common.Undo;
+using Common.Utils;
 
 namespace Common.StructureEditor
 {
@@ -99,8 +101,10 @@ namespace Common.StructureEditor
 
                 public ChildInfo GetPossibleChildFor(IList<TList> list)
                 {
+                    var description = AttributeUtils.GetAttributes<DescriptionAttribute, TElement>().FirstOrDefault();
                     return new ChildInfo(
                         name: _name,
+                        description: (description == null) ? null : description.Description,
                         create: () => new AddToCollection<TList>(list, new TElement()));
                 }
             }
