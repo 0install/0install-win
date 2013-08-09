@@ -57,10 +57,15 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Provides XML Editors with location hints for XSD files.
         /// </summary>
-        [XmlAttribute("schemaLocation", Namespace = XmlStorage.XsiNamespace)]
-        public string XsiSchemaLocation = XmlNamespace + " " + XsdLocation + " " +
+        public const string XsiSchemaLocation = XmlNamespace + " " + XsdLocation + " " +
             // Advertise the complementary capabilities namespace
             CapabilityList.XmlNamespace + " " + CapabilityList.XsdLocation;
+
+        /// <summary>
+        /// Provides XML Editors with location hints for XSD files.
+        /// </summary>
+        [XmlAttribute("schemaLocation", Namespace = XmlStorage.XsiNamespace)]
+        public string SchemaLocation = XsiSchemaLocation;
         #endregion
 
         #region Properties
@@ -264,7 +269,7 @@ namespace ZeroInstall.Model
             // ToDo: Extract supported file types
             CapabilityLists.Clear();
 
-            XsiSchemaLocation = null;
+            SchemaLocation = null;
             UnknownAttributes = new XmlAttribute[0];
             UnknownElements = new XmlElement[0];
         }

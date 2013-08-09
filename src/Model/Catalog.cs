@@ -55,8 +55,13 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Provides XML Editors with location hints for XSD files.
         /// </summary>
+        public const string XsiSchemaLocation = XmlNamespace + " " + XsdLocation;
+
+        /// <summary>
+        /// Provides XML Editors with location hints for XSD files.
+        /// </summary>
         [XmlAttribute("schemaLocation", Namespace = XmlStorage.XsiNamespace)]
-        public string XsiSchemaLocation = XmlNamespace + " " + XsdLocation;
+        public string SchemaLocation = XsiSchemaLocation;
         #endregion
 
         #region Properties

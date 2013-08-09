@@ -16,6 +16,7 @@
  */
 
 using Common;
+using Common.Storage;
 using Common.StructureEditor;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
@@ -103,24 +104,12 @@ namespace ZeroInstall.Publish.WinForms.Controls
             Describe<VerbCapability>().AddPlainList<Verb, DescriptionEditor<Verb>>("verb", x => x.Verbs);
         }
 
-        //        var digestProvider = editor as IDigestProvider;
-        //        var implementation = parent as ImplementationBase;
-        //        if (digestProvider != null && implementation != null)
-        //        {
-        //            // ToDo: Warn when changing an existing digest
-        //
-        //            // Set the ManifestDigest entry
-        //            commandList.Add(new SetValueCommand<ManifestDigest>(
-        //                new PropertyPointer<ManifestDigest>(() => implementation.ManifestDigest, newValue => implementation.ManifestDigest = newValue),
-        //                digestProvider.ManifestDigest));
-        //
-        //            // Set the implementation ID unless its already something custom
-        //            if (string.IsNullOrEmpty(implementation.ID) || implementation.ID.StartsWith("sha1=new"))
-        //            {
-        //                commandList.Add(new SetValueCommand<string>(
-        //                    new PropertyPointer<string>(() => implementation.ID, newValue => implementation.ID = newValue),
-        //                    "sha1new=" + digestProvider.ManifestDigest.Sha1New));
-        //            }
-        //        }
+        /// <inheritdoc/>
+        protected override string ToXmlString()
+        {
+            return base.ToXmlString().
+                // Hide XSI information
+                Replace(" xmlns:xsi=\""+ XmlStorage.XsiNamespace + "\" xsi:schemaLocation=\""+ Feed.XsiSchemaLocation +"\"", "");
+        }
     }
 }

@@ -240,7 +240,7 @@ namespace Common.StructureEditor
                 _editingTarget = _selectedTarget;
             }
 
-            if (_selectedTarget != _xmlTarget) ToXmlString();
+            if (_selectedTarget != _xmlTarget) xmlEditor.SetContent(ToXmlString(), "XML");
             _xmlTarget = null;
         }
 
@@ -260,10 +260,14 @@ namespace Common.StructureEditor
             _editorControl = editorControl;
         }
 
-        private void ToXmlString()
+        /// <summary>
+        /// Returns the XML representation fo the <seealso cref="SelectedNode"/>.
+        /// </summary>
+        protected virtual string ToXmlString()
         {
-            string xmlString = SelectedNode.Entry.ToXmlString().GetRightPartAtFirstOccurrence('\n');
-            xmlEditor.SetContent(xmlString, "XML");
+            return SelectedNode.Entry.ToXmlString().
+                // Hide <?xml> header
+                GetRightPartAtFirstOccurrence('\n');
         }
 
         private void xmlEditor_ContentChanged(string text)
