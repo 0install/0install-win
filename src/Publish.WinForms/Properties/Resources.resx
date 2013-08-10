@@ -120,6 +120,20 @@
   <data name="AskForPassphrase" xml:space="preserve">
     <value>Please enter the GnuPG passphrase for {0}:</value>
   </data>
+  <data name="DigestKeep" xml:space="preserve">
+    <value>Keep
+The implementation was supposed to stay the same</value>
+  </data>
+  <data name="DigestMismatch" xml:space="preserve">
+    <value>The manifest digest has changed. Do you wish to replace the existing one?</value>
+  </data>
+  <data name="DigestOtherImplementations" xml:space="preserve">
+    <value>All other retrieval methods for this implementation must match the new digest as well!</value>
+  </data>
+  <data name="DigestReplace" xml:space="preserve">
+    <value>Replace
+I changed the implementation on pupose</value>
+  </data>
   <data name="DiscardChanges" xml:space="preserve">
     <value>&amp;Discard
 Discard unsaved changes</value>
@@ -147,9 +161,6 @@ Discard unsaved changes</value>
   </data>
   <data name="PleaseClick" xml:space="preserve">
     <value>Please click:</value>
-  </data>
-  <data name="ReplaceManifestDigest" xml:space="preserve">
-    <value>Manifest digest mismatch. Replace?</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>&amp;Save

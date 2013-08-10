@@ -120,6 +120,20 @@
   <data name="AskForPassphrase" xml:space="preserve">
     <value>Bitte geben Sie die GnuPG Passphrase für {0} ein:</value>
   </data>
+  <data name="DigestKeep" xml:space="preserve">
+    <value>Behalten
+Die Implementierung sollte gleich bleiben</value>
+  </data>
+  <data name="DigestMismatch" xml:space="preserve">
+    <value>Der Manifest Digest hat sich geändert. Möchten Sie den bestehenden ersetzen?</value>
+  </data>
+  <data name="DigestOtherImplementations" xml:space="preserve">
+    <value>Alle anderen Retrieval-Methoden für diese Implementierung müssen auch zum neuen Digest passen!</value>
+  </data>
+  <data name="DigestReplace" xml:space="preserve">
+    <value>Ersetzen
+Ich habe die Implementierung absichtlich verändert</value>
+  </data>
   <data name="DiscardChanges" xml:space="preserve">
     <value>&amp;Verwerfen
 Ungespeicherte Änderungen verwerfen</value>
@@ -144,9 +158,6 @@ Ungespeicherte Änderungen verwerfen</value>
   </data>
   <data name="PleaseClick" xml:space="preserve">
     <value>Bitte klicken Sie:</value>
-  </data>
-  <data name="ReplaceManifestDigest" xml:space="preserve">
-    <value>Manifest Digest stimmt nicht überein. Ersetzen?</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>&amp;Speichern

@@ -70,6 +70,44 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keep
+        ///The implementation was supposed to stay the same.
+        /// </summary>
+        internal static string DigestKeep {
+            get {
+                return ResourceManager.GetString("DigestKeep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The manifest digest has changed. Do you wish to replace the existing one?.
+        /// </summary>
+        internal static string DigestMismatch {
+            get {
+                return ResourceManager.GetString("DigestMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All other retrieval methods for this implementation must match the new digest as well!.
+        /// </summary>
+        internal static string DigestOtherImplementations {
+            get {
+                return ResourceManager.GetString("DigestOtherImplementations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace
+        ///I changed the implementation on pupose.
+        /// </summary>
+        internal static string DigestReplace {
+            get {
+                return ResourceManager.GetString("DigestReplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Discard
         ///Discard unsaved changes.
         /// </summary>
@@ -148,15 +186,6 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         internal static string PleaseClick {
             get {
                 return ResourceManager.GetString("PleaseClick", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Manifest digest mismatch. Replace?.
-        /// </summary>
-        internal static string ReplaceManifestDigest {
-            get {
-                return ResourceManager.GetString("ReplaceManifestDigest", resourceCulture);
             }
         }
         

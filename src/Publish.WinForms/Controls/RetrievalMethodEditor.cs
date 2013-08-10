@@ -162,7 +162,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
             if (ContainerRef.ManifestDigest == default(ManifestDigest)) SetDigest(digest, executor);
             else if (digest != ContainerRef.ManifestDigest)
             {
-                if (Msg.YesNo(this, Resources.ReplaceManifestDigest, MsgSeverity.Warn))
+                bool warnOtherImplementations = (ContainerRef.RetrievalMethods.Count > 1);
+                if (Msg.YesNo(this,
+                    warnOtherImplementations ? Resources.DigestMismatch + "\n" + Resources.DigestOtherImplementations : Resources.DigestMismatch,
+                    warnOtherImplementations ? MsgSeverity.Warn : MsgSeverity.Info,
+                    Resources.DigestReplace, Resources.DigestKeep))
                     SetDigest(digest, executor);
             }
         }
