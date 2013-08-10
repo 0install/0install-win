@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
@@ -43,7 +44,7 @@ namespace Common.Utils
     {
         #region Paths
         /// <summary>
-        /// Replaces forward slashes with <see cref="Path.DirectorySeparatorChar"/>.
+        /// Replaces Unix-style directory slashes with <see cref="Path.DirectorySeparatorChar"/>.
         /// </summary>
         public static string UnifySlashes(string value)
         {
@@ -60,7 +61,23 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            return Path.IsPathRooted(path) || path.EndsWith("..") || path.Contains(".." + Path.DirectorySeparatorChar);
+            path = UnifySlashes(path);
+            return Path.IsPathRooted(path) || path.Split(Path.DirectorySeparatorChar).Contains("..");
+        }
+
+        /// <summary>
+        /// Returns a Unix-style relative path from <paramref name="baseDir"/> to <paramref name="targetDir"/>.
+        /// </summary>
+        public static string RelativeTo(this DirectoryInfo targetDir, DirectoryInfo baseDir)
+        {
+            #region Sanity checks
+            if (targetDir == null) throw new ArgumentNullException("targetDir");
+            if (baseDir == null) throw new ArgumentNullException("baseDir");
+            #endregion
+
+            string trimmed = targetDir.FullName.Substring(baseDir.FullName.Length);
+            if (trimmed.StartsWith(Path.DirectorySeparatorChar.ToString(CultureInfo.InvariantCulture))) trimmed = trimmed.Substring(1);
+            return trimmed.Replace(Path.DirectorySeparatorChar, '/');
         }
         #endregion
 
@@ -73,8 +90,8 @@ namespace Common.Utils
         public static bool ExistsCaseSensitive(string path)
         {
             return File.Exists(path) &&
-                // Make sure the file found is a string-exact match
-                Directory.GetFiles(Path.GetDirectoryName(path) ?? Environment.CurrentDirectory, Path.GetFileName(path)).Contains(path);
+                   // Make sure the file found is a string-exact match
+                   Directory.GetFiles(Path.GetDirectoryName(path) ?? Environment.CurrentDirectory, Path.GetFileName(path)).Contains(path);
         }
         #endregion
 
