@@ -27,10 +27,8 @@ namespace ZeroInstall.Model
     public abstract class RetrievalMethod : FeedElement, ICloneable
     {
         /// <summary>
-        /// Sets missing default values, flattens the inheritance structure, etc.
+        /// Sets missing default values.
         /// </summary>
-        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
-        /// It should not be called if you plan on serializing the feed again since it will may loose some of its structure.</remarks>
         public virtual void Normalize()
         {}
 

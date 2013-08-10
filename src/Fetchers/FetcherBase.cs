@@ -98,6 +98,7 @@ namespace ZeroInstall.Fetchers
             var downloadedFiles = new List<TemporaryFile>();
             try
             {
+                // ReSharper disable once LoopCanBeConvertedToQuery
                 foreach (var downloadStep in recipe.Steps.OfType<DownloadRetrievalMethod>())
                     downloadedFiles.Add(DownloadFile(downloadStep, manifestDigest));
 

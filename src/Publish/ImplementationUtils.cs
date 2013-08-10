@@ -105,13 +105,11 @@ namespace ZeroInstall.Publish
                 (Recipe recipe) => DownloadRecipe(recipe, handler, executor)
             };
 
-            foreach (var retrievalMethod in implementation.RetrievalMethods)
+            foreach (var retrievalMethod in implementation.RetrievalMethods
+                .Where(retrievalMethod => implementation.ManifestDigest == default(ManifestDigest) || IsDownloadSizeMissing(retrievalMethod)))
             {
-                if (implementation.ManifestDigest == default(ManifestDigest) || IsDownloadSizeMissing(retrievalMethod))
-                {
-                    using (var tempDir = downloadDispatcher.Dispatch(retrievalMethod))
-                        UpdateDigest(implementation, tempDir, store, handler, executor);
-                }
+                using (var tempDir = downloadDispatcher.Dispatch(retrievalMethod))
+                    UpdateDigest(implementation, tempDir, store, handler, executor);
             }
 
             if (string.IsNullOrEmpty(implementation.ID)) implementation.ID = "sha1new=" + implementation.ManifestDigest.Sha1New;
@@ -158,7 +156,7 @@ namespace ZeroInstall.Publish
                 var extractionDir = new TemporaryDirectory("0publish");
                 try
                 {
-                    RecipeUtils.ApplyArchive(archive, downloadedFile, extractionDir, handler, null);
+                    RecipeUtils.ApplyArchive(archive, downloadedFile, extractionDir, handler);
                     return extractionDir;
                 }
                     #region Error handling
@@ -210,14 +208,14 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
         /// <returns>A downloaded file.</returns>
-        private static TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor)
+        public static TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // Ensure things like MIME types are not lost
+            // Guess MIME types now because the file ending is not known later
             retrievalMethod.Normalize();
 
             // Download the file
@@ -258,7 +256,7 @@ namespace ZeroInstall.Publish
                 // ReSharper restore LoopCanBeConvertedToQuery
 
                 // Apply the recipe
-                return RecipeUtils.ApplyRecipe(recipe, downloadedFiles, handler, null);
+                return RecipeUtils.ApplyRecipe(recipe, downloadedFiles, handler);
             }
             finally
             {

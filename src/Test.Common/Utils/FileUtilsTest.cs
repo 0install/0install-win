@@ -44,10 +44,7 @@ namespace Common.Utils
         [Test]
         public void TestIsBreakoutPath()
         {
-            if (WindowsUtils.IsWindows)
-                Assert.IsTrue(FileUtils.IsBreakoutPath(@"C:\test"), "Should detect absolute paths");
-            else if (MonoUtils.IsUnix)
-                Assert.IsTrue(FileUtils.IsBreakoutPath("/test"), "Should detect absolute paths");
+                Assert.IsTrue(FileUtils.IsBreakoutPath(WindowsUtils.IsWindows ? @"C:\test" : "/test"), "Should detect absolute paths");
 
             foreach (string path in new[] {"..", "/..", "../", "/../", "a/../b", "../a", "a/.."})
                 Assert.IsTrue(FileUtils.IsBreakoutPath(path), "Should detect parent directory references");
@@ -64,7 +61,7 @@ namespace Common.Utils
                 Assert.AreEqual("a/b", new DirectoryInfo(@"C:\test\a\b").RelativeTo(new DirectoryInfo(@"C:\test")));
                 Assert.AreEqual("a/b", new DirectoryInfo(@"C:\test\a\b").RelativeTo(new DirectoryInfo(@"C:\test\")));
             }
-            else if (MonoUtils.IsUnix)
+            else
             {
                 Assert.AreEqual("a/b", new DirectoryInfo("/test/a/b").RelativeTo(new DirectoryInfo("/test")));
                 Assert.AreEqual("a/b", new DirectoryInfo("/test/a/b").RelativeTo(new DirectoryInfo("/test/")));

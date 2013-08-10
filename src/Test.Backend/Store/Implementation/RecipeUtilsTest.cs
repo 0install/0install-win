@@ -42,7 +42,7 @@ namespace ZeroInstall.Store.Implementation
                 var downloadedFiles = new[] {archiveFile};
                 var recipe = new Recipe {Steps = {new Model.Archive {MimeType = Model.Archive.MimeTypeZip, Destination = "subDir"}}};
 
-                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler(), null))
+                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler()))
                 {
                     // /dest/symlink [S]
                     string path = new[] {recipeDir, "subDir", "symlink"}.Aggregate(Path.Combine);
@@ -70,7 +70,7 @@ namespace ZeroInstall.Store.Implementation
                 var downloadedFiles = new[] {archiveFile, singleFile};
                 var recipe = new Recipe {Steps = {new Model.Archive {MimeType = Model.Archive.MimeTypeZip}, new SingleFile {Destination = "subdir2/executable"}}};
 
-                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler(), null))
+                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler()))
                 {
                     // /subdir2/executable [!X]
                     string path = new[] {recipeDir, "subdir2", "executable"}.Aggregate(Path.Combine);
@@ -101,7 +101,7 @@ namespace ZeroInstall.Store.Implementation
                     }
                 };
 
-                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler(), null))
+                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler()))
                 {
                     if (!MonoUtils.IsUnix)
                     {
@@ -139,7 +139,7 @@ namespace ZeroInstall.Store.Implementation
                     }
                 };
 
-                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler(), null))
+                using (TemporaryDirectory recipeDir = RecipeUtils.ApplyRecipe(recipe, downloadedFiles, new SilentTaskHandler()))
                 {
                     if (!MonoUtils.IsUnix)
                     {
@@ -177,22 +177,22 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var tempArchive = new TemporaryFile("0install-unit-tests"))
             {
-                Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new Model.Archive {Destination = "../destination"}}}, new[] {tempArchive}, new SilentTaskHandler(), null),
+                Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new Model.Archive {Destination = "../destination"}}}, new[] {tempArchive}, new SilentTaskHandler()),
                     "Should reject breakout path in Archive.Destination");
             }
 
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new SingleFile {Destination = "../file"}}}, new[] {tempFile}, new SilentTaskHandler(), null),
+                Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new SingleFile {Destination = "../file"}}}, new[] {tempFile}, new SilentTaskHandler()),
                     "Should reject breakout path in SingleFile.Destination");
             }
 
-            Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new RemoveStep {Path = "../file"}}}, new TemporaryFile[0], new SilentTaskHandler(), null),
+            Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new RemoveStep {Path = "../file"}}}, new TemporaryFile[0], new SilentTaskHandler()),
                 "Should reject breakout path in RemoveStep.Path");
 
-            Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new RenameStep {Source = "../source", Destination = "destination"}}}, new TemporaryFile[0], new SilentTaskHandler(), null),
+            Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new RenameStep {Source = "../source", Destination = "destination"}}}, new TemporaryFile[0], new SilentTaskHandler()),
                 "Should reject breakout path in RenameStep.Source");
-            Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new RenameStep {Source = "source", Destination = "../destination"}}}, new TemporaryFile[0], new SilentTaskHandler(), null),
+            Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new RenameStep {Source = "source", Destination = "../destination"}}}, new TemporaryFile[0], new SilentTaskHandler()),
                 "Should reject breakout path in RenameStep.Destination");
         }
     }
