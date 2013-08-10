@@ -139,6 +139,9 @@ Ungespeicherte Änderungen verwerfen</value>
   <data name="ManifestDigestMissing" xml:space="preserve">
     <value>Manifest Digest noch nicht berechnet.</value>
   </data>
+  <data name="NewKey" xml:space="preserve">
+    <value>Neuer Schlüssel...</value>
+  </data>
   <data name="PleaseClick" xml:space="preserve">
     <value>Bitte klicken Sie:</value>
   </data>

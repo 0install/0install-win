@@ -50,11 +50,13 @@ namespace ZeroInstall.Store.Trust
         protected override ProcessStartInfo GetStartInfo(string arguments)
         {
             var startInfo = base.GetStartInfo(arguments);
-
-            // Pass-through portable mode
-            if (Locations.IsPortable) startInfo.EnvironmentVariables["GNUPGHOME"] = Locations.GetSaveConfigPath("GnuPG", false, "gnupg");
-
+            HandlePortable(startInfo);
             return startInfo;
+        }
+
+        private static void HandlePortable(ProcessStartInfo startInfo)
+        {
+            if (Locations.IsPortable) startInfo.EnvironmentVariables["GNUPGHOME"] = Locations.GetSaveConfigPath("GnuPG", false, "gnupg");
         }
         #endregion
 
@@ -125,6 +127,14 @@ namespace ZeroInstall.Store.Trust
             if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user " + keySpecifier.EscapeArgument();
 
             return Execute(arguments, null, ErrorHandlerException);
+        }
+
+        /// <inheritdoc/>
+        public Process GenerateKey()
+        {
+            var startInfo = new ProcessStartInfo(AppBinary, "--gen-key");
+            HandlePortable(startInfo);
+            return Process.Start(startInfo);
         }
         #endregion
 

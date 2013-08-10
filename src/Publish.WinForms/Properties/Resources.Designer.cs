@@ -134,6 +134,15 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New key....
+        /// </summary>
+        internal static string NewKey {
+            get {
+                return ResourceManager.GetString("NewKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please click:.
         /// </summary>
         internal static string PleaseClick {

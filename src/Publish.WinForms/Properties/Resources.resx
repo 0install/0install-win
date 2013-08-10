@@ -142,6 +142,9 @@ Discard unsaved changes</value>
   <data name="ManifestDigestMissing" xml:space="preserve">
     <value>Manifest digest not calculated yet.</value>
   </data>
+  <data name="NewKey" xml:space="preserve">
+    <value>New key...</value>
+  </data>
   <data name="PleaseClick" xml:space="preserve">
     <value>Please click:</value>
   </data>

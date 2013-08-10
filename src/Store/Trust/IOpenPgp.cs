@@ -16,6 +16,7 @@
  */
 
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using Common.Cli;
 
@@ -59,6 +60,13 @@ namespace ZeroInstall.Store.Trust
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         string GetPublicKey(string keySpecifier);
+
+        /// <summary>
+        /// Launches an interactive process for generating a new keypair.
+        /// </summary>
+        /// <returns>A handle that can be used to wait for the process to finish.</returns>
+        /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
+        Process GenerateKey();
 
         /// <summary>
         /// Creates a detached signature for a file using a specific secret key.

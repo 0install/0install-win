@@ -17,9 +17,11 @@
 
 using System;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
+using Common.Utils;
 using ZeroInstall.Publish.WinForms.Properties;
 using ZeroInstall.Store.Trust;
 
@@ -49,12 +51,14 @@ namespace ZeroInstall.Publish.WinForms
                     feedStructureEditor.CommandManager = _feedEditing;
                 }
 
-                comboBoxKeys.SelectedItem = FeedEditing.SignedFeed.SecretKey;
+                ListKeys();
             }
         }
         #endregion
 
         #region Constructor
+        private readonly IOpenPgp _openPgp = OpenPgpFactory.CreateDefault();
+
         /// <summary>
         /// Creates a new feed editing form.
         /// </summary>
@@ -62,12 +66,6 @@ namespace ZeroInstall.Publish.WinForms
         public MainForm(FeedEditing feedEditing)
         {
             InitializeComponent();
-
-            // ReSharper disable CoVariantArrayConversion
-            comboBoxKeys.Items.AddRange(OpenPgpFactory.CreateDefault().ListSecretKeys());
-            // ReSharper restore CoVariantArrayConversion
-            comboBoxKeys.Items.Add("");
-
             FeedEditing = feedEditing;
         }
         #endregion
@@ -147,7 +145,8 @@ namespace ZeroInstall.Publish.WinForms
 
         private void comboBoxKeys_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FeedEditing.SignedFeed.SecretKey = comboBoxKeys.SelectedItem as OpenPgpSecretKey;
+            if (comboBoxKeys.SelectedItem == NewKeyAction.Instance) NewKey();
+            else FeedEditing.SignedFeed.SecretKey = comboBoxKeys.SelectedItem as OpenPgpSecretKey;
         }
         #endregion
 
@@ -250,6 +249,44 @@ namespace ZeroInstall.Publish.WinForms
                     case DialogResult.Cancel:
                         throw new OperationCanceledException();
                 }
+            }
+        }
+        #endregion
+
+        #region Keys
+        private void ListKeys()
+        {
+            comboBoxKeys.Items.Clear();
+            comboBoxKeys.Items.Add("");
+            // ReSharper disable once CoVariantArrayConversion
+            comboBoxKeys.Items.AddRange(_openPgp.ListSecretKeys());
+            comboBoxKeys.Items.Add(NewKeyAction.Instance);
+
+            if (FeedEditing != null) comboBoxKeys.SelectedItem = FeedEditing.SignedFeed.SecretKey;
+        }
+
+        private void NewKey()
+        {
+            var process = _openPgp.GenerateKey();
+
+            // Update key list when done
+            ProcessUtils.RunBackground(() =>
+            {
+                process.WaitForExit();
+                Invoke((Action)ListKeys);
+            });
+        }
+
+        private class NewKeyAction
+        {
+            private NewKeyAction()
+            {}
+
+            public static readonly NewKeyAction Instance = new NewKeyAction();
+
+            public override string ToString()
+            {
+                return Resources.NewKey;
             }
         }
         #endregion
