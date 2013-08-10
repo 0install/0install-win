@@ -15,10 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Linq;
 using Common.Storage;
 using Common.Tasks;
 using Common.Undo;
 using ZeroInstall.Model;
+using ZeroInstall.Publish.WinForms.Properties;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -30,6 +32,13 @@ namespace ZeroInstall.Publish.WinForms.Controls
         public RecipeEditor()
         {
             InitializeComponent();
+        }
+
+        /// <inheritdoc/>
+        protected override void UpdateHint()
+        {
+            if (Target.Steps.OfType<DownloadRetrievalMethod>().Any(x => x.Size == 0)) ShowUpdateHint(Resources.SizeMissing);
+            else base.UpdateHint();
         }
     }
 

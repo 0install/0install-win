@@ -73,9 +73,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         }
         #endregion
 
-        /// <summary>
-        /// Displays hints explaining why calling "Update" may be required.
-        /// </summary>
+        /// <inheritdoc/>
         protected override void UpdateHint()
         {
             if (Target.Size == 0) ShowUpdateHint(Resources.SizeMissing);

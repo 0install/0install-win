@@ -46,7 +46,7 @@ namespace ZeroInstall.Publish.WinForms
             InitializeComponent();
 
             _files = files;
-            foreach (var path in files)
+            foreach (var path in _files)
                 listBoxFiles.Items.Add(path);
         }
 

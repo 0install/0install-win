@@ -105,7 +105,8 @@ namespace Common.Controls
                 #endregion
             };
 
-            OnRefresh += () => control.Text = pointer.Value;
+            // ReSharper disable once RedundantCheckBeforeAssignment
+            OnRefresh += () => { if (control.Text != pointer.Value) control.Text = pointer.Value; };
         }
 
         /// <summary>

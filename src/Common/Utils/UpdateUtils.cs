@@ -114,7 +114,7 @@ namespace Common.Utils
         /// <param name="value">The new value</param>
         /// <param name="original">The original value to update</param>
         /// <param name="updated">Gets called if value is different from original</param>
-        public static void To<T>(this T value, ref T original, Action updated) where T : struct
+        public static void To<T>(this T value, ref T original, Action updated = null) where T : struct
         {
             // If the values already match, nothing needs to be done
             if (original.Equals(value)) return;
