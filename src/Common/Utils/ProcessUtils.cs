@@ -146,6 +146,19 @@ namespace Common.Utils
             thread.SetApartmentState(ApartmentState.STA); // Make COM work
             thread.Start();
         }
+
+        /// <summary>
+        /// Starts executing a delegate in a new background thread (automatically terminated when application exits).
+        /// </summary>
+        /// <param name="execute">The delegate to execute.</param>
+        public static void RunBackground(ThreadStart execute)
+        {
+            #region Sanity checks
+            if (execute == null) throw new ArgumentNullException("execute");
+            #endregion
+
+            new Thread(execute) {IsBackground = true}.Start();
+        }
         #endregion
     }
 }

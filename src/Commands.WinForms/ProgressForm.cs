@@ -268,7 +268,7 @@ namespace ZeroInstall.Commands.WinForms
             selectionsControl.StopTracking();
 
             // Note: Must perform cancellation on a separate thread because it might send messages back to the GUI thread (which therefore must not be blocked)
-            new Thread(() => _cancelCallback()).Start();
+            ProcessUtils.RunAsync(() => _cancelCallback());
         }
         #endregion
     }

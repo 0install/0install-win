@@ -19,6 +19,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using Common.Tasks;
+using Common.Utils;
 using ZeroInstall.Backend;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
@@ -111,11 +112,11 @@ namespace ZeroInstall.Commands.WinForms
             if (_delay == 0) InitTarget();
             else
             {
-                new Thread(() =>
+                ProcessUtils.RunAsync(() =>
                 {
                     // Wait for delay to initialize target, unless some interrupt event cause the UI to be created ahead of time
                     if (!_uiDone.WaitOne(_delay, false)) InitTarget();
-                }).Start();
+                });
             }
         }
 
