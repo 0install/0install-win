@@ -70,7 +70,7 @@ namespace ZeroInstall.Central.WinForms
                 Program.ConfigureTaskbar(this, Text);
 
                 var syncLink = new WindowsUtils.ShellLink(buttonSync.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), SyncApps.Name);
-                var cacheLink = new WindowsUtils.ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Store.Management.WinForms.Program.ExeName + ".exe"), null);
+                var cacheLink = new WindowsUtils.ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Store.Management.WinForms.Program.ExeName + ".exe"));
                 WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[] {syncLink, cacheLink});
             };
 

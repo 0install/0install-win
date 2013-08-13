@@ -101,7 +101,7 @@ namespace ZeroInstall.Central.WinForms.SyncWizards
             {
                 try
                 {
-                    XmlStorage.LoadXmlZip<AppList>(new MemoryStream(webClient.DownloadData(appListUri)), key, null);
+                    XmlStorage.LoadXmlZip<AppList>(new MemoryStream(webClient.DownloadData(appListUri)), key);
                 }
                     #region Error handling
                 catch (WebException ex)

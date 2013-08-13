@@ -245,14 +245,14 @@ namespace ZeroInstall.DesktopIntegration
             appListLocal.SaveXml(_appListPath);
             if (appListLast != null) appListLast.SaveXml(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
 
-            appListServer.SaveXmlZip(_appListPath + ".zip", null);
+            appListServer.SaveXmlZip(_appListPath + ".zip");
             using (var appListServerFile = File.OpenRead(_appListPath + ".zip"))
             using (var syncServer = new MicroServer("app-list", appListServerFile))
             {
                 using (var integrationManager = new SyncIntegrationManager(false, _appListPath, new SyncServer {Uri = syncServer.ServerUri}, interfaceId => new Feed(), new SilentTaskHandler()))
                     integrationManager.Sync(resetMode);
 
-                appListServer = XmlStorage.LoadXmlZip<AppList>(syncServer.FileContent, null);
+                appListServer = XmlStorage.LoadXmlZip<AppList>(syncServer.FileContent);
             }
 
             appListLocal = XmlStorage.LoadXml<AppList>(_appListPath);

@@ -56,10 +56,10 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a new digest mismatch exception.
         /// </summary>
         /// <param name="expectedHash">The hash value the <see cref="Model.Implementation"/> was supposed to have.</param>
-        /// <param name="expectedManifest">The <see cref="Manifest"/> that resulted in the <paramref name="expectedHash"/>.</param>
         /// <param name="actualHash">The hash value that was actually calculated.</param>
+        /// <param name="expectedManifest">The <see cref="Manifest"/> that resulted in the <paramref name="expectedHash"/>; may be <seealso langword="null"/>.</param>
         /// <param name="actualManifest">The <see cref="Manifest"/> that resulted in the <paramref name="actualHash"/>.</param>
-        public DigestMismatchException(string expectedHash, Manifest expectedManifest, string actualHash, Manifest actualManifest)
+        public DigestMismatchException(string expectedHash, string actualHash, Manifest expectedManifest = null, Manifest actualManifest = null)
             : base(string.Format(Resources.DigestMismatch, expectedHash, actualHash))
         {
             ExpectedHash = expectedHash;
@@ -69,8 +69,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <inheritdoc/>
-        public DigestMismatchException()
-            : base(string.Format(Resources.DigestMismatch, "unknown", "unknown"))
+        public DigestMismatchException() : base(string.Format(Resources.DigestMismatch, "unknown", "unknown"))
         {}
 
         /// <inheritdoc/>

@@ -251,7 +251,7 @@ namespace Common.Storage
         /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
-        public static T LoadXmlZip<T>(Stream stream, string password, params EmbeddedFile[] additionalFiles)
+        public static T LoadXmlZip<T>(Stream stream, string password = null, params EmbeddedFile[] additionalFiles)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -308,7 +308,7 @@ namespace Common.Storage
         /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
-        public static T LoadXmlZip<T>(string path, string password, params EmbeddedFile[] additionalFiles)
+        public static T LoadXmlZip<T>(string path, string password = null, params EmbeddedFile[] additionalFiles)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -328,7 +328,7 @@ namespace Common.Storage
         /// <param name="stream">The ZIP archive to be written.</param>
         /// <param name="password">The password to use for encryption; <see langword="null"/> for no encryption.</param>
         /// <param name="additionalFiles">Additional files to be stored alongside the XML file in the ZIP archive; may be <see langword="null"/>.</param>
-        public static void SaveXmlZip<T>(this T data, Stream stream, string password, params EmbeddedFile[] additionalFiles)
+        public static void SaveXmlZip<T>(this T data, Stream stream, string password = null, params EmbeddedFile[] additionalFiles)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -375,7 +375,7 @@ namespace Common.Storage
         /// <param name="additionalFiles">Additional files to be stored alongside the XML file in the ZIP archive; may be <see langword="null"/>.</param>
         /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        public static void SaveXmlZip<T>(this T data, string path, string password, params EmbeddedFile[] additionalFiles)
+        public static void SaveXmlZip<T>(this T data, string path, string password = null, params EmbeddedFile[] additionalFiles)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");

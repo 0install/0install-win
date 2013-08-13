@@ -55,8 +55,9 @@ namespace ZeroInstall.Publish
         /// Starts with an empty <see cref="ZeroInstall.Model.Feed"/>.
         /// </summary>
         public FeedEditing()
-            : this(new SignedFeed(new Feed(), null), null)
-        {}
+        {
+            SignedFeed = new SignedFeed(new Feed());
+        }
         #endregion
 
         #region Storage

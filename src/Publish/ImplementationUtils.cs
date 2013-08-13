@@ -285,7 +285,7 @@ namespace ZeroInstall.Publish
                 else executor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, digest));
             }
             if (digest != implementation.ManifestDigest)
-                throw new DigestMismatchException(implementation.ManifestDigest.ToString(), null, digest.ToString(), null);
+                throw new DigestMismatchException(implementation.ManifestDigest.ToString(), digest.ToString());
         }
 
         /// <summary>

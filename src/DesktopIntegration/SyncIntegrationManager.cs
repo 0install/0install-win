@@ -250,7 +250,7 @@ namespace ZeroInstall.DesktopIntegration
                 if (resetMode != SyncResetMode.Client)
                 {
                     var memoryStream = new MemoryStream();
-                    AppList.SaveXmlZip(memoryStream, _cryptoKey, null);
+                    AppList.SaveXmlZip(memoryStream, _cryptoKey);
 
                     // Prevent "lost updates" (race conditions) with HTTP ETags
                     if (resetMode == SyncResetMode.None && (appListUri.Scheme == "http" || appListUri.Scheme == "https"))

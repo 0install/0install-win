@@ -48,7 +48,7 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="feed">The wrapped <see cref="Feed"/>.</param>
         /// <param name="secretKey">The secret key used to sign the <see cref="Feed"/>; <see langword="null"/> for no signature.</param>
-        public SignedFeed(Feed feed, OpenPgpSecretKey secretKey)
+        public SignedFeed(Feed feed, OpenPgpSecretKey secretKey = null)
         {
             #region Sanity checks
             if (feed == null) throw new ArgumentNullException("feed");

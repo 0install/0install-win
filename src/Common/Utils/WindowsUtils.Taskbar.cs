@@ -91,7 +91,7 @@ namespace Common.Utils
             /// <param name="title">The title/name of the task link.</param>
             /// <param name="path">The target path the link shall point to and to get the icon from.</param>
             /// <param name="arguments">Additional arguments for <paramref name="title"/>; may be <see langword="null"/>.</param>
-            public ShellLink(string title, string path, string arguments)
+            public ShellLink(string title, string path, string arguments = null)
             {
                 #region Sanity checks
                 if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");

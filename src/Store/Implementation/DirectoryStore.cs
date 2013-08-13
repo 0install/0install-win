@@ -209,7 +209,7 @@ namespace ZeroInstall.Store.Implementation
                 () => new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest"));
             string actualDigestValue = actualManifest.CalculateDigest();
             if (actualDigestValue != expectedDigestValue)
-                throw new DigestMismatchException(expectedDigestValue, null, actualDigestValue, actualManifest);
+                throw new DigestMismatchException(expectedDigestValue, actualDigestValue, actualManifest: actualManifest);
 
             return actualManifest;
         }
