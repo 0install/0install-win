@@ -16,9 +16,6 @@
  */
 
 using System.Linq;
-using Common.Storage;
-using Common.Tasks;
-using Common.Undo;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.WinForms.Properties;
 
@@ -46,11 +43,5 @@ namespace ZeroInstall.Publish.WinForms.Controls
     /// Non-generic base class for <see cref="RecipeEditor"/>, because WinForms editor cannot handle generics.
     /// </summary>
     public class RecipeEditorShim : RetrievalMethodEditor<Recipe>
-    {
-        /// <inheritdoc/>
-        protected override TemporaryDirectory Download(ITaskHandler handler, ICommandExecutor executor)
-        {
-            return ImplementationUtils.DownloadRecipe(Target, handler, executor);
-        }
-    }
+    {}
 }

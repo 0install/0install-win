@@ -17,9 +17,6 @@
 
 using System;
 using Common;
-using Common.Storage;
-using Common.Tasks;
-using Common.Undo;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.WinForms.Properties;
 
@@ -47,11 +44,5 @@ namespace ZeroInstall.Publish.WinForms.Controls
     /// Non-generic base class for <see cref="SingleFileEditor"/>, because WinForms editor cannot handle generics.
     /// </summary>
     public class SingleFileEditorShim : DownloadRetrievalMethodEditor<SingleFile>
-    {
-        /// <inheritdoc/>
-        protected override TemporaryDirectory Download(ITaskHandler handler, ICommandExecutor executor)
-        {
-            return ImplementationUtils.DownloadSingleFile(Target, handler, executor);
-        }
-    }
+    {}
 }

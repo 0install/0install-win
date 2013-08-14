@@ -61,14 +61,7 @@ namespace ZeroInstall.Publish
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            TemporaryDirectory implementationDir = null;
-            new PerTypeDispatcher<RetrievalMethod>(false)
-            {
-                (Archive archive) => implementationDir = DownloadArchive(archive, handler),
-                (SingleFile file) => implementationDir = DownloadSingleFile(file, handler),
-                (Recipe recipe) => implementationDir = DownloadRecipe(recipe, handler)
-            }.Dispatch(retrievalMethod);
-
+            var implementationDir = DownloadAndApply(retrievalMethod, handler);
             try
             {
                 var digest = GenerateDigest(implementationDir, store, handler);
@@ -98,17 +91,10 @@ namespace ZeroInstall.Publish
 
             ConvertSha256ToSha256New(implementation, executor);
 
-            var downloadDispatcher = new PerTypeDispatcher<RetrievalMethod, TemporaryDirectory>(true)
-            {
-                (Archive archive) => DownloadArchive(archive, handler, executor),
-                (SingleFile file) => DownloadSingleFile(file, handler, executor),
-                (Recipe recipe) => DownloadRecipe(recipe, handler, executor)
-            };
-
             foreach (var retrievalMethod in implementation.RetrievalMethods
                 .Where(retrievalMethod => implementation.ManifestDigest == default(ManifestDigest) || IsDownloadSizeMissing(retrievalMethod)))
             {
-                using (var tempDir = downloadDispatcher.Dispatch(retrievalMethod))
+                using (var tempDir = DownloadAndApply(retrievalMethod, handler, executor))
                     UpdateDigest(implementation, tempDir, store, handler, executor);
             }
 
@@ -138,99 +124,59 @@ namespace ZeroInstall.Publish
 
         #region Download
         /// <summary>
-        /// Downloads and extracts an <see cref="Archive"/> and adds missing properties.
+        /// Downloads and applies a <see cref="RetrievalMethod"/> and adds missing properties.
         /// </summary>
-        /// <param name="archive">The <see cref="Archive"/> to be downloaded.</param>
+        /// <param name="retrievalMethod">The <see cref="RetrievalMethod"/> to be downloaded.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
-        /// <returns>A temporary directory containing the contents of the archive.</returns>
-        public static TemporaryDirectory DownloadArchive(Archive archive, ITaskHandler handler, ICommandExecutor executor = null)
+        /// <returns>A temporary directory containing the extracted content.</returns>
+        public static TemporaryDirectory DownloadAndApply(RetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor = null)
         {
-            #region Sanity checks
-            if (archive == null) throw new ArgumentNullException("archive");
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
+            var download = retrievalMethod as DownloadRetrievalMethod;
+            if (download != null) return DownloadAndApply(download, handler, executor);
 
-            using (var downloadedFile = Download(archive, handler, executor))
-            {
-                var extractionDir = new TemporaryDirectory("0publish");
-                try
-                {
-                    RecipeUtils.ApplyArchive(archive, downloadedFile, extractionDir, handler);
-                    return extractionDir;
-                }
-                    #region Error handling
-                catch
-                {
-                    extractionDir.Dispose();
-                    throw;
-                }
-                #endregion
-            }
+            var recipe = retrievalMethod as Recipe;
+            if (recipe != null) return DownloadAndApply(recipe, handler, executor);
+
+            throw new NotSupportedException(Resources.UnknownRetrievalMethodType);
         }
 
         /// <summary>
-        /// Downloads a <see cref="SingleFile"/> and adds missing properties.
-        /// </summary>
-        /// <param name="file">The <see cref="SingleFile"/> to be downloaded.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
-        /// <returns>A temporary directory containing the file.</returns>
-        public static TemporaryDirectory DownloadSingleFile(SingleFile file, ITaskHandler handler, ICommandExecutor executor = null)
-        {
-            #region Sanity checks
-            if (file == null) throw new ArgumentNullException("file");
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
-            using (var downloadedFile = Download(file, handler, executor))
-            {
-                var extractionDir = new TemporaryDirectory("0publish");
-                try
-                {
-                    RecipeUtils.ApplySingleFile(file, downloadedFile, extractionDir);
-                    return extractionDir;
-                }
-                    #region Error handling
-                catch
-                {
-                    extractionDir.Dispose();
-                    throw;
-                }
-                #endregion
-            }
-        }
-
-        /// <summary>
-        /// Downloads a <see cref="DownloadRetrievalMethod"/> and adds missing properties.
+        /// Downloads and applies a <see cref="DownloadRetrievalMethod"/> and adds missing properties.
         /// </summary>
         /// <param name="retrievalMethod">The <see cref="DownloadRetrievalMethod"/> to be downloaded.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
-        /// <returns>A downloaded file.</returns>
-        public static TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor)
+        /// <returns>A temporary directory containing the extracted content.</returns>
+        private static TemporaryDirectory DownloadAndApply(DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor = null)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // Guess MIME types now because the file ending is not known later
-            retrievalMethod.Normalize();
-
-            // Download the file
-            var downloadedFile = new TemporaryFile("0publish");
-            handler.RunTask(new DownloadFile(retrievalMethod.Href, downloadedFile)); // Defer task to handler
-
-            // Set downloaded file size
-            long newSize = new FileInfo(downloadedFile).Length;
-            if (retrievalMethod.Size != newSize)
+            using (var downloadedFile = Download(retrievalMethod, handler, executor))
             {
-                if (executor == null) retrievalMethod.Size = newSize;
-                else executor.Execute(new SetValueCommand<long>(() => retrievalMethod.Size, value => retrievalMethod.Size = value, newSize));
+                var extractionDir = new TemporaryDirectory("0publish");
+                try
+                {
+                    new PerTypeDispatcher<DownloadRetrievalMethod>(true)
+                    {
+                        // ReSharper disable AccessToDisposedClosure
+                        (Archive archive) => RecipeUtils.ApplyArchive(archive, downloadedFile, extractionDir, handler),
+                        (SingleFile file) => RecipeUtils.ApplySingleFile(file, downloadedFile, extractionDir)
+                        // ReSharper restore AccessToDisposedClosure
+                    }.Dispatch(retrievalMethod);
+                    return extractionDir;
+                }
+                    #region Error handling
+                catch
+                {
+                    extractionDir.Dispose();
+                    throw;
+                }
+                #endregion
             }
-
-            return downloadedFile;
         }
 
         /// <summary>
@@ -240,7 +186,7 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
         /// <returns>A temporary directory containing the result of the recipe.</returns>
-        public static TemporaryDirectory DownloadRecipe(Recipe recipe, ITaskHandler handler, ICommandExecutor executor = null)
+        private static TemporaryDirectory DownloadAndApply(Recipe recipe, ITaskHandler handler, ICommandExecutor executor = null)
         {
             #region Sanity checks
             if (recipe == null) throw new ArgumentNullException("recipe");
@@ -263,6 +209,38 @@ namespace ZeroInstall.Publish
                 // Clean up temporary archive files
                 foreach (var downloadedFile in downloadedFiles) downloadedFile.Dispose();
             }
+        }
+
+        /// <summary>
+        /// Downloads a <see cref="DownloadRetrievalMethod"/> and adds missing properties.
+        /// </summary>
+        /// <param name="retrievalMethod">The <see cref="DownloadRetrievalMethod"/> to be downloaded.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
+        /// <returns>A downloaded file.</returns>
+        private static TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor)
+        {
+            #region Sanity checks
+            if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            // Guess MIME types now because the file ending is not known later
+            retrievalMethod.Normalize();
+
+            // Download the file
+            var downloadedFile = new TemporaryFile("0publish");
+            handler.RunTask(new DownloadFile(retrievalMethod.Href, downloadedFile)); // Defer task to handler
+
+            // Set downloaded file size
+            long newSize = new FileInfo(downloadedFile).Length;
+            if (retrievalMethod.Size != newSize)
+            {
+                if (executor == null) retrievalMethod.Size = newSize;
+                else executor.Execute(new SetValueCommand<long>(() => retrievalMethod.Size, value => retrievalMethod.Size = value, newSize));
+            }
+
+            return downloadedFile;
         }
         #endregion
 

@@ -22,7 +22,6 @@ using System.Net;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
-using Common.Storage;
 using Common.Tasks;
 using Common.Undo;
 using ZeroInstall.Model;
@@ -179,7 +178,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <returns>The newly generated digest.</returns>
         private ManifestDigest GenerateDigest(ITaskHandler handler, ICommandExecutor executor)
         {
-            using (var tempDir = Download(handler, executor))
+            using (var tempDir = ImplementationUtils.DownloadAndApply(Target, handler, executor))
                 return ImplementationUtils.GenerateDigest(tempDir, false, handler);
         }
 
@@ -193,14 +192,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
             var setDigestCommand = new SetValueCommand<ManifestDigest>(() => ContainerRef.ManifestDigest, value => ContainerRef.ManifestDigest = value, digest);
             executor.Execute(setDigestCommand);
         }
-
-        /// <summary>
-        /// Downloads the files specified in the <see cref="RetrievalMethod"/>.
-        /// </summary>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="executor">Used to apply properties in an undoable fashion.</param>
-        /// <returns>A temporary directory containing the downloaded files.</returns>
-        protected abstract TemporaryDirectory Download(ITaskHandler handler, ICommandExecutor executor);
         #endregion
     }
 }

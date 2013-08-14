@@ -41,16 +41,16 @@ namespace ZeroInstall.Publish
             new ManifestNormalFile(SingleFileData.Hash(SHA256.Create()), 0, SingleFileData.Length, SingleFileName)).CalculateDigest();
 
         /// <summary>
-        /// Ensures <see cref="ImplementationUtils.DownloadArchive"/> works correctly.
+        /// Ensures <see cref="ImplementationUtils.DownloadAndApply"/> works correctly with <see cref="Archive"/>s.
         /// </summary>
         [Test]
-        public void TestDownloadArchive()
+        public void DownloadAndApplyArchive()
         {
             using (var originalStream = TestData.GetTestZipArchiveStream())
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var archive = new Archive {Href = microServer.FileUri};
-                ImplementationUtils.DownloadArchive(archive, new SilentTaskHandler()).Dispose();
+                ImplementationUtils.DownloadAndApply(archive, new SilentTaskHandler()).Dispose();
 
                 Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
                 Assert.AreEqual(originalStream.Length, archive.Size);
@@ -58,33 +58,33 @@ namespace ZeroInstall.Publish
         }
 
         /// <summary>
-        /// Ensures <see cref="ImplementationUtils.DownloadSingleFile"/> works correctly.
+        /// Ensures <see cref="ImplementationUtils.DownloadAndApply"/> works correctly with <see cref="SingleFile"/>s.
         /// </summary>
         [Test]
-        public void TestDownloadSingleFile()
+        public void DownloadAndApplySingleFile()
         {
             using (var originalStream = SingleFileData.ToStream())
             using (var microServer = new MicroServer(SingleFileName, originalStream))
             {
                 var file = new SingleFile {Href = microServer.FileUri, Destination = SingleFileName};
-                ImplementationUtils.DownloadSingleFile(file, new SilentTaskHandler()).Dispose();
+                ImplementationUtils.DownloadAndApply(file, new SilentTaskHandler()).Dispose();
 
                 Assert.AreEqual(originalStream.Length, file.Size);
             }
         }
 
         /// <summary>
-        /// Ensures <see cref="ImplementationUtils.DownloadRecipe"/> works correctly.
+        /// Ensures <see cref="ImplementationUtils.DownloadAndApply"/> works correctly with <seealso cref="Recipe"/>s.
         /// </summary>
         [Test]
-        public void TestDownloadRecipe()
+        public void DownloadAndApplyRecipe()
         {
             using (var originalStream = TestData.GetTestZipArchiveStream())
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var archive = new Archive {Href = microServer.FileUri};
                 var recipe = new Recipe {Steps = {archive}};
-                ImplementationUtils.DownloadRecipe(recipe, new SilentTaskHandler()).Dispose();
+                ImplementationUtils.DownloadAndApply(recipe, new SilentTaskHandler()).Dispose();
 
                 Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
                 Assert.AreEqual(originalStream.Length, archive.Size);
@@ -95,7 +95,7 @@ namespace ZeroInstall.Publish
         /// Ensures <see cref="ImplementationUtils.Build"/> works correctly with <see cref="Archive"/>s.
         /// </summary>
         [Test]
-        public void TestBuildArchive()
+        public void BuildArchive()
         {
             using (var originalStream = TestData.GetTestZipArchiveStream())
             using (var microServer = new MicroServer("archive.zip", originalStream))
@@ -113,7 +113,7 @@ namespace ZeroInstall.Publish
         /// Ensures <see cref="ImplementationUtils.Build"/> works correctly with <see cref="SingleFile"/>s.
         /// </summary>
         [Test]
-        public void TestBuildSingleFile()
+        public void BuildSingleFile()
         {
             using (var originalStream = SingleFileData.ToStream())
             using (var microServer = new MicroServer(SingleFileName, originalStream))
@@ -130,7 +130,7 @@ namespace ZeroInstall.Publish
         /// Ensures <see cref="ImplementationUtils.Build"/> works correctly with <see cref="Recipe"/>s.
         /// </summary>
         [Test]
-        public void TestBuildRecipe()
+        public void BuildRecipe()
         {
             using (var originalStream = TestData.GetTestZipArchiveStream())
             using (var microServer = new MicroServer("archive.zip", originalStream))
@@ -148,7 +148,7 @@ namespace ZeroInstall.Publish
         /// Ensures <see cref="ImplementationUtils.AddMissing"/> works correctly with <see cref="Archive"/>s.
         /// </summary>
         [Test]
-        public void TestAddMissingArchive()
+        public void AddMissingArchive()
         {
             using (var originalStream = TestData.GetTestZipArchiveStream())
             using (var microServer = new MicroServer("archive.zip", originalStream))
@@ -167,7 +167,7 @@ namespace ZeroInstall.Publish
         /// Ensures <see cref="ImplementationUtils.AddMissing"/> works correctly with <see cref="SingleFile"/>s.
         /// </summary>
         [Test]
-        public void TestAddMissingSingleFile()
+        public void AddMissingSingleFile()
         {
             using (var originalStream = SingleFileData.ToStream())
             using (var microServer = new MicroServer(SingleFileName, originalStream))
@@ -185,7 +185,7 @@ namespace ZeroInstall.Publish
         /// Ensures <see cref="ImplementationUtils.AddMissing"/> works correctly with <see cref="Recipe"/>s.
         /// </summary>
         [Test]
-        public void TestAddMissingRecipe()
+        public void AddMissingRecipe()
         {
             using (var originalStream = TestData.GetTestZipArchiveStream())
             using (var microServer = new MicroServer("archive.zip", originalStream))
@@ -204,7 +204,7 @@ namespace ZeroInstall.Publish
         /// Ensures <see cref="ImplementationUtils.AddMissing"/> throws <see cref="DigestMismatchException"/>s when appropriate.
         /// </summary>
         [Test]
-        public void TestAddMissingExceptions()
+        public void AddMissingExceptions()
         {
             using (var originalStream = TestData.GetTestZipArchiveStream())
             using (var microServer = new MicroServer("archive.zip", originalStream))

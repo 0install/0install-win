@@ -17,9 +17,6 @@
 
 using System;
 using Common;
-using Common.Storage;
-using Common.Tasks;
-using Common.Undo;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.WinForms.Properties;
 
@@ -53,11 +50,5 @@ namespace ZeroInstall.Publish.WinForms.Controls
     /// Non-generic base class for <see cref="ArchiveEditor"/>, because WinForms editor cannot handle generics.
     /// </summary>
     public class ArchiveEditorShim : DownloadRetrievalMethodEditor<Archive>
-    {
-        /// <inheritdoc/>
-        protected override TemporaryDirectory Download(ITaskHandler handler, ICommandExecutor executor)
-        {
-            return ImplementationUtils.DownloadArchive(Target, handler, executor);
-        }
-    }
+    {}
 }

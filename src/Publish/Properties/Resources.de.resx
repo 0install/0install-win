@@ -126,4 +126,7 @@
   <data name="SecretKeyNotInKeyring" xml:space="preserve">
     <value>Der geheime Schlüssel ist nicht im Keyring des Benutzers.</value>
   </data>
+  <data name="UnknownRetrievalMethodType" xml:space="preserve">
+    <value>Unbekannter Typ von Retrieval Method.</value>
+  </data>
 </root>
