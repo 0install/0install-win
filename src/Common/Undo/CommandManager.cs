@@ -55,6 +55,36 @@ namespace Common.Undo
         /// Indicates whether the <see cref="Target"/> has unsaved changes.
         /// </summary>
         public bool Changed { get; private set; }
+
+        private bool _undoEnabled;
+
+        /// <summary>
+        /// Indicates whether <see cref="Undo"/> can presently be called.
+        /// </summary>
+        public bool UndoEnabled
+        {
+            get { return _undoEnabled; }
+            private set
+            {
+                _undoEnabled = value;
+                if (UndoEnabledChanged != null) UndoEnabledChanged();
+            }
+        }
+
+        private bool _redoEnabled;
+
+        /// <summary>
+        /// Indicates whether <see cref="Redo"/> can presently be called.
+        /// </summary>
+        public bool RedoEnabled
+        {
+            get { return _redoEnabled; }
+            private set
+            {
+                _redoEnabled = value;
+                if (RedoEnabledChanged != null) RedoEnabledChanged();
+            }
+        }
         #endregion
 
         #region Events
@@ -65,30 +95,20 @@ namespace Common.Undo
         public event Action Updated;
 
         /// <summary>
-        /// Is raised when the availability of the <see cref="Undo"/> operation has changed.
+        /// Is raised when the value of <see cref="UndoEnabled"/> has changed.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "Cannot rename System.Action<T>.")]
-        public event Action<bool> UndoEnabled;
+        public event Action UndoEnabledChanged;
 
         /// <summary>
-        /// Is raised when the availability of the <see cref="Redo"/> operation has changed.
+        /// Is raised when the value of <see cref="RedoEnabled"/> has changed.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "Cannot rename System.Action<T>.")]
-        public event Action<bool> RedoEnabled;
+        public event Action RedoEnabledChanged;
 
         protected void OnUpdated()
         {
             if (Updated != null) Updated();
-        }
-
-        protected void OnUndoEnabled(bool value)
-        {
-            if (UndoEnabled != null) UndoEnabled(value);
-        }
-
-        protected void OnRedoEnabled(bool value)
-        {
-            if (RedoEnabled != null) RedoEnabled(value);
         }
         #endregion
 
@@ -108,8 +128,8 @@ namespace Common.Undo
             RedoStack.Clear();
 
             // Only enable the buttons that still have a use
-            OnUndoEnabled(true);
-            OnRedoEnabled(false);
+            UndoEnabled = true;
+            RedoEnabled = false;
             OnUpdated();
 
             Changed = true;
@@ -130,10 +150,10 @@ namespace Common.Undo
             // Only enable the buttons that still have a use
             if (UndoStack.Count == 0)
             {
-                OnUndoEnabled(false);
+                UndoEnabled = false;
                 Changed = false;
             }
-            OnRedoEnabled(true);
+            RedoEnabled = true;
 
             OnUpdated();
         }
@@ -154,8 +174,8 @@ namespace Common.Undo
             Changed = true;
 
             // Only enable the buttons that still have a use
-            OnRedoEnabled(RedoStack.Count > 0);
-            OnUndoEnabled(true);
+            RedoEnabled = (RedoStack.Count > 0);
+            UndoEnabled = true;
 
             OnUpdated();
         }
@@ -170,8 +190,8 @@ namespace Common.Undo
             UndoStack.Clear();
             RedoStack.Clear();
 
-            OnUndoEnabled(false);
-            OnRedoEnabled(false);
+            UndoEnabled = false;
+            RedoEnabled = false;
         }
         #endregion
     }

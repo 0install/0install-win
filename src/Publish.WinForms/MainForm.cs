@@ -41,11 +41,13 @@ namespace ZeroInstall.Publish.WinForms
             {
                 _feedEditing = value;
 
-                menuUndo.Enabled = buttonUndo.Enabled = menuRedo.Enabled = buttonRedo.Enabled = false;
                 if (_feedEditing != null)
                 {
-                    _feedEditing.UndoEnabled += state => menuUndo.Enabled = buttonUndo.Enabled = state;
-                    _feedEditing.RedoEnabled += state => menuRedo.Enabled = buttonRedo.Enabled = state;
+                    menuUndo.Enabled = buttonUndo.Enabled = _feedEditing.UndoEnabled;
+                    menuRedo.Enabled = buttonRedo.Enabled = _feedEditing.RedoEnabled;
+
+                    _feedEditing.UndoEnabledChanged += () => menuUndo.Enabled = buttonUndo.Enabled = _feedEditing.UndoEnabled;
+                    _feedEditing.RedoEnabledChanged += () => menuRedo.Enabled = buttonRedo.Enabled = _feedEditing.RedoEnabled;
 
                     feedStructureEditor.CommandManager = _feedEditing;
                 }
