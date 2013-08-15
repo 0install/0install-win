@@ -22,6 +22,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 using ICommandExecutor = Common.Undo.ICommandExecutor;
 
@@ -82,13 +83,14 @@ namespace Common.Controls
         /// </summary>
         /// <param name="control">The control to hook up (is automatically added to <see cref="Control.Controls"/>).</param>
         /// <param name="pointer">Read/write access to the value the <paramref name="control"/> represents.</param>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "The set-value callback method may throw any kind of exception.")]
         protected void RegisterControl(Control control, PropertyPointer<string> pointer)
         {
             Controls.Add(control);
 
             control.Validated += delegate
             {
-                string text = (control.Text == "") ? null : control.Text;
+                string text = string.IsNullOrEmpty(control.Text) ? null : control.Text;
                 if (text == pointer.Value) return;
 
                 try

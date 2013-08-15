@@ -31,7 +31,6 @@ namespace ZeroInstall.Model
     /// <remarks>This is used as input for the solver.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Description("A set of requirements/restrictions imposed by the user on the Implementation selection process.")]
-    [Serializable]
     [XmlRoot("requirements", Namespace = Feed.XmlNamespace), XmlType("requirements", Namespace = Feed.XmlNamespace)]
     public class Requirements : ICloneable, IEquatable<Requirements>
     {
@@ -213,6 +212,7 @@ namespace ZeroInstall.Model
                 int result = (InterfaceID != null ? InterfaceID.GetHashCode() : 0);
                 result = (result * 397) ^ (CommandName != null ? CommandName.GetHashCode() : 0);
                 result = (result * 397) ^ Architecture.GetHashCode();
+                // ReSharper disable once NonReadonlyFieldInGetHashCode
                 result = (result * 397) ^ _languages.GetSequencedHashCode();
                 result = (result * 397) ^ (Versions != null ? Versions.GetHashCode() : 0);
                 result = (result * 397) ^ _versionsFor.GetSequencedHashCode();

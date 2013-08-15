@@ -153,7 +153,7 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A &lt;file&gt; tag is missing a dest attribute..
+        ///   Looks up a localized string similar to A &lt;file&gt; tag is missing a destination attribute..
         /// </summary>
         internal static string FileMissingDest {
             get {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml;
@@ -11,7 +10,6 @@ namespace ZeroInstall.Model
     /// Abstract base class for XML serializable classes that are intended to retain any unkown XML elements or attributes loaded from an XML file.
     /// </summary>
     /// <remarks>Inheriting from this class will prevent the <see cref="XmlSerializer.UnknownElement"/> event from being triggerd.</remarks>
-    [Serializable]
     public abstract class XmlUnknown
     {
         /// <summary>

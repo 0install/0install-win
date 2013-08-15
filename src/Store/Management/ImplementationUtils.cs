@@ -67,6 +67,11 @@ namespace ZeroInstall.Store.Management
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
         public static void Purge(this IStore store, ITaskHandler handler)
         {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             handler.RunTask(new ForEachTask<ManifestDigest>(Resources.PurgingCache, store.ListAll(), store.Remove));
             handler.RunTask(new ForEachTask<string>(Resources.RemovingTempFiles, store.ListAllTemp(), path => Directory.Delete(path, true)));
         }

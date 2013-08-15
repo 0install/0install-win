@@ -62,6 +62,7 @@ namespace Common.Undo
 
             collector.BuildComposite().Execute();
             Assert.IsTrue(command1.Executed, "Should execute as part of composite");
+            // ReSharper disable once HeuristicUnreachableCode
             Assert.IsTrue(command2.Executed, "Should execute as part of composite");
         }
     }

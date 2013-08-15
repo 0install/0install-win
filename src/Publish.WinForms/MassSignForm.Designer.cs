@@ -109,8 +109,9 @@
             this.labelFiles.TabIndex = 0;
             this.labelFiles.Text = "The following files will be signed:";
             // 
-            // MassSignDialog
+            // MassSignForm
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(284, 242);
             this.Controls.Add(this.textPassword);
             this.Controls.Add(this.labelSecretKey);
@@ -120,10 +121,10 @@
             this.Controls.Add(this.listBoxFiles);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "MassSignDialog";
+            this.Name = "MassSignForm";
             this.ShowIcon = true;
             this.ShowInTaskbar = true;
-            this.Text = "Zero Install - Feed signing";
+            this.Text = "Zero Install Feed Signing";
             this.Load += new System.EventHandler(this.MassSignDialog_Load);
             this.Controls.SetChildIndex(this.listBoxFiles, 0);
             this.Controls.SetChildIndex(this.labelFiles, 0);

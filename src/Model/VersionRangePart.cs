@@ -25,6 +25,7 @@ namespace ZeroInstall.Model
     /// Represents an individual non-disjoint part of a <see cref="VersionRange"/>.
     /// </summary>
     /// <remarks>This class is immutable and thread-safe.</remarks>
+    [Serializable]
     internal abstract class VersionRangePart
     {
         #region Factory

@@ -68,7 +68,7 @@ namespace ZeroInstall.Store.Management.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
-            if (args.Length > 0 && args[0] == "purge")
+            if (args != null && args.Length > 0 && args[0] == "purge")
             {
                 if (Msg.YesNo(null, Resources.ConfirmPurge, MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
                 {
