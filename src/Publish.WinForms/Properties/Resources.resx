@@ -132,7 +132,7 @@ The implementation was supposed to stay the same</value>
   </data>
   <data name="DigestReplace" xml:space="preserve">
     <value>Replace
-I changed the implementation on pupose</value>
+I changed the implementation on purpose</value>
   </data>
   <data name="DiscardChanges" xml:space="preserve">
     <value>&amp;Discard
@@ -145,7 +145,7 @@ Discard unsaved changes</value>
     <value>The feed does not have the correct format.</value>
   </data>
   <data name="HintTextMultiline" xml:space="preserve">
-    <value>Eine komplette, u.U. mehrzeilige Beschreibung.</value>
+    <value>A complete possibly multi-line description</value>
   </data>
   <data name="ImageFormatNotSupported" xml:space="preserve">
     <value>The image format is not supported by Zero Install.</value>
@@ -156,11 +156,27 @@ Discard unsaved changes</value>
   <data name="ManifestDigestMissing" xml:space="preserve">
     <value>Manifest digest not calculated yet.</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="NewButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\newbutton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="NewKey" xml:space="preserve">
     <value>New key...</value>
   </data>
+  <data name="NewWizardButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NewWizardButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OpenButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\openbutton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="PleaseClick" xml:space="preserve">
     <value>Please click:</value>
+  </data>
+  <data name="RedoButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\redobutton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SaveButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\savebutton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>&amp;Save
@@ -171,6 +187,9 @@ Save changes</value>
   </data>
   <data name="SizeMissing" xml:space="preserve">
     <value>File size not determined yet.</value>
+  </data>
+  <data name="UndoButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\undobutton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="UpdateImplementation" xml:space="preserve">
     <value>Update implementation</value>

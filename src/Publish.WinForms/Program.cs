@@ -40,7 +40,7 @@ namespace ZeroInstall.Publish.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
-            if (args.Length == 0) Application.Run(new MainForm(new FeedEditing()));
+            if (args == null || args.Length == 0) Application.Run(new WelcomeForm());
             else
             {
                 try

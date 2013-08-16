@@ -99,7 +99,7 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Replace
-        ///I changed the implementation on pupose.
+        ///I changed the implementation on purpose.
         /// </summary>
         internal static string DigestReplace {
             get {
@@ -136,7 +136,7 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eine komplette, u.U. mehrzeilige Beschreibung..
+        ///   Looks up a localized string similar to A complete possibly multi-line description.
         /// </summary>
         internal static string HintTextMultiline {
             get {
@@ -172,6 +172,16 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NewButton {
+            get {
+                object obj = ResourceManager.GetObject("NewButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New key....
         /// </summary>
         internal static string NewKey {
@@ -181,11 +191,51 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NewWizardButton {
+            get {
+                object obj = ResourceManager.GetObject("NewWizardButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OpenButton {
+            get {
+                object obj = ResourceManager.GetObject("OpenButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please click:.
         /// </summary>
         internal static string PleaseClick {
             get {
                 return ResourceManager.GetString("PleaseClick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RedoButton {
+            get {
+                object obj = ResourceManager.GetObject("RedoButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SaveButton {
+            get {
+                object obj = ResourceManager.GetObject("SaveButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -214,6 +264,16 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         internal static string SizeMissing {
             get {
                 return ResourceManager.GetString("SizeMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UndoButton {
+            get {
+                object obj = ResourceManager.GetObject("UndoButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

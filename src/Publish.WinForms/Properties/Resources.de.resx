@@ -144,6 +144,9 @@ Ungespeicherte Änderungen verwerfen</value>
   <data name="FeedNotValid" xml:space="preserve">
     <value>Der Feed hat nicht das richtige Format</value>
   </data>
+  <data name="HintTextMultiline" xml:space="preserve">
+    <value>Eine komplette, u.U. mehrzeilige Beschreibung.</value>
+  </data>
   <data name="ImageFormatNotSupported" xml:space="preserve">
     <value>Das Bildformat wird von Zero Install nicht unterstützt.</value>
   </data>

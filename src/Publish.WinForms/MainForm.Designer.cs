@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.buttonNew = new System.Windows.Forms.ToolStripButton();
+            this.buttonNewWizard = new System.Windows.Forms.ToolStripButton();
             this.buttonOpen = new System.Windows.Forms.ToolStripButton();
             this.buttonSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
@@ -38,11 +39,10 @@
             this.buttonRedo = new System.Windows.Forms.ToolStripButton();
             this.comboBoxKeys = new System.Windows.Forms.ToolStripComboBox();
             this.labelGnuPG = new System.Windows.Forms.ToolStripLabel();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuNewWizard = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuSave = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,6 +63,7 @@
             // 
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonNew,
+            this.buttonNewWizard,
             this.buttonOpen,
             this.buttonSave,
             this.toolStripSeparator,
@@ -78,17 +79,27 @@
             // buttonNew
             // 
             this.buttonNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonNew.Image = ((System.Drawing.Image)(resources.GetObject("buttonNew.Image")));
+            this.buttonNew.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.NewButton;
             this.buttonNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonNew.Name = "buttonNew";
             this.buttonNew.Size = new System.Drawing.Size(23, 22);
             this.buttonNew.Text = "New";
             this.buttonNew.Click += new System.EventHandler(this.menuNew_Click);
             // 
+            // buttonNewWizard
+            // 
+            this.buttonNewWizard.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonNewWizard.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.NewWizardButton;
+            this.buttonNewWizard.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonNewWizard.Name = "buttonNewWizard";
+            this.buttonNewWizard.Size = new System.Drawing.Size(23, 22);
+            this.buttonNewWizard.Text = "New Wizard";
+            this.buttonNewWizard.Click += new System.EventHandler(this.menuNewWizard_Click);
+            // 
             // buttonOpen
             // 
             this.buttonOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonOpen.Image = ((System.Drawing.Image)(resources.GetObject("buttonOpen.Image")));
+            this.buttonOpen.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.OpenButton;
             this.buttonOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonOpen.Name = "buttonOpen";
             this.buttonOpen.Size = new System.Drawing.Size(23, 22);
@@ -98,7 +109,7 @@
             // buttonSave
             // 
             this.buttonSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonSave.Image = ((System.Drawing.Image)(resources.GetObject("buttonSave.Image")));
+            this.buttonSave.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.SaveButton;
             this.buttonSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(23, 22);
@@ -113,7 +124,7 @@
             // buttonUndo
             // 
             this.buttonUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonUndo.Image = ((System.Drawing.Image)(resources.GetObject("buttonUndo.Image")));
+            this.buttonUndo.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.UndoButton;
             this.buttonUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonUndo.Name = "buttonUndo";
             this.buttonUndo.Size = new System.Drawing.Size(23, 22);
@@ -123,7 +134,7 @@
             // buttonRedo
             // 
             this.buttonRedo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonRedo.Image = ((System.Drawing.Image)(resources.GetObject("buttonRedo.Image")));
+            this.buttonRedo.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.RedoButton;
             this.buttonRedo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonRedo.Name = "buttonRedo";
             this.buttonRedo.Size = new System.Drawing.Size(23, 22);
@@ -145,16 +156,7 @@
             this.labelGnuPG.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.labelGnuPG.Name = "labelGnuPG";
             this.labelGnuPG.Size = new System.Drawing.Size(68, 22);
-            this.labelGnuPG.Text = "GnuPG key:";
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.Filter = "XML files|*.xml|All files|*";
-            // 
-            // saveFileDialog
-            // 
-            this.saveFileDialog.DefaultExt = "xml";
-            this.saveFileDialog.Filter = "XML files|*.xml|All files|*";
+            this.labelGnuPG.Text = "GnuPG &key:";
             // 
             // menuStrip1
             // 
@@ -165,12 +167,12 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(584, 24);
             this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip";
             // 
             // menuFile
             // 
             this.menuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuNew,
+            this.menuNewWizard,
             this.menuOpen,
             this.menuSeparator1,
             this.menuSave,
@@ -183,14 +185,24 @@
             // 
             // menuNew
             // 
+            this.menuNew.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.NewButton;
             this.menuNew.Name = "menuNew";
             this.menuNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.menuNew.Size = new System.Drawing.Size(155, 22);
             this.menuNew.Text = "&New";
             this.menuNew.Click += new System.EventHandler(this.menuNew_Click);
             // 
+            // menuNewWizard
+            // 
+            this.menuNewWizard.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.NewWizardButton;
+            this.menuNewWizard.Name = "menuNewWizard";
+            this.menuNewWizard.Size = new System.Drawing.Size(155, 22);
+            this.menuNewWizard.Text = "New &Wizard...";
+            this.menuNewWizard.Click += new System.EventHandler(this.menuNewWizard_Click);
+            // 
             // menuOpen
             // 
+            this.menuOpen.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.OpenButton;
             this.menuOpen.Name = "menuOpen";
             this.menuOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.menuOpen.Size = new System.Drawing.Size(155, 22);
@@ -204,6 +216,7 @@
             // 
             // menuSave
             // 
+            this.menuSave.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.SaveButton;
             this.menuSave.Name = "menuSave";
             this.menuSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.menuSave.Size = new System.Drawing.Size(155, 22);
@@ -242,6 +255,7 @@
             // 
             // menuUndo
             // 
+            this.menuUndo.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.UndoButton;
             this.menuUndo.Name = "menuUndo";
             this.menuUndo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
             this.menuUndo.Size = new System.Drawing.Size(173, 22);
@@ -250,6 +264,7 @@
             // 
             // menuRedo
             // 
+            this.menuRedo.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.RedoButton;
             this.menuRedo.Name = "menuRedo";
             this.menuRedo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
             this.menuRedo.Size = new System.Drawing.Size(173, 22);
@@ -314,8 +329,6 @@
         private System.Windows.Forms.ToolStripComboBox comboBoxKeys;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private Controls.FeedStructureEditor feedStructureEditor;
-        private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem menuFile;
         private System.Windows.Forms.ToolStripMenuItem menuNew;
@@ -330,6 +343,8 @@
         private System.Windows.Forms.ToolStripMenuItem menuExit;
         private System.Windows.Forms.ToolStripSeparator menuSeparator3;
         private System.Windows.Forms.ToolStripMenuItem menuRemove;
+        private System.Windows.Forms.ToolStripButton buttonNewWizard;
+        private System.Windows.Forms.ToolStripMenuItem menuNewWizard;
     }
 }
 

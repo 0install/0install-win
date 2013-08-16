@@ -88,7 +88,22 @@ namespace ZeroInstall.Publish.WinForms
         {
             try
             {
-                NewFeed();
+                AskForChangeSave();
+
+                FeedEditing = new FeedEditing();
+                comboBoxKeys.SelectedItem = null;
+            }
+            catch (OperationCanceledException)
+            {}
+        }
+
+        private void menuNewWizard_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                AskForChangeSave();
+
+                // TODO
             }
             catch (OperationCanceledException)
             {}
@@ -98,7 +113,8 @@ namespace ZeroInstall.Publish.WinForms
         {
             try
             {
-                OpenFeed();
+                AskForChangeSave();
+                FeedEditing = OpenFeed(this);
             }
             catch (OperationCanceledException)
             {}
@@ -152,41 +168,33 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region Storage
-        private void NewFeed()
+        internal static FeedEditing OpenFeed(IWin32Window owner)
         {
-            AskForChangeSave();
-
-            FeedEditing = new FeedEditing();
-            comboBoxKeys.SelectedItem = null;
-        }
-
-        private void OpenFeed()
-        {
-            AskForChangeSave();
-
-            openFileDialog.FileName = "";
-            if (openFileDialog.ShowDialog(this) != DialogResult.OK) throw new OperationCanceledException();
-            try
+            using (var openFileDialog = new OpenFileDialog {Filter = "XML files|*.xml|All files|*"})
             {
-                FeedEditing = FeedEditing.Load(openFileDialog.FileName);
+                if (openFileDialog.ShowDialog(owner) != DialogResult.OK) throw new OperationCanceledException();
+                try
+                {
+                    return FeedEditing.Load(openFileDialog.FileName);
+                }
+                    #region Error handling
+                catch (IOException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                    throw new OperationCanceledException();
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                    throw new OperationCanceledException();
+                }
+                catch (InvalidDataException ex)
+                {
+                    Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Warn);
+                    throw new OperationCanceledException();
+                }
+                #endregion
             }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                throw new OperationCanceledException();
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                throw new OperationCanceledException();
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Warn);
-                throw new OperationCanceledException();
-            }
-            #endregion
         }
 
         private void SaveFeed()
@@ -197,9 +205,11 @@ namespace ZeroInstall.Publish.WinForms
 
         private void SaveFeedAs()
         {
-            saveFileDialog.FileName = "";
-            if (saveFileDialog.ShowDialog(this) != DialogResult.OK) throw new OperationCanceledException();
-            SaveFeed(saveFileDialog.FileName);
+            using (var saveFileDialog = new SaveFileDialog {DefaultExt = "xml", Filter = "XML files|*.xml|All files|*"})
+            {
+                if (saveFileDialog.ShowDialog(this) != DialogResult.OK) throw new OperationCanceledException();
+                SaveFeed(saveFileDialog.FileName);
+            }
         }
 
         private void SaveFeed(string path)
