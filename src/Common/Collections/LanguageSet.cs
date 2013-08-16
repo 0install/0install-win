@@ -100,6 +100,21 @@ namespace Common.Collections
         }
         #endregion
 
+        #region Contains
+        /// <summary>
+        /// Determines whether this language set contains any of a set of target languages.
+        /// Empty sets count as containing all languages.
+        /// </summary>
+        public bool ContainsAny(LanguageSet targets)
+        {
+            #region Sanity checks
+            if (targets == null) throw new ArgumentNullException("targets");
+            #endregion
+
+            return IsEmpty || targets.IsEmpty || targets.Any(Contains);
+        }
+        #endregion
+
         //--------------------//
 
         #region Conversion

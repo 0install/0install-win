@@ -50,5 +50,18 @@ namespace Common.Collections
             Assert.IsFalse(collection.Add("en-US"));
             CollectionAssert.AreEquivalent(new LanguageSet {"en-US"}, collection);
         }
+
+        [Test]
+        public void TestIsCompatible()
+        {
+            Assert.IsTrue(new LanguageSet {"de", "en"}.ContainsAny(new LanguageSet {"en", "fr"}));
+            Assert.IsTrue(new LanguageSet {"en", "fr"}.ContainsAny(new LanguageSet {"de", "en"}));
+
+            Assert.IsTrue(new LanguageSet().ContainsAny(new LanguageSet {"de"}));
+            Assert.IsTrue(new LanguageSet {"de"}.ContainsAny(new LanguageSet()));
+
+            Assert.IsFalse(new LanguageSet {"de", "en"}.ContainsAny(new LanguageSet {"fr"}));
+            Assert.IsFalse(new LanguageSet {"fr"}.ContainsAny(new LanguageSet {"de", "en"}));
+        }
     }
 }
