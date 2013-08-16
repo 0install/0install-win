@@ -59,7 +59,7 @@
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration" isDocumented="True">Provides methods for integrating applications with the desktop environment.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration.AccessPoints" isDocumented="True">Contains structures for parsing and in-memory representation of access points applied to a system.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration.Windows" isDocumented="True">Contains Windows-specific desktop integration code.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Fetchers" isDocumented="True">Downloads &lt;see cref="ZeroInstall.Model.Implementation" /&gt;s into an &lt;see cref="ZeroInstall.Store.Implementation.IStore" /&gt;.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Fetchers" isDocumented="True">Contains &lt;see cref="ZeroInstall.Injector.IFetcher" /&gt; implementations.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Injector" isDocumented="True">Contains code for launching implementations and injecting the selected dependencies.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Model" isDocumented="True">Contains structures for parsing and in-memory representation of Zero Install feeds. The XML representation is defined here: http://0install.net/interface-spec.html</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Model.Capabilities" isDocumented="True">Extends the feed format with structures for describing application capabilities.</NamespaceSummaryItem>

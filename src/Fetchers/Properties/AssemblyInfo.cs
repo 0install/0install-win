@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 // Assembly info
 [assembly: AssemblyTitle("Zero Install Download Broker Library")]
-[assembly: AssemblyDescription("Manages Zero Install implementation download requests for the injector.")]
+[assembly: AssemblyDescription("Contains Fetcher strategy implementations.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: NeutralResourcesLanguage("en")]
 

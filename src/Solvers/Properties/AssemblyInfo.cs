@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 // Assembly info
 [assembly: AssemblyTitle("Zero Install Solver Library")]
-[assembly: AssemblyDescription("Code for solving dependencies.")]
+[assembly: AssemblyDescription("Contains Solver strategy implementations.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: NeutralResourcesLanguage("en")]
 
