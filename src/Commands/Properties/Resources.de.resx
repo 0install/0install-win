@@ -481,9 +481,6 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="UnknownResetMode" xml:space="preserve">
     <value>Unbekannter Synchronisations-Reset Modus.</value>
   </data>
-  <data name="UpdateProblem" xml:space="preserve">
-    <value>Konnte nicht nach Updates suchen</value>
-  </data>
   <data name="Usage" xml:space="preserve">
     <value>Verwendung:</value>
   </data>

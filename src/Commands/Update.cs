@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using Common.Utils;
 using NDesk.Options;
@@ -81,10 +82,15 @@ namespace ZeroInstall.Commands
                 Solve();
             }
                 #region Error handling
+            catch (WebException ex)
+            {
+                if (Resolver.Handler.Batch) return 1;
+                else throw;
+            }
             catch (SolverException ex)
             {
-                Resolver.Handler.Output(Resources.UpdateProblem, ex.Message);
-                return 1;
+                if (Resolver.Handler.Batch) return 1;
+                else throw;
             }
             #endregion
 

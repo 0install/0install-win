@@ -481,9 +481,6 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   <data name="UnknownResetMode" xml:space="preserve">
     <value>Unknown synchronization reset mode.</value>
   </data>
-  <data name="UpdateProblem" xml:space="preserve">
-    <value>Unable to check for updates</value>
-  </data>
   <data name="Usage" xml:space="preserve">
     <value>Usage:</value>
   </data>

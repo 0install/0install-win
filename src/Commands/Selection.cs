@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Net;
 using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
@@ -160,6 +161,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <returns>The same result as stored in <see cref="Selections"/>.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
+        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
         protected virtual Selections Solve()
