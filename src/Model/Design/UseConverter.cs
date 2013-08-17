@@ -33,7 +33,7 @@ namespace ZeroInstall.Model.Design
 
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(new[] {"", "testing"});
+            return new StandardValuesCollection(new[] {"", Dependency.UseTesting});
         }
     }
 }

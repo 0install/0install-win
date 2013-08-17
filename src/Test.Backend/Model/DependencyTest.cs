@@ -36,7 +36,7 @@ namespace ZeroInstall.Model
                 Interface = "",
                 Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}},
                 Importance = Importance.Recommended,
-                Use = "testing"
+                Use = Dependency.UseTesting
             };
         }
         #endregion

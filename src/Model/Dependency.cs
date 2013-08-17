@@ -50,6 +50,13 @@ namespace ZeroInstall.Model
     [XmlRoot("dependency", Namespace = Feed.XmlNamespace), XmlType("depedency", Namespace = Feed.XmlNamespace)]
     public class Dependency : Restriction, IBindingContainer, IEquatable<Dependency>
     {
+        #region Constants
+        /// <summary>
+        /// A <see cref="Use"/> value indicating that a depedency is only required for automatic test execution.
+        /// </summary>
+        public const string UseTesting = "testing";
+        #endregion
+
         #region Properties
         /// <summary>
         /// Controls how important this dependency is (i.e. whether ignoring it is an option).
