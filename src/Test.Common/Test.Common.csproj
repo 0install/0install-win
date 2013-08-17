@@ -73,6 +73,7 @@
     <Compile Include="Collections\LanguageSetTest.cs" />
     <Compile Include="Collections\LocalizableStringCollectionTest.cs" />
     <Compile Include="Collections\PerTypeDispatcherTest.cs" />
+    <Compile Include="Collections\TransparentCacheTest.cs" />
     <Compile Include="Controls\TrackingLabelTest.cs" />
     <Compile Include="Controls\TrackingProgressBarTest.cs" />
     <Compile Include="MicroServer.cs" />
