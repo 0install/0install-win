@@ -105,13 +105,13 @@ namespace Common.Collections
         /// Determines whether this language set contains any of a set of target languages.
         /// Empty sets count as containing all languages.
         /// </summary>
-        public bool ContainsAny(LanguageSet targets)
+        public bool ContainsAny(ICollection<CultureInfo> targets)
         {
             #region Sanity checks
             if (targets == null) throw new ArgumentNullException("targets");
             #endregion
 
-            return IsEmpty || targets.IsEmpty || targets.Any(Contains);
+            return Count == 0 || targets.Count == 0 || targets.Any(Contains);
         }
         #endregion
 
