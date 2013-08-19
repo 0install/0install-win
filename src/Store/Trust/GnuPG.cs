@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text.RegularExpressions;
 using Common;
 using Common.Cli;
 using Common.Collections;
@@ -209,14 +208,15 @@ namespace ZeroInstall.Store.Trust
         /// <param name="line">The error line written to stderr.</param>
         /// <returns>Always <see langword="null"/>.</returns>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
+        /// <exception cref="SignatureException">Thrown if there was an unexcpected GnuPG error.</exception>
         private static string ErrorHandlerException(string line)
         {
-            if (line.StartsWith("gpg: waiting for lock"))
+            if (line.StartsWith("gpg: waiting for lock") || (line.StartsWith("gpg: keyring ") && line.EndsWith(" created")))
             {
                 Log.Info(line);
                 return null;
             }
-            if (new Regex("gpg: skipped \"[\\w\\W]*\": bad passphrase").IsMatch(line)) throw new WrongPassphraseException();
+            if (line.StartsWith("gpg: skipped ") && line.EndsWith(": bad passphrases")) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: bad passphrase")) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: file exists")) throw new IOException(Resources.SignatureAldreadyExists);
             throw new SignatureException(line);
