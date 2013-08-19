@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using ZeroInstall.Model.Preferences;
 using ZeroInstall.Model.Properties;
 
@@ -113,12 +114,16 @@ namespace ZeroInstall.Model.Selection
             Implementation = implementation;
             _implementationPreferences = implementationPreferences;
 
-            if (!implementation.Architecture.IsCompatible(requirements.Architecture))
+            if (!implementation.Commands.Select(command => command.Name).Contains(requirements.CommandName))
+                Notes = string.Format(Resources.SelectionCandidateNoteCommand, requirements.CommandName);
+            else if (!implementation.Architecture.IsCompatible(requirements.Architecture))
             {
                 Notes = (Implementation.Architecture.Cpu == Cpu.Source)
                     ? Resources.SelectionCandidateNoteSource
                     : Resources.SelectionCandidateNoteIncompatibleArchitecture;
             }
+            else if (!implementation.Languages.ContainsAny(requirements.Languages))
+                Notes = Resources.SelectionCandidateNoteWrongLanguage;
             else if (requirements.Versions != null && !requirements.Versions.Match(Version))
                 Notes = Resources.SelectionCandidateNoteVersionMismatch;
             else if (EffectiveStability == Stability.Buggy)
