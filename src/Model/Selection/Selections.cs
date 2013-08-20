@@ -44,10 +44,9 @@ namespace ZeroInstall.Model.Selection
         /// <summary>
         /// The name of the <see cref="Command"/> in the interface to be started.
         /// </summary>
-        /// <remarks>Will default to <see cref="Command.NameRun"/> if <see langword="null"/>. <see cref="string.Empty"/> means the command does not matter.</remarks>
         [Description("The name of the command in the interface to be started.")]
         [XmlAttribute("command")]
-        public string CommandName { get; set; }
+        public string Command { get; set; }
 
         // Preserve order
         private readonly List<ImplementationSelection> _implementations = new List<ImplementationSelection>();

@@ -63,7 +63,7 @@ namespace ZeroInstall.Central
             resolver.FeedManager.Refresh = true;
 
             // Run solver
-            var requirements = new Requirements {InterfaceID = resolver.Config.SelfUpdateID, CommandName = "update"};
+            var requirements = new Requirements {InterfaceID = resolver.Config.SelfUpdateID, Command = "update"};
             var selections = resolver.Solver.Solve(requirements);
 
             // Report version of current update if it is newer than the already installed version

@@ -30,38 +30,40 @@ namespace ZeroInstall.Model.Selection
         public void TestIsSuitable()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
-            Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
-                new ImplementationPreferences(), new Requirements()).IsSuitable);
+            Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(),
+                implementation, new Requirements()).IsSuitable);
         }
 
         [Test]
         public void TestIsSuitableArchitecture()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
-            Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
-                new ImplementationPreferences(), new Requirements {Architecture = implementation.Architecture}).IsSuitable);
-            Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
-                new ImplementationPreferences(), new Requirements {Architecture = new Architecture(OS.FreeBSD, Cpu.PPC)}).IsSuitable);
+            Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(),
+                implementation, new Requirements {Architecture = implementation.Architecture}).IsSuitable);
+            Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(),
+                implementation, new Requirements {Architecture = new Architecture(OS.FreeBSD, Cpu.PPC)}).IsSuitable);
         }
 
         [Test]
         public void TestIsSuitableVersionMismatch()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
-            Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
-                new ImplementationPreferences(), new Requirements {Versions = new VersionRange("..!1.1")}).IsSuitable);
-            Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
-                new ImplementationPreferences(), new Requirements {Versions = new VersionRange("..!1.0")}).IsSuitable);
+            Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(),
+                implementation, new Requirements {Versions = new VersionRange("..!1.1")}).IsSuitable);
+            Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(),
+                implementation, new Requirements {Versions = new VersionRange("..!1.0")}).IsSuitable);
         }
 
         [Test]
         public void TestIsSuitableBuggyInsecure()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
-            Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
-                new ImplementationPreferences {UserStability = Stability.Buggy}, new Requirements()).IsSuitable);
-            Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", implementation,
-                new ImplementationPreferences {UserStability = Stability.Insecure}, new Requirements()).IsSuitable);
+            Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml",
+                new FeedPreferences {Implementations = {new ImplementationPreferences {ID = implementation.ID, UserStability = Stability.Buggy}}},
+                implementation, new Requirements()).IsSuitable);
+            Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml",
+                new FeedPreferences {Implementations = {new ImplementationPreferences {ID = implementation.ID, UserStability = Stability.Insecure}}},
+                implementation, new Requirements()).IsSuitable);
         }
     }
 }

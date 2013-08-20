@@ -38,7 +38,7 @@ namespace ZeroInstall.Commands
             if (options == null) throw new ArgumentNullException("options");
             #endregion
 
-            options.Add("command=", () => Resources.OptionCommand, command => requirements.CommandName = command);
+            options.Add("command=", () => Resources.OptionCommand, command => requirements.Command = command);
             options.Add("version=", () => Resources.OptionVersionRange,
                 (VersionRange range) => requirements.Versions = range);
             options.Add("version-for==", () => Resources.OptionVersionRangeFor,

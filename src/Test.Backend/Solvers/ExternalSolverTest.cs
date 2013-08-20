@@ -16,9 +16,8 @@
  */
 
 using NUnit.Framework;
-using ZeroInstall.Solvers;
 
-namespace ZeroInstall.Solver
+namespace ZeroInstall.Solvers
 {
     /// <summary>
     /// Runs test methods for <see cref="ExternalSolver"/>.

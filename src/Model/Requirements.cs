@@ -56,10 +56,10 @@ namespace ZeroInstall.Model
         /// <summary>
         /// The name of the command in the implementation to execute.
         /// </summary>
-        /// <remarks>Will default to <see cref="Command.NameRun"/> or <see cref="Command.NameCompile"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.</remarks>
+        /// <remarks>Will default to <see cref="Model.Command.NameRun"/> or <see cref="Model.Command.NameCompile"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.</remarks>
         [Description("The name of the command in the implementation to execute.")]
         [XmlAttribute("command")]
-        public string CommandName { get; set; }
+        public string Command { get; set; }
 
         /// <summary>
         /// The architecture to find executables for. Find for the current system if left at default value.
@@ -138,8 +138,8 @@ namespace ZeroInstall.Model
             Architecture = new Architecture(
                 (Architecture.OS == OS.All) ? Architecture.CurrentSystem.OS : Architecture.OS,
                 (Architecture.Cpu == Cpu.All) ? Architecture.CurrentSystem.Cpu : Architecture.Cpu);
-            if (CommandName == null)
-                CommandName = (Architecture.Cpu == Cpu.Source ? Command.NameCompile : Command.NameRun);
+            if (Command == null)
+                Command = (Architecture.Cpu == Cpu.Source ? Model.Command.NameCompile : Model.Command.NameRun);
         }
         #endregion
 
@@ -150,7 +150,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Requirements"/>.</returns>
         public Requirements Clone()
         {
-            var requirements = new Requirements {InterfaceID = InterfaceID, CommandName = CommandName, Architecture = Architecture, Versions = Versions};
+            var requirements = new Requirements {InterfaceID = InterfaceID, Command = Command, Architecture = Architecture, Versions = Versions};
             requirements._languages.AddAll(_languages);
             requirements._versionsFor.AddAll(_versionsFor);
 
@@ -169,8 +169,8 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            if (Versions == null) return string.Format("{0} ({1})", InterfaceID, CommandName);
-            else return string.Format("{0} ({1}): {2}", InterfaceID, CommandName, Versions);
+            if (Versions == null) return string.Format("{0} ({1})", InterfaceID, Command);
+            else return string.Format("{0} ({1}): {2}", InterfaceID, Command, Versions);
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace ZeroInstall.Model
         {
             var builder = new StringBuilder();
 
-            if (CommandName != null) builder.Append("--command=" + CommandName.EscapeArgument() + " ");
+            if (Command != null) builder.Append("--command=" + Command.EscapeArgument() + " ");
             if (Architecture.Cpu == Cpu.Source) builder.Append("--source ");
             else
             {
@@ -203,7 +203,7 @@ namespace ZeroInstall.Model
         {
             if (other == null) return false;
             if (InterfaceID != other.InterfaceID) return false;
-            if (CommandName != other.CommandName) return false;
+            if (Command != other.Command) return false;
             if (Architecture != other.Architecture) return false;
             if (!_languages.SequencedEquals(other._languages)) return false;
             if (Versions != other.Versions) return false;
@@ -225,7 +225,7 @@ namespace ZeroInstall.Model
             unchecked
             {
                 int result = (InterfaceID != null ? InterfaceID.GetHashCode() : 0);
-                result = (result * 397) ^ (CommandName != null ? CommandName.GetHashCode() : 0);
+                result = (result * 397) ^ (Command != null ? Command.GetHashCode() : 0);
                 result = (result * 397) ^ Architecture.GetHashCode();
                 // ReSharper disable once NonReadonlyFieldInGetHashCode
                 result = (result * 397) ^ _languages.GetSequencedHashCode();

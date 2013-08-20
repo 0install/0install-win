@@ -19,9 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
-using ZeroInstall.Model.Preferences;
 
 namespace ZeroInstall.Model.Selection
 {
@@ -102,19 +102,12 @@ namespace ZeroInstall.Model.Selection
             }
         }
 
-        private readonly IEnumerable<KeyValuePair<string, FeedPreferences>> _feeds;
-
-        /// <summary>
-        /// A list of all feed IDs contributing to the selection process associated with their respective preferences.
-        /// </summary>
-        public IEnumerable<KeyValuePair<string, FeedPreferences>> Feeds { get { return _feeds ?? new Dictionary<string, FeedPreferences>(); } }
-
         private readonly IEnumerable<SelectionCandidate> _candidates;
 
         /// <summary>
-        /// The implementations that were considered by the solver before this one was chosen.
+        /// All <see cref="Implementation"/>s that were considered by the solver when this one was chosen.
         /// </summary>
-        [Category("Selection"), Description("The implementations that were considered by the solver before this one was chosen.")]
+        [Browsable(false)]
         [XmlIgnore]
         public IEnumerable<SelectionCandidate> Candidates { get { return _candidates ?? new SelectionCandidate[0]; } }
         #endregion
@@ -129,18 +122,11 @@ namespace ZeroInstall.Model.Selection
         /// <summary>
         /// Creates a new implemenetation selection.
         /// </summary>
-        /// <param name="feeds">
-        ///   A list of all feed IDs contributing to the selection process associated with their respective preferences.
-        ///   This dictionary must _not_ be modified once it has been passed into this constructor!
-        /// </param>
-        /// <param name="candidates">
-        ///   A list of implementations that were considered for selection before this one was chosen.
-        ///   This collection must _not_ be modified once it has been passed into this constructor!
-        /// </param>
-        public ImplementationSelection(IEnumerable<KeyValuePair<string, FeedPreferences>> feeds, IEnumerable<SelectionCandidate> candidates)
+        /// <param name="candidates">A list of implementations that were considered for selection before this one was chosen.</param>
+        // ReSharper disable once ParameterTypeCanBeEnumerable.Local
+        public ImplementationSelection(IEnumerable<SelectionCandidate> candidates)
         {
-            _candidates = candidates;
-            _feeds = feeds;
+            _candidates = candidates.ToList();
         }
         #endregion
 

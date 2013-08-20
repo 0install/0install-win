@@ -151,7 +151,7 @@ namespace ZeroInstall.Commands
             if (selections != null)
             {
                 Assert.AreEqual(selections.InterfaceID, _selections.InterfaceID);
-                Assert.AreEqual(selections.CommandName, _selections.CommandName);
+                Assert.AreEqual(selections.Command, _selections.Command);
                 CollectionAssert.AreEqual(selections.Implementations, _selections.Implementations);
             }
             Assert.AreEqual(output, _output);

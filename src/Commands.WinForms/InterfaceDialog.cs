@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Indicates that the solver provides no c and that they must therefore be generated here
+// Indicates that the solver provides no candidates and that they must therefore be generated here
 
 #define NO_SOLVER_CANDIDATES
 
@@ -63,7 +63,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>A list of all feed IDs contributing to the selection process associated with their respective preferences.</summary>
         private readonly IDictionary<string, FeedPreferences> _feeds = new Dictionary<string, FeedPreferences>();
 #else
-    /// <summary>The last implementation selected for this interface.</summary>
+        /// <summary>The last implementation selected for this interface.</summary>
         private ImplementationSelection _selection;
 #endif
         #endregion
@@ -303,28 +303,31 @@ namespace ZeroInstall.Commands.WinForms
 
                 var feedPreferences = feedEntry.Value;
 
-                // ToDo: Get selection candidates from Solver
-                foreach (var candidate in feed.Elements.OfType<Implementation>().
-                                               Select(implementation => GetSelectionCandidate(feedID, implementation, feedPreferences)).
-                                               Where(candidate => checkBoxShowAllVersions.Checked || candidate.IsSuitable))
+                foreach (var candidate in feed.Elements.OfType<Implementation>()
+                    .Select(implementation => GetSelectionCandidate(feedID, implementation, feedPreferences))
+                    .Where(candidate => checkBoxShowAllVersions.Checked || candidate.IsSuitable))
                     candidates.Add(candidate);
             }
             dataGridVersions.DataSource = candidates;
 #else
-    // ToDo: Display progress
+            // ToDo: Display progress
             _selection = _solveCallback()[_interfaceID];
 
             var list = new BindingList<SelectionCandidate> {AllowEdit = true, AllowNew = false};
-            foreach (var candidate in _selection.Candidates)
-                if (checkBoxShowAllVersions.Checked || candidate.IsUsable) list.Add(candidate);
+            if (checkBoxShowAllVersions.Checked)
+                foreach (var candidate in _selection.Candidates) list.Add(candidate);
+            else
+                foreach (var candidate in _selection.Candidates.Where(candidate => candidate.IsSuitable)) list.Add(candidate);
             dataGridVersions.DataSource = list;
 #endif
         }
 
+#if NO_SOLVER_CANDIDATES
         private static SelectionCandidate GetSelectionCandidate(string feedID, Implementation implementation, FeedPreferences feedPreferences)
         {
-            return new SelectionCandidate(feedID, implementation, feedPreferences[implementation.ID], new Requirements {Architecture = Architecture.CurrentSystem});
+            return new SelectionCandidate(feedID, feedPreferences, implementation, new Requirements { Architecture = Architecture.CurrentSystem });
         }
+#endif
         #endregion
 
         #region Feed buttons
@@ -416,13 +419,18 @@ namespace ZeroInstall.Commands.WinForms
             // Save all feed preferences
 #if NO_SOLVER_CANDIDATES
             foreach (var feedEntry in _feeds)
-#else
-            foreach (var feedEntry in _selection.Feeds)
-#endif
             {
                 feedEntry.Value.Normalize();
                 feedEntry.Value.SaveFor(feedEntry.Key);
             }
+#else
+            // TODO: Filter out duplicates
+            foreach (var candidate in _selection.Candidates)
+            {
+                candidate.FeedPreferences.Normalize();
+                candidate.FeedPreferences.SaveFor(candidate.FeedID);
+            }
+#endif
         }
         #endregion
 
@@ -432,7 +440,7 @@ namespace ZeroInstall.Commands.WinForms
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 var files = e.Data.GetData(DataFormats.FileDrop) as string[];
-                foreach (var file in files) AddFeed(file);
+                if (files != null) foreach (var file in files) AddFeed(file);
             }
             else if (e.Data.GetDataPresent(DataFormats.Text))
                 AddFeed((string)e.Data.GetData(DataFormats.Text));

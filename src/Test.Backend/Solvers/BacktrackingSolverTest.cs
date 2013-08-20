@@ -16,14 +16,13 @@
  */
 
 using NUnit.Framework;
-using ZeroInstall.Solvers;
 
-namespace ZeroInstall.Solver
+namespace ZeroInstall.Solvers
 {
     /// <summary>
-    /// Runs test methods for <see cref="SimpleSolver"/>.
+    /// Runs test methods for <see cref="BacktrackingSolver"/>.
     /// </summary>
     [TestFixture]
-    public class SimpleSolverTest : SolverTest<SimpleSolver>
+    public class BacktrackingSolverTest : SolverTest<BacktrackingSolver>
     {}
 }

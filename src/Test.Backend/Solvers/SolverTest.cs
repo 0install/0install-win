@@ -20,7 +20,7 @@ using NUnit.Framework;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Solver
+namespace ZeroInstall.Solvers
 {
     /// <summary>
     /// Contains common code for testing specific <see cref="ISolver"/> implementations.
@@ -55,7 +55,6 @@ namespace ZeroInstall.Solver
                 bool staleFeeds;
 
                 ProvideCancellationToken();
-                // ReSharper disable once UnusedVariable
                 var selections = Target.Solve(new Requirements {InterfaceID = feedFile}, out staleFeeds);
             }
         }

@@ -63,7 +63,7 @@ namespace ZeroInstall.Injector
 
             // Clone the first implementation so the command can replaced without affecting Selections
             var mainImplementation = Selections.MainImplementation.CloneImplementation();
-            var command = mainImplementation[Selections.CommandName];
+            var command = mainImplementation[Selections.Command];
 
             string mainPath = FileUtils.UnifySlashes(Main);
             command.Path = (mainPath[0] == Path.DirectorySeparatorChar)
@@ -82,7 +82,7 @@ namespace ZeroInstall.Injector
         /// Determines the command-line needed to execute an <see cref="ImplementationSelection"/>. Recursivley handles <see cref="Runner"/>s.
         /// </summary>
         /// <param name="implementation">The implementation to launch.</param>
-        /// <param name="commandName">The name of the <see cref="Command"/> within the <paramref name="implementation"/> to launch. Will default to <see cref="Command.NameRun"/> if <see langword="null"/>.</param>
+        /// <param name="commandName">The name of the <see cref="Command"/> within the <paramref name="implementation"/> to launch.</param>
         /// <param name="startInfo">The process launch environment to apply additional <see cref="Binding"/> to.</param>
         /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Implementation"/> is not cached yet.</exception>
@@ -93,11 +93,12 @@ namespace ZeroInstall.Injector
         private List<ArgBase> GetCommandLine(ImplementationSelection implementation, string commandName, ProcessStartInfo startInfo)
         {
             #region Sanity checks
-            if (implementation == null) throw new ArgumentNullException("implementation");
+            if (implementation == null) throw new ArgumentNullException("implementation");            
             if (startInfo == null) throw new ArgumentNullException("startInfo");
+            if (string.IsNullOrEmpty(commandName)) throw new CommandException(string.Format(Resources.CommandNotSpecified, implementation.InterfaceID));
             #endregion
 
-            Command command = implementation[commandName ?? Command.NameRun];
+            Command command = implementation[commandName];
 
             // Apply bindings implementations use to find themselves and their dependencies
             ApplyBindings(command, implementation, startInfo);
@@ -109,7 +110,7 @@ namespace ZeroInstall.Injector
             if (runner == null) commandLine = new List<ArgBase>();
             else
             {
-                commandLine = GetCommandLine(Selections[runner.Interface], null, startInfo);
+                commandLine = GetCommandLine(Selections[runner.Interface], runner.Command ?? Command.NameRun, startInfo);
                 commandLine.AddRange(runner.Arguments);
             }
 

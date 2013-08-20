@@ -63,7 +63,7 @@ namespace ZeroInstall.Commands
             NoWait = true;
             Resolver.FeedManager.Refresh = true;
             Resolver.Config.AllowApiHooking = false;
-            Requirements.CommandName = "update";
+            Requirements.Command = "update";
 
             //Options.Remove("no-wait");
             //Options.Remove("refresh");

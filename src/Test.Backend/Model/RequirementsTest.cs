@@ -34,7 +34,7 @@ namespace ZeroInstall.Model
             return new Requirements
             {
                 InterfaceID = "http://0install.de/feeds/test/test1.xml",
-                CommandName = "command",
+                Command = "command",
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
                 //Languages = {"de-DE", "en-US"},
                 Versions = new VersionRange("1.0..!2.0"),
@@ -69,11 +69,11 @@ namespace ZeroInstall.Model
         {
             var requirements = new Requirements();
             requirements.Normalize();
-            Assert.AreEqual(Command.NameRun, requirements.CommandName);
+            Assert.AreEqual(Command.NameRun, requirements.Command);
 
             requirements = new Requirements {Architecture = new Architecture(OS.All, Cpu.Source)};
             requirements.Normalize();
-            Assert.AreEqual(Command.NameCompile, requirements.CommandName);
+            Assert.AreEqual(Command.NameCompile, requirements.Command);
         }
 
         [Test(Description = "Ensures that the class can be correctly cloned.")]

@@ -99,7 +99,7 @@ namespace ZeroInstall.Injector
             #endregion
 
             var startInfo = BuildStartInfoWithBindings();
-            var commandLine = GetCommandLine(GetMainImplementation(), Selections.CommandName, startInfo);
+            var commandLine = GetCommandLine(GetMainImplementation(), Selections.Command, startInfo);
             PrependWrapper(commandLine);
             AppendUserArgs(arguments, commandLine);
             ProcessRunEnvBindings(startInfo);

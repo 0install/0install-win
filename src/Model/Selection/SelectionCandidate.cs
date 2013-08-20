@@ -45,6 +45,11 @@ namespace ZeroInstall.Model.Selection
         public string FeedID { get; private set; }
 
         /// <summary>
+        /// The <see cref="FeedPreferences"/> for <see cref="FeedID"/>.
+        /// </summary>
+        public FeedPreferences FeedPreferences { get; private set; }
+
+        /// <summary>
         /// The version number of the implementation.
         /// </summary>
         [Description("The version number of the implementation.")]
@@ -98,31 +103,43 @@ namespace ZeroInstall.Model.Selection
         /// Creates a new selection candidate.
         /// </summary>
         /// <param name="feedID">The file name or URL of the feed listing the implementation.</param>
+        /// <param name="feedPreferences">The <see cref="FeedPreferences"/> for <see cref="FeedID"/>.</param>
         /// <param name="implementation">The implementation this selection candidate references.</param>
-        /// <param name="implementationPreferences">The preferences controlling how the solver evaluates this candidate.</param>
         /// <param name="requirements">A set of requirements/restrictions the <paramref name="implementation"/> needs to fullfill for <see cref="IsSuitable"/> to be <see langword="true"/>.</param>
-        public SelectionCandidate(string feedID, Implementation implementation, ImplementationPreferences implementationPreferences, Requirements requirements)
+        public SelectionCandidate(string feedID, FeedPreferences feedPreferences, Implementation implementation, Requirements requirements)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (feedPreferences == null) throw new ArgumentNullException("feedPreferences");
             if (implementation == null) throw new ArgumentNullException("implementation");
-            if (implementationPreferences == null) throw new ArgumentNullException("implementationPreferences");
             if (requirements == null) throw new ArgumentNullException("requirements");
             #endregion
 
             FeedID = feedID;
+            FeedPreferences = feedPreferences;
             Implementation = implementation;
-            _implementationPreferences = implementationPreferences;
 
-            if (!implementation.Commands.Select(command => command.Name).Contains(requirements.CommandName))
-                Notes = string.Format(Resources.SelectionCandidateNoteCommand, requirements.CommandName);
-            else if (!implementation.Architecture.IsCompatible(requirements.Architecture))
+            _implementationPreferences = feedPreferences[implementation.ID];
+
+            CheckSuitabilty(requirements);
+        }
+        #endregion
+
+        #region Suitability
+        /// <summary>
+        /// Determines whether <see cref="Implementation"/> <see cref="IsSuitable"/> for the <paramref name="requirements"/>.
+        /// </summary>
+        private void CheckSuitabilty(Requirements requirements)
+        {
+            if (!string.IsNullOrEmpty(requirements.Command) && !Implementation.Commands.Select(command => command.Name).Contains(requirements.Command))
+                Notes = string.Format(Resources.SelectionCandidateNoteCommand, requirements.Command);
+            else if (!Implementation.Architecture.IsCompatible(requirements.Architecture))
             {
                 Notes = (Implementation.Architecture.Cpu == Cpu.Source)
                     ? Resources.SelectionCandidateNoteSource
                     : Resources.SelectionCandidateNoteIncompatibleArchitecture;
             }
-            else if (!implementation.Languages.ContainsAny(requirements.Languages))
+            else if (!Implementation.Languages.ContainsAny(requirements.Languages))
                 Notes = Resources.SelectionCandidateNoteWrongLanguage;
             else if (requirements.Versions != null && !requirements.Versions.Match(Version))
                 Notes = Resources.SelectionCandidateNoteVersionMismatch;

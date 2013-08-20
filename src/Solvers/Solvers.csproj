@@ -66,8 +66,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="SimpleSolver.cs" />
-    <Compile Include="SolverFeedCache.cs" />
+    <Compile Include="BacktrackingSolver.cs" />
+    <Compile Include="SelectionCandidateComparer.cs" />
+    <Compile Include="SolverRun.cs" />
+    <Compile Include="SolverUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

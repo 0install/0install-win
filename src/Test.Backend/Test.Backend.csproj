@@ -108,13 +108,13 @@
     <Compile Include="Injector\FeedManagerTest.cs" />
     <Compile Include="Injector\TrustManagerTest.cs" />
     <Compile Include="Model\Selection\ImplementationSelectionTest.cs" />
-    <Compile Include="Solver\ExternalSolverTest.cs" />
     <Compile Include="Model\GenericBindingTest.cs" />
     <Compile Include="Model\RequirementsTest.cs" />
     <Compile Include="Model\Selection\SelectionCandidateTest.cs" />
     <Compile Include="Injector\SelectionsManagerTest.cs" />
-    <Compile Include="Solver\SimpleSolverTest.cs" />
-    <Compile Include="Solver\SolverTest.cs" />
+    <Compile Include="Solvers\ExternalSolverTest.cs" />
+    <Compile Include="Solvers\BacktrackingSolverTest.cs" />
+    <Compile Include="Solvers\SolverTest.cs" />
     <Compile Include="Model\ArchitectureTest.cs" />
     <Compile Include="Model\ArchiveTest.cs" />
     <Compile Include="Model\Capabilities\CapabilityListTest.cs" />
