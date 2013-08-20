@@ -56,7 +56,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// The name of the command in the implementation to execute.
         /// </summary>
-        /// <remarks>Will default to <see cref="Command.NameRun"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.</remarks>
+        /// <remarks>Will default to <see cref="Command.NameRun"/> or <see cref="Command.NameCompile"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.</remarks>
         [Description("The name of the command in the implementation to execute.")]
         [XmlAttribute("command")]
         public string CommandName { get; set; }
@@ -64,6 +64,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// The architecture to find executables for. Find for the current system if left at default value.
         /// </summary>
+        /// <remarks>Will default to <see cref="Model.Architecture.CurrentSystem"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.</remarks>
         [Description("The architecture to find executables for. Find for the current system if left at default value.")]
         [XmlIgnore]
         public Architecture Architecture { get; set; }
@@ -127,6 +128,20 @@ namespace ZeroInstall.Model
         #endregion
 
         //--------------------//
+
+        #region Normalize
+        /// <summary>
+        /// Fills in missing values.
+        /// </summary>
+        public void Normalize()
+        {
+            Architecture = new Architecture(
+                (Architecture.OS == OS.All) ? Architecture.CurrentSystem.OS : Architecture.OS,
+                (Architecture.Cpu == Cpu.All) ? Architecture.CurrentSystem.Cpu : Architecture.Cpu);
+            if (CommandName == null)
+                CommandName = (Architecture.Cpu == Cpu.Source ? Command.NameCompile : Command.NameRun);
+        }
+        #endregion
 
         #region Clone
         /// <summary>
