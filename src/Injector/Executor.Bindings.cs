@@ -227,6 +227,8 @@ namespace ZeroInstall.Injector
         /// <param name="binding">The binding to apply.</param>
         /// <param name="implementation">The implementation to be made available.</param>
         /// <param name="startInfo">The process launch environment to use to make the run-environment executable available.</param>
+        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Model.Implementation"/>s is not cached yet.</exception>
         /// <exception cref="CommandException">Thrown if <see cref="ExecutableInVar.Name"/> is invalid.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
@@ -252,6 +254,8 @@ namespace ZeroInstall.Injector
         /// <param name="binding">The binding to apply.</param>
         /// <param name="implementation">The implementation to be made available.</param>
         /// <param name="startInfo">The process launch environment to use to make the run-environment executable available.</param>
+        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Model.Implementation"/>s is not cached yet.</exception>
         /// <exception cref="CommandException">Thrown if <see cref="ExecutableInPath.Name"/> is invalid.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>

@@ -84,7 +84,7 @@ namespace ZeroInstall.Injector
         /// <param name="implementation">The implementation to launch.</param>
         /// <param name="commandName">The name of the <see cref="Command"/> within the <paramref name="implementation"/> to launch.</param>
         /// <param name="startInfo">The process launch environment to apply additional <see cref="Binding"/> to.</param>
-        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Implementation"/> is not cached yet.</exception>
         /// <exception cref="CommandException">Thrown if a <see cref="Command"/> contained invalid data.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>

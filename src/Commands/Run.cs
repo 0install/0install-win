@@ -16,9 +16,11 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using Common;
 using Common.Utils;
 using NDesk.Options;
@@ -165,6 +167,16 @@ namespace ZeroInstall.Commands
                 // Launch new child process
                 process = executor.Start(AdditionalArgs.ToArray());
             }
+                #region Error handling
+            catch (KeyNotFoundException ex)
+            {
+                // Gracefully handle broken external selections...
+                if (SelectionsDocument) throw new InvalidDataException(ex.Message, ex);
+                    // ... but crash on internal inconsistencies
+                else throw;
+            }
+                #endregion
+
             finally
             {
                 // Hook out of process launching when done
