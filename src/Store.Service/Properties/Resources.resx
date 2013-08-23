@@ -165,7 +165,7 @@
   <data name="UninstallSuccess" xml:space="preserve">
     <value>Successfully uninstalled the Zero Install Store Service.</value>
   </data>
-  <data name="UnkownCommand" xml:space="preserve">
+  <data name="UnknownCommand" xml:space="preserve">
     <value>Unknown command!
 Usage: {0}</value>
   </data>

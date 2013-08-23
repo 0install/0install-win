@@ -106,7 +106,7 @@ namespace ZeroInstall.Store.Service
                     Status();
                     return 0;
                 default:
-                    Msg.Inform(null, string.Format(Resources.UnkownCommand, "0store-service (install|uninstall|start|stop|status) [--silent]"), MsgSeverity.Error);
+                    Msg.Inform(null, string.Format(Resources.UnknownCommand, "0store-service (install|uninstall|start|stop|status) [--silent]"), MsgSeverity.Error);
                     return 1;
             }
         }

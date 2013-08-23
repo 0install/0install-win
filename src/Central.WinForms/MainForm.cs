@@ -124,7 +124,7 @@ namespace ZeroInstall.Central.WinForms
                 {
                     // Show intro video automatically on first start
                     if (!File.Exists(introDoneFlag))
-                        new IntroDialog().ShowDialog(this);
+                        using (var dialog = new IntroDialog()) dialog.ShowDialog(this);
 
                     // Show catalog automatically if AppList is empty
                     tabControlApps.SelectTab(tabPageCatalog);
@@ -620,7 +620,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonIntro_Click(object sender, EventArgs e)
         {
-            new IntroDialog().ShowDialog(this);
+            using (var dialog = new IntroDialog()) dialog.ShowDialog(this);
         }
         #endregion
 
