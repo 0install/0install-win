@@ -163,6 +163,7 @@
     <Compile Include="Undo\ReplaceInList.cs" />
     <Compile Include="Undo\SetLocalizableString.cs" />
     <Compile Include="Undo\CompositeCommand.cs" />
+    <Compile Include="Undo\PreExecutedCompositeCommand.cs" />
     <Compile Include="Undo\CommandCollector.cs" />
     <Compile Include="StructureEditor\ChildInfo.cs" />
     <Compile Include="StructureEditor\EntryInfo.cs" />

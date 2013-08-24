@@ -86,6 +86,7 @@
     <Compile Include="Undo\CollectionTest.cs" />
     <Compile Include="Undo\CommandCollectorTest.cs" />
     <Compile Include="Undo\CompositeCommandTest.cs" />
+    <Compile Include="Undo\PreExecutedCompositeCommandTest.cs" />
     <Compile Include="Undo\ReplaceInListTest.cs" />
     <Compile Include="Undo\SetLocalizableStringTest.cs" />
     <Compile Include="AppMutexText.cs" />

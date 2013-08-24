@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace Common.Undo
 {
     /// <summary>
-    /// Collects <see cref="IUndoCommand"/>s into a <see cref="CompositeCommand"/> instead of executing them right away.
+    /// Executes <see cref="IUndoCommand"/>s and collects them into a <see cref="CompositeCommand"/> allowing a combined undo later on.
     /// </summary>
     public class CommandCollector : ICommandExecutor
     {
@@ -37,6 +37,7 @@ namespace Common.Undo
         /// <param name="command">The command to be stored.</param>
         public void Execute(IUndoCommand command)
         {
+            command.Execute();
             _commands.Add(command);
         }
 
@@ -45,7 +46,7 @@ namespace Common.Undo
         /// </summary>
         public IUndoCommand BuildComposite()
         {
-            return new CompositeCommand(_commands);
+            return new PreExecutedCompositeCommand(_commands);
         }
     }
 }

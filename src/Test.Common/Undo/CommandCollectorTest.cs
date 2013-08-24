@@ -41,7 +41,7 @@ namespace Common.Undo
 
             public void Undo()
             {
-                throw new System.NotImplementedException();
+                Executed = false;
             }
         }
 
@@ -55,15 +55,17 @@ namespace Common.Undo
 
             var command1 = new MockCommand();
             collector.Execute(command1);
-            Assert.IsFalse(command1.Executed, "Should not execute when collecting");
+            Assert.IsTrue(command1.Executed, "Should execute while collecting");
             var command2 = new MockCommand();
             collector.Execute(command2);
-            Assert.IsFalse(command2.Executed, "Should not execute when collecting");
+            Assert.IsTrue(command2.Executed, "Should execute while collecting");
 
-            collector.BuildComposite().Execute();
-            Assert.IsTrue(command1.Executed, "Should execute as part of composite");
+            var composite = collector.BuildComposite();
+            composite.Execute();
+            composite.Undo();
+            Assert.IsFalse(command1.Executed, "Should undo as part of composite");
             // ReSharper disable once HeuristicUnreachableCode
-            Assert.IsTrue(command2.Executed, "Should execute as part of composite");
+            Assert.IsFalse(command2.Executed, "Should undo as part of composite");
         }
     }
 }
