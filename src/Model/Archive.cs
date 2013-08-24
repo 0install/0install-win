@@ -120,7 +120,7 @@ namespace ZeroInstall.Model
         public override void Normalize()
         {
             // If the MIME type is already set or the location is missing, we have nothing to do here
-            if (!String.IsNullOrEmpty(MimeType) || String.IsNullOrEmpty(HrefString)) return;
+            if (!string.IsNullOrEmpty(MimeType) || string.IsNullOrEmpty(HrefString)) return;
 
             // Guess the MIME type based on the file extension
             MimeType = GuessMimeType(HrefString);

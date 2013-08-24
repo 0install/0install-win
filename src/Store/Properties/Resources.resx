@@ -247,6 +247,9 @@ You can delete the file '{1}' to fix the problem. Other settings may also be los
   <data name="UnableToWriteProtect" xml:space="preserve">
     <value>Unable to enable write protection for '{0}'.</value>
   </data>
+  <data name="UnknownArchiveType" xml:space="preserve">
+    <value>Unknown archive type.</value>
+  </data>
   <data name="UnknownRecipeStepType" xml:space="preserve">
     <value>The recipe step type '{0}' is unknown.</value>
   </data>

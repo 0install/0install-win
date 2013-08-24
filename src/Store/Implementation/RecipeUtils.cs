@@ -95,7 +95,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; may be <see langword="null"/>.</param>
         /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
-        public static void ApplyArchive(Model.Archive step, TemporaryFile downloadedFile, TemporaryDirectory workingDir, ITaskHandler handler, object tag = null)
+        public static void ApplyArchive(Model.Archive step, string downloadedFile, TemporaryDirectory workingDir, ITaskHandler handler, object tag = null)
         {
             #region Sanity checks
             if (step == null) throw new ArgumentNullException("step");
@@ -112,6 +112,8 @@ namespace ZeroInstall.Store.Implementation
             }
             #endregion
 
+            if (string.IsNullOrEmpty(step.MimeType)) throw new IOException(Resources.UnknownArchiveType);
+
             using (Extractor extractor = Extractor.CreateExtractor(step.MimeType, downloadedFile, step.StartOffset, workingDir))
             {
                 extractor.SubDir = step.Extract;
@@ -127,7 +129,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="downloadedFile">The file downloaded from <see cref="DownloadRetrievalMethod.Href"/>.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
         /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
-        public static void ApplySingleFile(SingleFile step, TemporaryFile downloadedFile, TemporaryDirectory workingDir)
+        public static void ApplySingleFile(SingleFile step, string downloadedFile, TemporaryDirectory workingDir)
         {
             #region Sanity checks
             if (step == null) throw new ArgumentNullException("step");

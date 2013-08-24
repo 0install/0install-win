@@ -437,6 +437,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unknown archive type..
+        /// </summary>
+        internal static string UnknownArchiveType {
+            get {
+                return ResourceManager.GetString("UnknownArchiveType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The recipe step type &apos;{0}&apos; is unknown..
         /// </summary>
         internal static string UnknownRecipeStepType {

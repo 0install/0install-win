@@ -128,5 +128,16 @@ namespace Common.Utils
             var reader = new StreamReader(stream, new UTF8Encoding(false));
             return reader.ReadToEnd();
         }
+
+        /// <summary>
+        /// Writes the entire content of a stream to a file.
+        /// </summary>
+        /// <param name="stream">The stream to read from.</param>
+        /// <param name="path">The path of the file to write.</param>
+        public static void WriteToFile(this Stream stream, string path)
+        {
+            using (var fileStream = File.Create(path))
+                stream.CopyTo(fileStream);
+        }
     }
 }

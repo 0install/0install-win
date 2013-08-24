@@ -15,9 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.IO;
 using System.Security.Cryptography;
 using Common;
+using Common.Storage;
 using Common.Tasks;
+using Common.Undo;
 using Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Model;
@@ -41,7 +44,7 @@ namespace ZeroInstall.Publish
             new ManifestNormalFile(SingleFileData.Hash(SHA256.Create()), 0, SingleFileData.Length, SingleFileName)).CalculateDigest();
 
         /// <summary>
-        /// Ensures <see cref="ImplementationUtils.DownloadAndApply"/> works correctly with <see cref="Archive"/>s.
+        /// Ensures <see cref="ImplementationUtils.DownloadAndApply(DownloadRetrievalMethod,ITaskHandler,ICommandExecutor)"/> works correctly with <see cref="Archive"/>s.
         /// </summary>
         [Test]
         public void DownloadAndApplyArchive()
@@ -58,7 +61,7 @@ namespace ZeroInstall.Publish
         }
 
         /// <summary>
-        /// Ensures <see cref="ImplementationUtils.DownloadAndApply"/> works correctly with <see cref="SingleFile"/>s.
+        /// Ensures <see cref="ImplementationUtils.DownloadAndApply(DownloadRetrievalMethod,ITaskHandler,ICommandExecutor)"/> works correctly with <see cref="SingleFile"/>s.
         /// </summary>
         [Test]
         public void DownloadAndApplySingleFile()
@@ -74,7 +77,7 @@ namespace ZeroInstall.Publish
         }
 
         /// <summary>
-        /// Ensures <see cref="ImplementationUtils.DownloadAndApply"/> works correctly with <seealso cref="Recipe"/>s.
+        /// Ensures <see cref="ImplementationUtils.DownloadAndApply(Recipe,ITaskHandler,ICommandExecutor)"/> works correctly with <seealso cref="Recipe"/>s.
         /// </summary>
         [Test]
         public void DownloadAndApplyRecipe()
@@ -211,6 +214,45 @@ namespace ZeroInstall.Publish
             {
                 var implementation = new Implementation {ManifestDigest = new ManifestDigest(sha1New: "invalid"), RetrievalMethods = {new Archive {Href = microServer.FileUri}}};
                 Assert.Throws<DigestMismatchException>(() => ImplementationUtils.AddMissing(implementation, false, new SilentTaskHandler()));
+            }
+        }
+
+        /// <summary>
+        /// Ensures <see cref="ImplementationUtils.LocalApply"/> handles <see cref="Archive"/>s without downloading them.
+        /// </summary>
+        [Test]
+        public void LocalApplyArchive()
+        {
+            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
+            {
+                string tempFile = Path.Combine(tempDir, "archive.zip");
+                using (var memoryStream = TestData.GetTestZipArchiveStream())
+                    memoryStream.WriteToFile(tempFile);
+
+                var archive = new Archive();
+                using (var extractedDir = ImplementationUtils.LocalApply(archive, tempFile, new SilentTaskHandler()))
+                    Assert.IsTrue(File.Exists(Path.Combine(extractedDir, "symlink")));
+
+                Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
+                Assert.AreEqual(new FileInfo(tempFile).Length, archive.Size);
+            }
+        }
+
+        /// <summary>
+        /// Ensures <see cref="ImplementationUtils.LocalApply"/> handles <see cref="SingleFile"/>s without downloading them.
+        /// </summary>
+        [Test]
+        public void LocalApplySingleFile()
+        {
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
+            {
+                File.WriteAllText(tempFile, @"abc");
+
+                var file = new SingleFile {Destination = "file"};
+                using (var extractedDir = ImplementationUtils.LocalApply(file, tempFile, new SilentTaskHandler()))
+                    Assert.IsTrue(File.Exists(Path.Combine(extractedDir, "file")));
+
+                Assert.AreEqual(3, file.Size);
             }
         }
     }

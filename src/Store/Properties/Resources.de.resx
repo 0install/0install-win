@@ -247,6 +247,9 @@ Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen wom
   <data name="UnableToWriteProtect" xml:space="preserve">
     <value>Konnte den Schreibschutz für '{0}' nicht aktivieren.</value>
   </data>
+  <data name="UnknownArchiveType" xml:space="preserve">
+    <value>Unbekannter Archiv-Typ.</value>
+  </data>
   <data name="UnknownRecipeStepType" xml:space="preserve">
     <value>Der Recipe Schritt Typ '{0}' ist unbekannten.</value>
   </data>
