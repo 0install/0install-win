@@ -55,7 +55,7 @@
             this.labelNewEmpty.Name = "labelNewEmpty";
             this.labelNewEmpty.Size = new System.Drawing.Size(142, 111);
             this.labelNewEmpty.TabIndex = 2;
-            this.labelNewEmpty.Text = "Create a blank feed to be filled manually. For advanced users.";
+            this.labelNewEmpty.Text = "Create a blank feed to be filled manually.";
             // 
             // buttonNewEmpty
             // 
@@ -96,15 +96,17 @@
             // 
             // labelNewWizard
             // 
+            this.labelNewWizard.Enabled = false;
             this.labelNewWizard.Location = new System.Drawing.Point(170, 138);
             this.labelNewWizard.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelNewWizard.Name = "labelNewWizard";
             this.labelNewWizard.Size = new System.Drawing.Size(142, 112);
             this.labelNewWizard.TabIndex = 4;
-            this.labelNewWizard.Text = "Create a feed for an application step by step. Recommended for most users.";
+            this.labelNewWizard.Text = "Create a feed for an application step by step.";
             // 
             // buttonNewWizard
             // 
+            this.buttonNewWizard.Enabled = false;
             this.buttonNewWizard.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.NewWizardButton;
             this.buttonNewWizard.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.buttonNewWizard.Location = new System.Drawing.Point(169, 81);
