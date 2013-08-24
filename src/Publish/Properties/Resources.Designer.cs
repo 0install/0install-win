@@ -61,6 +61,15 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copying file.
+        /// </summary>
+        internal static string CopyingFile {
+            get {
+                return ResourceManager.GetString("CopyingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Empty implementation: {0}.
         /// </summary>
         internal static string EmptyImplementation {

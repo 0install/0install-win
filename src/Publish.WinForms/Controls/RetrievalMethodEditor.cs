@@ -178,7 +178,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <returns>The newly generated digest.</returns>
         private ManifestDigest GenerateDigest(ITaskHandler handler, ICommandExecutor executor)
         {
-            using (var tempDir = ImplementationUtils.DownloadAndApply(Target, handler, executor))
+            using (var tempDir = RetrievalMethodUtils.DownloadAndApply(Target, handler, executor))
                 return ImplementationUtils.GenerateDigest(tempDir, false, handler);
         }
 
