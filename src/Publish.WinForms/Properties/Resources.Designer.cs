@@ -61,6 +61,15 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add missing.
+        /// </summary>
+        internal static string AddMissing {
+            get {
+                return ResourceManager.GetString("AddMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the GnuPG passphrase for {0}:.
         /// </summary>
         internal static string AskForPassphrase {
@@ -274,15 +283,6 @@ namespace ZeroInstall.Publish.WinForms.Properties {
             get {
                 object obj = ResourceManager.GetObject("UndoButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update implementation.
-        /// </summary>
-        internal static string UpdateImplementation {
-            get {
-                return ResourceManager.GetString("UpdateImplementation", resourceCulture);
             }
         }
         

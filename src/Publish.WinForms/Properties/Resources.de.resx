@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddMissing" xml:space="preserve">
+    <value>Lücken füllen</value>
+  </data>
   <data name="AskForPassphrase" xml:space="preserve">
     <value>Bitte geben Sie die GnuPG Passphrase für {0} ein:</value>
   </data>
@@ -171,9 +174,6 @@ Ungespeicherte Änderungen verwerfen</value>
   </data>
   <data name="SizeMissing" xml:space="preserve">
     <value>Dateigröße noch nicht bestimmt.</value>
-  </data>
-  <data name="UpdateImplementation" xml:space="preserve">
-    <value>Implementierung aktualisieren</value>
   </data>
   <data name="WrongMimeType" xml:space="preserve">
     <value>Falscher MIME Typ! Sollte {0} sein.</value>

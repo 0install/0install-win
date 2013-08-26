@@ -117,6 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="NewButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NewButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NewWizardButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NewWizardButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OpenButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OpenButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RedoButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RedoButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SaveButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SaveButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UndoButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UndoButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AddMissing" xml:space="preserve">
+    <value>Add missing</value>
+  </data>
   <data name="AskForPassphrase" xml:space="preserve">
     <value>Please enter the GnuPG passphrase for {0}:</value>
   </data>
@@ -156,27 +178,11 @@ Discard unsaved changes</value>
   <data name="ManifestDigestMissing" xml:space="preserve">
     <value>Manifest digest not calculated yet.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="NewButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NewButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="NewKey" xml:space="preserve">
     <value>New key...</value>
   </data>
-  <data name="NewWizardButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NewWizardButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OpenButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OpenButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="PleaseClick" xml:space="preserve">
     <value>Please click:</value>
-  </data>
-  <data name="RedoButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RedoButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SaveButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SaveButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>&amp;Save
@@ -187,12 +193,6 @@ Save changes</value>
   </data>
   <data name="SizeMissing" xml:space="preserve">
     <value>File size not determined yet.</value>
-  </data>
-  <data name="UndoButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UndoButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UpdateImplementation" xml:space="preserve">
-    <value>Update implementation</value>
   </data>
   <data name="WrongMimeType" xml:space="preserve">
     <value>Wrong MIME type! Should be {0}.</value>

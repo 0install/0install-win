@@ -47,7 +47,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             set
             {
                 _containerRef = value;
-                _buttonUpdate.Visible = (value != null);
+                _buttonAddMissing.Visible = (value != null);
 
                 UpdateHint();
             }
@@ -56,7 +56,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         #region Constructor
         private readonly Label _labelUpdateHint;
-        private readonly Button _buttonUpdate;
+        private readonly Button _buttonAddMissing;
 
         protected RetrievalMethodEditor()
         {
@@ -69,23 +69,23 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 ForeColor = Color.Red,
                 Visible = false
             });
-            Controls.Add(_buttonUpdate = new Button
+            Controls.Add(_buttonAddMissing = new Button
             {
                 Top = _labelUpdateHint.Bottom + 6,
                 Size = new Size(123, 23),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
                 TabIndex = 1001,
-                Text = Resources.UpdateImplementation,
+                Text = Resources.AddMissing,
                 UseVisualStyleBackColor = true,
                 Visible = false
             });
-            _buttonUpdate.Click += buttonUpdate_Click;
+            _buttonAddMissing.Click += buttonAddMissing_Click;
         }
         #endregion
 
         //--------------------//
 
-        #region Update implementation
+        #region Add missing
         /// <summary>
         /// Displays hints explaining why calling "Update" may be required.
         /// </summary>
@@ -97,18 +97,18 @@ namespace ZeroInstall.Publish.WinForms.Controls
         }
 
         /// <summary>
-        /// Displays a specific update hint if <see cref="_buttonUpdate"/> is active.
+        /// Displays a specific update hint if <see cref="_buttonAddMissing"/> is active.
         /// </summary>
         /// <param name="hint">The hint to display.</param>
         protected void ShowUpdateHint(string hint)
         {
-            if (!_buttonUpdate.Visible) return;
+            if (!_buttonAddMissing.Visible) return;
 
             _labelUpdateHint.Text = hint + @" " + Resources.PleaseClick;
             _labelUpdateHint.Visible = true;
         }
 
-        private void buttonUpdate_Click(object sender, EventArgs e)
+        private void buttonAddMissing_Click(object sender, EventArgs e)
         {
             var commandCollector = new CommandCollector(); // Represent all changes in a single undo step
             try
