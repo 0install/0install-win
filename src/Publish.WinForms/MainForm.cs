@@ -20,6 +20,7 @@ using System.IO;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
+using Common.Info;
 using Common.Utils;
 using ZeroInstall.Publish.WinForms.Properties;
 using ZeroInstall.Store.Trust;
@@ -158,6 +159,11 @@ namespace ZeroInstall.Publish.WinForms
         private void menuRemove_Click(object sender, EventArgs e)
         {
             feedStructureEditor.Remove();
+        }
+
+        private void menuAbout_Click(object sender, EventArgs e)
+        {
+            Msg.Inform(this, AppInfo.Current.Name + " " + AppInfo.Current.Version, MsgSeverity.Info);
         }
 
         private void comboBoxKeys_SelectedIndexChanged(object sender, EventArgs e)

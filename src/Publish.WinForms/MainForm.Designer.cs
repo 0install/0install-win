@@ -39,7 +39,7 @@
             this.buttonRedo = new System.Windows.Forms.ToolStripButton();
             this.comboBoxKeys = new System.Windows.Forms.ToolStripComboBox();
             this.labelGnuPG = new System.Windows.Forms.ToolStripLabel();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuNew = new System.Windows.Forms.ToolStripMenuItem();
             this.menuNewWizard = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,9 +54,11 @@
             this.menuRedo = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.feedStructureEditor = new ZeroInstall.Publish.WinForms.Controls.FeedStructureEditor();
             this.toolStrip.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
+            this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip
@@ -159,15 +161,16 @@
             this.labelGnuPG.Size = new System.Drawing.Size(68, 22);
             this.labelGnuPG.Text = "GnuPG &key:";
             // 
-            // menuStrip1
+            // menuStrip
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFile,
-            this.menuEdit});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(584, 24);
-            this.menuStrip1.TabIndex = 2;
+            this.menuEdit,
+            this.menuHelp});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(584, 24);
+            this.menuStrip.TabIndex = 2;
             // 
             // menuFile
             // 
@@ -286,6 +289,21 @@
             this.menuRemove.Text = "&Remove";
             this.menuRemove.Click += new System.EventHandler(this.menuRemove_Click);
             // 
+            // menuHelp
+            // 
+            this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuAbout});
+            this.menuHelp.Name = "menuHelp";
+            this.menuHelp.Size = new System.Drawing.Size(44, 20);
+            this.menuHelp.Text = "&Help";
+            // 
+            // menuAbout
+            // 
+            this.menuAbout.Name = "menuAbout";
+            this.menuAbout.Size = new System.Drawing.Size(107, 22);
+            this.menuAbout.Text = "&About";
+            this.menuAbout.Click += new System.EventHandler(this.menuAbout_Click);
+            // 
             // feedStructureEditor
             // 
             this.feedStructureEditor.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -301,10 +319,10 @@
             this.ClientSize = new System.Drawing.Size(584, 551);
             this.Controls.Add(this.feedStructureEditor);
             this.Controls.Add(this.toolStrip);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.menuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.menuStrip;
             this.MinimumSize = new System.Drawing.Size(425, 300);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -312,8 +330,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -331,7 +349,7 @@
         private System.Windows.Forms.ToolStripComboBox comboBoxKeys;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private Controls.FeedStructureEditor feedStructureEditor;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem menuFile;
         private System.Windows.Forms.ToolStripMenuItem menuNew;
         private System.Windows.Forms.ToolStripMenuItem menuOpen;
@@ -347,6 +365,8 @@
         private System.Windows.Forms.ToolStripMenuItem menuRemove;
         private System.Windows.Forms.ToolStripButton buttonNewWizard;
         private System.Windows.Forms.ToolStripMenuItem menuNewWizard;
+        private System.Windows.Forms.ToolStripMenuItem menuHelp;
+        private System.Windows.Forms.ToolStripMenuItem menuAbout;
     }
 }
 
