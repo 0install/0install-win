@@ -16,9 +16,6 @@
  */
 
 using System;
-using Common;
-using Common.Utils;
-using NDesk.Options;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -50,6 +47,9 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS]"; } }
 
         /// <inheritdoc/>
+        protected override int AdditionalArgsMax { get { return 0; } }
+
+        /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionSync; } }
         #endregion
 
@@ -67,23 +67,10 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count > 0) throw new OptionException(Resources.TooManyArguments, "");
-
-            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
+            Resolver.Handler.ShowProgressUI();
 
             using (_syncManager = SyncUtils.CreateSync(Resolver, MachineWide))
-            {
-                Resolver.Handler.ShowProgressUI();
                 Sync();
-            }
-
-            // Pre-download new applications in background for later use
-            //if (Resolver.Config.EffectiveNetworkUse == NetworkLevel.Full)
-            //{
-            //    // ToDo: Automatically switch to GTK# on Linux
-            //    ProcessUtils.LaunchHelperAssembly("0install-win", "maintenance --batch");
-            //}
 
             return 0;
         }

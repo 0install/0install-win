@@ -616,15 +616,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No interface ID (feed URI or file path) was specified..
-        /// </summary>
-        internal static string NoInterfaceSpecified {
-            get {
-                return ResourceManager.GetString("NoInterfaceSpecified", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No longer used: .
         /// </summary>
         internal static string NoLongerUsed {
@@ -675,15 +666,6 @@ namespace ZeroInstall.Commands.Properties {
         internal static string NotAvailableInPortableMode {
             get {
                 return ResourceManager.GetString("NotAvailableInPortableMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Parse hasn&apos;t been called yet..
-        /// </summary>
-        internal static string NotParsed {
-            get {
-                return ResourceManager.GetString("NotParsed", resourceCulture);
             }
         }
         

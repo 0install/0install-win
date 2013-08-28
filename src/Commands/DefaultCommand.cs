@@ -19,8 +19,6 @@ using System;
 using System.Text;
 using Common.Info;
 using Common.Storage;
-using Common.Utils;
-using NDesk.Options;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 
@@ -47,6 +45,9 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         protected override string Usage { get { return "COMMAND"; } }
+
+        /// <inheritdoc/>
+        protected override int AdditionalArgsMax { get { return 0; } }
         #endregion
 
         #region Constructor
@@ -67,8 +68,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs.JoinEscapeArguments(), "");
-
             return 0;
         }
         #endregion

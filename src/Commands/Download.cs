@@ -18,13 +18,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common.Utils;
-using NDesk.Options;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Commands
@@ -73,30 +72,16 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs.JoinEscapeArguments(), "");
-
             Resolver.Handler.ShowProgressUI();
 
             Solve();
-
-            // If any of the feeds are getting old or any implementations need to be downloaded rerun solver in refresh mode (unless it was already in that mode to begin with)
-            if ((StaleFeeds || UncachedImplementations.Count != 0) && !Resolver.FeedManager.Refresh)
-            {
-                Resolver.FeedManager.Refresh = true;
-                Solve();
-            }
+            if (StaleFeeds || UncachedImplementations.Count != 0) RefreshSolve();
             SelectionsUI();
 
             DownloadUncachedImplementations();
 
-            if (_show || ShowXml) Resolver.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
-            else
-            {
-                // Show a "download complete" message (but not in batch mode, since it is not important enough)
-                if (!Resolver.Handler.Batch) Resolver.Handler.Output(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
-            }
-            return 0;
+            Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
+            return ShowOutput();
         }
         #endregion
 
@@ -142,6 +127,14 @@ namespace ZeroInstall.Commands
                 throw;
             }
             #endregion
+        }
+
+        private int ShowOutput()
+        {
+            if (_show || ShowXml) Resolver.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
+            else Resolver.Handler.OutputLow(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
+
+            return 0;
         }
         #endregion
     }

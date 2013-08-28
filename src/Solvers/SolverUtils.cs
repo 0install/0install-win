@@ -16,13 +16,14 @@
  */
 
 using System.Collections.Generic;
+using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 
 namespace ZeroInstall.Solvers
 {
     /// <summary>
-    /// SUMMARY
+    /// Helper functions for <see cref="ISolver"/> implementations.
     /// </summary>
     internal static class SolverUtils
     {

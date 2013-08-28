@@ -62,14 +62,17 @@ namespace ZeroInstall.Commands
         [Test(Description = "Ensures calling with no arguments raises an exception.")]
         public void TestNoArgs()
         {
-            Assert.Throws<InvalidInterfaceIDException>(() => Command.Parse(new string[0]), "Should reject empty argument list");
+            Assert.Throws<OptionException>(
+                () => Command.Parse(new string[0]),
+                "Should reject empty argument list");
         }
 
         [Test(Description = "Ensures calling with too many arguments raises an exception.")]
         public void TestTooManyArgs()
         {
-            Command.Parse(new[] {"http://0install.de/feeds/test/test1.xml", "arg1"});
-            Assert.Throws<OptionException>(() => Command.Execute(), "Should reject more than one argument");
+            Assert.Throws<OptionException>(
+                () => Command.Parse(new[] {"http://0install.de/feeds/test/test1.xml", "arg1"}),
+                "Should reject more than one argument");
         }
     }
 }

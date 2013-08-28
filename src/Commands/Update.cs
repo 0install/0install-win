@@ -19,13 +19,12 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
-using Common.Utils;
-using NDesk.Options;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands
 {
@@ -69,25 +68,22 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs.JoinEscapeArguments(), "");
             if (SelectionsDocument) throw new NotSupportedException(Resources.NoSelectionsDocumentUpdate);
 
             Resolver.Handler.ShowProgressUI();
 
             try
             {
-                _oldSelections = SolveOld();
-                Resolver.FeedManager.Refresh = true;
-                Solve();
+                OldSolve();
+                RefreshSolve();
             }
                 #region Error handling
-            catch (WebException ex)
+            catch (WebException)
             {
                 if (Resolver.Handler.Batch) return 1;
                 else throw;
             }
-            catch (SolverException ex)
+            catch (SolverException)
             {
                 if (Resolver.Handler.Batch) return 1;
                 else throw;
@@ -98,7 +94,7 @@ namespace ZeroInstall.Commands
 
             DownloadUncachedImplementations();
 
-            ShowUpdateOutput();
+            ShowOutput();
             return 0;
         }
         #endregion
@@ -107,27 +103,24 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Run solver with refresh forced off to get the old values
         /// </summary>
-        private Selections SolveOld()
+        private void OldSolve()
         {
-            bool previousRefresh = Resolver.FeedManager.Refresh;
             Resolver.FeedManager.Refresh = false;
-            try
-            {
-                return Resolver.Solver.Solve(Requirements, out StaleFeeds);
-            }
-            finally
-            {
-                Resolver.FeedManager.Refresh = previousRefresh;
-            }
+            _oldSelections = Resolver.Solver.Solve(Requirements, out StaleFeeds);
         }
 
         /// <summary>
         /// Shows a list of changes found by the update process.
         /// </summary>
-        private void ShowUpdateOutput()
+        private void ShowOutput()
         {
-            bool changes = false;
+            string output = GetOutputMessage();
+            if (string.IsNullOrEmpty(output)) Resolver.Handler.OutputLow(Resources.ChangesFound, Resources.NoUpdatesFound);
+            else Resolver.Handler.Output(Resources.ChangesFound, output);
+        }
 
+        private string GetOutputMessage()
+        {
             var builder = new StringBuilder();
             foreach (var oldImplementation in _oldSelections.Implementations)
             {
@@ -138,7 +131,6 @@ namespace ZeroInstall.Commands
                     if (oldImplementation.Version != newImplementation.Version)
                     { // Implementation updated
                         builder.AppendLine(interfaceID + ": " + oldImplementation.Version + " -> " + newImplementation.Version);
-                        changes = true;
                     }
                 }
                 catch (KeyNotFoundException)
@@ -153,29 +145,17 @@ namespace ZeroInstall.Commands
                 if (!_oldSelections.ContainsImplementation(interfaceID))
                 { // Implementation added
                     builder.AppendLine(interfaceID + ": new -> " + newImplementation.Version);
-                    changes = true;
                 }
             }
 
             // Detect replaced feeds
             Feed feed = Resolver.FeedCache.GetFeed(Requirements.InterfaceID);
             if (feed.ReplacedBy != null)
-            {
                 builder.AppendLine(string.Format(Resources.FeedReplaced, Requirements.InterfaceID, feed.ReplacedBy.Target));
-                changes = true;
-            }
 
-            if (changes)
-            {
-                // Display the list of changes
-                string message = (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
-                Resolver.Handler.Output(Resources.ChangesFound, message);
-            }
-            else
-            {
-                // Show a "nothing changed" message (but not in batch mode, since it is not important enough)
-                if (!Resolver.Handler.Batch) Resolver.Handler.Output(Resources.ChangesFound, Resources.NoUpdatesFound);
-            }
+            return (builder.Length == 0)
+                ? ""
+                : builder.ToString(0, builder.Length - Environment.NewLine.Length);
         }
         #endregion
     }

@@ -52,15 +52,12 @@ namespace ZeroInstall.Commands
         /// </summary>
         protected readonly Resolver Resolver;
 
-        /// <summary>Indicates whether <see cref="Parse"/> has already been called.</summary>
-        protected bool IsParsed;
-
         /// <summary>The command-line argument parser used to evaluate user input.</summary>
         protected readonly OptionSet Options = new OptionSet();
 
         /// <summary>Feeds to add, terms to search for, etc.</summary>
         [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists", Justification = "Using a List<T> for performance reasons")]
-        protected readonly List<string> AdditionalArgs = new List<string>();
+        protected List<string> AdditionalArgs;
         #endregion
 
         #region Properties
@@ -87,6 +84,16 @@ namespace ZeroInstall.Commands
         protected abstract string Usage { get; }
 
         /// <summary>
+        /// The minimum number of <see cref="AdditionalArgs"/> allowed. Checked in <see cref="Parse"/>.
+        /// </summary>
+        protected virtual int AdditionalArgsMin { get { return 0; } }
+
+        /// <summary>
+        /// The maximum number of <see cref="AdditionalArgs"/> allowed. Checked in <see cref="Parse"/>.
+        /// </summary>
+        protected virtual int AdditionalArgsMax { get { return int.MaxValue; } }
+
+        /// <summary>
         /// A short title describing what this command does or <see langword="null"/>.
         /// </summary>
         public virtual string ActionTitle { get { return null; } }
@@ -111,8 +118,8 @@ namespace ZeroInstall.Commands
 
                     // ToDo: Add flow formatting for better readability on console
                     return Resources.Usage + " 0install " + Name + " " + Usage + Environment.NewLine + Environment.NewLine +
-                        Description + Environment.NewLine + Environment.NewLine +
-                        Resources.Options + Environment.NewLine + buffer.ReadToString();
+                           Description + Environment.NewLine + Environment.NewLine +
+                           Resources.Options + Environment.NewLine + buffer.ReadToString();
                 }
             }
         }
@@ -190,19 +197,22 @@ namespace ZeroInstall.Commands
         /// <exception cref="OperationCanceledException">Thrown if the user asked to see help information, version information, etc..</exception>
         /// <exception cref="OptionException">Thrown if <paramref name="args"/> contains unknown options.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if more privileges are required.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown when trying to set an invalid interface ID.</exception>
         public virtual void Parse(IEnumerable<string> args)
         {
-            IsParsed = true;
+            AdditionalArgs = Options.Parse(args);
 
-            AdditionalArgs.AddRange(Options.Parse(args));
+            if (AdditionalArgs.Count < AdditionalArgsMin) throw new OptionException(Resources.MissingArguments, "");
+            if (AdditionalArgsMin == 1 && string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
+
+            if (AdditionalArgs.Count > AdditionalArgsMax) throw new OptionException(Resources.TooManyArguments, "");
         }
         #endregion
 
         #region Execute
         /// <summary>
-        /// Executes the commands specified by the command-line arguments.
+        /// Executes the commands specified by the command-line arguments. Must call <see cref="Parse"/> first!
         /// </summary>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
@@ -220,7 +230,6 @@ namespace ZeroInstall.Commands
         /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if this method is called before calling <see cref="Parse"/>.</exception>
         /// <remarks>When inheriting this method is usually replaced.</remarks>
         public abstract int Execute();
         #endregion

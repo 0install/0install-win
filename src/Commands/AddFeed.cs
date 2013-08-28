@@ -51,7 +51,7 @@ namespace ZeroInstall.Commands
 
         //--------------------//
 
-        #region Execute
+        #region Helpers
         /// <summary>
         /// Adds a <see cref="FeedReference"/> to one or more <see cref="InterfacePreferences"/>.
         /// </summary>

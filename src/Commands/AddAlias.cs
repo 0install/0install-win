@@ -17,7 +17,6 @@
 
 using System;
 using System.Linq;
-using Common;
 using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
@@ -25,6 +24,7 @@ using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands
 {
@@ -55,6 +55,12 @@ namespace ZeroInstall.Commands
         protected override string Description { get { return Resources.DescriptionAddAlias; } }
 
         /// <inheritdoc/>
+        protected override int AdditionalArgsMin { get { return 1; } }
+
+        /// <inheritdoc/>
+        protected override int AdditionalArgsMax { get { return 3; } }
+
+        /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionAppCommand; } }
         #endregion
 
@@ -73,11 +79,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count < 1 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
-
-            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
-
             using (var integrationManager = new IntegrationManager(MachineWide, Resolver.Handler))
             {
                 if (_resolve || _remove)
@@ -88,7 +89,6 @@ namespace ZeroInstall.Commands
                 }
 
                 if (AdditionalArgs.Count < 2 || string.IsNullOrEmpty(AdditionalArgs[1])) throw new OptionException(Resources.MissingArguments, "");
-                if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments, "");
 
                 string interfaceID = GetCanonicalID(AdditionalArgs[1]);
                 string command = (AdditionalArgs.Count >= 3 ? AdditionalArgs[2] : null);
@@ -122,7 +122,6 @@ namespace ZeroInstall.Commands
             {
                 integrationManager.RemoveAccessPoints(appEntry, new AccessPoint[] {appAlias});
 
-                // Show a "integration complete" message (but not in batch mode, since it is not important enough)
                 Resolver.Handler.Output(Resources.AppAlias, string.Format(Resources.AliasRemoved, aliasName, appEntry.Name));
             }
             return 0;
@@ -159,13 +158,9 @@ namespace ZeroInstall.Commands
             }
             #endregion
 
-            // Show a "integration complete" message (but not in batch mode, since it is not important enough)
-            if (!Resolver.Handler.Batch)
-            {
-                Resolver.Handler.Output(
-                    Resources.DesktopIntegration,
-                    string.Format(needsReopenTerminal ? Resources.AliasCreatedReopenTerminal : Resources.AliasCreated, aliasName, appEntry.Name));
-            }
+            Resolver.Handler.OutputLow(
+                Resources.DesktopIntegration,
+                string.Format(needsReopenTerminal ? Resources.AliasCreatedReopenTerminal : Resources.AliasCreated, aliasName, appEntry.Name));
             return 0;
         }
 

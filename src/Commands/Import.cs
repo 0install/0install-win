@@ -19,7 +19,6 @@ using System;
 using System.IO;
 using Common.Cli;
 using Common.Storage;
-using NDesk.Options;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
@@ -44,6 +43,9 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         protected override string Usage { get { return "FEED-FILE [...]"; } }
+
+        /// <inheritdoc/>
+        protected override int AdditionalArgsMin { get { return 1; } }
         #endregion
 
         #region Constructor
@@ -60,17 +62,22 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
-
             Resolver.Handler.ShowProgressUI();
+
             foreach (var file in ArgumentUtils.GetFiles(AdditionalArgs, "*.xml"))
-            {
-                Resolver.FeedManager.ImportFeed(
-                    XmlStorage.LoadXml<Feed>(file.FullName).Uri, new Uri(file.FullName),
-                    File.ReadAllBytes(file.FullName));
-            }
+                ImportFile(file.FullName);
+
             return 0;
+        }
+        #endregion
+
+        #region Helpers
+        private void ImportFile(string path)
+        {
+            Resolver.FeedManager.ImportFeed(
+                XmlStorage.LoadXml<Feed>(path).Uri,
+                new Uri(path),
+                File.ReadAllBytes(path));
         }
         #endregion
     }

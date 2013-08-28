@@ -42,6 +42,12 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         protected override string Usage { get { return "[OPTIONS] URI"; } }
+
+        /// <inheritdoc/>
+        protected override int AdditionalArgsMin { get { return 1; } }
+
+        /// <inheritdoc/>
+        protected override int AdditionalArgsMax { get { return 1; } }
         #endregion
 
         #region Constructor
@@ -56,20 +62,25 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
-            if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
-
             string interfaceID = AdditionalArgs[0];
             if (File.Exists(AdditionalArgs[0])) interfaceID = Path.GetFullPath(AdditionalArgs[0]);
 
+            Resolver.Handler.Output(
+                string.Format(Resources.FeedsRegistered, interfaceID),
+                GetRegisteredFeeds(interfaceID));
+            return 0;
+        }
+        #endregion
+
+        #region Helpers
+        private static string GetRegisteredFeeds(string interfaceID)
+        {
             var preferences = InterfacePreferences.LoadFor(interfaceID);
+
             var builder = new StringBuilder();
             foreach (var feedReference in preferences.Feeds)
                 builder.AppendLine(feedReference.Source);
-
-            Resolver.Handler.Output(string.Format(Resources.FeedsRegistered, interfaceID), builder.ToString());
-            return 0;
+            return builder.ToString();
         }
         #endregion
     }

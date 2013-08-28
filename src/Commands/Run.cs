@@ -63,6 +63,9 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return base.Usage + " [ARGS]"; } }
 
         /// <inheritdoc/>
+        protected override int AdditionalArgsMax { get { return int.MaxValue; } }
+
+        /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionRun; } }
 
         /// <inheritdoc/>
@@ -97,28 +100,14 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-
             Resolver.Handler.ShowProgressUI();
 
             Solve();
-
-            // If any implementations need to be downloaded rerun solver in refresh mode (unless it was already in that mode to begin with)
-            if (UncachedImplementations.Count != 0 && !Resolver.FeedManager.Refresh)
-            {
-                Resolver.FeedManager.Refresh = true;
-                Solve();
-            }
+            if (UncachedImplementations.Count != 0) RefreshSolve();
             SelectionsUI();
 
             DownloadUncachedImplementations();
-
-            // If any of the feeds are getting old spawn background update process
-            if (StaleFeeds && Resolver.Config.EffectiveNetworkUse == NetworkLevel.Full)
-            {
-                // ToDo: Automatically switch to GTK# on Linux
-                ProcessUtils.LaunchAssembly("0install-win", "update --batch " + Requirements.ToCommandLineArgs());
-            }
+            BackgroundUpdate();
 
             Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
             return LaunchImplementation();
@@ -126,6 +115,15 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Helpers
+        /// <summary>
+        /// If any of the feeds are getting old spawn a background update process.
+        /// </summary>
+        private void BackgroundUpdate()
+        {
+            if (StaleFeeds && Resolver.Config.EffectiveNetworkUse == NetworkLevel.Full)
+                ProcessUtils.LaunchAssembly(WindowsUtils.IsWindows ? "0install-win" : "0install-gtk", "update --batch " + Requirements.ToCommandLineArgs());
+        }
+
         /// <summary>
         /// Launches the selected implementation.
         /// </summary>
@@ -136,8 +134,7 @@ namespace ZeroInstall.Commands
         [SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "Explicit test for empty but non-null strings is intended")]
         protected int LaunchImplementation()
         {
-            if (Requirements.Command == "")
-                throw new OptionException(Resources.NoRunWithEmptyCommand, "--command");
+            if (Requirements.Command == "") throw new OptionException(Resources.NoRunWithEmptyCommand, "--command");
 
             // Prevent the user from pressing any buttons once the child process is being launched
             Resolver.Handler.DisableProgressUI();
@@ -145,13 +142,47 @@ namespace ZeroInstall.Commands
             // Prepare new child process
             var executor = new Executor(Selections, Resolver.Store) {Main = _main, Wrapper = _wrapper};
 
-            // Hook into process launching if API hooking is applicable
-            RunHook runHook = null;
+            using (var runHook = CreateRunHook(executor))
+            {
+                Process process;
+                try
+                {
+                    // Launch new child process
+                    process = executor.Start(AdditionalArgs.ToArray());
+
+                    if (process == null) return 0;
+                }
+                    #region Error handling
+                catch (KeyNotFoundException ex)
+                {
+                    // Gracefully handle broken external selections
+                    if (SelectionsDocument) throw new InvalidDataException(ex.Message, ex);
+                    else throw;
+                }
+                #endregion
+
+                Resolver.Handler.CloseProgressUI();
+
+                try
+                {
+                    if (NoWait && runHook == null) return (WindowsUtils.IsWindows ? process.Id : 0);
+                    process.WaitForExit();
+                    return process.ExitCode;
+                }
+                finally
+                {
+                    process.Close();
+                }
+            }
+        }
+
+        private IDisposable CreateRunHook(Executor executor)
+        {
             if (Resolver.Config.AllowApiHooking && WindowsUtils.IsWindows)
             {
                 try
                 {
-                    runHook = new RunHook(executor, Resolver.FeedManager, Resolver.Handler);
+                    return new RunHook(executor, Resolver.FeedManager, Resolver.Handler);
                 }
                     #region Error handling
                 catch (ImplementationNotFoundException)
@@ -161,41 +192,7 @@ namespace ZeroInstall.Commands
                 #endregion
             }
 
-            Process process;
-            try
-            {
-                // Launch new child process
-                process = executor.Start(AdditionalArgs.ToArray());
-            }
-                #region Error handling
-            catch (KeyNotFoundException ex)
-            {
-                // Gracefully handle broken external selections...
-                if (SelectionsDocument) throw new InvalidDataException(ex.Message, ex);
-                    // ... but crash on internal inconsistencies
-                else throw;
-            }
-                #endregion
-
-            finally
-            {
-                // Hook out of process launching when done
-                if (runHook != null) runHook.Dispose();
-            }
-
-            Resolver.Handler.CloseProgressUI();
-
-            if (process == null) return 0;
-            try
-            {
-                if (NoWait) return (WindowsUtils.IsWindows ? process.Id : 0);
-                process.WaitForExit();
-                return process.ExitCode;
-            }
-            finally
-            {
-                process.Close();
-            }
+            return null;
         }
         #endregion
     }

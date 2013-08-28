@@ -25,6 +25,7 @@ using NDesk.Options;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Commands
@@ -84,8 +85,6 @@ namespace ZeroInstall.Commands
 
             // Always pass in the installation directory to the updater as an argument
             AdditionalArgs.Add(Locations.InstallBase);
-
-            IsParsed = true;
         }
         #endregion
 
@@ -93,12 +92,11 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-
             if (File.Exists(Path.Combine(Locations.PortableBase, "_no_self_update_check"))) throw new NotSupportedException(Resources.NoSelfUpdateDisabled);
             if (StoreUtils.PathInAStore(Locations.InstallBase)) throw new NotSupportedException(Resources.NoSelfUpdateStore);
 
             Resolver.Handler.ShowProgressUI();
+
             Solve();
             SelectionsUI();
 
@@ -107,8 +105,7 @@ namespace ZeroInstall.Commands
             var newVersion = Selections.Implementations[0].Version;
             if (!_force && currentVersion >= newVersion)
             {
-                // Show a "nothing changed" message (but not in batch mode, since it is not important enough)
-                if (!Resolver.Handler.Batch) Resolver.Handler.Output(Resources.ChangesFound, Resources.NoUpdatesFound);
+                Resolver.Handler.OutputLow(Resources.ChangesFound, Resources.NoUpdatesFound);
                 return 1;
             }
 

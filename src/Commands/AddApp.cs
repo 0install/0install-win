@@ -19,6 +19,7 @@ using System;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands
 {
@@ -66,13 +67,11 @@ namespace ZeroInstall.Commands
 
             try
             {
-                // Create a new AppEntry
                 CreateAppEntry(integrationManager, ref interfaceID);
             }
             catch (InvalidOperationException ex)
             {
-                // Show a "nothing to do" message if there is an existing AppEntry (but not in batch mode, since it is not important enough));
-                if (!Resolver.Handler.Batch) Resolver.Handler.Output(Resources.AppList, ex.Message);
+                Resolver.Handler.OutputLow(Resources.DesktopIntegration, ex.Message);
             }
             return 0;
         }

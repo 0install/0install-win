@@ -85,40 +85,28 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-
-            string path;
-            string subdir;
-            switch (AdditionalArgs.Count)
-            {
-                case 0:
-                    throw new OptionException(Resources.MissingArguments, "");
-
-                case 1:
-                    path = AdditionalArgs[0];
-                    subdir = null;
-                    break;
-
-                case 2:
-                    path = AdditionalArgs[0];
-                    subdir = AdditionalArgs[1];
-                    break;
-
-                default:
-                    throw new OptionException(Resources.TooManyArguments, "");
-            }
-
             Resolver.Handler.ShowProgressUI();
 
-            Manifest manifest;
+            var manifest = GenerateManifest(
+                AdditionalArgs[0],
+                (AdditionalArgs.Count == 2) ? AdditionalArgs[1] : null);
+
+            Resolver.Handler.Output("Manifest digest", GetOutput(manifest));
+            return 0;
+        }
+        #endregion
+
+        #region Helpers
+        private Manifest GenerateManifest(string path, string subdir)
+        {
             if (Directory.Exists(path))
-            { // Manifest for directory
+            {
                 if (!string.IsNullOrEmpty(subdir)) throw new OptionException(Resources.TooManyArguments, "");
 
-                manifest = Manifest.Generate(path, _algorithm, Resolver.Handler);
+                return Manifest.Generate(path, _algorithm, Resolver.Handler);
             }
             else if (File.Exists(path))
-            { // Manifest for archive
+            {
                 using (var tempDir = new TemporaryDirectory("0install"))
                 {
                     using (var extractor = Extractor.CreateExtractor(null, path, 0, tempDir))
@@ -127,20 +115,21 @@ namespace ZeroInstall.Commands
                         Resolver.Handler.RunTask(extractor);
                     }
 
-                    manifest = Manifest.Generate(tempDir, _algorithm, Resolver.Handler);
+                    return Manifest.Generate(tempDir, _algorithm, Resolver.Handler);
                 }
             }
             else throw new FileNotFoundException(string.Format(Resources.FileOrDirNotFound, path));
+        }
 
-            string output;
+        private string GetOutput(Manifest manifest)
+        {
             if (_printManifest)
             {
-                output = manifest.ToString().TrimEnd('\n');
-                if (_printDigest) output += "\n" + manifest.CalculateDigest();
+                string result = manifest.ToString().TrimEnd('\n');
+                if (_printDigest) result += "\n" + manifest.CalculateDigest();
+                return result;
             }
-            else output = manifest.CalculateDigest();
-            Resolver.Handler.Output("Manifest digest", output);
-            return 0;
+            else return manifest.CalculateDigest();
         }
         #endregion
     }

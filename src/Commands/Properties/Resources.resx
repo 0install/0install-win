@@ -306,9 +306,6 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
     <value>API hooking not possible due to non-cached implementation.</value>
   </data>
-  <data name="NoInterfaceSpecified" xml:space="preserve">
-    <value>No interface ID (feed URI or file path) was specified.</value>
-  </data>
   <data name="NoLongerUsed" xml:space="preserve">
     <value>No longer used: </value>
   </data>
@@ -326,9 +323,6 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   </data>
   <data name="NotAvailableInPortableMode" xml:space="preserve">
     <value>This operation is not available in portable mode.</value>
-  </data>
-  <data name="NotParsed" xml:space="preserve">
-    <value>Parse hasn't been called yet.</value>
   </data>
   <data name="NoUpdatesFound" xml:space="preserve">
     <value>No updates found</value>

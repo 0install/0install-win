@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Common;
 using Common.Utils;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
@@ -31,6 +32,18 @@ namespace ZeroInstall.Commands
             Options.Add("r|refresh", () => Resources.OptionRefresh, unused => Resolver.FeedManager.Refresh = true);
 
             Options.Add("m|machine", () => Resources.OptionMachine, unused => MachineWide = true);
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Parse
+        /// <inheritdoc/>
+        public override void Parse(IEnumerable<string> args)
+        {
+            base.Parse(args);
+
+            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
         }
         #endregion
 
@@ -89,14 +102,7 @@ namespace ZeroInstall.Commands
             //TryToSolve(interfaceID);
 
             var appEntry = integrationManager.AddApp(interfaceID, feed);
-
-            // Pre-download application in background for later use
-            if (Resolver.Config.EffectiveNetworkUse == NetworkLevel.Full)
-            {
-                // ToDo: Automatically switch to GTK# on Linux
-                ProcessUtils.LaunchAssembly("0install-win", "download --batch " + interfaceID.EscapeArgument());
-            }
-
+            PreDownload(interfaceID);
             return appEntry;
         }
 
@@ -105,16 +111,24 @@ namespace ZeroInstall.Commands
         /// </summary>
         private void DetectReplacement(ref string interfaceID, ref Feed feed)
         {
-            if (feed.ReplacedBy != null)
+            if (feed.ReplacedBy == null) return;
+
+            if (Resolver.Handler.AskQuestion(
+                string.Format(Resources.FeedReplacedAsk, feed.Name, interfaceID, feed.ReplacedBy.Target),
+                string.Format(Resources.FeedReplaced, interfaceID, feed.ReplacedBy.Target)))
             {
-                if (Resolver.Handler.AskQuestion(
-                    string.Format(Resources.FeedReplacedAsk, feed.Name, interfaceID, feed.ReplacedBy.Target),
-                    string.Format(Resources.FeedReplaced, interfaceID, feed.ReplacedBy.Target)))
-                {
-                    interfaceID = feed.ReplacedBy.Target.ToString();
-                    feed = Resolver.FeedManager.GetFeed(interfaceID);
-                }
+                interfaceID = feed.ReplacedBy.Target.ToString();
+                feed = Resolver.FeedManager.GetFeed(interfaceID);
             }
+        }
+
+        /// <summary>
+        /// Pre-download application in background for later use.
+        /// </summary>
+        private void PreDownload(string interfaceID)
+        {
+            if (Resolver.Config.EffectiveNetworkUse == NetworkLevel.Full)
+                ProcessUtils.LaunchAssembly(WindowsUtils.IsWindows ? "0install-win" : "0install-gtk", "download --batch " + interfaceID.EscapeArgument());
         }
         #endregion
     }

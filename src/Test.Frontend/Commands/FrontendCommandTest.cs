@@ -157,12 +157,6 @@ namespace ZeroInstall.Commands
             Assert.AreEqual(output, _output);
         }
 
-        [Test(Description = "Ensures an exception is thrown if Execute() is called before Parse().")]
-        public void TestExecuteBeforeParse()
-        {
-            Assert.Throws<InvalidOperationException>(() => Command.Execute(), "Execute should not allow calls before Parse");
-        }
-
         [Test]
         public void TestGetCanonicalID()
         {

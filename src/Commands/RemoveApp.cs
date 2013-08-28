@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands
 {
@@ -72,8 +73,7 @@ namespace ZeroInstall.Commands
             }
             catch (KeyNotFoundException ex)
             {
-                // Show a "nothing to do" message (but not in batch mode, since it is not important enough));
-                if (!Resolver.Handler.Batch) Resolver.Handler.Output(Resources.AppList, ex.Message);
+                Resolver.Handler.OutputLow(Resources.AppList, ex.Message);
                 return 0;
             }
 

@@ -19,10 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Common;
 using Common.Tasks;
-using Common.Utils;
-using NDesk.Options;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
@@ -56,6 +53,9 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS]"; } }
 
         /// <inheritdoc/>
+        protected override int AdditionalArgsMax { get { return 0; } }
+
+        /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionUpdateApps; } }
         #endregion
 
@@ -73,14 +73,9 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count > 0) throw new OptionException(Resources.TooManyArguments, "");
-
-            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
-
             Resolver.Handler.ShowProgressUI();
-            var selectedImplementations = SolveAll(GetTargets()).ToList();
 
+            var selectedImplementations = SolveAll(GetTargets()).ToList();
             DownloadUncachedImplementations(selectedImplementations);
 
             Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();

@@ -21,7 +21,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using Common.Storage;
-using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
@@ -69,6 +68,12 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS] URI"; } }
 
         /// <inheritdoc/>
+        protected override int AdditionalArgsMin { get { return 1; } }
+
+        /// <inheritdoc/>
+        protected override int AdditionalArgsMax { get { return 1; } }
+
+        /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionSelection; } }
 
         private readonly Requirements _requirements = new Requirements();
@@ -109,9 +114,6 @@ namespace ZeroInstall.Commands
         {
             base.Parse(args);
 
-            if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs[0]))
-                throw new InvalidInterfaceIDException(Resources.NoInterfaceSpecified);
-
             // The first argument is the interface ID
             Requirements.InterfaceID = GetCanonicalID(AdditionalArgs[0]);
             AdditionalArgs.RemoveAt(0);
@@ -135,23 +137,14 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs.JoinEscapeArguments(), "");
-
             Resolver.Handler.ShowProgressUI();
 
             Solve();
+            if (StaleFeeds && Resolver.Config.EffectiveNetworkUse == NetworkLevel.Full) RefreshSolve();
             SelectionsUI();
 
-            // If any of the feeds are getting old rerun solver in refresh mode
-            if (StaleFeeds && Resolver.Config.EffectiveNetworkUse == NetworkLevel.Full)
-            {
-                Resolver.FeedManager.Refresh = true;
-                Solve();
-            }
-
-            Resolver.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
-            return 0;
+            Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
+            return ShowOutput();
         }
         #endregion
 
@@ -189,6 +182,18 @@ namespace ZeroInstall.Commands
         }
 
         /// <summary>
+        /// Run <see cref="Solve"/> with <see cref="IFeedManager.Refresh"/> set to <see langword="true"/>.
+        /// </summary>
+        protected void RefreshSolve()
+        {
+            // No need if initial solver run already had refresh turned on
+            if (Resolver.FeedManager.Refresh) return;
+
+            Resolver.FeedManager.Refresh = true;
+            Solve();
+        }
+
+        /// <summary>
         /// Allows the user to modify <see cref="Selections"/>.
         /// </summary>
         protected void SelectionsUI()
@@ -200,6 +205,12 @@ namespace ZeroInstall.Commands
                 Resolver.Handler.AuditSelections(Solve);
 
             Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
+        }
+
+        private int ShowOutput()
+        {
+            Resolver.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
+            return 0;
         }
 
         /// <summary>

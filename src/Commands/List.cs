@@ -56,9 +56,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-
-            // Allow 0 or 1 arguments
             string pattern;
             switch (AdditionalArgs.Count)
             {

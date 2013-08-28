@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using Common.Utils;
-using NDesk.Options;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
@@ -36,6 +35,12 @@ namespace ZeroInstall.Commands
         #region Properties
         /// <inheritdoc/>
         protected override string Usage { get { return "[OPTIONS] [INTERFACE] FEED"; } }
+
+        /// <inheritdoc/>
+        protected override int AdditionalArgsMin { get { return 1; } }
+
+        /// <inheritdoc/>
+        protected override int AdditionalArgsMax { get { return 2; } }
         #endregion
 
         #region Constructor
@@ -49,43 +54,47 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
+        //--------------------//
+
+        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
-            if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments, "");
-
             Resolver.Handler.ShowProgressUI();
 
             string feedID;
-            IEnumerable<string> interfaces;
-            if (AdditionalArgs.Count == 2)
-            { // Main interface for feed specified explicitly
-                feedID = GetCanonicalID(AdditionalArgs[1]);
-                interfaces = new[] {GetCanonicalID(AdditionalArgs[0])};
+            var interfaces = GetInterfaces(out feedID);
+            if (interfaces.Count == 0)
+            {
+                Resolver.Handler.Output(Resources.FeedManagement, string.Format(Resources.MissingFeedFor, feedID));
+                return 1;
             }
-            else
-            { // Determine interfaces from feed content (<feed-for> tags)
-                feedID = GetCanonicalID(AdditionalArgs[0]);
-                var feed = Resolver.FeedManager.GetFeed(feedID);
-                if (feed.FeedFor.IsEmpty)
-                {
-                    Resolver.Handler.Output(Resources.FeedManagement, string.Format(Resources.MissingFeedFor, feedID));
-                    return 1;
-                }
-                interfaces = feed.FeedFor.Map(reference => reference.Target.ToString());
-            }
+
             var modified = ApplyFeedToInterfaces(feedID, interfaces);
 
-            // Show a confirmation message (but not in batch mode, since it is not important enough)
-            if (!Resolver.Handler.Batch)
+            Resolver.Handler.OutputLow(Resources.FeedManagement, (modified.Count == 0)
+                ? NoneModifiedMessage
+                : string.Format(ModifiedMessage, "\n".Join(modified)));
+            return (modified.Count == 0) ? 0 : 1;
+        }
+        #endregion
+
+        #region Helpers
+        private IList<string> GetInterfaces(out string feedID)
+        {
+            if (AdditionalArgs.Count == 2)
             {
-                Resolver.Handler.Output(Resources.FeedManagement, (modified.Count == 0)
-                    ? NoneModifiedMessage
-                    : string.Format(ModifiedMessage, "\n".Join(modified)));
+                // Main interface for feed specified explicitly
+                feedID = GetCanonicalID(AdditionalArgs[1]);
+                return new[] { GetCanonicalID(AdditionalArgs[0]) };
             }
-            return modified.Count == 0 ? 0 : 1;
+            else
+            {
+                // Determine interfaces from feed content (<feed-for> tags)
+                feedID = GetCanonicalID(AdditionalArgs[0]);
+                var feed = Resolver.FeedManager.GetFeed(feedID);
+                return feed.FeedFor.Map(reference => reference.Target.ToString());
+            }
         }
 
         /// <summary>
@@ -99,5 +108,6 @@ namespace ZeroInstall.Commands
 
         /// <summary>Message to be displayed if the command resulted in no changes.</summary>
         protected abstract string NoneModifiedMessage { get; }
+        #endregion
     }
 }

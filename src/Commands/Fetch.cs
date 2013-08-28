@@ -18,8 +18,6 @@
 using System;
 using System.Linq;
 using Common.Storage;
-using Common.Utils;
-using NDesk.Options;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
@@ -45,6 +43,9 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return ""; } }
 
         /// <inheritdoc/>
+        protected override int AdditionalArgsMax { get { return 0; } }
+
+        /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionDownload; } }
         #endregion
 
@@ -60,9 +61,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs.JoinEscapeArguments(), "");
-
             Resolver.Handler.ShowProgressUI();
 
             var feedFragment = XmlStorage.FromXmlString<Feed>(Console.ReadLine());

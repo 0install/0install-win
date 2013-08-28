@@ -306,9 +306,6 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
     <value>API hooking nicht möglich wegen einer nicht gecachten Implementierung.</value>
   </data>
-  <data name="NoInterfaceSpecified" xml:space="preserve">
-    <value>Es wurde keine Interface ID (Feed URI oder Dateipfad) angegeben.</value>
-  </data>
   <data name="NoLongerUsed" xml:space="preserve">
     <value>Nicht mehr verwendet: </value>
   </data>
@@ -326,9 +323,6 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   </data>
   <data name="NotAvailableInPortableMode" xml:space="preserve">
     <value>Dieser Vorgang steht im Portablen Modus nicht zur Verfügung.</value>
-  </data>
-  <data name="NotParsed" xml:space="preserve">
-    <value>Parse wurde noch nicht aufgerufen.</value>
   </data>
   <data name="NoUpdatesFound" xml:space="preserve">
     <value>Keine Updates gefunden</value>

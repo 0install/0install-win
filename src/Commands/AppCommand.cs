@@ -16,9 +16,6 @@
  */
 
 using System;
-using Common;
-using Common.Utils;
-using NDesk.Options;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -34,6 +31,12 @@ namespace ZeroInstall.Commands
         #region Properties
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionAppCommand; } }
+
+        /// <inheritdoc/>
+        protected override int AdditionalArgsMin { get { return 1; } }
+
+        /// <inheritdoc/>
+        protected override int AdditionalArgsMax { get { return 1; } }
         #endregion
 
         #region Constructor
@@ -48,12 +51,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count == 0 || string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
-            if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
-
-            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
-
             Resolver.Handler.ShowProgressUI();
             string interfaceID = GetCanonicalID(AdditionalArgs[0]);
             using (var integrationManager = new CategoryIntegrationManager(MachineWide, Resolver.Handler))

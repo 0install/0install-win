@@ -16,9 +16,6 @@
  */
 
 using System;
-using Common;
-using Common.Utils;
-using NDesk.Options;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -47,6 +44,9 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS]"; } }
 
         /// <inheritdoc/>
+        protected override int AdditionalArgsMax { get { return 0; } }
+
+        /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionRepairApps; } }
         #endregion
 
@@ -62,14 +62,11 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count > 0) throw new OptionException(Resources.TooManyArguments, "");
-
-            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
-
             Resolver.Handler.ShowProgressUI();
+
             using (var integrationManager = new IntegrationManager(MachineWide, Resolver.Handler))
-                integrationManager.Repair(feedID => Resolver.FeedManager.GetFeed(feedID));
+                integrationManager.Repair(Resolver.FeedManager.GetFeed);
+
             return 0;
         }
         #endregion

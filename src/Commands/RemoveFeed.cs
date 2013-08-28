@@ -51,7 +51,7 @@ namespace ZeroInstall.Commands
 
         //--------------------//
 
-        #region Execute
+        #region Helpers
         /// <summary>
         /// Removes a <see cref="FeedReference"/> from one or more <see cref="InterfacePreferences"/>.
         /// </summary>
