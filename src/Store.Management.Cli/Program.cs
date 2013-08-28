@@ -272,8 +272,7 @@ namespace ZeroInstall.Store.Management.Cli
                     return ErrorLevel.OK;
 
                 case "manage":
-                    // ToDo: Automatically switch to GTK# on Linux
-                    ProcessUtils.LaunchAssembly("0store-win");
+                    ProcessUtils.LaunchAssembly(WindowsUtils.IsWindows ? "0store-win" : "0store-gtk");
                     return ErrorLevel.OK;
 
                 case "manifest":
