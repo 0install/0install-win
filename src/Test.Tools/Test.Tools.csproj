@@ -10,6 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeroInstall</RootNamespace>
     <AssemblyName>Test.Tools</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -56,14 +59,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Capture.Cli\Capture.Cli.csproj">
-      <Project>{29E77714-4B38-4719-94A6-601989EAA2A5}</Project>
-      <Name>Capture.Cli</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Capture.WinForms\Capture.WinForms.csproj">
-      <Project>{765447E8-9048-4901-BF16-011FC542579D}</Project>
-      <Name>Capture.WinForms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Capture\Capture.csproj">
       <Project>{4F383EAB-5002-4B0F-9089-DB22B485EE09}</Project>
       <Name>Capture</Name>
@@ -75,14 +70,6 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Publish.Cli\Publish.Cli.csproj">
-      <Project>{4B66C00D-75B5-4535-985D-466042A09A84}</Project>
-      <Name>Publish.Cli</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Publish.WinForms\Publish.WinForms.csproj">
-      <Project>{50B1586B-040A-4805-AC05-1C77721EF4BD}</Project>
-      <Name>Publish.WinForms</Name>
     </ProjectReference>
     <ProjectReference Include="..\Publish\Publish.csproj">
       <Project>{841CD750-F9D0-4A2D-98C7-7A340C781F41}</Project>
@@ -107,12 +94,7 @@
     <Compile Include="Publish\FeedUtilsTest.cs" />
     <Compile Include="Publish\ImplementationUtilsTest.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Capture\Cli\" />
-    <Folder Include="Capture\WinForms\" />
-    <Folder Include="Publish\Cli\" />
-    <Folder Include="Publish\WinForms\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
