@@ -236,8 +236,10 @@ namespace ZeroInstall.Updater
             string netFxDir = WindowsUtils.GetNetFxDirectory(
                 WindowsUtils.HasNetFxVersion(WindowsUtils.NetFx40) ? WindowsUtils.NetFx40 : WindowsUtils.NetFx20);
 
-            // ReSharper disable LoopCanBePartlyConvertedToQuery
             string ngenPath = Path.Combine(netFxDir, "ngen.exe");
+            if (!File.Exists(ngenPath)) return;
+
+            // ReSharper disable once LoopCanBePartlyConvertedToQuery
             foreach (string assembly in _ngenAssemblies)
             {
                 string arguments = new[] {"install", Path.Combine(Target, assembly), "/queue"}.JoinEscapeArguments();
@@ -245,7 +247,6 @@ namespace ZeroInstall.Updater
                 using (var process = Process.Start(startInfo))
                     process.WaitForExit();
             }
-            // ReSharper restore LoopCanBePartlyConvertedToQuery
         }
         #endregion
 
