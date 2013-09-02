@@ -309,7 +309,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             }
             catch (KeyNotFoundException)
             {
-                iconPath = StubBuilder.GetRunStub(target, null, machineWide, handler);
+                iconPath = target.GetRunStub(machineWide, handler);
             }
             using (var iconKey = registryKey.CreateSubKey(RegSubKeyIcon))
                 iconKey.SetValue("", iconPath + ",0");
@@ -324,7 +324,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         internal static string GetLaunchCommandLine(InterfaceFeed target, Capabilities.Verb verb, bool machineWide, ITaskHandler handler)
         {
-            string launchCommand = "\"" + StubBuilder.GetRunStub(target, verb.Command, machineWide, handler) + "\"";
+            string launchCommand = "\"" + target.GetRunStub(machineWide, handler, verb.Command) + "\"";
             if (!string.IsNullOrEmpty(verb.Arguments)) launchCommand += " " + verb.Arguments;
             return launchCommand;
         }

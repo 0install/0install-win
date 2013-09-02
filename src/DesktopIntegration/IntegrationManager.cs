@@ -18,7 +18,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading;
+using Common;
+using Common.Collections;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
@@ -35,7 +38,7 @@ namespace ZeroInstall.DesktopIntegration
     /// To prevent raceconditions there may only be one desktop integration class instance active at any given time.
     /// This class aquires a mutex upon calling its constructor and releases it upon calling <see cref="Dispose()"/>.
     /// </remarks>
-    public class IntegrationManager : IntegrationManagerBase, IIntegrationManager, IDisposable
+    public class IntegrationManager : IntegrationManagerBase, IDisposable
     {
         #region Constants
         /// <summary>
@@ -47,6 +50,9 @@ namespace ZeroInstall.DesktopIntegration
         #region Variables
         /// <summary>The storage location of the <see cref="AppList"/> file.</summary>
         protected readonly string AppListPath;
+
+        /// <summary>A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</summary>
+        protected readonly ITaskHandler Handler;
 
         /// <summary>Prevents multiple processes from performing desktop integration operations simultaneously.</summary>
         private readonly Mutex _mutex;
@@ -114,20 +120,27 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Apps
         /// <inheritdoc/>
-        public AppEntry AddApp(string interfaceID, Feed feed)
+        protected override AppEntry AddAppInternal(string interfaceID, Feed feed)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            var appEntry = AddAppHelper(interfaceID, feed);
-            Complete();
+            // Prevent double entries
+            if (AppList.Contains(interfaceID)) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, feed.Name));
+
+            // Get basic metadata and copy of capabilities from feed
+            var appEntry = new AppEntry {InterfaceID = interfaceID, Name = feed.Name, Timestamp = DateTime.UtcNow};
+            appEntry.CapabilityLists.AddAll(feed.CapabilityLists.Map(list => list.Clone()));
+
+            AppList.Entries.Add(appEntry);
+            WriteAppDir(appEntry);
             return appEntry;
         }
 
         /// <inheritdoc/>
-        public AppEntry AddApp(string petName, Requirements requirements, Feed feed)
+        protected override AppEntry AddAppInternal(string petName, Requirements requirements, Feed feed)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(petName)) throw new ArgumentNullException("petName");
@@ -135,159 +148,167 @@ namespace ZeroInstall.DesktopIntegration
             if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            var appEntry = AddAppHelper(petName, requirements, feed);
-            Complete();
+            // Prevent double entries
+            if (AppList.Contains(petName)) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, feed.Name));
+
+            // Get basic metadata and copy of capabilities from feed
+            var appEntry = new AppEntry {InterfaceID = petName, Requirements = requirements, Name = feed.Name, Timestamp = DateTime.UtcNow};
+            appEntry.CapabilityLists.AddAll(feed.CapabilityLists.Map(list => list.Clone()));
+
+            AppList.Entries.Add(appEntry);
+            WriteAppDir(appEntry);
             return appEntry;
         }
 
         /// <inheritdoc/>
-        public void RemoveApp(AppEntry appEntry)
+        protected override void AddAppInternal(AppEntry prototype, Converter<string, Feed> feedRetriever)
         {
             #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            #endregion
-
-            try
-            {
-                RemoveAppHelper(appEntry);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new InvalidDataException(ex.Message, ex);
-            }
-            finally
-            {
-                Complete();
-            }
-        }
-
-        /// <inheritdoc/>
-        public void UpdateApp(AppEntry appEntry, Feed feed)
-        {
-            #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
-            #endregion
-
-            try
-            {
-                UpdateAppHelper(appEntry, feed);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new InvalidDataException(ex.Message, ex);
-            }
-            finally
-            {
-                Complete();
-            }
-        }
-
-        /// <inheritdoc/>
-        public void UpdateApp(AppEntry appEntry, Feed feed, Requirements requirements)
-        {
-            #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
-            if (requirements == null) throw new ArgumentNullException("requirements");
-            #endregion
-
-            try
-            {
-                appEntry.Requirements = requirements;
-                UpdateAppHelper(appEntry, feed);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new InvalidDataException(ex.Message, ex);
-            }
-            finally
-            {
-                Complete();
-            }
-        }
-        #endregion
-
-        #region AccessPoints
-        /// <inheritdoc/>
-        public void AddAccessPoints(AppEntry appEntry, Feed feed, IEnumerable<AccessPoint> accessPoints)
-        {
-            #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
-            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
-            #endregion
-
-            try
-            {
-                AddAccessPointsHelper(appEntry, feed, accessPoints);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new InvalidDataException(ex.Message, ex);
-            }
-            finally
-            {
-                Complete();
-            }
-        }
-
-        /// <inheritdoc/>
-        public void RemoveAccessPoints(AppEntry appEntry, IEnumerable<AccessPoint> accessPoints)
-        {
-            #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
-            #endregion
-
-            try
-            {
-                RemoveAccessPointsHelper(appEntry, accessPoints);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new InvalidDataException(ex.Message, ex);
-            }
-            finally
-            {
-                Complete();
-            }
-        }
-
-        /// <inheritdoc/>
-        public void Repair(Converter<string, Feed> feedRetriever)
-        {
-            #region Sanity checks
+            if (prototype == null) throw new ArgumentNullException("prototype");
             if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
             #endregion
 
-            try
+            var appEntry = prototype.Clone();
+            AppList.Entries.Add(appEntry);
+            WriteAppDir(appEntry);
+
+            if (appEntry.AccessPoints != null)
+                AddAccessPointsInternal(appEntry, feedRetriever(appEntry.InterfaceID), appEntry.AccessPoints.Clone().Entries);
+        }
+
+        /// <inheritdoc/>
+        protected override void RemoveAppInternal(AppEntry appEntry)
+        {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            #endregion
+
+            DeleteAppDir(appEntry);
+
+            if (appEntry.AccessPoints != null)
             {
-                foreach (var appEntry in AppList.Entries)
-                    RepairAppHelper(appEntry, feedRetriever(appEntry.InterfaceID));
+                // Unapply any remaining access points
+                foreach (var accessPoint in appEntry.AccessPoints.Entries)
+                    accessPoint.Unapply(appEntry, MachineWide);
             }
-            catch (KeyNotFoundException ex)
+
+            AppList.Entries.Remove(appEntry);
+        }
+
+        /// <inheritdoc/>
+        protected override void UpdateAppInternal(AppEntry appEntry, Feed feed)
+        {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
+            // Temporarily remove capability-based access points but remember them for later reapplication
+            var toReapply = new List<AccessPoint>();
+            if (appEntry.AccessPoints != null)
+                toReapply.AddRange(appEntry.AccessPoints.Entries.Filter(accessPoint => accessPoint is DefaultAccessPoint || accessPoint is CapabilityRegistration));
+            RemoveAccessPointsInternal(appEntry, toReapply);
+
+            // Update metadata and capabilities
+            appEntry.Name = feed.Name;
+            appEntry.CapabilityLists.Clear();
+            appEntry.CapabilityLists.AddAll(feed.CapabilityLists.Map(list => list.Clone()));
+
+            // Reapply removed access points dumping any that have become incompatible
+            foreach (var accessPoint in toReapply)
             {
-                // Wrap exception since only certain exception types are allowed
-                throw new InvalidDataException(ex.Message, ex);
+                try
+                {
+                    AddAccessPointsInternal(appEntry, feed, new[] {accessPoint});
+                }
+                    #region Error handling
+                catch (KeyNotFoundException)
+                {
+                    Log.Warn(string.Format("Access point '{0}' no longer compatible with interface '{1}'.", accessPoint, appEntry.InterfaceID));
+                }
+                #endregion
             }
-            finally
-            {
-                Complete();
-            }
+
+            WriteAppDir(appEntry);
+            appEntry.Timestamp = DateTime.UtcNow;
         }
         #endregion
 
-        #region Complete
-        /// <summary>
-        /// To be called after integration operations have been completed to inform the desktop environment and save the <see cref="AppList"/>.
-        /// </summary>
-        protected void Complete()
+        #region AccessPoint
+        /// <inheritdoc/>
+        protected override void AddAccessPointsInternal(AppEntry appEntry, Feed feed, IEnumerable<AccessPoint> accessPoints)
+        {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (feed == null) throw new ArgumentNullException("feed");
+            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
+            if (appEntry.AccessPoints != null && appEntry.AccessPoints.Entries == accessPoints) throw new ArgumentException("Must not be equal to appEntry.AccessPoints.Entries", "accessPoints");
+            #endregion
+
+            // Skip entries with mismatching hostname
+            if (appEntry.Hostname != null && !Regex.IsMatch(Environment.MachineName, appEntry.Hostname)) return;
+
+            if (appEntry.AccessPoints == null) appEntry.AccessPoints = new AccessPointList();
+
+            // ReSharper disable PossibleMultipleEnumeration
+            CheckForConflicts(appEntry, accessPoints);
+
+            accessPoints.ApplyWithRollback(
+                accessPoint => accessPoint.Apply(appEntry, feed, MachineWide, Handler),
+                accessPoint =>
+                {
+                    // Don't perform rollback if the access point was already applied previously and this was only a refresh
+                    if (!appEntry.AccessPoints.Entries.Contains(accessPoint))
+                        accessPoint.Unapply(appEntry, MachineWide);
+                });
+
+            // Add the access points to the AppList
+            foreach (var accessPoint in accessPoints)
+                appEntry.AccessPoints.Entries.UpdateOrAdd(accessPoint); // Replace pre-existing entries
+            appEntry.Timestamp = DateTime.UtcNow;
+            // ReSharper restore PossibleMultipleEnumeration
+        }
+
+        /// <inheritdoc/>
+        protected override void RemoveAccessPointsInternal(AppEntry appEntry, IEnumerable<AccessPoint> accessPoints)
+        {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
+            #endregion
+
+            if (appEntry.AccessPoints == null) return;
+
+            // ReSharper disable PossibleMultipleEnumeration
+            foreach (var accessPoint in accessPoints)
+                accessPoint.Unapply(appEntry, MachineWide);
+
+            // Remove the access points from the AppList
+            appEntry.AccessPoints.Entries.RemoveAll(accessPoints);
+            appEntry.Timestamp = DateTime.UtcNow;
+            // ReSharper restore PossibleMultipleEnumeration
+        }
+
+        /// <inheritdoc/>
+        protected override void RepairAppInternal(AppEntry appEntry, Feed feed)
+        {
+            #region Sanity checks
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
+            var toReAdd = (appEntry.AccessPoints == null)
+                ? new AccessPoint[0]
+                : appEntry.AccessPoints.Entries.ToArray();
+            AddAccessPointsInternal(appEntry, feed, toReAdd);
+
+            WriteAppDir(appEntry);
+        }
+        #endregion
+
+        #region Finish
+        /// <inheritdoc/>
+        protected override void Finish()
         {
             try
             {
@@ -302,6 +323,18 @@ namespace ZeroInstall.DesktopIntegration
 
             WindowsUtils.NotifyAssocChanged(); // Notify Windows Explorer of changes
             WindowsUtils.BroadcastMessage(ChangedWindowMessageID); // Notify Zero Install GUIs of changes
+        }
+        #endregion
+
+        #region AppDir
+        private void WriteAppDir(AppEntry appEntry)
+        {
+            // TODO: Implement
+        }
+
+        private void DeleteAppDir(AppEntry appEntry)
+        {
+            // TODO: Implement
         }
         #endregion
 

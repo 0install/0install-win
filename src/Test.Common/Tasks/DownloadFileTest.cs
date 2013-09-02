@@ -61,7 +61,7 @@ namespace Common.Tasks
         {
             // Download the file
             var download = new DownloadFile(_server.FileUri, _tempFile);
-            download.RunSync(null);
+            download.RunSync();
 
             // Read the file
             string fileContent = File.ReadAllText(_tempFile);
@@ -110,7 +110,7 @@ namespace Common.Tasks
             {
                 try
                 {
-                    download.RunSync(null);
+                    download.RunSync();
                 }
                 catch (OperationCanceledException)
                 {
@@ -153,7 +153,7 @@ namespace Common.Tasks
         public void TestIncorrectSize()
         {
             var download = new DownloadFile(_server.FileUri, _tempFile, 1024);
-            Assert.Throws<WebException>(() => download.RunSync(null));
+            Assert.Throws<WebException>(() => download.RunSync());
         }
     }
 }

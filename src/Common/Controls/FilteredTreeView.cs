@@ -38,7 +38,7 @@ namespace Common.Controls
     /// </summary>
     /// <typeparam name="T">The type of <see cref="INamed{T}"/> object to list.
     /// Special support for types implementing <see cref="IHighlightColor"/> and/or <see cref="IContextMenu"/>.</typeparam>
-    [Description("Displays a list of INamed in a TreeView with incremental search.")]
+    [Description("Displays a list of INamed in a TreeView with incremental search."), System.Runtime.InteropServices.GuidAttribute("5065F310-D0B3-4AD3-BBE5-B41D00D5F036")]
     public sealed partial class FilteredTreeView<T> : UserControl where T : class, INamed<T>
     {
         #region Events
@@ -107,7 +107,7 @@ namespace Common.Controls
                 if (_nodes != null) _nodes.CollectionChanged += UpdateList;
 
                 _checkedEntries.Clear();
-                UpdateList(null);
+                UpdateList();
             }
         }
 
@@ -123,7 +123,7 @@ namespace Common.Controls
             set
             {
                 _selectedEntry = value;
-                UpdateList(null);
+                UpdateList();
                 OnSelectedEntryChanged();
             }
         }
@@ -148,7 +148,7 @@ namespace Common.Controls
             set
             {
                 _separator = value;
-                UpdateList(null);
+                UpdateList();
             }
         }
 
@@ -173,7 +173,7 @@ namespace Common.Controls
         #region Search control
         private void textSearch_TextChanged(object sender, EventArgs e)
         {
-            UpdateList(null);
+            UpdateList();
         }
         #endregion
 
@@ -200,7 +200,7 @@ namespace Common.Controls
         /// <summary>
         /// Updates the filtered <see cref="TreeView"/> representation of <see cref="Nodes"/>
         /// </summary>
-        private void UpdateList(object sender)
+        private void UpdateList(object sender = null)
         {
             // Suppress events to prevent infinite loops
             _supressEvents = true;

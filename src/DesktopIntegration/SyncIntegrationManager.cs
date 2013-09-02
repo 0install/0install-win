@@ -240,7 +240,7 @@ namespace ZeroInstall.DesktopIntegration
                     }
                     finally
                     {
-                        Complete();
+                        Finish();
                     }
 
                     Handler.CancellationToken.ThrowIfCancellationRequested();
@@ -320,8 +320,8 @@ namespace ZeroInstall.DesktopIntegration
             else EnumerableUtils.Merge(_appListLastSync.Entries, remoteAppList.Entries, AppList.Entries, toAdd.Add, toRemove.Add);
 
             // Apply changes with rollback protection
-            toRemove.ApplyWithRollback(RemoveAppHelper, AddAppHelper);
-            toAdd.ApplyWithRollback(AddAppHelper, RemoveAppHelper);
+            toRemove.ApplyWithRollback(RemoveAppInternal, AddAppHelper);
+            toAdd.ApplyWithRollback(AddAppHelper, RemoveAppInternal);
         }
 
         /// <summary>
@@ -330,7 +330,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="prototype">An existing <see cref="AppEntry"/> to use as a prototype.</param>
         private void AddAppHelper(AppEntry prototype)
         {
-            AddAppHelper(prototype, _feedRetriever);
+            AddAppInternal(prototype, _feedRetriever);
         }
         #endregion
     }

@@ -119,13 +119,13 @@ namespace Common.Tasks
         /// Runs the task on the current thread or synchronous to it.
         /// Similar to calling <see cref="Start"/>, <see cref="Join"/> and then checking <see cref="State"/> and <see cref="ErrorMessage"/>.
         /// </summary>
-        /// <param name="cancellationToken">Signaled when the user wishes to cancel the task execution.</param>
+        /// <param name="cancellationToken">Signaled when the user wishes to cancel the task execution; may be <see langword="null"/>.</param>
         /// <exception cref="OperationCanceledException">Thrown if the task was canceled from another thread.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
         /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskState.WebError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="TaskState.Ready"/>.</exception>
         /// <remarks>Even though the task runs synchronously it may be still executed on a separate thread so it can be canceled from other threads.</remarks>
-        void RunSync(CancellationToken cancellationToken);
+        void RunSync(CancellationToken cancellationToken = null);
 
         /// <summary>
         /// Starts executing the task in a background thread.

@@ -85,15 +85,15 @@ namespace ZeroInstall.DesktopIntegration
             }
             if (icons)
             {
-                accessPointsToAdd.AddRange(Suggest.MenuEntries(feed).Cast<AccessPoint>());
-                accessPointsToAdd.AddRange(Suggest.DesktopIcons(feed).Cast<AccessPoint>());
+                accessPointsToAdd.AddRange(feed.SuggestMenuEntries().Cast<AccessPoint>());
+                accessPointsToAdd.AddRange(feed.SuggestDesktopIcons().Cast<AccessPoint>());
             }
             if (aliases)
-                accessPointsToAdd.AddRange(Suggest.Aliases(feed).Cast<AccessPoint>());
+                accessPointsToAdd.AddRange(feed.SuggestAliases().Cast<AccessPoint>());
 
             try
             {
-                AddAccessPointsHelper(appEntry, feed, accessPointsToAdd);
+                AddAccessPointsInternal(appEntry, feed, accessPointsToAdd);
                 if (icons && MachineWide) ToggleIconsVisible(appEntry, true);
             }
             catch (KeyNotFoundException ex)
@@ -103,7 +103,7 @@ namespace ZeroInstall.DesktopIntegration
             }
             finally
             {
-                Complete();
+                Finish();
             }
         }
         #endregion
@@ -135,7 +135,7 @@ namespace ZeroInstall.DesktopIntegration
 
             try
             {
-                RemoveAccessPointsHelper(appEntry, accessPointsToRemove);
+                RemoveAccessPointsInternal(appEntry, accessPointsToRemove);
                 if (icons && MachineWide) ToggleIconsVisible(appEntry, false);
             }
             catch (KeyNotFoundException ex)
@@ -145,7 +145,7 @@ namespace ZeroInstall.DesktopIntegration
             }
             finally
             {
-                Complete();
+                Finish();
             }
         }
         #endregion

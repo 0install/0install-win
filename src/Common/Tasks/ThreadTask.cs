@@ -181,7 +181,7 @@ namespace Common.Tasks
 
         #region Control
         /// <inheritdoc/>
-        public virtual void RunSync(CancellationToken cancellationToken)
+        public virtual void RunSync(CancellationToken cancellationToken = null)
         {
             if (cancellationToken != null)
             {

@@ -133,9 +133,9 @@ namespace ZeroInstall.Commands.WinForms
         /// <remarks>Users create <see cref="AccessPoints.CommandAccessPoint"/>s themselves based on <see cref="EntryPoint"/>s.</remarks>
         private void SetupCommandAccessPoints()
         {
-            SetupCommandAccessPoint(checkBoxStartMenuSimple, labelStartMenuSimple, _menuEntries, () => Suggest.MenuEntries(_feed));
-            SetupCommandAccessPoint(checkBoxDesktopSimple, labelDesktopSimple, _desktopIcons, () => Suggest.DesktopIcons(_feed));
-            SetupCommandAccessPoint(checkBoxAliasesSimple, labelAliasesSimple, _aliases, () => Suggest.Aliases(_feed));
+            SetupCommandAccessPoint(checkBoxStartMenuSimple, labelStartMenuSimple, _menuEntries, () => _feed.SuggestMenuEntries());
+            SetupCommandAccessPoint(checkBoxDesktopSimple, labelDesktopSimple, _desktopIcons, () => _feed.SuggestDesktopIcons());
+            SetupCommandAccessPoint(checkBoxAliasesSimple, labelAliasesSimple, _aliases, () => _feed.SuggestAliases());
 
             SetupCommandComboBoxes();
             LoadCommandAccessPoints();
@@ -164,9 +164,9 @@ namespace ZeroInstall.Commands.WinForms
         {
             if (_appEntry.AccessPoints == null)
             { // Fill in default values for first integration
-                foreach (var entry in Suggest.MenuEntries(_feed)) _menuEntries.Add(entry);
-                foreach (var desktopIcon in Suggest.DesktopIcons(_feed)) _desktopIcons.Add(desktopIcon);
-                foreach (var alias in Suggest.Aliases(_feed)) _aliases.Add(alias);
+                foreach (var entry in _feed.SuggestMenuEntries()) _menuEntries.Add(entry);
+                foreach (var desktopIcon in _feed.SuggestDesktopIcons()) _desktopIcons.Add(desktopIcon);
+                foreach (var alias in _feed.SuggestAliases()) _aliases.Add(alias);
             }
             else
             { // Distribute existing CommandAccessPoints among type-specific binding lists

@@ -72,7 +72,7 @@ namespace Common.Tasks
                 {
                     try
                     {
-                        task.RunSync(null);
+                        task.RunSync();
                     }
                     catch (OperationCanceledException)
                     {

@@ -107,11 +107,11 @@ namespace ZeroInstall.Commands
                     string registryCommandLine;
                     try
                     { // Try to use a machine-wide stub if possible
-                        registryCommandLine = StubBuilder.GetRunStub(_target, command.Name, true, _handler);
+                        registryCommandLine = _target.GetRunStub(true, _handler, command.Name);
                     }
                     catch (InvalidOperationException)
                     { // Fall back to per-user stub
-                        registryCommandLine = StubBuilder.GetRunStub(_target, command.Name, false, _handler);
+                        registryCommandLine = _target.GetRunStub(false, _handler, command.Name);
                     }
 
                     // Apply filter with normal and with escaped string
@@ -179,7 +179,7 @@ namespace ZeroInstall.Commands
                     _target.Feed.Name,
                     escapedTarget,
                     _target.Feed.NeedsTerminal,
-                    GetIconPath(null))
+                    GetIconPath())
             });
 
             return new RelaunchControl(entries,
@@ -192,7 +192,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="command">The name of the command the icon should represent; <see langword="null"/> for <see cref="Command.NameRun"/>.</param>
         /// <returns>The path to the icon file; <see langword="null"/> if no suitable icon was found.</returns>
-        private string GetIconPath(string command)
+        private string GetIconPath(string command = null)
         {
             var icon = _target.Feed.GetIcon(Icon.MimeTypeIco, command);
             return icon == null ? null : IconProvider.GetIconPath(icon, false, _handler);

@@ -40,7 +40,7 @@ namespace Common.Tasks
             var calledFor = new List<string>();
 
             var task = new ForEachTask<string>("Test task", target, calledFor.Add);
-            task.RunSync(null);
+            task.RunSync();
 
             CollectionAssert.AreEqual(target, calledFor);
         }
@@ -61,8 +61,8 @@ namespace Common.Tasks
         [Test(Description = "Ensures exceptions from the work delegate get correctly passed through.")]
         public void TestExceptionPassing()
         {
-            Assert.Throws<IOException>(() => new ForEachTask<string>("Test task", new[] {""}, delegate { throw new IOException("Test exception"); }).RunSync(null));
-            Assert.Throws<WebException>(() => new ForEachTask<string>("Test task", new[] {""}, delegate { throw new WebException("Test exception"); }).RunSync(null));
+            Assert.Throws<IOException>(() => new ForEachTask<string>("Test task", new[] {""}, delegate { throw new IOException("Test exception"); }).RunSync());
+            Assert.Throws<WebException>(() => new ForEachTask<string>("Test task", new[] {""}, delegate { throw new WebException("Test exception"); }).RunSync());
         }
     }
 }

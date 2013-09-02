@@ -214,7 +214,7 @@ namespace ZeroInstall.Store.Implementation.Archive
 
         #region Control
         /// <inheritdoc/>
-        public override void RunSync(CancellationToken cancellationToken)
+        public override void RunSync(CancellationToken cancellationToken = null)
         {
             if (cancellationToken != null)
             {
