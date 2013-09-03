@@ -36,12 +36,13 @@ namespace ZeroInstall.Central.WinForms.SyncWizards
         {
             InitializeComponent();
 
-            // State variables
+            #region State
             bool usedBefore = false;
             var server = new SyncServer();
             string cryptoKey = null;
+            #endregion
 
-            // Wizard pages
+            #region Pages
             var welcomePage = new SetupWelcomePage();
             var serverPage = new ServerPage();
             var registerPage = new RegisterPage();
@@ -51,8 +52,9 @@ namespace ZeroInstall.Central.WinForms.SyncWizards
             var cryptoKeyChangedPage = new CryptoKeyChangedPage();
             var newCryptoKeyPage = new NewCryptoKeyPage();
             var finishedPage = new SetupFinishedPage();
+            #endregion
 
-            // Page flows
+            #region Page flows
             welcomePage.UsedBeforeSelected += delegate(bool value)
             {
                 usedBefore = value;
@@ -126,8 +128,8 @@ namespace ZeroInstall.Central.WinForms.SyncWizards
                 }
                 #endregion
             };
+            #endregion
 
-            // Load first page
             PushPage(welcomePage);
         }
     }

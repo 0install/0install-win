@@ -37,7 +37,7 @@ namespace ZeroInstall.Central.WinForms.SyncWizards
         {
             InitializeComponent();
 
-            // Wizard pages
+            #region Pages
             var welcomePage = new ResetWelcomePage();
             var config = Config.Load();
             var existingCryptoKeyPage = new ExistingCryptoKeyPage {Server = SyncUtils.ToSyncServer(config)};
@@ -48,8 +48,9 @@ namespace ZeroInstall.Central.WinForms.SyncWizards
             var resetServerFinishedPage = new ResetServerFinishedPage();
             var resetClientPage = new ResetClientPage(machineWide);
             var resetClientFinishedPage = new ResetClientFinishedPage();
+            #endregion
 
-            // Page flows
+            #region Page flows
             welcomePage.ChangeCryptoKey += () => PushPage(existingCryptoKeyPage);
             welcomePage.ResetServer += () => PushPage(resetServerPage);
             welcomePage.ResetClient += () => PushPage(resetClientPage);
@@ -95,8 +96,8 @@ namespace ZeroInstall.Central.WinForms.SyncWizards
             resetServerFinishedPage.Done += Close;
             resetClientPage.Continue += () => PushPage(resetClientFinishedPage);
             resetClientFinishedPage.Done += Close;
+            #endregion
 
-            // Load first page
             PushPage(welcomePage);
         }
     }
