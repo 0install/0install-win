@@ -75,14 +75,20 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                 var dispatcher = new PerTypeDispatcher<Capabilities.Capability>(true);
                 if (WindowsUtils.IsWindows)
                 {
-                    dispatcher.Add((Capabilities.FileType fileType) => Windows.FileType.Register(target, fileType, false, machineWide, handler));
-                    dispatcher.Add((Capabilities.UrlProtocol urlProtocol) => Windows.UrlProtocol.Register(target, urlProtocol, false, machineWide, handler));
-                    dispatcher.Add((Capabilities.AutoPlay autoPlay) => Windows.AutoPlay.Register(target, autoPlay, false, machineWide, handler));
+                    dispatcher.Add((Capabilities.FileType fileType) => Windows.FileType.Register(target, fileType, machineWide, handler));
+                    dispatcher.Add((Capabilities.UrlProtocol urlProtocol) => Windows.UrlProtocol.Register(target, urlProtocol, machineWide, handler));
+                    dispatcher.Add((Capabilities.AutoPlay autoPlay) => Windows.AutoPlay.Register(target, autoPlay, machineWide, handler));
                     dispatcher.Add((Capabilities.ComServer comServer) => Windows.ComServer.Register(target, comServer, machineWide, handler));
                     if (machineWide || WindowsUtils.IsWindows8)
                         dispatcher.Add((Capabilities.AppRegistration appRegistration) => Windows.AppRegistration.Register(target, appRegistration, capabilityList.Entries.OfType<Capabilities.VerbCapability>(), machineWide, handler));
                     if (machineWide)
-                        dispatcher.Add((Capabilities.DefaultProgram defaultProgram) => Windows.DefaultProgram.Register(target, defaultProgram, false, handler));
+                        dispatcher.Add((Capabilities.DefaultProgram defaultProgram) => Windows.DefaultProgram.Register(target, defaultProgram, handler));
+                }
+                else if (MonoUtils.IsUnix)
+                {
+                    dispatcher.Add((Capabilities.FileType fileType) => Unix.FileType.Register(target, fileType, machineWide, handler));
+                    dispatcher.Add((Capabilities.UrlProtocol urlProtocol) => Unix.UrlProtocol.Register(target, urlProtocol, machineWide, handler));
+                    dispatcher.Add((Capabilities.DefaultProgram defaultProgram) => Unix.DefaultProgram.Register(target, defaultProgram, machineWide, handler));
                 }
                 dispatcher.Dispatch(capabilityList.Entries);
                 // ReSharper restore AccessToForEachVariableInClosure
@@ -102,14 +108,20 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                 var dispatcher = new PerTypeDispatcher<Capabilities.Capability>(true);
                 if (WindowsUtils.IsWindows)
                 {
-                    dispatcher.Add((Capabilities.FileType fileType) => Windows.FileType.Unregister(fileType, false, machineWide));
-                    dispatcher.Add((Capabilities.UrlProtocol urlProtocol) => Windows.UrlProtocol.Unregister(urlProtocol, false, machineWide));
-                    dispatcher.Add((Capabilities.AutoPlay autoPlay) => Windows.AutoPlay.Unregister(autoPlay, false, machineWide));
+                    dispatcher.Add((Capabilities.FileType fileType) => Windows.FileType.Unregister(fileType, machineWide));
+                    dispatcher.Add((Capabilities.UrlProtocol urlProtocol) => Windows.UrlProtocol.Unregister(urlProtocol, machineWide));
+                    dispatcher.Add((Capabilities.AutoPlay autoPlay) => Windows.AutoPlay.Unregister(autoPlay, machineWide));
                     dispatcher.Add((Capabilities.ComServer comServer) => Windows.ComServer.Unregister(comServer, machineWide));
                     if (machineWide || WindowsUtils.IsWindows8)
                         dispatcher.Add((Capabilities.AppRegistration appRegistration) => Windows.AppRegistration.Unregister(appRegistration, machineWide));
                     if (machineWide)
-                        dispatcher.Add((Capabilities.DefaultProgram defaultProgram) => Windows.DefaultProgram.Unregister(defaultProgram, false));
+                        dispatcher.Add((Capabilities.DefaultProgram defaultProgram) => Windows.DefaultProgram.Unregister(defaultProgram));
+                }
+                else if (MonoUtils.IsUnix)
+                {
+                    dispatcher.Add((Capabilities.FileType fileType) => Unix.FileType.Unregister(fileType, machineWide));
+                    dispatcher.Add((Capabilities.UrlProtocol urlProtocol) => Unix.UrlProtocol.Unregister(urlProtocol, machineWide));
+                    dispatcher.Add((Capabilities.DefaultProgram defaultProgram) => Unix.DefaultProgram.Unregister(defaultProgram, machineWide));
                 }
                 dispatcher.Dispatch(capabilityList.Entries);
             }

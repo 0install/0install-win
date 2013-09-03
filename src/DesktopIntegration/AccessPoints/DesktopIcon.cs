@@ -62,8 +62,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            if (WindowsUtils.IsWindows)
-                Windows.ShortcutManager.CreateShortcut(GetWindowsShortcutPath(machineWide), new InterfaceFeed(appEntry.InterfaceID, feed), Command, machineWide, handler);
+            if (WindowsUtils.IsWindows) Windows.ShortcutManager.CreateShortcut(GetWindowsShortcutPath(machineWide), new InterfaceFeed(appEntry.InterfaceID, feed), Command, machineWide, handler);
+            else if (MonoUtils.IsUnix) Unix.DesktopManager.CreateIcon(this, feed, machineWide);
         }
 
         /// <inheritdoc/>
@@ -78,6 +78,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                 string filePath = GetWindowsShortcutPath(machineWide);
                 if (File.Exists(filePath)) File.Delete(filePath);
             }
+            else if (MonoUtils.IsUnix) Unix.DesktopManager.RemoveIcon(this, machineWide);
         }
         #endregion
 

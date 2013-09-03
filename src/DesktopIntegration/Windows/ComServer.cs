@@ -35,7 +35,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Register
         /// <summary>
-        /// Registers a COM server in the current Windows system.
+        /// Registers a COM server in the current system.
         /// </summary>
         /// <param name="target">The application being integrated.</param>
         /// <param name="comServer">The COM server to be registered.</param>
@@ -61,7 +61,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Unregister
         /// <summary>
-        /// Unregisters a COM server in the current Windows system.
+        /// Unregisters a COM server in the current system.
         /// </summary>
         /// <param name="comServer">The COM server to be unregistered.</param>
         /// <param name="machineWide">Unregister the COM server machine-wide instead of just for the current user.</param>

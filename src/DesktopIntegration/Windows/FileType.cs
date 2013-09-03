@@ -87,19 +87,19 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Register
         /// <summary>
-        /// Registers a file type in the current Windows system.
+        /// Registers a file type in the current system.
         /// </summary>
         /// <param name="target">The application being integrated.</param>
         /// <param name="fileType">The file type to register.</param>
-        /// <param name="accessPoint">Indicates that the file associations shall become default handlers for their respective types.</param>
         /// <param name="machineWide">Register the file type machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <param name="accessPoint">Indicates that the file associations shall become default handlers for their respective types.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="fileType"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Capabilities.FileType fileType, bool accessPoint, bool machineWide, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, Capabilities.FileType fileType, bool machineWide, ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
             if (fileType == null) throw new ArgumentNullException("fileType");
@@ -174,15 +174,15 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Unregister
         /// <summary>
-        /// Unregisters a file type in the current Windows system.
+        /// Unregisters a file type in the current system.
         /// </summary>
         /// <param name="fileType">The file type to remove.</param>
-        /// <param name="accessPoint">Indicates that the file associations were default handlers for their respective types.</param>
         /// <param name="machineWide">Unregister the file type machine-wide instead of just for the current user.</param>
+        /// <param name="accessPoint">Indicates that the file associations were default handlers for their respective types.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="fileType"/> is invalid.</exception>
-        public static void Unregister(Capabilities.FileType fileType, bool accessPoint, bool machineWide)
+        public static void Unregister(Capabilities.FileType fileType, bool machineWide, bool accessPoint = false)
         {
             #region Sanity checks
             if (fileType == null) throw new ArgumentNullException("fileType");

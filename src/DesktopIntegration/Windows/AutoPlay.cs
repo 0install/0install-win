@@ -61,19 +61,19 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Register
         /// <summary>
-        /// Adds an AutoPlay handler registration to the current Windows system.
+        /// Adds an AutoPlay handler registration to the current system.
         /// </summary>
         /// <param name="target">The application being integrated.</param>
         /// <param name="autoPlay">The AutoPlay handler information to be applied.</param>
-        /// <param name="accessPoint">Indicates that the handler should become the default handler for all <see cref="Capabilities.AutoPlay.Events"/>.</param>
         /// <param name="machineWide">Register the handler machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <param name="accessPoint">Indicates that the handler should become the default handler for all <see cref="Capabilities.AutoPlay.Events"/>.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="autoPlay"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Capabilities.AutoPlay autoPlay, bool accessPoint, bool machineWide, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, Capabilities.AutoPlay autoPlay, bool machineWide, ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
             if (autoPlay == null) throw new ArgumentNullException("autoPlay");
@@ -129,15 +129,15 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Unregister
         /// <summary>
-        /// Removes an AutoPlay handler registration from the current Windows system.
+        /// Removes an AutoPlay handler registration from the current system.
         /// </summary>
         /// <param name="autoPlay">The AutoPlay handler information to be removed.</param>
-        /// <param name="accessPoint">Indicates that the handler should was the default handler for all <see cref="Capabilities.AutoPlay.Events"/>.</param>
         /// <param name="machineWide">Remove the handler machine-wide instead of just for the current user.</param>
+        /// <param name="accessPoint">Indicates that the handler should was the default handler for all <see cref="Capabilities.AutoPlay.Events"/>.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="autoPlay"/> is invalid.</exception>
-        public static void Unregister(Capabilities.AutoPlay autoPlay, bool accessPoint, bool machineWide)
+        public static void Unregister(Capabilities.AutoPlay autoPlay, bool machineWide, bool accessPoint = false)
         {
             #region Sanity checks
             if (autoPlay == null) throw new ArgumentNullException("autoPlay");

@@ -62,7 +62,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Apply
         /// <summary>
-        /// Applies application registration to the current Windows system.
+        /// Applies application registration to the current system.
         /// </summary>
         /// <param name="target">The application being integrated.</param>
         /// <param name="appRegistration">The registration information to be applied.</param>
@@ -131,7 +131,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Remove
         /// <summary>
-        /// Removes application registration from the current Windows system.
+        /// Removes application registration from the current system.
         /// </summary>
         /// <param name="appRegistration">The registration information to be removed.</param>
         /// <param name="machineWide">Apply the registration machine-wide instead of just for the current user.</param>

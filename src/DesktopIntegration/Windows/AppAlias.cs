@@ -39,7 +39,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Create
         /// <summary>
-        /// Creates an application alias in the current Windows system.
+        /// Creates an application alias in the current system.
         /// </summary>
         /// <param name="target">The application being integrated.</param>
         /// <param name="command">The command within <paramref name="target"/> the alias shall point to; may be <see langword="null"/>.</param>
@@ -106,7 +106,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Remove
         /// <summary>
-        /// Removes an application alias from the current Windows system. 
+        /// Removes an application alias from the current system. 
         /// </summary>
         /// <param name="aliasName">The name of the alias to be removed.</param>
         /// <param name="machineWide">The alias was created machine-wide instead of just for the current user.</param>
@@ -121,17 +121,27 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string stubDirPath = Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "aliases");
             string stubFilePath = Path.Combine(stubDirPath, aliasName + ".exe");
 
+            RemoveFromAppPaths(aliasName + ".exe", machineWide);
+
+            if (File.Exists(stubFilePath)) File.Delete(stubFilePath);
+        }
+
+        /// <summary>
+        /// Removes an EXE from the AppPath registry key.
+        /// </summary>
+        /// <param name="exeName">The name of the EXE file to add (including the file ending).</param>
+        /// <param name="machineWide"><see langword="true"/> to use the machine-wide registry key; <see langword="false"/> for the per-user variant.</param>
+        private static void RemoveFromAppPaths(string exeName, bool machineWide)
+        {
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
             using (var appPathsKey = hive.OpenSubKey(RegKeyAppPaths, true))
             {
                 if (appPathsKey != null)
                 {
-                    if (((ICollection<string>)appPathsKey.GetSubKeyNames()).Contains(aliasName + ".exe"))
-                        appPathsKey.DeleteSubKey(aliasName + ".exe");
+                    if (((ICollection<string>)appPathsKey.GetSubKeyNames()).Contains(exeName))
+                        appPathsKey.DeleteSubKey(exeName);
                 }
             }
-
-            if (File.Exists(stubFilePath)) File.Delete(stubFilePath);
         }
         #endregion
     }

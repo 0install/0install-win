@@ -87,6 +87,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
                 Windows.ShortcutManager.CreateShortcut(GetWindowsShortcutPath(machineWide), new InterfaceFeed(appEntry.InterfaceID, feed), Command, machineWide, handler);
             }
+            else if (MonoUtils.IsUnix) Unix.DesktopManager.CreateMenuEntry(this, feed, machineWide);
         }
 
         /// <inheritdoc/>
@@ -106,6 +107,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                 if (Directory.Exists(dirPath) && Directory.GetFileSystemEntries(dirPath).Length == 0)
                     Directory.Delete(GetWindowsCategoryPath(machineWide), false);
             }
+            else if (MonoUtils.IsUnix) Unix.DesktopManager.RemoveMenuEntry(this, machineWide);
         }
         #endregion
 

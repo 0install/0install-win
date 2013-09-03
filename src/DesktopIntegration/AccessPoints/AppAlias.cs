@@ -66,8 +66,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            if (WindowsUtils.IsWindows)
-                Windows.AppAlias.Create(new InterfaceFeed(appEntry.InterfaceID, feed), Command, Name, machineWide, handler);
+            if (WindowsUtils.IsWindows) Windows.AppAlias.Create(new InterfaceFeed(appEntry.InterfaceID, feed), Command, Name, machineWide, handler);
+            else if (MonoUtils.IsUnix) Unix.AppAlias.Create(new InterfaceFeed(appEntry.InterfaceID, feed), Command, Name, machineWide, handler);
         }
 
         /// <inheritdoc/>
@@ -77,8 +77,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            if (WindowsUtils.IsWindows)
-                Windows.AppAlias.Remove(Name, machineWide);
+            if (WindowsUtils.IsWindows) Windows.AppAlias.Remove(Name, machineWide);
+            else if (MonoUtils.IsUnix) Unix.AppAlias.Remove(Name, machineWide);
         }
         #endregion
 

@@ -58,18 +58,18 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Register
         /// <summary>
-        /// Registers an application as a candidate for a default program for some service in the current Windows system. This can only be applied machine-wide, not per user.
+        /// Registers an application as a candidate for a default program for some service in the current system. This can only be applied machine-wide, not per user.
         /// </summary>
         /// <param name="target">The application being integrated.</param>
         /// <param name="defaultProgram">The default program information to be registered.</param>
-        /// <param name="accessPoint">Indicates that the program should be set as the current default for the service it provides.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <param name="accessPoint">Indicates that the program should be set as the current default for the service it provides.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="defaultProgram"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Capabilities.DefaultProgram defaultProgram, bool accessPoint, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, Capabilities.DefaultProgram defaultProgram, ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
             if (defaultProgram == null) throw new ArgumentNullException("defaultProgram");
@@ -126,14 +126,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Unregister
         /// <summary>
-        /// Unregisters an application as a candidate for a default program in the current Windows system. This can only be applied machine-wide, not per user.
+        /// Unregisters an application as a candidate for a default program in the current system. This can only be applied machine-wide, not per user.
         /// </summary>
         /// <param name="defaultProgram">The default program information to be removed.</param>
         /// <param name="accessPoint">Indicates that the program was set as the current default for the service it provides.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="defaultProgram"/> is invalid.</exception>
-        public static void Unregister(Capabilities.DefaultProgram defaultProgram, bool accessPoint)
+        public static void Unregister(Capabilities.DefaultProgram defaultProgram, bool accessPoint = false)
         {
             #region Sanity checks
             if (defaultProgram == null) throw new ArgumentNullException("defaultProgram");
