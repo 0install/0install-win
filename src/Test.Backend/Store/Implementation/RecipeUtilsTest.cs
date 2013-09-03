@@ -21,6 +21,7 @@ using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using NUnit.Framework;
+using ZeroInstall.Backend;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Implementation
@@ -194,6 +195,36 @@ namespace ZeroInstall.Store.Implementation
                 "Should reject breakout path in RenameStep.Source");
             Assert.Throws<IOException>(() => RecipeUtils.ApplyRecipe(new Recipe {Steps = {new RenameStep {Source = "source", Destination = "../destination"}}}, new TemporaryFile[0], new SilentTaskHandler()),
                 "Should reject breakout path in RenameStep.Destination");
+        }
+
+        [Test]
+        public void TestApplySingleFilePath()
+        {
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
+            using (var workingDir = new TemporaryDirectory("0install-unit-tests"))
+            {
+                File.WriteAllText(tempFile, "data");
+
+                RecipeUtils.ApplySingleFile(new SingleFile {Destination = "file"}, tempFile.Path, workingDir, new SilentHandler());
+
+                Assert.IsTrue(File.Exists(tempFile), "Files passed in as string paths should be copied");
+                Assert.IsTrue(File.Exists(Path.Combine(workingDir, "file")));
+            }
+        }
+
+        [Test]
+        public void TestApplySingleFileTemp()
+        {
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
+            using (var workingDir = new TemporaryDirectory("0install-unit-tests"))
+            {
+                File.WriteAllText(tempFile, "data");
+
+                RecipeUtils.ApplySingleFile(new SingleFile {Destination = "file"}, tempFile, workingDir, new SilentHandler());
+
+                Assert.IsFalse(File.Exists(tempFile), "Files passed in as temp objects should be moved");
+                Assert.IsTrue(File.Exists(Path.Combine(workingDir, "file")));
+            }
         }
     }
 }

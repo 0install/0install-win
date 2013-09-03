@@ -69,7 +69,7 @@ namespace ZeroInstall.Store.Implementation
                     (SingleFile step) =>
                     {
                         downloadedEnum.MoveNext();
-                        ApplySingleFile(step, downloadedEnum.Current, workingDir);
+                        ApplySingleFile(step, downloadedEnum.Current, workingDir, handler, tag);
                     },
                     (RemoveStep step) => ApplyRemove(step, workingDir),
                     (RenameStep step) => ApplyRename(step, workingDir)
@@ -90,16 +90,16 @@ namespace ZeroInstall.Store.Implementation
         /// Applies a <see cref="Model.Archive"/> to a <see cref="TemporaryDirectory"/>.
         /// </summary>
         /// <param name="step">The <see cref="Model.Archive"/> to apply.</param>
-        /// <param name="downloadedFile">The file downloaded from <see cref="DownloadRetrievalMethod.Href"/>. Will be preserved.</param>
+        /// <param name="localPath">The local path of the archive.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; may be <see langword="null"/>.</param>
         /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
-        public static void ApplyArchive(Model.Archive step, string downloadedFile, TemporaryDirectory workingDir, ITaskHandler handler, object tag = null)
+        public static void ApplyArchive(Model.Archive step, string localPath, TemporaryDirectory workingDir, ITaskHandler handler, object tag = null)
         {
             #region Sanity checks
             if (step == null) throw new ArgumentNullException("step");
-            if (downloadedFile == null) throw new ArgumentNullException("downloadedFile");
+            if (string.IsNullOrEmpty(localPath)) throw new ArgumentNullException("localPath");
             if (workingDir == null) throw new ArgumentNullException("workingDir");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
@@ -114,7 +114,7 @@ namespace ZeroInstall.Store.Implementation
 
             if (string.IsNullOrEmpty(step.MimeType)) throw new IOException(Resources.UnknownArchiveType);
 
-            using (Extractor extractor = Extractor.CreateExtractor(step.MimeType, downloadedFile, step.StartOffset, workingDir))
+            using (Extractor extractor = Extractor.CreateExtractor(step.MimeType, localPath, step.StartOffset, workingDir))
             {
                 extractor.SubDir = step.Extract;
                 extractor.Destination = FileUtils.UnifySlashes(step.Destination);
@@ -126,10 +126,39 @@ namespace ZeroInstall.Store.Implementation
         /// Applies a <see cref="SingleFile"/> to a <see cref="TemporaryDirectory"/>.
         /// </summary>
         /// <param name="step">The <see cref="Model.Archive"/> to apply.</param>
-        /// <param name="downloadedFile">The file downloaded from <see cref="DownloadRetrievalMethod.Href"/>. Will be removed!</param>
+        /// <param name="localPath">The local path of the file.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
+        /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
+        /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; may be <see langword="null"/>.</param>
         /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
-        public static void ApplySingleFile(SingleFile step, string downloadedFile, TemporaryDirectory workingDir)
+        public static void ApplySingleFile(SingleFile step, string localPath, TemporaryDirectory workingDir, ITaskHandler handler, object tag = null)
+        {
+            #region Sanity checks
+            if (step == null) throw new ArgumentNullException("step");
+            if (string.IsNullOrEmpty(localPath)) throw new ArgumentNullException("localPath");
+            if (workingDir == null) throw new ArgumentNullException("workingDir");
+            #endregion
+
+            // Use a copy of the original file because the source file is moved
+            using (var tempFile = new TemporaryFile("0install"))
+            {
+                // ReSharper disable once AccessToDisposedClosure
+                handler.RunTask(new SimpleTask(Resources.CopyFiles, () => File.Copy(localPath, tempFile, true)));
+                File.Copy(localPath, tempFile, true);
+                ApplySingleFile(step,  tempFile, workingDir, handler, tag);
+            }
+        }
+
+        /// <summary>
+        /// Applies a <see cref="SingleFile"/> to a <see cref="TemporaryDirectory"/>.
+        /// </summary>
+        /// <param name="step">The <see cref="Model.Archive"/> to apply.</param>
+        /// <param name="downloadedFile">The file downloaded from <see cref="DownloadRetrievalMethod.Href"/>.</param>
+        /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
+        /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
+        /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; may be <see langword="null"/>.</param>
+        /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
+        public static void ApplySingleFile(SingleFile step, TemporaryFile downloadedFile, TemporaryDirectory workingDir, ITaskHandler handler, object tag = null)
         {
             #region Sanity checks
             if (step == null) throw new ArgumentNullException("step");

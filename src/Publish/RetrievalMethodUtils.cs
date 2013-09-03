@@ -77,7 +77,7 @@ namespace ZeroInstall.Publish
                     {
                         // ReSharper disable AccessToDisposedClosure
                         (Archive archive) => RecipeUtils.ApplyArchive(archive, downloadedFile, extractionDir, handler),
-                        (SingleFile file) => RecipeUtils.ApplySingleFile(file, downloadedFile, extractionDir)
+                        (SingleFile file) => RecipeUtils.ApplySingleFile(file, downloadedFile, extractionDir, handler)
                         // ReSharper restore AccessToDisposedClosure
                     }.Dispatch(retrievalMethod);
                 }
@@ -234,11 +234,7 @@ namespace ZeroInstall.Publish
                             else executor.Execute(new SetValueCommand<string>(() => file.Destination, value => file.Destination = value, destination));
                         }
 
-                        using (var tempFile = new TemporaryFile("0publish"))
-                        {
-                            handler.RunTask(new SimpleTask(Resources.CopyingFile, () => File.Copy(localPath, tempFile, true)));
-                            RecipeUtils.ApplySingleFile(file, tempFile, extractionDir);
-                        }
+                        RecipeUtils.ApplySingleFile(file, localPath, extractionDir, handler);
                     }
                     // ReSharper restore AccessToDisposedClosure
                 }.Dispatch(retrievalMethod);
