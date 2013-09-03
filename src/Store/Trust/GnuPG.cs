@@ -211,7 +211,9 @@ namespace ZeroInstall.Store.Trust
         /// <exception cref="SignatureException">Thrown if there was an unexcpected GnuPG error.</exception>
         private static string ErrorHandlerException(string line)
         {
-            if (line.StartsWith("gpg: waiting for lock") || (line.StartsWith("gpg: keyring ") && line.EndsWith(" created")))
+            if (line.StartsWith("gpg: waiting for lock") ||
+                (line.StartsWith("gpg: keyring ") && line.EndsWith(" created")) ||
+                (line.StartsWith("gpg: renaming ") && line.EndsWith("failed: Permission denied")))
             {
                 Log.Info(line);
                 return null;
