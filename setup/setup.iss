@@ -60,7 +60,6 @@ VersionInfoCompany=0install.de
 DefaultGroupName=Zero Install
 DisableWelcomePage=true
 DisableProgramGroupPage=true
-DisableReadyPage=true
 ArchitecturesInstallIn64BitMode=x64 ia64
 ChangesEnvironment=yes
 UninstallDisplayIcon={app}\ZeroInstall.exe
@@ -122,14 +121,6 @@ Name: {app}\*.pdb; Type: files
 Name: {app}; Type: dirifempty
 
 [Code]
-procedure CurPageChanged(CurPageID: Integer);
-begin
-  if CurPageID = wpSelectDir then begin
-    // Label button "Install" instead of "Next"
-    WizardForm.NextButton.Caption := SetupMessage(msgButtonInstall)
-  end;
-end;
-
 function InitializeSetup(): Boolean;
 begin
 	// Determine the exact Windows version, including Service pack
