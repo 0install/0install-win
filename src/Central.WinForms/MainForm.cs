@@ -61,93 +61,11 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="machineWide">Apply operations sachine-wide instead of just for the current user.</param>
         public MainForm(bool machineWide)
         {
-            _machineWide = machineWide;
-
             InitializeComponent();
+            HandleCreated += MainForm_HandleCreated;
+            MouseWheel += MainForm_MouseWheel;
 
-            HandleCreated += delegate
-            {
-                Program.ConfigureTaskbar(this, Text);
-
-                var syncLink = new WindowsUtils.ShellLink(buttonSync.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), SyncApps.Name);
-                var cacheLink = new WindowsUtils.ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Store.Management.WinForms.Program.ExeName + ".exe"));
-                WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[] {syncLink, cacheLink});
-            };
-
-            Load += delegate
-            {
-                string brandingPath = Path.Combine(Locations.InstallBase, "_branding");
-                if (File.Exists(brandingPath + ".txt")) Text = File.ReadAllText(brandingPath + ".txt");
-                if (File.Exists(brandingPath + ".png")) pictureBoxLogo.Image = Image.FromFile(brandingPath + ".png");
-
-                if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
-                if (machineWide) Text += @" - " + Resources.MachineWideMode;
-                labelVersion.Text = @"v" + AppInfo.Current.Version;
-
-                try
-                {
-                    // Ensure all relevant directories are created
-                    Config.Load();
-                    StoreFactory.CreateDefault();
-
-                    appList.IconCache = catalogList.IconCache = IconCacheProvider.GetInstance();
-                }
-                    #region Error handling
-                catch (IOException ex)
-                {
-                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                    Close();
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                    Close();
-                }
-                catch (InvalidDataException ex)
-                {
-                    Msg.Inform(this, ex.Message +
-                        (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
-                    Close();
-                }
-                #endregion
-            };
-
-            Shown += delegate
-            {
-                if (SelfUpdateUtils.AutoActive) selfUpdateWorker.RunWorkerAsync();
-                LoadAppList();
-                LoadCatalogCached();
-                LoadCatalogAsync();
-
-                string introDoneFlag = Locations.GetSaveConfigPath("0install.net", true, "central", "intro_done");
-                if (_currentAppList.Entries.IsEmpty)
-                {
-                    // Show intro video automatically on first start
-                    if (!File.Exists(introDoneFlag))
-                        using (var dialog = new IntroDialog()) dialog.ShowDialog(this);
-
-                    // Show catalog automatically if AppList is empty
-                    tabControlApps.SelectTab(tabPageCatalog);
-                }
-                File.WriteAllText(introDoneFlag, "");
-            };
-
-            FormClosing += delegate
-            {
-                Visible = false;
-
-                // Wait for background tasks to shutdown
-                appListWorker.CancelAsync();
-                while (selfUpdateWorker.IsBusy || appListWorker.IsBusy || catalogWorker.IsBusy)
-                    Application.DoEvents();
-            };
-
-            // Redirect mouse wheel input to AppTileLists
-            MouseWheel += delegate(object sender, MouseEventArgs e)
-            {
-                if (tabControlApps.SelectedTab == tabPageAppList) appList.PerformScroll(e.Delta);
-                else if (tabControlApps.SelectedTab == tabPageCatalog) catalogList.PerformScroll(e.Delta);
-            };
+            _machineWide = machineWide;
         }
         #endregion
 
@@ -159,6 +77,132 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         //--------------------//
+
+        #region Form
+        private void MainForm_HandleCreated(object sender, EventArgs e)
+        {
+            Program.ConfigureTaskbar(this, Text);
+
+            var syncLink = new WindowsUtils.ShellLink(buttonSync.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), SyncApps.Name);
+            var cacheLink = new WindowsUtils.ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Store.Management.WinForms.Program.ExeName + ".exe"));
+            WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[] {syncLink, cacheLink});
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            string brandingPath = Path.Combine(Locations.InstallBase, "_branding");
+            if (File.Exists(brandingPath + ".txt")) Text = File.ReadAllText(brandingPath + ".txt");
+            if (File.Exists(brandingPath + ".png")) pictureBoxLogo.Image = Image.FromFile(brandingPath + ".png");
+
+            if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
+            if (_machineWide) Text += @" - " + Resources.MachineWideMode;
+            labelVersion.Text = @"v" + AppInfo.Current.Version;
+
+            try
+            {
+                // Ensure all relevant directories are created
+                Config.Load();
+                StoreFactory.CreateDefault();
+
+                appList.IconCache = catalogList.IconCache = IconCacheProvider.GetInstance();
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Close();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Close();
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, ex.Message +
+                                 (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                Close();
+            }
+            #endregion
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            if (SelfUpdateUtils.AutoActive) selfUpdateWorker.RunWorkerAsync();
+            LoadAppList();
+            LoadCatalogCached();
+            LoadCatalogAsync();
+
+            string introDoneFlag = Locations.GetSaveConfigPath("0install.net", true, "central", "intro_done");
+            if (_currentAppList.Entries.IsEmpty)
+            {
+                // Show intro video automatically on first start
+                if (!File.Exists(introDoneFlag))
+                    using (var dialog = new IntroDialog()) dialog.ShowDialog(this);
+
+                // Show catalog automatically if AppList is empty
+                tabControlApps.SelectTab(tabPageCatalog);
+            }
+            try
+            {
+                File.WriteAllText(introDoneFlag, "");
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Log.Error(ex);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error(ex);
+            }
+            #endregion
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Visible = false;
+
+            // Wait for background tasks to shutdown
+            appListWorker.CancelAsync();
+            while (selfUpdateWorker.IsBusy || appListWorker.IsBusy || catalogWorker.IsBusy)
+                Application.DoEvents();
+        }
+
+        private void MainForm_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (tabControlApps.SelectedTab == tabPageAppList) appList.PerformScroll(e.Delta);
+            else if (tabControlApps.SelectedTab == tabPageCatalog) catalogList.PerformScroll(e.Delta);
+        }
+        #endregion
+
+        #region Drag and drop handling
+        /// <summary>
+        /// Deactivates drag and drop support. Used to prevent accidental copying within the same window.
+        /// </summary>
+        internal static bool DisableDragAndDrop { get; set; }
+
+        private void MainForm_DragDrop(object sender, DragEventArgs e)
+        {
+            if (DisableDragAndDrop) return;
+
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                foreach (string path in (string[])e.Data.GetData(DataFormats.FileDrop))
+                    AddCustomInterface(path);
+            }
+            else if (e.Data.GetDataPresent(DataFormats.Text))
+                AddCustomInterface((string)e.Data.GetData(DataFormats.Text));
+        }
+
+        private void MainForm_DragEnter(object sender, DragEventArgs e)
+        {
+            // Allow dropping of strings and files
+            e.Effect = (!DisableDragAndDrop && (e.Data.GetDataPresent(DataFormats.Text) || e.Data.GetDataPresent(DataFormats.FileDrop)))
+                ? DragDropEffects.Copy
+                : DragDropEffects.None;
+        }
+        #endregion
 
         #region Self-update
         private void selfUpdateWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -217,6 +261,195 @@ namespace ZeroInstall.Central.WinForms
             }
         }
         #endregion
+
+        #region Focus handling
+        private void tabControlApps_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Redirect text input to appropriate search box
+            if (tabControlApps.SelectedTab == tabPageAppList)
+            {
+                if (!appList.TextSearch.Focused)
+                {
+                    appList.TextSearch.Focus();
+                    SendKeys.SendWait(e.KeyChar.ToString(CultureInfo.InvariantCulture));
+                }
+            }
+            else if (tabControlApps.SelectedTab == tabPageCatalog)
+            {
+                if (!catalogList.TextSearch.Focused)
+                {
+                    catalogList.TextSearch.Focus();
+                    SendKeys.SendWait(e.KeyChar.ToString(CultureInfo.InvariantCulture));
+                }
+            }
+        }
+        #endregion
+
+        #region Buttons
+        private void buttonSync_Click(object sender, EventArgs e)
+        {
+            Config config;
+            try
+            {
+                config = Config.Load();
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                return;
+            }
+            #endregion
+
+            if (!config.SyncServer.IsFile && (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey)))
+            {
+                using (var wizard = new SyncWizards.SetupWizard(_machineWide))
+                    wizard.ShowDialog(this);
+            }
+            else
+            {
+                ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
+                    ? new[] {SyncApps.Name, "--machine"}
+                    : new[] {SyncApps.Name}));
+            }
+        }
+
+        private void butonSyncSetup_Click(object sender, EventArgs e)
+        {
+            Config config;
+            try
+            {
+                config = Config.Load();
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                return;
+            }
+            #endregion
+
+            if (!string.IsNullOrEmpty(config.SyncServerUsername) || !string.IsNullOrEmpty(config.SyncServerPassword) || !string.IsNullOrEmpty(config.SyncCryptoKey))
+                if (!Msg.YesNo(this, Resources.SyncWillReplaceConfig, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
+
+            using (var wizard = new SyncWizards.SetupWizard(_machineWide))
+                wizard.ShowDialog(this);
+        }
+
+        private void buttonSyncTroubleshoot_Click(object sender, EventArgs e)
+        {
+            Config config;
+            try
+            {
+                config = Config.Load();
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                return;
+            }
+            #endregion
+
+            if (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey))
+                Msg.Inform(this, Resources.SyncCompleteSetupFirst, MsgSeverity.Warn);
+            else
+            {
+                using (var wizard = new SyncWizards.TroubleshootWizard(_machineWide))
+                    wizard.ShowDialog(this);
+            }
+        }
+
+        private void buttonUpdateAll_Click(object sender, EventArgs e)
+        {
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
+                ? new[] {UpdateApps.Name, "--machine"}
+                : new[] {UpdateApps.Name}));
+        }
+
+        private void buttonUpdateAllClean_Click(object sender, EventArgs e)
+        {
+            if (!Msg.YesNo(this, Resources.UpdateAllCleanWillRemove, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
+
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
+                ? new[] {UpdateApps.Name, "--clean", "--machine"}
+                : new[] {UpdateApps.Name, "--clean"}));
+        }
+
+        private void buttonRefreshCatalog_Click(object sender, EventArgs e)
+        {
+            LoadCatalogAsync();
+        }
+
+        private void buttonAddOtherApp_Click(object sender, EventArgs e)
+        {
+            string interfaceID = InputBox.Show(this, "Zero Install", Resources.EnterInterfaceUrl);
+            if (string.IsNullOrEmpty(interfaceID)) return;
+
+            AddCustomInterface(interfaceID);
+        }
+
+        private void buttonOptions_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new OptionsDialog())
+                dialog.ShowDialog(this);
+            LoadCatalogAsync();
+        }
+
+        private void buttonOptionsAdvanced_Click(object sender, EventArgs e)
+        {
+            if (!Msg.YesNo(this, Resources.OptionsAdvancedWarn, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
+
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {Configure.Name}));
+        }
+
+        private void buttonCacheManagement_Click(object sender, EventArgs e)
+        {
+            ProcessUtils.RunAsync(() => Store.Management.WinForms.Program.Main(new string[0]));
+        }
+
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+            OpenInBrowser("http://0install.de/help/");
+        }
+
+        private void buttonIntro_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new IntroDialog()) dialog.ShowDialog(this);
+        }
+        #endregion
+
+        //--------------------//
 
         #region AppList
         /// <summary>Stores the data currently displayed in <see cref="appList"/>. Used for comparison/merging when updating the list.</summary>
@@ -455,223 +688,6 @@ namespace ZeroInstall.Central.WinForms
                 Log.Warn(string.Format(Resources.IgnoringDuplicateAppListEntry, feed.Uri));
             }
             #endregion
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Buttons
-        private void buttonSync_Click(object sender, EventArgs e)
-        {
-            Config config;
-            try
-            {
-                config = Config.Load();
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
-                return;
-            }
-            #endregion
-
-            if (!config.SyncServer.IsFile && (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey)))
-            {
-                using (var wizard = new SyncWizards.SetupWizard(_machineWide))
-                    wizard.ShowDialog(this);
-            }
-            else
-            {
-                ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                    ? new[] {SyncApps.Name, "--machine"}
-                    : new[] {SyncApps.Name}));
-            }
-        }
-
-        private void butonSyncSetup_Click(object sender, EventArgs e)
-        {
-            Config config;
-            try
-            {
-                config = Config.Load();
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
-                return;
-            }
-            #endregion
-
-            if (!string.IsNullOrEmpty(config.SyncServerUsername) || !string.IsNullOrEmpty(config.SyncServerPassword) || !string.IsNullOrEmpty(config.SyncCryptoKey))
-                if (!Msg.YesNo(this, Resources.SyncWillReplaceConfig, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
-
-            using (var wizard = new SyncWizards.SetupWizard(_machineWide))
-                wizard.ShowDialog(this);
-        }
-
-        private void buttonSyncTroubleshoot_Click(object sender, EventArgs e)
-        {
-            Config config;
-            try
-            {
-                config = Config.Load();
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
-                return;
-            }
-            #endregion
-
-            if (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey))
-                Msg.Inform(this, Resources.SyncCompleteSetupFirst, MsgSeverity.Warn);
-            else
-            {
-                using (var wizard = new SyncWizards.TroubleshootWizard(_machineWide))
-                    wizard.ShowDialog(this);
-            }
-        }
-
-        private void buttonUpdateAll_Click(object sender, EventArgs e)
-        {
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                ? new[] {UpdateApps.Name, "--machine"}
-                : new[] {UpdateApps.Name}));
-        }
-
-        private void buttonUpdateAllClean_Click(object sender, EventArgs e)
-        {
-            if (!Msg.YesNo(this, Resources.UpdateAllCleanWillRemove, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
-
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
-                ? new[] {UpdateApps.Name, "--clean", "--machine"}
-                : new[] {UpdateApps.Name, "--clean"}));
-        }
-
-        private void buttonRefreshCatalog_Click(object sender, EventArgs e)
-        {
-            LoadCatalogAsync();
-        }
-
-        private void buttonAddOtherApp_Click(object sender, EventArgs e)
-        {
-            string interfaceID = InputBox.Show(this, "Zero Install", Resources.EnterInterfaceUrl);
-            if (string.IsNullOrEmpty(interfaceID)) return;
-
-            AddCustomInterface(interfaceID);
-        }
-
-        private void buttonOptions_Click(object sender, EventArgs e)
-        {
-            using (var dialog = new OptionsDialog())
-                dialog.ShowDialog(this);
-            LoadCatalogAsync();
-        }
-
-        private void buttonOptionsAdvanced_Click(object sender, EventArgs e)
-        {
-            if (!Msg.YesNo(this, Resources.OptionsAdvancedWarn, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
-
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {Configure.Name}));
-        }
-
-        private void buttonCacheManagement_Click(object sender, EventArgs e)
-        {
-            ProcessUtils.RunAsync(() => Store.Management.WinForms.Program.Main(new string[0]));
-        }
-
-        private void buttonHelp_Click(object sender, EventArgs e)
-        {
-            OpenInBrowser("http://0install.de/help/");
-        }
-
-        private void buttonIntro_Click(object sender, EventArgs e)
-        {
-            using (var dialog = new IntroDialog()) dialog.ShowDialog(this);
-        }
-        #endregion
-
-        #region Focus handling
-        private void tabControlApps_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Redirect text input to appropriate search box
-            if (tabControlApps.SelectedTab == tabPageAppList)
-            {
-                if (!appList.TextSearch.Focused)
-                {
-                    appList.TextSearch.Focus();
-                    SendKeys.SendWait(e.KeyChar.ToString(CultureInfo.InvariantCulture));
-                }
-            }
-            else if (tabControlApps.SelectedTab == tabPageCatalog)
-            {
-                if (!catalogList.TextSearch.Focused)
-                {
-                    catalogList.TextSearch.Focus();
-                    SendKeys.SendWait(e.KeyChar.ToString(CultureInfo.InvariantCulture));
-                }
-            }
-        }
-        #endregion
-
-        #region Drag and drop handling
-        /// <summary>
-        /// Deactivates drag and drop support. Used to prevent accidental copying within the same window.
-        /// </summary>
-        internal static bool DisableDragAndDrop { get; set; }
-
-        private void MainForm_DragDrop(object sender, DragEventArgs e)
-        {
-            if (DisableDragAndDrop) return;
-
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                foreach (string path in (string[])e.Data.GetData(DataFormats.FileDrop))
-                    AddCustomInterface(path);
-            }
-            else if (e.Data.GetDataPresent(DataFormats.Text))
-                AddCustomInterface((string)e.Data.GetData(DataFormats.Text));
-        }
-
-        private void MainForm_DragEnter(object sender, DragEventArgs e)
-        {
-            // Allow dropping of strings and files
-            e.Effect = (!DisableDragAndDrop && (e.Data.GetDataPresent(DataFormats.Text) || e.Data.GetDataPresent(DataFormats.FileDrop)))
-                ? DragDropEffects.Copy
-                : DragDropEffects.None;
         }
         #endregion
 

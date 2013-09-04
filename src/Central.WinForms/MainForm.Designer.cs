@@ -74,19 +74,19 @@
             // 
             // tabControlApps
             // 
-            resources.ApplyResources(this.tabControlApps, "tabControlApps");
             this.tabControlApps.Controls.Add(this.tabPageAppList);
             this.tabControlApps.Controls.Add(this.tabPageCatalog);
+            resources.ApplyResources(this.tabControlApps, "tabControlApps");
             this.tabControlApps.Name = "tabControlApps";
             this.tabControlApps.SelectedIndex = 0;
             this.tabControlApps.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tabControlApps_KeyPress);
             // 
             // tabPageAppList
             // 
-            resources.ApplyResources(this.tabPageAppList, "tabPageAppList");
             this.tabPageAppList.Controls.Add(this.buttonUpdateAll);
             this.tabPageAppList.Controls.Add(this.buttonSync);
             this.tabPageAppList.Controls.Add(this.appList);
+            resources.ApplyResources(this.tabPageAppList, "tabPageAppList");
             this.tabPageAppList.Name = "tabPageAppList";
             this.tabPageAppList.UseVisualStyleBackColor = true;
             // 
@@ -102,15 +102,15 @@
             // 
             // menuUpdateAll
             // 
-            resources.ApplyResources(this.menuUpdateAll, "menuUpdateAll");
             this.menuUpdateAll.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonUpdateAllClean});
             this.menuUpdateAll.Name = "contextMenuUpdateAll";
+            resources.ApplyResources(this.menuUpdateAll, "menuUpdateAll");
             // 
             // buttonUpdateAllClean
             // 
-            resources.ApplyResources(this.buttonUpdateAllClean, "buttonUpdateAllClean");
             this.buttonUpdateAllClean.Name = "buttonUpdateAllClean";
+            resources.ApplyResources(this.buttonUpdateAllClean, "buttonUpdateAllClean");
             this.buttonUpdateAllClean.Click += new System.EventHandler(this.buttonUpdateAllClean_Click);
             // 
             // buttonSync
@@ -125,22 +125,22 @@
             // 
             // menuSync
             // 
-            resources.ApplyResources(this.menuSync, "menuSync");
             this.menuSync.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.butonSyncSetup,
             this.buttonSyncTroubleshoot});
             this.menuSync.Name = "menuSync";
+            resources.ApplyResources(this.menuSync, "menuSync");
             // 
             // butonSyncSetup
             // 
-            resources.ApplyResources(this.butonSyncSetup, "butonSyncSetup");
             this.butonSyncSetup.Name = "butonSyncSetup";
+            resources.ApplyResources(this.butonSyncSetup, "butonSyncSetup");
             this.butonSyncSetup.Click += new System.EventHandler(this.butonSyncSetup_Click);
             // 
             // buttonSyncTroubleshoot
             // 
-            resources.ApplyResources(this.buttonSyncTroubleshoot, "buttonSyncTroubleshoot");
             this.buttonSyncTroubleshoot.Name = "buttonSyncTroubleshoot";
+            resources.ApplyResources(this.buttonSyncTroubleshoot, "buttonSyncTroubleshoot");
             this.buttonSyncTroubleshoot.Click += new System.EventHandler(this.buttonSyncTroubleshoot_Click);
             // 
             // appList
@@ -150,12 +150,12 @@
             // 
             // tabPageCatalog
             // 
-            resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Controls.Add(this.labelLoadingCatalog);
             this.tabPageCatalog.Controls.Add(this.labelLastCatalogError);
             this.tabPageCatalog.Controls.Add(this.buttonAddOtherApp);
             this.tabPageCatalog.Controls.Add(this.buttonRefreshCatalog);
             this.tabPageCatalog.Controls.Add(this.catalogList);
+            resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Name = "tabPageCatalog";
             this.tabPageCatalog.UseVisualStyleBackColor = true;
             // 
@@ -202,15 +202,15 @@
             // 
             // menuOptions
             // 
-            resources.ApplyResources(this.menuOptions, "menuOptions");
             this.menuOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonOptionsAdvanced});
             this.menuOptions.Name = "menuOptions";
+            resources.ApplyResources(this.menuOptions, "menuOptions");
             // 
             // buttonOptionsAdvanced
             // 
-            resources.ApplyResources(this.buttonOptionsAdvanced, "buttonOptionsAdvanced");
             this.buttonOptionsAdvanced.Name = "buttonOptionsAdvanced";
+            resources.ApplyResources(this.buttonOptionsAdvanced, "buttonOptionsAdvanced");
             this.buttonOptionsAdvanced.Click += new System.EventHandler(this.buttonOptionsAdvanced_Click);
             // 
             // buttonCacheManagement
@@ -232,15 +232,15 @@
             // 
             // menuHelp
             // 
-            resources.ApplyResources(this.menuHelp, "menuHelp");
             this.menuHelp.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonIntro});
             this.menuHelp.Name = "menuHelp";
+            resources.ApplyResources(this.menuHelp, "menuHelp");
             // 
             // buttonIntro
             // 
-            resources.ApplyResources(this.buttonIntro, "buttonIntro");
             this.buttonIntro.Name = "buttonIntro";
+            resources.ApplyResources(this.buttonIntro, "buttonIntro");
             this.buttonIntro.Click += new System.EventHandler(this.buttonIntro_Click);
             // 
             // labelVersion
@@ -272,11 +272,11 @@
             // 
             // panelBottom
             // 
-            resources.ApplyResources(this.panelBottom, "panelBottom");
             this.panelBottom.Controls.Add(this.buttonCacheManagement);
             this.panelBottom.Controls.Add(this.buttonHelp);
             this.panelBottom.Controls.Add(this.buttonOptions);
             this.panelBottom.Controls.Add(this.labelVersion);
+            resources.ApplyResources(this.panelBottom, "panelBottom");
             this.panelBottom.Name = "panelBottom";
             // 
             // rootTable
@@ -289,11 +289,14 @@
             // 
             // MainForm
             // 
-            resources.ApplyResources(this, "$this");
             this.AllowDrop = true;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.rootTable);
             this.Name = "MainForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
             this.tabControlApps.ResumeLayout(false);
