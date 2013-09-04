@@ -24,12 +24,10 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Common;
-using Common.Collections;
 using Common.Controls;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Management.WinForms.Nodes;
@@ -76,110 +74,38 @@ namespace ZeroInstall.Store.Management.WinForms
         /// </summary>
         internal void RefreshList()
         {
-            var waitDialog = new AsyncWaitDialog(Resources.ReadingCache, Icon);
-            waitDialog.Start();
             try
             {
-                var nodes = new NamedCollection<Node>();
+                var listBuilder = new NodeListBuilder(
+                    FeedCacheFactory.CreateDefault(OpenPgpFactory.CreateDefault()),
+                    StoreFactory.CreateDefault(),
+                    this);
+                new GuiTaskHandler().RunTask(listBuilder);
 
-                // List feeds/interfaces
-                var feedCache = FeedCacheFactory.CreateDefault(OpenPgpFactory.CreateDefault());
-                var feeds = feedCache.GetAll();
-                foreach (Feed feed in feeds)
-                    AddWithIncrement(nodes, new FeedNode(this, feedCache, feed));
-
-                long totalSize = 0;
-                IStore store;
-                try
-                {
-                    store = StoreFactory.CreateDefault();
-                }
-                    #region Error handling
-                catch (IOException ex)
-                {
-                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                    Close();
-                    return;
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                    Close();
-                    return;
-                }
-                #endregion
-
-                // List implementations
-                foreach (var digest in store.ListAll())
-                {
-                    try
-                    {
-                        Feed feed;
-                        var implementation = feeds.GetImplementation(digest, out feed);
-
-                        ImplementationNode implementationNode;
-                        if (feed == null) implementationNode = new OrphanedImplementationNode(this, store, digest);
-                        else implementationNode = new OwnedImplementationNode(this, store, digest, new FeedNode(this, feedCache, feed), implementation);
-
-                        totalSize += implementationNode.Size;
-                        AddWithIncrement(nodes, implementationNode);
-                    }
-                        #region Error handling
-                    catch (FormatException ex)
-                    {
-                        Msg.Inform(this, string.Format("Problem processing the manifest file for '{0}'.\n" + ex.Message, digest), MsgSeverity.Error);
-                    }
-                    catch (IOException ex)
-                    {
-                        Msg.Inform(this, string.Format("Problem processing '{0}'.\n" + ex.Message, digest), MsgSeverity.Error);
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        Msg.Inform(this, string.Format("Problem processing '{0}'.\n" + ex.Message, digest), MsgSeverity.Error);
-                    }
-                    #endregion
-                }
-
-                // List temporary directories
-                foreach (string directory in store.ListAllTemp())
-                    AddWithIncrement(nodes, new TempDirectoryNode(this, store, directory));
-
-                _treeView.Nodes = nodes;
+                _treeView.Nodes = listBuilder.Nodes;
                 _treeView.SelectedEntry = null;
+                textTotalSize.Text = listBuilder.TotalSize.FormatBytes(CultureInfo.CurrentCulture);
                 buttonVerify.Enabled = buttonRemove.Enabled = false;
-
-                // Update total size
-                textTotalSize.Text = totalSize.FormatBytes(CultureInfo.CurrentCulture);
             }
                 #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Close();
             }
             catch (UnauthorizedAccessException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Close();
             }
             catch (InvalidDataException ex)
             {
                 Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                Close();
             }
             #endregion
 
-            waitDialog.Stop();
-
             OnCheckedEntriesChanged(null, EventArgs.Empty);
-        }
-
-        /// <summary>
-        /// Adds a <see cref="Node"/> to a collection, incrementing <see cref="Node.SuffixCounter"/> to prevent naming collisions.
-        /// </summary>
-        private static void AddWithIncrement(NamedCollection<Node> collection, Node entry)
-        {
-            while (collection.Contains(entry.Name))
-                entry.SuffixCounter++;
-
-            collection.Add(entry);
         }
         #endregion
 
