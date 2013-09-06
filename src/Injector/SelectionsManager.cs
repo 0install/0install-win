@@ -36,7 +36,7 @@ namespace ZeroInstall.Injector
         private readonly IStore _store;
 
         /// <summary>
-        /// 
+        /// Creates a new selections manager
         /// </summary>
         /// <param name="feedCache">Used to load <see cref="Feed"/>s containing the original <see cref="Implementation"/>s.</param>
         /// <param name="store">The locations to search for cached <see cref="Implementation"/>s.</param>

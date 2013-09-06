@@ -223,7 +223,7 @@ namespace ZeroInstall.Store.Implementation
         {
             if (!Directory.Exists(DirectoryPath)) return new ManifestDigest[0];
 
-            return FileUtils.GetSubdirectoryPaths(DirectoryPath).
+            return FileUtils.GetDirectories(DirectoryPath).
                              Select(path => new ManifestDigest(Path.GetFileName(path))).
                              Where(IsValid).ToList();
         }
@@ -238,7 +238,7 @@ namespace ZeroInstall.Store.Implementation
         {
             if (!Directory.Exists(DirectoryPath)) return new string[0];
 
-            return FileUtils.GetSubdirectoryPaths(DirectoryPath).Where(IsValid).ToList();
+            return FileUtils.GetDirectories(DirectoryPath).Where(IsValid).ToList();
         }
 
         private static bool IsValid(string path)

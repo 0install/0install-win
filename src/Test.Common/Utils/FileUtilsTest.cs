@@ -278,6 +278,7 @@ namespace Common.Utils
 
         #region Directory walking
         // Interfaces used for mocking delegates
+        // ReSharper disable once MemberCanBePrivate.Global
         public interface IActionSimulator<in T>
         {
             void Invoke(T obj);
@@ -308,6 +309,20 @@ namespace Common.Utils
 
                 dirCallbackMock.Verify();
                 fileCallbackMock.Verify();
+            }
+        }
+
+        [Test]
+        public void TestGetRelativeDirectoriesRecursive()
+        {
+            using (var tempDir = new TemporaryDirectory("unit-tests"))
+            {
+                Directory.CreateDirectory(Path.Combine(tempDir, "sub1"));
+                Directory.CreateDirectory(Path.Combine(Path.Combine(tempDir, "sub1"), "sub2"));
+
+                CollectionAssert.AreEqual(
+                    new [] {"", "sub1", "sub1/sub2"},
+                    new DirectoryInfo(tempDir).GetRelativeDirectoriesRecursive());
             }
         }
         #endregion

@@ -95,7 +95,7 @@
             this.buttonNewWizard.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonNewWizard.Name = "buttonNewWizard";
             this.buttonNewWizard.Size = new System.Drawing.Size(23, 22);
-            this.buttonNewWizard.Text = "New Wizard";
+            this.buttonNewWizard.Text = "New with wizard";
             this.buttonNewWizard.Visible = false;
             this.buttonNewWizard.Click += new System.EventHandler(this.menuNewWizard_Click);
             // 
@@ -201,7 +201,7 @@
             this.menuNewWizard.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.NewWizardButton;
             this.menuNewWizard.Name = "menuNewWizard";
             this.menuNewWizard.Size = new System.Drawing.Size(155, 22);
-            this.menuNewWizard.Text = "New &Wizard...";
+            this.menuNewWizard.Text = "New with &wizard...";
             this.menuNewWizard.Visible = false;
             this.menuNewWizard.Click += new System.EventHandler(this.menuNewWizard_Click);
             // 

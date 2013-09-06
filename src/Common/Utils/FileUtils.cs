@@ -303,7 +303,7 @@ namespace Common.Utils
         /// </summary>
         /// <param name="path">The path of the directory to search for subdirectories.</param>
         /// <returns>A C-sorted list of directory paths.</returns>
-        public static IEnumerable<string> GetSubdirectoryPaths(string path)
+        public static IEnumerable<string> GetDirectories(string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -328,6 +328,7 @@ namespace Common.Utils
             #endregion
 
             if (dirAction != null) dirAction(directory);
+
             foreach (var subDir in directory.GetDirectories())
                 WalkDirectory(subDir, dirAction, fileAction);
 
@@ -336,6 +337,19 @@ namespace Common.Utils
                 foreach (var file in directory.GetFiles())
                     fileAction(file);
             }
+        }
+
+        /// <summary>
+        /// Recursivley lists Unix-style relative paths for all subdirectories of a directory.
+        /// </summary>
+        /// <param name="baseDirectory">The base directory to search for subdirectories.</param>
+        /// <returns>A list of relative Unix-style paths, starting with <see cref="string.Empty"/>.</returns>
+        public static IEnumerable<string> GetRelativeDirectoriesRecursive(this DirectoryInfo baseDirectory)
+        {
+            var result = new List<string>();
+            baseDirectory.WalkDirectory(
+                dir => result.Add(dir.RelativeTo(baseDirectory).Replace(Path.DirectorySeparatorChar, '/')));
+            return result;
         }
         #endregion
 

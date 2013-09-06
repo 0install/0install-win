@@ -80,7 +80,8 @@ namespace ZeroInstall.Store.Management.WinForms
                     FeedCacheFactory.CreateDefault(OpenPgpFactory.CreateDefault()),
                     StoreFactory.CreateDefault(),
                     this);
-                new GuiTaskHandler().RunTask(listBuilder);
+
+                TrackingDialog.Run(this, listBuilder);
 
                 _treeView.Nodes = listBuilder.Nodes;
                 _treeView.SelectedEntry = null;
