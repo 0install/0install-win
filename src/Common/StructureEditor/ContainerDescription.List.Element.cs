@@ -80,9 +80,11 @@ namespace Common.StructureEditor
 
                 public IEnumerable<EntryInfo> GetEntrysIn(TContainer container, IList<TList> list)
                 {
+                    var description = AttributeUtils.GetAttributes<DescriptionAttribute, TElement>().FirstOrDefault();
                     return list.OfType<TElement>().Select(element =>
                         new EntryInfo(
                             name: _name,
+                            description: (description == null) ? null : description.Description,
                             target: element,
                             getEditorControl: executor => CreateEditor(container, element, executor),
                             toXmlString: element.ToXmlString,

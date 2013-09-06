@@ -100,8 +100,10 @@ namespace Common.StructureEditor
                 var pointer = _getPointer(container);
                 if (pointer.Value != null)
                 {
+                    var description = AttributeUtils.GetAttributes<DescriptionAttribute, TProperty>().FirstOrDefault();
                     yield return new EntryInfo(
                         name: _name,
+                        description: (description == null) ? null : description.Description,
                         target: pointer.Value,
                         getEditorControl: executor => CreateEditor(container, pointer.Value, executor),
                         toXmlString: pointer.Value.ToXmlString,

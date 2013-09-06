@@ -34,7 +34,7 @@ namespace Common.StructureEditor
                 : base(entry.Name + ": " + entry.Target, children)
             {
                 Entry = entry;
-
+                ToolTipText = entry.Description;
                 ContextMenu = new ContextMenu(new MenuItem[] {});
             }
         }
