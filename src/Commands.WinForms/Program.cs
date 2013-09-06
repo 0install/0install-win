@@ -54,7 +54,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        // Note: No [STAThread] here because the GUI is created on a different thread
+        [STAThread]
         public static int Main(string[] args)
         {
             WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
