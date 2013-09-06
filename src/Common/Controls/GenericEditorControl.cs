@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 using Common.Undo;
 using Common.Utils;
@@ -31,27 +31,36 @@ namespace Common.Controls
     /// Edits arbitrary types of elements using a <see cref="PropertyGrid"/>. Provides optional <see cref="Common.Undo"/> support.
     /// </summary>
     /// <typeparam name="T">The type of element to edit.</typeparam>
-    public sealed class GenericEditorControl<T> : ResettablePropertyGrid, IEditorControl<T> where T : class
+    public sealed class GenericEditorControl<T> : EditorControlBase<T> where T : class
     {
-        /// <inheritdoc/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public T Target { get { return SelectedObject as T; } set { SelectedObject = value; } }
-
-        /// <inheritdoc/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Undo.ICommandExecutor CommandExecutor { get; set; }
-
         public GenericEditorControl()
         {
-            // ReSharper disable DoNotCallOverridableMethodsInConstructor
-            ToolbarVisible = false;
-            // ReSharper restore DoNotCallOverridableMethodsInConstructor
+            AddPropertyGrid();
+        }
 
+        private void AddPropertyGrid()
+        {
+            var propertyGrid = new ResettablePropertyGrid
+            {
+                ToolbarVisible = false,
+                Size = Size - new Size(0, 45),
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
+            };
+            Controls.Add(propertyGrid);
+
+            TargetChanged += () => propertyGrid.SelectedObject = Target;
+            OnRefresh += propertyGrid.Refresh;
+
+            SetupUndoTracking(propertyGrid);
+        }
+
+        private void SetupUndoTracking(PropertyGrid propertyGrid)
+        {
 #if FS_SECURITY
             if (MonoUtils.IsUnix)
             { // WORKAROUND: e.OldValue is not reliable on Mono, use MultiPropertyTracker instead
-                var tracker = new MultiPropertyTracker(this);
-                PropertyValueChanged += delegate(object sender, PropertyValueChangedEventArgs e)
+                var tracker = new MultiPropertyTracker(propertyGrid);
+                propertyGrid.PropertyValueChanged += delegate(object sender, PropertyValueChangedEventArgs e)
                 {
                     if (CommandExecutor != null)
                         CommandExecutor.Execute(tracker.GetCommand(e.ChangedItem));
@@ -60,7 +69,7 @@ namespace Common.Controls
             else
 #endif
             {
-                PropertyValueChanged += delegate(object sender, PropertyValueChangedEventArgs e)
+                propertyGrid.PropertyValueChanged += delegate(object sender, PropertyValueChangedEventArgs e)
                 {
                     if (CommandExecutor != null)
                         CommandExecutor.Execute(new PropertyChangedCommand(Target, e));

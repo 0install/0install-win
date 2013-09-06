@@ -246,7 +246,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\GenericEditorControl.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\EditorDialog.cs">
       <SubType>Form</SubType>
