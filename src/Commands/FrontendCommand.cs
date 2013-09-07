@@ -57,7 +57,7 @@ namespace ZeroInstall.Commands
 
         /// <summary>Feeds to add, terms to search for, etc.</summary>
         [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists", Justification = "Using a List<T> for performance reasons")]
-        protected List<string> AdditionalArgs;
+        protected readonly List<string> AdditionalArgs = new List<string>();
         #endregion
 
         #region Properties
@@ -201,7 +201,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="InvalidInterfaceIDException">Thrown when trying to set an invalid interface ID.</exception>
         public virtual void Parse(IEnumerable<string> args)
         {
-            AdditionalArgs = Options.Parse(args);
+            AdditionalArgs.AddRange(Options.Parse(args));
 
             if (AdditionalArgs.Count < AdditionalArgsMin) throw new OptionException(Resources.MissingArguments, "");
             if (AdditionalArgsMin == 1 && string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");
