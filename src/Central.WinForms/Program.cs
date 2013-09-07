@@ -52,7 +52,7 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        // Note: No [STAThread] here, because that causes freezes when using Store Service
+        [STAThread]
         public static int Main(string[] args)
         {
             WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
