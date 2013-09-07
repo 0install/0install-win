@@ -121,7 +121,11 @@ namespace ZeroInstall.Commands
         private void BackgroundUpdate()
         {
             if (StaleFeeds && Resolver.Config.EffectiveNetworkUse == NetworkLevel.Full)
-                ProcessUtils.LaunchAssembly(WindowsUtils.IsWindows ? "0install-win" : "0install-gtk", "update --batch " + Requirements.ToCommandLineArgs());
+            {
+                ProcessUtils.LaunchAssembly(
+                    /*MonoUtils.IsUnix ? "0install-gtk" :*/ "0install-win",
+                    "update --batch " + Requirements.ToCommandLineArgs());
+            }
         }
 
         /// <summary>

@@ -128,7 +128,11 @@ namespace ZeroInstall.Commands
         private void PreDownload(string interfaceID)
         {
             if (Resolver.Config.EffectiveNetworkUse == NetworkLevel.Full)
-                ProcessUtils.LaunchAssembly(WindowsUtils.IsWindows ? "0install-win" : "0install-gtk", "download --batch " + interfaceID.EscapeArgument());
+            {
+                ProcessUtils.LaunchAssembly(
+                    /*MonoUtils.IsUnix ? "0install-gtk" :*/ "0install-win",
+                    "download --batch " + interfaceID.EscapeArgument());
+            }
         }
         #endregion
     }

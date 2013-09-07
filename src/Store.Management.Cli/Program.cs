@@ -272,7 +272,7 @@ namespace ZeroInstall.Store.Management.Cli
                     return ErrorLevel.OK;
 
                 case "manage":
-                    ProcessUtils.LaunchAssembly(WindowsUtils.IsWindows ? "0store-win" : "0store-gtk");
+                    ProcessUtils.LaunchAssembly(/*MonoUtils.IsUnix ? "0store-gtk" :*/ "0store-win");
                     return ErrorLevel.OK;
 
                 case "manifest":
