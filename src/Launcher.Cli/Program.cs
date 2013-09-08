@@ -44,7 +44,7 @@ namespace ZeroInstall.Launcher.Cli
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        public static int Main(string[] args)
+        internal static int Main(string[] args)
         {
             // Encode installation path into mutex name to allow instance detection during updates
             string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());
@@ -56,6 +56,14 @@ namespace ZeroInstall.Launcher.Cli
             AppMutex.Create("Zero Install");
 #endif
 
+            return Run(args);
+        }
+
+        /// <summary>
+        /// Runs the application (called by main method or by embedding process).
+        /// </summary>
+        public static int Run(string[] args)
+        {
             // Automatically show help for missing args
             if (args == null) args = new string[0];
             if (args.Length == 0) args = new[] {"--help"};

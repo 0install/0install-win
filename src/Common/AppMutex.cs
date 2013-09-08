@@ -30,7 +30,7 @@ using Common.Utils;
 namespace Common
 {
     /// <summary>
-    /// Provides a cross-proccess object allowing easy dection of application instances (e.g., for use by installers and update tools).
+    /// Provides a cross-process object allowing easy dection of application instances (e.g., for use by installers and update tools).
     /// </summary>
     /// <remarks><see cref="System.Threading.Mutex"/> is intended for synchronizing access to shared resources while this class is intended to detect application instances.</remarks>
     // ReSharper disable UnusedMethodReturnValue.Global

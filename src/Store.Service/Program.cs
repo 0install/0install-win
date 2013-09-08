@@ -38,8 +38,8 @@ namespace ZeroInstall.Store.Service
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
-        public static int Main(string[] args)
+        // NOTE: No [STAThread] here, because it could block .NET remoting
+        internal static int Main(string[] args)
         {
             // Encode installation path into mutex name to allow instance detection during updates
             string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());

@@ -290,13 +290,13 @@ namespace ZeroInstall.Central.WinForms
         private void buttonRun_Click(object sender, EventArgs e)
         {
             if (InterfaceID.StartsWith("fake:")) return;
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {Commands.Run.Name, "--no-wait", InterfaceID}));
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Run(new[] {Commands.Run.Name, "--no-wait", InterfaceID}));
         }
 
         private void buttonSelectVersion_Click(object sender, EventArgs e)
         {
             if (InterfaceID.StartsWith("fake:")) return;
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {Commands.Run.Name, "--no-wait", "--gui", InterfaceID}));
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Run(new[] {Commands.Run.Name, "--no-wait", "--gui", InterfaceID}));
         }
 
         private void buttonSelectCommmand_Click(object sender, EventArgs e)
@@ -328,7 +328,7 @@ namespace ZeroInstall.Central.WinForms
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
             if (InterfaceID.StartsWith("fake:")) return;
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {Commands.Update.Name, InterfaceID}));
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Run(new[] {Commands.Update.Name, InterfaceID}));
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -340,7 +340,7 @@ namespace ZeroInstall.Central.WinForms
 
             ProcessUtils.RunAsync(delegate
             {
-                Commands.WinForms.Program.Main(_machineWide
+                Commands.WinForms.Program.Run(_machineWide
                     ? new[] {Commands.AddApp.Name, "--machine", InterfaceID}
                     : new[] {Commands.AddApp.Name, InterfaceID});
                 InvokeUpdateButtons(); // Restore buttons
@@ -356,7 +356,7 @@ namespace ZeroInstall.Central.WinForms
 
             ProcessUtils.RunAsync(delegate
             {
-                Commands.WinForms.Program.Main(_machineWide
+                Commands.WinForms.Program.Run(_machineWide
                     ? new[] {Commands.IntegrateApp.Name, "--machine", InterfaceID}
                     : new[] {Commands.IntegrateApp.Name, InterfaceID});
                 InvokeUpdateButtons(); // Restore buttons
@@ -374,7 +374,7 @@ namespace ZeroInstall.Central.WinForms
 
             ProcessUtils.RunAsync(delegate
             {
-                Commands.WinForms.Program.Main(_machineWide
+                Commands.WinForms.Program.Run(_machineWide
                     ? new[] {Commands.RemoveApp.Name, "--machine", InterfaceID}
                     : new[] {Commands.RemoveApp.Name, InterfaceID});
                 InvokeUpdateButtons(); // Restore buttons

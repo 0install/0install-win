@@ -318,7 +318,7 @@ namespace ZeroInstall.Central.WinForms
             }
             else
             {
-                ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
+                ProcessUtils.RunAsync(() => Commands.WinForms.Program.Run(_machineWide
                     ? new[] {SyncApps.Name, "--machine"}
                     : new[] {SyncApps.Name}));
             }
@@ -392,7 +392,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonUpdateAll_Click(object sender, EventArgs e)
         {
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Run(_machineWide
                 ? new[] {UpdateApps.Name, "--machine"}
                 : new[] {UpdateApps.Name}));
         }
@@ -401,7 +401,7 @@ namespace ZeroInstall.Central.WinForms
         {
             if (!Msg.YesNo(this, Resources.UpdateAllCleanWillRemove, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
 
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Run(_machineWide
                 ? new[] {UpdateApps.Name, "--clean", "--machine"}
                 : new[] {UpdateApps.Name, "--clean"}));
         }
@@ -430,12 +430,12 @@ namespace ZeroInstall.Central.WinForms
         {
             if (!Msg.YesNo(this, Resources.OptionsAdvancedWarn, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
 
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {Configure.Name}));
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Run(new[] {Configure.Name}));
         }
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)
         {
-            ProcessUtils.RunAsync(() => Store.Management.WinForms.Program.Main(new string[0]));
+            ProcessUtils.RunAsync(() => Store.Management.WinForms.Program.Run(new string[0]));
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)
@@ -720,7 +720,7 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="interfaceID">The URI of the interface to be added.</param>
         private void AddCustomInterface(string interfaceID)
         {
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(_machineWide
+            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Run(_machineWide
                 ? new[] {AddApp.Name, "--machine", interfaceID}
                 : new[] {AddApp.Name, interfaceID}));
             tabControlApps.SelectTab(tabPageAppList);

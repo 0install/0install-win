@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Implementation
         public const string IpcPortName = "ZeroInstall.Store.Service";
 
         /// <summary>
-        /// The Uri fragment to use to request an <see cref="IStore"/> object from other proccesses.
+        /// The Uri fragment to use to request an <see cref="IStore"/> object from other processes.
         /// </summary>
         public const string IpcObjectUri = "Store";
 
@@ -83,7 +83,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Sets up named pipes and creates a proxy object for accessing the <see cref="IStore"/> in the store service.
         /// </summary>
-        /// <remarks>Must only be called once per proccess!</remarks>
+        /// <remarks>Must only be called once per process!</remarks>
         private static IStore CreateServiceProxy()
         {
             // IPC channel for accessing the server

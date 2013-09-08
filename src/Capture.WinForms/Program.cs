@@ -29,8 +29,8 @@ namespace ZeroInstall.Capture.WinForms
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
-        public static void Main()
+        [STAThread] // Required for WinForms
+        internal static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

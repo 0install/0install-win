@@ -54,8 +54,8 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        // Note: No [STAThread] here, because that causes freezes when using Store Service
-        public static int Main(string[] args)
+        // NOTE: No [STAThread] here, because it could block .NET remoting callbacks
+        internal static int Main(string[] args)
         {
             WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
 
@@ -73,6 +73,18 @@ namespace ZeroInstall.Commands.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
+            // Run GUI on a separate thread to enable STA without affecting main thread
+            int result = 0;
+            ProcessUtils.RunAsync(() => { result = Run(args); }).Join();
+            return result;
+        }
+
+        /// <summary>
+        /// Runs the application (called by main method or by embedding process).
+        /// </summary>
+        [STAThread] // Required for WinForms
+        public static int Run(string[] args)
+        {
             Log.Info("Zero Install Command Windows GUI started with: " + args.JoinEscapeArguments());
 
             // Automatically show help for missing args

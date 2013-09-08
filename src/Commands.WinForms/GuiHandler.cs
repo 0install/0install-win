@@ -22,6 +22,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using Common.Tasks;
+using Common.Utils;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -142,7 +143,7 @@ namespace ZeroInstall.Commands.WinForms
             // Start GUI thread
             using (var guiReady = new ManualResetEvent(false))
             {
-                var thread = new Thread(() =>
+                ProcessUtils.RunAsync(() =>
                 {
                     _form.Initialize();
 
@@ -155,8 +156,6 @@ namespace ZeroInstall.Commands.WinForms
 
                     Application.Run();
                 });
-                thread.SetApartmentState(ApartmentState.STA); // Make COM work
-                thread.Start();
                 guiReady.WaitOne(); // Wait until the GUI handles have been created
             }
         }

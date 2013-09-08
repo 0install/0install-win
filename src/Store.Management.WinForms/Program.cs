@@ -49,8 +49,8 @@ namespace ZeroInstall.Store.Management.WinForms
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
-        public static void Main(string[] args)
+        [STAThread] // Required for WinForms
+        internal static void Main(string[] args)
         {
             WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
 
@@ -68,6 +68,15 @@ namespace ZeroInstall.Store.Management.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
+            Run(args);
+        }
+
+        /// <summary>
+        /// Runs the application (called by main method or by embedding process).
+        /// </summary>
+        [STAThread] // Required for WinForms
+        public static void Run(string[] args)
+        {
             if (args != null && args.Length > 0 && args[0] == "purge")
             {
                 if (Msg.YesNo(null, Resources.ConfirmPurge, MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))

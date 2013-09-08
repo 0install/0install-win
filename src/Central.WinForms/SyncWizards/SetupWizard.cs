@@ -107,7 +107,7 @@ namespace ZeroInstall.Central.WinForms.SyncWizards
                     config.Save();
                     Close();
 
-                    ProcessUtils.RunAsync(() => Commands.WinForms.Program.Main(new[] {SyncApps.Name}));
+                    ProcessUtils.RunAsync(() => Commands.WinForms.Program.Run(new[] {SyncApps.Name}));
                 }
                     #region Error handling
                 catch (IOException ex)

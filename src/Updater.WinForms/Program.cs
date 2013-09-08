@@ -33,8 +33,8 @@ namespace ZeroInstall.Updater.WinForms
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
-        public static void Main(string[] args)
+        [STAThread] // Required for WinForms
+        internal static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -43,7 +43,7 @@ namespace ZeroInstall.Updater.WinForms
             if (args == null) args = new string[0];
             if (args.Length < 3 || args.Length > 4)
             {
-                Msg.Inform(null, string.Format(Resources.WrongNoArguments, "0updsate-win SOURCE-PATH NEW-VERSION TARGET-PATH"), MsgSeverity.Error);
+                Msg.Inform(null, string.Format(Resources.WrongNoArguments, "0update-win SOURCE-PATH NEW-VERSION TARGET-PATH"), MsgSeverity.Error);
                 return;
             }
 

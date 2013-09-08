@@ -27,8 +27,8 @@ using Common.Tasks;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Management.Cli.Properties;
 using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Management.Cli.Properties;
 
 namespace ZeroInstall.Store.Management.Cli
 {
@@ -73,7 +73,7 @@ namespace ZeroInstall.Store.Management.Cli
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        public static int Main(string[] args)
+        internal static int Main(string[] args)
         {
             // Encode installation path into mutex name to allow instance detection during updates
             string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());
@@ -85,6 +85,14 @@ namespace ZeroInstall.Store.Management.Cli
             AppMutex.Create("Zero Install");
 #endif
 
+            return Run(args);
+        }
+
+        /// <summary>
+        /// Runs the application (called by main method or by embedding process).
+        /// </summary>
+        public static int Run(string[] args)
+        {
             // Automatically show help for missing args
             if (args == null) args = new string[0];
             if (args.Length == 0) args = new[] {"--help"};
@@ -272,7 +280,7 @@ namespace ZeroInstall.Store.Management.Cli
                     return ErrorLevel.OK;
 
                 case "manage":
-                    ProcessUtils.LaunchAssembly(/*MonoUtils.IsUnix ? "0store-gtk" :*/ "0store-win");
+                    ProcessUtils.LaunchAssembly( /*MonoUtils.IsUnix ? "0store-gtk" :*/ "0store-win");
                     return ErrorLevel.OK;
 
                 case "manifest":

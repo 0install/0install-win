@@ -52,8 +52,8 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
-        public static int Main(string[] args)
+        [STAThread] // Required for WinForms
+        internal static int Main(string[] args)
         {
             WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
 
@@ -71,6 +71,15 @@ namespace ZeroInstall.Central.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
+            return Run(args);
+        }
+
+        /// <summary>
+        /// Runs the application (called by main method or by embedding process).
+        /// </summary>
+        [STAThread] // Required for WinForms
+        public static int Run(string[] args)
+        {
             // Store installation location in registry to allow other applications or bootstrappers to locate Zero Install
             if (!Locations.IsPortable && WindowsUtils.IsWindows && StoreUtils.PathInAStore(Locations.InstallBase))
             {
