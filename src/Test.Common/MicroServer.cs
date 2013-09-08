@@ -88,7 +88,7 @@ namespace Common
             ServerUri = new Uri(StartListening());
             FileUri = new Uri(ServerUri, resourceName);
 
-            new Thread(Listen).Start();
+            ProcessUtils.RunBackground(Listen);
         }
 
         /// <summary>

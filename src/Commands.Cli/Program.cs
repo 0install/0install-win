@@ -61,7 +61,9 @@ namespace ZeroInstall.Commands.Cli
         /// Runs the application (called by main method or by embedding process).
         /// </summary>
         public static int Run(string[] args)
-        { 
+        {
+            Log.Info("Zero Install Command CLI started with: " + args.JoinEscapeArguments());
+
             // Automatically show help for missing args
             if (args == null) args = new string[0];
             if (args.Length == 0) args = new[] {"--help"};

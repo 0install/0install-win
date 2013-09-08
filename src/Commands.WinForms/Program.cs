@@ -73,10 +73,7 @@ namespace ZeroInstall.Commands.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
-            // Run GUI on a separate thread to enable STA without affecting main thread
-            int result = 0;
-            ProcessUtils.RunAsync(() => { result = Run(args); }).Join();
-            return result;
+            return Run(args);
         }
 
         /// <summary>
@@ -85,7 +82,7 @@ namespace ZeroInstall.Commands.WinForms
         [STAThread] // Required for WinForms
         public static int Run(string[] args)
         {
-            Log.Info("Zero Install Command Windows GUI started with: " + args.JoinEscapeArguments());
+            Log.Info("Zero Install Command WinForms GUI started with: " + args.JoinEscapeArguments());
 
             // Automatically show help for missing args
             if (args == null) args = new string[0];

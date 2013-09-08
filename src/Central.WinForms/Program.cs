@@ -80,6 +80,8 @@ namespace ZeroInstall.Central.WinForms
         [STAThread] // Required for WinForms
         public static int Run(string[] args)
         {
+            Log.Info("Zero Install Central WinForms GUI started with: " + args.JoinEscapeArguments());
+
             // Store installation location in registry to allow other applications or bootstrappers to locate Zero Install
             if (!Locations.IsPortable && WindowsUtils.IsWindows && StoreUtils.PathInAStore(Locations.InstallBase))
             {

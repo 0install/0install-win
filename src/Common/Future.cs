@@ -22,6 +22,7 @@
 
 using System;
 using System.Threading;
+using Common.Utils;
 
 namespace Common
 {
@@ -42,13 +43,11 @@ namespace Common
         public Future(Func<T> operation)
         {
             _operation = operation;
-            _thread = new Thread(() =>
+            _thread = ProcessUtils.RunBackground(() =>
             {
                 _result = _operation();
                 _operation = null; // Release input data memory as soon as calculation is complete
-            })
-            {IsBackground = true};
-            _thread.Start();
+            });
         }
 
         /// <summary>

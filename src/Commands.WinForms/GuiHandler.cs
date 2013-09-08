@@ -327,7 +327,9 @@ namespace ZeroInstall.Commands.WinForms
                 }
                 else _form.Invoke(new Action(_form.Show));
             };
-            integrationForm.ShowDialog();
+
+            // Run GUI on a separate thread to enable STA
+            ProcessUtils.RunAsync(() => Application.Run(integrationForm)).Join();
         }
 
         /// <inheritdoc/>

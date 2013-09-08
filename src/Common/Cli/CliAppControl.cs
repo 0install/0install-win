@@ -86,19 +86,19 @@ namespace Common.Cli
 
             // Asynchronously buffer all stdout data
             var outputBuffer = new StringBuilder();
-            var outputReadThread = new Thread(() =>
+            var outputReadThread = ProcessUtils.RunBackground(() =>
             {
                 while (!process.StandardOutput.EndOfStream)
                 {
                     // No locking since the data will only be read at the end
                     outputBuffer.AppendLine(process.StandardOutput.ReadLine());
                 }
-            }) {IsBackground = true};
-            outputReadThread.Start();
+            });
+
 
             // Asynchronously buffer all stderr messages
             var errorList = new Queue<string>();
-            var errorReadThread = new Thread(() =>
+            var errorReadThread = ProcessUtils.RunBackground(() =>
             {
                 while (!process.StandardError.EndOfStream)
                 {
@@ -107,8 +107,7 @@ namespace Common.Cli
                     if (!string.IsNullOrEmpty(data))
                         lock (errorList) errorList.Enqueue(data);
                 }
-            }) {IsBackground = true};
-            errorReadThread.Start();
+            });
 
             // Use callback to send data into external process
             if (inputCallback != null) inputCallback(process.StandardInput);

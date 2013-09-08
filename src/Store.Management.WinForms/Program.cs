@@ -77,6 +77,8 @@ namespace ZeroInstall.Store.Management.WinForms
         [STAThread] // Required for WinForms
         public static void Run(string[] args)
         {
+            Log.Info("Zero Install Store Management WinForms GUI started with: " + args.JoinEscapeArguments());
+
             if (args != null && args.Length > 0 && args[0] == "purge")
             {
                 if (Msg.YesNo(null, Resources.ConfirmPurge, MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
