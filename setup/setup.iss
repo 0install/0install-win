@@ -23,6 +23,8 @@ de.compile_netfx=.NET Assemblies zum schnelleren Anwendugsstart vorkompilieren..
 ;Used by downloader
 appname=Zero Install
 
+en.DesktopIcon=Desktop icon
+de.DesktopIcon=Desktopsymbol
 en.CacheManagement=Cache management
 de.CacheManagement=Cache Verwaltung
 
@@ -89,11 +91,14 @@ Source: ..\bundled\Solver\*; DestDir: {app}\Solver; Flags: ignoreversion recurse
   Root: HKLM64; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty; Check: IsWin64
 #endif
 
+[Tasks]
+Name: desktopicon; Description: {cm:DesktopIcon}
+
 [Icons]
 ;Name: {group}\{cm:UninstallProgram,Zero Install}; Filename: {uninstallexe}
 Name: {group}\Zero Install; Filename: {app}\ZeroInstall.exe
-Name: {group}\{cm:CacheManagement}; Filename: {app}\0store-win.exe; IconFilename: {app}\0store-win.exe; Flags: excludefromshowinnewinstall
-Name: {commondesktop}\Zero Install; Filename: {app}\ZeroInstall.exe
+Name: {group}\{cm:CacheManagement}; Filename: {app}\0store-win.exe; Flags: excludefromshowinnewinstall
+Name: {commondesktop}\Zero Install; Filename: {app}\ZeroInstall.exe; Tasks: desktopicon
 
 [Run]
 #ifndef PerUser
@@ -155,6 +160,11 @@ begin
 	end;
 
 	Result := true;
+end;
+
+function ShouldSkipPage(PageID: Integer): Boolean;
+begin
+  Result := (PageID = wpSelectTasks);
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
