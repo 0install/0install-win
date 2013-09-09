@@ -313,7 +313,7 @@ namespace ZeroInstall.Central.WinForms
 
             if (!config.SyncServer.IsFile && (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey)))
             {
-                using (var wizard = new SyncWizards.SetupWizard(_machineWide))
+                using (var wizard = new Wizards.SyncSetupWizard(_machineWide))
                     wizard.ShowDialog(this);
             }
             else
@@ -352,7 +352,7 @@ namespace ZeroInstall.Central.WinForms
             if (!string.IsNullOrEmpty(config.SyncServerUsername) || !string.IsNullOrEmpty(config.SyncServerPassword) || !string.IsNullOrEmpty(config.SyncCryptoKey))
                 if (!Msg.YesNo(this, Resources.SyncWillReplaceConfig, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
 
-            using (var wizard = new SyncWizards.SetupWizard(_machineWide))
+            using (var wizard = new Wizards.SyncSetupWizard(_machineWide))
                 wizard.ShowDialog(this);
         }
 
@@ -385,7 +385,7 @@ namespace ZeroInstall.Central.WinForms
                 Msg.Inform(this, Resources.SyncCompleteSetupFirst, MsgSeverity.Warn);
             else
             {
-                using (var wizard = new SyncWizards.TroubleshootWizard(_machineWide))
+                using (var wizard = new Wizards.SyncTroubleshootWizard(_machineWide))
                     wizard.ShowDialog(this);
             }
         }
