@@ -117,4 +117,154 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Fortsetzen</value>
+  </data>
+  <data name="EnterCatalogUrl" xml:space="preserve">
+    <value>Bitte geben Sie dir URL oder den lokalen Dateipfad des hinzuzufügenden Feedkatalogs ein:</value>
+  </data>
+  <data name="EnterInterfaceUrl" xml:space="preserve">
+    <value>Bitte geben Sie die URL eines Zero Install Interface hier ein:</value>
+  </data>
+  <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
+    <value>Ignoriere doppelten Anwendungslisteneintrag für '{0}'.</value>
+  </data>
+  <data name="IntroCommonApp" xml:space="preserve">
+    <value>Normale App</value>
+  </data>
+  <data name="IntroCommonAppSummary" xml:space="preserve">
+    <value>tut das Übliche</value>
+  </data>
+  <data name="IntroCoolApp" xml:space="preserve">
+    <value>Cool App</value>
+  </data>
+  <data name="IntroCoolAppSummary" xml:space="preserve">
+    <value>tut etwas Cooles</value>
+  </data>
+  <data name="IntroOtherApp" xml:space="preserve">
+    <value>Andere App</value>
+  </data>
+  <data name="IntroOtherAppSummary" xml:space="preserve">
+    <value>tut etwas Anderes</value>
+  </data>
+  <data name="IntroSubtitlesAddApp" xml:space="preserve">
+    <value>Wenn Ihnen eine Anwendung gefällt,
+fügen Sie sie zu "Meine Anwendungen" hinzu.</value>
+  </data>
+  <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
+    <value>Suchen Sie nach einer Anwendung im "Katalog"...</value>
+  </data>
+  <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
+    <value>"Integrieren" Sie eine Anwendung, um sie dem Startmenü oder dem Desktop hinzuzufügen.</value>
+  </data>
+  <data name="IntroSubtitlesMyApps" xml:space="preserve">
+    <value>Hier können Sie Ihre Liste an Lieblingsanwendungen verwalten.</value>
+  </data>
+  <data name="IntroSubtitlesRunApp" xml:space="preserve">
+    <value>... und Starten Sie sie!</value>
+  </data>
+  <data name="IntroSubtitlesThanks" xml:space="preserve">
+    <value>Viel Spaß!</value>
+  </data>
+  <data name="IntroSubtitlesWelcome" xml:space="preserve">
+    <value>Mit Zero Install müssen Sie Anwendungen nicht installieren.</value>
+  </data>
+  <data name="MachineWideMode" xml:space="preserve">
+    <value>Maschinenweiter Modus</value>
+  </data>
+  <data name="OptionsAdvancedWarn" xml:space="preserve">
+    <value>Wenn Sie diese Einstellungen ändern, könnte das Zero Install daran hindern korrekt zu funktionieren. Sind Sie sicher, dass Sie fortsetzen möchten?</value>
+  </data>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Portabler Modus</value>
+  </data>
+  <data name="ProblemLoadingOptions" xml:space="preserve">
+    <value>Es gab ein Problem beim Laden der Einstellungen.</value>
+  </data>
+  <data name="ProblemSavingOptions" xml:space="preserve">
+    <value>Es gab ein Problem beim Speichern der Einstellungen.</value>
+  </data>
+  <data name="RemoveAllEntries" xml:space="preserve">
+    <value>Möchten Sie alle Einträge aus der Liste entfernen?</value>
+  </data>
+  <data name="RemoveCheckedKeys" xml:space="preserve">
+    <value>Möchten Sie die {0} angehakten Keys aus der Liste entfernen?</value>
+  </data>
+  <data name="RemoveSelectedEntries" xml:space="preserve">
+    <value>Möchten Sie die {0} ausgewählten Einträge aus der Liste entfernen?</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Möchten Sie bereits vorgenommene Änderungen speichern?</value>
+  </data>
+  <data name="SaveChangesNo" xml:space="preserve">
+    <value>Nein
+Änderungen verwerfen</value>
+  </data>
+  <data name="SaveChangesYes" xml:space="preserve">
+    <value>Ja
+Änderungen speichern</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Suche</value>
+  </data>
+  <data name="SelectCommand" xml:space="preserve">
+    <value>Kommando für {0} auswählen</value>
+  </data>
+  <data name="SelfUpdateAvailable" xml:space="preserve">
+    <value>Ein Update auf Zero Install v{0} ist verfügbar. Jetzt installieren? (empfohlen)</value>
+  </data>
+  <data name="SelfUpdateNo" xml:space="preserve">
+    <value>Nein
+Update vorerst ignorieren</value>
+  </data>
+  <data name="SelfUpdateYes" xml:space="preserve">
+    <value>Ja
+Update installieren</value>
+  </data>
+  <data name="SyncCompleteSetupFirst" xml:space="preserve">
+    <value>Sie müssen Sync Setup zuerst abschließen.</value>
+  </data>
+  <data name="SyncCredentialsInvalid" xml:space="preserve">
+    <value>Der Benutzername und/oder das Passwort sind nicht korrekt.</value>
+  </data>
+  <data name="SyncCryptoKeyDescription" xml:space="preserve">
+    <value>Der Crypto-Schlüssel wird verwendet, um Ihre Daten lokal zu verschlüsseln, bevor sie an den Server übermittelt werden.
+Halten Sie diesen Schlüssel geheim und verwenden Sie etwas anderes für Ihr Passwort. Auf diese Weise kann niemand auf Ihre Daten zugreifen, selbst wenn der Server kompromittiert werden würde.</value>
+  </data>
+  <data name="SyncCryptoKeyInvalid" xml:space="preserve">
+    <value>Der Crypto-Schlüssel ist nicht korrekt.</value>
+  </data>
+  <data name="SyncServerDataDamaged" xml:space="preserve">
+    <value>Die Daten die derzeit auf dem Sync-Server gespeichert sind, sind beschädigt.
+Sie können die Daten die auf dem Server gespeichert sind ersetzen, indem Sie auswählen, dass Sie sich nicht an den Crypto-Schlüssel erinnern.</value>
+  </data>
+  <data name="SyncWillReplaceConfig" xml:space="preserve">
+    <value>Dies ersetzt alle bestehenden Sync Einstellung mit neuen. Fortsetzen?</value>
+  </data>
+  <data name="UnableToDownloadCatalog" xml:space="preserve">
+    <value>Konnte Anwendungskatalog nicht runterladen.</value>
+  </data>
+  <data name="UnableToLoadAppList" xml:space="preserve">
+    <value>Konnte Anwendungsliste nicht alden.</value>
+  </data>
+  <data name="UnableToLoadFeedForApp" xml:space="preserve">
+    <value>Konnte Feed für Anwendungslisteneintrag '{0}' nicht laden.</value>
+  </data>
+  <data name="UnableToSelfUpdate" xml:space="preserve">
+    <value>Konnte Selbstupdate-Prüfung nicht durchführen.</value>
+  </data>
+  <data name="UnencryptedSyncServer" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie eine unverschlüsselte Verbindung zu einem Sync-Server verwenden möchten?
+Verschlüsselte Verbindungen nutzenen einen https:// Präfix.</value>
+  </data>
+  <data name="UpdateAllCleanWillRemove" xml:space="preserve">
+    <value>Dies entfernt automatisch Implementierungen, die nach dem Update nicht mehr benötigt werden, aus dem Cache. Fortsetzen?
+Wichtig: Anwendnungen die Sie in der Vergangenheit mit "Start" aufgerufen haben ohne sie "Meine Anwendungen" hinzuzufügen werden auch aus dem Cache entfernt.  Sie müssen online sein falls Sie sie erneut ausführen.</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Arbeite...</value>
+  </data>
 </root>

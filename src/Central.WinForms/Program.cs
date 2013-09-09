@@ -24,8 +24,10 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using System.Security.Cryptography;
+using System.Threading;
 using System.Windows.Forms;
 using Common;
+using Common.Collections;
 using Common.Controls;
 using Common.Storage;
 using Common.Utils;
@@ -35,10 +37,11 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Central.WinForms
 {
     /// <summary>
-    /// Launches the main WinForms GUI for Zero Install.
+    /// The main GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.
     /// </summary>
     public static class Program
     {
+        #region Startup
         /// <summary>
         /// The canonical EXE name (without the file ending) for this binary.
         /// </summary>
@@ -71,7 +74,30 @@ namespace ZeroInstall.Central.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
+            UpdateRegistry();
             return Run(args);
+        }
+
+        /// <summary>
+        /// Store installation location in registry to allow other applications or bootstrappers to locate Zero Install.
+        /// </summary>
+        private static void UpdateRegistry()
+        {
+            if (Locations.IsPortable || !WindowsUtils.IsWindows || !StoreUtils.PathInAStore(Locations.InstallBase)) return;
+
+            try
+            {
+                if (WindowsUtils.IsAdministrator)
+                {
+                    Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
+                    if (WindowsUtils.Is64BitProcess) Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
+                }
+                else Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
+            }
+                #region Error handling
+            catch (SecurityException)
+            {}
+            #endregion
         }
 
         /// <summary>
@@ -81,24 +107,6 @@ namespace ZeroInstall.Central.WinForms
         public static int Run(string[] args)
         {
             Log.Info("Zero Install Central WinForms GUI started with: " + args.JoinEscapeArguments());
-
-            // Store installation location in registry to allow other applications or bootstrappers to locate Zero Install
-            if (!Locations.IsPortable && WindowsUtils.IsWindows && StoreUtils.PathInAStore(Locations.InstallBase))
-            {
-                try
-                {
-                    if (WindowsUtils.IsAdministrator)
-                    {
-                        Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
-                        if (WindowsUtils.Is64BitProcess) Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
-                    }
-                    else Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
-                }
-                    #region Error handling
-                catch (SecurityException)
-                {}
-                #endregion
-            }
 
             bool machineWide = args.Any(arg => arg == "-m" || arg == "--machine");
             if (machineWide && WindowsUtils.IsWindowsNT && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
@@ -133,7 +141,54 @@ namespace ZeroInstall.Central.WinForms
                 return 1;
             }
         }
+        #endregion
 
+        #region Embed
+        /// <summary>
+        /// Executes a "0install-win" command in-process in a new thread. Returns immediately.
+        /// </summary>
+        /// <param name="args">Command name with arguments to execute.</param>
+        internal static void RunCommand(params string[] args)
+        {
+            RunCommand(false, args);
+        }
+
+        /// <summary>
+        /// Executes a "0install-win" command in-process in a new thread. Returns immediately.
+        /// </summary>
+        /// <param name="machineWide">Appends --machine to <paramref name="args"/> if <see langword="true"/>.</param>
+        /// <param name="args">Command name with arguments to execute.</param>
+        internal static void RunCommand(bool machineWide, params string[] args)
+        {
+            RunCommand(null, false, args);
+        }
+
+        /// <summary>
+        /// Executes a "0install-win" command in-process in a new thread. Returns immediately.
+        /// </summary>
+        /// <param name="callback">A callback method to be raised once the command has finished executing. Uses <see cref="SynchronizationContext"/> of calling thread.</param>
+        /// <param name="machineWide">Appends --machine to <paramref name="args"/> if <see langword="true"/>.</param>
+        /// <param name="args">Command name with arguments to execute.</param>
+        internal static void RunCommand(Action callback, bool machineWide, params string[] args)
+        {
+            var context = SynchronizationContext.Current;
+            ProcessUtils.RunAsync(() =>
+            {
+                Commands.WinForms.Program.Run(machineWide ? args.Concat("--machine").ToArray() : args);
+                if (callback != null) context.Send(state => callback(), null);
+            });
+        }
+
+        /// <summary>
+        /// Executes "0store-win" in-process. Returns immediately.
+        /// </summary>
+        internal static void RunStoreManagement()
+        {
+            ProcessUtils.RunAsync(() => Store.Management.WinForms.Program.Run(new string[0]));
+        }
+        #endregion
+
+        #region Taskbar
         /// <summary>
         /// Configures the Windows 7 taskbar for a specific window.
         /// </summary>
@@ -142,7 +197,7 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="subCommand">The name to add to the <see cref="AppUserModelID"/> as a sub-command; may be <see langword="null"/>.</param>
         /// <param name="arguments">Additional arguments to pass to <see cref="ExeName"/> when restarting to get back to this window; may be <see langword="null"/>.</param>
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "This method operates only on windows and not on individual controls.")]
-        public static void ConfigureTaskbar(Form form, string name, string subCommand = null, string arguments = null)
+        internal static void ConfigureTaskbar(Form form, string name, string subCommand = null, string arguments = null)
         {
             #region Sanity checks
             if (form == null) throw new ArgumentNullException("form");
@@ -153,5 +208,6 @@ namespace ZeroInstall.Central.WinForms
             string exePath = Path.Combine(Locations.InstallBase, ExeName + ".exe");
             WindowsUtils.SetWindowAppID(form.Handle, appUserModelID, exePath.EscapeArgument() + " " + arguments, exePath, name);
         }
+        #endregion
     }
 }

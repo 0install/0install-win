@@ -20,7 +20,7 @@ using System.Windows.Forms;
 using Common.Controls;
 using Common.Tasks;
 using ZeroInstall.Backend;
-using ZeroInstall.Central.WinForms.Properties;
+using ZeroInstall.Central.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;

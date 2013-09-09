@@ -40,7 +40,6 @@
             this.buttonUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.linkLabelDetails = new System.Windows.Forms.LinkLabel();
-            this.trackingProgressBar = new Common.Controls.TrackingProgressBar();
             this.iconDownloadWorker = new System.ComponentModel.BackgroundWorker();
             this.buttonRemove = new System.Windows.Forms.Button();
             this.buttonIntegrate = new System.Windows.Forms.Button();
@@ -156,16 +155,6 @@
             this.linkLabelDetails.Text = "Details...";
             this.linkLabelDetails.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelDetails_LinkClicked);
             // 
-            // trackingProgressBar
-            // 
-            this.trackingProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackingProgressBar.Location = new System.Drawing.Point(63, 32);
-            this.trackingProgressBar.Name = "trackingProgressBar";
-            this.trackingProgressBar.Size = new System.Drawing.Size(261, 18);
-            this.trackingProgressBar.TabIndex = 2;
-            this.trackingProgressBar.Visible = false;
-            // 
             // iconDownloadWorker
             // 
             this.iconDownloadWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.iconDownloadWorker_DoWork);
@@ -199,7 +188,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.trackingProgressBar);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.linkLabelDetails);
             this.Controls.Add(this.labelSummary);
@@ -229,7 +217,6 @@
         internal Common.Controls.SplitButton buttonRun;
         internal System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.LinkLabel linkLabelDetails;
-        private Common.Controls.TrackingProgressBar trackingProgressBar;
         private System.ComponentModel.BackgroundWorker iconDownloadWorker;
         private System.Windows.Forms.ContextMenuStrip contextMenuRun;
         private System.Windows.Forms.ToolStripMenuItem buttonSelectVersion;

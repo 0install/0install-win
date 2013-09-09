@@ -17,8 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,8 +25,9 @@ using Common;
 using Common.Collections;
 using Common.Controls;
 using Common.Storage;
+using Common.Utils;
 using ZeroInstall.Backend;
-using ZeroInstall.Central.WinForms.Properties;
+using ZeroInstall.Central.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Trust;
@@ -98,9 +97,8 @@ namespace ZeroInstall.Central.WinForms
 
                 // List all catalog sources in use
                 listBoxCatalogSources.Items.Clear();
-                // ReSharper disable CoVariantArrayConversion
+                // ReSharper disable once CoVariantArrayConversion
                 listBoxCatalogSources.Items.AddRange(CatalogManager.GetCatalogSources());
-                // ReSharper restore CoVariantArrayConversion
 
                 // Read list of trusted keys
                 var trustDB = TrustDB.LoadSafe();
@@ -187,28 +185,6 @@ namespace ZeroInstall.Central.WinForms
                 atomic.Commit();
             }
         }
-
-        /// <summary>
-        /// Opens a URL in the system's default browser.
-        /// </summary>
-        /// <param name="url">The URL to open.</param>
-        private void OpenInBrowser(string url)
-        {
-            try
-            {
-                Process.Start(url);
-            }
-                #region Error handling
-            catch (FileNotFoundException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            catch (Win32Exception ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            #endregion
-        }
         #endregion
 
         //--------------------//
@@ -225,7 +201,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonGoToImplDir_Click(object sender, EventArgs e)
         {
-            OpenInBrowser(listBoxImplDirs.SelectedItem.ToString());
+            WindowsUtils.OpenInBrowser(listBoxImplDirs.SelectedItem.ToString());
         }
 
         private void buttonAddImplDir_Click(object sender, EventArgs e)
@@ -287,7 +263,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonGoToCatalogSource_Click(object sender, EventArgs e)
         {
-            OpenInBrowser(listBoxCatalogSources.SelectedItem.ToString());
+            WindowsUtils.OpenInBrowser(listBoxCatalogSources.SelectedItem.ToString());
         }
 
         private void buttonAddCatalogSource_Click(object sender, EventArgs e)
@@ -326,7 +302,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 string syncServer = textBoxSyncServer.Text;
                 if (!syncServer.EndsWith("/")) syncServer += "/"; // Ensure the server URI references a directory
-                OpenInBrowser(syncServer + "account");
+                WindowsUtils.OpenInBrowser(syncServer + "account");
             }
                 #region Error handling
             catch (IOException ex)

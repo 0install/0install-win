@@ -18,7 +18,7 @@ namespace ZeroInstall.Commands
     public abstract class IntegrationCommand : FrontendCommand
     {
         #region Variables
-        /// <summary>Apply the operation sachine-wide instead of just for the current user.</summary>
+        /// <summary>Apply the operation machine-wide instead of just for the current user.</summary>
         protected bool MachineWide;
         #endregion
 

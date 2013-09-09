@@ -22,6 +22,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -36,6 +37,30 @@ namespace Common.Utils
     /// </summary>
     public static partial class WindowsUtils
     {
+        #region Browser
+        /// <summary>
+        /// Opens a URL in the system's default browser.
+        /// </summary>
+        /// <param name="url">The URL to open.</param>
+        public static void OpenInBrowser(string url)
+        {
+            try
+            {
+                Process.Start(url);
+            }
+            #region Error handling
+            catch (FileNotFoundException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+            }
+            catch (Win32Exception ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
+        }
+        #endregion
+
         #region .NET Framework
         /// <summary>The full version number of the .NET Framework 2.0.</summary>
         public const string NetFx20 = "v2.0.50727";

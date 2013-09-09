@@ -19,7 +19,6 @@ using System;
 using System.IO;
 using Common;
 using Common.Controls;
-using Common.Utils;
 using ZeroInstall.Commands;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
@@ -107,7 +106,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
                     config.Save();
                     Close();
 
-                    ProcessUtils.RunAsync(() => Commands.WinForms.Program.Run(new[] {SyncApps.Name}));
+                    Program.RunCommand(SyncApps.Name);
                 }
                     #region Error handling
                 catch (IOException ex)

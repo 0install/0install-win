@@ -25,7 +25,7 @@ using Common;
 using Common.Controls;
 using Common.Storage;
 using ICSharpCode.SharpZipLib.Zip;
-using ZeroInstall.Central.WinForms.Properties;
+using ZeroInstall.Central.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
 

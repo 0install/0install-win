@@ -17,14 +17,12 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
 using Common;
-using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Backend;
 using ZeroInstall.Central.WinForms.Properties;
@@ -37,28 +35,9 @@ using Icon = ZeroInstall.Model.Icon;
 namespace ZeroInstall.Central.WinForms
 {
     /// <summary>
-    /// Describes the status of an application represented by an <see cref="AppTile"/>.
+    /// Represents an application as a tile with buttons for launching, managing, etc..
     /// </summary>
-    /// <seealso cref="AppTile.Status"/>
-    public enum AppStatus
-    {
-        /// <summary>The state has not been set yet.</summary>
-        Unset,
-
-        /// <summary>The application is listed in a <see cref="Catalog"/> but not in the <see cref="AppList"/>.</summary>
-        Candidate,
-
-        /// <summary>The application is listed in the <see cref="AppList"/> but <see cref="AppEntry.AccessPoints"/> is <see langword="null"/>.</summary>
-        Added,
-
-        /// <summary>The application is listed in the <see cref="AppList"/> and <see cref="AppEntry.AccessPoints"/> is set.</summary>
-        Integrated
-    }
-
-    /// <summary>
-    /// Represents an application from a <see cref="Catalog"/> or <see cref="AppList"/> as a tile with control buttons.
-    /// </summary>
-    public partial class AppTile : UserControl
+    public partial class AppTile : UserControl, IAppTile
     {
         #region Variables
         // Static resource preload
@@ -67,7 +46,7 @@ namespace ZeroInstall.Central.WinForms
         private static readonly string _addButtonTooltip = Resources.AddButtonTooltip, _removeButtonTooltip = Resources.RemoveButtonTooltip, _setupButtonTooltip = Resources.SetupButtonTooltip, _modifyButtonTooltip = Resources.ModifyButtonTooltip;
         private static readonly string _selectCommandButton = Resources.SelectCommandButton, _selectVersionButton = Resources.SelectVersionButton, _updateButton = Resources.UpdateButton;
 
-        /// <summary>Apply operations sachine-wide instead of just for the current user.</summary>
+        /// <summary>Apply operations machine-wide instead of just for the current user.</summary>
         private readonly bool _machineWide;
 
         private static readonly IHandler _handler = new SilentHandler();
@@ -79,11 +58,7 @@ namespace ZeroInstall.Central.WinForms
         #region Properties
         private Feed _feed;
 
-        /// <summary>
-        /// A <see cref="Feed"/> from which the tile extracts relevant application metadata such as summaries and icons.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
-        /// <remarks>This method must not be called from a background thread.</remarks>
+        /// <inheritdoc/>
         public Feed Feed
         {
             get { return _feed; }
@@ -110,23 +85,15 @@ namespace ZeroInstall.Central.WinForms
             }
         }
 
-        /// <summary>
-        /// The interface ID of the application this tile represents.
-        /// </summary>
+        /// <inheritdoc/>
         public string InterfaceID { get; private set; }
 
-        /// <summary>
-        /// The name of the application this tile represents.
-        /// </summary>
+        /// <inheritdoc/>
         public string AppName { get { return labelName.Text; } }
 
         private AppStatus _status;
 
-        /// <summary>
-        /// Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
-        /// <remarks>This method must not be called from a background thread.</remarks>
+        /// <inheritdoc/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public AppStatus Status
         {
@@ -149,7 +116,7 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Creates a new application tile.
         /// </summary>
-        /// <param name="machineWide">Apply operations sachine-wide instead of just for the current user.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="interfaceID">The interface ID of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
@@ -200,17 +167,17 @@ namespace ZeroInstall.Central.WinForms
             {}
             catch (IOException ex)
             {
-                Log.Warn(Resources.UnableToStoreIcon);
+                Log.Warn("Unable to store icon");
                 Log.Warn(ex);
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Warn(Resources.UnableToStoreIcon);
+                Log.Warn("Unable to store icon");
                 Log.Warn(ex);
             }
             catch (WebException ex)
             {
-                Log.Warn(Resources.UnableToStoreIcon);
+                Log.Warn("Unable to store icon");
                 Log.Warn(ex);
             }
             #endregion
@@ -225,32 +192,11 @@ namespace ZeroInstall.Central.WinForms
             }
             else
             {
-                Log.Error(Resources.UnableToLoadIcon);
+                Log.Error("Unable to load icon");
                 Log.Error(e.Error);
             }
         }
         #endregion
-
-        #region Task tracking
-        /// <summary>
-        /// Registers a generic <see cref="ITask"/> for tracking. Should only be one running at a time.
-        /// </summary>
-        /// <param name="task">The task to be tracked. May or may not alreay be running.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
-        /// <remarks>This method must not be called from a background thread.</remarks>
-        public void TrackTask(ITask task)
-        {
-            #region Sanity checks
-            if (task == null) throw new ArgumentNullException("task");
-            if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
-            #endregion
-
-            linkLabelDetails.Visible = labelSummary.Visible = false;
-            trackingProgressBar.Visible = true;
-        }
-        #endregion
-
-        //--------------------//
 
         #region Buttons
         /// <summary>
@@ -266,37 +212,22 @@ namespace ZeroInstall.Central.WinForms
             buttonIntegrate.Enabled = (Status >= AppStatus.Added);
         }
 
-        /// <summary>
-        /// Calls <see cref="UpdateButtons"/> on the UI thread.
-        /// </summary>
-        private void InvokeUpdateButtons()
-        {
-            try
-            {
-                Invoke(new Action(UpdateButtons));
-            }
-            catch (InvalidOperationException)
-            {
-                // Don't worry if the control was disposed in the meantime
-            }
-        }
-
         private void linkLabelDetails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (InterfaceID.StartsWith("fake:")) return;
-            OpenInBrowser(InterfaceID);
+            WindowsUtils.OpenInBrowser(InterfaceID);
         }
 
         private void buttonRun_Click(object sender, EventArgs e)
         {
             if (InterfaceID.StartsWith("fake:")) return;
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Run(new[] {Commands.Run.Name, "--no-wait", InterfaceID}));
+            Program.RunCommand(Commands.Run.Name, "--no-wait", InterfaceID);
         }
 
         private void buttonSelectVersion_Click(object sender, EventArgs e)
         {
             if (InterfaceID.StartsWith("fake:")) return;
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Run(new[] {Commands.Run.Name, "--no-wait", "--gui", InterfaceID}));
+            Program.RunCommand(Commands.Run.Name, "--no-wait", "--gui", InterfaceID);
         }
 
         private void buttonSelectCommmand_Click(object sender, EventArgs e)
@@ -309,7 +240,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 try
                 {
-                    // Cannot use in-process method here because the "args" string needs to be parsed as multiple arguments instead of one
+                    // Cannot use in-process method here because the "args" string needs to be parsed by the operating system
                     ProcessUtils.LaunchAssembly(Commands.WinForms.Program.ExeName, "run --no-wait --command=" + command.EscapeArgument() + " " + InterfaceID.EscapeArgument() + " " + args);
                 }
                     #region Error handling
@@ -328,7 +259,7 @@ namespace ZeroInstall.Central.WinForms
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
             if (InterfaceID.StartsWith("fake:")) return;
-            ProcessUtils.RunAsync(() => Commands.WinForms.Program.Run(new[] {Commands.Update.Name, InterfaceID}));
+            Program.RunCommand(Commands.Update.Name, InterfaceID);
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -338,13 +269,7 @@ namespace ZeroInstall.Central.WinForms
             // Disable button while operation is running
             buttonAdd.Enabled = false;
 
-            ProcessUtils.RunAsync(delegate
-            {
-                Commands.WinForms.Program.Run(_machineWide
-                    ? new[] {Commands.AddApp.Name, "--machine", InterfaceID}
-                    : new[] {Commands.AddApp.Name, InterfaceID});
-                InvokeUpdateButtons(); // Restore buttons
-            });
+            Program.RunCommand(UpdateButtons, _machineWide, Commands.AddApp.Name, InterfaceID);
         }
 
         private void buttonIntegrate_Click(object sender, EventArgs e)
@@ -354,13 +279,7 @@ namespace ZeroInstall.Central.WinForms
             // Disable buttons while operation is running
             buttonRemove.Enabled = buttonIntegrate.Enabled = false;
 
-            ProcessUtils.RunAsync(delegate
-            {
-                Commands.WinForms.Program.Run(_machineWide
-                    ? new[] {Commands.IntegrateApp.Name, "--machine", InterfaceID}
-                    : new[] {Commands.IntegrateApp.Name, InterfaceID});
-                InvokeUpdateButtons(); // Restore buttons
-            });
+            Program.RunCommand(UpdateButtons, _machineWide, Commands.IntegrateApp.Name, InterfaceID);
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
@@ -372,13 +291,7 @@ namespace ZeroInstall.Central.WinForms
             // Disable buttons while operation is running
             buttonRemove.Enabled = buttonIntegrate.Enabled = false;
 
-            ProcessUtils.RunAsync(delegate
-            {
-                Commands.WinForms.Program.Run(_machineWide
-                    ? new[] {Commands.RemoveApp.Name, "--machine", InterfaceID}
-                    : new[] {Commands.RemoveApp.Name, InterfaceID});
-                InvokeUpdateButtons(); // Restore buttons
-            });
+            Program.RunCommand(UpdateButtons, _machineWide, Commands.RemoveApp.Name, InterfaceID);
         }
         #endregion
 
@@ -389,30 +302,6 @@ namespace ZeroInstall.Central.WinForms
             MainForm.DisableDragAndDrop = true;
             DoDragDrop(InterfaceID, DragDropEffects.Copy);
             MainForm.DisableDragAndDrop = true;
-        }
-        #endregion
-
-        #region Helpers
-        /// <summary>
-        /// Opens a URL in the system's default browser.
-        /// </summary>
-        /// <param name="url">The URL to open.</param>
-        private void OpenInBrowser(string url)
-        {
-            try
-            {
-                Process.Start(url);
-            }
-                #region Error handling
-            catch (FileNotFoundException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            catch (Win32Exception ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            #endregion
         }
         #endregion
     }

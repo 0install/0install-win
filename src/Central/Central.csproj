@@ -47,10 +47,18 @@
     <Reference Include="LinqBridge">
       <HintPath>..\..\lib\LinqBridge.dll</HintPath>
     </Reference>
+    <Reference Include="C5">
+      <HintPath>..\..\lib\C5.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
+    <Compile Include="CentralUtils.cs" />
+    <Compile Include="AppTileManagement.cs" />
+    <Compile Include="AppStatus.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="IAppTile.cs" />
+    <Compile Include="IAppTileList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -61,7 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -77,6 +85,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesktopIntegration\DesktopIntegration.csproj">
+      <Project>{f48937e1-3763-465f-9f12-6cbbbff61784}</Project>
+      <Name>DesktopIntegration</Name>
     </ProjectReference>
     <ProjectReference Include="..\Injector\Injector.csproj">
       <Project>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</Project>

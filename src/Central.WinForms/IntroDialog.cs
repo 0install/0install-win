@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using ZeroInstall.Central.WinForms.Properties;
+using ZeroInstall.Central.Properties;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Central.WinForms

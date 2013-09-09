@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using Common.Info;
 using Common.Storage;
+using Common.Utils;
 using ZeroInstall.Backend;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
@@ -33,9 +34,9 @@ namespace ZeroInstall.Central
     public static class SelfUpdateUtils
     {
         /// <summary>
-        /// <see langword="true"/> if <see cref="Check"/> should be called automatically.
+        /// <see langword="true"/> if self-updating is enabled.
         /// </summary>
-        public static bool AutoActive
+        public static bool IsEnabled
         {
             get
             {
@@ -58,9 +59,8 @@ namespace ZeroInstall.Central
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
         public static ImplementationVersion Check()
         {
-            var resolver = new Resolver(new SilentHandler());
+            var resolver = new Resolver(new SilentHandler()) {FeedManager = {Refresh = true}};
             if (resolver.Config.EffectiveNetworkUse == NetworkLevel.Offline) return null;
-            resolver.FeedManager.Refresh = true;
 
             // Run solver
             var requirements = new Requirements {InterfaceID = resolver.Config.SelfUpdateID, Command = "update"};
@@ -70,6 +70,16 @@ namespace ZeroInstall.Central
             var currentVersion = new ImplementationVersion(AppInfo.Current.Version);
             var newVersion = selections.Implementations[0].Version;
             return (newVersion > currentVersion) ? newVersion : null;
+        }
+
+        /// <summary>
+        /// Starts the self-update process.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when called on a non-Windows NT-based operating system.</exception>
+        public static void Run()
+        {
+            if (WindowsUtils.IsWindowsNT) ProcessUtils.LaunchAssembly("0install-win", "self-update");
+            else throw new NotSupportedException();
         }
     }
 }

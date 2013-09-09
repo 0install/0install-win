@@ -39,13 +39,13 @@
             this.menuSync = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.butonSyncSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSyncTroubleshoot = new System.Windows.Forms.ToolStripMenuItem();
-            this.appList = new ZeroInstall.Central.WinForms.AppTileList();
+            this.tileListMyApps = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
             this.labelLoadingCatalog = new System.Windows.Forms.Label();
             this.labelLastCatalogError = new System.Windows.Forms.Label();
             this.buttonAddOtherApp = new System.Windows.Forms.Button();
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
-            this.catalogList = new ZeroInstall.Central.WinForms.AppTileList();
+            this.tileListCatalog = new ZeroInstall.Central.WinForms.AppTileList();
             this.buttonOptions = new Common.Controls.SplitButton();
             this.menuOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonOptionsAdvanced = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,7 +85,7 @@
             // 
             this.tabPageAppList.Controls.Add(this.buttonUpdateAll);
             this.tabPageAppList.Controls.Add(this.buttonSync);
-            this.tabPageAppList.Controls.Add(this.appList);
+            this.tabPageAppList.Controls.Add(this.tileListMyApps);
             resources.ApplyResources(this.tabPageAppList, "tabPageAppList");
             this.tabPageAppList.Name = "tabPageAppList";
             this.tabPageAppList.UseVisualStyleBackColor = true;
@@ -143,10 +143,10 @@
             resources.ApplyResources(this.buttonSyncTroubleshoot, "buttonSyncTroubleshoot");
             this.buttonSyncTroubleshoot.Click += new System.EventHandler(this.buttonSyncTroubleshoot_Click);
             // 
-            // appList
+            // tileListMyApps
             // 
-            resources.ApplyResources(this.appList, "appList");
-            this.appList.Name = "appList";
+            resources.ApplyResources(this.tileListMyApps, "tileListMyApps");
+            this.tileListMyApps.Name = "tileListMyApps";
             // 
             // tabPageCatalog
             // 
@@ -154,7 +154,7 @@
             this.tabPageCatalog.Controls.Add(this.labelLastCatalogError);
             this.tabPageCatalog.Controls.Add(this.buttonAddOtherApp);
             this.tabPageCatalog.Controls.Add(this.buttonRefreshCatalog);
-            this.tabPageCatalog.Controls.Add(this.catalogList);
+            this.tabPageCatalog.Controls.Add(this.tileListCatalog);
             resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Name = "tabPageCatalog";
             this.tabPageCatalog.UseVisualStyleBackColor = true;
@@ -185,10 +185,10 @@
             this.buttonRefreshCatalog.UseVisualStyleBackColor = true;
             this.buttonRefreshCatalog.Click += new System.EventHandler(this.buttonRefreshCatalog_Click);
             // 
-            // catalogList
+            // tileListCatalog
             // 
-            resources.ApplyResources(this.catalogList, "catalogList");
-            this.catalogList.Name = "catalogList";
+            resources.ApplyResources(this.tileListCatalog, "tileListCatalog");
+            this.tileListCatalog.Name = "tileListCatalog";
             // 
             // buttonOptions
             // 
@@ -326,8 +326,8 @@
         private System.Windows.Forms.Label labelVersion;
         private Common.Controls.SplitButton buttonOptions;
         private System.ComponentModel.BackgroundWorker selfUpdateWorker;
-        private AppTileList appList;
-        private AppTileList catalogList;
+        private AppTileList tileListMyApps;
+        private AppTileList tileListCatalog;
         private System.ComponentModel.BackgroundWorker catalogWorker;
         private System.Windows.Forms.PictureBox pictureBoxLogo;
         private System.Windows.Forms.Button buttonRefreshCatalog;

@@ -152,67 +152,8 @@
     <value>Are you sure you want to remove '{0}' from your application list?
 This will also remove any desktop integration applied for this application.</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="Continue" xml:space="preserve">
-    <value>Continue</value>
-  </data>
-  <data name="EnterCatalogUrl" xml:space="preserve">
-    <value>Please enter the URL or local file path of the feed catalog to add:</value>
-  </data>
-  <data name="EnterInterfaceUrl" xml:space="preserve">
-    <value>Please enter the URL of a Zero Install interface here:</value>
-  </data>
   <data name="FailedToRun" xml:space="preserve">
     <value>Failed to run {0}.</value>
-  </data>
-  <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
-    <value>Ignoring duplicate application list entry for '{0}'.</value>
-  </data>
-  <data name="IntroCommonApp" xml:space="preserve">
-    <value>Common app</value>
-  </data>
-  <data name="IntroCommonAppSummary" xml:space="preserve">
-    <value>does the usual stuff</value>
-  </data>
-  <data name="IntroCoolApp" xml:space="preserve">
-    <value>Cool app</value>
-  </data>
-  <data name="IntroCoolAppSummary" xml:space="preserve">
-    <value>does something cool</value>
-  </data>
-  <data name="IntroOtherApp" xml:space="preserve">
-    <value>Other app</value>
-  </data>
-  <data name="IntroOtherAppSummary" xml:space="preserve">
-    <value>does something else</value>
-  </data>
-  <data name="IntroSubtitlesAddApp" xml:space="preserve">
-    <value>If you like an app,
-add it to "My applications".</value>
-  </data>
-  <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
-    <value>Search for an app in the "Catalog"...</value>
-  </data>
-  <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
-    <value>"Integrate" an app to put it
-in the start menu or on the desktop.</value>
-  </data>
-  <data name="IntroSubtitlesMyApps" xml:space="preserve">
-    <value>You can manage your list of favorite apps here.</value>
-  </data>
-  <data name="IntroSubtitlesRunApp" xml:space="preserve">
-    <value>... and run it!</value>
-  </data>
-  <data name="IntroSubtitlesThanks" xml:space="preserve">
-    <value>Have fun!</value>
-  </data>
-  <data name="IntroSubtitlesWelcome" xml:space="preserve">
-    <value>With Zero Install you don't have to install apps.</value>
-  </data>
-  <data name="MachineWideMode" xml:space="preserve">
-    <value>Machine-wide mode</value>
   </data>
   <data name="ModifyButtonTooltip" xml:space="preserve">
     <value>Modify integration</value>
@@ -221,49 +162,11 @@ in the start menu or on the desktop.</value>
     <value>No
 Keep the application</value>
   </data>
-  <data name="OptionsAdvancedWarn" xml:space="preserve">
-    <value>Changing these options may prevent Zero Install from working correctly. Are you sure you want to continue?</value>
-  </data>
-  <data name="PortableMode" xml:space="preserve">
-    <value>Portable mode</value>
-  </data>
-  <data name="ProblemLoadingOptions" xml:space="preserve">
-    <value>There was a problem loading the options.</value>
-  </data>
-  <data name="ProblemSavingOptions" xml:space="preserve">
-    <value>There was a problem saving the options.</value>
-  </data>
-  <data name="RemoveAllEntries" xml:space="preserve">
-    <value>Do you want to remove all entries from the list?</value>
-  </data>
   <data name="RemoveButtonTooltip" xml:space="preserve">
     <value>Remove from "my applications"</value>
   </data>
-  <data name="RemoveCheckedKeys" xml:space="preserve">
-    <value>Do you want to remove the {0} checked keys from the list?</value>
-  </data>
-  <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Do you want to remove the {0} selected entries from the list?</value>
-  </data>
   <data name="Run" xml:space="preserve">
     <value>Run</value>
-  </data>
-  <data name="SaveChanges" xml:space="preserve">
-    <value>Do you wish to save any changes made?</value>
-  </data>
-  <data name="SaveChangesNo" xml:space="preserve">
-    <value>No
-Discard changes</value>
-  </data>
-  <data name="SaveChangesYes" xml:space="preserve">
-    <value>Yes
-Save changes</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>Search</value>
-  </data>
-  <data name="SelectCommand" xml:space="preserve">
-    <value>Select command for {0}</value>
   </data>
   <data name="SelectCommandButton" xml:space="preserve">
     <value>Select &amp;command</value>
@@ -271,71 +174,11 @@ Save changes</value>
   <data name="SelectVersionButton" xml:space="preserve">
     <value>Select &amp;version</value>
   </data>
-  <data name="SelfUpdateAvailable" xml:space="preserve">
-    <value>An update to Zero Install v{0} is available. Install now? (recommended)</value>
-  </data>
-  <data name="SelfUpdateNo" xml:space="preserve">
-    <value>No
-Ignore update for now</value>
-  </data>
-  <data name="SelfUpdateYes" xml:space="preserve">
-    <value>Yes
-Install update</value>
-  </data>
   <data name="SetupButtonTooltip" xml:space="preserve">
     <value>Setup integration</value>
   </data>
-  <data name="SyncCompleteSetupFirst" xml:space="preserve">
-    <value>You need to complete Sync Setup first.</value>
-  </data>
-  <data name="SyncCredentialsInvalid" xml:space="preserve">
-    <value>The username and/or password you entered are incorrect.</value>
-  </data>
-  <data name="SyncCryptoKeyDescription" xml:space="preserve">
-    <value>The crypto key is used to encrypt your data locally before transmitting it to the server.
-Keep this key secret and use something different for your password. This way nobody can access your data, even if the server were to be compromised.</value>
-  </data>
-  <data name="SyncCryptoKeyInvalid" xml:space="preserve">
-    <value>The Crypto key you entered is incorrect.</value>
-  </data>
-  <data name="SyncServerDataDamaged" xml:space="preserve">
-    <value>The data currently stored on the Sync server is damaged.
-You can replace the data stored on the server by choosing that you don't remember the Crypto key.</value>
-  </data>
-  <data name="SyncWillReplaceConfig" xml:space="preserve">
-    <value>This will replace any existing Sync settings with new ones. Continue?</value>
-  </data>
-  <data name="UnableToDownloadCatalog" xml:space="preserve">
-    <value>Unable to download application catalog.</value>
-  </data>
-  <data name="UnableToLoadAppList" xml:space="preserve">
-    <value>Unable to load the application list.</value>
-  </data>
-  <data name="UnableToLoadFeedForApp" xml:space="preserve">
-    <value>Unable to load feed for application list entry '{0}'.</value>
-  </data>
-  <data name="UnableToLoadIcon" xml:space="preserve">
-    <value>Unable to load application icon.</value>
-  </data>
-  <data name="UnableToSelfUpdate" xml:space="preserve">
-    <value>Unable to perform self-update check.</value>
-  </data>
-  <data name="UnableToStoreIcon" xml:space="preserve">
-    <value>Unable to store application icon.</value>
-  </data>
-  <data name="UnencryptedSyncServer" xml:space="preserve">
-    <value>Are you sure you want to use an unencrypted connection to a Sync server?
-Encrypted connections use an https:// prefix.</value>
-  </data>
-  <data name="UpdateAllCleanWillRemove" xml:space="preserve">
-    <value>This will automatically remove implementations from the cache that are no longer needed after the update. Continue?
-Important: Applications you have "Run" previously without adding them to "My applications" will also be removed from the cache.  You will need to be online if you decide to run them again.</value>
-  </data>
   <data name="UpdateButton" xml:space="preserve">
     <value>&amp;Update</value>
-  </data>
-  <data name="Working" xml:space="preserve">
-    <value>Working...</value>
   </data>
   <data name="YesRemoveApp" xml:space="preserve">
     <value>Yes

@@ -23,8 +23,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Common.Controls;
 using Common.Utils;
-using ZeroInstall.Central.WinForms.Properties;
-using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Central.Properties;
 using ZeroInstall.Store.Icons;
 
 namespace ZeroInstall.Central.WinForms
@@ -32,7 +31,7 @@ namespace ZeroInstall.Central.WinForms
     /// <summary>
     /// Displays a list of <see cref="AppTile"/>s.
     /// </summary>
-    public sealed class AppTileList : UserControl
+    public sealed class AppTileList : UserControl, IAppTileList
     {
         #region Variables
         /// <summary>
@@ -60,11 +59,8 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Properties
-        /// <summary>
-        /// The icon cache used by newly created <see cref="AppTile"/>s to retrieve application icons.
-        /// </summary>
-        [Category("Data"), Description("The icon cache used by newly created AppTiles to retrieve application icons.")]
-        [DefaultValue(null)]
+        /// <inheritdoc/>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IIconCache IconCache { get; set; }
 
         private Color _tileColorLight = Color.White;
@@ -138,15 +134,8 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Access
-        /// <summary>
-        /// Prepares a new application tile to be added to the list. Will be added in bulk when <see cref="AddQueuedTiles"/> is called.
-        /// </summary>
-        /// <param name="machineWide">Apply operations sachine-wide instead of just for the current user.</param>
-        /// <param name="interfaceID">The interface ID of the application this tile represents.</param>
-        /// <param name="appName">The name of the application this tile represents.</param>
-        /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
-        /// <exception cref="C5.DuplicateNotAllowedException">Thrown if the list already contains an <see cref="AppTile"/> with the specified <paramref name="interfaceID"/>.</exception>
-        public AppTile QueueNewTile(bool machineWide, string interfaceID, string appName, AppStatus status)
+        /// <inheritdoc/>
+        public IAppTile QueueNewTile(bool machineWide, string interfaceID, string appName, AppStatus status)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
@@ -171,9 +160,7 @@ namespace ZeroInstall.Central.WinForms
             return tile;
         }
 
-        /// <summary>
-        /// Adds all new tiles queued by <see cref="QueueNewTile"/> calls.
-        /// </summary>
+        /// <inheritdoc/>
         public void AddQueuedTiles()
         {
             _flowLayout.Height += _appTileQueueHeight;
@@ -187,7 +174,7 @@ namespace ZeroInstall.Central.WinForms
         /// Retrieves a specific application tile from the list.
         /// </summary>
         /// <param name="interfaceID">The interface ID of the application the tile to retrieve represents.</param>
-        /// <returns>The requested <see cref="AppTile"/>; <see langword="null"/> if no matching entry was found.</returns>
+        /// <returns>The requested <see cref="IAppTile"/>; <see langword="null"/> if no matching entry was found.</returns>
         public AppTile GetTile(string interfaceID)
         {
             #region Sanity checks
@@ -197,12 +184,29 @@ namespace ZeroInstall.Central.WinForms
             return _tileDictionary.Contains(interfaceID) ? _tileDictionary[interfaceID] : null;
         }
 
+        /// <inheritdoc/>
+        IAppTile IAppTileList.GetTile(string interfaceID)
+        {
+            return GetTile(interfaceID);
+        }
+
+        /// <inheritdoc/>
+        public void RemoveTile(string interfaceID)
+        {
+            try
+            {
+                RemoveTile(_tileDictionary[interfaceID]);
+            }
+            catch (C5.NoSuchItemException)
+            {}
+        }
+
         /// <summary>
         /// Removes an application tile from the list.
         /// </summary>
         /// <param name="tile">The tile to remove.</param>
         /// <remarks>Disposes the <see cref="AppTile"/> (it cannot be reused).</remarks>
-        public void RemoveTile(AppTile tile)
+        private void RemoveTile(AppTile tile)
         {
             #region Sanity checks
             if (tile == null) throw new ArgumentNullException("tile");
@@ -219,23 +223,7 @@ namespace ZeroInstall.Central.WinForms
             RecolorTiles();
         }
 
-        /// <summary>
-        /// Removes an application tile from the list. Does nothing if no matching tile can be found.
-        /// </summary>
-        /// <param name="interfaceID">The interface ID of the application the tile to remove represents.</param>
-        public void RemoveTile(string interfaceID)
-        {
-            try
-            {
-                RemoveTile(_tileDictionary[interfaceID]);
-            }
-            catch (C5.NoSuchItemException)
-            {}
-        }
-
-        /// <summary>
-        /// Removes all application tiles from the list.
-        /// </summary>
+        /// <inheritdoc/>
         public void Clear()
         {
             _appTileQueue.Clear();
@@ -248,9 +236,7 @@ namespace ZeroInstall.Central.WinForms
             _lastTileLight = false;
         }
 
-        /// <summary>
-        /// Show a list of categories of the current tiles.
-        /// </summary>
+        /// <inheritdoc/>
         public void ShowCategories()
         {
             // Accumulate all categories
