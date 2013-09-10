@@ -172,11 +172,13 @@ namespace ZeroInstall.Central.WinForms
         internal static void RunCommand(Action callback, bool machineWide, params string[] args)
         {
             var context = SynchronizationContext.Current;
-            ProcessUtils.RunAsync(() =>
-            {
-                Commands.WinForms.Program.Run(machineWide ? args.Concat("--machine").ToArray() : args);
-                if (callback != null) context.Send(state => callback(), null);
-            });
+            ProcessUtils.RunAsync(
+                () =>
+                {
+                    Commands.WinForms.Program.Run(machineWide ? args.Concat("--machine").ToArray() : args);
+                    if (callback != null) context.Send(state => callback(), null);
+                },
+                "0install-win (" + args.JoinEscapeArguments() + ")");
         }
 
         /// <summary>
@@ -184,7 +186,7 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         internal static void RunStoreManagement()
         {
-            ProcessUtils.RunAsync(() => Store.Management.WinForms.Program.Run(new string[0]));
+            ProcessUtils.RunAsync(() => Store.Management.WinForms.Program.Run(new string[0]), "0store-win");
         }
         #endregion
 

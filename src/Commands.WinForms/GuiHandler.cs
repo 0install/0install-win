@@ -155,7 +155,7 @@ namespace ZeroInstall.Commands.WinForms
                     // ReSharper restore AccessToDisposedClosure
 
                     Application.Run();
-                });
+                }, "GuiHandler.ProgressUI");
                 guiReady.WaitOne(); // Wait until the GUI handles have been created
             }
         }
@@ -329,7 +329,7 @@ namespace ZeroInstall.Commands.WinForms
             };
 
             // Run GUI on a separate thread to enable STA
-            ProcessUtils.RunAsync(() => integrationForm.ShowDialog()).Join();
+            ProcessUtils.RunAsync(() => integrationForm.ShowDialog(), "GuiHandler.IntegrateAppUI").Join();
         }
 
         /// <inheritdoc/>

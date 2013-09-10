@@ -85,29 +85,29 @@ namespace Common.Cli
             #endregion
 
             // Asynchronously buffer all stdout data
-            var outputBuffer = new StringBuilder();
-            var outputReadThread = ProcessUtils.RunBackground(() =>
+            var stdoutBuffer = new StringBuilder();
+            var stdoutThread = ProcessUtils.RunBackground(() =>
             {
                 while (!process.StandardOutput.EndOfStream)
                 {
                     // No locking since the data will only be read at the end
-                    outputBuffer.AppendLine(process.StandardOutput.ReadLine());
+                    stdoutBuffer.AppendLine(process.StandardOutput.ReadLine());
                 }
-            });
+            }, "CliAppControl.stdout");
 
 
             // Asynchronously buffer all stderr messages
-            var errorList = new Queue<string>();
-            var errorReadThread = ProcessUtils.RunBackground(() =>
+            var stderrList = new Queue<string>();
+            var stderrThread = ProcessUtils.RunBackground(() =>
             {
                 while (!process.StandardError.EndOfStream)
                 {
                     // Locking for thread-safe producer-consumer-behaviour
                     var data = process.StandardError.ReadLine();
                     if (!string.IsNullOrEmpty(data))
-                        lock (errorList) errorList.Enqueue(data);
+                        lock (stderrList) stderrList.Enqueue(data);
                 }
-            });
+            }, "CliAppControl.stderr");
 
             // Use callback to send data into external process
             if (inputCallback != null) inputCallback(process.StandardInput);
@@ -118,11 +118,11 @@ namespace Common.Cli
                 do
                 {
                     // Locking for thread-safe producer-consumer-behaviour
-                    lock (errorList)
+                    lock (stderrList)
                     {
-                        while (errorList.Count > 0)
+                        while (stderrList.Count > 0)
                         {
-                            string result = errorHandler(errorList.Dequeue());
+                            string result = errorHandler(stderrList.Dequeue());
                             if (!string.IsNullOrEmpty(result)) process.StandardInput.WriteLine(result);
                         }
                     }
@@ -131,23 +131,23 @@ namespace Common.Cli
             else process.WaitForExit();
 
             // Finish any pending async operations
-            outputReadThread.Join();
-            errorReadThread.Join();
+            stdoutThread.Join();
+            stderrThread.Join();
             process.Close();
 
             // Handle any left over stderr messages
             if (errorHandler != null)
             {
-                while (errorList.Count > 0)
+                while (stderrList.Count > 0)
                 {
-                    string result = errorHandler(errorList.Dequeue());
+                    string result = errorHandler(stderrList.Dequeue());
                     if (!string.IsNullOrEmpty(result)) process.StandardInput.WriteLine(result);
                 }
             }
 
-            if (errorList.Count > 0)
-                throw new UnhandledErrorsException("\n".Join(errorList));
-            return outputBuffer.ToString();
+            if (stderrList.Count > 0)
+                throw new UnhandledErrorsException("\n".Join(stderrList));
+            return stdoutBuffer.ToString();
         }
         #endregion
 

@@ -116,7 +116,7 @@ namespace ZeroInstall.Commands.WinForms
                 {
                     // Wait for delay to initialize target, unless some interrupt event cause the UI to be created ahead of time
                     if (!_uiDone.WaitOne(_delay, false)) InitTarget();
-                });
+                }, "DelayedGuiHandler.InitTarget");
             }
         }
 

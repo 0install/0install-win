@@ -88,7 +88,7 @@ namespace Common
             ServerUri = new Uri(StartListening());
             FileUri = new Uri(ServerUri, resourceName);
 
-            ProcessUtils.RunBackground(Listen);
+            ProcessUtils.RunBackground(Listen, "MicroServer.Listen");
         }
 
         /// <summary>

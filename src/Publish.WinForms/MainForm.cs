@@ -291,7 +291,7 @@ namespace ZeroInstall.Publish.WinForms
             {
                 process.WaitForExit();
                 Invoke((Action)ListKeys);
-            });
+            }, "WaitForOpenPgp");
         }
 
         private class NewKeyAction
