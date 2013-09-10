@@ -329,7 +329,7 @@ namespace ZeroInstall.Commands.WinForms
             };
 
             // Run GUI on a separate thread to enable STA
-            ProcessUtils.RunAsync(() => Application.Run(integrationForm)).Join();
+            ProcessUtils.RunAsync(() => integrationForm.ShowDialog()).Join();
         }
 
         /// <inheritdoc/>
