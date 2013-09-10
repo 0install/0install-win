@@ -160,7 +160,7 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="args">Command name with arguments to execute.</param>
         internal static void RunCommand(bool machineWide, params string[] args)
         {
-            RunCommand(null, false, args);
+            RunCommand(null, machineWide, args);
         }
 
         /// <summary>
