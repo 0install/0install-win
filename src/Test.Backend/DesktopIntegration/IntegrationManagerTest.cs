@@ -112,12 +112,6 @@ namespace ZeroInstall.DesktopIntegration
             }
         }
 
-        //[Test]
-        public void TestAddAccessPointsRollback()
-        {
-            // TODO
-        }
-
         [Test]
         public void TestRemoveAccessPoints()
         {

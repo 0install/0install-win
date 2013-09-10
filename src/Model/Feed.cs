@@ -263,10 +263,10 @@ namespace ZeroInstall.Model
         /// </summary>
         public void Strip()
         {
-            // ToDo: Extract supported architectures
+            // TODO: Extract supported architectures
             Elements.Clear();
 
-            // ToDo: Extract supported file types
+            // TODO: Extract supported file types
             CapabilityLists.Clear();
 
             SchemaLocation = null;

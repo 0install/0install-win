@@ -276,7 +276,7 @@ namespace Common.Utils
 
                 case PlatformID.MacOSX:
                 case PlatformID.Unix:
-                    // ToDo: Use POSIX move command
+                    // TODO: Use POSIX move command
 
                 default:
                     // Emulate replace method
@@ -659,7 +659,7 @@ namespace Common.Utils
         {
             if (!File.Exists(path)) return false;
 
-            // ToDo: Detect special files on Windows
+            // TODO: Detect special files on Windows
             if (!MonoUtils.IsUnix) return true;
 
             try

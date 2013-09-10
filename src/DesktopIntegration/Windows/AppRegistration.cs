@@ -87,7 +87,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
 
-            // ToDo: Handle appRegistration.X64
+            // TODO: Handle appRegistration.X64
             using (var capabilitiesKey = hive.CreateSubKey( /*CapabilityPrefix +*/ appRegistration.CapabilityRegPath))
             {
                 capabilitiesKey.SetValue(RegValueAppName, target.Feed.Name ?? "");
@@ -152,7 +152,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             using (var regAppsKey = hive.CreateSubKey(RegKeyMachineRegisteredApplications))
                 regAppsKey.DeleteValue(appRegistration.ID, false);
 
-            // ToDo: Handle appRegistration.X64
+            // TODO: Handle appRegistration.X64
             try
             {
                 hive.DeleteSubKeyTree( /*CapabilityPrefix +*/ appRegistration.CapabilityRegPath);

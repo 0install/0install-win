@@ -110,7 +110,7 @@ namespace Common
             {
                 case PlatformID.Unix:
                 case PlatformID.MacOSX:
-                    // ToDo: Write to sensible log directory
+                    // TODO: Write to sensible log directory
 
                 case PlatformID.Win32Windows:
                 case PlatformID.Win32NT:

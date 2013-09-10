@@ -158,7 +158,7 @@ namespace ZeroInstall.Capture
             string implementationDir = Path.Combine(DirectoryPath, "implementation");
             if (Directory.Exists(implementationDir)) Directory.Delete(implementationDir, true);
 
-            // ToDo: Use callback logic to report progress
+            // TODO: Use callback logic to report progress
             FileUtils.CopyDirectory(installationDir, implementationDir, true, false);
 
             return new Implementation

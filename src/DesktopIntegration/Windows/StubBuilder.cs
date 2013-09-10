@@ -71,7 +71,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (File.Exists(exePath))
             { // Existing stub, ...
-                // ToDo: Find better rebuild discriminator
+                // TODO: Find better rebuild discriminator
                 if (File.GetLastWriteTime(exePath) < Process.GetCurrentProcess().StartTime)
                 { // Built before current process, try to rebuild
                     try

@@ -244,7 +244,7 @@ namespace ZeroInstall.Central.WinForms
             foreach (var tile in _tileDictionary.Values)
                 categories.AddAll(tile.Feed.Categories);
 
-            // ToDo: Show category GUI
+            // TODO: Show category GUI
         }
 
         /// <summary>

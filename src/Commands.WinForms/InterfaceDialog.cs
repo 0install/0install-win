@@ -310,7 +310,7 @@ namespace ZeroInstall.Commands.WinForms
             }
             dataGridVersions.DataSource = candidates;
 #else
-            // ToDo: Display progress
+            // TODO: Display progress
             _selection = _solveCallback()[_interfaceID];
 
             var list = new BindingList<SelectionCandidate> {AllowEdit = true, AllowNew = false};
@@ -395,12 +395,12 @@ namespace ZeroInstall.Commands.WinForms
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                // ToDo: Cancel closing the dialog
+                // TODO: Cancel closing the dialog
             }
             catch (UnauthorizedAccessException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                // ToDo: Cancel closing the dialog
+                // TODO: Cancel closing the dialog
             }
             #endregion
 

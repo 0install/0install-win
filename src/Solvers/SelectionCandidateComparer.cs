@@ -56,7 +56,7 @@ namespace ZeroInstall.Solvers
         /// <inheritdoc/>
         public int Compare(SelectionCandidate x, SelectionCandidate y)
         {
-            // ToDo: Languages we understand come first
+            // TODO: Languages we understand come first
 
             // Preferred implementations come first
             if (x.EffectiveStability == Stability.Preferred && y.EffectiveStability != Stability.Preferred) return -1;
@@ -72,7 +72,7 @@ namespace ZeroInstall.Solvers
                 if (!xCached && yCached) return 1;
             }
 
-            // ToDo: Packages that require admin access to install come last
+            // TODO: Packages that require admin access to install come last
 
             // Implementations at or above the selected stability level come before all others (smaller enum value = more stable)
             if (x.EffectiveStability <= _stabilityPolicy && y.EffectiveStability > _stabilityPolicy) return -1;
@@ -82,9 +82,9 @@ namespace ZeroInstall.Solvers
             if (x.Version > y.Version) return -1;
             if (x.Version < y.Version) return 1;
 
-            // ToDo: Get best architecture
+            // TODO: Get best architecture
 
-            // ToDo: Slightly prefer languages specialised to our country
+            // TODO: Slightly prefer languages specialised to our country
 
             // Slightly prefer cached versions
             if (_networkUse == NetworkLevel.Full)

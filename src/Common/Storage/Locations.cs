@@ -106,7 +106,7 @@ namespace Common.Storage
                 switch (Environment.OSVersion.Platform)
                 {
                     case PlatformID.MacOSX:
-                        // ToDo: Use MacOS X-specific locations instead of POSIX subsytem
+                        // TODO: Use MacOS X-specific locations instead of POSIX subsytem
 
                     case PlatformID.Unix:
                         // Use XDG specification
@@ -132,7 +132,7 @@ namespace Common.Storage
                 switch (Environment.OSVersion.Platform)
                 {
                     case PlatformID.MacOSX:
-                        // ToDo: Use MacOS X-specific locations instead of POSIX subsytem
+                        // TODO: Use MacOS X-specific locations instead of POSIX subsytem
 
                     case PlatformID.Unix:
                         // Use XDG specification
@@ -158,7 +158,7 @@ namespace Common.Storage
                 switch (Environment.OSVersion.Platform)
                 {
                     case PlatformID.MacOSX:
-                        // ToDo: Use MacOS X-specific locations instead of POSIX subsytem
+                        // TODO: Use MacOS X-specific locations instead of POSIX subsytem
 
                     case PlatformID.Unix:
                         // Use XDG specification
@@ -187,7 +187,7 @@ namespace Common.Storage
                 switch (Environment.OSVersion.Platform)
                 {
                     case PlatformID.MacOSX:
-                        // ToDo: Use MacOS X-specific locations instead of POSIX subsytem
+                        // TODO: Use MacOS X-specific locations instead of POSIX subsytem
 
                     case PlatformID.Unix:
                         // Use XDG specification
@@ -214,7 +214,7 @@ namespace Common.Storage
                 switch (Environment.OSVersion.Platform)
                 {
                     case PlatformID.MacOSX:
-                        // ToDo: Use MacOS X-specific locations instead of POSIX subsytem
+                        // TODO: Use MacOS X-specific locations instead of POSIX subsytem
 
                     case PlatformID.Unix:
                         // Use XDG specification
@@ -240,7 +240,7 @@ namespace Common.Storage
                 switch (Environment.OSVersion.Platform)
                 {
                     case PlatformID.MacOSX:
-                        // ToDo: Use MacOS X-specific locations instead of POSIX subsytem
+                        // TODO: Use MacOS X-specific locations instead of POSIX subsytem
 
                     case PlatformID.Unix:
                         return "/var/cache";

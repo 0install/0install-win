@@ -116,7 +116,7 @@ namespace ZeroInstall.Commands
                     Options.WriteOptionDescriptions(writer);
                     writer.Flush();
 
-                    // ToDo: Add flow formatting for better readability on console
+                    // TODO: Add flow formatting for better readability on console
                     return Resources.Usage + " 0install " + Name + " " + Usage + Environment.NewLine + Environment.NewLine +
                            Description + Environment.NewLine + Environment.NewLine +
                            Resources.Options + Environment.NewLine + buffer.ReadToString();

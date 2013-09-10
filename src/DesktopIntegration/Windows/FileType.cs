@@ -200,7 +200,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     {
                         using (var extensionKey = classesKey.CreateSubKey(extension.Value))
                         {
-                            // ToDo
+                            // TODO: Restore previous default
                             //extensionKey.SetValue("", fileType.PreviousID);
                         }
 
@@ -226,7 +226,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                         if (accessPoint)
                         {
-                            // ToDo: Restore previous default
+                            // TODO: Restore previous default
                         }
                     }
                 }

@@ -109,7 +109,7 @@ namespace ZeroInstall.Capture
             {
                 if (urlAssocKey == null) return;
 
-                // ToDo: Fold multiple prefixes pointing to one protocol together
+                // TODO: Fold multiple prefixes pointing to one protocol together
                 foreach (string protocol in urlAssocKey.GetValueNames())
                 {
                     string progID = urlAssocKey.GetValue(protocol, "").ToString();

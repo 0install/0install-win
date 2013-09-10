@@ -160,7 +160,7 @@ namespace ZeroInstall.Model
             {
                 if (WindowsUtils.IsWindows) return new Architecture(OS.Windows, WindowsUtils.Is64BitOperatingSystem ? Cpu.X64 : Cpu.I486);
 
-                // ToDo: Improve detection of other operating systems and CPUs
+                // TODO: Improve detection of other operating systems and CPUs
                 switch (Environment.OSVersion.Platform)
                 {
                     case PlatformID.Unix:

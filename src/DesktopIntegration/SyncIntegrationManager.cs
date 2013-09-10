@@ -173,7 +173,7 @@ namespace ZeroInstall.DesktopIntegration
                     // Download and merge the current AppList from the server (unless the server is to be reset)
                     appListData = (resetMode == SyncResetMode.Server)
                         ? new byte[0]
-                        // ToDo: Allow cancel
+                        // TODO: Allow cancel
                         : webClient.DownloadData(appListUri);
                 }
                     #region Error handling
@@ -260,7 +260,7 @@ namespace ZeroInstall.DesktopIntegration
                     }
                     try
                     {
-                        // ToDo: Allow cancel
+                        // TODO: Allow cancel
                         webClient.UploadData(appListUri, "PUT", memoryStream.ToArray());
                     }
                         #region Error handling

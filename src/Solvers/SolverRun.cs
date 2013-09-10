@@ -109,10 +109,10 @@ namespace ZeroInstall.Solvers
             var feed = _feeds[feedID];
             var feedPreferences = _feedPreferences[feedID];
 
-            // ToDo: Add support for PackageImplementations
+            // TODO: Add support for PackageImplementations
             foreach (var implementation in feed.Elements.OfType<Implementation>())
             {
-                // ToDo: Check it is a valid implementation (has version number, manifest digest, etc.)
+                // TODO: Check it is a valid implementation (has version number, manifest digest, etc.)
 
                 var candidate = new SelectionCandidate(feedID, feedPreferences, implementation, requirements);
 

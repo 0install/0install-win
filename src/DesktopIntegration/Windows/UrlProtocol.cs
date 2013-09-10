@@ -141,7 +141,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 {
                     foreach (var prefix in urlProtocol.KnownPrefixes)
                     {
-                        // ToDo: Restore previous default
+                        // TODO: Restore previous default
                     }
                 }
 

@@ -70,7 +70,7 @@ namespace ZeroInstall.Capture
                 }
             }
 
-            // ToDo: Collect from snapshotDiff.AllContextMenuExtended and snapshotDiff.FilesContextMenuExtended
+            // TODO: Collect from snapshotDiff.AllContextMenuExtended and snapshotDiff.FilesContextMenuExtended
         }
     }
 }

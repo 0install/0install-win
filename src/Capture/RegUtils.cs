@@ -59,7 +59,7 @@ namespace ZeroInstall.Capture
         {
             RegistryKey result;
             x64 = false;
-            // ToDo: Use Is64BitOperatingSystem and native APIs
+            // TODO: Use Is64BitOperatingSystem and native APIs
             if (WindowsUtils.Is64BitProcess)
             {
                 result = Registry.LocalMachine.OpenSubKey(@"WOW6432Node\" + keyPath);

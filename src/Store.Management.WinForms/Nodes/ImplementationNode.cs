@@ -145,7 +145,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                     catch (DigestMismatchException ex)
                     {
                         Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
-                        // ToDo: Provide option for deleting
+                        // TODO: Provide option for deleting
                     }
                     #endregion
                 }));

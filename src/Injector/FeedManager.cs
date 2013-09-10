@@ -183,7 +183,7 @@ namespace ZeroInstall.Injector
         private Feed LoadCached(string feedID, out bool stale)
         {
             // Detect when feeds get out-of-date
-            // ToDo: Cache the last check value somewhere
+            // TODO: Cache the last check value somewhere
             var preferences = FeedPreferences.LoadForSafe(feedID);
             TimeSpan lastChecked = DateTime.UtcNow - preferences.LastChecked;
             TimeSpan lastCheckAttempt = DateTime.UtcNow - GetLastCheckAttempt(feedID);
@@ -224,7 +224,7 @@ namespace ZeroInstall.Injector
         {
             SetLastCheckAttempt(url.ToString());
 
-            // ToDo: Add tracking and better cancellation support
+            // TODO: Add tracking and better cancellation support
             _handler.CancellationToken.ThrowIfCancellationRequested();
             using (var webClient = new WebClientTimeout())
             {

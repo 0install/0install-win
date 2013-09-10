@@ -214,7 +214,7 @@ namespace ZeroInstall.Central.WinForms
                 newStore = new DirectoryStore(implDirBrowserDialog.SelectedPath);
                 if (Directory.GetFileSystemEntries(newStore.DirectoryPath).Length != 0)
                 {
-                    // ToDo: newStore.Audit()
+                    // TODO: newStore.Audit()
                 }
             }
                 #region Error handling

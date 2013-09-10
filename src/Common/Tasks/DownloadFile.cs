@@ -102,7 +102,7 @@ namespace Common.Tasks
                 // Open the target file for writing
                 using (FileStream fileStream = File.Open(Target, FileMode.OpenOrCreate, FileAccess.Write))
                 {
-                    // ToDo: SetResumePoint()
+                    // TODO: SetResumePoint()
 
                     if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
                     lock (StateLock) State = TaskState.Header;
@@ -121,7 +121,7 @@ namespace Common.Tasks
                     {
                         if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
                         ReadHeader(response);
-                        // ToDo: VerifyResumePoint()
+                        // TODO: VerifyResumePoint()
                         lock (StateLock) State = TaskState.Data;
 
                         // Start writing data to the file

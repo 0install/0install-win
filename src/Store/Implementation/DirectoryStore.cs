@@ -157,7 +157,7 @@ namespace ZeroInstall.Store.Implementation
                 }
                 catch (IOException ex)
                 {
-                    // ToDo: Make language independent
+                    // TODO: Make language independent
                     if (ex.Message.Contains("already exists")) throw new ImplementationAlreadyInStoreException(expectedDigest);
                     throw;
                 }
@@ -296,7 +296,7 @@ namespace ZeroInstall.Store.Implementation
                 catch (IOException ex)
                 {
                     // Wrap too generic exceptions
-                    // ToDo: Make language independent
+                    // TODO: Make language independent
                     if (ex.Message.StartsWith("Access") && ex.Message.EndsWith("is denied.")) throw new UnauthorizedAccessException(ex.Message, ex);
 
                     // Pass other exceptions through
@@ -373,7 +373,7 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // ToDo: Implement
+            // TODO: Implement
         }
         #endregion
 

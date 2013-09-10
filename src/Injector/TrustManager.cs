@@ -121,7 +121,7 @@ namespace ZeroInstall.Injector
                 { // Load key file from server
                     try
                     {
-                        // ToDo: Add tracking and better cancellation support
+                        // TODO: Add tracking and better cancellation support
                         _handler.CancellationToken.ThrowIfCancellationRequested();
                         using (var webClient = new WebClientTimeout())
                             keyData = webClient.DownloadData(keyUri);
@@ -170,7 +170,7 @@ namespace ZeroInstall.Injector
 
             try
             {
-                // ToDo: Add better cancellation support
+                // TODO: Add better cancellation support
                 var keyInfoUri = new Uri(_config.KeyInfoServer, "key/" + fingerprint);
                 var xmlReader = XmlReader.Create(keyInfoUri.ToString());
                 _handler.CancellationToken.ThrowIfCancellationRequested();

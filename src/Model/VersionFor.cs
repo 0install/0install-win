@@ -103,7 +103,7 @@ namespace ZeroInstall.Model
             unchecked
             {
                 int result = (InterfaceID != null ? InterfaceID.GetHashCode() : 0);
-                // ToDo: result = (result * 397) ^ _languages.GetSequencedHashCode();
+                // TODO: result = (result * 397) ^ _languages.GetSequencedHashCode();
                 result = (result * 397) ^ (Versions != null ? Versions.GetHashCode() : 0);
                 return result;
             }

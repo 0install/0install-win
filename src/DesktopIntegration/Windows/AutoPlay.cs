@@ -150,7 +150,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (accessPoint)
             {
-                // ToDo: Restore previous default
+                // TODO: Restore previous default
             }
 
             try

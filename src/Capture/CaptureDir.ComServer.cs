@@ -43,7 +43,7 @@ namespace ZeroInstall.Capture
             if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
-            // ToDo: Implement
+            // TODO: Implement
         }
     }
 }

@@ -55,7 +55,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (string.IsNullOrEmpty(comServer.ID)) throw new InvalidDataException("Missing ID");
 
-            // ToDo: Implement
+            // TODO: Implement
         }
         #endregion
 
@@ -76,7 +76,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (string.IsNullOrEmpty(comServer.ID)) throw new InvalidDataException("Missing ID");
 
-            // ToDo: Implement
+            // TODO: Implement
         }
         #endregion
     }

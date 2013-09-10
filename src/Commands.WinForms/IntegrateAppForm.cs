@@ -488,7 +488,7 @@ namespace ZeroInstall.Commands.WinForms
             }
             catch (InvalidOperationException ex)
             {
-                // ToDo: More comprehensive conflict handling
+                // TODO: More comprehensive conflict handling
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
                 Visible = true; // Allow user to fix input
                 return;

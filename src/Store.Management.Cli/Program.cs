@@ -229,7 +229,7 @@ namespace ZeroInstall.Store.Management.Cli
 
         private static void PrintManual()
         {
-            // ToDo: Add flow formatting for better readability on console
+            // TODO: Add flow formatting for better readability on console
             Console.WriteLine(@"ADD" + Environment.NewLine + Environment.NewLine + Resources.DetailsAdd + Environment.NewLine + Environment.NewLine + Environment.NewLine);
             Console.WriteLine(@"AUDIT" + Environment.NewLine + Environment.NewLine + Resources.DetailsAudit + Environment.NewLine + Environment.NewLine + Environment.NewLine);
             Console.WriteLine(@"COPY" + Environment.NewLine + Environment.NewLine + Resources.DetailsCopy + Environment.NewLine + Environment.NewLine + Environment.NewLine);

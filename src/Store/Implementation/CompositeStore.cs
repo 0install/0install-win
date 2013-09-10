@@ -279,7 +279,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Caches
-        // ToDo: Replace with lock-less multi-threaded dictionary
+        // TODO: Replace with lock-less multi-threaded dictionary
         private readonly Dictionary<ManifestDigest, bool> _containsCache = new Dictionary<ManifestDigest, bool>();
 
         /// <inheritdoc />
