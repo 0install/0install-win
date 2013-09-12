@@ -5,9 +5,12 @@ bundled/Solver/
 TestResult.xml
 *.bak
 *.cache
+*.pidb
 *.suo
 *.user
+*.userprefs
 *.DotSettings
+*.resources
 obj/
 _ReSharper.*/
 _TeamCity.*/

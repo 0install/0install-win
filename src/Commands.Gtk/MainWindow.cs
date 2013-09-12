@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2013 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -15,19 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using Gtk;
 
-public partial class MainWindow : Gtk.Window
+namespace ZeroInstall.Commands.Gtk
 {
-	public MainWindow() : base(Gtk.WindowType.Toplevel)
-	{
-		Build();
-	}
-
-	protected void OnDeleteEvent(object sender, DeleteEventArgs a)
-	{
-		Application.Quit();
-		a.RetVal = true;
-	}
+    public partial class MainWindow : Window
+    {
+        public MainWindow() : base(WindowType.Toplevel)
+        {
+            Build();
+        }
+    }
 }

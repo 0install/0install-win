@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2010 Bastian Eicher
+ * Copyright 2006-2013 Bastian Eicher
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,6 @@
  */
 
 using System;
-using System.Globalization;
 using Gtk;
 
 namespace Common.Gtk
@@ -29,7 +28,7 @@ namespace Common.Gtk
     /// <summary>
     /// Provides easier access to typical <see cref="MessageDialog"/> configurations and automatically logs error messages.
     /// </summary>
-    public static class GtkMsg
+    public static class Msg
     {
         #region Inform
         /// <summary>
@@ -63,8 +62,7 @@ namespace Common.Gtk
         /// <param name="owner">The parent window the displayed window is modal to.</param>
         /// <param name="text">The message to be displayed; must not be <see langword="null"/>.</param>
         /// <param name="severity">How severe/important the message is.</param>
-        /// <returns><see langword="true"/> if <paramref name="option1"/> was selected, <see langword="false"/> if <paramref name="option2"/> was selected.</returns>
-        /// <remarks>If a <see cref="MessageDialog"/> is used, <paramref name="option1"/> and <paramref name="option2"/> are not display to the user, so don't rely on them!</remarks>
+        /// <returns><see langword="true"/> if Yes was selected, <see langword="false"/> if No was selected.</returns>
         public static bool Ask(Window owner, string text, MsgSeverity severity)
         {
             #region Sanity checks
