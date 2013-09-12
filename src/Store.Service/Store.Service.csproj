@@ -97,7 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common.WinForms\Common.WinForms.csproj">
-      <Project>{dacd1a8e-7734-458c-92b4-da1f29940890}</Project>
+      <Project>{DACD1A8E-7734-458C-92B4-DA1F29940890}</Project>
       <Name>Common.WinForms</Name>
     </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
