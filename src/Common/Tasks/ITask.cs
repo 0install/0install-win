@@ -24,7 +24,6 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
-using System.Windows.Forms;
 
 namespace Common.Tasks
 {
@@ -46,7 +45,7 @@ namespace Common.Tasks
         /// Occurs whenever <see cref="State"/> changes.
         /// </summary>
         /// <remarks>
-        ///   <para>This event is raised from a background thread. Wrap via <see cref="Control.Invoke(System.Delegate)"/> to update UI elements.</para>
+        ///   <para>This event is raised from a background thread. Wrap via synchronization context to update UI elements.</para>
         ///   <para>Handling this blocks the task, therefore observers should handle the event quickly.</para>
         /// </remarks>
         event TaskEventHandler StateChanged;
@@ -55,7 +54,7 @@ namespace Common.Tasks
         /// Occurs whenever <see cref="Progress"/> changes.
         /// </summary>
         /// <remarks>
-        ///   <para>This event is raised from a background thread. Wrap via <see cref="Control.Invoke(System.Delegate)"/> to update UI elements.</para>
+        ///   <para>This event is raised from a background thread. Wrap via synchronization context to update UI elements.</para>
         ///   <para>Handling this blocks the task, therefore observers should handle the event quickly.</para>
         /// </remarks>
         event TaskEventHandler ProgressChanged;

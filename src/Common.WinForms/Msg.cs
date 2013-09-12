@@ -28,24 +28,6 @@ using TaskDialog;
 
 namespace Common
 {
-
-    #region Enumerations
-    /// <summary>
-    /// How severe/important a message is
-    /// </summary>
-    public enum MsgSeverity
-    {
-        /// <summary>A nice-to-know piece of information.</summary>
-        Info,
-
-        /// <summary>A warning that doesn't have to be acted upon immediately.</summary>
-        Warn,
-
-        /// <summary>A critical error that should be attended to.</summary>
-        Error
-    }
-    #endregion
-
     /// <summary>
     /// Provides easier access to typical <see cref="MessageBox"/> configurations and automatically logs error messages.
     /// </summary>

@@ -29,6 +29,7 @@ rd /s /q "%~dp0src\Store.Service\obj" > NUL 2>&1
 rd /s /q "%~dp0src\Store.Management.Cli\obj" > NUL 2>&1
 rd /s /q "%~dp0src\Store.Management.WinForms\obj" > NUL 2>&1
 rd /s /q "%~dp0src\Common\obj" > NUL 2>&1
+rd /s /q "%~dp0src\Common.WinForms\obj" > NUL 2>&1
 rd /s /q "%~dp0src\Common.Gtk\obj" > NUL 2>&1
 rd /s /q "%~dp0src\Fetchers\obj" > NUL 2>&1
 rd /s /q "%~dp0src\Injector\obj" > NUL 2>&1

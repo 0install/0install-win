@@ -22,7 +22,6 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Windows.Forms;
 
 namespace Common.Tasks
 {
@@ -43,7 +42,7 @@ namespace Common.Tasks
         /// Raised the first time <see cref="RequestCancellation"/> is called. Subsequent calls will not raise this event again.
         /// </summary>
         /// <remarks>
-        ///   <para>This event is raised from a background thread. Wrap via <see cref="Control.Invoke(System.Delegate)"/> to update UI elements.</para>
+        ///   <para>This event is raised from a background thread. Wrap via synchronization context to update UI elements.</para>
         ///   <para>Handling this blocks the task, therefore observers should handle the event quickly.</para>
         /// </remarks>
         [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]

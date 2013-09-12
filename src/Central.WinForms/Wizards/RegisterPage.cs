@@ -33,7 +33,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
 
         private void linkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            WindowsUtils.OpenInBrowser(Config.DefaultSyncServer + "register");
+            Program.OpenInBrowser(this, Config.DefaultSyncServer + "register");
         }
 
         private void buttonContinue_Click(object sender, EventArgs e)

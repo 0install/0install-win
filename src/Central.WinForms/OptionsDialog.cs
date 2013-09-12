@@ -201,7 +201,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonGoToImplDir_Click(object sender, EventArgs e)
         {
-            WindowsUtils.OpenInBrowser(listBoxImplDirs.SelectedItem.ToString());
+            Program.OpenInBrowser(this, listBoxImplDirs.SelectedItem.ToString());
         }
 
         private void buttonAddImplDir_Click(object sender, EventArgs e)
@@ -263,7 +263,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonGoToCatalogSource_Click(object sender, EventArgs e)
         {
-            WindowsUtils.OpenInBrowser(listBoxCatalogSources.SelectedItem.ToString());
+            Program.OpenInBrowser(this, listBoxCatalogSources.SelectedItem.ToString());
         }
 
         private void buttonAddCatalogSource_Click(object sender, EventArgs e)
@@ -302,7 +302,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 string syncServer = textBoxSyncServer.Text;
                 if (!syncServer.EndsWith("/")) syncServer += "/"; // Ensure the server URI references a directory
-                WindowsUtils.OpenInBrowser(syncServer + "account");
+                Program.OpenInBrowser(this, syncServer + "account");
             }
                 #region Error handling
             catch (IOException ex)

@@ -60,9 +60,8 @@ namespace Common.Controls
             })
             {
                 errorBox.toolTip.SetToolTip(errorBox.labelMessage, errorBox.labelMessage.Text);
-                // ReSharper disable AccessToDisposedClosure
+                // ReSharper disable once AccessToDisposedClosure
                 errorBox.Shown += delegate { WindowsUtils.SetForegroundWindow(errorBox); };
-                // ReSharper restore AccessToDisposedClosure
                 errorBox.ShowDialog();
             }
         }

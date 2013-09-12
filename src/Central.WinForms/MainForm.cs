@@ -358,7 +358,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            WindowsUtils.OpenInBrowser("http://0install.de/help/");
+            Program.OpenInBrowser(this, "http://0install.de/help/");
         }
 
         private void buttonIntro_Click(object sender, EventArgs e)

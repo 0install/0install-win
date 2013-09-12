@@ -62,6 +62,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common.WinForms\Common.WinForms.csproj">
+      <Project>{dacd1a8e-7734-458c-92b4-da1f29940890}</Project>
+      <Name>Common.WinForms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>

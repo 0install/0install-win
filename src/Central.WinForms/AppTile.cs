@@ -215,7 +215,7 @@ namespace ZeroInstall.Central.WinForms
         private void linkLabelDetails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (InterfaceID.StartsWith("fake:")) return;
-            WindowsUtils.OpenInBrowser(InterfaceID);
+            Program.OpenInBrowser(this, InterfaceID);
         }
 
         private void buttonRun_Click(object sender, EventArgs e)

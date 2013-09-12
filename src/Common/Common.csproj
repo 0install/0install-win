@@ -59,20 +59,24 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.TextEditor">
-      <HintPath>..\..\lib\ICSharpCode.TextEditor.dll</HintPath>
-    </Reference>
     <Reference Include="SevenZip">
       <HintPath>..\..\lib\SevenZip.dll</HintPath>
-    </Reference>
-    <Reference Include="TaskDialog">
-      <HintPath>..\..\lib\TaskDialog.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="AppMutex.cs" />
+    <Compile Include="Controls\TimeSpanControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TimeSpanControl.Designer.cs">
+      <DependentUpon>TimeSpanControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WebClientTimeout.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Log.cs" />
+    <Compile Include="MsgSeverity.cs" />
     <Compile Include="NamedComparer.cs" />
     <Compile Include="NeedGuiException.cs" />
     <Compile Include="NotAdminException.cs" />
@@ -82,7 +86,6 @@
     <Compile Include="Info\ExceptionInfo.cs" />
     <Compile Include="Info\OSInfo.cs" />
     <Compile Include="TimedLogEvent.cs" />
-    <Compile Include="Msg.cs" />
     <Compile Include="ToStringWrapper.cs" />
     <Compile Include="INamed.cs" />
     <Compile Include="Future.cs" />
@@ -95,7 +98,6 @@
     <Compile Include="Tasks\ITaskHandler.cs" />
     <Compile Include="Tasks\SilentTaskHandler.cs" />
     <Compile Include="Tasks\CliTaskHandler.cs" />
-    <Compile Include="Tasks\GuiTaskHandler.cs" />
     <Compile Include="Tasks\WaitTask.cs" />
     <Compile Include="Tasks\DownloadFile.cs" />
     <Compile Include="Cli\ArgumentUtils.cs" />
@@ -148,10 +150,7 @@
     <Compile Include="Undo\ICommandExecutor.cs" />
     <Compile Include="Undo\CommandManager.cs" />
     <Compile Include="Undo\PreExecutedCommand.cs" />
-    <Compile Include="Undo\PropertyChangedCommand.cs" />
     <Compile Include="Undo\SimpleCommand.cs" />
-    <Compile Include="Undo\MultiPropertyChangedCommand.cs" />
-    <Compile Include="Undo\MultiPropertyTracker.cs" />
     <Compile Include="Undo\FirstExecuteCommand.cs" />
     <Compile Include="Undo\SetValueCommand.cs" />
     <Compile Include="Undo\AddToCollection.cs" />
@@ -163,146 +162,11 @@
     <Compile Include="Undo\CompositeCommand.cs" />
     <Compile Include="Undo\PreExecutedCompositeCommand.cs" />
     <Compile Include="Undo\CommandCollector.cs" />
-    <Compile Include="StructureEditor\ChildInfo.cs" />
-    <Compile Include="StructureEditor\EntryInfo.cs" />
-    <Compile Include="StructureEditor\ContainerDescription.cs" />
-    <Compile Include="StructureEditor\ContainerDescription.Property.cs" />
-    <Compile Include="StructureEditor\ContainerDescription.List.cs" />
-    <Compile Include="StructureEditor\ContainerDescription.List.Element.cs" />
-    <Compile Include="StructureEditor\IListDescription.cs" />
-    <Compile Include="StructureEditor\StructureEditorControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="StructureEditor\StructureEditorControl.Designer.cs">
-      <DependentUpon>StructureEditorControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="StructureEditor\StructureEditorControl.Node.cs">
-      <DependentUpon>StructureEditorControl.cs</DependentUpon>
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Values\Design\EnumDescriptionConverter.cs" />
     <Compile Include="Values\Design\LanguageSetEditor.cs" />
     <Compile Include="Values\Design\StringConstructorConverter.cs" />
     <Compile Include="Values\Design\EnumXmlConverter.cs" />
     <Compile Include="Values\Design\StructConverter.cs" />
-    <Compile Include="Values\Design\TimeSpanEditor.cs" />
-    <Compile Include="Controls\IEditorControl.cs" />
-    <Compile Include="Controls\IEditorControlContainerRef.cs" />
-    <Compile Include="Controls\IEditorDialog.cs" />
-    <Compile Include="Controls\IContextMenu.cs" />
-    <Compile Include="Controls\IHighlightColor.cs" />
-    <Compile Include="Controls\RtfBuilder.cs" />
-    <Compile Include="Controls\LocalizableTextBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\LocalizableTextBox.Designer.cs">
-      <DependentUpon>LocalizableTextBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\InputBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\InputBox.Designer.cs">
-      <DependentUpon>InputBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\OutputBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\OutputBox.Designer.cs">
-      <DependentUpon>OutputBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ErrorBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\ErrorBox.Designer.cs">
-      <DependentUpon>ErrorBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TrackingLabel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TrackingProgressBar.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\TrackingControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\TrackingControl.Designer.cs">
-      <DependentUpon>TrackingControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TrackingDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\TrackingDialog.Designer.cs">
-      <DependentUpon>TrackingDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TimeSpanControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\TimeSpanControl.Designer.cs">
-      <DependentUpon>TimeSpanControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\EditorControlBase.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\GenericEditorControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\EditorDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\EditorDialog.Designer.cs">
-      <DependentUpon>EditorDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ResettablePropertyGrid.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\InspectionForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\InspectionForm.Designer.cs">
-      <DependentUpon>InspectionForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\FilteredTreeView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\FilteredTreeView.Designer.cs">
-      <DependentUpon>FilteredTreeView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ErrorReportForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\ErrorReportForm.Designer.cs">
-      <DependentUpon>ErrorReportForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ErrorReportForm.ErrorReport.cs">
-      <DependentUpon>ErrorReportForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\OKCancelDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\OKCancelDialog.Designer.cs">
-      <DependentUpon>OKCancelDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\HintTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\UriTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\SplitButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\LiveEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\LiveEditor.Designer.cs">
-      <DependentUpon>LiveEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Wizard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\Wizard.Designer.cs">
-      <DependentUpon>Wizard.cs</DependentUpon>
-    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -310,34 +174,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Controls\WebClientTimeout.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Values\Design\TimeSpanEditor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\ErrorReportForm.de.resx">
-      <DependentUpon>ErrorReportForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ErrorReportForm.resx">
-      <DependentUpon>ErrorReportForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\InputBox.de.resx">
-      <DependentUpon>InputBox.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\InputBox.resx">
-      <DependentUpon>InputBox.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OKCancelDialog.de.resx">
-      <DependentUpon>OKCancelDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OKCancelDialog.resx">
-      <DependentUpon>OKCancelDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.de.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
