@@ -56,7 +56,7 @@ namespace ZeroInstall.Central.WinForms
         /// The main entry point for the application.
         /// </summary>
         [STAThread] // Required for WinForms
-        internal static int Main(string[] args)
+        private static int Main(string[] args)
         {
             WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
 

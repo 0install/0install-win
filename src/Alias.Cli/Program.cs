@@ -44,7 +44,7 @@ namespace ZeroInstall.Alias.Cli
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        internal static int Main(string[] args)
+        private static int Main(string[] args)
         {
             // Encode installation path into mutex name to allow instance detection during updates
             string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());

@@ -34,7 +34,7 @@ namespace ZeroInstall.Publish.WinForms
         /// The main entry point for the application.
         /// </summary>
         [STAThread] // Required for WinForms
-        internal static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

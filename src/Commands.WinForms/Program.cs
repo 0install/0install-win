@@ -55,7 +55,7 @@ namespace ZeroInstall.Commands.WinForms
         /// The main entry point for the application.
         /// </summary>
         // NOTE: No [STAThread] here, because it could block .NET remoting callbacks
-        internal static int Main(string[] args)
+        private static int Main(string[] args)
         {
             WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
 
