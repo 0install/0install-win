@@ -213,6 +213,7 @@ namespace ZeroInstall.Store.Trust
         {
             if (line.StartsWith("gpg: waiting for lock") ||
                 (line.StartsWith("gpg: keyring ") && line.EndsWith(" created")) ||
+                (line.StartsWith("gpg: ") && line.EndsWith(": trustdb created")) ||
                 (line.StartsWith("gpg: renaming ") && line.EndsWith("failed: Permission denied")))
             {
                 Log.Info(line);
