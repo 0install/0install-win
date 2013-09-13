@@ -42,6 +42,8 @@
     <ProjectSummary>This chapter describes the public and protected aspects of the Zero Install Backend API.</ProjectSummary>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="Common" isDocumented="True">Contains generic utility classes, interfaces, &lt;see cref="System.Windows.Forms" /&gt; controls, etc. that are applicable to a wide range of different applications. Platform checks are included and calls to WinForms code will be avoided on non-Windows platforms when possible.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Common.Gtk" isDocumented="True">Shared resources and controls for GTK# projects.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Common.WinForms" isDocumented="True">Shared resources and controls for WinForms projects.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Collections" isDocumented="True">Contains specialized collection types supplementing &lt;see cref="System.Collections.Generic" /&gt;.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Cli" isDocumented="True">Contains helper methods for interacting with the user via the &lt;see cref="System.Console" /&gt;.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Compression" isDocumented="True">Contains helper classes for interacting with archives.</NamespaceSummaryItem>
@@ -58,6 +60,7 @@
       <NamespaceSummaryItem name="ZeroInstall.Backend" isDocumented="True">Provides dependency injection for Zero Install's backend modules.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration" isDocumented="True">Provides methods for integrating applications with the desktop environment.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration.AccessPoints" isDocumented="True">Contains structures for parsing and in-memory representation of access points applied to a system.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration.Unix" isDocumented="True">Contains desktop integration code for Unix-like systems (e.g. Linux).</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration.Windows" isDocumented="True">Contains Windows-specific desktop integration code.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Fetchers" isDocumented="True">Contains &lt;see cref="ZeroInstall.Injector.IFetcher" /&gt; implementations.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Injector" isDocumented="True">Contains code for launching implementations and injecting the selected dependencies.</NamespaceSummaryItem>
