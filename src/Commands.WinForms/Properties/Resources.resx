@@ -1234,18 +1234,8 @@ Remove a checkbox to remove a capability's default status (it still remains avai
   <data name="Done" xml:space="preserve">
     <value>Done</value>
   </data>
-  <data name="DownloadDamaged" xml:space="preserve">
-    <value>A downloaded file is damaged or invalid.</value>
-  </data>
-  <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Please enter the URL of the new source of implementations for this interface:</value>
-  </data>
   <data name="Hide" xml:space="preserve">
     <value>Hide</value>
-  </data>
-  <data name="IgnoreMissingFeedFor" xml:space="preserve">
-    <value>This feed does not seem to be for the same application. Add it anyway?
-A &lt;feed-for&gt; tag indicates feed compatibility.</value>
   </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integrate {0}</value>
@@ -1253,22 +1243,7 @@ A &lt;feed-for&gt; tag indicates feed compatibility.</value>
   <data name="PortableMode" xml:space="preserve">
     <value>Portable mode</value>
   </data>
-  <data name="PropertiesFor" xml:space="preserve">
-    <value>Properties for {0}</value>
-  </data>
-  <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Do you want to remove the {0} selected entries from the list?</value>
-  </data>
-  <data name="TryHelp" xml:space="preserve">
-    <value>Try {0} --help</value>
-  </data>
-  <data name="UnableToLoadFeed" xml:space="preserve">
-    <value>Unable to load feed '{0}'; skipping.</value>
-  </data>
   <data name="Working" xml:space="preserve">
     <value>Working</value>
-  </data>
-  <data name="Configuration" xml:space="preserve">
-    <value>Configuration</value>
   </data>
 </root>

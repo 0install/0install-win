@@ -90,16 +90,6 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to remove &apos;{0}&apos; from your application list?
-        ///This will also remove any desktop integration applied for this application..
-        /// </summary>
-        internal static string AppRemoveConfirm {
-            get {
-                return ResourceManager.GetString("AppRemoveConfirm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap ArrowDown {
@@ -126,15 +116,6 @@ namespace ZeroInstall.Central.WinForms.Properties {
             get {
                 object obj = ResourceManager.GetObject("ArrowUp", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to run {0}..
-        /// </summary>
-        internal static string FailedToRun {
-            get {
-                return ResourceManager.GetString("FailedToRun", resourceCulture);
             }
         }
         
@@ -168,16 +149,6 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No
-        ///Keep the application.
-        /// </summary>
-        internal static string NoKeepApp {
-            get {
-                return ResourceManager.GetString("NoKeepApp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap RemoveButton {
@@ -199,9 +170,9 @@ namespace ZeroInstall.Central.WinForms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Run.
         /// </summary>
-        internal static string Run {
+        internal static string RunButtonText {
             get {
-                return ResourceManager.GetString("Run", resourceCulture);
+                return ResourceManager.GetString("RunButtonText", resourceCulture);
             }
         }
         
@@ -245,19 +216,9 @@ namespace ZeroInstall.Central.WinForms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &amp;Update.
         /// </summary>
-        internal static string UpdateButton {
+        internal static string UpdateButtonText {
             get {
-                return ResourceManager.GetString("UpdateButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Yes
-        ///Remove the application.
-        /// </summary>
-        internal static string YesRemoveApp {
-            get {
-                return ResourceManager.GetString("YesRemoveApp", resourceCulture);
+                return ResourceManager.GetString("UpdateButtonText", resourceCulture);
             }
         }
     }

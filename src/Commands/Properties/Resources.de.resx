@@ -192,6 +192,9 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
   <data name="CommandLineArguments" xml:space="preserve">
     <value>Befehlszeilenargumente</value>
   </data>
+  <data name="Configuration" xml:space="preserve">
+    <value>Konfiguration</value>
+  </data>
   <data name="DescriptionAddAlias" xml:space="preserve">
     <value>Lege einen Alias zum Starten einer Anwendung via Zero Install ohne immer die vollständige URI eingeben zu müssen an.</value>
   </data>
@@ -255,6 +258,12 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
   <data name="DownloadComplete" xml:space="preserve">
     <value>Download abgeschlossen</value>
   </data>
+  <data name="DownloadDamaged" xml:space="preserve">
+    <value>Eine heruntergeladene Datei ist beschädigt oder ungültig.</value>
+  </data>
+  <data name="EnterFeedUrl" xml:space="preserve">
+    <value>Bitte geben Sie die URL der neuen Quelle von Implementierungen für dieses Interface an:</value>
+  </data>
   <data name="FeedAlreadyRegistered" xml:space="preserve">
     <value>Der Feed war bereits für alle passenden Interfaces registriert.</value>
   </data>
@@ -289,6 +298,10 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
   </data>
   <data name="FoundFeeds" xml:space="preserve">
     <value>Gefundene Feeds:</value>
+  </data>
+  <data name="IgnoreMissingFeedFor" xml:space="preserve">
+    <value>Dieser Feed scheint nicht für die gleiche Anwendung zu sein. Trotzdem hinzufügen?
+Ein &lt;feed-for&gt; Tag zeigt Feed-Kompatibilität an.</value>
   </data>
   <data name="LicenseInfo" xml:space="preserve">
     <value>Für dieses Programm gibt es ABSOLUT KEINE GARANTIEN, soweit dies gesetzlich zulässig ist.
@@ -445,6 +458,12 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="PortableMode" xml:space="preserve">
     <value>Portabler Modus</value>
   </data>
+  <data name="PropertiesFor" xml:space="preserve">
+    <value>Eigenschaften für {0}</value>
+  </data>
+  <data name="RemoveSelectedEntries" xml:space="preserve">
+    <value>Möchten Sie die {0} ausgewählten Einträge aus der Liste entfernen?</value>
+  </data>
   <data name="RemovingOutdated" xml:space="preserve">
     <value>Entferne veraltete Dateien</value>
   </data>
@@ -460,8 +479,14 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="TooManyArguments" xml:space="preserve">
     <value>Zu viele Argumente oder unbekannte Optionen.</value>
   </data>
+  <data name="TryHelp" xml:space="preserve">
+    <value>Probieren Sie {0} --help</value>
+  </data>
   <data name="TryHelpWith" xml:space="preserve">
     <value>Probieren Sie --help mit einem der folgenden:</value>
+  </data>
+  <data name="UnableToLoadFeed" xml:space="preserve">
+    <value>Konnte Feed '{0}' nicht laden; überspringe.</value>
   </data>
   <data name="UnknownCategory" xml:space="preserve">
     <value>Unbekannte Kategorie: {0}</value>

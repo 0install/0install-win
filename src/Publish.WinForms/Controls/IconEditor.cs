@@ -23,7 +23,7 @@ using System.IO;
 using System.Net;
 using Common;
 using Common.Controls;
-using ZeroInstall.Publish.WinForms.Properties;
+using ZeroInstall.Publish.Properties;
 using Icon = ZeroInstall.Model.Icon;
 
 namespace ZeroInstall.Publish.WinForms.Controls

@@ -134,36 +134,14 @@ Entfernen Sie ein Häckchen um den Standard-Status einer Fähigkeit zu entfernen
   <data name="Done" xml:space="preserve">
     <value>Fertig</value>
   </data>
-  <data name="DownloadDamaged" xml:space="preserve">
-    <value>Eine heruntergeladene Datei ist beschädigt oder ungültig.</value>
-  </data>
-  <data name="EnterFeedUrl" xml:space="preserve">
-    <value>Bitte geben Sie die URL der neuen Quelle von Implementierungen für dieses Interface an:</value>
-  </data>
   <data name="Hide" xml:space="preserve">
     <value>Verstecken</value>
-  </data>
-  <data name="IgnoreMissingFeedFor" xml:space="preserve">
-    <value>Dieser Feed scheint nicht für die gleiche Anwendung zu sein. Trotzdem hinzufügen?
-Ein &lt;feed-for&gt; Tag zeigt Feed-Kompatibilität an.</value>
   </data>
   <data name="Integrate" xml:space="preserve">
     <value>Integriere {0}</value>
   </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portabler Modus</value>
-  </data>
-  <data name="PropertiesFor" xml:space="preserve">
-    <value>Eigenschaften für {0}</value>
-  </data>
-  <data name="RemoveSelectedEntries" xml:space="preserve">
-    <value>Möchten Sie die {0} ausgewählten Einträge aus der Liste entfernen?</value>
-  </data>
-  <data name="TryHelp" xml:space="preserve">
-    <value>Probieren Sie {0} --help</value>
-  </data>
-  <data name="UnableToLoadFeed" xml:space="preserve">
-    <value>Konnte Feed '{0}' nicht laden; überspringe.</value>
   </data>
   <data name="Working" xml:space="preserve">
     <value>Arbeite</value>

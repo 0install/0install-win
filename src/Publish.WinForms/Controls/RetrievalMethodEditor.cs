@@ -25,7 +25,7 @@ using Common.Controls;
 using Common.Tasks;
 using Common.Undo;
 using ZeroInstall.Model;
-using ZeroInstall.Publish.WinForms.Properties;
+using ZeroInstall.Publish.Properties;
 using ICommandExecutor = Common.Undo.ICommandExecutor;
 
 namespace ZeroInstall.Publish.WinForms.Controls

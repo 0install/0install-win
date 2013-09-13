@@ -30,6 +30,7 @@ using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Icons;
+using SharedResources = ZeroInstall.Central.Properties.Resources;
 using Icon = ZeroInstall.Model.Icon;
 
 namespace ZeroInstall.Central.WinForms
@@ -41,10 +42,10 @@ namespace ZeroInstall.Central.WinForms
     {
         #region Variables
         // Static resource preload
-        private static readonly string _runButtonText = Resources.Run;
+        private static readonly string _runButtonText = Resources.RunButtonText;
         private static readonly Bitmap _addButton = Resources.AddButton, _removeButton = Resources.RemoveButton, _setupButton = Resources.SetupButton, _modifyButton = Resources.ModifyButton;
         private static readonly string _addButtonTooltip = Resources.AddButtonTooltip, _removeButtonTooltip = Resources.RemoveButtonTooltip, _setupButtonTooltip = Resources.SetupButtonTooltip, _modifyButtonTooltip = Resources.ModifyButtonTooltip;
-        private static readonly string _selectCommandButton = Resources.SelectCommandButton, _selectVersionButton = Resources.SelectVersionButton, _updateButton = Resources.UpdateButton;
+        private static readonly string _selectCommandButton = Resources.SelectCommandButton, _selectVersionButton = Resources.SelectVersionButton, _updateButtonText = Resources.UpdateButtonText;
 
         /// <summary>Apply operations machine-wide instead of just for the current user.</summary>
         private readonly bool _machineWide;
@@ -139,7 +140,7 @@ namespace ZeroInstall.Central.WinForms
             toolTip.SetToolTip(buttonRemove, _removeButtonTooltip);
             buttonSelectCommand.Text = _selectCommandButton;
             buttonSelectVersion.Text = _selectVersionButton;
-            buttonUpdate.Text = _updateButton;
+            buttonUpdate.Text = _updateButtonText;
 
             InterfaceID = interfaceID;
             labelName.Text = appName;
@@ -246,11 +247,11 @@ namespace ZeroInstall.Central.WinForms
                     #region Error handling
                 catch (FileNotFoundException ex)
                 {
-                    Msg.Inform(this, string.Format(Resources.FailedToRun + "\n" + ex.Message, Commands.WinForms.Program.ExeName), MsgSeverity.Error);
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
                 }
                 catch (Win32Exception ex)
                 {
-                    Msg.Inform(this, string.Format(Resources.FailedToRun + "\n" + ex.Message, Commands.WinForms.Program.ExeName), MsgSeverity.Error);
+                    Msg.Inform(this,  ex.Message, MsgSeverity.Error);
                 }
                 #endregion
             }
@@ -286,7 +287,7 @@ namespace ZeroInstall.Central.WinForms
         {
             if (InterfaceID.StartsWith("fake:")) return;
 
-            if (!Msg.YesNo(this, string.Format(Resources.AppRemoveConfirm, AppName), MsgSeverity.Warn, Resources.YesRemoveApp, Resources.NoKeepApp)) return;
+            if (!Msg.YesNo(this, string.Format(SharedResources.AppRemoveConfirm, AppName), MsgSeverity.Warn)) return;
 
             // Disable buttons while operation is running
             buttonRemove.Enabled = buttonIntegrate.Enabled = false;

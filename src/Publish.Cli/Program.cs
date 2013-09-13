@@ -28,6 +28,7 @@ using NDesk.Options;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Cli.Properties;
 using ZeroInstall.Store.Trust;
+using SharedResources = ZeroInstall.Publish.Properties.Resources;
 
 namespace ZeroInstall.Publish.Cli
 {
@@ -175,7 +176,7 @@ namespace ZeroInstall.Publish.Cli
                 {
                     "V|version", () => Resources.OptionVersion, unused =>
                     {
-                        Console.WriteLine(AppInfo.Current.Name + ' ' + AppInfo.Current.Version + Environment.NewLine + AppInfo.Current.Copyright + Environment.NewLine + Resources.LicenseInfo);
+                        Console.WriteLine(AppInfo.Current.Name + ' ' + AppInfo.Current.Version + Environment.NewLine + AppInfo.Current.Copyright + Environment.NewLine + SharedResources.LicenseInfo);
                         throw new OperationCanceledException(); // Don't handle any of the other arguments
                     }
                 },
@@ -342,7 +343,7 @@ namespace ZeroInstall.Publish.Cli
 
             // Ask for passphrase to unlock secret key
             if (signedFeed.SecretKey != null && string.IsNullOrEmpty(options.OpenPgpPassphrase))
-                options.OpenPgpPassphrase = CliUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
+                options.OpenPgpPassphrase = CliUtils.ReadPassword(string.Format(SharedResources.AskForPassphrase, signedFeed.SecretKey));
 
             signedFeed.Save(path, options.OpenPgpPassphrase);
         }
@@ -366,7 +367,7 @@ namespace ZeroInstall.Publish.Cli
 
                 // Ask for passphrase to unlock secret key
                 if (signedCatalog.SecretKey != null && string.IsNullOrEmpty(options.OpenPgpPassphrase))
-                    options.OpenPgpPassphrase = CliUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
+                    options.OpenPgpPassphrase = CliUtils.ReadPassword(string.Format(SharedResources.AskForPassphrase, signedCatalog.SecretKey));
 
                 signedCatalog.Save(options.CatalogFile, options.OpenPgpPassphrase);
             }

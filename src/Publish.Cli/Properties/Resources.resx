@@ -117,10 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LicenseInfo" xml:space="preserve">
-    <value>This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
-You may redistribute copies of this program under the terms of the GNU Lesser General Public License.</value>
-  </data>
   <data name="MissingArguments" xml:space="preserve">
     <value>Missing arguments. Try {0} --help</value>
   </data>
@@ -159,9 +155,6 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   </data>
   <data name="OptionXmlSign" xml:space="preserve">
     <value>Add an XML signature block. (All remote feeds must be signed.)</value>
-  </data>
-  <data name="PleaseEnterGnuPGPassphrase" xml:space="preserve">
-    <value>Please enter your GnuPG passphrase:</value>
   </data>
   <data name="UnknownMode" xml:space="preserve">
     <value>Unknown operation mode.

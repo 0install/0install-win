@@ -20,7 +20,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using ZeroInstall.Model;
-using ZeroInstall.Publish.WinForms.Properties;
+using ZeroInstall.Publish.Properties;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {

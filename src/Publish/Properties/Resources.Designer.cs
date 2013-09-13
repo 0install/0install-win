@@ -22,7 +22,7 @@ namespace ZeroInstall.Publish.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ZeroInstall.Publish.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ZeroInstall.Publish.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace ZeroInstall.Publish.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,38 +61,232 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add missing.
+        /// </summary>
+        public static string AddMissing {
+            get {
+                return ResourceManager.GetString("AddMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the GnuPG passphrase for {0}:.
+        /// </summary>
+        public static string AskForPassphrase {
+            get {
+                return ResourceManager.GetString("AskForPassphrase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keep
+        ///The implementation was supposed to stay the same.
+        /// </summary>
+        public static string DigestKeep {
+            get {
+                return ResourceManager.GetString("DigestKeep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The manifest digest has changed. Do you wish to replace the existing one?.
+        /// </summary>
+        public static string DigestMismatch {
+            get {
+                return ResourceManager.GetString("DigestMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All other retrieval methods for this implementation must match the new digest as well!.
+        /// </summary>
+        public static string DigestOtherImplementations {
+            get {
+                return ResourceManager.GetString("DigestOtherImplementations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace
+        ///I changed the implementation on purpose.
+        /// </summary>
+        public static string DigestReplace {
+            get {
+                return ResourceManager.GetString("DigestReplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discard
+        ///Discard unsaved changes.
+        /// </summary>
+        public static string DiscardChanges {
+            get {
+                return ResourceManager.GetString("DiscardChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading image for preview....
+        /// </summary>
+        public static string DownloadingPeviewImage {
+            get {
+                return ResourceManager.GetString("DownloadingPeviewImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Empty implementation: {0}.
         /// </summary>
-        internal static string EmptyImplementation {
+        public static string EmptyImplementation {
             get {
                 return ResourceManager.GetString("EmptyImplementation", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The feed does not have the correct format..
+        /// </summary>
+        public static string FeedNotValid {
+            get {
+                return ResourceManager.GetString("FeedNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file &apos;{0}&apos; could not be found..
         /// </summary>
-        internal static string FileNotFound {
+        public static string FileNotFound {
             get {
                 return ResourceManager.GetString("FileNotFound", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A complete possibly multi-line description.
+        /// </summary>
+        public static string HintTextMultiline {
+            get {
+                return ResourceManager.GetString("HintTextMultiline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The image format is not supported by Zero Install..
+        /// </summary>
+        public static string ImageFormatNotSupported {
+            get {
+                return ResourceManager.GetString("ImageFormatNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
+        ///You may redistribute copies of this program under the terms of the GNU Lesser General Public License..
+        /// </summary>
+        public static string LicenseInfo {
+            get {
+                return ResourceManager.GetString("LicenseInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manifest digest may have changed..
+        /// </summary>
+        public static string ManifestDigestChanged {
+            get {
+                return ResourceManager.GetString("ManifestDigestChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manifest digest not calculated yet..
+        /// </summary>
+        public static string ManifestDigestMissing {
+            get {
+                return ResourceManager.GetString("ManifestDigestMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New key....
+        /// </summary>
+        public static string NewKey {
+            get {
+                return ResourceManager.GetString("NewKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please click:.
+        /// </summary>
+        public static string PleaseClick {
+            get {
+                return ResourceManager.GetString("PleaseClick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save
+        ///Save changes.
+        /// </summary>
+        public static string SaveChanges {
+            get {
+                return ResourceManager.GetString("SaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to save the changes?.
+        /// </summary>
+        public static string SaveQuestion {
+            get {
+                return ResourceManager.GetString("SaveQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The secret key is not in the user&apos;s keyring..
         /// </summary>
-        internal static string SecretKeyNotInKeyring {
+        public static string SecretKeyNotInKeyring {
             get {
                 return ResourceManager.GetString("SecretKeyNotInKeyring", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File size not determined yet..
+        /// </summary>
+        public static string SizeMissing {
+            get {
+                return ResourceManager.GetString("SizeMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown retrieval method type..
         /// </summary>
-        internal static string UnknownRetrievalMethodType {
+        public static string UnknownRetrievalMethodType {
             get {
                 return ResourceManager.GetString("UnknownRetrievalMethodType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong MIME type! Should be {0}..
+        /// </summary>
+        public static string WrongMimeType {
+            get {
+                return ResourceManager.GetString("WrongMimeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong passphrase entered..
+        /// </summary>
+        public static string WrongPassphrase {
+            get {
+                return ResourceManager.GetString("WrongPassphrase", resourceCulture);
             }
         }
     }

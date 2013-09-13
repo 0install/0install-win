@@ -117,16 +117,84 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddMissing" xml:space="preserve">
+    <value>Lücken füllen</value>
+  </data>
+  <data name="AskForPassphrase" xml:space="preserve">
+    <value>Bitte geben Sie die GnuPG Passphrase für {0} ein:</value>
+  </data>
+  <data name="DigestKeep" xml:space="preserve">
+    <value>Behalten
+Die Implementierung sollte gleich bleiben</value>
+  </data>
+  <data name="DigestMismatch" xml:space="preserve">
+    <value>Der Manifest Digest hat sich geändert. Möchten Sie den bestehenden ersetzen?</value>
+  </data>
+  <data name="DigestOtherImplementations" xml:space="preserve">
+    <value>Alle anderen Retrieval-Methoden für diese Implementierung müssen auch zum neuen Digest passen!</value>
+  </data>
+  <data name="DigestReplace" xml:space="preserve">
+    <value>Ersetzen
+Ich habe die Implementierung absichtlich verändert</value>
+  </data>
+  <data name="DiscardChanges" xml:space="preserve">
+    <value>Verwerfen
+Ungespeicherte Änderungen verwerfen</value>
+  </data>
+  <data name="DownloadingPeviewImage" xml:space="preserve">
+    <value>Das Bild wird zur Vorschau heruntergeladen...</value>
+  </data>
   <data name="EmptyImplementation" xml:space="preserve">
     <value>Leere Implementierung: {0}</value>
+  </data>
+  <data name="FeedNotValid" xml:space="preserve">
+    <value>Der Feed hat nicht das richtige Format</value>
   </data>
   <data name="FileNotFound" xml:space="preserve">
     <value>Die Datei '{0}' konnte nicht gefunden werden.</value>
   </data>
+  <data name="HintTextMultiline" xml:space="preserve">
+    <value>Eine komplette, u.U. mehrzeilige Beschreibung.</value>
+  </data>
+  <data name="ImageFormatNotSupported" xml:space="preserve">
+    <value>Das Bildformat wird von Zero Install nicht unterstützt.</value>
+  </data>
+  <data name="LicenseInfo" xml:space="preserve">
+    <value>Für dieses Programm gibt es ABSOLUT KEINE GARANTIEN, soweit dies gesetzlich zulässig ist.
+Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien dieses Programmes weitergeben.</value>
+  </data>
+  <data name="ManifestDigestChanged" xml:space="preserve">
+    <value>Manifest Digest hat sich eventuell geändert.</value>
+  </data>
+  <data name="ManifestDigestMissing" xml:space="preserve">
+    <value>Manifest Digest noch nicht berechnet.</value>
+  </data>
+  <data name="NewKey" xml:space="preserve">
+    <value>Neuer Schlüssel...</value>
+  </data>
+  <data name="PleaseClick" xml:space="preserve">
+    <value>Bitte klicken Sie:</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Speichern
+Änderungen speichern</value>
+  </data>
+  <data name="SaveQuestion" xml:space="preserve">
+    <value>Möchten Sie die Änderungen speichern?</value>
+  </data>
   <data name="SecretKeyNotInKeyring" xml:space="preserve">
     <value>Der geheime Schlüssel ist nicht im Keyring des Benutzers.</value>
   </data>
+  <data name="SizeMissing" xml:space="preserve">
+    <value>Dateigröße noch nicht bestimmt.</value>
+  </data>
   <data name="UnknownRetrievalMethodType" xml:space="preserve">
     <value>Unbekannter Typ von Retrieval Method.</value>
+  </data>
+  <data name="WrongMimeType" xml:space="preserve">
+    <value>Falscher MIME Typ! Sollte {0} sein.</value>
+  </data>
+  <data name="WrongPassphrase" xml:space="preserve">
+    <value>Passphrase falsch.</value>
   </data>
 </root>

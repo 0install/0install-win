@@ -28,7 +28,7 @@ using Common.Controls;
 using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
-using ZeroInstall.Commands.WinForms.Properties;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;

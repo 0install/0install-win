@@ -148,24 +148,13 @@
   <data name="AddButtonTooltip" xml:space="preserve">
     <value>Add to "my applications"</value>
   </data>
-  <data name="AppRemoveConfirm" xml:space="preserve">
-    <value>Are you sure you want to remove '{0}' from your application list?
-This will also remove any desktop integration applied for this application.</value>
-  </data>
-  <data name="FailedToRun" xml:space="preserve">
-    <value>Failed to run {0}.</value>
-  </data>
   <data name="ModifyButtonTooltip" xml:space="preserve">
     <value>Modify integration</value>
-  </data>
-  <data name="NoKeepApp" xml:space="preserve">
-    <value>No
-Keep the application</value>
   </data>
   <data name="RemoveButtonTooltip" xml:space="preserve">
     <value>Remove from "my applications"</value>
   </data>
-  <data name="Run" xml:space="preserve">
+  <data name="RunButtonText" xml:space="preserve">
     <value>Run</value>
   </data>
   <data name="SelectCommandButton" xml:space="preserve">
@@ -177,11 +166,7 @@ Keep the application</value>
   <data name="SetupButtonTooltip" xml:space="preserve">
     <value>Setup integration</value>
   </data>
-  <data name="UpdateButton" xml:space="preserve">
+  <data name="UpdateButtonText" xml:space="preserve">
     <value>&amp;Update</value>
-  </data>
-  <data name="YesRemoveApp" xml:space="preserve">
-    <value>Yes
-Remove the application</value>
   </data>
 </root>

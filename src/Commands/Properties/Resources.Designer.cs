@@ -22,7 +22,7 @@ namespace ZeroInstall.Commands.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ZeroInstall.Commands.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ZeroInstall.Commands.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace ZeroInstall.Commands.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Adding additional feed association.
         /// </summary>
-        internal static string ActionAddFeed {
+        public static string ActionAddFeed {
             get {
                 return ResourceManager.GetString("ActionAddFeed", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Managing desktop integration.
         /// </summary>
-        internal static string ActionAppCommand {
+        public static string ActionAppCommand {
             get {
                 return ResourceManager.GetString("ActionAppCommand", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Calculating digest.
         /// </summary>
-        internal static string ActionDigest {
+        public static string ActionDigest {
             get {
                 return ResourceManager.GetString("ActionDigest", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Downloading application.
         /// </summary>
-        internal static string ActionDownload {
+        public static string ActionDownload {
             get {
                 return ResourceManager.GetString("ActionDownload", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Removing additional feed association.
         /// </summary>
-        internal static string ActionRemoveFeed {
+        public static string ActionRemoveFeed {
             get {
                 return ResourceManager.GetString("ActionRemoveFeed", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Repairing desktop integration.
         /// </summary>
-        internal static string ActionRepairApps {
+        public static string ActionRepairApps {
             get {
                 return ResourceManager.GetString("ActionRepairApps", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Preparing to launch application.
         /// </summary>
-        internal static string ActionRun {
+        public static string ActionRun {
             get {
                 return ResourceManager.GetString("ActionRun", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Selecting implementations.
         /// </summary>
-        internal static string ActionSelection {
+        public static string ActionSelection {
             get {
                 return ResourceManager.GetString("ActionSelection", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Updating Zero Install.
         /// </summary>
-        internal static string ActionSelfUpdate {
+        public static string ActionSelfUpdate {
             get {
                 return ResourceManager.GetString("ActionSelfUpdate", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Synchronizing.
         /// </summary>
-        internal static string ActionSync {
+        public static string ActionSync {
             get {
                 return ResourceManager.GetString("ActionSync", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Checking for updates.
         /// </summary>
-        internal static string ActionUpdate {
+        public static string ActionUpdate {
             get {
                 return ResourceManager.GetString("ActionUpdate", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Updating applications.
         /// </summary>
-        internal static string ActionUpdateApps {
+        public static string ActionUpdateApps {
             get {
                 return ResourceManager.GetString("ActionUpdateApps", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to An alias named &apos;{0}&apos; for &apos;{1}&apos; was created..
         /// </summary>
-        internal static string AliasCreated {
+        public static string AliasCreated {
             get {
                 return ResourceManager.GetString("AliasCreated", resourceCulture);
             }
@@ -181,7 +181,7 @@ namespace ZeroInstall.Commands.Properties {
         ///   Looks up a localized string similar to An alias named &apos;{0}&apos; for &apos;{1}&apos; was created.
         ///You may have to close and reopen your terminal for this to become effective..
         /// </summary>
-        internal static string AliasCreatedReopenTerminal {
+        public static string AliasCreatedReopenTerminal {
             get {
                 return ResourceManager.GetString("AliasCreatedReopenTerminal", resourceCulture);
             }
@@ -190,7 +190,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to No existing alias named &apos;{0}&apos; was found..
         /// </summary>
-        internal static string AliasNotFound {
+        public static string AliasNotFound {
             get {
                 return ResourceManager.GetString("AliasNotFound", resourceCulture);
             }
@@ -199,7 +199,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The alias named &apos;{0}&apos; for &apos;{1}&apos; was removed..
         /// </summary>
-        internal static string AliasRemoved {
+        public static string AliasRemoved {
             get {
                 return ResourceManager.GetString("AliasRemoved", resourceCulture);
             }
@@ -208,7 +208,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to All required components have been downloaded..
         /// </summary>
-        internal static string AllComponentsDownloaded {
+        public static string AllComponentsDownloaded {
             get {
                 return ResourceManager.GetString("AllComponentsDownloaded", resourceCulture);
             }
@@ -217,7 +217,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Application alias.
         /// </summary>
-        internal static string AppAlias {
+        public static string AppAlias {
             get {
                 return ResourceManager.GetString("AppAlias", resourceCulture);
             }
@@ -226,7 +226,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Application list.
         /// </summary>
-        internal static string AppList {
+        public static string AppList {
             get {
                 return ResourceManager.GetString("AppList", resourceCulture);
             }
@@ -237,7 +237,7 @@ namespace ZeroInstall.Commands.Properties {
         ///If you select &apos;Yes&apos; potentially incompatible integrations will be removed.
         ///If you select &apos;No&apos; Zero Install will continue to use the old capabilities..
         /// </summary>
-        internal static string AskUpdateCapabilities {
+        public static string AskUpdateCapabilities {
             get {
                 return ResourceManager.GetString("AskUpdateCapabilities", resourceCulture);
             }
@@ -246,7 +246,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The capabilities of the application &apos;{0}&apos; have changed..
         /// </summary>
-        internal static string CapabilitiesChanged {
+        public static string CapabilitiesChanged {
             get {
                 return ResourceManager.GetString("CapabilitiesChanged", resourceCulture);
             }
@@ -255,7 +255,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Changes found:.
         /// </summary>
-        internal static string ChangesFound {
+        public static string ChangesFound {
             get {
                 return ResourceManager.GetString("ChangesFound", resourceCulture);
             }
@@ -264,7 +264,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Checking for updates.
         /// </summary>
-        internal static string CheckingForUpdates {
+        public static string CheckingForUpdates {
             get {
                 return ResourceManager.GetString("CheckingForUpdates", resourceCulture);
             }
@@ -273,16 +273,25 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Command-line arguments:.
         /// </summary>
-        internal static string CommandLineArguments {
+        public static string CommandLineArguments {
             get {
                 return ResourceManager.GetString("CommandLineArguments", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configuration.
+        /// </summary>
+        public static string Configuration {
+            get {
+                return ResourceManager.GetString("Configuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create an alias for launching an application via 0install without always having to enter the full URI..
         /// </summary>
-        internal static string DescriptionAddAlias {
+        public static string DescriptionAddAlias {
             get {
                 return ResourceManager.GetString("DescriptionAddAlias", resourceCulture);
             }
@@ -291,7 +300,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Add an application to the application list..
         /// </summary>
-        internal static string DescriptionAddApp {
+        public static string DescriptionAddApp {
             get {
                 return ResourceManager.GetString("DescriptionAddApp", resourceCulture);
             }
@@ -300,7 +309,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Register an additional source of implementations (versions) of a program..
         /// </summary>
-        internal static string DescriptionAddFeed {
+        public static string DescriptionAddFeed {
             get {
                 return ResourceManager.GetString("DescriptionAddFeed", resourceCulture);
             }
@@ -309,7 +318,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to View or change configuration settings. With no arguments, it displays all settings and their current values. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value..
         /// </summary>
-        internal static string DescriptionConfig {
+        public static string DescriptionConfig {
             get {
                 return ResourceManager.GetString("DescriptionConfig", resourceCulture);
             }
@@ -318,7 +327,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Calculate the manifest digest of a directory or archive..
         /// </summary>
-        internal static string DescriptionDigest {
+        public static string DescriptionDigest {
             get {
                 return ResourceManager.GetString("DescriptionDigest", resourceCulture);
             }
@@ -327,7 +336,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to This command behaves similarly to &apos;0install select&apos;, except that it also downloads the selected versions if they are not already cached. Unlike &apos;select&apos;, it does not print the selected versions by default. Returns an exit status of 0 if it selected a suitable set of versions and they are now all downloaded and in the cache; returns a status of 1 otherwise..
         /// </summary>
-        internal static string DescriptionDownload {
+        public static string DescriptionDownload {
             get {
                 return ResourceManager.GetString("DescriptionDownload", resourceCulture);
             }
@@ -336,7 +345,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Import a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again. The file must have a trusted digital signature, as when fetching from the network..
         /// </summary>
-        internal static string DescriptionImport {
+        public static string DescriptionImport {
             get {
                 return ResourceManager.GetString("DescriptionImport", resourceCulture);
             }
@@ -345,7 +354,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Add an application to the application list (if missing) and integrate it into the desktop environment..
         /// </summary>
-        internal static string DescriptionIntegrateApp {
+        public static string DescriptionIntegrateApp {
             get {
                 return ResourceManager.GetString("DescriptionIntegrateApp", resourceCulture);
             }
@@ -354,7 +363,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to List all known interface (program) URIs. If a search term is given, only URIs containing that string are shown (case insensitive)..
         /// </summary>
-        internal static string DescriptionList {
+        public static string DescriptionList {
             get {
                 return ResourceManager.GetString("DescriptionList", resourceCulture);
             }
@@ -363,7 +372,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to List all extra feeds added to URI using &apos;0install add-feed&apos;..
         /// </summary>
-        internal static string DescriptionListFeeds {
+        public static string DescriptionListFeeds {
             get {
                 return ResourceManager.GetString("DescriptionListFeeds", resourceCulture);
             }
@@ -372,7 +381,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Remove an application from the application list and undoes any desktop environment integration..
         /// </summary>
-        internal static string DescriptionRemoveApp {
+        public static string DescriptionRemoveApp {
             get {
                 return ResourceManager.GetString("DescriptionRemoveApp", resourceCulture);
             }
@@ -381,7 +390,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Un-register a feed, reversing the effect of &apos;add-feed&apos;. .
         /// </summary>
-        internal static string DescriptionRemoveFeed {
+        public static string DescriptionRemoveFeed {
             get {
                 return ResourceManager.GetString("DescriptionRemoveFeed", resourceCulture);
             }
@@ -390,7 +399,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Reintegrate all applications in the application list into the desktop environment..
         /// </summary>
-        internal static string DescriptionRepairApps {
+        public static string DescriptionRepairApps {
             get {
                 return ResourceManager.GetString("DescriptionRepairApps", resourceCulture);
             }
@@ -399,7 +408,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to This behaves similarly to &apos;0install download&apos;, except that it also runs the program after ensuring it is in the cache. Returns an exit status of 1 if the download step failed. Otherwise, the exit status will be the exit status of the program being run..
         /// </summary>
-        internal static string DescriptionRun {
+        public static string DescriptionRun {
             get {
                 return ResourceManager.GetString("DescriptionRun", resourceCulture);
             }
@@ -408,7 +417,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Select a version of the program identified by URI, and compatible versions of all of its dependencies. Returns an exit status of zero if it selected a set of versions, and a status of 1 if it could not find a consistent set..
         /// </summary>
-        internal static string DescriptionSelect {
+        public static string DescriptionSelect {
             get {
                 return ResourceManager.GetString("DescriptionSelect", resourceCulture);
             }
@@ -417,7 +426,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Update Zero Install itself to the most recent version..
         /// </summary>
-        internal static string DescriptionSelfUpdate {
+        public static string DescriptionSelfUpdate {
             get {
                 return ResourceManager.GetString("DescriptionSelfUpdate", resourceCulture);
             }
@@ -426,7 +435,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Synchronize the application list with the server..
         /// </summary>
-        internal static string DescriptionSync {
+        public static string DescriptionSync {
             get {
                 return ResourceManager.GetString("DescriptionSync", resourceCulture);
             }
@@ -435,7 +444,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Check for updates to the program and download them if found. This is similar to &apos;0install download --refresh&apos;, except that it prints information about whether any changes were found..
         /// </summary>
-        internal static string DescriptionUpdate {
+        public static string DescriptionUpdate {
             get {
                 return ResourceManager.GetString("DescriptionUpdate", resourceCulture);
             }
@@ -444,7 +453,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Updates all applications in the application list..
         /// </summary>
-        internal static string DescriptionUpdateApps {
+        public static string DescriptionUpdateApps {
             get {
                 return ResourceManager.GetString("DescriptionUpdateApps", resourceCulture);
             }
@@ -453,7 +462,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Desktop integration.
         /// </summary>
-        internal static string DesktopIntegration {
+        public static string DesktopIntegration {
             get {
                 return ResourceManager.GetString("DesktopIntegration", resourceCulture);
             }
@@ -462,16 +471,34 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Download complete.
         /// </summary>
-        internal static string DownloadComplete {
+        public static string DownloadComplete {
             get {
                 return ResourceManager.GetString("DownloadComplete", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A downloaded file is damaged or invalid..
+        /// </summary>
+        public static string DownloadDamaged {
+            get {
+                return ResourceManager.GetString("DownloadDamaged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the URL of the new source of implementations for this interface:.
+        /// </summary>
+        public static string EnterFeedUrl {
+            get {
+                return ResourceManager.GetString("EnterFeedUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The feed was already registered for all appropriate interfaces..
         /// </summary>
-        internal static string FeedAlreadyRegistered {
+        public static string FeedAlreadyRegistered {
             get {
                 return ResourceManager.GetString("FeedAlreadyRegistered", resourceCulture);
             }
@@ -480,7 +507,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Feed management.
         /// </summary>
-        internal static string FeedManagement {
+        public static string FeedManagement {
             get {
                 return ResourceManager.GetString("FeedManagement", resourceCulture);
             }
@@ -489,7 +516,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The feed was not registered for any interfaces..
         /// </summary>
-        internal static string FeedNotRegistered {
+        public static string FeedNotRegistered {
             get {
                 return ResourceManager.GetString("FeedNotRegistered", resourceCulture);
             }
@@ -499,7 +526,7 @@ namespace ZeroInstall.Commands.Properties {
         ///   Looks up a localized string similar to The feed was successfully registered for the following interfaces:
         ///{0}.
         /// </summary>
-        internal static string FeedRegistered {
+        public static string FeedRegistered {
             get {
                 return ResourceManager.GetString("FeedRegistered", resourceCulture);
             }
@@ -508,7 +535,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; has been replaced by &apos;{1}&apos;. Consider updating..
         /// </summary>
-        internal static string FeedReplaced {
+        public static string FeedReplaced {
             get {
                 return ResourceManager.GetString("FeedReplaced", resourceCulture);
             }
@@ -517,7 +544,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The feed for &apos;{0}&apos; ({1}) has been replaced by &apos;{2}&apos;. Do you want to use the new feed instead?.
         /// </summary>
-        internal static string FeedReplacedAsk {
+        public static string FeedReplacedAsk {
             get {
                 return ResourceManager.GetString("FeedReplacedAsk", resourceCulture);
             }
@@ -526,7 +553,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Feeds registered for &apos;{0}&apos;:.
         /// </summary>
-        internal static string FeedsRegistered {
+        public static string FeedsRegistered {
             get {
                 return ResourceManager.GetString("FeedsRegistered", resourceCulture);
             }
@@ -536,7 +563,7 @@ namespace ZeroInstall.Commands.Properties {
         ///   Looks up a localized string similar to The feed was successfully unregistered for the following interfaces:
         ///{0}.
         /// </summary>
-        internal static string FeedUnregistered {
+        public static string FeedUnregistered {
             get {
                 return ResourceManager.GetString("FeedUnregistered", resourceCulture);
             }
@@ -545,7 +572,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Unable to find file or directory &apos;{0}&apos;..
         /// </summary>
-        internal static string FileOrDirNotFound {
+        public static string FileOrDirNotFound {
             get {
                 return ResourceManager.GetString("FileOrDirNotFound", resourceCulture);
             }
@@ -554,7 +581,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Use file:///path for absolute paths, not file:/path..
         /// </summary>
-        internal static string FilePrefixAbsoluteUsage {
+        public static string FilePrefixAbsoluteUsage {
             get {
                 return ResourceManager.GetString("FilePrefixAbsoluteUsage", resourceCulture);
             }
@@ -563,9 +590,19 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Found feeds:.
         /// </summary>
-        internal static string FoundFeeds {
+        public static string FoundFeeds {
             get {
                 return ResourceManager.GetString("FoundFeeds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This feed does not seem to be for the same application. Add it anyway?
+        ///A &lt;feed-for&gt; tag indicates feed compatibility..
+        /// </summary>
+        public static string IgnoreMissingFeedFor {
+            get {
+                return ResourceManager.GetString("IgnoreMissingFeedFor", resourceCulture);
             }
         }
         
@@ -573,7 +610,7 @@ namespace ZeroInstall.Commands.Properties {
         ///   Looks up a localized string similar to This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
         ///You may redistribute copies of this program under the terms of the GNU Lesser General Public License..
         /// </summary>
-        internal static string LicenseInfo {
+        public static string LicenseInfo {
             get {
                 return ResourceManager.GetString("LicenseInfo", resourceCulture);
             }
@@ -582,7 +619,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Missing arguments..
         /// </summary>
-        internal static string MissingArguments {
+        public static string MissingArguments {
             get {
                 return ResourceManager.GetString("MissingArguments", resourceCulture);
             }
@@ -591,7 +628,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Missing &lt;feed-for&gt; element in &apos;{0}&apos;; it can&apos;t be used as a feed for any other interface..
         /// </summary>
-        internal static string MissingFeedFor {
+        public static string MissingFeedFor {
             get {
                 return ResourceManager.GetString("MissingFeedFor", resourceCulture);
             }
@@ -600,7 +637,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Missing required value for option {0}..
         /// </summary>
-        internal static string MissingOptionValue {
+        public static string MissingOptionValue {
             get {
                 return ResourceManager.GetString("MissingOptionValue", resourceCulture);
             }
@@ -609,7 +646,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to API hooking not possible due to non-cached implementation..
         /// </summary>
-        internal static string NoApiHookingNonCacheImpl {
+        public static string NoApiHookingNonCacheImpl {
             get {
                 return ResourceManager.GetString("NoApiHookingNonCacheImpl", resourceCulture);
             }
@@ -618,7 +655,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to No longer used: .
         /// </summary>
-        internal static string NoLongerUsed {
+        public static string NoLongerUsed {
             get {
                 return ResourceManager.GetString("NoLongerUsed", resourceCulture);
             }
@@ -627,7 +664,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to When running an implementation the command may not be empty..
         /// </summary>
-        internal static string NoRunWithEmptyCommand {
+        public static string NoRunWithEmptyCommand {
             get {
                 return ResourceManager.GetString("NoRunWithEmptyCommand", resourceCulture);
             }
@@ -636,7 +673,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Can only update with Feed IDs, not with selections documents..
         /// </summary>
-        internal static string NoSelectionsDocumentUpdate {
+        public static string NoSelectionsDocumentUpdate {
             get {
                 return ResourceManager.GetString("NoSelectionsDocumentUpdate", resourceCulture);
             }
@@ -645,7 +682,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Zero Install&apos;s automatic self-update was deactivated by the Administrator..
         /// </summary>
-        internal static string NoSelfUpdateDisabled {
+        public static string NoSelfUpdateDisabled {
             get {
                 return ResourceManager.GetString("NoSelfUpdateDisabled", resourceCulture);
             }
@@ -654,7 +691,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to This Zero Install instance was launched as an implementation by another Zero Install instance. It therefore cannot update itself..
         /// </summary>
-        internal static string NoSelfUpdateStore {
+        public static string NoSelfUpdateStore {
             get {
                 return ResourceManager.GetString("NoSelfUpdateStore", resourceCulture);
             }
@@ -663,7 +700,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to This operation is not available in portable mode..
         /// </summary>
-        internal static string NotAvailableInPortableMode {
+        public static string NotAvailableInPortableMode {
             get {
                 return ResourceManager.GetString("NotAvailableInPortableMode", resourceCulture);
             }
@@ -672,7 +709,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to No updates found.
         /// </summary>
-        internal static string NoUpdatesFound {
+        public static string NoUpdatesFound {
             get {
                 return ResourceManager.GetString("NoUpdatesFound", resourceCulture);
             }
@@ -681,7 +718,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The {HASH} algorithm to use for the digest..
         /// </summary>
-        internal static string OptionAlgorithm {
+        public static string OptionAlgorithm {
             get {
                 return ResourceManager.GetString("OptionAlgorithm", resourceCulture);
             }
@@ -690,7 +727,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Remove an existing alias..
         /// </summary>
-        internal static string OptionAliasRemove {
+        public static string OptionAliasRemove {
             get {
                 return ResourceManager.GetString("OptionAliasRemove", resourceCulture);
             }
@@ -699,7 +736,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Print the interface URI for the given alias..
         /// </summary>
-        internal static string OptionAliasResolve {
+        public static string OptionAliasResolve {
             get {
                 return ResourceManager.GetString("OptionAliasResolve", resourceCulture);
             }
@@ -708,7 +745,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Apply all {CATEGORY} access points..
         /// </summary>
-        internal static string OptionAppAdd {
+        public static string OptionAppAdd {
             get {
                 return ResourceManager.GetString("OptionAppAdd", resourceCulture);
             }
@@ -717,7 +754,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {CATEGORY} must be one of the following: .
         /// </summary>
-        internal static string OptionAppCategory {
+        public static string OptionAppCategory {
             get {
                 return ResourceManager.GetString("OptionAppCategory", resourceCulture);
             }
@@ -726,7 +763,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Apply all access points specified in {FILE}..
         /// </summary>
-        internal static string OptionAppImport {
+        public static string OptionAppImport {
             get {
                 return ResourceManager.GetString("OptionAppImport", resourceCulture);
             }
@@ -735,7 +772,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Remove all {CATEGORY} access points..
         /// </summary>
-        internal static string OptionAppRemove {
+        public static string OptionAppRemove {
             get {
                 return ResourceManager.GetString("OptionAppRemove", resourceCulture);
             }
@@ -745,7 +782,7 @@ namespace ZeroInstall.Commands.Properties {
         ///   Looks up a localized string similar to Run in batch mode: don&apos;t display progress reports to the user and silently answer all questions with &quot;No&quot;.
         ///Use a tray icon when in GUI mode..
         /// </summary>
-        internal static string OptionBatch {
+        public static string OptionBatch {
             get {
                 return ResourceManager.GetString("OptionBatch", resourceCulture);
             }
@@ -754,7 +791,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Require a version of the main program earlier than {VERSION}. i.e., force the use of an old version the program..
         /// </summary>
-        internal static string OptionBefore {
+        public static string OptionBefore {
             get {
                 return ResourceManager.GetString("OptionBefore", resourceCulture);
             }
@@ -763,7 +800,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Remove implementations no longer required after the update..
         /// </summary>
-        internal static string OptionClean {
+        public static string OptionClean {
             get {
                 return ResourceManager.GetString("OptionClean", resourceCulture);
             }
@@ -773,7 +810,7 @@ namespace ZeroInstall.Commands.Properties {
         ///   Looks up a localized string similar to Instead of executing the default command, use {COMMAND} instead. Possible command names are defined in the program&apos;s interface.
         ///Set to empty (&quot;&quot;) to ignore the command during selection..
         /// </summary>
-        internal static string OptionCommand {
+        public static string OptionCommand {
             get {
                 return ResourceManager.GetString("OptionCommand", resourceCulture);
             }
@@ -782,7 +819,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Forces the solver to target a specific {CPU}..
         /// </summary>
-        internal static string OptionCpu {
+        public static string OptionCpu {
             get {
                 return ResourceManager.GetString("OptionCpu", resourceCulture);
             }
@@ -791,7 +828,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Display the manifest&apos;s digest (enabled by default if --manifest is not set)..
         /// </summary>
-        internal static string OptionDigest {
+        public static string OptionDigest {
             get {
                 return ResourceManager.GetString("OptionDigest", resourceCulture);
             }
@@ -800,7 +837,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Perform the update even if the currently installed version is the same or newer..
         /// </summary>
-        internal static string OptionForceSelfUpdate {
+        public static string OptionForceSelfUpdate {
             get {
                 return ResourceManager.GetString("OptionForceSelfUpdate", resourceCulture);
             }
@@ -809,7 +846,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Show the graphical policy editor. This allows you to select which version of a program or library to use..
         /// </summary>
-        internal static string OptionGui {
+        public static string OptionGui {
             get {
                 return ResourceManager.GetString("OptionGui", resourceCulture);
             }
@@ -818,7 +855,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Show the built-in help text..
         /// </summary>
-        internal static string OptionHelp {
+        public static string OptionHelp {
             get {
                 return ResourceManager.GetString("OptionHelp", resourceCulture);
             }
@@ -827,7 +864,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Apply the configuration machine-wide (for the entire computer) instead of just for the current user..
         /// </summary>
-        internal static string OptionMachine {
+        public static string OptionMachine {
             get {
                 return ResourceManager.GetString("OptionMachine", resourceCulture);
             }
@@ -837,7 +874,7 @@ namespace ZeroInstall.Commands.Properties {
         ///   Looks up a localized string similar to Run the specified executable {MAIN} instead of the default. If it starts with &apos;/&apos; or &apos;\&apos; then the path is relative to the implementation&apos;s top-level directory, whereas otherwise it is relative to the directory containing the default main program.
         ///May not contain command-line arguments! Whitespaces do not need to be escaped..
         /// </summary>
-        internal static string OptionMain {
+        public static string OptionMain {
             get {
                 return ResourceManager.GetString("OptionMain", resourceCulture);
             }
@@ -846,7 +883,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Display the manifest itself (one line for each file or directory)..
         /// </summary>
-        internal static string OptionManifest {
+        public static string OptionManifest {
             get {
                 return ResourceManager.GetString("OptionManifest", resourceCulture);
             }
@@ -855,7 +892,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Require a version of the main program not earlier than {VERSION}. E.g., if you want to run version 2.0 or later, use --not-before=2.0..
         /// </summary>
-        internal static string OptionNotBefore {
+        public static string OptionNotBefore {
             get {
                 return ResourceManager.GetString("OptionNotBefore", resourceCulture);
             }
@@ -864,7 +901,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Immediately returns once the chosen program has been launched instead of waiting for it to finish executing. On Windows the exit code is the process ID of the launched program..
         /// </summary>
-        internal static string OptionNoWait {
+        public static string OptionNoWait {
             get {
                 return ResourceManager.GetString("OptionNoWait", resourceCulture);
             }
@@ -874,7 +911,7 @@ namespace ZeroInstall.Commands.Properties {
         ///   Looks up a localized string similar to Run in off-line mode, overriding the default setting.
         ///In off-line mode, no interfaces are refreshed even if they are out-of-date, and newer versions of programs won&apos;t be downloaded even if the injector already knows about them (e.g. from a previous refresh)..
         /// </summary>
-        internal static string OptionOffline {
+        public static string OptionOffline {
             get {
                 return ResourceManager.GetString("OptionOffline", resourceCulture);
             }
@@ -883,7 +920,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Forces the solver to target the operating system {OS}..
         /// </summary>
-        internal static string OptionOS {
+        public static string OptionOS {
             get {
                 return ResourceManager.GetString("OptionOS", resourceCulture);
             }
@@ -892,7 +929,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Fetch fresh copies of all used feeds..
         /// </summary>
-        internal static string OptionRefresh {
+        public static string OptionRefresh {
             get {
                 return ResourceManager.GetString("OptionRefresh", resourceCulture);
             }
@@ -901,7 +938,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Options:.
         /// </summary>
-        internal static string Options {
+        public static string Options {
             get {
                 return ResourceManager.GetString("Options", resourceCulture);
             }
@@ -910,7 +947,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Show where the selected components are stored on the disk..
         /// </summary>
-        internal static string OptionShow {
+        public static string OptionShow {
             get {
                 return ResourceManager.GetString("OptionShow", resourceCulture);
             }
@@ -919,7 +956,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Select source code rather than a binary. This is used internally by &apos;0compile&apos;..
         /// </summary>
-        internal static string OptionSource {
+        public static string OptionSource {
             get {
                 return ResourceManager.GetString("OptionSource", resourceCulture);
             }
@@ -928,7 +965,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Reset the synchronization data. Possible {MODE}s are &apos;none&apos; (merge data from client and server normally), &apos;client&apos; (replace all data on client with data from server) and &apos;server&apos; (replace all data on server with data from client)..
         /// </summary>
-        internal static string OptionSyncReset {
+        public static string OptionSyncReset {
             get {
                 return ResourceManager.GetString("OptionSyncReset", resourceCulture);
             }
@@ -937,7 +974,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to More verbose output. Use twice for even more verbose output..
         /// </summary>
-        internal static string OptionVerbose {
+        public static string OptionVerbose {
             get {
                 return ResourceManager.GetString("OptionVerbose", resourceCulture);
             }
@@ -946,7 +983,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Display version information..
         /// </summary>
-        internal static string OptionVersion {
+        public static string OptionVersion {
             get {
                 return ResourceManager.GetString("OptionVersion", resourceCulture);
             }
@@ -958,7 +995,7 @@ namespace ZeroInstall.Commands.Properties {
         ///Each range is in the form &quot;START..!END&quot;. The range matches versions where START &lt;= VERSION &lt; END. The start or end may be omitted.
         ///A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version..
         /// </summary>
-        internal static string OptionVersionRange {
+        public static string OptionVersionRange {
             get {
                 return ResourceManager.GetString("OptionVersionRange", resourceCulture);
             }
@@ -967,7 +1004,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Specifies the version {1:RANGE} for any library or sub-component with the given {0:URI} (as for --version)..
         /// </summary>
-        internal static string OptionVersionRangeFor {
+        public static string OptionVersionRangeFor {
             get {
                 return ResourceManager.GetString("OptionVersionRangeFor", resourceCulture);
             }
@@ -977,7 +1014,7 @@ namespace ZeroInstall.Commands.Properties {
         ///   Looks up a localized string similar to Add {DIR} to the list of implementation caches to search.
         ///However, new downloads will not be written to this directory..
         /// </summary>
-        internal static string OptionWithStore {
+        public static string OptionWithStore {
             get {
                 return ResourceManager.GetString("OptionWithStore", resourceCulture);
             }
@@ -988,7 +1025,7 @@ namespace ZeroInstall.Commands.Properties {
         ///Note that the wrapper is executed in the environment selected by the program; hence, this mechanism cannot be used for sandboxing.
         ///May contain command-line arguments. Whitespaces must be escaped!.
         /// </summary>
-        internal static string OptionWrapper {
+        public static string OptionWrapper {
             get {
                 return ResourceManager.GetString("OptionWrapper", resourceCulture);
             }
@@ -997,7 +1034,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Write selected versions to console as machine-readable XML..
         /// </summary>
-        internal static string OptionXml {
+        public static string OptionXml {
             get {
                 return ResourceManager.GetString("OptionXml", resourceCulture);
             }
@@ -1006,16 +1043,34 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Portable mode.
         /// </summary>
-        internal static string PortableMode {
+        public static string PortableMode {
             get {
                 return ResourceManager.GetString("PortableMode", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Properties for {0}.
+        /// </summary>
+        public static string PropertiesFor {
+            get {
+                return ResourceManager.GetString("PropertiesFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to remove the {0} selected entries from the list?.
+        /// </summary>
+        public static string RemoveSelectedEntries {
+            get {
+                return ResourceManager.GetString("RemoveSelectedEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Removing outdated implementations.
         /// </summary>
-        internal static string RemovingOutdated {
+        public static string RemovingOutdated {
             get {
                 return ResourceManager.GetString("RemovingOutdated", resourceCulture);
             }
@@ -1024,7 +1079,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Resolved &apos;{0}&apos; to &apos;{1}&apos; using a catalog..
         /// </summary>
-        internal static string ResolvedUsingCatalog {
+        public static string ResolvedUsingCatalog {
             get {
                 return ResourceManager.GetString("ResolvedUsingCatalog", resourceCulture);
             }
@@ -1033,7 +1088,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Selected implementations:.
         /// </summary>
-        internal static string SelectedImplementations {
+        public static string SelectedImplementations {
             get {
                 return ResourceManager.GetString("SelectedImplementations", resourceCulture);
             }
@@ -1042,7 +1097,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Supported values: {0}.
         /// </summary>
-        internal static string SupportedValues {
+        public static string SupportedValues {
             get {
                 return ResourceManager.GetString("SupportedValues", resourceCulture);
             }
@@ -1051,25 +1106,43 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Too many arguments or unknown options..
         /// </summary>
-        internal static string TooManyArguments {
+        public static string TooManyArguments {
             get {
                 return ResourceManager.GetString("TooManyArguments", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Try {0} --help.
+        /// </summary>
+        public static string TryHelp {
+            get {
+                return ResourceManager.GetString("TryHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Try --help with one of these:.
         /// </summary>
-        internal static string TryHelpWith {
+        public static string TryHelpWith {
             get {
                 return ResourceManager.GetString("TryHelpWith", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to load feed &apos;{0}&apos;; skipping..
+        /// </summary>
+        public static string UnableToLoadFeed {
+            get {
+                return ResourceManager.GetString("UnableToLoadFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown category: {0}.
         /// </summary>
-        internal static string UnknownCategory {
+        public static string UnknownCategory {
             get {
                 return ResourceManager.GetString("UnknownCategory", resourceCulture);
             }
@@ -1078,7 +1151,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Unknown command &apos;{0}&apos;..
         /// </summary>
-        internal static string UnknownCommand {
+        public static string UnknownCommand {
             get {
                 return ResourceManager.GetString("UnknownCommand", resourceCulture);
             }
@@ -1087,7 +1160,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Unknown option..
         /// </summary>
-        internal static string UnknownOption {
+        public static string UnknownOption {
             get {
                 return ResourceManager.GetString("UnknownOption", resourceCulture);
             }
@@ -1096,7 +1169,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Unknown synchronization reset mode..
         /// </summary>
-        internal static string UnknownResetMode {
+        public static string UnknownResetMode {
             get {
                 return ResourceManager.GetString("UnknownResetMode", resourceCulture);
             }
@@ -1105,7 +1178,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Usage:.
         /// </summary>
-        internal static string Usage {
+        public static string Usage {
             get {
                 return ResourceManager.GetString("Usage", resourceCulture);
             }
@@ -1114,7 +1187,7 @@ namespace ZeroInstall.Commands.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Version information:.
         /// </summary>
-        internal static string VersionInformation {
+        public static string VersionInformation {
             get {
                 return ResourceManager.GetString("VersionInformation", resourceCulture);
             }

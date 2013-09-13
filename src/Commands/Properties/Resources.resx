@@ -192,6 +192,9 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
   <data name="CommandLineArguments" xml:space="preserve">
     <value>Command-line arguments:</value>
   </data>
+  <data name="Configuration" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
   <data name="DescriptionAddAlias" xml:space="preserve">
     <value>Create an alias for launching an application via 0install without always having to enter the full URI.</value>
   </data>
@@ -255,6 +258,12 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
   <data name="DownloadComplete" xml:space="preserve">
     <value>Download complete</value>
   </data>
+  <data name="DownloadDamaged" xml:space="preserve">
+    <value>A downloaded file is damaged or invalid.</value>
+  </data>
+  <data name="EnterFeedUrl" xml:space="preserve">
+    <value>Please enter the URL of the new source of implementations for this interface:</value>
+  </data>
   <data name="FeedAlreadyRegistered" xml:space="preserve">
     <value>The feed was already registered for all appropriate interfaces.</value>
   </data>
@@ -289,6 +298,10 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
   </data>
   <data name="FoundFeeds" xml:space="preserve">
     <value>Found feeds:</value>
+  </data>
+  <data name="IgnoreMissingFeedFor" xml:space="preserve">
+    <value>This feed does not seem to be for the same application. Add it anyway?
+A &lt;feed-for&gt; tag indicates feed compatibility.</value>
   </data>
   <data name="LicenseInfo" xml:space="preserve">
     <value>This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
@@ -445,6 +458,12 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   <data name="PortableMode" xml:space="preserve">
     <value>Portable mode</value>
   </data>
+  <data name="PropertiesFor" xml:space="preserve">
+    <value>Properties for {0}</value>
+  </data>
+  <data name="RemoveSelectedEntries" xml:space="preserve">
+    <value>Do you want to remove the {0} selected entries from the list?</value>
+  </data>
   <data name="RemovingOutdated" xml:space="preserve">
     <value>Removing outdated implementations</value>
   </data>
@@ -460,8 +479,14 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   <data name="TooManyArguments" xml:space="preserve">
     <value>Too many arguments or unknown options.</value>
   </data>
+  <data name="TryHelp" xml:space="preserve">
+    <value>Try {0} --help</value>
+  </data>
   <data name="TryHelpWith" xml:space="preserve">
     <value>Try --help with one of these:</value>
+  </data>
+  <data name="UnableToLoadFeed" xml:space="preserve">
+    <value>Unable to load feed '{0}'; skipping.</value>
   </data>
   <data name="UnknownCategory" xml:space="preserve">
     <value>Unknown category: {0}</value>

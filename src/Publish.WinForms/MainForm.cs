@@ -22,7 +22,7 @@ using Common;
 using Common.Controls;
 using Common.Info;
 using Common.Utils;
-using ZeroInstall.Publish.WinForms.Properties;
+using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish.WinForms

@@ -30,7 +30,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using ZeroInstall.Backend;
-using ZeroInstall.Commands.WinForms.Properties;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Preferences;

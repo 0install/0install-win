@@ -61,6 +61,16 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove &apos;{0}&apos; from your application list?
+        ///This will also remove any desktop integration applied for this application..
+        /// </summary>
+        public static string AppRemoveConfirm {
+            get {
+                return ResourceManager.GetString("AppRemoveConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
