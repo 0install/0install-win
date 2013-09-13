@@ -1217,33 +1217,4 @@
         /AesQfADrEHgB6xB4H+sQf//rEE=
 </value>
   </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="Change" xml:space="preserve">
-    <value>Change</value>
-  </data>
-  <data name="DataGridCommandAccessPointHelp" xml:space="preserve">
-    <value>Start entering text in the last line to create a new entry.
-Select an entire line by clicking in the first column and then press DEL on the keyboard to remove an entry.</value>
-  </data>
-  <data name="DataGridDefaultAccessPointHelp" xml:space="preserve">
-    <value>Set a checkbox to make a capability your desired default handler.
-Remove a checkbox to remove a capability's default status (it still remains available).</value>
-  </data>
-  <data name="Done" xml:space="preserve">
-    <value>Done</value>
-  </data>
-  <data name="Hide" xml:space="preserve">
-    <value>Hide</value>
-  </data>
-  <data name="Integrate" xml:space="preserve">
-    <value>Integrate {0}</value>
-  </data>
-  <data name="PortableMode" xml:space="preserve">
-    <value>Portable mode</value>
-  </data>
-  <data name="Working" xml:space="preserve">
-    <value>Working</value>
-  </data>
 </root>

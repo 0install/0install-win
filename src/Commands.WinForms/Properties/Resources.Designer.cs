@@ -61,95 +61,12 @@ namespace ZeroInstall.Commands.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        internal static string Cancel {
-            get {
-                return ResourceManager.GetString("Cancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Change.
-        /// </summary>
-        internal static string Change {
-            get {
-                return ResourceManager.GetString("Change", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start entering text in the last line to create a new entry.
-        ///Select an entire line by clicking in the first column and then press DEL on the keyboard to remove an entry..
-        /// </summary>
-        internal static string DataGridCommandAccessPointHelp {
-            get {
-                return ResourceManager.GetString("DataGridCommandAccessPointHelp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set a checkbox to make a capability your desired default handler.
-        ///Remove a checkbox to remove a capability&apos;s default status (it still remains available)..
-        /// </summary>
-        internal static string DataGridDefaultAccessPointHelp {
-            get {
-                return ResourceManager.GetString("DataGridDefaultAccessPointHelp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Done.
-        /// </summary>
-        internal static string Done {
-            get {
-                return ResourceManager.GetString("Done", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hide.
-        /// </summary>
-        internal static string Hide {
-            get {
-                return ResourceManager.GetString("Hide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Integrate {0}.
-        /// </summary>
-        internal static string Integrate {
-            get {
-                return ResourceManager.GetString("Integrate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Portable mode.
-        /// </summary>
-        internal static string PortableMode {
-            get {
-                return ResourceManager.GetString("PortableMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon TrayIcon {
             get {
                 object obj = ResourceManager.GetObject("TrayIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Working.
-        /// </summary>
-        internal static string Working {
-            get {
-                return ResourceManager.GetString("Working", resourceCulture);
             }
         }
     }

@@ -117,13 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CaptureDirInitialized" xml:space="preserve">
-    <value>Capture directory initialized.</value>
-  </data>
-  <data name="InstallDataCollected" xml:space="preserve">
-    <value>Installation data collected.
-Please edit the newly created 'feed.xml' to fit your needs.</value>
-  </data>
   <data name="MissingArguments" xml:space="preserve">
     <value>Missing arguments. Try {0} --help</value>
   </data>
@@ -147,12 +140,6 @@ Please edit the newly created 'feed.xml' to fit your needs.</value>
   </data>
   <data name="OptionVersion" xml:space="preserve">
     <value>Display version information.</value>
-  </data>
-  <data name="PostInstallSnapshotCreated" xml:space="preserve">
-    <value>Post-installation snapshot created.</value>
-  </data>
-  <data name="PreInstallSnapshotCreated" xml:space="preserve">
-    <value>Pre-installation snapshot created.</value>
   </data>
   <data name="UnknownMode" xml:space="preserve">
     <value>Unknown operation mode.

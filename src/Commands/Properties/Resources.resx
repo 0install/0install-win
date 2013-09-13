@@ -180,8 +180,14 @@ You may have to close and reopen your terminal for this to become effective.</va
 If you select 'Yes' potentially incompatible integrations will be removed.
 If you select 'No' Zero Install will continue to use the old capabilities.</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="CapabilitiesChanged" xml:space="preserve">
     <value>The capabilities of the application '{0}' have changed.</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
   </data>
   <data name="ChangesFound" xml:space="preserve">
     <value>Changes found:</value>
@@ -194,6 +200,14 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
   </data>
   <data name="Configuration" xml:space="preserve">
     <value>Configuration</value>
+  </data>
+  <data name="DataGridCommandAccessPointHelp" xml:space="preserve">
+    <value>Start entering text in the last line to create a new entry.
+Select an entire line by clicking in the first column and then press DEL on the keyboard to remove an entry.</value>
+  </data>
+  <data name="DataGridDefaultAccessPointHelp" xml:space="preserve">
+    <value>Set a checkbox to make a capability your desired default handler.
+Remove a checkbox to remove a capability's default status (it still remains available).</value>
   </data>
   <data name="DescriptionAddAlias" xml:space="preserve">
     <value>Create an alias for launching an application via 0install without always having to enter the full URI.</value>
@@ -255,6 +269,9 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
   <data name="DesktopIntegration" xml:space="preserve">
     <value>Desktop integration</value>
   </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
   <data name="DownloadComplete" xml:space="preserve">
     <value>Download complete</value>
   </data>
@@ -299,9 +316,15 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
   <data name="FoundFeeds" xml:space="preserve">
     <value>Found feeds:</value>
   </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
   <data name="IgnoreMissingFeedFor" xml:space="preserve">
     <value>This feed does not seem to be for the same application. Add it anyway?
 A &lt;feed-for&gt; tag indicates feed compatibility.</value>
+  </data>
+  <data name="Integrate" xml:space="preserve">
+    <value>Integrate {0}</value>
   </data>
   <data name="LicenseInfo" xml:space="preserve">
     <value>This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
@@ -458,6 +481,9 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   <data name="PortableMode" xml:space="preserve">
     <value>Portable mode</value>
   </data>
+  <data name="PortableMode1" xml:space="preserve">
+    <value>Portable mode</value>
+  </data>
   <data name="PropertiesFor" xml:space="preserve">
     <value>Properties for {0}</value>
   </data>
@@ -505,5 +531,8 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   </data>
   <data name="VersionInformation" xml:space="preserve">
     <value>Version information:</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Working</value>
   </data>
 </root>

@@ -117,11 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CaptureDirInitialized" xml:space="preserve">
+    <value>Capture Verzeichnis initialisiert.</value>
+  </data>
   <data name="DirectoryNotEmpty" xml:space="preserve">
     <value>Das Verzeichnis '{0}' ist nicht leer.</value>
   </data>
   <data name="InstallationDirDetected" xml:space="preserve">
     <value>'{0}' als Installationsverzeichnis erkannt.</value>
+  </data>
+  <data name="InstallDataCollected" xml:space="preserve">
+    <value>Installationsdaten erfasst.
+Bitte bearbeiten Sie die neu angelegte 'feed.xml' Ihren Anforderungen entsprechend.</value>
   </data>
   <data name="InvalidCapabilitiesRegistryPath" xml:space="preserve">
     <value>Ungültiger Capabilities Registrierungspfad: {0}</value>
@@ -146,5 +153,11 @@
   </data>
   <data name="OnlyAvailableOnWindows" xml:space="preserve">
     <value>Diese Methode steht derzeit nur unter Windows zur Verfügung.</value>
+  </data>
+  <data name="PostInstallSnapshotCreated" xml:space="preserve">
+    <value>Post-Installation Schnappschuss erstellt.</value>
+  </data>
+  <data name="PreInstallSnapshotCreated" xml:space="preserve">
+    <value>Prä-Installation Schnappschuss erstellt.</value>
   </data>
 </root>

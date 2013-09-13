@@ -61,6 +61,15 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to &quot;my applications&quot;.
+        /// </summary>
+        public static string AddButtonTooltip {
+            get {
+                return ResourceManager.GetString("AddButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to remove &apos;{0}&apos; from your application list?
         ///This will also remove any desktop integration applied for this application..
         /// </summary>
@@ -244,6 +253,15 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modify integration.
+        /// </summary>
+        public static string ModifyButtonTooltip {
+            get {
+                return ResourceManager.GetString("ModifyButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Changing these options may prevent Zero Install from working correctly. Are you sure you want to continue?.
         /// </summary>
         public static string OptionsAdvancedWarn {
@@ -289,6 +307,15 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove from &quot;my applications&quot;.
+        /// </summary>
+        public static string RemoveButtonTooltip {
+            get {
+                return ResourceManager.GetString("RemoveButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to remove the {0} checked keys from the list?.
         /// </summary>
         public static string RemoveCheckedKeys {
@@ -303,6 +330,15 @@ namespace ZeroInstall.Central.Properties {
         public static string RemoveSelectedEntries {
             get {
                 return ResourceManager.GetString("RemoveSelectedEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run.
+        /// </summary>
+        public static string RunButtonText {
+            get {
+                return ResourceManager.GetString("RunButtonText", resourceCulture);
             }
         }
         
@@ -354,6 +390,24 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select &amp;command.
+        /// </summary>
+        public static string SelectCommandButton {
+            get {
+                return ResourceManager.GetString("SelectCommandButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select &amp;version.
+        /// </summary>
+        public static string SelectVersionButton {
+            get {
+                return ResourceManager.GetString("SelectVersionButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An update to Zero Install v{0} is available. Install now? (recommended).
         /// </summary>
         public static string SelfUpdateAvailable {
@@ -379,6 +433,15 @@ namespace ZeroInstall.Central.Properties {
         public static string SelfUpdateYes {
             get {
                 return ResourceManager.GetString("SelfUpdateYes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setup integration.
+        /// </summary>
+        public static string SetupButtonTooltip {
+            get {
+                return ResourceManager.GetString("SetupButtonTooltip", resourceCulture);
             }
         }
         
@@ -491,6 +554,15 @@ namespace ZeroInstall.Central.Properties {
         public static string UpdateAllCleanWillRemove {
             get {
                 return ResourceManager.GetString("UpdateAllCleanWillRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Update.
+        /// </summary>
+        public static string UpdateButtonText {
+            get {
+                return ResourceManager.GetString("UpdateButtonText", resourceCulture);
             }
         }
         

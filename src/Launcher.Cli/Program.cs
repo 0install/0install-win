@@ -28,7 +28,7 @@ using NDesk.Options;
 using ZeroInstall.Backend;
 using ZeroInstall.Injector;
 using ZeroInstall.Commands;
-using ZeroInstall.Launcher.Cli.Properties;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Trust;

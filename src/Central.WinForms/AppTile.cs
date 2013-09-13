@@ -42,10 +42,10 @@ namespace ZeroInstall.Central.WinForms
     {
         #region Variables
         // Static resource preload
-        private static readonly string _runButtonText = Resources.RunButtonText;
+        private static readonly string _runButtonText = SharedResources.RunButtonText;
         private static readonly Bitmap _addButton = Resources.AddButton, _removeButton = Resources.RemoveButton, _setupButton = Resources.SetupButton, _modifyButton = Resources.ModifyButton;
-        private static readonly string _addButtonTooltip = Resources.AddButtonTooltip, _removeButtonTooltip = Resources.RemoveButtonTooltip, _setupButtonTooltip = Resources.SetupButtonTooltip, _modifyButtonTooltip = Resources.ModifyButtonTooltip;
-        private static readonly string _selectCommandButton = Resources.SelectCommandButton, _selectVersionButton = Resources.SelectVersionButton, _updateButtonText = Resources.UpdateButtonText;
+        private static readonly string _addButtonTooltip = SharedResources.AddButtonTooltip, _removeButtonTooltip = SharedResources.RemoveButtonTooltip, _setupButtonTooltip = SharedResources.SetupButtonTooltip, _modifyButtonTooltip = SharedResources.ModifyButtonTooltip;
+        private static readonly string _selectCommandButton = SharedResources.SelectCommandButton, _selectVersionButton = SharedResources.SelectVersionButton, _updateButtonText = SharedResources.UpdateButtonText;
 
         /// <summary>Apply operations machine-wide instead of just for the current user.</summary>
         private readonly bool _machineWide;

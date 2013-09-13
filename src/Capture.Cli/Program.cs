@@ -23,6 +23,7 @@ using System.Text;
 using Common;
 using NDesk.Options;
 using ZeroInstall.Capture.Cli.Properties;
+using SharedResources = ZeroInstall.Capture.Properties.Resources;
 
 namespace ZeroInstall.Capture.Cli
 {
@@ -245,7 +246,7 @@ namespace ZeroInstall.Capture.Cli
                 case "init":
                 {
                     CaptureDir.Create(results.DirectoryPath);
-                    Console.WriteLine(Resources.CaptureDirInitialized);
+                    Console.WriteLine(SharedResources.CaptureDirInitialized);
                     return ErrorLevel.OK;
                 }
 
@@ -267,7 +268,7 @@ namespace ZeroInstall.Capture.Cli
                     #endregion
 
                     captureDir.TakeSnapshotPre();
-                    Console.WriteLine(Resources.PreInstallSnapshotCreated);
+                    Console.WriteLine(SharedResources.PreInstallSnapshotCreated);
                     return ErrorLevel.OK;
                 }
 
@@ -289,7 +290,7 @@ namespace ZeroInstall.Capture.Cli
                     #endregion
 
                     captureDir.TakeSnapshotPost();
-                    Console.WriteLine(Resources.PostInstallSnapshotCreated);
+                    Console.WriteLine(SharedResources.PostInstallSnapshotCreated);
                     return ErrorLevel.OK;
                 }
 
@@ -306,7 +307,7 @@ namespace ZeroInstall.Capture.Cli
                     #endregion
 
                     captureDir.Collect(results.InstallationDirectory, results.MainExe, results.GetFiles);
-                    Console.WriteLine(Resources.InstallDataCollected);
+                    Console.WriteLine(SharedResources.InstallDataCollected);
                     return ErrorLevel.OK;
                 }
 

@@ -22,7 +22,7 @@ using System.Windows.Forms;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.Commands.WinForms.Properties;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Preferences;

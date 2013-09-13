@@ -71,15 +71,6 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add to &quot;my applications&quot;.
-        /// </summary>
-        internal static string AddButtonTooltip {
-            get {
-                return ResourceManager.GetString("AddButtonTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap App {
@@ -140,15 +131,6 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modify integration.
-        /// </summary>
-        internal static string ModifyButtonTooltip {
-            get {
-                return ResourceManager.GetString("ModifyButtonTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap RemoveButton {
@@ -159,66 +141,12 @@ namespace ZeroInstall.Central.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove from &quot;my applications&quot;.
-        /// </summary>
-        internal static string RemoveButtonTooltip {
-            get {
-                return ResourceManager.GetString("RemoveButtonTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Run.
-        /// </summary>
-        internal static string RunButtonText {
-            get {
-                return ResourceManager.GetString("RunButtonText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select &amp;command.
-        /// </summary>
-        internal static string SelectCommandButton {
-            get {
-                return ResourceManager.GetString("SelectCommandButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select &amp;version.
-        /// </summary>
-        internal static string SelectVersionButton {
-            get {
-                return ResourceManager.GetString("SelectVersionButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap SetupButton {
             get {
                 object obj = ResourceManager.GetObject("SetupButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Setup integration.
-        /// </summary>
-        internal static string SetupButtonTooltip {
-            get {
-                return ResourceManager.GetString("SetupButtonTooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &amp;Update.
-        /// </summary>
-        internal static string UpdateButtonText {
-            get {
-                return ResourceManager.GetString("UpdateButtonText", resourceCulture);
             }
         }
     }

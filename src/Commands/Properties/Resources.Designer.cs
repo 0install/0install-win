@@ -244,11 +244,29 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The capabilities of the application &apos;{0}&apos; have changed..
         /// </summary>
         public static string CapabilitiesChanged {
             get {
                 return ResourceManager.GetString("CapabilitiesChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change.
+        /// </summary>
+        public static string Change {
+            get {
+                return ResourceManager.GetString("Change", resourceCulture);
             }
         }
         
@@ -285,6 +303,26 @@ namespace ZeroInstall.Commands.Properties {
         public static string Configuration {
             get {
                 return ResourceManager.GetString("Configuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start entering text in the last line to create a new entry.
+        ///Select an entire line by clicking in the first column and then press DEL on the keyboard to remove an entry..
+        /// </summary>
+        public static string DataGridCommandAccessPointHelp {
+            get {
+                return ResourceManager.GetString("DataGridCommandAccessPointHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set a checkbox to make a capability your desired default handler.
+        ///Remove a checkbox to remove a capability&apos;s default status (it still remains available)..
+        /// </summary>
+        public static string DataGridDefaultAccessPointHelp {
+            get {
+                return ResourceManager.GetString("DataGridDefaultAccessPointHelp", resourceCulture);
             }
         }
         
@@ -469,6 +507,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Done.
+        /// </summary>
+        public static string Done {
+            get {
+                return ResourceManager.GetString("Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download complete.
         /// </summary>
         public static string DownloadComplete {
@@ -597,12 +644,30 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hide.
+        /// </summary>
+        public static string Hide {
+            get {
+                return ResourceManager.GetString("Hide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This feed does not seem to be for the same application. Add it anyway?
         ///A &lt;feed-for&gt; tag indicates feed compatibility..
         /// </summary>
         public static string IgnoreMissingFeedFor {
             get {
                 return ResourceManager.GetString("IgnoreMissingFeedFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Integrate {0}.
+        /// </summary>
+        public static string Integrate {
+            get {
+                return ResourceManager.GetString("Integrate", resourceCulture);
             }
         }
         
@@ -1050,6 +1115,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Portable mode.
+        /// </summary>
+        public static string PortableMode1 {
+            get {
+                return ResourceManager.GetString("PortableMode1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Properties for {0}.
         /// </summary>
         public static string PropertiesFor {
@@ -1190,6 +1264,15 @@ namespace ZeroInstall.Commands.Properties {
         public static string VersionInformation {
             get {
                 return ResourceManager.GetString("VersionInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Working.
+        /// </summary>
+        public static string Working {
+            get {
+                return ResourceManager.GetString("Working", resourceCulture);
             }
         }
     }

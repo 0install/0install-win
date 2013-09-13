@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddButtonTooltip" xml:space="preserve">
+    <value>Zu "Meine Anwendungen" hinzufügen</value>
+  </data>
   <data name="AppRemoveConfirm" xml:space="preserve">
     <value>Sind Sie sicher, dass Sie '{0}' aus Ihrer Anwendungsliste entfernen möchten?
 Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
@@ -179,6 +182,9 @@ fügen Sie sie zu "Meine Anwendungen" hinzu.</value>
   <data name="MachineWideMode" xml:space="preserve">
     <value>Maschinenweiter Modus</value>
   </data>
+  <data name="ModifyButtonTooltip" xml:space="preserve">
+    <value>Integration ändern</value>
+  </data>
   <data name="OptionsAdvancedWarn" xml:space="preserve">
     <value>Wenn Sie diese Einstellungen ändern, könnte das Zero Install daran hindern korrekt zu funktionieren. Sind Sie sicher, dass Sie fortsetzen möchten?</value>
   </data>
@@ -194,11 +200,17 @@ fügen Sie sie zu "Meine Anwendungen" hinzu.</value>
   <data name="RemoveAllEntries" xml:space="preserve">
     <value>Möchten Sie alle Einträge aus der Liste entfernen?</value>
   </data>
+  <data name="RemoveButtonTooltip" xml:space="preserve">
+    <value>Aus "Meine Anwendungen" entfernen</value>
+  </data>
   <data name="RemoveCheckedKeys" xml:space="preserve">
     <value>Möchten Sie die {0} angehakten Keys aus der Liste entfernen?</value>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Möchten Sie die {0} ausgewählten Einträge aus der Liste entfernen?</value>
+  </data>
+  <data name="RunButtonText" xml:space="preserve">
+    <value>Start</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Möchten Sie bereits vorgenommene Änderungen speichern?</value>
@@ -217,6 +229,12 @@ fügen Sie sie zu "Meine Anwendungen" hinzu.</value>
   <data name="SelectCommand" xml:space="preserve">
     <value>Kommando für {0} auswählen</value>
   </data>
+  <data name="SelectCommandButton" xml:space="preserve">
+    <value>&amp;Kommando auswählen</value>
+  </data>
+  <data name="SelectVersionButton" xml:space="preserve">
+    <value>&amp;Version auswählen</value>
+  </data>
   <data name="SelfUpdateAvailable" xml:space="preserve">
     <value>Ein Update auf Zero Install v{0} ist verfügbar. Jetzt installieren? (empfohlen)</value>
   </data>
@@ -227,6 +245,9 @@ Update vorerst ignorieren</value>
   <data name="SelfUpdateYes" xml:space="preserve">
     <value>Ja
 Update installieren</value>
+  </data>
+  <data name="SetupButtonTooltip" xml:space="preserve">
+    <value>Integration einrichten</value>
   </data>
   <data name="SyncCompleteSetupFirst" xml:space="preserve">
     <value>Sie müssen Sync Setup zuerst abschließen.</value>
@@ -267,6 +288,9 @@ Verschlüsselte Verbindungen nutzenen einen https:// Präfix.</value>
   <data name="UpdateAllCleanWillRemove" xml:space="preserve">
     <value>Dies entfernt automatisch Implementierungen, die nach dem Update nicht mehr benötigt werden, aus dem Cache. Fortsetzen?
 Wichtig: Anwendnungen die Sie in der Vergangenheit mit "Start" aufgerufen haben ohne sie "Meine Anwendungen" hinzuzufügen werden auch aus dem Cache entfernt.  Sie müssen online sein falls Sie sie erneut ausführen.</value>
+  </data>
+  <data name="UpdateButtonText" xml:space="preserve">
+    <value>&amp;Aktualisieren</value>
   </data>
   <data name="Working" xml:space="preserve">
     <value>Arbeite...</value>

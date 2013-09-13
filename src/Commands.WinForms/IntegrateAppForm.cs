@@ -27,7 +27,7 @@ using Common.Collections;
 using Common.Controls;
 using Common.Utils;
 using ZeroInstall.Commands.WinForms.CapabilityModels;
-using ZeroInstall.Commands.WinForms.Properties;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
 using AccessPoints = ZeroInstall.DesktopIntegration.AccessPoints;

@@ -21,7 +21,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
-using ZeroInstall.Updater.WinForms.Properties;
+using ZeroInstall.Updater.Properties;
 
 namespace ZeroInstall.Updater.WinForms
 {

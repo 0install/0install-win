@@ -180,8 +180,14 @@ Sie müssen eventuell ihr Terminal schließen und wieder öffnen damit dies wirk
 Wenn Sie 'Ja' wählen werden möglicherweise nicht mehr kompatible Integrationen entfernt.
 Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
   <data name="CapabilitiesChanged" xml:space="preserve">
     <value>Die Fähigkeiten der Anwendung '{0}' haben sich geändert.</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Ändern</value>
   </data>
   <data name="ChangesFound" xml:space="preserve">
     <value>Gefundene Änderungen:</value>
@@ -194,6 +200,14 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
   </data>
   <data name="Configuration" xml:space="preserve">
     <value>Konfiguration</value>
+  </data>
+  <data name="DataGridCommandAccessPointHelp" xml:space="preserve">
+    <value>Beginnen Sie Text in der letzten Zeile einzugeben um einen neuen Eintrag anzulegen.
+Wählen Sie eine komplette Zeile aus, indem Sie in die erste Spalte klicken, und drücken sie dann ENTF auf der Tastatur um einen Eintrag zu entfernen.</value>
+  </data>
+  <data name="DataGridDefaultAccessPointHelp" xml:space="preserve">
+    <value>Setzen Sie ein Häkchen um eine Fähigkeit als Ihren bevorzugten Standardhandler zu markieren.
+Entfernen Sie ein Häckchen um den Standard-Status einer Fähigkeit zu entfernen (die Fähigkeit selber bleibt weiterhin verfügbar).</value>
   </data>
   <data name="DescriptionAddAlias" xml:space="preserve">
     <value>Lege einen Alias zum Starten einer Anwendung via Zero Install ohne immer die vollständige URI eingeben zu müssen an.</value>
@@ -255,6 +269,9 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
   <data name="DesktopIntegration" xml:space="preserve">
     <value>Desktopintegration</value>
   </data>
+  <data name="Done" xml:space="preserve">
+    <value>Fertig</value>
+  </data>
   <data name="DownloadComplete" xml:space="preserve">
     <value>Download abgeschlossen</value>
   </data>
@@ -299,9 +316,15 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
   <data name="FoundFeeds" xml:space="preserve">
     <value>Gefundene Feeds:</value>
   </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Verstecken</value>
+  </data>
   <data name="IgnoreMissingFeedFor" xml:space="preserve">
     <value>Dieser Feed scheint nicht für die gleiche Anwendung zu sein. Trotzdem hinzufügen?
 Ein &lt;feed-for&gt; Tag zeigt Feed-Kompatibilität an.</value>
+  </data>
+  <data name="Integrate" xml:space="preserve">
+    <value>Integriere {0}</value>
   </data>
   <data name="LicenseInfo" xml:space="preserve">
     <value>Für dieses Programm gibt es ABSOLUT KEINE GARANTIEN, soweit dies gesetzlich zulässig ist.
@@ -458,6 +481,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="PortableMode" xml:space="preserve">
     <value>Portabler Modus</value>
   </data>
+  <data name="PortableMode1" xml:space="preserve">
+    <value>Portabler Modus</value>
+  </data>
   <data name="PropertiesFor" xml:space="preserve">
     <value>Eigenschaften für {0}</value>
   </data>
@@ -505,5 +531,8 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="VersionInformation" xml:space="preserve">
     <value>Versionsinformationen:</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Arbeite</value>
   </data>
 </root>

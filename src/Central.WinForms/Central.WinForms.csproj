@@ -258,9 +258,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.de.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="SelectCommandDialog.de.resx">
       <DependentUpon>SelectCommandDialog.cs</DependentUpon>
     </EmbeddedResource>
