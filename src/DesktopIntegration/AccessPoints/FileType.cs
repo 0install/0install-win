@@ -57,7 +57,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             var capability = appEntry.GetCapability<Capabilities.FileType>(Capability);
             if (capability == null) return;
 
-            if (WindowsUtils.IsWindows) Windows.FileType.Register(new InterfaceFeed(appEntry.InterfaceID, feed), capability, machineWide, handler, true);
+            var target = new InterfaceFeed(appEntry.InterfaceID, feed);
+            if (WindowsUtils.IsWindows) Windows.FileType.Register(target, capability, machineWide, handler, true);
         }
 
         /// <inheritdoc/>

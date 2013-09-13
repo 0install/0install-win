@@ -16,6 +16,7 @@
  */
 
 using System;
+using Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Model;
 
@@ -24,24 +25,24 @@ namespace ZeroInstall.DesktopIntegration.Unix
     /// <summary>
     /// Utility class for creating and modifying FreeDesktop.org Desktop Entries.
     /// </summary>
-    public static class DesktopManager
+    public static class FreeDesktop
     {
-        public static void CreateIcon(DesktopIcon desktopIcon, Feed feed, bool machineWide)
+        public static void Create(MenuEntry menuEntry, InterfaceFeed target, bool machineWide, ITaskHandler handler)
         {
             throw new NotImplementedException();
         }
 
-        public static void RemoveIcon(DesktopIcon desktopIcon, bool machineWide)
+        public static void Remove(MenuEntry menuEntry, bool machineWide)
         {
             throw new NotImplementedException();
         }
 
-        public static void CreateMenuEntry(MenuEntry menuEntry, Feed feed, bool machineWide)
+        public static void Create(DesktopIcon desktopIcon, InterfaceFeed target, bool machineWide, ITaskHandler handler)
         {
             throw new NotImplementedException();
         }
 
-        public static void RemoveMenuEntry(MenuEntry menuEntry, bool machineWide)
+        public static void Remove(DesktopIcon desktopIcon, bool machineWide)
         {
             throw new NotImplementedException();
         }

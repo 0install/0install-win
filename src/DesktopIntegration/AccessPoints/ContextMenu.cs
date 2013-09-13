@@ -57,8 +57,9 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             var capability = appEntry.GetCapability<Capabilities.ContextMenu>(Capability);
             if (capability == null) return;
 
-            if (WindowsUtils.IsWindows) Windows.ContextMenu.Apply(new InterfaceFeed(appEntry.InterfaceID, feed), capability, machineWide, handler);
-            else if (MonoUtils.IsUnix) Unix.ContextMenu.Apply(new InterfaceFeed(appEntry.InterfaceID, feed), capability, machineWide, handler);
+            var target = new InterfaceFeed(appEntry.InterfaceID, feed);
+            if (WindowsUtils.IsWindows) Windows.ContextMenu.Apply(target, capability, machineWide, handler);
+            else if (MonoUtils.IsUnix) Unix.ContextMenu.Apply(target, capability, machineWide, handler);
         }
 
         /// <inheritdoc/>

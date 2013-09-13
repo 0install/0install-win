@@ -57,7 +57,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             var capability = appEntry.GetCapability<Capabilities.AutoPlay>(Capability);
             if (capability == null) return;
 
-            if (WindowsUtils.IsWindows) Windows.AutoPlay.Register(new InterfaceFeed(appEntry.InterfaceID, feed), capability, machineWide, handler, true);
+            var target = new InterfaceFeed(appEntry.InterfaceID, feed);
+            if (WindowsUtils.IsWindows) Windows.AutoPlay.Register(target, capability, machineWide, handler, true);
         }
 
         /// <inheritdoc/>

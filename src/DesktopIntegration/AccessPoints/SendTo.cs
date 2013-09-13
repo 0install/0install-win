@@ -17,11 +17,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Xml.Serialization;
 using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
@@ -42,15 +40,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Apply
         /// <inheritdoc/>
-        private string GetWindowsShortcutPath()
-        {
-            if (string.IsNullOrEmpty(Name) || Name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
-                throw new IOException(string.Format(Resources.NameInvalidChars, Name));
-
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo), Name + ".lnk");
-        }
-
-        /// <inheritdoc/>
         public override void Apply(AppEntry appEntry, Feed feed, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
@@ -58,8 +47,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            if (WindowsUtils.IsWindows && !machineWide)
-                Windows.ShortcutManager.CreateShortcut(GetWindowsShortcutPath(), new InterfaceFeed(appEntry.InterfaceID, feed), Command, false, handler);
+            var target = new InterfaceFeed(appEntry.InterfaceID, feed);
+            if (WindowsUtils.IsWindows && !machineWide) Windows.Shortcut.Create(this, target, handler);
         }
 
         /// <inheritdoc/>
@@ -69,11 +58,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            if (WindowsUtils.IsWindows && !machineWide)
-            {
-                string filePath = GetWindowsShortcutPath();
-                if (File.Exists(filePath)) File.Delete(filePath);
-            }
+            if (WindowsUtils.IsWindows && !machineWide) Windows.Shortcut.Remove(this);
         }
         #endregion
 

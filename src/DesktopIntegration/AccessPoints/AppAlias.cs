@@ -66,8 +66,9 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            if (WindowsUtils.IsWindows) Windows.AppAlias.Create(new InterfaceFeed(appEntry.InterfaceID, feed), Command, Name, machineWide, handler);
-            else if (MonoUtils.IsUnix) Unix.AppAlias.Create(new InterfaceFeed(appEntry.InterfaceID, feed), Command, Name, machineWide, handler);
+            var target = new InterfaceFeed(appEntry.InterfaceID, feed);
+            if (WindowsUtils.IsWindows) Windows.AppAlias.Create(target, Command, Name, machineWide, handler);
+            else if (MonoUtils.IsUnix) Unix.AppAlias.Create(target, Command, Name, machineWide, handler);
         }
 
         /// <inheritdoc/>

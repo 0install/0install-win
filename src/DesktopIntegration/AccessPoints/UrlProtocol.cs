@@ -58,7 +58,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             var capability = appEntry.GetCapability<Capabilities.UrlProtocol>(Capability);
             if (capability == null) return;
 
-            if (WindowsUtils.IsWindows) Windows.UrlProtocol.Register(new InterfaceFeed(appEntry.InterfaceID, feed), capability, machineWide, handler, true);
+            var target = new InterfaceFeed(appEntry.InterfaceID, feed);
+            if (WindowsUtils.IsWindows) Windows.UrlProtocol.Register(target, capability, machineWide, handler, true);
         }
 
         /// <inheritdoc/>

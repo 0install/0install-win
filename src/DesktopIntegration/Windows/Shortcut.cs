@@ -26,9 +26,9 @@ using ZeroInstall.Model;
 namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
-    /// Utility class for creating and modifying Windows shortcut files (.lnk).
+    /// Creates Windows shortcut files (.lnk).
     /// </summary>
-    public static class ShortcutManager
+    public static partial class Shortcut
     {
         /// <summary>
         /// Creates a new Windows shortcut.
@@ -38,13 +38,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="command">The command within <paramref name="target"/> the shorcut shall point to; may be <see langword="null"/>.</param>
         /// <param name="machineWide">Create the shortcut machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        public static void CreateShortcut(string path, InterfaceFeed target, string command, bool machineWide, ITaskHandler handler)
+        private static void CreateShortcut(string path, InterfaceFeed target, string command, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (String.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            if (string.IsNullOrEmpty(command)) command = Command.NameRun;
+            if (String.IsNullOrEmpty(command)) command = Command.NameRun;
 
 #if !__MonoCS__
             if (File.Exists(path)) File.Delete(path);

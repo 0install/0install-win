@@ -96,13 +96,25 @@
     <Compile Include="Unix\ContextMenu.cs" />
     <Compile Include="Unix\DefaultProgram.cs" />
     <Compile Include="Unix\FileType.cs" />
-    <Compile Include="Unix\DesktopManager.cs" />
+    <Compile Include="Unix\FreeDesktop.cs" />
     <Compile Include="Unix\UrlProtocol.cs" />
     <Compile Include="Windows\AppRegistration.cs" />
     <EmbeddedResource Include="Windows\stub.template.cs" />
     <Compile Include="Windows\FileType.cs" />
     <Compile Include="Windows\IconProvider.cs" />
-    <Compile Include="Windows\ShortcutManager.cs" />
+    <Compile Include="Windows\Shortcut.cs" />
+    <Compile Include="Windows\Shortcut.DesktopIcon.cs">
+      <DependentUpon>Shortcut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Shortcut.MenuEntry.cs">
+      <DependentUpon>Shortcut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Shortcut.QuickLaunch.cs">
+      <DependentUpon>Shortcut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Shortcut.SendTo.cs">
+      <DependentUpon>Shortcut.cs</DependentUpon>
+    </Compile>
     <Compile Include="Windows\StubBuilder.cs" />
     <Compile Include="Windows\AppAlias.cs" />
     <Compile Include="Windows\AutoPlay.cs" />
