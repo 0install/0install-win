@@ -11,15 +11,7 @@
   </import>
   <widget class="Gtk.Window" id="ZeroInstall.Central.Gtk.MainWindow" design-size="400 300">
     <property name="MemberName" />
-    <property name="Title" translatable="yes">MainWindow</property>
-    <property name="WindowPosition">CenterOnParent</property>
-    <child>
-      <placeholder />
-    </child>
-  </widget>
-  <widget class="Gtk.Window" id="ZeroInstall.Central.Gtk.MainWindow" design-size="400 300">
-    <property name="MemberName" />
-    <property name="Title" translatable="yes">MainWindow</property>
+    <property name="Title" translatable="yes">Zero Install</property>
     <property name="WindowPosition">CenterOnParent</property>
     <child>
       <placeholder />
