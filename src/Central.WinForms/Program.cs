@@ -106,8 +106,6 @@ namespace ZeroInstall.Central.WinForms
         [STAThread] // Required for WinForms
         public static int Run(string[] args)
         {
-            Log.Info("Zero Install Central WinForms GUI started with: " + args.JoinEscapeArguments());
-
             bool machineWide = args.Any(arg => arg == "-m" || arg == "--machine");
             if (machineWide && WindowsUtils.IsWindowsNT && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
 

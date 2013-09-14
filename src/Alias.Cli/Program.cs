@@ -64,8 +64,6 @@ namespace ZeroInstall.Alias.Cli
         /// </summary>
         public static int Run(string[] args)
         {
-            Log.Info("Zero Install Alias CLI started with: " + args.JoinEscapeArguments());
-
             // Automatically show help for missing args
             if (args == null) args = new string[0];
             if (args.Length == 0) args = new[] {"--help"};
