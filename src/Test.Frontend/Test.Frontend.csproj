@@ -69,6 +69,10 @@
       <Project>{47DF9A89-30C2-40B8-8DAC-363E4A4BD6B5}</Project>
       <Name>Central</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Commands.Cli\Commands.Cli.csproj">
+      <Project>{f52544a4-ec24-11df-8fa3-0f04e0d72085}</Project>
+      <Name>Commands.Cli</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Commands\Commands.csproj">
       <Project>{606C7FB6-2C58-11E0-8161-7159DFD72085}</Project>
       <Name>Commands</Name>
@@ -93,6 +97,10 @@
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Store.Management.Cli\Store.Management.Cli.csproj">
+      <Project>{05e49c84-d6ab-418a-9978-8200cb76dd39}</Project>
+      <Name>Store.Management.Cli</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Store.Service\Store.Service.csproj">
       <Project>{7334A4AA-B517-4102-8D4D-9B4B3A94C5FA}</Project>
       <Name>Store.Service</Name>
@@ -114,6 +122,7 @@
     <Folder Include="Central\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CommandFactoryTest.cs" />
     <Compile Include="Commands\FrontendCommandTest.cs" />
     <Compile Include="Commands\DownloadTest.cs" />
     <Compile Include="Commands\ListTest.cs" />
