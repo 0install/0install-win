@@ -10,6 +10,7 @@
     <RootNamespace>ZeroInstall.Central.WinForms</RootNamespace>
     <AssemblyName>ZeroInstall</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <LangVersion>4</LangVersion>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
