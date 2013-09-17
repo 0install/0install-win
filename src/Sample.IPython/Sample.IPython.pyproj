@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
-    <ProjectGuid>{423AFB09-86F6-4804-8F4B-B99155A83AD2}</ProjectGuid>
+    <ProjectGuid>{DA7838EF-92E8-4D4E-A9C0-98D774495946}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <RootNamespace>Sample.IPython</RootNamespace>
     <AssemblyName>Sample.IPython</AssemblyName>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>..\..\build\Sample\Debug\</OutputPath>
@@ -16,12 +17,12 @@
     <DebugType>Full</DebugType>
     <Optimize>False</Optimize>
     <OutputType>Exe</OutputType>
-    <DebugInfo>True</DebugInfo>
     <MainFile>MinimalZeroInstall.py</MainFile>
+    <DebugInfo>True</DebugInfo>
     <StartArguments>-X:Debug Program.py</StartArguments>
     <StartWorkingDirectory>.\</StartWorkingDirectory>
     <StartAction>Program</StartAction>
-    <StartProgram>C:\Program Files (x86)\SharpDevelop\4.2\bin\..\AddIns\BackendBindings\PythonBinding\ipy.exe</StartProgram>
+    <StartProgram>C:\Program Files (x86)\SharpDevelop\4.3\bin\..\AddIns\BackendBindings\PythonBinding\ipy.exe</StartProgram>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>..\..\build\Sample\Release\</OutputPath>
@@ -33,14 +34,14 @@
     <StartArguments>Program.py</StartArguments>
     <StartWorkingDirectory>.\</StartWorkingDirectory>
     <StartAction>Program</StartAction>
-    <StartProgram>C:\Program Files (x86)\SharpDevelop\4.2\bin\..\AddIns\BackendBindings\PythonBinding\ipy.exe</StartProgram>
+    <StartProgram>C:\Program Files (x86)\SharpDevelop\4.3\bin\..\AddIns\BackendBindings\PythonBinding\ipy.exe</StartProgram>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="IronPython">
-      <HintPath>C:\Program Files %28x86%29\SharpDevelop\4.2\bin\..\AddIns\BackendBindings\PythonBinding\IronPython.dll</HintPath>
+      <HintPath>C:\Program Files %28x86%29\SharpDevelop\4.3\bin\..\AddIns\BackendBindings\PythonBinding\IronPython.dll</HintPath>
     </Reference>
     <Reference Include="IronPython.Modules">
-      <HintPath>C:\Program Files %28x86%29\SharpDevelop\4.2\bin\..\AddIns\BackendBindings\PythonBinding\IronPython.Modules.dll</HintPath>
+      <HintPath>C:\Program Files %28x86%29\SharpDevelop\4.3\bin\..\AddIns\BackendBindings\PythonBinding\IronPython.Modules.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
@@ -50,8 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Backend\Backend.csproj">
-      <Project>{8caa29b1-94b6-46c2-af82-e049d35775c5}</Project>
-      <Name>Backend %28Backend\Backend%29</Name>
+      <Project>{8CAA29B1-94B6-46C2-AF82-E049D35775C5}</Project>
+      <Name>Backend</Name>
     </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>

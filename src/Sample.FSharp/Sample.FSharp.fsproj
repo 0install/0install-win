@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>af9fb192-c867-425b-b60c-4ffb6051d354</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Sample.FSharp</RootNamespace>
     <AssemblyName>Sample.FSharp</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <Name>Sample.FSharp</Name>
     <TargetFSharpCoreVersion>2.3.0.0</TargetFSharpCoreVersion>
+    <Name>Sample.FSharp</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
