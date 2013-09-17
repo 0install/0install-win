@@ -245,7 +245,7 @@ namespace ZeroInstall.Injector
             startInfo.EnvironmentVariables.Add(binding.Name, exePath);
 
             // Tell the executable what command-line to run
-            _runEnvPendings.Add(new RunEnvPending(binding.Name, GetCommandLine(implementation, binding.Command, startInfo)));
+            _runEnvPendings.Add(new RunEnvPending(binding.Name, GetCommandLine(implementation, binding.Command ?? Command.NameRun, startInfo)));
         }
 
         /// <summary>
@@ -272,7 +272,7 @@ namespace ZeroInstall.Injector
             startInfo.EnvironmentVariables["PATH"] = Path.GetDirectoryName(exePath) + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
 
             // Tell the executable what command-line to run
-            _runEnvPendings.Add(new RunEnvPending(binding.Name, GetCommandLine(implementation, binding.Command, startInfo)));
+            _runEnvPendings.Add(new RunEnvPending(binding.Name, GetCommandLine(implementation, binding.Command ?? Command.NameRun, startInfo)));
         }
 
         /// <summary>
