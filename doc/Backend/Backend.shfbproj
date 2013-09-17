@@ -32,6 +32,7 @@
     <DocumentationSources>
       <DocumentationSource sourceFile="..\..\src\Backend\Backend.csproj" />
       <DocumentationSource sourceFile="..\..\src\Common\Common.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Common\Common.WinForms.csproj" />
       <DocumentationSource sourceFile="..\..\src\DesktopIntegration\DesktopIntegration.csproj" />
       <DocumentationSource sourceFile="..\..\src\Fetchers\Fetchers.csproj" />
       <DocumentationSource sourceFile="..\..\src\Injector\Injector.csproj" />
