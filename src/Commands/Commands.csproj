@@ -10,7 +10,6 @@
     <RootNamespace>ZeroInstall.Commands</RootNamespace>
     <AssemblyName>ZeroInstall.Commands</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <LangVersion>4</LangVersion>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>

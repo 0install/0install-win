@@ -10,7 +10,6 @@
     <RootNamespace>Sample.CSharp</RootNamespace>
     <AssemblyName>Sample.CSharp</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

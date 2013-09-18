@@ -10,7 +10,6 @@
     <RootNamespace>Common.Gtk</RootNamespace>
     <AssemblyName>Common.Gtk</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <LangVersion>4</LangVersion>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
@@ -39,7 +38,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>4</LangVersion>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

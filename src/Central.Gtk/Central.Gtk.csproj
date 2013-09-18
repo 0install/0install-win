@@ -10,7 +10,6 @@
     <RootNamespace>ZeroInstall.Central.Gtk</RootNamespace>
     <AssemblyName>ZeroInstall.Gtk</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <LangVersion>4</LangVersion>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
@@ -145,11 +144,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ProjectExtensions>
-    <MonoDevelop>
-      <Properties>
-        <GtkDesignInfo generateGettext="False" />
-      </Properties>
-    </MonoDevelop>
-  </ProjectExtensions>
 </Project>

@@ -9,7 +9,6 @@ namespace ZeroInstall.Commands.Gtk
 			global::Stetic.Gui.Initialize (this);
 			// Widget ZeroInstall.Commands.Gtk.MainWindow
 			this.Name = "ZeroInstall.Commands.Gtk.MainWindow";
-			this.Title = global::Mono.Unix.Catalog.GetString ("MainWindow");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
