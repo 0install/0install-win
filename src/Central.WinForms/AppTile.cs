@@ -117,12 +117,12 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Creates a new application tile.
         /// </summary>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="interfaceID">The interface ID of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
         /// <param name="iconCache">The icon cache used to retrieve icons specified in <see cref="Feed"/>; may be <see langword="null"/>.</param>
-        public AppTile(bool machineWide, string interfaceID, string appName, AppStatus status, IIconCache iconCache = null)
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
+        public AppTile(string interfaceID, string appName, AppStatus status, IIconCache iconCache, bool machineWide)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");

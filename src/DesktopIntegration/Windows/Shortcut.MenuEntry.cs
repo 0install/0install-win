@@ -43,7 +43,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             // Delete category directory if empty
             string dirPath = GetStartMenuCategoryPath(menuEntry.Category, machineWide);
             if (Directory.Exists(dirPath) && Directory.GetFileSystemEntries(dirPath).Length == 0)
-                Directory.Delete(dirPath, false);
+                Directory.Delete(dirPath, recursive: false);
         }
 
         private static string GetStartMenuCategoryPath(string category, bool machineWide)

@@ -147,12 +147,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                 // Remove appropriate purpose flag and check if there are others
                 bool otherFlags;
-                using (var progIDKey = hive.OpenSubKey(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + urlProtocol.ID, true))
+                using (var progIDKey = hive.OpenSubKey(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + urlProtocol.ID, writable: true))
                 {
                     if (progIDKey == null) otherFlags = false;
                     else
                     {
-                        progIDKey.DeleteValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, false);
+                        progIDKey.DeleteValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, throwOnMissingValue: false);
                         otherFlags = progIDKey.GetValueNames().Any(name => name.StartsWith(FileType.PurposeFlagPrefix));
                     }
                 }

@@ -79,7 +79,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            using (var integrationManager = new IntegrationManager(MachineWide, Resolver.Handler))
+            using (var integrationManager = new IntegrationManager(Resolver.Handler, MachineWide))
             {
                 if (_resolve || _remove)
                 {

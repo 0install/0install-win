@@ -119,7 +119,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 RegisterVerbCapability(progIDKey, target, fileType, machineWide, handler);
             }
 
-            using (var classesKey = hive.OpenSubKey(RegKeyClasses, true))
+            using (var classesKey = hive.OpenSubKey(RegKeyClasses, writable: true))
             {
                 foreach (var extension in fileType.Extensions.Where(extension => !string.IsNullOrEmpty(extension.Value)))
                 {
@@ -136,12 +136,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         {
                             if (!machineWide && WindowsUtils.IsWindowsVista)
                             { // Windows Vista and later store per-user file extension overrides
-                                using (var overridesKey = hive.OpenSubKey(RegKeyOverrides, true))
+                                using (var overridesKey = hive.OpenSubKey(RegKeyOverrides, writable: true))
                                 using (var extensionOverrideKey = overridesKey.CreateSubKey(extension.Value))
                                 {
                                     // Only mess with this part of the registry when necessary
                                     bool alreadySet;
-                                    using (var userChoiceKey = extensionOverrideKey.OpenSubKey("UserChoice", false))
+                                    using (var userChoiceKey = extensionOverrideKey.OpenSubKey("UserChoice", writable: false))
                                     {
                                         if (userChoiceKey == null) alreadySet = false;
                                         else alreadySet = ((userChoiceKey.GetValue("Progid") ?? "").ToString() == RegKeyPrefix + fileType.ID);
@@ -150,7 +150,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                                     if (!alreadySet)
                                     {
                                         // Must delete and recreate instead of direct modification due to wicked ACLs
-                                        extensionOverrideKey.DeleteSubKey("UserChoice", false);
+                                        extensionOverrideKey.DeleteSubKey("UserChoice", throwOnMissingSubKey: false);
 
                                         using (var userChoiceKey = extensionOverrideKey.CreateSubKey("UserChoice"))
                                             userChoiceKey.SetValue("Progid", RegKeyPrefix + fileType.ID);
@@ -191,7 +191,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(fileType.ID)) throw new InvalidDataException("Missing ID");
 
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
-            using (var classesKey = hive.OpenSubKey(RegKeyClasses, true))
+            using (var classesKey = hive.OpenSubKey(RegKeyClasses, writable: true))
             {
                 foreach (var extension in fileType.Extensions.Where(extension => !string.IsNullOrEmpty(extension.Value)))
                 {
@@ -211,7 +211,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         //    using (var extensionOverrideKey = overridesKey.CreateSubKey(extension.Value))
                         //    {
                         //        // Must delete and recreate instead of direct modification due to wicked ACLs
-                        //        extensionOverrideKey.DeleteSubKey("UserChoice", false);
+                        //        extensionOverrideKey.DeleteSubKey("UserChoice", throwOnMissingSubKey: false);
                         //        using (var userChoiceKey = extensionOverrideKey.CreateSubKey("UserChoice"))
                         //            userChoiceKey.SetValue("Progid", fileType.PreviousID);
                         //    }
@@ -222,7 +222,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     using (var extensionKey = classesKey.CreateSubKey(extension.Value))
                     {
                         using (var openWithKey = extensionKey.CreateSubKey(RegSubKeyOpenWith))
-                            openWithKey.DeleteValue(RegKeyPrefix + fileType.ID, false);
+                            openWithKey.DeleteValue(RegKeyPrefix + fileType.ID, throwOnMissingValue: false);
 
                         if (accessPoint)
                         {
@@ -235,12 +235,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 {
                     // Remove appropriate purpose flag and check if there are others
                     bool otherFlags;
-                    using (var progIDKey = classesKey.OpenSubKey(RegKeyPrefix + fileType.ID, true))
+                    using (var progIDKey = classesKey.OpenSubKey(RegKeyPrefix + fileType.ID, writable: true))
                     {
                         if (progIDKey == null) otherFlags = false;
                         else
                         {
-                            progIDKey.DeleteValue(accessPoint ? PurposeFlagAccessPoint : PurposeFlagCapability, false);
+                            progIDKey.DeleteValue(accessPoint ? PurposeFlagAccessPoint : PurposeFlagCapability, throwOnMissingValue: false);
                             otherFlags = progIDKey.GetValueNames().Any(name => name.StartsWith(PurposeFlagPrefix));
                         }
                     }
@@ -296,7 +296,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                             commandKey.SetValue("", GetLaunchCommandLine(target, verb, machineWide, handler));
 
                         // Prevent conflicts with existing entries
-                        shellKey.DeleteSubKey("ddeexec", false);
+                        shellKey.DeleteSubKey("ddeexec", throwOnMissingSubKey: false);
                     }
                 }
             }
@@ -305,7 +305,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string iconPath;
             try
             {
-                iconPath = IconProvider.GetIconPath(capability.GetIcon(Icon.MimeTypeIco), machineWide, handler);
+                iconPath = IconProvider.GetIconPath(capability.GetIcon(Icon.MimeTypeIco), handler, machineWide);
             }
             catch (KeyNotFoundException)
             {

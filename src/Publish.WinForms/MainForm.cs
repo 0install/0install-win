@@ -226,7 +226,7 @@ namespace ZeroInstall.Publish.WinForms
                 if (key == null) FeedEditing.Save(path);
                 else
                 {
-                    string passphrase = InputBox.Show(this, Text, string.Format(Resources.AskForPassphrase, key), "", true);
+                    string passphrase = InputBox.Show(this, Text, string.Format(Resources.AskForPassphrase, key), password: true);
                     Retry:
                     if (passphrase == null) throw new OperationCanceledException();
                     try
@@ -235,7 +235,7 @@ namespace ZeroInstall.Publish.WinForms
                     }
                     catch (WrongPassphraseException)
                     {
-                        passphrase = InputBox.Show(this, Text, Resources.WrongPassphrase + "\n" + string.Format(Resources.AskForPassphrase, key), "", true);
+                        passphrase = InputBox.Show(this, Text, Resources.WrongPassphrase + "\n" + string.Format(Resources.AskForPassphrase, key), password: true);
                         goto Retry;
                     }
                 }

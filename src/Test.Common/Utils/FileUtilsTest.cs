@@ -148,22 +148,22 @@ namespace Common.Utils
 
             try
             {
-                Assert.Throws<ArgumentException>(() => FileUtils.CopyDirectory(temp1, temp1, true, false));
-                Assert.Throws<DirectoryNotFoundException>(() => FileUtils.CopyDirectory(temp2, temp1, true, false));
+                Assert.Throws<ArgumentException>(() => FileUtils.CopyDirectory(temp1, temp1));
+                Assert.Throws<DirectoryNotFoundException>(() => FileUtils.CopyDirectory(temp2, temp1));
 
-                FileUtils.CopyDirectory(temp1, temp2, true, false);
+                FileUtils.CopyDirectory(temp1, temp2);
                 FileAssert.AreEqual(Path.Combine(Path.Combine(temp1, "subdir"), "file"), Path.Combine(Path.Combine(temp2, "subdir"), "file"));
                 Assert.AreEqual(new DateTime(2000, 1, 1), Directory.GetLastWriteTimeUtc(Path.Combine(temp2, "subdir")), "Last-write time for copied directory is invalid");
                 Assert.AreEqual(new DateTime(2000, 1, 1), File.GetLastWriteTimeUtc(Path.Combine(Path.Combine(temp2, "subdir"), "file")), "Last-write time for copied file is invalid");
 
-                Assert.Throws<IOException>(() => FileUtils.CopyDirectory(temp1, temp2, true, false));
+                Assert.Throws<IOException>(() => FileUtils.CopyDirectory(temp1, temp2));
             }
             finally
             {
                 File.SetAttributes(Path.Combine(temp1, Path.Combine("subdir", "file")), FileAttributes.Normal);
-                Directory.Delete(temp1, true);
+                Directory.Delete(temp1, recursive: true);
                 File.SetAttributes(Path.Combine(temp2, Path.Combine("subdir", "file")), FileAttributes.Normal);
-                Directory.Delete(temp2, true);
+                Directory.Delete(temp2, recursive: true);
             }
         }
 
@@ -179,19 +179,19 @@ namespace Common.Utils
 
             try
             {
-                FileUtils.CopyDirectory(temp1, temp2, false, false);
+                FileUtils.CopyDirectory(temp1, temp2, preserveDirectoryModificationTime: false);
                 FileAssert.AreEqual(Path.Combine(Path.Combine(temp1, "subdir"), "file"), Path.Combine(Path.Combine(temp2, "subdir"), "file"));
                 Assert.AreNotEqual(new DateTime(2000, 1, 1), Directory.GetLastWriteTimeUtc(Path.Combine(temp2, "subdir")), "Last-write time for copied directory is invalid");
                 Assert.AreEqual(new DateTime(2000, 1, 1), File.GetLastWriteTimeUtc(Path.Combine(Path.Combine(temp2, "subdir"), "file")), "Last-write time for copied file is invalid");
 
-                Assert.Throws<IOException>(() => FileUtils.CopyDirectory(temp1, temp2, true, false));
+                Assert.Throws<IOException>(() => FileUtils.CopyDirectory(temp1, temp2));
             }
             finally
             {
                 File.SetAttributes(Path.Combine(temp1, Path.Combine("subdir", "file")), FileAttributes.Normal);
-                Directory.Delete(temp1, true);
+                Directory.Delete(temp1, recursive: true);
                 File.SetAttributes(Path.Combine(temp2, Path.Combine("subdir", "file")), FileAttributes.Normal);
-                Directory.Delete(temp2, true);
+                Directory.Delete(temp2, recursive: true);
             }
         }
 
@@ -212,7 +212,7 @@ namespace Common.Utils
 
             try
             {
-                FileUtils.CopyDirectory(temp1, temp2, true, true);
+                FileUtils.CopyDirectory(temp1, temp2, preserveDirectoryModificationTime: true, overwrite: true);
                 FileAssert.AreEqual(Path.Combine(Path.Combine(temp1, "subdir"), "file"), Path.Combine(Path.Combine(temp2, "subdir"), "file"));
                 Assert.AreEqual(new DateTime(2000, 1, 1), Directory.GetLastWriteTimeUtc(Path.Combine(temp2, "subdir")), "Last-write time for copied directory is invalid");
                 Assert.AreEqual(new DateTime(2000, 1, 1), File.GetLastWriteTimeUtc(Path.Combine(Path.Combine(temp2, "subdir"), "file")), "Last-write time for copied file is invalid");
@@ -220,9 +220,9 @@ namespace Common.Utils
             finally
             {
                 File.SetAttributes(Path.Combine(temp1, Path.Combine("subdir", "file")), FileAttributes.Normal);
-                Directory.Delete(temp1, true);
+                Directory.Delete(temp1, recursive: true);
                 File.SetAttributes(Path.Combine(temp2, Path.Combine("subdir", "file")), FileAttributes.Normal);
-                Directory.Delete(temp2, true);
+                Directory.Delete(temp2, recursive: true);
             }
         }
 

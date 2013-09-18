@@ -64,7 +64,7 @@ namespace ZeroInstall.Commands
         {
             Resolver.Handler.ShowProgressUI();
 
-            using (var integrationManager = new IntegrationManager(MachineWide, Resolver.Handler))
+            using (var integrationManager = new IntegrationManager(Resolver.Handler, MachineWide))
                 integrationManager.Repair(Resolver.FeedManager.GetFeed);
 
             return 0;

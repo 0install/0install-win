@@ -134,7 +134,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         private static void RemoveFromAppPaths(string exeName, bool machineWide)
         {
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
-            using (var appPathsKey = hive.OpenSubKey(RegKeyAppPaths, true))
+            using (var appPathsKey = hive.OpenSubKey(RegKeyAppPaths, writable: true))
             {
                 if (appPathsKey != null)
                 {

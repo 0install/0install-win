@@ -55,9 +55,9 @@ namespace ZeroInstall.Central.WinForms.Wizards
         {
             var newKey = (string)e.Argument;
             var resolver = new Resolver(this);
-            using (var sync = SyncUtils.CreateSync(resolver, MachineWide, OldKey))
+            using (var sync = SyncUtils.CreateSync(resolver, OldKey, MachineWide))
                 sync.Sync(SyncResetMode.None);
-            using (var sync = SyncUtils.CreateSync(resolver, MachineWide, newKey))
+            using (var sync = SyncUtils.CreateSync(resolver, newKey, MachineWide))
                 sync.Sync(SyncResetMode.Server);
         }
 

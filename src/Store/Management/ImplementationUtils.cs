@@ -73,7 +73,7 @@ namespace ZeroInstall.Store.Management
             #endregion
 
             handler.RunTask(new ForEachTask<ManifestDigest>(Resources.PurgingCache, store.ListAll(), store.Remove));
-            handler.RunTask(new ForEachTask<string>(Resources.RemovingTempFiles, store.ListAllTemp(), path => Directory.Delete(path, true)));
+            handler.RunTask(new ForEachTask<string>(Resources.RemovingTempFiles, store.ListAllTemp(), path => Directory.Delete(path, recursive: true)));
         }
     }
 }

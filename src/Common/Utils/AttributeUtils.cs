@@ -41,7 +41,7 @@ namespace Common.Utils
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
         public static IEnumerable<TAttribute> GetAttributes<TAttribute, TTarget>() where TAttribute : Attribute
         {
-            var attributes = typeof(TTarget).GetCustomAttributes(typeof(TAttribute), true);
+            var attributes = typeof(TTarget).GetCustomAttributes(typeof(TAttribute), inherit: true);
             return attributes.OfType<TAttribute>();
         }
 
@@ -58,7 +58,7 @@ namespace Common.Utils
             #endregion
 
             FieldInfo fieldInfo = target.GetType().GetField(target.ToString());
-            var attributes = (TAttribute[])fieldInfo.GetCustomAttributes(typeof(TAttribute), true);
+            var attributes = (TAttribute[])fieldInfo.GetCustomAttributes(typeof(TAttribute), inherit: true);
             var attribute = attributes.FirstOrDefault();
             return (attribute == null) ? target.ToString() : valueRetriever(attribute);
         }

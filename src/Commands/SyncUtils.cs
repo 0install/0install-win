@@ -39,46 +39,46 @@ namespace ZeroInstall.Commands
             if (resolver == null) throw new ArgumentNullException("resolver");
             #endregion
 
-            return new SyncIntegrationManager(machineWide, ToSyncServer(resolver.Config), resolver.Config.SyncCryptoKey,
+            return new SyncIntegrationManager(ToSyncServer(resolver.Config), resolver.Config.SyncCryptoKey,
                 feedID => resolver.FeedManager.GetFeed(feedID),
-                resolver.Handler);
+                resolver.Handler, machineWide);
         }
 
         /// <summary>
         /// Creates a new <see cref="SyncIntegrationManager"/> using a custom crypto key.
         /// </summary>
         /// <param name="resolver">The source for configuration information and feed retrieval.</param>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="cryptoKey">The crypto key to use; overrides <see cref="Config.SyncCryptoKey"/>.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
-        public static SyncIntegrationManager CreateSync(Resolver resolver, bool machineWide, string cryptoKey)
+        public static SyncIntegrationManager CreateSync(Resolver resolver, string cryptoKey, bool machineWide)
         {
             #region Sanity checks
             if (resolver == null) throw new ArgumentNullException("resolver");
             #endregion
 
-            return new SyncIntegrationManager(machineWide, ToSyncServer(resolver.Config), cryptoKey,
+            return new SyncIntegrationManager(ToSyncServer(resolver.Config), cryptoKey,
                 feedID => resolver.FeedManager.GetFeed(feedID),
-                resolver.Handler);
+                resolver.Handler, machineWide);
         }
 
         /// <summary>
         /// Creates a new <see cref="SyncIntegrationManager"/> using a custom server and credentials.
         /// </summary>
         /// <param name="resolver">The source for configuration information and feed retrieval.</param>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="server">Access information for the sync server; overrides <see cref="Config"/>.</param>
         /// <param name="cryptoKey">The crypto key to use; overrides <see cref="Config.SyncCryptoKey"/>; overrides <see cref="Config.SyncCryptoKey"/>.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
-        public static SyncIntegrationManager CreateSync(Resolver resolver, bool machineWide, SyncServer server, string cryptoKey)
+        public static SyncIntegrationManager CreateSync(Resolver resolver, SyncServer server, string cryptoKey, bool machineWide)
         {
             #region Sanity checks
             if (resolver == null) throw new ArgumentNullException("resolver");
             #endregion
 
-            return new SyncIntegrationManager(machineWide, server, cryptoKey,
+            return new SyncIntegrationManager(server, cryptoKey,
                 feedID => resolver.FeedManager.GetFeed(feedID),
-                resolver.Handler);
+                resolver.Handler, machineWide);
         }
 
         /// <summary>

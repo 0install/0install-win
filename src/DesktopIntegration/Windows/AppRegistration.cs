@@ -95,7 +95,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                 // Set icon if available
                 var icon = target.Feed.GetIcon(Icon.MimeTypeIco);
-                if (icon != null) capabilitiesKey.SetValue(RegValueAppIcon, IconProvider.GetIconPath(icon, machineWide, handler) + ",0");
+                if (icon != null) capabilitiesKey.SetValue(RegValueAppIcon, IconProvider.GetIconPath(icon, handler, machineWide) + ",0");
 
                 using (var fileAssocsKey = capabilitiesKey.CreateSubKey(RegSubKeyFileAssocs))
                 {
@@ -150,7 +150,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
 
             using (var regAppsKey = hive.CreateSubKey(RegKeyMachineRegisteredApplications))
-                regAppsKey.DeleteValue(appRegistration.ID, false);
+                regAppsKey.DeleteValue(appRegistration.ID, throwOnMissingValue: false);
 
             // TODO: Handle appRegistration.X64
             try

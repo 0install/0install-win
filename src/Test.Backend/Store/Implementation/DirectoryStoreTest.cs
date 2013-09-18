@@ -66,7 +66,7 @@ namespace ZeroInstall.Store.Implementation
         public void TearDown()
         {
             _tempDir.Dispose();
-            if (Directory.Exists(_packageDir)) Directory.Delete(_packageDir, true);
+            if (Directory.Exists(_packageDir)) Directory.Delete(_packageDir, recursive: true);
         }
 
         [Test]
@@ -116,7 +116,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldRecreateMissingStoreDir()
         {
-            Directory.Delete(_tempDir, true);
+            Directory.Delete(_tempDir, recursive: true);
 
             var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler()));
             _store.AddDirectory(_packageDir, digest, new SilentHandler());

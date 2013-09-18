@@ -107,7 +107,7 @@ namespace ZeroInstall.Store.Implementation
 #if !__MonoCS__
                 , IpcAcl
 #endif
-                ), false);
+                ), ensureSecurity: false);
 
             // Create proxy object
             return (IStore)Activator.GetObject(typeof(IStore), "ipc://" + IpcPortName + "/" + IpcObjectUri);

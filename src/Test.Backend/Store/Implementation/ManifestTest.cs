@@ -50,7 +50,7 @@ namespace ZeroInstall.Store.Implementation
             }
             finally
             { // Clean up
-                Directory.Delete(tempDir, true);
+                Directory.Delete(tempDir, recursive: true);
             }
         }
         #endregion
@@ -119,7 +119,7 @@ namespace ZeroInstall.Store.Implementation
             }
             finally
             {
-                Directory.Delete(packageDir, true);
+                Directory.Delete(packageDir, recursive: true);
             }
         }
 
@@ -140,7 +140,7 @@ namespace ZeroInstall.Store.Implementation
             }
             finally
             {
-                Directory.Delete(packageDir, true);
+                Directory.Delete(packageDir, recursive: true);
             }
         }
 
@@ -155,7 +155,7 @@ namespace ZeroInstall.Store.Implementation
             }
             finally
             {
-                Directory.Delete(packageDir, true);
+                Directory.Delete(packageDir, recursive: true);
             }
         }
 
@@ -295,7 +295,7 @@ namespace ZeroInstall.Store.Implementation
             }
             finally
             {
-                Directory.Delete(packageDir, true);
+                Directory.Delete(packageDir, recursive: true);
             }
         }
 

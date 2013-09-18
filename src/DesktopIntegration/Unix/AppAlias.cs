@@ -36,13 +36,13 @@ namespace ZeroInstall.DesktopIntegration.Unix
         /// <param name="target">The application being integrated.</param>
         /// <param name="command">The command within <paramref name="target"/> the alias shall point to; may be <see langword="null"/>.</param>
         /// <param name="aliasName">The name of the alias to be created.</param>
-        /// <param name="machineWide">Create the alias machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <param name="machineWide">Create the alias machine-wide instead of just for the current user.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem is not permitted.</exception>
-        public static void Create(InterfaceFeed target, string command, string aliasName, bool machineWide, ITaskHandler handler)
+        public static void Create(InterfaceFeed target, string command, string aliasName, ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException("aliasName");

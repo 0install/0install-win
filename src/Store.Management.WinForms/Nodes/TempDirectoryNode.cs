@@ -88,7 +88,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                 }
                 #endregion
 
-                Directory.Delete(_path, true);
+                Directory.Delete(_path, recursive: true);
             }
                 #region Error handling
             catch (ImplementationNotFoundException ex)

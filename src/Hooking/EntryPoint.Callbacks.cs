@@ -62,7 +62,7 @@ namespace ZeroInstall.Hooking
         private uint RegSetValueExWCallback(IntPtr hKey, string lpValueName, int lpReserved, RegistryValueKind dwType, IntPtr lpData, uint cbData)
         {
             bool tempBuffer = false;
-            if (dwType == RegistryValueKind.String && lpData != IntPtr.Zero) tempBuffer = FilterWriteBuffer(ref lpData, ref cbData, true);
+            if (dwType == RegistryValueKind.String && lpData != IntPtr.Zero) tempBuffer = FilterWriteBuffer(ref lpData, ref cbData, unicode: true);
 
             uint result = UnsafeNativeMethods.RegSetValueExW(hKey, lpValueName, lpReserved, dwType, lpData, cbData);
             if (tempBuffer) Marshal.FreeHGlobal(lpData);
@@ -72,7 +72,7 @@ namespace ZeroInstall.Hooking
         private uint RegSetValueExACallback(IntPtr hKey, string lpValueName, int lpReserved, RegistryValueKind dwType, IntPtr lpData, uint cbData)
         {
             bool tempBuffer = false;
-            if (dwType == RegistryValueKind.String && lpData != IntPtr.Zero) tempBuffer = FilterWriteBuffer(ref lpData, ref cbData, false);
+            if (dwType == RegistryValueKind.String && lpData != IntPtr.Zero) tempBuffer = FilterWriteBuffer(ref lpData, ref cbData, unicode: false);
 
             uint result = UnsafeNativeMethods.RegSetValueExA(hKey, lpValueName, lpReserved, dwType, lpData, cbData);
             if (tempBuffer) Marshal.FreeHGlobal(lpData);

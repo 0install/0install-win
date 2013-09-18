@@ -74,16 +74,16 @@ namespace ZeroInstall.Central.WinForms
         private void SetupTiles()
         {
             catalogList.Clear();
-            catalogList.QueueNewTile(false, "fake:cool_app", Resources.IntroCoolApp, AppStatus.Candidate).Feed =
+            catalogList.QueueNewTile("fake:cool_app", Resources.IntroCoolApp, AppStatus.Candidate).Feed =
                 new Feed {Summaries = {Resources.IntroCoolAppSummary}};
-            catalogList.QueueNewTile(false, "fake:common_app", Resources.IntroCommonApp, AppStatus.Candidate).Feed =
+            catalogList.QueueNewTile("fake:common_app", Resources.IntroCommonApp, AppStatus.Candidate).Feed =
                 new Feed {Summaries = {Resources.IntroCommonAppSummary}};
-            catalogList.QueueNewTile(false, "fake:other_app", Resources.IntroOtherApp, AppStatus.Candidate).Feed =
+            catalogList.QueueNewTile("fake:other_app", Resources.IntroOtherApp, AppStatus.Candidate).Feed =
                 new Feed {Summaries = {Resources.IntroOtherAppSummary}};
             catalogList.AddQueuedTiles();
 
             appList.Clear();
-            appList.QueueNewTile(false, "fake:cool_app", Resources.IntroCoolApp, AppStatus.Added).Feed =
+            appList.QueueNewTile("fake:cool_app", Resources.IntroCoolApp, AppStatus.Added).Feed =
                 new Feed {Summaries = {Resources.IntroCoolAppSummary}};
             appList.AddQueuedTiles();
         }

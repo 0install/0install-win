@@ -104,7 +104,7 @@ namespace Common.Tasks
                 {
                     // TODO: SetResumePoint()
 
-                    if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
+                    if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
                     lock (StateLock) State = TaskState.Header;
 
                     // Start the server request, allowing for cancellation
@@ -119,14 +119,14 @@ namespace Common.Tasks
                     // Process the response
                     using (WebResponse response = request.EndGetResponse(responseRequest))
                     {
-                        if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
+                        if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
                         ReadHeader(response);
                         // TODO: VerifyResumePoint()
                         lock (StateLock) State = TaskState.Data;
 
                         // Start writing data to the file
                         if (response != null) WriteStreamToTarget(response.GetResponseStream(), fileStream);
-                        if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
+                        if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
                     }
                 }
             }
@@ -195,7 +195,7 @@ namespace Common.Tasks
             {
                 fileStream.Write(buffer, 0, length);
                 bytesDownloaded += length;
-                if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
+                if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
 
                 // Only report progress once every 250ms
                 if (DateTime.UtcNow - lastProgressReport >= new TimeSpan(0, 0, 0, 0, 250))

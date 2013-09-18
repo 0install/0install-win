@@ -156,10 +156,10 @@ namespace ZeroInstall.Capture
         private Implementation GetImplementation(string installationDir = null)
         {
             string implementationDir = Path.Combine(DirectoryPath, "implementation");
-            if (Directory.Exists(implementationDir)) Directory.Delete(implementationDir, true);
+            if (Directory.Exists(implementationDir)) Directory.Delete(implementationDir, recursive: true);
 
             // TODO: Use callback logic to report progress
-            FileUtils.CopyDirectory(installationDir, implementationDir, true, false);
+            FileUtils.CopyDirectory(installationDir, implementationDir);
 
             return new Implementation
             {

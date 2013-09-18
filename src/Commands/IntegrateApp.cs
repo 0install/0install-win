@@ -126,7 +126,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         private void RemoveOnly(ICategoryIntegrationManager integrationManager, string interfaceID)
         {
-            integrationManager.RemoveAccessPointCategories(integrationManager.AppList[interfaceID], _removeCategories);
+            integrationManager.RemoveAccessPointCategories(integrationManager.AppList[interfaceID], _removeCategories.ToArray());
         }
 
         /// <summary>
@@ -135,12 +135,12 @@ namespace ZeroInstall.Commands
         private void RemoveAndAdd(ICategoryIntegrationManager integrationManager, Feed feed, AppEntry appEntry)
         {
             if (_removeCategories.Any())
-                integrationManager.RemoveAccessPointCategories(appEntry, _removeCategories);
+                integrationManager.RemoveAccessPointCategories(appEntry, _removeCategories.ToArray());
 
             try
             {
                 if (_addCategories.Any())
-                    integrationManager.AddAccessPointCategories(appEntry, feed, _addCategories);
+                    integrationManager.AddAccessPointCategories(appEntry, feed, _addCategories.ToArray());
 
                 foreach (string path in _importLists)
                     integrationManager.AddAccessPoints(appEntry, feed, XmlStorage.LoadXml<AccessPointList>(path).Entries);

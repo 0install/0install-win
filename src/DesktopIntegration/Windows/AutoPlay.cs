@@ -104,7 +104,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 string iconPath;
                 try
                 {
-                    iconPath = IconProvider.GetIconPath(autoPlay.GetIcon(Icon.MimeTypeIco), machineWide, handler);
+                    iconPath = IconProvider.GetIconPath(autoPlay.GetIcon(Icon.MimeTypeIco), handler, machineWide);
                 }
                 catch (KeyNotFoundException)
                 {
@@ -157,12 +157,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
             {
                 // Remove appropriate purpose flag and check if there are others
                 bool otherFlags;
-                using (var handlerKey = hive.OpenSubKey(RegKeyHandlers + @"\" + FileType.RegKeyPrefix + autoPlay.ID, true))
+                using (var handlerKey = hive.OpenSubKey(RegKeyHandlers + @"\" + FileType.RegKeyPrefix + autoPlay.ID, writable: true))
                 {
                     if (handlerKey == null) otherFlags = false;
                     else
                     {
-                        handlerKey.DeleteValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, false);
+                        handlerKey.DeleteValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, throwOnMissingValue: false);
                         otherFlags = handlerKey.GetValueNames().Any(name => name.StartsWith(FileType.PurposeFlagPrefix));
                     }
                 }
@@ -173,10 +173,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     foreach (var autoPlayEvent in autoPlay.Events.Where(autoPlayEvent => !string.IsNullOrEmpty(autoPlayEvent.Name)))
                     {
                         using (var eventKey = hive.CreateSubKey(RegKeyAssocs + @"\" + autoPlayEvent.Name))
-                            eventKey.DeleteValue(FileType.RegKeyPrefix + autoPlay.ID, false);
+                            eventKey.DeleteValue(FileType.RegKeyPrefix + autoPlay.ID, throwOnMissingValue: false);
                     }
 
-                    hive.DeleteSubKey(RegKeyHandlers + @"\" + FileType.RegKeyPrefix + autoPlay.ID, false);
+                    hive.DeleteSubKey(RegKeyHandlers + @"\" + FileType.RegKeyPrefix + autoPlay.ID, throwOnMissingSubKey: false);
                     hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + autoPlay.ProgID);
                 }
             }

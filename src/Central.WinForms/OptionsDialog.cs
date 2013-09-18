@@ -25,7 +25,6 @@ using Common;
 using Common.Collections;
 using Common.Controls;
 using Common.Storage;
-using Common.Utils;
 using ZeroInstall.Backend;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Store;
@@ -88,7 +87,7 @@ namespace ZeroInstall.Central.WinForms
                 // List all implementation directories in use
                 listBoxImplDirs.Items.Clear();
                 var userConfig = File.Exists(_implementationDirsConfigPath) ? File.ReadAllLines(_implementationDirsConfigPath, Encoding.UTF8) : new string[0];
-                foreach (string implementationDir in StoreFactory.GetImplementationDirs(true))
+                foreach (string implementationDir in StoreFactory.GetImplementationDirs())
                 {
                     // Differentiate between directories that can be modified (because they are listed in the user config) and those that cannot
                     if (userConfig.Contains(implementationDir)) listBoxImplDirs.Items.Add(new DirectoryStore(implementationDir)); // DirectoryStore = can be modified

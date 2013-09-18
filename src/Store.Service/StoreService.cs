@@ -97,7 +97,7 @@ namespace ZeroInstall.Store.Service
         private MarshalByRefObject CreateStore()
         {
             // Use first custom machine-wide location or fallback to default
-            string path = StoreFactory.GetImplementationDirs(false).First();
+            string path = StoreFactory.GetImplementationDirs(excludeUserProfile: true).First();
 
             return new SecureStore(path, WindowsIdentity.GetCurrent(), eventLog);
         }
@@ -116,8 +116,8 @@ namespace ZeroInstall.Store.Service
 
             try
             {
-                ChannelServices.RegisterChannel(_serverChannel, false);
-                ChannelServices.RegisterChannel(_clientChannel, false);
+                ChannelServices.RegisterChannel(_serverChannel, ensureSecurity: false);
+                ChannelServices.RegisterChannel(_clientChannel, ensureSecurity: false);
                 _store = CreateStore();
                 _objRef = RemotingServices.Marshal(_store, IpcStore.IpcObjectUri, typeof(IStore));
             }

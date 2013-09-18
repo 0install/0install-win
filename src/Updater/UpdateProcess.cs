@@ -177,7 +177,7 @@ namespace ZeroInstall.Updater
         /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
         public void CopyFiles()
         {
-            FileUtils.CopyDirectory(Source, Target, false, true);
+            FileUtils.CopyDirectory(Source, Target, preserveDirectoryModificationTime: false, overwrite: true);
         }
         #endregion
 

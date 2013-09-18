@@ -137,7 +137,7 @@ namespace ZeroInstall.Commands
                 {
                     try
                     {
-                        _appList = XmlStorage.LoadXml<AppList>(AppList.GetDefaultPath(false));
+                        _appList = XmlStorage.LoadXml<AppList>(AppList.GetDefaultPath());
                     }
                         #region Error handling
                     catch (FileNotFoundException)

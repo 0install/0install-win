@@ -355,9 +355,9 @@ namespace ZeroInstall.Store
             // Apply Windows registry policies (override existing config)
             if (WindowsUtils.IsWindowsNT)
             {
-                using (var registryKey = Registry.LocalMachine.OpenSubKey(RegistryPolicyPath, false))
+                using (var registryKey = Registry.LocalMachine.OpenSubKey(RegistryPolicyPath, writable: false))
                     if (registryKey != null) config.ReadFromRegistryKey(registryKey);
-                using (var registryKey = Registry.CurrentUser.OpenSubKey(RegistryPolicyPath, false))
+                using (var registryKey = Registry.CurrentUser.OpenSubKey(RegistryPolicyPath, writable: false))
                     if (registryKey != null) config.ReadFromRegistryKey(registryKey);
             }
 

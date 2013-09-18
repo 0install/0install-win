@@ -58,7 +58,7 @@ namespace ZeroInstall.Backend
         }
         #endregion
 
-        private readonly string _cacheFilePath = Path.Combine(Locations.GetCacheDirPath("0install.net", false), "catalog.xml");
+        private readonly string _cacheFilePath = Path.Combine(Locations.GetCacheDirPath("0install.net", machineWide: false), "catalog.xml");
 
         #region Cached
         /// <summary>

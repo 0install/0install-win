@@ -35,12 +35,12 @@ namespace ZeroInstall.Central
         /// <summary>
         /// Prepares a new application tile to be added to the list. Will be added in bulk when <see cref="IAppTileList.AddQueuedTiles"/> is called.
         /// </summary>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="interfaceID">The interface ID of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <exception cref="C5.DuplicateNotAllowedException">Thrown if the list already contains an <see cref="IAppTile"/> with the specified <paramref name="interfaceID"/>.</exception>
-        IAppTile QueueNewTile(bool machineWide, string interfaceID, string appName, AppStatus status);
+        IAppTile QueueNewTile(string interfaceID, string appName, AppStatus status, bool machineWide);
 
         /// <summary>
         /// Adds all new tiles queued by <see cref="IAppTileList.QueueNewTile"/> calls.

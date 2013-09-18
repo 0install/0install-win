@@ -69,7 +69,7 @@ namespace ZeroInstall.Store.Implementation
             }
             finally
             { // Clean up
-                Directory.Delete(tempDir, true);
+                Directory.Delete(tempDir, recursive: true);
             }
         }
 

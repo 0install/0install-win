@@ -47,7 +47,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Apply
         /// <inheritdoc/>
-        public override void Apply(AppEntry appEntry, Feed feed, bool machineWide, ITaskHandler handler)
+        public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
@@ -59,7 +59,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             var target = new InterfaceFeed(appEntry.InterfaceID, feed);
             if (WindowsUtils.IsWindows && machineWide)
-                Windows.DefaultProgram.Register(target, capability, handler, true);
+                Windows.DefaultProgram.Register(target, capability, handler, accessPoint: true);
         }
 
         /// <inheritdoc/>
@@ -73,7 +73,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (capability == null) return;
 
             if (WindowsUtils.IsWindows && machineWide)
-                Windows.DefaultProgram.Unregister(capability, true);
+                Windows.DefaultProgram.Unregister(capability, accessPoint: true);
         }
         #endregion
 

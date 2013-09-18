@@ -49,7 +49,7 @@ namespace ZeroInstall.Publish
             using (var originalStream = TestData.GetTestZipArchiveStream())
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
-                var implementation = ImplementationUtils.Build(new Archive {Href = microServer.FileUri}, false, new SilentTaskHandler());
+                var implementation = ImplementationUtils.Build(new Archive {Href = microServer.FileUri}, new SilentTaskHandler());
                 Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
 
                 var archive = (Archive)implementation.RetrievalMethods[0];
@@ -67,7 +67,7 @@ namespace ZeroInstall.Publish
             using (var originalStream = SingleFileData.ToStream())
             using (var microServer = new MicroServer(SingleFileName, originalStream))
             {
-                var implementation = ImplementationUtils.Build(new SingleFile {Href = microServer.FileUri, Destination = SingleFileName}, false, new SilentTaskHandler());
+                var implementation = ImplementationUtils.Build(new SingleFile {Href = microServer.FileUri, Destination = SingleFileName}, new SilentTaskHandler());
                 Assert.AreEqual(_singleFileSha256Digest, "sha256new_" + implementation.ManifestDigest.Sha256New);
 
                 var file = (SingleFile)implementation.RetrievalMethods[0];
@@ -84,7 +84,7 @@ namespace ZeroInstall.Publish
             using (var originalStream = TestData.GetTestZipArchiveStream())
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
-                var implementation = ImplementationUtils.Build(new Recipe {Steps = {new Archive {Href = microServer.FileUri}}}, false, new SilentTaskHandler());
+                var implementation = ImplementationUtils.Build(new Recipe {Steps = {new Archive {Href = microServer.FileUri}}}, new SilentTaskHandler());
                 Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
 
                 var archive = (Archive)((Recipe)implementation.RetrievalMethods[0]).Steps[0];
@@ -103,7 +103,7 @@ namespace ZeroInstall.Publish
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var implementation = new Implementation {RetrievalMethods = {new Archive {Href = microServer.FileUri}}};
-                ImplementationUtils.AddMissing(implementation, false, new SilentTaskHandler());
+                ImplementationUtils.AddMissing(implementation, new SilentTaskHandler());
                 Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
 
                 var archive = (Archive)implementation.RetrievalMethods[0];
@@ -122,7 +122,7 @@ namespace ZeroInstall.Publish
             using (var microServer = new MicroServer(SingleFileName, originalStream))
             {
                 var implementation = new Implementation {RetrievalMethods = {new SingleFile {Href = microServer.FileUri}}};
-                ImplementationUtils.AddMissing(implementation, false, new SilentTaskHandler());
+                ImplementationUtils.AddMissing(implementation, new SilentTaskHandler());
                 Assert.AreEqual(_singleFileSha256Digest, "sha256new_" + implementation.ManifestDigest.Sha256New);
 
                 var file = (SingleFile)implementation.RetrievalMethods[0];
@@ -141,7 +141,7 @@ namespace ZeroInstall.Publish
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var implementation = new Implementation {RetrievalMethods = {new Recipe {Steps = {new Archive {Href = microServer.FileUri}}}}};
-                ImplementationUtils.AddMissing(implementation, false, new SilentTaskHandler());
+                ImplementationUtils.AddMissing(implementation, new SilentTaskHandler());
                 Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
 
                 var archive = (Archive)((Recipe)implementation.RetrievalMethods[0]).Steps[0];
@@ -160,7 +160,7 @@ namespace ZeroInstall.Publish
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var implementation = new Implementation {ManifestDigest = new ManifestDigest(sha1New: "invalid"), RetrievalMethods = {new Archive {Href = microServer.FileUri}}};
-                Assert.Throws<DigestMismatchException>(() => ImplementationUtils.AddMissing(implementation, false, new SilentTaskHandler()));
+                Assert.Throws<DigestMismatchException>(() => ImplementationUtils.AddMissing(implementation, new SilentTaskHandler()));
             }
         }
     }

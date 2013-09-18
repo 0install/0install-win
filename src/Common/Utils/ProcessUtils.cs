@@ -46,7 +46,7 @@ namespace Common.Utils
         /// <exception cref="Win32Exception">Thrown if there was a problem launching the assembly.</exception>
         public static Process LaunchAssembly(string assembly, string arguments = null)
         {
-            return Process.Start(CreateAssemblyStartInfo(assembly, arguments, false));
+            return Process.Start(CreateAssemblyStartInfo(assembly, arguments));
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Common.Utils
         {
             try
             {
-                var process = Process.Start(CreateAssemblyStartInfo(assembly, arguments, false));
+                var process = Process.Start(CreateAssemblyStartInfo(assembly, arguments));
                 process.WaitForExit();
                 return process.ExitCode;
             }
@@ -80,7 +80,7 @@ namespace Common.Utils
         /// <exception cref="Win32Exception">Thrown if there was a problem launching the assembly.</exception>
         public static Process LaunchAssemblyAsAdmin(string assembly, string arguments = null)
         {
-            return Process.Start(CreateAssemblyStartInfo(assembly, arguments, true));
+            return Process.Start(CreateAssemblyStartInfo(assembly, arguments, admin: true));
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Common.Utils
         {
             try
             {
-                var process = Process.Start(CreateAssemblyStartInfo(assembly, arguments, true));
+                var process = Process.Start(CreateAssemblyStartInfo(assembly, arguments, admin: true));
                 process.WaitForExit();
                 return process.ExitCode;
             }
@@ -112,7 +112,7 @@ namespace Common.Utils
         /// <param name="assembly">The name of the assembly to launch (without the file extension).</param>
         /// <param name="arguments">The command-line arguments to pass to the assembly.</param>
         /// <param name="admin"><see langword="true"/> to use UAC to elevate to admin.</param>
-        private static ProcessStartInfo CreateAssemblyStartInfo(string assembly, string arguments, bool admin)
+        private static ProcessStartInfo CreateAssemblyStartInfo(string assembly, string arguments, bool admin = false)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(assembly)) throw new ArgumentNullException("assembly");

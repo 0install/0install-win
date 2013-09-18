@@ -87,11 +87,11 @@ namespace ZeroInstall.Capture
                 string path = Path.Combine(installationDir, command.Path.Replace('/', Path.DirectorySeparatorChar));
                 string arguments = command.Arguments.Select(arg => arg.ToString()).JoinEscapeArguments();
 
-                _commmands.Add(GetCommandTuple(installationDir, command, true));
+                _commmands.Add(GetCommandTuple(installationDir, command, escapePath: true));
 
                 // Only add a version without escaping if it causes no ambiguities
                 if (!path.ContainsWhitespace() || string.IsNullOrEmpty(arguments))
-                    _commmands.Add(GetCommandTuple(installationDir, command, false));
+                    _commmands.Add(GetCommandTuple(installationDir, command, escapePath: false));
             }
 
             // Sort backwards to make sure the most specific matches are selected first

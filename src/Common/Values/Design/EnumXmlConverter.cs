@@ -44,11 +44,11 @@ namespace Common.Values.Design
         {
             foreach (var field in typeof(T).GetFields())
             {
-                var attributes = (XmlEnumAttribute[])field.GetCustomAttributes(typeof(XmlEnumAttribute), false);
+                var attributes = (XmlEnumAttribute[])field.GetCustomAttributes(typeof(XmlEnumAttribute), inherit: false);
                 if (attributes.Length > 0 && StringUtils.EqualsIgnoreCase(attributes[0].Name, stringValue))
                     return field.GetValue(field.Name);
             }
-            return Enum.Parse(typeof(T), stringValue, true);
+            return Enum.Parse(typeof(T), stringValue, ignoreCase: true);
         }
 
         /// <inheritdoc/>

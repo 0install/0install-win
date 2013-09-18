@@ -90,6 +90,7 @@ namespace ZeroInstall.Solvers
         /// </summary>
         public IList<SelectionCandidate> GetSortedCandidates(Requirements requirements)
         {
+            // ReSharper disable once InvokeAsExtensionMethod
             var candidates = Enumerable.Concat(
                 // Main feed for interface
                 GetCandidates(requirements.InterfaceID, requirements),

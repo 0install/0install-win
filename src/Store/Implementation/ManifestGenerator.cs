@@ -80,7 +80,7 @@ namespace ZeroInstall.Store.Implementation
         {
             try
             {
-                if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
+                if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
                 lock (StateLock) State = TaskState.Started;
 
                 // Get the complete (recursive) content of the directory sorted according to the format specification
@@ -90,7 +90,7 @@ namespace ZeroInstall.Store.Implementation
                 var externalXbits = FlagUtils.GetExternalFlags(".xbit", TargetDir);
                 var externalSymlinks = FlagUtils.GetExternalFlags(".symlink", TargetDir);
 
-                if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
+                if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
                 lock (StateLock) State = TaskState.Data;
 
                 // Iterate through the directory listing to build a list of manifets entries
@@ -112,7 +112,7 @@ namespace ZeroInstall.Store.Implementation
                         if (directory != null) nodes.Add(GetDirectoryNode(directory, Format, Path.GetFullPath(TargetDir)));
                     }
 
-                    if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
+                    if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
                 }
 
                 Result = new Manifest(Format, nodes);
@@ -125,7 +125,7 @@ namespace ZeroInstall.Store.Implementation
             }
             #endregion
 
-            if (CancelRequest.WaitOne(0, false)) throw new OperationCanceledException();
+            if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
             lock (StateLock) State = TaskState.Complete;
         }
 

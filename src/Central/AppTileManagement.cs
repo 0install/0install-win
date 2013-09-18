@@ -103,7 +103,7 @@ namespace ZeroInstall.Central
                     try
                     {
                         var status = (addedEntry.AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated;
-                        var tile = _tileListMyApps.QueueNewTile(_machineWide, addedEntry.InterfaceID, addedEntry.Name, status);
+                        var tile = _tileListMyApps.QueueNewTile(addedEntry.InterfaceID, addedEntry.Name, status, _machineWide);
                         tiles.Add(tile);
 
                         // Update "added" status of tile in catalog list
@@ -265,7 +265,7 @@ namespace ZeroInstall.Central
                 var status = _appList.Contains(interfaceID)
                     ? ((_appList[interfaceID].AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated)
                     : AppStatus.Candidate;
-                var tile = _tileListCatalog.QueueNewTile(_machineWide, interfaceID, feed.Name, status);
+                var tile = _tileListCatalog.QueueNewTile(interfaceID, feed.Name, status, _machineWide);
                 tile.Feed = feed;
             }
                 #region Error handling

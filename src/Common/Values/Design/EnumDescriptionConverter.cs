@@ -42,11 +42,11 @@ namespace Common.Values.Design
         {
             foreach (var field in typeof(T).GetFields())
             {
-                var attributes = (DescriptionAttribute[])field.GetCustomAttributes(typeof(DescriptionAttribute), false);
+                var attributes = (DescriptionAttribute[])field.GetCustomAttributes(typeof(DescriptionAttribute), inherit: false);
                 if (attributes.Length > 0 && StringUtils.EqualsIgnoreCase(attributes[0].Description, stringValue))
                     return field.GetValue(field.Name);
             }
-            return Enum.Parse(typeof(T), stringValue, true);
+            return Enum.Parse(typeof(T), stringValue, ignoreCase: true);
         }
 
         /// <inheritdoc/>

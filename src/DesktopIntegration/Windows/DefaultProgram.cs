@@ -119,7 +119,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="iconsVisible"><see langword="true"/> if the icons are currently visible, <see langword="false"/> if the icons are currently not visible.</param>
         internal static void ToggleIconsVisible(Capabilities.DefaultProgram defaultProgram, bool iconsVisible)
         {
-            using (var installInfoKey = Registry.LocalMachine.OpenSubKey(RegKeyMachineClients + @"\" + defaultProgram.Service + @"\" + defaultProgram.ID + @"\" + RegSubKeyInstallInfo, true))
+            using (var installInfoKey = Registry.LocalMachine.OpenSubKey(RegKeyMachineClients + @"\" + defaultProgram.Service + @"\" + defaultProgram.ID + @"\" + RegSubKeyInstallInfo, writable: true))
                 installInfoKey.SetValue(RegValueIconsVisible, iconsVisible ? 1 : 0, RegistryValueKind.DWord);
         }
         #endregion
@@ -153,12 +153,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 {
                     // Remove appropriate purpose flag and check if there are others
                     bool otherFlags;
-                    using (var appKey = serviceKey.OpenSubKey(defaultProgram.ID, true))
+                    using (var appKey = serviceKey.OpenSubKey(defaultProgram.ID, writable: true))
                     {
                         if (appKey == null) otherFlags = false;
                         else
                         {
-                            appKey.DeleteValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, false);
+                            appKey.DeleteValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, throwOnMissingValue: false);
                             otherFlags = appKey.GetValueNames().Any(name => name.StartsWith(FileType.PurposeFlagPrefix));
                         }
                     }

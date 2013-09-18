@@ -143,8 +143,7 @@ namespace ZeroInstall.Store.Implementation
             using (var tempFile = new TemporaryFile("0install"))
             {
                 // ReSharper disable once AccessToDisposedClosure
-                handler.RunTask(new SimpleTask(Resources.CopyFiles, () => File.Copy(localPath, tempFile, true)));
-                File.Copy(localPath, tempFile, true);
+                handler.RunTask(new SimpleTask(Resources.CopyFiles, () => File.Copy(localPath, tempFile, overwrite: true)));
                 ApplySingleFile(step,  tempFile, workingDir, handler, tag);
             }
         }
@@ -206,7 +205,7 @@ namespace ZeroInstall.Store.Implementation
             // Delete the element
             string absolutePath = Path.Combine(workingDir, path);
             if (File.Exists(absolutePath)) File.Delete(absolutePath);
-            else if (Directory.Exists(absolutePath)) Directory.Delete(absolutePath, true);
+            else if (Directory.Exists(absolutePath)) Directory.Delete(absolutePath, recursive: true);
 
             // Remove from flag files aswell
             FlagUtils.RemoveExternalFlag(Path.Combine(workingDir, ".xbit"), path);

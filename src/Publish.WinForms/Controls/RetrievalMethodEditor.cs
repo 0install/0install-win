@@ -179,7 +179,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private ManifestDigest GenerateDigest(ITaskHandler handler, ICommandExecutor executor)
         {
             using (var tempDir = RetrievalMethodUtils.DownloadAndApply(Target, handler, executor))
-                return ImplementationUtils.GenerateDigest(tempDir, false, handler);
+                return ImplementationUtils.GenerateDigest(tempDir, handler);
         }
 
         /// <summary>

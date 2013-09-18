@@ -44,11 +44,11 @@ namespace ZeroInstall.Publish.Cli
                 AddMissing(feed.Elements, options.StoreDownloads);
         }
 
-        private static void AddMissing(IEnumerable<Element> elements, bool store)
+        private static void AddMissing(IEnumerable<Element> elements, bool store = false)
         {
             new PerTypeDispatcher<Element>(true)
             {
-                (Implementation implementation) => ImplementationUtils.AddMissing(implementation, store, _handler),
+                (Implementation implementation) => ImplementationUtils.AddMissing(implementation, _handler, store: store),
                 (Group group) => AddMissing(group.Elements, store) // recursion
             }.Dispatch(elements);
         }

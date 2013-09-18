@@ -110,7 +110,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="path">The path to the temporary directory.</param>
         protected virtual void DeleteTempDir(string path)
         {
-            if (Directory.Exists(path)) Directory.Delete(path, true);
+            if (Directory.Exists(path)) Directory.Delete(path, recursive: true);
         }
         #endregion
 
@@ -289,8 +289,7 @@ namespace ZeroInstall.Store.Implementation
                 // Copy the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
                 try
                 {
-                    handler.RunTask(new SimpleTask(Resources.CopyFiles,
-                        () => FileUtils.CopyDirectory(path, tempDir, true, false)), manifestDigest);
+                    handler.RunTask(new SimpleTask(Resources.CopyFiles, () => FileUtils.CopyDirectory(path, tempDir)), manifestDigest);
                 }
                     #region Error handling
                 catch (IOException ex)
@@ -361,7 +360,7 @@ namespace ZeroInstall.Store.Implementation
             string tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
             Directory.Move(path, tempDir);
 
-            Directory.Delete(tempDir, true);
+            Directory.Delete(tempDir, recursive: true);
         }
         #endregion
 

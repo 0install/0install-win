@@ -195,7 +195,7 @@ namespace ZeroInstall.Commands
         private string GetIconPath(string command = null)
         {
             var icon = _target.Feed.GetIcon(Icon.MimeTypeIco, command);
-            return icon == null ? null : IconProvider.GetIconPath(icon, false, _handler);
+            return icon == null ? null : IconProvider.GetIconPath(icon, _handler, machineWide: false);
         }
         #endregion
 

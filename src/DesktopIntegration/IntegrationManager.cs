@@ -65,13 +65,13 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Creates a new integration manager using a custom <see cref="DesktopIntegration.AppList"/>. Do not use directly except for testing purposes!
         /// </summary>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="appListPath">The storage location of the <see cref="AppList"/> file.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public IntegrationManager(bool machineWide, string appListPath, ITaskHandler handler)
+        public IntegrationManager(string appListPath, ITaskHandler handler, bool machineWide = false)
         {
             MachineWide = machineWide;
             AppListPath = appListPath;
@@ -88,16 +88,16 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Creates a new integration manager using the default <see cref="DesktopIntegration.AppList"/>.
         /// </summary>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public IntegrationManager(bool machineWide, ITaskHandler handler)
+        public IntegrationManager(ITaskHandler handler, bool machineWide = false)
         {
             // Prevent multiple concurrent desktop integration operations
             _mutex = new Mutex(false, machineWide ? @"Global\" + MutexName : MutexName);
-            if (!_mutex.WaitOne(1000, false))
+            if (!_mutex.WaitOne(1000, exitContext: false))
             {
                 _mutex = null; // Don't try to release mutex if it wasn't acquired
                 throw new UnauthorizedAccessException(Resources.IntegrationMutex);
@@ -254,7 +254,7 @@ namespace ZeroInstall.DesktopIntegration
             CheckForConflicts(appEntry, accessPoints);
 
             accessPoints.ApplyWithRollback(
-                accessPoint => accessPoint.Apply(appEntry, feed, MachineWide, Handler),
+                accessPoint => accessPoint.Apply(appEntry, feed, Handler, MachineWide),
                 accessPoint =>
                 {
                     // Don't perform rollback if the access point was already applied previously and this was only a refresh

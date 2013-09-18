@@ -188,7 +188,7 @@ namespace Common.Utils
         /// <exception cref="ArgumentException">Thrown if <paramref name="sourcePath"/> and <paramref name="destinationPath"/> are equal.</exception>
         /// <exception cref="DirectoryNotFoundException">Thrown if <paramref name="sourcePath"/> does not exist.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="destinationPath"/> already exists and <paramref name="overwrite"/> is <see langword="false"/>.</exception>
-        public static void CopyDirectory(string sourcePath, string destinationPath, bool preserveDirectoryModificationTime, bool overwrite)
+        public static void CopyDirectory(string sourcePath, string destinationPath, bool preserveDirectoryModificationTime = true, bool overwrite = false)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(sourcePath)) throw new ArgumentNullException("sourcePath");
@@ -270,7 +270,7 @@ namespace Common.Utils
             {
                 case PlatformID.Win32NT:
                     // Use native replace method with temporary backup file for rollback
-                    File.Replace(sourcePath, destinationPath, backupPath, true);
+                    File.Replace(sourcePath, destinationPath, backupPath, ignoreMetadataErrors: true);
                     File.Delete(backupPath);
                     break;
 
@@ -379,7 +379,7 @@ namespace Common.Utils
             // Inherit rules from container and remove any custom rules
             acl = getAcl();
             acl.CanonicalizeAcl();
-            acl.SetAccessRuleProtection(false, true);
+            acl.SetAccessRuleProtection(isProtected: false, preserveInheritance: true);
             foreach (FileSystemAccessRule rule in acl.GetAccessRules(true, false, typeof(NTAccount)))
                 acl.RemoveAccessRule(rule);
             setAcl(acl);
@@ -461,11 +461,11 @@ namespace Common.Utils
             {
                 case PlatformID.Unix:
                 case PlatformID.MacOSX:
-                    ToggleWriteProtectionUnix(directory, true);
+                    directory.ToggleWriteProtectionUnix(true);
                     break;
 
                 case PlatformID.Win32NT:
-                    ToggleWriteProtectionWinNT(directory, true);
+                    directory.ToggleWriteProtectionWinNT(true);
                     break;
             }
         }
@@ -496,7 +496,7 @@ namespace Common.Utils
 
                 case PlatformID.Win32NT:
                     // Find NTFS ACL inheritance starting at any level
-                    WalkDirectory(directory, dir => ToggleWriteProtectionWinNT(dir, false));
+                    WalkDirectory(directory, dir => dir.ToggleWriteProtectionWinNT(false));
 
                     // Remove any classic read-only attributes
                     try
@@ -512,7 +512,7 @@ namespace Common.Utils
         }
 
         #region Helpers
-        private static void ToggleWriteProtectionUnix(DirectoryInfo directory, bool enable)
+        private static void ToggleWriteProtectionUnix(this DirectoryInfo directory, bool enable)
         {
             try
             {
@@ -533,7 +533,7 @@ namespace Common.Utils
 
         private static readonly FileSystemAccessRule _denyEveryoneWrite = new FileSystemAccessRule(new SecurityIdentifier("S-1-1-0" /*Everyone*/), FileSystemRights.Write | FileSystemRights.Delete | FileSystemRights.DeleteSubdirectoriesAndFiles, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Deny);
 
-        private static void ToggleWriteProtectionWinNT(DirectoryInfo directory, bool enable)
+        private static void ToggleWriteProtectionWinNT(this DirectoryInfo directory, bool enable)
         {
             try
             {

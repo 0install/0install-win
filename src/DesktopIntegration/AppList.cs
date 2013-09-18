@@ -134,7 +134,7 @@ namespace ZeroInstall.DesktopIntegration
         /// Returns the default file path used to store the main <see cref="AppList"/> on this system.
         /// </summary>
         /// <param name="machineWide">Store the <see cref="AppList"/> machine-wide instead of just for the current user.</param>
-        public static string GetDefaultPath(bool machineWide)
+        public static string GetDefaultPath(bool machineWide = false)
         {
             return Path.Combine(
                 // Machine-wide storage cannot be portable, per-user storage can be portable

@@ -53,7 +53,7 @@ namespace ZeroInstall.Commands
         {
             Resolver.Handler.ShowProgressUI();
             string interfaceID = GetCanonicalID(AdditionalArgs[0]);
-            using (var integrationManager = new CategoryIntegrationManager(MachineWide, Resolver.Handler))
+            using (var integrationManager = new CategoryIntegrationManager(Resolver.Handler, MachineWide))
                 return ExecuteHelper(integrationManager, interfaceID);
         }
 

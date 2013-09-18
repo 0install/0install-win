@@ -227,7 +227,7 @@ namespace Common.Controls
 
                 // Automatically expand nodes based on the filtering
                 if (!string.IsNullOrEmpty(textSearch.Text))
-                    ExpandNodes(treeView.Nodes, true);
+                    ExpandNodes(treeView.Nodes, fullNameExpand: true);
             }
 
             // Restore events at the end
@@ -301,7 +301,7 @@ namespace Common.Controls
         /// Automatically expand nodes based on the <see cref="textSearch"/> filtering
         /// </summary>
         /// <param name="subTree">The current <see cref="TreeNodeCollection"/> used in recursion</param>
-        /// <param name="fullNameExpand">Shall a search in the full name of a tag allow it to be expanded?</param>
+        /// <param name="fullNameExpand">Shall a search for the full name of a tag allow it to be expanded?</param>
         private void ExpandNodes(TreeNodeCollection subTree, bool fullNameExpand)
         {
             foreach (TreeNode node in subTree)
@@ -316,9 +316,9 @@ namespace Common.Controls
                     node.Expand();
 
                     // ... but not beyond the first recursion level
-                    ExpandNodes(node.Nodes, false);
+                    ExpandNodes(node.Nodes, fullNameExpand: false);
                 }
-                else ExpandNodes(node.Nodes, fullNameExpand);
+                else ExpandNodes(node.Nodes, fullNameExpand: fullNameExpand);
             }
         }
         #endregion

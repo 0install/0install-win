@@ -135,7 +135,7 @@ namespace ZeroInstall.Central.WinForms
 
         #region Access
         /// <inheritdoc/>
-        public IAppTile QueueNewTile(bool machineWide, string interfaceID, string appName, AppStatus status)
+        public IAppTile QueueNewTile(string interfaceID, string appName, AppStatus status, bool machineWide = false)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
@@ -143,7 +143,7 @@ namespace ZeroInstall.Central.WinForms
             if (_tileDictionary.Contains(interfaceID)) throw new C5.DuplicateNotAllowedException();
             #endregion
 
-            var tile = new AppTile(machineWide, interfaceID, appName, status, IconCache) {Width = _flowLayout.Width};
+            var tile = new AppTile(interfaceID, appName, status, IconCache, machineWide) {Width = _flowLayout.Width};
 
             if (appName.ContainsIgnoreCase(TextSearch.Text))
             {

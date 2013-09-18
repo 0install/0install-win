@@ -23,7 +23,6 @@ using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Model;
-using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -37,7 +36,7 @@ namespace ZeroInstall.DesktopIntegration
     public class CategoryIntegrationManager : IntegrationManager, ICategoryIntegrationManager
     {
         #region Constants
-        /// <summary>Indicates that all <see cref="Capabilities.Capability"/>s and <see cref="AccessPoint"/>s shall be integrated.</summary>
+        /// <summary>Indicates that all <see cref="ZeroInstall.Model.Capabilities.Capability"/>s and <see cref="AccessPoint"/>s shall be integrated.</summary>
         private const string AllCategoryName = "all";
 
         /// <summary>A list of all known <see cref="AccessPoint"/> categories.</summary>
@@ -46,7 +45,11 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Constructor
         /// <inheritdoc/>
-        public CategoryIntegrationManager(bool machineWide, ITaskHandler handler) : base(machineWide, handler)
+        public CategoryIntegrationManager(string appListPath, ITaskHandler handler, bool machineWide = false) : base(appListPath, handler, machineWide)
+        {}
+
+        /// <inheritdoc/>
+        public CategoryIntegrationManager(ITaskHandler handler, bool machineWide = false) : base(handler, machineWide)
         {}
         #endregion
 
@@ -54,7 +57,7 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Add
         /// <inheritdoc/>
-        public void AddAccessPointCategories(AppEntry appEntry, Feed feed, ICollection<string> categories)
+        public void AddAccessPointCategories(AppEntry appEntry, Feed feed, params string[] categories)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
@@ -78,7 +81,7 @@ namespace ZeroInstall.DesktopIntegration
                 accessPointsToAdd.AddRange((
                     from capabilityList in appEntry.CapabilityLists
                     where capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)
-                    from capability in capabilityList.Entries.OfType<Capabilities.DefaultCapability>()
+                    from capability in capabilityList.Entries.OfType<Model.Capabilities.DefaultCapability>()
                     where !capability.WindowsMachineWideOnly || MachineWide || !WindowsUtils.IsWindows
                     where !capability.ExplicitOnly
                     select DefaultAccessPoint.FromCapability(capability)).Cast<AccessPoint>());
@@ -110,7 +113,7 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Remove
         /// <inheritdoc/>
-        public void RemoveAccessPointCategories(AppEntry appEntry, ICollection<string> categories)
+        public void RemoveAccessPointCategories(AppEntry appEntry, params string[] categories)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");
@@ -164,8 +167,8 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             foreach (var defaultProgram in appEntry.CapabilityLists.
-                                                    Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
-                                                    SelectMany(capabilityList => capabilityList.Entries.OfType<Capabilities.DefaultProgram>()))
+                Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
+                SelectMany(capabilityList => capabilityList.Entries.OfType<Model.Capabilities.DefaultProgram>()))
                 Windows.DefaultProgram.ToggleIconsVisible(defaultProgram, iconsVisible);
         }
         #endregion

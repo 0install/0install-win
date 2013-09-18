@@ -85,16 +85,16 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Creates a new sync manager.
         /// </summary>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="server">Access information for the sync server.</param>
         /// <param name="cryptoKey">The local key used to encrypt data before sending it to the <paramref name="server"/>.</param>
         /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public SyncIntegrationManager(bool machineWide, SyncServer server, string cryptoKey, Converter<string, Feed> feedRetriever, ITaskHandler handler)
-            : base(machineWide, handler)
+        public SyncIntegrationManager(SyncServer server, string cryptoKey, Converter<string, Feed> feedRetriever, ITaskHandler handler, bool machineWide = false)
+            : base(handler, machineWide)
         {
             #region Sanity checks
             if (server.Uri == null) throw new ArgumentNullException("server");
@@ -115,16 +115,16 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Creates a new sync manager for a custom <see cref="AppList"/> file. Used for testing.
         /// </summary>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <param name="appListPath">The storage location of the <see cref="AppList"/> file.</param>
         /// <param name="server">Access information for the sync server.</param>
         /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public SyncIntegrationManager(bool machineWide, string appListPath, SyncServer server, Converter<string, Feed> feedRetriever, ITaskHandler handler)
-            : base(machineWide, appListPath, handler)
+        public SyncIntegrationManager(string appListPath, SyncServer server, Converter<string, Feed> feedRetriever, ITaskHandler handler, bool machineWide = false)
+            : base(appListPath, handler, machineWide)
         {
             #region Sanity checks
             if (server.Uri == null) throw new ArgumentNullException("server");

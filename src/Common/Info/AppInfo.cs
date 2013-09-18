@@ -78,12 +78,12 @@ namespace Common.Info
             var assemblyInfo = assembly.GetName();
 
             // Try to determine assembly title, fall back to assembly name on failure
-            var assemblyTitleAttributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+            var assemblyTitleAttributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), inherit: false);
             string name = (assemblyTitleAttributes.Length > 0 ? ((AssemblyTitleAttribute)assemblyTitleAttributes[0]).Title : assemblyInfo.Name);
 
             // Try to determine copyright information
             string copyright = null;
-            var assemblyCopyrightAttributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+            var assemblyCopyrightAttributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), inherit: false);
             if (assemblyCopyrightAttributes.Length > 0) copyright = ((AssemblyCopyrightAttribute)assemblyCopyrightAttributes[0]).Copyright;
 
             Current = new AppInfo

@@ -40,7 +40,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Apply
         /// <inheritdoc/>
-        public override void Apply(AppEntry appEntry, Feed feed, bool machineWide, ITaskHandler handler)
+        public override void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
             if (appEntry == null) throw new ArgumentNullException("appEntry");

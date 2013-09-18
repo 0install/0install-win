@@ -85,7 +85,7 @@ namespace Common.Storage
                 {}
 #endif
 
-                Directory.Delete(Path, true);
+                Directory.Delete(Path, recursive: true);
             }
         }
         #endregion
