@@ -23,7 +23,6 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Common.Undo;
-using Common.Utils;
 
 namespace Common.Controls
 {

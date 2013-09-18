@@ -111,6 +111,7 @@ namespace Common.Gtk
             }
             #endregion
 
+            // ReSharper disable once BitwiseOperatorOnEnumWithoutFlags
             return ShowMessageDialog(owner, text, severity, allowCancel ? ButtonsType.YesNo | ButtonsType.Cancel : ButtonsType.YesNo);
         }
         #endregion
@@ -133,6 +134,7 @@ namespace Common.Gtk
                 case MsgSeverity.Error: type = MessageType.Error; break;
                 default:    
                 case MsgSeverity.Info:
+                    // ReSharper disable once BitwiseOperatorOnEnumWithoutFlags
                     type = ((buttons & ButtonsType.YesNo) == ButtonsType.YesNo) ? MessageType.Question : MessageType.Info;
                     break;
             }

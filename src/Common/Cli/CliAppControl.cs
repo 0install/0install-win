@@ -26,7 +26,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using System.Threading;
 using Common.Properties;
 using Common.Utils;
 

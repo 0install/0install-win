@@ -17,7 +17,6 @@
 
 using System;
 using System.Windows.Forms;
-using Common.Utils;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Central.WinForms.Wizards

@@ -104,6 +104,7 @@ namespace ZeroInstall.Central.WinForms
         /// Runs the application (called by main method or by embedding process).
         /// </summary>
         [STAThread] // Required for WinForms
+        // ReSharper disable once ParameterTypeCanBeEnumerable.Global
         public static int Run(string[] args)
         {
             bool machineWide = args.Any(arg => arg == "-m" || arg == "--machine");

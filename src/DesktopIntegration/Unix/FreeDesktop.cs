@@ -18,7 +18,6 @@
 using System;
 using Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.DesktopIntegration.Unix
 {

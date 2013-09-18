@@ -23,6 +23,7 @@ namespace ZeroInstall.Central.Gtk
     {
         public MainWindow() : base(WindowType.Toplevel)
         {
+            // ReSharper disable once DoNotCallOverridableMethodsInConstructor
             Build();
         }
     }
