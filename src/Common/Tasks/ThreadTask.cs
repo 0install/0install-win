@@ -121,59 +121,10 @@ namespace Common.Tasks
         #region Constructor
         protected ThreadTask()
         {
-            PrepareThread();
+            Thread = new Thread(ThreadExecute);
 
             if (WindowsUtils.IsWindowsNT)
                 _originalIdentity = WindowsIdentity.GetCurrent();
-        }
-
-        /// <summary>
-        /// Prepare the background <see cref="Thread"/> for later execution.
-        /// </summary>
-        private void PrepareThread()
-        {
-            Thread = new Thread(() =>
-            {
-                try
-                {
-                    RunTask();
-                }
-                    #region Error handling
-                catch (OperationCanceledException)
-                {
-                    lock (StateLock)
-                    {
-                        // Reset the state so the task can be started again
-                        State = TaskState.Ready;
-                        PrepareThread();
-                    }
-                }
-                catch (IOException ex)
-                {
-                    lock (StateLock)
-                    {
-                        ErrorMessage = ex.Message;
-                        State = TaskState.IOError;
-                    }
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    lock (StateLock)
-                    {
-                        ErrorMessage = ex.Message;
-                        State = TaskState.IOError;
-                    }
-                }
-                catch (WebException ex)
-                {
-                    lock (StateLock)
-                    {
-                        ErrorMessage = ex.Message;
-                        State = TaskState.WebError;
-                    }
-                }
-                #endregion
-            });
         }
         #endregion
 
@@ -204,7 +155,7 @@ namespace Common.Tasks
             {
                 // Reset the state so the task can be started again
                 State = TaskState.Ready;
-                PrepareThread();
+                Thread = new Thread(ThreadExecute);
                 throw;
             }
             finally
@@ -250,7 +201,53 @@ namespace Common.Tasks
         }
         #endregion
 
-        #region Thread code
+        #region Thread
+        /// <summary>
+        /// The code executed by the worked <see cref="Thread"/>.
+        /// </summary>
+        private void ThreadExecute()
+        {
+            try
+            {
+                RunTask();
+            }
+            #region Error handling
+            catch (OperationCanceledException)
+            {
+                lock (StateLock)
+                {
+                    // Reset the state so the task can be started again
+                    State = TaskState.Ready;
+                    Thread = new Thread(ThreadExecute);
+                }
+            }
+            catch (IOException ex)
+            {
+                lock (StateLock)
+                {
+                    ErrorMessage = ex.Message;
+                    State = TaskState.IOError;
+                }
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                lock (StateLock)
+                {
+                    ErrorMessage = ex.Message;
+                    State = TaskState.IOError;
+                }
+            }
+            catch (WebException ex)
+            {
+                lock (StateLock)
+                {
+                    ErrorMessage = ex.Message;
+                    State = TaskState.WebError;
+                }
+            }
+            #endregion
+        }
+
         /// <summary>
         /// The actual code to be executed by a background thread.
         /// </summary>
