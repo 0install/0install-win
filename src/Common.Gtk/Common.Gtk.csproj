@@ -22,7 +22,7 @@
     <Optimize>false</Optimize>
     <OutputPath>..\..\build\Backend\Debug\</OutputPath>
     <DocumentationFile>..\..\build\Backend\Debug\Common.Gtk.xml</DocumentationFile>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;FS_SECURITY</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
@@ -35,7 +35,7 @@
     <Optimize>true</Optimize>
     <OutputPath>..\..\build\Backend\Release\</OutputPath>
     <DocumentationFile>..\..\build\Backend\Release\Common.Gtk.xml</DocumentationFile>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;FS_SECURITY</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>false</DebugSymbols>
