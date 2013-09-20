@@ -26,7 +26,7 @@ namespace ZeroInstall.Model
     /// Represents a retrieval method that downloads data from the net.
     /// </summary>
     [XmlType("download-retrieval-method", Namespace = Feed.XmlNamespace)]
-    public abstract class DownloadRetrievalMethod : RetrievalMethod, IRecipeStep, IEquatable<DownloadRetrievalMethod>
+    public abstract class DownloadRetrievalMethod : RetrievalMethod, IRecipeStep
     {
         #region Properties
         /// <summary>
@@ -65,7 +65,7 @@ namespace ZeroInstall.Model
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(DownloadRetrievalMethod other)
+        protected bool Equals(DownloadRetrievalMethod other)
         {
             if (other == null) return false;
             return base.Equals(other) && other.Href == Href && other.Size == Size;
