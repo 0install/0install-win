@@ -320,7 +320,7 @@ namespace Common.Utils
         /// <param name="directory">The directory to walk.</param>
         /// <param name="dirAction">The action to perform for every found directory (including the starting <paramref name="directory"/>); may be <see langword="null"/>.</param>
         /// <param name="fileAction">The action to perform for every found file; may be <see langword="null"/>.</param>
-        public static void WalkDirectory(this DirectoryInfo directory, Action<DirectoryInfo> dirAction = null, Action<FileInfo> fileAction = null)
+        public static void Walk(this DirectoryInfo directory, Action<DirectoryInfo> dirAction = null, Action<FileInfo> fileAction = null)
         {
             #region Sanity checks
             if (directory == null) throw new ArgumentNullException("directory");
@@ -329,14 +329,14 @@ namespace Common.Utils
 
             if (dirAction != null) dirAction(directory);
 
-            foreach (var subDir in directory.GetDirectories())
-                WalkDirectory(subDir, dirAction, fileAction);
-
             if (fileAction != null)
             {
                 foreach (var file in directory.GetFiles())
                     fileAction(file);
             }
+
+            foreach (var subDir in directory.GetDirectories())
+                Walk(subDir, dirAction, fileAction);
         }
 
         /// <summary>
@@ -347,8 +347,21 @@ namespace Common.Utils
         public static IEnumerable<string> GetRelativeDirectoriesRecursive(this DirectoryInfo baseDirectory)
         {
             var result = new List<string>();
-            baseDirectory.WalkDirectory(
-                dir => result.Add(dir.RelativeTo(baseDirectory).Replace(Path.DirectorySeparatorChar, '/')));
+            baseDirectory.Walk(
+                dirAction: dir => result.Add(dir.RelativeTo(baseDirectory).Replace(Path.DirectorySeparatorChar, '/')));
+            return result;
+        }
+
+        /// <summary>
+        /// Recursivley lists Unix-style relative paths for all files in all subdirectories of a directory.
+        /// </summary>
+        /// <param name="baseDirectory">The base directory to search for files.</param>
+        /// <returns>A list of relative Unix-style paths.</returns>
+        public static IEnumerable<string> GetRelativeFilesRecursive(this DirectoryInfo baseDirectory)
+        {
+            var result = new List<string>();
+            baseDirectory.Walk(
+                fileAction: file => result.Add(file.RelativeTo(baseDirectory).Replace(Path.DirectorySeparatorChar, '/')));
             return result;
         }
         #endregion
@@ -361,7 +374,7 @@ namespace Common.Utils
         /// </summary>
         public static void ResetAcl(this DirectoryInfo directoryInfo)
         {
-            directoryInfo.WalkDirectory(
+            directoryInfo.Walk(
                 dir => ResetAcl(dir.GetAccessControl, dir.SetAccessControl),
                 file => ResetAcl(file.GetAccessControl, file.SetAccessControl));
         }
@@ -496,12 +509,12 @@ namespace Common.Utils
 
                 case PlatformID.Win32NT:
                     // Find NTFS ACL inheritance starting at any level
-                    WalkDirectory(directory, dir => dir.ToggleWriteProtectionWinNT(false));
+                    Walk(directory, dir => dir.ToggleWriteProtectionWinNT(false));
 
                     // Remove any classic read-only attributes
                     try
                     {
-                        WalkDirectory(directory,
+                        Walk(directory,
                             dir => dir.Attributes = FileAttributes.Normal,
                             file => file.IsReadOnly = false);
                     }
@@ -516,8 +529,8 @@ namespace Common.Utils
         {
             try
             {
-                if (enable) WalkDirectory(directory, subDir => MonoUtils.MakeReadOnly(subDir.FullName), file => MonoUtils.MakeReadOnly(file.FullName));
-                else WalkDirectory(directory, subDir => MonoUtils.MakeWritable(subDir.FullName), file => MonoUtils.MakeWritable(file.FullName));
+                if (enable) Walk(directory, dir => MonoUtils.MakeReadOnly(dir.FullName), file => MonoUtils.MakeReadOnly(file.FullName));
+                else Walk(directory, dir => MonoUtils.MakeWritable(dir.FullName), file => MonoUtils.MakeWritable(file.FullName));
             }
                 #region Error handling
             catch (InvalidOperationException ex)

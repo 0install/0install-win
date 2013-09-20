@@ -287,7 +287,7 @@ namespace Common.Utils
         }
 
         [Test]
-        public void TestWalkDirectory()
+        public void TestWalk()
         {
             using (var tempDir = new TemporaryDirectory("unit-tests"))
             {
@@ -305,8 +305,8 @@ namespace Common.Utils
                 var fileCallbackMock = new Mock<IActionSimulator<string>>(MockBehavior.Strict);
                 fileCallbackMock.Setup(x => x.Invoke(filePath)).Verifiable();
 
-                new DirectoryInfo(tempDir).WalkDirectory(
-                    subDir => dirCallbackMock.Object.Invoke(subDir.FullName),
+                new DirectoryInfo(tempDir).Walk(
+                    dir => dirCallbackMock.Object.Invoke(dir.FullName),
                     file => fileCallbackMock.Object.Invoke(file.FullName));
 
                 dirCallbackMock.Verify();
@@ -319,12 +319,32 @@ namespace Common.Utils
         {
             using (var tempDir = new TemporaryDirectory("unit-tests"))
             {
-                Directory.CreateDirectory(Path.Combine(tempDir, "sub1"));
-                Directory.CreateDirectory(Path.Combine(Path.Combine(tempDir, "sub1"), "sub2"));
+                string sub1 = Path.Combine(tempDir, "sub1");
+                Directory.CreateDirectory(sub1);
+                string sub2 = Path.Combine(sub1, "sub2");
+                Directory.CreateDirectory(sub2);
 
                 CollectionAssert.AreEqual(
                     new[] {"", "sub1", "sub1/sub2"},
                     new DirectoryInfo(tempDir).GetRelativeDirectoriesRecursive());
+            }
+        }
+
+        [Test]
+        public void TestGetRelativeFilesRecursive()
+        {
+            using (var tempDir = new TemporaryDirectory("unit-tests"))
+            {
+                string sub1 = Path.Combine(tempDir, "sub1");
+                Directory.CreateDirectory(sub1);
+                File.WriteAllText(Path.Combine(sub1, "file"), @"abc");
+                string sub2 = Path.Combine(sub1, "sub2");
+                Directory.CreateDirectory(sub2);
+                File.WriteAllText(Path.Combine(sub2, "file"), @"abc");
+
+                CollectionAssert.AreEqual(
+                    new[] {"sub1/file", "sub1/sub2/file"},
+                    new DirectoryInfo(tempDir).GetRelativeFilesRecursive());
             }
         }
         #endregion
