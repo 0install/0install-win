@@ -44,13 +44,15 @@ namespace Common.Utils
         [Test]
         public void TestIsBreakoutPath()
         {
-                Assert.IsTrue(FileUtils.IsBreakoutPath(WindowsUtils.IsWindows ? @"C:\test" : "/test"), "Should detect absolute paths");
+            Assert.IsTrue(FileUtils.IsBreakoutPath(WindowsUtils.IsWindows ? @"C:\test" : "/test"), "Should detect absolute paths");
 
             foreach (string path in new[] {"..", "/..", "../", "/../", "a/../b", "../a", "a/.."})
                 Assert.IsTrue(FileUtils.IsBreakoutPath(path), "Should detect parent directory references");
 
             foreach (string path in new[] {"..a", "a/..a", "a..", "a/a.."})
                 Assert.IsFalse(FileUtils.IsBreakoutPath(path), "Should not trip on '..' as a part of file/directory names");
+
+            Assert.IsFalse(FileUtils.IsBreakoutPath(""));
         }
 
         [Test]
@@ -321,7 +323,7 @@ namespace Common.Utils
                 Directory.CreateDirectory(Path.Combine(Path.Combine(tempDir, "sub1"), "sub2"));
 
                 CollectionAssert.AreEqual(
-                    new [] {"", "sub1", "sub1/sub2"},
+                    new[] {"", "sub1", "sub1/sub2"},
                     new DirectoryInfo(tempDir).GetRelativeDirectoriesRecursive());
             }
         }

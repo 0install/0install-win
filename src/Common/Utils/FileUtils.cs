@@ -58,7 +58,7 @@ namespace Common.Utils
         public static bool IsBreakoutPath(string path)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (path == null) throw new ArgumentNullException("path");
             #endregion
 
             path = UnifySlashes(path);
