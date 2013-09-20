@@ -313,40 +313,6 @@ namespace Common.Utils
                 fileCallbackMock.Verify();
             }
         }
-
-        [Test]
-        public void TestGetRelativeDirectoriesRecursive()
-        {
-            using (var tempDir = new TemporaryDirectory("unit-tests"))
-            {
-                string sub1 = Path.Combine(tempDir, "sub1");
-                Directory.CreateDirectory(sub1);
-                string sub2 = Path.Combine(sub1, "sub2");
-                Directory.CreateDirectory(sub2);
-
-                CollectionAssert.AreEqual(
-                    new[] {"", "sub1", "sub1/sub2"},
-                    new DirectoryInfo(tempDir).GetRelativeDirectoriesRecursive());
-            }
-        }
-
-        [Test]
-        public void TestGetRelativeFilesRecursive()
-        {
-            using (var tempDir = new TemporaryDirectory("unit-tests"))
-            {
-                string sub1 = Path.Combine(tempDir, "sub1");
-                Directory.CreateDirectory(sub1);
-                File.WriteAllText(Path.Combine(sub1, "file"), @"abc");
-                string sub2 = Path.Combine(sub1, "sub2");
-                Directory.CreateDirectory(sub2);
-                File.WriteAllText(Path.Combine(sub2, "file"), @"abc");
-
-                CollectionAssert.AreEqual(
-                    new[] {"sub1/file", "sub1/sub2/file"},
-                    new DirectoryInfo(tempDir).GetRelativeFilesRecursive());
-            }
-        }
         #endregion
 
 #if FS_SECURITY

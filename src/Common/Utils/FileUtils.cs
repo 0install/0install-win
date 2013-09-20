@@ -338,32 +338,6 @@ namespace Common.Utils
             foreach (var subDir in directory.GetDirectories())
                 Walk(subDir, dirAction, fileAction);
         }
-
-        /// <summary>
-        /// Recursivley lists Unix-style relative paths for all subdirectories of a directory.
-        /// </summary>
-        /// <param name="baseDirectory">The base directory to search for subdirectories.</param>
-        /// <returns>A list of relative Unix-style paths, starting with <see cref="string.Empty"/>.</returns>
-        public static IEnumerable<string> GetRelativeDirectoriesRecursive(this DirectoryInfo baseDirectory)
-        {
-            var result = new List<string>();
-            baseDirectory.Walk(
-                dirAction: dir => result.Add(dir.RelativeTo(baseDirectory).Replace(Path.DirectorySeparatorChar, '/')));
-            return result;
-        }
-
-        /// <summary>
-        /// Recursivley lists Unix-style relative paths for all files in all subdirectories of a directory.
-        /// </summary>
-        /// <param name="baseDirectory">The base directory to search for files.</param>
-        /// <returns>A list of relative Unix-style paths.</returns>
-        public static IEnumerable<string> GetRelativeFilesRecursive(this DirectoryInfo baseDirectory)
-        {
-            var result = new List<string>();
-            baseDirectory.Walk(
-                fileAction: file => result.Add(file.RelativeTo(baseDirectory).Replace(Path.DirectorySeparatorChar, '/')));
-            return result;
-        }
         #endregion
 
 #if FS_SECURITY
