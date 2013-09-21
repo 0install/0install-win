@@ -55,6 +55,7 @@ namespace Common.Controls
         /// <summary>
         /// Is raised when <see cref="Target"/> has been changed.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "Is not really an event but rather a hook.")]
         protected event Action TargetChanged;
 
         private ICommandExecutor _commandExecutor;
@@ -74,6 +75,7 @@ namespace Common.Controls
         /// <summary>
         /// Is raised when <see cref="CommandExecutor"/> has been changed.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "Is not really an event but rather a hook.")]
         protected event Action CommandExecutorChanged;
         #endregion
 
@@ -110,6 +112,7 @@ namespace Common.Controls
         /// <summary>
         /// Is raised when <see cref="Refresh"/> is called.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "Is not really an event but rather a hook.")]
         protected event Action OnRefresh;
 
         public override void Refresh()

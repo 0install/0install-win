@@ -15,18 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+
 namespace ZeroInstall.Store
 {
     /// <summary>
     /// Contains extension methods for <see cref="IHandler"/>s.
     /// </summary>
-    public static class Handlers
+    public static class HandlerUtils
     {
         /// <summary>
         /// Calls <see cref="IHandler.Output"/> only when <see cref="IHandler.Batch"/> is <see langword="false"/>.
         /// </summary>
         public static void OutputLow(this IHandler handler, string title, string message)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             if (!handler.Batch) handler.Output(title, message);
         }
     }

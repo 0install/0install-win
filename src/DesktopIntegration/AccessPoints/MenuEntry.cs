@@ -60,7 +60,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             var target = new InterfaceFeed(appEntry.InterfaceID, feed);
-            if (WindowsUtils.IsWindows) Windows.Shortcut.Create(this, target, machineWide, handler);
+            if (WindowsUtils.IsWindows) Windows.Shortcut.Create(this, target, handler, machineWide);
             else if (MonoUtils.IsUnix) Unix.FreeDesktop.Create(this, target, machineWide, handler);
         }
 

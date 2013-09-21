@@ -26,15 +26,34 @@ namespace ZeroInstall.DesktopIntegration.Windows
 {
     public static partial class Shortcut
     {
+        /// <summary>
+        /// Creates a new Windows shortcut in the quick launch bar.
+        /// </summary>
+        /// <param name="quickLaunch">Information about the shortcut to be created.</param>
+        /// <param name="target">The target the shortcut shall point to.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         public static void Create(QuickLaunch quickLaunch, InterfaceFeed target, ITaskHandler handler)
         {
+            #region Sanity checks
+            if (quickLaunch == null) throw new ArgumentNullException("quickLaunch");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             string filePath = GetQuickLaunchPath(quickLaunch.Name);
-            CreateShortcut(filePath, target, quickLaunch.Command, false, handler);
+            Create(filePath, target, quickLaunch.Command, handler);
         }
 
-        public static void Remove(SendTo sendTo)
+        /// <summary>
+        /// Removes a Windows shortcut from the quick launch bar.
+        /// </summary>
+        /// <param name="quickLaunch">Information about the shortcut to be removed.</param>
+        public static void Remove(QuickLaunch quickLaunch)
         {
-            string filePath = GetSendToPath(sendTo.Name);
+            #region Sanity checks
+            if (quickLaunch == null) throw new ArgumentNullException("quickLaunch");
+            #endregion
+
+            string filePath = GetQuickLaunchPath(quickLaunch.Name);
             if (File.Exists(filePath)) File.Delete(filePath);
         }
 

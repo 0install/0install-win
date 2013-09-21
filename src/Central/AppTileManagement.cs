@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using Common;
@@ -233,6 +234,7 @@ namespace ZeroInstall.Central
         /// Runs <see cref="CatalogManager.GetOnline"/> and returns the result.
         /// </summary>
         /// <remarks>This should be executed on a background worker thread and the result passed to <see cref="SetCatalog"/>.</remarks>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs network IO and has side-effects")]
         public Catalog GetCatalogOnline()
         {
             return _catalogManager.GetOnline();
@@ -243,6 +245,10 @@ namespace ZeroInstall.Central
         /// </summary>
         public void SetCatalog(Catalog newCatalog)
         {
+            #region Sanity checks
+            if (newCatalog == null) throw new ArgumentNullException("newCatalog");
+            #endregion
+
             EnumerableUtils.Merge(
                 newCatalog.Feeds, _catalog.Feeds,
                 QueueCatalogTile,

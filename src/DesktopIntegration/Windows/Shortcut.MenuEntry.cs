@@ -26,17 +26,38 @@ namespace ZeroInstall.DesktopIntegration.Windows
 {
     public static partial class Shortcut
     {
-        public static void Create(MenuEntry menuEntry, InterfaceFeed target, bool machineWide, ITaskHandler handler)
+        /// <summary>
+        /// Creates a new Windows shortcut in the start menu or on the start page.
+        /// </summary>
+        /// <param name="menuEntry">Information about the shortcut to be created.</param>
+        /// <param name="target">The target the shortcut shall point to.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <param name="machineWide">Create the shortcut machine-wide instead of just for the current user.</param>
+        public static void Create(MenuEntry menuEntry, InterfaceFeed target, ITaskHandler handler, bool machineWide = false)
         {
+            #region Sanity checks
+            if (menuEntry == null) throw new ArgumentNullException("menuEntry");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             string dirPath = GetStartMenuCategoryPath(menuEntry.Category, machineWide);
             if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
 
             string filePath = GetStartMenuPath(menuEntry.Category, menuEntry.Name, machineWide);
-            CreateShortcut(filePath, target, menuEntry.Command, machineWide, handler);
+            Create(filePath, target, menuEntry.Command, handler, machineWide);
         }
 
-        public static void Remove(MenuEntry menuEntry, bool machineWide)
+        /// <summary>
+        /// Removes a Windows shortcut from the start menu or on the start page.
+        /// </summary>
+        /// <param name="menuEntry">Information about the shortcut to be removed.</param>
+        /// <param name="machineWide">The shortcut was created machine-wide instead of just for the current user.</param>
+        public static void Remove(MenuEntry menuEntry, bool machineWide = false)
         {
+            #region Sanity checks
+            if (menuEntry == null) throw new ArgumentNullException("menuEntry");
+            #endregion
+
             string filePath = GetStartMenuPath(menuEntry.Category, menuEntry.Name, machineWide);
             if (File.Exists(filePath)) File.Delete(filePath);
 

@@ -56,6 +56,11 @@ namespace ZeroInstall.Solvers
         /// <inheritdoc/>
         public int Compare(SelectionCandidate x, SelectionCandidate y)
         {
+            #region Sanity checks
+            if (x == null) throw new ArgumentNullException("x");
+            if (y == null) throw new ArgumentNullException("y");
+            #endregion
+
             // TODO: Languages we understand come first
 
             // Preferred implementations come first

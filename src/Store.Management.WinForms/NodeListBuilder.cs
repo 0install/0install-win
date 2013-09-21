@@ -65,19 +65,15 @@ namespace ZeroInstall.Store.Management.WinForms
         /// <inheritdoc/>
         public override bool UnitsByte { get { return false; } }
 
-        private long _totalSize;
+        /// <summary>
+        /// All generated nodes.
+        /// </summary>
+        public NamedCollection<Node> Nodes { get; private set; }
 
         /// <summary>
-        /// 
+        /// The total size of all <see cref="Implementation"/>s in bytes.
         /// </summary>
-        public long TotalSize { get { return _totalSize; } }
-
-        private NamedCollection<Node> _nodes;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public NamedCollection<Node> Nodes { get { return _nodes; } }
+        public long TotalSize { get; private set; }
         #endregion
 
         private IEnumerable<Feed> _feeds;
@@ -85,7 +81,7 @@ namespace ZeroInstall.Store.Management.WinForms
         /// <inheritdoc/>
         protected override void RunTask()
         {
-            _nodes = new NamedCollection<Node>();
+            Nodes = new NamedCollection<Node>();
             _feeds = _feedCache.GetAll();
 
             foreach (var feed in _feeds) Add(feed);
@@ -111,7 +107,7 @@ namespace ZeroInstall.Store.Management.WinForms
                 if (feed == null) implementationNode = new OrphanedImplementationNode(_parent, _store, digest);
                 else implementationNode = new OwnedImplementationNode(_parent, _store, digest, new FeedNode(_parent, _feedCache, feed), implementation);
 
-                _totalSize += implementationNode.Size;
+                TotalSize += implementationNode.Size;
                 Add(implementationNode);
             }
                 #region Error handling
@@ -138,9 +134,9 @@ namespace ZeroInstall.Store.Management.WinForms
         private void Add(Node entry)
         {
             // Avoid name collisions with suffix
-            while (_nodes.Contains(entry.Name)) entry.SuffixCounter++;
+            while (Nodes.Contains(entry.Name)) entry.SuffixCounter++;
 
-            _nodes.Add(entry);
+            Nodes.Add(entry);
         }
     }
 }

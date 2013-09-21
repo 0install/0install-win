@@ -52,10 +52,16 @@ namespace Common.Info
         public string VersionString { get { return (Version == null ? null : Version.ToString()); } set { Version = string.IsNullOrEmpty(value) ? null : new Version(value); } }
 
         /// <summary>
-        /// The copyright information for the entry assembly.
+        /// The copyright information for the application.
         /// </summary>
         [XmlIgnore]
         public string Copyright { get; set; }
+
+        /// <summary>
+        /// A description of the application.
+        /// </summary>
+        [XmlIgnore]
+        public string Description { get; set; }
 
         /// <summary>
         /// The command-line arguments the application was started with.
@@ -65,11 +71,22 @@ namespace Common.Info
         public string[] Arguments { get; set; }
 
         #region Load
-        private static readonly AppInfo _current = Load(Assembly.GetEntryAssembly());
+        private static readonly AppInfo _current = Load();
         /// <summary>
         /// Information about the currently running application.
         /// </summary>
         public static AppInfo Current { get { return _current; } }
+
+        /// <summary>
+        /// Loads application information for the currently running application.
+        /// </summary>
+        /// <returns></returns>
+        private static AppInfo Load()
+        {
+            var appInfo = Load(Assembly.GetEntryAssembly());
+            appInfo.Arguments = Environment.GetCommandLineArgs();
+            return appInfo;
+        }
 
         /// <summary>
         /// Loads application information for a specific <see cref="Assembly"/>.
@@ -81,20 +98,25 @@ namespace Common.Info
             var assemblyInfo = assembly.GetName();
 
             // Try to determine assembly title, fall back to assembly name on failure
-            var assemblyTitleAttributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), inherit: false);
+            var assemblyTitleAttributes = assembly.GetCustomAttributes(typeof(AssemblyTitleAttribute), inherit: false);
             string name = (assemblyTitleAttributes.Length > 0 ? ((AssemblyTitleAttribute)assemblyTitleAttributes[0]).Title : assemblyInfo.Name);
 
             // Try to determine copyright information
             string copyright = null;
-            var assemblyCopyrightAttributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), inherit: false);
+            var assemblyCopyrightAttributes = assembly.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), inherit: false);
             if (assemblyCopyrightAttributes.Length > 0) copyright = ((AssemblyCopyrightAttribute)assemblyCopyrightAttributes[0]).Copyright;
+
+            // Try to determine assembly description information
+            string description = null;
+            var assemblyDescriptionAttributes = assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), inherit: false);
+            if (assemblyDescriptionAttributes.Length > 0) description = ((AssemblyDescriptionAttribute)assemblyDescriptionAttributes[0]).Description;
 
             return new AppInfo
             {
                 Name = name,
                 Version = new Version(assemblyInfo.Version.Major, assemblyInfo.Version.Minor, assemblyInfo.Version.Build),
-                Copyright = copyright,
-                Arguments = Environment.GetCommandLineArgs()
+                Description = description,
+                Copyright = copyright
             };
         }
         #endregion

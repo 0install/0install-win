@@ -36,9 +36,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="path">The location to place the shorcut at.</param>
         /// <param name="target">The target the shortcut shall point to.</param>
         /// <param name="command">The command within <paramref name="target"/> the shorcut shall point to; may be <see langword="null"/>.</param>
-        /// <param name="machineWide">Create the shortcut machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        private static void CreateShortcut(string path, InterfaceFeed target, string command, bool machineWide, ITaskHandler handler)
+        /// <param name="machineWide">Create the shortcut machine-wide instead of just for the current user.</param>
+        public static void Create(string path, InterfaceFeed target, string command, ITaskHandler handler, bool machineWide = false)
         {
             #region Sanity checks
             if (String.IsNullOrEmpty(path)) throw new ArgumentNullException("path");

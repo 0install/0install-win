@@ -9,3 +9,4 @@
 // You do not need to add suppressions to this file manually.
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes", Scope = "member", Target = "ZeroInstall.Store.Management.WinForms.Nodes.StoreNode.#System.IComparable.CompareTo(System.Object)", Justification = "Comparison is only used for sorting in FilteredTreeView")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "WinForms", Scope = "member", Target = "ZeroInstall.Store.Management.WinForms.Program.#Run(System.String[])")]

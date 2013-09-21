@@ -26,14 +26,35 @@ namespace ZeroInstall.DesktopIntegration.Windows
 {
     public static partial class Shortcut
     {
-        public static void Create(DesktopIcon desktopIcon, InterfaceFeed target, bool machineWide, ITaskHandler handler)
+        /// <summary>
+        /// Creates a new Windows shortcut on the desktop.
+        /// </summary>
+        /// <param name="desktopIcon">Information about the shortcut to be created.</param>
+        /// <param name="target">The target the shortcut shall point to.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <param name="machineWide">Create the shortcut machine-wide instead of just for the current user.</param>
+        public static void Create(DesktopIcon desktopIcon, InterfaceFeed target, ITaskHandler handler, bool machineWide = false)
         {
+            #region Sanity checks
+            if (desktopIcon == null) throw new ArgumentNullException("desktopIcon");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             string filePath = GetDesktopPath(desktopIcon.Name, machineWide);
-            CreateShortcut(filePath, target, desktopIcon.Command, machineWide, handler);
+            Create(filePath, target, desktopIcon.Command, handler, machineWide);
         }
 
-        public static void Remove(DesktopIcon desktopIcon, bool machineWide)
+        /// <summary>
+        /// Removes a Windows shortcut from the desktop.
+        /// </summary>
+        /// <param name="desktopIcon">Information about the shortcut to be removed.</param>
+        /// <param name="machineWide">The shortcut was created machine-wide instead of just for the current user.</param>
+        public static void Remove(DesktopIcon desktopIcon, bool machineWide = false)
         {
+            #region Sanity checks
+            if (desktopIcon == null) throw new ArgumentNullException("desktopIcon");
+            #endregion
+
             string filePath = GetDesktopPath(desktopIcon.Name, machineWide);
             if (File.Exists(filePath)) File.Delete(filePath);
         }

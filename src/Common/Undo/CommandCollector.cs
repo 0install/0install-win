@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.Collections.Generic;
 
 namespace Common.Undo
@@ -37,6 +38,10 @@ namespace Common.Undo
         /// <param name="command">The command to be stored.</param>
         public void Execute(IUndoCommand command)
         {
+            #region Sanity checks
+            if (command == null) throw new ArgumentNullException("command");
+            #endregion
+
             command.Execute();
             _commands.Add(command);
         }
