@@ -29,7 +29,7 @@ using System.Xml.Serialization;
 namespace Common.Info
 {
     /// <summary>
-    /// Wraps information about the current application in a serializer-friendly format.
+    /// Wraps information about an application in a serializer-friendly format.
     /// </summary>
     [XmlType("application")]
     public struct AppInfo
@@ -64,17 +64,20 @@ namespace Common.Info
         [XmlElement("arg")]
         public string[] Arguments { get; set; }
 
-        #region Static
+        #region Load
+        private static readonly AppInfo _current = Load(Assembly.GetEntryAssembly());
         /// <summary>
-        /// Information about the current operating system.
+        /// Information about the currently running application.
         /// </summary>
-        public static AppInfo Current { get; private set; }
+        public static AppInfo Current { get { return _current; } }
 
-        [SuppressMessage("Microsoft.Usage", "CA2207:InitializeValueTypeStaticFieldsInline")]
-        static AppInfo()
+        /// <summary>
+        /// Loads application information for a specific <see cref="Assembly"/>.
+        /// </summary>
+        public static AppInfo Load(Assembly assembly)
         {
-            var assembly = Assembly.GetEntryAssembly();
-            if (assembly == null) return;
+            if (assembly == null) return new AppInfo();
+
             var assemblyInfo = assembly.GetName();
 
             // Try to determine assembly title, fall back to assembly name on failure
@@ -86,7 +89,7 @@ namespace Common.Info
             var assemblyCopyrightAttributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), inherit: false);
             if (assemblyCopyrightAttributes.Length > 0) copyright = ((AssemblyCopyrightAttribute)assemblyCopyrightAttributes[0]).Copyright;
 
-            Current = new AppInfo
+            return new AppInfo
             {
                 Name = name,
                 Version = new Version(assemblyInfo.Version.Major, assemblyInfo.Version.Minor, assemblyInfo.Version.Build),

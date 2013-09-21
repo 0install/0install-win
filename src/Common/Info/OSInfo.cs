@@ -22,14 +22,13 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Utils;
 
 namespace Common.Info
 {
     /// <summary>
-    /// Wraps information about the operating system in a serializer-friendly format.
+    /// Wraps information about an operating system in a serializer-friendly format.
     /// </summary>
     [XmlType("os")]
     public struct OSInfo
@@ -80,15 +79,15 @@ namespace Common.Info
         }
 
         #region Static
+        private static readonly OSInfo _current = Load();
         /// <summary>
         /// Information about the current operating system.
         /// </summary>
-        public static OSInfo Current { get; private set; }
+        public static OSInfo Current { get { return _current; } }
 
-        [SuppressMessage("Microsoft.Usage", "CA2207:InitializeValueTypeStaticFieldsInline")]
-        static OSInfo()
+        private static OSInfo Load()
         {
-            Current = new OSInfo
+            return new OSInfo
             {
                 Platform = Environment.OSVersion.Platform,
                 Is64Bit = WindowsUtils.Is64BitOperatingSystem,
