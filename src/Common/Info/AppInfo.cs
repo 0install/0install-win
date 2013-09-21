@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Xml.Serialization;
+using Common.Utils;
 
 namespace Common.Info
 {
@@ -96,27 +97,13 @@ namespace Common.Info
             if (assembly == null) return new AppInfo();
 
             var assemblyInfo = assembly.GetName();
-
-            // Try to determine assembly title, fall back to assembly name on failure
-            var assemblyTitleAttributes = assembly.GetCustomAttributes(typeof(AssemblyTitleAttribute), inherit: false);
-            string name = (assemblyTitleAttributes.Length > 0 ? ((AssemblyTitleAttribute)assemblyTitleAttributes[0]).Title : assemblyInfo.Name);
-
-            // Try to determine copyright information
-            string copyright = null;
-            var assemblyCopyrightAttributes = assembly.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), inherit: false);
-            if (assemblyCopyrightAttributes.Length > 0) copyright = ((AssemblyCopyrightAttribute)assemblyCopyrightAttributes[0]).Copyright;
-
-            // Try to determine assembly description information
-            string description = null;
-            var assemblyDescriptionAttributes = assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), inherit: false);
-            if (assemblyDescriptionAttributes.Length > 0) description = ((AssemblyDescriptionAttribute)assemblyDescriptionAttributes[0]).Description;
-
+            var attributes = CustomAttributeData.GetCustomAttributes(assembly);
             return new AppInfo
             {
-                Name = name,
+                Name = attributes.GetConstructorArg<AssemblyTitleAttribute>(0) ?? assemblyInfo.Name,
                 Version = new Version(assemblyInfo.Version.Major, assemblyInfo.Version.Minor, assemblyInfo.Version.Build),
-                Description = description,
-                Copyright = copyright
+                Description = attributes.GetConstructorArg<AssemblyDescriptionAttribute>(0),
+                Copyright = attributes.GetConstructorArg<AssemblyCopyrightAttribute>(0)
             };
         }
         #endregion

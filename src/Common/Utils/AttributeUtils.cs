@@ -88,5 +88,14 @@ namespace Common.Utils
 
             return TypeDescriptor.GetConverter(typeof(TType)).ConvertToInvariantString(value);
         }
+
+        /// <summary>
+        /// Retrieves a specific constructor argument for a specific attribute in a reflection-only context.
+        /// </summary>
+        public static string GetConstructorArg<T>(this IEnumerable<CustomAttributeData> attributes, int index)
+        {
+            var attribute = attributes.FirstOrDefault(x => x.ToString().StartsWith("[" + typeof(T).FullName));
+            return (attribute == null) ? null : attribute.ConstructorArguments[index].Value.ToString();
+        }
     }
 }
