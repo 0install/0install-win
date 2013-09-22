@@ -94,3 +94,9 @@ http://www.gnupg.org/
 GNU GPL: http://www.gnu.org/copyleft/gpl.html
 Source unmodified
 Pre-compiled EXE: gpg.exe
+
+ELFSharp 0.0.9
+http://antmicro.com/projects/elfsharp/
+X11 license: ELFSharp.license.txt
+Source unmodified
+Self-compiled managed DLL: ELFSharp.dll
