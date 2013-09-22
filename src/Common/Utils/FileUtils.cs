@@ -29,6 +29,7 @@ using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Principal;
+using System.Text;
 using Common.Properties;
 
 #if FS_SECURITY
@@ -66,7 +67,7 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Returns a Unix-style relative path from <paramref name="basePath"/> to <paramref name="targetPath"/>.
+        /// Returns a relative path pointing to <paramref name="targetPath"/> from <paramref name="basePath"/> using Unix-style directory separators.
         /// </summary>
         public static string RelativeTo(this FileSystemInfo targetPath, FileSystemInfo basePath)
         {
@@ -294,6 +295,22 @@ namespace Common.Utils
                     }
                     break;
             }
+        }
+        #endregion
+
+        #region Read
+        /// <summary>
+        /// Reads the first line of text from a file.
+        /// </summary>
+        /// <param name="file">The file to read from.</param>
+        /// <param name="encoding">The text encoding to use for reading.</param>
+        /// <returns>The first line of text in the file.</returns>
+        /// <exception cref="IOException">Thrown if a problem occurred while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
+        public static string ReadFirstLine(this FileInfo file, Encoding encoding)
+        {
+            using (var stream = file.OpenRead())
+                return new StreamReader(stream, Encoding.ASCII).ReadLine();
         }
         #endregion
 

@@ -22,6 +22,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using Common.Storage;
 using Moq;
 using NUnit.Framework;
@@ -274,6 +275,18 @@ namespace Common.Utils
                 File.WriteAllText(sourcePath, @"source");
                 FileUtils.Replace(sourcePath, targetPath);
                 Assert.AreEqual("source", File.ReadAllText(targetPath));
+            }
+        }
+        #endregion
+
+        #region Read
+        [Test]
+        public void TestReadFirstline()
+        {
+            using (var tempFile = new TemporaryFile("unit-tests"))
+            {
+                File.WriteAllText(tempFile, "line1\nline2");
+                Assert.AreEqual("line1", new FileInfo(tempFile).ReadFirstLine(Encoding.ASCII));
             }
         }
         #endregion
