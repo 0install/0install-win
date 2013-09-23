@@ -44,7 +44,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void TestPlain()
         {
-            using (var archive = TestData.GetTestTarArchiveStream())
+            using (var archive = TestData.GetResource("testArchive.tar"))
                 TestExtract(Model.Archive.MimeTypeTar, archive);
         }
 
@@ -57,7 +57,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void TestGzCompressed()
         {
-            using (var archive = TestData.GetTestTarGzArchiveStream())
+            using (var archive = TestData.GetResource("testArchive.tar.gz"))
                 TestExtract(Model.Archive.MimeTypeTarGzip, archive);
         }
 
@@ -70,7 +70,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void TestBz2Compressed()
         {
-            using (var archive = TestData.GetTestTarBz2ArchiveStream())
+            using (var archive = TestData.GetResource("testArchive.tar.bz2"))
                 TestExtract(Model.Archive.MimeTypeTarBzip, archive);
         }
 
@@ -83,7 +83,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void TestLzmaCompressed()
         {
-            using (var archive = TestData.GetTestTarLzmaArchiveStream())
+            using (var archive = TestData.GetResource("testArchive.tar.lzma"))
                 TestExtract(Model.Archive.MimeTypeTarLzma, archive);
         }
 
@@ -96,7 +96,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void TestRubyGem()
         {
-            using (var archive = TestData.GetTestGemArchiveStream())
+            using (var archive = TestData.GetResource("testArchive.gem"))
                 TestExtract(Model.Archive.MimeTypeRubyGem, archive);
         }
 
@@ -115,7 +115,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void TestHardlink()
         {
-            using (var archive = TestData.GetTestTarArchiveHardlinkStream())
+            using (var archive = TestData.GetResource("testArchiveHardlink.tar"))
             using (var extractor = Extractor.CreateExtractor(Model.Archive.MimeTypeTar, archive, _sandbox))
                 extractor.RunSync();
 
@@ -147,7 +147,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void TestExtractUnixArchiveWithExecutable()
         {
-            using (var archive = TestData.GetTestTarArchiveStream())
+            using (var archive = TestData.GetResource("testArchive.tar"))
             using (var extractor = new TarExtractor(archive, _sandbox))
                 extractor.RunSync();
 
@@ -166,7 +166,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void TestExtractUnixArchiveWithSymlink()
         {
-            using (var archive = TestData.GetTestTarArchiveStream())
+            using (var archive = TestData.GetResource("testArchive.tar"))
             using (var extractor = new TarExtractor(archive, _sandbox))
                 extractor.RunSync();
 

@@ -42,7 +42,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void DownloadAndApplyArchive()
         {
-            using (var originalStream = TestData.GetTestZipArchiveStream())
+            using (var originalStream = TestData.GetResource("testArchive.zip"))
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var archive = new Archive {Href = microServer.FileUri};
@@ -75,7 +75,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void DownloadAndApplyRecipe()
         {
-            using (var originalStream = TestData.GetTestZipArchiveStream())
+            using (var originalStream = TestData.GetResource("testArchive.zip"))
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var archive = new Archive {Href = microServer.FileUri};
@@ -96,7 +96,7 @@ namespace ZeroInstall.Publish
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
             {
                 string tempFile = Path.Combine(tempDir, "archive.zip");
-                using (var memoryStream = TestData.GetTestZipArchiveStream())
+                using (var memoryStream = TestData.GetResource("testArchive.zip"))
                     memoryStream.WriteToFile(tempFile);
 
                 var archive = new Archive();

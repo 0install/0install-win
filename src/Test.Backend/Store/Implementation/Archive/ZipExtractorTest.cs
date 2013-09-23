@@ -72,7 +72,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test(Description = "Tests whether the extractor correctly restores files including their last changed timestamps.")]
         public void TestFileExtract()
         {
-            using (var archive = TestData.GetTestZipArchiveStream())
+            using (var archive = TestData.GetResource("testArchive.zip"))
             using (var extractor = Extractor.CreateExtractor(Model.Archive.MimeTypeZip, archive, _sandbox))
                 extractor.RunSync();
 
@@ -184,7 +184,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test(Description = "Tests whether the extractor generates a correct .symlink file for a sample ZIP archive containing an executable file.")]
         public void TestExtractUnixArchiveWithExecutable()
         {
-            using (var archive = TestData.GetTestZipArchiveStream())
+            using (var archive = TestData.GetResource("testArchive.zip"))
             using (var extractor = new ZipExtractor(archive, _sandbox))
                 extractor.RunSync();
 
@@ -200,7 +200,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test(Description = "Tests whether the extractor generates a correct .symlink file for a sample ZIP archive containing a symbolic link.")]
         public void TestExtractUnixArchiveWithSymlink()
         {
-            using (var archive = TestData.GetTestZipArchiveStream())
+            using (var archive = TestData.GetResource("testArchive.zip"))
             using (var extractor = new ZipExtractor(archive, _sandbox))
                 extractor.RunSync();
 

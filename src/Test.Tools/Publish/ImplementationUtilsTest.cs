@@ -46,7 +46,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void BuildArchive()
         {
-            using (var originalStream = TestData.GetTestZipArchiveStream())
+            using (var originalStream = TestData.GetResource("testArchive.zip"))
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var implementation = ImplementationUtils.Build(new Archive {Href = microServer.FileUri}, new SilentTaskHandler());
@@ -81,7 +81,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void BuildRecipe()
         {
-            using (var originalStream = TestData.GetTestZipArchiveStream())
+            using (var originalStream = TestData.GetResource("testArchive.zip"))
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var implementation = ImplementationUtils.Build(new Recipe {Steps = {new Archive {Href = microServer.FileUri}}}, new SilentTaskHandler());
@@ -99,7 +99,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void AddMissingArchive()
         {
-            using (var originalStream = TestData.GetTestZipArchiveStream())
+            using (var originalStream = TestData.GetResource("testArchive.zip"))
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var implementation = new Implementation {RetrievalMethods = {new Archive {Href = microServer.FileUri}}};
@@ -137,7 +137,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void AddMissingRecipe()
         {
-            using (var originalStream = TestData.GetTestZipArchiveStream())
+            using (var originalStream = TestData.GetResource("testArchive.zip"))
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var implementation = new Implementation {RetrievalMethods = {new Recipe {Steps = {new Archive {Href = microServer.FileUri}}}}};
@@ -156,7 +156,7 @@ namespace ZeroInstall.Publish
         [Test]
         public void AddMissingExceptions()
         {
-            using (var originalStream = TestData.GetTestZipArchiveStream())
+            using (var originalStream = TestData.GetResource("testArchive.zip"))
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var implementation = new Implementation {ManifestDigest = new ManifestDigest(sha1New: "invalid"), RetrievalMethods = {new Archive {Href = microServer.FileUri}}};
