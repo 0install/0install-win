@@ -56,6 +56,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Tools.cs" />
+    <Compile Include="EntryPoints\Candidate.cs" />
+    <Compile Include="EntryPoints\Detection.cs" />
+    <Compile Include="EntryPoints\DotNetExe.cs" />
+    <Compile Include="EntryPoints\InterpretedScript.cs" />
+    <Compile Include="EntryPoints\Java.cs" />
+    <Compile Include="EntryPoints\JavaClass.cs" />
+    <Compile Include="EntryPoints\JavaJar.cs" />
+    <Compile Include="EntryPoints\MacOSApp.cs" />
+    <Compile Include="EntryPoints\NativeExecutable.cs" />
+    <Compile Include="EntryPoints\PEHeader.cs" />
+    <Compile Include="EntryPoints\PerlScript.cs" />
+    <Compile Include="EntryPoints\PhpScript.cs" />
+    <Compile Include="EntryPoints\PosixBinary.cs" />
+    <Compile Include="EntryPoints\PosixExecutable.cs" />
+    <Compile Include="EntryPoints\PosixScript.cs" />
+    <Compile Include="EntryPoints\PythonScript.cs" />
+    <Compile Include="EntryPoints\RubyScript.cs" />
+    <Compile Include="EntryPoints\WindowsExe.cs" />
+    <Compile Include="EntryPoints\PowerShellScript.cs" />
+    <Compile Include="EntryPoints\WindowsBatch.cs" />
     <Compile Include="RetrievalMethodUtils.cs" />
     <Compile Include="FeedEditing.cs" />
     <Compile Include="FeedUtils.cs" />
@@ -97,6 +117,9 @@
   <ItemGroup>
     <EmbeddedResource Include="interface.css" />
     <EmbeddedResource Include="interface.xsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EntryPoints\ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

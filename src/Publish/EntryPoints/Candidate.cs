@@ -1,0 +1,153 @@
+﻿/*
+ * Copyright 2010-2013 Bastian Eicher
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
+using System.IO;
+using Common.Utils;
+using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
+
+namespace ZeroInstall.Publish.EntryPoints
+{
+    /// <summary>
+    /// Collects information about a potential candidate for an entry point.
+    /// The subclass type determines the type of executable (native binary, interpreted script, etc.).
+    /// </summary>
+    public abstract class Candidate
+    {
+        #region Analyze
+        /// <summary>
+        /// Analyzes a file to determine whether it matches this candidate type and extracts meta data.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>
+        /// <see langword="true"/> if <paramref name="file"/> matches this candidate type. The object will then contain all available metadata.
+        /// <see langword="false"/> if <paramref name="file"/>does not match this candidate type. The object will then be in an inconsistent state. Do not reuse!
+        /// </returns>
+        internal virtual bool Analyze(FileInfo file)
+        {
+            #region Sanity checks
+            if (file == null) throw new ArgumentNullException("file");
+            #endregion
+
+            RelativePath = file.RelativeTo(BaseDirectory);
+            return true;
+        }
+        #endregion
+
+        #region Helpers
+        /// <summary>
+        /// Determines whether a file is executable.
+        /// </summary>
+        protected bool IsExecutable(string path)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
+            return
+                FileUtils.IsExecutable(path) ||
+                FlagUtils.GetExternalFlags(".xbit", BaseDirectory.FullName).Contains(path);
+        }
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// The base directory containing the entire application.
+        /// </summary>
+        public DirectoryInfo BaseDirectory { get; internal set; }
+
+        /// <summary>
+        /// The path of this entry point relative to <see cref="BaseDirectory"/> using Unix-style directory separators.
+        /// </summary>
+        public string RelativePath { get; internal set; }
+
+        /// <summary>
+        /// A suggestion for <see cref="Feed.Name"/> extracted from the entry point metadata.
+        /// </summary>
+        public string Name { get; internal set; }
+
+        /// <summary>
+        /// A suggestion for <see cref="Feed.Summaries"/> extracted from the entry point metadata.
+        /// </summary>
+        public string Description { get; internal set; }
+
+        /// <summary>
+        /// A suggestion for <see cref="Feed.NeedsTerminal"/> extracted from the entry point metadata.
+        /// </summary>
+        public bool NeedsTerminal { get; internal set; }
+
+        /// <summary>
+        /// A suggestion for <see cref="Implementation.Version"/> extracted from the entry point metadata.
+        /// </summary>
+        public ImplementationVersion Version { get; internal set; }
+
+        /// <summary>
+        /// A suggestion for <see cref="Implementation.Architecture"/> extracted from the entry point metadata.
+        /// </summary>
+        public Architecture Architecture { get; internal set; }
+        
+        /// <summary>
+        /// The <see cref="Runner"/> required to launch this entry point. <see langword="null"/> if no <see cref="Runner"/> is required.
+        /// </summary>
+        public abstract Runner Runner { get; }
+        #endregion
+
+        public override string ToString()
+        {
+            return RelativePath + " (" + GetType().Name + ")";
+        }
+
+        #region Equality
+        protected bool Equals(Candidate other)
+        {
+            if (other == null) return false;
+            return
+                Equals(BaseDirectory, other.BaseDirectory) &&
+                string.Equals(RelativePath, other.RelativePath) &&
+                string.Equals(Name, other.Name) &&
+                string.Equals(Description, other.Description) &&
+                NeedsTerminal == other.NeedsTerminal &&
+                Equals(Version, other.Version) &&
+                Architecture == other.Architecture;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((Candidate)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = (BaseDirectory != null ? BaseDirectory.GetHashCode() : 397);
+                hashCode = (hashCode * 397) ^ (RelativePath != null ? RelativePath.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Description != null ? Description.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ NeedsTerminal.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Version != null ? Version.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Architecture.GetHashCode();
+                return hashCode;
+            }
+        }
+        #endregion
+    }
+}
