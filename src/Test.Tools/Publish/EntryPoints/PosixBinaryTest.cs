@@ -27,44 +27,44 @@ namespace ZeroInstall.Publish.EntryPoints
     [TestFixture]
     public class PosixBinaryTest : TemporayDirectoryTest
     {
+        public static readonly PosixBinary ReferenceCandidate32 = new PosixBinary {RelativePath = "elf32", Name = "elf32", Architecture = new Architecture(OS.Linux, Cpu.I386)};
+        public static readonly PosixBinary ReferenceCandidate64 = new PosixBinary {RelativePath = "elf64", Name = "elf64", Architecture = new Architecture(OS.Linux, Cpu.X64)};
+
         [Test]
         public void Elf32()
         {
-            var candidate = new PosixBinary { BaseDirectory = Directory };
+            var candidate = new PosixBinary {BaseDirectory = Directory};
             Assert.IsTrue(candidate.Analyze(Directory.DeployFile("elf32", executable: true)));
-            Assert.AreEqual("elf32", candidate.Name);
-            Assert.AreEqual(new Architecture(OS.Linux, Cpu.I386), candidate.Architecture);
+            Assert.AreEqual(ReferenceCandidate32, candidate);
         }
 
         [Test]
         public void Elf64()
         {
-            var candidate = new PosixBinary { BaseDirectory = Directory };
+            var candidate = new PosixBinary {BaseDirectory = Directory};
             Assert.IsTrue(candidate.Analyze(Directory.DeployFile("elf64", executable: true)));
-            Assert.AreEqual("elf64", candidate.Name);
-            Assert.AreEqual(new Architecture(OS.Linux, Cpu.X64), candidate.Architecture);
+            Assert.AreEqual(ReferenceCandidate64, candidate);
         }
 
         [Test]
         public void ElfBroken()
         {
-            var candidate = new PosixBinary { BaseDirectory = Directory };
+            var candidate = new PosixBinary {BaseDirectory = Directory};
             Assert.IsFalse(candidate.Analyze(Directory.DeployFile("elfbroken", executable: true)));
         }
 
         [Test]
         public void NotElf()
         {
-            var candidate = new PosixBinary { BaseDirectory = Directory };
+            var candidate = new PosixBinary {BaseDirectory = Directory};
             Assert.IsFalse(candidate.Analyze(Directory.DeployFile("sh", executable: true)));
         }
 
         [Test]
         public void NotExecutable()
         {
-            var candidate = new PosixBinary { BaseDirectory = Directory };
+            var candidate = new PosixBinary {BaseDirectory = Directory};
             Assert.IsFalse(candidate.Analyze(Directory.DeployFile("elf32")));
         }
-
     }
 }

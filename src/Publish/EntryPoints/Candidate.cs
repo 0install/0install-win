@@ -100,7 +100,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// A suggestion for <see cref="Implementation.Architecture"/> extracted from the entry point metadata.
         /// </summary>
         public Architecture Architecture { get; internal set; }
-        
+
         /// <summary>
         /// The <see cref="Runner"/> required to launch this entry point. <see langword="null"/> if no <see cref="Runner"/> is required.
         /// </summary>
@@ -117,7 +117,6 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             if (other == null) return false;
             return
-                Equals(BaseDirectory, other.BaseDirectory) &&
                 string.Equals(RelativePath, other.RelativePath) &&
                 string.Equals(Name, other.Name) &&
                 string.Equals(Description, other.Description) &&
@@ -138,8 +137,7 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             unchecked
             {
-                int hashCode = (BaseDirectory != null ? BaseDirectory.GetHashCode() : 397);
-                hashCode = (hashCode * 397) ^ (RelativePath != null ? RelativePath.GetHashCode() : 0);
+                int hashCode = (RelativePath != null ? RelativePath.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Description != null ? Description.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ NeedsTerminal.GetHashCode();

@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Reflection;
 using System.IO;
+using System.Reflection;
 using Common.Utils;
 using ZeroInstall.Store.Implementation;
 
@@ -33,7 +33,7 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             return _testDataAssembly.GetManifestResourceStream(typeof(TestData), name);
         }
-        
+
         public static FileInfo DeployFile(this DirectoryInfo directory, string name, bool executable = false)
         {
             var file = new FileInfo(Path.Combine(directory.FullName, name));

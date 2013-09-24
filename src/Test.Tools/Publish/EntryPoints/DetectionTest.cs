@@ -18,7 +18,6 @@
 using System.Linq;
 using Common;
 using NUnit.Framework;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
@@ -29,18 +28,21 @@ namespace ZeroInstall.Publish.EntryPoints
     public class DetectionTest : TemporayDirectoryTest
     {
         [Test]
-        public void DetectElfVaraiants()
+        public void TestListCandidates()
         {
+            //Directory.DeployFile("dotnet20.exe");
             Directory.DeployFile("elf32", true);
-            Directory.DeployFile("elf64", true);
-            Directory.DeployFile("elfbroken", true);
+            Directory.DeployFile("python", true);
+            Directory.DeployFile("sh", true);
 
             var candidates = Detection.ListCandidates(Directory).ToList();
             CollectionAssert.AreEquivalent(
                 new Candidate[]
                 {
-                    new PosixBinary {RelativePath = "elf32", Name = "elf32", Architecture = new Architecture(OS.Linux, Cpu.I386)},
-                    new PosixBinary {RelativePath = "elf64", Name = "elf64", Architecture = new Architecture(OS.Linux, Cpu.X64)}
+                    //DotNetExeTest.ReferenceCandidate,
+                    PosixBinaryTest.ReferenceCandidate32,
+                    PythonScriptTest.ReferenceCandidate,
+                    PosixScriptTest.ReferenceCandidate
                 },
                 candidates);
         }

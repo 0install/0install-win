@@ -24,6 +24,22 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
+    public enum DotNetRuntimeVersion
+    {
+        V20,
+        V30,
+        V35,
+        V40,
+        V45
+    }
+
+    public enum DotNetRuntimeType
+    {
+        Any,
+        MicrosoftOnly,
+        MonoOnly
+    }
+
     public sealed class DotNetExe : Candidate
     {
         /// <inheritdoc/>
@@ -39,11 +55,8 @@ namespace ZeroInstall.Publish.EntryPoints
             try
             {
                 var assembly = Assembly.ReflectionOnlyLoadFrom(file.FullName);
-                RuntimeVersion = assembly.ImageRuntimeVersion;
-                var appInfo = AppInfo.Load(assembly);
-                Name = appInfo.Name;
-                Description = appInfo.Description;
-                Version = new ImplementationVersion(appInfo.Version);
+                Parse(assembly);
+                // TODO: Unload assembly
                 return true;
             }
                 #region Error handling
@@ -58,14 +71,53 @@ namespace ZeroInstall.Publish.EntryPoints
             #endregion
         }
 
-        public string RuntimeVersion { get; private set; }
+        private void Parse(Assembly assembly)
+        {
+            RuntimeVersion = GetRuntimeVersion(assembly.ImageRuntimeVersion);
+            var appInfo = AppInfo.Load(assembly);
+            Name = appInfo.Name;
+            Description = appInfo.Description;
+            Version = new ImplementationVersion(appInfo.Version);
+        }
 
-        public override Runner Runner { get { return new Runner(); } }
+        private static DotNetRuntimeVersion GetRuntimeVersion(string version)
+        {
+            switch (version)
+            {
+                case "v2.0.50727":
+                    return DotNetRuntimeVersion.V20;
+                case "v3.0":
+                    return DotNetRuntimeVersion.V30;
+                case "v3.5":
+                    return DotNetRuntimeVersion.V35;
+                default:
+                case "v4.0.30319":
+                    return DotNetRuntimeVersion.V40;
+            }
+        }
+
+        public DotNetRuntimeVersion RuntimeVersion { get; set; }
+
+        public DotNetRuntimeType RuntimeType { get; set; }
+
+        public bool NeedsMonoPath { get; set; }
+
+        public override Runner Runner
+        {
+            get
+            {
+                return null;
+            }
+        }
 
         #region Equality
         private bool Equals(DotNetExe other)
         {
-            return base.Equals(other) && string.Equals(RuntimeVersion, other.RuntimeVersion);
+            return
+                base.Equals(other) &&
+                RuntimeVersion == other.RuntimeVersion &&
+                RuntimeType == other.RuntimeType &&
+                NeedsMonoPath == other.NeedsMonoPath;
         }
 
         public override bool Equals(object obj)
@@ -79,7 +131,11 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             unchecked
             {
-                return (base.GetHashCode() * 397) ^ (RuntimeVersion != null ? RuntimeVersion.GetHashCode() : 0);
+                int hashCode = base.GetHashCode();
+                hashCode = (hashCode * 397) ^ (int)RuntimeVersion;
+                hashCode = (hashCode * 397) ^ (int)RuntimeType;
+                hashCode = (hashCode * 397) ^ NeedsMonoPath.GetHashCode();
+                return hashCode;
             }
         }
         #endregion

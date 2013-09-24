@@ -26,6 +26,16 @@ namespace ZeroInstall.Publish.EntryPoints
     [TestFixture]
     public class PythonScriptTest : TemporayDirectoryTest
     {
+        public static readonly PythonScript ReferenceCandidate = new PythonScript {RelativePath = "python", Name = "python", NeedsTerminal = true};
+
+        [Test]
+        public void NoExtension()
+        {
+            var candidate = new PythonScript {BaseDirectory = Directory};
+            Assert.IsTrue(candidate.Analyze(Directory.DeployFile("python", executable: true)));
+            Assert.AreEqual(ReferenceCandidate, candidate);
+        }
+
         [Test]
         public void WithExtension()
         {
@@ -42,15 +52,6 @@ namespace ZeroInstall.Publish.EntryPoints
             Assert.IsTrue(candidate.Analyze(Directory.DeployFile("python.pyw")));
             Assert.AreEqual(candidate.Name, "python");
             Assert.IsFalse(candidate.NeedsTerminal);
-        }
-
-        [Test]
-        public void NoExtension()
-        {
-            var candidate = new PythonScript {BaseDirectory = Directory};
-            Assert.IsTrue(candidate.Analyze(Directory.DeployFile("python", executable: true)));
-            Assert.AreEqual(candidate.Name, "python");
-            Assert.IsTrue(candidate.NeedsTerminal);
         }
     }
 }

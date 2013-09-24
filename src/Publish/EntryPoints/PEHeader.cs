@@ -21,6 +21,7 @@ using System.Runtime.InteropServices;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
+
     #region File header structures
     [StructLayout(LayoutKind.Sequential)]
     internal struct ImageDosHeader
@@ -221,13 +222,7 @@ namespace ZeroInstall.Publish.EntryPoints
 
         public ImageOptionalHeader64 OptionalHeader64 { get; private set; }
 
-        public Subsystem Subsystem
-        {
-            get
-            {
-                return Is32BitHeader ? OptionalHeader32.Subsystem : OptionalHeader64.Subsystem;
-            }
-        }
+        public Subsystem Subsystem { get { return Is32BitHeader ? OptionalHeader32.Subsystem : OptionalHeader64.Subsystem; } }
         #endregion
 
         #region Constructor

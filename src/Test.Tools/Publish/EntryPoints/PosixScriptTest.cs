@@ -17,6 +17,7 @@
 
 using Common;
 using NUnit.Framework;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
@@ -26,13 +27,14 @@ namespace ZeroInstall.Publish.EntryPoints
     [TestFixture]
     public class PosixScriptTest : TemporayDirectoryTest
     {
+        public static readonly PosixScript ReferenceCandidate = new PosixScript {RelativePath = "sh", Architecture = new Architecture(OS.Posix, Cpu.All), Name = "sh", NeedsTerminal = true};
+
         [Test]
         public void Sh()
         {
-            var candidate = new PosixScript { BaseDirectory = Directory };
+            var candidate = new PosixScript {BaseDirectory = Directory};
             Assert.IsTrue(candidate.Analyze(Directory.DeployFile("sh", executable: true)));
-            Assert.AreEqual(candidate.Name, "sh");
-            Assert.IsTrue(candidate.NeedsTerminal);
+            Assert.AreEqual(ReferenceCandidate, candidate);
         }
     }
 }
