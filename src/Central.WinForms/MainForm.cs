@@ -466,9 +466,10 @@ namespace ZeroInstall.Central.WinForms
 
         protected override void WndProc(ref Message m)
         {
-            // Detect changes made to the AppList by other threads or processes
-            if (m.Msg == IntegrationManager.ChangedWindowMessageID) UpdateAppListAsync();
-            else base.WndProc(ref m);
+            if (m.Msg == IntegrationManager.ChangedWindowMessageID)
+                BeginInvoke(new Action(UpdateAppListAsync));
+
+            base.WndProc(ref m);
         }
         #endregion
 
