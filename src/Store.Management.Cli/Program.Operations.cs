@@ -246,7 +246,7 @@ namespace ZeroInstall.Store.Management.Cli
                 using (var tempDir = new TemporaryDirectory("0store"))
                 {
                     // Extract archive to temp dir to generate manifest
-                    using (var extractor = Extractor.CreateExtractor(null, path, 0, tempDir))
+                    using (var extractor = Extractor.CreateExtractor(path, Archive.GuessMimeType(path), tempDir))
                     {
                         if (args.Count >= 3) extractor.SubDir = args[2];
                         handler.RunTask(extractor);

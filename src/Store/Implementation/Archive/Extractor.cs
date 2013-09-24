@@ -128,17 +128,17 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// <summary>
         /// Creates a new <see cref="Extractor"/> for extracting a sub-directory from an archive stream.
         /// </summary>
-        /// <param name="mimeType">The MIME type of archive format of the stream.</param>
         /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed.</param>
+        /// <param name="mimeType">The MIME type of archive format of the stream.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <returns>The newly created <see cref="Extractor"/>.</returns>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
         /// <exception cref="NotSupportedException">Thrown if the <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
-        public static Extractor CreateExtractor(string mimeType, Stream stream, string target)
+        public static Extractor CreateExtractor(Stream stream, string mimeType, string target)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
             if (stream == null) throw new ArgumentNullException("stream");
+            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
@@ -175,28 +175,26 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// <summary>
         /// Creates a new <see cref="Extractor"/> for extracting a sub-directory from an archive file.
         /// </summary>
-        /// <param name="mimeType">The MIME type of archive format of the file; <see langword="null"/> to guess.</param>
         /// <param name="path">The file to be extracted.</param>
-        /// <param name="startOffset">The number of bytes at the beginning of the file which should be ignored.</param>
+        /// <param name="mimeType">The MIME type of archive format of the file.</param>
         /// <param name="target">The path to the directory to extract into.</param>
+        /// <param name="startOffset">The number of bytes at the beginning of the file which should be ignored.</param>
         /// <returns>The newly created <see cref="Extractor"/>.</returns>
         /// <exception cref="IOException">Thrown if the archive is damaged or if the file couldn't be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         /// <exception cref="NotSupportedException">Thrown if the <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
-        public static Extractor CreateExtractor(string mimeType, string path, long startOffset, string target)
+        public static Extractor CreateExtractor(string path, string mimeType, string target, long startOffset = 0)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
-
-            // Try to guess missing MIME type
-            if (string.IsNullOrEmpty(mimeType)) mimeType = Model.Archive.GuessMimeType(path);
 
             var stream = File.OpenRead(path);
             try
             {
-                var extractor = CreateExtractor(mimeType, new OffsetStream(stream, startOffset), target);
+                var extractor = CreateExtractor(new OffsetStream(stream, startOffset), mimeType, target);
                 extractor._name = Path.GetFileName(path);
                 return extractor;
             }

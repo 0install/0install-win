@@ -21,6 +21,7 @@ using Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Implementation.Archive;
 
@@ -109,7 +110,7 @@ namespace ZeroInstall.Commands
             {
                 using (var tempDir = new TemporaryDirectory("0install"))
                 {
-                    using (var extractor = Extractor.CreateExtractor(null, path, 0, tempDir))
+                    using (var extractor = Extractor.CreateExtractor(path, Archive.GuessMimeType(path), tempDir))
                     {
                         extractor.SubDir = subdir;
                         Resolver.Handler.RunTask(extractor);

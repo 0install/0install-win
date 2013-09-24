@@ -102,7 +102,7 @@ namespace ZeroInstall.Store.Implementation.Archive
 
         private void TestExtract(string mimeType, Stream archive)
         {
-            using (var extractor = Extractor.CreateExtractor(mimeType, archive, _sandbox))
+            using (var extractor = Extractor.CreateExtractor(archive, mimeType, _sandbox))
                 extractor.RunSync();
 
             Assert.IsTrue(File.Exists("subdir1/regular"), "Should extract file 'regular'");
@@ -116,7 +116,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void TestHardlink()
         {
             using (var archive = TestData.GetResource("testArchiveHardlink.tar"))
-            using (var extractor = Extractor.CreateExtractor(Model.Archive.MimeTypeTar, archive, _sandbox))
+            using (var extractor = Extractor.CreateExtractor(archive, Model.Archive.MimeTypeTar, _sandbox))
                 extractor.RunSync();
 
             Assert.AreEqual("data", File.ReadAllText("file1"));

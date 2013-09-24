@@ -329,7 +329,7 @@ namespace ZeroInstall.Store.Implementation
                 // Extract archives "over each other" in order
                 foreach (var archiveInfo in archiveInfos)
                 {
-                    using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset, tempDir))
+                    using (var extractor = Extractor.CreateExtractor(archiveInfo.Path, archiveInfo.MimeType, tempDir, archiveInfo.StartOffset))
                     {
                         extractor.SubDir = archiveInfo.SubDir;
                         extractor.Destination = archiveInfo.Destination;
