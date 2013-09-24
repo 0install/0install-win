@@ -43,7 +43,7 @@ namespace ZeroInstall.Commands.WinForms
         public override bool AskQuestion(string question, string batchInformation = null)
         {
             bool result = false;
-            _owner.Invoke((Action)(() => result = Msg.YesNo(_owner, question, MsgSeverity.Info)));
+            _owner.Invoke(new Action(() => result = Msg.YesNo(_owner, question, MsgSeverity.Info)));
             return result;
         }
     }

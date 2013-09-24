@@ -290,7 +290,7 @@ namespace ZeroInstall.Publish.WinForms
             ProcessUtils.RunBackground(() =>
             {
                 process.WaitForExit();
-                Invoke((Action)ListKeys);
+                Invoke(new Action(ListKeys));
             }, "WaitForOpenPgp");
         }
 
