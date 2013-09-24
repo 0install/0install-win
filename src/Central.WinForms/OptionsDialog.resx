@@ -325,7 +325,7 @@
     <value>textBoxSyncServer</value>
   </data>
   <data name="&gt;&gt;textBoxSyncServer.Type" xml:space="preserve">
-    <value>Common.Controls.UriTextBox, Common, Version=1.14.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>Common.Controls.UriTextBox, Common.WinForms, Version=2.3.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;textBoxSyncServer.Parent" xml:space="preserve">
     <value>tabPageSync</value>
@@ -1189,7 +1189,7 @@
     <value>394, 282</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>360, 170</value>
+    <value>400, 250</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Options</value>
@@ -1204,6 +1204,6 @@
     <value>OptionsDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Common.Controls.OKCancelDialog, Common, Version=1.14.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>Common.Controls.OKCancelDialog, Common.WinForms, Version=2.3.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
 </root>

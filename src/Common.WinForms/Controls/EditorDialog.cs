@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Common.Controls
@@ -36,8 +37,8 @@ namespace Common.Controls
         private readonly GenericEditorControl<T> _editor = new GenericEditorControl<T>
         {
             TabIndex = 0,
-            Location = new System.Drawing.Point(12, 12),
-            Size = new System.Drawing.Size(290, 238),
+            Location = new Point(12, 12),
+            Size = new Size(289, 278),
             Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom
         };
 
