@@ -72,12 +72,20 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Helpers
+        /// <summary>
+        /// Import a feed from a local file, as if it had been downloaded from the network.
+        /// </summary>
+        /// <param name="path">The local path of the feed file to import.</param>
+        /// <exception cref="InvalidDataException">Thrown if the feed specifies no <see cref="Feed.Uri"/>.</exception>
         private void ImportFile(string path)
         {
+            var feed = XmlStorage.LoadXml<Feed>(path);
+            if (feed.Uri == null) throw new InvalidDataException(Resources.ImportNoSource);
+
             Resolver.FeedManager.ImportFeed(
-                XmlStorage.LoadXml<Feed>(path).Uri,
-                new Uri(path),
-                File.ReadAllBytes(path));
+                uri: feed.Uri,
+                mirrorUri: new Uri(path),
+                data: File.ReadAllBytes(path));
         }
         #endregion
     }
