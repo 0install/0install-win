@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -47,13 +48,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
         #endregion
 
         #region Preview
-        /// <summary>
-        /// Tries to download the image with the url from <see cref="textBoxHref"/> and shows it in <see cref="pictureBoxPreview"/>.
-        /// Sets the right <see cref="ImageFormat"/> from the downloaded image in <see cref="comboBoxMimeType"/>.
-        /// Error messages will be shown in <see cref="lableStatus"/>.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
         [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "png"), SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "vnd")]
         private void buttonPreview_Click(object sender, EventArgs e)
         {
@@ -61,25 +55,23 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
             pictureBoxPreview.Image = null;
             ShowStatusMessage(SystemColors.ControlText, Resources.DownloadingPeviewImage);
+            backgroundWorker.RunWorkerAsync();
+        }
+        
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            e.Result = GetImageFromUrl(textBoxHref.Uri);
+        }
 
-            Image icon;
-            try
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
             {
-                icon = GetImageFromUrl(textBoxHref.Uri);
-            }
-                #region Error handling
-            catch (WebException ex)
-            {
-                ShowStatusMessage(Color.Red, ex.Message);
+                ShowStatusMessage(Color.Red, e.Error.Message);
                 return;
             }
-            catch (InvalidDataException ex)
-            {
-                ShowStatusMessage(Color.Red, ex.Message);
-                return;
-            }
-            #endregion
 
+            var icon = (Image)e.Result;
             if (icon.RawFormat.Equals(ImageFormat.Png))
             {
                 if (string.IsNullOrEmpty(comboBoxMimeType.Text)) comboBoxMimeType.Text = Icon.MimeTypePng;

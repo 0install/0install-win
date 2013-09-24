@@ -35,6 +35,7 @@
             this.buttonPreview = new System.Windows.Forms.Button();
             this.pictureBoxPreview = new System.Windows.Forms.PictureBox();
             this.textBoxHref = new Common.Controls.UriTextBox();
+            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).BeginInit();
             this.SuspendLayout();
             // 
@@ -118,6 +119,11 @@
             this.textBoxHref.Size = new System.Drawing.Size(79, 20);
             this.textBoxHref.TabIndex = 3;
             // 
+            // backgroundWorker
+            // 
+            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
+            this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
+            // 
             // IconEditor
             // 
             this.Controls.Add(this.textBoxHref);
@@ -143,5 +149,6 @@
         private System.Windows.Forms.Button buttonPreview;
         private System.Windows.Forms.PictureBox pictureBoxPreview;
         private Common.Controls.UriTextBox textBoxHref;
+        private System.ComponentModel.BackgroundWorker backgroundWorker;
     }
 }
