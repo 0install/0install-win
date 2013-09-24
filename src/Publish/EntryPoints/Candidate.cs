@@ -92,12 +92,12 @@ namespace ZeroInstall.Publish.EntryPoints
         public bool NeedsTerminal { get; internal set; }
 
         /// <summary>
-        /// A suggestion for <see cref="Implementation.Version"/> extracted from the entry point metadata.
+        /// A suggestion for <see cref="Element.Version"/> extracted from the entry point metadata.
         /// </summary>
         public ImplementationVersion Version { get; internal set; }
 
         /// <summary>
-        /// A suggestion for <see cref="Implementation.Architecture"/> extracted from the entry point metadata.
+        /// A suggestion for <see cref="TargetBase.Architecture"/> extracted from the entry point metadata.
         /// </summary>
         public Architecture Architecture { get; internal set; }
 

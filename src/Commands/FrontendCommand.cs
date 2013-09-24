@@ -228,8 +228,8 @@ namespace ZeroInstall.Commands
         /// <exception cref="SolverException">Thrown if the <see cref="ISolver"/> was unable to solve all dependencies.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
         /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
-        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
-        /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
+        /// <exception cref="Win32Exception">Thrown if an executable could not be launched.</exception>
+        /// <exception cref="BadImageFormatException">Thrown if an executable could not be launched.</exception>
         /// <remarks>When inheriting this method is usually replaced.</remarks>
         public abstract int Execute();
         #endregion
