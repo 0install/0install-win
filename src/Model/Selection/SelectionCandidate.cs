@@ -37,16 +37,19 @@ namespace ZeroInstall.Model.Selection
         /// <summary>
         /// The implementation this selection candidate references.
         /// </summary>
+        [Browsable(false)]
         public Implementation Implementation { get; private set; }
 
         /// <summary>
         /// The file name or URL of the feed listing the implementation.
         /// </summary>
+        [Browsable(false)]
         public string FeedID { get; private set; }
 
         /// <summary>
         /// The <see cref="FeedPreferences"/> for <see cref="FeedID"/>.
         /// </summary>
+        [Browsable(false)]
         public FeedPreferences FeedPreferences { get; private set; }
 
         /// <summary>
