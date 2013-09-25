@@ -38,6 +38,11 @@ namespace Common.Controls
             AddPropertyGrid();
         }
 
+        public GenericEditorControl(bool showDescriptionBox) : base(showDescriptionBox)
+        {
+            AddPropertyGrid();
+        }
+
         private void AddPropertyGrid()
         {
             var propertyGrid = new ResettablePropertyGrid

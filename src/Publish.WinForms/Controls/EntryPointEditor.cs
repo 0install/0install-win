@@ -23,29 +23,26 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Publish.WinForms.Controls
 {
     /// <summary>
-    /// A common base for <see cref="ISummaryContainer"/> editors.
+    /// Edits <see cref="EntryPoint"/> instances.
     /// </summary>
-    /// <typeparam name="T">The type of <see cref="ISummaryContainer"/> to edit.</typeparam>
-    public class SummaryEditor<T> : DescriptionEditor<T>
-        where T : class, ISummaryContainer
+    public sealed class EntryPointEditor : SummaryEditor<EntryPoint>
     {
-        protected readonly LocalizableTextBox TextBoxSummary;
-
-        public SummaryEditor()
+        public EntryPointEditor()
         {
-            TextBoxSummary = new LocalizableTextBox
+            var textBoxNames = new LocalizableTextBox
             {
                 Location = new Point(0, 0),
                 Size = new Size(Width, 23),
                 Multiline = false,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
-                HintText = "Summary",
+                HintText = "Names",
                 TabIndex = 0
             };
-            RegisterControl(TextBoxSummary, () => Target.Summaries);
+            RegisterControl(textBoxNames, () => Target.Names);
 
             // Shift existing controls down
             SuspendLayout();
+            TextBoxSummary.Top = textBoxNames.Bottom + 6;
             TextBoxDescription.Top = TextBoxSummary.Bottom + 6;
             EditorControl.Top = TextBoxDescription.Bottom + 6;
             EditorControl.Height = Height - TextBoxDescription.Bottom - 6;

@@ -51,7 +51,7 @@ namespace Common.Controls
         #endregion
 
         #region Constructor
-        public LocalizableTextBox()
+        public LocalizableTextBox() : base(showDescriptionBox: false)
         {
             InitializeComponent();
         }

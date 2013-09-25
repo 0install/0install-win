@@ -80,12 +80,12 @@ namespace Common.Controls
         #endregion
 
         #region Constructor
-        protected EditorControlBase()
+        protected EditorControlBase(bool showDescriptionBox = true)
         {
             // ReSharper disable once DoNotCallOverridableMethodsInConstructor
             AutoScroll = true;
 
-            AddDescriptionBox();
+            if (showDescriptionBox) AddDescriptionBox();
         }
 
         private void AddDescriptionBox()

@@ -75,6 +75,9 @@
     <Compile Include="Controls\DownloadRetrievalMethodEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\EntryPointEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\FeedEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
