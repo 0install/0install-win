@@ -70,14 +70,14 @@ namespace ZeroInstall.Injector
             return selections.Implementations.Where(implementation =>
                 // Local paths are considered to be always available
                 string.IsNullOrEmpty(implementation.LocalPath) &&
-                    // Don't try to download PackageImplementations
-                    string.IsNullOrEmpty(implementation.Package) &&
-                    // Don't try to fetch virutal feeds
-                    (string.IsNullOrEmpty(implementation.FromFeed) || !implementation.FromFeed.StartsWith(ImplementationSelection.DistributionFeedPrefix)) &&
-                    // Don't download implementations that are already in the store
-                    !_store.Contains(implementation.ManifestDigest) &&
-                    // Ignore implementations without an ID
-                    !string.IsNullOrEmpty(implementation.ID));
+                // Don't try to download PackageImplementations
+                string.IsNullOrEmpty(implementation.Package) &&
+                // Don't try to fetch virutal feeds
+                (string.IsNullOrEmpty(implementation.FromFeed) || !implementation.FromFeed.StartsWith(ImplementationSelection.DistributionFeedPrefix)) &&
+                // Don't download implementations that are already in the store
+                !_store.Contains(implementation.ManifestDigest) &&
+                // Ignore implementations without an ID
+                !string.IsNullOrEmpty(implementation.ID));
         }
 
         /// <summary>

@@ -80,6 +80,7 @@ namespace Common.Info
 
         #region Static
         private static readonly OSInfo _current = Load();
+
         /// <summary>
         /// Information about the current operating system.
         /// </summary>

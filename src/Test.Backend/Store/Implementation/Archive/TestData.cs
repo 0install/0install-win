@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Reflection;
 using System.IO;
+using System.Reflection;
 
 namespace ZeroInstall.Store.Implementation.Archive
 {

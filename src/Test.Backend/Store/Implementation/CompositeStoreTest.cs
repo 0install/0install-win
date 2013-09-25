@@ -18,8 +18,8 @@
 using System.Collections.Generic;
 using System.IO;
 using Common.Tasks;
-using NUnit.Framework;
 using Moq;
+using NUnit.Framework;
 using ZeroInstall.Backend;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation.Archive;

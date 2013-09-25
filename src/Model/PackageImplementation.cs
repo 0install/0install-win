@@ -157,7 +157,7 @@ namespace ZeroInstall.Model
         {
             if (other == null) return false;
             return base.Equals(other) &&
-                (Package == other.Package && DistributionsString == other.DistributionsString);
+                   (Package == other.Package && DistributionsString == other.DistributionsString);
         }
 
         /// <inheritdoc/>

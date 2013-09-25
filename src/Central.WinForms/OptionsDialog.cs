@@ -116,8 +116,7 @@ namespace ZeroInstall.Central.WinForms
             }
             catch (InvalidDataException ex)
             {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message +
-                    (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
             }
             #endregion
         }
@@ -315,7 +314,7 @@ namespace ZeroInstall.Central.WinForms
             catch (InvalidDataException ex)
             {
                 Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message +
-                    (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                                 (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
             }
             #endregion
         }

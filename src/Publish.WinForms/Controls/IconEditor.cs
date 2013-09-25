@@ -57,7 +57,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             ShowStatusMessage(SystemColors.ControlText, Resources.DownloadingPeviewImage);
             backgroundWorker.RunWorkerAsync();
         }
-        
+
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             e.Result = GetImageFromUrl(textBoxHref.Uri);

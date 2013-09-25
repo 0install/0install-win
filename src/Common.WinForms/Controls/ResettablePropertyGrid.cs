@@ -57,7 +57,7 @@ namespace Common.Controls
 
             _menuReset.Enabled =
                 e.NewSelection != null && e.NewSelection.PropertyDescriptor != null && e.NewSelection.Parent != null &&
-                    e.NewSelection.PropertyDescriptor.CanResetValue(e.NewSelection.Parent.Value ?? SelectedObject);
+                e.NewSelection.PropertyDescriptor.CanResetValue(e.NewSelection.Parent.Value ?? SelectedObject);
 
             base.OnSelectedGridItemChanged(e);
         }

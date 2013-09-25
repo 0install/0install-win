@@ -21,8 +21,8 @@ using System.Text.RegularExpressions;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
-using NUnit.Framework;
 using Moq;
+using NUnit.Framework;
 using ZeroInstall.Backend;
 using ZeroInstall.Model;
 

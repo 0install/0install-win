@@ -94,7 +94,6 @@ namespace Common.Cli
                 }
             }, "CliAppControl.stdout");
 
-
             // Asynchronously buffer all stderr messages
             var stderrList = new Queue<string>();
             var stderrThread = ProcessUtils.RunBackground(() =>

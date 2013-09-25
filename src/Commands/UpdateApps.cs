@@ -139,8 +139,7 @@ namespace ZeroInstall.Commands
 
         private void Clean(IEnumerable<ManifestDigest> digestsToKeep)
         {
-            var toDelete = Resolver.Store.ListAll().
-                                    Except(digestsToKeep, new ManifestDigestPartialEqualityComparer()).ToList();
+            var toDelete = Resolver.Store.ListAll().Except(digestsToKeep, new ManifestDigestPartialEqualityComparer()).ToList();
             Resolver.Handler.RunTask(new ForEachTask<ManifestDigest>(Resources.RemovingOutdated, toDelete, Resolver.Store.Remove));
         }
         #endregion

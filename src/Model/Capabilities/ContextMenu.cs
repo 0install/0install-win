@@ -84,7 +84,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             if (other == null) return false;
             return base.Equals(other) &&
-                other.AllObjects == AllObjects && Equals(other.Verb, Verb);
+                   other.AllObjects == AllObjects && Equals(other.Verb, Verb);
         }
 
         /// <inheritdoc/>

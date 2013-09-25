@@ -88,7 +88,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 SetupTileManagement();
             }
-            #region Error handling
+                #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
@@ -121,7 +121,7 @@ namespace ZeroInstall.Central.WinForms
         private void SetupTileManagement()
         {
             tileListMyApps.IconCache = tileListCatalog.IconCache = IconCacheProvider.GetInstance();
-            var resolver = new Resolver(new MinimalHandler(this)) { Config = { NetworkUse = NetworkLevel.Minimal } };
+            var resolver = new Resolver(new MinimalHandler(this)) {Config = {NetworkUse = NetworkLevel.Minimal}};
             _tileManagement = new AppTileManagement(
                 resolver.FeedManager, resolver.CatalogManager,
                 tileListMyApps, tileListCatalog, _machineWide);

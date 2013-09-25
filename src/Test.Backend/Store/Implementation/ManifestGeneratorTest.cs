@@ -16,13 +16,13 @@
  */
 
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using Common.Storage;
 using Common.Tasks;
-using NUnit.Framework;
-using System.Threading;
 using Common.Utils;
-using System.Diagnostics;
+using NUnit.Framework;
 
 namespace ZeroInstall.Store.Implementation
 {

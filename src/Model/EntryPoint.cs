@@ -134,8 +134,8 @@ namespace ZeroInstall.Model
         {
             if (other == null) return false;
             return base.Equals(other) &&
-                Command == other.Command && BinaryName == other.BinaryName && NeedsTerminal == other.NeedsTerminal &&
-                Names.SequencedEquals(other.Names) && Summaries.SequencedEquals(other.Summaries) && Descriptions.SequencedEquals(other.Descriptions) && Icons.SequencedEquals(other.Icons);
+                   Command == other.Command && BinaryName == other.BinaryName && NeedsTerminal == other.NeedsTerminal &&
+                   Names.SequencedEquals(other.Names) && Summaries.SequencedEquals(other.Summaries) && Descriptions.SequencedEquals(other.Descriptions) && Icons.SequencedEquals(other.Icons);
         }
 
         /// <inheritdoc/>

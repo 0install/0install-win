@@ -192,11 +192,11 @@ namespace ZeroInstall.Injector
 
         private void ExpectKeyImport()
         {
-            _openPgpMock.SetupSequence(x => x.Verify(_feedBytes, _signatureBytes)).
-                         Returns(new OpenPgpSignature[] {new MissingKeySignature(_signature.Fingerprint)}).
-                         Returns(new OpenPgpSignature[] {_signature});
+            _openPgpMock.SetupSequence(x => x.Verify(_feedBytes, _signatureBytes))
+                .Returns(new OpenPgpSignature[] {new MissingKeySignature(_signature.Fingerprint)})
+                .Returns(new OpenPgpSignature[] {_signature});
             _openPgpMock.Setup(x => x.ImportKey(_keyData)).Verifiable();
-            
+
             ProvideCancellationToken();
         }
 

@@ -16,8 +16,8 @@
  */
 
 using System;
-using NUnit.Framework;
 using Moq;
+using NUnit.Framework;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Trust;
 

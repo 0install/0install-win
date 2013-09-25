@@ -84,8 +84,8 @@ namespace ZeroInstall.Store.Feeds
             }
 
             return FileUtils.ExistsCaseSensitive(Path.Combine(DirectoryPath, ModelUtils.Escape(feedID))) ||
-                // Local files are passed through directly
-                File.Exists(feedID);
+                   // Local files are passed through directly
+                   File.Exists(feedID);
         }
         #endregion
 

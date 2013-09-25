@@ -73,6 +73,7 @@ namespace Common.Info
 
         #region Load
         private static readonly AppInfo _current = Load();
+
         /// <summary>
         /// Information about the currently running application.
         /// </summary>

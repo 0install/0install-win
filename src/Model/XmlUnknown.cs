@@ -78,7 +78,7 @@ namespace ZeroInstall.Model
                 if (x.NamespaceURI != y.NamespaceURI || x.Name != y.Name || x.InnerText != y.InnerText) return false;
                 return
                     GetList(x.Attributes).UnsequencedEquals(GetList(y.Attributes)) &&
-                        GetList(x.ChildNodes).SequencedEquals(GetList(y.ChildNodes));
+                    GetList(x.ChildNodes).SequencedEquals(GetList(y.ChildNodes));
             }
 
             [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods")]
@@ -96,7 +96,7 @@ namespace ZeroInstall.Model
             if (other == null) return false;
             return
                 GetList(UnknownAttributes ?? new XmlAttribute[0]).UnsequencedEquals(GetList(other.UnknownAttributes ?? new XmlAttribute[0])) &&
-                    GetList(UnknownElements ?? new XmlElement[0]).SequencedEquals(GetList(other.UnknownElements ?? new XmlElement[0]));
+                GetList(UnknownElements ?? new XmlElement[0]).SequencedEquals(GetList(other.UnknownElements ?? new XmlElement[0]));
         }
 
         /// <inheritdoc/>

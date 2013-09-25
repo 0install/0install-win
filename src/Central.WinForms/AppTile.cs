@@ -30,8 +30,8 @@ using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Icons;
-using SharedResources = ZeroInstall.Central.Properties.Resources;
 using Icon = ZeroInstall.Model.Icon;
+using SharedResources = ZeroInstall.Central.Properties.Resources;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -251,7 +251,7 @@ namespace ZeroInstall.Central.WinForms
                 }
                 catch (Win32Exception ex)
                 {
-                    Msg.Inform(this,  ex.Message, MsgSeverity.Error);
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
                 }
                 #endregion
             }

@@ -211,7 +211,7 @@ namespace Common.Tasks
             {
                 RunTask();
             }
-            #region Error handling
+                #region Error handling
             catch (OperationCanceledException)
             {
                 lock (StateLock)

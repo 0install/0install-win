@@ -87,8 +87,8 @@ namespace ZeroInstall.Injector
             using (var mirrorServer = new MicroServer("feeds/http/invalid/directory%23feed.xml/latest.xml", new MemoryStream(data)))
             {
                 // ReSharper disable AccessToDisposedClosure
-                Resolver.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, mirrorServer.FileUri, data)).
-                         Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
+                Resolver.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, mirrorServer.FileUri, data))
+                    .Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
                 // ReSharper restore AccessToDisposedClosure
 
                 Config.FeedMirror = mirrorServer.ServerUri;
@@ -170,7 +170,7 @@ namespace ZeroInstall.Injector
         {
             var data = feed.ToXmlString().ToStream().ToArray();
             Resolver.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, null, data)).
-                     Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
+                Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
             return data;
         }
     }

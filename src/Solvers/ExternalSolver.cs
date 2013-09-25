@@ -21,9 +21,9 @@ using Common;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Injector;
+using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Solvers.Properties;
-using ZeroInstall.Model;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 

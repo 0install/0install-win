@@ -45,6 +45,6 @@ namespace Common
         public void TearDown()
         {
             _temporaryDirectory.Dispose();
-        } 
+        }
     }
 }

@@ -54,11 +54,11 @@ namespace ZeroInstall.DesktopIntegration
                     {
                         // Try to get a localized name for the command
                         Name = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture) ?? // If that fails...
-                            ((entryPoint.Command == Command.NameRun)
-                                // ... use the application's name
-                                ? feed.Name.RemoveAll(Path.GetInvalidFileNameChars())
-                                // ... or the application's name and the command
-                                : feed.Name.RemoveAll(Path.GetInvalidFileNameChars()) + " " + entryPoint.Command),
+                               ((entryPoint.Command == Command.NameRun)
+                                   // ... use the application's name
+                                   ? feed.Name.RemoveAll(Path.GetInvalidFileNameChars())
+                                   // ... or the application's name and the command
+                                   : feed.Name.RemoveAll(Path.GetInvalidFileNameChars()) + " " + entryPoint.Command),
                         // Group all entry points in a single folder
                         Category = string.IsNullOrEmpty(category) ? feed.Name : category + Path.DirectorySeparatorChar + feed.Name,
                         Command = entryPoint.Command

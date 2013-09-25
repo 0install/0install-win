@@ -99,7 +99,7 @@ namespace ZeroInstall.Model
         {
             if (other == null) return false;
             return base.Equals(other) && other.ItemFrom == ItemFrom && other.Separator == Separator &&
-                Arguments.SequencedEquals(other.Arguments);
+                   Arguments.SequencedEquals(other.Arguments);
         }
 
         /// <inheritdoc/>

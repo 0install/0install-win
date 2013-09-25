@@ -99,7 +99,7 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            string result =  Interface;
+            string result = Interface;
             if (!string.IsNullOrEmpty(Use)) result += " (" + Use + ")";
             return result;
         }

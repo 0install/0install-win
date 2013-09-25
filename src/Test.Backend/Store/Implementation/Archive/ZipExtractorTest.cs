@@ -16,11 +16,11 @@
  */
 
 using System;
-using System.Linq;
-using NUnit.Framework;
 using System.IO;
+using System.Linq;
 using Common.Storage;
 using Common.Utils;
+using NUnit.Framework;
 
 namespace ZeroInstall.Store.Implementation.Archive
 {
@@ -35,8 +35,8 @@ namespace ZeroInstall.Store.Implementation.Archive
                 .AddFile("file2", new byte[] {0});
             packageBuilder.AddFolder("emptyFolder");
             packageBuilder.AddFolder("sub").AddFolder("folder")
-                          .AddFile("nestedFile", "File 3\n")
-                          .AddFolder("nestedFolder").AddFile("doublyNestedFile", "File 4");
+                .AddFile("nestedFile", "File 3\n")
+                .AddFolder("nestedFolder").AddFile("doublyNestedFile", "File 4");
             _package = packageBuilder.Hierarchy;
             return packageBuilder;
         }
@@ -89,7 +89,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void ExtractionIntoFolder()
         {
             var extractor = Extractor.CreateExtractor(new MemoryStream(_archiveData), Model.Archive.MimeTypeZip, _sandbox);
-                extractor.RunSync();
+            extractor.RunSync();
 
             Assert.IsTrue(Directory.Exists(_sandbox));
             var comparer = new CompareHierarchyToExtractedFolder(_sandbox);
@@ -125,8 +125,8 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void ExtractionOfSubDir()
         {
             var extractor = Extractor.CreateExtractor(new MemoryStream(_archiveData), Model.Archive.MimeTypeZip, _sandbox);
-                extractor.SubDir = "/sub/folder/";
-                extractor.RunSync();
+            extractor.SubDir = "/sub/folder/";
+            extractor.RunSync();
 
             Assert.IsTrue(Directory.Exists(Path.Combine(_sandbox, "nestedFolder")));
             Assert.AreEqual(PackageBuilder.DefaultDate, Directory.GetLastWriteTimeUtc(Path.Combine(_sandbox, "nestedFolder")));
@@ -139,8 +139,8 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void EnsureSubDirDoesNotTouchFileNames()
         {
             var extractor = Extractor.CreateExtractor(new MemoryStream(_archiveData), Model.Archive.MimeTypeZip, _sandbox);
-                extractor.SubDir = "/sub/folder/nested";
-                extractor.RunSync();
+            extractor.SubDir = "/sub/folder/nested";
+            extractor.RunSync();
 
             Assert.IsFalse(Directory.Exists(Path.Combine(_sandbox, "Folder")), "Should not apply subdir matching to part of filename");
             Assert.IsFalse(File.Exists(Path.Combine(_sandbox, "File")), "Should not apply subdir matching to part of filename");
@@ -152,7 +152,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             File.WriteAllText(Path.Combine(_sandbox, "file1"), @"Wrong content");
             File.WriteAllText(Path.Combine(_sandbox, "file0"), @"This file should not be touched");
             var extractor = Extractor.CreateExtractor(new MemoryStream(_archiveData), Model.Archive.MimeTypeZip, _sandbox);
-                extractor.RunSync();
+            extractor.RunSync();
 
             Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "file0")), "Extractor cleaned directory.");
             string file0Content = File.ReadAllText(Path.Combine(_sandbox, "file0"));

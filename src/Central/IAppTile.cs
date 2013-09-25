@@ -52,5 +52,4 @@ namespace ZeroInstall.Central
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         AppStatus Status { get; set; }
     }
-
 }

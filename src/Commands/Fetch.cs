@@ -65,7 +65,7 @@ namespace ZeroInstall.Commands
 
             var feedFragment = XmlStorage.FromXmlString<Feed>(Console.ReadLine());
             Resolver.Fetcher.Fetch(feedFragment.Elements.OfType<Implementation>());
-            
+
             return 0;
         }
         #endregion

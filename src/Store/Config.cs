@@ -30,8 +30,8 @@ using Common.Utils;
 using Common.Values.Design;
 using IniParser;
 using Microsoft.Win32;
-using ZeroInstall.Store.Properties;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store
 {

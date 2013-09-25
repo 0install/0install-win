@@ -79,11 +79,11 @@ namespace ZeroInstall.Store.Icons
             if (!Directory.Exists(DirectoryPath)) return new string[0];
 
             // Find all files whose names begin with an URL protocol
-            var files = Directory.GetFiles(DirectoryPath, "http*").
+            var files = Directory.GetFiles(DirectoryPath, "http*")
                 // Take the file name itself and use URL encoding to get the original URL
-                                  Select(path => ModelUtils.Unescape(Path.GetFileName(path) ?? "")).
+                .Select(path => ModelUtils.Unescape(Path.GetFileName(path) ?? ""))
                 // Filter out temporary/junk files
-                                  Where(ModelUtils.IsValidUri).ToList();
+                .Where(ModelUtils.IsValidUri).ToList();
 
             // Return as a C-sorted list
             files.Sort(StringComparer.Ordinal);

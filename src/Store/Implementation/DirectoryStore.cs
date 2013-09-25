@@ -224,9 +224,9 @@ namespace ZeroInstall.Store.Implementation
         {
             if (!Directory.Exists(DirectoryPath)) return new ManifestDigest[0];
 
-            return FileUtils.GetDirectories(DirectoryPath).
-                Select(path => new ManifestDigest(Path.GetFileName(path))).
-                Where(IsValid).ToList();
+            return FileUtils.GetDirectories(DirectoryPath)
+                .Select(path => new ManifestDigest(Path.GetFileName(path)))
+                .Where(IsValid).ToList();
         }
 
         private static bool IsValid(ManifestDigest digest)

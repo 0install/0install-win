@@ -21,8 +21,8 @@ using System.IO;
 using System.Text;
 using Common.Storage;
 using Common.Utils;
-using NUnit.Framework;
 using Moq;
+using NUnit.Framework;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;
 

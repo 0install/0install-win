@@ -93,8 +93,8 @@ namespace ZeroInstall.Model.Capabilities
         public bool Equals(InstallCommands other)
         {
             return other.Reinstall == Reinstall && other.ReinstallArgs == ReinstallArgs &&
-                other.ShowIcons == ShowIcons && other.ShowIconsArgs == ShowIconsArgs &&
-                other.HideIcons == HideIcons && other.HideIconsArgs == HideIconsArgs;
+                   other.ShowIcons == ShowIcons && other.ShowIconsArgs == ShowIconsArgs &&
+                   other.HideIcons == HideIcons && other.HideIconsArgs == HideIconsArgs;
         }
 
         /// <inheritdoc/>

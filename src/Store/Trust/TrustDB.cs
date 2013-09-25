@@ -22,8 +22,8 @@ using System.Linq;
 using System.Xml.Serialization;
 using Common;
 using Common.Storage;
-using ZeroInstall.Store.Properties;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Trust
 {

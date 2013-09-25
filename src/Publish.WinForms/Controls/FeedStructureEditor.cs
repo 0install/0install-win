@@ -109,7 +109,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             return base.ToXmlString().
                 // Hide XSI information
-                Replace(" xmlns:xsi=\""+ XmlStorage.XsiNamespace + "\" xsi:schemaLocation=\""+ Feed.XsiSchemaLocation +"\"", "");
+                Replace(" xmlns:xsi=\"" + XmlStorage.XsiNamespace + "\" xsi:schemaLocation=\"" + Feed.XsiSchemaLocation + "\"", "");
         }
     }
 }

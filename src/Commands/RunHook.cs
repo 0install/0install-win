@@ -121,9 +121,9 @@ namespace ZeroInstall.Commands
             }
 
             // Redirect Windows SPAD commands to Zero Install
-            foreach (var defaultProgram in _target.Feed.CapabilityLists.
-                                                   Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
-                                                   SelectMany(capabilityList => capabilityList.Entries.OfType<Model.Capabilities.DefaultProgram>()))
+            foreach (var defaultProgram in _target.Feed.CapabilityLists
+                .Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem))
+                .SelectMany(capabilityList => capabilityList.Entries.OfType<Model.Capabilities.DefaultProgram>()))
             {
                 if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.Reinstall))
                     filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.Reinstall, defaultProgram.InstallCommands.ReinstallArgs, "--machine --batch --add=defaults " + _target.InterfaceID.EscapeArgument()));

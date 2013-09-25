@@ -18,8 +18,8 @@
 using System;
 using System.IO;
 using System.Text;
-using NUnit.Framework;
 using Moq;
+using NUnit.Framework;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Trust;
 

@@ -273,8 +273,8 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Try to audit all contained stores
-            return _stores.Select(store => store.Audit(handler)).
-                           Where(problems => problems != null).SelectMany(problems => problems);
+            return _stores.Select(store => store.Audit(handler))
+                .Where(problems => problems != null).SelectMany(problems => problems);
         }
         #endregion
 

@@ -96,8 +96,8 @@ namespace ZeroInstall.Fetchers
             {
                 TestDownload(
                     dirPath => File.Exists(Path.Combine(dirPath, "regular")) &&
-                        !File.Exists(Path.Combine(dirPath, "executable")) && File.Exists(Path.Combine(dirPath, "executable2")) &&
-                        File.Exists(Path.Combine(dirPath, "regular2")),
+                               !File.Exists(Path.Combine(dirPath, "executable")) && File.Exists(Path.Combine(dirPath, "executable2")) &&
+                               File.Exists(Path.Combine(dirPath, "regular2")),
                     new Recipe
                     {
                         Steps =

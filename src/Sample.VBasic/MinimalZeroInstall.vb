@@ -1,6 +1,6 @@
-﻿Imports ZeroInstall.Backend
+﻿Imports ZeroInstall.Injector
 Imports ZeroInstall.Model
-Imports ZeroInstall.Injector
+Imports ZeroInstall.Backend
 
 Module MinimalZeroInstall
     Sub Main(ByVal args As String())

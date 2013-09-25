@@ -27,7 +27,7 @@ namespace ZeroInstall.Central.Gtk
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Application.Init();
             var window = new MainWindow();

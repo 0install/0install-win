@@ -280,14 +280,14 @@ namespace Common.Collections
             #endregion
 
             // ReSharper disable CompareNonConstrainedGenericWithNull
-            foreach (var mine in mineList.Where(mine => mine != null).
+            foreach (var mine in mineList.Where(mine => mine != null)
                 // Entry in mineList, but not in theirsList
-                                          Where(mine => !theirsList.Contains(mine)))
+                .Where(mine => !theirsList.Contains(mine)))
                 removed(mine);
 
             foreach (var theirs in theirsList.Where(theirs => theirs != null).
                 // Entry in theirsList, but not in mineList
-                                              Where(theirs => !mineList.Contains(theirs)))
+                Where(theirs => !mineList.Contains(theirs)))
                 added(theirs);
             // ReSharper restore CompareNonConstrainedGenericWithNull
         }

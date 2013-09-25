@@ -86,7 +86,7 @@ namespace ZeroInstall.Commands
             {
                 // Main interface for feed specified explicitly
                 feedID = GetCanonicalID(AdditionalArgs[1]);
-                return new[] { GetCanonicalID(AdditionalArgs[0]) };
+                return new[] {GetCanonicalID(AdditionalArgs[0])};
             }
             else
             {

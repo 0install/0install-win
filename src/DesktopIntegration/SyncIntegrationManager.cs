@@ -197,7 +197,7 @@ namespace ZeroInstall.DesktopIntegration
                                 goto Retry;
                             }
                             else throw;
-                            
+
                         default:
                             if (ex.InnerException.InnerException is FileNotFoundException) appListData = new byte[0];
                             else throw;

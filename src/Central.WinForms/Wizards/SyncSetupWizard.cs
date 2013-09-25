@@ -121,8 +121,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
                 }
                 catch (InvalidDataException ex)
                 {
-                    Msg.Inform(this, ex.Message +
-                        (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                    Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
                     Close();
                 }
                 #endregion
