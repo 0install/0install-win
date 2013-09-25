@@ -44,8 +44,11 @@ namespace ZeroInstall.Store.Implementation.Archive
                     zipStream.CloseEntry();
                 }
 
-                using (var extractor = Extractor.CreateExtractor(path, Model.Archive.MimeTypeZip, tempDir))
+                using (var stream = File.OpenRead(path))
+                {
+                    var extractor = Extractor.CreateExtractor(stream, Model.Archive.MimeTypeZip, tempDir);
                     Assert.IsInstanceOf(typeof(ZipExtractor), extractor);
+                }
             }
         }
 

@@ -26,15 +26,14 @@ namespace ZeroInstall.Store.Implementation.Archive
     /// </summary>
     public class TarBz2Extractor : TarExtractor
     {
-        #region Constructor
         /// <summary>
         /// Prepares to extract a TAR archive contained in a BZip2-compressed stream.
         /// </summary>
-        /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed.</param>
+        /// <param name="stream">The stream containing the archive data to be extracted. Will not be disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
         public TarBz2Extractor(Stream stream, string target)
-            : base(GetDecompressionStream(stream), target)
+            : base(stream, GetDecompressionStream(stream), target)
         {}
 
         /// <summary>
@@ -47,7 +46,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         {
             try
             {
-                return new BZip2InputStream(stream);
+                return new BZip2InputStream(stream) {IsStreamOwner = false};
             }
             catch (BZip2Exception ex)
             {
@@ -55,6 +54,5 @@ namespace ZeroInstall.Store.Implementation.Archive
                 throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
             }
         }
-        #endregion
     }
 }

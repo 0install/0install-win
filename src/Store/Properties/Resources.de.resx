@@ -144,7 +144,7 @@ Tatsächlicher Wert: {1}</value>
     <value>Fehler beim Laden der Trust Datenbank. Falle auf Standardwerte zurück.</value>
   </data>
   <data name="ExtractingArchive" xml:space="preserve">
-    <value>Entpacke Archiv ({0})</value>
+    <value>Entpacke Archiv</value>
   </data>
   <data name="FeedNotInCache" xml:space="preserve">
     <value>'{0}' konnte nicht im Feed Cache gefunden werden. Nach folgender Datei wurde gesucht: {1}</value>

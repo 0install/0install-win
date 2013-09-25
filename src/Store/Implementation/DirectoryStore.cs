@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using Common;
 using Common.Collections;
+using Common.Streams;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Model;
@@ -329,8 +330,9 @@ namespace ZeroInstall.Store.Implementation
                 // Extract archives "over each other" in order
                 foreach (var archiveInfo in archiveInfos)
                 {
-                    using (var extractor = Extractor.CreateExtractor(archiveInfo.Path, archiveInfo.MimeType, tempDir, archiveInfo.StartOffset))
+                    using (var stream = new OffsetStream(File.OpenRead(archiveInfo.Path), archiveInfo.StartOffset))
                     {
+                        var extractor = Extractor.CreateExtractor(stream, archiveInfo.MimeType, tempDir);
                         extractor.SubDir = archiveInfo.SubDir;
                         extractor.Destination = archiveInfo.Destination;
                         handler.RunTask(extractor, manifestDigest); // Defer task to handler

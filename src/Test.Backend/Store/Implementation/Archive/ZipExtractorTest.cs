@@ -73,8 +73,10 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void TestFileExtract()
         {
             using (var archive = TestData.GetResource("testArchive.zip"))
-            using (var extractor = Extractor.CreateExtractor(archive, Model.Archive.MimeTypeZip, _sandbox))
+            {
+                var extractor = Extractor.CreateExtractor(archive, Model.Archive.MimeTypeZip, _sandbox);
                 extractor.RunSync();
+            }
 
             Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "subdir1/regular")), "Should extract file 'regular'");
             Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc(Path.Combine(_sandbox, "subdir1/regular")), "Correct last write time for file 'regular' should be set");
@@ -86,7 +88,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void ExtractionIntoFolder()
         {
-            using (var extractor = Extractor.CreateExtractor(new MemoryStream(_archiveData), Model.Archive.MimeTypeZip, _sandbox))
+            var extractor = Extractor.CreateExtractor(new MemoryStream(_archiveData), Model.Archive.MimeTypeZip, _sandbox);
                 extractor.RunSync();
 
             Assert.IsTrue(Directory.Exists(_sandbox));
@@ -122,11 +124,9 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void ExtractionOfSubDir()
         {
-            using (var extractor = Extractor.CreateExtractor(new MemoryStream(_archiveData), Model.Archive.MimeTypeZip, _sandbox))
-            {
+            var extractor = Extractor.CreateExtractor(new MemoryStream(_archiveData), Model.Archive.MimeTypeZip, _sandbox);
                 extractor.SubDir = "/sub/folder/";
                 extractor.RunSync();
-            }
 
             Assert.IsTrue(Directory.Exists(Path.Combine(_sandbox, "nestedFolder")));
             Assert.AreEqual(PackageBuilder.DefaultDate, Directory.GetLastWriteTimeUtc(Path.Combine(_sandbox, "nestedFolder")));
@@ -138,11 +138,9 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void EnsureSubDirDoesNotTouchFileNames()
         {
-            using (var extractor = Extractor.CreateExtractor(new MemoryStream(_archiveData), Model.Archive.MimeTypeZip, _sandbox))
-            {
+            var extractor = Extractor.CreateExtractor(new MemoryStream(_archiveData), Model.Archive.MimeTypeZip, _sandbox);
                 extractor.SubDir = "/sub/folder/nested";
                 extractor.RunSync();
-            }
 
             Assert.IsFalse(Directory.Exists(Path.Combine(_sandbox, "Folder")), "Should not apply subdir matching to part of filename");
             Assert.IsFalse(File.Exists(Path.Combine(_sandbox, "File")), "Should not apply subdir matching to part of filename");
@@ -153,7 +151,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         {
             File.WriteAllText(Path.Combine(_sandbox, "file1"), @"Wrong content");
             File.WriteAllText(Path.Combine(_sandbox, "file0"), @"This file should not be touched");
-            using (var extractor = Extractor.CreateExtractor(new MemoryStream(_archiveData), Model.Archive.MimeTypeZip, _sandbox))
+            var extractor = Extractor.CreateExtractor(new MemoryStream(_archiveData), Model.Archive.MimeTypeZip, _sandbox);
                 extractor.RunSync();
 
             Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "file0")), "Extractor cleaned directory.");
@@ -185,8 +183,10 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void TestExtractUnixArchiveWithExecutable()
         {
             using (var archive = TestData.GetResource("testArchive.zip"))
-            using (var extractor = new ZipExtractor(archive, _sandbox))
+            {
+                var extractor = new ZipExtractor(archive, _sandbox);
                 extractor.RunSync();
+            }
 
             if (MonoUtils.IsUnix)
                 Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox, "subdir2/executable")), "File 'executable' should be marked as executable");
@@ -201,8 +201,10 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void TestExtractUnixArchiveWithSymlink()
         {
             using (var archive = TestData.GetResource("testArchive.zip"))
-            using (var extractor = new ZipExtractor(archive, _sandbox))
+            {
+                var extractor = new ZipExtractor(archive, _sandbox);
                 extractor.RunSync();
+            }
 
             string target;
             if (MonoUtils.IsUnix)

@@ -38,7 +38,7 @@ namespace Common.Utils
         /// <summary>
         /// Provides a filter for decompressing an LZMA encoded <see cref="Stream"/>.
         /// </summary>
-        /// <param name="baseStream">The underlying <see cref="Stream"/> providing the compressed data. Will be disposed.</param>
+        /// <param name="baseStream">The underlying <see cref="Stream"/> providing the compressed data. Will not be disposed.</param>
         /// <param name="bufferSize">The maximum number of uncompressed bytes to buffer. 32k (the step size of <see cref="SevenZip"/>) is a sensible minimum.</param>
         /// <exception cref="InvalidDataException">Thrown if the <paramref name="baseStream"/> doesn't start with a valid 5-bit LZMA header.</exception>
         /// <remarks>
@@ -117,9 +117,8 @@ namespace Common.Utils
                 finally
                 {
                     bufferStream.DoneWriting();
-                    baseStream.Dispose();
                 }
-            });
+            }) {IsBackground = true};
             thread.Start();
 
             return new DisposeWarpperStream(bufferStream, () =>

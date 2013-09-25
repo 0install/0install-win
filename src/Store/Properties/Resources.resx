@@ -144,7 +144,7 @@ Actual value: {1}</value>
     <value>Error loading the trust database. Reverting to default values.</value>
   </data>
   <data name="ExtractingArchive" xml:space="preserve">
-    <value>Extracting archive ({0})</value>
+    <value>Extracting archive</value>
   </data>
   <data name="FeedNotInCache" xml:space="preserve">
     <value>'{0}' could not be located in the feed cache. Looked for file at: {1}</value>

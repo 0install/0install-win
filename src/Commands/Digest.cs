@@ -110,8 +110,9 @@ namespace ZeroInstall.Commands
             {
                 using (var tempDir = new TemporaryDirectory("0install"))
                 {
-                    using (var extractor = Extractor.CreateExtractor(path, Archive.GuessMimeType(path), tempDir))
+                    using (var stream = File.OpenRead(path))
                     {
+                        var extractor = Extractor.CreateExtractor(stream, Archive.GuessMimeType(path), tempDir);
                         extractor.SubDir = subdir;
                         Resolver.Handler.RunTask(extractor);
                     }

@@ -26,15 +26,14 @@ namespace ZeroInstall.Store.Implementation.Archive
     /// </summary>
     public class TarLzmaExtractor : TarExtractor
     {
-        #region Constructor
         /// <summary>
         /// Prepares to extract a TAR archive contained in a LZMA-compressed stream.
         /// </summary>
-        /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed.</param>
+        /// <param name="stream">The stream containing the archive data to be extracted. Will not be disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
         public TarLzmaExtractor(Stream stream, string target)
-            : base(GetDecompressionStream(stream), target)
+            : base(stream, GetDecompressionStream(stream), target)
         {}
 
         /// <summary>
@@ -58,6 +57,5 @@ namespace ZeroInstall.Store.Implementation.Archive
             }
             #endregion
         }
-        #endregion
     }
 }

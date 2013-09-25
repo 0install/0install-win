@@ -135,7 +135,7 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extracting archive ({0}).
+        ///   Looks up a localized string similar to Extracting archive.
         /// </summary>
         internal static string ExtractingArchive {
             get {

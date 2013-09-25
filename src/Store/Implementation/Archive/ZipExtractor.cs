@@ -33,14 +33,14 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// <summary>Information about the files in the archive as stored in the central directory.</summary>
         private readonly ZipEntry[] _centralDirectory;
 
-        private readonly ZipInputStream _zipStream;
+        private readonly ZipInputStream _zip;
         #endregion
 
         #region Constructor
         /// <summary>
         /// Prepares to extract a ZIP archive contained in a stream.
         /// </summary>
-        /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed.</param>
+        /// <param name="stream">The stream containing the archive data to be extracted. Will not be disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
         public ZipExtractor(Stream stream, string target) : base(stream, target)
@@ -61,8 +61,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                 }
                 stream.Seek(0, SeekOrigin.Begin);
 
-                // Create a ZIP-reading stream that does not dispose the underlying file stream
-                _zipStream = new ZipInputStream(stream) {IsStreamOwner = false};
+                _zip = new ZipInputStream(stream) {IsStreamOwner = false};
             }
                 #region Error handling
             catch (ZipException ex)
@@ -89,7 +88,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                 // Read ZIP file sequentially and reference central directory in parallel
                 int i = 0;
                 ZipEntry localEntry;
-                while ((localEntry = _zipStream.GetNextEntry()) != null)
+                while ((localEntry = _zip.GetNextEntry()) != null)
                 {
                     ZipEntry centralEntry = _centralDirectory[i++];
 
@@ -100,8 +99,8 @@ namespace ZeroInstall.Store.Implementation.Archive
                     if (centralEntry.IsDirectory) CreateDirectory(entryName, modTime);
                     else if (centralEntry.IsFile)
                     {
-                        if (IsSymlink(centralEntry)) CreateSymlink(entryName, _zipStream.ReadToString());
-                        else WriteFile(entryName, modTime, _zipStream, centralEntry.Size, IsExecutable(centralEntry));
+                        if (IsSymlink(centralEntry)) CreateSymlink(entryName, _zip.ReadToString());
+                        else WriteFile(entryName, modTime, _zip, centralEntry.Size, IsExecutable(centralEntry));
                     }
 
                     UnitsProcessed += centralEntry.CompressedSize;
@@ -122,6 +121,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             }
             #endregion
 
+            _zip.Dispose();
             lock (StateLock) State = TaskState.Complete;
         }
 
@@ -184,21 +184,14 @@ namespace ZeroInstall.Store.Implementation.Archive
         }
         #endregion
 
-        //--------------------//
-
-        #region Dispose
+        #region Cancel
         /// <inheritdoc/>
-        protected override void Dispose(bool disposing)
+        public override void Cancel()
         {
-            try
-            {
-                if (disposing)
-                    if (_zipStream != null) _zipStream.Close();
-            }
-            finally
-            {
-                base.Dispose(disposing);
-            }
+            base.Cancel();
+
+            // Make sure any left-over worker threads are terminated
+            _zip.Dispose();
         }
         #endregion
     }

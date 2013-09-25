@@ -21,11 +21,12 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Common.Collections;
 using Common.Storage;
+using Common.Streams;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Properties;
 using ZeroInstall.Store.Implementation.Archive;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -115,8 +116,9 @@ namespace ZeroInstall.Store.Implementation
 
             if (string.IsNullOrEmpty(step.MimeType)) throw new IOException(Resources.UnknownArchiveType);
 
-            using (Extractor extractor = Extractor.CreateExtractor(localPath, step.MimeType, workingDir, step.StartOffset))
+            using (var stream = new OffsetStream(File.OpenRead(localPath), step.StartOffset))
             {
+                var extractor = Extractor.CreateExtractor(stream, step.MimeType, workingDir);
                 extractor.SubDir = step.Extract;
                 extractor.Destination = FileUtils.UnifySlashes(step.Destination);
                 handler.RunTask(extractor, tag); // Defer task to handler
@@ -146,7 +148,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 // ReSharper disable once AccessToDisposedClosure
                 handler.RunTask(new SimpleTask(Resources.CopyFiles, () => File.Copy(localPath, tempFile, overwrite: true)));
-                ApplySingleFile(step,  tempFile, workingDir, handler, tag);
+                ApplySingleFile(step, tempFile, workingDir, handler, tag);
             }
         }
 

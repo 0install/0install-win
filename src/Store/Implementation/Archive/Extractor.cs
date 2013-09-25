@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
-using Common.Streams;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Store.Properties;
@@ -30,7 +29,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     /// <summary>
     /// Provides methods for extracting an archive (optionally as a background task).
     /// </summary>
-    public abstract class Extractor : ThreadTask, IDisposable
+    public abstract class Extractor : ThreadTask
     {
         #region Variables
         /// <summary>
@@ -40,10 +39,8 @@ namespace ZeroInstall.Store.Implementation.Archive
         #endregion
 
         #region Properties
-        private string _name;
-
         /// <inheritdoc />
-        public override string Name { get { return string.Format(Resources.ExtractingArchive, Path.GetFileName(_name)); } }
+        public override string Name { get { return Resources.ExtractingArchive; } }
 
         /// <inheritdoc />
         public override bool UnitsByte { get { return true; } }
@@ -128,7 +125,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// <summary>
         /// Creates a new <see cref="Extractor"/> for extracting a sub-directory from an archive stream.
         /// </summary>
-        /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed.</param>
+        /// <param name="stream">The stream containing the archive data to be extracted. Will not be disposed.</param>
         /// <param name="mimeType">The MIME type of archive format of the stream.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <returns>The newly created <see cref="Extractor"/>.</returns>
@@ -170,41 +167,6 @@ namespace ZeroInstall.Store.Implementation.Archive
             }
 
             return extractor;
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="Extractor"/> for extracting a sub-directory from an archive file.
-        /// </summary>
-        /// <param name="path">The file to be extracted.</param>
-        /// <param name="mimeType">The MIME type of archive format of the file.</param>
-        /// <param name="target">The path to the directory to extract into.</param>
-        /// <param name="startOffset">The number of bytes at the beginning of the file which should be ignored.</param>
-        /// <returns>The newly created <see cref="Extractor"/>.</returns>
-        /// <exception cref="IOException">Thrown if the archive is damaged or if the file couldn't be read.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="NotSupportedException">Thrown if the <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
-        public static Extractor CreateExtractor(string path, string mimeType, string target, long startOffset = 0)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
-            #endregion
-
-            var stream = File.OpenRead(path);
-            try
-            {
-                var extractor = CreateExtractor(new OffsetStream(stream, startOffset), mimeType, target);
-                extractor._name = Path.GetFileName(path);
-                return extractor;
-            }
-                #region Error handling
-            catch
-            {
-                stream.Close();
-                throw;
-            }
-            #endregion
         }
         #endregion
 
@@ -516,35 +478,6 @@ namespace ZeroInstall.Store.Implementation.Archive
                     FlagUtils.RemoveExternalFlag(Path.Combine(TargetDir, ".xbit"), flagRelativePath);
                     break;
             }
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Dispose
-        /// <summary>
-        /// Disposes the underlying <see cref="Stream"/>.
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <inheritdoc/>
-        ~Extractor()
-        {
-            Dispose(false);
-        }
-
-        /// <summary>
-        /// To be called by <see cref="IDisposable.Dispose"/> and the object destructor.
-        /// </summary>
-        /// <param name="disposing"><see langword="true"/> if called manually and not by the garbage collector.</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-                if (Stream != null) Stream.Dispose();
         }
         #endregion
     }

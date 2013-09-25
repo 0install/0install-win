@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// <summary>
         /// Prepares to extract a TAR archive contained in a stream.
         /// </summary>
-        /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed.</param>
+        /// <param name="stream">The stream containing the archive data to be extracted. Will not be disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
         public TarExtractor(Stream stream, string target) : base(stream, target)
@@ -47,10 +47,36 @@ namespace ZeroInstall.Store.Implementation.Archive
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            // Create a TAR-reading stream that doesn't dispose the underlying file stream
             try
             {
                 _tar = new TarInputStream(stream) {IsStreamOwner = false};
+            }
+            catch (SharpZipBaseException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+            }
+        }
+
+        /// <summary>
+        /// Prepares to extract a TAR archive contained in a compressed stream.
+        /// </summary>
+        /// <param name="stream">The compressed stream. Only used to track progress. Will not be disposed.</param>
+        /// <param name="decompressionStream">A non-seekable decompressed view of <paramref name="stream"/>. Will be disposed.</param>
+        /// <param name="target">The path to the directory to extract into.</param>
+        /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
+        protected TarExtractor(Stream stream, Stream decompressionStream, string target)
+            : base(stream, target)
+        {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            if (decompressionStream == null) throw new ArgumentNullException("decompressionStream");
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            #endregion
+
+            try
+            {
+                _tar = new TarInputStream(decompressionStream) {IsStreamOwner = true};
             }
             catch (SharpZipBaseException ex)
             {
@@ -83,7 +109,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                     else if (entry.TarHeader.TypeFlag == TarHeader.LF_SYMLINK) CreateSymlink(entryName, entry.TarHeader.LinkName);
                     else WriteFile(entryName, entry.TarHeader.ModTime, _tar, entry.Size, IsExecutable(entry));
 
-                    UnitsProcessed = _tar.Position;
+                    UnitsProcessed = Stream.Position;
                 }
 
                 SetDirectoryWriteTimes();
@@ -106,6 +132,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             }
             #endregion
 
+            _tar.Dispose();
             lock (StateLock) State = TaskState.Complete;
         }
 
@@ -129,21 +156,14 @@ namespace ZeroInstall.Store.Implementation.Archive
         }
         #endregion
 
-        //--------------------//
-
-        #region Dispose
+        #region Cancel
         /// <inheritdoc/>
-        protected override void Dispose(bool disposing)
+        public override void Cancel()
         {
-            try
-            {
-                if (disposing)
-                    if (_tar != null) _tar.Close();
-            }
-            finally
-            {
-                base.Dispose(disposing);
-            }
+            base.Cancel();
+
+            // Make sure any left-over worker threads are terminated
+            _tar.Dispose();
         }
         #endregion
     }
