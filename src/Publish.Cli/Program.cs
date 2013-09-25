@@ -98,6 +98,11 @@ namespace ZeroInstall.Publish.Cli
             {
                 return (int)ErrorLevel.UserCanceled;
             }
+            catch (ArgumentException ex)
+            {
+                Log.Error(ex);
+                return (int)ErrorLevel.InvalidArguments;
+            }
             catch (OptionException ex)
             {
                 Log.Error(ex);
