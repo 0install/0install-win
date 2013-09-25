@@ -133,6 +133,15 @@ namespace ZeroInstall.Store.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Setting file permissions.
+        /// </summary>
+        internal static string SettingFilePermissions {
+            get {
+                return ResourceManager.GetString("SettingFilePermissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successfully started the Zero Install Store Service..
         /// </summary>
         internal static string StartSuccess {

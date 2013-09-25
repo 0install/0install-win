@@ -145,7 +145,9 @@ namespace ZeroInstall.Store.Service
             {
                 try
                 {
-                    new DirectoryInfo(Path.Combine(DirectoryPath, tempID)).ResetAcl();
+                    var tempDirectory = new DirectoryInfo(Path.Combine(DirectoryPath, tempID));
+                    handler.RunTask(new SimpleTask(Resources.SettingFilePermissions, tempDirectory.ResetAcl));
+
                     base.VerifyAndAdd(tempID, expectedDigest, handler);
                 }
                     #region Error handling

@@ -141,6 +141,9 @@
   <data name="NoPortableMode" xml:space="preserve">
     <value>The service cannot run in portable mode!</value>
   </data>
+  <data name="SettingFilePermissions" xml:space="preserve">
+    <value>Setting file permissions</value>
+  </data>
   <data name="StartSuccess" xml:space="preserve">
     <value>Successfully started the Zero Install Store Service.</value>
   </data>
