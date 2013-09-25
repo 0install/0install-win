@@ -189,8 +189,10 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         private void SetDigest(ManifestDigest digest, ICommandExecutor executor)
         {
-            var setDigestCommand = new SetValueCommand<ManifestDigest>(() => ContainerRef.ManifestDigest, value => ContainerRef.ManifestDigest = value, digest);
-            executor.Execute(setDigestCommand);
+            executor.Execute(new SetValueCommand<ManifestDigest>(() => ContainerRef.ManifestDigest, value => ContainerRef.ManifestDigest = value, digest));
+
+            if (string.IsNullOrEmpty(ContainerRef.ID) || ContainerRef.ID.Contains("="))
+                executor.Execute(new SetValueCommand<string>(() => ContainerRef.ID, value => ContainerRef.ID = value, "sha1new=" + digest.Sha1New));
         }
         #endregion
     }
