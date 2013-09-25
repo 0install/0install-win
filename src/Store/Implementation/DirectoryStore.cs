@@ -26,8 +26,8 @@ using Common.Streams;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Properties;
 using ZeroInstall.Store.Implementation.Archive;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -202,13 +202,13 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var format = ManifestFormat.FromPrefix(expectedDigest.AvailableDigests.First(
-                () => new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest")));
-            var actualManifest = Manifest.Generate(directory, format, handler, expectedDigest);
-
             string expectedDigestValue = expectedDigest.AvailableDigests.First(
                 () => new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest"));
+            var format = ManifestFormat.FromPrefix(expectedDigestValue);
+
+            var actualManifest = Manifest.Generate(directory, format, handler, expectedDigest);
             string actualDigestValue = actualManifest.CalculateDigest();
+
             if (actualDigestValue != expectedDigestValue)
                 throw new DigestMismatchException(expectedDigestValue, actualDigestValue, actualManifest: actualManifest);
 
@@ -225,8 +225,8 @@ namespace ZeroInstall.Store.Implementation
             if (!Directory.Exists(DirectoryPath)) return new ManifestDigest[0];
 
             return FileUtils.GetDirectories(DirectoryPath).
-                             Select(path => new ManifestDigest(Path.GetFileName(path))).
-                             Where(IsValid).ToList();
+                Select(path => new ManifestDigest(Path.GetFileName(path))).
+                Where(IsValid).ToList();
         }
 
         private static bool IsValid(ManifestDigest digest)

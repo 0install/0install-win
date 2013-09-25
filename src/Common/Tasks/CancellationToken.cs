@@ -22,6 +22,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Remoting;
 
 namespace Common.Tasks
 {
@@ -57,9 +58,19 @@ namespace Common.Tasks
         {
             lock (_lock)
             {
-                if (_isCancellationRequested) return; // Don't trigger more than once
+                // Don't trigger more than once
+                if (_isCancellationRequested) return;
+
                 _isCancellationRequested = true;
-                if (CancellationRequested != null) CancellationRequested();
+                if (CancellationRequested != null)
+                {
+                    try
+                    {
+                        CancellationRequested();
+                    }
+                    catch (RemotingException)
+                    {}
+                }
             }
         }
 
