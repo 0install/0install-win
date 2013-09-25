@@ -193,6 +193,7 @@ namespace ZeroInstall.Central.WinForms
         /// <inheritdoc/>
         public void RemoveTile(string interfaceID)
         {
+            if (string.IsNullOrEmpty(interfaceID)) return;
             try
             {
                 RemoveTile(_tileDictionary[interfaceID]);
