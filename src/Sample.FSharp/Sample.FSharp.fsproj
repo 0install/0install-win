@@ -4,7 +4,9 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>af9fb192-c867-425b-b60c-4ffb6051d354</ProjectGuid>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AF9FB192-C867-425B-B60C-4FFB6051D354}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Sample.FSharp</RootNamespace>
     <AssemblyName>Sample.FSharp</AssemblyName>
@@ -13,6 +15,7 @@
     <Name>Sample.FSharp</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -20,26 +23,19 @@
     <OutputPath>..\..\build\Sample\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DocumentationFile>
-    </DocumentationFile>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <Tailcalls>true</Tailcalls>
     <OutputPath>..\..\build\Sample\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DocumentationFile>
-    </DocumentationFile>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <Reference Include="FSharp.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -50,34 +46,28 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Backend\Backend.csproj">
-      <Name>Backend (Backend\Backend)</Name>
-      <Project>{8caa29b1-94b6-46c2-af82-e049d35775c5}</Project>
-      <Private>True</Private>
+      <Project>{8CAA29B1-94B6-46C2-AF82-E049D35775C5}</Project>
+      <Name>Backend</Name>
     </ProjectReference>
     <ProjectReference Include="..\Commands\Commands.csproj">
+      <Project>{606C7FB6-2C58-11E0-8161-7159DFD72085}</Project>
       <Name>Commands</Name>
-      <Project>{606c7fb6-2c58-11e0-8161-7159dfd72085}</Project>
-      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>
-      <Project>{81af4fa5-44f7-4010-8769-b85b8b542fa2}</Project>
-      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Injector\Injector.csproj">
+      <Project>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</Project>
       <Name>Injector</Name>
-      <Project>{33df4c92-ac4a-4a36-89a2-db334be3d229}</Project>
-      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
-      <Project>{e9329c91-2656-418c-9d4a-7a4378dcd852}</Project>
-      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Store\Store.csproj">
+      <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
       <Name>Store</Name>
-      <Project>{bd330a44-dabf-43e9-83b4-0750f8f1db9d}</Project>
-      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
