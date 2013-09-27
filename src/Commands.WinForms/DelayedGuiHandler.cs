@@ -59,6 +59,14 @@ namespace ZeroInstall.Commands.WinForms
         public CancellationToken CancellationToken { get { return _cancellationToken; } }
         #endregion
 
+        #region IPC timeout
+        /// <inheritdoc/>
+        public override object InitializeLifetimeService()
+        {
+            return null; // Do not timeout progress reporting callbacks
+        }
+        #endregion
+
         #region Dispose
         /// <inheritdoc/>
         [SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "_uiDone", Justification = "Do not dispose _uiDone because of possible race conditions; let the GC handle it")]

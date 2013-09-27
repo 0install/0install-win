@@ -44,5 +44,13 @@ namespace Common.Tasks
 
             TrackingDialog.Run(null, task);
         }
+
+        #region IPC timeout
+        /// <inheritdoc/>
+        public override object InitializeLifetimeService()
+        {
+            return null; // Do not timeout progress reporting callbacks
+        }
+        #endregion
     }
 }

@@ -88,5 +88,13 @@ namespace Common.Tasks
         {
             return "CancellationToken {IsCancellationRequested=" + IsCancellationRequested + "}";
         }
+
+        #region IPC timeout
+        /// <inheritdoc/>
+        public override object InitializeLifetimeService()
+        {
+            return null; // Do not timeout progress reporting callbacks
+        }
+        #endregion
     }
 }

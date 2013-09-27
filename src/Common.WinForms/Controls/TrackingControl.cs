@@ -69,5 +69,13 @@ namespace Common.Controls
             InitializeComponent();
         }
         #endregion
+
+        #region IPC timeout
+        /// <inheritdoc/>
+        public override object InitializeLifetimeService()
+        {
+            return null; // Do not timeout progress reporting callbacks
+        }
+        #endregion
     }
 }

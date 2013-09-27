@@ -217,7 +217,13 @@ namespace Common.Controls
         }
         #endregion
 
-        //--------------------//
+        #region IPC timeout
+        /// <inheritdoc/>
+        public override object InitializeLifetimeService()
+        {
+            return null; // Do not timeout progress reporting callbacks
+        }
+        #endregion
 
         #region Dispose
         /// <inheritdoc/>
