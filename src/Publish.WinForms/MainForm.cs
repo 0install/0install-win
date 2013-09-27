@@ -225,38 +225,34 @@ namespace ZeroInstall.Publish.WinForms
 
         private void SaveFeed(string path)
         {
-            try
+            while (true)
             {
-                var key = FeedEditing.SignedFeed.SecretKey;
-                if (key == null) FeedEditing.Save(path);
-                else
+                try
                 {
-                    string passphrase = InputBox.Show(this, Text, string.Format(Resources.AskForPassphrase, key), password: true);
-                    Retry:
-                    if (passphrase == null) throw new OperationCanceledException();
                     try
                     {
-                        FeedEditing.Save(path, passphrase);
+                        FeedEditing.Save(path);
+                        break;
                     }
                     catch (WrongPassphraseException)
-                    {
-                        passphrase = InputBox.Show(this, Text, Resources.WrongPassphrase + "\n" + string.Format(Resources.AskForPassphrase, key), password: true);
-                        goto Retry;
-                    }
+                    {}
+
+                    FeedEditing.Passphrase = InputBox.Show(this, Text, string.Format(Resources.AskForPassphrase, FeedEditing.SignedFeed.SecretKey), password: true);
+                    if (FeedEditing.Passphrase == null) throw new OperationCanceledException();
                 }
+                    #region Error handling
+                catch (IOException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                    throw new OperationCanceledException();
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                    throw new OperationCanceledException();
+                }
+                #endregion
             }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                throw new OperationCanceledException();
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                throw new OperationCanceledException();
-            }
-            #endregion
         }
 
         private void AskForChangeSave()

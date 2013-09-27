@@ -280,14 +280,5 @@ namespace ZeroInstall.Publish.Properties {
                 return ResourceManager.GetString("WrongMimeType", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wrong passphrase entered..
-        /// </summary>
-        public static string WrongPassphrase {
-            get {
-                return ResourceManager.GetString("WrongPassphrase", resourceCulture);
-            }
-        }
     }
 }

@@ -35,6 +35,11 @@ namespace ZeroInstall.Publish
         /// </summary>
         public SignedFeed SignedFeed { get; private set; }
 
+        /// <summary>
+        /// The passphrase to use to unlock <see cref="Publish.SignedFeed.SecretKey"/> (if specified).
+        /// </summary>
+        public string Passphrase { get; set; }
+
         /// <inheritdoc/>
         public override Feed Target { get { return SignedFeed.Feed; } set { SignedFeed.Feed = value; } }
         #endregion
@@ -79,14 +84,13 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <remarks>Writing and signing the feed file are performed as an atomic operation (i.e. if signing fails an existing file remains unchanged).</remarks>
         /// <param name="path">The file to save in.</param>
-        /// <param name="passphrase">The passphrase to use to unlock the secret key; may be <see langword="null"/> if <see cref="Publish.SignedFeed.SecretKey"/> is <see langword="null"/>.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
-        public void Save(string path, string passphrase = null)
+        public void Save(string path)
         {
-            SignedFeed.Save(path, passphrase);
+            SignedFeed.Save(path, Passphrase);
 
             Path = path;
             Reset();

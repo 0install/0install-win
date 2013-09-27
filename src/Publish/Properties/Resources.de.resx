@@ -194,7 +194,4 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="WrongMimeType" xml:space="preserve">
     <value>Falscher MIME Typ! Sollte {0} sein.</value>
   </data>
-  <data name="WrongPassphrase" xml:space="preserve">
-    <value>Passphrase falsch.</value>
-  </data>
 </root>

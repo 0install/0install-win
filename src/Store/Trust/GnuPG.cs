@@ -145,7 +145,6 @@ namespace ZeroInstall.Store.Trust
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToSignNotFound, path);
             if (string.IsNullOrEmpty(keySpecifier)) throw new ArgumentNullException("keySpecifier");
-            if (passphrase == null) throw new ArgumentNullException("passphrase");
             #endregion
 
             string arguments = "--batch --no-secmem-warning --passphrase-fd 0";
@@ -219,7 +218,7 @@ namespace ZeroInstall.Store.Trust
                 Log.Info(line);
                 return null;
             }
-            if (line.StartsWith("gpg: skipped ") && line.EndsWith(": bad passphrases")) throw new WrongPassphraseException();
+            if (line.StartsWith("gpg: skipped ") && line.EndsWith(": bad passphrase")) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: bad passphrase")) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: file exists")) throw new IOException(Resources.SignatureAldreadyExists);
             throw new SignatureException(line);

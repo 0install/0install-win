@@ -194,7 +194,4 @@ Save changes</value>
   <data name="WrongMimeType" xml:space="preserve">
     <value>Wrong MIME type! Should be {0}.</value>
   </data>
-  <data name="WrongPassphrase" xml:space="preserve">
-    <value>Wrong passphrase entered.</value>
-  </data>
 </root>
