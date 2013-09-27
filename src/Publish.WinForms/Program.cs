@@ -22,6 +22,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Cli;
 using Common.Controls;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish.WinForms
 {
@@ -40,7 +41,9 @@ namespace ZeroInstall.Publish.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
-            if (args == null || args.Length == 0) Application.Run(new WelcomeForm());
+            var openPgp = OpenPgpFactory.CreateDefault();
+
+            if (args == null || args.Length == 0) Application.Run(new WelcomeForm(openPgp));
             else
             {
                 try
@@ -49,7 +52,7 @@ namespace ZeroInstall.Publish.WinForms
                     if (files.Count == 1)
                     {
                         string path = files.First().FullName;
-                        Application.Run(new MainForm(FeedEditing.Load(path)));
+                        Application.Run(new MainForm(FeedEditing.Load(path), openPgp));
                     }
                     else MassSignForm.Show(files);
                 }

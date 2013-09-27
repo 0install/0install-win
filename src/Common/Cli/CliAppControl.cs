@@ -92,7 +92,7 @@ namespace Common.Cli
                     // No locking since the data will only be read at the end
                     stdoutBuffer.AppendLine(process.StandardOutput.ReadLine());
                 }
-            }, "CliAppControl.stdout");
+            }, name: "CliAppControl.stdout");
 
             // Asynchronously buffer all stderr messages
             var stderrList = new Queue<string>();
@@ -105,7 +105,7 @@ namespace Common.Cli
                     if (!string.IsNullOrEmpty(data))
                         lock (stderrList) stderrList.Enqueue(data);
                 }
-            }, "CliAppControl.stderr");
+            }, name: "CliAppControl.stderr");
 
             // Use callback to send data into external process
             if (inputCallback != null) inputCallback(process.StandardInput);

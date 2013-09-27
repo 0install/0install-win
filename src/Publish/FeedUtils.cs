@@ -78,7 +78,7 @@ namespace ZeroInstall.Publish
         /// <param name="path">The feed or catalog file to sign.</param>
         /// <param name="secretKey">The secret key to use for signing the file.</param>
         /// <param name="passphrase">The passphrase to use to unlock the key.</param>
-        /// <param name="openPgp">The OpenPGP-compatible system used to create a signatures.</param>
+        /// <param name="openPgp">The OpenPGP-compatible system used to create signatures.</param>
         /// <exception cref="FileNotFoundException">Thrown if the file could not be found.</exception>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the file is not permitted.</exception>

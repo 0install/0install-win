@@ -27,7 +27,10 @@ using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish.WinForms
 {
-    public partial class MainForm : Form
+    /// <summary>
+    /// The main GUI for the Zero Install Feed Editor.
+    /// </summary>
+    internal partial class MainForm : Form
     {
         #region Properties
         private FeedEditing _feedEditing;
@@ -59,16 +62,18 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region Constructor
-        private readonly IOpenPgp _openPgp = OpenPgpFactory.CreateDefault();
+        private readonly IOpenPgp _openPgp;
 
         /// <summary>
         /// Creates a new feed editing form.
         /// </summary>
         /// <param name="feedEditing">The feed to open on start up.</param>
-        public MainForm(FeedEditing feedEditing)
+        /// <param name="openPgp">The OpenPGP-compatible system used to create signatures.</param>
+        public MainForm(FeedEditing feedEditing, IOpenPgp openPgp)
         {
             InitializeComponent();
             FeedEditing = feedEditing;
+            _openPgp = openPgp;
         }
         #endregion
 
@@ -291,7 +296,7 @@ namespace ZeroInstall.Publish.WinForms
             {
                 process.WaitForExit();
                 Invoke(new Action(ListKeys));
-            }, "WaitForOpenPgp");
+            }, name: "WaitForOpenPgp");
         }
 
         private class NewKeyAction

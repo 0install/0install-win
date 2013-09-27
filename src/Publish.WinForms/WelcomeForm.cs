@@ -17,15 +17,28 @@
 
 using System;
 using System.Windows.Forms;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish.WinForms
 {
-    public partial class WelcomeForm : Form
+    /// <summary>
+    /// The welcome window for the Zero Install Publishing Tools.
+    /// </summary>
+    internal partial class WelcomeForm : Form
     {
-        public WelcomeForm()
+        #region Dependencies
+        private readonly IOpenPgp _openPgp;
+
+        /// <summary>
+        /// Creates a new welcome form.
+        /// </summary>
+        /// <param name="openPgp">The OpenPGP-compatible system used to create signatures.</param>
+        public WelcomeForm(IOpenPgp openPgp)
         {
             InitializeComponent();
+            _openPgp = openPgp;
         }
+        #endregion
 
         private void buttonNewEmpty_Click(object sender, EventArgs e)
         {
@@ -49,7 +62,7 @@ namespace ZeroInstall.Publish.WinForms
 
         private void SwitchToMain(FeedEditing feedEditing)
         {
-            using (var form = new MainForm(feedEditing))
+            using (var form = new MainForm(feedEditing, _openPgp))
             {
                 Hide();
                 form.ShowDialog();
