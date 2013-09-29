@@ -24,9 +24,9 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Publish.EntryPoints
 {
     /// <summary>
-    /// A PE (Portable Executable) for Windows.
+    /// A native PE (Portable Executable) for Windows.
     /// </summary>
-    public sealed class WindowsExe : NativeExecutable
+    public class WindowsExe : NativeExecutable
     {
         /// <inheritdoc/>
         internal override bool Analyze(FileInfo file)
@@ -41,8 +41,7 @@ namespace ZeroInstall.Publish.EntryPoints
             try
             {
                 Parse(FileVersionInfo.GetVersionInfo(file.FullName));
-                Parse(new PEHeader(file.FullName));
-                return true;
+                return Parse(new PEHeader(file.FullName));
             }
                 #region Error handling
             catch (IOException)
@@ -55,17 +54,20 @@ namespace ZeroInstall.Publish.EntryPoints
         private void Parse(FileVersionInfo versionInfo)
         {
             Name = versionInfo.ProductName;
-            Description = versionInfo.Comments ?? versionInfo.FileDescription;
+            Description = string.IsNullOrEmpty(versionInfo.Comments) ? versionInfo.FileDescription : versionInfo.Comments;
             if (!string.IsNullOrEmpty(versionInfo.ProductVersion)) Version = new ImplementationVersion(versionInfo.ProductVersion);
         }
 
-        private void Parse(PEHeader peHeader)
+        protected virtual bool Parse(PEHeader peHeader)
         {
             Architecture = new Architecture(OS.Windows, GetCpu(peHeader.FileHeader.Machine));
             if (peHeader.Subsystem >= Subsystem.WindowsCui) NeedsTerminal = true;
+            return peHeader.Is32BitHeader
+                ? (peHeader.OptionalHeader32.CLRRuntimeHeader.VirtualAddress == 0)
+                : (peHeader.OptionalHeader64.CLRRuntimeHeader.VirtualAddress == 0);
         }
 
-        private static Cpu GetCpu(MachineType machine)
+        protected static Cpu GetCpu(MachineType machine)
         {
             switch (machine)
             {

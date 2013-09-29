@@ -22,6 +22,9 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
+    /// <summary>
+    /// A Java JAR archive.
+    /// </summary>
     public sealed class JavaJar : Java
     {
         /// <inheritdoc/>
@@ -38,6 +41,56 @@ namespace ZeroInstall.Publish.EntryPoints
             return true;
         }
 
-        public override Runner Runner { get { return new Runner(); } }
+        public bool HasDependencies { get; set; }
+
+        /// <inheritdoc/>
+        public override Command Command
+        {
+            get
+            {
+                if (HasDependencies)
+                {
+                    return new Command
+                    {
+                        Name = Command.NameRun,
+                        Bindings = {new EnvironmentBinding {Name = "CLASSPATH", Insert = RelativePath}},
+                        Runner = new Runner {Interface = "http://0install.de/feeds/jar-launcher.xml", Versions = RuntimeVersion}
+                    };
+                }
+                else
+                {
+                    return new Command
+                    {
+                        Name = Command.NameRun,
+                        Arguments = {"-jar"},
+                        Path = RelativePath,
+                        Runner = new Runner {Interface = "http://repo.roscidus.com/java/openjdk-jre", Versions = RuntimeVersion}
+                    };
+                }
+            }
+        }
+
+        #region Equality
+        private bool Equals(JavaJar other)
+        {
+            return base.Equals(other) &&
+                   HasDependencies == other.HasDependencies;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj is JavaJar && Equals((JavaJar)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (base.GetHashCode() * 397) ^ HasDependencies.GetHashCode();
+            }
+        }
+        #endregion
     }
 }

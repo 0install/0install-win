@@ -16,7 +16,6 @@
  */
 
 using System.Linq;
-using Common;
 using NUnit.Framework;
 
 namespace ZeroInstall.Publish.EntryPoints
@@ -25,24 +24,26 @@ namespace ZeroInstall.Publish.EntryPoints
     /// Contains test methods for <see cref="Detection"/>.
     /// </summary>
     [TestFixture]
-    public class DetectionTest : TemporayDirectoryTest
+    public class DetectionTest : CandidateTest
     {
         [Test]
         public void TestListCandidates()
         {
-            //Directory.DeployFile("dotnet20.exe");
-            Directory.DeployFile("elf32", true);
-            Directory.DeployFile("python", true);
-            Directory.DeployFile("sh", true);
+            Deploy(DotNetExeTest.Reference);
+            Deploy(WindowsExeTest.Reference32);
+            Deploy(PythonScriptTest.Reference, executable: true);
+            Deploy(PosixScriptTest.Reference, executable: true);
+            Deploy(PosixBinaryTest.Reference32, executable: true);
 
             var candidates = Detection.ListCandidates(Directory).ToList();
             CollectionAssert.AreEquivalent(
                 new Candidate[]
                 {
-                    //DotNetExeTest.ReferenceCandidate,
-                    PosixBinaryTest.ReferenceCandidate32,
-                    PythonScriptTest.ReferenceCandidate,
-                    PosixScriptTest.ReferenceCandidate
+                    DotNetExeTest.Reference,
+                    WindowsExeTest.Reference32,
+                    PythonScriptTest.Reference,
+                    PosixScriptTest.Reference,
+                    PosixBinaryTest.Reference32
                 },
                 candidates);
         }

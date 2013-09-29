@@ -21,33 +21,33 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Publish.EntryPoints
 {
     /// <summary>
-    /// Contains test methods for <see cref="DotNetExe"/>.
+    /// Contains test methods for <see cref="WindowsExe"/>.
     /// </summary>
     [TestFixture]
-    public class DotNetExeTest : CandidateTest
+    public class WindowsExeTest : CandidateTest
     {
-        public static readonly DotNetExe Reference = new DotNetExe
+        public static readonly WindowsExe Reference32 = new WindowsExe
         {
-            RelativePath = "dotnet.exe",
-            Architecture = new Architecture(OS.All, Cpu.All),
+            RelativePath = "windows32.exe",
+            Architecture = new Architecture(OS.Windows, Cpu.All),
             Name = "Hello",
             Description = "a Hello World application",
             Version = new ImplementationVersion("1.2.3.0")
         };
 
-        public static readonly DotNetExe Reference64 = new DotNetExe
+        public static readonly WindowsExe Reference64 = new WindowsExe
         {
-            RelativePath = "dotnet64.exe",
-            Architecture = new Architecture(OS.All, Cpu.X64),
+            RelativePath = "windows64.exe",
+            Architecture = new Architecture(OS.Windows, Cpu.X64),
             Name = "Hello",
             Description = "a Hello World application",
             Version = new ImplementationVersion("1.2.3.0")
         };
 
-        public static readonly DotNetExe ReferenceTerminal = new DotNetExe
+        public static readonly WindowsExe ReferenceTerminal = new WindowsExe
         {
-            RelativePath = "dotnet_terminal.exe",
-            Architecture = new Architecture(OS.All, Cpu.All),
+            RelativePath = "windows32_terminal.exe",
+            Architecture = new Architecture(OS.Windows, Cpu.All),
             Name = "Hello",
             Description = "a Hello World application",
             Version = new ImplementationVersion("1.2.3.0"),
@@ -55,9 +55,9 @@ namespace ZeroInstall.Publish.EntryPoints
         };
 
         [Test]
-        public void AnyCpu()
+        public void X86()
         {
-            TestAnalyze(Reference);
+            TestAnalyze(Reference32);
         }
 
         [Test]
@@ -67,16 +67,16 @@ namespace ZeroInstall.Publish.EntryPoints
         }
 
         [Test]
-        public void Terminal()
+        public void X86Terminal()
         {
             TestAnalyze(ReferenceTerminal);
         }
 
         [Test]
-        public void NotDotNet()
+        public void NotExe()
         {
-            var candidate = new DotNetExe {BaseDirectory = Directory};
-            Assert.IsFalse(candidate.Analyze(Deploy(WindowsExeTest.Reference32)));
+            var candidate = new WindowsExe {BaseDirectory = Directory};
+            Assert.IsFalse(candidate.Analyze(Deploy(PosixScriptTest.Reference)));
         }
     }
 }

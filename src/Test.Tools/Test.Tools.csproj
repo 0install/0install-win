@@ -90,12 +90,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Capture\CommandMapperTest.cs" />
+    <Compile Include="Publish\EntryPoints\CandidateTest.cs" />
     <Compile Include="Publish\EntryPoints\DetectionTest.cs" />
     <Compile Include="Publish\EntryPoints\DotNetExeTest.cs" />
     <Compile Include="Publish\EntryPoints\PosixBinaryTest.cs" />
     <Compile Include="Publish\EntryPoints\PosixScriptTest.cs" />
     <Compile Include="Publish\EntryPoints\PythonScriptTest.cs" />
-    <Compile Include="Publish\EntryPoints\TestData.cs" />
+    <Compile Include="Publish\EntryPoints\WindowsExeTest.cs" />
     <Compile Include="Publish\RetrievalMethodUtilsTest.cs" />
     <Compile Include="Publish\FeedUtilsTest.cs" />
     <Compile Include="Publish\ImplementationUtilsTest.cs" />
@@ -105,13 +106,27 @@
     <EmbeddedResource Include="Publish\EntryPoints\python" />
     <EmbeddedResource Include="Publish\EntryPoints\elf32" />
     <EmbeddedResource Include="Publish\EntryPoints\elf64" />
-    <EmbeddedResource Include="Publish\EntryPoints\elfbroken" />
     <EmbeddedResource Include="Publish\EntryPoints\sh" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Publish\EntryPoints\dotnet20.exe" />
     <EmbeddedResource Include="Publish\EntryPoints\python.py" />
     <EmbeddedResource Include="Publish\EntryPoints\python.pyw" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Publish\EntryPoints\dotnet.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Publish\EntryPoints\dotnet64.exe" />
+    <EmbeddedResource Include="Publish\EntryPoints\dotnet_terminal.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Publish\EntryPoints\windows32_terminal.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Publish\EntryPoints\windows32.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Publish\EntryPoints\windows64.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

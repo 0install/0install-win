@@ -18,10 +18,12 @@
 using System;
 using System.IO;
 using Common.Utils;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
+    /// <summary>
+    /// A script written in Python.
+    /// </summary>
     public sealed class PythonScript : InterpretedScript
     {
         /// <inheritdoc/>
@@ -42,6 +44,7 @@ namespace ZeroInstall.Publish.EntryPoints
                 HasShebang(file, "python");
         }
 
-        public override Runner Runner { get { return new Runner(); } }
+        /// <inheritdoc/>
+        protected override string InterpreterInterface { get { return "http://repo.roscidus.com/python/python"; } }
     }
 }

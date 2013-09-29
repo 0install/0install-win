@@ -24,7 +24,7 @@ namespace ZeroInstall.Publish.EntryPoints
 
     #region File header structures
     [StructLayout(LayoutKind.Sequential)]
-    internal struct ImageDosHeader
+    public struct ImageDosHeader
     {
         public UInt16 e_magic; // Magic number
         public UInt16 e_cblp; // Bytes on last page of file
@@ -60,13 +60,13 @@ namespace ZeroInstall.Publish.EntryPoints
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    internal struct ImageDataDirectory
+    public struct ImageDataDirectory
     {
         public UInt32 VirtualAddress;
         public UInt32 Size;
     }
 
-    internal enum MachineType : ushort
+    public enum MachineType : ushort
     {
         Native = 0,
         I386 = 0x014c,
@@ -74,7 +74,7 @@ namespace ZeroInstall.Publish.EntryPoints
         X64 = 0x8664
     }
 
-    internal enum Subsystem : ushort
+    public enum Subsystem : ushort
     {
         Native = 1,
         WindowsGui = 2,
@@ -84,7 +84,7 @@ namespace ZeroInstall.Publish.EntryPoints
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    internal struct ImageOptionalHeader32
+    public struct ImageOptionalHeader32
     {
         public UInt16 Magic;
         public Byte MajorLinkerVersion;
@@ -136,7 +136,7 @@ namespace ZeroInstall.Publish.EntryPoints
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    internal struct ImageOptionalHeader64
+    public struct ImageOptionalHeader64
     {
         public UInt16 Magic;
         public Byte MajorLinkerVersion;
@@ -187,7 +187,7 @@ namespace ZeroInstall.Publish.EntryPoints
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    internal struct ImageFileHeader
+    public struct ImageFileHeader
     {
         public MachineType Machine;
         public UInt16 NumberOfSections;
@@ -202,7 +202,7 @@ namespace ZeroInstall.Publish.EntryPoints
     /// <summary>
     /// Extracts meta data from PE (Portable Executable) file headers.
     /// </summary>
-    internal class PEHeader
+    public class PEHeader
     {
         #region Properties
         public bool Is32BitHeader

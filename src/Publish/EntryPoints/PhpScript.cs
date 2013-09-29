@@ -17,10 +17,12 @@
 
 using System;
 using System.IO;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
+    /// <summary>
+    /// A script written in PHP.
+    /// </summary>
     public sealed class PhpScript : InterpretedScript
     {
         /// <inheritdoc/>
@@ -35,6 +37,7 @@ namespace ZeroInstall.Publish.EntryPoints
                 HasShebang(file, "php");
         }
 
-        public override Runner Runner { get { return new Runner(); } }
+        /// <inheritdoc/>
+        protected override string InterpreterInterface { get { return "http://0install.de/feeds/PHP.xml"; } }
     }
 }

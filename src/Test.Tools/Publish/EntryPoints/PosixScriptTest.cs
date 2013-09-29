@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common;
 using NUnit.Framework;
 using ZeroInstall.Model;
 
@@ -25,16 +24,34 @@ namespace ZeroInstall.Publish.EntryPoints
     /// Contains test methods for <see cref="PosixScript"/>.
     /// </summary>
     [TestFixture]
-    public class PosixScriptTest : TemporayDirectoryTest
+    public class PosixScriptTest : CandidateTest
     {
-        public static readonly PosixScript ReferenceCandidate = new PosixScript {RelativePath = "sh", Architecture = new Architecture(OS.Posix, Cpu.All), Name = "sh", NeedsTerminal = true};
+        public static readonly PosixScript Reference = new PosixScript
+        {
+            RelativePath = "sh",
+            Architecture = new Architecture(OS.Posix, Cpu.All),
+            Name = "sh",
+            NeedsTerminal = true
+        };
 
         [Test]
         public void Sh()
         {
+            TestAnalyze(Reference, executable: true);
+        }
+
+        [Test]
+        public void NotExecutable()
+        {
             var candidate = new PosixScript {BaseDirectory = Directory};
-            Assert.IsTrue(candidate.Analyze(Directory.DeployFile("sh", executable: true)));
-            Assert.AreEqual(ReferenceCandidate, candidate);
+            Assert.IsFalse(candidate.Analyze(Deploy(Reference, executable: false)));
+        }
+
+        [Test]
+        public void NoShebang()
+        {
+            var candidate = new PosixScript {BaseDirectory = Directory};
+            Assert.IsFalse(candidate.Analyze(Deploy(PosixBinaryTest.Reference32, executable: true)));
         }
     }
 }

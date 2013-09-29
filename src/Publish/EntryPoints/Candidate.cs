@@ -77,6 +77,11 @@ namespace ZeroInstall.Publish.EntryPoints
         public string RelativePath { get; internal set; }
 
         /// <summary>
+        /// A suggestion for <see cref="TargetBase.Architecture"/> extracted from the entry point metadata.
+        /// </summary>
+        public Architecture Architecture { get; internal set; }
+
+        /// <summary>
         /// A suggestion for <see cref="Feed.Name"/> extracted from the entry point metadata.
         /// </summary>
         public string Name { get; internal set; }
@@ -97,14 +102,9 @@ namespace ZeroInstall.Publish.EntryPoints
         public ImplementationVersion Version { get; internal set; }
 
         /// <summary>
-        /// A suggestion for <see cref="TargetBase.Architecture"/> extracted from the entry point metadata.
+        /// A <see cref="Command"/> to launch this entry point.
         /// </summary>
-        public Architecture Architecture { get; internal set; }
-
-        /// <summary>
-        /// The <see cref="Runner"/> required to launch this entry point. <see langword="null"/> if no <see cref="Runner"/> is required.
-        /// </summary>
-        public abstract Runner Runner { get; }
+        public abstract Command Command { get; }
         #endregion
 
         public override string ToString()

@@ -20,6 +20,9 @@ using System.IO;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
+    /// <summary>
+    /// Any file with the POSIX executable bit (xbit) set.
+    /// </summary>
     public abstract class PosixExecutable : NativeExecutable
     {
         /// <inheritdoc/>

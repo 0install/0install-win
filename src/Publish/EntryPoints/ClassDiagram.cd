@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Publish.EntryPoints.WindowsExe" Collapsed="true">
-    <Position X="11.25" Y="2.75" Width="1.5" />
+    <Position X="13" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <HashCode>AAAgAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
       <FileName>EntryPoints\WindowsExe.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Publish.EntryPoints.WindowsBatch" Collapsed="true">
-    <Position X="12.25" Y="3.75" Width="1.5" />
+    <Position X="11.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>EntryPoints\WindowsBatch.cs</FileName>
@@ -86,16 +86,16 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Publish.EntryPoints.DotNetExe" Collapsed="true">
-    <Position X="0.5" Y="3.75" Width="1.5" />
+    <Position X="13" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <HashCode>AAAgAAAAIAAAAAAAgAAAAAAAAAAAAIBQAAAAQAAAAAA=</HashCode>
       <FileName>EntryPoints\DotNetExe.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Publish.EntryPoints.Candidate" Collapsed="true">
     <Position X="5" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAIgAAAAgAAAAAQAAARAAIAAAAAAQACAAAA=</HashCode>
+      <HashCode>IAAAAAAAAAIgAAAEgAAAAAQAAARAAIAAAAAAQACAAAA=</HashCode>
       <FileName>EntryPoints\Candidate.cs</FileName>
     </TypeIdentifier>
   </Class>

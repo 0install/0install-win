@@ -15,109 +15,68 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using System.IO;
-using System.Reflection;
-using Common.Info;
-using Common.Utils;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
-    public enum DotNetRuntimeVersion
-    {
-        V20,
-        V30,
-        V35,
-        V40,
-        V45
-    }
-
     public enum DotNetRuntimeType
     {
         Any,
+        ClientProfile,
         MicrosoftOnly,
         MonoOnly
     }
 
-    public sealed class DotNetExe : Candidate
+    /// <summary>
+    /// A .NET/Mono executable.
+    /// </summary>
+    public sealed class DotNetExe : WindowsExe
     {
-        /// <inheritdoc/>
-        internal override bool Analyze(FileInfo file)
+        protected override bool Parse(PEHeader peHeader)
         {
-            #region Sanity checks
-            if (file == null) throw new ArgumentNullException("file");
-            #endregion
-
-            if (!base.Analyze(file)) return false;
-            if (!StringUtils.EqualsIgnoreCase(file.Extension, ".exe")) return false;
-
-            try
-            {
-                var assembly = Assembly.ReflectionOnlyLoadFrom(file.FullName);
-                Parse(assembly);
-                // TODO: Unload assembly
-                return true;
-            }
-                #region Error handling
-            catch (IOException)
-            {
-                return false;
-            }
-            catch (BadImageFormatException)
-            {
-                return false;
-            }
-            #endregion
+            Architecture = new Architecture(OS.All, GetCpu(peHeader.FileHeader.Machine));
+            if (peHeader.Subsystem >= Subsystem.WindowsCui) NeedsTerminal = true;
+            return peHeader.Is32BitHeader
+                ? (peHeader.OptionalHeader32.CLRRuntimeHeader.VirtualAddress != 0)
+                : (peHeader.OptionalHeader64.CLRRuntimeHeader.VirtualAddress != 0);
         }
 
-        private void Parse(Assembly assembly)
-        {
-            RuntimeVersion = GetRuntimeVersion(assembly.ImageRuntimeVersion);
-            var appInfo = AppInfo.Load(assembly);
-            Name = appInfo.Name;
-            Description = appInfo.Description;
-            Version = new ImplementationVersion(appInfo.Version);
-        }
-
-        private static DotNetRuntimeVersion GetRuntimeVersion(string version)
-        {
-            switch (version)
-            {
-                case "v2.0.50727":
-                    return DotNetRuntimeVersion.V20;
-                case "v3.0":
-                    return DotNetRuntimeVersion.V30;
-                case "v3.5":
-                    return DotNetRuntimeVersion.V35;
-                default:
-                case "v4.0.30319":
-                    return DotNetRuntimeVersion.V40;
-            }
-        }
-
-        public DotNetRuntimeVersion RuntimeVersion { get; set; }
+        /// <summary>
+        /// The versions of the .NET Runtime supported by the application.
+        /// </summary>
+        public VersionRange RuntimeVersion { get; set; }
 
         public DotNetRuntimeType RuntimeType { get; set; }
 
-        public bool NeedsMonoPath { get; set; }
+        public bool HasDependencies { get; set; }
 
-        public override Runner Runner
+        /// <inheritdoc/>
+        public override Command Command
         {
             get
             {
-                return null;
+                string interfaceID = HasDependencies
+                    ? (NeedsTerminal
+                        ? "http://0install.de/feeds/cli/cli-monopath-terminal.xml"
+                        : "http://0install.de/feeds/cli/cli-monopath.xml")
+                    : "http://0install.de/feeds/cli/cli.xml";
+
+                return new Command
+                {
+                    Name = Command.NameRun,
+                    Path = RelativePath,
+                    Runner = new Runner {Interface = interfaceID, Versions = RuntimeVersion}
+                };
             }
         }
 
         #region Equality
         private bool Equals(DotNetExe other)
         {
-            return
-                base.Equals(other) &&
-                RuntimeVersion == other.RuntimeVersion &&
-                RuntimeType == other.RuntimeType &&
-                NeedsMonoPath == other.NeedsMonoPath;
+            return base.Equals(other) &&
+                   RuntimeVersion == other.RuntimeVersion &&
+                   RuntimeType == other.RuntimeType &&
+                   HasDependencies == other.HasDependencies;
         }
 
         public override bool Equals(object obj)
@@ -132,9 +91,9 @@ namespace ZeroInstall.Publish.EntryPoints
             unchecked
             {
                 int hashCode = base.GetHashCode();
-                hashCode = (hashCode * 397) ^ (int)RuntimeVersion;
+                hashCode = (hashCode * 397) ^ (RuntimeVersion != null ? RuntimeVersion.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (int)RuntimeType;
-                hashCode = (hashCode * 397) ^ NeedsMonoPath.GetHashCode();
+                hashCode = (hashCode * 397) ^ HasDependencies.GetHashCode();
                 return hashCode;
             }
         }

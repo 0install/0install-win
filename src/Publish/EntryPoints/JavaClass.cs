@@ -22,6 +22,9 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
+    /// <summary>
+    /// A compiled Java class file.
+    /// </summary>
     public sealed class JavaClass : Java
     {
         /// <inheritdoc/>
@@ -39,6 +42,18 @@ namespace ZeroInstall.Publish.EntryPoints
             return true;
         }
 
-        public override Runner Runner { get { return new Runner(); } }
+        /// <inheritdoc/>
+        public override Command Command
+        {
+            get
+            {
+                return new Command
+                {
+                    Name = Command.NameRun,
+                    Path = RelativePath,
+                    Runner = new Runner {Interface = "http://repo.roscidus.com/java/openjdk-jre", Versions = RuntimeVersion}
+                };
+            }
+        }
     }
 }

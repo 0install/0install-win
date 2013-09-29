@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common;
 using NUnit.Framework;
 
 namespace ZeroInstall.Publish.EntryPoints
@@ -24,34 +23,35 @@ namespace ZeroInstall.Publish.EntryPoints
     /// Contains test methods for <see cref="PythonScript"/>.
     /// </summary>
     [TestFixture]
-    public class PythonScriptTest : TemporayDirectoryTest
+    public class PythonScriptTest : CandidateTest
     {
-        public static readonly PythonScript ReferenceCandidate = new PythonScript {RelativePath = "python", Name = "python", NeedsTerminal = true};
+        public static readonly PythonScript Reference = new PythonScript {RelativePath = "python", Name = "python", NeedsTerminal = true};
+        public static readonly PythonScript ReferenceWithExtension = new PythonScript {RelativePath = "python.py", Name = "python", NeedsTerminal = true};
+        public static readonly PythonScript ReferenceWithExtensionWindows = new PythonScript {RelativePath = "python.pyw", Name = "python", NeedsTerminal = false};
 
         [Test]
         public void NoExtension()
         {
+            TestAnalyze(Reference, executable: true);
+        }
+
+        [Test]
+        public void NotExecutable()
+        {
             var candidate = new PythonScript {BaseDirectory = Directory};
-            Assert.IsTrue(candidate.Analyze(Directory.DeployFile("python", executable: true)));
-            Assert.AreEqual(ReferenceCandidate, candidate);
+            Assert.IsFalse(candidate.Analyze(Deploy(Reference, executable: false)));
         }
 
         [Test]
         public void WithExtension()
         {
-            var candidate = new PythonScript {BaseDirectory = Directory};
-            Assert.IsTrue(candidate.Analyze(Directory.DeployFile("python.py")));
-            Assert.AreEqual(candidate.Name, "python");
-            Assert.IsTrue(candidate.NeedsTerminal);
+            TestAnalyze(ReferenceWithExtension);
         }
 
         [Test]
         public void WithExtensionWindows()
         {
-            var candidate = new PythonScript {BaseDirectory = Directory};
-            Assert.IsTrue(candidate.Analyze(Directory.DeployFile("python.pyw")));
-            Assert.AreEqual(candidate.Name, "python");
-            Assert.IsFalse(candidate.NeedsTerminal);
+            TestAnalyze(ReferenceWithExtensionWindows);
         }
     }
 }

@@ -23,6 +23,9 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
+    /// <summary>
+    /// A plain text script that is executed by a runtime interpreter.
+    /// </summary>
     public abstract class InterpretedScript : Candidate
     {
         /// <inheritdoc/>
@@ -35,7 +38,29 @@ namespace ZeroInstall.Publish.EntryPoints
             return true;
         }
 
-        public ImplementationVersion InterpreterVersion { get; set; }
+        /// <summary>
+        /// The interface ID of the interpreter to run the script.
+        /// </summary>
+        protected abstract string InterpreterInterface { get; }
+
+        /// <summary>
+        /// The versions of the runtime interpreter supported by the script.
+        /// </summary>
+        public VersionRange InterpreterVersion { get; set; }
+
+        /// <inheritdoc/>
+        public override Command Command
+        {
+            get
+            {
+                return new Command
+                {
+                    Name = Command.NameRun,
+                    Path = RelativePath,
+                    Runner = new Runner {Interface = InterpreterInterface, Versions = InterpreterVersion}
+                };
+            }
+        }
 
         #region Helpers
         /// <summary>
@@ -56,6 +81,30 @@ namespace ZeroInstall.Publish.EntryPoints
             return
                 firstLine.StartsWith("#!/usr/bin/" + interpreter) ||
                 firstLine.StartsWith("#!/usr/bin/env " + interpreter);
+        }
+        #endregion
+
+        #region Equality
+        protected bool Equals(InterpretedScript other)
+        {
+            return base.Equals(other) &&
+                   Equals(InterpreterVersion, other.InterpreterVersion);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((InterpretedScript)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (base.GetHashCode() * 397) ^ (InterpreterVersion != null ? InterpreterVersion.GetHashCode() : 0);
+            }
         }
         #endregion
     }

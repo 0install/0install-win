@@ -17,10 +17,14 @@
 
 using System;
 using System.IO;
+using Common.Utils;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
+    /// <summary>
+    /// A binary inside a MacOS X application bundle.
+    /// </summary>
     public sealed class MacOSApp : PosixExecutable
     {
         /// <inheritdoc/>
@@ -31,7 +35,7 @@ namespace ZeroInstall.Publish.EntryPoints
             #endregion
 
             if (!base.Analyze(file)) return false;
-            if (!RelativePath.Contains(".app/Contents/MacOS/")) return false;
+            if (!RelativePath.GetLeftPartAtLastOccurrence('/').EndsWith(".app/Contents/MacOS")) return false;
 
             // TODO: Parse MacOS plist
             Architecture = new Architecture(OS.MacOSX, Cpu.All);

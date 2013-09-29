@@ -15,8 +15,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using ZeroInstall.Model;
+
 namespace ZeroInstall.Publish.EntryPoints
 {
+    /// <summary>
+    /// A compiled Java application.
+    /// </summary>
     public abstract class Java : Candidate
-    {}
+    {
+        /// <summary>
+        /// The versions of the Java Runtime Environment supported by the application.
+        /// </summary>
+        public VersionRange RuntimeVersion { get; set; }
+
+        #region Equality
+        protected bool Equals(Java other)
+        {
+            return base.Equals(other) &&
+                   Equals(RuntimeVersion, other.RuntimeVersion);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((Java)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (base.GetHashCode() * 397) ^ (RuntimeVersion != null ? RuntimeVersion.GetHashCode() : 0);
+            }
+        }
+        #endregion
+    }
 }

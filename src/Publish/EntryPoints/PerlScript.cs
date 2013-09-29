@@ -18,10 +18,12 @@
 using System;
 using System.IO;
 using Common.Utils;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
+    /// <summary>
+    /// A script written in Perl.
+    /// </summary>
     public sealed class PerlScript : InterpretedScript
     {
         /// <inheritdoc/>
@@ -37,6 +39,7 @@ namespace ZeroInstall.Publish.EntryPoints
                 HasShebang(file, "perl");
         }
 
-        public override Runner Runner { get { return new Runner(); } }
+        /// <inheritdoc/>
+        protected override string InterpreterInterface { get { return "http://0install.de/feeds/Perl.xml"; } }
     }
 }
