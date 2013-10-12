@@ -110,7 +110,11 @@ namespace ZeroInstall.Publish.WinForms
             {
                 AskForChangeSave();
 
-                // TODO
+                using (var wizard = new Wizards.NewFeedWizard())
+                {
+                    wizard.ShowDialog(this);
+                    if (wizard.FeedEditing != null) FeedEditing = wizard.FeedEditing;
+                }
             }
             catch (OperationCanceledException)
             {}

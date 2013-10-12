@@ -48,6 +48,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -112,6 +113,66 @@
     <Compile Include="Controls\IconEditor.Designer.cs">
       <DependentUpon>IconEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Wizards\ArchiveExtractPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\ArchiveExtractPage.Designer.cs">
+      <DependentUpon>ArchiveExtractPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\DonePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\DonePage.Designer.cs">
+      <DependentUpon>DonePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\DownloadRetrievalMethodLocalPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\DownloadRetrievalMethodLocalPage.Designer.cs">
+      <DependentUpon>DownloadRetrievalMethodLocalPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\DownloadRetrievalMethodOnlinePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\DownloadRetrievalMethodOnlinePage.Designer.cs">
+      <DependentUpon>DownloadRetrievalMethodOnlinePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\DownloadRetrievalMethodPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\DownloadRetrievalMethodPage.Designer.cs">
+      <DependentUpon>DownloadRetrievalMethodPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\EntryPointPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\EntryPointPage.Designer.cs">
+      <DependentUpon>EntryPointPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\EntryPointDetailsPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\EntryPointDetailsPage.Designer.cs">
+      <DependentUpon>EntryPointDetailsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\IconPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\IconPage.Designer.cs">
+      <DependentUpon>IconPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\MetaDataPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\MetaDataPage.Designer.cs">
+      <DependentUpon>MetaDataPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\SetupPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\SetupPage.Designer.cs">
+      <DependentUpon>SetupPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="ManifestUtils.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MainForm.cs">
@@ -134,6 +195,61 @@
     <Compile Include="WelcomeForm.Designer.cs">
       <DependentUpon>WelcomeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Wizards\SignaturePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\SignaturePage.Designer.cs">
+      <DependentUpon>SignaturePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\SourcePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\SourcePage.Designer.cs">
+      <DependentUpon>SourcePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\NewFeedWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizards\NewFeedWizard.Designer.cs">
+      <DependentUpon>NewFeedWizard.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Wizards\ArchiveExtractPage.resx">
+      <DependentUpon>ArchiveExtractPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\DonePage.resx">
+      <DependentUpon>DonePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\DownloadRetrievalMethodLocalPage.resx">
+      <DependentUpon>DownloadRetrievalMethodLocalPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\DownloadRetrievalMethodOnlinePage.resx">
+      <DependentUpon>DownloadRetrievalMethodOnlinePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\DownloadRetrievalMethodPage.resx">
+      <DependentUpon>DownloadRetrievalMethodPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\EntryPointPage.resx">
+      <DependentUpon>EntryPointPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\EntryPointDetailsPage.resx">
+      <DependentUpon>EntryPointDetailsPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\IconPage.resx">
+      <DependentUpon>IconPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\MetaDataPage.resx">
+      <DependentUpon>MetaDataPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\SetupPage.resx">
+      <DependentUpon>SetupPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\SignaturePage.resx">
+      <DependentUpon>SignaturePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\SourcePage.resx">
+      <DependentUpon>SourcePage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -153,6 +269,7 @@
     </Compile>
     <EmbeddedResource Include="WelcomeForm.resx">
       <DependentUpon>WelcomeForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +304,7 @@
       <Name>Store</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

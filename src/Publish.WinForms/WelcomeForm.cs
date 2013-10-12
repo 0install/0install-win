@@ -47,7 +47,11 @@ namespace ZeroInstall.Publish.WinForms
 
         private void buttonNewWizard_Click(object sender, EventArgs e)
         {
-            // TODO
+            using (var wizard = new Wizards.NewFeedWizard())
+            {
+                wizard.ShowDialog(this);
+                if (wizard.FeedEditing != null) SwitchToMain(wizard.FeedEditing);
+            }
         }
 
         private void buttonOpen_Click(object sender, EventArgs e)

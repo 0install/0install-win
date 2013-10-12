@@ -1,0 +1,97 @@
+﻿/*
+ * Copyright 2010-2013 Bastian Eicher
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using Common;
+using Common.Controls;
+using Common.Tasks;
+using ZeroInstall.Publish.EntryPoints;
+
+namespace ZeroInstall.Publish.WinForms.Wizards
+{
+    internal partial class EntryPointPage : UserControl
+    {
+        /// <summary>
+        /// Raised with the selected <see cref="Candidate"/>.
+        /// </summary>
+        public event Action<Candidate> Continue;
+
+        public EntryPointPage()
+        {
+            InitializeComponent();
+        }
+
+        /// <summary>
+        /// Injects the selected working directory.
+        /// </summary>
+        public void SetWorkingDirectory(string workingDirectory)
+        {
+            try
+            {
+                comboBoxEntryPoint.Items.Clear();
+                // ReSharper disable once CoVariantArrayConversion
+                comboBoxEntryPoint.Items.AddRange(GetCandidates(workingDirectory));
+                comboBoxEntryPoint.SelectedIndex = 0;
+
+                buttonContinue.Enabled = true;
+            }
+            catch (OperationCanceledException)
+            {
+                buttonContinue.Enabled = false;
+            }
+        }
+
+        private Candidate[] GetCandidates(string workingDirectory)
+        {
+            Candidate[] candidates = null;
+            try
+            {
+                TrackingDialog.Run(this, new SimpleTask("Searching for executable files", () =>
+                    candidates = Detection.ListCandidates(new DirectoryInfo(workingDirectory)).ToArray()));
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                throw new OperationCanceledException();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                throw new OperationCanceledException();
+            }
+            #endregion
+
+            if (candidates.Length == 0)
+            {
+                Msg.Inform(null, "No candidates", MsgSeverity.Warn);
+                throw new OperationCanceledException();
+            }
+
+            return candidates;
+        }
+
+        private void buttonContinue_Click(object sender, EventArgs e)
+        {
+            var candidate = comboBoxEntryPoint.SelectedItem as Candidate;
+            if (candidate != null) Continue(candidate);
+        }
+    }
+}

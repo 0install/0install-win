@@ -96,7 +96,6 @@
             this.buttonNewWizard.Name = "buttonNewWizard";
             this.buttonNewWizard.Size = new System.Drawing.Size(23, 22);
             this.buttonNewWizard.Text = "New (Wizard)";
-            this.buttonNewWizard.Visible = false;
             this.buttonNewWizard.Click += new System.EventHandler(this.menuNewWizard_Click);
             // 
             // buttonOpen
@@ -202,7 +201,6 @@
             this.menuNewWizard.Name = "menuNewWizard";
             this.menuNewWizard.Size = new System.Drawing.Size(155, 22);
             this.menuNewWizard.Text = "New (&Wizard)...";
-            this.menuNewWizard.Visible = false;
             this.menuNewWizard.Click += new System.EventHandler(this.menuNewWizard_Click);
             // 
             // menuOpen
