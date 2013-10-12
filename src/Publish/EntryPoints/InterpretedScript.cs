@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
 using Common.Utils;
@@ -46,6 +47,8 @@ namespace ZeroInstall.Publish.EntryPoints
         /// <summary>
         /// The versions of the runtime interpreter supported by the script.
         /// </summary>
+        [Description("Supported runtime interpreter versions")]
+        [DefaultValue("")]
         public VersionRange InterpreterVersion { get; set; }
 
         /// <inheritdoc/>

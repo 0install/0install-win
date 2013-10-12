@@ -41,8 +41,6 @@ namespace ZeroInstall.Publish.EntryPoints
             return true;
         }
 
-        public bool HasDependencies { get; set; }
-
         /// <inheritdoc/>
         public override Command Command
         {
@@ -69,28 +67,5 @@ namespace ZeroInstall.Publish.EntryPoints
                 }
             }
         }
-
-        #region Equality
-        private bool Equals(JavaJar other)
-        {
-            return base.Equals(other) &&
-                   HasDependencies == other.HasDependencies;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj is JavaJar && Equals((JavaJar)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return (base.GetHashCode() * 397) ^ HasDependencies.GetHashCode();
-            }
-        }
-        #endregion
     }
 }

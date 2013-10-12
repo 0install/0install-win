@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.IO;
 using ELFSharp;
 using ZeroInstall.Model;
@@ -64,9 +65,11 @@ namespace ZeroInstall.Publish.EntryPoints
         }
 
         /// <summary>
-        /// Specifies the specific POSIX-style operating system the binary is compiled for.
+        /// The specific POSIX-style operating system the binary is compiled for.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if a non-POSIX <see cref="OS"/> value is specified.</exception>
+        [Description("The specific POSIX-style operating system the binary is compiled for.")]
+        [DefaultValue(typeof(OS), "Linux")]
         public OS OS
         {
             get { return Architecture.OS; }

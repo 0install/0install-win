@@ -120,6 +120,9 @@
   <data name="AddMissing" xml:space="preserve">
     <value>Add missing</value>
   </data>
+  <data name="ArchiveBreakoutPath" xml:space="preserve">
+    <value>This path points outside of the archive.</value>
+  </data>
   <data name="AskForPassphrase" xml:space="preserve">
     <value>Please enter the GnuPG passphrase for {0}:</value>
   </data>

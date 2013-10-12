@@ -55,7 +55,15 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             Name = versionInfo.ProductName;
             Description = string.IsNullOrEmpty(versionInfo.Comments) ? versionInfo.FileDescription : versionInfo.Comments;
-            if (!string.IsNullOrEmpty(versionInfo.ProductVersion)) Version = new ImplementationVersion(versionInfo.ProductVersion);
+            if (!string.IsNullOrEmpty(versionInfo.ProductVersion))
+            {
+                try
+                {
+                    Version = new ImplementationVersion(versionInfo.ProductVersion.Trim());
+                }
+                catch (ArgumentException)
+                {}
+            }
         }
 
         protected virtual bool Parse(PEHeader peHeader)

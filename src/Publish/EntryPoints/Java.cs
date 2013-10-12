@@ -15,7 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.ComponentModel;
 using ZeroInstall.Model;
+using ZeroInstall.Publish.EntryPoints.Design;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
@@ -25,15 +27,26 @@ namespace ZeroInstall.Publish.EntryPoints
     public abstract class Java : Candidate
     {
         /// <summary>
-        /// The versions of the Java Runtime Environment supported by the application.
+        /// The range of versions of the Java Runtime Environment supported by the application.
         /// </summary>
+        [Description("Supported Java Runtime Environment versions")]
+        [DefaultValue("")]
+        [TypeConverter(typeof(JavaRuntimeVersionConverter))]
         public VersionRange RuntimeVersion { get; set; }
+
+        /// <summary>
+        /// Does this application have external dependencies that need to be injected by Zero Install?
+        /// </summary>
+        [Description("External dependencies to be injected by Zero Install?")]
+        [DefaultValue(false)]
+        public bool HasDependencies { get; set; }
 
         #region Equality
         protected bool Equals(Java other)
         {
             return base.Equals(other) &&
-                   Equals(RuntimeVersion, other.RuntimeVersion);
+                   Equals(RuntimeVersion, other.RuntimeVersion) &&
+                   HasDependencies == other.HasDependencies;
         }
 
         public override bool Equals(object obj)
@@ -48,7 +61,10 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             unchecked
             {
-                return (base.GetHashCode() * 397) ^ (RuntimeVersion != null ? RuntimeVersion.GetHashCode() : 0);
+                int hashCode = base.GetHashCode();
+                hashCode = (hashCode * 397) ^ (RuntimeVersion != null ? RuntimeVersion.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ HasDependencies.GetHashCode();
+                return hashCode;
             }
         }
         #endregion

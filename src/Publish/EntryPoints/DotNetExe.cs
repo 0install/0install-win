@@ -15,7 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.ComponentModel;
 using ZeroInstall.Model;
+using ZeroInstall.Publish.EntryPoints.Design;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
@@ -42,12 +44,25 @@ namespace ZeroInstall.Publish.EntryPoints
         }
 
         /// <summary>
-        /// The versions of the .NET Runtime supported by the application.
+        /// The range of versions of the .NET Framework supported by the application.
         /// </summary>
+        [Description("Supported .NET Framework versions")]
+        [DefaultValue("")]
+        [TypeConverter(typeof(DotNetRuntimeVersionConverter))]
         public VersionRange RuntimeVersion { get; set; }
 
+        /// <summary>
+        /// The types of .NET Runtime supported by the application.
+        /// </summary>
+        [Description("Supported types of .NET Runtime")]
+        [DefaultValue(typeof(DotNetExe), "Any")]
         public DotNetRuntimeType RuntimeType { get; set; }
 
+        /// <summary>
+        /// Does this application have external dependencies that need to be injected by Zero Install?
+        /// </summary>
+        [Description("External dependencies to be injected by Zero Install?")]
+        [DefaultValue(false)]
         public bool HasDependencies { get; set; }
 
         /// <inheritdoc/>

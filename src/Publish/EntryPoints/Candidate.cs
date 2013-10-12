@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.IO;
 using Common.Utils;
 using ZeroInstall.Model;
@@ -69,41 +70,49 @@ namespace ZeroInstall.Publish.EntryPoints
         /// <summary>
         /// The base directory containing the entire application.
         /// </summary>
+        [Browsable(false)]
         public DirectoryInfo BaseDirectory { get; internal set; }
 
         /// <summary>
         /// The path of this entry point relative to <see cref="BaseDirectory"/> using Unix-style directory separators.
         /// </summary>
+        [Browsable(false)]
         public string RelativePath { get; internal set; }
 
         /// <summary>
         /// A suggestion for <see cref="TargetBase.Architecture"/> extracted from the entry point metadata.
         /// </summary>
+        [Browsable(false)]
         public Architecture Architecture { get; internal set; }
 
         /// <summary>
         /// A suggestion for <see cref="Feed.Name"/> extracted from the entry point metadata.
         /// </summary>
+        [Browsable(false)]
         public string Name { get; internal set; }
 
         /// <summary>
         /// A suggestion for <see cref="Feed.Summaries"/> extracted from the entry point metadata.
         /// </summary>
+        [Browsable(false)]
         public string Description { get; internal set; }
 
         /// <summary>
         /// A suggestion for <see cref="Feed.NeedsTerminal"/> extracted from the entry point metadata.
         /// </summary>
+        [Browsable(false)]
         public bool NeedsTerminal { get; internal set; }
 
         /// <summary>
         /// A suggestion for <see cref="Element.Version"/> extracted from the entry point metadata.
         /// </summary>
+        [Browsable(false)]
         public ImplementationVersion Version { get; internal set; }
 
         /// <summary>
         /// A <see cref="Command"/> to launch this entry point.
         /// </summary>
+        [Browsable(false)]
         public abstract Command Command { get; }
         #endregion
 

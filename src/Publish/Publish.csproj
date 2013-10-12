@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Tools.cs" />
     <Compile Include="EntryPoints\Candidate.cs" />
+    <Compile Include="EntryPoints\Design\DotNetRuntimeVersionConverter.cs" />
+    <Compile Include="EntryPoints\Design\JavaRuntimeVersionConverter.cs" />
     <Compile Include="EntryPoints\Detection.cs" />
     <Compile Include="EntryPoints\DotNetExe.cs" />
     <Compile Include="EntryPoints\InterpretedScript.cs" />

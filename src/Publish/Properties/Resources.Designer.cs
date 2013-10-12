@@ -70,6 +70,15 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This path points outside of the archive..
+        /// </summary>
+        public static string ArchiveBreakoutPath {
+            get {
+                return ResourceManager.GetString("ArchiveBreakoutPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the GnuPG passphrase for {0}:.
         /// </summary>
         public static string AskForPassphrase {
