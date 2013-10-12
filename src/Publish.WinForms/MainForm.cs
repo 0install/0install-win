@@ -72,8 +72,9 @@ namespace ZeroInstall.Publish.WinForms
         public MainForm(FeedEditing feedEditing, IOpenPgp openPgp)
         {
             InitializeComponent();
-            FeedEditing = feedEditing;
             _openPgp = openPgp;
+
+            FeedEditing = feedEditing;
         }
         #endregion
 
