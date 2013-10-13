@@ -27,12 +27,12 @@ namespace ZeroInstall.Publish.EntryPoints
     public abstract class Java : Candidate
     {
         /// <summary>
-        /// The range of versions of the Java Runtime Environment supported by the application.
+        /// The minimum version of the Java Runtime Environment supported by the application.
         /// </summary>
-        [Description("Supported Java Runtime Environment versions")]
+        [Description("Minimum Java Runtime Environment version")]
         [DefaultValue("")]
-        [TypeConverter(typeof(JavaRuntimeVersionConverter))]
-        public VersionRange RuntimeVersion { get; set; }
+        [TypeConverter(typeof(JavaVersionConverter))]
+        public ImplementationVersion MinimumJavaVersion { get; set; }
 
         /// <summary>
         /// Does this application have external dependencies that need to be injected by Zero Install?
@@ -45,7 +45,7 @@ namespace ZeroInstall.Publish.EntryPoints
         protected bool Equals(Java other)
         {
             return base.Equals(other) &&
-                   Equals(RuntimeVersion, other.RuntimeVersion) &&
+                   Equals(MinimumJavaVersion, other.MinimumJavaVersion) &&
                    HasDependencies == other.HasDependencies;
         }
 
@@ -62,7 +62,7 @@ namespace ZeroInstall.Publish.EntryPoints
             unchecked
             {
                 int hashCode = base.GetHashCode();
-                hashCode = (hashCode * 397) ^ (RuntimeVersion != null ? RuntimeVersion.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (MinimumJavaVersion != null ? MinimumJavaVersion.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ HasDependencies.GetHashCode();
                 return hashCode;
             }

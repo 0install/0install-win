@@ -21,7 +21,7 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.EntryPoints.Design
 {
-    internal class DotNetRuntimeVersionConverter : StringConstructorConverter<VersionRange>
+    internal class DotNetVersionConverter : StringConstructorConverter<ImplementationVersion>
     {
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
         {
@@ -35,7 +35,7 @@ namespace ZeroInstall.Publish.EntryPoints.Design
 
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(new[] { "", "2..", "3..", "3.5..", "4..", "4.5.." });
+            return new StandardValuesCollection(new[] {"", "2.0", "3.0", "3.5", "4.0", "4.5"});
         }
     }
 }

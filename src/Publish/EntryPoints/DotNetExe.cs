@@ -24,8 +24,8 @@ namespace ZeroInstall.Publish.EntryPoints
     public enum DotNetRuntimeType
     {
         Any,
-        ClientProfile,
-        MicrosoftOnly,
+        MicrosoftOnlyClientProfile,
+        MicrosoftOnlyFullProfile,
         MonoOnly
     }
 
@@ -44,18 +44,18 @@ namespace ZeroInstall.Publish.EntryPoints
         }
 
         /// <summary>
-        /// The range of versions of the .NET Framework supported by the application.
+        /// The minimum versios of the .NET Framework supported by the application.
         /// </summary>
-        [Description("Supported .NET Framework versions")]
+        [Description("Minimum .NET Framework version")]
         [DefaultValue("")]
-        [TypeConverter(typeof(DotNetRuntimeVersionConverter))]
-        public VersionRange RuntimeVersion { get; set; }
+        [TypeConverter(typeof(DotNetVersionConverter))]
+        public ImplementationVersion MinimumDotNetVersion { get; set; }
 
         /// <summary>
         /// The types of .NET Runtime supported by the application.
         /// </summary>
         [Description("Supported types of .NET Runtime")]
-        [DefaultValue(typeof(DotNetExe), "Any")]
+        [DefaultValue(typeof(DotNetRuntimeType), "Any")]
         public DotNetRuntimeType RuntimeType { get; set; }
 
         /// <summary>
@@ -70,26 +70,54 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             get
             {
-                string interfaceID = HasDependencies
-                    ? (NeedsTerminal
-                        ? "http://0install.de/feeds/cli/cli-monopath-terminal.xml"
-                        : "http://0install.de/feeds/cli/cli-monopath.xml")
-                    : "http://0install.de/feeds/cli/cli.xml";
-
                 return new Command
                 {
                     Name = Command.NameRun,
                     Path = RelativePath,
-                    Runner = new Runner {Interface = interfaceID, Versions = RuntimeVersion}
+                    Runner = new Runner {Interface = GetInterfaceID(), Constraints = {new Constraint {NotBefore = MinimumDotNetVersion}}}
                 };
             }
+        }
+
+        private string GetInterfaceID()
+        {
+            switch (RuntimeType)
+            {
+                case DotNetRuntimeType.Any:
+                default:
+                    return HasDependencies
+                        ? GetMonoPathInterfaceID()
+                        : "http://0install.de/feeds/cli/cli.xml";
+
+                case DotNetRuntimeType.MicrosoftOnlyClientProfile:
+                    Architecture = new Architecture(OS.Windows, Architecture.Cpu);
+                    return HasDependencies
+                        ? GetMonoPathInterfaceID()
+                        : "http://0install.de/feeds/cli/netfx-client.xml";
+
+                case DotNetRuntimeType.MicrosoftOnlyFullProfile:
+                    Architecture = new Architecture(OS.Windows, Architecture.Cpu);
+                    return HasDependencies
+                        ? GetMonoPathInterfaceID()
+                        : "http://0install.de/feeds/cli/netf.xml";
+
+                case DotNetRuntimeType.MonoOnly:
+                    return "http://0install.de/feeds/cli/mono.xml";
+            }
+        }
+
+        private string GetMonoPathInterfaceID()
+        {
+            return NeedsTerminal
+                ? "http://0install.de/feeds/cli/cli-monopath-terminal.xml"
+                : "http://0install.de/feeds/cli/cli-monopath.xml";
         }
 
         #region Equality
         private bool Equals(DotNetExe other)
         {
             return base.Equals(other) &&
-                   RuntimeVersion == other.RuntimeVersion &&
+                   MinimumDotNetVersion == other.MinimumDotNetVersion &&
                    RuntimeType == other.RuntimeType &&
                    HasDependencies == other.HasDependencies;
         }
@@ -106,7 +134,7 @@ namespace ZeroInstall.Publish.EntryPoints
             unchecked
             {
                 int hashCode = base.GetHashCode();
-                hashCode = (hashCode * 397) ^ (RuntimeVersion != null ? RuntimeVersion.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (MinimumDotNetVersion != null ? MinimumDotNetVersion.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (int)RuntimeType;
                 hashCode = (hashCode * 397) ^ HasDependencies.GetHashCode();
                 return hashCode;

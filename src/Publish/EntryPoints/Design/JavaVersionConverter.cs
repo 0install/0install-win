@@ -21,7 +21,7 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.EntryPoints.Design
 {
-    internal class JavaRuntimeVersionConverter : StringConstructorConverter<VersionRange>
+    internal class JavaVersionConverter : StringConstructorConverter<ImplementationVersion>
     {
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
         {
@@ -35,7 +35,7 @@ namespace ZeroInstall.Publish.EntryPoints.Design
 
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(new[] {"", "6..", "7..", "8.."});
+            return new StandardValuesCollection(new[] {"", "6.0", "7.0", "8.0"});
         }
     }
 }

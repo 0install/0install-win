@@ -51,7 +51,7 @@ namespace ZeroInstall.Publish.EntryPoints
                 {
                     Name = Command.NameRun,
                     Path = RelativePath,
-                    Runner = new Runner {Interface = "http://repo.roscidus.com/java/openjdk-jre", Versions = RuntimeVersion}
+                    Runner = new Runner {Interface = "http://repo.roscidus.com/java/openjdk-jre", Constraints = {new Constraint {NotBefore = MinimumJavaVersion}}}
                 };
             }
         }
