@@ -44,26 +44,26 @@ namespace ZeroInstall.Publish.EntryPoints
         }
 
         /// <summary>
-        /// The minimum versios of the .NET Framework supported by the application.
+        /// The minimum version of the .NET Runtime required by the application.
         /// </summary>
-        [Description("Minimum .NET Framework version")]
+        [Category("Details (.NET)"), DisplayName(".NET version"), Description("The minimum version of the .NET Runtime required by the application.")]
         [DefaultValue("")]
         [TypeConverter(typeof(DotNetVersionConverter))]
-        public ImplementationVersion MinimumDotNetVersion { get; set; }
+        public ImplementationVersion RuntimeVersion { get; set; }
 
         /// <summary>
-        /// The types of .NET Runtime supported by the application.
+        /// The types of .NET runtimes supported by the application.
         /// </summary>
-        [Description("Supported types of .NET Runtime")]
+        [Category("Details (.NET)"), DisplayName(".NET type"), Description("The types of .NET runtimes supported by the application.")]
         [DefaultValue(typeof(DotNetRuntimeType), "Any")]
         public DotNetRuntimeType RuntimeType { get; set; }
 
         /// <summary>
-        /// Does this application have external dependencies that need to be injected by Zero Install?
+        /// Does this application have external dependencies that need to be injected by Zero Install? Only enable if you are sure!
         /// </summary>
-        [Description("External dependencies to be injected by Zero Install?")]
+        [Category("Details (.NET)"), DisplayName("External dependencies"), Description("Does this application have external dependencies that need to be injected by Zero Install? Only enable if you are sure!")]
         [DefaultValue(false)]
-        public bool HasDependencies { get; set; }
+        public bool ExternalDependencies { get; set; }
 
         /// <inheritdoc/>
         public override Command Command
@@ -74,7 +74,7 @@ namespace ZeroInstall.Publish.EntryPoints
                 {
                     Name = Command.NameRun,
                     Path = RelativePath,
-                    Runner = new Runner {Interface = GetInterfaceID(), Constraints = {new Constraint {NotBefore = MinimumDotNetVersion}}}
+                    Runner = new Runner {Interface = GetInterfaceID(), Constraints = {new Constraint {NotBefore = RuntimeVersion}}}
                 };
             }
         }
@@ -85,19 +85,19 @@ namespace ZeroInstall.Publish.EntryPoints
             {
                 case DotNetRuntimeType.Any:
                 default:
-                    return HasDependencies
+                    return ExternalDependencies
                         ? GetMonoPathInterfaceID()
                         : "http://0install.de/feeds/cli/cli.xml";
 
                 case DotNetRuntimeType.MicrosoftOnlyClientProfile:
                     Architecture = new Architecture(OS.Windows, Architecture.Cpu);
-                    return HasDependencies
+                    return ExternalDependencies
                         ? GetMonoPathInterfaceID()
                         : "http://0install.de/feeds/cli/netfx-client.xml";
 
                 case DotNetRuntimeType.MicrosoftOnlyFullProfile:
                     Architecture = new Architecture(OS.Windows, Architecture.Cpu);
-                    return HasDependencies
+                    return ExternalDependencies
                         ? GetMonoPathInterfaceID()
                         : "http://0install.de/feeds/cli/netf.xml";
 
@@ -117,9 +117,9 @@ namespace ZeroInstall.Publish.EntryPoints
         private bool Equals(DotNetExe other)
         {
             return base.Equals(other) &&
-                   MinimumDotNetVersion == other.MinimumDotNetVersion &&
+                   RuntimeVersion == other.RuntimeVersion &&
                    RuntimeType == other.RuntimeType &&
-                   HasDependencies == other.HasDependencies;
+                   ExternalDependencies == other.ExternalDependencies;
         }
 
         public override bool Equals(object obj)
@@ -134,9 +134,9 @@ namespace ZeroInstall.Publish.EntryPoints
             unchecked
             {
                 int hashCode = base.GetHashCode();
-                hashCode = (hashCode * 397) ^ (MinimumDotNetVersion != null ? MinimumDotNetVersion.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (RuntimeVersion != null ? RuntimeVersion.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (int)RuntimeType;
-                hashCode = (hashCode * 397) ^ HasDependencies.GetHashCode();
+                hashCode = (hashCode * 397) ^ ExternalDependencies.GetHashCode();
                 return hashCode;
             }
         }

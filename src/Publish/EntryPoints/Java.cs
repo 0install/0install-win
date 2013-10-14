@@ -27,26 +27,26 @@ namespace ZeroInstall.Publish.EntryPoints
     public abstract class Java : Candidate
     {
         /// <summary>
-        /// The minimum version of the Java Runtime Environment supported by the application.
+        /// The minimum version of the Java Runtime Environment required by the application.
         /// </summary>
-        [Description("Minimum Java Runtime Environment version")]
+        [Category("Details (Java)"), DisplayName("Java version"), Description("The minimum version of the Java Runtime Environment required by the application.")]
         [DefaultValue("")]
         [TypeConverter(typeof(JavaVersionConverter))]
-        public ImplementationVersion MinimumJavaVersion { get; set; }
+        public ImplementationVersion RuntimeVersion { get; set; }
 
         /// <summary>
-        /// Does this application have external dependencies that need to be injected by Zero Install?
+        /// Does this application have external dependencies that need to be injected by Zero Install? Only enable if you are sure!
         /// </summary>
-        [Description("External dependencies to be injected by Zero Install?")]
+        [Category("Details (Java)"), DisplayName("External dependencies"), Description("Does this application have external dependencies that need to be injected by Zero Install? Only enable if you are sure!")]
         [DefaultValue(false)]
-        public bool HasDependencies { get; set; }
+        public bool ExternalDependencies { get; set; }
 
         #region Equality
         protected bool Equals(Java other)
         {
             return base.Equals(other) &&
-                   Equals(MinimumJavaVersion, other.MinimumJavaVersion) &&
-                   HasDependencies == other.HasDependencies;
+                   Equals(RuntimeVersion, other.RuntimeVersion) &&
+                   ExternalDependencies == other.ExternalDependencies;
         }
 
         public override bool Equals(object obj)
@@ -62,8 +62,8 @@ namespace ZeroInstall.Publish.EntryPoints
             unchecked
             {
                 int hashCode = base.GetHashCode();
-                hashCode = (hashCode * 397) ^ (MinimumJavaVersion != null ? MinimumJavaVersion.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ HasDependencies.GetHashCode();
+                hashCode = (hashCode * 397) ^ (RuntimeVersion != null ? RuntimeVersion.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ ExternalDependencies.GetHashCode();
                 return hashCode;
             }
         }

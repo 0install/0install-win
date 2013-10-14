@@ -45,11 +45,11 @@ namespace ZeroInstall.Publish.EntryPoints
         protected abstract string InterpreterInterface { get; }
 
         /// <summary>
-        /// The versions of the runtime interpreter supported by the script.
+        /// The minimum version of the script interpreter required by the application.
         /// </summary>
-        [Description("Supported runtime interpreter versions")]
+        [Category("Details (Script)"), DisplayName("Interpreter version"), Description("The minimum version of the script interpreter required by the application.")]
         [DefaultValue("")]
-        public VersionRange InterpreterVersion { get; set; }
+        public ImplementationVersion RuntimeVersion { get; set; }
 
         /// <inheritdoc/>
         public override Command Command
@@ -60,7 +60,7 @@ namespace ZeroInstall.Publish.EntryPoints
                 {
                     Name = Command.NameRun,
                     Path = RelativePath,
-                    Runner = new Runner {Interface = InterpreterInterface, Versions = InterpreterVersion}
+                    Runner = new Runner {Interface = InterpreterInterface, Constraints = {new Constraint {NotBefore = RuntimeVersion}}}
                 };
             }
         }
@@ -91,7 +91,7 @@ namespace ZeroInstall.Publish.EntryPoints
         protected bool Equals(InterpretedScript other)
         {
             return base.Equals(other) &&
-                   Equals(InterpreterVersion, other.InterpreterVersion);
+                   Equals(RuntimeVersion, other.RuntimeVersion);
         }
 
         public override bool Equals(object obj)
@@ -106,7 +106,7 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             unchecked
             {
-                return (base.GetHashCode() * 397) ^ (InterpreterVersion != null ? InterpreterVersion.GetHashCode() : 0);
+                return (base.GetHashCode() * 397) ^ (RuntimeVersion != null ? RuntimeVersion.GetHashCode() : 0);
             }
         }
         #endregion

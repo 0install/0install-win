@@ -38,6 +38,7 @@ namespace ZeroInstall.Publish.EntryPoints
             if (!StringUtils.EqualsIgnoreCase(file.Extension, ".jar")) return false;
 
             // TODO: Parse JAR metadata
+            Name = file.Name.Substring(0, file.Name.Length - file.Extension.Length);
             return true;
         }
 
@@ -46,13 +47,13 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             get
             {
-                if (HasDependencies)
+                if (ExternalDependencies)
                 {
                     return new Command
                     {
                         Name = Command.NameRun,
                         Bindings = {new EnvironmentBinding {Name = "CLASSPATH", Insert = RelativePath}},
-                        Runner = new Runner {Interface = "http://0install.de/feeds/jar-launcher.xml", Constraints = {new Constraint {NotBefore = MinimumJavaVersion}}}
+                        Runner = new Runner {Interface = "http://0install.de/feeds/jar-launcher.xml", Constraints = {new Constraint {NotBefore = RuntimeVersion}}}
                     };
                 }
                 else
@@ -62,7 +63,7 @@ namespace ZeroInstall.Publish.EntryPoints
                         Name = Command.NameRun,
                         Arguments = {"-jar"},
                         Path = RelativePath,
-                        Runner = new Runner {Interface = "http://repo.roscidus.com/java/openjdk-jre", Constraints = {new Constraint {NotBefore = MinimumJavaVersion}}}
+                        Runner = new Runner {Interface = "http://repo.roscidus.com/java/openjdk-jre", Constraints = {new Constraint {NotBefore = RuntimeVersion}}}
                     };
                 }
             }

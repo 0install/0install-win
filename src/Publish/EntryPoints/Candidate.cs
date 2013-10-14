@@ -80,34 +80,37 @@ namespace ZeroInstall.Publish.EntryPoints
         public string RelativePath { get; internal set; }
 
         /// <summary>
-        /// A suggestion for <see cref="TargetBase.Architecture"/> extracted from the entry point metadata.
+        /// The application's name.
         /// </summary>
-        [Browsable(false)]
-        public Architecture Architecture { get; internal set; }
+        /// <remarks>A suggestion for <see cref="Feed.Name"/>.</remarks>
+        [Category("Basic (required)"), Description("The application's name.")]
+        public string Name { get; set; }
 
         /// <summary>
-        /// A suggestion for <see cref="Feed.Name"/> extracted from the entry point metadata.
+        /// Short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills").
         /// </summary>
-        [Browsable(false)]
-        public string Name { get; internal set; }
+        /// <remarks>A suggestion for <see cref="Feed.Summaries"/>.</remarks>
+        [Category("Basic (required)"), Description("Short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. \"cures all ills\").")]
+        public string Description { get; set; }
 
         /// <summary>
-        /// A suggestion for <see cref="Feed.Summaries"/> extracted from the entry point metadata.
+        /// The application's current version.
         /// </summary>
-        [Browsable(false)]
-        public string Description { get; internal set; }
+        /// <remarks>A suggestion for <see cref="Implementation.Version"/>.</remarks>
+        [Category("Basic (required)"), Description("The application's current version.")]
+        public ImplementationVersion Version { get; set; }
 
         /// <summary>
-        /// A suggestion for <see cref="Feed.NeedsTerminal"/> extracted from the entry point metadata.
+        /// A suggestion for <see cref="Feed.NeedsTerminal"/>.
         /// </summary>
         [Browsable(false)]
         public bool NeedsTerminal { get; internal set; }
 
         /// <summary>
-        /// A suggestion for <see cref="Element.Version"/> extracted from the entry point metadata.
+        /// A suggestion for <see cref="TargetBase.Architecture"/>.
         /// </summary>
         [Browsable(false)]
-        public ImplementationVersion Version { get; internal set; }
+        public Architecture Architecture { get; internal set; }
 
         /// <summary>
         /// A <see cref="Command"/> to launch this entry point.
@@ -129,9 +132,9 @@ namespace ZeroInstall.Publish.EntryPoints
                 string.Equals(RelativePath, other.RelativePath) &&
                 string.Equals(Name, other.Name) &&
                 string.Equals(Description, other.Description) &&
-                NeedsTerminal == other.NeedsTerminal &&
                 Equals(Version, other.Version) &&
-                Architecture == other.Architecture;
+                Architecture == other.Architecture &&
+                NeedsTerminal == other.NeedsTerminal;
         }
 
         public override bool Equals(object obj)
@@ -149,9 +152,9 @@ namespace ZeroInstall.Publish.EntryPoints
                 int hashCode = (RelativePath != null ? RelativePath.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Description != null ? Description.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ NeedsTerminal.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Version != null ? Version.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Architecture.GetHashCode();
+                hashCode = (hashCode * 397) ^ NeedsTerminal.GetHashCode();
                 return hashCode;
             }
         }
