@@ -15,9 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.IO;
+using System.Linq;
+using Common;
 using Common.Controls;
 using Common.Storage;
 using ZeroInstall.Model;
+using ZeroInstall.Publish.EntryPoints;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
@@ -36,17 +40,16 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private readonly DownloadRetrievalMethodLocalPage<Archive> _archiveLocalPage = new DownloadRetrievalMethodLocalPage<Archive>("Archive");
         private readonly ArchiveExtractPage _archiveExtractPage = new ArchiveExtractPage();
 
-        private readonly DownloadRetrievalMethodPage _singleFilePage = new DownloadRetrievalMethodPage("Executable");
-        private readonly DownloadRetrievalMethodOnlinePage<SingleFile> _singleFileOnlinePage = new DownloadRetrievalMethodOnlinePage<SingleFile>("Executable");
-        private readonly DownloadRetrievalMethodLocalPage<SingleFile> _singleFileLocalPage = new DownloadRetrievalMethodLocalPage<SingleFile>("Executable");
+        private readonly DownloadRetrievalMethodPage _singleFilePage = new DownloadRetrievalMethodPage("Single Executable");
+        private readonly DownloadRetrievalMethodOnlinePage<SingleFile> _singleFileOnlinePage = new DownloadRetrievalMethodOnlinePage<SingleFile>("Single Executable");
+        private readonly DownloadRetrievalMethodLocalPage<SingleFile> _singleFileLocalPage = new DownloadRetrievalMethodLocalPage<SingleFile>("Single Executable");
 
         private readonly SetupPage _setupPage = new SetupPage();
 
         private readonly EntryPointPage _entryPointPage = new EntryPointPage();
-        private readonly EntryPointDetailsPage _entryPointDetailsPage = new EntryPointDetailsPage();
+        private readonly DetailsPage _detailsPage = new DetailsPage();
 
-        private readonly MetaDataPage _metaDataPage = new MetaDataPage();
-        private readonly IconPage _iconPage = new IconPage();
+        private readonly WindowsIconPage _windowsIconPage = new WindowsIconPage();
         private readonly SignaturePage _signaturePage = new SignaturePage();
         private readonly DonePage _donePage = new DonePage();
         #endregion
@@ -56,12 +59,13 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private TemporaryDirectory _tempDirectory;
         private string _workingDirectory;
         private ManifestDigest _digest;
+        private Candidate _candidate;
         #endregion
 
         public NewFeedWizard()
         {
             InitializeComponent();
-            
+
             #region Page flows
             _sourcePage.Archive += () => PushPage(_archivePage);
             _sourcePage.SingleFile += () => PushPage(_singleFilePage);
@@ -78,15 +82,15 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             _singleFileOnlinePage.Continue += FileSelected;
             _singleFileLocalPage.Continue += FileSelected;
 
-            _entryPointPage.Continue += _entryPointDetailsPage.SetCandidate;
-            _entryPointPage.Continue += delegate { PushPage(_entryPointDetailsPage); };
-            _entryPointDetailsPage.Continue += () => PushPage(_metaDataPage);
+            _entryPointPage.Continue += CandidateSelected;
+            _detailsPage.Continue += DetailsFilled;
+            _windowsIconPage.Continue += () => PushPage(_signaturePage);
             #endregion
 
             PushPage(_sourcePage);
         }
 
-        #region Helpers
+        #region Flow helpers
         private void ArchiveSelected(Archive archive, TemporaryDirectory tempDirectory)
         {
             SetRetrievalMethod(archive, tempDirectory);
@@ -104,13 +108,10 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         {
             SetRetrievalMethod(file, tempDirectory);
             GenerateDigest(_tempDirectory);
-            PushEntryPointPage();
-        }
 
-        private void PushEntryPointPage()
-        {
-            _entryPointPage.SetWorkingDirectory(_workingDirectory);
-            PushPage(_entryPointPage);
+            var candidate = Detection.ListCandidates(new DirectoryInfo(tempDirectory)).FirstOrDefault();
+            if (candidate == null) Msg.Inform(this, "Unknown executable type!", MsgSeverity.Warn);
+            else CandidateSelected(candidate);
         }
 
         private void SetRetrievalMethod(RetrievalMethod method, TemporaryDirectory tempDirectory)
@@ -125,6 +126,30 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         {
             _digest = ManifestUtils.CreateDigest(this, workingDirectory);
             _workingDirectory = workingDirectory;
+        }
+
+        private void PushEntryPointPage()
+        {
+            _entryPointPage.SetWorkingDirectory(_workingDirectory);
+            PushPage(_entryPointPage);
+        }
+
+        private void CandidateSelected(Candidate candidate)
+        {
+            _candidate = candidate;
+            _detailsPage.SetCandidate(candidate);
+            PushPage(_detailsPage);
+        }
+        
+        private void DetailsFilled()
+        {
+            var windowsExe = _candidate as WindowsExe;
+            if (windowsExe == null) PushPage(_signaturePage);
+            else
+            {
+                _windowsIconPage.SetExe(windowsExe);
+                PushPage(_windowsIconPage);
+            }
         }
         #endregion
     }

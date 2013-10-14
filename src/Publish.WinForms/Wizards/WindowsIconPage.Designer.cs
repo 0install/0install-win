@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms.Wizards
 {
-    partial class MetaDataPage
+    partial class WindowsIconPage
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.labelTitle = new System.Windows.Forms.Label();
+            this.buttonContinue = new System.Windows.Forms.Button();
+            this.labelInfo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelTitle
@@ -41,17 +43,38 @@
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(470, 37);
             this.labelTitle.TabIndex = 0;
-            this.labelTitle.Text = "Meta Data";
+            this.labelTitle.Text = "Icon";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // MetaDataPage
+            // buttonContinue
+            // 
+            this.buttonContinue.Location = new System.Drawing.Point(39, 175);
+            this.buttonContinue.Name = "buttonContinue";
+            this.buttonContinue.Size = new System.Drawing.Size(100, 33);
+            this.buttonContinue.TabIndex = 17;
+            this.buttonContinue.Text = "&Continue";
+            this.buttonContinue.UseVisualStyleBackColor = true;
+            this.buttonContinue.Click += new System.EventHandler(this.buttonContinue_Click);
+            // 
+            // labelInfo
+            // 
+            this.labelInfo.Location = new System.Drawing.Point(35, 82);
+            this.labelInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(400, 22);
+            this.labelInfo.TabIndex = 15;
+            this.labelInfo.Text = "Extract icon from EXE";
+            // 
+            // WindowsIconPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonContinue);
+            this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.labelTitle);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "MetaDataPage";
+            this.Name = "WindowsIconPage";
             this.Size = new System.Drawing.Size(470, 300);
             this.ResumeLayout(false);
 
@@ -60,5 +83,8 @@
         #endregion
 
         private System.Windows.Forms.Label labelTitle;
+        private System.Windows.Forms.Button buttonContinue;
+        private System.Windows.Forms.Label labelInfo;
+
     }
 }

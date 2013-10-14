@@ -21,11 +21,12 @@ using ZeroInstall.Publish.EntryPoints;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
-    public partial class EntryPointDetailsPage : UserControl
+    public partial class WindowsIconPage : UserControl
     {
+        private WindowsExe _exe;
         public event Action Continue;
 
-        public EntryPointDetailsPage()
+        public WindowsIconPage()
         {
             InitializeComponent();
         }
@@ -33,9 +34,9 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         /// <summary>
         /// Injects the selected candidate.
         /// </summary>
-        public void SetCandidate(Candidate candidate)
+        public void SetExe(WindowsExe exe)
         {
-            propertyGridCandidate.SelectedObject = candidate;
+            _exe = exe;
         }
 
         private void buttonContinue_Click(object sender, EventArgs e)

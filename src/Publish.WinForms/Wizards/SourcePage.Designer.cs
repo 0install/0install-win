@@ -75,7 +75,7 @@
             this.buttonSingleFile.Name = "buttonSingleFile";
             this.buttonSingleFile.Size = new System.Drawing.Size(396, 35);
             this.buttonSingleFile.TabIndex = 3;
-            this.buttonSingleFile.Text = "Single executable (EXE, JAR, ...)";
+            this.buttonSingleFile.Text = "Single Executable (EXE, JAR, ...)";
             this.buttonSingleFile.UseVisualStyleBackColor = true;
             this.buttonSingleFile.Click += new System.EventHandler(this.buttonSingleFile_Click);
             // 

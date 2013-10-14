@@ -119,6 +119,12 @@
     <Compile Include="Wizards\ArchiveExtractPage.Designer.cs">
       <DependentUpon>ArchiveExtractPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Wizards\DetailsPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\DetailsPage.Designer.cs">
+      <DependentUpon>DetailsPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Wizards\DonePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -149,29 +155,17 @@
     <Compile Include="Wizards\EntryPointPage.Designer.cs">
       <DependentUpon>EntryPointPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wizards\EntryPointDetailsPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Wizards\EntryPointDetailsPage.Designer.cs">
-      <DependentUpon>EntryPointDetailsPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wizards\IconPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Wizards\IconPage.Designer.cs">
-      <DependentUpon>IconPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wizards\MetaDataPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Wizards\MetaDataPage.Designer.cs">
-      <DependentUpon>MetaDataPage.cs</DependentUpon>
-    </Compile>
     <Compile Include="Wizards\SetupPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Wizards\SetupPage.Designer.cs">
       <DependentUpon>SetupPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\WindowsIconPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\WindowsIconPage.Designer.cs">
+      <DependentUpon>WindowsIconPage.cs</DependentUpon>
     </Compile>
     <Compile Include="ManifestUtils.cs" />
     <Compile Include="GlobalSuppressions.cs" />
@@ -216,6 +210,9 @@
     <EmbeddedResource Include="Wizards\ArchiveExtractPage.resx">
       <DependentUpon>ArchiveExtractPage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\DetailsPage.resx">
+      <DependentUpon>DetailsPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Wizards\DonePage.resx">
       <DependentUpon>DonePage.cs</DependentUpon>
     </EmbeddedResource>
@@ -231,15 +228,6 @@
     <EmbeddedResource Include="Wizards\EntryPointPage.resx">
       <DependentUpon>EntryPointPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\EntryPointDetailsPage.resx">
-      <DependentUpon>EntryPointDetailsPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\IconPage.resx">
-      <DependentUpon>IconPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\MetaDataPage.resx">
-      <DependentUpon>MetaDataPage.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Wizards\SetupPage.resx">
       <DependentUpon>SetupPage.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -249,6 +237,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\SourcePage.resx">
       <DependentUpon>SourcePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\WindowsIconPage.resx">
+      <DependentUpon>WindowsIconPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
