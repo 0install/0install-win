@@ -46,7 +46,7 @@ namespace ZeroInstall.Model
                 FeedFor = {new InterfaceReference {Target = new Uri("http://0install.de/feeds/test/super1.xml")}},
                 Summaries = {"Default summary", {"de-DE", "German summary"}},
                 Descriptions = {"Default description", {"de-DE", "German description"}},
-                Icons = {new Icon(new Uri("http://0install.de/feeds/images/test.png"), Icon.MimeTypePng), new Icon(new Uri("http://0install.de/feeds/images/test.ico"), Icon.MimeTypeIco)},
+                Icons = {new Icon {Href = new Uri("http://0install.de/feeds/images/test.png"), MimeType = Icon.MimeTypePng}, new Icon {Href = new Uri("http://0install.de/feeds/images/test.ico"), MimeType = Icon.MimeTypeIco}},
                 Elements = {CreateTestImplementation(), CreateTestPackageImplementation(), CreateTestGroup()},
                 CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()},
                 EntryPoints =
@@ -57,7 +57,7 @@ namespace ZeroInstall.Model
                         BinaryName = "myapp",
                         Names = {"Entry name", {"de-DE", "German entry name"}},
                         Summaries = {"Entry summary", {"de-DE", "German entry summary"}},
-                        Icons = {new Icon(new Uri("http://0install.de/feeds/images/test_command.png"), Icon.MimeTypePng), new Icon(new Uri("http://0install.de/feeds/images/test_command.ico"), Icon.MimeTypeIco)}
+                        Icons = {new Icon {Href = new Uri("http://0install.de/feeds/images/test_command.png"), MimeType = Icon.MimeTypePng}, new Icon {Href = new Uri("http://0install.de/feeds/images/test_command.ico"), MimeType = Icon.MimeTypeIco}}
                     }
                 }
             };
@@ -327,8 +327,8 @@ namespace ZeroInstall.Model
         {
             var feed = CreateTestFeed();
 
-            var feedIcon = new Icon(new Uri("http://0install.de/feeds/images/test.ico"), Icon.MimeTypeIco);
-            var commandIcon = new Icon(new Uri("http://0install.de/feeds/images/test_command.ico"), Icon.MimeTypeIco);
+            var feedIcon = new Icon {Href = new Uri("http://0install.de/feeds/images/test.ico"), MimeType = Icon.MimeTypeIco};
+            var commandIcon = new Icon {Href = new Uri("http://0install.de/feeds/images/test_command.ico"), MimeType = Icon.MimeTypeIco};
 
             Assert.AreEqual(commandIcon, feed.GetIcon(Icon.MimeTypeIco, Command.NameRun));
             Assert.AreEqual(feedIcon, feed.GetIcon(Icon.MimeTypeIco, "unknown"));

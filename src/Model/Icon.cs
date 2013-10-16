@@ -73,25 +73,6 @@ namespace ZeroInstall.Model
         public string MimeType { get; set; }
         #endregion
 
-        #region Constructor
-        /// <summary>
-        /// Creates an empty icon.
-        /// </summary>
-        public Icon()
-        {}
-
-        /// <summary>
-        /// Creates a new icon with pre-set values.
-        /// </summary>
-        /// <param name="location">The URL used to locate the icon.</param>
-        /// <param name="mimeType">The MIME type of the icon.</param>
-        public Icon(Uri location, string mimeType)
-        {
-            Href = location;
-            MimeType = mimeType;
-        }
-        #endregion
-
         //--------------------//
 
         #region Conversion

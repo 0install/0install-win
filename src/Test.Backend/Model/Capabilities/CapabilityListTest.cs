@@ -33,7 +33,7 @@ namespace ZeroInstall.Model.Capabilities
         /// </summary>
         public static CapabilityList CreateTestCapabilityList()
         {
-            var testIcon = new Icon(new Uri("http://0install.de/feeds/icons/test.ico"), "image/vnd.microsoft.icon");
+            var testIcon = new Icon {Href = new Uri("http://0install.de/feeds/icons/test.ico"), MimeType = "image/vnd.microsoft.icon"};
             var testVerb = new Verb {Name = Verb.NameOpen, Descriptions = {"Verb description"}, Command = Command.NameRun, Arguments = "--open"};
             return new CapabilityList
             {
