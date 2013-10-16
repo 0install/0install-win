@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Common;
@@ -84,10 +85,16 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
             _entryPointPage.Continue += CandidateSelected;
             _detailsPage.Continue += DetailsFilled;
-            _windowsIconPage.Continue += () => PushPage(_signaturePage);
+            _windowsIconPage.Continue += IconsSet;
             #endregion
 
             PushPage(_sourcePage);
+        }
+
+        private void IconsSet(IEnumerable<Icon> icons)
+        {
+            // TODO: Handle icons
+            PushPage(_signaturePage);
         }
 
         #region Flow helpers
@@ -147,7 +154,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             if (windowsExe == null) PushPage(_signaturePage);
             else
             {
-                _windowsIconPage.SetExe(windowsExe);
+                _windowsIconPage.SetIcon(windowsExe.ExtractIcon());
                 PushPage(_windowsIconPage);
             }
         }

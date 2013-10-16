@@ -87,5 +87,13 @@ namespace ZeroInstall.Publish.EntryPoints
                     return Cpu.Unknown;
             }
         }
+
+        /// <summary>
+        /// Extracts the primary icon of the EXE. 
+        /// </summary>
+        public System.Drawing.Icon ExtractIcon()
+        {
+            return System.Drawing.Icon.ExtractAssociatedIcon(Path.Combine(BaseDirectory.FullName, RelativePath));
+        }
     }
 }

@@ -88,6 +88,15 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Without uploading the icons Zero Install will only be able to display a generic placeholder icon in the catalog as well as for any desktop integration shortcuts. Are you sure you want to skip this?.
+        /// </summary>
+        public static string AskSkipIcon {
+            get {
+                return ResourceManager.GetString("AskSkipIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keep
         ///The implementation was supposed to stay the same.
         /// </summary>

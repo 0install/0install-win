@@ -221,7 +221,7 @@ namespace ZeroInstall.Publish.WinForms
 
         private void SaveFeedAs()
         {
-            using (var saveFileDialog = new SaveFileDialog {DefaultExt = "xml", Filter = "XML files|*.xml|All files|*"})
+            using (var saveFileDialog = new SaveFileDialog {Filter = "XML files|*.xml|All files|*"})
             {
                 if (saveFileDialog.ShowDialog(this) != DialogResult.OK) throw new OperationCanceledException();
                 SaveFeed(saveFileDialog.FileName);

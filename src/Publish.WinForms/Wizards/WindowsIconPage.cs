@@ -16,15 +16,20 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Windows.Forms;
-using ZeroInstall.Publish.EntryPoints;
+using Common;
+using Common.Controls;
+using ZeroInstall.Publish.Properties;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
     public partial class WindowsIconPage : UserControl
     {
-        private WindowsExe _exe;
-        public event Action Continue;
+        private System.Drawing.Icon _icon;
+        public event Action<IEnumerable<Model.Icon>> Continue;
 
         public WindowsIconPage()
         {
@@ -32,16 +37,58 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         }
 
         /// <summary>
-        /// Injects the selected candidate.
+        /// Injects the selected icon.
         /// </summary>
-        public void SetExe(WindowsExe exe)
+        public void SetIcon(System.Drawing.Icon icon)
         {
-            _exe = exe;
+            _icon = icon;
+            pictureBoxIcon.Image = icon.ToBitmap();
+        }
+
+        private void textBoxHref_TextChanged(object sender, EventArgs e)
+        {
+            buttonContinue.Enabled = IsValid(textBoxHrefIco) && IsValid(textBoxHrefPng);
+        }
+
+        private static bool IsValid(UriTextBox uriTextBox)
+        {
+            return !string.IsNullOrEmpty(uriTextBox.Text) && uriTextBox.IsValid;
+        }
+
+        private void buttonSaveIco_Click(object sender, EventArgs e)
+        {
+            using (var saveFileDialog = new SaveFileDialog {Filter = "Windows Icon files|*.ico|All files|*.*"})
+            {
+                if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    using (var stream = File.Create(saveFileDialog.FileName))
+                        _icon.Save(stream);
+                }
+            }
+        }
+
+        private void buttonSavePng_Click(object sender, EventArgs e)
+        {
+            using (var saveFileDialog = new SaveFileDialog {Filter = "PNG image files|*.png|All files|*.*"})
+            {
+                if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+                    _icon.ToBitmap().Save(saveFileDialog.FileName, ImageFormat.Png);
+            }
+        }
+
+        private void buttonSkip_Click(object sender, EventArgs e)
+        {
+            if (!Msg.YesNo(this, Resources.AskSkipIcon, MsgSeverity.Info)) return;
+            Continue(new Model.Icon[0]);
         }
 
         private void buttonContinue_Click(object sender, EventArgs e)
         {
-            Continue();
+            Continue(new[]
+            {
+                new Model.Icon {Href = textBoxHrefIco.Uri, MimeType = Model.Icon.MimeTypeIco},
+                new Model.Icon {Href = textBoxHrefPng.Uri, MimeType = Model.Icon.MimeTypePng}
+            });
         }
     }
 }
