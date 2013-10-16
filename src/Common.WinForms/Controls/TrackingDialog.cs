@@ -61,7 +61,7 @@ namespace Common.Controls
             Text = task.Name;
 
             // Start and stop the task with the dialog
-            Shown += delegate
+            HandleCreated += delegate
             {
                 // Hook up event tracking
                 trackingProgressBar.Task = task;
@@ -96,9 +96,8 @@ namespace Common.Controls
         }
 
         // Must be public for IPC
-        // ReSharper disable MemberCanBePrivate.Global
+        // ReSharper disable once MemberCanBePrivate.Global
         public void OnTaskStateChanged(ITask sender)
-            // ReSharper restore MemberCanBePrivate.Global
         {
             #region Sanity checks
             if (sender == null) throw new ArgumentNullException("sender");
