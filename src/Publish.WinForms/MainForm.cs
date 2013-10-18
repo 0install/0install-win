@@ -242,6 +242,7 @@ namespace ZeroInstall.Publish.WinForms
                     catch (WrongPassphraseException)
                     {}
 
+                    // Ask for passphrase to unlock secret key if we were unable to save without it
                     FeedEditing.Passphrase = InputBox.Show(this, Text, string.Format(Resources.AskForPassphrase, FeedEditing.SignedFeed.SecretKey), password: true);
                     if (FeedEditing.Passphrase == null) throw new OperationCanceledException();
                 }

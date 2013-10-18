@@ -258,7 +258,6 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file or the catalog file is not permitted.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if an OpenPGP key could not be found.</exception>
-        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         /// <exception cref="NotSupportedException">Thrown if a MIME type doesn't belong to a known and supported archive type.</exception>
         private static ErrorLevel Execute(ParseResults options)
@@ -313,7 +312,6 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file is not permitted.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if an OpenPGP key could not be found.</exception>
-        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         private static void SaveFeed(SignedFeed signedFeed, Feed originalFeed, string path, ref ParseResults options)
         {
@@ -346,11 +344,21 @@ namespace ZeroInstall.Publish.Cli
             // there is no need to overwrite (and potentiall resign) the file
             if (!options.XmlSign && !options.Unsign && signedFeed.Feed.Equals(originalFeed)) return;
 
-            // Ask for passphrase to unlock secret key
-            if (signedFeed.SecretKey != null && string.IsNullOrEmpty(options.OpenPgpPassphrase))
-                options.OpenPgpPassphrase = CliUtils.ReadPassword(string.Format(SharedResources.AskForPassphrase, signedFeed.SecretKey));
+            while (true)
+            {
+                try
+                {
+                    signedFeed.Save(path, options.OpenPgpPassphrase);
+                    break;
+                }
+                catch (WrongPassphraseException ex)
+                {
+                    if (!string.IsNullOrEmpty(options.OpenPgpPassphrase)) Log.Error(ex);
+                }
 
-            signedFeed.Save(path, options.OpenPgpPassphrase);
+                // Ask for passphrase to unlock secret key if we were unable to save without it
+                options.OpenPgpPassphrase = CliUtils.ReadPassword(string.Format(SharedResources.AskForPassphrase, signedFeed.SecretKey));
+            }
         }
 
         /// <summary>
@@ -361,7 +369,6 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the catalog file could not be written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a catalog file is not permitted.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if an OpenPGP key could not be found.</exception>
-        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         private static void SaveCatalog(Catalog catalog, ParseResults options)
         {
@@ -370,11 +377,21 @@ namespace ZeroInstall.Publish.Cli
                 var openPgp = OpenPgpFactory.CreateDefault();
                 var signedCatalog = new SignedCatalog(catalog, openPgp.GetSecretKey(options.Key));
 
-                // Ask for passphrase to unlock secret key
-                if (signedCatalog.SecretKey != null && string.IsNullOrEmpty(options.OpenPgpPassphrase))
-                    options.OpenPgpPassphrase = CliUtils.ReadPassword(string.Format(SharedResources.AskForPassphrase, signedCatalog.SecretKey));
+                while (true)
+                {
+                    try
+                    {
+                        signedCatalog.Save(options.CatalogFile, options.OpenPgpPassphrase);
+                        break;
+                    }
+                    catch (WrongPassphraseException ex)
+                    {
+                        if (!string.IsNullOrEmpty(options.OpenPgpPassphrase)) Log.Error(ex);
+                    }
 
-                signedCatalog.Save(options.CatalogFile, options.OpenPgpPassphrase);
+                    // Ask for passphrase to unlock secret key if we were unable to save without it
+                    options.OpenPgpPassphrase = CliUtils.ReadPassword(string.Format(SharedResources.AskForPassphrase, signedCatalog.SecretKey));
+                }
             }
             else catalog.SaveXml(options.CatalogFile);
         }
