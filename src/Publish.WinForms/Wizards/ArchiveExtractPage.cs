@@ -32,7 +32,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         /// <summary>
         /// Raised with the selected <see cref="Archive.Extract"/> value.
         /// </summary>
-        public event Action<string> Continue;
+        public event Action<string> ExtractSelected;
 
         public ArchiveExtractPage()
         {
@@ -62,7 +62,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         }
         #endregion
 
-        private void buttonContinue_Click(object sender, EventArgs e)
+        private void buttonNext_Click(object sender, EventArgs e)
         {
             if (FileUtils.IsBreakoutPath(comboBoxExtract.Text))
             {
@@ -75,7 +75,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
             try
             {
-                Continue(path);
+                ExtractSelected(path);
             }
                 #region Error handling
             catch (OperationCanceledException)

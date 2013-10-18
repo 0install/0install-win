@@ -15,15 +15,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Windows.Forms;
+using Common;
+using ZeroInstall.Publish.Properties;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
-    public partial class SignaturePage : UserControl
+    internal partial class SecurityPage : UserControl
     {
-        public SignaturePage()
+        public event Action<Uri, OpenPgpSecretKey> SecurityDataSet; 
+
+        public SecurityPage()
         {
             InitializeComponent();
+        }
+
+        private void buttonSkip_Click(object sender, EventArgs e)
+        {
+            //if (!Msg.YesNo(this, Resources.AskSkipSecurity, MsgSeverity.Info)) return;
+            //SecurityDataSet(null, null);
+        }
+
+        private void buttonNext_Click(object sender, EventArgs e)
+        {
+            //SecurityDataSet(new Uri(), new OpenPgpSecretKey());
         }
     }
 }

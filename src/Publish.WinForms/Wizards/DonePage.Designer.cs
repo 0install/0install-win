@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.labelTitle = new System.Windows.Forms.Label();
+            this.buttonFinish = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelTitle
@@ -44,10 +45,21 @@
             this.labelTitle.Text = "Done";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // buttonFinish
+            // 
+            this.buttonFinish.Enabled = false;
+            this.buttonFinish.Location = new System.Drawing.Point(315, 238);
+            this.buttonFinish.Name = "buttonFinish";
+            this.buttonFinish.Size = new System.Drawing.Size(120, 35);
+            this.buttonFinish.TabIndex = 1;
+            this.buttonFinish.Text = "&Finish";
+            this.buttonFinish.UseVisualStyleBackColor = true;
+            // 
             // DonePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonFinish);
             this.Controls.Add(this.labelTitle);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -60,5 +72,6 @@
         #endregion
 
         private System.Windows.Forms.Label labelTitle;
+        private System.Windows.Forms.Button buttonFinish;
     }
 }

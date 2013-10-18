@@ -31,7 +31,7 @@
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelQuestion = new System.Windows.Forms.Label();
             this.textBoxPath = new Common.Controls.HintTextBox();
-            this.buttonContinue = new System.Windows.Forms.Button();
+            this.buttonNext = new System.Windows.Forms.Button();
             this.textBoxUrl = new Common.Controls.UriTextBox();
             this.labelUrl = new System.Windows.Forms.Label();
             this.buttonSelectPath = new System.Windows.Forms.Button();
@@ -69,16 +69,16 @@
             this.textBoxPath.TabIndex = 2;
             this.textBoxPath.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
-            // buttonContinue
+            // buttonNext
             // 
-            this.buttonContinue.Enabled = false;
-            this.buttonContinue.Location = new System.Drawing.Point(39, 245);
-            this.buttonContinue.Name = "buttonContinue";
-            this.buttonContinue.Size = new System.Drawing.Size(100, 33);
-            this.buttonContinue.TabIndex = 6;
-            this.buttonContinue.Text = "&Continue";
-            this.buttonContinue.UseVisualStyleBackColor = true;
-            this.buttonContinue.Click += new System.EventHandler(this.buttonContinue_Click);
+            this.buttonNext.Enabled = false;
+            this.buttonNext.Location = new System.Drawing.Point(315, 238);
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.Size = new System.Drawing.Size(120, 35);
+            this.buttonNext.TabIndex = 6;
+            this.buttonNext.Text = "&Next >";
+            this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // textBoxUrl
             // 
@@ -120,7 +120,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonContinue);
+            this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.textBoxUrl);
             this.Controls.Add(this.labelUrl);
             this.Controls.Add(this.buttonSelectPath);
@@ -141,7 +141,7 @@
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Label labelQuestion;
         private Common.Controls.HintTextBox textBoxPath;
-        private System.Windows.Forms.Button buttonContinue;
+        private System.Windows.Forms.Button buttonNext;
         private Common.Controls.UriTextBox textBoxUrl;
         private System.Windows.Forms.Label labelUrl;
         private System.Windows.Forms.Button buttonSelectPath;

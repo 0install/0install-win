@@ -26,10 +26,14 @@ using ZeroInstall.Publish.Properties;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
-    public partial class WindowsIconPage : UserControl
+    internal partial class WindowsIconPage : UserControl
     {
         private System.Drawing.Icon _icon;
-        public event Action<IEnumerable<Model.Icon>> Continue;
+
+        /// <summary>
+        /// Raised with the selected <see cref="Model.Icon"/>s.
+        /// </summary>
+        public event Action<IEnumerable<Model.Icon>> IconsSelected;
 
         public WindowsIconPage()
         {
@@ -47,7 +51,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private void textBoxHref_TextChanged(object sender, EventArgs e)
         {
-            buttonContinue.Enabled = IsValid(textBoxHrefIco) && IsValid(textBoxHrefPng);
+            buttonNext.Enabled = IsValid(textBoxHrefIco) && IsValid(textBoxHrefPng);
         }
 
         private static bool IsValid(UriTextBox uriTextBox)
@@ -79,12 +83,12 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private void buttonSkip_Click(object sender, EventArgs e)
         {
             if (!Msg.YesNo(this, Resources.AskSkipIcon, MsgSeverity.Info)) return;
-            Continue(new Model.Icon[0]);
+            IconsSelected(new Model.Icon[0]);
         }
 
-        private void buttonContinue_Click(object sender, EventArgs e)
+        private void buttonNext_Click(object sender, EventArgs e)
         {
-            Continue(new[]
+            IconsSelected(new[]
             {
                 new Model.Icon {Href = textBoxHrefIco.Uri, MimeType = Model.Icon.MimeTypeIco},
                 new Model.Icon {Href = textBoxHrefPng.Uri, MimeType = Model.Icon.MimeTypePng}

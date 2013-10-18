@@ -30,7 +30,7 @@
         {
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelQuestion = new System.Windows.Forms.Label();
-            this.buttonContinue = new System.Windows.Forms.Button();
+            this.buttonNext = new System.Windows.Forms.Button();
             this.comboBoxEntryPoint = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
@@ -56,15 +56,15 @@
             this.labelQuestion.TabIndex = 5;
             this.labelQuestion.Text = "Which file starts the application?";
             // 
-            // buttonContinue
+            // buttonNext
             // 
-            this.buttonContinue.Location = new System.Drawing.Point(39, 175);
-            this.buttonContinue.Name = "buttonContinue";
-            this.buttonContinue.Size = new System.Drawing.Size(100, 33);
-            this.buttonContinue.TabIndex = 14;
-            this.buttonContinue.Text = "&Continue";
-            this.buttonContinue.UseVisualStyleBackColor = true;
-            this.buttonContinue.Click += new System.EventHandler(this.buttonContinue_Click);
+            this.buttonNext.Location = new System.Drawing.Point(315, 238);
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.Size = new System.Drawing.Size(120, 35);
+            this.buttonNext.TabIndex = 14;
+            this.buttonNext.Text = "&Next >";
+            this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // comboBoxEntryPoint
             // 
@@ -79,7 +79,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonContinue);
+            this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.comboBoxEntryPoint);
             this.Controls.Add(this.labelQuestion);
             this.Controls.Add(this.labelTitle);
@@ -95,7 +95,7 @@
 
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Label labelQuestion;
-        private System.Windows.Forms.Button buttonContinue;
+        private System.Windows.Forms.Button buttonNext;
         private System.Windows.Forms.ComboBox comboBoxEntryPoint;
     }
 }

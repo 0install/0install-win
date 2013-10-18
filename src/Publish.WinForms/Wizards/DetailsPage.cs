@@ -21,10 +21,14 @@ using ZeroInstall.Publish.EntryPoints;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
-    public partial class DetailsPage : UserControl
+    internal partial class DetailsPage : UserControl
     {
         private Candidate _candidate;
-        public event Action Continue;
+
+        /// <summary>
+        /// Raised after the missing details have been filled in to the <see cref="Candidate"/>. 
+        /// </summary>
+        public event Action DetailsFilledIn;
 
         public DetailsPage()
         {
@@ -37,17 +41,17 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         public void SetCandidate(Candidate candidate)
         {
             propertyGridCandidate.SelectedObject = _candidate = candidate;
-            buttonContinue.Enabled = ValidateInput();
+            buttonNext.Enabled = ValidateInput();
         }
 
         private void propertyGridCandidate_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
-            buttonContinue.Enabled = ValidateInput();
+            buttonNext.Enabled = ValidateInput();
         }
 
-        private void buttonContinue_Click(object sender, EventArgs e)
+        private void buttonNext_Click(object sender, EventArgs e)
         {
-            if (ValidateInput()) Continue();
+            if (ValidateInput()) DetailsFilledIn();
         }
 
         private bool ValidateInput()

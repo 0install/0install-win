@@ -32,7 +32,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         /// <summary>
         /// Raised with the selected <see cref="DownloadRetrievalMethod"/> and an extracted image of it.
         /// </summary>
-        public event Action<T, TemporaryDirectory> Continue;
+        public event Action<T, TemporaryDirectory> FileSelected;
 
         public DownloadRetrievalMethodLocalPage(string retrievalMethodType)
         {
@@ -56,16 +56,16 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private void textBox_TextChanged(object sender, EventArgs e)
         {
-            buttonContinue.Enabled = (textBoxPath.Text.Length > 0) && (textBoxUrl.Text.Length > 0) && textBoxUrl.IsValid;
+            buttonNext.Enabled = (textBoxPath.Text.Length > 0) && (textBoxUrl.Text.Length > 0) && textBoxUrl.IsValid;
         }
 
-        private void buttonContinue_Click(object sender, EventArgs e)
+        private void buttonNext_Click(object sender, EventArgs e)
         {
             try
             {
                 var retrievalMethod = new T { Href = textBoxUrl.Uri };
                 var temporaryDirectory = RetrievalMethodUtils.LocalApply(retrievalMethod, textBoxPath.Text, new GuiTaskHandler());
-                Continue(retrievalMethod, temporaryDirectory);
+                FileSelected(retrievalMethod, temporaryDirectory);
             }
                 #region Error handling
             catch (OperationCanceledException)

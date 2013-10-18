@@ -31,7 +31,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         /// <summary>
         /// Raised with the selected <see cref="Candidate"/>.
         /// </summary>
-        public event Action<Candidate> Continue;
+        public event Action<Candidate> CandidateSelected;
 
         public EntryPointPage()
         {
@@ -50,11 +50,11 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                 comboBoxEntryPoint.Items.AddRange(GetCandidates(workingDirectory));
                 comboBoxEntryPoint.SelectedIndex = 0;
 
-                buttonContinue.Enabled = true;
+                buttonNext.Enabled = true;
             }
             catch (OperationCanceledException)
             {
-                buttonContinue.Enabled = false;
+                buttonNext.Enabled = false;
             }
         }
 
@@ -88,10 +88,10 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             return candidates;
         }
 
-        private void buttonContinue_Click(object sender, EventArgs e)
+        private void buttonNext_Click(object sender, EventArgs e)
         {
             var candidate = comboBoxEntryPoint.SelectedItem as Candidate;
-            if (candidate != null) Continue(candidate);
+            if (candidate != null) CandidateSelected(candidate);
         }
     }
 }

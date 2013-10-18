@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.labelTitle = new System.Windows.Forms.Label();
             this.propertyGridCandidate = new Common.Controls.ResettablePropertyGrid();
-            this.buttonContinue = new System.Windows.Forms.Button();
+            this.buttonNext = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelTitle
@@ -58,21 +58,21 @@
             this.propertyGridCandidate.ToolbarVisible = false;
             this.propertyGridCandidate.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGridCandidate_PropertyValueChanged);
             // 
-            // buttonContinue
+            // buttonNext
             // 
-            this.buttonContinue.Location = new System.Drawing.Point(335, 255);
-            this.buttonContinue.Name = "buttonContinue";
-            this.buttonContinue.Size = new System.Drawing.Size(100, 33);
-            this.buttonContinue.TabIndex = 2;
-            this.buttonContinue.Text = "&Continue";
-            this.buttonContinue.UseVisualStyleBackColor = true;
-            this.buttonContinue.Click += new System.EventHandler(this.buttonContinue_Click);
+            this.buttonNext.Location = new System.Drawing.Point(315, 255);
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.Size = new System.Drawing.Size(120, 35);
+            this.buttonNext.TabIndex = 2;
+            this.buttonNext.Text = "&Next >";
+            this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // DetailsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonContinue);
+            this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.propertyGridCandidate);
             this.Controls.Add(this.labelTitle);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
@@ -87,6 +87,6 @@
 
         private System.Windows.Forms.Label labelTitle;
         private Common.Controls.ResettablePropertyGrid propertyGridCandidate;
-        private System.Windows.Forms.Button buttonContinue;
+        private System.Windows.Forms.Button buttonNext;
     }
 }

@@ -51,7 +51,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private readonly DetailsPage _detailsPage = new DetailsPage();
 
         private readonly WindowsIconPage _windowsIconPage = new WindowsIconPage();
-        private readonly SignaturePage _signaturePage = new SignaturePage();
+        private readonly SecurityPage _securityPage = new SecurityPage();
         private readonly DonePage _donePage = new DonePage();
         #endregion
 
@@ -74,27 +74,21 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
             _archivePage.Online += () => PushPage(_archiveOnlinePage);
             _archivePage.Local += () => PushPage(_archiveLocalPage);
-            _archiveOnlinePage.Continue += ArchiveSelected;
-            _archiveLocalPage.Continue += ArchiveSelected;
-            _archiveExtractPage.Continue += ArchiveExtractSelected;
+            _archiveOnlinePage.FileSelected += ArchiveSelected;
+            _archiveLocalPage.FileSelected += ArchiveSelected;
+            _archiveExtractPage.ExtractSelected += ArchiveExtractSelected;
 
             _singleFilePage.Online += () => PushPage(_singleFileOnlinePage);
             _singleFilePage.Local += () => PushPage(_singleFileLocalPage);
-            _singleFileOnlinePage.Continue += FileSelected;
-            _singleFileLocalPage.Continue += FileSelected;
+            _singleFileOnlinePage.FileSelected += FileSelected;
+            _singleFileLocalPage.FileSelected += FileSelected;
 
-            _entryPointPage.Continue += CandidateSelected;
-            _detailsPage.Continue += DetailsFilled;
-            _windowsIconPage.Continue += IconsSet;
+            _entryPointPage.CandidateSelected += CandidateSelected;
+            _detailsPage.DetailsFilledIn += DetailsFilledIn;
+            _windowsIconPage.IconsSelected += IconsSelected;
             #endregion
 
             PushPage(_sourcePage);
-        }
-
-        private void IconsSet(IEnumerable<Icon> icons)
-        {
-            // TODO: Handle icons
-            PushPage(_signaturePage);
         }
 
         #region Flow helpers
@@ -148,15 +142,21 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             PushPage(_detailsPage);
         }
         
-        private void DetailsFilled()
+        private void DetailsFilledIn()
         {
             var windowsExe = _candidate as WindowsExe;
-            if (windowsExe == null) PushPage(_signaturePage);
+            if (windowsExe == null) PushPage(_securityPage);
             else
             {
                 _windowsIconPage.SetIcon(windowsExe.ExtractIcon());
                 PushPage(_windowsIconPage);
             }
+        }
+
+        private void IconsSelected(IEnumerable<Icon> icons)
+        {
+            // TODO: Handle icons
+            PushPage(_securityPage);
         }
         #endregion
     }

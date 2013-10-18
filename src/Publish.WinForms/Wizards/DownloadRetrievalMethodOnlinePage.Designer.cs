@@ -31,7 +31,7 @@
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelQuestion = new System.Windows.Forms.Label();
             this.textBoxUrl = new Common.Controls.UriTextBox();
-            this.buttonDownload = new System.Windows.Forms.Button();
+            this.buttonNext = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelTitle
@@ -67,22 +67,22 @@
             this.textBoxUrl.TabIndex = 2;
             this.textBoxUrl.TextChanged += new System.EventHandler(this.textBoxUrl_TextChanged);
             // 
-            // buttonDownload
+            // buttonNext
             // 
-            this.buttonDownload.Enabled = false;
-            this.buttonDownload.Location = new System.Drawing.Point(39, 148);
-            this.buttonDownload.Name = "buttonDownload";
-            this.buttonDownload.Size = new System.Drawing.Size(100, 33);
-            this.buttonDownload.TabIndex = 3;
-            this.buttonDownload.Text = "&Download";
-            this.buttonDownload.UseVisualStyleBackColor = true;
-            this.buttonDownload.Click += new System.EventHandler(this.buttonDownload_Click);
+            this.buttonNext.Enabled = false;
+            this.buttonNext.Location = new System.Drawing.Point(315, 238);
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.Size = new System.Drawing.Size(120, 35);
+            this.buttonNext.TabIndex = 3;
+            this.buttonNext.Text = "&Next >";
+            this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // DownloadRetrievalMethodOnlinePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonDownload);
+            this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.textBoxUrl);
             this.Controls.Add(this.labelQuestion);
             this.Controls.Add(this.labelTitle);
@@ -100,6 +100,6 @@
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Label labelQuestion;
         private Common.Controls.UriTextBox textBoxUrl;
-        private System.Windows.Forms.Button buttonDownload;
+        private System.Windows.Forms.Button buttonNext;
     }
 }

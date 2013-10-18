@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms.Wizards
 {
-    partial class SignaturePage
+    partial class SecurityPage
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.labelTitle = new System.Windows.Forms.Label();
+            this.buttonSkip = new System.Windows.Forms.Button();
+            this.buttonNext = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelTitle
@@ -41,17 +43,40 @@
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(470, 37);
             this.labelTitle.TabIndex = 0;
-            this.labelTitle.Text = "Signature";
+            this.labelTitle.Text = "Security";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // SignaturePage
+            // buttonSkip
+            // 
+            this.buttonSkip.Location = new System.Drawing.Point(189, 238);
+            this.buttonSkip.Name = "buttonSkip";
+            this.buttonSkip.Size = new System.Drawing.Size(120, 35);
+            this.buttonSkip.TabIndex = 2;
+            this.buttonSkip.Text = "&Skip";
+            this.buttonSkip.UseVisualStyleBackColor = true;
+            this.buttonSkip.Click += new System.EventHandler(this.buttonSkip_Click);
+            // 
+            // buttonNext
+            // 
+            this.buttonNext.Enabled = false;
+            this.buttonNext.Location = new System.Drawing.Point(315, 238);
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.Size = new System.Drawing.Size(120, 35);
+            this.buttonNext.TabIndex = 3;
+            this.buttonNext.Text = "&Next >";
+            this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
+            // 
+            // SecurityPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonSkip);
+            this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.labelTitle);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "SignaturePage";
+            this.Name = "SecurityPage";
             this.Size = new System.Drawing.Size(470, 300);
             this.ResumeLayout(false);
 
@@ -60,5 +85,7 @@
         #endregion
 
         private System.Windows.Forms.Label labelTitle;
+        private System.Windows.Forms.Button buttonSkip;
+        private System.Windows.Forms.Button buttonNext;
     }
 }

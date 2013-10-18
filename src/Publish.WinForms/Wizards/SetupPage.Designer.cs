@@ -57,9 +57,9 @@
             // 
             // buttonLaunch
             // 
-            this.buttonLaunch.Location = new System.Drawing.Point(185, 132);
+            this.buttonLaunch.Location = new System.Drawing.Point(39, 124);
             this.buttonLaunch.Name = "buttonLaunch";
-            this.buttonLaunch.Size = new System.Drawing.Size(100, 33);
+            this.buttonLaunch.Size = new System.Drawing.Size(120, 35);
             this.buttonLaunch.TabIndex = 2;
             this.buttonLaunch.Text = "&Launch";
             this.buttonLaunch.UseVisualStyleBackColor = true;

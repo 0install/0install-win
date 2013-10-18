@@ -19,7 +19,7 @@ using System.Windows.Forms;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
-    public partial class DonePage : UserControl
+    internal partial class DonePage : UserControl
     {
         public DonePage()
         {
