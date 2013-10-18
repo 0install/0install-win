@@ -26,7 +26,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
 {
     internal partial class ResetServerPage : HandlerPage
     {
-        public event Action Continue;
+        public event Action Next;
 
         public ResetServerPage(bool machineWide) : base(machineWide)
         {
@@ -53,7 +53,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
             CloseProgressUI();
             Parent.Parent.Enabled = buttonReset.Visible = true;
 
-            if (e.Error == null) Continue();
+            if (e.Error == null) Next();
             else if (!(e.Error is OperationCanceledException)) Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
         }
     }

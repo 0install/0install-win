@@ -54,7 +54,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
             welcomePage.ChangeCryptoKey += () => PushPage(existingCryptoKeyPage);
             welcomePage.ResetServer += () => PushPage(resetServerPage);
             welcomePage.ResetClient += () => PushPage(resetClientPage);
-            existingCryptoKeyPage.Continue += delegate(string oldKey)
+            existingCryptoKeyPage.OldKeySet += delegate(string oldKey)
             {
                 changeCryptoKeyPage.OldKey = oldKey;
                 PushPage(changeCryptoKeyPage);
@@ -88,13 +88,13 @@ namespace ZeroInstall.Central.WinForms.Wizards
                 }
                 #endregion
             };
-            changeCryptoKeyPage.Continue += newKeySet;
-            resetCryptoKeyPage.Continue += newKeySet;
-            cryptoKeyChangedPaged.OK += Close;
-            resetServerPage.Continue += () => PushPage(resetServerFinishedPage);
-            resetServerFinishedPage.Done += Close;
-            resetClientPage.Continue += () => PushPage(resetClientFinishedPage);
-            resetClientFinishedPage.Done += Close;
+            changeCryptoKeyPage.NewKeySet += newKeySet;
+            resetCryptoKeyPage.NewKeySet += newKeySet;
+            cryptoKeyChangedPaged.Finish += Close;
+            resetServerPage.Next += () => PushPage(resetServerFinishedPage);
+            resetServerFinishedPage.Finish += Close;
+            resetClientPage.Next += () => PushPage(resetClientFinishedPage);
+            resetClientFinishedPage.Finish += Close;
             #endregion
 
             PushPage(welcomePage);

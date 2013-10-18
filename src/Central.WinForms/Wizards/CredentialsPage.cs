@@ -31,7 +31,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
     {
         public Uri ServerUri;
 
-        public event Action<SyncServer> Continue;
+        public event Action<SyncServer> CredentialsSet;
 
         public CredentialsPage()
         {
@@ -40,10 +40,10 @@ namespace ZeroInstall.Central.WinForms.Wizards
 
         private void textBox_TextChanged(object sender, EventArgs e)
         {
-            buttonContinue.Enabled = !string.IsNullOrEmpty(textBoxUsername.Text) && !string.IsNullOrEmpty(textBoxPassword.Text);
+            buttonNext.Enabled = !string.IsNullOrEmpty(textBoxUsername.Text) && !string.IsNullOrEmpty(textBoxPassword.Text);
         }
 
-        private void buttonContinue_Click(object sender, EventArgs e)
+        private void buttonNext_Click(object sender, EventArgs e)
         {
             Parent.Parent.Enabled = false;
             credentialsCheckWorker.RunWorkerAsync(new SyncServer
@@ -64,7 +64,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
             Parent.Parent.Enabled = true;
             if (e.Error == null)
             {
-                Continue(new SyncServer
+                CredentialsSet(new SyncServer
                 {
                     Uri = ServerUri,
                     Username = textBoxUsername.Text,

@@ -117,13 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="buttonNext.Text" xml:space="preserve">
+    <value>&amp;Weiter &gt;</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonContinue.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 35</value>
-  </data>
-  <data name="buttonContinue.Text" xml:space="preserve">
-    <value>&amp;Fortsetzen</value>
-  </data>
   <data name="textBoxCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
     <value>173, 117</value>
   </data>
@@ -142,10 +139,7 @@
   <data name="labelTitle.Text" xml:space="preserve">
     <value>Crypto-Schlüssel</value>
   </data>
-  <data name="buttonReset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>323, 35</value>
-  </data>
-  <data name="buttonReset.Text" xml:space="preserve">
-    <value>Ich &amp;erinnere mich nicht an den Schlüssel</value>
+  <data name="buttonForgotKey.Text" xml:space="preserve">
+    <value>Schlüssel &amp;vergessen</value>
   </data>
 </root>

@@ -22,16 +22,16 @@ namespace ZeroInstall.Central.WinForms.Wizards
 {
     internal partial class CryptoKeyChangedPage : UserControl
     {
-        public event Action OK;
+        public event Action Finish;
 
         public CryptoKeyChangedPage()
         {
             InitializeComponent();
         }
 
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void buttonFinish_Click(object sender, EventArgs e)
         {
-            OK();
+            Finish();
         }
     }
 }

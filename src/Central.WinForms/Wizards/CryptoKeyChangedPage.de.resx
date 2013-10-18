@@ -117,9 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonOK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>39, 247</value>
+  <data name="buttonFinish.Text" xml:space="preserve">
+    <value>&amp;Fertig</value>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
     <value>Der Crypto-Schlüssel wurde geändert. Sie müssen nun den neuen Schlüssel auf allen anderen Computern, die Sie bereits für Zero Install Sync eingerichtet haben, ebenfalls eintragen.</value>
@@ -127,8 +126,9 @@
   <data name="labelTitle.Text" xml:space="preserve">
     <value>Crypto-Schlüssel geändert</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="labelInfo2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 156</value>
+    <value>35, 155</value>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
     <value>Geben Sie den Schlüssel auf anderen Computern mit dem 'Optionen' Fenster ein. Verwenden Sie dort nicht diesen Assistenten, da er nur zur ersten Änderung benötigt wird.</value>

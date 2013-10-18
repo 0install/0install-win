@@ -129,7 +129,7 @@
     <value>35, 65</value>
   </data>
   <data name="labelInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 89</value>
+    <value>400, 170</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="labelInfo.TabIndex" type="System.Int32, mscorlib">
@@ -193,16 +193,16 @@
     <value>NoControl</value>
   </data>
   <data name="buttonReset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>39, 157</value>
+    <value>315, 238</value>
   </data>
   <data name="buttonReset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 35</value>
+    <value>120, 35</value>
   </data>
   <data name="buttonReset.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="buttonReset.Text" xml:space="preserve">
-    <value>&amp;Reset server</value>
+    <value>&amp;Reset</value>
   </data>
   <data name="&gt;&gt;buttonReset.Name" xml:space="preserve">
     <value>buttonReset</value>
@@ -222,9 +222,6 @@
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
     <value>470, 300</value>
   </data>
@@ -238,6 +235,6 @@
     <value>ResetServerPage</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.Wizards.HandlerPage, ZeroInstall, Version=1.6.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.Wizards.HandlerPage, ZeroInstall, Version=2.3.5.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
 </root>

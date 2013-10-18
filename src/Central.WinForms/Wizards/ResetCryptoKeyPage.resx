@@ -130,16 +130,16 @@
     <value>NoControl</value>
   </data>
   <data name="buttonReset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>39, 96</value>
+    <value>315, 238</value>
   </data>
   <data name="buttonReset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 35</value>
+    <value>120, 35</value>
   </data>
   <data name="buttonReset.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="buttonReset.Text" xml:space="preserve">
-    <value>&amp;Reset key</value>
+    <value>&amp;Reset</value>
   </data>
   <data name="&gt;&gt;buttonReset.Name" xml:space="preserve">
     <value>buttonReset</value>
@@ -259,13 +259,13 @@
     <value>NoControl</value>
   </data>
   <data name="labelInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 144</value>
+    <value>35, 134</value>
   </data>
   <data name="labelInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 117</value>
+    <value>400, 60</value>
   </data>
   <data name="labelInfo.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
     <value>Any changes you have made on other computers but not synchronized with this one yet will be lost!</value>
@@ -285,9 +285,6 @@
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
     <value>470, 300</value>
   </data>
@@ -301,6 +298,6 @@
     <value>ResetCryptoKeyPage</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.Wizards.HandlerPage, ZeroInstall, Version=1.14.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.Wizards.HandlerPage, ZeroInstall, Version=2.3.5.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
 </root>

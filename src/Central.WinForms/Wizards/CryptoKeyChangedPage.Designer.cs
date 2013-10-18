@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CryptoKeyChangedPage));
-            this.buttonOK = new System.Windows.Forms.Button();
+            this.buttonFinish = new System.Windows.Forms.Button();
             this.labelInfo = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelInfo2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // buttonOK
+            // buttonFinish
             // 
-            resources.ApplyResources(this.buttonOK, "buttonOK");
-            this.buttonOK.Name = "buttonOK";
-            this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            resources.ApplyResources(this.buttonFinish, "buttonFinish");
+            this.buttonFinish.Name = "buttonFinish";
+            this.buttonFinish.UseVisualStyleBackColor = true;
+            this.buttonFinish.Click += new System.EventHandler(this.buttonFinish_Click);
             // 
             // labelInfo
             // 
@@ -61,7 +61,7 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonOK);
+            this.Controls.Add(this.buttonFinish);
             this.Controls.Add(this.labelInfo2);
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.labelTitle);
@@ -72,7 +72,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonOK;
+        private System.Windows.Forms.Button buttonFinish;
         private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Label labelInfo2;

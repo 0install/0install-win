@@ -72,31 +72,31 @@ namespace ZeroInstall.Central.WinForms.Wizards
                 resetCryptoKeyPage.Server = existingCryptoKeyPage.Server = server;
                 PushPage(credentialsPage);
             };
-            registerPage.Continue += () => PushPage(credentialsPage);
-            credentialsPage.Continue += delegate(SyncServer newServer)
+            registerPage.Next += () => PushPage(credentialsPage);
+            credentialsPage.CredentialsSet += delegate(SyncServer newServer)
             {
                 resetCryptoKeyPage.Server = existingCryptoKeyPage.Server = server = newServer;
                 if (usedBefore) PushPage(existingCryptoKeyPage);
                 else PushPage(newCryptoKeyPage);
             };
-            existingCryptoKeyPage.Continue += delegate(string key)
+            existingCryptoKeyPage.OldKeySet += delegate(string key)
             {
                 cryptoKey = key;
                 PushPage(finishedPage);
             };
             existingCryptoKeyPage.ResetKey += () => PushPage(resetCryptoKeyPage);
-            resetCryptoKeyPage.Continue += delegate(string key)
+            resetCryptoKeyPage.NewKeySet += delegate(string key)
             {
                 cryptoKey = key;
                 PushPage(cryptoKeyChangedPage);
             };
-            cryptoKeyChangedPage.OK += () => PushPage(finishedPage);
-            newCryptoKeyPage.Continue += delegate(string key)
+            cryptoKeyChangedPage.Finish += () => PushPage(finishedPage);
+            newCryptoKeyPage.NewKeySet += delegate(string key)
             {
                 cryptoKey = key;
                 PushPage(finishedPage);
             };
-            finishedPage.Done += delegate
+            finishedPage.Finish += delegate
             {
                 try
                 {

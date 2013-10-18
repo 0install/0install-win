@@ -23,7 +23,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
 {
     internal partial class NewCryptoKeyPage : UserControl
     {
-        public event Action<string> Continue;
+        public event Action<string> NewKeySet;
 
         public NewCryptoKeyPage()
         {
@@ -34,12 +34,12 @@ namespace ZeroInstall.Central.WinForms.Wizards
 
         private void textBoxCryptoKey_TextChanged(object sender, EventArgs e)
         {
-            buttonContinue.Enabled = !string.IsNullOrEmpty(textBoxCryptoKey.Text);
+            buttonNext.Enabled = !string.IsNullOrEmpty(textBoxCryptoKey.Text);
         }
 
-        private void buttonContinue_Click(object sender, EventArgs e)
+        private void buttonNext_Click(object sender, EventArgs e)
         {
-            Continue(textBoxCryptoKey.Text);
+            NewKeySet(textBoxCryptoKey.Text);
         }
     }
 }

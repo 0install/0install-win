@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangeCryptoKeyPage));
-            this.buttonChange = new System.Windows.Forms.Button();
+            this.buttonApply = new System.Windows.Forms.Button();
             this.textBoxCryptoKey = new System.Windows.Forms.TextBox();
             this.labelCryptoKey = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
@@ -37,12 +37,12 @@
             this.labelInfo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // buttonChange
+            // buttonApply
             // 
-            resources.ApplyResources(this.buttonChange, "buttonChange");
-            this.buttonChange.Name = "buttonChange";
-            this.buttonChange.UseVisualStyleBackColor = true;
-            this.buttonChange.Click += new System.EventHandler(this.buttonChange_Click);
+            resources.ApplyResources(this.buttonApply, "buttonApply");
+            this.buttonApply.Name = "buttonApply";
+            this.buttonApply.UseVisualStyleBackColor = true;
+            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
             // 
             // textBoxCryptoKey
             // 
@@ -72,18 +72,13 @@
             // 
             // ChangeCryptoKeyPage
             // 
-            resources.ApplyResources(this, "$this");
             this.Controls.Add(this.labelInfo);
-            this.Controls.Add(this.buttonChange);
+            this.Controls.Add(this.buttonApply);
             this.Controls.Add(this.textBoxCryptoKey);
             this.Controls.Add(this.labelCryptoKey);
             this.Controls.Add(this.labelTitle);
             this.Name = "ChangeCryptoKeyPage";
-            this.Controls.SetChildIndex(this.labelTitle, 0);
-            this.Controls.SetChildIndex(this.labelCryptoKey, 0);
-            this.Controls.SetChildIndex(this.textBoxCryptoKey, 0);
-            this.Controls.SetChildIndex(this.buttonChange, 0);
-            this.Controls.SetChildIndex(this.labelInfo, 0);
+            resources.ApplyResources(this, "$this");
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -91,7 +86,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonChange;
+        private System.Windows.Forms.Button buttonApply;
         private System.Windows.Forms.TextBox textBoxCryptoKey;
         private System.Windows.Forms.Label labelCryptoKey;
         private System.Windows.Forms.Label labelTitle;

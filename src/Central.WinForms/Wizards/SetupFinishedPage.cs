@@ -22,16 +22,16 @@ namespace ZeroInstall.Central.WinForms.Wizards
 {
     internal partial class SetupFinishedPage : UserControl
     {
-        public event Action Done;
+        public event Action Finish;
 
         public SetupFinishedPage()
         {
             InitializeComponent();
         }
 
-        private void buttonDone_Click(object sender, EventArgs e)
+        private void buttonFinish_Click(object sender, EventArgs e)
         {
-            Done();
+            Finish();
         }
     }
 }

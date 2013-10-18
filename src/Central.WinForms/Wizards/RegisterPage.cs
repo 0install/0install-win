@@ -23,7 +23,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
 {
     internal partial class RegisterPage : UserControl
     {
-        public event Action Continue;
+        public event Action Next;
 
         public RegisterPage()
         {
@@ -35,9 +35,9 @@ namespace ZeroInstall.Central.WinForms.Wizards
             Program.OpenInBrowser(this, Config.DefaultSyncServer + "register");
         }
 
-        private void buttonContinue_Click(object sender, EventArgs e)
+        private void buttonNext_Click(object sender, EventArgs e)
         {
-            Continue();
+            Next();
         }
     }
 }

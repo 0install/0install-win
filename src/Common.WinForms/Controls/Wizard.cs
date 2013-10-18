@@ -44,7 +44,7 @@ namespace Common.Controls
         {
             InitializeComponent();
 
-            buttonBack.Text = @"<- " + Resources.Back;
+            buttonBack.Text = @"< " + Resources.Back;
             buttonCancel.Text = Resources.Cancel;
         }
 

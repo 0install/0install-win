@@ -118,39 +118,39 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonContinue.Enabled" type="System.Boolean, mscorlib">
+  <data name="buttonNext.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonContinue.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="buttonNext.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonContinue.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonNext.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonContinue.Location" type="System.Drawing.Point, System.Drawing">
-    <value>39, 149</value>
+  <data name="buttonNext.Location" type="System.Drawing.Point, System.Drawing">
+    <value>315, 238</value>
   </data>
-  <data name="buttonContinue.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 35</value>
+  <data name="buttonNext.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 35</value>
   </data>
-  <data name="buttonContinue.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="buttonNext.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
   </data>
-  <data name="buttonContinue.Text" xml:space="preserve">
-    <value>&amp;Continue</value>
+  <data name="buttonNext.Text" xml:space="preserve">
+    <value>&amp;Next &gt;</value>
   </data>
-  <data name="&gt;&gt;buttonContinue.Name" xml:space="preserve">
-    <value>buttonContinue</value>
+  <data name="&gt;&gt;buttonNext.Name" xml:space="preserve">
+    <value>buttonNext</value>
   </data>
-  <data name="&gt;&gt;buttonContinue.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonNext.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonContinue.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonNext.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;buttonContinue.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonNext.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="textBoxCryptoKey.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -282,34 +282,34 @@
   <metadata name="keyCheckWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="buttonReset.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="buttonForgotKey.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
   </data>
-  <data name="buttonReset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonForgotKey.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonReset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>39, 210</value>
+  <data name="buttonForgotKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>124, 238</value>
   </data>
-  <data name="buttonReset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 35</value>
+  <data name="buttonForgotKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 35</value>
   </data>
-  <data name="buttonReset.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+  <data name="buttonForgotKey.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
-  <data name="buttonReset.Text" xml:space="preserve">
-    <value>I don't &amp;remember the key</value>
+  <data name="buttonForgotKey.Text" xml:space="preserve">
+    <value>&amp;Forgot key</value>
   </data>
-  <data name="&gt;&gt;buttonReset.Name" xml:space="preserve">
-    <value>buttonReset</value>
+  <data name="&gt;&gt;buttonForgotKey.Name" xml:space="preserve">
+    <value>buttonForgotKey</value>
   </data>
-  <data name="&gt;&gt;buttonReset.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonForgotKey.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonReset.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonForgotKey.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;buttonReset.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonForgotKey.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

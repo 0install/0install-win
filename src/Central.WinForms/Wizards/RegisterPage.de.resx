@@ -130,11 +130,8 @@
   <data name="linkRegister.Text" xml:space="preserve">
     <value>Registieren</value>
   </data>
-  <data name="buttonContinue.Location" type="System.Drawing.Point, System.Drawing">
-    <value>39, 230</value>
-  </data>
-  <data name="buttonContinue.Text" xml:space="preserve">
-    <value>&amp;Fortsetzen</value>
+  <data name="buttonNext.Text" xml:space="preserve">
+    <value>&amp;Weiter &gt;</value>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
     <value>Nachdem Sie einen Account angelegt, Ihre E-Mail Adresse verifiziert und Ihre Logindaten vermerkt haben haben, klicken Sie auf "Fortsetzen".</value>

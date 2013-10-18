@@ -118,36 +118,36 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonDone.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="buttonFinish.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonDone.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonFinish.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonDone.Location" type="System.Drawing.Point, System.Drawing">
-    <value>39, 206</value>
+  <data name="buttonFinish.Location" type="System.Drawing.Point, System.Drawing">
+    <value>315, 238</value>
   </data>
-  <data name="buttonDone.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 35</value>
+  <data name="buttonFinish.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 35</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonDone.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="buttonFinish.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
-  <data name="buttonDone.Text" xml:space="preserve">
-    <value>&amp;Done</value>
+  <data name="buttonFinish.Text" xml:space="preserve">
+    <value>&amp;Finish</value>
   </data>
-  <data name="&gt;&gt;buttonDone.Name" xml:space="preserve">
-    <value>buttonDone</value>
+  <data name="&gt;&gt;buttonFinish.Name" xml:space="preserve">
+    <value>buttonFinish</value>
   </data>
-  <data name="&gt;&gt;buttonDone.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonFinish.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonDone.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonFinish.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;buttonDone.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonFinish.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="labelInfo.Font" type="System.Drawing.Font, System.Drawing">
@@ -199,7 +199,7 @@
     <value>0</value>
   </data>
   <data name="labelTitle.Text" xml:space="preserve">
-    <value>Finished</value>
+    <value>Reset complete</value>
   </data>
   <data name="labelTitle.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -229,7 +229,7 @@
     <value>400, 60</value>
   </data>
   <data name="labelInfo2.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
     <value>You may now wish to reset the local data on other computers you are using Zero Install Sync on.</value>

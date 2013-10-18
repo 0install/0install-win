@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SetupFinishedPage));
-            this.buttonDone = new System.Windows.Forms.Button();
+            this.buttonFinish = new System.Windows.Forms.Button();
             this.labelInfo = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // buttonDone
+            // buttonFinish
             // 
-            resources.ApplyResources(this.buttonDone, "buttonDone");
-            this.buttonDone.Name = "buttonDone";
-            this.buttonDone.UseVisualStyleBackColor = true;
-            this.buttonDone.Click += new System.EventHandler(this.buttonDone_Click);
+            resources.ApplyResources(this.buttonFinish, "buttonFinish");
+            this.buttonFinish.Name = "buttonFinish";
+            this.buttonFinish.UseVisualStyleBackColor = true;
+            this.buttonFinish.Click += new System.EventHandler(this.buttonFinish_Click);
             // 
             // labelInfo
             // 
@@ -55,7 +55,7 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonDone);
+            this.Controls.Add(this.buttonFinish);
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.labelTitle);
             this.Name = "SetupFinishedPage";
@@ -65,7 +65,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonDone;
+        private System.Windows.Forms.Button buttonFinish;
         private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.Label labelTitle;
     }

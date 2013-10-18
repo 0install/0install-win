@@ -29,7 +29,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
     {
         public string OldKey;
 
-        public event Action<string> Continue;
+        public event Action<string> NewKeySet;
 
         public ChangeCryptoKeyPage(bool machineWide) : base(machineWide)
         {
@@ -40,12 +40,12 @@ namespace ZeroInstall.Central.WinForms.Wizards
 
         private void textBoxCryptoKey_TextChanged(object sender, EventArgs e)
         {
-            buttonChange.Enabled = !string.IsNullOrEmpty(textBoxCryptoKey.Text);
+            buttonApply.Enabled = !string.IsNullOrEmpty(textBoxCryptoKey.Text);
         }
 
-        private void buttonChange_Click(object sender, EventArgs e)
+        private void buttonApply_Click(object sender, EventArgs e)
         {
-            Parent.Parent.Enabled = buttonChange.Visible = textBoxCryptoKey.Enabled = false;
+            Parent.Parent.Enabled = buttonApply.Visible = textBoxCryptoKey.Enabled = false;
             ShowProgressUI();
 
             resetWorker.RunWorkerAsync(textBoxCryptoKey.Text);
@@ -64,9 +64,9 @@ namespace ZeroInstall.Central.WinForms.Wizards
         private void resetWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             CloseProgressUI();
-            Parent.Parent.Enabled = buttonChange.Visible = textBoxCryptoKey.Enabled = true;
+            Parent.Parent.Enabled = buttonApply.Visible = textBoxCryptoKey.Enabled = true;
 
-            if (e.Error == null) Continue(textBoxCryptoKey.Text);
+            if (e.Error == null) NewKeySet(textBoxCryptoKey.Text);
             else if (!(e.Error is OperationCanceledException)) Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
         }
     }

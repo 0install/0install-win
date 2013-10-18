@@ -117,13 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="buttonApply.Text" xml:space="preserve">
+    <value>&amp;Anwenden</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonChange.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 35</value>
-  </data>
-  <data name="buttonChange.Text" xml:space="preserve">
-    <value>Schlüssel &amp;ändern</value>
-  </data>
   <data name="textBoxCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
     <value>220, 64</value>
   </data>

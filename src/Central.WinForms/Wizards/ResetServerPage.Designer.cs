@@ -59,14 +59,11 @@
             // 
             // ResetServerPage
             // 
-            resources.ApplyResources(this, "$this");
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.labelTitle);
             this.Name = "ResetServerPage";
-            this.Controls.SetChildIndex(this.labelTitle, 0);
-            this.Controls.SetChildIndex(this.labelInfo, 0);
-            this.Controls.SetChildIndex(this.buttonReset, 0);
+            resources.ApplyResources(this, "$this");
             this.ResumeLayout(false);
 
         }

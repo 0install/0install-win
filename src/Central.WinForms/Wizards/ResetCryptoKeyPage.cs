@@ -29,7 +29,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
     {
         public SyncServer Server;
 
-        public event Action<string> Continue;
+        public event Action<string> NewKeySet;
 
         public ResetCryptoKeyPage(bool machineWide) : base(machineWide)
         {
@@ -64,7 +64,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
             CloseProgressUI();
             Parent.Parent.Enabled = buttonReset.Visible = true;
 
-            if (e.Error == null) Continue(textBoxCryptoKey.Text);
+            if (e.Error == null) NewKeySet(textBoxCryptoKey.Text);
             else if (!(e.Error is OperationCanceledException)) Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
         }
     }

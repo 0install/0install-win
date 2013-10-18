@@ -35,7 +35,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
     {
         public SyncServer Server;
 
-        public event Action<string> Continue;
+        public event Action<string> OldKeySet;
         public event Action ResetKey;
 
         public ExistingCryptoKeyPage()
@@ -63,16 +63,16 @@ namespace ZeroInstall.Central.WinForms.Wizards
 
         private void textBoxCryptoKey_TextChanged(object sender, EventArgs e)
         {
-            buttonContinue.Enabled = !string.IsNullOrEmpty(textBoxCryptoKey.Text);
+            buttonNext.Enabled = !string.IsNullOrEmpty(textBoxCryptoKey.Text);
         }
 
-        private void buttonContinue_Click(object sender, EventArgs e)
+        private void buttonNext_Click(object sender, EventArgs e)
         {
             Parent.Parent.Enabled = false;
             keyCheckWorker.RunWorkerAsync(textBoxCryptoKey.Text);
         }
 
-        private void buttonReset_Click(object sender, EventArgs e)
+        private void buttonForgotKey_Click(object sender, EventArgs e)
         {
             ResetKey();
         }
@@ -85,7 +85,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
         private void keyCheckWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             Parent.Parent.Enabled = true;
-            if (e.Error == null) Continue(textBoxCryptoKey.Text);
+            if (e.Error == null) OldKeySet(textBoxCryptoKey.Text);
             else Msg.Inform(this, e.Error.Message, MsgSeverity.Warn);
         }
 

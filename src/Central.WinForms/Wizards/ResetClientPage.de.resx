@@ -124,6 +124,6 @@
     <value>Lokale Daten zurücksetzen</value>
   </data>
   <data name="buttonReset.Text" xml:space="preserve">
-    <value>Daten &amp;zurücksetzen</value>
+    <value>&amp;Zurücksetzen</value>
   </data>
 </root>

@@ -32,7 +32,7 @@
             this.labelInfo = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
             this.linkRegister = new System.Windows.Forms.LinkLabel();
-            this.buttonContinue = new System.Windows.Forms.Button();
+            this.buttonNext = new System.Windows.Forms.Button();
             this.labelInfo2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -53,12 +53,12 @@
             this.linkRegister.TabStop = true;
             this.linkRegister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkRegister_LinkClicked);
             // 
-            // buttonContinue
+            // buttonNext
             // 
-            resources.ApplyResources(this.buttonContinue, "buttonContinue");
-            this.buttonContinue.Name = "buttonContinue";
-            this.buttonContinue.UseVisualStyleBackColor = true;
-            this.buttonContinue.Click += new System.EventHandler(this.buttonContinue_Click);
+            resources.ApplyResources(this.buttonNext, "buttonNext");
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // labelInfo2
             // 
@@ -69,7 +69,7 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonContinue);
+            this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.labelInfo2);
             this.Controls.Add(this.linkRegister);
             this.Controls.Add(this.labelInfo);
@@ -85,7 +85,7 @@
         private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.LinkLabel linkRegister;
-        private System.Windows.Forms.Button buttonContinue;
+        private System.Windows.Forms.Button buttonNext;
         private System.Windows.Forms.Label labelInfo2;
     }
 }

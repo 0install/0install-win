@@ -41,7 +41,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
             this.labelPassword = new System.Windows.Forms.Label();
             this.textBoxUsername = new System.Windows.Forms.TextBox();
             this.labelUsername = new System.Windows.Forms.Label();
-            this.buttonContinue = new System.Windows.Forms.Button();
+            this.buttonNext = new System.Windows.Forms.Button();
             this.credentialsCheckWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
@@ -78,12 +78,12 @@ namespace ZeroInstall.Central.WinForms.Wizards
             resources.ApplyResources(this.labelUsername, "labelUsername");
             this.labelUsername.Name = "labelUsername";
             // 
-            // buttonContinue
+            // buttonNext
             // 
-            resources.ApplyResources(this.buttonContinue, "buttonContinue");
-            this.buttonContinue.Name = "buttonContinue";
-            this.buttonContinue.UseVisualStyleBackColor = true;
-            this.buttonContinue.Click += new System.EventHandler(this.buttonContinue_Click);
+            resources.ApplyResources(this.buttonNext, "buttonNext");
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // credentialsCheckWorker
             // 
@@ -94,7 +94,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonContinue);
+            this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.labelPassword);
             this.Controls.Add(this.textBoxUsername);
@@ -115,7 +115,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
         private Label labelPassword;
         private TextBox textBoxUsername;
         private Label labelUsername;
-        private Button buttonContinue;
+        private Button buttonNext;
         private BackgroundWorker credentialsCheckWorker;
     }
 }
