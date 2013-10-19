@@ -152,6 +152,15 @@ namespace ZeroInstall.Model
             // Separate parts with colons
             return "|".Join(_parts.Select(part => part.ToString()));
         }
+
+        /// <summary>
+        /// Convenience cast for turning <see cref="ImplementationVersion"/>s into lower bounds for <see cref="VersionRange"/>s.
+        /// </summary>
+        public static explicit operator VersionRange(ImplementationVersion version)
+        {
+            if (version == null) return null;
+            return new VersionRange(new VersionRangeRange(version, null));
+        }
         #endregion
 
         #region Equality

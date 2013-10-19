@@ -45,11 +45,11 @@ namespace ZeroInstall.Publish.EntryPoints
         protected abstract string InterpreterInterface { get; }
 
         /// <summary>
-        /// The minimum version of the script interpreter required by the application.
+        /// The range of versions of the script interpreter supported by the application.
         /// </summary>
-        [Category("Details (Script)"), DisplayName("Interpreter version"), Description("The minimum version of the script interpreter required by the application.")]
+        [Category("Details (Script)"), DisplayName("Interpreter versions"), Description("The range of versions of the script interpreter supported by the application.")]
         [DefaultValue("")]
-        public ImplementationVersion RuntimeVersion { get; set; }
+        public VersionRange InterpreterVersions { get; set; }
 
         /// <inheritdoc/>
         public override Command Command
@@ -60,7 +60,7 @@ namespace ZeroInstall.Publish.EntryPoints
                 {
                     Name = Command.NameRun,
                     Path = RelativePath,
-                    Runner = new Runner {Interface = InterpreterInterface, Constraints = {new Constraint {NotBefore = RuntimeVersion}}}
+                    Runner = new Runner {Interface = InterpreterInterface, Versions = InterpreterVersions}
                 };
             }
         }
@@ -91,7 +91,7 @@ namespace ZeroInstall.Publish.EntryPoints
         protected bool Equals(InterpretedScript other)
         {
             return base.Equals(other) &&
-                   Equals(RuntimeVersion, other.RuntimeVersion);
+                   Equals(InterpreterVersions, other.InterpreterVersions);
         }
 
         public override bool Equals(object obj)
@@ -106,7 +106,7 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             unchecked
             {
-                return (base.GetHashCode() * 397) ^ (RuntimeVersion != null ? RuntimeVersion.GetHashCode() : 0);
+                return (base.GetHashCode() * 397) ^ (InterpreterVersions != null ? InterpreterVersions.GetHashCode() : 0);
             }
         }
         #endregion

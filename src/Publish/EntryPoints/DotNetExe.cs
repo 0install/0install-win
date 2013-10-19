@@ -46,10 +46,10 @@ namespace ZeroInstall.Publish.EntryPoints
         /// <summary>
         /// The minimum version of the .NET Runtime required by the application.
         /// </summary>
-        [Category("Details (.NET)"), DisplayName(".NET version"), Description("The minimum version of the .NET Runtime required by the application.")]
+        [Category("Details (.NET)"), DisplayName("Minimum .NET version"), Description("The minimum version of the .NET Runtime required by the application.")]
         [DefaultValue("")]
         [TypeConverter(typeof(DotNetVersionConverter))]
-        public ImplementationVersion RuntimeVersion { get; set; }
+        public ImplementationVersion MinimumRuntimeVersion { get; set; }
 
         /// <summary>
         /// The types of .NET runtimes supported by the application.
@@ -74,7 +74,7 @@ namespace ZeroInstall.Publish.EntryPoints
                 {
                     Name = Command.NameRun,
                     Path = RelativePath,
-                    Runner = new Runner {Interface = GetInterfaceID(), Constraints = {new Constraint {NotBefore = RuntimeVersion}}}
+                    Runner = new Runner {Interface = GetInterfaceID(), Versions = (VersionRange)MinimumRuntimeVersion}
                 };
             }
         }
@@ -117,7 +117,7 @@ namespace ZeroInstall.Publish.EntryPoints
         private bool Equals(DotNetExe other)
         {
             return base.Equals(other) &&
-                   RuntimeVersion == other.RuntimeVersion &&
+                   MinimumRuntimeVersion == other.MinimumRuntimeVersion &&
                    RuntimeType == other.RuntimeType &&
                    ExternalDependencies == other.ExternalDependencies;
         }
@@ -134,7 +134,7 @@ namespace ZeroInstall.Publish.EntryPoints
             unchecked
             {
                 int hashCode = base.GetHashCode();
-                hashCode = (hashCode * 397) ^ (RuntimeVersion != null ? RuntimeVersion.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (MinimumRuntimeVersion != null ? MinimumRuntimeVersion.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (int)RuntimeType;
                 hashCode = (hashCode * 397) ^ ExternalDependencies.GetHashCode();
                 return hashCode;
