@@ -50,7 +50,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
             var resetClientFinishedPage = new ResetClientFinishedPage();
             #endregion
 
-            #region Page flows
+            #region Flows
             welcomePage.ChangeCryptoKey += () => PushPage(existingCryptoKeyPage);
             welcomePage.ResetServer += () => PushPage(resetServerPage);
             welcomePage.ResetClient += () => PushPage(resetClientPage);

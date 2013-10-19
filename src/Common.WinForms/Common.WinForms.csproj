@@ -119,6 +119,7 @@
     <Compile Include="Controls\InspectionForm.Designer.cs">
       <DependentUpon>InspectionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\IWizardPage.cs" />
     <Compile Include="Controls\LiveEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -53,7 +53,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
             var finishedPage = new SetupFinishedPage();
             #endregion
 
-            #region Page flows
+            #region Flows
             welcomePage.UsedBeforeSelected += delegate(bool value)
             {
                 usedBefore = value;

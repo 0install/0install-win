@@ -63,7 +63,7 @@ namespace Common.Controls
             PageStack.Push(page);
 
             buttonBack.Visible = (PageStack.Count > 1);
-            page.Focus();
+            ShowPage(page);
         }
 
         /// <summary>
@@ -75,7 +75,15 @@ namespace Common.Controls
             panelPage.Controls.Add(PageStack.Peek());
 
             buttonBack.Visible = (PageStack.Count > 1);
-            PageStack.Peek().Focus();
+            ShowPage(PageStack.Peek());
+        }
+
+        private static void ShowPage(Control page)
+        {
+            page.Focus();
+
+            var wizardPage = page as IWizardPage;
+            if (wizardPage != null) wizardPage.OnPageShow();
         }
 
         private void buttonBack_Click(object sender, EventArgs e)
