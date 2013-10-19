@@ -48,21 +48,32 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Starts with a <see cref="ZeroInstall.Model.Feed"/> loaded from a file.
         /// </summary>
-        /// <param name="signedFeed">The feed to be editted.</param>
+        /// <param name="signedFeed">The feed to be edited.</param>
         /// <param name="path">The path of the file the <paramref name="signedFeed"/> was loaded from.</param>
         public FeedEditing(SignedFeed signedFeed, string path)
         {
+            #region Sanity checks
+            if (signedFeed == null) throw new ArgumentNullException("signedFeed");
+            #endregion
+
             Path = path;
             SignedFeed = signedFeed;
         }
 
         /// <summary>
+        /// Starts with a <see cref="ZeroInstall.Model.Feed"/> that has not been saved on disk yet.
+        /// </summary>
+        /// <param name="signedFeed">The feed to be edited.</param>
+        public FeedEditing(SignedFeed signedFeed) : this(signedFeed, null)
+        {
+            Changed = true; // Makes sure remind the user to save before closing
+        }
+
+        /// <summary>
         /// Starts with an empty <see cref="ZeroInstall.Model.Feed"/>.
         /// </summary>
-        public FeedEditing()
-        {
-            SignedFeed = new SignedFeed(new Feed());
-        }
+        public FeedEditing() : this(new SignedFeed(new Feed()), null)
+        {}        
         #endregion
 
         #region Storage

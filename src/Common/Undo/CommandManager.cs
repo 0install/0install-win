@@ -54,7 +54,7 @@ namespace Common.Undo
         /// <summary>
         /// Indicates whether the <see cref="Target"/> has unsaved changes.
         /// </summary>
-        public bool Changed { get; private set; }
+        public bool Changed { get; protected set; }
 
         private bool _undoEnabled;
 
