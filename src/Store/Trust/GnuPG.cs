@@ -131,7 +131,7 @@ namespace ZeroInstall.Store.Trust
         /// <inheritdoc/>
         public Process GenerateKey()
         {
-            var startInfo = new ProcessStartInfo(AppBinary, "--gen-key");
+            var startInfo = new ProcessStartInfo(AppBinary, "--gen-key") {UseShellExecute = true, ErrorDialog = true};
             HandlePortable(startInfo);
             return Process.Start(startInfo);
         }

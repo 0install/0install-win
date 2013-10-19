@@ -297,7 +297,16 @@ namespace ZeroInstall.Publish.WinForms
             ProcessUtils.RunBackground(() =>
             {
                 process.WaitForExit();
-                Invoke(new Action(ListKeys));
+                try
+                {
+                    Invoke(new Action(ListKeys));
+                }
+                    #region Sanity checks
+                catch (InvalidOperationException)
+                {
+                    // Ignore if window has been dispoed
+                }
+                #endregion
             }, name: "WaitForOpenPgp");
         }
 
