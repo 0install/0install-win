@@ -129,6 +129,9 @@
   <data name="AskSkipIcon" xml:space="preserve">
     <value>Wenn Sie die Icons nicht hochladen wird Zero Install nur ein generisches Platzhalter-Symbol im Katalog wie auch bei Desktopintergations-Verknüpfungen verwenden können. Sind Sie sicher, dass Sie dies überspringen möchten?</value>
   </data>
+  <data name="AskSkipSecurity" xml:space="preserve">
+    <value>Ohne diese Einstellung wird Ihr Feed nur lokal und nicht online funktionieren. Sind Sie sicher, dass Sie dies überspringen möchten?</value>
+  </data>
   <data name="DigestKeep" xml:space="preserve">
     <value>Behalten
 Die Implementierung sollte gleich bleiben</value>

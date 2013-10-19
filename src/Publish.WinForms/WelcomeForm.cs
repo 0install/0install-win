@@ -47,7 +47,7 @@ namespace ZeroInstall.Publish.WinForms
 
         private void buttonNewWizard_Click(object sender, EventArgs e)
         {
-            using (var wizard = new Wizards.NewFeedWizard())
+            using (var wizard = new Wizards.NewFeedWizard(_openPgp))
             {
                 wizard.ShowDialog(this);
                 if (wizard.FeedEditing != null) SwitchToMain(wizard.FeedEditing);

@@ -97,6 +97,15 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Without these settings your feed will only work locally and not online. Are you sure you want to skip this?.
+        /// </summary>
+        public static string AskSkipSecurity {
+            get {
+                return ResourceManager.GetString("AskSkipSecurity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keep
         ///The implementation was supposed to stay the same.
         /// </summary>

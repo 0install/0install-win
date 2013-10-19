@@ -110,7 +110,7 @@ namespace ZeroInstall.Publish.WinForms
             {
                 AskForChangeSave();
 
-                using (var wizard = new Wizards.NewFeedWizard())
+                using (var wizard = new Wizards.NewFeedWizard(_openPgp))
                 {
                     wizard.ShowDialog(this);
                     if (wizard.FeedEditing != null) FeedEditing = wizard.FeedEditing;

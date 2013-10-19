@@ -23,6 +23,7 @@ using Common.Controls;
 using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.EntryPoints;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
@@ -51,7 +52,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private readonly DetailsPage _detailsPage = new DetailsPage();
 
         private readonly WindowsIconPage _windowsIconPage = new WindowsIconPage();
-        private readonly SecurityPage _securityPage = new SecurityPage();
+        private readonly SecurityPage _securityPage;
         private readonly DonePage _donePage = new DonePage();
         #endregion
 
@@ -63,9 +64,11 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private Candidate _candidate;
         #endregion
 
-        public NewFeedWizard()
+        public NewFeedWizard(IOpenPgp openPgp)
         {
             InitializeComponent();
+
+            _securityPage = new SecurityPage(openPgp);
 
             #region Page flows
             _sourcePage.Archive += () => PushPage(_archivePage);

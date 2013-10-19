@@ -31,6 +31,11 @@
             this.labelTitle = new System.Windows.Forms.Label();
             this.buttonSkip = new System.Windows.Forms.Button();
             this.buttonNext = new System.Windows.Forms.Button();
+            this.textBoxUri = new Common.Controls.UriTextBox();
+            this.labelUri = new System.Windows.Forms.Label();
+            this.labelSignature = new System.Windows.Forms.Label();
+            this.comboBoxKeys = new System.Windows.Forms.ComboBox();
+            this.buttonNewKey = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelTitle
@@ -51,26 +56,83 @@
             this.buttonSkip.Location = new System.Drawing.Point(189, 238);
             this.buttonSkip.Name = "buttonSkip";
             this.buttonSkip.Size = new System.Drawing.Size(120, 35);
-            this.buttonSkip.TabIndex = 2;
+            this.buttonSkip.TabIndex = 6;
             this.buttonSkip.Text = "&Skip";
             this.buttonSkip.UseVisualStyleBackColor = true;
             this.buttonSkip.Click += new System.EventHandler(this.buttonSkip_Click);
             // 
             // buttonNext
             // 
-            this.buttonNext.Enabled = false;
             this.buttonNext.Location = new System.Drawing.Point(315, 238);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(120, 35);
-            this.buttonNext.TabIndex = 3;
+            this.buttonNext.TabIndex = 7;
             this.buttonNext.Text = "&Next >";
             this.buttonNext.UseVisualStyleBackColor = true;
             this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
+            // 
+            // textBoxUri
+            // 
+            this.textBoxUri.AllowDrop = true;
+            this.textBoxUri.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxUri.HintText = "HTTP URI";
+            this.textBoxUri.HttpOnly = true;
+            this.textBoxUri.Location = new System.Drawing.Point(39, 201);
+            this.textBoxUri.Name = "textBoxUri";
+            this.textBoxUri.Size = new System.Drawing.Size(396, 26);
+            this.textBoxUri.TabIndex = 5;
+            this.textBoxUri.TextChanged += new System.EventHandler(this.InputChanged);
+            // 
+            // labelUri
+            // 
+            this.labelUri.Location = new System.Drawing.Point(35, 153);
+            this.labelUri.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelUri.Name = "labelUri";
+            this.labelUri.Size = new System.Drawing.Size(400, 45);
+            this.labelUri.TabIndex = 4;
+            this.labelUri.Text = "Where will you upload the feed? This address will be stored within the feed itsel" +
+    "f!";
+            // 
+            // labelSignature
+            // 
+            this.labelSignature.Location = new System.Drawing.Point(35, 65);
+            this.labelSignature.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelSignature.Name = "labelSignature";
+            this.labelSignature.Size = new System.Drawing.Size(400, 45);
+            this.labelSignature.TabIndex = 1;
+            this.labelSignature.Text = "Zero Install protects feeds with GnuPG signatures. Please select a private key to" +
+    " sign your feed:";
+            // 
+            // comboBoxKeys
+            // 
+            this.comboBoxKeys.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxKeys.FormattingEnabled = true;
+            this.comboBoxKeys.Location = new System.Drawing.Point(39, 113);
+            this.comboBoxKeys.Name = "comboBoxKeys";
+            this.comboBoxKeys.Size = new System.Drawing.Size(270, 28);
+            this.comboBoxKeys.TabIndex = 2;
+            this.comboBoxKeys.SelectedIndexChanged += new System.EventHandler(this.InputChanged);
+            // 
+            // buttonNewKey
+            // 
+            this.buttonNewKey.Location = new System.Drawing.Point(315, 113);
+            this.buttonNewKey.Name = "buttonNewKey";
+            this.buttonNewKey.Size = new System.Drawing.Size(120, 28);
+            this.buttonNewKey.TabIndex = 3;
+            this.buttonNewKey.Text = "&New key";
+            this.buttonNewKey.UseVisualStyleBackColor = true;
+            this.buttonNewKey.Click += new System.EventHandler(this.buttonNewKey_Click);
             // 
             // SecurityPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonNewKey);
+            this.Controls.Add(this.comboBoxKeys);
+            this.Controls.Add(this.labelSignature);
+            this.Controls.Add(this.labelUri);
+            this.Controls.Add(this.textBoxUri);
             this.Controls.Add(this.buttonSkip);
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.labelTitle);
@@ -79,6 +141,7 @@
             this.Name = "SecurityPage";
             this.Size = new System.Drawing.Size(470, 300);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -87,5 +150,10 @@
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Button buttonSkip;
         private System.Windows.Forms.Button buttonNext;
+        private Common.Controls.UriTextBox textBoxUri;
+        private System.Windows.Forms.Label labelUri;
+        private System.Windows.Forms.Label labelSignature;
+        private System.Windows.Forms.ComboBox comboBoxKeys;
+        private System.Windows.Forms.Button buttonNewKey;
     }
 }

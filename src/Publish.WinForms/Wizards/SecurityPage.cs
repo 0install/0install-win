@@ -18,6 +18,7 @@
 using System;
 using System.Windows.Forms;
 using Common;
+using Common.Utils;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Trust;
 
@@ -25,22 +26,55 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 {
     internal partial class SecurityPage : UserControl
     {
-        public event Action<Uri, OpenPgpSecretKey> SecurityDataSet; 
+        public event Action<OpenPgpSecretKey, Uri> SecurityDataSet;
 
-        public SecurityPage()
+        private readonly IOpenPgp _openPgp;
+
+        public SecurityPage(IOpenPgp openPgp)
         {
             InitializeComponent();
+
+            _openPgp = openPgp;
+            ListKeys();
+        }
+
+        private void ListKeys()
+        {
+            comboBoxKeys.Items.Clear();
+            // ReSharper disable once CoVariantArrayConversion
+            comboBoxKeys.Items.AddRange(_openPgp.ListSecretKeys());
+
+            InputChanged(null, null);
+        }
+
+        private void InputChanged(object sender, EventArgs e)
+        {
+            buttonNext.Enabled =
+                (comboBoxKeys.SelectedItem is OpenPgpSecretKey &&
+                 !string.IsNullOrEmpty(textBoxUri.Text) && textBoxUri.IsValid);
+        }
+
+        private void buttonNewKey_Click(object sender, EventArgs e)
+        {
+            var process = _openPgp.GenerateKey();
+
+            // Update key list when done
+            ProcessUtils.RunBackground(() =>
+            {
+                process.WaitForExit();
+                Invoke(new Action(ListKeys));
+            }, name: "WaitForOpenPgp");
         }
 
         private void buttonSkip_Click(object sender, EventArgs e)
         {
-            //if (!Msg.YesNo(this, Resources.AskSkipSecurity, MsgSeverity.Info)) return;
-            //SecurityDataSet(null, null);
+            if (Msg.YesNo(this, Resources.AskSkipSecurity, MsgSeverity.Info))
+                SecurityDataSet(null, null);
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            //SecurityDataSet(new Uri(), new OpenPgpSecretKey());
+            SecurityDataSet(comboBoxKeys.SelectedItem as OpenPgpSecretKey, textBoxUri.Uri);
         }
     }
 }

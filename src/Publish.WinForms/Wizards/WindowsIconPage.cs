@@ -82,8 +82,8 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private void buttonSkip_Click(object sender, EventArgs e)
         {
-            if (!Msg.YesNo(this, Resources.AskSkipIcon, MsgSeverity.Info)) return;
-            IconsSelected(new Model.Icon[0]);
+            if (Msg.YesNo(this, Resources.AskSkipIcon, MsgSeverity.Info))
+                IconsSelected(new Model.Icon[0]);
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
