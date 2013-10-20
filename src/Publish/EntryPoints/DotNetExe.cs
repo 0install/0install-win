@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.ComponentModel;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.EntryPoints.Design;
@@ -36,6 +37,10 @@ namespace ZeroInstall.Publish.EntryPoints
     {
         protected override bool Parse(PEHeader peHeader)
         {
+            #region Sanity checks
+            if (peHeader == null) throw new ArgumentNullException("peHeader");
+            #endregion
+
             Architecture = new Architecture(OS.All, GetCpu(peHeader.FileHeader.Machine));
             if (peHeader.Subsystem >= Subsystem.WindowsCui) NeedsTerminal = true;
             return peHeader.Is32BitHeader

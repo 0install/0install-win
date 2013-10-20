@@ -90,6 +90,7 @@ namespace ZeroInstall.Publish.EntryPoints
         #region Equality
         protected bool Equals(InterpretedScript other)
         {
+            if (other == null) return false;
             return base.Equals(other) &&
                    Equals(InterpreterVersions, other.InterpreterVersions);
         }

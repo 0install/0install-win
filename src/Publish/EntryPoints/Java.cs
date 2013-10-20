@@ -44,6 +44,7 @@ namespace ZeroInstall.Publish.EntryPoints
         #region Equality
         protected bool Equals(Java other)
         {
+            if (other == null) return false;
             return base.Equals(other) &&
                    Equals(MinimumRuntimeVersion, other.MinimumRuntimeVersion) &&
                    ExternalDependencies == other.ExternalDependencies;

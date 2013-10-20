@@ -68,6 +68,10 @@ namespace ZeroInstall.Publish.EntryPoints
 
         protected virtual bool Parse(PEHeader peHeader)
         {
+            #region Sanity checks
+            if (peHeader == null) throw new ArgumentNullException("peHeader");
+            #endregion
+
             Architecture = new Architecture(OS.Windows, GetCpu(peHeader.FileHeader.Machine));
             if (peHeader.Subsystem >= Subsystem.WindowsCui) NeedsTerminal = true;
             return peHeader.Is32BitHeader

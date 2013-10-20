@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -66,6 +67,7 @@ namespace ZeroInstall.Publish.EntryPoints
         public UInt32 Size;
     }
 
+    [SuppressMessage("Microsoft.Design", "CA1028:EnumStorageShouldBeInt32")]
     public enum MachineType : ushort
     {
         Native = 0,
@@ -74,6 +76,7 @@ namespace ZeroInstall.Publish.EntryPoints
         X64 = 0x8664
     }
 
+    [SuppressMessage("Microsoft.Design", "CA1028:EnumStorageShouldBeInt32"), SuppressMessage("Microsoft.Design", "CA1008:EnumsShouldHaveZeroValue")]
     public enum Subsystem : ushort
     {
         Native = 1,
@@ -114,6 +117,7 @@ namespace ZeroInstall.Publish.EntryPoints
         public UInt32 SizeOfStackCommit;
         public UInt32 SizeOfHeapReserve;
         public UInt32 SizeOfHeapCommit;
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags")]
         public UInt32 LoaderFlags;
         public UInt32 NumberOfRvaAndSizes;
 
@@ -165,6 +169,7 @@ namespace ZeroInstall.Publish.EntryPoints
         public UInt64 SizeOfStackCommit;
         public UInt64 SizeOfHeapReserve;
         public UInt64 SizeOfHeapCommit;
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags")]
         public UInt32 LoaderFlags;
         public UInt32 NumberOfRvaAndSizes;
 
