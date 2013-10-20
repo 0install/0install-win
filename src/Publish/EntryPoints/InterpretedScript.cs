@@ -81,6 +81,7 @@ namespace ZeroInstall.Publish.EntryPoints
             if (!IsExecutable(file.FullName)) return false;
 
             string firstLine = file.ReadFirstLine(Encoding.ASCII);
+            if (string.IsNullOrEmpty(firstLine)) return false;
             return
                 firstLine.StartsWith("#!/usr/bin/" + interpreter) ||
                 firstLine.StartsWith("#!/usr/bin/env " + interpreter);

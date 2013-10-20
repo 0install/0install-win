@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.IO;
 using System.Linq;
 using NUnit.Framework;
 
@@ -46,6 +47,13 @@ namespace ZeroInstall.Publish.EntryPoints
                     PosixBinaryTest.Reference32
                 },
                 candidates);
+        }
+
+        [Test(Description = "Should not fail on empty files")]
+        public void TestEmpty()
+        {
+            File.WriteAllText(Path.Combine(Directory.FullName, "empty"), "");
+            CollectionAssert.IsEmpty(Detection.ListCandidates(Directory).ToList());
         }
     }
 }

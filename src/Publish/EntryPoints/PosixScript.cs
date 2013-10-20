@@ -36,7 +36,9 @@ namespace ZeroInstall.Publish.EntryPoints
             #endregion
 
             if (!base.Analyze(file)) return false;
-            if (!file.ReadFirstLine(Encoding.ASCII).StartsWith("#!")) return false;
+
+            string firstLine = file.ReadFirstLine(Encoding.ASCII);
+            if (string.IsNullOrEmpty(firstLine) || !firstLine.StartsWith("#!")) return false;
 
             Architecture = new Architecture(OS.Posix, Cpu.All);
             Name = file.Name;
