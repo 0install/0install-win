@@ -38,6 +38,13 @@ namespace ZeroInstall.Model
     [XmlType("manifest-digest", Namespace = Feed.XmlNamespace)]
     public struct ManifestDigest : IEquatable<ManifestDigest>, IComparable<ManifestDigest>
     {
+        #region Constants
+        /// <summary>
+        /// The manifest digest of an empty directory.
+        /// </summary>
+        public static readonly ManifestDigest Empty = new ManifestDigest(sha1New: "da39a3ee5e6b4b0d3255bfef95601890afd80709", sha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", sha256New: "4OYMIQUY7QOBJGX36TEJS35ZEQT24QPEMSNZGTFESWMRW6CSXBKQ");
+        #endregion
+
         #region Properties
         /// <summary>
         /// A SHA-1 hash of the old manifest format.

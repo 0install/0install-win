@@ -34,10 +34,6 @@ namespace ZeroInstall.Publish
     /// </summary>
     public static class ImplementationUtils
     {
-        #region Constants
-        private const string Sha1Empty = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
-        #endregion
-
         #region Build
         /// <summary>
         /// Creates a new <see cref="Implementation"/> by completing a <see cref="RetrievalMethod"/> and calculating the resulting <see cref="ManifestDigest"/>.
@@ -161,7 +157,7 @@ namespace ZeroInstall.Publish
                 {}
             }
 
-            if (digest.Sha1New == Sha1Empty) Log.Warn(string.Format(Resources.EmptyImplementation, path));
+            if (digest.Sha1New == ManifestDigest.Empty.Sha1New) Log.Warn(string.Format(Resources.EmptyImplementation, path));
             return digest;
         }
         #endregion
