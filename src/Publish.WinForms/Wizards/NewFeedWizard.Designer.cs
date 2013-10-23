@@ -16,7 +16,7 @@
             if (disposing)
             {
                 if (components != null) components.Dispose();
-                if (_tempDirectory != null) _tempDirectory.Dispose();
+                if (_feedBuilder != null) _feedBuilder.Dispose();
             }
             base.Dispose(disposing);
         }

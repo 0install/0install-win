@@ -97,6 +97,7 @@
     <Compile Include="Publish\EntryPoints\PosixScriptTest.cs" />
     <Compile Include="Publish\EntryPoints\PythonScriptTest.cs" />
     <Compile Include="Publish\EntryPoints\WindowsExeTest.cs" />
+    <Compile Include="Publish\FeedBuilderTest.cs" />
     <Compile Include="Publish\RetrievalMethodUtilsTest.cs" />
     <Compile Include="Publish\FeedUtilsTest.cs" />
     <Compile Include="Publish\ImplementationUtilsTest.cs" />

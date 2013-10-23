@@ -120,7 +120,6 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ManifestUtils.cs" />
     <Compile Include="MassSignForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +177,12 @@
     <Compile Include="Wizards\EntryPointPage.Designer.cs">
       <DependentUpon>EntryPointPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Wizards\IconPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\IconPage.Designer.cs">
+      <DependentUpon>IconPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Wizards\NewFeedWizard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -201,12 +206,6 @@
     </Compile>
     <Compile Include="Wizards\SourcePage.Designer.cs">
       <DependentUpon>SourcePage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wizards\WindowsIconPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Wizards\WindowsIconPage.Designer.cs">
-      <DependentUpon>WindowsIconPage.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -239,6 +238,9 @@
     <EmbeddedResource Include="Wizards\EntryPointPage.resx">
       <DependentUpon>EntryPointPage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\IconPage.resx">
+      <DependentUpon>IconPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Wizards\SecurityPage.resx">
       <DependentUpon>SecurityPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -248,9 +250,7 @@
     <EmbeddedResource Include="Wizards\SourcePage.resx">
       <DependentUpon>SourcePage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\WindowsIconPage.resx">
-      <DependentUpon>WindowsIconPage.cs</DependentUpon>
-    </EmbeddedResource>  </ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="CodeAnalysisDictionary.xml" />
     <Content Include="Icon.ico" />
@@ -283,7 +283,7 @@
       <Name>Store</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup/>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -50,7 +50,7 @@ namespace ZeroInstall.Publish.WinForms
             using (var wizard = new Wizards.NewFeedWizard(_openPgp))
             {
                 wizard.ShowDialog(this);
-                if (wizard.FeedEditing != null) SwitchToMain(wizard.FeedEditing);
+                if (wizard.SignedFeed != null) SwitchToMain(new FeedEditing(wizard.SignedFeed));
             }
         }
 

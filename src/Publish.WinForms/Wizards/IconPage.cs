@@ -16,7 +16,7 @@
  */
 
 using System;
-using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
@@ -26,24 +26,21 @@ using ZeroInstall.Publish.Properties;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
-    internal partial class WindowsIconPage : UserControl
+    internal partial class IconPage : UserControl
     {
-        private System.Drawing.Icon _icon;
+        public event Action Next;
 
-        /// <summary>
-        /// Raised with the selected <see cref="Model.Icon"/>s.
-        /// </summary>
-        public event Action<IEnumerable<Model.Icon>> IconsSelected;
+        private readonly FeedBuilder _feedBuilder;
 
-        public WindowsIconPage()
+        public IconPage(FeedBuilder feedBuilder)
         {
+            _feedBuilder = feedBuilder;
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Injects the selected icon.
-        /// </summary>
-        public void SetIcon(System.Drawing.Icon icon)
+        private Icon _icon;
+
+        public void SetIcon(Icon icon)
         {
             _icon = icon;
             pictureBoxIcon.Image = icon.ToBitmap();
@@ -82,17 +79,17 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private void buttonSkip_Click(object sender, EventArgs e)
         {
-            if (Msg.YesNo(this, Resources.AskSkipIcon, MsgSeverity.Info))
-                IconsSelected(new Model.Icon[0]);
+            if (!Msg.YesNo(this, Resources.AskSkipIcon, MsgSeverity.Info)) return;
+
+            _feedBuilder.Icons.Clear();
+            Next();
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            IconsSelected(new[]
-            {
-                new Model.Icon {Href = textBoxHrefIco.Uri, MimeType = Model.Icon.MimeTypeIco},
-                new Model.Icon {Href = textBoxHrefPng.Uri, MimeType = Model.Icon.MimeTypePng}
-            });
+            _feedBuilder.Icons.Clear();
+            _feedBuilder.Icons.Add(new Model.Icon {Href = textBoxHrefIco.Uri, MimeType = Model.Icon.MimeTypeIco});
+            _feedBuilder.Icons.Add(new Model.Icon {Href = textBoxHrefPng.Uri, MimeType = Model.Icon.MimeTypePng});
         }
     }
 }

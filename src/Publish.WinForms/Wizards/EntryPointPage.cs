@@ -26,28 +26,25 @@ using ZeroInstall.Publish.EntryPoints;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
-    internal partial class EntryPointPage : UserControl
+    internal partial class EntryPointPage : UserControl, IWizardPage
     {
-        /// <summary>
-        /// Raised with the selected <see cref="Candidate"/>.
-        /// </summary>
-        public event Action<Candidate> CandidateSelected;
+        public event Action Next;
 
-        public EntryPointPage()
+        private readonly FeedBuilder _feedBuilder;
+
+        public EntryPointPage(FeedBuilder feedBuilder)
         {
+            _feedBuilder = feedBuilder;
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Injects the selected working directory.
-        /// </summary>
-        public void SetWorkingDirectory(string workingDirectory)
+        public void OnPageShow()
         {
             try
             {
                 comboBoxEntryPoint.Items.Clear();
                 // ReSharper disable once CoVariantArrayConversion
-                comboBoxEntryPoint.Items.AddRange(GetCandidates(workingDirectory));
+                comboBoxEntryPoint.Items.AddRange(GetCandidates(_feedBuilder.ImplementationDirectory));
                 comboBoxEntryPoint.SelectedIndex = 0;
 
                 buttonNext.Enabled = true;
@@ -90,8 +87,8 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            var candidate = comboBoxEntryPoint.SelectedItem as Candidate;
-            if (candidate != null) CandidateSelected(candidate);
+            _feedBuilder.Candidate = comboBoxEntryPoint.SelectedItem as Candidate;
+            if (_feedBuilder.Candidate != null) Next();
         }
     }
 }

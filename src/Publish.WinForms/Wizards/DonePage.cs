@@ -15,15 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Windows.Forms;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
     internal partial class DonePage : UserControl
     {
+        public event Action Finish;
+
         public DonePage()
         {
             InitializeComponent();
+        }
+
+        private void buttonFinish_Click(object sender, EventArgs e)
+        {
+            Finish();
         }
     }
 }

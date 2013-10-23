@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DonePage));
             this.labelTitle = new System.Windows.Forms.Label();
             this.buttonFinish = new System.Windows.Forms.Button();
+            this.labelInfo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelTitle
@@ -47,18 +49,27 @@
             // 
             // buttonFinish
             // 
-            this.buttonFinish.Enabled = false;
             this.buttonFinish.Location = new System.Drawing.Point(315, 238);
             this.buttonFinish.Name = "buttonFinish";
             this.buttonFinish.Size = new System.Drawing.Size(120, 35);
-            this.buttonFinish.TabIndex = 1;
+            this.buttonFinish.TabIndex = 2;
             this.buttonFinish.Text = "&Finish";
             this.buttonFinish.UseVisualStyleBackColor = true;
+            this.buttonFinish.Click += new System.EventHandler(this.buttonFinish_Click);
+            // 
+            // labelInfo
+            // 
+            this.labelInfo.Location = new System.Drawing.Point(35, 82);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(400, 153);
+            this.labelInfo.TabIndex = 1;
+            this.labelInfo.Text = resources.GetString("labelInfo.Text");
             // 
             // DonePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.buttonFinish);
             this.Controls.Add(this.labelTitle);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
@@ -73,5 +84,6 @@
 
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Button buttonFinish;
+        private System.Windows.Forms.Label labelInfo;
     }
 }

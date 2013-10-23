@@ -113,7 +113,7 @@ namespace ZeroInstall.Publish.WinForms
                 using (var wizard = new Wizards.NewFeedWizard(_openPgp))
                 {
                     wizard.ShowDialog(this);
-                    if (wizard.FeedEditing != null) FeedEditing = wizard.FeedEditing;
+                    if (wizard.SignedFeed != null) FeedEditing = new FeedEditing(wizard.SignedFeed);
                 }
             }
             catch (OperationCanceledException)

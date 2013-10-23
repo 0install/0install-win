@@ -20,7 +20,6 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 using Common;
-using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.Model;
 
@@ -29,13 +28,13 @@ namespace ZeroInstall.Publish.WinForms.Wizards
     internal partial class DownloadRetrievalMethodLocalPage<T> : UserControl
         where T : DownloadRetrievalMethod, new()
     {
-        /// <summary>
-        /// Raised with the selected <see cref="DownloadRetrievalMethod"/> and an extracted image of it.
-        /// </summary>
-        public event Action<T, TemporaryDirectory> FileSelected;
+        public event Action Next;
 
-        public DownloadRetrievalMethodLocalPage(string retrievalMethodType)
+        private readonly FeedBuilder _feedBuilder;
+
+        public DownloadRetrievalMethodLocalPage(string retrievalMethodType, FeedBuilder feedBuilder)
         {
+            _feedBuilder = feedBuilder;
             InitializeComponent();
 
             labelTitle.Text = string.Format(labelTitle.Text, retrievalMethodType);
@@ -63,9 +62,12 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         {
             try
             {
-                var retrievalMethod = new T { Href = textBoxUrl.Uri };
+                var retrievalMethod = new T {Href = textBoxUrl.Uri};
                 var temporaryDirectory = RetrievalMethodUtils.LocalApply(retrievalMethod, textBoxPath.Text, new GuiTaskHandler());
-                FileSelected(retrievalMethod, temporaryDirectory);
+
+                _feedBuilder.RetrievalMethod = retrievalMethod;
+                _feedBuilder.TemporaryDirectory = temporaryDirectory;
+                Next();
             }
                 #region Error handling
             catch (OperationCanceledException)

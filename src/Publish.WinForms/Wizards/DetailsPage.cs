@@ -17,30 +17,25 @@
 
 using System;
 using System.Windows.Forms;
-using ZeroInstall.Publish.EntryPoints;
+using Common.Controls;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
-    internal partial class DetailsPage : UserControl
+    internal partial class DetailsPage : UserControl, IWizardPage
     {
-        private Candidate _candidate;
+        public event Action Next;
 
-        /// <summary>
-        /// Raised after the missing details have been filled in to the <see cref="Candidate"/>. 
-        /// </summary>
-        public event Action DetailsFilledIn;
+        private readonly FeedBuilder _feedBuilder;
 
-        public DetailsPage()
+        public DetailsPage(FeedBuilder feedBuilder)
         {
+            _feedBuilder = feedBuilder;
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Injects the selected candidate.
-        /// </summary>
-        public void SetCandidate(Candidate candidate)
+        public void OnPageShow()
         {
-            propertyGridCandidate.SelectedObject = _candidate = candidate;
+            propertyGridCandidate.SelectedObject = _feedBuilder.Candidate;
             buttonNext.Enabled = ValidateInput();
         }
 
@@ -51,12 +46,12 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            if (ValidateInput()) DetailsFilledIn();
+            if (ValidateInput()) Next();
         }
 
         private bool ValidateInput()
         {
-            return !string.IsNullOrEmpty(_candidate.Name) && !string.IsNullOrEmpty(_candidate.Description) && _candidate.Version != null;
+            return !string.IsNullOrEmpty(_feedBuilder.Candidate.Name) && !string.IsNullOrEmpty(_feedBuilder.Candidate.Description) && _feedBuilder.Candidate.Version != null;
         }
     }
 }

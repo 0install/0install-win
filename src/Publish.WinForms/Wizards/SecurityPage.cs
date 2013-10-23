@@ -18,23 +18,30 @@
 using System;
 using System.Windows.Forms;
 using Common;
+using Common.Controls;
 using Common.Utils;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
-    internal partial class SecurityPage : UserControl
+    internal partial class SecurityPage : UserControl, IWizardPage
     {
-        public event Action<OpenPgpSecretKey, Uri> SecurityDataSet;
+        public event Action Next;
 
+        private readonly FeedBuilder _feedBuilder;
         private readonly IOpenPgp _openPgp;
 
-        public SecurityPage(IOpenPgp openPgp)
+        public SecurityPage(FeedBuilder feedBuilder, IOpenPgp openPgp)
         {
             InitializeComponent();
 
+            _feedBuilder = feedBuilder;
             _openPgp = openPgp;
+        }
+
+        public void OnPageShow()
+        {
             ListKeys();
         }
 
@@ -62,19 +69,33 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             ProcessUtils.RunBackground(() =>
             {
                 process.WaitForExit();
-                Invoke(new Action(ListKeys));
+                try
+                {
+                    Invoke(new Action(ListKeys));
+                }
+                    #region Sanity checks
+                catch (InvalidOperationException)
+                {
+                    // Ignore if window has been dispoed
+                }
+                #endregion
             }, name: "WaitForOpenPgp");
         }
 
         private void buttonSkip_Click(object sender, EventArgs e)
         {
-            if (Msg.YesNo(this, Resources.AskSkipSecurity, MsgSeverity.Info))
-                SecurityDataSet(null, null);
+            if (!Msg.YesNo(this, Resources.AskSkipSecurity, MsgSeverity.Info)) return;
+
+            _feedBuilder.SecretKey = null;
+            _feedBuilder.Uri = null;
+            Next();
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            SecurityDataSet(comboBoxKeys.SelectedItem as OpenPgpSecretKey, textBoxUri.Uri);
+            _feedBuilder.SecretKey = comboBoxKeys.SelectedItem as OpenPgpSecretKey;
+            _feedBuilder.Uri = textBoxUri.Uri;
+            Next();
         }
     }
 }

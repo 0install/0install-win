@@ -197,6 +197,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="SizeMissing" xml:space="preserve">
     <value>Dateigröße noch nicht bestimmt.</value>
   </data>
+  <data name="UnknownExecutableType" xml:space="preserve">
+    <value>Keine bekannte Art von ausführbarer Datei!</value>
+  </data>
   <data name="UnknownRetrievalMethodType" xml:space="preserve">
     <value>Unbekannter Typ von Retrieval Method.</value>
   </data>

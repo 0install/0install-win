@@ -94,17 +94,17 @@ namespace ZeroInstall.Publish.EntryPoints
         public string Description { get; set; }
 
         /// <summary>
+        /// A suggestion for <see cref="Feed.NeedsTerminal"/>.
+        /// </summary>
+        [Browsable(false)]
+        public bool NeedsTerminal { get; internal set; }
+
+        /// <summary>
         /// The application's current version.
         /// </summary>
         /// <remarks>A suggestion for <see cref="Implementation.Version"/>.</remarks>
         [Category("Basic (required)"), Description("The application's current version.")]
         public ImplementationVersion Version { get; set; }
-
-        /// <summary>
-        /// A suggestion for <see cref="Feed.NeedsTerminal"/>.
-        /// </summary>
-        [Browsable(false)]
-        public bool NeedsTerminal { get; internal set; }
 
         /// <summary>
         /// A suggestion for <see cref="TargetBase.Architecture"/>.

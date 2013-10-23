@@ -197,6 +197,9 @@ Save changes</value>
   <data name="SizeMissing" xml:space="preserve">
     <value>File size not determined yet.</value>
   </data>
+  <data name="UnknownExecutableType" xml:space="preserve">
+    <value>Unknown executable type!</value>
+  </data>
   <data name="UnknownRetrievalMethodType" xml:space="preserve">
     <value>Unknown retrieval method type.</value>
   </data>

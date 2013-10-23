@@ -20,47 +20,40 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 using Common;
-using Common.Storage;
+using Common.Controls;
 using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Properties;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
-    internal partial class ArchiveExtractPage : UserControl
+    internal partial class ArchiveExtractPage : UserControl, IWizardPage
     {
-        /// <summary>
-        /// Raised with the selected <see cref="Archive.Extract"/> value.
-        /// </summary>
-        public event Action<string> ExtractSelected;
+        public event Action Next;
 
-        public ArchiveExtractPage()
+        private readonly FeedBuilder _feedBuilder;
+
+        public ArchiveExtractPage(FeedBuilder feedBuilder)
         {
+            _feedBuilder = feedBuilder;
             InitializeComponent();
         }
 
-        #region Archive
         private Archive _archive;
-        private TemporaryDirectory _tempDirectory;
 
-        /// <summary>
-        /// Injects the selected archive and an extracted image of it.
-        /// </summary>
-        public void SetArchive(Archive archive, TemporaryDirectory tempDirectory)
+        public void OnPageShow()
         {
-            _archive = archive;
-            _tempDirectory = tempDirectory;
+            _archive = (Archive)_feedBuilder.RetrievalMethod;
 
             comboBoxExtract.BeginUpdate();
             comboBoxExtract.Items.Clear();
 
-            var baseDirectory = new DirectoryInfo(tempDirectory);
+            var baseDirectory = new DirectoryInfo(_feedBuilder.TemporaryDirectory);
             baseDirectory.Walk(
                 dir => comboBoxExtract.Items.Add(dir.RelativeTo(baseDirectory).Replace(Path.DirectorySeparatorChar, '/')));
 
             comboBoxExtract.EndUpdate();
         }
-        #endregion
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
@@ -71,11 +64,12 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             }
 
             _archive.Extract = comboBoxExtract.Text;
-            string path = Path.Combine(_tempDirectory, FileUtils.UnifySlashes(_archive.Extract));
+            string path = Path.Combine(_feedBuilder.TemporaryDirectory, FileUtils.UnifySlashes(_archive.Extract));
 
             try
             {
-                ExtractSelected(path);
+                _feedBuilder.ImplementationDirectory = path;
+                Next();
             }
                 #region Error handling
             catch (OperationCanceledException)

@@ -291,6 +291,15 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unknown executable type!.
+        /// </summary>
+        public static string UnknownExecutableType {
+            get {
+                return ResourceManager.GetString("UnknownExecutableType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown retrieval method type..
         /// </summary>
         public static string UnknownRetrievalMethodType {

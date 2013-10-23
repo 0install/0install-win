@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms.Wizards
 {
-    partial class WindowsIconPage
+    partial class IconPage
     {
         /// <summary> 
         /// Required designer variable.
@@ -181,7 +181,7 @@
             this.buttonSkip.UseVisualStyleBackColor = true;
             this.buttonSkip.Click += new System.EventHandler(this.buttonSkip_Click);
             // 
-            // WindowsIconPage
+            // IconPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -200,7 +200,7 @@
             this.Controls.Add(this.labelInfo);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "WindowsIconPage";
+            this.Name = "IconPage";
             this.Size = new System.Drawing.Size(470, 300);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).EndInit();
             this.ResumeLayout(false);
