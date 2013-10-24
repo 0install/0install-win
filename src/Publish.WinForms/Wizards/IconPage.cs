@@ -90,6 +90,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             _feedBuilder.Icons.Clear();
             _feedBuilder.Icons.Add(new Model.Icon {Href = textBoxHrefIco.Uri, MimeType = Model.Icon.MimeTypeIco});
             _feedBuilder.Icons.Add(new Model.Icon {Href = textBoxHrefPng.Uri, MimeType = Model.Icon.MimeTypePng});
+            Next();
         }
     }
 }
