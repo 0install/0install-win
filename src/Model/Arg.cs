@@ -59,26 +59,6 @@ namespace ZeroInstall.Model
         }
         #endregion
 
-        #region Clone
-        /// <summary>
-        /// Creates a deep copy of this <see cref="Arg"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="Arg"/>.</returns>
-        public Arg CloneArg()
-        {
-            return new Arg {Value = Value};
-        }
-
-        /// <summary>
-        /// Creates a deep copy of this <see cref="Arg"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="Arg"/>.</returns>
-        public override ArgBase Clone()
-        {
-            return CloneArg();
-        }
-        #endregion
-
         #region Equality
         /// <inheritdoc/>
         public bool Equals(Arg other)
@@ -104,6 +84,26 @@ namespace ZeroInstall.Model
                 if (Value != null) result = (result * 397) ^ Value.GetHashCode();
                 return result;
             }
+        }
+        #endregion
+
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Arg"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Arg"/>.</returns>
+        public Arg CloneArg()
+        {
+            return new Arg {Value = Value};
+        }
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Arg"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Arg"/>.</returns>
+        public override ArgBase Clone()
+        {
+            return CloneArg();
         }
         #endregion
     }

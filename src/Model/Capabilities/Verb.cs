@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Collections;
+using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model.Capabilities
 {
@@ -83,6 +84,7 @@ namespace ZeroInstall.Model.Capabilities
         /// </summary>
         [Description("The name of the command in the feed to use when launching via this capability; leave null for 'run'.")]
         [XmlAttribute("command")]
+        [TypeConverter(typeof(CommandNameConverter))]
         public string Command { get; set; }
 
         /// <summary>

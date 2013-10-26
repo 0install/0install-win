@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model
 {
@@ -42,6 +43,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("The name of the command in the implementation to launch; leave null for 'run'.")]
         [XmlAttribute("command")]
+        [TypeConverter(typeof(CommandNameConverter))]
         public string Command { get; set; }
         #endregion
 

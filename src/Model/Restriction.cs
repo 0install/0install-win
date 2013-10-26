@@ -21,6 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
 using Common.Collections;
+using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model
 {
@@ -47,6 +48,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("Specifies that the selected implementation must be from the given distribution (e.g. Debian, RPM).\nThe special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <package-implementation>).")]
         [XmlAttribute("distribution")]
+        [TypeConverter(typeof(DistributionNameConverter))]
         public string Distribution { get; set; }
 
         // Preserve order

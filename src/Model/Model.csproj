@@ -81,6 +81,8 @@
     <Compile Include="Dependency.cs" />
     <Compile Include="Design\ArchiveMimeTypeConverter.cs" />
     <Compile Include="Design\ArgBaseConverter.cs" />
+    <Compile Include="Design\CommandNameConverter.cs" />
+    <Compile Include="Design\DistributionNameConverter.cs" />
     <Compile Include="Design\InstallCommandsConverter.cs" />
     <Compile Include="Design\IconMimeTypeConverter.cs" />
     <Compile Include="Design\UseConverter.cs" />

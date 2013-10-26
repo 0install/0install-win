@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Collections;
+using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model
 {
@@ -56,6 +57,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("The name of the command.")]
         [XmlAttribute("name")]
+        [TypeConverter(typeof(CommandNameConverter))]
         public string Name { get; set; }
 
         /// <summary>

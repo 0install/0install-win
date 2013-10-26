@@ -22,6 +22,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model.Selection
 {
@@ -70,17 +71,21 @@ namespace ZeroInstall.Model.Selection
 
         // Order is not important (but is preserved), duplicate entries are not allowed (but not enforced)
         private readonly List<string> _distributions = new List<string>();
-
+        
         /// <summary>
-        /// A list of distribution names where <see cref="Package"/> applies. Only set for <see cref="PackageImplementation"/>; <see langword="null"/> if this comes from a real <see cref="Implementation"/>.
+        /// A list of distribution names (e.g. Debian, RPM) where <see cref="Package"/> applies.
         /// </summary>
-        [Category("Identity"), Description("A list of distribution names where the package name applies. Only set for PackageImplementation; null if this comes from a real implementation.")]
+        [Browsable(false)]
         [XmlIgnore]
         public ICollection<string> Distributions { get { return _distributions; } }
 
-        /// <summary>Used for XML serialization.</summary>
+        /// <summary>
+        /// A space-separated list of distribution names (e.g. Debian, RPM) where <see cref="Package"/> applies.
+        /// </summary>
         /// <seealso cref="Version"/>
-        [XmlAttribute("distributions"), DefaultValue(""), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DefaultValue(""), Category("Identity"), DisplayName("Distributions"), Description("A space-separated list of distribution names (e.g. Debian, RPM) where Package applies.")]
+        [XmlAttribute("distributions")]
+        [TypeConverter(typeof(DistributionNameConverter))]
         public string DistributionsString
         {
             get

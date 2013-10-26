@@ -22,6 +22,7 @@ using System.Text;
 using System.Xml.Serialization;
 using Common.Collections;
 using Common.Utils;
+using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model
 {
@@ -59,6 +60,7 @@ namespace ZeroInstall.Model
         /// <remarks>Will default to <see cref="Model.Command.NameRun"/> or <see cref="Model.Command.NameCompile"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.</remarks>
         [Description("The name of the command in the implementation to execute.")]
         [XmlAttribute("command")]
+        [TypeConverter(typeof(CommandNameConverter))]
         public string Command { get; set; }
 
         /// <summary>

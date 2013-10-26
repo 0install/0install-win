@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Xml.Serialization;
+using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model
 {
@@ -34,6 +35,13 @@ namespace ZeroInstall.Model
     [XmlRoot("package-implementation", Namespace = Feed.XmlNamespace), XmlType("package-implementation", Namespace = Feed.XmlNamespace)]
     public sealed class PackageImplementation : Element, IEquatable<PackageImplementation>
     {
+        #region Constants
+        /// <summary>
+        /// Well-known values for <see cref="Distributions"/>.
+        /// </summary>
+        public static readonly string[] DistributionNames = {"Arch", "Cygwin", "Darwin", "Debian", "Gentoo", "MacPorts", "Ports", "RPM", "Slack", "Windows"};
+        #endregion
+
         #region Override Properties
         /// <summary>
         /// The version number as provided by the operating system.
@@ -88,13 +96,17 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of distribution names (e.g. Debian, RPM) where <see cref="Package"/> applies.
         /// </summary>
-        [Category("Identity"), Description("A list of distribution names (e.g. Debian, RPM) where the package name applies.")]
+        [Browsable(false)]
         [XmlIgnore]
         public ICollection<string> Distributions { get { return _distributions; } }
 
-        /// <summary>Used for XML serialization.</summary>
+        /// <summary>
+        /// A space-separated list of distribution names (e.g. Debian, RPM) where <see cref="Package"/> applies.
+        /// </summary>
         /// <seealso cref="Version"/>
-        [XmlAttribute("distributions"), DefaultValue(""), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        [DefaultValue(""), Category("Identity"), DisplayName("Distributions"), Description("A space-separated list of distribution names (e.g. Debian, RPM) where Package applies.")]
+        [XmlAttribute("distributions")]
+        [TypeConverter(typeof(DistributionNameConverter))]
         public string DistributionsString
         {
             get
