@@ -141,7 +141,7 @@ namespace ZeroInstall.Publish
             {
                 Name = Candidate.Name,
                 Uri = Uri,
-                Summaries = {Candidate.Description},
+                Summaries = {Candidate.Summary},
                 NeedsTerminal = Candidate.NeedsTerminal,
                 Elements =
                 {

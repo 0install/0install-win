@@ -51,7 +51,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private bool ValidateInput()
         {
-            return !string.IsNullOrEmpty(_feedBuilder.Candidate.Name) && !string.IsNullOrEmpty(_feedBuilder.Candidate.Description) && _feedBuilder.Candidate.Version != null;
+            return !string.IsNullOrEmpty(_feedBuilder.Candidate.Name) && !string.IsNullOrEmpty(_feedBuilder.Candidate.Summary) && _feedBuilder.Candidate.Version != null;
         }
     }
 }

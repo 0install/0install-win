@@ -54,7 +54,7 @@ namespace ZeroInstall.Publish.EntryPoints
         private void Parse(FileVersionInfo versionInfo)
         {
             Name = versionInfo.ProductName;
-            Description = string.IsNullOrEmpty(versionInfo.Comments) ? versionInfo.FileDescription : versionInfo.Comments;
+            Summary = string.IsNullOrEmpty(versionInfo.Comments) ? versionInfo.FileDescription : versionInfo.Comments;
             if (!string.IsNullOrEmpty(versionInfo.ProductVersion))
             {
                 try

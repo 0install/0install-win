@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using Common.Collections;
 using Common.Storage;
 using Common.Tasks;
 using NUnit.Framework;
@@ -48,7 +49,7 @@ namespace ZeroInstall.Publish
                 {
                     RelativePath = "test",
                     Name = "TestApp",
-                    Description = "a test app",
+                    Summary = "a test app",
                     Version = new ImplementationVersion("1.0"),
                     Architecture = new Architecture(OS.Windows, Cpu.All)
                 },
@@ -59,6 +60,10 @@ namespace ZeroInstall.Publish
             {
                 var signedFeed = builder.Build();
 
+                Assert.AreEqual(builder.Candidate.Name, signedFeed.Feed.Name);
+                Assert.AreEqual(builder.Uri, signedFeed.Feed.Uri);
+                CollectionAssert.AreEqual(new LocalizableStringCollection {builder.Candidate.Summary}, signedFeed.Feed.Summaries);
+                Assert.AreEqual(builder.Candidate.NeedsTerminal, signedFeed.Feed.NeedsTerminal);
                 CollectionAssert.AreEqual(new[]
                 {
                     new Implementation

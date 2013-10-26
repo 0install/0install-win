@@ -91,7 +91,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// </summary>
         /// <remarks>A suggestion for <see cref="Feed.Summaries"/>.</remarks>
         [Category("Basic (required)"), Description("Short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. \"cures all ills\").")]
-        public string Description { get; set; }
+        public string Summary { get; set; }
 
         /// <summary>
         /// A suggestion for <see cref="Feed.NeedsTerminal"/>.
@@ -131,7 +131,7 @@ namespace ZeroInstall.Publish.EntryPoints
             return
                 string.Equals(RelativePath, other.RelativePath) &&
                 string.Equals(Name, other.Name) &&
-                string.Equals(Description, other.Description) &&
+                string.Equals(Summary, other.Summary) &&
                 Equals(Version, other.Version) &&
                 Architecture == other.Architecture &&
                 NeedsTerminal == other.NeedsTerminal;
@@ -151,7 +151,7 @@ namespace ZeroInstall.Publish.EntryPoints
             {
                 int hashCode = (RelativePath != null ? RelativePath.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Description != null ? Description.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Summary != null ? Summary.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Version != null ? Version.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Architecture.GetHashCode();
                 hashCode = (hashCode * 397) ^ NeedsTerminal.GetHashCode();

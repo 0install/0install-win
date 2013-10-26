@@ -31,7 +31,7 @@ namespace ZeroInstall.Publish.EntryPoints
             RelativePath = "windows32.exe",
             Architecture = new Architecture(OS.Windows, Cpu.All),
             Name = "Hello",
-            Description = "a Hello World application",
+            Summary = "a Hello World application",
             Version = new ImplementationVersion("1.2.3.0")
         };
 
@@ -40,7 +40,7 @@ namespace ZeroInstall.Publish.EntryPoints
             RelativePath = "windows64.exe",
             Architecture = new Architecture(OS.Windows, Cpu.X64),
             Name = "Hello",
-            Description = "a Hello World application",
+            Summary = "a Hello World application",
             Version = new ImplementationVersion("1.2.3.0")
         };
 
@@ -49,7 +49,7 @@ namespace ZeroInstall.Publish.EntryPoints
             RelativePath = "windows32_terminal.exe",
             Architecture = new Architecture(OS.Windows, Cpu.All),
             Name = "Hello",
-            Description = "a Hello World application",
+            Summary = "a Hello World application",
             Version = new ImplementationVersion("1.2.3.0"),
             NeedsTerminal = true
         };

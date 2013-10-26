@@ -31,7 +31,7 @@ namespace ZeroInstall.Publish.EntryPoints
             RelativePath = "dotnet.exe",
             Architecture = new Architecture(OS.All, Cpu.All),
             Name = "Hello",
-            Description = "a Hello World application",
+            Summary = "a Hello World application",
             Version = new ImplementationVersion("1.2.3.0")
         };
 
@@ -40,7 +40,7 @@ namespace ZeroInstall.Publish.EntryPoints
             RelativePath = "dotnet64.exe",
             Architecture = new Architecture(OS.All, Cpu.X64),
             Name = "Hello",
-            Description = "a Hello World application",
+            Summary = "a Hello World application",
             Version = new ImplementationVersion("1.2.3.0")
         };
 
@@ -49,7 +49,7 @@ namespace ZeroInstall.Publish.EntryPoints
             RelativePath = "dotnet_terminal.exe",
             Architecture = new Architecture(OS.All, Cpu.All),
             Name = "Hello",
-            Description = "a Hello World application",
+            Summary = "a Hello World application",
             Version = new ImplementationVersion("1.2.3.0"),
             NeedsTerminal = true
         };
