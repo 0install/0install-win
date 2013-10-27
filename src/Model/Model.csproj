@@ -73,6 +73,7 @@
     <Compile Include="Capabilities\Verb.cs" />
     <Compile Include="Capabilities\UrlProtocol.cs" />
     <Compile Include="Capabilities\VerbCapability.cs" />
+    <Compile Include="Category.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Design\ArchitectureConverter.cs" />
     <Compile Include="Archive.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Design\ArchiveMimeTypeConverter.cs" />
     <Compile Include="Design\ArgBaseConverter.cs" />
     <Compile Include="Design\CommandNameConverter.cs" />
+    <Compile Include="Design\CategoryNameConverter.cs" />
     <Compile Include="Design\DistributionNameConverter.cs" />
     <Compile Include="Design\InstallCommandsConverter.cs" />
     <Compile Include="Design\IconMimeTypeConverter.cs" />

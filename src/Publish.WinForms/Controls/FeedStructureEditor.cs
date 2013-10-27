@@ -34,6 +34,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
             Describe<Feed>()
                 .AddPlainList("feed", x => x.Feeds)
+                .AddPlainList("category", x => x.Categories)
                 .AddPlainList("feed-for", x => x.FeedFor)
                 .AddProperty("replaced-by", x => new PropertyPointer<InterfaceReference>(() => x.ReplacedBy, value => x.ReplacedBy = value))
                 .AddPlainList<EntryPoint, EntryPointEditor>("entry-point", x => x.EntryPoints)

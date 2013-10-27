@@ -138,14 +138,14 @@ namespace ZeroInstall.Model
         public C5.ArrayList<Icon> Icons { get { return _icons; } }
 
         // Preserve order
-        private readonly C5.ArrayList<string> _categories = new C5.ArrayList<string>();
+        private readonly C5.ArrayList<Category> _categories = new C5.ArrayList<Category>();
 
         /// <summary>
-        /// Zero or more categories as defined by the freedesktop.org menu specification.
+        /// Zero or more classifications for the interface.
         /// </summary>
         [Browsable(false)]
         [XmlElement("category")]
-        public C5.ArrayList<string> Categories { get { return _categories; } }
+        public C5.ArrayList<Category> Categories { get { return _categories; } }
 
         /// <summary>
         /// If <see langword="true"/>, indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.

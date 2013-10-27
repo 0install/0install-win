@@ -40,7 +40,7 @@ namespace ZeroInstall.DesktopIntegration
             if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            string category = feed.Categories.FirstOrDefault();
+            string category = feed.Categories.FirstOrDefault().ToString();
             if (feed.EntryPoints.Count < 2)
             { // Only a single entry point
                 return new[] {new MenuEntry {Name = feed.Name.RemoveAll(Path.GetInvalidFileNameChars()), Category = category, Command = Command.NameRun}};

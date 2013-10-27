@@ -67,13 +67,7 @@
               </xsd:documentation>
             </xsd:annotation>
           </xsd:element>
-          <xsd:element name="category" type="xsd:string">
-            <xsd:annotation>
-              <xsd:documentation>
-                A category as defined by the freedesktop.org menu specification.
-              </xsd:documentation>
-            </xsd:annotation>
-          </xsd:element>
+          <xsd:element name="category" type="feed:category" />
           <xsd:element name="needs-terminal" type="xsd:string" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>
@@ -150,6 +144,24 @@
   </xsd:complexType>
   
   <!-- Application meta data -->
+  <xsd:complexType name="category" mixed="true">
+    <xsd:annotation>
+      <xsd:documentation>
+        An application category (e.g. Game or Office). Used for organizing application menus.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="type" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              If no type is given, then the category is one of the 'Main' categories defined by the freedesktop.org menu specification. Otherwise, it is a URI giving the namespace for the category.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
   <xsd:complexType name="feed-reference">
     <xsd:complexContent>
       <xsd:extension base="feed:feed-element">

@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using Common.Controls;
 using Common.Utils;
 using ZeroInstall.Central.Properties;
+using ZeroInstall.Model;
 using ZeroInstall.Store.Icons;
 
 namespace ZeroInstall.Central.WinForms
@@ -241,7 +242,7 @@ namespace ZeroInstall.Central.WinForms
         public void ShowCategories()
         {
             // Accumulate all categories
-            var categories = new C5.TreeSet<string>();
+            var categories = new C5.TreeSet<Category>();
             foreach (var tile in _tileDictionary.Values)
                 categories.AddAll(tile.Feed.Categories);
 
