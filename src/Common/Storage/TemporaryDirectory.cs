@@ -74,18 +74,34 @@ namespace Common.Storage
             if (Directory.Exists(Path))
             {
 #if FS_SECURITY
-                // Write protection might prevent a directory from being deleted (especially on Unixoid systems)
                 try
                 {
+                    // Write protection might prevent a directory from being deleted (especially on Unixoid systems)
                     FileUtils.DisableWriteProtection(Path);
                 }
+                    #region Error handling
                 catch (IOException)
                 {}
                 catch (UnauthorizedAccessException)
                 {}
+                #endregion
+
 #endif
 
-                Directory.Delete(Path, recursive: true);
+                try
+                {
+                    Directory.Delete(Path, recursive: true);
+                }
+                    #region Error handling
+                catch (IOException ex)
+                {
+                    Log.Warn(ex);
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Log.Warn(ex);
+                }
+                #endregion
             }
         }
         #endregion
