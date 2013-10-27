@@ -242,9 +242,7 @@ namespace ZeroInstall.Central.WinForms
         public void ShowCategories()
         {
             // Accumulate all categories
-            var categories = new C5.TreeSet<Category>();
-            foreach (var tile in _tileDictionary.Values)
-                categories.AddAll(tile.Feed.Categories);
+            var categories = from tile in _tileDictionary.Values from category in tile.Feed.Categories select category.Name;
 
             // TODO: Show category GUI
         }
