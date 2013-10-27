@@ -36,10 +36,10 @@ namespace ZeroInstall.Model
     {
         #region Properties
         /// <summary>
-        /// The name of the command in the <see cref="Restriction.Interface"/> to use.
+        /// The name of the command in the <see cref="Restriction.Interface"/> to use; leave <see langword="null"/> for <see cref="Model.Command.NameRun"/>.
         /// </summary>
-        [Description("The name of the command in the interface to use.")]
-        [XmlAttribute("command")]
+        [Description("The name of the command in the interface to use; leave empty for 'run'.")]
+        [XmlAttribute("command"), DefaultValue("")]
         [TypeConverter(typeof(CommandNameConverter))]
         public string Command { get; set; }
 

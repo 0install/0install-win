@@ -82,8 +82,8 @@ namespace ZeroInstall.Model.Capabilities
         /// <summary>
         /// The name of the command in the <see cref="Feed"/> to use when launching via this capability; leave <see langword="null"/> for <see cref="Model.Command.NameRun"/>.
         /// </summary>
-        [Description("The name of the command in the feed to use when launching via this capability; leave null for 'run'.")]
-        [XmlAttribute("command")]
+        [Description("The name of the command in the feed to use when launching via this capability; leave empty for 'run'.")]
+        [XmlAttribute("command"), DefaultValue("")]
         [TypeConverter(typeof(CommandNameConverter))]
         public string Command { get; set; }
 

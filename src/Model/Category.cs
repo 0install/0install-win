@@ -49,8 +49,8 @@ namespace ZeroInstall.Model
         /// <summary>
         /// If no type is given, then the category is one of the 'Main' categories defined by the freedesktop.org menu specification (http://standards.freedesktop.org/menu-spec/latest/apa.html). Otherwise, it is a URI giving the namespace for the category.
         /// </summary>
-        [DefaultValue(""), Description("If no type is given, then the category is one of the 'Main' categories defined by the freedesktop.org menu specification. Otherwise, it is a URI giving the namespace for the category.")]
-        [XmlAttribute("type")]
+        [Description("If no type is given, then the category is one of the 'Main' categories defined by the freedesktop.org menu specification. Otherwise, it is a URI giving the namespace for the category.")]
+        [XmlAttribute("type"), DefaultValue("")]
         public string TypeNamespace { get; set; }
         #endregion
 

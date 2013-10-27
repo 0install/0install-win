@@ -38,15 +38,13 @@ namespace ZeroInstall.Model
         [XmlAttribute("name")]
         public string Name { get; set; }
 
-        private string _command = Model.Command.NameRun;
-
         /// <summary>
         /// The name of the <see cref="Command"/> in the <see cref="Implementation"/> to launch; leave <see langword="null"/> for <see cref="Model.Command.NameRun"/>.
         /// </summary>
-        [Description("The name of the command in the implementation to launch; leave null for 'run'.")]
-        [XmlAttribute("command")]
+        [Description("The name of the command in the implementation to launch; leave empty for 'run'.")]
+        [XmlAttribute("command"), DefaultValue("")]
         [TypeConverter(typeof(CommandNameConverter))]
-        public string Command { get { return _command; } set { _command = value; } }
+        public string Command { get; set; }
         #endregion
 
         //--------------------//

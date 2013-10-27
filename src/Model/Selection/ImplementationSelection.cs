@@ -83,8 +83,8 @@ namespace ZeroInstall.Model.Selection
         /// A space-separated list of distribution names (e.g. Debian, RPM) where <see cref="Package"/> applies.
         /// </summary>
         /// <seealso cref="Version"/>
-        [DefaultValue(""), Category("Identity"), DisplayName("Distributions"), Description("A space-separated list of distribution names (e.g. Debian, RPM) where Package applies.")]
-        [XmlAttribute("distributions")]
+        [Category("Identity"), DisplayName("Distributions"), Description("A space-separated list of distribution names (e.g. Debian, RPM) where Package applies.")]
+        [XmlAttribute("distributions"), DefaultValue("")]
         [TypeConverter(typeof(DistributionNameConverter))]
         public string DistributionsString
         {
