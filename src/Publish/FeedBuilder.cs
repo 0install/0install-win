@@ -73,7 +73,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// A temporary directory (usually used as the <see cref="ImplementationDirectory"/>). Not used by the <see cref="FeedBuilder"/> itself.
         /// </summary>
-        /// <remarks>Setting a new value will automatically <see cref="Common.Storage.TemporaryDirectory.Dispose"/> the previous one.</remarks>
+        /// <remarks>Setting a new value will automatically <see cref="IDisposable.Dispose"/> the previous one.</remarks>
         public TemporaryDirectory TemporaryDirectory
         {
             get { return _temporaryDirectory; }

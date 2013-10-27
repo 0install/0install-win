@@ -102,7 +102,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// <summary>
         /// The application's current version.
         /// </summary>
-        /// <remarks>A suggestion for <see cref="Implementation.Version"/>.</remarks>
+        /// <remarks>A suggestion for <see cref="Element.Version"/>.</remarks>
         [Category("Basic (required)"), Description("The application's current version.")]
         public ImplementationVersion Version { get; set; }
 
