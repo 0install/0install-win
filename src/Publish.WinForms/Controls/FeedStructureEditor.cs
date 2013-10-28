@@ -32,29 +32,20 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             DescribeRoot<FeedEditor>("interface");
 
+            Describe<IIconContainer>()
+                .AddPlainList<Icon, IconEditor>("icon", x => x.Icons);
+
             Describe<Feed>()
-                .AddPlainList("feed", x => x.Feeds)
                 .AddPlainList("category", x => x.Categories)
+                .AddPlainList("feed", x => x.Feeds)
                 .AddPlainList("feed-for", x => x.FeedFor)
                 .AddProperty("replaced-by", x => new PropertyPointer<InterfaceReference>(() => x.ReplacedBy, value => x.ReplacedBy = value))
                 .AddPlainList<EntryPoint, EntryPointEditor>("entry-point", x => x.EntryPoints)
                 .AddPlainList("capabilities", x => x.CapabilityLists);
 
-            Describe<IIconContainer>()
-                .AddPlainList<Icon, IconEditor>("icon", x => x.Icons);
-
-            Describe<IElementContainer>()
-                .AddList(x => x.Elements)
-                .AddElement<Implementation>("implementation")
-                .AddElement<PackageImplementation>("package-implementation")
-                .AddElement<Group>("group");
-
             Describe<IDependencyContainer>()
                 .AddPlainList("dependency", x => x.Dependencies)
                 .AddPlainList("restriction", x => x.Restrictions);
-
-            Describe<Restriction>()
-                .AddPlainList("version", x => x.Constraints);
 
             Describe<IBindingContainer>()
                 .AddList(x => x.Bindings)
@@ -63,6 +54,24 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 .AddElement<OverlayBinding>("overlay-binding")
                 .AddElement<ExecutableInVar>("executable-in-var")
                 .AddElement<ExecutableInPath>("executable-in-path");
+
+            Describe<Element>()
+                .AddPlainList("command", x => x.Commands);
+
+            Describe<Implementation>()
+                .AddList(implementation => implementation.RetrievalMethods)
+                .AddElementContainerRef<Archive, ArchiveEditor>("archive")
+                .AddElementContainerRef<SingleFile, SingleFileEditor>("file")
+                .AddElementContainerRef<Recipe, RecipeEditor>("recipe");
+
+            Describe<IElementContainer>()
+                .AddList(x => x.Elements)
+                .AddElement<Implementation>("implementation")
+                .AddElement<PackageImplementation>("package-implementation")
+                .AddElement<Group>("group");
+
+            Describe<Restriction>()
+                .AddPlainList("version", x => x.Constraints);
 
             Describe<Command>()
                 .AddProperty("runner", x => new PropertyPointer<Runner>(() => x.Runner, value => x.Runner = value))
@@ -73,15 +82,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 .AddElement<Arg>("arg")
                 .AddElement<ForEachArgs>("for-each");
             Describe<ForEachArgs>().AddPlainList("arg", x => x.Arguments);
-
-            Describe<Element>()
-                .AddPlainList("command", x => x.Commands);
-
-            Describe<Implementation>()
-                .AddList(implementation => implementation.RetrievalMethods)
-                .AddElementContainerRef<Archive, ArchiveEditor>("archive")
-                .AddElementContainerRef<SingleFile, SingleFileEditor>("file")
-                .AddElementContainerRef<Recipe, RecipeEditor>("recipe");
 
             Describe<Recipe>()
                 .AddList(x => x.Steps)
