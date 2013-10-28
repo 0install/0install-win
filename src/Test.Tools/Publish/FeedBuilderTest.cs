@@ -66,14 +66,19 @@ namespace ZeroInstall.Publish
                 Assert.AreEqual(builder.Candidate.NeedsTerminal, signedFeed.Feed.NeedsTerminal);
                 CollectionAssert.AreEqual(new[]
                 {
-                    new Implementation
+                    new Group
                     {
-                        ID = "sha1new=" + ManifestDigest.Empty.Sha1New,
-                        ManifestDigest = ManifestDigest.Empty,
-                        Version = builder.Candidate.Version,
                         Architecture = builder.Candidate.Architecture,
-                        Commands = {builder.Candidate.Command},
-                        RetrievalMethods = {builder.RetrievalMethod}
+                        Commands = {builder.Candidate.Command}, Elements =
+                        {
+                            new Implementation
+                            {
+                                ID = "sha1new=" + ManifestDigest.Empty.Sha1New,
+                                ManifestDigest = ManifestDigest.Empty,
+                                Version = builder.Candidate.Version,
+                                RetrievalMethods = {builder.RetrievalMethod}
+                            }
+                        }
                     }
                 }, signedFeed.Feed.Elements);
                 CollectionAssert.AreEqual(builder.Icons, signedFeed.Feed.Icons);

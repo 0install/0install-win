@@ -145,14 +145,20 @@ namespace ZeroInstall.Publish
                 NeedsTerminal = Candidate.NeedsTerminal,
                 Elements =
                 {
-                    new Implementation
+                    new Group
                     {
-                        ID = "sha1new=" + ManifestDigest.Sha1New,
-                        ManifestDigest = ManifestDigest,
-                        Version = Candidate.Version,
                         Architecture = Candidate.Architecture,
                         Commands = {Candidate.Command},
-                        RetrievalMethods = {RetrievalMethod}
+                        Elements =
+                        {
+                            new Implementation
+                            {
+                                ID = "sha1new=" + ManifestDigest.Sha1New,
+                                ManifestDigest = ManifestDigest,
+                                Version = Candidate.Version,
+                                RetrievalMethods = {RetrievalMethod}
+                            }
+                        }
                     }
                 }
             };
