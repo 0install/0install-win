@@ -408,6 +408,7 @@ namespace ZeroInstall.Commands.WinForms
         private static void ApplyCommandAccessPointCheckBox<T>(CheckBox checkBox, ICollection<T> current, Func<IEnumerable<T>> getSuggestions)
             where T : AccessPoints.CommandAccessPoint
         {
+            if (!checkBox.Visible) return;
             if (checkBox.Checked)
             {
                 if (current.Count == 0) foreach (var entry in getSuggestions()) current.Add(entry);
@@ -424,6 +425,7 @@ namespace ZeroInstall.Commands.WinForms
         private static void ApplyDefaultAccessPointCheckBox<T>(CheckBox checkBox, BindingList<T> model)
             where T : CapabilityModel
         {
+            if (!checkBox.Visible) return;
             if (checkBox.Checked)
             {
                 if (!model.Any(element => element.Use)) CapabilityModelSetAll(model, true);
@@ -447,7 +449,7 @@ namespace ZeroInstall.Commands.WinForms
             _appEntry.AutoUpdate = checkBoxAutoUpdate.Checked;
             (checkBoxCapabilities.Checked ? toAdd : toRemove).Add(new AccessPoints.CapabilityRegistration());
 
-            _switchToAdvancedMode(); // Must do this to apply changes made in simple view
+            if (buttonAdvancedMode.Visible) _switchToAdvancedMode(); // Must do this to apply changes made in simple view
             HandleCommandAccessPointChanges(toAdd, toRemove);
             HandleDefaultAccessPointChanges(toAdd, toRemove);
 
@@ -508,22 +510,22 @@ namespace ZeroInstall.Commands.WinForms
         {
             // Build lists with current integration state
             var currentMenuEntries = new List<AccessPoints.MenuEntry>();
-            var currenDesktopIcons = new List<AccessPoints.DesktopIcon>();
-            var currenAliases = new List<AccessPoints.AppAlias>();
+            var currentDesktopIcons = new List<AccessPoints.DesktopIcon>();
+            var currentAliases = new List<AccessPoints.AppAlias>();
             if (_appEntry.AccessPoints != null)
             {
                 new PerTypeDispatcher<AccessPoints.AccessPoint>(true)
                 {
                     (AccessPoints.MenuEntry menuEntry) => currentMenuEntries.Add(menuEntry),
-                    (AccessPoints.DesktopIcon desktopIcon) => currenDesktopIcons.Add(desktopIcon),
-                    (AccessPoints.AppAlias alias) => currenAliases.Add(alias)
+                    (AccessPoints.DesktopIcon desktopIcon) => currentDesktopIcons.Add(desktopIcon),
+                    (AccessPoints.AppAlias alias) => currentAliases.Add(alias)
                 }.Dispatch(_appEntry.AccessPoints.Entries);
             }
 
             // Determine differences between current and desired state
             EnumerableUtils.Merge(_menuEntries, currentMenuEntries, toAdd.Add, toRemove.Add);
-            EnumerableUtils.Merge(_desktopIcons, currenDesktopIcons, toAdd.Add, toRemove.Add);
-            EnumerableUtils.Merge(_aliases, currenAliases, toAdd.Add, toRemove.Add);
+            EnumerableUtils.Merge(_desktopIcons, currentDesktopIcons, toAdd.Add, toRemove.Add);
+            EnumerableUtils.Merge(_aliases, currentAliases, toAdd.Add, toRemove.Add);
         }
 
         /// <summary>
