@@ -82,6 +82,15 @@ namespace ZeroInstall.Publish
                     }
                 }, signedFeed.Feed.Elements);
                 CollectionAssert.AreEqual(builder.Icons, signedFeed.Feed.Icons);
+                CollectionAssert.AreEqual(new[]
+                {
+                    new EntryPoint
+                    {
+                        Command = Command.NameRun,
+                        Names = {builder.Candidate.Name},
+                        BinaryName = "test"
+                    }
+                }, signedFeed.Feed.EntryPoints);
                 Assert.AreEqual(builder.SecretKey, signedFeed.SecretKey);
             }
         }

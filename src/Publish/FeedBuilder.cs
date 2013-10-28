@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Common.Storage;
 using Common.Tasks;
@@ -159,6 +160,15 @@ namespace ZeroInstall.Publish
                                 RetrievalMethods = {RetrievalMethod}
                             }
                         }
+                    }
+                },
+                EntryPoints =
+                {
+                    new EntryPoint
+                    {
+                        Command = Command.NameRun,
+                        Names = {Candidate.Name},
+                        BinaryName = Path.GetFileNameWithoutExtension(Candidate.RelativePath)
                     }
                 }
             };
