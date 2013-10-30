@@ -40,7 +40,7 @@ namespace ZeroInstall.Model
         /// </summary>
         /// <example>For example, the value "en_GB fr" would be used for a package supporting British English and French.</example>
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Complete set can be replaced by PropertyGrid.")]
-        [Description("The natural language(s) which an implementation supports.")]
+        [Category("Release"), Description("The natural language(s) which an implementation supports.")]
         [XmlIgnore]
         public LanguageSet Languages
         {

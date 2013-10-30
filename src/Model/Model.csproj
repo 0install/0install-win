@@ -84,6 +84,7 @@
     <Compile Include="Design\ArgBaseConverter.cs" />
     <Compile Include="Design\CommandNameConverter.cs" />
     <Compile Include="Design\CategoryNameConverter.cs" />
+    <Compile Include="Design\LicenseNameConverter.cs" />
     <Compile Include="Design\DistributionNameConverter.cs" />
     <Compile Include="Design\InstallCommandsConverter.cs" />
     <Compile Include="Design\IconMimeTypeConverter.cs" />

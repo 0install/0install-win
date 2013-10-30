@@ -22,6 +22,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Xml.Serialization;
 using Common.Collections;
+using ZeroInstall.Model.Design;
 using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
@@ -133,6 +134,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Release"), Description("License terms (typically a Trove category, as used on freshmeat.net).")]
         [XmlAttribute("license"), DefaultValue("")]
+        [TypeConverter(typeof(LicenseNameConverter))]
         public string License { get; set; }
 
         /// <summary>

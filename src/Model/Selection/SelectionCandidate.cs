@@ -83,9 +83,9 @@ namespace ZeroInstall.Model.Selection
         public Stability EffectiveStability { get { return (UserStability == Stability.Unset) ? Stability : UserStability; } }
 
         /// <summary>
-        /// For platform-specific binaries, the platform for which an <see cref="Model.Implementation"/> was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU. 
+        /// For platform-specific binaries, the platform for which an <see cref="Model.Implementation"/> was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU.
         /// </summary>
-        [Description("For platform-specific binaries, the platform for which an implementation was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU. ")]
+        [Description("For platform-specific binaries, the platform for which an implementation was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU.")]
         public string Architecture { get { return Implementation.Architecture.ToString(); } }
 
         /// <summary>
