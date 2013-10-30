@@ -90,12 +90,18 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Retrieves a specific constructor argument for a specific attribute in a reflection-only context.
+        /// Retrieves a single value from a Custom <see cref="Attribute"/> associated with an <see cref="Assembly"/>.
         /// </summary>
-        public static string GetConstructorArg<T>(this IEnumerable<CustomAttributeData> attributes, int index)
+        /// <typeparam name="TAttribute">The type of Custom <see cref="Attribute"/> associated with the <paramref name="assembly"/> to retrieve.</typeparam>
+        /// <typeparam name="TValue">The type of the value to retrieve from the <typeparamref name="TAttribute"/>.</typeparam>
+        /// <param name="assembly">The <see cref="Assembly"/> to retrieve the <typeparamref name="TAttribute"/> from.</param>
+        /// <param name="valueRetrieval">A callback used to retrieve a <typeparamref name="TValue"/> from a <typeparamref name="TAttribute"/>.</param>
+        /// <returns>The retrieved value or <see langword="null"/> if no <typeparamref name="TAttribute"/> was found.</returns>
+        public static TValue GetAttributeValue<TAttribute, TValue>(this Assembly assembly, Func<TAttribute, TValue> valueRetrieval)
+            where TAttribute : Attribute
         {
-            var attribute = attributes.FirstOrDefault(x => x.ToString().StartsWith("[" + typeof(T).FullName));
-            return (attribute == null) ? null : attribute.ConstructorArguments[index].Value.ToString();
+            var attributes = assembly.GetCustomAttributes(typeof(TAttribute), inherit: false);
+            return (attributes.Length > 0) ? valueRetrieval((TAttribute)attributes[0]) : default(TValue);
         }
     }
 }

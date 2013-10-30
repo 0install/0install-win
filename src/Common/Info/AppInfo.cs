@@ -98,13 +98,12 @@ namespace Common.Info
             if (assembly == null) return new AppInfo();
 
             var assemblyInfo = assembly.GetName();
-            var attributes = CustomAttributeData.GetCustomAttributes(assembly);
             return new AppInfo
             {
-                Name = attributes.GetConstructorArg<AssemblyTitleAttribute>(0) ?? assemblyInfo.Name,
+                Name = assembly.GetAttributeValue((AssemblyTitleAttribute x) => x.Title) ?? assemblyInfo.Name,
                 Version = new Version(assemblyInfo.Version.Major, assemblyInfo.Version.Minor, assemblyInfo.Version.Build),
-                Description = attributes.GetConstructorArg<AssemblyDescriptionAttribute>(0),
-                Copyright = attributes.GetConstructorArg<AssemblyCopyrightAttribute>(0)
+                Description = assembly.GetAttributeValue((AssemblyDescriptionAttribute x) => x.Description),
+                Copyright = assembly.GetAttributeValue((AssemblyCopyrightAttribute x) => x.Copyright)
             };
         }
         #endregion
