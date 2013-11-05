@@ -119,6 +119,12 @@ namespace Common.Utils
         }
 
         [Test]
+        public void TestStripCharacters()
+        {
+            Assert.AreEqual("ab", "a!b?".StripCharacters(new[] {'!', '?'}));
+        }
+
+        [Test]
         public void TestEscapeArgument()
         {
             Assert.AreEqual("test", "test".EscapeArgument(), "Simple strings shouldn't be modified");

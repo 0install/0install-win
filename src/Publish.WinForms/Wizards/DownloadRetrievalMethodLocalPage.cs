@@ -72,6 +72,10 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                 #region Error handling
             catch (OperationCanceledException)
             {}
+            catch (ArgumentException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+            }
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Warn);

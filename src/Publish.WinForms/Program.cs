@@ -57,6 +57,10 @@ namespace ZeroInstall.Publish.WinForms
                     else MassSignForm.Show(files);
                 }
                     #region Error handling
+                catch (ArgumentException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                }
                 catch (IOException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Warn);

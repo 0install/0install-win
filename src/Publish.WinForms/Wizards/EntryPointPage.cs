@@ -64,6 +64,10 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                     candidates = Detection.ListCandidates(new DirectoryInfo(workingDirectory)).ToArray()));
             }
                 #region Error handling
+            catch (ArgumentException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+            }
             catch (IOException ex)
             {
                 Msg.Inform(null, ex.Message, MsgSeverity.Warn);

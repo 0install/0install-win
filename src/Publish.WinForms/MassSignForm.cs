@@ -91,6 +91,10 @@ namespace ZeroInstall.Publish.WinForms
                 #region Sanity checks
             catch (OperationCanceledException)
             {}
+            catch (ArgumentException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+            }
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);

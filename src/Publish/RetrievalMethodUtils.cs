@@ -157,7 +157,7 @@ namespace ZeroInstall.Publish
                     // Guess file name based on URL
                     if (string.IsNullOrEmpty(file.Destination))
                     {
-                        string destination = file.Href.ToString().GetRightPartAtLastOccurrence('/');
+                        string destination = file.Href.ToString().GetRightPartAtLastOccurrence('/').StripCharacters(Path.GetInvalidFileNameChars());
                         if (executor == null) file.Destination = destination;
                         else executor.Execute(new SetValueCommand<string>(() => file.Destination, value => file.Destination = value, destination));
                     }

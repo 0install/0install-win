@@ -165,6 +165,15 @@ namespace Common.Utils
         {
             return toRemove.Aggregate(value, (acc, target) => acc.Replace(target.ToString(CultureInfo.InvariantCulture), ""));
         }
+
+        /// <summary>
+        /// Removes all occurences of a specific set of characters from a string.
+        /// </summary>
+        // ReSharper disable once ParameterTypeCanBeEnumerable.Global
+        public static string StripCharacters(this string value, char[] characters)
+        {
+            return new string(value.Where(x => !characters.Contains(x)).ToArray());
+        }
         #endregion
 
         #region Splitting
