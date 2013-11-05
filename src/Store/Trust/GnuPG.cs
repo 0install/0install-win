@@ -225,11 +225,11 @@ namespace ZeroInstall.Store.Trust
         }
 
         /// <summary>
-        /// Provides error handling for GnuPG stderr with loggiing.
+        /// Provides error handling for GnuPG stderr with logging.
         /// </summary>
         /// <param name="line">The error line written to stderr.</param>
         /// <returns>Always <see langword="null"/>.</returns>
-        private string ErrorHandlerLog(string line)
+        private static string ErrorHandlerLog(string line)
         {
             Log.Info(line);
             return null;

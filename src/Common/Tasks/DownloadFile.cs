@@ -95,6 +95,8 @@ namespace Common.Tasks
         /// <inheritdoc />
         protected override void RunTask()
         {
+            Log.Info("Download: " + Source + " => " + Target);
+
             try
             {
                 var request = WebRequest.Create(Source);
