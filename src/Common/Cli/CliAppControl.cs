@@ -164,7 +164,8 @@ namespace Common.Cli
                 RedirectStandardInput = true,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
-                ErrorDialog = false
+                ErrorDialog = false,
+                EnvironmentVariables = {{"LANG", "C"}} // Suppress localization
             };
 
             return startInfo;
