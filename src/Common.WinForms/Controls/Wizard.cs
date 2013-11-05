@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Common.Properties;
 
@@ -31,23 +32,70 @@ namespace Common.Controls
     /// A base class for creating wizard interfaces. Manages pages as a stack of <see cref="UserControl"/>s.
     /// </summary>
     /// <seealso cref="IWizardPage"/>
-    public partial class Wizard : Form
+    public class Wizard : Form
     {
-        /// <summary>
-        /// The wizard page history with the currently visible page on top.
-        /// </summary>
-        protected readonly Stack<UserControl> PageStack = new Stack<UserControl>();
+        #region WinForms
+        private readonly Panel _panelPage;
+        private readonly Button _buttonBack;
 
         /// <summary>
         /// Creates a new wizard.
         /// </summary>
         public Wizard()
         {
-            InitializeComponent();
+            SuspendLayout();
 
-            buttonBack.Text = @"< " + Resources.Back;
-            buttonCancel.Text = Resources.Cancel;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = MinimizeBox = ShowIcon = ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterParent;
+            ClientSize = new Size(470, 348);
+
+            Controls.Add(_panelPage = new Panel
+            {
+                BackColor = SystemColors.ControlLightLight,
+                Dock = DockStyle.Top,
+                Size = new Size(470, 300),
+                TabIndex = 0
+            });
+
+            var buttonCancel = new Button
+            {
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Right,
+                Size = new Size(75, 23),
+                TabIndex = 2,
+                Text = Resources.Cancel,
+                UseVisualStyleBackColor = true,
+                DialogResult = DialogResult.Cancel
+            };
+            buttonCancel.Location = new Point(
+                ClientSize.Width - buttonCancel.Width - 12,
+                ClientSize.Height - buttonCancel.Height - 12);
+            Controls.Add(buttonCancel);
+            CancelButton = buttonCancel;
+
+            Controls.Add(_buttonBack = new Button
+            {
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Right,
+                Size = new Size(75, 23),
+                TabIndex = 1,
+                Text = @"< " + Resources.Back,
+                UseVisualStyleBackColor = true,
+                Visible = false
+            });
+            _buttonBack.Location = new Point(
+                buttonCancel.Left - _buttonBack.Width - 8,
+                buttonCancel.Top);
+            _buttonBack.Click += delegate { PopPage(); };
+
+            ResumeLayout(false);
         }
+        #endregion
+
+        #region Page stack
+        /// <summary>
+        /// The wizard page history with the currently visible page on top.
+        /// </summary>
+        protected readonly Stack<UserControl> PageStack = new Stack<UserControl>();
 
         /// <summary>
         /// Displays a new wizard page and adds it to the <see cref="PageStack"/>.
@@ -60,11 +108,11 @@ namespace Common.Controls
             if (page == null) throw new ArgumentNullException("page");
             #endregion
 
-            if (PageStack.Count != 0) panelPage.Controls.Remove(PageStack.Peek());
-            panelPage.Controls.Add(page);
+            if (PageStack.Count != 0) _panelPage.Controls.Remove(PageStack.Peek());
+            _panelPage.Controls.Add(page);
             PageStack.Push(page);
 
-            buttonBack.Visible = (PageStack.Count > 1);
+            _buttonBack.Visible = (PageStack.Count > 1);
             ShowPage(page);
         }
 
@@ -73,10 +121,10 @@ namespace Common.Controls
         /// </summary>
         protected void PopPage()
         {
-            panelPage.Controls.Remove(PageStack.Pop());
-            panelPage.Controls.Add(PageStack.Peek());
+            _panelPage.Controls.Remove(PageStack.Pop());
+            _panelPage.Controls.Add(PageStack.Peek());
 
-            buttonBack.Visible = (PageStack.Count > 1);
+            _buttonBack.Visible = (PageStack.Count > 1);
             ShowPage(PageStack.Peek());
         }
 
@@ -87,10 +135,6 @@ namespace Common.Controls
             var wizardPage = page as IWizardPage;
             if (wizardPage != null) wizardPage.OnPageShow();
         }
-
-        private void buttonBack_Click(object sender, EventArgs e)
-        {
-            PopPage();
-        }
+        #endregion
     }
 }

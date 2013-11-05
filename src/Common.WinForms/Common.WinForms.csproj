@@ -175,9 +175,6 @@
     <Compile Include="Controls\Wizard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\Wizard.Designer.cs">
-      <DependentUpon>Wizard.cs</DependentUpon>
-    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Msg.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
