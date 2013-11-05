@@ -65,9 +65,9 @@ namespace Common.Cli
         protected abstract string AppDirName { get; }
 
         /// <inheritdoc/>
-        protected override ProcessStartInfo GetStartInfo(string arguments)
+        protected override ProcessStartInfo GetStartInfo(string arguments, bool hidden = false)
         {
-            var startInfo = base.GetStartInfo(arguments);
+            var startInfo = base.GetStartInfo(arguments, hidden);
 
             // Try to use bundled version of the application when running on Windows
             var appDirectory = GetBundledDirectory(AppDirName);

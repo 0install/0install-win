@@ -39,12 +39,12 @@ namespace ZeroInstall.Solvers
         protected override string AppBinary { get { return "python"; } }
 
         /// <inheritdoc/>
-        protected override ProcessStartInfo GetStartInfo(string arguments)
+        protected override ProcessStartInfo GetStartInfo(string arguments, bool hidden = false)
         {
             string solverDirectory = BundledCliAppControl.GetBundledDirectory("Solver");
 
             // Launch solver script using Python
-            var startInfo = base.GetStartInfo(Path.Combine(solverDirectory, "0solve") + " " + arguments);
+            var startInfo = base.GetStartInfo(Path.Combine(solverDirectory, "0solve") + " " + arguments, hidden);
 
             // Supress unimportant warnings
             startInfo.EnvironmentVariables["PYTHONWARNINGS"] = "ignore::DeprecationWarning";

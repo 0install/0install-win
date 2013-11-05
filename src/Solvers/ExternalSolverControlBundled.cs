@@ -43,9 +43,9 @@ namespace ZeroInstall.Solvers
         protected override string AppDirName { get { return "Solver"; } }
 
         /// <inheritdoc/>
-        protected override ProcessStartInfo GetStartInfo(string arguments)
+        protected override ProcessStartInfo GetStartInfo(string arguments, bool hidden = false)
         {
-            var startInfo = base.GetStartInfo(arguments);
+            var startInfo = base.GetStartInfo(arguments, hidden);
 
             // Supress unimportant warnings
             startInfo.EnvironmentVariables["PYTHONWARNINGS"] = "ignore::DeprecationWarning";

@@ -70,7 +70,7 @@ namespace Common.Cli
             Process process;
             try
             {
-                process = Process.Start(GetStartInfo(arguments));
+                process = Process.Start(GetStartInfo(arguments, hidden: true));
             }
                 #region Error handling
             catch (Win32Exception ex)
@@ -153,20 +153,24 @@ namespace Common.Cli
         /// <summary>
         /// Creates the <see cref="ProcessStartInfo"/> used by <see cref="Execute"/> to launch the external application.
         /// </summary>
-        protected virtual ProcessStartInfo GetStartInfo(string arguments)
+        /// <param name="arguments">The arguments to pass to the process at startup.</param>
+        /// <param name="hidden">Set to <see langword="true"/> to show no window and redirect all input and output for the process.</param>
+        protected virtual ProcessStartInfo GetStartInfo(string arguments, bool hidden = false)
         {
             var startInfo = new ProcessStartInfo
             {
                 FileName = AppBinary,
                 Arguments = arguments,
-                CreateNoWindow = true,
                 UseShellExecute = false,
-                RedirectStandardInput = true,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
+                CreateNoWindow = hidden,
+                RedirectStandardInput = hidden,
+                RedirectStandardOutput = hidden,
+                RedirectStandardError = hidden,
                 ErrorDialog = false,
-                EnvironmentVariables = {{"LANG", "C"}} // Suppress localization
             };
+
+            // Suppress localization to enable programatic parsing of output
+            if (hidden) startInfo.EnvironmentVariables.Add("LANG", "C");
 
             return startInfo;
         }
