@@ -30,6 +30,7 @@ namespace Common.Controls
     /// <summary>
     /// A base class for creating wizard interfaces. Manages pages as a stack of <see cref="UserControl"/>s.
     /// </summary>
+    /// <seealso cref="IWizardPage"/>
     public partial class Wizard : Form
     {
         /// <summary>
@@ -52,6 +53,7 @@ namespace Common.Controls
         /// Displays a new wizard page and adds it to the <see cref="PageStack"/>.
         /// </summary>
         /// <param name="page">The page to display and add.</param>
+        /// <seealso cref="IWizardPage"/>
         protected void PushPage(UserControl page)
         {
             #region Sanity checks

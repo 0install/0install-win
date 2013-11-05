@@ -23,7 +23,7 @@
 namespace Common.Controls
 {
     /// <summary>
-    /// An interface that <see cref="Wizard"/> pages can optionally implement to be notified of events.
+    /// An interface that <see cref="Wizard"/> pages can optionally implement to receive additional event notifications.
     /// </summary>
     public interface IWizardPage
     {
