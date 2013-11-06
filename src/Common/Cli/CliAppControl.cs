@@ -170,7 +170,7 @@ namespace Common.Cli
             };
 
             // Suppress localization to enable programatic parsing of output
-            if (hidden) startInfo.EnvironmentVariables.Add("LANG", "C");
+            if (hidden) startInfo.EnvironmentVariables["LANG"] = "C";
 
             return startInfo;
         }
