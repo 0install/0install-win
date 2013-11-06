@@ -203,6 +203,11 @@ namespace ZeroInstall.Store.Trust
         /// <exception cref="SignatureException">Thrown if there was an unexcpected GnuPG error.</exception>
         private static string ErrorHandlerException(string line)
         {
+            if (line.StartsWith("gpg: WARNING:"))
+            {
+                Log.Warn(line);
+                return null;
+            }
             if (line.StartsWith("gpg: waiting for lock") ||
                 (line.StartsWith("gpg: keyring ") && line.EndsWith(" created")) ||
                 (line.StartsWith("gpg: ") && line.EndsWith(": trustdb created")) ||
