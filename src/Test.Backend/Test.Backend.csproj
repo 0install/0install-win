@@ -142,6 +142,8 @@
     <Compile Include="Model\VersionRangeTest.cs" />
     <Compile Include="Model\XmlUnknownTest.cs" />
     <Compile Include="DesktopIntegration\AppListTest.cs" />
+    <Compile Include="Store\Trust\GnuPGTest.cs" />
+    <Compile Include="Store\Trust\TestData.cs" />
     <Compile Include="TestWithResolver.cs" />
     <Compile Include="Store\Icons\DiskIconCacheTest.cs" />
     <Compile Include="Store\Feeds\MemoryFeedCacheTest.cs" />
@@ -174,6 +176,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Fetchers\testArchive.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Store\Trust\5B5CB97421BAA5DC.gpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

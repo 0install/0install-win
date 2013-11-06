@@ -130,6 +130,24 @@ namespace Common.Utils
         }
 
         /// <summary>
+        /// Reads the entire content of a stream to a byte array (will seek from zero to end).
+        /// </summary>
+        /// <param name="stream">The stream to read from.</param>
+        /// <returns>A entire content of the stream.</returns>
+        public static byte[] ReadToArray(this Stream stream)
+        {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            #endregion
+
+            using (var memoryStream = new MemoryStream())
+            {
+                stream.CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
+        }
+
+        /// <summary>
         /// Writes the entire content of a stream to a file.
         /// </summary>
         /// <param name="stream">The stream to read from.</param>
