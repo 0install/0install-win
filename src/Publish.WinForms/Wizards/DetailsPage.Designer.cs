@@ -49,18 +49,18 @@
             // 
             // propertyGridCandidate
             // 
-            this.propertyGridCandidate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.propertyGridCandidate.Location = new System.Drawing.Point(39, 58);
             this.propertyGridCandidate.Name = "propertyGridCandidate";
             this.propertyGridCandidate.PropertySort = System.Windows.Forms.PropertySort.Categorized;
-            this.propertyGridCandidate.Size = new System.Drawing.Size(396, 191);
+            this.propertyGridCandidate.Size = new System.Drawing.Size(396, 174);
             this.propertyGridCandidate.TabIndex = 1;
             this.propertyGridCandidate.ToolbarVisible = false;
             this.propertyGridCandidate.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGridCandidate_PropertyValueChanged);
             // 
             // buttonNext
             // 
-            this.buttonNext.Location = new System.Drawing.Point(315, 255);
+            this.buttonNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.buttonNext.Location = new System.Drawing.Point(315, 238);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(120, 35);
             this.buttonNext.TabIndex = 2;
@@ -70,12 +70,11 @@
             // 
             // DetailsPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.propertyGridCandidate);
             this.Controls.Add(this.labelTitle);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "DetailsPage";
             this.Size = new System.Drawing.Size(470, 300);

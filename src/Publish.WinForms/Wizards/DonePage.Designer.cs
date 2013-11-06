@@ -49,6 +49,7 @@
             // 
             // buttonFinish
             // 
+            this.buttonFinish.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonFinish.Location = new System.Drawing.Point(315, 238);
             this.buttonFinish.Name = "buttonFinish";
             this.buttonFinish.Size = new System.Drawing.Size(120, 35);
@@ -59,6 +60,7 @@
             // 
             // labelInfo
             // 
+            this.labelInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelInfo.Location = new System.Drawing.Point(35, 82);
             this.labelInfo.Name = "labelInfo";
             this.labelInfo.Size = new System.Drawing.Size(400, 153);
@@ -67,12 +69,11 @@
             // 
             // DonePage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.buttonFinish);
             this.Controls.Add(this.labelTitle);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "DonePage";
             this.Size = new System.Drawing.Size(470, 300);

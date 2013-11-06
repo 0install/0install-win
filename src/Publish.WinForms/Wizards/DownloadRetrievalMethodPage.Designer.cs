@@ -49,6 +49,7 @@
             // 
             // buttonLocal
             // 
+            this.buttonLocal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonLocal.Location = new System.Drawing.Point(39, 163);
             this.buttonLocal.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonLocal.Name = "buttonLocal";
@@ -60,6 +61,7 @@
             // 
             // buttonOnline
             // 
+            this.buttonOnline.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonOnline.Location = new System.Drawing.Point(39, 118);
             this.buttonOnline.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonOnline.Name = "buttonOnline";
@@ -71,6 +73,7 @@
             // 
             // labelQuestion
             // 
+            this.labelQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelQuestion.Location = new System.Drawing.Point(35, 82);
             this.labelQuestion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuestion.Name = "labelQuestion";
@@ -80,13 +83,12 @@
             // 
             // DownloadRetrievalMethodPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonLocal);
             this.Controls.Add(this.buttonOnline);
             this.Controls.Add(this.labelQuestion);
             this.Controls.Add(this.labelTitle);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "DownloadRetrievalMethodPage";
             this.Size = new System.Drawing.Size(470, 300);

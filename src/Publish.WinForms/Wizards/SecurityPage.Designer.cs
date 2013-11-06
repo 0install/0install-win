@@ -53,6 +53,7 @@
             // 
             // buttonSkip
             // 
+            this.buttonSkip.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonSkip.Location = new System.Drawing.Point(189, 238);
             this.buttonSkip.Name = "buttonSkip";
             this.buttonSkip.Size = new System.Drawing.Size(120, 35);
@@ -63,6 +64,7 @@
             // 
             // buttonNext
             // 
+            this.buttonNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonNext.Location = new System.Drawing.Point(315, 238);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(120, 35);
@@ -76,6 +78,7 @@
             this.textBoxUri.AllowDrop = true;
             this.textBoxUri.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxUri.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.textBoxUri.HintText = "HTTP URI";
             this.textBoxUri.HttpOnly = true;
             this.textBoxUri.Location = new System.Drawing.Point(39, 201);
@@ -86,6 +89,7 @@
             // 
             // labelUri
             // 
+            this.labelUri.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelUri.Location = new System.Drawing.Point(35, 153);
             this.labelUri.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelUri.Name = "labelUri";
@@ -96,6 +100,7 @@
             // 
             // labelSignature
             // 
+            this.labelSignature.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelSignature.Location = new System.Drawing.Point(35, 65);
             this.labelSignature.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelSignature.Name = "labelSignature";
@@ -107,6 +112,7 @@
             // comboBoxKeys
             // 
             this.comboBoxKeys.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.comboBoxKeys.FormattingEnabled = true;
             this.comboBoxKeys.Location = new System.Drawing.Point(39, 113);
             this.comboBoxKeys.Name = "comboBoxKeys";
@@ -116,6 +122,7 @@
             // 
             // buttonNewKey
             // 
+            this.buttonNewKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonNewKey.Location = new System.Drawing.Point(315, 113);
             this.buttonNewKey.Name = "buttonNewKey";
             this.buttonNewKey.Size = new System.Drawing.Size(120, 28);
@@ -126,7 +133,7 @@
             // 
             // SecurityPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonNewKey);
             this.Controls.Add(this.comboBoxKeys);
@@ -136,7 +143,6 @@
             this.Controls.Add(this.buttonSkip);
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.labelTitle);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "SecurityPage";
             this.Size = new System.Drawing.Size(470, 300);

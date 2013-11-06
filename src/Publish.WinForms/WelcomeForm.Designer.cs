@@ -40,6 +40,7 @@
             // 
             // labelIntro
             // 
+            this.labelIntro.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelIntro.Location = new System.Drawing.Point(15, 16);
             this.labelIntro.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelIntro.Name = "labelIntro";
@@ -50,6 +51,7 @@
             // 
             // labelNewEmpty
             // 
+            this.labelNewEmpty.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelNewEmpty.Location = new System.Drawing.Point(16, 138);
             this.labelNewEmpty.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelNewEmpty.Name = "labelNewEmpty";
@@ -59,6 +61,7 @@
             // 
             // buttonNewEmpty
             // 
+            this.buttonNewEmpty.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonNewEmpty.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.NewButton;
             this.buttonNewEmpty.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.buttonNewEmpty.Location = new System.Drawing.Point(15, 81);
@@ -73,6 +76,7 @@
             // 
             // labelOpen
             // 
+            this.labelOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelOpen.Location = new System.Drawing.Point(362, 138);
             this.labelOpen.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelOpen.Name = "labelOpen";
@@ -82,6 +86,7 @@
             // 
             // buttonOpen
             // 
+            this.buttonOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonOpen.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.OpenButton;
             this.buttonOpen.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.buttonOpen.Location = new System.Drawing.Point(356, 81);
@@ -96,6 +101,7 @@
             // 
             // labelNewWizard
             // 
+            this.labelNewWizard.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelNewWizard.Location = new System.Drawing.Point(186, 138);
             this.labelNewWizard.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelNewWizard.Name = "labelNewWizard";
@@ -105,6 +111,7 @@
             // 
             // buttonNewWizard
             // 
+            this.buttonNewWizard.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonNewWizard.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.NewWizardButton;
             this.buttonNewWizard.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.buttonNewWizard.Location = new System.Drawing.Point(187, 81);
@@ -119,7 +126,7 @@
             // 
             // WelcomeForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(530, 259);
             this.Controls.Add(this.labelOpen);
@@ -129,7 +136,6 @@
             this.Controls.Add(this.labelNewEmpty);
             this.Controls.Add(this.buttonNewEmpty);
             this.Controls.Add(this.labelIntro);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);

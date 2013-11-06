@@ -49,6 +49,7 @@
             // 
             // labelQuestion
             // 
+            this.labelQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelQuestion.Location = new System.Drawing.Point(35, 82);
             this.labelQuestion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuestion.Name = "labelQuestion";
@@ -58,6 +59,7 @@
             // 
             // buttonNext
             // 
+            this.buttonNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonNext.Location = new System.Drawing.Point(315, 238);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(120, 35);
@@ -69,21 +71,21 @@
             // comboBoxEntryPoint
             // 
             this.comboBoxEntryPoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxEntryPoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.comboBoxEntryPoint.FormattingEnabled = true;
-            this.comboBoxEntryPoint.Location = new System.Drawing.Point(39, 128);
+            this.comboBoxEntryPoint.Location = new System.Drawing.Point(39, 118);
             this.comboBoxEntryPoint.Name = "comboBoxEntryPoint";
             this.comboBoxEntryPoint.Size = new System.Drawing.Size(396, 28);
             this.comboBoxEntryPoint.TabIndex = 13;
             // 
             // EntryPointPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.comboBoxEntryPoint);
             this.Controls.Add(this.labelQuestion);
             this.Controls.Add(this.labelTitle);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "EntryPointPage";
             this.Size = new System.Drawing.Size(470, 300);

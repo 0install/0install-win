@@ -71,6 +71,7 @@
             // buttonNext
             // 
             this.buttonNext.Enabled = false;
+            this.buttonNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonNext.Location = new System.Drawing.Point(315, 238);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(120, 35);
@@ -81,6 +82,7 @@
             // 
             // labelInfo
             // 
+            this.labelInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelInfo.Location = new System.Drawing.Point(35, 71);
             this.labelInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelInfo.Name = "labelInfo";
@@ -92,6 +94,7 @@
             // labelStep1
             // 
             this.labelStep1.AutoSize = true;
+            this.labelStep1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelStep1.Location = new System.Drawing.Point(35, 120);
             this.labelStep1.Name = "labelStep1";
             this.labelStep1.Size = new System.Drawing.Size(22, 20);
@@ -100,6 +103,7 @@
             // 
             // buttonSaveIco
             // 
+            this.buttonSaveIco.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonSaveIco.Location = new System.Drawing.Point(65, 116);
             this.buttonSaveIco.Name = "buttonSaveIco";
             this.buttonSaveIco.Size = new System.Drawing.Size(137, 28);
@@ -111,6 +115,7 @@
             // labelStep2
             // 
             this.labelStep2.AutoSize = true;
+            this.labelStep2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelStep2.Location = new System.Drawing.Point(35, 147);
             this.labelStep2.Name = "labelStep2";
             this.labelStep2.Size = new System.Drawing.Size(207, 20);
@@ -122,6 +127,7 @@
             this.textBoxHrefIco.AllowDrop = true;
             this.textBoxHrefIco.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxHrefIco.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.textBoxHrefIco.HintText = "HTTP Address";
             this.textBoxHrefIco.HttpOnly = true;
             this.textBoxHrefIco.Location = new System.Drawing.Point(244, 144);
@@ -135,6 +141,7 @@
             this.textBoxHrefPng.AllowDrop = true;
             this.textBoxHrefPng.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxHrefPng.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.textBoxHrefPng.HintText = "HTTP Address";
             this.textBoxHrefPng.HttpOnly = true;
             this.textBoxHrefPng.Location = new System.Drawing.Point(244, 198);
@@ -146,6 +153,7 @@
             // labelStep4
             // 
             this.labelStep4.AutoSize = true;
+            this.labelStep4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelStep4.Location = new System.Drawing.Point(35, 201);
             this.labelStep4.Name = "labelStep4";
             this.labelStep4.Size = new System.Drawing.Size(207, 20);
@@ -154,6 +162,7 @@
             // 
             // buttonSavePng
             // 
+            this.buttonSavePng.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonSavePng.Location = new System.Drawing.Point(65, 170);
             this.buttonSavePng.Name = "buttonSavePng";
             this.buttonSavePng.Size = new System.Drawing.Size(137, 28);
@@ -165,6 +174,7 @@
             // labelStep3
             // 
             this.labelStep3.AutoSize = true;
+            this.labelStep3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelStep3.Location = new System.Drawing.Point(35, 174);
             this.labelStep3.Name = "labelStep3";
             this.labelStep3.Size = new System.Drawing.Size(22, 20);
@@ -173,6 +183,7 @@
             // 
             // buttonSkip
             // 
+            this.buttonSkip.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonSkip.Location = new System.Drawing.Point(189, 238);
             this.buttonSkip.Name = "buttonSkip";
             this.buttonSkip.Size = new System.Drawing.Size(120, 35);
@@ -183,7 +194,7 @@
             // 
             // IconPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonSkip);
             this.Controls.Add(this.textBoxHrefPng);
@@ -198,7 +209,6 @@
             this.Controls.Add(this.pictureBoxIcon);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.labelInfo);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "IconPage";
             this.Size = new System.Drawing.Size(470, 300);

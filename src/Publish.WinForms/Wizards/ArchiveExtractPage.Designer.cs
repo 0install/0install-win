@@ -36,6 +36,7 @@
             // 
             // labelQuestion
             // 
+            this.labelQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelQuestion.Location = new System.Drawing.Point(35, 82);
             this.labelQuestion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuestion.Name = "labelQuestion";
@@ -59,14 +60,16 @@
             // 
             // comboBoxExtract
             // 
+            this.comboBoxExtract.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.comboBoxExtract.FormattingEnabled = true;
-            this.comboBoxExtract.Location = new System.Drawing.Point(39, 128);
+            this.comboBoxExtract.Location = new System.Drawing.Point(39, 140);
             this.comboBoxExtract.Name = "comboBoxExtract";
             this.comboBoxExtract.Size = new System.Drawing.Size(396, 28);
             this.comboBoxExtract.TabIndex = 2;
             // 
             // buttonNext
             // 
+            this.buttonNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonNext.Location = new System.Drawing.Point(315, 238);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(120, 35);
@@ -77,13 +80,12 @@
             // 
             // ArchiveExtractPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.comboBoxExtract);
             this.Controls.Add(this.labelQuestion);
             this.Controls.Add(this.labelTitle);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ArchiveExtractPage";
             this.Size = new System.Drawing.Size(470, 300);

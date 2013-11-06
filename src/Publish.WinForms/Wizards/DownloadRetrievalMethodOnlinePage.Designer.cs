@@ -49,6 +49,7 @@
             // 
             // labelQuestion
             // 
+            this.labelQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelQuestion.Location = new System.Drawing.Point(35, 82);
             this.labelQuestion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuestion.Name = "labelQuestion";
@@ -59,9 +60,10 @@
             // textBoxUrl
             // 
             this.textBoxUrl.AllowDrop = true;
+            this.textBoxUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.textBoxUrl.ForeColor = System.Drawing.Color.Red;
             this.textBoxUrl.HintText = "HTTP/FTP URL";
-            this.textBoxUrl.Location = new System.Drawing.Point(39, 107);
+            this.textBoxUrl.Location = new System.Drawing.Point(39, 118);
             this.textBoxUrl.Name = "textBoxUrl";
             this.textBoxUrl.Size = new System.Drawing.Size(396, 26);
             this.textBoxUrl.TabIndex = 2;
@@ -70,6 +72,7 @@
             // buttonNext
             // 
             this.buttonNext.Enabled = false;
+            this.buttonNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonNext.Location = new System.Drawing.Point(315, 238);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(120, 35);
@@ -80,13 +83,12 @@
             // 
             // DownloadRetrievalMethodOnlinePage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.textBoxUrl);
             this.Controls.Add(this.labelQuestion);
             this.Controls.Add(this.labelTitle);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "DownloadRetrievalMethodOnlinePage";
             this.Size = new System.Drawing.Size(470, 300);

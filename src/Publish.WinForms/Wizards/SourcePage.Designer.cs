@@ -50,6 +50,7 @@
             // 
             // labelQuestion
             // 
+            this.labelQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelQuestion.Location = new System.Drawing.Point(35, 82);
             this.labelQuestion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuestion.Name = "labelQuestion";
@@ -59,6 +60,7 @@
             // 
             // buttonArchive
             // 
+            this.buttonArchive.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonArchive.Location = new System.Drawing.Point(39, 118);
             this.buttonArchive.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonArchive.Name = "buttonArchive";
@@ -70,6 +72,7 @@
             // 
             // buttonSingleFile
             // 
+            this.buttonSingleFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonSingleFile.Location = new System.Drawing.Point(39, 163);
             this.buttonSingleFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonSingleFile.Name = "buttonSingleFile";
@@ -81,6 +84,7 @@
             // 
             // buttonSetup
             // 
+            this.buttonSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonSetup.Location = new System.Drawing.Point(39, 208);
             this.buttonSetup.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonSetup.Name = "buttonSetup";
@@ -92,14 +96,13 @@
             // 
             // SourcePage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonSetup);
             this.Controls.Add(this.buttonSingleFile);
             this.Controls.Add(this.buttonArchive);
             this.Controls.Add(this.labelQuestion);
             this.Controls.Add(this.labelTitle);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "SourcePage";
             this.Size = new System.Drawing.Size(470, 300);

@@ -53,6 +53,7 @@
             // 
             // labelQuestion
             // 
+            this.labelQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelQuestion.Location = new System.Drawing.Point(35, 82);
             this.labelQuestion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuestion.Name = "labelQuestion";
@@ -62,6 +63,7 @@
             // 
             // textBoxPath
             // 
+            this.textBoxPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.textBoxPath.HintText = "Local file path";
             this.textBoxPath.Location = new System.Drawing.Point(39, 107);
             this.textBoxPath.Name = "textBoxPath";
@@ -72,6 +74,7 @@
             // buttonNext
             // 
             this.buttonNext.Enabled = false;
+            this.buttonNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonNext.Location = new System.Drawing.Point(315, 238);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(120, 35);
@@ -83,6 +86,7 @@
             // textBoxUrl
             // 
             this.textBoxUrl.AllowDrop = true;
+            this.textBoxUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.textBoxUrl.ForeColor = System.Drawing.Color.Red;
             this.textBoxUrl.HintText = "HTTP/FTP URL";
             this.textBoxUrl.Location = new System.Drawing.Point(39, 198);
@@ -93,6 +97,7 @@
             // 
             // labelUrl
             // 
+            this.labelUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelUrl.Location = new System.Drawing.Point(35, 151);
             this.labelUrl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelUrl.Name = "labelUrl";
@@ -103,6 +108,7 @@
             // 
             // buttonSelectPath
             // 
+            this.buttonSelectPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonSelectPath.Location = new System.Drawing.Point(406, 107);
             this.buttonSelectPath.Name = "buttonSelectPath";
             this.buttonSelectPath.Size = new System.Drawing.Size(29, 26);
@@ -118,7 +124,7 @@
             // 
             // DownloadRetrievalMethodLocalPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.textBoxUrl);
@@ -127,7 +133,6 @@
             this.Controls.Add(this.textBoxPath);
             this.Controls.Add(this.labelQuestion);
             this.Controls.Add(this.labelTitle);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "DownloadRetrievalMethodLocalPage";
             this.Size = new System.Drawing.Size(470, 300);
