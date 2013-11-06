@@ -83,6 +83,7 @@
     <Compile Include="Collections\TransparentCacheTest.cs" />
     <Compile Include="Controls\TrackingLabelTest.cs" />
     <Compile Include="Controls\TrackingProgressBarTest.cs" />
+    <Compile Include="LogTest.cs" />
     <Compile Include="MicroServer.cs" />
     <Compile Include="MoqExtensions.cs" />
     <Compile Include="Tasks\DownloadFileTest.cs" />
