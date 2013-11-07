@@ -76,6 +76,7 @@
     <Compile Include="Import.cs" />
     <Compile Include="List.cs" />
     <Compile Include="ListFeeds.cs" />
+    <Compile Include="StoreMan.cs" />
     <Compile Include="SyncUtils.cs" />
     <Compile Include="UpdateApps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

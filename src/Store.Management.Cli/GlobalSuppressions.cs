@@ -8,10 +8,3 @@
 // "In Project Suppression File".
 // You do not need to add suppressions to this file manually.
 
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1703:ResourceStringsShouldBeSpelledCorrectly", MessageId = "implementation-dirs", Scope = "resource", Target = "ZeroInstall.Store.Management.Cli.Properties.Resources.resources")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1703:ResourceStringsShouldBeSpelledCorrectly", MessageId = "sha", Scope = "resource", Target = "ZeroInstall.Store.Management.Cli.Properties.Resources.resources")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1703:ResourceStringsShouldBeSpelledCorrectly", MessageId = "tgz", Scope = "resource", Target = "ZeroInstall.Store.Management.Cli.Properties.Resources.resources")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1703:ResourceStringsShouldBeSpelledCorrectly", MessageId = "subdir", Scope = "resource", Target = "ZeroInstall.Store.Management.Cli.Properties.Resources.resources")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1703:ResourceStringsShouldBeSpelledCorrectly", MessageId = "someuser", Scope = "resource", Target = "ZeroInstall.Store.Management.Cli.Properties.Resources.resources")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1703:ResourceStringsShouldBeSpelledCorrectly", MessageId = "optimised", Scope = "resource", Target = "ZeroInstall.Store.Management.Cli.Properties.Resources.resources")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1703:ResourceStringsShouldBeSpelledCorrectly", MessageId = "localappdata", Scope = "resource", Target = "ZeroInstall.Store.Management.Cli.Properties.Resources.resources")]

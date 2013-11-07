@@ -180,6 +180,15 @@ Sie müssen eventuell ihr Terminal schließen und wieder öffnen damit dies wirk
 Wenn Sie 'Ja' wählen werden möglicherweise nicht mehr kompatible Integrationen entfernt.
 Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.</value>
   </data>
+  <data name="AuditErrors" xml:space="preserve">
+    <value>Es wurden ein oder mehrere Probleme im Store gefunden.</value>
+  </data>
+  <data name="AuditPass" xml:space="preserve">
+    <value>Es wurden keine Probleme im Store gefunden.</value>
+  </data>
+  <data name="CachedInterfaces" xml:space="preserve">
+    <value>Gecachte Interfaces</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
@@ -257,6 +266,9 @@ Entfernen Sie ein Häckchen um den Standard-Status einer Fähigkeit zu entfernen
   <data name="DescriptionSelfUpdate" xml:space="preserve">
     <value>Aktualisiere Zero Install selber auf die neuste verfügbare Version.</value>
   </data>
+  <data name="DescriptionStore" xml:space="preserve">
+    <value>Verwaltet Caches von Zero Install Implementierungen.</value>
+  </data>
   <data name="DescriptionSync" xml:space="preserve">
     <value>Synchronisiere die Anwendungsliste mit dem Server.</value>
   </data>
@@ -268,6 +280,78 @@ Entfernen Sie ein Häckchen um den Standard-Status einer Fähigkeit zu entfernen
   </data>
   <data name="DesktopIntegration" xml:space="preserve">
     <value>Desktopintegration</value>
+  </data>
+  <data name="DetailsOptimise" xml:space="preserve">
+    <value>Um doppelte Dateien mit Hardlinks zusammenzufassen um Speicherplatz zu sparen:
+0store optimise [CACHE]
+
+Dies liest alle Manifest-Dateien im Cache-Verzeichnis ein und sucht nach Duplikaten (Dateien mit den gleichen Berechtigungen, letztem Änderungszeitpunkt und Digest). Wenn es ein Paar findet, löscht es eine Datei und ersetzt sie (atomar) mit einem Hardlink zur anderen.
+
+Implementierungen mit dem alten "sha1"-Algorithmus werden nicht optimiert.</value>
+  </data>
+  <data name="DetailsStoreAdd" xml:space="preserve">
+    <value>Um ein Verzeichnis zum Store hinzuzufügen (legt eine Kopie an):
+0store add sha256=XXX verzeichnis
+
+Um ein Archiv zum Store hinzuzufügen:
+0store add sha256=XXX archiv.tgz
+
+Um ein Unterverzeichnis eines Archivs zum Store hinzuzufügen:
+0store add sha256=XXX archiv.tgz unter-verzeichnis
+
+Der tatsächliche Digest wird berechnet und mit dem angegebenen verglichen. Falls sie nicht übereinstimmen wird die Operation abgelehnt.</value>
+  </data>
+  <data name="DetailsStoreAudit" xml:space="preserve">
+    <value>Verifiziert jede Implementierung in jedem der angegebenen Cache-Verzeichnisse oder in allen Default Cache-Verzeichnissen falls keine Argumente angegeben werden. Hierdurch werden alle Pakete die seit dem Entpacken manipuliert wurden entdeckt.
+Siehe 'verify' Befehl für Details wie die Überprüfung der einzelnen Pakete funktioniert.</value>
+  </data>
+  <data name="DetailsStoreCopy" xml:space="preserve">
+    <value>Um eine Implementierung (ein Verzeichnis mit einem Namen in der Form "algorithmus=wert") zu kopieren, verwenden Sie den 'copy' Befehl. Dies ist vergleichbar mit einer normalen rekursiven Verzeichniskopie gefolgt von einem '0store verify', um zu sicherzustellen, dass der Name mit dem Inhalt übereinstimmt.
+
+Beispiele:
+Windows: 0store copy %localappdata%\0install.net\implementations\sha256=XXX %localappdata%\0install.net\implementations\
+Linux: 0store copy ~someuser/.cache/0install.net/implementations/sha256=XXX /var/cache/0install.net/implementations/</value>
+  </data>
+  <data name="DetailsStoreFind" xml:space="preserve">
+    <value>Um den Pfad eines gespeicherten Elements zu ermitteln:
+0store find sha256=XXX</value>
+  </data>
+  <data name="DetailsStoreList" xml:space="preserve">
+    <value>Um eine Liste aller Implementierungen in allen aktuell konfigurierten Stores zu sehen:
+0store list</value>
+  </data>
+  <data name="DetailsStoreManage" xml:space="preserve">
+    <value>Um Feeds oder Implementierungen zu verifizieren oder zu entfernen:
+0store manage
+
+Zeigt ein GUI zur Verwaltung von Implementierungen im Store an. Zuordnungen zu gecachten Feeds werden angezeigt.</value>
+  </data>
+  <data name="DetailsStoreManifest" xml:space="preserve">
+    <value>Um das Manifest für eine Verzeichnisstruktur zu generieren und auf der Konsole auszugeben:
+0store manifest VERZEICHNIS [ALGORITHMUS]
+
+Das Manifest listet jede Datei und jedes Verzeichnis im Baum zusammen mit Digests jeder Datei auf, wodurch ein bestimmter Satz an Dateien eindeutig identifiziert wird. Nach dem Manifest gibt die letzte Zeile den Digest des Manifests selbst an.
+
+Dieser Wert wird beim Erstellen von Feed Dateien benötigt. Der 0publish Befehl berechnet die benötigten Digests jedoch automatisch für Sie und fügt sie einer Feed Datei hinzu.
+
+Unterstützte Algorithmen: {0}</value>
+  </data>
+  <data name="DetailsStorePurge" xml:space="preserve">
+    <value>Entfernt alle Implementierungen in jedem der angegebenen Cache-Verzeichnisse oder in allen Default Cache-Verzeichnissen falls keine Argumente angegeben werden.
+Verwenden Sie diesen Befehl um ein System vor der Deinstallation von Zero Install zu bereinigen.</value>
+  </data>
+  <data name="DetailsStoreRemove" xml:space="preserve">
+    <value>Um ein Element aus dem Store zu entfernen:
+0store remove sha256=XXX</value>
+  </data>
+  <data name="DetailsStoreVerify" xml:space="preserve">
+    <value>Um zu verifizieren, dass ein Element korrekt gespeichert ist:
+0store verify /pfad/zu/sha256=XXX
+
+Dies berechnet das Manifest für das Verzeichnis und stellt sicher, dass sein Digest mit dem Verzeichnisnamen übereinstimmt. Es überprüft auch ob es mit dem Digest der .manifest Datei innerhalb des Verzeichnisses übereinstimmt.</value>
+  </data>
+  <data name="DirectoryNotFound" xml:space="preserve">
+    <value>Das Verzeichnis '{0}' wurde nicht gefunden.</value>
   </data>
   <data name="Done" xml:space="preserve">
     <value>Fertig</value>
@@ -333,6 +417,9 @@ Ein &lt;feed-for&gt; Tag zeigt Feed-Kompatibilität an.</value>
     <value>Für dieses Programm gibt es ABSOLUT KEINE GARANTIEN, soweit dies gesetzlich zulässig ist.
 Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien dieses Programmes weitergeben.</value>
   </data>
+  <data name="LocalPathOf" xml:space="preserve">
+    <value>Lokaler Pfad von {0}</value>
+  </data>
   <data name="MissingArguments" xml:space="preserve">
     <value>Keine Argumente vorhanden.</value>
   </data>
@@ -344,6 +431,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   </data>
   <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
     <value>API hooking nicht möglich wegen einer nicht gecachten Implementierung.</value>
+  </data>
+  <data name="NoAuditSupport" xml:space="preserve">
+    <value>Dieser Store unterstützt kein Auditing.</value>
   </data>
   <data name="NoLongerUsed" xml:space="preserve">
     <value>Nicht mehr verwendet: </value>
@@ -359,6 +449,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   </data>
   <data name="NoSelfUpdateStore" xml:space="preserve">
     <value>Diese Zero Install Instanz wurde als Implementierung von einer anderen Zero Install Instanz gestartet. Sie kann sich daher nicht selbst aktualisieren.</value>
+  </data>
+  <data name="NoSuchFileOrDirectory" xml:space="preserve">
+    <value>Keine Datei oder Verzeichnis unter diesem Namen: {0}</value>
   </data>
   <data name="NotAvailableInPortableMode" xml:space="preserve">
     <value>Dieser Vorgang steht im Portablen Modus nicht zur Verfügung.</value>
@@ -422,6 +515,9 @@ Auf leer ("") setzen um den Command bei der Auswahl zu ignorieren.</value>
   <data name="OptionMain" xml:space="preserve">
     <value>Starte die spezifizierte ausführbare Datei {MAIN} anstellte des Standards. Beginnt der Pfad mit '/' oder '\', ist er relativ zum obersten Verzeichnis der Implementierung. Andernfalls ist er relativ zum Verzeichnis welches das Standardhauptprogramm enthält.
 Darf keine Befehlszeilenargumente enthalten! Leerzeichen müssen nicht escaped werden.</value>
+  </data>
+  <data name="OptionMan" xml:space="preserve">
+    <value>Zeige ausführlichere Dokumentation der Betriebsmodi an.</value>
   </data>
   <data name="OptionManifest" xml:space="preserve">
     <value>Zeigt das Manifest selbst an (eine Zeile für jede Datei und jedes Verzeichnis).</value>
@@ -493,6 +589,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Möchten Sie die {0} ausgewählten Einträge aus der Liste entfernen?</value>
   </data>
+  <data name="RemovingImplementations" xml:space="preserve">
+    <value>Entferne Implementierungen</value>
+  </data>
   <data name="RemovingOutdated" xml:space="preserve">
     <value>Entferne veraltete Dateien</value>
   </data>
@@ -501,6 +600,12 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="SelectedImplementations" xml:space="preserve">
     <value>Ausgewählte Implementierungen:</value>
+  </data>
+  <data name="StoreAudit" xml:space="preserve">
+    <value>Store Überprüfung</value>
+  </data>
+  <data name="SuccessfullyRemoved" xml:space="preserve">
+    <value>{0} wurde erfolgreich entfernt.</value>
   </data>
   <data name="SupportedValues" xml:space="preserve">
     <value>Unterstützte Werte: {0}</value>
@@ -523,6 +628,10 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="UnknownCommand" xml:space="preserve">
     <value>Unbekannter Befehl '{0}'.</value>
   </data>
+  <data name="UnknownMode" xml:space="preserve">
+    <value>Unbekannter Betriebsmodus.
+Probieren Sie 0store --help</value>
+  </data>
   <data name="UnknownOption" xml:space="preserve">
     <value>Unbekannte Option.</value>
   </data>
@@ -531,6 +640,12 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Verwendung:</value>
+  </data>
+  <data name="UseInstead" xml:space="preserve">
+    <value>Verwenden Sie stattdessen '{0}'.</value>
+  </data>
+  <data name="VerifyImplementation" xml:space="preserve">
+    <value>Implementierungsüberprüfung</value>
   </data>
   <data name="VersionInformation" xml:space="preserve">
     <value>Versionsinformationen:</value>

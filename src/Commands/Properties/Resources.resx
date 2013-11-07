@@ -180,6 +180,15 @@ You may have to close and reopen your terminal for this to become effective.</va
 If you select 'Yes' potentially incompatible integrations will be removed.
 If you select 'No' Zero Install will continue to use the old capabilities.</value>
   </data>
+  <data name="AuditErrors" xml:space="preserve">
+    <value>One or more problems were found in the store.</value>
+  </data>
+  <data name="AuditPass" xml:space="preserve">
+    <value>No problems were found in the store.</value>
+  </data>
+  <data name="CachedInterfaces" xml:space="preserve">
+    <value>Cached interfaces</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -257,6 +266,9 @@ Remove a checkbox to remove a capability's default status (it still remains avai
   <data name="DescriptionSelfUpdate" xml:space="preserve">
     <value>Update Zero Install itself to the most recent version.</value>
   </data>
+  <data name="DescriptionStore" xml:space="preserve">
+    <value>Manages caches of Zero Install implementations.</value>
+  </data>
   <data name="DescriptionSync" xml:space="preserve">
     <value>Synchronize the application list with the server.</value>
   </data>
@@ -268,6 +280,68 @@ Remove a checkbox to remove a capability's default status (it still remains avai
   </data>
   <data name="DesktopIntegration" xml:space="preserve">
     <value>Desktop integration</value>
+  </data>
+  <data name="DetailsOptimise" xml:space="preserve">
+    <value>To hard-link duplicate files together to save space:
+optimise [CACHE]
+
+This reads in all the manifest files in the cache directory and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one file and replaces it (atomically) with a hard-link to the other.
+
+Implementations using the old 'sha1' algorithm are not optimised.</value>
+  </data>
+  <data name="DetailsStoreAdd" xml:space="preserve">
+    <value>To add a directory to the store (makes a copy):
+add sha256=XXX directory
+
+To add an archive to the store:
+add sha256=XXX archive.tgz
+
+To add a subdirectory of an archive to the store:
+add sha256=XXX archive.tgz subdir
+
+The actual digest is calculated and compared to the given one. If they don't match, the operation is rejected.</value>
+  </data>
+  <data name="DetailsStoreAudit" xml:space="preserve">
+    <value>Verifies every  implementation in each of the given cache directories, or in all of the default cache directories if no arguments are given. This will detect any packages which have been tampered with since they were unpacked.
+See the 'verify' command for details of the verification performed on each package.</value>
+  </data>
+  <data name="DetailsStoreCopy" xml:space="preserve">
+    <value>To copy an implementation (a directory with a name in the form "algorithm=value"), use the 'copy' command. This is similar to performing a normal recursive directory copy followed by a 'verify' to check that the name matches the contents.
+
+Examples:
+Windows: copy %localappdata%\0install.net\implementations\sha256=XXX %localappdata%\0install.net\implementations\
+Linux: copy ~someuser/.cache/0install.net/implementations/sha256=XXX /var/cache/0install.net/implementations/</value>
+  </data>
+  <data name="DetailsStoreFind" xml:space="preserve">
+    <value>To find the path of a stored item:
+find sha256=XXX</value>
+  </data>
+  <data name="DetailsStoreList" xml:space="preserve">
+    <value>To see the list of all implementations in all currently configured stores:
+list</value>
+  </data>
+  <data name="DetailsStoreManage" xml:space="preserve">
+    <value>To verify or remove feeds or implementations:
+manage
+
+Displays a GUI for managing implementations in the store. Associations with cached feeds are displayed.</value>
+  </data>
+  <data name="DetailsStorePurge" xml:space="preserve">
+    <value>Removes all implementations in each of the given cache directories, or in all of the default cache directories if no arguments are given.
+Use this command to clean up a system before uninstalling Zero Install.</value>
+  </data>
+  <data name="DetailsStoreRemove" xml:space="preserve">
+    <value>To remove an item from the store:
+remove sha256=XXX</value>
+  </data>
+  <data name="DetailsStoreVerify" xml:space="preserve">
+    <value>To check that an item is stored correctly:
+verify /path/to/sha256=XXX
+
+This calculates the manifest of the directory and checks that its digest matches the directory's name. It also checks that it matches the digest of the .manifest file inside the directory.</value>
+  </data>
+  <data name="DirectoryNotFound" xml:space="preserve">
+    <value>The directory '{0}' was not found.</value>
   </data>
   <data name="Done" xml:space="preserve">
     <value>Done</value>
@@ -333,6 +407,9 @@ A &lt;feed-for&gt; tag indicates feed compatibility.</value>
     <value>This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
 You may redistribute copies of this program under the terms of the GNU Lesser General Public License.</value>
   </data>
+  <data name="LocalPathOf" xml:space="preserve">
+    <value>Local path of {0}</value>
+  </data>
   <data name="MissingArguments" xml:space="preserve">
     <value>Missing arguments.</value>
   </data>
@@ -344,6 +421,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   </data>
   <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
     <value>API hooking not possible due to non-cached implementation.</value>
+  </data>
+  <data name="NoAuditSupport" xml:space="preserve">
+    <value>This store does not support auditing.</value>
   </data>
   <data name="NoLongerUsed" xml:space="preserve">
     <value>No longer used: </value>
@@ -359,6 +439,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   </data>
   <data name="NoSelfUpdateStore" xml:space="preserve">
     <value>This Zero Install instance was launched as an implementation by another Zero Install instance. It therefore cannot update itself.</value>
+  </data>
+  <data name="NoSuchFileOrDirectory" xml:space="preserve">
+    <value>No such file or directory: {0}</value>
   </data>
   <data name="NotAvailableInPortableMode" xml:space="preserve">
     <value>This operation is not available in portable mode.</value>
@@ -422,6 +505,9 @@ Set to empty ("") to ignore the command during selection.</value>
   <data name="OptionMain" xml:space="preserve">
     <value>Run the specified executable {MAIN} instead of the default. If it starts with '/' or '\' then the path is relative to the implementation's top-level directory, whereas otherwise it is relative to the directory containing the default main program.
 May not contain command-line arguments! Whitespaces do not need to be escaped.</value>
+  </data>
+  <data name="OptionMan" xml:space="preserve">
+    <value>Display more comprehensive documentation for the operation modes.</value>
   </data>
   <data name="OptionManifest" xml:space="preserve">
     <value>Display the manifest itself (one line for each file or directory).</value>
@@ -493,6 +579,9 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Do you want to remove the {0} selected entries from the list?</value>
   </data>
+  <data name="RemovingImplementations" xml:space="preserve">
+    <value>Removing implementations</value>
+  </data>
   <data name="RemovingOutdated" xml:space="preserve">
     <value>Removing outdated implementations</value>
   </data>
@@ -501,6 +590,12 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   </data>
   <data name="SelectedImplementations" xml:space="preserve">
     <value>Selected implementations:</value>
+  </data>
+  <data name="StoreAudit" xml:space="preserve">
+    <value>Store audit</value>
+  </data>
+  <data name="SuccessfullyRemoved" xml:space="preserve">
+    <value>Successfully removed {0}.</value>
   </data>
   <data name="SupportedValues" xml:space="preserve">
     <value>Supported values: {0}</value>
@@ -523,6 +618,10 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   <data name="UnknownCommand" xml:space="preserve">
     <value>Unknown command '{0}'.</value>
   </data>
+  <data name="UnknownMode" xml:space="preserve">
+    <value>Unknown operation mode.
+Try --help</value>
+  </data>
   <data name="UnknownOption" xml:space="preserve">
     <value>Unknown option.</value>
   </data>
@@ -531,6 +630,39 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Usage:</value>
+  </data>
+  <data name="UsageStoreAdd" xml:space="preserve">
+    <value>add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))</value>
+  </data>
+  <data name="UsageStoreAudit" xml:space="preserve">
+    <value>audit [CACHE+]</value>
+  </data>
+  <data name="UsageStoreCopy" xml:space="preserve">
+    <value>copy DIRECTORY [CACHE]</value>
+  </data>
+  <data name="UsageStoreFind" xml:space="preserve">
+    <value>find DIGEST</value>
+  </data>
+  <data name="UsageStoreList" xml:space="preserve">
+    <value>list</value>
+  </data>
+  <data name="UsageStoreOptimize" xml:space="preserve">
+    <value>optimise [CACHE+]</value>
+  </data>
+  <data name="UsageStorePurge" xml:space="preserve">
+    <value>purge [CACHE+]</value>
+  </data>
+  <data name="UsageStoreRemove" xml:space="preserve">
+    <value>remove DIGEST+</value>
+  </data>
+  <data name="UsageStoreVerify" xml:space="preserve">
+    <value>verify (DIGEST|DIRECTORY)+</value>
+  </data>
+  <data name="UseInstead" xml:space="preserve">
+    <value>Use '{0}' instead.</value>
+  </data>
+  <data name="VerifyImplementation" xml:space="preserve">
+    <value>Verify implementation</value>
   </data>
   <data name="VersionInformation" xml:space="preserve">
     <value>Version information:</value>

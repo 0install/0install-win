@@ -430,6 +430,7 @@ namespace ZeroInstall.Store.Implementation
                 }
                 catch (DigestMismatchException ex)
                 {
+                    Log.Warn(ex);
                     problem = ex;
                 }
                 if (problem != null) yield return problem;
