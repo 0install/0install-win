@@ -39,7 +39,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="UnauthorizedAccessException">Thrown if access to a configuration file or one of the stores was not permitted.</exception>
         public static IStore CreateDefault()
         {
-            return new CompositeStore(GetStores().ToArray());
+            return new CompositeStore(GetStores());
         }
 
         /// <summary>

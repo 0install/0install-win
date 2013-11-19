@@ -50,15 +50,14 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="stores">
         ///   A priority-sorted list of <see cref="IStore"/>s.
         ///   Queried last-to-first for adding new <see cref="Model.Implementation"/>s, first-to-last otherwise.
-        ///   This array must _not_ be modified once it has been passed into this constructor!
         /// </param>
-        public CompositeStore(params IStore[] stores)
+        public CompositeStore(IEnumerable<IStore> stores)
         {
             #region Sanity checks
             if (stores == null) throw new ArgumentNullException("stores");
             #endregion
 
-            _stores = stores;
+            _stores = stores.ToArray();
         }
         #endregion
 

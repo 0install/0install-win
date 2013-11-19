@@ -51,7 +51,7 @@ namespace ZeroInstall.Store.Implementation
             _mockStore1 = new Mock<IStore>(MockBehavior.Strict);
             _mockStore2 = new Mock<IStore>(MockBehavior.Strict);
 
-            _testStore = new CompositeStore(_mockStore1.Object, _mockStore2.Object);
+            _testStore = new CompositeStore(new[] {_mockStore1.Object, _mockStore2.Object});
         }
 
         [TearDown]

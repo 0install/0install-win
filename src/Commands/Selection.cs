@@ -97,7 +97,7 @@ namespace ZeroInstall.Commands
             Options.Add("with-store=", () => Resources.OptionWithStore, delegate(string path)
             {
                 if (string.IsNullOrEmpty(path)) throw new OptionException(string.Format(Resources.MissingOptionValue, "--with-store"), "with-store");
-                Resolver.Store = new CompositeStore(new DirectoryStore(path), Resolver.Store);
+                Resolver.Store = new CompositeStore(new[] {new DirectoryStore(path), Resolver.Store});
             });
 
             Requirements.FromCommandLine(Options);
