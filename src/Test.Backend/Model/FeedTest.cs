@@ -66,7 +66,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Creates a fictive test <see cref="Implementation"/>.
         /// </summary>
-        private static Implementation CreateTestImplementation()
+        public static Implementation CreateTestImplementation()
         {
             return new Implementation
             {
@@ -114,7 +114,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Creates a fictive test <see cref="PackageImplementation"/>.
         /// </summary>
-        private static PackageImplementation CreateTestPackageImplementation()
+        public static PackageImplementation CreateTestPackageImplementation()
         {
             return new PackageImplementation
             {

@@ -17,6 +17,7 @@
 
 using System;
 using Common.Storage;
+using Moq;
 using NUnit.Framework;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
@@ -62,6 +63,7 @@ namespace ZeroInstall.Commands
             SolverMock.Setup(x => x.Solve(requirements, out stale)).Returns(selections).Verifiable();
 
             // Download uncached implementations
+            StoreMock.Setup(x => x.Contains(It.IsAny<ManifestDigest>())).Returns(false);
             FetcherMock.Setup(x => x.Fetch(new[] {testImplementation1, testImplementation2})).Verifiable();
 
             Assert.AreEqual(0, Command.Execute());
@@ -83,6 +85,7 @@ namespace ZeroInstall.Commands
                 Elements = {testImplementation2}
             };
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(testFeed2);
+            StoreMock.Setup(x => x.Contains(It.IsAny<ManifestDigest>())).Returns(false);
 
             var selections = SelectionsManagerTest.CreateTestSelections();
             using (var tempFile = new TemporaryFile("0install-unit-tests"))

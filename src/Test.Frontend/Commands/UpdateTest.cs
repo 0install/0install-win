@@ -60,14 +60,15 @@ namespace ZeroInstall.Commands
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub3.xml")).Returns(new Feed {Uri = new Uri("http://0install.de/feeds/test/sub3.xml"), Elements = {impl3}});
 
             // Download uncached implementations
-            FetcherMock.Setup(x => x.Fetch(
-                new[] {impl1, impl2, impl3}.IsEquivalent())).Verifiable();
+            StoreMock.Setup(x => x.Contains(It.IsAny<ManifestDigest>())).Returns(false);
+            FetcherMock.Setup(x => x.Fetch(new[] {impl1, impl2, impl3}.IsEquivalent())).Verifiable();
 
             // Check for <replaced-by>
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(FeedTest.CreateTestFeed());
 
-            AssertParseExecuteResult(selectionsNew, "http://0install.de/feeds/test/test2.xml: 1.0 -> 2.0" + Environment.NewLine + "http://0install.de/feeds/test/sub3.xml: new -> 0.1", 0,
+            AssertParseExecuteResult("http://0install.de/feeds/test/test2.xml: 1.0 -> 2.0" + Environment.NewLine + "http://0install.de/feeds/test/sub3.xml: new -> 0.1", 0,
                 "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0");
+            AssertSelections(selectionsNew);
         }
 
         [Test(Description = "Ensures local Selections XMLs are rejected.")]

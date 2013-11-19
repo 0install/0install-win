@@ -78,7 +78,7 @@ namespace ZeroInstall.Commands
         private IBackendHandler _handler;
 
         /// <summary>The content of the last <see cref="MockHandler.ShowSelections"/> call.</summary>
-        private Selections _selections;
+        protected Selections Selections { get; private set; }
 
         /// <summary>The content of the last <see cref="MockHandler.Output"/> call.</summary>
         private string _output;
@@ -87,6 +87,7 @@ namespace ZeroInstall.Commands
 
         protected Mock<IFeedCache> CacheMock { get; private set; }
         protected Mock<IOpenPgp> OpenPgpMock { get; private set; }
+        protected Mock<IStore> StoreMock { get; private set; }
         protected Mock<ISolver> SolverMock { get; private set; }
         protected Mock<IFetcher> FetcherMock { get; private set; }
         protected Resolver Resolver { get; private set; }
@@ -106,25 +107,26 @@ namespace ZeroInstall.Commands
             // Don't store generated executables settings in real user profile
             _redirect = new LocationsRedirect("0install-unit-tests");
 
-            _selections = null;
+            Selections = null;
             _output = null;
 
             // Store values passed to callback methods in fields
-            _handler = new MockHandler(selections => _selections = selections, information => _output = information);
+            _handler = new MockHandler(selections => Selections = selections, information => _output = information);
 
             _mockRepository = new MockRepository(MockBehavior.Strict);
             CacheMock = _mockRepository.Create<IFeedCache>();
             OpenPgpMock = _mockRepository.Create<IOpenPgp>();
+            StoreMock = _mockRepository.Create<IStore>();
             SolverMock = _mockRepository.Create<ISolver>();
             FetcherMock = _mockRepository.Create<IFetcher>(MockBehavior.Loose);
             Resolver = new Resolver(_handler)
             {
                 Config = new Config(),
                 FeedCache = CacheMock.Object,
-                Store = new Mock<IStore>().Object,
-                Fetcher = FetcherMock.Object,
                 OpenPgp = OpenPgpMock.Object,
-                Solver = SolverMock.Object
+                Store = StoreMock.Object,
+                Solver = SolverMock.Object,
+                Fetcher = FetcherMock.Object
             };
 
             Command = GetCommand();
@@ -140,20 +142,13 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Verifies that calling <see cref="FrontendCommand.Parse"/> and <see cref="FrontendCommand.Execute"/> causes a specific reuslt.
         /// </summary>
-        /// <param name="selections">The expected value for a <see cref="IBackendHandler.ShowSelections"/> call; <see langword="null"/> if none.</param>
         /// <param name="output">The expected string for a <see cref="IHandler.Output"/> call; <see langword="null"/> if none.</param>
         /// <param name="exitStatus">The expected exit status code returned by <see cref="FrontendCommand.Execute"/>.</param>
         /// <param name="args">The arguments to pass to <see cref="FrontendCommand.Parse"/>.</param>
-        protected void AssertParseExecuteResult(Selections selections, string output, int exitStatus, params string[] args)
+        protected void AssertParseExecuteResult(string output, int exitStatus, params string[] args)
         {
             Command.Parse(args);
             Assert.AreEqual(exitStatus, Command.Execute());
-            if (selections != null)
-            {
-                Assert.AreEqual(selections.InterfaceID, _selections.InterfaceID);
-                Assert.AreEqual(selections.Command, _selections.Command);
-                CollectionAssert.AreEqual(selections.Implementations, _selections.Implementations);
-            }
             Assert.AreEqual(output, _output);
         }
 

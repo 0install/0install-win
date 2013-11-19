@@ -18,8 +18,10 @@
 using Common.Storage;
 using NDesk.Options;
 using NUnit.Framework;
+using ZeroInstall.Backend;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Selection;
 
 namespace ZeroInstall.Commands
 {
@@ -43,8 +45,9 @@ namespace ZeroInstall.Commands
 
             bool stale;
             SolverMock.Setup(x => x.Solve(requirements, out stale)).Returns(selections).Verifiable();
-            AssertParseExecuteResult(selections, selections.ToXmlString(), 0,
+            AssertParseExecuteResult(selections.ToXmlString(), 0,
                 "--xml", "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0");
+            AssertSelections(selections);
         }
 
         [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
@@ -54,8 +57,8 @@ namespace ZeroInstall.Commands
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 selections.SaveXml(tempFile);
-                AssertParseExecuteResult(selections, selections.ToXmlString(), 0,
-                    "--xml", tempFile);
+                AssertParseExecuteResult(selections.ToXmlString(), 0, "--xml", tempFile);
+                AssertSelections(selections);
             }
         }
 
@@ -73,6 +76,16 @@ namespace ZeroInstall.Commands
             Assert.Throws<OptionException>(
                 () => Command.Parse(new[] {"http://0install.de/feeds/test/test1.xml", "arg1"}),
                 "Should reject more than one argument");
+        }
+
+        /// <summary>
+        /// Checks that <see cref="IBackendHandler.ShowSelections"/> was called with a specific set of <see cref="Selections"/>.
+        /// </summary>
+        protected void AssertSelections(Selections selections)
+        {
+            Assert.AreEqual(selections.InterfaceID, Selections.InterfaceID);
+            Assert.AreEqual(selections.Command, Selections.Command);
+            CollectionAssert.AreEqual(selections.Implementations, Selections.Implementations);
         }
     }
 }
