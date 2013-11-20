@@ -544,7 +544,7 @@ namespace ZeroInstall.Commands.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to To hard-link duplicate files together to save space:
-        ///optimise [CACHE]
+        ///0install store optimise [CACHE]
         ///
         ///This reads in all the manifest files in the cache directory and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one file and replaces it (atomically) with a hard-link to the other.
         ///
@@ -558,13 +558,13 @@ namespace ZeroInstall.Commands.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to To add a directory to the store (makes a copy):
-        ///add sha256=XXX directory
+        ///0install store add sha256=XXX directory
         ///
         ///To add an archive to the store:
-        ///add sha256=XXX archive.tgz
+        ///0install store add sha256=XXX archive.tgz
         ///
         ///To add a subdirectory of an archive to the store:
-        ///add sha256=XXX archive.tgz subdir
+        ///0install store add sha256=XXX archive.tgz subdir
         ///
         ///The actual digest is calculated and compared to the given one. If they don&apos;t match, the operation is rejected..
         /// </summary>
@@ -588,8 +588,10 @@ namespace ZeroInstall.Commands.Properties {
         ///   Looks up a localized string similar to To copy an implementation (a directory with a name in the form &quot;algorithm=value&quot;), use the &apos;copy&apos; command. This is similar to performing a normal recursive directory copy followed by a &apos;verify&apos; to check that the name matches the contents.
         ///
         ///Examples:
-        ///Windows: copy %localappdata%\0install.net\implementations\sha256=XXX %localappdata%\0install.net\implementations\
-        ///Linux: copy ~someuser/.cache/0install.net/implementations/sha256=XXX /var/cache/0install.net/implementations/.
+        ///Windows: 0install store copy %localappdata%\0install.net\implementations\sha256=XXX %localappdata%\0install.net\implementations\
+        ///Linux: 0install store copy ~someuser/.cache/0install.net/implementations/sha256=XXX /var/cache/0install.net/implementations/
+        ///
+        ///I [rest of string was truncated]&quot;;.
         /// </summary>
         public static string DetailsStoreCopy {
             get {
@@ -599,7 +601,7 @@ namespace ZeroInstall.Commands.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to To find the path of a stored item:
-        ///find sha256=XXX.
+        ///0install store find sha256=XXX.
         /// </summary>
         public static string DetailsStoreFind {
             get {
@@ -609,7 +611,7 @@ namespace ZeroInstall.Commands.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to To see the list of all implementations in all currently configured stores:
-        ///list.
+        ///0install store list.
         /// </summary>
         public static string DetailsStoreList {
             get {
@@ -619,7 +621,7 @@ namespace ZeroInstall.Commands.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to To verify or remove feeds or implementations:
-        ///manage
+        ///0install store manage
         ///
         ///Displays a GUI for managing implementations in the store. Associations with cached feeds are displayed..
         /// </summary>
@@ -641,7 +643,7 @@ namespace ZeroInstall.Commands.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to To remove an item from the store:
-        ///remove sha256=XXX.
+        ///0install store remove sha256=XXX.
         /// </summary>
         public static string DetailsStoreRemove {
             get {
@@ -651,7 +653,7 @@ namespace ZeroInstall.Commands.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to To check that an item is stored correctly:
-        ///verify /path/to/sha256=XXX
+        ///0install store verify /path/to/sha256=XXX
         ///
         ///This calculates the manifest of the directory and checks that its digest matches the directory&apos;s name. It also checks that it matches the digest of the .manifest file inside the directory..
         /// </summary>
@@ -1468,8 +1470,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unknown operation mode.
-        ///Try --help.
+        ///   Looks up a localized string similar to Unknown operation mode..
         /// </summary>
         public static string UnknownMode {
             get {

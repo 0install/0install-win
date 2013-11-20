@@ -283,7 +283,7 @@ Entfernen Sie ein Häckchen um den Standard-Status einer Fähigkeit zu entfernen
   </data>
   <data name="DetailsOptimise" xml:space="preserve">
     <value>Um doppelte Dateien mit Hardlinks zusammenzufassen um Speicherplatz zu sparen:
-0store optimise [CACHE]
+0install store optimise [CACHE]
 
 Dies liest alle Manifest-Dateien im Cache-Verzeichnis ein und sucht nach Duplikaten (Dateien mit den gleichen Berechtigungen, letztem Änderungszeitpunkt und Digest). Wenn es ein Paar findet, löscht es eine Datei und ersetzt sie (atomar) mit einem Hardlink zur anderen.
 
@@ -291,13 +291,13 @@ Implementierungen mit dem alten "sha1"-Algorithmus werden nicht optimiert.</valu
   </data>
   <data name="DetailsStoreAdd" xml:space="preserve">
     <value>Um ein Verzeichnis zum Store hinzuzufügen (legt eine Kopie an):
-0store add sha256=XXX verzeichnis
+0install store add sha256=XXX verzeichnis
 
 Um ein Archiv zum Store hinzuzufügen:
-0store add sha256=XXX archiv.tgz
+0install store add sha256=XXX archiv.tgz
 
 Um ein Unterverzeichnis eines Archivs zum Store hinzuzufügen:
-0store add sha256=XXX archiv.tgz unter-verzeichnis
+0install store add sha256=XXX archiv.tgz unter-verzeichnis
 
 Der tatsächliche Digest wird berechnet und mit dem angegebenen verglichen. Falls sie nicht übereinstimmen wird die Operation abgelehnt.</value>
   </data>
@@ -306,29 +306,31 @@ Der tatsächliche Digest wird berechnet und mit dem angegebenen verglichen. Fall
 Siehe 'verify' Befehl für Details wie die Überprüfung der einzelnen Pakete funktioniert.</value>
   </data>
   <data name="DetailsStoreCopy" xml:space="preserve">
-    <value>Um eine Implementierung (ein Verzeichnis mit einem Namen in der Form "algorithmus=wert") zu kopieren, verwenden Sie den 'copy' Befehl. Dies ist vergleichbar mit einer normalen rekursiven Verzeichniskopie gefolgt von einem '0store verify', um zu sicherzustellen, dass der Name mit dem Inhalt übereinstimmt.
+    <value>Um eine Implementierung (ein Verzeichnis mit einem Namen in der Form "algorithmus=wert") zu kopieren, verwenden Sie den 'copy' Befehl. Dies ist vergleichbar mit einer normalen rekursiven Verzeichniskopie gefolgt von einem '0install store verify', um zu sicherzustellen, dass der Name mit dem Inhalt übereinstimmt.
 
 Beispiele:
-Windows: 0store copy %localappdata%\0install.net\implementations\sha256=XXX %localappdata%\0install.net\implementations\
-Linux: 0store copy ~someuser/.cache/0install.net/implementations/sha256=XXX /var/cache/0install.net/implementations/</value>
+Windows: 0install store copy %localappdata%\0install.net\implementations\sha256=XXX %localappdata%\0install.net\implementations\
+Linux: 0install store copy ~someuser/.cache/0install.net/implementations/sha256=XXX /var/cache/0install.net/implementations/
+
+Wenn Sie kein Zielverzeichnis angeben, wird der Default-Store verwendet.</value>
   </data>
   <data name="DetailsStoreFind" xml:space="preserve">
     <value>Um den Pfad eines gespeicherten Elements zu ermitteln:
-0store find sha256=XXX</value>
+0install store find sha256=XXX</value>
   </data>
   <data name="DetailsStoreList" xml:space="preserve">
     <value>Um eine Liste aller Implementierungen in allen aktuell konfigurierten Stores zu sehen:
-0store list</value>
+0install store list</value>
   </data>
   <data name="DetailsStoreManage" xml:space="preserve">
     <value>Um Feeds oder Implementierungen zu verifizieren oder zu entfernen:
-0store manage
+0install store manage
 
 Zeigt ein GUI zur Verwaltung von Implementierungen im Store an. Zuordnungen zu gecachten Feeds werden angezeigt.</value>
   </data>
   <data name="DetailsStoreManifest" xml:space="preserve">
     <value>Um das Manifest für eine Verzeichnisstruktur zu generieren und auf der Konsole auszugeben:
-0store manifest VERZEICHNIS [ALGORITHMUS]
+0install store manifest VERZEICHNIS [ALGORITHMUS]
 
 Das Manifest listet jede Datei und jedes Verzeichnis im Baum zusammen mit Digests jeder Datei auf, wodurch ein bestimmter Satz an Dateien eindeutig identifiziert wird. Nach dem Manifest gibt die letzte Zeile den Digest des Manifests selbst an.
 
@@ -342,11 +344,11 @@ Verwenden Sie diesen Befehl um ein System vor der Deinstallation von Zero Instal
   </data>
   <data name="DetailsStoreRemove" xml:space="preserve">
     <value>Um ein Element aus dem Store zu entfernen:
-0store remove sha256=XXX</value>
+0install store remove sha256=XXX</value>
   </data>
   <data name="DetailsStoreVerify" xml:space="preserve">
     <value>Um zu verifizieren, dass ein Element korrekt gespeichert ist:
-0store verify /pfad/zu/sha256=XXX
+0install store verify /pfad/zu/sha256=XXX
 
 Dies berechnet das Manifest für das Verzeichnis und stellt sicher, dass sein Digest mit dem Verzeichnisnamen übereinstimmt. Es überprüft auch ob es mit dem Digest der .manifest Datei innerhalb des Verzeichnisses übereinstimmt.</value>
   </data>
@@ -629,8 +631,7 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
     <value>Unbekannter Befehl '{0}'.</value>
   </data>
   <data name="UnknownMode" xml:space="preserve">
-    <value>Unbekannter Betriebsmodus.
-Probieren Sie 0store --help</value>
+    <value>Unbekannter Betriebsmodus.</value>
   </data>
   <data name="UnknownOption" xml:space="preserve">
     <value>Unbekannte Option.</value>

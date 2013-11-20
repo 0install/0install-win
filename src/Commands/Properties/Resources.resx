@@ -283,7 +283,7 @@ Remove a checkbox to remove a capability's default status (it still remains avai
   </data>
   <data name="DetailsOptimise" xml:space="preserve">
     <value>To hard-link duplicate files together to save space:
-optimise [CACHE]
+0install store optimise [CACHE]
 
 This reads in all the manifest files in the cache directory and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one file and replaces it (atomically) with a hard-link to the other.
 
@@ -291,13 +291,13 @@ Implementations using the old 'sha1' algorithm are not optimised.</value>
   </data>
   <data name="DetailsStoreAdd" xml:space="preserve">
     <value>To add a directory to the store (makes a copy):
-add sha256=XXX directory
+0install store add sha256=XXX directory
 
 To add an archive to the store:
-add sha256=XXX archive.tgz
+0install store add sha256=XXX archive.tgz
 
 To add a subdirectory of an archive to the store:
-add sha256=XXX archive.tgz subdir
+0install store add sha256=XXX archive.tgz subdir
 
 The actual digest is calculated and compared to the given one. If they don't match, the operation is rejected.</value>
   </data>
@@ -309,20 +309,22 @@ See the 'verify' command for details of the verification performed on each packa
     <value>To copy an implementation (a directory with a name in the form "algorithm=value"), use the 'copy' command. This is similar to performing a normal recursive directory copy followed by a 'verify' to check that the name matches the contents.
 
 Examples:
-Windows: copy %localappdata%\0install.net\implementations\sha256=XXX %localappdata%\0install.net\implementations\
-Linux: copy ~someuser/.cache/0install.net/implementations/sha256=XXX /var/cache/0install.net/implementations/</value>
+Windows: 0install store copy %localappdata%\0install.net\implementations\sha256=XXX %localappdata%\0install.net\implementations\
+Linux: 0install store copy ~someuser/.cache/0install.net/implementations/sha256=XXX /var/cache/0install.net/implementations/
+
+If you do not specify a target directory the default store is used.</value>
   </data>
   <data name="DetailsStoreFind" xml:space="preserve">
     <value>To find the path of a stored item:
-find sha256=XXX</value>
+0install store find sha256=XXX</value>
   </data>
   <data name="DetailsStoreList" xml:space="preserve">
     <value>To see the list of all implementations in all currently configured stores:
-list</value>
+0install store list</value>
   </data>
   <data name="DetailsStoreManage" xml:space="preserve">
     <value>To verify or remove feeds or implementations:
-manage
+0install store manage
 
 Displays a GUI for managing implementations in the store. Associations with cached feeds are displayed.</value>
   </data>
@@ -332,11 +334,11 @@ Use this command to clean up a system before uninstalling Zero Install.</value>
   </data>
   <data name="DetailsStoreRemove" xml:space="preserve">
     <value>To remove an item from the store:
-remove sha256=XXX</value>
+0install store remove sha256=XXX</value>
   </data>
   <data name="DetailsStoreVerify" xml:space="preserve">
     <value>To check that an item is stored correctly:
-verify /path/to/sha256=XXX
+0install store verify /path/to/sha256=XXX
 
 This calculates the manifest of the directory and checks that its digest matches the directory's name. It also checks that it matches the digest of the .manifest file inside the directory.</value>
   </data>
@@ -619,8 +621,7 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
     <value>Unknown command '{0}'.</value>
   </data>
   <data name="UnknownMode" xml:space="preserve">
-    <value>Unknown operation mode.
-Try --help</value>
+    <value>Unknown operation mode.</value>
   </data>
   <data name="UnknownOption" xml:space="preserve">
     <value>Unknown option.</value>
