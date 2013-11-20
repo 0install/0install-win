@@ -64,10 +64,6 @@ namespace ZeroInstall.Store.Management.Cli
         /// </summary>
         public static int Run(string[] args)
         {
-            // Automatically show help for missing args
-            if (args == null) args = new string[0];
-            if (args.Length == 0) args = new[] {"--help"};
-
             IBackendHandler handler = new CliHandler();
             FrontendCommand command;
             try

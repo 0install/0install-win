@@ -106,7 +106,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// The help text describing the available command-line options and their effects.
         /// </summary>
-        private string HelpText
+        protected string HelpText
         {
             get
             {
@@ -201,7 +201,12 @@ namespace ZeroInstall.Commands
         /// <exception cref="InvalidInterfaceIDException">Thrown when trying to set an invalid interface ID.</exception>
         public virtual void Parse(IEnumerable<string> args)
         {
+            // ReSharper disable PossibleMultipleEnumeration
+            // Automatically show help for missing args
+            if (AdditionalArgsMin > 0 && !args.Any()) args = new[] {"--help"};
+
             AdditionalArgs.AddRange(Options.Parse(args));
+            // ReSharper restore PossibleMultipleEnumeration
 
             if (AdditionalArgs.Count < AdditionalArgsMin) throw new OptionException(Resources.MissingArguments, "");
             if (AdditionalArgsMin == 1 && string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");

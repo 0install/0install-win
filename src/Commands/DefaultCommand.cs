@@ -68,7 +68,8 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            return 0;
+            Resolver.Handler.Output(Resources.CommandLineArguments, HelpText);
+            return 1;
         }
         #endregion
     }
