@@ -211,7 +211,7 @@ namespace Common.Utils
         /// <param name="separator">The separator characters to place between the <paramref name="parts"/>.</param>
         /// <param name="parts">The strings to be combined.</param>
         /// <remarks>Works like <see cref="string.Join(string,string[])"/> but for <see cref="IEnumerable{T}"/>s.</remarks>
-        public static string Join(this string separator, IEnumerable<string> parts)
+        public static string Join(string separator, IEnumerable<string> parts)
         {
             #region Sanity checks
             if (parts == null) throw new ArgumentNullException("parts");

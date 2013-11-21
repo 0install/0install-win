@@ -71,7 +71,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public IntegrateApp(Resolver resolver) : base(resolver)
         {
-            string categoryList = ", ".Join(CategoryIntegrationManager.Categories);
+            string categoryList = StringUtils.Join(", ", CategoryIntegrationManager.Categories);
 
             Options.Add("a|add=", () => Resources.OptionAppAdd + "\n" + Resources.OptionAppCategory + categoryList, category =>
             {

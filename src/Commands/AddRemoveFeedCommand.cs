@@ -74,7 +74,7 @@ namespace ZeroInstall.Commands
 
             Resolver.Handler.OutputLow(Resources.FeedManagement, (modified.Count == 0)
                 ? NoneModifiedMessage
-                : string.Format(ModifiedMessage, Environment.NewLine.Join(modified)));
+                : string.Format(ModifiedMessage, StringUtils.Join(Environment.NewLine, modified)));
             return (modified.Count == 0) ? 0 : 1;
         }
         #endregion

@@ -30,7 +30,7 @@ namespace ZeroInstall.Commands.WinForms.CapabilityModels
         /// <summary>
         /// All <see cref="UrlProtocol.KnownPrefixes"/> concatenated with ", ". If no <see cref="UrlProtocol.KnownPrefixes"/> is available <see cref="Capability.ID"/> will be returned.
         /// </summary>
-        public string KnownPrefixes { get { return _urlProtocol.KnownPrefixes.IsEmpty ? Capability.ID : ", ".Join(_urlProtocol.KnownPrefixes.Map(extension => extension.Value)); } }
+        public string KnownPrefixes { get { return _urlProtocol.KnownPrefixes.IsEmpty ? Capability.ID : StringUtils.Join(", ", _urlProtocol.KnownPrefixes.Map(extension => extension.Value)); } }
 
         /// <inheritdoc />
         public UrlProtocolModel(UrlProtocol capability, bool used) : base(capability, used)

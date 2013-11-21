@@ -79,8 +79,8 @@ namespace Common.Utils
         [Test]
         public void TestJoin()
         {
-            Assert.AreEqual("part1", " ".Join(new[] {"part1"}));
-            Assert.AreEqual("part1 part2", " ".Join(new[] {"part1", "part2"}));
+            Assert.AreEqual("part1", StringUtils.Join(" ", new[] {"part1"}));
+            Assert.AreEqual("part1 part2", StringUtils.Join(" ", new[] {"part1", "part2"}));
             Assert.AreEqual("\"part1 part2\" part3", new[] {"part1 part2", "part3"}.JoinEscapeArguments());
         }
 

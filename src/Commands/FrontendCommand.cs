@@ -309,7 +309,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         internal static string SupportedValues<T>(IEnumerable<T> values)
         {
-            return string.Format(Resources.SupportedValues, ", ".Join(values.Select(AttributeUtils.ConvertToString)));
+            return string.Format(Resources.SupportedValues, StringUtils.Join(", ", values.Select(AttributeUtils.ConvertToString)));
         }
         #endregion
     }

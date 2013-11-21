@@ -119,7 +119,7 @@ namespace ZeroInstall.Model
             if (Stability != default(Stability)) parts.Add(Stability.ToString());
             if (!string.IsNullOrEmpty(License)) parts.Add(License);
             if (!string.IsNullOrEmpty(Main)) parts.Add(Main);
-            return ", ".Join(parts);
+            return StringUtils.Join(", ", parts);
         }
         #endregion
 

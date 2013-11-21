@@ -150,7 +150,7 @@ namespace ZeroInstall.Model
         public override string ToString()
         {
             // Separate parts with colons
-            return "|".Join(_parts.Select(part => part.ToString()));
+            return StringUtils.Join("|", _parts.Select(part => part.ToString()));
         }
 
         /// <summary>

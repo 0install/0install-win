@@ -219,7 +219,7 @@ namespace ZeroInstall.Commands
         {
             if (AdditionalArgs.Count > 2) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + Resources.UsageStoreList);
 
-            Resolver.Handler.Output(Resources.CachedInterfaces, Environment.NewLine.Join(Resolver.Store.ListAll().Select(Resolver.Store.GetPath)));
+            Resolver.Handler.Output(Resources.CachedInterfaces, StringUtils.Join(Environment.NewLine, Resolver.Store.ListAll().Select(Resolver.Store.GetPath)));
         }
 
         private void Optimise()
