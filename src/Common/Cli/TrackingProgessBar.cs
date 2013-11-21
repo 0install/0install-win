@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Security.Permissions;
 using Common.Tasks;
 
 namespace Common.Cli
@@ -98,6 +99,7 @@ namespace Common.Cli
 
         #region IPC timeout
         /// <inheritdoc/>
+        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.Infrastructure)]
         public override object InitializeLifetimeService()
         {
             return null; // Do not timeout progress reporting callbacks

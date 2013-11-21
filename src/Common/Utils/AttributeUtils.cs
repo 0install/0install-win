@@ -100,6 +100,11 @@ namespace Common.Utils
         public static TValue GetAttributeValue<TAttribute, TValue>(this Assembly assembly, Func<TAttribute, TValue> valueRetrieval)
             where TAttribute : Attribute
         {
+            #region Sanity checks
+            if (assembly == null) throw new ArgumentNullException("assembly");
+            if (valueRetrieval == null) throw new ArgumentNullException("valueRetrieval");
+            #endregion
+
             var attributes = assembly.GetCustomAttributes(typeof(TAttribute), inherit: false);
             return (attributes.Length > 0) ? valueRetrieval((TAttribute)attributes[0]) : default(TValue);
         }

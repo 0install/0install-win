@@ -304,13 +304,18 @@ namespace Common.Utils
         /// </summary>
         /// <param name="file">The file to read from.</param>
         /// <param name="encoding">The text encoding to use for reading.</param>
-        /// <returns>The first line of text in the file; <see langword="null"/> if ASCII decoding does not work on the contents.</returns>
+        /// <returns>The first line of text in the file; <see langword="null"/> if decoding does not work on the contents.</returns>
         /// <exception cref="IOException">Thrown if a problem occurred while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         public static string ReadFirstLine(this FileInfo file, Encoding encoding)
         {
+            #region Sanity checks
+            if (file == null) throw new ArgumentNullException("file");
+            if (encoding == null) throw new ArgumentNullException("encoding");
+            #endregion
+
             using (var stream = file.OpenRead())
-                return new StreamReader(stream, Encoding.ASCII).ReadLine();
+                return new StreamReader(stream, encoding).ReadLine();
         }
         #endregion
 
