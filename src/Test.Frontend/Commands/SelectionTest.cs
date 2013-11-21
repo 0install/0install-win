@@ -62,14 +62,6 @@ namespace ZeroInstall.Commands
             }
         }
 
-        [Test(Description = "Ensures calling with no arguments raises an exception.")]
-        public void TestNoArgs()
-        {
-            Assert.Throws<OptionException>(
-                () => Command.Parse(new string[0]),
-                "Should reject empty argument list");
-        }
-
         [Test(Description = "Ensures calling with too many arguments raises an exception.")]
         public void TestTooManyArgs()
         {

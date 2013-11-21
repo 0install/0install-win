@@ -45,12 +45,12 @@ namespace ZeroInstall.Commands
             var handler = new SilentHandler();
             try
             {
-                return CommandFactory.CreateAndParse(new[] {name}, handler);
+                return CommandFactory.CreateAndParse(new[] {name, "--verbose"}, handler);
             }
             catch (OptionException)
             {
                 // Pass in an additional dummy argument if required
-                return CommandFactory.CreateAndParse(new[] {name, "dummy"}, handler);
+                return CommandFactory.CreateAndParse(new[] {name, "--verbose", "dummy"}, handler);
             }
         }
     }
