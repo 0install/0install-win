@@ -390,7 +390,8 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View or change configuration settings. With no arguments, it displays all settings and their current values. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value..
+        ///   Looks up a localized string similar to View or change configuration settings.
+        ///With no arguments, it displays all settings and their current values. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value..
         /// </summary>
         public static string DescriptionConfig {
             get {
@@ -408,7 +409,8 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This command behaves similarly to &apos;0install select&apos;, except that it also downloads the selected versions if they are not already cached. Unlike &apos;select&apos;, it does not print the selected versions by default. Returns an exit status of 0 if it selected a suitable set of versions and they are now all downloaded and in the cache; returns a status of 1 otherwise..
+        ///   Looks up a localized string similar to Behaves similarly to &apos;0install select&apos;, except that it also downloads the selected versions if they are not already cached.
+        ///Returns an exit status of 0 if it selected a suitable set of versions and they are now all downloaded and in the cache; returns a status of 1 otherwise..
         /// </summary>
         public static string DescriptionDownload {
             get {
@@ -480,7 +482,8 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This behaves similarly to &apos;0install download&apos;, except that it also runs the program after ensuring it is in the cache. Returns an exit status of 1 if the download step failed. Otherwise, the exit status will be the exit status of the program being run..
+        ///   Looks up a localized string similar to Behaves similarly to &apos;0install download&apos;, except that it also runs the program after ensuring it is in the cache.
+        ///Returns an exit status of 1 if the download step failed. Otherwise, the exit status will be the exit status of the program being run..
         /// </summary>
         public static string DescriptionRun {
             get {
@@ -489,7 +492,8 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select a version of the program identified by URI, and compatible versions of all of its dependencies. Returns an exit status of zero if it selected a set of versions, and a status of 1 if it could not find a consistent set..
+        ///   Looks up a localized string similar to Select a version of the program identified by URI, and compatible versions of all of its dependencies.
+        ///Returns an exit status of zero if it selected a set of versions, and a status of 1 if it could not find a consistent set..
         /// </summary>
         public static string DescriptionSelect {
             get {
@@ -507,11 +511,96 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manages caches of Zero Install implementations..
+        ///   Looks up a localized string similar to Adds the contents of a directory or archive to the cache..
         /// </summary>
-        public static string DescriptionStore {
+        public static string DescriptionStoreAdd {
             get {
-                return ResourceManager.GetString("DescriptionStore", resourceCulture);
+                return ResourceManager.GetString("DescriptionStoreAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checks that every implementation in the cache is undamaged.
+        ///Additional arguments specify custom cache locations..
+        /// </summary>
+        public static string DescriptionStoreAudit {
+            get {
+                return ResourceManager.GetString("DescriptionStoreAudit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copies an implementation into the cache. Similar to &apos;add&apos;, but the digest is extracted from the directory name.
+        ///An additional arguments specifies a custom target cache location..
+        /// </summary>
+        public static string DescriptionStoreCopy {
+            get {
+                return ResourceManager.GetString("DescriptionStoreCopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Determines the local path of a cached implementation..
+        /// </summary>
+        public static string DescriptionStoreFind {
+            get {
+                return ResourceManager.GetString("DescriptionStoreFind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Displays a list of all cached implementations..
+        /// </summary>
+        public static string DescriptionStoreList {
+            get {
+                return ResourceManager.GetString("DescriptionStoreList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Displays a graphical user interface for managing implementations in the cache. Shows associations with cached feeds..
+        /// </summary>
+        public static string DescriptionStoreManage {
+            get {
+                return ResourceManager.GetString("DescriptionStoreManage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saves disk space by merging identical files with hardlinks.
+        ///Additional arguments specify custom cache locations..
+        /// </summary>
+        public static string DescriptionStoreOptimise {
+            get {
+                return ResourceManager.GetString("DescriptionStoreOptimise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removes all implementations from the cache. Use this command to clean up the system before removing Zero Install. Deleting cache directories manually may be difficult due to the NTFS ACLs employed to protect implementations against modification.
+        ///Additional arguments specify custom cache locations..
+        /// </summary>
+        public static string DescriptionStorePurge {
+            get {
+                return ResourceManager.GetString("DescriptionStorePurge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removes an implementation from the cache..
+        /// </summary>
+        public static string DescriptionStoreRemove {
+            get {
+                return ResourceManager.GetString("DescriptionStoreRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Makes sure one or more implementations have not been damaged..
+        /// </summary>
+        public static string DescriptionStoreVerify {
+            get {
+                return ResourceManager.GetString("DescriptionStoreVerify", resourceCulture);
             }
         }
         
@@ -525,7 +614,8 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check for updates to the program and download them if found. This is similar to &apos;0install download --refresh&apos;, except that it prints information about whether any changes were found..
+        ///   Looks up a localized string similar to Check for updates to the program and download them if found.
+        ///This is similar to &apos;0install download --refresh&apos;, except that it prints information about whether any changes were found..
         /// </summary>
         public static string DescriptionUpdate {
             get {
@@ -548,127 +638,6 @@ namespace ZeroInstall.Commands.Properties {
         public static string DesktopIntegration {
             get {
                 return ResourceManager.GetString("DesktopIntegration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to To hard-link duplicate files together to save space:
-        ///0install store optimise [CACHE]
-        ///
-        ///This reads in all the manifest files in the cache directory and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one file and replaces it (atomically) with a hard-link to the other.
-        ///
-        ///Implementations using the old &apos;sha1&apos; algorithm are not optimised..
-        /// </summary>
-        public static string DetailsOptimise {
-            get {
-                return ResourceManager.GetString("DetailsOptimise", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to To add a directory to the store (makes a copy):
-        ///0install store add sha256=XXX directory
-        ///
-        ///To add an archive to the store:
-        ///0install store add sha256=XXX archive.tgz
-        ///
-        ///To add a subdirectory of an archive to the store:
-        ///0install store add sha256=XXX archive.tgz subdir
-        ///
-        ///The actual digest is calculated and compared to the given one. If they don&apos;t match, the operation is rejected..
-        /// </summary>
-        public static string DetailsStoreAdd {
-            get {
-                return ResourceManager.GetString("DetailsStoreAdd", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Verifies every  implementation in each of the given cache directories, or in all of the default cache directories if no arguments are given. This will detect any packages which have been tampered with since they were unpacked.
-        ///See the &apos;verify&apos; command for details of the verification performed on each package..
-        /// </summary>
-        public static string DetailsStoreAudit {
-            get {
-                return ResourceManager.GetString("DetailsStoreAudit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to To copy an implementation (a directory with a name in the form &quot;algorithm=value&quot;), use the &apos;copy&apos; command. This is similar to performing a normal recursive directory copy followed by a &apos;verify&apos; to check that the name matches the contents.
-        ///
-        ///Examples:
-        ///Windows: 0install store copy %localappdata%\0install.net\implementations\sha256=XXX %localappdata%\0install.net\implementations\
-        ///Linux: 0install store copy ~someuser/.cache/0install.net/implementations/sha256=XXX /var/cache/0install.net/implementations/
-        ///
-        ///I [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string DetailsStoreCopy {
-            get {
-                return ResourceManager.GetString("DetailsStoreCopy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to To find the path of a stored item:
-        ///0install store find sha256=XXX.
-        /// </summary>
-        public static string DetailsStoreFind {
-            get {
-                return ResourceManager.GetString("DetailsStoreFind", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to To see the list of all implementations in all currently configured stores:
-        ///0install store list.
-        /// </summary>
-        public static string DetailsStoreList {
-            get {
-                return ResourceManager.GetString("DetailsStoreList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to To verify or remove feeds or implementations:
-        ///0install store manage
-        ///
-        ///Displays a GUI for managing implementations in the store. Associations with cached feeds are displayed..
-        /// </summary>
-        public static string DetailsStoreManage {
-            get {
-                return ResourceManager.GetString("DetailsStoreManage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Removes all implementations in each of the given cache directories, or in all of the default cache directories if no arguments are given.
-        ///Use this command to clean up a system before uninstalling Zero Install..
-        /// </summary>
-        public static string DetailsStorePurge {
-            get {
-                return ResourceManager.GetString("DetailsStorePurge", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to To remove an item from the store:
-        ///0install store remove sha256=XXX.
-        /// </summary>
-        public static string DetailsStoreRemove {
-            get {
-                return ResourceManager.GetString("DetailsStoreRemove", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to To check that an item is stored correctly:
-        ///0install store verify /path/to/sha256=XXX
-        ///
-        ///This calculates the manifest of the directory and checks that its digest matches the directory&apos;s name. It also checks that it matches the digest of the .manifest file inside the directory..
-        /// </summary>
-        public static string DetailsStoreVerify {
-            get {
-                return ResourceManager.GetString("DetailsStoreVerify", resourceCulture);
             }
         }
         
@@ -1511,87 +1480,6 @@ namespace ZeroInstall.Commands.Properties {
         public static string Usage {
             get {
                 return ResourceManager.GetString("Usage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]])).
-        /// </summary>
-        public static string UsageStoreAdd {
-            get {
-                return ResourceManager.GetString("UsageStoreAdd", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to audit [CACHE+].
-        /// </summary>
-        public static string UsageStoreAudit {
-            get {
-                return ResourceManager.GetString("UsageStoreAudit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to copy DIRECTORY [CACHE].
-        /// </summary>
-        public static string UsageStoreCopy {
-            get {
-                return ResourceManager.GetString("UsageStoreCopy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to find DIGEST.
-        /// </summary>
-        public static string UsageStoreFind {
-            get {
-                return ResourceManager.GetString("UsageStoreFind", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to list.
-        /// </summary>
-        public static string UsageStoreList {
-            get {
-                return ResourceManager.GetString("UsageStoreList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to optimise [CACHE+].
-        /// </summary>
-        public static string UsageStoreOptimize {
-            get {
-                return ResourceManager.GetString("UsageStoreOptimize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to purge [CACHE+].
-        /// </summary>
-        public static string UsageStorePurge {
-            get {
-                return ResourceManager.GetString("UsageStorePurge", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to remove DIGEST+.
-        /// </summary>
-        public static string UsageStoreRemove {
-            get {
-                return ResourceManager.GetString("UsageStoreRemove", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to verify (DIGEST|DIRECTORY)+.
-        /// </summary>
-        public static string UsageStoreVerify {
-            get {
-                return ResourceManager.GetString("UsageStoreVerify", resourceCulture);
             }
         }
         

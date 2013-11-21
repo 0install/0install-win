@@ -231,13 +231,15 @@ Remove a checkbox to remove a capability's default status (it still remains avai
     <value>Opens the central graphical user interface for launching and managing applications.</value>
   </data>
   <data name="DescriptionConfig" xml:space="preserve">
-    <value>View or change configuration settings. With no arguments, it displays all settings and their current values. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value.</value>
+    <value>View or change configuration settings.
+With no arguments, it displays all settings and their current values. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value.</value>
   </data>
   <data name="DescriptionDigest" xml:space="preserve">
     <value>Calculate the manifest digest of a directory or archive.</value>
   </data>
   <data name="DescriptionDownload" xml:space="preserve">
-    <value>This command behaves similarly to '0install select', except that it also downloads the selected versions if they are not already cached. Unlike 'select', it does not print the selected versions by default. Returns an exit status of 0 if it selected a suitable set of versions and they are now all downloaded and in the cache; returns a status of 1 otherwise.</value>
+    <value>Behaves similarly to '0install select', except that it also downloads the selected versions if they are not already cached.
+Returns an exit status of 0 if it selected a suitable set of versions and they are now all downloaded and in the cache; returns a status of 1 otherwise.</value>
   </data>
   <data name="DescriptionImport" xml:space="preserve">
     <value>Import a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again. The file must have a trusted digital signature, as when fetching from the network.</value>
@@ -261,89 +263,62 @@ Remove a checkbox to remove a capability's default status (it still remains avai
     <value>Reintegrate all applications in the application list into the desktop environment.</value>
   </data>
   <data name="DescriptionRun" xml:space="preserve">
-    <value>This behaves similarly to '0install download', except that it also runs the program after ensuring it is in the cache. Returns an exit status of 1 if the download step failed. Otherwise, the exit status will be the exit status of the program being run.</value>
+    <value>Behaves similarly to '0install download', except that it also runs the program after ensuring it is in the cache.
+Returns an exit status of 1 if the download step failed. Otherwise, the exit status will be the exit status of the program being run.</value>
   </data>
   <data name="DescriptionSelect" xml:space="preserve">
-    <value>Select a version of the program identified by URI, and compatible versions of all of its dependencies. Returns an exit status of zero if it selected a set of versions, and a status of 1 if it could not find a consistent set.</value>
+    <value>Select a version of the program identified by URI, and compatible versions of all of its dependencies.
+Returns an exit status of zero if it selected a set of versions, and a status of 1 if it could not find a consistent set.</value>
   </data>
   <data name="DescriptionSelfUpdate" xml:space="preserve">
     <value>Update Zero Install itself to the most recent version.</value>
   </data>
-  <data name="DescriptionStore" xml:space="preserve">
-    <value>Manages caches of Zero Install implementations.</value>
+  <data name="DescriptionStoreAdd" xml:space="preserve">
+    <value>Adds the contents of a directory or archive to the cache.</value>
+  </data>
+  <data name="DescriptionStoreAudit" xml:space="preserve">
+    <value>Checks that every implementation in the cache is undamaged.
+Additional arguments specify custom cache locations.</value>
+  </data>
+  <data name="DescriptionStoreCopy" xml:space="preserve">
+    <value>Copies an implementation into the cache. Similar to 'add', but the digest is extracted from the directory name.
+An additional arguments specifies a custom target cache location.</value>
+  </data>
+  <data name="DescriptionStoreFind" xml:space="preserve">
+    <value>Determines the local path of a cached implementation.</value>
+  </data>
+  <data name="DescriptionStoreList" xml:space="preserve">
+    <value>Displays a list of all cached implementations.</value>
+  </data>
+  <data name="DescriptionStoreManage" xml:space="preserve">
+    <value>Displays a graphical user interface for managing implementations in the cache. Shows associations with cached feeds.</value>
+  </data>
+  <data name="DescriptionStoreOptimise" xml:space="preserve">
+    <value>Saves disk space by merging identical files with hardlinks.
+Additional arguments specify custom cache locations.</value>
+  </data>
+  <data name="DescriptionStorePurge" xml:space="preserve">
+    <value>Removes all implementations from the cache. Use this command to clean up the system before removing Zero Install. Deleting cache directories manually may be difficult due to the NTFS ACLs employed to protect implementations against modification.
+Additional arguments specify custom cache locations.</value>
+  </data>
+  <data name="DescriptionStoreRemove" xml:space="preserve">
+    <value>Removes an implementation from the cache.</value>
+  </data>
+  <data name="DescriptionStoreVerify" xml:space="preserve">
+    <value>Makes sure one or more implementations have not been damaged.</value>
   </data>
   <data name="DescriptionSync" xml:space="preserve">
     <value>Synchronize the application list with the server.</value>
   </data>
   <data name="DescriptionUpdate" xml:space="preserve">
-    <value>Check for updates to the program and download them if found. This is similar to '0install download --refresh', except that it prints information about whether any changes were found.</value>
+    <value>Check for updates to the program and download them if found.
+This is similar to '0install download --refresh', except that it prints information about whether any changes were found.</value>
   </data>
   <data name="DescriptionUpdateApps" xml:space="preserve">
     <value>Updates all applications in the application list.</value>
   </data>
   <data name="DesktopIntegration" xml:space="preserve">
     <value>Desktop integration</value>
-  </data>
-  <data name="DetailsOptimise" xml:space="preserve">
-    <value>To hard-link duplicate files together to save space:
-0install store optimise [CACHE]
-
-This reads in all the manifest files in the cache directory and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one file and replaces it (atomically) with a hard-link to the other.
-
-Implementations using the old 'sha1' algorithm are not optimised.</value>
-  </data>
-  <data name="DetailsStoreAdd" xml:space="preserve">
-    <value>To add a directory to the store (makes a copy):
-0install store add sha256=XXX directory
-
-To add an archive to the store:
-0install store add sha256=XXX archive.tgz
-
-To add a subdirectory of an archive to the store:
-0install store add sha256=XXX archive.tgz subdir
-
-The actual digest is calculated and compared to the given one. If they don't match, the operation is rejected.</value>
-  </data>
-  <data name="DetailsStoreAudit" xml:space="preserve">
-    <value>Verifies every  implementation in each of the given cache directories, or in all of the default cache directories if no arguments are given. This will detect any packages which have been tampered with since they were unpacked.
-See the 'verify' command for details of the verification performed on each package.</value>
-  </data>
-  <data name="DetailsStoreCopy" xml:space="preserve">
-    <value>To copy an implementation (a directory with a name in the form "algorithm=value"), use the 'copy' command. This is similar to performing a normal recursive directory copy followed by a 'verify' to check that the name matches the contents.
-
-Examples:
-Windows: 0install store copy %localappdata%\0install.net\implementations\sha256=XXX %localappdata%\0install.net\implementations\
-Linux: 0install store copy ~someuser/.cache/0install.net/implementations/sha256=XXX /var/cache/0install.net/implementations/
-
-If you do not specify a target directory the default store is used.</value>
-  </data>
-  <data name="DetailsStoreFind" xml:space="preserve">
-    <value>To find the path of a stored item:
-0install store find sha256=XXX</value>
-  </data>
-  <data name="DetailsStoreList" xml:space="preserve">
-    <value>To see the list of all implementations in all currently configured stores:
-0install store list</value>
-  </data>
-  <data name="DetailsStoreManage" xml:space="preserve">
-    <value>To verify or remove feeds or implementations:
-0install store manage
-
-Displays a GUI for managing implementations in the store. Associations with cached feeds are displayed.</value>
-  </data>
-  <data name="DetailsStorePurge" xml:space="preserve">
-    <value>Removes all implementations in each of the given cache directories, or in all of the default cache directories if no arguments are given.
-Use this command to clean up a system before uninstalling Zero Install.</value>
-  </data>
-  <data name="DetailsStoreRemove" xml:space="preserve">
-    <value>To remove an item from the store:
-0install store remove sha256=XXX</value>
-  </data>
-  <data name="DetailsStoreVerify" xml:space="preserve">
-    <value>To check that an item is stored correctly:
-0install store verify /path/to/sha256=XXX
-
-This calculates the manifest of the directory and checks that its digest matches the directory's name. It also checks that it matches the digest of the .manifest file inside the directory.</value>
   </data>
   <data name="DirectoryNotFound" xml:space="preserve">
     <value>The directory '{0}' was not found.</value>
@@ -634,33 +609,6 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Usage:</value>
-  </data>
-  <data name="UsageStoreAdd" xml:space="preserve">
-    <value>add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))</value>
-  </data>
-  <data name="UsageStoreAudit" xml:space="preserve">
-    <value>audit [CACHE+]</value>
-  </data>
-  <data name="UsageStoreCopy" xml:space="preserve">
-    <value>copy DIRECTORY [CACHE]</value>
-  </data>
-  <data name="UsageStoreFind" xml:space="preserve">
-    <value>find DIGEST</value>
-  </data>
-  <data name="UsageStoreList" xml:space="preserve">
-    <value>list</value>
-  </data>
-  <data name="UsageStoreOptimize" xml:space="preserve">
-    <value>optimise [CACHE+]</value>
-  </data>
-  <data name="UsageStorePurge" xml:space="preserve">
-    <value>purge [CACHE+]</value>
-  </data>
-  <data name="UsageStoreRemove" xml:space="preserve">
-    <value>remove DIGEST+</value>
-  </data>
-  <data name="UsageStoreVerify" xml:space="preserve">
-    <value>verify (DIGEST|DIRECTORY)+</value>
   </data>
   <data name="UseInstead" xml:space="preserve">
     <value>Use '{0}' instead.</value>

@@ -42,7 +42,7 @@ namespace ZeroInstall.Commands
         protected override string Description { get { return Resources.DescriptionCentral; } }
 
         /// <inheritdoc/>
-        protected override string Usage { get { return ""; } }
+        protected override string Usage { get { return "[OPTIONS]"; } }
         #endregion
 
         #region Constructor

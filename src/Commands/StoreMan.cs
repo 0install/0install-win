@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Common.Tasks;
 using Common.Utils;
 using NDesk.Options;
@@ -59,17 +60,34 @@ namespace ZeroInstall.Commands
 
         #region Properties
         /// <inheritdoc/>
-        protected override string Description { get { return Resources.DescriptionStore; } }
-
-        /// <inheritdoc/>
-        protected override string Usage
+        protected override string Description
         {
             get
             {
-                var usages = new[] {"", Resources.UsageStoreAdd, Resources.UsageStoreAudit, Resources.UsageStoreCopy, Resources.UsageStoreFind, Resources.UsageStoreList, Resources.UsageStoreOptimize, Resources.UsageStorePurge, Resources.UsageStoreRemove, Resources.UsageStoreVerify};
-                return "SUBCOMMAND" + Environment.NewLine + string.Join(Environment.NewLine + "\t0install store ", usages) + Environment.NewLine;
+                string[,] subcommands =
+                {
+                    {"add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))", Resources.DescriptionStoreAdd},
+                    {"audit [CACHE+]", Resources.DescriptionStoreAudit},
+                    {"copy DIRECTORY [CACHE]", Resources.DescriptionStoreCopy},
+                    {"find DIGEST", Resources.DescriptionStoreFind},
+                    {"list", Resources.DescriptionStoreList},
+                    {"manage", Resources.DescriptionStoreManage},
+                    {"optimise [CACHE+]", Resources.DescriptionStoreOptimise},
+                    {"purge [CACHE+]", Resources.DescriptionStorePurge},
+                    {"remove DIGEST+", Resources.DescriptionStoreRemove},
+                    {"verify (DIGEST|DIRECTORY)+", Resources.DescriptionStoreVerify}
+                };
+
+                var builder = new StringBuilder();
+                for (int i = 0; i < subcommands.GetLength(0); i++)
+                    builder.Append(Environment.NewLine + "0install store " + subcommands[i, 0] + Environment.NewLine + subcommands[i, 1] + Environment.NewLine);
+
+                return builder.ToString();
             }
         }
+
+        /// <inheritdoc/>
+        protected override string Usage { get { return "SUBCOMMAND"; } }
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMin { get { return 1; } }
@@ -79,23 +97,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public StoreMan(Resolver resolver)
             : base(resolver)
-        {
-            Options.Add("man", () => Resources.OptionMan, unused =>
-            {
-                Resolver.Handler.Output("0install store sub-commands",
-                    @"ADD" + Environment.NewLine + Environment.NewLine + Resources.DetailsStoreAdd + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine +
-                    @"AUDIT" + Environment.NewLine + Environment.NewLine + Resources.DetailsStoreAudit + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine +
-                    @"COPY" + Environment.NewLine + Environment.NewLine + Resources.DetailsStoreCopy + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine +
-                    @"FIND" + Environment.NewLine + Environment.NewLine + Resources.DetailsStoreFind + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine +
-                    @"LIST" + Environment.NewLine + Environment.NewLine + Resources.DetailsStoreList + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine +
-                    @"MANAGE" + Environment.NewLine + Environment.NewLine + Resources.DetailsStoreManage + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine +
-                    @"PURGE" + Environment.NewLine + Environment.NewLine + Resources.DetailsStorePurge + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine +
-                    @"REMOVE" + Environment.NewLine + Environment.NewLine + Resources.DetailsStoreRemove + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine +
-                    @"VERIFY" + Environment.NewLine + Environment.NewLine + Resources.DetailsStoreVerify);
-
-                throw new OperationCanceledException(); // Don't handle any of the other arguments
-            });
-        }
+        {}
         #endregion
 
         //--------------------//
@@ -157,7 +159,7 @@ namespace ZeroInstall.Commands
         #region Subcommands
         private void Add()
         {
-            if (AdditionalArgs.Count < 3) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + Resources.UsageStoreAdd);
+            if (AdditionalArgs.Count < 3) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))");
 
             Resolver.Handler.ShowProgressUI();
 
@@ -169,7 +171,7 @@ namespace ZeroInstall.Commands
             }
             else if (Directory.Exists(path))
             { // A single directory
-                if (AdditionalArgs.Count > 3) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + Resources.UsageStoreAdd);
+                if (AdditionalArgs.Count > 3) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))");
                 Resolver.Store.AddDirectory(path, manifestDigest, Resolver.Handler);
             }
             else throw new FileNotFoundException(string.Format(Resources.NoSuchFileOrDirectory, path), path);
@@ -196,8 +198,8 @@ namespace ZeroInstall.Commands
 
         private void Copy()
         {
-            if (AdditionalArgs.Count < 2) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + Resources.UsageStoreCopy);
-            if (AdditionalArgs.Count > 3) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + Resources.UsageStoreCopy);
+            if (AdditionalArgs.Count < 2) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + "copy DIRECTORY [CACHE]");
+            if (AdditionalArgs.Count > 3) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + "copy DIRECTORY [CACHE]");
 
             Resolver.Handler.ShowProgressUI();
 
@@ -207,8 +209,8 @@ namespace ZeroInstall.Commands
 
         private void Find()
         {
-            if (AdditionalArgs.Count < 2) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + Resources.UsageStoreFind);
-            if (AdditionalArgs.Count > 2) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + Resources.UsageStoreFind);
+            if (AdditionalArgs.Count < 2) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + "find DIGEST");
+            if (AdditionalArgs.Count > 2) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + "find DIGEST");
 
             string path = Resolver.Store.GetPath(new ManifestDigest(AdditionalArgs[1]));
             if (path == null) throw new ImplementationNotFoundException(new ManifestDigest(AdditionalArgs[1]));
@@ -217,7 +219,7 @@ namespace ZeroInstall.Commands
 
         private void List()
         {
-            if (AdditionalArgs.Count > 2) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + Resources.UsageStoreList);
+            if (AdditionalArgs.Count > 2) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + "list");
 
             Resolver.Handler.Output(Resources.CachedInterfaces, StringUtils.Join(Environment.NewLine, Resolver.Store.ListAll().Select(Resolver.Store.GetPath)));
         }
@@ -238,7 +240,7 @@ namespace ZeroInstall.Commands
 
         private void Remove()
         {
-            if (AdditionalArgs.Count < 2) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + Resources.UsageStoreRemove);
+            if (AdditionalArgs.Count < 2) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + "remove DIGEST+");
 
             Resolver.Handler.ShowProgressUI();
 
