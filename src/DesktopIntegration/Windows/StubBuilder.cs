@@ -17,9 +17,7 @@
 
 using System;
 using System.CodeDom.Compiler;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -29,7 +27,6 @@ using Common;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
-using Microsoft.CSharp;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Icons;
@@ -43,7 +40,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
     {
         #region Get
         /// <summary>
-        /// Builds a stub EXE in a well-known location. Future calls with the same arguments will return the same EXE without rebuilding it.
+        /// Builds a stub EXE in a well-known location. Future calls with the same arguments will return the same EXE.
         /// </summary>
         /// <param name="target">The application to be launched via the stub.</param>
         /// <param name="machineWide">Store the stub in a machine-wide directory instead of just for the current user.</param>
@@ -60,77 +57,70 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            string hash = (target.InterfaceID + "#" + command).Hash(SHA256.Create());
-            string dirPath = Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "stubs", hash);
-
             var entryPoint = target.Feed.GetEntryPoint(command ?? Command.NameRun);
             string exeName = (entryPoint != null)
                 ? entryPoint.BinaryName ?? entryPoint.Command
                 : ModelUtils.Escape(target.Feed.Name);
-            string exePath = Path.Combine(dirPath, exeName + ".exe");
+            bool needsTerminal = target.Feed.NeedsTerminal || (entryPoint != null && entryPoint.NeedsTerminal);
 
-            if (File.Exists(exePath))
-            { // Existing stub, ...
-                // TODO: Find better rebuild discriminator
-                if (File.GetLastWriteTime(exePath) < Process.GetCurrentProcess().StartTime)
-                { // Built before current process, try to rebuild
-                    try
-                    {
-                        File.Delete(exePath);
-                    }
-                        #region Error handling
-                    catch (IOException ex)
-                    {
-                        Log.Warn(string.Format(Resources.UnableToReplaceStub, exePath));
-                        Log.Warn(ex);
-                        return exePath;
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        Log.Warn(string.Format(Resources.UnableToReplaceStub, exePath));
-                        Log.Warn(ex);
-                        return exePath;
-                    }
-                    #endregion
+            string hash = (target.InterfaceID + "#" + command).Hash(SHA256.Create());
+            string path = Path.Combine(Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "stubs", hash), exeName + ".exe");
 
-                    target.BuildRunStub(exePath, handler, command);
-                    return exePath;
-                }
-                else
-                { // Built during (probably by) current process, keep existing
-                    return exePath;
-                }
-            }
-            else
-            { // No existing stub, build new one
-                target.BuildRunStub(exePath, handler, command);
-                return exePath;
-            }
+            target.CreateOrUpdateRunStub(path, handler, needsTerminal, command);
+            return path;
         }
-        #endregion
 
-        #region Build
         /// <summary>
-        /// Builds a stub EXE that executes the "0install run" command.
+        /// Creates a new or updates an existing stub EXE that executes the "0install run" command. 
         /// </summary>
+        /// <seealso cref="BuildRunStub"/>
         /// <param name="target">The application to be launched via the stub.</param>
         /// <param name="path">The target path to store the generated EXE file.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <param name="needsTerminal"><see langword="true"/> to build a CLI stub, <see langword="false"/> to build a GUI stub.</param>
         /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="InvalidOperationException">Thrown if there was a compilation error while generating the stub EXE.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem is not permitted.</exception>
-        internal static void BuildRunStub(this InterfaceFeed target, string path, ITaskHandler handler, string command = null)
+        private static void CreateOrUpdateRunStub(this InterfaceFeed target, string path, ITaskHandler handler, bool needsTerminal, string command)
         {
-            // Determine whether the target is a CLI or GUI app
-            var entryPoint = target.Feed.GetEntryPoint(command ?? Command.NameRun);
-            bool needsTerminal = target.Feed.NeedsTerminal || (entryPoint != null && entryPoint.NeedsTerminal);
+            if (File.Exists(path))
+            { // Existing stub
+                // TODO: Find better rebuild discriminator
+                if (File.GetLastWriteTime(path) < Process.GetCurrentProcess().StartTime)
+                { // Outdated, try to rebuild
+                    try
+                    {
+                        File.Delete(path);
+                    }
+                        #region Error handling
+                    catch (IOException ex)
+                    {
+                        Log.Warn(string.Format(Resources.UnableToReplaceStub, path));
+                        Log.Warn(ex);
+                        return;
+                    }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        Log.Warn(string.Format(Resources.UnableToReplaceStub, path));
+                        Log.Warn(ex);
+                        return;
+                    }
+                    #endregion
 
-            target.BuildRunStub(path, handler, needsTerminal, command);
+                    target.BuildRunStub(path, handler, needsTerminal, command);
+                }
+            }
+            else
+            { // No existing stub, build new one
+                target.BuildRunStub(path, handler, needsTerminal, command);
+            }
         }
+        #endregion
 
+        #region Build
         /// <summary>
         /// Builds a stub EXE that executes the "0install run" command.
         /// </summary>
@@ -144,17 +134,53 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem is not permitted.</exception>
-        internal static void BuildRunStub(this InterfaceFeed target, string path, ITaskHandler handler, bool needsTerminal, string command = null)
+        internal static void BuildRunStub(this InterfaceFeed target, string path, ITaskHandler handler, bool needsTerminal, string command)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // Make sure the containing directory exists
-            string directory = Path.GetDirectoryName(Path.GetFullPath(path));
-            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory)) Directory.CreateDirectory(directory);
+            var compilerParameters = new CompilerParameters
+            {
+                GenerateExecutable = true,
+                OutputAssembly = path,
+                IncludeDebugInformation = false,
+                GenerateInMemory = false,
+                TreatWarningsAsErrors = true,
+                ReferencedAssemblies = {"System.dll"}
+            };
 
+            if (!needsTerminal) compilerParameters.CompilerOptions += " /target:winexe";
+
+            var icon = target.Feed.GetIcon(Icon.MimeTypeIco, command);
+            if (icon != null)
+            {
+                string iconPath = IconCacheProvider.GetInstance().GetIcon(icon.Href, handler);
+                compilerParameters.CompilerOptions += " /win32icon:" + iconPath.EscapeArgument();
+            }
+
+            compilerParameters.CompileCSharp(
+                GetRunStubCode(target, needsTerminal, command),
+                GetEmbeddedResource("Stub.manifest"));
+        }
+
+        private static string GetEmbeddedResource(string name)
+        {
+            var assembly = Assembly.GetAssembly(typeof(StubBuilder));
+            using (var stream = assembly.GetManifestResourceStream(typeof(StubBuilder), name))
+                return stream.ReadToString();
+        }
+
+        /// <summary>
+        /// Generates the C# to be compiled for the stub EXE.
+        /// </summary>
+        /// <param name="target">The application to be launched via the stub.</param>
+        /// <param name="needsTerminal"><see langword="true"/> to build a CLI stub, <see langword="false"/> to build a GUI stub.</param>
+        /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
+        /// <returns>Generated C# code.</returns>
+        private static string GetRunStubCode(InterfaceFeed target, bool needsTerminal, string command)
+        {
             // Build command-line
             string args = needsTerminal ? "" : "run --no-wait ";
             if (!string.IsNullOrEmpty(command)) args += "--command=" + command.EscapeArgument() + " ";
@@ -164,91 +190,15 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string code = GetEmbeddedResource("stub.template.cs").Replace("[EXE]", Path.Combine(Locations.InstallBase, needsTerminal ? "0launch.exe" : "0install-win.exe").Replace(@"\", @"\\"));
             code = code.Replace("[ARGUMENTS]", EscapeForCode(args));
             code = code.Replace("[TITLE]", EscapeForCode(target.Feed.GetBestName(CultureInfo.CurrentUICulture, command)));
-
-            // Configure the compiler
-            var compilerParameters = new CompilerParameters
-            {
-                GenerateExecutable = true,
-                OutputAssembly = path,
-                IncludeDebugInformation = false,
-                GenerateInMemory = false,
-                TreatWarningsAsErrors = true,
-                ReferencedAssemblies = { "System.dll" }
-            };
-            if (!needsTerminal) compilerParameters.CompilerOptions += " /target:winexe";
-
-            // Set icon if available
-            var icon = target.Feed.GetIcon(Icon.MimeTypeIco, command);
-            if (icon != null)
-            {
-                string iconPath = IconCacheProvider.GetInstance().GetIcon(icon.Href, handler);
-                compilerParameters.CompilerOptions += " /win32icon:" + iconPath.EscapeArgument();
-            }
-
-            using (var manifestFile = new TemporaryFile("0install"))
-            {
-                File.WriteAllText(manifestFile, GetEmbeddedResource("Stub.manifest"));
-
-                // Run the compilation process and check for errors
-                var compiler = GetCSharpCompiler(compilerParameters, manifestFile);
-                var compilerResults = compiler.CompileAssemblyFromSource(compilerParameters, code);
-                if (compilerResults.Errors.HasErrors)
-                {
-                    var error = compilerResults.Errors[0];
-                    throw new InvalidOperationException("Compilation error " + error.ErrorNumber + " in line " + error.Line + "\n" + error.ErrorText);
-                }
-            }
+            return code;
         }
 
-        /// <summary>
-        /// Detects the best possible C# compiler version and instantiates it.
-        /// </summary>
-        /// <param name="compilerParameters">The compiler parameters to be used. Version-specific options may be set.</param>
-        /// <param name="manifestFilePath">The path of an assembly file to be added to compiled binaries if possible.</param>
-        private static CodeDomProvider GetCSharpCompiler(this CompilerParameters compilerParameters, string manifestFilePath)
-        {
-            if (Environment.Version.Major == 4)
-            { // C# 4.0 (.NET 4.0/4.5)
-                compilerParameters.CompilerOptions += " /win32manifest:" + manifestFilePath.EscapeArgument();
-                return new CSharpCodeProvider();
-            }
-            else if (WindowsUtils.HasNetFxVersion(WindowsUtils.NetFx35))
-            { // C# 3.0 (.NET 3.5)
-                compilerParameters.CompilerOptions += " /win32manifest:" + manifestFilePath.EscapeArgument();
-                return NewCSharpCodeProviderEx(WindowsUtils.NetFx35);
-            }
-            else
-            { // C# 2.0 (.NET 2.0/3.0)
-                return new CSharpCodeProvider();
-            }
-        }
-
-        /// <summary>
-        /// Instantiates a post-v2.0 C# compiler in a 2.0 runtime environment.
-        /// </summary>
-        /// <param name="version">The full .NET version number including the leading "v". Use predefined constants when possible.</param>
-        /// <remarks>Extracted to a separate method in case this is older than C# 2.0 SP2 and the required constructor is therefore missing.</remarks>
-        [SuppressMessage("Microsoft.Portability", "CA1903:UseOnlyApiFromTargetedFramework", MessageId = "Microsoft.CSharp.CSharpCodeProvider.#.ctor(System.Collections.Generic.IDictionary`2<System.String,System.String>)", Justification = "Will only be called on post-2.0 .NET versions")]
-        private static CodeDomProvider NewCSharpCodeProviderEx(string version)
-        {
-            return new CSharpCodeProvider(new Dictionary<string, string> { { "CompilerVersion", version } });
-        }
-        #endregion
-
-        #region Helpers
         /// <summary>
         /// Escapes a string so that is safe for substitution inside C# code
         /// </summary>
         private static string EscapeForCode(string value)
         {
             return value.Replace(@"\", @"\\").Replace("\"", "\\\"").Replace("\n", @"\n");
-        }
-
-        private static string GetEmbeddedResource(string name)
-        {
-            var assembly = Assembly.GetAssembly(typeof(StubBuilder));
-            using (var stream = assembly.GetManifestResourceStream(typeof(StubBuilder), name))
-                return stream.ReadToString();
         }
         #endregion
     }

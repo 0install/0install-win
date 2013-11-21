@@ -123,6 +123,7 @@
     <Compile Include="Streams\CircularBufferStream.cs" />
     <Compile Include="Streams\DisposeWrapperStream.cs" />
     <Compile Include="Utils\AttributeUtils.cs" />
+    <Compile Include="Utils\CompilerUtils.cs" />
     <Compile Include="Utils\ProcessUtils.cs" />
     <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
