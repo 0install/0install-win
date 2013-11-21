@@ -328,16 +328,6 @@ Wenn Sie kein Zielverzeichnis angeben, wird der Default-Store verwendet.</value>
 
 Zeigt ein GUI zur Verwaltung von Implementierungen im Store an. Zuordnungen zu gecachten Feeds werden angezeigt.</value>
   </data>
-  <data name="DetailsStoreManifest" xml:space="preserve">
-    <value>Um das Manifest für eine Verzeichnisstruktur zu generieren und auf der Konsole auszugeben:
-0install store manifest VERZEICHNIS [ALGORITHMUS]
-
-Das Manifest listet jede Datei und jedes Verzeichnis im Baum zusammen mit Digests jeder Datei auf, wodurch ein bestimmter Satz an Dateien eindeutig identifiziert wird. Nach dem Manifest gibt die letzte Zeile den Digest des Manifests selbst an.
-
-Dieser Wert wird beim Erstellen von Feed Dateien benötigt. Der 0publish Befehl berechnet die benötigten Digests jedoch automatisch für Sie und fügt sie einer Feed Datei hinzu.
-
-Unterstützte Algorithmen: {0}</value>
-  </data>
   <data name="DetailsStorePurge" xml:space="preserve">
     <value>Entfernt alle Implementierungen in jedem der angegebenen Cache-Verzeichnisse oder in allen Default Cache-Verzeichnissen falls keine Argumente angegeben werden.
 Verwenden Sie diesen Befehl um ein System vor der Deinstallation von Zero Install zu bereinigen.</value>

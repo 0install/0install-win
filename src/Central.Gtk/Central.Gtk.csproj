@@ -10,7 +10,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeroInstall.Central.Gtk</RootNamespace>
-    <AssemblyName>ZeroInstall.Gtk</AssemblyName>
+    <AssemblyName>ZeroInstall-gtk</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\build\Frontend\Debug\</OutputPath>
-    <DocumentationFile>..\..\build\Frontend\Debug\ZeroInstall.Gtk.xml</DocumentationFile>
+    <DocumentationFile>..\..\build\Frontend\Debug\ZeroInstall-gtk.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
