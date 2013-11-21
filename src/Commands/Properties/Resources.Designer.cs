@@ -381,6 +381,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opens the central graphical user interface for launching and managing applications..
+        /// </summary>
+        public static string DescriptionCentral {
+            get {
+                return ResourceManager.GetString("DescriptionCentral", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to View or change configuration settings. With no arguments, it displays all settings and their current values. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value..
         /// </summary>
         public static string DescriptionConfig {

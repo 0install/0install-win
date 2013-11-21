@@ -227,6 +227,9 @@ Entfernen Sie ein Häckchen um den Standard-Status einer Fähigkeit zu entfernen
   <data name="DescriptionAddFeed" xml:space="preserve">
     <value>Registriere eine zusätzliche Implementierungsquelle (Versionen) für ein Programm.</value>
   </data>
+  <data name="DescriptionCentral" xml:space="preserve">
+    <value>Öffnet die zentrale grafische Benutzerschnittstelle zum Starten und Verwalten von Anwendungen.</value>
+  </data>
   <data name="DescriptionConfig" xml:space="preserve">
     <value>Konfigurationseinstellungen anzeigen oder verändern. Ohne Argumente zeigt es alle Einstellungen und ihre aktuellen Werte an. Mit einem Argument zeigt es den aktuellen Wert der benannten Einstellung an. Mit zwei Argumenten setzt es den Wert der benannten Einstellung.</value>
   </data>

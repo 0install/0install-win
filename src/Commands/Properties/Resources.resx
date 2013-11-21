@@ -227,6 +227,9 @@ Remove a checkbox to remove a capability's default status (it still remains avai
   <data name="DescriptionAddFeed" xml:space="preserve">
     <value>Register an additional source of implementations (versions) of a program.</value>
   </data>
+  <data name="DescriptionCentral" xml:space="preserve">
+    <value>Opens the central graphical user interface for launching and managing applications.</value>
+  </data>
   <data name="DescriptionConfig" xml:space="preserve">
     <value>View or change configuration settings. With no arguments, it displays all settings and their current values. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value.</value>
   </data>
