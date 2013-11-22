@@ -61,9 +61,8 @@ namespace ZeroInstall.Publish.EntryPoints
                     return new Command
                     {
                         Name = Command.NameRun,
-                        Arguments = {"-jar"},
                         Path = RelativePath,
-                        Runner = new Runner {Interface = "http://repo.roscidus.com/java/openjdk-jre", Versions = (VersionRange)MinimumRuntimeVersion}
+                        Runner = new Runner {Interface = "http://repo.roscidus.com/java/openjdk-jre", Arguments = {"-jar"}, Versions = (VersionRange)MinimumRuntimeVersion}
                     };
                 }
             }
