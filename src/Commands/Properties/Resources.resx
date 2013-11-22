@@ -242,7 +242,8 @@ With no arguments, it displays all settings and their current values. With one a
 Returns an exit status of 0 if it selected a suitable set of versions and they are now all downloaded and in the cache; returns a status of 1 otherwise.</value>
   </data>
   <data name="DescriptionImport" xml:space="preserve">
-    <value>Import a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again. The file must have a trusted digital signature, as when fetching from the network.</value>
+    <value>Imports a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again.
+The file must have a trusted digital signature, as when fetching from the network.</value>
   </data>
   <data name="DescriptionIntegrateApp" xml:space="preserve">
     <value>Add an application to the application list (if missing) and integrate it into the desktop environment.</value>
@@ -257,7 +258,7 @@ Returns an exit status of 0 if it selected a suitable set of versions and they a
     <value>Remove an application from the application list and undoes any desktop environment integration.</value>
   </data>
   <data name="DescriptionRemoveFeed" xml:space="preserve">
-    <value>Un-register a feed, reversing the effect of 'add-feed'. </value>
+    <value>Un-register a feed, reversing the effect of '0install add-feed'.</value>
   </data>
   <data name="DescriptionRepairApps" xml:space="preserve">
     <value>Reintegrate all applications in the application list into the desktop environment.</value>
@@ -271,7 +272,7 @@ Returns an exit status of 1 if the download step failed. Otherwise, the exit sta
 Returns an exit status of zero if it selected a set of versions, and a status of 1 if it could not find a consistent set.</value>
   </data>
   <data name="DescriptionSelfUpdate" xml:space="preserve">
-    <value>Update Zero Install itself to the most recent version.</value>
+    <value>Updates Zero Install itself to the most recent version.</value>
   </data>
   <data name="DescriptionStoreAdd" xml:space="preserve">
     <value>Adds the contents of a directory or archive to the cache.</value>
@@ -281,7 +282,7 @@ Returns an exit status of zero if it selected a set of versions, and a status of
 Additional arguments specify custom cache locations.</value>
   </data>
   <data name="DescriptionStoreCopy" xml:space="preserve">
-    <value>Copies an implementation into the cache. Similar to 'add', but the digest is extracted from the directory name.
+    <value>Copies an implementation into the cache. Similar to '0install store add', but the digest is extracted from the directory name.
 An additional arguments specifies a custom target cache location.</value>
   </data>
   <data name="DescriptionStoreFind" xml:space="preserve">

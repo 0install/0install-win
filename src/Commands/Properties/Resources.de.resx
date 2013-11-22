@@ -232,7 +232,7 @@ Entfernen Sie ein Häckchen um den Standard-Status einer Fähigkeit zu entfernen
   </data>
   <data name="DescriptionConfig" xml:space="preserve">
     <value>Konfigurationseinstellungen anzeigen oder verändern.
- Ohne Argumente zeigt es alle Einstellungen und ihre aktuellen Werte an. Mit einem Argument zeigt es den aktuellen Wert der benannten Einstellung an. Mit zwei Argumenten setzt es den Wert der benannten Einstellung.</value>
+Ohne Argumente zeigt es alle Einstellungen und ihre aktuellen Werte an. Mit einem Argument zeigt es den aktuellen Wert der benannten Einstellung an. Mit zwei Argumenten setzt es den Wert der benannten Einstellung.</value>
   </data>
   <data name="DescriptionDigest" xml:space="preserve">
     <value>Berechnet den Manifest Digest eines Verzeichnisses oder eines Archivs.</value>
@@ -242,10 +242,11 @@ Entfernen Sie ein Häckchen um den Standard-Status einer Fähigkeit zu entfernen
 Gibt einen Exit Status von 0 zurück falls ein geeigneter Satz an Versionen gefunden wurde und sie nun alle heruntergeladen sind und sich im Cache befinden; gibt ansonsten einen Exit Status von 1 zurück.</value>
   </data>
   <data name="DescriptionImport" xml:space="preserve">
-    <value>Importiert einen Feed aus einer lokalen Datei, als wäre aus einem Netzwerk heruntergeladen worden. Dies ist praktisch um einen Feed zu testen, der nicht extra auf einem entfernten Server hochgeladen werden muss, nur um ihn wieder herunterzuladen. Diese Datei muss eine vertrauenswürdige digitale Signatur besitzen, genauso wie beim Abrufen aus dem Netzwerk.</value>
+    <value>Importiert einen Feed aus einer lokalen Datei, als wäre aus einem Netzwerk heruntergeladen worden. Dies ist praktisch um einen Feed zu testen, der nicht extra auf einem entfernten Server hochgeladen werden muss, nur um ihn wieder herunterzuladen.
+Diese Datei muss eine vertrauenswürdige digitale Signatur besitzen, genauso wie beim Abrufen aus dem Netzwerk.</value>
   </data>
   <data name="DescriptionIntegrateApp" xml:space="preserve">
-    <value>Fügt eine Anwendung der Anwendungsliste hinzu (falls sie fehlt) und integriere sie in die Desktopumgebung.</value>
+    <value>Fügt eine Anwendung der Anwendungsliste hinzu (falls sie fehlt) und integriert sie in die Desktopumgebung.</value>
   </data>
   <data name="DescriptionList" xml:space="preserve">
     <value>Listet alle bekannten Interface (Programm-) URIs auf. Wenn ein Suchbegriff angegeben wird, werden nur URIs angezeigt die den entsprechenden Begriff enthalten (Groß- und Kleinschreibung wird ignoriert) ausgegeben.</value>
@@ -257,13 +258,13 @@ Gibt einen Exit Status von 0 zurück falls ein geeigneter Satz an Versionen gefu
     <value>Entfernt eine Anwendung aus der Anwendungsliste und mache Integrationen in die Desktopumgebung rückgängig.</value>
   </data>
   <data name="DescriptionRemoveFeed" xml:space="preserve">
-    <value>Entfernt einen Feed. Dies ist das Gegenstück zu 'add-feed'.</value>
+    <value>Entfernt einen Feed. Dies ist das Gegenstück zu '0install add-feed'.</value>
   </data>
   <data name="DescriptionRepairApps" xml:space="preserve">
     <value>Integriert alle Anwendungen aus der Anwendungsliste erneut in die Desktopumgebung.</value>
   </data>
   <data name="DescriptionRun" xml:space="preserve">
-    <value>Verhält sich ähnlich zu '0install download', mit dem Zusatz, dass das Programm gestartet wird nachdem sichergestellt ist dass es im Cache ist.
+    <value>Verhält sich ähnlich zu '0install download', mit dem Zusatz, dass das Programm gestartet wird nachdem sichergestellt ist dass es gecacht ist.
 Gibt den Exit-Status 1 zurück wenn der herunterladen Schritt fehlschlägt. Ansonsten wird der Exit-Status des gestarteten Programms zurückgegeben.</value>
   </data>
   <data name="DescriptionSelect" xml:space="preserve">
@@ -281,7 +282,7 @@ Gibt den Exit-Status 0 zurück, wenn eine Menge an Versionen ausgewählt wurde u
 Zusätzliche Argumente spezifizieren alternative Cache-Speicherorte.</value>
   </data>
   <data name="DescriptionStoreCopy" xml:space="preserve">
-    <value>Kopiert eine Implementierung in den Cache. Ähnlich zu 'add', aber der Digest wird aus dem Verzeichnisnamen ermittelt.
+    <value>Kopiert eine Implementierung in den Cache. Ähnlich zu '0install store add', aber der Digest wird aus dem Verzeichnisnamen ermittelt.
 Ein zusätzliches Argument spezifiziert ein alternatives Cache-Zielverzeichnis.</value>
   </data>
   <data name="DescriptionStoreFind" xml:space="preserve">
@@ -298,7 +299,7 @@ Ein zusätzliches Argument spezifiziert ein alternatives Cache-Zielverzeichnis.<
 Zusätzliche Argumente spezifizieren alternative Cache-Speicherorte.</value>
   </data>
   <data name="DescriptionStorePurge" xml:space="preserve">
-    <value>Entfernt alle Implementierungen aus dem Cache. Verwenden Sie diesen Befehl um das System aufzuräumen, bevor Sie Zero Install entfernen. Deleting cache directories manually may be difficult due to the NTFS ACLs employed to protect implementations against modification
+    <value>Entfernt alle Implementierungen aus dem Cache. Verwenden Sie diesen Befehl um das System aufzuräumen, bevor Sie Zero Install entfernen. Cacheverzeichnisse von Hand löschen kann aufgrund der NTFS ACLs zum Schutz der Implementierungen vor Veränderungen problematisch sein.
 Zusätzliche Argumente spezifizieren alternative Cache-Speicherorte.</value>
   </data>
   <data name="DescriptionStoreRemove" xml:space="preserve">

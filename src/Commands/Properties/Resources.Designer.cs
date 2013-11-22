@@ -419,7 +419,8 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again. The file must have a trusted digital signature, as when fetching from the network..
+        ///   Looks up a localized string similar to Imports a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again.
+        ///The file must have a trusted digital signature, as when fetching from the network..
         /// </summary>
         public static string DescriptionImport {
             get {
@@ -464,7 +465,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Un-register a feed, reversing the effect of &apos;add-feed&apos;. .
+        ///   Looks up a localized string similar to Un-register a feed, reversing the effect of &apos;0install add-feed&apos;..
         /// </summary>
         public static string DescriptionRemoveFeed {
             get {
@@ -502,7 +503,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update Zero Install itself to the most recent version..
+        ///   Looks up a localized string similar to Updates Zero Install itself to the most recent version..
         /// </summary>
         public static string DescriptionSelfUpdate {
             get {
@@ -530,7 +531,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copies an implementation into the cache. Similar to &apos;add&apos;, but the digest is extracted from the directory name.
+        ///   Looks up a localized string similar to Copies an implementation into the cache. Similar to &apos;0install store add&apos;, but the digest is extracted from the directory name.
         ///An additional arguments specifies a custom target cache location..
         /// </summary>
         public static string DescriptionStoreCopy {
