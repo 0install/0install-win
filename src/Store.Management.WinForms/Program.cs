@@ -68,44 +68,18 @@ namespace ZeroInstall.Store.Management.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
-            Run(args);
+            Run();
         }
 
         /// <summary>
         /// Runs the application (called by main method or by embedding process).
         /// </summary>
         [STAThread] // Required for WinForms
-        public static void Run(string[] args)
+        public static void Run()
         {
-            Log.Info("Zero Install Store Management WinForms GUI started with: " + args.JoinEscapeArguments());
+            Log.Info("Zero Install Store Management WinForms GUI started");
 
-            if (args != null && args.Length > 0 && args[0] == "purge")
-            {
-                if (Msg.YesNo(null, Resources.ConfirmPurge, MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
-                {
-                    try
-                    {
-                        StoreFactory.CreateDefault().Purge(new GuiTaskHandler());
-                    }
-                        #region Error handling
-                    catch (OperationCanceledException)
-                    {}
-                    catch (KeyNotFoundException ex)
-                    {
-                        Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    }
-                    catch (IOException ex)
-                    {
-                        Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    }
-                    #endregion
-                }
-            }
-            else Application.Run(new MainForm());
+            Application.Run(new MainForm());
         }
 
         /// <summary>

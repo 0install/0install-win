@@ -234,6 +234,7 @@ namespace ZeroInstall.Commands
         private void Purge()
         {
             Resolver.Handler.ShowProgressUI();
+            if (!Resolver.Handler.AskQuestion(Resources.ConfirmPurge)) throw new OperationCanceledException();
 
             GetStore().Purge(Resolver.Handler);
         }

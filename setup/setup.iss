@@ -107,10 +107,10 @@ Name: {commondesktop}\Zero Install; Filename: {app}\ZeroInstall.exe; Tasks: desk
 Filename: {app}\ZeroInstall.exe; Description: {cm:LaunchProgram,Zero Install}; Flags: nowait postinstall runasoriginaluser skipifsilent
 
 [UninstallRun]
+Filename: {app}\0install-win.exe; Parameters: "store purge"; RunOnceId: PurgeCache
 #ifndef PerUser
   Filename: {app}\0store-service.exe; Parameters: "uninstall --silent"; RunOnceId: UninstallService
 #endif
-Filename: {app}\0store-win.exe; Parameters: "purge"; RunOnceId: PurgeCache
 
 [UninstallDelete]
 ;Remove files added by post-installation updates

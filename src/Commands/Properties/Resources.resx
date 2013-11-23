@@ -210,6 +210,10 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
   <data name="Configuration" xml:space="preserve">
     <value>Configuration</value>
   </data>
+  <data name="ConfirmPurge" xml:space="preserve">
+    <value>Do you want to remove all applications in the Zero Install cache?
+These files can downloaded again if needed.</value>
+  </data>
   <data name="DataGridCommandAccessPointHelp" xml:space="preserve">
     <value>Start entering text in the last line to create a new entry.
 Select an entire line by clicking in the first column and then press DEL on the keyboard to remove an entry.</value>

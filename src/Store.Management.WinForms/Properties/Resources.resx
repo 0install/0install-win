@@ -120,10 +120,6 @@
   <data name="AllImplementationsOK" xml:space="preserve">
     <value>All checked implementations are fine.</value>
   </data>
-  <data name="ConfirmPurge" xml:space="preserve">
-    <value>Do you want to remove all applications in the Zero Install cache?
-These files can downloaded again if needed.</value>
-  </data>
   <data name="DeleteCheckedEntries" xml:space="preserve">
     <value>Do you want to delete the {0} checked element(s) from the cache?</value>
   </data>

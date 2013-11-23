@@ -185,7 +185,7 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         internal static void RunStoreManagement()
         {
-            ProcessUtils.RunAsync(() => Store.Management.WinForms.Program.Run(new string[0]), "0store-win");
+            ProcessUtils.RunAsync(Store.Management.WinForms.Program.Run, "0store-win");
         }
         #endregion
 

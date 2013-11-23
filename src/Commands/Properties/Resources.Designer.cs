@@ -334,6 +334,16 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to remove all applications in the Zero Install cache?
+        ///These files can downloaded again if needed..
+        /// </summary>
+        public static string ConfirmPurge {
+            get {
+                return ResourceManager.GetString("ConfirmPurge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start entering text in the last line to create a new entry.
         ///Select an entire line by clicking in the first column and then press DEL on the keyboard to remove an entry..
         /// </summary>
