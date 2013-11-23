@@ -96,15 +96,15 @@ Name: desktopicon; Description: {cm:DesktopIcon}
 
 [Icons]
 ;Name: {group}\{cm:UninstallProgram,Zero Install}; Filename: {uninstallexe}
-Name: {group}\Zero Install; Filename: {app}\ZeroInstall.exe
-Name: {group}\{cm:CacheManagement}; Filename: {app}\0store-win.exe; Flags: excludefromshowinnewinstall
-Name: {commondesktop}\Zero Install; Filename: {app}\ZeroInstall.exe; Tasks: desktopicon
+Name: {group}\Zero Install; Filename: {app}\0install-win.exe; Parameters: "central"
+Name: {group}\{cm:CacheManagement}; Filename: {app}\0install-win.exe; Parameters: "store manage"; Flags: excludefromshowinnewinstall
+Name: {commondesktop}\Zero Install; Filename: {app}\0install-win.exe; Parameters: "central"; Tasks: desktopicon
 
 [Run]
 #ifndef PerUser
   Filename: {app}\0store-service.exe; Parameters: start --silent
 #endif
-Filename: {app}\ZeroInstall.exe; Description: {cm:LaunchProgram,Zero Install}; Flags: nowait postinstall runasoriginaluser skipifsilent
+Filename: {app}\0install-win.exe; Parameters: "central"; Description: {cm:LaunchProgram,Zero Install}; Flags: nowait postinstall runasoriginaluser skipifsilent
 
 [UninstallRun]
 Filename: {app}\0install-win.exe; Parameters: "store purge"; RunOnceId: PurgeCache
