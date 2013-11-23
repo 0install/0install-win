@@ -31,7 +31,7 @@ namespace ZeroInstall.Model.Selection
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("selections", Namespace = Feed.XmlNamespace), XmlType("selections", Namespace = Feed.XmlNamespace)]
-    public sealed class Selections
+    public sealed class Selections : XmlUnknown, ICloneable, IEquatable<Selections>
     {
         #region Properties
         /// <summary>
@@ -49,7 +49,7 @@ namespace ZeroInstall.Model.Selection
         public string Command { get; set; }
 
         // Preserve order
-        private readonly List<ImplementationSelection> _implementations = new List<ImplementationSelection>();
+        private readonly C5.ArrayList<ImplementationSelection> _implementations = new C5.ArrayList<ImplementationSelection>();
 
         /// <summary>
         /// A list of <see cref="ImplementationSelection"/>s chosen in this selection.
@@ -57,7 +57,7 @@ namespace ZeroInstall.Model.Selection
         [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists", Justification = "Used for XML serialization")]
         [Description("A list of implementations chosen in this selection.")]
         [XmlElement("selection")]
-        public List<ImplementationSelection> Implementations { get { return _implementations; } }
+        public C5.ArrayList<ImplementationSelection> Implementations { get { return _implementations; } }
 
         /// <summary>
         /// The main implementation in the selection (the actual program to launch). Identified by <see cref="InterfaceID"/>.
@@ -79,7 +79,7 @@ namespace ZeroInstall.Model.Selection
         /// </summary>
         public Selections(IEnumerable<ImplementationSelection> implementations)
         {
-            Implementations.AddRange(implementations);
+            Implementations.AddAll(implementations);
         }
         #endregion
 
@@ -123,6 +123,70 @@ namespace ZeroInstall.Model.Selection
         public bool ContainsImplementation(string interfaceID)
         {
             return _implementations.Any(implementation => implementation.InterfaceID == interfaceID);
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Selections"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Selections"/>.</returns>
+        public Selections Clone()
+        {
+            var selections = new Selections {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, InterfaceID = InterfaceID, Command = Command};
+            selections.Implementations.AddAll(Implementations.CloneElements());
+            return selections;
+        }
+
+        object ICloneable.Clone()
+        {
+            return Clone();
+        }
+        #endregion
+
+        #region Conversion
+        /// <summary>
+        /// Returns the selections in the form "Selections: MainImplementation". Not safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            return string.Format("Selections: {0}", MainImplementation);
+        }
+        #endregion
+
+        #region Equality
+        /// <inheritdoc/>
+        public bool Equals(Selections other)
+        {
+            if (other == null) return false;
+            if (!base.Equals(other)) return false;
+            if (InterfaceID != other.InterfaceID) return false;
+            if (Command != other.Command) return false;
+            if (!Implementations.SequencedEquals(other.Implementations)) return false;
+            return true;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj is Feed && Equals((Feed)obj);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = base.GetHashCode();
+                if (InterfaceID != null) result = (result * 397) ^ InterfaceID.GetHashCode();
+                if (Command != null) result = (result * 397) ^ Command.GetHashCode();
+                result = (result * 397) ^ Implementations.GetSequencedHashCode();
+                return result;
+            }
         }
         #endregion
     }
