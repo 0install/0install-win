@@ -148,11 +148,11 @@ namespace ZeroInstall.Model.Selection
 
         #region Conversion
         /// <summary>
-        /// Returns the selections in the form "Selections: MainImplementation". Not safe for parsing!
+        /// Returns the selections in the form "InterfaceID (Command): Implementations". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("Selections: {0}", MainImplementation);
+            return string.Format("{0} ({1}): {2}", InterfaceID, Command, Implementations);
         }
         #endregion
 

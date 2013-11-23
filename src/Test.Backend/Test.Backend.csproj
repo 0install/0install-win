@@ -116,7 +116,6 @@
     <Compile Include="Model\RequirementsTest.cs" />
     <Compile Include="Model\Selection\SelectionCandidateTest.cs" />
     <Compile Include="Injector\SelectionsManagerTest.cs" />
-    <Compile Include="Solvers\ExternalSolverTest.cs" />
     <Compile Include="Solvers\BacktrackingSolverTest.cs" />
     <Compile Include="Solvers\SolverTest.cs" />
     <Compile Include="Model\ArchitectureTest.cs" />

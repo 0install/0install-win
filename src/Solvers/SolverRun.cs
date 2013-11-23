@@ -32,11 +32,16 @@ namespace ZeroInstall.Solvers
     /// <summary>
     /// Shared logic for keeping state during a single <see cref="ISolver.Solve(ZeroInstall.Model.Requirements,out bool)"/> run.
     /// </summary>
-    internal class SolverRun
+    internal abstract class SolverRun
     {
         #region Depdendencies
         private readonly Config _config;
         private readonly IStore _store;
+
+        /// <summary>
+        /// A callback object used when the the user needs to be asked questions or informed about download and IO tasks.
+        /// </summary>
+        protected readonly IHandler Handler;
 
         /// <summary>
         /// Creates a new solver run.
@@ -44,7 +49,8 @@ namespace ZeroInstall.Solvers
         /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="store">Used to check which <see cref="Implementation"/>s are already cached.</param>
-        public SolverRun(Config config, IFeedManager feedManager, IStore store)
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
+        protected SolverRun(Config config, IFeedManager feedManager, IStore store, IHandler handler)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
@@ -54,6 +60,7 @@ namespace ZeroInstall.Solvers
 
             _config = config;
             _store = store;
+            Handler = handler;
 
             _comparer = new TransparentCache<string, SelectionCandidateComparer>(id => new SelectionCandidateComparer(config, _interfacePreferences[id].StabilityPolicy, store));
             _feeds = new TransparentCache<string, Feed>(s => feedManager.GetFeed(s, ref _staleFeeds));
@@ -136,8 +143,9 @@ namespace ZeroInstall.Solvers
         private IEnumerable<SelectionCandidate> GetCandidates(IEnumerable<FeedReference> feedReferences, Requirements requirements)
         {
             return feedReferences
-                .Where(feedReference => feedReference.Architecture.IsCompatible(requirements.Architecture) &&
-                                        feedReference.Languages.ContainsAny(requirements.Languages))
+                .Where(feedReference =>
+                    feedReference.Architecture.IsCompatible(requirements.Architecture) &&
+                    feedReference.Languages.ContainsAny(requirements.Languages))
                 .SelectMany(feedReference => GetCandidates(feedReference.Source, requirements));
         }
         #endregion

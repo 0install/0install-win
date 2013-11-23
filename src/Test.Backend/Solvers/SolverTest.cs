@@ -15,10 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common.Storage;
+using System;
+using System.Linq;
+using Common.Tasks;
+using Moq;
 using NUnit.Framework;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Selection;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Solvers
 {
@@ -27,36 +32,172 @@ namespace ZeroInstall.Solvers
     /// </summary>
     public abstract class SolverTest<T> : TestWithResolver<T> where T : class, ISolver
     {
-        #region Helpers
-        private static Feed CreateTestFeed()
+        [Test]
+        public void NoDependency()
         {
-            return new Feed
+            var feed = new Feed
             {
-                Name = "Test",
-                Summaries = {"Test"},
-                Elements = {new Implementation {ID = "test", Version = new ImplementationVersion("1.0"), LocalPath = ".", Main = "test"}}
+                Uri = new Uri("http://0install.de/feeds/test/app.xml"),
+                Elements =
+                {
+                    new Implementation
+                    {
+                        ID = "test",
+                        Version = new ImplementationVersion("1.0"),
+                        Commands = {new Command {Name = Command.NameRun, Path = "test-app"}}
+                    }
+                },
             };
+
+            var selections = new Selections
+            {
+                InterfaceID = feed.Uri.ToString(), Command = Command.NameRun,
+                Implementations =
+                {
+                    new ImplementationSelection
+                    {
+                        ID = "test", InterfaceID = feed.Uri.ToString(),
+                        Version = new ImplementationVersion("1.0"),
+                        Commands = {new Command {Name = Command.NameRun, Path = "test-app"}}
+                    }
+                }
+            };
+            RunAndAssert(
+                selections,
+                new Requirements {InterfaceID = feed.Uri.ToString()},
+                feed);
         }
-        #endregion
 
         [Test]
-        public void TestBasic()
+        public void SimpleDependency()
         {
-            using (var feedFile = new TemporaryFile("0install-unit-tests"))
+            var appFeed = new Feed
             {
-                var testFeed = CreateTestFeed();
-                testFeed.Normalize(feedFile);
-                var feedManagerMock = Resolver.GetMock<IFeedManager>();
-                bool temp = false;
-                string feedPath = feedFile.Path;
-                feedManagerMock.Setup(x => x.GetFeed(feedPath, ref temp)).Returns(testFeed).Verifiable();
-                testFeed.SaveXml(feedFile);
+                Uri = new Uri("http://0install.de/feeds/test/app.xml"),
+                Elements =
+                {
+                    new Implementation
+                    {
+                        ID = "test",
+                        Version = new ImplementationVersion("1.0"),
+                        Commands = {new Command {Name = Command.NameRun, Path = "test-app"}},
+                        Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/lib.xml"}}
+                    }
+                },
+            };
+            var libFeed = new Feed
+            {
+                Uri = new Uri("http://0install.de/feeds/test/lib.xml"),
+                Elements =
+                {
+                    new Implementation
+                    {
+                        ID = "test",
+                        Version = new ImplementationVersion("1.0")
+                    }
+                },
+            };
 
-                bool staleFeeds;
+            var selections = new Selections
+            {
+                InterfaceID = appFeed.Uri.ToString(), Command = Command.NameRun,
+                Implementations =
+                {
+                    new ImplementationSelection
+                    {
+                        ID = "test", InterfaceID = appFeed.Uri.ToString(),
+                        Version = new ImplementationVersion("1.0"),
+                        Commands = {new Command {Name = Command.NameRun, Path = "test-app"}},
+                        Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/lib.xml"}}
+                    },
+                    new ImplementationSelection
+                    {
+                        ID = "test", InterfaceID = libFeed.Uri.ToString(),
+                        Version = new ImplementationVersion("1.0")
+                    }
+                }
+            };
+            RunAndAssert(
+                selections,
+                new Requirements {InterfaceID = appFeed.Uri.ToString()},
+                appFeed, libFeed);
+        }
 
-                ProvideCancellationToken();
-                var selections = Target.Solve(new Requirements {InterfaceID = feedFile}, out staleFeeds);
-            }
+        [Test]
+        public void CyclicDependency()
+        {
+            var feed1 = new Feed
+            {
+                Uri = new Uri("http://0install.de/feeds/test/feed1.xml"),
+                Name = "Test App",
+                Summaries = {"a test app"},
+                Elements =
+                {
+                    new Implementation
+                    {
+                        ID = "test",
+                        Version = new ImplementationVersion("1.0"),
+                        Commands = {new Command {Name = Command.NameRun, Path = "test-app"}},
+                        Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/feed2.xml"}}
+                    }
+                },
+            };
+            var feed2 = new Feed
+            {
+                Uri = new Uri("http://0install.de/feeds/test/feed2.xml"),
+                Name = "Test Lib",
+                Summaries = {"a test lib"},
+                Elements =
+                {
+                    new Implementation
+                    {
+                        ID = "test",
+                        Version = new ImplementationVersion("1.0"),
+                        Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/feed1.xml"}}
+                    }
+                },
+            };
+
+            var selections = new Selections
+            {
+                InterfaceID = feed1.Uri.ToString(),
+                Command = Command.NameRun,
+                Implementations =
+                {
+                    new ImplementationSelection
+                    {
+                        ID = "test", InterfaceID = feed1.Uri.ToString(),
+                        Version = new ImplementationVersion("1.0"),
+                        Commands = {new Command {Name = Command.NameRun, Path = "test-app"}},
+                        Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/feed2.xml"}}
+                    },
+                    new ImplementationSelection
+                    {
+                        ID = "test", InterfaceID = feed2.Uri.ToString(),
+                        Version = new ImplementationVersion("1.0"),
+                        Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/feed1.xml"}}
+                    }
+                }
+            };
+            RunAndAssert(
+                selections,
+                new Requirements {InterfaceID = feed1.Uri.ToString()},
+                feed1, feed2);
+        }
+
+        private void RunAndAssert(Selections expectedSelections, Requirements requirements, params Feed[] feeds)
+        {
+            var handlerMock = Resolver.GetMock<IHandler>();
+            handlerMock.SetupGet(x => x.CancellationToken).Returns(new CancellationToken());
+
+            var feedManagerMock = Resolver.GetMock<IFeedManager>();
+            foreach (var feed in feeds) feed.Normalize(feed.Uri.ToString());
+            var feedDictionary = feeds.ToDictionary(feed => feed.Uri.ToString());
+            bool temp = false;
+            feedManagerMock.Setup(x => x.GetFeed(It.IsAny<string>(), ref temp)).Returns((string feedID, bool temp1) => feedDictionary[feedID]);
+
+            var selections = Target.Solve(requirements);
+            Assert.AreEqual(expectedSelections, selections);
         }
     }
 }

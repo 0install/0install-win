@@ -16,6 +16,7 @@
  */
 
 using System.Collections.Generic;
+using System.Linq;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
@@ -44,7 +45,7 @@ namespace ZeroInstall.Solvers
 
             selection.Dependencies.AddAll(implementation.Dependencies);
             selection.Bindings.AddAll(implementation.Bindings);
-            selection.Commands.Add(candidate.Implementation[requirements.Command]);
+            if (!string.IsNullOrEmpty(requirements.Command)) selection.Commands.Add(candidate.Implementation[requirements.Command]);
 
             return selection;
         }
@@ -58,7 +59,6 @@ namespace ZeroInstall.Solvers
                 Architecture = baseRequirements.Architecture
             };
             requirements.VersionsFor.AddAll(baseRequirements.VersionsFor);
-            requirements.Normalize();
             return requirements;
         }
 
@@ -72,8 +72,12 @@ namespace ZeroInstall.Solvers
                 Architecture = baseRequirements.Architecture
             };
             requirements.VersionsFor.AddAll(baseRequirements.VersionsFor);
-            requirements.Normalize();
             return requirements;
+        }
+
+        public static bool Contains(this IEnumerable<SelectionCandidate> candidates, ImplementationSelection implementation)
+        {
+            return candidates.Select(c => c.Implementation.ID).Contains(implementation.ID);
         }
     }
 }

@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Collections;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
@@ -82,7 +83,7 @@ namespace ZeroInstall.Solvers
                 run.Selections.Command = requirements.Command;
                 return run.Selections;
             }
-            else throw new SolverException(":(");
+            else throw new SolverException("No solution found");
         }
 
         /// <inheritdoc/>
@@ -95,56 +96,90 @@ namespace ZeroInstall.Solvers
 
         private class BacktrackingRun : SolverRun
         {
-            private readonly IHandler _handler;
-            private readonly List<Restriction> _restrictions = new List<Restriction>();
-
             public BacktrackingRun(Config config, IFeedManager feedManager, IStore store, IHandler handler)
-                : base(config, feedManager, store)
-            {
-                _handler = handler;
-            }
+                : base(config, feedManager, store, handler)
+            {}
 
+            /// <summary>
+            /// Try to satisfy a set of <paramref name="requirements"/>, respecting any existing <see cref="SolverRun.Selections"/>.
+            /// </summary>
             public bool TryToSolve(Requirements requirements)
             {
-                _handler.CancellationToken.ThrowIfCancellationRequested();
+                Handler.CancellationToken.ThrowIfCancellationRequested();
 
-                var candidates = GetSortedCandidates(requirements);
-                var filteredCandidates = FilterCandidates(candidates, requirements);
+                var allCandidates = GetSortedCandidates(requirements);
+                var suitableCandidates = FilterSuitableCandidates(allCandidates, requirements.InterfaceID);
 
+                // Stop if specific implementation already selected elsewhere in tree
                 if (Selections.ContainsImplementation(requirements.InterfaceID))
-                    return filteredCandidates.Select(c => c.Implementation.ID).Contains(Selections[requirements.InterfaceID].ID);
+                    return suitableCandidates.Contains(Selections[requirements.InterfaceID]);
 
-                foreach (var candidate in filteredCandidates)
+                return TryToSelectCandidate(suitableCandidates, requirements, allCandidates);
+            }
+
+            /// <summary>
+            /// A running list of <see cref="Restriction"/>s from all <see cref="SelectionCandidate"/>s added to <see cref="Selections"/> so far.
+            /// </summary>
+            private readonly List<Restriction> _restrictions = new List<Restriction>();
+
+            private IEnumerable<SelectionCandidate> FilterSuitableCandidates(IEnumerable<SelectionCandidate> candidates, string interfaceID)
+            {
+                // TODO: Prevent x86 AMD64 mixing
+                return candidates.Where(candidate =>
+                    candidate.IsSuitable &&
+                    !ConflictsWithExistingRestrictions(interfaceID, candidate) &&
+                    !ConflictsWithExistingSelections(candidate));
+            }
+
+            private bool ConflictsWithExistingRestrictions(string interfaceID, SelectionCandidate candidate)
+            {
+                return _restrictions.Any(restriction =>
+                    restriction.Interface == interfaceID && !restriction.EffectiveVersions.Match(candidate.Version));
+            }
+
+            private bool ConflictsWithExistingSelections(SelectionCandidate candidate)
+            {
+                return candidate.Implementation.Restrictions.Any(restriction =>
+                    Selections.ContainsImplementation(restriction.Interface) && !restriction.EffectiveVersions.Match(Selections[restriction.Interface].Version));
+            }
+
+            private bool TryToSelectCandidate(IEnumerable<SelectionCandidate> candidates, Requirements requirements, IList<SelectionCandidate> allCandidates)
+            {
+                foreach (var candidate in candidates)
                 {
-                    Selections.Implementations.Add(candidate.ToSelection(candidates, requirements));
-                    _restrictions.AddRange(candidate.Implementation.Restrictions);
-
-                    if (candidate.Implementation.Dependencies.All(dependency => TryToSolve(dependency.ToRequirements(requirements))) &&
-                        candidate.Implementation.Commands.Where(command => command.Runner != null).All(command => TryToSolve(command.Runner.ToRequirements(requirements))))
+                    AddToSelections(candidate, requirements, allCandidates);
+                    if (TryToSolveCommand(candidate.Implementation, requirements) &&
+                        TryToSolveDependencies(candidate.Implementation.Dependencies, requirements))
                         return true;
-                    else
-                    {
-                        Selections.Implementations.RemoveAt(Selections.Implementations.Count - 1);
-                        _restrictions.RemoveRange(_restrictions.Count - candidate.Implementation.Restrictions.Count - 1, candidate.Implementation.Restrictions.Count);
-                    }
+                    else RemoveFromSelections(candidate);
                 }
                 return false;
             }
 
-            private IEnumerable<SelectionCandidate> FilterCandidates(IEnumerable<SelectionCandidate> candidates, Requirements requirements)
+            private bool TryToSolveDependencies(IEnumerable<Dependency> dependencies, Requirements requirements)
             {
-                // TODO: Prevent x86 AMD64 mixing
-                return from candidate in candidates
-                    where candidate.IsSuitable
-                    // Candidate does no conflict with existing restrictions
-                    where !_restrictions.Any(restriction =>
-                        restriction.Interface == requirements.InterfaceID &&
-                        !restriction.EffectiveVersions.Match(candidate.Version))
-                    // Candidate restrictions do not conflict with existing selections
-                    where candidate.Implementation.Restrictions.All(restriction =>
-                        !Selections.ContainsImplementation(restriction.Interface) ||
-                        restriction.EffectiveVersions.Match(Selections[restriction.Interface].Version))
-                    select candidate;
+                return dependencies.All(dependency => TryToSolve(dependency.ToRequirements(requirements)));
+            }
+
+            private bool TryToSolveCommand(Implementation implementation, Requirements requirements)
+            {
+                if (string.IsNullOrEmpty(requirements.Command)) return true;
+                var command = implementation[requirements.Command];
+                
+                if (command.Runner != null && !TryToSolve(command.Runner.ToRequirements(requirements))) return false;
+                return TryToSolveDependencies(command.Dependencies, requirements);
+            }
+
+            private void AddToSelections(SelectionCandidate candidate, Requirements requirements, IEnumerable<SelectionCandidate> allCandidates)
+            {
+                Selections.Implementations.Add(candidate.ToSelection(allCandidates, requirements));
+                _restrictions.AddRange(candidate.Implementation.Restrictions);
+            }
+
+            private void RemoveFromSelections(SelectionCandidate candidate)
+            {
+                Selections.Implementations.RemoveLast();
+                _restrictions.RemoveLast(candidate.Implementation.Restrictions.Count);
             }
         }
     }
