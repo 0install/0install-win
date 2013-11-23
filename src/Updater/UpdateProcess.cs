@@ -190,11 +190,23 @@ namespace ZeroInstall.Updater
         {
             var filesToDelete = new[]
             {
-                "0store-win.exe", Path.Combine("de", "0store-win.resources.dll"),
+                "0store-win.exe", "0store-win.exe.config", Path.Combine("de", "0store-win.resources.dll"),
                 "StoreService.exe", Path.Combine("de", "StoreService.resources.dll")
             }.Select(name => Path.Combine(Target, name));
 
-            foreach (string file in filesToDelete.Where(File.Exists))
+            var userShortcutsToDelete = new[]
+            {
+                Path.Combine("Zero Install", "Cache management.lnk"),
+                Path.Combine("Zero Install", "Cache Verwaltung.lnk")
+            }.Select(name => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs), name));
+
+            var commonShortcutsToDelete = new[]
+            {
+                Path.Combine("Zero Install", "Cache management.lnk"),
+                Path.Combine("Zero Install", "Cache Verwaltung.lnk")
+            }.Select(name => Path.Combine(Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Programs", "").ToString(), name));
+
+            foreach (string file in filesToDelete.Concat(userShortcutsToDelete).Concat(commonShortcutsToDelete).Where(File.Exists))
                 File.Delete(file);
         }
         #endregion

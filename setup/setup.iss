@@ -25,8 +25,6 @@ appname=Zero Install
 
 en.DesktopIcon=Desktop icon
 de.DesktopIcon=Desktopsymbol
-en.CacheManagement=Cache management
-de.CacheManagement=Cache Verwaltung
 
 [Setup]
 #ifdef PerUser
@@ -95,16 +93,14 @@ Source: ..\bundled\Solver\*; DestDir: {app}\Solver; Flags: ignoreversion recurse
 Name: desktopicon; Description: {cm:DesktopIcon}
 
 [Icons]
-;Name: {group}\{cm:UninstallProgram,Zero Install}; Filename: {uninstallexe}
-Name: {group}\Zero Install; Filename: {app}\0install-win.exe; Parameters: "central"
-Name: {group}\{cm:CacheManagement}; Filename: {app}\0install-win.exe; Parameters: "store manage"; Flags: excludefromshowinnewinstall
-Name: {commondesktop}\Zero Install; Filename: {app}\0install-win.exe; Parameters: "central"; Tasks: desktopicon
+Name: {group}\Zero Install; Filename: {app}\ZeroInstall.exe
+Name: {commondesktop}\Zero Install; Filename: {app}\ZeroInstall.exe; Tasks: desktopicon
 
 [Run]
 #ifndef PerUser
   Filename: {app}\0store-service.exe; Parameters: start --silent
 #endif
-Filename: {app}\0install-win.exe; Parameters: "central"; Description: {cm:LaunchProgram,Zero Install}; Flags: nowait postinstall runasoriginaluser skipifsilent
+Filename: {app}\ZeroInstall.exe; Description: {cm:LaunchProgram,Zero Install}; Flags: nowait postinstall runasoriginaluser skipifsilent
 
 [UninstallRun]
 Filename: {app}\0install-win.exe; Parameters: "store purge"; RunOnceId: PurgeCache
