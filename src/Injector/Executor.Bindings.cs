@@ -23,6 +23,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Common.Collections;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Injector.Properties;
@@ -136,26 +137,13 @@ namespace ZeroInstall.Injector
             // Don't use bindings for PackageImplementations
             if (!string.IsNullOrEmpty(implementation.Package)) return;
 
-            foreach (var binding in bindingContainer.Bindings)
+            new PerTypeDispatcher<Binding>(ignoreMissing: true)
             {
-                var environmentBinding = binding as EnvironmentBinding;
-                if (environmentBinding != null) ApplyEnvironmentBinding(environmentBinding, implementation, startInfo);
-                    //else
-                    //{
-                    //    var overlayBinding = binding as OverlayBinding;
-                    //    if (overlayBinding != null) ApplyOverlayBinding(overlayBinding, implementation, startInfo);
-                    //}
-                else
-                {
-                    var executableInVar = binding as ExecutableInVar;
-                    if (executableInVar != null) ApplyExecutableInVar(executableInVar, implementation, startInfo);
-                    else
-                    {
-                        var executableInPath = binding as ExecutableInPath;
-                        if (executableInPath != null) ApplyExecutableInPath(executableInPath, implementation, startInfo);
-                    }
-                }
-            }
+                (EnvironmentBinding environmentBinding) => ApplyEnvironmentBinding(environmentBinding, implementation, startInfo),
+                //(OverlayBinding overlayBinding) =>ApplyOverlayBinding(overlayBinding, implementation, startInfo),
+                (ExecutableInVar executableInVar) => ApplyExecutableInVar(executableInVar, implementation, startInfo),
+                (ExecutableInPath executableInPath) => ApplyExecutableInPath(executableInPath, implementation, startInfo)
+            }.Dispatch(bindingContainer.Bindings);
         }
         #endregion
 

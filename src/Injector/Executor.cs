@@ -82,6 +82,26 @@ namespace ZeroInstall.Injector
 
         #region Start process
         /// <summary>
+        /// Starts the program as specified by the <see cref="Selections"/>.
+        /// </summary>
+        /// <param name="arguments">Arguments to be passed to the launched programs.</param>
+        /// <returns>The newly created <see cref="Process"/>.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Model.Implementation"/>s is not cached yet.</exception>
+        /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
+        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched or if a problem occurred while creating a hard link.</exception>
+        public Process Start(params string[] arguments)
+        {
+            #region Sanity checks
+            if (arguments == null) throw new ArgumentNullException("arguments");
+            #endregion
+
+            return Process.Start(GetStartInfo(arguments));
+        }
+
+        /// <summary>
         /// Prepares a <see cref="ProcessStartInfo"/> for executing the program as specified by the <see cref="Selections"/>.
         /// </summary>
         /// <param name="arguments">Arguments to be passed to the launched programs.</param>
@@ -105,26 +125,6 @@ namespace ZeroInstall.Injector
             ProcessRunEnvBindings(startInfo);
             ApplyCommandLine(commandLine, startInfo);
             return startInfo;
-        }
-
-        /// <summary>
-        /// Starts the program as specified by the <see cref="Selections"/>.
-        /// </summary>
-        /// <param name="arguments">Arguments to be passed to the launched programs.</param>
-        /// <returns>The newly created <see cref="Process"/>.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Model.Implementation"/>s is not cached yet.</exception>
-        /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
-        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched or if a problem occurred while creating a hard link.</exception>
-        public Process Start(params string[] arguments)
-        {
-            #region Sanity checks
-            if (arguments == null) throw new ArgumentNullException("arguments");
-            #endregion
-
-            return Process.Start(GetStartInfo(arguments));
         }
         #endregion
 
