@@ -68,7 +68,7 @@ namespace ZeroInstall.Alias.Cli
             FrontendCommand command;
             try
             {
-                command = new AddAlias(new Resolver(handler));
+                command = new AddAlias(handler);
                 command.Parse(args);
             }
                 #region Error handling

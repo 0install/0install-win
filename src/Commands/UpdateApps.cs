@@ -61,7 +61,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public UpdateApps(Resolver resolver) : base(resolver)
+        public UpdateApps(IBackendHandler handler) : base(handler)
         {
             Options.Add("c|clean", () => Resources.OptionClean, unused => _clean = true);
         }
@@ -73,12 +73,12 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
             var selectedImplementations = SolveAll(GetTargets()).ToList();
             DownloadUncachedImplementations(selectedImplementations);
 
-            Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
+            Handler.CancellationToken.ThrowIfCancellationRequested();
             if (_clean) Clean(selectedImplementations.Select(impl => impl.ManifestDigest));
 
             return 0;
@@ -100,12 +100,12 @@ namespace ZeroInstall.Commands
 
         private IEnumerable<ImplementationSelection> SolveAll(IEnumerable<Requirements> targets)
         {
-            Resolver.FeedManager.Refresh = true;
+            FeedManager.Refresh = true;
 
             // Run solver for each app
             var implementations = new List<ImplementationSelection>();
-            Resolver.Handler.RunTask(new ForEachTask<Requirements>(Resources.CheckingForUpdates, targets.ToList(),
-                requirements => implementations.AddRange(Resolver.Solver.Solve(requirements).Implementations)));
+            Handler.RunTask(new ForEachTask<Requirements>(Resources.CheckingForUpdates, targets.ToList(),
+                requirements => implementations.AddRange(Solver.Solve(requirements).Implementations)));
 
             // Deduplicate selections
             return implementations.Distinct(new ManifestDigestPartialEqualityComparer<ImplementationSelection>());
@@ -114,24 +114,24 @@ namespace ZeroInstall.Commands
         private void DownloadUncachedImplementations(IEnumerable<ImplementationSelection> selectedImplementations)
         {
             var selections = new Selections(selectedImplementations);
-            var uncachedImplementations = Resolver.SelectionsManager.GetUncachedImplementationSelections(selections).ToList();
+            var uncachedImplementations = SelectionsManager.GetUncachedImplementationSelections(selections).ToList();
 
             // Do not waste time on Fetcher subsystem if nothing is missing from cache
             if (uncachedImplementations.Count == 0) return;
 
             // Only show implementations in the UI that need to be downloaded
-            Resolver.Handler.ShowSelections(new Selections(uncachedImplementations), Resolver.FeedCache);
+            Handler.ShowSelections(new Selections(uncachedImplementations), FeedCache);
 
             try
             {
-                var toDownload = Resolver.SelectionsManager.GetOriginalImplementations(uncachedImplementations);
-                Resolver.Fetcher.Fetch(toDownload);
+                var toDownload = SelectionsManager.GetOriginalImplementations(uncachedImplementations);
+                Fetcher.Fetch(toDownload);
             }
                 #region Error handling
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway
-                Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
+                Handler.CancellationToken.ThrowIfCancellationRequested();
                 throw;
             }
             #endregion
@@ -139,8 +139,8 @@ namespace ZeroInstall.Commands
 
         private void Clean(IEnumerable<ManifestDigest> digestsToKeep)
         {
-            var toDelete = Resolver.Store.ListAll().Except(digestsToKeep, new ManifestDigestPartialEqualityComparer()).ToList();
-            Resolver.Handler.RunTask(new ForEachTask<ManifestDigest>(Resources.RemovingOutdated, toDelete, Resolver.Store.Remove));
+            var toDelete = Store.ListAll().Except(digestsToKeep, new ManifestDigestPartialEqualityComparer()).ToList();
+            Handler.RunTask(new ForEachTask<ManifestDigest>(Resources.RemovingOutdated, toDelete, Store.Remove));
         }
         #endregion
     }

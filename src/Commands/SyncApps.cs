@@ -55,7 +55,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public SyncApps(Resolver resolver) : base(resolver)
+        public SyncApps(IBackendHandler handler) : base(handler)
         {
             Options.Add("reset=", () => Resources.OptionSyncReset, (SyncResetMode mode) => _syncResetMode = mode);
         }
@@ -67,9 +67,9 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
-            using (_syncManager = SyncUtils.CreateSync(Resolver, MachineWide))
+            using (_syncManager = SyncUtils.CreateSync(this, MachineWide))
                 Sync();
 
             return 0;
@@ -90,7 +90,7 @@ namespace ZeroInstall.Commands
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway
-                Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
+                Handler.CancellationToken.ThrowIfCancellationRequested();
                 throw;
             }
             #endregion

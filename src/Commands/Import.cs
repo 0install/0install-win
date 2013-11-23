@@ -50,9 +50,9 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Import(Resolver resolver) : base(resolver)
+        public Import(IBackendHandler handler) : base(handler)
         {
-            Options.Add("batch", () => Resources.OptionBatch, unused => Resolver.Handler.Batch = true);
+            Options.Add("batch", () => Resources.OptionBatch, unused => Handler.Batch = true);
         }
         #endregion
 
@@ -62,7 +62,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
             foreach (var file in ArgumentUtils.GetFiles(AdditionalArgs, "*.xml"))
                 ImportFile(file.FullName);
@@ -82,7 +82,7 @@ namespace ZeroInstall.Commands
             var feed = XmlStorage.LoadXml<Feed>(path);
             if (feed.Uri == null) throw new InvalidDataException(Resources.ImportNoSource);
 
-            Resolver.FeedManager.ImportFeed(
+            FeedManager.ImportFeed(
                 uri: feed.Uri,
                 mirrorUri: new Uri(path),
                 data: File.ReadAllBytes(path));

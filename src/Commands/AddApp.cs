@@ -45,12 +45,12 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS] INTERFACE"; } }
 
         /// <inheritdoc/>
-        public override int GuiDelay { get { return Resolver.FeedManager.Refresh ? 0 : 1000; } }
+        public override int GuiDelay { get { return FeedManager.Refresh ? 0 : 1000; } }
         #endregion
 
         #region Constructor
         /// <inheritdoc/>
-        public AddApp(Resolver resolver) : base(resolver)
+        public AddApp(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
@@ -71,7 +71,7 @@ namespace ZeroInstall.Commands
             }
             catch (InvalidOperationException ex)
             {
-                Resolver.Handler.OutputLow(Resources.DesktopIntegration, ex.Message);
+                Handler.OutputLow(Resources.DesktopIntegration, ex.Message);
             }
             return 0;
         }

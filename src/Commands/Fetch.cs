@@ -51,7 +51,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Fetch(Resolver resolver) : base(resolver)
+        public Fetch(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
@@ -61,10 +61,10 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
             var feedFragment = XmlStorage.FromXmlString<Feed>(Console.ReadLine());
-            Resolver.Fetcher.Fetch(feedFragment.Elements.OfType<Implementation>());
+            Fetcher.Fetch(feedFragment.Elements.OfType<Implementation>());
 
             return 0;
         }

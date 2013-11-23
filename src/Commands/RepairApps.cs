@@ -52,7 +52,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public RepairApps(Resolver resolver) : base(resolver)
+        public RepairApps(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
@@ -62,10 +62,10 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
-            using (var integrationManager = new IntegrationManager(Resolver.Handler, MachineWide))
-                integrationManager.Repair(Resolver.FeedManager.GetFeed);
+            using (var integrationManager = new IntegrationManager(Handler, MachineWide))
+                integrationManager.Repair(FeedManager.GetFeed);
 
             return 0;
         }

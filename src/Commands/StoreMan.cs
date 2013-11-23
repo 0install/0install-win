@@ -95,8 +95,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public StoreMan(Resolver resolver)
-            : base(resolver)
+        public StoreMan(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
@@ -161,37 +160,37 @@ namespace ZeroInstall.Commands
         {
             if (AdditionalArgs.Count < 3) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))");
 
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
             var manifestDigest = new ManifestDigest(AdditionalArgs[1]);
             string path = AdditionalArgs[2];
             if (File.Exists(path))
             { // One or more archives (combined/overlayed)
-                Resolver.Store.AddArchives(GetArchiveFileInfos(), manifestDigest, Resolver.Handler);
+                Store.AddArchives(GetArchiveFileInfos(), manifestDigest, Handler);
             }
             else if (Directory.Exists(path))
             { // A single directory
                 if (AdditionalArgs.Count > 3) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))");
-                Resolver.Store.AddDirectory(path, manifestDigest, Resolver.Handler);
+                Store.AddDirectory(path, manifestDigest, Handler);
             }
             else throw new FileNotFoundException(string.Format(Resources.NoSuchFileOrDirectory, path), path);
         }
 
         private StoreErrorLevel Audit()
         {
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
-            var problems = GetStore().Audit(Resolver.Handler);
+            var problems = GetStore().Audit(Handler);
             if (problems == null) throw new NotSupportedException(Resources.NoAuditSupport);
 
             if (problems.Any())
             {
-                Resolver.Handler.Output(Resources.StoreAudit, Resources.AuditErrors);
+                Handler.Output(Resources.StoreAudit, Resources.AuditErrors);
                 return StoreErrorLevel.DigestMismatch;
             }
             else
             {
-                Resolver.Handler.Output(Resources.StoreAudit, Resources.AuditPass);
+                Handler.Output(Resources.StoreAudit, Resources.AuditPass);
                 return StoreErrorLevel.OK;
             }
         }
@@ -201,10 +200,10 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count < 2) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + "copy DIRECTORY [CACHE]");
             if (AdditionalArgs.Count > 3) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + "copy DIRECTORY [CACHE]");
 
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
-            var store = (AdditionalArgs.Count == 3) ? new DirectoryStore(AdditionalArgs[2]) : Resolver.Store;
-            store.AddDirectory(AdditionalArgs[1], new ManifestDigest(Path.GetFileName(AdditionalArgs[1])), Resolver.Handler);
+            var store = (AdditionalArgs.Count == 3) ? new DirectoryStore(AdditionalArgs[2]) : Store;
+            store.AddDirectory(AdditionalArgs[1], new ManifestDigest(Path.GetFileName(AdditionalArgs[1])), Handler);
         }
 
         private void Find()
@@ -212,46 +211,46 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count < 2) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + "find DIGEST");
             if (AdditionalArgs.Count > 2) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + "find DIGEST");
 
-            string path = Resolver.Store.GetPath(new ManifestDigest(AdditionalArgs[1]));
+            string path = Store.GetPath(new ManifestDigest(AdditionalArgs[1]));
             if (path == null) throw new ImplementationNotFoundException(new ManifestDigest(AdditionalArgs[1]));
-            Resolver.Handler.Output(string.Format(Resources.LocalPathOf, AdditionalArgs[1]), path);
+            Handler.Output(string.Format(Resources.LocalPathOf, AdditionalArgs[1]), path);
         }
 
         private void List()
         {
             if (AdditionalArgs.Count > 2) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + "list");
 
-            Resolver.Handler.Output(Resources.CachedInterfaces, StringUtils.Join(Environment.NewLine, Resolver.Store.ListAll().Select(Resolver.Store.GetPath)));
+            Handler.Output(Resources.CachedInterfaces, StringUtils.Join(Environment.NewLine, Store.ListAll().Select(Store.GetPath)));
         }
 
         private void Optimise()
         {
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
-            GetStore().Optimise(Resolver.Handler);
+            GetStore().Optimise(Handler);
         }
 
         private void Purge()
         {
-            Resolver.Handler.ShowProgressUI();
-            if (!Resolver.Handler.AskQuestion(Resources.ConfirmPurge)) throw new OperationCanceledException();
+            Handler.ShowProgressUI();
+            if (!Handler.AskQuestion(Resources.ConfirmPurge)) throw new OperationCanceledException();
 
-            GetStore().Purge(Resolver.Handler);
+            GetStore().Purge(Handler);
         }
 
         private void Remove()
         {
             if (AdditionalArgs.Count < 2) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + "remove DIGEST+");
 
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
             var digests = AdditionalArgs.Skip(1).Select(x => new ManifestDigest(x));
-            Resolver.Handler.RunTask(new ForEachTask<ManifestDigest>(Resources.RemovingImplementations, digests, Resolver.Store.Remove));
+            Handler.RunTask(new ForEachTask<ManifestDigest>(Resources.RemovingImplementations, digests, Store.Remove));
         }
 
         private StoreErrorLevel Verify()
         {
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
             try
             {
@@ -261,18 +260,18 @@ namespace ZeroInstall.Commands
                     { // Verify an arbitrary directory
                         string path = arg;
                         var digest = new ManifestDigest(Path.GetFileName(arg));
-                        DirectoryStore.VerifyDirectory(path, digest, Resolver.Handler);
+                        DirectoryStore.VerifyDirectory(path, digest, Handler);
                     }
                     else
                     { // Verify a directory inside the default store
-                        Resolver.Store.Verify(new ManifestDigest(arg), Resolver.Handler);
+                        Store.Verify(new ManifestDigest(arg), Handler);
                     }
                 }
             }
                 #region Error handling
             catch (DigestMismatchException ex)
             {
-                Resolver.Handler.Output(Resources.VerifyImplementation, ex.Message);
+                Handler.Output(Resources.VerifyImplementation, ex.Message);
                 return StoreErrorLevel.DigestMismatch;
             }
             #endregion
@@ -303,7 +302,7 @@ namespace ZeroInstall.Commands
         private IStore GetStore()
         {
             return (AdditionalArgs.Count == 1)
-                ? Resolver.Store
+                ? Store
                 : new CompositeStore(AdditionalArgs.Skip(1).Select(arg => (IStore)new DirectoryStore(arg)));
         }
         #endregion

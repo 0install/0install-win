@@ -41,7 +41,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        protected AppCommand(Resolver resolver) : base(resolver)
+        protected AppCommand(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
@@ -51,9 +51,9 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
             string interfaceID = GetCanonicalID(AdditionalArgs[0]);
-            using (var integrationManager = new CategoryIntegrationManager(Resolver.Handler, MachineWide))
+            using (var integrationManager = new CategoryIntegrationManager(Handler, MachineWide))
                 return ExecuteHelper(integrationManager, interfaceID);
         }
 

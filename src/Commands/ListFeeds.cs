@@ -51,7 +51,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public ListFeeds(Resolver resolver) : base(resolver)
+        public ListFeeds(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
@@ -64,7 +64,7 @@ namespace ZeroInstall.Commands
             string interfaceID = AdditionalArgs[0];
             if (File.Exists(AdditionalArgs[0])) interfaceID = Path.GetFullPath(AdditionalArgs[0]);
 
-            Resolver.Handler.Output(
+            Handler.Output(
                 string.Format(Resources.FeedsRegistered, interfaceID),
                 GetRegisteredFeeds(interfaceID));
             return 0;

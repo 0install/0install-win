@@ -24,12 +24,12 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        protected IntegrationCommand(Resolver resolver) : base(resolver)
+        protected IntegrationCommand(IBackendHandler handler) : base(handler)
         {
-            Options.Add("batch", () => Resources.OptionBatch, unused => Resolver.Handler.Batch = true);
+            Options.Add("batch", () => Resources.OptionBatch, unused => Handler.Batch = true);
 
-            Options.Add("o|offline", () => Resources.OptionOffline, unused => Resolver.Config.NetworkUse = NetworkLevel.Offline);
-            Options.Add("r|refresh", () => Resources.OptionRefresh, unused => Resolver.FeedManager.Refresh = true);
+            Options.Add("o|offline", () => Resources.OptionOffline, unused => Config.NetworkUse = NetworkLevel.Offline);
+            Options.Add("r|refresh", () => Resources.OptionRefresh, unused => FeedManager.Refresh = true);
 
             Options.Add("m|machine", () => Resources.OptionMachine, unused => MachineWide = true);
         }
@@ -97,7 +97,7 @@ namespace ZeroInstall.Commands
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
-            var feed = Resolver.FeedManager.GetFeed(interfaceID);
+            var feed = FeedManager.GetFeed(interfaceID);
             DetectReplacement(ref interfaceID, ref feed);
             //TryToSolve(interfaceID);
 
@@ -113,12 +113,12 @@ namespace ZeroInstall.Commands
         {
             if (feed.ReplacedBy == null) return;
 
-            if (Resolver.Handler.AskQuestion(
+            if (Handler.AskQuestion(
                 string.Format(Resources.FeedReplacedAsk, feed.Name, interfaceID, feed.ReplacedBy.Target),
                 string.Format(Resources.FeedReplaced, interfaceID, feed.ReplacedBy.Target)))
             {
                 interfaceID = feed.ReplacedBy.Target.ToString();
-                feed = Resolver.FeedManager.GetFeed(interfaceID);
+                feed = FeedManager.GetFeed(interfaceID);
             }
         }
 
@@ -127,7 +127,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         private void PreDownload(string interfaceID)
         {
-            if (Resolver.Config.EffectiveNetworkUse == NetworkLevel.Full)
+            if (Config.EffectiveNetworkUse == NetworkLevel.Full)
             {
                 ProcessUtils.LaunchAssembly(
                     /*MonoUtils.IsUnix ? "0install-gtk" :*/ "0install-win",

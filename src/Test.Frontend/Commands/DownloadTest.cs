@@ -33,7 +33,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override FrontendCommand GetCommand()
         {
-            return new Download(Resolver);
+            return new Download(Handler);
         }
 
         [Test(Description = "Ensures all options are parsed and handled correctly.")]

@@ -68,7 +68,7 @@ namespace ZeroInstall.Launcher.Cli
             FrontendCommand command;
             try
             {
-                command = new Run(new Resolver(handler));
+                command = new Run(handler);
                 command.Parse(args);
             }
                 #region Error handling

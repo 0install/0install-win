@@ -53,7 +53,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Update(Resolver resolver) : base(resolver)
+        public Update(IBackendHandler handler) : base(handler)
         {
             //Options.Remove("o|offline");
             //Options.Remove("r|refresh");
@@ -70,7 +70,7 @@ namespace ZeroInstall.Commands
         {
             if (SelectionsDocument) throw new NotSupportedException(Resources.NoSelectionsDocumentUpdate);
 
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
             try
             {
@@ -80,12 +80,12 @@ namespace ZeroInstall.Commands
                 #region Error handling
             catch (WebException)
             {
-                if (Resolver.Handler.Batch) return 1;
+                if (Handler.Batch) return 1;
                 else throw;
             }
             catch (SolverException)
             {
-                if (Resolver.Handler.Batch) return 1;
+                if (Handler.Batch) return 1;
                 else throw;
             }
             #endregion
@@ -105,8 +105,8 @@ namespace ZeroInstall.Commands
         /// </summary>
         private void OldSolve()
         {
-            Resolver.FeedManager.Refresh = false;
-            _oldSelections = Resolver.Solver.Solve(Requirements, out StaleFeeds);
+            FeedManager.Refresh = false;
+            _oldSelections = Solver.Solve(Requirements, out StaleFeeds);
         }
 
         /// <summary>
@@ -115,8 +115,8 @@ namespace ZeroInstall.Commands
         private void ShowOutput()
         {
             string output = GetOutputMessage();
-            if (string.IsNullOrEmpty(output)) Resolver.Handler.OutputLow(Resources.ChangesFound, Resources.NoUpdatesFound);
-            else Resolver.Handler.Output(Resources.ChangesFound, output);
+            if (string.IsNullOrEmpty(output)) Handler.OutputLow(Resources.ChangesFound, Resources.NoUpdatesFound);
+            else Handler.Output(Resources.ChangesFound, output);
         }
 
         private string GetOutputMessage()
@@ -149,7 +149,7 @@ namespace ZeroInstall.Commands
             }
 
             // Detect replaced feeds
-            Feed feed = Resolver.FeedCache.GetFeed(Requirements.InterfaceID);
+            Feed feed = FeedCache.GetFeed(Requirements.InterfaceID);
             if (feed.ReplacedBy != null)
                 builder.AppendLine(string.Format(Resources.FeedReplaced, Requirements.InterfaceID, feed.ReplacedBy.Target));
 

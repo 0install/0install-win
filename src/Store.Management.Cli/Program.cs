@@ -68,7 +68,7 @@ namespace ZeroInstall.Store.Management.Cli
             FrontendCommand command;
             try
             {
-                command = new StoreMan(new Resolver(handler));
+                command = new StoreMan(handler);
                 command.Parse(args);
             }
                 #region Error handling

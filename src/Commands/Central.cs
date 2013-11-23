@@ -47,8 +47,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Central(Resolver resolver)
-            : base(resolver)
+        public Central(IBackendHandler handler) : base(handler)
         {
             Options.Add("m|machine", () => Resources.OptionMachine, unused => _machineWide = true);
         }

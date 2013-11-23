@@ -34,7 +34,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override FrontendCommand GetCommand()
         {
-            return new Selection(Resolver);
+            return new Selection(Handler);
         }
 
         [Test(Description = "Ensures all options are parsed and handled correctly.")]

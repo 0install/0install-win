@@ -64,7 +64,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Digest(Resolver resolver) : base(resolver)
+        public Digest(IBackendHandler handler) : base(handler)
         {
             Options.Add("manifest", () => Resources.OptionManifest, unused => _printManifest = true);
             Options.Add("digest", () => Resources.OptionDigest, unused => _printDigest = true);
@@ -92,13 +92,13 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
             var manifest = GenerateManifest(
                 AdditionalArgs[0],
                 (AdditionalArgs.Count == 2) ? AdditionalArgs[1] : null);
 
-            Resolver.Handler.Output("Manifest digest", GetOutput(manifest));
+            Handler.Output("Manifest digest", GetOutput(manifest));
             return 0;
         }
         #endregion
@@ -110,7 +110,7 @@ namespace ZeroInstall.Commands
             {
                 if (!string.IsNullOrEmpty(subdir)) throw new OptionException(Resources.TooManyArguments, "");
 
-                return Manifest.Generate(path, _algorithm, Resolver.Handler);
+                return Manifest.Generate(path, _algorithm, Handler);
             }
             else if (File.Exists(path))
             {
@@ -120,10 +120,10 @@ namespace ZeroInstall.Commands
                     {
                         var extractor = Extractor.CreateExtractor(stream, Archive.GuessMimeType(path), tempDir);
                         extractor.SubDir = subdir;
-                        Resolver.Handler.RunTask(extractor);
+                        Handler.RunTask(extractor);
                     }
 
-                    return Manifest.Generate(tempDir, _algorithm, Resolver.Handler);
+                    return Manifest.Generate(tempDir, _algorithm, Handler);
                 }
             }
             else throw new FileNotFoundException(string.Format(Resources.FileOrDirNotFound, path));

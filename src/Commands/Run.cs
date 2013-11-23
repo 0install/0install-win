@@ -69,12 +69,12 @@ namespace ZeroInstall.Commands
         public override string ActionTitle { get { return Resources.ActionRun; } }
 
         /// <inheritdoc/>
-        public override int GuiDelay { get { return Resolver.FeedManager.Refresh ? 0 : 1500; } }
+        public override int GuiDelay { get { return FeedManager.Refresh ? 0 : 1500; } }
         #endregion
 
         #region Constructor
         /// <inheritdoc/>
-        public Run(Resolver resolver) : base(resolver)
+        public Run(IBackendHandler handler) : base(handler)
         {
             //Options.Remove("xml");
             //Options.Remove("show");
@@ -100,7 +100,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
             Solve();
             if (UncachedImplementations.Count != 0) RefreshSolve();
@@ -109,7 +109,7 @@ namespace ZeroInstall.Commands
             DownloadUncachedImplementations();
             BackgroundUpdate();
 
-            Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
+            Handler.CancellationToken.ThrowIfCancellationRequested();
             return LaunchImplementation();
         }
         #endregion
@@ -120,7 +120,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         private void BackgroundUpdate()
         {
-            if (StaleFeeds && Resolver.Config.EffectiveNetworkUse == NetworkLevel.Full)
+            if (StaleFeeds && Config.EffectiveNetworkUse == NetworkLevel.Full)
             {
                 ProcessUtils.LaunchAssembly(
                     /*MonoUtils.IsUnix ? "0install-gtk" :*/ "0install-win",
@@ -141,10 +141,10 @@ namespace ZeroInstall.Commands
             if (Requirements.Command == "") throw new OptionException(Resources.NoRunWithEmptyCommand, "--command");
 
             // Prevent the user from pressing any buttons once the child process is being launched
-            Resolver.Handler.DisableProgressUI();
+            Handler.DisableProgressUI();
 
             // Prepare new child process
-            var executor = new Executor(Selections, Resolver.Store) {Main = _main, Wrapper = _wrapper};
+            var executor = new Executor(Selections, Store) {Main = _main, Wrapper = _wrapper};
 
             using (var runHook = CreateRunHook(executor))
             {
@@ -165,7 +165,7 @@ namespace ZeroInstall.Commands
                 }
                 #endregion
 
-                Resolver.Handler.CloseProgressUI();
+                Handler.CloseProgressUI();
 
                 try
                 {
@@ -182,11 +182,11 @@ namespace ZeroInstall.Commands
 
         private IDisposable CreateRunHook(Executor executor)
         {
-            if (Resolver.Config.AllowApiHooking && WindowsUtils.IsWindows)
+            if (Config.AllowApiHooking && WindowsUtils.IsWindows)
             {
                 try
                 {
-                    return new RunHook(executor, Resolver.FeedManager, Resolver.Handler);
+                    return new RunHook(executor, FeedManager, Handler);
                 }
                     #region Error handling
                 catch (ImplementationNotFoundException)

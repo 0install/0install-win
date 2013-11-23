@@ -64,12 +64,12 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS] (PET-NAME|INTERFACE)"; } }
 
         /// <inheritdoc/>
-        public override int GuiDelay { get { return Resolver.Handler.Batch ? 0 : 1000; } }
+        public override int GuiDelay { get { return Handler.Batch ? 0 : 1000; } }
         #endregion
 
         #region Constructor
         /// <inheritdoc/>
-        public IntegrateApp(Resolver resolver) : base(resolver)
+        public IntegrateApp(IBackendHandler handler) : base(handler)
         {
             string categoryList = StringUtils.Join(", ", CategoryIntegrationManager.Categories);
 
@@ -108,12 +108,12 @@ namespace ZeroInstall.Commands
             }
 
             var appEntry = GetAppEntry(integrationManager, ref interfaceID);
-            var feed = Resolver.FeedManager.GetFeed(interfaceID);
+            var feed = FeedManager.GetFeed(interfaceID);
 
             // If the user specified no specific integration options show an interactive UI
             if (!_addCategories.Any() && !_removeCategories.Any() && !_importLists.Any())
             {
-                Resolver.Handler.ShowIntegrateApp(integrationManager, appEntry, feed);
+                Handler.ShowIntegrateApp(integrationManager, appEntry, feed);
                 return 0;
             }
 
@@ -171,11 +171,11 @@ namespace ZeroInstall.Commands
             var appEntry = base.GetAppEntry(integrationManager, ref interfaceID);
 
             // Detect feed changes that may make an AppEntry update necessary
-            var feed = Resolver.FeedManager.GetFeed(interfaceID);
+            var feed = FeedManager.GetFeed(interfaceID);
             if (!appEntry.CapabilityLists.UnsequencedEquals(feed.CapabilityLists))
             {
                 string changedMessage = string.Format(Resources.CapabilitiesChanged, appEntry.Name);
-                if (Resolver.Handler.AskQuestion(changedMessage + " " + Resources.AskUpdateCapabilities, changedMessage))
+                if (Handler.AskQuestion(changedMessage + " " + Resources.AskUpdateCapabilities, changedMessage))
                     integrationManager.UpdateApp(appEntry, feed);
             }
             return appEntry;

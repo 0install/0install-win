@@ -37,7 +37,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override FrontendCommand GetCommand()
         {
-            return new StoreMan(Resolver);
+            return new StoreMan(Handler);
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace ZeroInstall.Commands
                 StoreMock.Setup(x => x.AddArchives(new[]
                 {
                     new ArchiveFileInfo {Path = path}
-                }, digest, Resolver.Handler));
+                }, digest, Command.Handler));
 
                 AssertParseExecuteResult(null, (int)StoreErrorLevel.OK,
                     "add", "sha256new_" + digest.Sha256New, path);
@@ -67,7 +67,7 @@ namespace ZeroInstall.Commands
                 StoreMock.Setup(x => x.AddArchives(new[]
                 {
                     new ArchiveFileInfo {Path = path, SubDir = "extract"}
-                }, digest, Resolver.Handler));
+                }, digest, Command.Handler));
 
                 AssertParseExecuteResult(null, (int)StoreErrorLevel.OK,
                     "add", "sha256new_" + digest.Sha256New, path, "extract");
@@ -84,7 +84,7 @@ namespace ZeroInstall.Commands
                 StoreMock.Setup(x => x.AddArchives(new[]
                 {
                     new ArchiveFileInfo {Path = path, SubDir = "extract", MimeType = "mime"}
-                }, digest, Resolver.Handler));
+                }, digest, Command.Handler));
 
                 AssertParseExecuteResult(null, (int)StoreErrorLevel.OK,
                     "add", "sha256new_" + digest.Sha256New, path, "extract", "mime");
@@ -104,7 +104,7 @@ namespace ZeroInstall.Commands
                 {
                     new ArchiveFileInfo {Path = path1, SubDir = "extract1", MimeType = "mime1"},
                     new ArchiveFileInfo {Path = path2, SubDir = "extract2", MimeType = "mime2"}
-                }, digest, Resolver.Handler));
+                }, digest, Command.Handler));
 
                 AssertParseExecuteResult(null, (int)StoreErrorLevel.OK,
                     "add", "sha256new_" + digest.Sha256New,
@@ -120,7 +120,7 @@ namespace ZeroInstall.Commands
             {
                 var digest = new ManifestDigest(sha256New: "abc");
                 string path = tempDir;
-                StoreMock.Setup(x => x.AddDirectory(path, digest, Resolver.Handler));
+                StoreMock.Setup(x => x.AddDirectory(path, digest, Command.Handler));
 
                 AssertParseExecuteResult(null, (int)StoreErrorLevel.OK,
                     "add", "sha256new_" + digest.Sha256New, path);
@@ -130,7 +130,7 @@ namespace ZeroInstall.Commands
         [Test]
         public void TestAuditPass()
         {
-            StoreMock.Setup(x => x.Audit(Resolver.Handler)).Returns(new DigestMismatchException[0]);
+            StoreMock.Setup(x => x.Audit(Command.Handler)).Returns(new DigestMismatchException[0]);
 
             AssertParseExecuteResult(Resources.AuditPass, (int)StoreErrorLevel.OK,
                 "audit");
@@ -139,7 +139,7 @@ namespace ZeroInstall.Commands
         [Test]
         public void TestAuditFail()
         {
-            StoreMock.Setup(x => x.Audit(Resolver.Handler)).Returns(new [] { new DigestMismatchException()});
+            StoreMock.Setup(x => x.Audit(Command.Handler)).Returns(new [] { new DigestMismatchException()});
 
             AssertParseExecuteResult(Resources.AuditErrors, (int)StoreErrorLevel.DigestMismatch,
                 "audit");
@@ -148,7 +148,7 @@ namespace ZeroInstall.Commands
         [Test]
         public void TestAuditNoSupport()
         {
-            StoreMock.Setup(x => x.Audit(Resolver.Handler)).Returns((IEnumerable < DigestMismatchException>)null);
+            StoreMock.Setup(x => x.Audit(Command.Handler)).Returns((IEnumerable < DigestMismatchException>)null);
 
             Assert.Throws<NotSupportedException>(() => AssertParseExecuteResult(null, 0, "audit"));
         }
@@ -158,7 +158,7 @@ namespace ZeroInstall.Commands
         {
             var digest = new ManifestDigest(sha256New: "abc");
             string path = Path.Combine("somedir", "sha256new_" + digest.Sha256New);
-            StoreMock.Setup(x => x.AddDirectory(path, digest, Resolver.Handler));
+            StoreMock.Setup(x => x.AddDirectory(path, digest, Command.Handler));
 
             AssertParseExecuteResult(null, (int)StoreErrorLevel.OK,
                 "copy", path);
@@ -189,7 +189,7 @@ namespace ZeroInstall.Commands
         [Test]
         public void TestOptimise()
         {
-            StoreMock.Setup(x => x.Optimise(Resolver.Handler));
+            StoreMock.Setup(x => x.Optimise(Command.Handler));
 
             AssertParseExecuteResult(null, (int)StoreErrorLevel.OK,
                 "optimise");
@@ -225,7 +225,7 @@ namespace ZeroInstall.Commands
         public void TestVerifyPass()
         {
             var digest = new ManifestDigest(sha256New: "abc");
-            StoreMock.Setup(x => x.Verify(digest, Resolver.Handler)).Verifiable();
+            StoreMock.Setup(x => x.Verify(digest, Command.Handler)).Verifiable();
 
             AssertParseExecuteResult(null, (int)StoreErrorLevel.OK,
                 "verify", "sha256new_" + digest.Sha256New);
@@ -235,7 +235,7 @@ namespace ZeroInstall.Commands
         public void TestVerifyFail()
         {
             var digest = new ManifestDigest(sha256New: "abc");
-            StoreMock.Setup(x => x.Verify(digest, Resolver.Handler)).Throws<DigestMismatchException>().Verifiable();
+            StoreMock.Setup(x => x.Verify(digest, Command.Handler)).Throws<DigestMismatchException>().Verifiable();
 
             AssertParseExecuteResult(new DigestMismatchException().Message, (int)StoreErrorLevel.DigestMismatch,
                 "verify", "sha256new_" + digest.Sha256New);

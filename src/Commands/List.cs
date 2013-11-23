@@ -46,7 +46,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public List(Resolver resolver) : base(resolver)
+        public List(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
@@ -69,7 +69,7 @@ namespace ZeroInstall.Commands
                     throw new OptionException(Resources.TooManyArguments, "");
             }
 
-            Resolver.Handler.Output(Resources.FoundFeeds, GetList(pattern));
+            Handler.Output(Resources.FoundFeeds, GetList(pattern));
             return 0;
         }
 
@@ -80,7 +80,7 @@ namespace ZeroInstall.Commands
         private string GetList(string pattern)
         {
             var builder = new StringBuilder();
-            var feeds = Resolver.FeedCache.ListAll();
+            var feeds = FeedCache.ListAll();
             foreach (string entry in feeds.Where(entry => pattern == null || entry.Contains(pattern)))
                 builder.AppendLine(entry);
             return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break

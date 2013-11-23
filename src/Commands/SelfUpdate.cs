@@ -59,11 +59,11 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public SelfUpdate(Resolver resolver) : base(resolver)
+        public SelfUpdate(IBackendHandler handler) : base(handler)
         {
             NoWait = true;
-            Resolver.FeedManager.Refresh = true;
-            Resolver.Config.AllowApiHooking = false;
+            FeedManager.Refresh = true;
+            Config.AllowApiHooking = false;
             Requirements.Command = "update";
 
             //Options.Remove("no-wait");
@@ -81,7 +81,7 @@ namespace ZeroInstall.Commands
         {
             if (Options.Parse(args).Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs.JoinEscapeArguments(), "");
 
-            Requirements.InterfaceID = Resolver.Config.SelfUpdateID;
+            Requirements.InterfaceID = Config.SelfUpdateID;
 
             // Always pass in the installation directory to the updater as an argument
             AdditionalArgs.Add(Locations.InstallBase);
@@ -95,7 +95,7 @@ namespace ZeroInstall.Commands
             if (File.Exists(Path.Combine(Locations.PortableBase, "_no_self_update_check"))) throw new NotSupportedException(Resources.NoSelfUpdateDisabled);
             if (StoreUtils.PathInAStore(Locations.InstallBase)) throw new NotSupportedException(Resources.NoSelfUpdateStore);
 
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
             Solve();
             SelectionsUI();
@@ -105,13 +105,13 @@ namespace ZeroInstall.Commands
             var newVersion = Selections.Implementations[0].Version;
             if (!_force && currentVersion >= newVersion)
             {
-                Resolver.Handler.OutputLow(Resources.ChangesFound, Resources.NoUpdatesFound);
+                Handler.OutputLow(Resources.ChangesFound, Resources.NoUpdatesFound);
                 return 1;
             }
 
             DownloadUncachedImplementations();
 
-            Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
+            Handler.CancellationToken.ThrowIfCancellationRequested();
             return LaunchImplementation();
         }
         #endregion

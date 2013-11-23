@@ -30,7 +30,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override FrontendCommand GetCommand()
         {
-            return new List(Resolver);
+            return new List(Handler);
         }
 
         [Test(Description = "Ensures calling with no arguments returns all feeds in the cache.")]

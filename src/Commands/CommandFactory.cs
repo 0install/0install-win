@@ -50,61 +50,60 @@ namespace ZeroInstall.Commands
         /// <exception cref="InvalidDataException">Thrown if a configuration file is damaged.</exception>
         private static FrontendCommand GetCommand(string commandName, IBackendHandler handler)
         {
-            var resolver = new Resolver(handler);
-            if (string.IsNullOrEmpty(commandName)) return new DefaultCommand(resolver);
+            if (string.IsNullOrEmpty(commandName)) return new DefaultCommand(handler);
             switch (commandName.ToLowerInvariant())
             {
                 case Central.Name:
-                    return new Central(resolver);
+                    return new Central(handler);
                 case Selection.Name:
-                    return new Selection(resolver);
+                    return new Selection(handler);
                 case Download.Name:
-                    return new Download(resolver);
+                    return new Download(handler);
                 case Fetch.Name:
-                    return new Fetch(resolver);
+                    return new Fetch(handler);
                 case Update.Name:
-                    return new Update(resolver);
+                    return new Update(handler);
                 case Run.Name:
-                    return new Run(resolver);
+                    return new Run(handler);
                 case SelfUpdate.Name:
-                    return new SelfUpdate(resolver);
+                    return new SelfUpdate(handler);
                 case Import.Name:
-                    return new Import(resolver);
+                    return new Import(handler);
                 case List.Name:
-                    return new List(resolver);
+                    return new List(handler);
                 case Configure.Name:
-                    return new Configure(resolver);
+                    return new Configure(handler);
                 case AddFeed.Name:
-                    return new AddFeed(resolver);
+                    return new AddFeed(handler);
                 case RemoveFeed.Name:
-                    return new RemoveFeed(resolver);
+                    return new RemoveFeed(handler);
                 case ListFeeds.Name:
-                    return new ListFeeds(resolver);
+                    return new ListFeeds(handler);
                 case Digest.Name:
-                    return new Digest(resolver);
+                    return new Digest(handler);
                 case AddApp.Name:
                 case AddApp.AltName:
-                    return new AddApp(resolver);
+                    return new AddApp(handler);
                 case RemoveApp.Name:
                 case RemoveApp.AltName:
                 case RemoveApp.AltName2:
-                    return new RemoveApp(resolver);
+                    return new RemoveApp(handler);
                 case IntegrateApp.Name:
                 case IntegrateApp.AltName:
-                    return new IntegrateApp(resolver);
+                    return new IntegrateApp(handler);
                 case AddAlias.Name:
                 case AddAlias.AltName:
-                    return new AddAlias(resolver);
+                    return new AddAlias(handler);
                 case UpdateApps.Name:
                 case UpdateApps.AltName:
-                    return new UpdateApps(resolver);
+                    return new UpdateApps(handler);
                 case RepairApps.Name:
                 case RepairApps.AltName:
-                    return new RepairApps(resolver);
+                    return new RepairApps(handler);
                 case SyncApps.Name:
-                    return new SyncApps(resolver);
+                    return new SyncApps(handler);
                 case StoreMan.Name:
-                    return new StoreMan(resolver);
+                    return new StoreMan(handler);
                 default:
                     throw new OptionException(string.Format(Resources.UnknownCommand, commandName), null);
             }

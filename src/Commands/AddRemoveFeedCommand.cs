@@ -45,12 +45,12 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        protected AddRemoveFeedCommand(Resolver resolver) : base(resolver)
+        protected AddRemoveFeedCommand(IBackendHandler handler) : base(handler)
         {
-            Options.Add("batch", () => Resources.OptionBatch, unused => Resolver.Handler.Batch = true);
+            Options.Add("batch", () => Resources.OptionBatch, unused => Handler.Batch = true);
 
-            Options.Add("o|offline", () => Resources.OptionOffline, unused => Resolver.Config.NetworkUse = NetworkLevel.Offline);
-            Options.Add("r|refresh", () => Resources.OptionRefresh, unused => Resolver.FeedManager.Refresh = true);
+            Options.Add("o|offline", () => Resources.OptionOffline, unused => Config.NetworkUse = NetworkLevel.Offline);
+            Options.Add("r|refresh", () => Resources.OptionRefresh, unused => FeedManager.Refresh = true);
         }
         #endregion
 
@@ -60,19 +60,19 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
             string feedID;
             var interfaces = GetInterfaces(out feedID);
             if (interfaces.Count == 0)
             {
-                Resolver.Handler.Output(Resources.FeedManagement, string.Format(Resources.MissingFeedFor, feedID));
+                Handler.Output(Resources.FeedManagement, string.Format(Resources.MissingFeedFor, feedID));
                 return 1;
             }
 
             var modified = ApplyFeedToInterfaces(feedID, interfaces);
 
-            Resolver.Handler.OutputLow(Resources.FeedManagement, (modified.Count == 0)
+            Handler.OutputLow(Resources.FeedManagement, (modified.Count == 0)
                 ? NoneModifiedMessage
                 : string.Format(ModifiedMessage, StringUtils.Join(Environment.NewLine, modified)));
             return (modified.Count == 0) ? 0 : 1;
@@ -92,7 +92,7 @@ namespace ZeroInstall.Commands
             {
                 // Determine interfaces from feed content (<feed-for> tags)
                 feedID = GetCanonicalID(AdditionalArgs[0]);
-                var feed = Resolver.FeedManager.GetFeed(feedID);
+                var feed = FeedManager.GetFeed(feedID);
                 return feed.FeedFor.Map(reference => reference.Target.ToString());
             }
         }

@@ -66,7 +66,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public AddAlias(Resolver resolver) : base(resolver)
+        public AddAlias(IBackendHandler handler) : base(handler)
         {
             Options.Add("resolve", () => Resources.OptionAliasResolve, unused => _resolve = true);
             Options.Add("remove", () => Resources.OptionAliasRemove, unused => _remove = true);
@@ -79,7 +79,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            using (var integrationManager = new IntegrationManager(Resolver.Handler, MachineWide))
+            using (var integrationManager = new IntegrationManager(Handler, MachineWide))
             {
                 if (_resolve || _remove)
                 {
@@ -108,7 +108,7 @@ namespace ZeroInstall.Commands
             var appAlias = GetAppAlias(integrationManager.AppList, aliasName, out appEntry);
             if (appAlias == null)
             {
-                Resolver.Handler.Output(Resources.AppAlias, string.Format(Resources.AliasNotFound, aliasName));
+                Handler.Output(Resources.AppAlias, string.Format(Resources.AliasNotFound, aliasName));
                 return 1;
             }
 
@@ -116,13 +116,13 @@ namespace ZeroInstall.Commands
             {
                 string result = appEntry.InterfaceID;
                 if (!string.IsNullOrEmpty(appAlias.Command)) result += Environment.NewLine + "Command: " + appAlias.Command;
-                Resolver.Handler.Output(Resources.AppAlias, result);
+                Handler.Output(Resources.AppAlias, result);
             }
             if (_remove)
             {
                 integrationManager.RemoveAccessPoints(appEntry, new AccessPoint[] {appAlias});
 
-                Resolver.Handler.Output(Resources.AppAlias, string.Format(Resources.AliasRemoved, aliasName, appEntry.Name));
+                Handler.Output(Resources.AppAlias, string.Format(Resources.AliasRemoved, aliasName, appEntry.Name));
             }
             return 0;
         }
@@ -137,7 +137,7 @@ namespace ZeroInstall.Commands
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
         private int CreateAlias(IIntegrationManager integrationManager, string aliasName, string interfaceID, string command = null)
         {
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
             // Check this before modifying the environment
             bool needsReopenTerminal = NeedsReopenTerminal(integrationManager.MachineWide);
@@ -148,7 +148,7 @@ namespace ZeroInstall.Commands
             var alias = new AppAlias {Name = aliasName, Command = command};
             try
             {
-                integrationManager.AddAccessPoints(appEntry, Resolver.FeedManager.GetFeed(interfaceID), new AccessPoint[] {alias});
+                integrationManager.AddAccessPoints(appEntry, FeedManager.GetFeed(interfaceID), new AccessPoint[] {alias});
             }
                 #region Error handling
             catch (InvalidOperationException ex)
@@ -158,7 +158,7 @@ namespace ZeroInstall.Commands
             }
             #endregion
 
-            Resolver.Handler.OutputLow(
+            Handler.OutputLow(
                 Resources.DesktopIntegration,
                 string.Format(needsReopenTerminal ? Resources.AliasCreatedReopenTerminal : Resources.AliasCreated, aliasName, appEntry.Name));
             return 0;

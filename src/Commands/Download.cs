@@ -55,12 +55,12 @@ namespace ZeroInstall.Commands
         public override string ActionTitle { get { return Resources.ActionDownload; } }
 
         /// <inheritdoc/>
-        public override int GuiDelay { get { return Resolver.Handler.Batch ? 1000 : 0; } }
+        public override int GuiDelay { get { return Handler.Batch ? 1000 : 0; } }
         #endregion
 
         #region Constructor
         /// <inheritdoc/>
-        public Download(Resolver resolver) : base(resolver)
+        public Download(IBackendHandler handler) : base(handler)
         {
             Options.Add("show", () => Resources.OptionShow, unused => _show = true);
         }
@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Resolver.Handler.ShowProgressUI();
+            Handler.ShowProgressUI();
 
             Solve();
             if (StaleFeeds || UncachedImplementations.Count != 0) RefreshSolve();
@@ -80,7 +80,7 @@ namespace ZeroInstall.Commands
 
             DownloadUncachedImplementations();
 
-            Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
+            Handler.CancellationToken.ThrowIfCancellationRequested();
             return ShowOutput();
         }
         #endregion
@@ -93,7 +93,7 @@ namespace ZeroInstall.Commands
 
             try
             {
-                UncachedImplementations = Resolver.SelectionsManager.GetUncachedImplementations(Selections);
+                UncachedImplementations = SelectionsManager.GetUncachedImplementations(Selections);
             }
                 #region Error handling
             catch (InvalidDataException ex)
@@ -117,13 +117,13 @@ namespace ZeroInstall.Commands
 
             try
             {
-                Resolver.Fetcher.Fetch(UncachedImplementations);
+                Fetcher.Fetch(UncachedImplementations);
             }
                 #region Error handling
             catch
             {
                 // Suppress any left-over errors if the user canceled anyway
-                Resolver.Handler.CancellationToken.ThrowIfCancellationRequested();
+                Handler.CancellationToken.ThrowIfCancellationRequested();
                 throw;
             }
             #endregion
@@ -131,8 +131,8 @@ namespace ZeroInstall.Commands
 
         private int ShowOutput()
         {
-            if (_show || ShowXml) Resolver.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
-            else Resolver.Handler.OutputLow(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
+            if (_show || ShowXml) Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
+            else Handler.OutputLow(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
 
             return 0;
         }

@@ -49,12 +49,12 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS] (PET-NAME|INTERFACE)"; } }
 
         /// <inheritdoc/>
-        public override int GuiDelay { get { return Resolver.FeedManager.Refresh ? 0 : 1000; } }
+        public override int GuiDelay { get { return FeedManager.Refresh ? 0 : 1000; } }
         #endregion
 
         #region Constructor
         /// <inheritdoc/>
-        public RemoveApp(Resolver resolver) : base(resolver)
+        public RemoveApp(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
@@ -73,7 +73,7 @@ namespace ZeroInstall.Commands
             }
             catch (KeyNotFoundException ex)
             {
-                Resolver.Handler.OutputLow(Resources.AppList, ex.Message);
+                Handler.OutputLow(Resources.AppList, ex.Message);
                 return 0;
             }
 

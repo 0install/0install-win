@@ -75,7 +75,7 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Properties
-        private IBackendHandler _handler;
+        protected IBackendHandler Handler { get; private set; }
 
         /// <summary>The content of the last <see cref="MockHandler.ShowSelections"/> call.</summary>
         protected Selections Selections { get; private set; }
@@ -90,13 +90,12 @@ namespace ZeroInstall.Commands
         protected Mock<IStore> StoreMock { get; private set; }
         protected Mock<ISolver> SolverMock { get; private set; }
         protected Mock<IFetcher> FetcherMock { get; private set; }
-        protected Resolver Resolver { get; private set; }
 
         /// <summary>The command to be tested.</summary>
         protected FrontendCommand Command { get; private set; }
         #endregion
 
-        /// <summary>Creates an instance of the command type to be tested using <see cref="_handler"/> and <see cref="Resolver"/>.</summary>
+        /// <summary>Creates an instance of the command type to be tested using <see cref="Handler"/> and <see cref="Resolver"/>.</summary>
         protected abstract FrontendCommand GetCommand();
 
         private LocationsRedirect _redirect;
@@ -111,7 +110,7 @@ namespace ZeroInstall.Commands
             _output = null;
 
             // Store values passed to callback methods in fields
-            _handler = new MockHandler(selections => Selections = selections, information => _output = information);
+            Handler = new MockHandler(selections => Selections = selections, information => _output = information);
 
             _mockRepository = new MockRepository(MockBehavior.Strict);
             CacheMock = _mockRepository.Create<IFeedCache>();
@@ -119,17 +118,14 @@ namespace ZeroInstall.Commands
             StoreMock = _mockRepository.Create<IStore>();
             SolverMock = _mockRepository.Create<ISolver>();
             FetcherMock = _mockRepository.Create<IFetcher>(MockBehavior.Loose);
-            Resolver = new Resolver(_handler)
-            {
-                Config = new Config(),
-                FeedCache = CacheMock.Object,
-                OpenPgp = OpenPgpMock.Object,
-                Store = StoreMock.Object,
-                Solver = SolverMock.Object,
-                Fetcher = FetcherMock.Object
-            };
 
             Command = GetCommand();
+            Command.Config = new Config();
+            Command.FeedCache = CacheMock.Object;
+            Command.OpenPgp = OpenPgpMock.Object;
+            Command.Store = StoreMock.Object;
+            Command.Solver = SolverMock.Object;
+            Command.Fetcher = FetcherMock.Object;
         }
 
         [TearDown]

@@ -52,11 +52,11 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public DefaultCommand(Resolver resolver) : base(resolver)
+        public DefaultCommand(IBackendHandler handler) : base(handler)
         {
             Options.Add("V|version", () => Resources.OptionVersion, unused =>
             {
-                Resolver.Handler.Output(Resources.VersionInformation, AppInfo.Current.Name + " " + AppInfo.Current.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Current.Copyright + Environment.NewLine + Resources.LicenseInfo);
+                Handler.Output(Resources.VersionInformation, AppInfo.Current.Name + " " + AppInfo.Current.Version + (Locations.IsPortable ? " - " + Resources.PortableMode : "") + Environment.NewLine + AppInfo.Current.Copyright + Environment.NewLine + Resources.LicenseInfo);
                 throw new OperationCanceledException(); // Don't handle any of the other arguments
             });
         }
@@ -68,7 +68,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Resolver.Handler.Output(Resources.CommandLineArguments, HelpText);
+            Handler.Output(Resources.CommandLineArguments, HelpText);
             return 1;
         }
         #endregion

@@ -35,7 +35,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override FrontendCommand GetCommand()
         {
-            return new Update(Resolver);
+            return new Update(Handler);
         }
 
         [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
@@ -47,7 +47,7 @@ namespace ZeroInstall.Commands
             selectionsNew.Implementations[1].Version = new ImplementationVersion("2.0");
             selectionsNew.Implementations.Add(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/sub3.xml", ID = "id3", Version = new ImplementationVersion("0.1")});
 
-            Resolver.FeedManager.Refresh = true;
+            Command.FeedManager.Refresh = true;
 
             bool stale;
             SolverMock.SetupSequence(x => x.Solve(requirements, out stale)).Returns(selectionsOld).Returns(selectionsNew);

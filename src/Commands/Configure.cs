@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Configure(Resolver resolver) : base(resolver)
+        public Configure(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
@@ -58,9 +58,9 @@ namespace ZeroInstall.Commands
             switch (AdditionalArgs.Count)
             {
                 case 0:
-                    if (Resolver.Handler.ShowConfig(Resolver.Config))
+                    if (Handler.ShowConfig(Config))
                     { // Only save if the user confirmed the changes
-                        Resolver.Config.Save();
+                        Config.Save();
                     }
                     return 0;
 
@@ -86,17 +86,17 @@ namespace ZeroInstall.Commands
             string value;
             try
             {
-                value = Resolver.Config.GetOption(key);
+                value = Config.GetOption(key);
             }
                 #region Error handling
             catch (KeyNotFoundException)
             {
-                Resolver.Handler.Output("Configuration error", string.Format("Unknown option '{0}'", key));
+                Handler.Output("Configuration error", string.Format("Unknown option '{0}'", key));
                 return 1;
             }
             #endregion
 
-            Resolver.Handler.Output(key, value);
+            Handler.Output(key, value);
             return 0;
         }
 
@@ -108,22 +108,22 @@ namespace ZeroInstall.Commands
         {
             try
             {
-                Resolver.Config.SetOption(key, value);
+                Config.SetOption(key, value);
             }
                 #region Error handling
             catch (KeyNotFoundException)
             {
-                Resolver.Handler.Output("Configuration error", string.Format("Unknown option '{0}'", key));
+                Handler.Output("Configuration error", string.Format("Unknown option '{0}'", key));
                 return 1;
             }
             catch (FormatException ex)
             {
-                Resolver.Handler.Output("Configuration error", ex.Message);
+                Handler.Output("Configuration error", ex.Message);
                 return 1;
             }
             #endregion
 
-            Resolver.Config.Save();
+            Config.Save();
             return 0;
         }
         #endregion

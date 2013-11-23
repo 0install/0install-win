@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public RemoveFeed(Resolver resolver) : base(resolver)
+        public RemoveFeed(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
