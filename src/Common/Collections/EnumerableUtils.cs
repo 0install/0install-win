@@ -352,5 +352,22 @@ namespace Common.Collections
             return elements.FirstOrDefault(element => element != null && element.MergeID == id);
         }
         #endregion
+
+        #region List
+        /// <summary>
+        /// Removes the last n elements from the list.
+        /// </summary>
+        /// <param name="list">The list to remove the elements from.</param>
+        /// <param name="number">The number of elements to remove.</param>
+        public static void RemoveLast<T>(this List<T> list, int number = 1)
+        {
+            #region Sanity checks
+            if (list == null) throw new ArgumentNullException("list");
+            if (number < 0) throw new ArgumentOutOfRangeException("number", "Must not be negative.");
+            #endregion
+
+            list.RemoveRange(list.Count - number, number);
+        }
+        #endregion
     }
 }

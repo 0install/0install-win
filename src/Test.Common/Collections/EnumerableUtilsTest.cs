@@ -217,5 +217,18 @@ namespace Common.Collections
             CollectionAssert.AreEqual(new[] {mineList[1], mineList[4]}, toRemove);
             CollectionAssert.AreEqual(new[] {theirsList[1], theirsList[4]}, toAdd);
         }
+
+        /// <summary>
+        /// Ensures that <see cref="EnumerableUtils.RemoveLast{T}"/> correctly removes the last n elements from a list.
+        /// </summary>
+        [Test]
+        public void TestRemoveLast()
+        {
+            var list = new List<string> {"a", "b", "c"};
+            list.RemoveLast(2);
+            CollectionAssert.AreEqual(new[] {"a"}, list);
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => list.RemoveLast(-1));
+        }
     }
 }
