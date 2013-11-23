@@ -19,6 +19,7 @@ using System;
 using Common.Storage;
 using Moq;
 using NUnit.Framework;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
@@ -33,7 +34,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override FrontendCommand GetCommand()
         {
-            return new Download(Handler);
+            return new Download(HandlerMock.Object);
         }
 
         [Test(Description = "Ensures all options are parsed and handled correctly.")]
@@ -57,8 +58,6 @@ namespace ZeroInstall.Commands
             };
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(testFeed2);
 
-            Command.Parse(new[] {"http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0"});
-
             bool stale;
             SolverMock.Setup(x => x.Solve(requirements, out stale)).Returns(selections).Verifiable();
 
@@ -66,7 +65,8 @@ namespace ZeroInstall.Commands
             StoreMock.Setup(x => x.Contains(It.IsAny<ManifestDigest>())).Returns(false);
             FetcherMock.Setup(x => x.Fetch(new[] {testImplementation1, testImplementation2})).Verifiable();
 
-            Assert.AreEqual(0, Command.Execute());
+            RunAndAssert(Resources.AllComponentsDownloaded, 0, selections,
+                "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0");
         }
 
         [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
@@ -91,8 +91,9 @@ namespace ZeroInstall.Commands
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 selections.SaveXml(tempFile);
-                Command.Parse(new string[] {tempFile});
-                Assert.AreEqual(0, Command.Execute());
+
+                RunAndAssert(Resources.AllComponentsDownloaded, 0, selections,
+                    tempFile);
             }
         }
     }

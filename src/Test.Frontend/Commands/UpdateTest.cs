@@ -35,7 +35,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override FrontendCommand GetCommand()
         {
-            return new Update(Handler);
+            return new Update(HandlerMock.Object);
         }
 
         [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
@@ -66,9 +66,8 @@ namespace ZeroInstall.Commands
             // Check for <replaced-by>
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(FeedTest.CreateTestFeed());
 
-            AssertParseExecuteResult("http://0install.de/feeds/test/test2.xml: 1.0 -> 2.0" + Environment.NewLine + "http://0install.de/feeds/test/sub3.xml: new -> 0.1", 0,
+            RunAndAssert("http://0install.de/feeds/test/test2.xml: 1.0 -> 2.0" + Environment.NewLine + "http://0install.de/feeds/test/sub3.xml: new -> 0.1", 0, selectionsNew,
                 "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0");
-            AssertSelections(selectionsNew);
         }
 
         [Test(Description = "Ensures local Selections XMLs are rejected.")]

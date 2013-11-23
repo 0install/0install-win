@@ -30,21 +30,21 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override FrontendCommand GetCommand()
         {
-            return new List(Handler);
+            return new List(HandlerMock.Object);
         }
 
         [Test(Description = "Ensures calling with no arguments returns all feeds in the cache.")]
         public void TestNoArgs()
         {
             CacheMock.Setup(x => x.ListAll()).Returns(new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml"});
-            AssertParseExecuteResult("http://0install.de/feeds/test/test1.xml" + Environment.NewLine + "http://0install.de/feeds/test/test2.xml", 0);
+            RunAndAssert("http://0install.de/feeds/test/test1.xml" + Environment.NewLine + "http://0install.de/feeds/test/test2.xml", 0);
         }
 
         [Test(Description = "Ensures calling with a single argument returns a filtered list of feeds in the cache.")]
         public void TestPattern()
         {
             CacheMock.Setup(x => x.ListAll()).Returns(new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml"});
-            AssertParseExecuteResult("http://0install.de/feeds/test/test2.xml", 0, "test2");
+            RunAndAssert("http://0install.de/feeds/test/test2.xml", 0, "test2");
         }
 
         [Test(Description = "Ensures calling with too many arguments raises an exception.")]

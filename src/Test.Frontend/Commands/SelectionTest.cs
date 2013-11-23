@@ -16,12 +16,15 @@
  */
 
 using Common.Storage;
+using Moq;
 using NDesk.Options;
 using NUnit.Framework;
 using ZeroInstall.Backend;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
+using ZeroInstall.Store;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Commands
 {
@@ -34,7 +37,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override FrontendCommand GetCommand()
         {
-            return new Selection(Handler);
+            return new Selection(HandlerMock.Object);
         }
 
         [Test(Description = "Ensures all options are parsed and handled correctly.")]
@@ -45,9 +48,8 @@ namespace ZeroInstall.Commands
 
             bool stale;
             SolverMock.Setup(x => x.Solve(requirements, out stale)).Returns(selections).Verifiable();
-            AssertParseExecuteResult(selections.ToXmlString(), 0,
+            RunAndAssert(selections.ToXmlString(), 0, selections,
                 "--xml", "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0");
-            AssertSelections(selections);
         }
 
         [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
@@ -57,8 +59,8 @@ namespace ZeroInstall.Commands
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 selections.SaveXml(tempFile);
-                AssertParseExecuteResult(selections.ToXmlString(), 0, "--xml", tempFile);
-                AssertSelections(selections);
+                RunAndAssert(selections.ToXmlString(), 0, selections,
+                    "--xml", tempFile);
             }
         }
 
@@ -71,13 +73,23 @@ namespace ZeroInstall.Commands
         }
 
         /// <summary>
-        /// Checks that <see cref="IBackendHandler.ShowSelections"/> was called with a specific set of <see cref="Selections"/>.
+        /// Verifies that calling <see cref="FrontendCommand.Parse"/> and <see cref="FrontendCommand.Execute"/> causes a specific reuslt.
         /// </summary>
-        protected void AssertSelections(Selections selections)
+        /// <param name="expectedOutput">The expected string for a <see cref="IHandler.Output"/> call; <see langword="null"/> if none.</param>
+        /// <param name="expectedExitStatus">The expected exit status code returned by <see cref="FrontendCommand.Execute"/>.</param>
+        /// <param name="expectedSelections">The expected value passed to <see cref="IBackendHandler.ShowSelections"/>.</param>
+        /// <param name="args">The arguments to pass to <see cref="FrontendCommand.Parse"/>.</param>
+        protected void RunAndAssert(string expectedOutput, int expectedExitStatus, Selections expectedSelections, params string[] args)
         {
-            Assert.AreEqual(selections.InterfaceID, Selections.InterfaceID);
-            Assert.AreEqual(selections.Command, Selections.Command);
-            CollectionAssert.AreEqual(selections.Implementations, Selections.Implementations);
+            Selections selections = null;
+            HandlerMock.Setup(x => x.ShowSelections(It.IsAny<Selections>(), It.IsAny<IFeedCache>()))
+                .Callback((Selections sel, IFeedCache cache) => selections = sel);
+
+            RunAndAssert(expectedOutput, expectedExitStatus, args);
+
+            Assert.AreEqual(selections.InterfaceID, expectedSelections.InterfaceID);
+            Assert.AreEqual(selections.Command, expectedSelections.Command);
+            CollectionAssert.AreEqual(selections.Implementations, expectedSelections.Implementations);
         }
     }
 }
