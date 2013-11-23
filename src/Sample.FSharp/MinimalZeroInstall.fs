@@ -8,10 +8,12 @@ let uncached = resolver.SelectionsManager.GetUncachedImplementations
 let fetch = resolver.Fetcher.Fetch
 let execute selections = (new Executor (selections, resolver.Store)).Start()
 
-[<EntryPoint>]
-let main args = 
-    let requirements = new Requirements(InterfaceID = args.[0])
+let run requirements =
     let selections = solve requirements
     fetch (uncached selections)
-    ignore (execute selections)
+    execute selections
+
+[<EntryPoint>]
+let main args =
+    ignore(run(new Requirements(InterfaceID = args.[0])))
     0
