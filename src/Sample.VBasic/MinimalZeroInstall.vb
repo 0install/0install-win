@@ -4,12 +4,16 @@ Imports ZeroInstall.Backend
 
 Module MinimalZeroInstall
     Sub Main(ByVal args As String())
-        Dim resolver = New Resolver(New CliHandler())
-        Dim requirements = New Requirements() With {.InterfaceID = args(0)}
+        Run(New Requirements() With {.InterfaceID = args(0)})
+    End Sub
 
-        Dim selections = Resolver.Solver.Solve(requirements)
-        Dim missing = resolver.SelectionsManager.GetUncachedImplementations(selections)
-        resolver.Fetcher.Fetch(missing)
-        Call New Executor(selections, resolver.Store).Start()
+    Private Sub Run(requirements As Requirements)
+        Dim resolver = New Resolver(New CliHandler())
+        With resolver
+            Dim selections = .Solver.Solve(requirements)
+            Dim missing = .SelectionsManager.GetUncachedImplementations(selections)
+            .Fetcher.Fetch(missing)
+            Call New Executor(selections, .Store).Start()
+        End With
     End Sub
 End Module

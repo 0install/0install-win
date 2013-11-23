@@ -2,16 +2,21 @@
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
-internal static class MinimalZeroInstall
+class MinimalZeroInstall : Resolver
 {
     public static void Main(string[] args)
     {
-        var resolver = new Resolver(new CliHandler());
-        var requirements = new Requirements {InterfaceID = args[0]};
+        new MinimalZeroInstall().Run(new Requirements {InterfaceID = args[0]});
+    }
 
-        var selections = resolver.Solver.Solve(requirements);
-        var missing = resolver.SelectionsManager.GetUncachedImplementations(selections);
-        resolver.Fetcher.Fetch(missing);
-        new Executor(selections, resolver.Store).Start();
+    private MinimalZeroInstall() : base(new CliHandler())
+    {}
+
+    private void Run(Requirements requirements)
+    {
+        var selections = Solver.Solve(requirements);
+        var missing = SelectionsManager.GetUncachedImplementations(selections);
+        Fetcher.Fetch(missing);
+        new Executor(selections, Store).Start();
     }
 }

@@ -3,9 +3,9 @@ import ZeroInstall.Model
 import ZeroInstall.Injector
 
 def Main(argv as (string)):
-    resolver = Resolver(CliHandler())
     requirements = Requirements(InterfaceID:argv[0])
 
+    resolver = Resolver(CliHandler())
     selections = resolver.Solver.Solve(requirements)
     missing = resolver.SelectionsManager.GetUncachedImplementations(selections)
     resolver.Fetcher.Fetch(missing)
