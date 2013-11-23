@@ -221,9 +221,21 @@ namespace ZeroInstall.Model
         /// It should not be called if you plan on serializing the interface again since it may change some of its structure.</remarks>
         public virtual void Normalize(string feedID)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            #endregion
+
+            // Apply if-0install-version filter
+            Commands.RemoveFiltered();
+            Dependencies.RemoveFiltered();
+            Restrictions.RemoveFiltered();
+            Bindings.RemoveFiltered();
+
             // Convert legacy launch commands
             if (Main != null) Commands.Add(new Command {Name = Command.NameRun, Path = Main});
             if (SelfTest != null) Commands.Add(new Command {Name = Command.NameTest, Path = SelfTest});
+
+            foreach (var command in Commands) command.Normalize();
         }
 
         /// <summary>
@@ -246,10 +258,10 @@ namespace ZeroInstall.Model
             if (Architecture == default(Architecture)) Architecture = parent.Architecture;
 
             // Accumulate list entries
-            foreach (var command in parent.Commands) Commands.Add(command);
-            foreach (var dependency in parent.Dependencies) Dependencies.Add(dependency);
-            foreach (var restriction in parent.Restrictions) Restrictions.Add(restriction);
-            foreach (var bindings in parent.Bindings) Bindings.Add(bindings);
+            Commands.AddAll(parent.Commands);
+            Dependencies.AddAll(parent.Dependencies);
+            Restrictions.AddAll(parent.Restrictions);
+            Bindings.AddAll(parent.Bindings);
         }
         #endregion
 

@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -81,13 +82,15 @@ namespace ZeroInstall.Model
         /// It should not be called if you plan on serializing the feed again since it will may loose some of its structure.</remarks>
         public override void Normalize()
         {
-            // Simplify recipe steps and rebuild list to update sequenced hash value
-            var newSteps = new IRecipeStep[Steps.Count];
-            int i = 0;
+            // Apply if-0install-version filter
+            Steps.RemoveFiltered();
+
+            // Normalize recipe steps and rebuild list to update sequenced hash value
+            var newSteps = new List<IRecipeStep>();
             foreach (var step in Steps)
             {
                 step.Normalize();
-                newSteps[i++] = step;
+                newSteps.Add(step);
             }
             Steps.Clear();
             Steps.AddAll(newSteps);

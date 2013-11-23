@@ -124,6 +124,25 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
+        #region Normalize
+        /// <summary>
+        /// Sets missing default values and handles legacy elements.
+        /// </summary>
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
+        /// It should not be called if you plan on serializing the interface again since it may change some of its structure.</remarks>
+        public virtual void Normalize()
+        {
+            // Apply if-0install-version filter
+            Arguments.RemoveFiltered();
+            Dependencies.RemoveFiltered();
+            Restrictions.RemoveFiltered();
+            Bindings.RemoveFiltered();
+            if (WorkingDir != null && WorkingDir.FilterMismatch()) WorkingDir = null;
+        }
+        #endregion
+
+        //--------------------//
+
         #region Conversion
         /// <summary>
         /// Returns the Command in the form "Name (Path)". Not safe for parsing!

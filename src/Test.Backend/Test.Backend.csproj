@@ -107,6 +107,7 @@
     <Compile Include="Fetchers\SequentialFetcherTest.cs" />
     <Compile Include="Fetchers\TestData.cs" />
     <Compile Include="Injector\ExecutorTest.cs" />
+    <Compile Include="Model\FeedElementUtilsTest.cs" />
     <Compile Include="Store\ConfigTest.cs" />
     <Compile Include="Injector\FeedManagerTest.cs" />
     <Compile Include="Injector\TrustManagerTest.cs" />

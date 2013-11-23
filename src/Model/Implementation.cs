@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -58,16 +59,19 @@ namespace ZeroInstall.Model
         {
             base.Normalize(feedID);
 
-            // Simplify retrieval methods and rebuild list to update sequenced hash value
-            var newRetreivalMethods = new RetrievalMethod[RetrievalMethods.Count];
-            int i = 0;
-            foreach (var retrievalMethods in RetrievalMethods)
+            // Apply if-0install-version filter
+            Commands.RemoveFiltered();
+            RetrievalMethods.RemoveFiltered();
+
+            // Normalize retrieval methods and rebuild list to update sequenced hash value
+            var newRetrievalMethods = new List<RetrievalMethod>();
+            foreach (var retrievalMethod in RetrievalMethods)
             {
-                retrievalMethods.Normalize();
-                newRetreivalMethods[i++] = retrievalMethods;
+                retrievalMethod.Normalize();
+                newRetrievalMethods.Add(retrievalMethod);
             }
             RetrievalMethods.Clear();
-            RetrievalMethods.AddAll(newRetreivalMethods);
+            RetrievalMethods.AddAll(newRetrievalMethods);
         }
         #endregion
 

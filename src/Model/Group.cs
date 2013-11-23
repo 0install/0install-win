@@ -58,6 +58,13 @@ namespace ZeroInstall.Model
         /// It should not be called if you plan on serializing the feed again since it will may loose some of its structure.</remarks>
         public override void Normalize(string feedID)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            #endregion
+
+            // Apply if-0install-version filter
+            Elements.RemoveFiltered();
+
             var collapsedElements = new List<Element>();
 
             foreach (var element in Elements)

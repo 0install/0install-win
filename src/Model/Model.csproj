@@ -90,6 +90,7 @@
     <Compile Include="Design\IconMimeTypeConverter.cs" />
     <Compile Include="Design\UseConverter.cs" />
     <Compile Include="DownloadRetrievalMethod.cs" />
+    <Compile Include="FeedElementUtils.cs" />
     <Compile Include="IDescriptionContainer.cs" />
     <Compile Include="IIconContainer.cs" />
     <Compile Include="ISummaryContainer.cs" />

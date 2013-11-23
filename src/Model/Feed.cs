@@ -237,6 +237,14 @@ namespace ZeroInstall.Model
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
             #endregion
 
+            // Apply if-0install-version filter
+            Elements.RemoveFiltered();
+            Icons.RemoveFiltered();
+            Categories.RemoveFiltered();
+            Feeds.RemoveFiltered();
+            FeedFor.RemoveFiltered();
+            EntryPoints.RemoveFiltered();
+
             var collapsedElements = new List<Element>();
 
             foreach (var element in Elements)

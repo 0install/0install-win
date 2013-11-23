@@ -31,7 +31,7 @@ namespace ZeroInstall.Model
     [Description("An icon representing the application. Used in the Catalog GUI as well as for desktop icons, menu entries, etc..")]
     [Serializable]
     [XmlRoot("icon", Namespace = Feed.XmlNamespace), XmlType("icon", Namespace = Feed.XmlNamespace)]
-    public class Icon : XmlUnknown, ICloneable, IEquatable<Icon>
+    public class Icon : FeedElement, ICloneable, IEquatable<Icon>
     {
         #region Constants
         /// <summary>
