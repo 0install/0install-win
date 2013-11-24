@@ -43,6 +43,9 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         protected override string Usage { get { return "[OPTIONS]"; } }
+
+        /// <inheritdoc/>
+        protected override int AdditionalArgsMax { get { return 0; } }
         #endregion
 
         #region Constructor
