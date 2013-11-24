@@ -49,9 +49,7 @@ namespace ZeroInstall.Store.Feeds
             {
                 try
                 {
-                    var feed = cache.GetFeed(feedID);
-                    feed.Normalize(feedID);
-                    feeds.Add(feed);
+                    feeds.Add(cache.GetFeed(feedID));
                 }
                     #region Error handling
                 catch (IOException ex)

@@ -61,7 +61,7 @@ namespace ZeroInstall.Model
         public static string GuessMimeType(string fileName)
         {
             #region Sanity checks
-            if (String.IsNullOrEmpty(fileName)) throw new ArgumentNullException("fileName");
+            if (fileName == null) throw new ArgumentNullException("fileName");
             #endregion
 
             if (fileName.EndsWithIgnoreCase(".zip")) return MimeTypeZip;
@@ -120,10 +120,10 @@ namespace ZeroInstall.Model
         public override void Normalize()
         {
             // If the MIME type is already set or the location is missing, we have nothing to do here
-            if (!string.IsNullOrEmpty(MimeType) || string.IsNullOrEmpty(HrefString)) return;
+            if (!string.IsNullOrEmpty(MimeType) || Href == null) return;
 
             // Guess the MIME type based on the file extension
-            MimeType = GuessMimeType(HrefString);
+            MimeType = GuessMimeType(Href.ToString());
         }
         #endregion
 

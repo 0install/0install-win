@@ -147,7 +147,7 @@ namespace ZeroInstall.Publish
                     // Guess MIME types now because the file ending is not known later
                     if (string.IsNullOrEmpty(archive.MimeType))
                     {
-                        string mimeType = Archive.GuessMimeType(archive.HrefString);
+                        string mimeType = Archive.GuessMimeType(archive.Href.ToString());
                         if (executor == null) archive.MimeType = mimeType;
                         else executor.Execute(new SetValueCommand<string>(() => archive.MimeType, value => archive.MimeType = value, mimeType));
                     }

@@ -96,7 +96,7 @@ namespace ZeroInstall.Model
                 if (!string.IsNullOrEmpty(LocalPath))
                     LocalPath = Path.GetFullPath(Path.Combine(feedDir, FileUtils.UnifySlashes(LocalPath)));
                 else if (!string.IsNullOrEmpty(ID) && ID.StartsWith(".")) // Get local path from ID if missing
-                    LocalPath = ID = Path.GetFullPath(Path.Combine(feedDir, FileUtils.UnifySlashes(ID)));
+                    LocalPath = ID = Path.Combine(feedDir, FileUtils.UnifySlashes(ID));
             }
 
             // Parse manifest digest from ID if missing

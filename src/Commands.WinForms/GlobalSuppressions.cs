@@ -10,4 +10,3 @@
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2232:MarkWindowsFormsEntryPointsWithStaThread", Justification = "GUI is created on a different thread")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "WinForms", Scope = "member", Target = "ZeroInstall.Commands.WinForms.Program.#Run(System.String[])")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes", Scope = "member", Target = "ZeroInstall.Commands.WinForms.StoreManageNods.StoreNode.#System.IComparable.CompareTo(System.Object)", Justification = "Comparison is only used for sorting in FilteredTreeView")]
