@@ -16,6 +16,7 @@
  */
 
 using System.Collections.Generic;
+using System.IO;
 using Common.Utils;
 using NUnit.Framework;
 
@@ -114,21 +115,13 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Implementation.Normalize"/> leaves <see cref="ImplementationBase.LocalPath"/> alone for remote feeds.
+        /// Ensures that <see cref="Implementation.Normalize"/> throws <see cref="IOException"/> for relative paths in non-local feeds.
         /// </summary>
         [Test]
         public void TestNormalizeRemotePath()
         {
-            var implementation1 = new Implementation {ID = "./subdir"};
-            var implementation2 = new Implementation {ID = "./wrong", LocalPath = "subdir"};
-
-            implementation1.Normalize("http://0install.de/feeds/test/test1.xml");
-            implementation2.Normalize("http://0install.de/feeds/test/test1.xml");
-
-            Assert.AreEqual("./subdir", implementation1.ID);
-            Assert.IsNull(implementation1.LocalPath);
-            Assert.AreEqual("./wrong", implementation2.ID);
-            Assert.AreEqual("subdir", implementation2.LocalPath);
+            Assert.Throws<IOException>(() => new Implementation {ID = "./subdir"}.Normalize("http://0install.de/feeds/test/test1.xml"));
+            Assert.Throws<IOException>(() => new Implementation {LocalPath = "subdir"}.Normalize("http://0install.de/feeds/test/test1.xml"));
         }
 
         /// <summary>

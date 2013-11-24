@@ -48,7 +48,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 Size = new System.Drawing.Size(73, 20),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
                 TabIndex = 1,
-                HintText = "HTTP/FTP URL (required)"
+                HintText = "HTTP/FTP URL (required)",
+                AllowRelative = true
             };
             textBoxHref.TextChanged += delegate { ShowUpdateHint(Resources.ManifestDigestChanged); };
             RegisterControl(textBoxHref, new PropertyPointer<Uri>(() => Target.Href, value => Target.Href = value));

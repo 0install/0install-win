@@ -80,23 +80,11 @@ namespace ZeroInstall.Model
             // Default stability rating to testing
             if (Stability == Stability.Unset) Stability = Stability.Testing;
 
-            // Make local paths absolute when possible
-            string feedDir = null;
-            try
-            {
-                if (Path.IsPathRooted(feedID)) feedDir = Path.GetDirectoryName(feedID);
-            }
-            catch (ArgumentException)
-            {
-                // Ignore non-filename IDs
-            }
-            if (!string.IsNullOrEmpty(feedDir))
-            {
-                if (!string.IsNullOrEmpty(LocalPath))
-                    LocalPath = Path.GetFullPath(Path.Combine(feedDir, FileUtils.UnifySlashes(LocalPath)));
-                else if (!string.IsNullOrEmpty(ID) && ID.StartsWith(".")) // Get local path from ID if missing
-                    LocalPath = ID = Path.Combine(feedDir, FileUtils.UnifySlashes(ID));
-            }
+            // Make local paths absolute
+            if (!string.IsNullOrEmpty(LocalPath))
+                LocalPath = FeedElementUtils.GetAbsolutePath(LocalPath, feedID);
+            else if (!string.IsNullOrEmpty(ID) && ID.StartsWith(".")) // Get local path from ID
+                LocalPath = ID = FeedElementUtils.GetAbsolutePath(ID, feedID);
 
             // Parse manifest digest from ID if missing
             if (!string.IsNullOrEmpty(ID)) ManifestDigest.ParseID(ID, ref _manifestDigest);

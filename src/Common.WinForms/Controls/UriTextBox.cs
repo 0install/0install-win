@@ -25,7 +25,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Common.Utils;
 
 namespace Common.Controls
 {
@@ -67,13 +66,19 @@ namespace Common.Controls
         /// <exception cref="UriFormatException">Thrown when trying to read while <see cref="TextBox.Text"/> is not a well-formed <see cref="Uri"/>.</exception>
         /// <remarks>It is always safe to set this property. It is safe to read this property after validation has been performed.</remarks>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Uri Uri { get { return string.IsNullOrEmpty(Text) ? null : new Uri(Text, UriKind.Absolute); } set { Text = (value == null) ? null : value.ToString(); } }
+        public Uri Uri { get { return string.IsNullOrEmpty(Text) ? null : new Uri(Text, AllowRelative ? UriKind.RelativeOrAbsolute : UriKind.Absolute); } set { Text = (value == null) ? null : value.ToString(); } }
 
         /// <summary>
         /// When set to <see langword="true"/> only URIs starting with "http:" or "https:" will be considered valid.
         /// </summary>
         [DefaultValue(false), Description("When set to true only URIs starting with \"http:\" or \"https:\" will be considered valid."), Category("Behavior")]
         public bool HttpOnly { get; set; }
+
+        /// <summary>
+        /// When set to <see langword="true"/> relative URIs are accepted.
+        /// </summary>
+        [DefaultValue(false), Description("When set to true relative URIs are accepted."), Category("Behavior")]
+        public bool AllowRelative { get; set; }
 
         /// <summary>
         /// Indicates whether the currently entered text is a valid URI.
@@ -104,12 +109,12 @@ namespace Common.Controls
             // Allow empty input
             if (string.IsNullOrEmpty(text)) return true;
 
-            Uri temp;
             // Check URI is well-formed
-            if (!Uri.TryCreate(text, UriKind.Absolute, out temp)) return false;
+            Uri uri;
+            if (!Uri.TryCreate(text, AllowRelative ? UriKind.RelativeOrAbsolute : UriKind.Absolute, out uri)) return false;
 
             // Check URI is HTTP(S) if that was requested
-            if (HttpOnly) return text.StartsWithIgnoreCase("http:") || text.StartsWithIgnoreCase("https:");
+            if (HttpOnly && uri.IsAbsoluteUri) return uri.Scheme == "http" || uri.Scheme == "https";
 
             return true;
         }

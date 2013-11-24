@@ -165,8 +165,9 @@ namespace ZeroInstall.Publish
             }.Dispatch(retrievalMethod);
 
             // Download the file
+            var href = FeedElementUtils.GetAbsoluteHref(retrievalMethod.Href, executor.Path);
             var downloadedFile = new TemporaryFile("0publish");
-            handler.RunTask(new DownloadFile(retrievalMethod.Href, downloadedFile)); // Defer task to handler
+            handler.RunTask(new DownloadFile(href, downloadedFile)); // Defer task to handler
 
             // Set downloaded file size
             long newSize = new FileInfo(downloadedFile).Length;

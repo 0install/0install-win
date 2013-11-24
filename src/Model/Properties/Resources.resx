@@ -162,6 +162,12 @@
   <data name="NoSuitableIconFound" xml:space="preserve">
     <value>No suitable icon was found.</value>
   </data>
+  <data name="RelativePathInNonRemoteFeed" xml:space="preserve">
+    <value>The relative path '{0}' was specified in a remote feed. Only local feeds may contain relative paths.</value>
+  </data>
+  <data name="RelativeUriInRemoteFeed" xml:space="preserve">
+    <value>The relative HREF '{0}' was specified in a remote feed. Only local feeds may contain relative HREFs.</value>
+  </data>
   <data name="SelectionCandidateNoteBuggy" xml:space="preserve">
     <value>Buggy implementation</value>
   </data>

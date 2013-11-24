@@ -17,7 +17,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
@@ -30,17 +29,16 @@ namespace ZeroInstall.Model
     {
         #region Properties
         /// <summary>
-        /// The URL used to locate the file.
+        /// The URL to download the file from. Relative URLs are only allowed in local feed files.
         /// </summary>
         [XmlIgnore, Browsable(false)]
         public Uri Href { get; set; }
 
         /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="Href"/>
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [DisplayName(@"Href"), Description("The URL used to locate the file.")]
+        [DisplayName(@"Href"), Description("The URL to download the file from. Relative URLs are only allowed in local feed files.")]
         [XmlAttribute("href"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string HrefString { get { return (Href == null ? null : Href.ToString()); } set { Href = (string.IsNullOrEmpty(value) ? null : new Uri(value)); } }
+        public string HrefString { get { return (Href == null ? null : Href.ToString()); } set { Href = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.RelativeOrAbsolute)); } }
 
         /// <summary>
         /// The size of the file in bytes. The file must have the given size or it will be rejected.
@@ -54,6 +52,18 @@ namespace ZeroInstall.Model
         /// </summary>
         [XmlIgnore, Browsable(false)]
         public virtual long DownloadSize { get { return Size; } }
+        #endregion
+
+        //--------------------//
+
+        #region Normalize
+        /// <inheritdoc/>
+        public override void Normalize(string feedID)
+        {
+            base.Normalize(feedID);
+
+            if (Href != null) Href = FeedElementUtils.GetAbsoluteHref(Href, feedID);
+        }
         #endregion
 
         //--------------------//

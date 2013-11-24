@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Common;
+using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using Moq;
@@ -63,6 +64,17 @@ namespace ZeroInstall.Fetchers
             {
                 TestDownloadArchives(
                     new Archive {Href = server.FileUri, MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveSize, Extract = "extract", Destination = "destination"});
+            }
+        }
+
+        [Test]
+        public void DownloadLocalArchive()
+        {
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
+            {
+                TestData.GetZipArchiveStream().WriteTo(tempFile);
+                TestDownloadArchives(
+                    new Archive {Href = new Uri(tempFile), MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveSize, Extract = "extract", Destination = "destination"});
             }
         }
 
