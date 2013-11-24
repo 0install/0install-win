@@ -325,7 +325,7 @@ namespace ZeroInstall.Commands.WinForms
 #if NO_SOLVER_CANDIDATES
         private static SelectionCandidate GetSelectionCandidate(string feedID, Implementation implementation, FeedPreferences feedPreferences)
         {
-            return new SelectionCandidate(feedID, feedPreferences, implementation, new Requirements { Architecture = Architecture.CurrentSystem });
+            return new SelectionCandidate(feedID, feedPreferences, implementation, new Requirements {Architecture = Architecture.CurrentSystem});
         }
 #endif
         #endregion

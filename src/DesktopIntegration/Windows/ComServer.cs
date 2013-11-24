@@ -19,12 +19,11 @@ using System;
 using System.IO;
 using System.Net;
 using Common.Tasks;
-using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
-    /// Contains control logic for applying <see cref="Capabilities.ComServer"/> on Windows systems.
+    /// Contains control logic for applying <see cref="ZeroInstall.Model.Capabilities.ComServer"/> on Windows systems.
     /// </summary>
     public static class ComServer
     {
@@ -46,7 +45,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="comServer"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Capabilities.ComServer comServer, bool machineWide, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, Model.Capabilities.ComServer comServer, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (comServer == null) throw new ArgumentNullException("comServer");
@@ -68,7 +67,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="comServer"/> is invalid.</exception>
-        public static void Unregister(Capabilities.ComServer comServer, bool machineWide)
+        public static void Unregister(Model.Capabilities.ComServer comServer, bool machineWide)
         {
             #region Sanity checks
             if (comServer == null) throw new ArgumentNullException("comServer");

@@ -139,7 +139,7 @@ namespace ZeroInstall.Commands
         [Test]
         public void TestAuditFail()
         {
-            StoreMock.Setup(x => x.Audit(Command.Handler)).Returns(new [] { new DigestMismatchException()});
+            StoreMock.Setup(x => x.Audit(Command.Handler)).Returns(new[] {new DigestMismatchException()});
 
             RunAndAssert(Resources.AuditErrors, (int)StoreErrorLevel.DigestMismatch,
                 "audit");
@@ -148,7 +148,7 @@ namespace ZeroInstall.Commands
         [Test]
         public void TestAuditNoSupport()
         {
-            StoreMock.Setup(x => x.Audit(Command.Handler)).Returns((IEnumerable < DigestMismatchException>)null);
+            StoreMock.Setup(x => x.Audit(Command.Handler)).Returns((IEnumerable<DigestMismatchException>)null);
 
             Assert.Throws<NotSupportedException>(() => RunAndAssert(null, 0, "audit"));
         }

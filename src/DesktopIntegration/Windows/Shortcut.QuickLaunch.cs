@@ -62,7 +62,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(name) || name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
                 throw new IOException(string.Format(Resources.NameInvalidChars, name));
 
-            return new[] { Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Microsoft", "Internet Explorer", "Quick Launch", name + ".lnk" }.Aggregate(Path.Combine);
+            return new[] {Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Microsoft", "Internet Explorer", "Quick Launch", name + ".lnk"}.Aggregate(Path.Combine);
         }
     }
 }

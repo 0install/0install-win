@@ -22,7 +22,6 @@ using System.Security;
 using Microsoft.Win32;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
-using Windows = ZeroInstall.DesktopIntegration.Windows;
 
 namespace ZeroInstall.Capture
 {
@@ -75,7 +74,7 @@ namespace ZeroInstall.Capture
                 if (progIDKey == null) return null;
 
                 VerbCapability capability;
-                if (progIDKey.GetValue(Windows.UrlProtocol.ProtocolIndicator) == null)
+                if (progIDKey.GetValue(DesktopIntegration.Windows.UrlProtocol.ProtocolIndicator) == null)
                 { // Normal file type
                     var fileType = new FileType {ID = progID};
 
@@ -88,8 +87,8 @@ namespace ZeroInstall.Capture
                             fileType.Extensions.Add(new FileTypeExtension
                             {
                                 Value = fileAssoc.Key,
-                                MimeType = assocKey.GetValue(Windows.FileType.RegValueContentType, "").ToString(),
-                                PerceivedType = assocKey.GetValue(Windows.FileType.RegValuePerceivedType, "").ToString()
+                                MimeType = assocKey.GetValue(DesktopIntegration.Windows.FileType.RegValueContentType, "").ToString(),
+                                PerceivedType = assocKey.GetValue(DesktopIntegration.Windows.FileType.RegValuePerceivedType, "").ToString()
                             });
                         }
                     }
@@ -101,7 +100,7 @@ namespace ZeroInstall.Capture
                     capability = new UrlProtocol {ID = progID};
                 }
 
-                string description = progIDKey.GetValue(Windows.FileType.RegValueFriendlyName, "").ToString();
+                string description = progIDKey.GetValue(DesktopIntegration.Windows.FileType.RegValueFriendlyName, "").ToString();
                 if (string.IsNullOrEmpty(description)) description = progIDKey.GetValue("", "").ToString();
                 capability.Descriptions.Add(description);
 

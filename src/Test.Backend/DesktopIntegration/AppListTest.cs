@@ -20,7 +20,6 @@ using Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Model;
-using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -45,7 +44,7 @@ namespace ZeroInstall.DesktopIntegration
                         InterfaceID = "pet-name",
                         AutoUpdate = true,
                         Requirements = new Requirements {InterfaceID = "http://0install.de/feeds/test/test1.xml"},
-                        CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()}
+                        CapabilityLists = {Model.Capabilities.CapabilityListTest.CreateTestCapabilityList()}
                     }
                 }
             };
@@ -64,7 +63,7 @@ namespace ZeroInstall.DesktopIntegration
                     {
                         InterfaceID = "http://0install.de/feeds/test/test1.xml",
                         AutoUpdate = true,
-                        CapabilityLists = {Capabilities.CapabilityListTest.CreateTestCapabilityList()},
+                        CapabilityLists = {Model.Capabilities.CapabilityListTest.CreateTestCapabilityList()},
                         AccessPoints = CreateTestAccessPointList()
                     }
                 }

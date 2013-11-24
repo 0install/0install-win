@@ -22,7 +22,6 @@ using System.Net;
 using System.Xml.Serialization;
 using Common.Tasks;
 using ZeroInstall.Model;
-using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
@@ -38,7 +37,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// Collisions in this namespace indicate that the concered <see cref="AccessPoint"/>s are in conflict cannot be applied on a single system at the same time.
         /// </summary>
         /// <param name="appEntry">The application entry containing this access point.</param>
-        /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="Capabilities.Capability"/> is invalid.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="ZeroInstall.Model.Capabilities.Capability"/> is invalid.</exception>
         /// <remarks>These identifiers are not guaranteed to stay the same between versions. They should not be stored in files but instead always generated on demand.</remarks>
         public abstract IEnumerable<string> GetConflictIDs(AppEntry appEntry);
         #endregion
@@ -51,12 +50,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Apply the configuration machine-wide instead of just for the current user.</param>
-        /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="Capabilities.Capability"/> is invalid.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="ZeroInstall.Model.Capabilities.Capability"/> is invalid.</exception>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the access point's data or a referenced <see cref="Capabilities.Capability"/>'s data are invalid.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the access point's data or a referenced <see cref="ZeroInstall.Model.Capabilities.Capability"/>'s data are invalid.</exception>
         public abstract void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide);
 
         /// <summary>
@@ -64,7 +63,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// </summary>
         /// <param name="appEntry">The application entry containing this access point.</param>
         /// <param name="machineWide">Apply the configuration machine-wide instead of just for the current user.</param>
-        /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="Capabilities.Capability"/> is invalid.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="ZeroInstall.Model.Capabilities.Capability"/> is invalid.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         public abstract void Unapply(AppEntry appEntry, bool machineWide);

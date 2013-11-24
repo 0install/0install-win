@@ -71,7 +71,7 @@ namespace ZeroInstall.Model.Selection
 
         // Order is not important (but is preserved), duplicate entries are not allowed (but not enforced)
         private readonly List<string> _distributions = new List<string>();
-        
+
         /// <summary>
         /// A list of distribution names (e.g. Debian, RPM) where <see cref="Package"/> applies.
         /// </summary>

@@ -24,7 +24,6 @@ using Microsoft.Win32;
 using ZeroInstall.Capture.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
-using Windows = ZeroInstall.DesktopIntegration.Windows;
 
 namespace ZeroInstall.Capture
 {
@@ -57,12 +56,12 @@ namespace ZeroInstall.Capture
                 string service = serviceAssoc.Key;
                 string client = serviceAssoc.Value;
 
-                using (var clientKey = Registry.LocalMachine.OpenSubKey(Windows.DefaultProgram.RegKeyMachineClients + @"\" + service + @"\" + client))
+                using (var clientKey = Registry.LocalMachine.OpenSubKey(DesktopIntegration.Windows.DefaultProgram.RegKeyMachineClients + @"\" + service + @"\" + client))
                 {
                     if (clientKey == null) continue;
 
                     if (string.IsNullOrEmpty(appName)) appName = clientKey.GetValue("", "").ToString();
-                    if (string.IsNullOrEmpty(appName)) appName = clientKey.GetValue(Windows.DefaultProgram.RegValueLocalizedName, "").ToString();
+                    if (string.IsNullOrEmpty(appName)) appName = clientKey.GetValue(DesktopIntegration.Windows.DefaultProgram.RegValueLocalizedName, "").ToString();
 
                     var defaultProgram = new DefaultProgram
                     {
@@ -92,18 +91,18 @@ namespace ZeroInstall.Capture
             if (string.IsNullOrEmpty(installationDir)) throw new ArgumentNullException("installationDir");
             #endregion
 
-            using (var installInfoKey = clientKey.OpenSubKey(Windows.DefaultProgram.RegSubKeyInstallInfo))
+            using (var installInfoKey = clientKey.OpenSubKey(DesktopIntegration.Windows.DefaultProgram.RegSubKeyInstallInfo))
             {
                 if (installInfoKey == null) return default(InstallCommands);
 
                 string reinstallArgs;
-                string reinstall = IsolateCommand(installInfoKey.GetValue(Windows.DefaultProgram.RegValueReinstallCommand, "").ToString(), installationDir, out reinstallArgs);
+                string reinstall = IsolateCommand(installInfoKey.GetValue(DesktopIntegration.Windows.DefaultProgram.RegValueReinstallCommand, "").ToString(), installationDir, out reinstallArgs);
 
                 string showIconsArgs;
-                string showIcons = IsolateCommand(installInfoKey.GetValue(Windows.DefaultProgram.RegValueShowIconsCommand, "").ToString(), installationDir, out showIconsArgs);
+                string showIcons = IsolateCommand(installInfoKey.GetValue(DesktopIntegration.Windows.DefaultProgram.RegValueShowIconsCommand, "").ToString(), installationDir, out showIconsArgs);
 
                 string hideIconsArgs;
-                string hideIcons = IsolateCommand(installInfoKey.GetValue(Windows.DefaultProgram.RegValueHideIconsCommand, "").ToString(), installationDir, out hideIconsArgs);
+                string hideIcons = IsolateCommand(installInfoKey.GetValue(DesktopIntegration.Windows.DefaultProgram.RegValueHideIconsCommand, "").ToString(), installationDir, out hideIconsArgs);
 
                 return new InstallCommands
                 {

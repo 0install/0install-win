@@ -122,8 +122,10 @@ namespace ZeroInstall.Publish.EntryPoints
         public UInt32 SizeOfStackCommit;
         public UInt32 SizeOfHeapReserve;
         public UInt32 SizeOfHeapCommit;
+
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags")]
         public UInt32 LoaderFlags;
+
         public UInt32 NumberOfRvaAndSizes;
 
         public ImageDataDirectory ExportTable;
@@ -175,8 +177,10 @@ namespace ZeroInstall.Publish.EntryPoints
         public UInt64 SizeOfStackCommit;
         public UInt64 SizeOfHeapReserve;
         public UInt64 SizeOfHeapCommit;
+
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags")]
         public UInt32 LoaderFlags;
+
         public UInt32 NumberOfRvaAndSizes;
 
         public ImageDataDirectory ExportTable;

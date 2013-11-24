@@ -18,7 +18,6 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using Capabilities = ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
@@ -46,22 +45,22 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         #endregion
 
         /// <summary>
-        /// Creates a <see cref="DefaultAccessPoint"/> referencing a specific <see cref="Capabilities.DefaultCapability"/>.
+        /// Creates a <see cref="DefaultAccessPoint"/> referencing a specific <see cref="ZeroInstall.Model.Capabilities.DefaultCapability"/>.
         /// </summary>
-        /// <param name="capability">The <see cref="Capabilities.DefaultCapability"/> to create a <see cref="DefaultAccessPoint"/> for.</param>
+        /// <param name="capability">The <see cref="ZeroInstall.Model.Capabilities.DefaultCapability"/> to create a <see cref="DefaultAccessPoint"/> for.</param>
         /// <returns>The newly created <see cref="DefaultAccessPoint"/>.</returns>
-        public static DefaultAccessPoint FromCapability(Capabilities.DefaultCapability capability)
+        public static DefaultAccessPoint FromCapability(Model.Capabilities.DefaultCapability capability)
         {
             #region Sanity checks
             if (capability == null) throw new ArgumentNullException("capability");
             #endregion
 
             DefaultAccessPoint accessPoint;
-            if (capability is Capabilities.AutoPlay) accessPoint = new AutoPlay();
-            else if (capability is Capabilities.ContextMenu) accessPoint = new ContextMenu();
-            else if (capability is Capabilities.DefaultProgram) accessPoint = new DefaultProgram();
-            else if (capability is Capabilities.FileType) accessPoint = new FileType();
-            else if (capability is Capabilities.UrlProtocol) accessPoint = new UrlProtocol();
+            if (capability is Model.Capabilities.AutoPlay) accessPoint = new AutoPlay();
+            else if (capability is Model.Capabilities.ContextMenu) accessPoint = new ContextMenu();
+            else if (capability is Model.Capabilities.DefaultProgram) accessPoint = new DefaultProgram();
+            else if (capability is Model.Capabilities.FileType) accessPoint = new FileType();
+            else if (capability is Model.Capabilities.UrlProtocol) accessPoint = new UrlProtocol();
             else throw new ArgumentException("Unknown default capability type.");
 
             accessPoint.Capability = capability.ID;

@@ -24,7 +24,6 @@ using Common.Collections;
 using Microsoft.Win32;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
-using Windows = ZeroInstall.DesktopIntegration.Windows;
 
 namespace ZeroInstall.Capture
 {
@@ -48,12 +47,12 @@ namespace ZeroInstall.Capture
             #endregion
 
             capabilities.Entries.AddAll(snapshotDiff.AutoPlayHandlersUser.
-                                                     Select(handler => GetAutoPlay(handler, Registry.CurrentUser, snapshotDiff.AutoPlayAssocsUser, commandMapper)).
-                                                     Where(autoPlay => autoPlay != null));
+                Select(handler => GetAutoPlay(handler, Registry.CurrentUser, snapshotDiff.AutoPlayAssocsUser, commandMapper)).
+                Where(autoPlay => autoPlay != null));
 
             capabilities.Entries.AddAll(snapshotDiff.AutoPlayHandlersMachine.
-                                                     Select(handler => GetAutoPlay(handler, Registry.LocalMachine, snapshotDiff.AutoPlayAssocsMachine, commandMapper)).
-                                                     Where(autoPlay => autoPlay != null));
+                Select(handler => GetAutoPlay(handler, Registry.LocalMachine, snapshotDiff.AutoPlayAssocsMachine, commandMapper)).
+                Where(autoPlay => autoPlay != null));
         }
 
         /// <summary>
@@ -75,20 +74,20 @@ namespace ZeroInstall.Capture
             if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
-            using (var handlerKey = hive.OpenSubKey(Windows.AutoPlay.RegKeyHandlers + @"\" + handler))
+            using (var handlerKey = hive.OpenSubKey(DesktopIntegration.Windows.AutoPlay.RegKeyHandlers + @"\" + handler))
             {
                 if (handlerKey == null) return null;
 
-                string progID = handlerKey.GetValue(Windows.AutoPlay.RegValueProgID, "").ToString();
-                string verbName = handlerKey.GetValue(Windows.AutoPlay.RegValueVerb, "").ToString();
+                string progID = handlerKey.GetValue(DesktopIntegration.Windows.AutoPlay.RegValueProgID, "").ToString();
+                string verbName = handlerKey.GetValue(DesktopIntegration.Windows.AutoPlay.RegValueVerb, "").ToString();
 
                 using (var progIDKey = Registry.ClassesRoot.OpenSubKey(progID))
                 {
                     var autoPlay = new AutoPlay
                     {
                         ID = handler,
-                        Provider = handlerKey.GetValue(Windows.AutoPlay.RegValueProvider, "").ToString(),
-                        Descriptions = {handlerKey.GetValue(Windows.AutoPlay.RegValueDescription, "").ToString()},
+                        Provider = handlerKey.GetValue(DesktopIntegration.Windows.AutoPlay.RegValueProvider, "").ToString(),
+                        Descriptions = {handlerKey.GetValue(DesktopIntegration.Windows.AutoPlay.RegValueDescription, "").ToString()},
                         ProgID = progID,
                         Verb = GetVerb(progIDKey, commandMapper, verbName)
                     };
