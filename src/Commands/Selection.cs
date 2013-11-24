@@ -47,7 +47,7 @@ namespace ZeroInstall.Commands
         /// <summary>Cached <see cref="ISolver"/> results.</summary>
         protected Selections Selections;
 
-        /// <summary>Indicates the user provided a pre-created <see cref="Selections"/> XML document instead of using the <see cref="Solver"/>.</summary>
+        /// <summary>Indicates the user provided a pre-created <see cref="Selections"/> XML document instead of using the <see cref="ISolver"/>.</summary>
         protected bool SelectionsDocument;
 
         /// <summary>Indicates the user wants a UI to audit the selections.</summary>
@@ -56,7 +56,7 @@ namespace ZeroInstall.Commands
         /// <summary>Indicates the user wants a machine-readable output.</summary>
         protected bool ShowXml;
 
-        /// <summary>Indicates that one or more of the <see cref="Model.Feed"/>s used by the <see cref="Solver"/> should be updated.</summary>
+        /// <summary>Indicates that one or more of the <see cref="Model.Feed"/>s used by the <see cref="ISolver"/> should be updated.</summary>
         protected bool StaleFeeds;
         #endregion
 
