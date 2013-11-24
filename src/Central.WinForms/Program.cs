@@ -179,14 +179,6 @@ namespace ZeroInstall.Central.WinForms
                 },
                 "0install-win (" + args.JoinEscapeArguments() + ")");
         }
-
-        /// <summary>
-        /// Executes "0store-win" in-process. Returns immediately.
-        /// </summary>
-        internal static void RunStoreManagement()
-        {
-            ProcessUtils.RunAsync(Store.Management.WinForms.Program.Run, "0store-win");
-        }
         #endregion
 
         #region Browser

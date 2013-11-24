@@ -364,6 +364,51 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete the {0} checked element(s) from the cache?.
+        /// </summary>
+        public static string DeleteCheckedEntries {
+            get {
+                return ResourceManager.GetString("DeleteCheckedEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete this entry from the cache?.
+        /// </summary>
+        public static string DeleteEntry {
+            get {
+                return ResourceManager.GetString("DeleteEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting directory.
+        /// </summary>
+        public static string DeletingDirectory {
+            get {
+                return ResourceManager.GetString("DeletingDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting entries.
+        /// </summary>
+        public static string DeletingEntries {
+            get {
+                return ResourceManager.GetString("DeletingEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting implementation.
+        /// </summary>
+        public static string DeletingImplementations {
+            get {
+                return ResourceManager.GetString("DeletingImplementations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create an alias for launching an application via 0install without always having to enter the full URI..
         /// </summary>
         public static string DescriptionAddAlias {
@@ -972,6 +1017,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Open in file manager.
+        /// </summary>
+        public static string OpenInFileManager {
+            get {
+                return ResourceManager.GetString("OpenInFileManager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The {HASH} algorithm to use for the digest..
         /// </summary>
         public static string OptionAlgorithm {
@@ -1315,20 +1369,29 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Portable mode.
-        /// </summary>
-        public static string PortableMode1 {
-            get {
-                return ResourceManager.GetString("PortableMode1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Properties for {0}.
         /// </summary>
         public static string PropertiesFor {
             get {
                 return ResourceManager.GetString("PropertiesFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reading cache.
+        /// </summary>
+        public static string ReadingCache {
+            get {
+                return ResourceManager.GetString("ReadingCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string Remove {
+            get {
+                return ResourceManager.GetString("Remove", resourceCulture);
             }
         }
         
@@ -1405,6 +1468,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Temporary directories.
+        /// </summary>
+        public static string TemporaryDirectories {
+            get {
+                return ResourceManager.GetString("TemporaryDirectories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Too many arguments or unknown options..
         /// </summary>
         public static string TooManyArguments {
@@ -1459,6 +1531,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unknown interface.
+        /// </summary>
+        public static string UnknownInterface {
+            get {
+                return ResourceManager.GetString("UnknownInterface", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown operation mode..
         /// </summary>
         public static string UnknownMode {
@@ -1500,6 +1581,15 @@ namespace ZeroInstall.Commands.Properties {
         public static string UseInstead {
             get {
                 return ResourceManager.GetString("UseInstead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verify.
+        /// </summary>
+        public static string Verify {
+            get {
+                return ResourceManager.GetString("Verify", resourceCulture);
             }
         }
         

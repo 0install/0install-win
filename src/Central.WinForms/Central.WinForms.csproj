@@ -417,10 +417,6 @@
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Store.Management.WinForms\Store.Management.WinForms.csproj">
-      <Project>{77A13B71-EF52-41C1-BB96-5337E37C4C65}</Project>
-      <Name>Store.Management.WinForms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Store\Store.csproj">
       <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
       <Name>Store</Name>

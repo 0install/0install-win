@@ -21,7 +21,7 @@ using System.IO;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Store.Management.WinForms.Nodes
+namespace ZeroInstall.Commands.WinForms.Store.Nodes
 {
     /// <summary>
     /// Models information about an implementation in an <see cref="IStore"/> with a known owning interface for display in a GUI.
@@ -68,7 +68,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        public OwnedImplementationNode(MainForm parent, IStore store, ManifestDigest digest, FeedNode iface, Model.Implementation implementation)
+        public OwnedImplementationNode(StoreManageForm parent, IStore store, ManifestDigest digest, FeedNode iface, Model.Implementation implementation)
             : base(parent, store, digest)
         {
             _iface = iface;

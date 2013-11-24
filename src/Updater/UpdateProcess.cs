@@ -190,6 +190,7 @@ namespace ZeroInstall.Updater
         {
             var filesToDelete = new[]
             {
+                "0store-win.exe", Path.Combine("de", "0store-win.resources.dll"),
                 "StoreService.exe", Path.Combine("de", "StoreService.resources.dll")
             }.Select(name => Path.Combine(Target, name));
 
@@ -225,7 +226,7 @@ namespace ZeroInstall.Updater
         #endregion
 
         #region Run Ngen
-        private static readonly string[] _ngenAssemblies = {"ZeroInstall.exe", "0install.exe", "0install-win.exe", "0launch.exe", "0alias.exe", "0store.exe", "0store-win.exe", "StoreService.exe", "ZeroInstall.Model.XmlSerializers.dll", "ZeroInstall.DesktopIntegration.XmlSerializers.dll", "ZeroInstall.Store.XmlSerializers.dll"};
+        private static readonly string[] _ngenAssemblies = {"ZeroInstall.exe", "0install.exe", "0install-win.exe", "0launch.exe", "0alias.exe", "0store.exe", "StoreService.exe", "ZeroInstall.Model.XmlSerializers.dll", "ZeroInstall.DesktopIntegration.XmlSerializers.dll", "ZeroInstall.Store.XmlSerializers.dll"};
 
         /// <summary>
         /// Runs ngen in the background to pre-compile new/updated .NET assemblies.

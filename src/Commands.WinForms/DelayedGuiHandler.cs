@@ -17,6 +17,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Security.Permissions;
 using System.Threading;
 using Common.Tasks;
 using Common.Utils;
@@ -61,6 +62,7 @@ namespace ZeroInstall.Commands.WinForms
 
         #region IPC timeout
         /// <inheritdoc/>
+        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.Infrastructure)]
         public override object InitializeLifetimeService()
         {
             return null; // Do not timeout progress reporting callbacks
@@ -245,6 +247,12 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             return InitTarget().ShowConfig(config);
+        }
+
+        /// <inheritdoc/>
+        public void ManageStore()
+        {
+            InitTarget().ManageStore();
         }
         #endregion
     }

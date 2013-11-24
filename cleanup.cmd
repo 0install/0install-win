@@ -46,7 +46,6 @@ rd /s /q "%~dp0src\Sample.VBasic\obj" > NUL 2>&1
 rd /s /q "%~dp0src\Solvers\obj" > NUL 2>&1
 rd /s /q "%~dp0src\Store\obj" > NUL 2>&1
 rd /s /q "%~dp0src\Store.Management.Cli\obj" > NUL 2>&1
-rd /s /q "%~dp0src\Store.Management.WinForms\obj" > NUL 2>&1
 rd /s /q "%~dp0src\Store.Service\obj" > NUL 2>&1
 rd /s /q "%~dp0src\Test.Backend\obj" > NUL 2>&1
 rd /s /q "%~dp0src\Test.Common\obj" > NUL 2>&1

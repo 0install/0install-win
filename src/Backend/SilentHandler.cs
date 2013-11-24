@@ -100,5 +100,11 @@ namespace ZeroInstall.Backend
             // No UI, so nothing to do
             return false;
         }
+
+        /// <inheritdoc/>
+        public void ManageStore()
+        {
+            // No UI, so nothing to do
+        }
     }
 }

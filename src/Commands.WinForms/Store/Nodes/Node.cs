@@ -27,7 +27,7 @@ using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Store.Management.WinForms.Nodes
+namespace ZeroInstall.Commands.WinForms.Store.Nodes
 {
     /// <summary>
     /// Models information about elements in a cache for display in a GUI.
@@ -39,7 +39,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <summary>
         /// The window containing this node. Used for callbacks.
         /// </summary>
-        protected readonly MainForm Parent;
+        protected readonly StoreManageForm Parent;
         #endregion
 
         #region Properties
@@ -59,7 +59,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// Creates a new store node.
         /// </summary>
         /// <param name="parent">The window containing this node. Used for callbacks.</param>
-        protected Node(MainForm parent)
+        protected Node(StoreManageForm parent)
         {
             #region Sanity checks
             if (parent == null) throw new ArgumentNullException("parent");

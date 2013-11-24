@@ -127,7 +127,7 @@ namespace ZeroInstall.Commands
                     return (int)StoreErrorLevel.OK;
 
                 case "manage":
-                    ProcessUtils.LaunchAssembly( /*MonoUtils.IsUnix ? "0store-gtk" :*/ "0store-win", AdditionalArgs.JoinEscapeArguments());
+                    Handler.ManageStore();
                     return (int)StoreErrorLevel.OK;
 
                 case "manifest":

@@ -21,6 +21,7 @@ using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Backend
 {
@@ -79,5 +80,10 @@ namespace ZeroInstall.Backend
         /// <param name="config">The configuration to show.</param>
         /// <returns><see langword="true"/> if the user modified any settings; <see langword="false"/> otherwise.</returns>
         bool ShowConfig(Config config);
+
+        /// <summary>
+        /// Displays a user interface for managing <see cref="IStore"/>s.
+        /// </summary>
+        void ManageStore();
     }
 }

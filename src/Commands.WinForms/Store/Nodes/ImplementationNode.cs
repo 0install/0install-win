@@ -23,11 +23,11 @@ using System.Linq;
 using System.Windows.Forms;
 using Common;
 using Common.Tasks;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Management.WinForms.Properties;
 
-namespace ZeroInstall.Store.Management.WinForms.Nodes
+namespace ZeroInstall.Commands.WinForms.Store.Nodes
 {
     /// <summary>
     /// Models information about an implementation in an <see cref="IStore"/> for display in a GUI.
@@ -65,7 +65,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        protected ImplementationNode(MainForm parent, IStore store, ManifestDigest digest)
+        protected ImplementationNode(StoreManageForm parent, IStore store, ManifestDigest digest)
             : base(parent, store)
         {
             #region Sanity checks
@@ -129,7 +129,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                     try
                     {
                         Verify(Parent);
-                        Msg.Inform(Parent, Resources.ImplementationOK, MsgSeverity.Info);
+                        Msg.Inform(Parent, Resources.AuditPass, MsgSeverity.Info);
                     }
                         #region Error handling
                     catch (OperationCanceledException)

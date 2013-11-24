@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ZeroInstall.Store.Management.WinForms.Nodes.OrphanedImplementationNode">
+    <Position X="3" Y="7.75" Width="2.5" />
+    <Members>
+      <Method Name="OrphanedImplementationNode" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Nodes\OrphanedImplementationNode.cs</FileName>
+      <NewMemberFileName>Nodes\OwnedImplementationNode.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Store.Management.WinForms.Nodes.OwnedImplementationNode">
+    <Position X="0.5" Y="7.75" Width="2.25" />
+    <Members>
+      <Method Name="OwnedImplementationNode" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>IAAABAAAAAIAgAAAAAAAAAQAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Nodes\OwnedImplementationNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.WinForms.Store.Nodes.FeedNode" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAQAABAAAAAQAAAEAAAAACACAAAAAAAA=</HashCode>
+      <FileName>Store\Nodes\FeedNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.WinForms.Store.Nodes.ImplementationNode" Collapsed="true">
+    <Position X="3.75" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgQIAAAAAAAAAACEAAAAAAgCAAAAAAAA=</HashCode>
+      <FileName>Store\Nodes\ImplementationNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.WinForms.Store.Nodes.Node" Collapsed="true">
+    <Position X="1.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQQAAAAAQAQAAAEAAAAAAACAAIAAAAA=</HashCode>
+      <FileName>Store\Nodes\Node.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ZeroInstall.Commands.WinForms.Store.Nodes.OrphanedImplementationNode" Collapsed="true">
+    <Position X="2" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Store\Nodes\OrphanedImplementationNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.WinForms.Store.Nodes.OwnedImplementationNode" Collapsed="true">
+    <Position X="4.75" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>IAAABAAAAAIAgAAAAAAAAAQAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Store\Nodes\OwnedImplementationNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.WinForms.Store.Nodes.StoreNode" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAACAAQAAAAA=</HashCode>
+      <FileName>Store\Nodes\StoreNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Commands.WinForms.Store.Nodes.TempDirectoryNode" Collapsed="true">
+    <Position X="1.5" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAQIAAAAAAAQAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Store\Nodes\TempDirectoryNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

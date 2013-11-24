@@ -107,6 +107,20 @@
     <Compile Include="SelectionsControl.Designer.cs">
       <DependentUpon>SelectionsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Store\StoreManageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Store\StoreManageForm.Designer.cs">
+      <DependentUpon>StoreManageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Store\Nodes\FeedNode.cs" />
+    <Compile Include="Store\Nodes\ImplementationNode.cs" />
+    <Compile Include="Store\Nodes\Node.cs" />
+    <Compile Include="Store\Nodes\OrphanedImplementationNode.cs" />
+    <Compile Include="Store\Nodes\OwnedImplementationNode.cs" />
+    <Compile Include="Store\Nodes\StoreNode.cs" />
+    <Compile Include="Store\Nodes\TempDirectoryNode.cs" />
+    <Compile Include="Store\StoreNodeListBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
@@ -144,10 +158,19 @@
       <DependentUpon>SelectionsControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Store\StoreManageForm.de.resx">
+      <DependentUpon>StoreManageForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Store\StoreManageForm.resx">
+      <DependentUpon>StoreManageForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\App.config" />
     <None Include="Properties\app.manifest" />
+    <None Include="Store\Nodes\ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Backend\Backend.csproj">

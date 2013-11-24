@@ -222,6 +222,21 @@ Wählen Sie eine komplette Zeile aus, indem Sie in die erste Spalte klicken, und
     <value>Setzen Sie ein Häkchen um eine Fähigkeit als Ihren bevorzugten Standardhandler zu markieren.
 Entfernen Sie ein Häckchen um den Standard-Status einer Fähigkeit zu entfernen (die Fähigkeit selber bleibt weiterhin verfügbar).</value>
   </data>
+  <data name="DeleteCheckedEntries" xml:space="preserve">
+    <value>Möchten Sie die {0} angehakten Elemente aus dem Cache löschen?</value>
+  </data>
+  <data name="DeleteEntry" xml:space="preserve">
+    <value>Möchten Sie diesen Eintrag aus dem Cache löschen?</value>
+  </data>
+  <data name="DeletingDirectory" xml:space="preserve">
+    <value>Lösche Verzeichnis</value>
+  </data>
+  <data name="DeletingEntries" xml:space="preserve">
+    <value>Lösche Einträge</value>
+  </data>
+  <data name="DeletingImplementations" xml:space="preserve">
+    <value>Lösche Implementierung</value>
+  </data>
   <data name="DescriptionAddAlias" xml:space="preserve">
     <value>Legt einen Alias zum Starten einer Anwendung via Zero Install ohne immer die vollständige URI eingeben zu müssen an.</value>
   </data>
@@ -434,6 +449,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="NoUpdatesFound" xml:space="preserve">
     <value>Keine Updates gefunden</value>
   </data>
+  <data name="OpenInFileManager" xml:space="preserve">
+    <value>Im Dateimanger &amp;öffnen</value>
+  </data>
   <data name="OptionAlgorithm" xml:space="preserve">
     <value>Der {HASH} Algorithmus der für den Digest verwendet werden soll.</value>
   </data>
@@ -555,11 +573,14 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="PortableMode" xml:space="preserve">
     <value>Portabler Modus</value>
   </data>
-  <data name="PortableMode1" xml:space="preserve">
-    <value>Portabler Modus</value>
-  </data>
   <data name="PropertiesFor" xml:space="preserve">
     <value>Eigenschaften für {0}</value>
+  </data>
+  <data name="ReadingCache" xml:space="preserve">
+    <value>Lese Cache</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Entfernen</value>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Möchten Sie die {0} ausgewählten Einträge aus der Liste entfernen?</value>
@@ -585,6 +606,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="SupportedValues" xml:space="preserve">
     <value>Unterstützte Werte: {0}</value>
   </data>
+  <data name="TemporaryDirectories" xml:space="preserve">
+    <value>Temporäre Verzeichnisse</value>
+  </data>
   <data name="TooManyArguments" xml:space="preserve">
     <value>Zu viele Argumente oder unbekannte Optionen.</value>
   </data>
@@ -603,6 +627,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="UnknownCommand" xml:space="preserve">
     <value>Unbekannter Befehl '{0}'.</value>
   </data>
+  <data name="UnknownInterface" xml:space="preserve">
+    <value>Unbekanntes Interface</value>
+  </data>
   <data name="UnknownMode" xml:space="preserve">
     <value>Unbekannter Betriebsmodus.</value>
   </data>
@@ -617,6 +644,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="UseInstead" xml:space="preserve">
     <value>Verwenden Sie stattdessen '{0}'.</value>
+  </data>
+  <data name="Verify" xml:space="preserve">
+    <value>Verifizieren</value>
   </data>
   <data name="VerifyImplementation" xml:space="preserve">
     <value>Implementierungsüberprüfung</value>

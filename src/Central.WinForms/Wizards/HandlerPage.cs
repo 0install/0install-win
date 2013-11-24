@@ -123,6 +123,11 @@ namespace ZeroInstall.Central.WinForms.Wizards
         {
             throw new NotImplementedException();
         }
+
+        public void ManageStore()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

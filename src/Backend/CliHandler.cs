@@ -147,6 +147,12 @@ namespace ZeroInstall.Backend
             Console.Write(config.ToString());
             return false;
         }
+
+        /// <inheritdoc/>
+        public void ManageStore()
+        {
+            throw new NeedGuiException();
+        }
         #endregion
     }
 }

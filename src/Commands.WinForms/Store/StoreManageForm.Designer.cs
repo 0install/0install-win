@@ -1,8 +1,6 @@
-﻿using ZeroInstall.Store.Implementation;
-
-namespace ZeroInstall.Store.Management.WinForms
+﻿namespace ZeroInstall.Commands.WinForms.Store
 {
-    partial class MainForm
+    partial class StoreManageForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +28,7 @@ namespace ZeroInstall.Store.Management.WinForms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StoreManageForm));
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelSize = new System.Windows.Forms.TableLayoutPanel();
             this.labelCurrentSize = new System.Windows.Forms.Label();

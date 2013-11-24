@@ -76,7 +76,7 @@ namespace ZeroInstall.Central.WinForms
             WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[]
             {
                 new WindowsUtils.ShellLink(buttonSync.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), SyncApps.Name),
-                new WindowsUtils.ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Store.Management.WinForms.Program.ExeName + ".exe"))
+                new WindowsUtils.ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), StoreMan.Name + " manage")
             });
         }
 
@@ -353,7 +353,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)
         {
-            Program.RunStoreManagement();
+            Program.RunCommand(StoreMan.Name, "manage");
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)

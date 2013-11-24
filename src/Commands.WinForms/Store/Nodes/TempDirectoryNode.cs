@@ -20,10 +20,10 @@ using System.Collections.Generic;
 using System.IO;
 using Common.Tasks;
 using Common.Utils;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Management.WinForms.Properties;
 
-namespace ZeroInstall.Store.Management.WinForms.Nodes
+namespace ZeroInstall.Commands.WinForms.Store.Nodes
 {
     /// <summary>
     /// Models information about a temporary directory in an <see cref="IStore"/> for display in a GUI.
@@ -50,7 +50,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        public TempDirectoryNode(MainForm parent, IStore store, string path) : base(parent, store)
+        public TempDirectoryNode(StoreManageForm parent, IStore store, string path) : base(parent, store)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");

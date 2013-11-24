@@ -28,18 +28,18 @@ using Common.Controls;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
+using ZeroInstall.Commands.Properties;
+using ZeroInstall.Commands.WinForms.Store.Nodes;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Management.WinForms.Nodes;
-using ZeroInstall.Store.Management.WinForms.Properties;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Store.Management.WinForms
+namespace ZeroInstall.Commands.WinForms.Store
 {
     /// <summary>
     /// Displays the content of caches (<see cref="IFeedCache"/> and <see cref="IStore"/>) in a combined tree view.
     /// </summary>
-    public sealed partial class MainForm : Form, ITaskHandler
+    public sealed partial class StoreManageForm : Form, ITaskHandler
     {
         #region Variables
         // Don't use WinForms designer for this, since it doesn't understand generics
@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.Management.WinForms
 
         #region Constructor
         /// <inheritdoc/>
-        public MainForm()
+        public StoreManageForm()
         {
             InitializeComponent();
             WindowsUtils.AddShieldIcon(buttonRunAsAdmin);
@@ -76,7 +76,7 @@ namespace ZeroInstall.Store.Management.WinForms
         {
             try
             {
-                var listBuilder = new NodeListBuilder(
+                var listBuilder = new StoreNodeListBuilder(
                     FeedCacheFactory.CreateDefault(OpenPgpFactory.CreateDefault()),
                     StoreFactory.CreateDefault(),
                     this);
@@ -141,7 +141,7 @@ namespace ZeroInstall.Store.Management.WinForms
         {
             try
             {
-                Process.Start(new ProcessStartInfo(Path.Combine(Locations.InstallBase, "0store-win.exe")) {Verb = "runas", ErrorDialog = true});
+                Process.Start(new ProcessStartInfo(Path.Combine(Locations.InstallBase, "0install-win.exe"), "store manage") {Verb = "runas", ErrorDialog = true});
                 Close();
             }
             catch (FileNotFoundException)
@@ -152,7 +152,7 @@ namespace ZeroInstall.Store.Management.WinForms
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
-            if (Msg.YesNo(this, string.Format(Resources.DeleteCheckedEntries, _treeView.CheckedEntries.Count), MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
+            if (Msg.YesNo(this, string.Format(Resources.DeleteCheckedEntries, _treeView.CheckedEntries.Count), MsgSeverity.Warn))
             {
                 try
                 {
@@ -209,7 +209,7 @@ namespace ZeroInstall.Store.Management.WinForms
             }
             #endregion
 
-            Msg.Inform(this, Resources.AllImplementationsOK, MsgSeverity.Info);
+            Msg.Inform(this, Resources.AuditPass, MsgSeverity.Info);
         }
 
         private void buttonRefresh_Click(object sender, EventArgs e)

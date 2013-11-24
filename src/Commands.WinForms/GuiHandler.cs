@@ -17,6 +17,7 @@
 
 using System;
 using System.Runtime.Remoting;
+using System.Security.Permissions;
 using System.Threading;
 using System.Windows.Forms;
 using Common;
@@ -25,6 +26,7 @@ using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.WinForms.Properties;
+using ZeroInstall.Commands.WinForms.Store;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
@@ -92,6 +94,7 @@ namespace ZeroInstall.Commands.WinForms
 
         #region IPC timeout
         /// <inheritdoc/>
+        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.Infrastructure)]
         public override object InitializeLifetimeService()
         {
             return null; // Do not timeout progress reporting callbacks
@@ -348,6 +351,13 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             return ConfigForm.Edit(config);
+        }
+
+        /// <inheritdoc/>
+        public void ManageStore()
+        {
+            using (var form = new StoreManageForm())
+                form.ShowDialog();
         }
         #endregion
     }

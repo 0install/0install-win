@@ -18,53 +18,78 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using Common;
 using Common.Tasks;
-using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Management.WinForms.Properties;
+using ZeroInstall.Commands.Properties;
+using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 
-namespace ZeroInstall.Store.Management.WinForms.Nodes
+namespace ZeroInstall.Commands.WinForms.Store.Nodes
 {
     /// <summary>
-    /// Models information about elements in a cache for display in a GUI.
+    /// Models information about a <see cref="Model.Feed"/> in the <see cref="IFeedCache"/> for display in a GUI.
     /// </summary>
-    public abstract class StoreNode : Node
+    public sealed class FeedNode : Node
     {
         #region Variables
-        /// <summary>
-        /// The store containing the element.
-        /// </summary>
-        protected readonly IStore Store;
+        private readonly IFeedCache _cache;
+        private readonly Feed _feed;
         #endregion
 
         #region Properties
+        /// <inheritdoc/>
+        public override string Name { get { return _feed.Name + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
+
         /// <summary>
-        /// The file system path of the element.
+        /// The URI indentifying this feed.
         /// </summary>
-        [Description("The file system path of the element.")]
-        public abstract string Path { get; }
+        [Description("The URI indentifying this feed.")]
+        public Uri Uri { get { return _feed.Uri; } }
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Creates a new store node.
+        /// Creates a new feed node.
         /// </summary>
         /// <param name="parent">The window containing this node. Used for callbacks.</param>
-        /// <param name="store">The store containing the element.</param>
-        protected StoreNode(MainForm parent, IStore store) : base(parent)
+        /// <param name="cache">The <see cref="IFeedCache"/> the <see cref="Model.Feed"/> is located in.</param>
+        /// <param name="feed">The <see cref="Model.Feed"/> to be represented by this node.</param>
+        public FeedNode(StoreManageForm parent, IFeedCache cache, Feed feed) : base(parent)
         {
             #region Sanity checks
-            if (parent == null) throw new ArgumentNullException("parent");
+            if (cache == null) throw new ArgumentNullException("cache");
+            if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            Store = store;
+            _cache = cache;
+            _feed = feed;
         }
         #endregion
 
         //--------------------//
+
+        #region Delete
+        /// <summary>
+        /// Deletes this <see cref="Model.Feed"/> from the <see cref="IFeedCache"/> it is located in.
+        /// </summary>
+        /// <exception cref="KeyNotFoundException">Thrown if no matching feed could be found in the <see cref="IFeedCache"/>.</exception>
+        /// <exception cref="IOException">Thrown if the feed could not be deleted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
+        public override void Delete()
+        {
+            _cache.Remove(_feed.UriString);
+        }
+        #endregion
+
+        #region Verify
+        /// <summary>
+        /// Does nothing.
+        /// </summary>
+        public override void Verify(ITaskHandler handler)
+        {}
+        #endregion
 
         #region Context menu
         /// <inheritdoc/>
@@ -72,14 +97,13 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         {
             return new ContextMenu(new[]
             {
-                new MenuItem(Resources.OpenInFileManager, delegate { if (Path != null) Process.Start(Path); }),
                 new MenuItem(Resources.Remove, delegate
                 {
-                    if (Msg.YesNo(Parent, Resources.DeleteEntry, MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
+                    if (Msg.YesNo(Parent, Resources.DeleteEntry, MsgSeverity.Warn))
                     {
                         try
                         {
-                            Parent.RunTask(new SimpleTask(Resources.DeletingImplementations, Delete));
+                            Delete();
                         }
                             #region Error handling
                         catch (KeyNotFoundException ex)
