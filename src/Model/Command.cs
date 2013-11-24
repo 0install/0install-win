@@ -128,8 +128,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Sets missing default values and handles legacy elements.
         /// </summary>
-        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
-        /// It should not be called if you plan on serializing the interface again since it may change some of its structure.</remarks>
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
         public virtual void Normalize()
         {
             // Apply if-0install-version filter

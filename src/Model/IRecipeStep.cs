@@ -23,11 +23,11 @@ namespace ZeroInstall.Model
     public interface IRecipeStep
     {
         /// <summary>
-        /// Sets missing default values, flattens the inheritance structure, etc.
+        /// Sets missing default values and handles legacy elements.
         /// </summary>
-        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing.
-        /// It should not be called if you plan on serializing the feed again since it will may loose some of its structure.</remarks>
-        void Normalize();
+        /// <param name="feedID">The feed the data was originally loaded from.</param>
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
+        void Normalize(string feedID);
 
         /// <summary>
         /// Creates a deep copy of this <see cref="IRecipeStep"/> instance.

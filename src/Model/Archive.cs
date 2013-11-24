@@ -117,8 +117,10 @@ namespace ZeroInstall.Model
 
         #region Normalize
         /// <inheritdoc/>
-        public override void Normalize()
+        public override void Normalize(string feedID)
         {
+            base.Normalize(feedID);
+
             // If the MIME type is already set or the location is missing, we have nothing to do here
             if (!string.IsNullOrEmpty(MimeType) || Href == null) return;
 

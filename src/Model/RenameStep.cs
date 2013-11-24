@@ -49,7 +49,7 @@ namespace ZeroInstall.Model
 
         #region Normalize
         /// <inheritdoc/>
-        public void Normalize()
+        public void Normalize(string feedID)
         {}
         #endregion
 
