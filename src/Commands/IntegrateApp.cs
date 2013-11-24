@@ -43,6 +43,9 @@ namespace ZeroInstall.Commands
 
         /// <summary>The alternative name of this command as used in command-line arguments in lower-case.</summary>
         public const string AltName = "integrate-app";
+
+        /// <summary>Another alternative name of this command as used in command-line arguments in lower-case.</summary>
+        public const string AltName2 = "desktop";
         #endregion
 
         #region Variables

@@ -90,6 +90,7 @@ namespace ZeroInstall.Commands
                     return new RemoveApp(handler);
                 case IntegrateApp.Name:
                 case IntegrateApp.AltName:
+                case IntegrateApp.AltName2:
                     return new IntegrateApp(handler);
                 case AddAlias.Name:
                 case AddAlias.AltName:
