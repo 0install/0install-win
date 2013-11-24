@@ -241,7 +241,7 @@ namespace ZeroInstall.Capture
                 else Directory.CreateDirectory(path);
 
                 // Add flag file to capturing directory
-                File.Create(Path.Combine(path, "_capture"));
+                File.WriteAllText(Path.Combine(path, "_capture"), "");
             }
                 #region Error handling
             catch (ArgumentException ex)

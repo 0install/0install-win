@@ -20,6 +20,9 @@
  * THE SOFTWARE.
  */
 
+using System.IO;
+using System.Text;
+using Common.Storage;
 using NUnit.Framework;
 
 namespace Common.Utils
@@ -51,6 +54,19 @@ namespace Common.Utils
             const string test = "Test";
             using (var stream = test.ToStream())
                 Assert.AreEqual(test, stream.ReadToString());
+        }
+
+        /// <summary>
+        /// Ensures <see cref="StreamUtils.WriteTo(System.IO.Stream,System.String)"/> correctly writes streams to files.
+        /// </summary>
+        [Test]
+        public void TestWriteToFile()
+        {
+            using (var tempFile = new TemporaryFile("unit-tests"))
+            {
+                "abc".ToStream().WriteTo(tempFile);
+                Assert.AreEqual("abc", new FileInfo(tempFile).ReadFirstLine(Encoding.UTF8));
+            }
         }
     }
 }

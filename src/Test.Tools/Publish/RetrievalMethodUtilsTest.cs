@@ -97,7 +97,7 @@ namespace ZeroInstall.Publish
             {
                 string tempFile = Path.Combine(tempDir, "archive.zip");
                 using (var memoryStream = TestData.GetResource("testArchive.zip"))
-                    memoryStream.WriteToFile(tempFile);
+                    memoryStream.WriteTo(tempFile);
 
                 var archive = new Archive();
                 using (var extractedDir = RetrievalMethodUtils.LocalApply(archive, tempFile, new SilentTaskHandler()))

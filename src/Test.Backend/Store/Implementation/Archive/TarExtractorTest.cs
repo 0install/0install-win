@@ -93,8 +93,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 using (var archive = TestData.GetResource("testArchive.tar.lzma"))
-                using (var stream = File.Create(tempFile))
-                    archive.CopyTo(stream);
+                    archive.WriteTo(tempFile);
 
                 using (var stream = File.OpenRead(tempFile))
                     TestExtract(Model.Archive.MimeTypeTarLzma, stream);

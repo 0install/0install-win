@@ -38,7 +38,7 @@ namespace Common.Utils
         /// <param name="destination">The destination stream to copy to.</param>
         /// <param name="bufferSize">The size of the buffer to use for copying in bytes.</param>
         /// <remarks>Will try to <see cref="Stream.Seek"/> to the start of <paramref name="source"/>.</remarks>
-        public static void CopyTo(this Stream source, Stream destination, long bufferSize)
+        public static void WriteTo(this Stream source, Stream destination, long bufferSize)
         {
             #region Sanity checks
             if (source == null) throw new ArgumentNullException("source");
@@ -64,14 +64,25 @@ namespace Common.Utils
         /// </summary>
         /// <param name="source">The source stream to copy from.</param>
         /// <param name="destination">The destination stream to copy to.</param>
-        public static void CopyTo(this Stream source, Stream destination)
+        public static void WriteTo(this Stream source, Stream destination)
         {
             #region Sanity checks
             if (source == null) throw new ArgumentNullException("source");
             if (destination == null) throw new ArgumentNullException("destination");
             #endregion
 
-            CopyTo(source, destination, 4096);
+            source.WriteTo(destination, 4096);
+        }
+
+        /// <summary>
+        /// Writes the entire content of a stream to a file.
+        /// </summary>
+        /// <param name="stream">The stream to read from.</param>
+        /// <param name="path">The path of the file to write.</param>
+        public static void WriteTo(this Stream stream, string path)
+        {
+            using (var fileStream = File.Create(path))
+                stream.WriteTo(fileStream);
         }
 
         /// <summary>
@@ -142,20 +153,9 @@ namespace Common.Utils
 
             using (var memoryStream = new MemoryStream())
             {
-                stream.CopyTo(memoryStream);
+                stream.WriteTo(memoryStream);
                 return memoryStream.ToArray();
             }
-        }
-
-        /// <summary>
-        /// Writes the entire content of a stream to a file.
-        /// </summary>
-        /// <param name="stream">The stream to read from.</param>
-        /// <param name="path">The path of the file to write.</param>
-        public static void WriteToFile(this Stream stream, string path)
-        {
-            using (var fileStream = File.Create(path))
-                stream.CopyTo(fileStream);
         }
     }
 }

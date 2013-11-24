@@ -37,8 +37,7 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
-                using (FileStream stream = File.Create(archiveFile))
-                    Archive.TestData.GetResource("testArchive.zip").CopyTo(stream);
+                Archive.TestData.GetResource("testArchive.zip").WriteTo(archiveFile);
 
                 var downloadedFiles = new[] {archiveFile};
                 var recipe = new Recipe {Steps = {new Model.Archive {MimeType = Model.Archive.MimeTypeZip, Destination = "subDir"}}};
@@ -65,8 +64,7 @@ namespace ZeroInstall.Store.Implementation
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
                 File.WriteAllText(singleFile, "data");
-                using (FileStream stream = File.Create(archiveFile))
-                    Archive.TestData.GetResource("testArchive.zip").CopyTo(stream);
+                Archive.TestData.GetResource("testArchive.zip").WriteTo(archiveFile);
 
                 var downloadedFiles = new[] {archiveFile, singleFile};
                 var recipe = new Recipe {Steps = {new Model.Archive {MimeType = Model.Archive.MimeTypeZip}, new SingleFile {Destination = "subdir2/executable"}}};
@@ -88,8 +86,7 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
-                using (FileStream stream = File.Create(archiveFile))
-                    Archive.TestData.GetResource("testArchive.zip").CopyTo(stream);
+                Archive.TestData.GetResource("testArchive.zip").WriteTo(archiveFile);
 
                 var downloadedFiles = new[] {archiveFile};
                 var recipe = new Recipe
@@ -126,8 +123,7 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var archiveFile = new TemporaryFile("0install-unit-tests"))
             {
-                using (FileStream stream = File.Create(archiveFile))
-                    Archive.TestData.GetResource("testArchive.zip").CopyTo(stream);
+                Archive.TestData.GetResource("testArchive.zip").WriteTo(archiveFile);
 
                 var downloadedFiles = new[] {archiveFile};
                 var recipe = new Recipe
