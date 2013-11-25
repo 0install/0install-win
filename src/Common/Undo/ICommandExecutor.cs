@@ -28,6 +28,11 @@ namespace Common.Undo
     public interface ICommandExecutor
     {
         /// <summary>
+        /// The path of the file the data structure being modified was loaded from. <see langword="null"/> if none.
+        /// </summary>
+        string Path { get; }
+
+        /// <summary>
         /// Executes an <see cref="IUndoCommand"/> and stores it for later undo-operations.
         /// </summary>
         /// <param name="command">The command to be executed.</param>

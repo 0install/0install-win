@@ -110,7 +110,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         private void buttonAddMissing_Click(object sender, EventArgs e)
         {
-            var commandCollector = new CommandCollector(); // Represent all changes in a single undo step
+            var commandCollector = new CommandCollector {Path = CommandExecutor.Path}; // Represent all changes in a single undo step
             try
             {
                 CheckDigest(new GuiTaskHandler(), commandCollector);

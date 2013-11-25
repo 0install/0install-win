@@ -21,6 +21,7 @@ using System.Net;
 using System.Windows.Forms;
 using Common;
 using Common.Tasks;
+using Common.Undo;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
@@ -63,7 +64,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             try
             {
                 var retrievalMethod = new T {Href = textBoxUrl.Uri};
-                var temporaryDirectory = RetrievalMethodUtils.LocalApply(retrievalMethod, textBoxPath.Text, new GuiTaskHandler());
+                var temporaryDirectory = RetrievalMethodUtils.LocalApply(retrievalMethod, textBoxPath.Text, new GuiTaskHandler(), new SimpleCommandExecutor());
 
                 _feedBuilder.RetrievalMethod = retrievalMethod;
                 _feedBuilder.TemporaryDirectory = temporaryDirectory;

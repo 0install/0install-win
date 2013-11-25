@@ -21,24 +21,18 @@
  */
 
 using System;
-using System.Collections.Generic;
 
 namespace Common.Undo
 {
     /// <summary>
-    /// Executes <see cref="IUndoCommand"/>s and collects them into a <see cref="CompositeCommand"/> allowing a combined undo later on.
+    /// Executes <see cref="IUndoCommand"/>s without any additional handling.
     /// </summary>
-    public class CommandCollector : ICommandExecutor
+    public class SimpleCommandExecutor : ICommandExecutor
     {
         /// <inheritdoc/>
         public string Path { get; set; }
 
-        private readonly List<IUndoCommand> _commands = new List<IUndoCommand>();
-
-        /// <summary>
-        /// Store an <see cref="IUndoCommand"/> for later execution.
-        /// </summary>
-        /// <param name="command">The command to be stored.</param>
+        /// <intheritdoc/>
         public void Execute(IUndoCommand command)
         {
             #region Sanity checks
@@ -46,15 +40,6 @@ namespace Common.Undo
             #endregion
 
             command.Execute();
-            _commands.Add(command);
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="CompositeCommand"/> containing all <see cref="IUndoCommand"/>s collected so far.
-        /// </summary>
-        public IUndoCommand BuildComposite()
-        {
-            return new PreExecutedCompositeCommand(_commands);
         }
     }
 }

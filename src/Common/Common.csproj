@@ -160,6 +160,7 @@
     <Compile Include="Undo\RemoveFromCollection.cs" />
     <Compile Include="Undo\ReplaceInList.cs" />
     <Compile Include="Undo\SetLocalizableString.cs" />
+    <Compile Include="Undo\SimpleCommandExecutor.cs" />
     <Compile Include="Undo\CompositeCommand.cs" />
     <Compile Include="Undo\PreExecutedCompositeCommand.cs" />
     <Compile Include="Undo\CommandCollector.cs" />

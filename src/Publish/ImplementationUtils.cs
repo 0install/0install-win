@@ -54,7 +54,7 @@ namespace ZeroInstall.Publish
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var implementationDir = RetrievalMethodUtils.DownloadAndApply(retrievalMethod, handler);
+            var implementationDir = RetrievalMethodUtils.DownloadAndApply(retrievalMethod, handler, new SimpleCommandExecutor());
             try
             {
                 var digest = GenerateDigest(implementationDir, handler, store);
@@ -73,9 +73,9 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="implementation">The <see cref="Implementation"/> to add data to.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
+        /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <param name="store"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
-        public static void AddMissing(Implementation implementation, ITaskHandler handler, ICommandExecutor executor = null, bool store = false)
+        public static void AddMissing(Implementation implementation, ITaskHandler handler, ICommandExecutor executor, bool store = false)
         {
             #region Sanity checks
             if (implementation == null) throw new ArgumentNullException("implementation");
@@ -94,7 +94,7 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(implementation.ID)) implementation.ID = "sha1new=" + implementation.ManifestDigest.Sha1New;
         }
 
-        private static void ConvertSha256ToSha256New(Implementation implementation, ICommandExecutor executor = null)
+        private static void ConvertSha256ToSha256New(Implementation implementation, ICommandExecutor executor)
         {
             if (string.IsNullOrEmpty(implementation.ManifestDigest.Sha256) || !string.IsNullOrEmpty(implementation.ManifestDigest.Sha256New)) return;
 
@@ -104,8 +104,7 @@ namespace ZeroInstall.Publish
                 implementation.ManifestDigest.Sha256,
                 implementation.ManifestDigest.Sha256.Base16Decode().Base32Encode());
 
-            if (executor == null) implementation.ManifestDigest = digest;
-            else executor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, digest));
+            executor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, digest));
         }
 
         private static bool IsDownloadSizeMissing(RetrievalMethod retrievalMethod)
@@ -122,17 +121,14 @@ namespace ZeroInstall.Publish
         /// <param name="implementation">The <see cref="Implementation"/> to update.</param>
         /// <param name="path">The path of the directory to generate the digest for.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
+        /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <param name="store"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
-        private static void UpdateDigest(ImplementationBase implementation, string path, ITaskHandler handler, ICommandExecutor executor = null, bool store = false)
+        private static void UpdateDigest(ImplementationBase implementation, string path, ITaskHandler handler, ICommandExecutor executor, bool store = false)
         {
             var digest = GenerateDigest(path, handler, store);
 
             if (implementation.ManifestDigest == default(ManifestDigest))
-            {
-                if (executor == null) implementation.ManifestDigest = digest;
-                else executor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, digest));
-            }
+                executor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, digest));
             if (digest != implementation.ManifestDigest)
                 throw new DigestMismatchException(implementation.ManifestDigest.ToString(), digest.ToString());
         }

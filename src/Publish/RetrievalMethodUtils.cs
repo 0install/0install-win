@@ -41,9 +41,9 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="retrievalMethod">The <see cref="RetrievalMethod"/> to be downloaded.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
+        /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A temporary directory containing the extracted content.</returns>
-        public static TemporaryDirectory DownloadAndApply(RetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor = null)
+        public static TemporaryDirectory DownloadAndApply(RetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor)
         {
             var download = retrievalMethod as DownloadRetrievalMethod;
             if (download != null) return DownloadAndApply(download, handler, executor);
@@ -59,9 +59,9 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="retrievalMethod">The <see cref="DownloadRetrievalMethod"/> to be downloaded.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
+        /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A temporary directory containing the extracted content.</returns>
-        public static TemporaryDirectory DownloadAndApply(DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor = null)
+        public static TemporaryDirectory DownloadAndApply(DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
@@ -98,9 +98,9 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="recipe">The <see cref="Recipe"/> to be applied.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
+        /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A temporary directory containing the result of the recipe.</returns>
-        public static TemporaryDirectory DownloadAndApply(Recipe recipe, ITaskHandler handler, ICommandExecutor executor = null)
+        public static TemporaryDirectory DownloadAndApply(Recipe recipe, ITaskHandler handler, ICommandExecutor executor)
         {
             #region Sanity checks
             if (recipe == null) throw new ArgumentNullException("recipe");
@@ -130,13 +130,14 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="retrievalMethod">The <see cref="DownloadRetrievalMethod"/> to be downloaded.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
+        /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A downloaded file.</returns>
-        public static TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor = null)
+        public static TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
             if (handler == null) throw new ArgumentNullException("handler");
+            if (executor == null) throw new ArgumentNullException("executor");
             #endregion
 
             new PerTypeDispatcher<DownloadRetrievalMethod>(false)
@@ -148,8 +149,7 @@ namespace ZeroInstall.Publish
                     if (string.IsNullOrEmpty(archive.MimeType))
                     {
                         string mimeType = Archive.GuessMimeType(archive.Href.ToString());
-                        if (executor == null) archive.MimeType = mimeType;
-                        else executor.Execute(new SetValueCommand<string>(() => archive.MimeType, value => archive.MimeType = value, mimeType));
+                        executor.Execute(new SetValueCommand<string>(() => archive.MimeType, value => archive.MimeType = value, mimeType));
                     }
                 },
                 (SingleFile file) =>
@@ -158,8 +158,7 @@ namespace ZeroInstall.Publish
                     if (string.IsNullOrEmpty(file.Destination))
                     {
                         string destination = file.Href.ToString().GetRightPartAtLastOccurrence('/').StripCharacters(Path.GetInvalidFileNameChars());
-                        if (executor == null) file.Destination = destination;
-                        else executor.Execute(new SetValueCommand<string>(() => file.Destination, value => file.Destination = value, destination));
+                        executor.Execute(new SetValueCommand<string>(() => file.Destination, value => file.Destination = value, destination));
                     }
                 }
                 // ReSharper restore AccessToDisposedClosure
@@ -172,10 +171,7 @@ namespace ZeroInstall.Publish
             // Set downloaded file size
             long newSize = new FileInfo(downloadedFile).Length;
             if (retrievalMethod.Size != newSize)
-            {
-                if (executor == null) retrievalMethod.Size = newSize;
-                else executor.Execute(new SetValueCommand<long>(() => retrievalMethod.Size, value => retrievalMethod.Size = value, newSize));
-            }
+                executor.Execute(new SetValueCommand<long>(() => retrievalMethod.Size, value => retrievalMethod.Size = value, newSize));
 
             return downloadedFile;
         }
@@ -188,23 +184,21 @@ namespace ZeroInstall.Publish
         /// <param name="retrievalMethod">The <see cref="DownloadRetrievalMethod"/> to be applied.</param>
         /// <param name="localPath">The local file path where the <paramref name="retrievalMethod"/> is located.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="executor">Used to apply properties in an undoable fashion; may be <see langword="null"/>.</param>
+        /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A temporary directory containing the extracted content.</returns>
-        public static TemporaryDirectory LocalApply(DownloadRetrievalMethod retrievalMethod, string localPath, ITaskHandler handler, ICommandExecutor executor = null)
+        public static TemporaryDirectory LocalApply(DownloadRetrievalMethod retrievalMethod, string localPath, ITaskHandler handler, ICommandExecutor executor)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
             if (string.IsNullOrEmpty(localPath)) throw new ArgumentNullException("localPath");
+            if (executor == null) throw new ArgumentNullException("executor");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             // Set local file size
             long newSize = new FileInfo(localPath).Length;
             if (retrievalMethod.Size != newSize)
-            {
-                if (executor == null) retrievalMethod.Size = newSize;
-                else executor.Execute(new SetValueCommand<long>(() => retrievalMethod.Size, value => retrievalMethod.Size = value, newSize));
-            }
+                executor.Execute(new SetValueCommand<long>(() => retrievalMethod.Size, value => retrievalMethod.Size = value, newSize));
 
             var extractionDir = new TemporaryDirectory("0publish");
             try
@@ -218,8 +212,7 @@ namespace ZeroInstall.Publish
                         if (string.IsNullOrEmpty(archive.MimeType))
                         {
                             string mimeType = Archive.GuessMimeType(localPath);
-                            if (executor == null) archive.MimeType = mimeType;
-                            else executor.Execute(new SetValueCommand<string>(() => archive.MimeType, value => archive.MimeType = value, mimeType));
+                            executor.Execute(new SetValueCommand<string>(() => archive.MimeType, value => archive.MimeType = value, mimeType));
                         }
 
                         RecipeUtils.ApplyArchive(archive, localPath, extractionDir, handler);
@@ -230,8 +223,7 @@ namespace ZeroInstall.Publish
                         if (string.IsNullOrEmpty(file.Destination))
                         {
                             string destination = Path.GetFileName(localPath);
-                            if (executor == null) file.Destination = destination;
-                            else executor.Execute(new SetValueCommand<string>(() => file.Destination, value => file.Destination = value, destination));
+                            executor.Execute(new SetValueCommand<string>(() => file.Destination, value => file.Destination = value, destination));
                         }
 
                         RecipeUtils.ApplySingleFile(file, localPath, extractionDir, handler);
