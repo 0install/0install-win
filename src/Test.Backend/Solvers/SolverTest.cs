@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using System.Linq;
+using System.Collections.Generic;
+using Common.Storage;
 using Common.Tasks;
 using Moq;
 using NUnit.Framework;
@@ -33,171 +33,118 @@ namespace ZeroInstall.Solvers
     public abstract class SolverTest<T> : TestWithResolver<T> where T : class, ISolver
     {
         [Test]
-        public void NoDependency()
+        public void TestNoDependency()
         {
-            var feed = new Feed
-            {
-                Uri = new Uri("http://0install.de/feeds/test/app.xml"),
-                Elements =
-                {
-                    new Implementation
-                    {
-                        ID = "test",
-                        Version = new ImplementationVersion("1.0"),
-                        Commands = {new Command {Name = Command.NameRun, Path = "test-app"}}
-                    }
-                },
-            };
-
-            var selections = new Selections
-            {
-                InterfaceID = feed.Uri.ToString(), Command = Command.NameRun,
-                Implementations =
-                {
-                    new ImplementationSelection
-                    {
-                        ID = "test", InterfaceID = feed.Uri.ToString(),
-                        Version = new ImplementationVersion("1.0"),
-                        Commands = {new Command {Name = Command.NameRun, Path = "test-app"}}
-                    }
-                }
-            };
             RunAndAssert(
-                selections,
-                new Requirements {InterfaceID = feed.Uri.ToString()},
-                feed);
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /></implementation>"}
+                },
+                requirements: new Requirements {InterfaceID = "http://test/app.xml"},
+                expectedSelections: "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /></selection>");
         }
 
         [Test]
-        public void SimpleDependency()
+        public void TestSimpleDependency()
         {
-            var appFeed = new Feed
-            {
-                Uri = new Uri("http://0install.de/feeds/test/app.xml"),
-                Elements =
-                {
-                    new Implementation
-                    {
-                        ID = "test",
-                        Version = new ImplementationVersion("1.0"),
-                        Commands = {new Command {Name = Command.NameRun, Path = "test-app"}},
-                        Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/lib.xml"}}
-                    }
-                },
-            };
-            var libFeed = new Feed
-            {
-                Uri = new Uri("http://0install.de/feeds/test/lib.xml"),
-                Elements =
-                {
-                    new Implementation
-                    {
-                        ID = "test",
-                        Version = new ImplementationVersion("1.0")
-                    }
-                },
-            };
-
-            var selections = new Selections
-            {
-                InterfaceID = appFeed.Uri.ToString(), Command = Command.NameRun,
-                Implementations =
-                {
-                    new ImplementationSelection
-                    {
-                        ID = "test", InterfaceID = appFeed.Uri.ToString(),
-                        Version = new ImplementationVersion("1.0"),
-                        Commands = {new Command {Name = Command.NameRun, Path = "test-app"}},
-                        Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/lib.xml"}}
-                    },
-                    new ImplementationSelection
-                    {
-                        ID = "test", InterfaceID = libFeed.Uri.ToString(),
-                        Version = new ImplementationVersion("1.0")
-                    }
-                }
-            };
             RunAndAssert(
-                selections,
-                new Requirements {InterfaceID = appFeed.Uri.ToString()},
-                appFeed, libFeed);
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' /></implementation>"},
+                    {"http://test/lib.xml", "<implementation version='1.0' id='lib1' />"}
+                },
+                requirements: new Requirements {InterfaceID = "http://test/app.xml"},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' /></selection>" +
+                    "<selection interface='http://test/lib.xml' version='1.0' id='lib1' />");
         }
 
         [Test]
-        public void CyclicDependency()
+        public void TestCyclicDependency()
         {
-            var feed1 = new Feed
-            {
-                Uri = new Uri("http://0install.de/feeds/test/feed1.xml"),
-                Name = "Test App",
-                Summaries = {"a test app"},
-                Elements =
-                {
-                    new Implementation
-                    {
-                        ID = "test",
-                        Version = new ImplementationVersion("1.0"),
-                        Commands = {new Command {Name = Command.NameRun, Path = "test-app"}},
-                        Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/feed2.xml"}}
-                    }
-                },
-            };
-            var feed2 = new Feed
-            {
-                Uri = new Uri("http://0install.de/feeds/test/feed2.xml"),
-                Name = "Test Lib",
-                Summaries = {"a test lib"},
-                Elements =
-                {
-                    new Implementation
-                    {
-                        ID = "test",
-                        Version = new ImplementationVersion("1.0"),
-                        Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/feed1.xml"}}
-                    }
-                },
-            };
-
-            var selections = new Selections
-            {
-                InterfaceID = feed1.Uri.ToString(),
-                Command = Command.NameRun,
-                Implementations =
-                {
-                    new ImplementationSelection
-                    {
-                        ID = "test", InterfaceID = feed1.Uri.ToString(),
-                        Version = new ImplementationVersion("1.0"),
-                        Commands = {new Command {Name = Command.NameRun, Path = "test-app"}},
-                        Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/feed2.xml"}}
-                    },
-                    new ImplementationSelection
-                    {
-                        ID = "test", InterfaceID = feed2.Uri.ToString(),
-                        Version = new ImplementationVersion("1.0"),
-                        Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/feed1.xml"}}
-                    }
-                }
-            };
             RunAndAssert(
-                selections,
-                new Requirements {InterfaceID = feed1.Uri.ToString()},
-                feed1, feed2);
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><requires interface='http://test/lib.xml' /><command name='run' path='test-app' /></implementation>"},
+                    {"http://test/lib.xml", "<implementation version='1.0' id='lib1'><requires interface='http://test/app.xml' /></implementation>"}
+                },
+                requirements: new Requirements {InterfaceID = "http://test/app.xml"},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><requires interface='http://test/lib.xml' /><command name='run' path='test-app' /></selection>" +
+                    "<selection interface='http://test/lib.xml' version='1.0' id='lib1'><requires interface='http://test/app.xml' /></selection>");
         }
 
-        private void RunAndAssert(Selections expectedSelections, Requirements requirements, params Feed[] feeds)
+        [Test]
+        public void TestRestriction()
+        {
+            // without restriction
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></implementation>"},
+                    {"http://test/liba.xml", "<implementation version='1.0' id='liba1' />"},
+                    {"http://test/libb.xml", "<implementation version='1.0' id='libb1' /><implementation version='2.0' id='libb2' />"}
+                },
+                requirements: new Requirements {InterfaceID = "http://test/app.xml"},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></selection>" +
+                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1' />" +
+                    "<selection interface='http://test/libb.xml' version='2.0' id='libb2' />");
+
+            // with restriction
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></implementation>"},
+                    {"http://test/liba.xml", "<implementation version='1.0' id='liba1'><restricts interface='http://test/libb.xml' version='1.0' /></implementation>"},
+                    {"http://test/libb.xml", "<implementation version='1.0' id='libb1' /><implementation version='2.0' id='libb2' />"}
+                },
+                requirements: new Requirements {InterfaceID = "http://test/app.xml"},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></selection>" +
+                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1' />" +
+                    "<selection interface='http://test/libb.xml' version='1.0' id='libb1' />");
+        }
+
+        #region Helpers
+        protected void RunAndAssert(IEnumerable<KeyValuePair<string, string>> feeds, Requirements requirements, string expectedSelections)
         {
             var handlerMock = Resolver.GetMock<IHandler>();
             handlerMock.SetupGet(x => x.CancellationToken).Returns(new CancellationToken());
 
             var feedManagerMock = Resolver.GetMock<IFeedManager>();
-            foreach (var feed in feeds) feed.Normalize(feed.Uri.ToString());
-            var feedDictionary = feeds.ToDictionary(feed => feed.Uri.ToString());
             bool temp = false;
-            feedManagerMock.Setup(x => x.GetFeed(It.IsAny<string>(), ref temp)).Returns((string feedID, bool temp1) => feedDictionary[feedID]);
+            var parsedFeeds = ParseFeeds(feeds);
+            feedManagerMock.Setup(x => x.GetFeed(It.IsAny<string>(), ref temp)).Returns((string feedID, bool temp1) => parsedFeeds[feedID]);
 
-            var selections = Target.Solve(requirements);
-            Assert.AreEqual(expectedSelections, selections);
+            Assert.AreEqual(
+                expected: ParseExpectedSelections(expectedSelections, requirements),
+                actual: Target.Solve(requirements));
         }
+
+        private static Selections ParseExpectedSelections(string expectedSelections, Requirements requirements)
+        {
+            requirements.Normalize();
+
+            var expectedSelectionsParsed = XmlStorage.FromXmlString<Selections>(string.Format(
+                "<?xml version='1.0'?><selections interface='{0}' command='{1}' xmlns='http://zero-install.sourceforge.net/2004/injector/interface'>{2}</selections>",
+                requirements.InterfaceID, requirements.Command, expectedSelections));
+            return expectedSelectionsParsed;
+        }
+
+        private static IDictionary<string, Feed> ParseFeeds(IEnumerable<KeyValuePair<string, string>> feeds)
+        {
+            var feedsParsed = new Dictionary<string, Feed>();
+            foreach (var feedXml in feeds)
+            {
+                var feed = XmlStorage.FromXmlString<Feed>(string.Format(
+                    "<?xml version='1.0'?><interface xmlns='http://zero-install.sourceforge.net/2004/injector/interface' uri='{0}'>{1}</interface>",
+                    feedXml.Key, feedXml.Value));
+                feed.Normalize(feedXml.Key);
+                feedsParsed.Add(feedXml.Key, feed);
+            }
+            return feedsParsed;
+        }
+        #endregion
     }
 }
