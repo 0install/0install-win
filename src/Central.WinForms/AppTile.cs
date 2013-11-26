@@ -38,7 +38,7 @@ namespace ZeroInstall.Central.WinForms
     /// <summary>
     /// Represents an application as a tile with buttons for launching, managing, etc..
     /// </summary>
-    public partial class AppTile : UserControl, IAppTile
+    public sealed partial class AppTile : UserControl, IAppTile
     {
         #region Variables
         // Static resource preload
@@ -148,6 +148,8 @@ namespace ZeroInstall.Central.WinForms
             Status = status;
 
             _iconCache = iconCache;
+
+            CreateHandle();
         }
         #endregion
 

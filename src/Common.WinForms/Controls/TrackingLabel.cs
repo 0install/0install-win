@@ -35,7 +35,7 @@ namespace Common.Controls
     /// <summary>
     /// A label that automatically tracks the progress of an <see cref="ITask"/>.
     /// </summary>
-    public class TrackingLabel : Label
+    public sealed class TrackingLabel : Label
     {
         #region Properties
         private ITask _task;
@@ -101,6 +101,13 @@ namespace Common.Controls
         /// The state currently reported by <see cref="Label.Text"/>.
         /// </summary>
         public TaskState CurrentState { get; private set; }
+        #endregion
+
+        #region Constructor
+        public TrackingLabel()
+        {
+            CreateHandle();
+        }
         #endregion
 
         //--------------------//

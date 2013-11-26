@@ -32,7 +32,7 @@ namespace Common.Controls
     /// <summary>
     /// A progress bar that automatically tracks the progress of an <see cref="ITask"/>.
     /// </summary>
-    public class TrackingProgressBar : ProgressBar
+    public sealed class TrackingProgressBar : ProgressBar
     {
         #region Properties
         private ITask _task;
@@ -113,6 +113,13 @@ namespace Common.Controls
         /// <remarks>Use only once per window. Only works on Windows 7 or newer.</remarks>
         [Description("Show the progress in the Windows taskbar."), DefaultValue(false)]
         public bool UseTaskbar { set; get; }
+        #endregion
+
+        #region Constructor
+        public TrackingProgressBar()
+        {
+            CreateHandle();
+        }
         #endregion
 
         //--------------------//

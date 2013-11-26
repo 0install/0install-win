@@ -59,18 +59,15 @@ namespace Common.Controls
 
             Icon = icon;
             Text = task.Name;
+            CreateHandle();
 
-            // Start and stop the task with the dialog
-            HandleCreated += delegate
-            {
-                // Hook up event tracking
-                trackingProgressBar.Task = task;
-                labelProgress.Task = task;
-                task.StateChanged += OnTaskStateChanged;
+            // Hook up event tracking
+            trackingProgressBar.Task = task;
+            labelProgress.Task = task;
+            task.StateChanged += OnTaskStateChanged;
 
-                // Note: Must perform task start on a separate thread because it might send messages back to the GUI thread (which therefore must not be blocked)
-                new Thread(task.Start).Start();
-            };
+            // Note: Must perform task start on a separate thread because it might send messages back to the GUI thread (which therefore must not be blocked)
+            new Thread(task.Start).Start();
 
             bool cancellationStarted = false;
             FormClosing += delegate(object sender, FormClosingEventArgs e)

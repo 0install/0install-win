@@ -34,7 +34,7 @@ namespace ZeroInstall.Commands.WinForms
     /// <summary>
     /// Visualizes <see cref="Selections"/> and allows modifications to <see cref="FeedPreferences"/> and <see cref="InterfacePreferences"/>.
     /// </summary>
-    public partial class SelectionsControl : UserControl
+    public sealed partial class SelectionsControl : UserControl
     {
         #region Variables
         /// <summary>The current selections state as set by <see cref="SetSelections"/> or updated during <see cref="BeginAudit"/>.</summary>
@@ -57,6 +57,7 @@ namespace ZeroInstall.Commands.WinForms
         public SelectionsControl()
         {
             InitializeComponent();
+            CreateHandle();
         }
         #endregion
 
