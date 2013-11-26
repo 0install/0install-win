@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using Common.Utils;
 using NUnit.Framework;
 
@@ -49,9 +48,9 @@ namespace ZeroInstall.Model
         [Test]
         public void TestGetAbsolutePath()
         {
-            Assert.AreEqual(
-                expected: WindowsUtils.IsWindows ? @"C:\local\subdir\file" : "/local/subdir/file",
-                actual: FeedElementUtils.GetAbsolutePath("subdir/file", WindowsUtils.IsWindows ? @"C:\local\feed.xml" : "/local/feed.xml"));
+            string result = FeedElementUtils.GetAbsolutePath("subdir/file", WindowsUtils.IsWindows ? @"C:\local\feed.xml" : "/local/feed.xml");
+            Assert.IsTrue(Path.IsPathRooted(result));
+            Assert.AreEqual(WindowsUtils.IsWindows ? @"C:\local\subdir\file" : "/local/subdir/file", result);
         }
 
         [Test]
@@ -64,9 +63,9 @@ namespace ZeroInstall.Model
         [Test]
         public void TestGetAbsoluteHref()
         {
-            Assert.AreEqual(
-                expected: WindowsUtils.IsWindows ? new Uri("file:///C:/local/subdir/file") : new Uri("file:///local/subdir/file"),
-                actual: FeedElementUtils.GetAbsoluteHref(new Uri("subdir/file", UriKind.Relative), WindowsUtils.IsWindows ? @"C:\local\feed.xml" : "/local/feed.xml"));
+            var result = FeedElementUtils.GetAbsoluteHref(new Uri("subdir/file", UriKind.Relative), WindowsUtils.IsWindows ? @"C:\local\feed.xml" : "/local/feed.xml");
+            Assert.IsTrue(result.IsAbsoluteUri);
+            Assert.AreEqual(WindowsUtils.IsWindows ? new Uri("file:///C:/local/subdir/file") : new Uri("file:///local/subdir/file"), result);
         }
 
         [Test]
