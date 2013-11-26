@@ -91,6 +91,12 @@ namespace ZeroInstall.Store
         [DefaultValue(false), Category("Policy"), DisplayName("Help with testing"), Description("Always prefer the newest versions, even if they havent been marked as stable yet.")]
         public bool HelpWithTesting { get; set; }
 
+        /// <summary>
+        /// Use the new experimental .NET solver code instead of the external solver.
+        /// </summary>
+        [DefaultValue(false), Category("Policy"), DisplayName("Experimental solver"), Description("Use the new experimental .NET solver code instead of the external solver.")]
+        public bool ExperimentalSolver { get; set; }
+
         private NetworkLevel _networkLevel = NetworkLevel.Full;
 
         /// <summary>
@@ -229,6 +235,7 @@ namespace ZeroInstall.Store
             {
                 {"freshness", new PropertyPointer<TimeSpan>(() => Freshness, value => Freshness = value, _defaultFreshness).ToStringPointer()},
                 {"help_with_testing", new PropertyPointer<bool>(() => HelpWithTesting, value => HelpWithTesting = value).ToStringPointer()},
+                {"experimental_solver", new PropertyPointer<bool>(() => ExperimentalSolver, value => ExperimentalSolver = value).ToStringPointer()},
                 {"network_use", GetNetworkUseConverter()},
                 {"auto_approve_keys", new PropertyPointer<bool>(() => AutoApproveKeys, value => AutoApproveKeys = value, true).ToStringPointer()},
                 {"allow_api_hooking", new PropertyPointer<bool>(() => AllowApiHooking, value => AllowApiHooking = value).ToStringPointer()},
