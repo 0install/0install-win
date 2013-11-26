@@ -47,7 +47,7 @@ namespace ZeroInstall.Model
         }
 
         [Test]
-        public void GetAbsolutePath()
+        public void TestGetAbsolutePath()
         {
             Assert.AreEqual(
                 expected: WindowsUtils.IsWindows ? @"C:\local\subdir\file" : "/local/subdir/file",
@@ -55,14 +55,14 @@ namespace ZeroInstall.Model
         }
 
         [Test]
-        public void GetAbsolutePathException()
+        public void TestGetAbsolutePathException()
         {
             Assert.Throws<IOException>(() => FeedElementUtils.GetAbsolutePath("subdir/file", null));
             Assert.Throws<IOException>(() => FeedElementUtils.GetAbsolutePath("subdir/file", Path.Combine("relative", "path")));
         }
 
         [Test]
-        public void GetAbsoluteHref()
+        public void TestGetAbsoluteHref()
         {
             Assert.AreEqual(
                 expected: WindowsUtils.IsWindows ? new Uri("file:///C:/local/subdir/file") : new Uri("file:///local/subdir/file"),
@@ -70,7 +70,7 @@ namespace ZeroInstall.Model
         }
 
         [Test]
-        public void GetAbsoluteHrefException()
+        public void TestGetAbsoluteHrefException()
         {
             Assert.Throws<IOException>(() => FeedElementUtils.GetAbsoluteHref(new Uri("subdir/file", UriKind.Relative), null));
             Assert.Throws<IOException>(() => FeedElementUtils.GetAbsoluteHref(new Uri("subdir/file", UriKind.Relative), Path.Combine("relative", "path")));

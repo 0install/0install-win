@@ -109,7 +109,7 @@ namespace ZeroInstall.Model
 
             if (!Path.IsPathRooted(sourcePath)) throw new IOException(string.Format(Resources.RelativeUriInRemoteFeed, href));
 
-            return new Uri(new Uri(Uri.UriSchemeFile + ":" + sourcePath), href);
+            return new Uri(new Uri(sourcePath), href);
         }
     }
 }
