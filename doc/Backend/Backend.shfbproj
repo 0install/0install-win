@@ -57,7 +57,7 @@
       <NamespaceSummaryItem name="Common.Tasks" isDocumented="True">Contains classes for tracking the progress of background tasks.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Undo" isDocumented="True">Contains base classes for an Undo-system based on the Command pattern.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Utils" isDocumented="True">Contains utility classes that provide helper functions for strings, files, etc.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Values.Design" isDocumented="True">Contains &lt;see cref="System.ComponentModel.TypeConverter" /&gt;s for value types (structs as opposed to classes). These are used to provide a better runtime experience when using this types with a &lt;see cref="System.Windows.Forms.PropertyGrid" /&gt;.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Common.Values.Design" isDocumented="True">Contains &lt;see cref="System.ComponentModel.TypeConverter" /&gt;s. These are used to provide a better runtime experience when using &lt;see cref="System.Windows.Forms.PropertyGrid" /&gt;.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Backend" isDocumented="True">Provides dependency injection for Zero Install's backend modules.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration" isDocumented="True">Provides methods for integrating applications with the desktop environment.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration.AccessPoints" isDocumented="True">Contains structures for parsing and in-memory representation of access points applied to a system.</NamespaceSummaryItem>

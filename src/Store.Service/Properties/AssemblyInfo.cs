@@ -6,7 +6,7 @@ using System.Security.Permissions;
 
 // Assembly info
 [assembly: AssemblyTitle("Zero Install Store Service")]
-[assembly: AssemblyDescription("Windows service for managing the secure shared cache of Zero Install implementations.")]
+[assembly: AssemblyDescription("Windows service for managing a Zero Install implementation cache shared between all users.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: NeutralResourcesLanguage("en")]
 

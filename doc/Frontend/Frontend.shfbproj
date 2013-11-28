@@ -46,12 +46,15 @@
       <NamespaceSummaryItem name="ZeroInstall.Central" isDocumented="True">Contains helper code for applications that wish to provide a general-purpose Zero Install GUI.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Central.Gtk" isDocumented="True" xmlns="">A GTK#-based GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Central.WinForms" isDocumented="True" xmlns="">The main GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Central.WinForms.Wizards" isDocumented="True" xmlns="">Wizards helping users configure features such as Sync.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Commands" isDocumented="True">Contains helper code for applications that wish to support default Zero Install command-line arguments.</NamespaceSummaryItem>
 	  <NamespaceSummaryItem name="ZeroInstall.Commands.Cli" isDocumented="True" xmlns="">A command-line interface for Zero Install, for installing and launching applications, managing caches, etc.</NamespaceSummaryItem>
 	  <NamespaceSummaryItem name="ZeroInstall.Commands.Gtk" isDocumented="True" xmlns="">A GTK#-based GUI for Zero Install, for installing and launching applications, managing caches, etc.</NamespaceSummaryItem>
 	  <NamespaceSummaryItem name="ZeroInstall.Commands.WinForms" isDocumented="True" xmlns="">A WinForms-based GUI for Zero Install, for installing and launching applications, managing caches, etc.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Launcher.Cli" isDocumented="True" xmlns="">A shortcut for '0install add-run'.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Store.Service" isDocumented="True" xmlns="">A Windows service for managing the &lt;see cref="ZeroInstall.Store.Implementation.ServiceStore" /&gt;.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Commands.WinForms.Store.Nodes" isDocumented="True" xmlns="">Tree view nodes for the store management interface.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Launcher.Cli" isDocumented="True" xmlns="">A shortcut for '0install run'.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Management.Cli" isDocumented="True" xmlns="">A shortcut for '0install store manage'.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Store.Service" isDocumented="True" xmlns="">Windows service for managing a Zero Install implementation cache shared between all users</NamespaceSummaryItem>
     </NamespaceSummaries>
   </PropertyGroup>
   <ItemGroup>
