@@ -35,27 +35,27 @@ namespace ZeroInstall.Commands.WinForms.Store
     public sealed class StoreNodeListBuilder : ThreadTask
     {
         #region Dependencies
-        private readonly IFeedCache _feedCache;
         private readonly IStore _store;
+        private readonly IFeedCache _feedCache;
         private readonly StoreManageForm _parent;
 
         /// <summary>
         /// Creates a new list builder
         /// </summary>
-        /// <param name="feedCache">Used to load <see cref="Feed"/>s.</param>
-        /// <param name="store">Used to list <see cref="Implementation"/>s</param>
         /// <param name="parent">The window using this builder. Used for callbacks.</param>
-        public StoreNodeListBuilder(IFeedCache feedCache, IStore store, StoreManageForm parent)
+        /// <param name="store">Used to list <see cref="Implementation"/>s</param>
+        /// <param name="feedCache">Used to load <see cref="Feed"/>s.</param>
+        public StoreNodeListBuilder(StoreManageForm parent, IStore store, IFeedCache feedCache)
         {
             #region Sanity checks
-            if (feedCache == null) throw new ArgumentNullException("feedCache");
-            if (store == null) throw new ArgumentNullException("store");
             if (parent == null) throw new ArgumentNullException("parent");
+            if (store == null) throw new ArgumentNullException("store");
+            if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
-            _feedCache = feedCache;
-            _store = store;
             _parent = parent;
+            _store = store;
+            _feedCache = feedCache;
         }
         #endregion
 

@@ -32,6 +32,7 @@ using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Commands.WinForms
 {
@@ -52,7 +53,7 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Properties
-        private readonly CancellationToken _cancellationToken = new CancellationToken();
+        private readonly CancellationToken _cancellationToken;
 
         /// <inheritdoc/>
         public CancellationToken CancellationToken { get { return _cancellationToken; } }
@@ -354,9 +355,14 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <inheritdoc/>
-        public void ManageStore()
+        public void ManageStore(IStore store, IFeedCache feedCache)
         {
-            using (var form = new StoreManageForm())
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            if (feedCache == null) throw new ArgumentNullException("feedCache");
+            #endregion
+
+            using (var form = new StoreManageForm(store, feedCache))
                 form.ShowDialog();
         }
         #endregion

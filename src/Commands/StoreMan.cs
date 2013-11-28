@@ -127,7 +127,7 @@ namespace ZeroInstall.Commands
                     return (int)StoreErrorLevel.OK;
 
                 case "manage":
-                    Handler.ManageStore();
+                    Handler.ManageStore(Store, FeedCache);
                     return (int)StoreErrorLevel.OK;
 
                 case "manifest":

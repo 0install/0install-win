@@ -84,6 +84,8 @@ namespace ZeroInstall.Backend
         /// <summary>
         /// Displays a user interface for managing <see cref="IStore"/>s.
         /// </summary>
-        void ManageStore();
+        /// <param name="store">The <see cref="IStore"/> to manage.</param>
+        /// <param name="feedCache">Information about implementations found in the <paramref name="store"/> are extracted from here.</param>
+        void ManageStore(IStore store, IFeedCache feedCache);
     }
 }

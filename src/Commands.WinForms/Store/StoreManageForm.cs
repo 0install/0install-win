@@ -32,7 +32,6 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.Commands.WinForms.Store.Nodes;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Commands.WinForms.Store
 {
@@ -42,14 +41,29 @@ namespace ZeroInstall.Commands.WinForms.Store
     public sealed partial class StoreManageForm : Form, ITaskHandler
     {
         #region Variables
+        private readonly IStore _store;
+        private readonly IFeedCache _feedCache;
+
         // Don't use WinForms designer for this, since it doesn't understand generics
         private readonly FilteredTreeView<Node> _treeView = new FilteredTreeView<Node> {Separator = '#', CheckBoxes = true, Dock = DockStyle.Fill};
         #endregion
 
         #region Constructor
-        /// <inheritdoc/>
-        public StoreManageForm()
+        /// <summary>
+        /// Creates a new store management window.
+        /// </summary>
+        /// <param name="store">The <see cref="IStore"/> to manage.</param>
+        /// <param name="feedCache">Information about implementations found in the <paramref name="store"/> are extracted from here.</param>
+        public StoreManageForm(IStore store, IFeedCache feedCache)
         {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            if (feedCache == null) throw new ArgumentNullException("feedCache");
+            #endregion
+
+            _store = store;
+            _feedCache = feedCache;
+
             InitializeComponent();
             WindowsUtils.AddShieldIcon(buttonRunAsAdmin);
 
@@ -76,10 +90,9 @@ namespace ZeroInstall.Commands.WinForms.Store
         {
             try
             {
-                var listBuilder = new StoreNodeListBuilder(
-                    FeedCacheFactory.CreateDefault(OpenPgpFactory.CreateDefault()),
-                    StoreFactory.CreateDefault(),
-                    this);
+                _store.Flush();
+                _feedCache.Flush();
+                var listBuilder = new StoreNodeListBuilder(this, _store, _feedCache);
 
                 TrackingDialog.Run(this, listBuilder);
 

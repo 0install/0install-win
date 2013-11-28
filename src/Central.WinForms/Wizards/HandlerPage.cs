@@ -26,11 +26,12 @@ using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Central.WinForms.Wizards
 {
     /// <summary>
-    /// Base class for <see cref="Wizard"/> pages that implemented a rudimentary <see cref="IHandler"/> without cancellation support.
+    /// Base class for <see cref="Wizard"/> pages that implements a rudimentary <see cref="IHandler"/> without cancellation support.
     /// </summary>
     internal partial class HandlerPage : UserControl, IBackendHandler
     {
@@ -47,7 +48,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
             labelWorking.Text = Resources.Working;
         }
 
-        #region ITaskHandler
+        #region IBackendHandler
         private readonly CancellationToken _cancellationToken = new CancellationToken();
 
         /// <summary>
@@ -124,7 +125,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
             throw new NotImplementedException();
         }
 
-        public void ManageStore()
+        public void ManageStore(IStore store, IFeedCache feedCache)
         {
             throw new NotImplementedException();
         }

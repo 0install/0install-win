@@ -22,6 +22,7 @@ using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Backend
 {
@@ -102,7 +103,7 @@ namespace ZeroInstall.Backend
         }
 
         /// <inheritdoc/>
-        public void ManageStore()
+        public void ManageStore(IStore store, IFeedCache feedCache)
         {
             // No UI, so nothing to do
         }
