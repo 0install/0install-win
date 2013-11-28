@@ -77,7 +77,7 @@
             // 
             // pictureBoxIcon
             // 
-            this.pictureBoxIcon.Image = global::Common.Properties.Resources.Info;
+            this.pictureBoxIcon.Image = global::Common.Properties.ImageResources.Info;
             this.pictureBoxIcon.Location = new System.Drawing.Point(16, 9);
             this.pictureBoxIcon.Name = "pictureBoxIcon";
             this.pictureBoxIcon.Size = new System.Drawing.Size(48, 48);

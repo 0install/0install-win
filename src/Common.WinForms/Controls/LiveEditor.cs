@@ -83,7 +83,7 @@ namespace Common.Controls
             if (TextEditor != null) Controls.Remove(TextEditor);
             TextEditor = textEditor;
 
-            SetStatus(Resources.Info, "OK");
+            SetStatus(ImageResources.Info, "OK");
         }
         #endregion
 
@@ -143,8 +143,8 @@ namespace Common.Controls
             ContentChanged(TextEditor.Text);
             Log.NewEntry -= handleLogEntry;
 
-            if (warning == null) SetStatus(Resources.Info, "OK");
-            else SetStatus(Resources.Error, warning);
+            if (warning == null) SetStatus(ImageResources.Info, "OK");
+            else SetStatus(ImageResources.Error, warning);
         }
 
         private void HandleError(Exception ex)
@@ -163,11 +163,11 @@ namespace Common.Controls
                     new TextMarker(lineOffset + charNumber, 10, TextMarkerType.WaveLine) {ToolTip = ex.InnerException.Message});
                 TextEditor.Refresh();
 
-                SetStatus(Resources.Error, ex.Message);
+                SetStatus(ImageResources.Error, ex.Message);
             }
             else
             {
-                SetStatus(Resources.Error, ex.InnerException == null
+                SetStatus(ImageResources.Error, ex.InnerException == null
                     ? ex.Message
                     : ex.Message + "\n" + ex.InnerException.Message);
             }

@@ -64,8 +64,8 @@ namespace Common.StructureEditor
         protected StructureEditorControl()
         {
             InitializeComponent();
-            buttonAdd.Image = Resources.AddButton;
-            buttonRemove.Image = Resources.DeleteButton;
+            buttonAdd.Image = ImageResources.AddButton;
+            buttonRemove.Image = ImageResources.DeleteButton;
         }
         #endregion
 

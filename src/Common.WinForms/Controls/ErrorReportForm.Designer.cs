@@ -48,7 +48,7 @@ namespace Common.Controls
             // pictureBox
             // 
             resources.ApplyResources(this.pictureBox, "pictureBox");
-            this.pictureBox.Image = global::Common.Properties.Resources.Warning;
+            this.pictureBox.Image = global::Common.Properties.ImageResources.Warning;
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.TabStop = false;
             // 

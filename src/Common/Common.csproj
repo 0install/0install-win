@@ -81,6 +81,11 @@
     <Compile Include="NeedGuiException.cs" />
     <Compile Include="NotAdminException.cs" />
     <Compile Include="MutexLock.cs" />
+    <Compile Include="Properties\ImageResources.Designer.cs">
+      <DependentUpon>ImageResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="PropertyPointer.cs" />
     <Compile Include="Info\AppInfo.cs" />
     <Compile Include="Info\ExceptionInfo.cs" />
@@ -179,6 +184,10 @@
     <Compile Include="Values\Design\TimeSpanEditor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\ImageResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ImageResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.de.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
