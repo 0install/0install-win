@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Central.WinForms.Wizards
 {
-    partial class HandlerPage
+    partial class SyncPage
     {
         /// <summary> 
         /// Required designer variable.

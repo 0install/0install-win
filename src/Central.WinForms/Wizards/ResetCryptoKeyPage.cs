@@ -19,13 +19,11 @@ using System;
 using System.ComponentModel;
 using Common;
 using Common.Utils;
-using ZeroInstall.Backend;
-using ZeroInstall.Commands;
 using ZeroInstall.DesktopIntegration;
 
 namespace ZeroInstall.Central.WinForms.Wizards
 {
-    internal partial class ResetCryptoKeyPage : HandlerPage
+    internal partial class ResetCryptoKeyPage : SyncPage
     {
         public SyncServer Server;
 
@@ -54,8 +52,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
         private void resetWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var newKey = (string)e.Argument;
-            var resolver = new Resolver(this);
-            using (var sync = SyncUtils.CreateSync(resolver, Server, newKey, MachineWide))
+            using (var sync = CreateSync(Server, newKey, MachineWide))
                 sync.Sync(SyncResetMode.Server);
         }
 

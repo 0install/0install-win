@@ -101,7 +101,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
                 try
                 {
                     var config = Config.Load();
-                    SyncUtils.ToConfig(server, config);
+                    config.FromSyncServer(server);
                     config.SyncCryptoKey = cryptoKey;
                     config.Save();
                     Close();

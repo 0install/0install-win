@@ -19,13 +19,11 @@ using System;
 using System.ComponentModel;
 using Common;
 using Common.Utils;
-using ZeroInstall.Backend;
-using ZeroInstall.Commands;
 using ZeroInstall.DesktopIntegration;
 
 namespace ZeroInstall.Central.WinForms.Wizards
 {
-    internal partial class ChangeCryptoKeyPage : HandlerPage
+    internal partial class ChangeCryptoKeyPage : SyncPage
     {
         public string OldKey;
 
@@ -54,10 +52,9 @@ namespace ZeroInstall.Central.WinForms.Wizards
         private void resetWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var newKey = (string)e.Argument;
-            var resolver = new Resolver(this);
-            using (var sync = SyncUtils.CreateSync(resolver, OldKey, MachineWide))
+            using (var sync = CreateSync(OldKey, MachineWide))
                 sync.Sync(SyncResetMode.None);
-            using (var sync = SyncUtils.CreateSync(resolver, newKey, MachineWide))
+            using (var sync = CreateSync(newKey, MachineWide))
                 sync.Sync(SyncResetMode.Server);
         }
 

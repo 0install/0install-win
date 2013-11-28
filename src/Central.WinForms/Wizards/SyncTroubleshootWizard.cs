@@ -40,9 +40,9 @@ namespace ZeroInstall.Central.WinForms.Wizards
             #region Pages
             var welcomePage = new ResetWelcomePage();
             var config = Config.Load();
-            var existingCryptoKeyPage = new ExistingCryptoKeyPage {Server = SyncUtils.ToSyncServer(config)};
+            var existingCryptoKeyPage = new ExistingCryptoKeyPage {Server = config.ToSyncServer()};
             var changeCryptoKeyPage = new ChangeCryptoKeyPage(machineWide);
-            var resetCryptoKeyPage = new ResetCryptoKeyPage(machineWide) {Server = SyncUtils.ToSyncServer(config)};
+            var resetCryptoKeyPage = new ResetCryptoKeyPage(machineWide) {Server = config.ToSyncServer()};
             var cryptoKeyChangedPaged = new CryptoKeyChangedPage();
             var resetServerPage = new ResetServerPage(machineWide);
             var resetServerFinishedPage = new ResetServerFinishedPage();

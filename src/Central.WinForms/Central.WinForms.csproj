@@ -115,29 +115,35 @@
     <Compile Include="Wizards\ChangeCryptoKeyPage.Designer.cs">
       <DependentUpon>ChangeCryptoKeyPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wizards\ResetServerFinishedPage.cs">
+    <Compile Include="Wizards\CredentialsPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Wizards\ResetServerFinishedPage.Designer.cs">
-      <DependentUpon>ResetServerFinishedPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wizards\HandlerPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Wizards\HandlerPage.Designer.cs">
-      <DependentUpon>HandlerPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wizards\ResetCryptoKeyPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Wizards\ResetCryptoKeyPage.Designer.cs">
-      <DependentUpon>ResetCryptoKeyPage.cs</DependentUpon>
+    <Compile Include="Wizards\CredentialsPage.Designer.cs">
+      <DependentUpon>CredentialsPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Wizards\CryptoKeyChangedPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Wizards\CryptoKeyChangedPage.Designer.cs">
       <DependentUpon>CryptoKeyChangedPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\ExistingCryptoKeyPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\ExistingCryptoKeyPage.Designer.cs">
+      <DependentUpon>ExistingCryptoKeyPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\NewCryptoKeyPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\NewCryptoKeyPage.Designer.cs">
+      <DependentUpon>NewCryptoKeyPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\RegisterPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\RegisterPage.Designer.cs">
+      <DependentUpon>RegisterPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Wizards\ResetClientFinishedPage.cs">
       <SubType>UserControl</SubType>
@@ -151,6 +157,18 @@
     <Compile Include="Wizards\ResetClientPage.Designer.cs">
       <DependentUpon>ResetClientPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Wizards\ResetCryptoKeyPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\ResetCryptoKeyPage.Designer.cs">
+      <DependentUpon>ResetCryptoKeyPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\ResetServerFinishedPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\ResetServerFinishedPage.Designer.cs">
+      <DependentUpon>ResetServerFinishedPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Wizards\ResetServerPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -163,17 +181,11 @@
     <Compile Include="Wizards\ResetWelcomePage.Designer.cs">
       <DependentUpon>ResetWelcomePage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wizards\CredentialsPage.cs">
+    <Compile Include="Wizards\ServerPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Wizards\CredentialsPage.Designer.cs">
-      <DependentUpon>CredentialsPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wizards\ExistingCryptoKeyPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Wizards\ExistingCryptoKeyPage.Designer.cs">
-      <DependentUpon>ExistingCryptoKeyPage.cs</DependentUpon>
+    <Compile Include="Wizards\ServerPage.Designer.cs">
+      <DependentUpon>ServerPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Wizards\SetupFinishedPage.cs">
       <SubType>UserControl</SubType>
@@ -181,41 +193,29 @@
     <Compile Include="Wizards\SetupFinishedPage.Designer.cs">
       <DependentUpon>SetupFinishedPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wizards\NewCryptoKeyPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Wizards\NewCryptoKeyPage.Designer.cs">
-      <DependentUpon>NewCryptoKeyPage.cs</DependentUpon>
-    </Compile>
     <Compile Include="Wizards\SetupWelcomePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Wizards\SetupWelcomePage.Designer.cs">
       <DependentUpon>SetupWelcomePage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wizards\RegisterPage.cs">
+    <Compile Include="Wizards\SyncPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Wizards\RegisterPage.Designer.cs">
-      <DependentUpon>RegisterPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wizards\ServerPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Wizards\ServerPage.Designer.cs">
-      <DependentUpon>ServerPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wizards\SyncTroubleshootWizard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Wizards\SyncTroubleshootWizard.Designer.cs">
-      <DependentUpon>SyncTroubleshootWizard.cs</DependentUpon>
+    <Compile Include="Wizards\SyncPage.Designer.cs">
+      <DependentUpon>SyncPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Wizards\SyncSetupWizard.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Wizards\SyncSetupWizard.Designer.cs">
       <DependentUpon>SyncSetupWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\SyncTroubleshootWizard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\SyncTroubleshootWizard.Designer.cs">
+      <DependentUpon>SyncTroubleshootWizard.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -278,27 +278,58 @@
       <DependentUpon>CredentialsPage.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\CredentialsPage.resx">
+      <DependentUpon>CredentialsPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Wizards\CryptoKeyChangedPage.de.resx">
+      <DependentUpon>CryptoKeyChangedPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\CryptoKeyChangedPage.resx">
       <DependentUpon>CryptoKeyChangedPage.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\ExistingCryptoKeyPage.de.resx">
       <DependentUpon>ExistingCryptoKeyPage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\ExistingCryptoKeyPage.resx">
+      <DependentUpon>ExistingCryptoKeyPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Wizards\NewCryptoKeyPage.de.resx">
       <DependentUpon>NewCryptoKeyPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\NewCryptoKeyPage.resx">
+      <DependentUpon>NewCryptoKeyPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\RegisterPage.de.resx">
       <DependentUpon>RegisterPage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\RegisterPage.resx">
+      <DependentUpon>RegisterPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Wizards\ResetClientFinishedPage.de.resx">
       <DependentUpon>ResetClientFinishedPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\ResetClientFinishedPage.resx">
+      <DependentUpon>ResetClientFinishedPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\ResetClientPage.de.resx">
       <DependentUpon>ResetClientPage.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\ResetClientPage.resx">
+      <DependentUpon>ResetClientPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Wizards\ResetCryptoKeyPage.de.resx">
+      <DependentUpon>ResetCryptoKeyPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\ResetCryptoKeyPage.resx">
       <DependentUpon>ResetCryptoKeyPage.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -307,22 +338,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\ResetServerFinishedPage.resx">
       <DependentUpon>ResetServerFinishedPage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\ResetCryptoKeyPage.resx">
-      <DependentUpon>ResetCryptoKeyPage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\CryptoKeyChangedPage.resx">
-      <DependentUpon>CryptoKeyChangedPage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\ResetClientFinishedPage.resx">
-      <DependentUpon>ResetClientFinishedPage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\ResetClientPage.resx">
-      <DependentUpon>ResetClientPage.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\ResetServerPage.de.resx">
@@ -340,40 +355,25 @@
       <DependentUpon>ResetWelcomePage.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\CredentialsPage.resx">
-      <DependentUpon>CredentialsPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\ExistingCryptoKeyPage.resx">
-      <DependentUpon>ExistingCryptoKeyPage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Wizards\ServerPage.de.resx">
       <DependentUpon>ServerPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\ServerPage.resx">
+      <DependentUpon>ServerPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\SetupFinishedPage.de.resx">
       <DependentUpon>SetupFinishedPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\SetupFinishedPage.resx">
       <DependentUpon>SetupFinishedPage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\NewCryptoKeyPage.resx">
-      <DependentUpon>NewCryptoKeyPage.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\SetupWelcomePage.de.resx">
       <DependentUpon>SetupWelcomePage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\SetupWelcomePage.resx">
       <DependentUpon>SetupWelcomePage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\RegisterPage.resx">
-      <DependentUpon>RegisterPage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\ServerPage.resx">
-      <DependentUpon>ServerPage.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

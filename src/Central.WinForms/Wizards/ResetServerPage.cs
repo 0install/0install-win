@@ -18,13 +18,11 @@
 using System;
 using System.ComponentModel;
 using Common;
-using ZeroInstall.Backend;
-using ZeroInstall.Commands;
 using ZeroInstall.DesktopIntegration;
 
 namespace ZeroInstall.Central.WinForms.Wizards
 {
-    internal partial class ResetServerPage : HandlerPage
+    internal partial class ResetServerPage : SyncPage
     {
         public event Action Next;
 
@@ -43,8 +41,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
 
         private void resetWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var resolver = new Resolver(this);
-            using (var sync = SyncUtils.CreateSync(resolver, MachineWide))
+            using (var sync = CreateSync(MachineWide))
                 sync.Sync(SyncResetMode.Server);
         }
 

@@ -16,7 +16,6 @@
  */
 
 using System;
-using ZeroInstall.Backend;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
 
@@ -28,63 +27,9 @@ namespace ZeroInstall.Commands
     public static class SyncUtils
     {
         /// <summary>
-        /// Creates a new <see cref="SyncIntegrationManager"/> using the default configuration.
-        /// </summary>
-        /// <param name="resolver">The source for configuration information and feed retrieval.</param>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
-        public static SyncIntegrationManager CreateSync(Resolver resolver, bool machineWide)
-        {
-            #region Sanity checks
-            if (resolver == null) throw new ArgumentNullException("resolver");
-            #endregion
-
-            return new SyncIntegrationManager(ToSyncServer(resolver.Config), resolver.Config.SyncCryptoKey,
-                feedID => resolver.FeedManager.GetFeed(feedID),
-                resolver.Handler, machineWide);
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="SyncIntegrationManager"/> using a custom crypto key.
-        /// </summary>
-        /// <param name="resolver">The source for configuration information and feed retrieval.</param>
-        /// <param name="cryptoKey">The crypto key to use; overrides <see cref="Config.SyncCryptoKey"/>.</param>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
-        public static SyncIntegrationManager CreateSync(Resolver resolver, string cryptoKey, bool machineWide)
-        {
-            #region Sanity checks
-            if (resolver == null) throw new ArgumentNullException("resolver");
-            #endregion
-
-            return new SyncIntegrationManager(ToSyncServer(resolver.Config), cryptoKey,
-                feedID => resolver.FeedManager.GetFeed(feedID),
-                resolver.Handler, machineWide);
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="SyncIntegrationManager"/> using a custom server and credentials.
-        /// </summary>
-        /// <param name="resolver">The source for configuration information and feed retrieval.</param>
-        /// <param name="server">Access information for the sync server; overrides <see cref="Config"/>.</param>
-        /// <param name="cryptoKey">The crypto key to use; overrides <see cref="Config.SyncCryptoKey"/>; overrides <see cref="Config.SyncCryptoKey"/>.</param>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
-        public static SyncIntegrationManager CreateSync(Resolver resolver, SyncServer server, string cryptoKey, bool machineWide)
-        {
-            #region Sanity checks
-            if (resolver == null) throw new ArgumentNullException("resolver");
-            #endregion
-
-            return new SyncIntegrationManager(server, cryptoKey,
-                feedID => resolver.FeedManager.GetFeed(feedID),
-                resolver.Handler, machineWide);
-        }
-
-        /// <summary>
         /// Reads the relevant information from a <see cref="Config"/> in order to construct a <see cref="SyncServer"/> struct.
         /// </summary>
-        public static SyncServer ToSyncServer(Config config)
+        public static SyncServer ToSyncServer(this Config config)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
@@ -96,7 +41,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Writes the data of a <see cref="SyncServer"/> struct back to a <see cref="Config"/>.
         /// </summary>
-        public static void ToConfig(SyncServer syncServer, Config config)
+        public static void FromSyncServer(this Config config, SyncServer syncServer)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");

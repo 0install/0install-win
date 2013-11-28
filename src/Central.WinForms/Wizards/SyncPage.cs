@@ -21,6 +21,7 @@ using Common.Controls;
 using Common.Tasks;
 using ZeroInstall.Backend;
 using ZeroInstall.Central.Properties;
+using ZeroInstall.Commands;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
@@ -31,22 +32,60 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Central.WinForms.Wizards
 {
     /// <summary>
-    /// Base class for <see cref="Wizard"/> pages that implements a rudimentary <see cref="IHandler"/> without cancellation support.
+    /// Base class for <see cref="Wizard"/> pages that need a <see cref="SyncApps"/>.
     /// </summary>
-    internal partial class HandlerPage : UserControl, IBackendHandler
+    internal partial class SyncPage : UserControl, IBackendHandler
     {
         protected readonly bool MachineWide;
 
-        public HandlerPage()
-        {}
-
-        public HandlerPage(bool machineWide)
+        public SyncPage()
         {
-            MachineWide = machineWide;
-
             InitializeComponent();
             labelWorking.Text = Resources.Working;
         }
+
+        public SyncPage(bool machineWide) : this()
+        {
+            MachineWide = machineWide;
+        }
+
+        #region Create sync
+        /// <summary>
+        /// Creates a new <see cref="SyncIntegrationManager"/> using the default configuration.
+        /// </summary>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
+        /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
+        protected SyncIntegrationManager CreateSync(bool machineWide)
+        {
+            var resolver = new Resolver(this);
+            return new SyncIntegrationManager(resolver.Config.ToSyncServer(), resolver.Config.SyncCryptoKey, feedID => resolver.FeedManager.GetFeed(feedID), resolver.Handler, machineWide);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="SyncIntegrationManager"/> using a custom crypto key.
+        /// </summary>
+        /// <param name="cryptoKey">The crypto key to use; overrides <see cref="Config.SyncCryptoKey"/>.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
+        /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
+        protected SyncIntegrationManager CreateSync(string cryptoKey, bool machineWide)
+        {
+            var resolver = new Resolver(this);
+            return new SyncIntegrationManager(resolver.Config.ToSyncServer(), cryptoKey, feedID => resolver.FeedManager.GetFeed(feedID), resolver.Handler, machineWide);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="SyncIntegrationManager"/> using a custom server and credentials.
+        /// </summary>
+        /// <param name="server">Access information for the sync server; overrides <see cref="Config"/>.</param>
+        /// <param name="cryptoKey">The crypto key to use; overrides <see cref="Config.SyncCryptoKey"/>; overrides <see cref="Config.SyncCryptoKey"/>.</param>
+        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
+        /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
+        protected SyncIntegrationManager CreateSync(SyncServer server, string cryptoKey, bool machineWide)
+        {
+            var resolver = new Resolver(this);
+            return new SyncIntegrationManager(server, cryptoKey, feedID => resolver.FeedManager.GetFeed(feedID), resolver.Handler, machineWide);
+        }
+        #endregion
 
         #region IBackendHandler
         private readonly CancellationToken _cancellationToken = new CancellationToken();

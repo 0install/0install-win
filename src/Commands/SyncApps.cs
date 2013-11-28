@@ -69,7 +69,7 @@ namespace ZeroInstall.Commands
         {
             Handler.ShowProgressUI();
 
-            using (_syncManager = SyncUtils.CreateSync(this, MachineWide))
+            using (_syncManager = new SyncIntegrationManager(Config.ToSyncServer(), Config.SyncCryptoKey, feedID => FeedManager.GetFeed(feedID), Handler, MachineWide))
                 Sync();
 
             return 0;
