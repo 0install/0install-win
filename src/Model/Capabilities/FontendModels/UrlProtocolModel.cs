@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2011 Simon E. Silva Lauinger
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,27 +15,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Globalization;
-using ZeroInstall.Model.Capabilities;
+using Common.Utils;
 
-namespace ZeroInstall.Commands.WinForms.CapabilityModels
+namespace ZeroInstall.Model.Capabilities.FontendModels
 {
     /// <summary>
-    /// Wraps an <see cref="IconCapability"/> for data binding.
+    /// Wraps a <see cref="UrlProtocol"/> for data binding.
     /// </summary>
-    internal class IconCapabilityModel : CapabilityModel
+    public class UrlProtocolModel : IconCapabilityModel
     {
-        private readonly IconCapability _iconCapability;
+        private readonly UrlProtocol _urlProtocol;
 
         /// <summary>
-        /// Returns the description of the <see cref="IconCapability" /> dependend on <see cref="CultureInfo.CurrentUICulture" />.
+        /// All <see cref="UrlProtocol.KnownPrefixes"/> concatenated with ", ". If no <see cref="UrlProtocol.KnownPrefixes"/> is available <see cref="Capability.ID"/> will be returned.
         /// </summary>
-        public string Description { get { return _iconCapability.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture); } }
+        public string KnownPrefixes { get { return _urlProtocol.KnownPrefixes.IsEmpty ? Capability.ID : StringUtils.Join(", ", _urlProtocol.KnownPrefixes.Map(extension => extension.Value)); } }
 
         /// <inheritdoc />
-        protected IconCapabilityModel(IconCapability capability, bool used) : base(capability, used)
+        public UrlProtocolModel(UrlProtocol capability, bool used) : base(capability, used)
         {
-            _iconCapability = capability;
+            _urlProtocol = capability;
         }
     }
 }

@@ -27,9 +27,9 @@ using Common.Collections;
 using Common.Controls;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Commands.WinForms.CapabilityModels;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Capabilities.FontendModels;
 
 namespace ZeroInstall.Commands.WinForms
 {

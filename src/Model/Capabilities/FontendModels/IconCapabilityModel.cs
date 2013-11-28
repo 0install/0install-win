@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2011 Simon E. Silva Lauinger
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,26 +15,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using ZeroInstall.Model.Capabilities;
+using System.Globalization;
 
-namespace ZeroInstall.Commands.WinForms.CapabilityModels
+namespace ZeroInstall.Model.Capabilities.FontendModels
 {
     /// <summary>
-    /// Wraps a <see cref="DefaultProgram"/> for data binding.
+    /// Wraps an <see cref="IconCapability"/> for data binding.
     /// </summary>
-    internal class DefaultProgramModel : IconCapabilityModel
+    public class IconCapabilityModel : CapabilityModel
     {
-        private readonly DefaultProgram _defaultProgram;
+        private readonly IconCapability _iconCapability;
 
         /// <summary>
-        /// Returns <see cref="DefaultProgram.Service"/>.
+        /// Returns the description of the <see cref="IconCapability" /> dependend on <see cref="CultureInfo.CurrentUICulture" />.
         /// </summary>
-        public string Service { get { return _defaultProgram.Service; } }
+        public string Description { get { return _iconCapability.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture); } }
 
         /// <inheritdoc />
-        public DefaultProgramModel(DefaultProgram capability, bool used) : base(capability, used)
+        protected IconCapabilityModel(IconCapability capability, bool used) : base(capability, used)
         {
-            _defaultProgram = capability;
+            _iconCapability = capability;
         }
     }
 }

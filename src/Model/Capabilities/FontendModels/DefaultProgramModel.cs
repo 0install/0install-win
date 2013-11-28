@@ -15,27 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common.Utils;
-using ZeroInstall.Model.Capabilities;
-
-namespace ZeroInstall.Commands.WinForms.CapabilityModels
+namespace ZeroInstall.Model.Capabilities.FontendModels
 {
     /// <summary>
-    /// Wraps a <see cref="UrlProtocol"/> for data binding.
+    /// Wraps a <see cref="DefaultProgram"/> for data binding.
     /// </summary>
-    internal class UrlProtocolModel : IconCapabilityModel
+    public class DefaultProgramModel : IconCapabilityModel
     {
-        private readonly UrlProtocol _urlProtocol;
+        private readonly DefaultProgram _defaultProgram;
 
         /// <summary>
-        /// All <see cref="UrlProtocol.KnownPrefixes"/> concatenated with ", ". If no <see cref="UrlProtocol.KnownPrefixes"/> is available <see cref="Capability.ID"/> will be returned.
+        /// Returns <see cref="DefaultProgram.Service"/>.
         /// </summary>
-        public string KnownPrefixes { get { return _urlProtocol.KnownPrefixes.IsEmpty ? Capability.ID : StringUtils.Join(", ", _urlProtocol.KnownPrefixes.Map(extension => extension.Value)); } }
+        public string Service { get { return _defaultProgram.Service; } }
 
         /// <inheritdoc />
-        public UrlProtocolModel(UrlProtocol capability, bool used) : base(capability, used)
+        public DefaultProgramModel(DefaultProgram capability, bool used) : base(capability, used)
         {
-            _urlProtocol = capability;
+            _defaultProgram = capability;
         }
     }
 }

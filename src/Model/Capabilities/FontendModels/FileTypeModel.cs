@@ -16,14 +16,13 @@
  */
 
 using Common.Utils;
-using ZeroInstall.Model.Capabilities;
 
-namespace ZeroInstall.Commands.WinForms.CapabilityModels
+namespace ZeroInstall.Model.Capabilities.FontendModels
 {
     /// <summary>
     /// Wraps a <see cref="FileType"/> for data binding.
     /// </summary>
-    internal class FileTypeModel : IconCapabilityModel
+    public class FileTypeModel : IconCapabilityModel
     {
         private readonly FileType _fileType;
 

@@ -62,12 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
-    <Compile Include="CapabilityModels\AutoPlayModel.cs" />
-    <Compile Include="CapabilityModels\CapabilityModel.cs" />
-    <Compile Include="CapabilityModels\ContextMenuModel.cs" />
-    <Compile Include="CapabilityModels\DefaultProgramModel.cs" />
-    <Compile Include="CapabilityModels\IconCapabilityModel.cs" />
-    <Compile Include="CapabilityModels\UrlProtocolModel.cs" />
     <Compile Include="ConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,7 +74,6 @@
     <Compile Include="IntegrateAppForm.Designer.cs">
       <DependentUpon>IntegrateAppForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CapabilityModels\FileTypeModel.cs" />
     <Compile Include="InterfaceDialog.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -17,14 +17,13 @@
 
 using System;
 using System.ComponentModel;
-using ZeroInstall.Model.Capabilities;
 
-namespace ZeroInstall.Commands.WinForms.CapabilityModels
+namespace ZeroInstall.Model.Capabilities.FontendModels
 {
     /// <summary>
     /// Wraps a <see cref="DefaultCapability"/> for data binding.
     /// </summary>
-    internal abstract class CapabilityModel
+    public abstract class CapabilityModel
     {
         #region Properties
         /// <summary>

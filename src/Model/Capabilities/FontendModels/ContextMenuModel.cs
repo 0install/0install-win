@@ -15,27 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common.Utils;
-using ZeroInstall.Model.Capabilities;
-
-namespace ZeroInstall.Commands.WinForms.CapabilityModels
+namespace ZeroInstall.Model.Capabilities.FontendModels
 {
     /// <summary>
-    /// Wraps a <see cref="AutoPlay"/> for data binding.
+    /// Wraps a <see cref="ContextMenu"/> for data binding.
     /// </summary>
-    internal class AutoPlayModel : IconCapabilityModel
+    public class ContextMenuModel : CapabilityModel
     {
-        private readonly AutoPlay _autoPlay;
+        private readonly ContextMenu _contextMenu;
 
         /// <summary>
-        /// All <see cref="AutoPlay.Events"/> concatenated with ", ".
+        /// The name of the stored <see cref="ContextMenu.Verb"/>.
         /// </summary>
-        public string Events { get { return StringUtils.Join(", ", _autoPlay.Events.Map(ev => ev.Name)); } }
+        public string Name { get { return _contextMenu.Verb.Name; } }
 
         /// <inheritdoc />
-        public AutoPlayModel(AutoPlay capability, bool used) : base(capability, used)
+        public ContextMenuModel(ContextMenu contextMenu, bool used) : base(contextMenu, used)
         {
-            _autoPlay = capability;
+            _contextMenu = contextMenu;
         }
     }
 }
