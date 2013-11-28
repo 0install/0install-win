@@ -50,8 +50,8 @@ namespace ZeroInstall.Commands
         /// <summary>Indicates the user provided a pre-created <see cref="Selections"/> XML document instead of using the <see cref="ISolver"/>.</summary>
         protected bool SelectionsDocument;
 
-        /// <summary>Indicates the user wants a UI to audit the selections.</summary>
-        protected bool ShowSelectionsUI;
+        /// <summary>Indicates the user wants a UI to modify the <see cref="Selections"/>.</summary>
+        protected bool ShowModifySelections;
 
         /// <summary>Indicates the user wants a machine-readable output.</summary>
         protected bool ShowXml;
@@ -89,7 +89,7 @@ namespace ZeroInstall.Commands
         public Selection(IBackendHandler handler) : base(handler)
         {
             Options.Add("batch", () => Resources.OptionBatch, unused => Handler.Batch = true);
-            Options.Add("g|gui", () => Resources.OptionGui, unused => ShowSelectionsUI = true);
+            Options.Add("g|gui", () => Resources.OptionGui, unused => ShowModifySelections = true);
 
             Options.Add("o|offline", () => Resources.OptionOffline, unused => Config.NetworkUse = NetworkLevel.Offline);
             Options.Add("r|refresh", () => Resources.OptionRefresh, unused => FeedManager.Refresh = true);
@@ -141,7 +141,7 @@ namespace ZeroInstall.Commands
 
             Solve();
             if (StaleFeeds && Config.EffectiveNetworkUse == NetworkLevel.Full) RefreshSolve();
-            SelectionsUI();
+            ShowSelections();
 
             Handler.CancellationToken.ThrowIfCancellationRequested();
             return ShowOutput();
@@ -194,16 +194,12 @@ namespace ZeroInstall.Commands
         }
 
         /// <summary>
-        /// Allows the user to modify <see cref="Selections"/>.
+        /// Displays the <see cref="Selections"/> to the user.
         /// </summary>
-        protected void SelectionsUI()
+        protected void ShowSelections()
         {
             Handler.ShowSelections(Selections, FeedCache);
-
-            // Allow the user to trigger a Solver rerun after modifying preferences
-            if (ShowSelectionsUI && !SelectionsDocument)
-                Handler.AuditSelections(Solve);
-
+            if (ShowModifySelections && !SelectionsDocument) Handler.ModifySelections(Solve);
             Handler.CancellationToken.ThrowIfCancellationRequested();
         }
 

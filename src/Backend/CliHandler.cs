@@ -117,9 +117,9 @@ namespace ZeroInstall.Backend
         }
 
         /// <inheritdoc/>
-        public virtual void AuditSelections(Func<Selections> solveCallback)
+        public virtual void ModifySelections(Func<Selections> solveCallback)
         {
-            throw new NeedGuiException(Resources.NoAuditInCli + (WindowsUtils.IsWindows ? "\n" + Resources.Try0installWin : ""));
+            throw new NeedGuiException(Resources.NoModifySelectionsInCli + (WindowsUtils.IsWindows ? "\n" + Resources.Try0installWin : ""));
         }
         #endregion
 

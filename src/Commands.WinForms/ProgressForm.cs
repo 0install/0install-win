@@ -37,14 +37,14 @@ namespace ZeroInstall.Commands.WinForms
     public partial class ProgressForm : Form
     {
         #region Variables
-        /// <summary>To be called when the user wishes to cancel the current process.</summary>
-        private readonly Action _cancelCallback;
+        /// <summary>Signaled when the user wishes to cancel the current process.</summary>
+        private readonly CancellationToken _cancellationToken;
 
         /// <summary>A short title describing what the command being executed does.</summary>
         private readonly string _actionTitle;
 
-        /// <summary>A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/> after <see cref="BeginAuditSelections"/>.</summary>
-        private EventWaitHandle _auditWaitHandle;
+        /// <summary>A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/> after <see cref="BeginModifySelections"/>.</summary>
+        private EventWaitHandle _modifySelectionsWaitHandle;
 
         /// <summary>Indicates whether <see cref="selectionsControl"/> is intended to be visible or not. Will work even if the form itself is invisible (tray icon mode).</summary>
         private bool _selectionsShown;
@@ -54,15 +54,15 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Creates a new progress tracking form.
         /// </summary>
-        /// <param name="cancelCallback">To be called when the user wishes to cancel the current process.</param>
+        /// <param name="cancellationToken">Signaled when the user wishes to cancel the current process.</param>
         /// <param name="actionTitle">A short title describing what the command being executed does; may be <see langword="null"/>.</param>
-        public ProgressForm(Action cancelCallback, string actionTitle = null)
+        public ProgressForm(CancellationToken cancellationToken, string actionTitle = null)
         {
             #region Sanity checks
-            if (cancelCallback == null) throw new ArgumentNullException("cancelCallback");
+            if (cancellationToken == null) throw new ArgumentNullException("cancellationToken");
             #endregion
 
-            _cancelCallback = cancelCallback;
+            _cancellationToken = cancellationToken;
             _actionTitle = actionTitle ?? Resources.Working;
 
             Shown += delegate { WindowsUtils.SetForegroundWindow(this); };
@@ -75,7 +75,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             InitializeComponent();
             labelWorking.Text = _actionTitle;
-            buttonAuditDone.Text = Resources.Done;
+            buttonModifySelectionsDone.Text = Resources.Done;
             buttonHide.Text = Resources.Hide;
             buttonCancel.Text = Resources.Cancel;
             if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
@@ -116,7 +116,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="waitHandle">A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/>.</param>
         /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public void BeginAuditSelections(Func<Selections> solveCallback, EventWaitHandle waitHandle)
+        public void BeginModifySelections(Func<Selections> solveCallback, EventWaitHandle waitHandle)
         {
             #region Sanity checks
             if (solveCallback == null) throw new ArgumentNullException("solveCallback");
@@ -128,24 +128,24 @@ namespace ZeroInstall.Commands.WinForms
             WindowState = FormWindowState.Normal;
             HideTrayIcon();
 
-            _auditWaitHandle = waitHandle;
+            _modifySelectionsWaitHandle = waitHandle;
 
-            // Show audit UI
-            selectionsControl.BeginAudit(solveCallback);
-            buttonAuditDone.Visible = true;
-            buttonAuditDone.Focus();
+            // Show "modify selections" UI
+            selectionsControl.BeginModifySelections(solveCallback);
+            buttonModifySelectionsDone.Visible = true;
+            buttonModifySelectionsDone.Focus();
         }
 
-        private void buttonAuditDone_Click(object sender, EventArgs e)
+        private void buttonModifySelectionsDone_Click(object sender, EventArgs e)
         {
-            buttonAuditDone.Visible = false;
-            selectionsControl.EndAudit();
+            buttonModifySelectionsDone.Visible = false;
+            selectionsControl.EndModifySelections();
 
-            // Signal the waiting thread auditing is complete
-            if (_auditWaitHandle != null)
+            // Signal the waiting thread modification is complete
+            if (_modifySelectionsWaitHandle != null)
             {
-                _auditWaitHandle.Set();
-                _auditWaitHandle = null;
+                _modifySelectionsWaitHandle.Set();
+                _modifySelectionsWaitHandle = null;
             }
         }
         #endregion
@@ -267,8 +267,10 @@ namespace ZeroInstall.Commands.WinForms
             // Stop tracking selction tasks
             selectionsControl.StopTracking();
 
-            // Note: Must perform cancellation on a separate thread because it might send messages back to the GUI thread (which therefore must not be blocked)
-            ProcessUtils.RunAsync(() => _cancelCallback(), "ProgressForm.Cancel");
+            _cancellationToken.RequestCancellation();
+
+            // Unblock any waiting thread
+            if (_modifySelectionsWaitHandle != null) _modifySelectionsWaitHandle.Set();
         }
         #endregion
     }

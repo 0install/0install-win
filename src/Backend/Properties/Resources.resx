@@ -120,7 +120,7 @@
   <data name="IntegrateAppUseGui" xml:space="preserve">
     <value>Please use the GUI version of Zero Install or specify explicit integration options using command-line arguments.</value>
   </data>
-  <data name="NoAuditInCli" xml:space="preserve">
+  <data name="NoModifySelectionsInCli" xml:space="preserve">
     <value>The graphical policy editor is not available in command-line mode.</value>
   </data>
   <data name="Try0installWin" xml:space="preserve">

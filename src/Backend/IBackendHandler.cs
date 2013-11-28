@@ -60,7 +60,7 @@ namespace ZeroInstall.Backend
         ///   <para>Only call this between <see cref="ShowSelections"/> and <see cref="IHandler.CloseProgressUI"/>.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
         /// </remarks>
-        void AuditSelections(Func<Selections> solveCallback);
+        void ModifySelections(Func<Selections> solveCallback);
 
         /// <summary>
         /// Displays application integration options to the user.

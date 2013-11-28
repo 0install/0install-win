@@ -98,7 +98,7 @@ namespace ZeroInstall.Commands
             Handler.ShowProgressUI();
 
             Solve();
-            SelectionsUI();
+            ShowSelections();
 
             // Make sure the update is actually a newer version
             var currentVersion = new ImplementationVersion(AppInfo.Current.Version);

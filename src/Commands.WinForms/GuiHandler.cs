@@ -26,7 +26,6 @@ using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.WinForms.Properties;
-using ZeroInstall.Commands.WinForms.Store;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
@@ -42,16 +41,6 @@ namespace ZeroInstall.Commands.WinForms
     /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
     public sealed class GuiHandler : MarshalByRefObject, IBackendHandler, IDisposable
     {
-        #region Variables
-        private ProgressForm _form;
-
-        /// <summary>Synchronization object used to prevent multiple concurrent generic <see cref="ITask"/>s.</summary>
-        private readonly object _genericTaskLock = new object();
-
-        /// <summary>A wait handle used by <see cref="AuditSelections"/> to be signaled once the user is satisfied with the <see cref="Selections"/>.</summary>
-        private readonly AutoResetEvent _auditWaitHandle = new AutoResetEvent(false);
-        #endregion
-
         #region Properties
         private readonly CancellationToken _cancellationToken;
 
@@ -106,7 +95,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <inheritdoc/>
         public void Dispose()
         {
-            _auditWaitHandle.Close();
+            _modifySelectionsWaitHandle.Close();
             if (_form != null) _form.Dispose();
         }
         #endregion
@@ -114,6 +103,9 @@ namespace ZeroInstall.Commands.WinForms
         //--------------------//
 
         #region Task tracking
+        /// <summary>Synchronization object used to prevent multiple concurrent generic <see cref="ITask"/>s.</summary>
+        private readonly object _genericTaskLock = new object();
+
         /// <inheritdoc />
         public void RunTask(ITask task, object tag = null)
         {
@@ -140,17 +132,15 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region UI control
+        private ProgressForm _form;
+
         /// <inheritdoc/>
         public void ShowProgressUI()
         {
             // Can only show GUI once
             if (_form != null) return;
 
-            _form = new ProgressForm(delegate
-            { // Cancel callback
-                _cancellationToken.RequestCancellation();
-                _auditWaitHandle.Set();
-            }, _actionTitle);
+            _form = new ProgressForm(_cancellationToken);
 
             // Start GUI thread
             using (var guiReady = new ManualResetEvent(false))
@@ -266,8 +256,11 @@ namespace ZeroInstall.Commands.WinForms
             }
         }
 
+        /// <summary>A wait handle used by <see cref="ModifySelections"/> to be signaled once the user is satisfied with the <see cref="Selections"/>.</summary>
+        private readonly AutoResetEvent _modifySelectionsWaitHandle = new AutoResetEvent(false);
+
         /// <inheritdoc/>
-        public void AuditSelections(Func<Selections> solveCallback)
+        public void ModifySelections(Func<Selections> solveCallback)
         {
             #region Sanity checks
             if (solveCallback == null) throw new ArgumentNullException("solveCallback");
@@ -275,16 +268,17 @@ namespace ZeroInstall.Commands.WinForms
 
             if (_form == null) return;
 
-            // Show selection auditing screen and then asynchronously wait until its done
+            // Show "modify selections" screen and then asynchronously wait until its done
             _form.Invoke(new Action(() =>
             {
                 // Leave tray icon mode
                 _form.Show();
                 Application.DoEvents();
 
-                _form.BeginAuditSelections(solveCallback, _auditWaitHandle);
+                _form.BeginModifySelections(solveCallback, _modifySelectionsWaitHandle);
             }));
-            _auditWaitHandle.WaitOne();
+
+            _modifySelectionsWaitHandle.WaitOne();
         }
         #endregion
 

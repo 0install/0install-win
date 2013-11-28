@@ -76,7 +76,7 @@ namespace ZeroInstall.Commands
 
             Solve();
             if (StaleFeeds || UncachedImplementations.Count != 0) RefreshSolve();
-            SelectionsUI();
+            ShowSelections();
 
             DownloadUncachedImplementations();
 

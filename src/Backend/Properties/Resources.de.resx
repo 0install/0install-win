@@ -120,7 +120,7 @@
   <data name="IntegrateAppUseGui" xml:space="preserve">
     <value>Bitte verwenden Sie die GUI Version von Zero Install oder geben Sie explizite Integrationsoptionen mit Befehlszeilenargumenten an.</value>
   </data>
-  <data name="NoAuditInCli" xml:space="preserve">
+  <data name="NoModifySelectionsInCli" xml:space="preserve">
     <value>Der grafische Policy-Editor ist im Befehlszeilenmodus nicht verfügbar.</value>
   </data>
   <data name="Try0installWin" xml:space="preserve">

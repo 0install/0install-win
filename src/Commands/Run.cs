@@ -104,7 +104,7 @@ namespace ZeroInstall.Commands
 
             Solve();
             if (UncachedImplementations.Count != 0) RefreshSolve();
-            SelectionsUI();
+            ShowSelections();
 
             DownloadUncachedImplementations();
             BackgroundUpdate();

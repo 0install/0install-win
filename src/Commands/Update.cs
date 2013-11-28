@@ -90,7 +90,7 @@ namespace ZeroInstall.Commands
             }
             #endregion
 
-            SelectionsUI();
+            ShowSelections();
 
             DownloadUncachedImplementations();
 

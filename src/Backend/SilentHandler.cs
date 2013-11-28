@@ -78,7 +78,7 @@ namespace ZeroInstall.Backend
         }
 
         /// <inheritdoc/>
-        public void AuditSelections(Func<Selections> solveCallback)
+        public void ModifySelections(Func<Selections> solveCallback)
         {
             // No UI, so nothing to do
         }

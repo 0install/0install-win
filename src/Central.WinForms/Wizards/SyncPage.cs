@@ -144,7 +144,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
             throw new NotImplementedException();
         }
 
-        public void AuditSelections(Func<Selections> solveCallback)
+        public void ModifySelections(Func<Selections> solveCallback)
         {
             throw new NotImplementedException();
         }

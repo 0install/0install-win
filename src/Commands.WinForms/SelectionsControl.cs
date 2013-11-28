@@ -37,7 +37,7 @@ namespace ZeroInstall.Commands.WinForms
     public sealed partial class SelectionsControl : UserControl
     {
         #region Variables
-        /// <summary>The current selections state as set by <see cref="SetSelections"/> or updated during <see cref="BeginAudit"/>.</summary>
+        /// <summary>The selections being visualized.</summary>
         private Selections _selections;
 
         /// <summary>The feed cache used to retrieve feeds for additional information about implementations.</summary>
@@ -46,8 +46,8 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>A list of all <see cref="TrackingControl"/>s used by <see cref="TrackTask"/>. Adressable by associated <see cref="Implementation"/> via <see cref="ManifestDigest"/>.</summary>
         private readonly Dictionary<ManifestDigest, TrackingControl> _trackingControls = new Dictionary<ManifestDigest, TrackingControl>();
 
-        /// <summary>A list of all controls visible only while the user is busy with <see cref="BeginAudit"/>.</summary>
-        private readonly List<Control> _auditLinks = new List<Control>();
+        /// <summary>A list of all controls visible only while the user is busy with <see cref="BeginModifySelections"/>.</summary>
+        private readonly List<Control> _modifyLinks = new List<Control>();
         #endregion
 
         #region Constructor
@@ -112,7 +112,7 @@ namespace ZeroInstall.Commands.WinForms
         ///   <para>This method must not be called from a background thread.</para>
         ///   <para>This method must not be called before <see cref="Control.Handle"/> has been created.</para>
         /// </remarks>
-        public void BeginAudit(Func<Selections> solveCallback)
+        public void BeginModifySelections(Func<Selections> solveCallback)
         {
             #region Sanity checks
             if (solveCallback == null) throw new ArgumentNullException("solveCallback");
@@ -130,7 +130,7 @@ namespace ZeroInstall.Commands.WinForms
                     if (InterfaceDialog.Show(this, interfaceID, solveCallback, _feedCache))
                         ReSolve(solveCallback);
                 };
-                _auditLinks.Add(linkLabel);
+                _modifyLinks.Add(linkLabel);
                 tableLayout.Controls.Add(linkLabel, 2, i);
             }
         }
@@ -150,8 +150,8 @@ namespace ZeroInstall.Commands.WinForms
             {
                 // Update the UI
                 SetSelections(_selections, _feedCache);
-                _auditLinks.Clear();
-                BeginAudit(solveCallback);
+                _modifyLinks.Clear();
+                BeginModifySelections(solveCallback);
 
                 // Restore user interaction
                 Visible = true;
@@ -160,11 +160,11 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Removes the additional UI added by <see cref="BeginAudit"/>.
+        /// Removes the additional UI added by <see cref="BeginModifySelections"/>.
         /// </summary>
-        public void EndAudit()
+        public void EndModifySelections()
         {
-            foreach (var control in _auditLinks)
+            foreach (var control in _modifyLinks)
                 tableLayout.Controls.Remove(control);
         }
         #endregion
