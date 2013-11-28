@@ -21,7 +21,7 @@ using System.IO;
 using Common;
 using Common.Collections;
 using Common.Tasks;
-using ZeroInstall.Commands.WinForms.Store.Nodes;
+using ZeroInstall.Commands.WinForms.StoreManagementNodes;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
@@ -32,7 +32,7 @@ namespace ZeroInstall.Commands.WinForms.Store
     /// <summary>
     /// Builds a list of <see cref="Node"/>s for <see cref="Feed"/>s and <see cref="Implementation"/>s.
     /// </summary>
-    public sealed class StoreNodeListBuilder : ThreadTask
+    public sealed class NodeListBuilder : ThreadTask
     {
         #region Dependencies
         private readonly IStore _store;
@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands.WinForms.Store
         /// <param name="parent">The window using this builder. Used for callbacks.</param>
         /// <param name="store">Used to list <see cref="Implementation"/>s</param>
         /// <param name="feedCache">Used to load <see cref="Feed"/>s.</param>
-        public StoreNodeListBuilder(StoreManageForm parent, IStore store, IFeedCache feedCache)
+        public NodeListBuilder(StoreManageForm parent, IStore store, IFeedCache feedCache)
         {
             #region Sanity checks
             if (parent == null) throw new ArgumentNullException("parent");

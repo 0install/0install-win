@@ -29,11 +29,12 @@ using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Commands.WinForms.Store.Nodes;
+using ZeroInstall.Commands.WinForms.Store;
+using ZeroInstall.Commands.WinForms.StoreManagementNodes;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Commands.WinForms.Store
+namespace ZeroInstall.Commands.WinForms
 {
     /// <summary>
     /// Displays the content of caches (<see cref="IFeedCache"/> and <see cref="IStore"/>) in a combined tree view.
@@ -92,7 +93,7 @@ namespace ZeroInstall.Commands.WinForms.Store
             {
                 _store.Flush();
                 _feedCache.Flush();
-                var listBuilder = new StoreNodeListBuilder(this, _store, _feedCache);
+                var listBuilder = new NodeListBuilder(this, _store, _feedCache);
 
                 TrackingDialog.Run(this, listBuilder);
 

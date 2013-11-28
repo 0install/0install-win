@@ -23,7 +23,7 @@ using Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Commands.WinForms.Store.Nodes
+namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 {
     /// <summary>
     /// Models information about a temporary directory in an <see cref="IStore"/> for display in a GUI.

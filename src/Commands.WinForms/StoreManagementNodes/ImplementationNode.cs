@@ -27,7 +27,7 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Commands.WinForms.Store.Nodes
+namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 {
     /// <summary>
     /// Models information about an implementation in an <see cref="IStore"/> for display in a GUI.

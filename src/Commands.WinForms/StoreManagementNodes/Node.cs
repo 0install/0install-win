@@ -27,7 +27,7 @@ using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Commands.WinForms.Store.Nodes
+namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 {
     /// <summary>
     /// Models information about elements in a cache for display in a GUI.

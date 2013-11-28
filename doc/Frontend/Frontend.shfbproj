@@ -51,7 +51,7 @@
 	  <NamespaceSummaryItem name="ZeroInstall.Commands.Cli" isDocumented="True" xmlns="">A command-line interface for Zero Install, for installing and launching applications, managing caches, etc.</NamespaceSummaryItem>
 	  <NamespaceSummaryItem name="ZeroInstall.Commands.Gtk" isDocumented="True" xmlns="">A GTK#-based GUI for Zero Install, for installing and launching applications, managing caches, etc.</NamespaceSummaryItem>
 	  <NamespaceSummaryItem name="ZeroInstall.Commands.WinForms" isDocumented="True" xmlns="">A WinForms-based GUI for Zero Install, for installing and launching applications, managing caches, etc.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Commands.WinForms.Store.Nodes" isDocumented="True" xmlns="">Tree view nodes for the store management interface.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Commands.WinForms.StoreManagementNodes" isDocumented="True" xmlns="">Tree view nodes for the store management interface.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Launcher.Cli" isDocumented="True" xmlns="">A shortcut for '0install run'.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Management.Cli" isDocumented="True" xmlns="">A shortcut for '0install store manage'.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Service" isDocumented="True" xmlns="">Windows service for managing a Zero Install implementation cache shared between all users</NamespaceSummaryItem>
