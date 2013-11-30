@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -188,25 +189,26 @@ namespace ZeroInstall.Updater
         /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
         public void DeleteFiles()
         {
-            var filesToDelete = new[]
-            {
-                "0store-win.exe", "0store-win.exe.config", Path.Combine("de", "0store-win.resources.dll"),
-                "StoreService.exe", Path.Combine("de", "StoreService.resources.dll")
-            }.Select(name => Path.Combine(Target, name));
+            var filesToDelete = new List<string>();
 
-            var userShortcutsToDelete = new[]
-            {
-                Path.Combine("Zero Install", "Cache management.lnk"),
-                Path.Combine("Zero Install", "Cache Verwaltung.lnk")
-            }.Select(name => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs), name));
+            string userProgams = Environment.GetFolderPath(Environment.SpecialFolder.Programs);
+            string commonPrograms = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Programs", "").ToString();
 
-            var commonShortcutsToDelete = new[]
+            if (NewVersion >= new Version("2.3.6"))
             {
-                Path.Combine("Zero Install", "Cache management.lnk"),
-                Path.Combine("Zero Install", "Cache Verwaltung.lnk")
-            }.Select(name => Path.Combine(Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Programs", "").ToString(), name));
+                var appFiles = new[]
+                {
+                    "0store-win.exe", "0store-win.exe.config", Path.Combine("de", "0store-win.resources.dll"),
+                    "StoreService.exe", Path.Combine("de", "StoreService.resources.dll")
+                };
+                filesToDelete.AddRange(appFiles.Select(x => Path.Combine(Target, x)));
 
-            foreach (string file in filesToDelete.Concat(userShortcutsToDelete).Concat(commonShortcutsToDelete).Where(File.Exists))
+                var shortcuts = new[] {"Cache management.lnk", "Cache Verwaltung.lnk"}.Select(x => Path.Combine("Zero Install", x)).ToArray();
+                filesToDelete.AddRange(shortcuts.Select(x => Path.Combine(userProgams, x)));
+                filesToDelete.AddRange(shortcuts.Select(x => Path.Combine(commonPrograms, x)));
+            }
+
+            foreach (string file in filesToDelete.Where(File.Exists))
                 File.Delete(file);
         }
         #endregion
