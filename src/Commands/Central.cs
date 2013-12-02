@@ -62,10 +62,9 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            ProcessUtils.LaunchAssembly(
+            return ProcessUtils.RunAssembly(
                 /*MonoUtils.IsUnix ? "ZeroInstall-gtk" :*/ "ZeroInstall",
                 _machineWide ? "-m" : null);
-            return 0;
         }
         #endregion
     }
