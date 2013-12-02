@@ -24,12 +24,12 @@ using ZeroInstall.Injector;
 using ZeroInstall.Solvers.Properties;
 using ZeroInstall.Store;
 
-namespace ZeroInstall.Solvers
+namespace ZeroInstall.Solvers.External
 {
     /// <summary>
     /// Helper class for <see cref="ExternalSolver"/> for parsing <see cref="Process.StandardError"/> data.
     /// </summary>
-    internal class ExternalSolverErrorParser
+    internal class ErrorParser
     {
         #region Enumerations
         private enum ErrorMode
@@ -55,7 +55,7 @@ namespace ZeroInstall.Solvers
         /// Creates a new error parser.
         /// </summary>
         /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
-        public ExternalSolverErrorParser(IHandler handler)
+        public ErrorParser(IHandler handler)
         {
             _handler = handler;
         }

@@ -19,33 +19,32 @@ using System.Diagnostics;
 using System.IO;
 using Common.Cli;
 using Common.Storage;
-using Common.Utils;
 using ZeroInstall.Store;
 
-namespace ZeroInstall.Solvers
+namespace ZeroInstall.Solvers.External
 {
     /// <summary>
-    /// Interacts with the external process used by <see cref="ExternalSolver"/> using a bundled Python distribution.
+    /// Interacts with the external process used by <see cref="ExternalSolver"/> using a native Python distribution.
     /// </summary>
-    internal sealed class ExternalSolverControlBundled : BundledCliAppControl, IExternalSolverControl
+    internal sealed class SolverControlNative : CliAppControl, ISolverControl
     {
         private readonly IHandler _handler;
 
-        public ExternalSolverControlBundled(IHandler handler)
+        public SolverControlNative(IHandler handler)
         {
             _handler = handler;
         }
 
         /// <inheritdoc/>
-        protected override string AppBinary { get { return "0solve"; } }
-
-        /// <inheritdoc/>
-        protected override string AppDirName { get { return "Solver"; } }
+        protected override string AppBinary { get { return "python"; } }
 
         /// <inheritdoc/>
         protected override ProcessStartInfo GetStartInfo(string arguments, bool hidden = false)
         {
-            var startInfo = base.GetStartInfo(arguments, hidden);
+            string solverDirectory = BundledCliAppControl.GetBundledDirectory("Solver");
+
+            // Launch solver script using Python
+            var startInfo = base.GetStartInfo(Path.Combine(solverDirectory, "0solve") + " " + arguments, hidden);
 
             // Supress unimportant warnings
             startInfo.EnvironmentVariables["PYTHONWARNINGS"] = "ignore::DeprecationWarning";
@@ -57,17 +56,13 @@ namespace ZeroInstall.Solvers
                 startInfo.EnvironmentVariables["GNUPGHOME"] = Locations.GetSaveConfigPath("GnuPG", false, "gnupg");
             }
 
-            // Add bundled GnuPG to environment variable for the external solver to use on Windows
-            string gpgPath = Path.Combine(GetBundledDirectory("GnuPG"), "gpg.exe");
-            if (WindowsUtils.IsWindows && File.Exists(gpgPath)) startInfo.EnvironmentVariables["ZEROINSTALL_GPG"] = gpgPath;
-
             return startInfo;
         }
 
         /// <inheritdoc/>
         public string ExecuteSolver(string arguments)
         {
-            var errorParser = new ExternalSolverErrorParser(_handler);
+            var errorParser = new ErrorParser(_handler);
             var result = Execute(arguments, null, errorParser.HandleStdErrorLine);
             errorParser.Flush(); // Handle any left-over error messages
             return result;

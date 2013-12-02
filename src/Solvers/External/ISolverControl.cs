@@ -17,12 +17,12 @@
 
 using System.IO;
 
-namespace ZeroInstall.Solvers
+namespace ZeroInstall.Solvers.External
 {
     /// <summary>
     /// Interacts with the external process used by <see cref="ExternalSolver"/>.
     /// </summary>
-    internal interface IExternalSolverControl
+    internal interface ISolverControl
     {
         /// <summary>
         /// Runs the external solver, processes its output and waits until it has terminated.

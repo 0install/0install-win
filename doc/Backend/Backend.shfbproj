@@ -72,6 +72,8 @@
       <NamespaceSummaryItem name="ZeroInstall.Model.Preferences" isDocumented="True">Contains structures for user-specified preferences and overrides for interfaces, feeds and implementations.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Model.Selection" isDocumented="True">Contains structures for representing &lt;see cref="ZeroInstall.Injector.ISolver" /&gt; results. The XML representation is defined here: http://0install.net/selections-spec.html</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Solvers" isDocumented="True">Contains &lt;see cref="ZeroInstall.Injector.ISolver" /&gt; implementations.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Solvers.Backtracking" isDocumented="True">Contains internal helper classes for the &lt;see cref="ZeroInstall.Solvers.BacktrackingSolver" /&gt;.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Solvers.External" isDocumented="True">Contains internal helper classes for the &lt;see cref="ZeroInstall.Solvers.ExternalSolver" /&gt;.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store" isDocumented="True">Manages persisting data in the file system.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Feeds" isDocumented="True">Contains classes for managing the feed cache.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Icons" isDocumented="True">Contains classes for managing the icon cache.</NamespaceSummaryItem>

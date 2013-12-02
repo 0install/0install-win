@@ -23,6 +23,7 @@ using Common.Utils;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
+using ZeroInstall.Solvers.External;
 using ZeroInstall.Solvers.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
@@ -74,9 +75,9 @@ namespace ZeroInstall.Solvers
             #endregion
 
             // Execute the external solver
-            IExternalSolverControl control;
-            if (WindowsUtils.IsWindows) control = new ExternalSolverControlBundled(_handler); // Use bundled Python on Windows
-            else control = new ExternalSolverControlNative(_handler); // Use native Python everywhere else
+            ISolverControl control;
+            if (WindowsUtils.IsWindows) control = new SolverControlBundled(_handler); // Use bundled Python on Windows
+            else control = new SolverControlNative(_handler); // Use native Python everywhere else
             string arguments = GetSolverArguments(requirements);
             string result = control.ExecuteSolver(arguments);
 

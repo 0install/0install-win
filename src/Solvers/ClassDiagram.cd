@@ -1,64 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Model.Requirements" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="0.5" Width="1.75" />
     <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="ZeroInstall.Injector.ImplementationSelection" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="6.5" Y="1.5" Width="2" />
-    <TypeIdentifier />
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="ZeroInstall.Injector.SelectionCandidate" Collapsed="true">
-    <Position X="4.5" Y="0.5" Width="1.75" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="ZeroInstall.Injector.Selections" Collapsed="true">
-    <Position X="6.5" Y="0.5" Width="2" />
-    <TypeIdentifier />
-    <ShowAsCollectionAssociation>
-      <Property Name="Implementations" />
-    </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="ZeroInstall.Injector.SelectionsFormatter" Collapsed="true">
-    <Position X="8.75" Y="1.25" Width="1.75" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="ZeroInstall.Injector.SelectionsManager" Collapsed="true">
-    <Position X="8.75" Y="0.5" Width="1.75" />
-    <TypeIdentifier />
   </Class>
   <Class Name="ZeroInstall.Solvers.ExternalSolver" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="0.75" Y="1.5" Width="1.5" />
+    <Position X="4.25" Y="1.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAIAAAAAAAAgAAAAAEAAAQIAAAAAAAAAAgAAAAAAAA=</HashCode>
       <FileName>ExternalSolver.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="ZeroInstall.Solvers.ExternalSolverControlBundled" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="3" Y="4" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAEAAIAAAAAAAAACEAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
-      <FileName>ExternalSolverControlBundled.cs</FileName>
-    </TypeIdentifier>
     <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="ZeroInstall.Solvers.ExternalSolverControlNative" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="0.5" Y="4" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAIAAAAAAAAACEAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
-      <FileName>ExternalSolverControlNative.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="ZeroInstall.Solvers.ExternalSolverErrorParser" Collapsed="true">
-    <Position X="2" Y="5" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AEAAAAAACIAgAAAQAAEAAAAAAAAAAAAgAAAAAAAIAAA=</HashCode>
-      <FileName>ExternalSolverErrorParser.cs</FileName>
-    </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Solvers.FallbackSolver" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="2.5" Y="1.5" Width="1.5" />
@@ -66,25 +19,25 @@
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAACAAAAAAA=</HashCode>
       <FileName>FallbackSolver.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Solvers.BacktrackingSolver" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="4.25" Y="1.5" Width="1.75" />
+    <Position X="0.5" Y="1.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAIAAAAAAAAAgAAAAEAAAAIAAAAAAAAAAgAAAAAAAA=</HashCode>
       <FileName>BacktrackingSolver.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Solvers.SolverUtils" Collapsed="true">
-    <Position X="1.75" Y="2.25" Width="1.25" />
+    <Position X="0.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAAAAAAAAAAAAAAAAAAEAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAIAAAAAAAAAAAAAQAAA=</HashCode>
       <FileName>SolverUtils.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Solvers.SelectionCandidateComparer" Collapsed="true">
-    <Position X="4.75" Y="2.25" Width="2.25" />
+    <Position X="0.5" Y="4" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAggAAAAAAAAAAAAAAAAAAAABAAAAAgAA=</HashCode>
       <FileName>SelectionCandidateComparer.cs</FileName>
@@ -92,22 +45,72 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Solvers.SolverRun" Collapsed="true">
-    <Position X="3.25" Y="2.25" Width="1.25" />
+    <Position X="0.5" Y="3.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAgIAAAQAAAAggAABAAAABAAAAAEAAAAAgAAAAgAAAA=</HashCode>
+      <HashCode>AAgIAAAQAAAIggACBAAAADAAAAAEAAAAAgAAAAgAAAA=</HashCode>
       <FileName>SolverRun.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="ZeroInstall.Solvers.IExternalSolverControl" Collapsed="true">
-    <Position X="0.5" Y="3" Width="2" />
+  <Class Name="ZeroInstall.Model.Selection.SelectionCandidate" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ZeroInstall.Model.Selection.Selections" Collapsed="true">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <ShowAsCollectionAssociation>
+      <Property Name="Implementations" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Model.Selection.ImplementationSelection" Collapsed="true">
+    <Position X="7.25" Y="0.5" Width="2" />
+    <TypeIdentifier />
+    <ShowAsCollectionAssociation>
+      <Property Name="Candidates" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Solvers.External.ErrorParser" Collapsed="true">
+    <Position X="3.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
-      <FileName>IExternalSolverControl.cs</FileName>
+      <HashCode>AEAAAAAACIAgAAAQAAEAAAAAAAAAAAAgAAAAAAAIAAA=</HashCode>
+      <FileName>External\ErrorParser.cs</FileName>
     </TypeIdentifier>
-  </Interface>
+  </Class>
+  <Class Name="ZeroInstall.Solvers.External.SolverControlBundled" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.5" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAIAAAAAAAAACEAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>External\SolverControlBundled.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ZeroInstall.Solvers.External.SolverControlNative" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.5" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAACEAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>External\SolverControlNative.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ZeroInstall.Solvers.Backtracking.BacktrackingRun" Collapsed="true">
+    <Position X="0.5" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAQAAAAAIAAAAAAACAAAAAAQAAgAAABCAAAACAA=</HashCode>
+      <FileName>Backtracking\BacktrackingRun.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="ZeroInstall.Injector.ISolver" Collapsed="true">
     <Position X="2.5" Y="0.5" Width="1.5" />
     <TypeIdentifier />
+  </Interface>
+  <Interface Name="ZeroInstall.Solvers.External.ISolverControl" Collapsed="true">
+    <Position X="5.25" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>External\ISolverControl.cs</FileName>
+    </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

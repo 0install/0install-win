@@ -53,19 +53,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
+    <Compile Include="BacktrackingSolver.cs" />
+    <Compile Include="Backtracking\BacktrackingRun.cs" />
     <Compile Include="ExternalSolver.cs" />
-    <Compile Include="ExternalSolverControlBundled.cs" />
-    <Compile Include="ExternalSolverControlNative.cs" />
-    <Compile Include="ExternalSolverErrorParser.cs" />
+    <Compile Include="External\ErrorParser.cs" />
+    <Compile Include="External\ISolverControl.cs" />
+    <Compile Include="External\SolverControlBundled.cs" />
+    <Compile Include="External\SolverControlNative.cs" />
     <Compile Include="FallbackSolver.cs" />
-    <Compile Include="IExternalSolverControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="BacktrackingSolver.cs" />
     <Compile Include="SelectionCandidateComparer.cs" />
     <Compile Include="SolverRun.cs" />
     <Compile Include="SolverUtils.cs" />
