@@ -125,6 +125,12 @@ namespace Common.Cli
         /// <exception cref="IOException">Thrown if the progress bar could not be drawn to the <see cref="Console"/> (e.g. if it isn't a TTY).</exception>
         public void Draw()
         {
+            if (WindowsUtils.IsWindows) DrawWindows();
+            else DrawSimple();
+        }
+
+        private void DrawWindows()
+        {
             // Don't draw to console if the stream has been redirected
             if (CliUtils.StandardOutputRedirected || CliUtils.StandardErrorRedirected) return;
 
@@ -142,8 +148,16 @@ namespace Common.Cli
             Console.CursorLeft = Maximum + 1;
             Console.Error.Write(']');
 
-            // Write status
             Console.Error.Write(' ');
+            PrintState();
+
+            // Blanks at the end to overwrite any excess
+            Console.Error.Write(@"          ");
+            Console.CursorLeft -= 10;
+        }
+
+        private void PrintState()
+        {
             switch (State)
             {
                 case TaskState.Header:
@@ -172,10 +186,16 @@ namespace Common.Cli
                     break;
             }
             Console.ResetColor();
+        }
 
-            // Blanks at the end to overwrite any excess
-            Console.Error.Write(@"          ");
-            Console.CursorLeft -= 10;
+        private int _lastValue;
+
+        private void DrawSimple()
+        {
+            for (int i = _lastValue; i < Value; i++)
+                Console.Error.Write('*');
+
+            _lastValue = Value;
         }
         #endregion
 
