@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Common;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
@@ -22,7 +23,7 @@ using ZeroInstall.Model.Selection;
 namespace ZeroInstall.Solvers
 {
     /// <summary>
-    /// Wraps to solvers always passing requests to the first one intially and falling back to second one should the first one fail.
+    /// Wraps two solvers always passing requests to the first one intially and falling back to second one should the first one fail.
     /// </summary>
     /// <remarks>This class is immutable and thread-safe.</remarks>
     public sealed class FallbackSolver : ISolver
@@ -55,8 +56,9 @@ namespace ZeroInstall.Solvers
             {
                 return _firstSolver.Solve(requirements, out staleFeeds);
             }
-            catch (SolverException)
+            catch (SolverException ex)
             {
+				Log.Warn(string.Format("Falling back to secondary solver for {0} because: {1}", requirements, ex.Message));
                 return _secondSolver.Solve(requirements, out staleFeeds);
             }
         }

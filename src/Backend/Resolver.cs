@@ -105,8 +105,9 @@ namespace ZeroInstall.Backend
 
         private ISolver GetSolver()
         {
-            if (Config.ExperimentalSolver) return new BacktrackingSolver(Config, FeedManager, Store, Handler);
-            else return new ExternalSolver(Config, FeedCache, FeedManager, Handler);
+            var externalSovler = new ExternalSolver(Config, FeedCache, FeedManager, Handler);
+            if (Config.ExperimentalSolver) return new FallbackSolver(new BacktrackingSolver(Config, FeedManager, Store, Handler), externalSovler);
+            else return externalSovler;
         }
 
         /// <summary>
