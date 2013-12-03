@@ -165,9 +165,6 @@ Wechsle zu Mirror.</value>
   <data name="MissingBindingName" xml:space="preserve">
     <value>Fehlender Name in {0} Binding.</value>
   </data>
-  <data name="MissingInterfaceID" xml:space="preserve">
-    <value>Es wurde kein Interface angegeben.</value>
-  </data>
   <data name="NoImplementationsPassed" xml:space="preserve">
     <value>Es muss mindestens eine Implementierung übergeben werden.</value>
   </data>
