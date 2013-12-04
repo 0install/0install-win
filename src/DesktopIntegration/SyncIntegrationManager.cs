@@ -199,7 +199,7 @@ namespace ZeroInstall.DesktopIntegration
                             else throw;
 
                         default:
-                            if (ex.InnerException.InnerException is FileNotFoundException) appListData = new byte[0];
+                            if (ex.InnerException != null && ex.InnerException.InnerException is FileNotFoundException) appListData = new byte[0];
                             else throw;
                             break;
                     }
