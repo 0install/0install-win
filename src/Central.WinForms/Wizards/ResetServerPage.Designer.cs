@@ -32,7 +32,6 @@
             this.labelInfo = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
             this.buttonReset = new System.Windows.Forms.Button();
-            this.resetWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // labelInfo
@@ -52,11 +51,6 @@
             this.buttonReset.UseVisualStyleBackColor = true;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
             // 
-            // resetWorker
-            // 
-            this.resetWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.resetWorker_DoWork);
-            this.resetWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.resetWorker_RunWorkerCompleted);
-            // 
             // ResetServerPage
             // 
             this.Controls.Add(this.buttonReset);
@@ -73,6 +67,5 @@
         private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Button buttonReset;
-        private System.ComponentModel.BackgroundWorker resetWorker;
     }
 }

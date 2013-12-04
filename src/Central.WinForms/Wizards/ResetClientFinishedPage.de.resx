@@ -121,9 +121,9 @@
     <value>&amp;Fertig</value>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Die lokale Anwendungsliste wurde zurückgesetzt. Sie können nun Zero Install Sync wieder nutzen.</value>
+    <value>Die lokale Anwendungsliste wird zurückgesetzt. Sie können nun Zero Install weiter nutzen.</value>
   </data>
   <data name="labelTitle.Text" xml:space="preserve">
-    <value>Abgeschlossen</value>
+    <value>Lokale Daten zurücksetzen</value>
   </data>
 </root>

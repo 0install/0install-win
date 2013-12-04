@@ -166,7 +166,7 @@
     <value>1</value>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>The server data has been reset. You can now continue using Zero Install Sync.</value>
+    <value>The server data is being reset. You can now continue using Zero Install.</value>
   </data>
   <data name="&gt;&gt;labelInfo.Name" xml:space="preserve">
     <value>labelInfo</value>
@@ -199,7 +199,7 @@
     <value>0</value>
   </data>
   <data name="labelTitle.Text" xml:space="preserve">
-    <value>Reset complete</value>
+    <value>Reset Sync server</value>
   </data>
   <data name="labelTitle.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -232,7 +232,7 @@
     <value>2</value>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>You may now wish to reset the local data on other computers you are using Zero Install Sync on.</value>
+    <value>You may also wish to reset the local data on other computers you are using Zero Install Sync on.</value>
   </data>
   <data name="&gt;&gt;labelInfo2.Name" xml:space="preserve">
     <value>labelInfo2</value>

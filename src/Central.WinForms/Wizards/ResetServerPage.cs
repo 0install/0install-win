@@ -16,42 +16,27 @@
  */
 
 using System;
-using System.ComponentModel;
-using Common;
-using ZeroInstall.DesktopIntegration;
+using System.Windows.Forms;
+using ZeroInstall.Commands;
 
 namespace ZeroInstall.Central.WinForms.Wizards
 {
-    internal partial class ResetServerPage : SyncPage
+    internal partial class ResetServerPage : UserControl
     {
         public event Action Next;
+        private readonly bool _machineWide;
 
-        public ResetServerPage(bool machineWide) : base(machineWide)
+        public ResetServerPage(bool machineWide)
         {
             InitializeComponent();
+
+            _machineWide = machineWide;
         }
 
         private void buttonReset_Click(object sender, EventArgs e)
         {
-            Parent.Parent.Enabled = buttonReset.Visible = false;
-            ShowProgressUI();
-
-            resetWorker.RunWorkerAsync();
-        }
-
-        private void resetWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            using (var sync = CreateSync(MachineWide))
-                sync.Sync(SyncResetMode.Server);
-        }
-
-        private void resetWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            CloseProgressUI();
-            Parent.Parent.Enabled = buttonReset.Visible = true;
-
-            if (e.Error == null) Next();
-            else if (!(e.Error is OperationCanceledException)) Msg.Inform(this, e.Error.Message, MsgSeverity.Error);
+            Program.RunCommand(_machineWide, SyncApps.Name, "--reset=server");
+            Next();
         }
     }
 }

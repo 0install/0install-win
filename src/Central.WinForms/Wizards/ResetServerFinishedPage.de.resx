@@ -121,12 +121,12 @@
     <value>&amp;Fertig</value>
   </data>
   <data name="labelInfo.Text" xml:space="preserve">
-    <value>Die Serverdaten wurde zurückgesetzt. Sie können nun Zero Install Sync wieder nutzen.</value>
+    <value>Die Serverdaten werden zurückgesetzt. Sie können nun Zero Install weiter nutzen.</value>
   </data>
   <data name="labelTitle.Text" xml:space="preserve">
-    <value>Abgeschlossen</value>
+    <value>Sync Server zurücksetzen</value>
   </data>
   <data name="labelInfo2.Text" xml:space="preserve">
-    <value>Sie sollten nun eventuell die lokalen Daten auf den anderen Rechnern, auf denen Sie Zero Install Sync verwenden, zurücksetzen.</value>
+    <value>Sie sollten die lokalen Daten auf den anderen Rechnern, auf denen Sie Zero Install Sync verwenden, ebenfalls zurücksetzen.</value>
   </data>
 </root>
