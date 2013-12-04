@@ -97,15 +97,11 @@ namespace ZeroInstall.Solvers
         /// </summary>
         public IList<SelectionCandidate> GetSortedCandidates(Requirements requirements)
         {
-            // ReSharper disable once InvokeAsExtensionMethod
-            var candidates = Enumerable.Concat(
-                // Main feed for interface
-                GetCandidates(requirements.InterfaceID, requirements),
-                // User-specified additional feeds
-                GetCandidates(_interfacePreferences[requirements.InterfaceID].Feeds, requirements)).ToList();
+            var mainCandidates = GetCandidates(requirements.InterfaceID, requirements);
+            var additionalCandidates = GetCandidates(_interfacePreferences[requirements.InterfaceID].Feeds, requirements);
 
+            var candidates = mainCandidates.Concat(additionalCandidates).ToList();
             candidates.Sort(_comparer[requirements.InterfaceID]);
-
             return candidates;
         }
 
@@ -115,26 +111,33 @@ namespace ZeroInstall.Solvers
         private IEnumerable<SelectionCandidate> GetCandidates(string feedID, Requirements requirements)
         {
             var feed = _feeds[feedID];
-            var feedPreferences = _feedPreferences[feedID];
 
             // TODO: Add support for PackageImplementations
-            foreach (var implementation in feed.Elements.OfType<Implementation>())
+            var mainCandidates = feed.Elements.OfType<Implementation>().Select(implementation => GetCandidate(feedID, requirements, implementation));
+            var additionalCandidates = GetCandidates(feed.Feeds, requirements);
+            return mainCandidates.Concat(additionalCandidates);
+        }
+
+        /// <summary>
+        /// Gets a <see cref="SelectionCandidate"/> for a specific <see cref="Implementation"/>.
+        /// </summary>
+        private SelectionCandidate GetCandidate(string feedID, Requirements requirements, Implementation implementation)
+        {
+            var feedPreferences = _feedPreferences[feedID];
+
+            // TODO: Check it is a valid implementation (has version number, manifest digest, etc.)
+            var candidate = new SelectionCandidate(feedID, feedPreferences, implementation, requirements);
+            if (candidate.IsSuitable && NotSuitableBecauseOffline(candidate))
             {
-                // TODO: Check it is a valid implementation (has version number, manifest digest, etc.)
-
-                var candidate = new SelectionCandidate(feedID, feedPreferences, implementation, requirements);
-
-                // Exclude non-cached implementations when in offline-mode
-                if (candidate.IsSuitable && _config.EffectiveNetworkUse == NetworkLevel.Offline && !_store.Contains(implementation.ManifestDigest))
-                {
-                    candidate.IsSuitable = false;
-                    candidate.Notes = Resources.SelectionCandidateNoteNotCached;
-                }
-
-                yield return candidate;
+                candidate.IsSuitable = false;
+                candidate.Notes = Resources.SelectionCandidateNoteNotCached;
             }
+            return candidate;
+        }
 
-            foreach (var candidate in GetCandidates(feed.Feeds, requirements)) yield return candidate;
+        private bool NotSuitableBecauseOffline(SelectionCandidate candidate)
+        {
+            return _config.EffectiveNetworkUse == NetworkLevel.Offline && !_store.Contains(candidate.Implementation.ManifestDigest);
         }
 
         /// <summary>

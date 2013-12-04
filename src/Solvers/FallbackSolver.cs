@@ -23,7 +23,7 @@ using ZeroInstall.Model.Selection;
 namespace ZeroInstall.Solvers
 {
     /// <summary>
-    /// Wraps two solvers always passing requests to the first one intially and falling back to second one should the first one fail.
+    /// Wraps two solvers always passing requests to the primary one intially and falling back to secondary one should the primary one fail.
     /// </summary>
     /// <remarks>This class is immutable and thread-safe.</remarks>
     public sealed class FallbackSolver : ISolver
@@ -31,22 +31,22 @@ namespace ZeroInstall.Solvers
         /// <summary>
         /// The solver to run initially.
         /// </summary>
-        private readonly ISolver _firstSolver;
+        private readonly ISolver _primarySolver;
 
         /// <summary>
-        /// The solver to fall back to should <see cref="_firstSolver"/> fail.
+        /// The solver to fall back to should <see cref="_primarySolver"/> fail.
         /// </summary>
-        private readonly ISolver _secondSolver;
+        private readonly ISolver _secondarySolver;
 
         /// <summary>
         /// Creates a new fallback solver.
         /// </summary>
-        /// <param name="firstSolver">The solver to run initially.</param>
-        /// <param name="secondSolver">The solver to fall back to should <paramref name="firstSolver"/> fail.</param>
-        public FallbackSolver(ISolver firstSolver, ISolver secondSolver)
+        /// <param name="primarySolver">The solver to run initially.</param>
+        /// <param name="secondarySolver">The solver to fall back to should <paramref name="primarySolver"/> fail.</param>
+        public FallbackSolver(ISolver primarySolver, ISolver secondarySolver)
         {
-            _firstSolver = firstSolver;
-            _secondSolver = secondSolver;
+            _primarySolver = primarySolver;
+            _secondarySolver = secondarySolver;
         }
 
         /// <inheritdoc/>
@@ -54,12 +54,14 @@ namespace ZeroInstall.Solvers
         {
             try
             {
-                return _firstSolver.Solve(requirements, out staleFeeds);
+                return _primarySolver.Solve(requirements, out staleFeeds);
             }
             catch (SolverException ex)
             {
-				Log.Warn(string.Format("Falling back to secondary solver for {0} because: {1}", requirements, ex.Message));
-                return _secondSolver.Solve(requirements, out staleFeeds);
+                Log.Warn(string.Format("Falling back to secondary solver for {0}. Primary solver failed:", requirements));
+                Log.Warn(ex);
+
+                return _secondarySolver.Solve(requirements, out staleFeeds);
             }
         }
 
@@ -68,11 +70,11 @@ namespace ZeroInstall.Solvers
         {
             try
             {
-                return _firstSolver.Solve(requirements);
+                return _primarySolver.Solve(requirements);
             }
             catch (SolverException)
             {
-                return _secondSolver.Solve(requirements);
+                return _secondarySolver.Solve(requirements);
             }
         }
     }

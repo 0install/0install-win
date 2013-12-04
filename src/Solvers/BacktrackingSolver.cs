@@ -27,7 +27,7 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Solvers
 {
     /// <summary>
-    /// Uses basic backtracking to solve <see cref="Requirements"/>.
+    /// Uses limited backtracking to solve <see cref="Requirements"/>. Does not find all possible solutions!
     /// </summary>
     /// <remarks>This class is immutable and thread-safe.</remarks>
     public sealed class BacktrackingSolver : ISolver

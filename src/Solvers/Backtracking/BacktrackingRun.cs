@@ -93,7 +93,9 @@ namespace ZeroInstall.Solvers.Backtracking
 
         private bool TryToSolveDependencies(IEnumerable<Dependency> dependencies, Requirements requirements)
         {
-            return dependencies.All(dependency => TryToSolve(dependency.ToRequirements(requirements)));
+            // TODO: Sort: with restrictions first, then with sub-dependencies, then rest
+            var dependencyRequirements = dependencies.Select(dependency => dependency.ToRequirements(requirements));
+            return dependencyRequirements.All(TryToSolve);
         }
 
         private bool TryToSolveCommand(Implementation implementation, Requirements requirements)

@@ -101,14 +101,7 @@ namespace ZeroInstall.Backend
         /// <summary>
         /// Chooses a set of <see cref="Model.Implementation"/>s to satisfy the requirements of a program and its user. 
         /// </summary>
-        public ISolver Solver { get { return Get(ref _solver, GetSolver); } set { _solver = value; } }
-
-        private ISolver GetSolver()
-        {
-            var externalSovler = new ExternalSolver(Config, FeedCache, FeedManager, Handler);
-            if (Config.ExperimentalSolver) return new FallbackSolver(new BacktrackingSolver(Config, FeedManager, Store, Handler), externalSovler);
-            else return externalSovler;
-        }
+        public ISolver Solver { get { return Get(ref _solver, () => SolverFactory.CreateDefault(Config, FeedCache, FeedManager, Store, Handler)); } set { _solver = value; } }
 
         /// <summary>
         /// Used to download missing <see cref="Model.Implementation"/>s.
