@@ -38,7 +38,7 @@ namespace Common.Utils
         /// <param name="destination">The destination stream to copy to.</param>
         /// <param name="bufferSize">The size of the buffer to use for copying in bytes.</param>
         /// <remarks>Will try to <see cref="Stream.Seek"/> to the start of <paramref name="source"/>.</remarks>
-        public static void WriteTo(this Stream source, Stream destination, long bufferSize)
+        public static void CopyTo(this Stream source, Stream destination, long bufferSize)
         {
             #region Sanity checks
             if (source == null) throw new ArgumentNullException("source");
@@ -64,14 +64,14 @@ namespace Common.Utils
         /// </summary>
         /// <param name="source">The source stream to copy from.</param>
         /// <param name="destination">The destination stream to copy to.</param>
-        public static void WriteTo(this Stream source, Stream destination)
+        public static void CopyTo(this Stream source, Stream destination)
         {
             #region Sanity checks
             if (source == null) throw new ArgumentNullException("source");
             if (destination == null) throw new ArgumentNullException("destination");
             #endregion
 
-            source.WriteTo(destination, 4096);
+            source.CopyTo(destination, 4096);
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Common.Utils
         public static void WriteTo(this Stream stream, string path)
         {
             using (var fileStream = File.Create(path))
-                stream.WriteTo(fileStream);
+                stream.CopyTo(fileStream);
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace Common.Utils
 
             using (var memoryStream = new MemoryStream())
             {
-                stream.WriteTo(memoryStream);
+                stream.CopyTo(memoryStream);
                 return memoryStream.ToArray();
             }
         }

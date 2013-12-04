@@ -178,12 +178,12 @@ namespace Common
             {
                 case "GET":
                     context.Response.ContentLength64 = FileContent.Length;
-                    FileContent.WriteTo(context.Response.OutputStream);
+                    FileContent.CopyTo(context.Response.OutputStream);
                     break;
 
                 case "PUT":
                     FileContent = new MemoryStream();
-                    context.Request.InputStream.WriteTo(FileContent);
+                    context.Request.InputStream.CopyTo(FileContent);
                     break;
 
                 default:

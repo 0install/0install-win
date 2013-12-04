@@ -51,7 +51,7 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             var file = new FileInfo(Path.Combine(Directory.FullName, reference.RelativePath));
             using (var stream = file.Create())
-                GetResource(reference.RelativePath).WriteTo(stream);
+                GetResource(reference.RelativePath).CopyTo(stream);
 
             if (executable)
             {
