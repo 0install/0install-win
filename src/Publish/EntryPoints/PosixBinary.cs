@@ -18,7 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
-using ELFSharp;
+using ELFSharp.ELF;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.EntryPoints

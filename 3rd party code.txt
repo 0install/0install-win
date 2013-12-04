@@ -98,5 +98,5 @@ Pre-compiled EXE: gpg.exe
 ELFSharp 0.0.9
 http://antmicro.com/projects/elfsharp/
 X11 license: ELFSharp.license.txt
-Source unmodified
+Integrated LinqBridge
 Self-compiled managed DLL: ELFSharp.dll
