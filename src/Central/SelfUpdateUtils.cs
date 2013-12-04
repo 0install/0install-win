@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Net;
 using Common.Info;
 using Common.Storage;
 using Common.Utils;
@@ -25,6 +26,7 @@ using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Central
 {
@@ -52,11 +54,13 @@ namespace ZeroInstall.Central
         /// Checks if updates for Zero Install itself are available.
         /// </summary>
         /// <returns>The version number of the newest available update; <see langword="null"/> if no update is available.</returns>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the operation.</exception>
-        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if an operation failed due to insufficient rights.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a configuration file is damaged.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
+        /// <exception cref="SignatureException">Thrown if the signature data of a remote feed file could not be verified.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a configuration file is damaged.</exception>
         public static ImplementationVersion Check()
         {
             var resolver = new Resolver(new SilentHandler()) {FeedManager = {Refresh = true}};

@@ -17,9 +17,11 @@
 
 using System;
 using System.IO;
+using System.Net;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Store;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Injector
 {
@@ -38,7 +40,10 @@ namespace ZeroInstall.Injector
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="requirements"/> is incomplete.</exception>
-        /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
+        /// <exception cref="SignatureException">Thrown if the signature data of a remote feed file could not be verified.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
         Selections Solve(Requirements requirements, out bool staleFeeds);
 
@@ -50,7 +55,10 @@ namespace ZeroInstall.Injector
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="requirements"/> is incomplete.</exception>
-        /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
+        /// <exception cref="SignatureException">Thrown if the signature data of a remote feed file could not be verified.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
         Selections Solve(Requirements requirements);
     }

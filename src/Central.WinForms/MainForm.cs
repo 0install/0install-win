@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
@@ -36,6 +37,7 @@ using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Icons;
+using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -396,17 +398,24 @@ namespace ZeroInstall.Central.WinForms
                 Log.Warn(Resources.UnableToSelfUpdate);
                 Log.Warn(ex);
             }
+            catch (WebException)
+            {}
             catch (UnauthorizedAccessException ex)
             {
                 Log.Warn(Resources.UnableToSelfUpdate);
                 Log.Warn(ex);
             }
-            catch (InvalidDataException ex)
+            catch (SignatureException ex)
             {
                 Log.Warn(Resources.UnableToSelfUpdate);
                 Log.Warn(ex);
             }
             catch (SolverException ex)
+            {
+                Log.Warn(Resources.UnableToSelfUpdate);
+                Log.Warn(ex);
+            }
+            catch (InvalidDataException ex)
             {
                 Log.Warn(Resources.UnableToSelfUpdate);
                 Log.Warn(ex);
