@@ -20,43 +20,33 @@
  * THE SOFTWARE.
  */
 
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace Common.Collections
 {
     /// <summary>
-    /// Contains test methods for <see cref="AggregateDispatcher{TBase,TResultElement}"/>.
+    /// Contains test methods for <see cref="Bucketizer{T}"/>.
     /// </summary>
     [TestFixture]
-    public class AggregateDispatcherTest
+    public class BucketizerTest
     {
-        private abstract class Base
-        {}
-
-        private class Sub1 : Base
-        {}
-
-        private class Sub2 : Sub1
-        {}
-
         [Test]
-        public void Aggregate()
+        public void TestBucketize()
         {
-            var dispatcher = new AggregateDispatcher<Base, string>
+            var even = new List<int>();
+            var lessThanThree = new List<int>();
+            var rest = new List<int>();
+            new Bucketizer<int>
             {
-                (Sub1 sub1) => new[] {"sub1"},
-                (Sub2 sub2) => new[] {"sub2"}
-            };
+                {x => x % 2 == 0, even},
+                {x => x < 3, lessThanThree},
+                {x => true, rest}
+            }.Bucketize(new[] {1, 2, 3, 4});
 
-            CollectionAssert.AreEqual(new[] {"sub1"}, dispatcher.Dispatch(new Sub1()));
-            CollectionAssert.AreEqual(new[] {"sub1", "sub2"}, dispatcher.Dispatch(new Sub2()));
-        }
-
-        [Test]
-        public void UnknownType()
-        {
-            var dispatcher = new AggregateDispatcher<Base, string>();
-            CollectionAssert.IsEmpty(dispatcher.Dispatch(new Sub1()));
+            CollectionAssert.AreEqual(expected: new[] {2, 4}, actual: even);
+            CollectionAssert.AreEqual(expected: new[] {1}, actual: lessThanThree);
+            CollectionAssert.AreEqual(expected: new[] {3}, actual: rest);
         }
     }
 }

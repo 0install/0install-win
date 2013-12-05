@@ -113,6 +113,8 @@
     <Compile Include="Cli\BundledCliAppControl.cs" />
     <Compile Include="Cli\UnhandledErrorsException.cs" />
     <Compile Include="Collections\AggregateDispatcher.cs" />
+    <Compile Include="Collections\Bucketizer.cs" />
+    <Compile Include="Collections\BucketRule.cs" />
     <Compile Include="Collections\ComparableTuple.cs" />
     <Compile Include="Collections\IMergeable.cs" />
     <Compile Include="Collections\EnumerableUtils.cs" />

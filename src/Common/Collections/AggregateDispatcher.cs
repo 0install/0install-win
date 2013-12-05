@@ -40,16 +40,6 @@ namespace Common.Collections
     {
         private readonly List<Func<TBase, IEnumerable<TResultElement>>> _delegates = new List<Func<TBase, IEnumerable<TResultElement>>>();
 
-        public IEnumerator<Func<TBase, IEnumerable<TResultElement>>> GetEnumerator()
-        {
-            return _delegates.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _delegates.GetEnumerator();
-        }
-
         /// <summary>
         /// Adds a dispatch delegate.
         /// </summary>
@@ -65,7 +55,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Dispatches an element to all delegates matching the type.
+        /// Dispatches an element to all delegates matching the type. Set up with <see cref="Add{TSpecific}"/> first.
         /// </summary>
         /// <param name="element">The element to be dispatched.</param>
         /// <returns>The values returned by all matching delegates aggregated.</returns>
@@ -77,5 +67,17 @@ namespace Common.Collections
 
             return _delegates.Select(del => del(element)).Where(x => x != null).SelectMany(x => x);
         }
+
+        #region IEnumerable
+        public IEnumerator<Func<TBase, IEnumerable<TResultElement>>> GetEnumerator()
+        {
+            return _delegates.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _delegates.GetEnumerator();
+        }
+        #endregion
     }
 }

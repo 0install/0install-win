@@ -51,16 +51,6 @@ namespace Common.Collections
             _ignoreMissing = ignoreMissing;
         }
 
-        public IEnumerator<KeyValuePair<Type, Func<TBase, TResult>>> GetEnumerator()
-        {
-            return _map.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _map.GetEnumerator();
-        }
-
         /// <summary>
         /// Adds a dispatch delegate.
         /// </summary>
@@ -72,7 +62,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Dispatches an element to the delegate matching the type.
+        /// Dispatches an element to the delegate matching the type. Set up with <see cref="Add{TSpecific}"/> first.
         /// </summary>
         /// <param name="element">The element to be dispatched.</param>
         /// <returns>The value returned by the matching delegate.</returns>
@@ -92,5 +82,17 @@ namespace Common.Collections
                 else throw new KeyNotFoundException(string.Format(Resources.MissingDispatchAction, type.Name));
             }
         }
+
+        #region IEnumerable
+        public IEnumerator<KeyValuePair<Type, Func<TBase, TResult>>> GetEnumerator()
+        {
+            return _map.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _map.GetEnumerator();
+        }
+        #endregion
     }
 }

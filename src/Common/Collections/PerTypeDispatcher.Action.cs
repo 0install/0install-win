@@ -50,16 +50,6 @@ namespace Common.Collections
             _ignoreMissing = ignoreMissing;
         }
 
-        public IEnumerator<KeyValuePair<Type, Action<object>>> GetEnumerator()
-        {
-            return _map.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _map.GetEnumerator();
-        }
-
         /// <summary>
         /// Adds a dispatch delegate.
         /// </summary>
@@ -71,7 +61,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Dispatches an element to the delegate matching the type.
+        /// Dispatches an element to the delegate matching the type. Set up with <see cref="Add{TSpecific}"/> first.
         /// </summary>
         /// <param name="element">The element to be dispatched.</param>
         /// <exception cref="KeyNotFoundException">Thrown if no delegate matching the <paramref name="element"/> type was <see cref="Add{TSpecific}"/>ed and <see cref="_ignoreMissing"/> is <see langword="false"/>.</exception>
@@ -88,7 +78,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Calls <see cref="Dispatch(TBase)"/> for every element in a collection.
+        /// Calls <see cref="Dispatch(TBase)"/> for every element in a collection. Set up with <see cref="Add{TSpecific}"/> first.
         /// </summary>
         /// <param name="elements">The elements to be dispatched.</param>
         /// <exception cref="KeyNotFoundException">Thrown if no delegate matching one of the element types was <see cref="Add{TSpecific}"/>ed and <see cref="_ignoreMissing"/> is <see langword="false"/>.</exception>
@@ -101,5 +91,17 @@ namespace Common.Collections
             foreach (var element in elements)
                 Dispatch(element);
         }
+
+        #region IEnumerable
+        public IEnumerator<KeyValuePair<Type, Action<object>>> GetEnumerator()
+        {
+            return _map.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _map.GetEnumerator();
+        }
+        #endregion
     }
 }

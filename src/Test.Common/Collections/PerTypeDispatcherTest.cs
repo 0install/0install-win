@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Common.Collections
 {
     /// <summary>
-    /// Contains test methods for <see cref="PerTypeDispatcherTest"/>.
+    /// Contains test methods for <see cref="PerTypeDispatcher{TBase,TResult}"/>.
     /// </summary>
     [TestFixture]
     public class PerTypeDispatcherTest

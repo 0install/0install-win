@@ -20,43 +20,40 @@
  * THE SOFTWARE.
  */
 
-using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 
 namespace Common.Collections
 {
     /// <summary>
-    /// Contains test methods for <see cref="AggregateDispatcher{TBase,TResultElement}"/>.
+    /// A rule for <see cref="Bucketizer{T}"/>.
     /// </summary>
-    [TestFixture]
-    public class AggregateDispatcherTest
+    public class BucketRule<T>
     {
-        private abstract class Base
-        {}
+        /// <summary>
+        /// A condition to check elements against.
+        /// </summary>
+        public readonly Predicate<T> Predicate;
 
-        private class Sub1 : Base
-        {}
+        /// <summary>
+        /// The collection elements are added to if they match the <see cref="Predicate"/>.
+        /// </summary>
+        public readonly ICollection<T> Bucket;
 
-        private class Sub2 : Sub1
-        {}
-
-        [Test]
-        public void Aggregate()
+        /// <summary>
+        /// Creates a new bucket rule.
+        /// </summary>
+        /// <param name="predicate">A condition to check elements against.</param>
+        /// <param name="bucket">The collection elements are added to if they match the <paramref name="predicate"/>.</param>
+        public BucketRule(Predicate<T> predicate, ICollection<T> bucket)
         {
-            var dispatcher = new AggregateDispatcher<Base, string>
-            {
-                (Sub1 sub1) => new[] {"sub1"},
-                (Sub2 sub2) => new[] {"sub2"}
-            };
+            #region Sanity checks
+            if (predicate == null) throw new ArgumentNullException("predicate");
+            if (bucket == null) throw new ArgumentNullException("bucket");
+            #endregion
 
-            CollectionAssert.AreEqual(new[] {"sub1"}, dispatcher.Dispatch(new Sub1()));
-            CollectionAssert.AreEqual(new[] {"sub1", "sub2"}, dispatcher.Dispatch(new Sub2()));
-        }
-
-        [Test]
-        public void UnknownType()
-        {
-            var dispatcher = new AggregateDispatcher<Base, string>();
-            CollectionAssert.IsEmpty(dispatcher.Dispatch(new Sub1()));
+            Predicate = predicate;
+            Bucket = bucket;
         }
     }
 }

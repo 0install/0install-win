@@ -359,6 +359,7 @@ namespace Common.Collections
         /// </summary>
         /// <param name="list">The list to remove the elements from.</param>
         /// <param name="number">The number of elements to remove.</param>
+        [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists", Justification = "Specifically extends List<T>")]
         public static void RemoveLast<T>(this List<T> list, int number = 1)
         {
             #region Sanity checks
