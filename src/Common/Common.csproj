@@ -66,6 +66,27 @@
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="AppMutex.cs" />
+    <Compile Include="Cli\ArgumentUtils.cs" />
+    <Compile Include="Cli\BundledCliAppControl.cs" />
+    <Compile Include="Cli\CliAppControl.cs" />
+    <Compile Include="Cli\CliUtils.cs" />
+    <Compile Include="Cli\ProgressBar.cs" />
+    <Compile Include="Cli\TrackingProgessBar.cs" />
+    <Compile Include="Cli\UnhandledErrorsException.cs" />
+    <Compile Include="Collections\AggregateDispatcher.cs" />
+    <Compile Include="Collections\Bucketizer.cs" />
+    <Compile Include="Collections\BucketRule.cs" />
+    <Compile Include="Collections\ComparableTuple.cs" />
+    <Compile Include="Collections\CultureComparer.cs" />
+    <Compile Include="Collections\EnumerableUtils.cs" />
+    <Compile Include="Collections\IMergeable.cs" />
+    <Compile Include="Collections\LanguageSet.cs" />
+    <Compile Include="Collections\LocalizableString.cs" />
+    <Compile Include="Collections\LocalizableStringCollection.cs" />
+    <Compile Include="Collections\NamedCollection.cs" />
+    <Compile Include="Collections\PerTypeDispatcher.Action.cs" />
+    <Compile Include="Collections\PerTypeDispatcher.Func.cs" />
+    <Compile Include="Collections\TransparentCache.cs" />
     <Compile Include="Controls\TimeSpanControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -75,137 +96,101 @@
     <Compile Include="Controls\WebClientTimeout.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Log.cs" />
-    <Compile Include="MsgSeverity.cs" />
-    <Compile Include="NamedComparer.cs" />
-    <Compile Include="NeedGuiException.cs" />
-    <Compile Include="NotAdminException.cs" />
-    <Compile Include="MutexLock.cs" />
-    <Compile Include="Properties\ImageResources.Designer.cs">
-      <DependentUpon>ImageResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="PropertyPointer.cs" />
+    <Compile Include="Future.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="INamed.cs" />
     <Compile Include="Info\AppInfo.cs" />
     <Compile Include="Info\ExceptionInfo.cs" />
     <Compile Include="Info\OSInfo.cs" />
-    <Compile Include="TimedLogEvent.cs" />
-    <Compile Include="ToStringWrapper.cs" />
-    <Compile Include="INamed.cs" />
-    <Compile Include="Future.cs" />
-    <Compile Include="Tasks\CancellationToken.cs" />
-    <Compile Include="Tasks\TaskState.cs" />
-    <Compile Include="Tasks\ITask.cs" />
-    <Compile Include="Tasks\SimpleTask.cs" />
-    <Compile Include="Tasks\ForEachTask.cs" />
-    <Compile Include="Tasks\ThreadTask.cs" />
-    <Compile Include="Tasks\ITaskHandler.cs" />
-    <Compile Include="Tasks\SilentTaskHandler.cs" />
-    <Compile Include="Tasks\CliTaskHandler.cs" />
-    <Compile Include="Tasks\WaitTask.cs" />
-    <Compile Include="Tasks\DownloadFile.cs" />
-    <Compile Include="Cli\ArgumentUtils.cs" />
-    <Compile Include="Cli\CliUtils.cs" />
-    <Compile Include="Cli\ProgressBar.cs" />
-    <Compile Include="Cli\TrackingProgessBar.cs" />
-    <Compile Include="Cli\CliAppControl.cs" />
-    <Compile Include="Cli\BundledCliAppControl.cs" />
-    <Compile Include="Cli\UnhandledErrorsException.cs" />
-    <Compile Include="Collections\AggregateDispatcher.cs" />
-    <Compile Include="Collections\Bucketizer.cs" />
-    <Compile Include="Collections\BucketRule.cs" />
-    <Compile Include="Collections\ComparableTuple.cs" />
-    <Compile Include="Collections\IMergeable.cs" />
-    <Compile Include="Collections\EnumerableUtils.cs" />
-    <Compile Include="Collections\CultureComparer.cs" />
-    <Compile Include="Collections\PerTypeDispatcher.Action.cs" />
-    <Compile Include="Collections\PerTypeDispatcher.Func.cs" />
-    <Compile Include="Collections\LanguageSet.cs" />
-    <Compile Include="Collections\NamedCollection.cs" />
-    <Compile Include="Collections\LocalizableStringCollection.cs" />
-    <Compile Include="Collections\LocalizableString.cs" />
-    <Compile Include="Collections\TransparentCache.cs" />
-    <Compile Include="Streams\OffsetStream.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="MsgSeverity.cs" />
+    <Compile Include="MutexLock.cs" />
+    <Compile Include="NamedComparer.cs" />
+    <Compile Include="NeedGuiException.cs" />
+    <Compile Include="NotAdminException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\ImageResources.Designer.cs" />
+    <Compile Include="Properties\Resources.Designer.cs" />
+    <Compile Include="PropertyPointer.cs" />
+    <Compile Include="Storage\AtomicWrite.cs" />
+    <Compile Include="Storage\BinaryStorage.cs" />
+    <Compile Include="Storage\EmbeddedFile.cs" />
+    <Compile Include="Storage\Locations.cs" />
+    <Compile Include="Storage\TemporaryDirectory.cs" />
+    <Compile Include="Storage\TemporaryFile.cs" />
+    <Compile Include="Storage\TemporaryFlagFile.cs" />
+    <Compile Include="Storage\TemporaryWorkingDirectory.cs" />
+    <Compile Include="Storage\XmlNamespaceAttribute.cs" />
+    <Compile Include="Storage\XmlStorage.cs" />
     <Compile Include="Streams\CircularBufferStream.cs" />
     <Compile Include="Streams\DisposeWrapperStream.cs" />
+    <Compile Include="Streams\OffsetStream.cs" />
+    <Compile Include="Tasks\CancellationToken.cs" />
+    <Compile Include="Tasks\CliTaskHandler.cs" />
+    <Compile Include="Tasks\DownloadFile.cs" />
+    <Compile Include="Tasks\ForEachTask.cs" />
+    <Compile Include="Tasks\ITask.cs" />
+    <Compile Include="Tasks\ITaskHandler.cs" />
+    <Compile Include="Tasks\SilentTaskHandler.cs" />
+    <Compile Include="Tasks\SimpleTask.cs" />
+    <Compile Include="Tasks\TaskState.cs" />
+    <Compile Include="Tasks\ThreadTask.cs" />
+    <Compile Include="Tasks\WaitTask.cs" />
+    <Compile Include="TimedLogEvent.cs" />
+    <Compile Include="ToStringWrapper.cs" />
+    <Compile Include="Undo\AddToCollection.cs" />
+    <Compile Include="Undo\CollectionCommand.cs" />
+    <Compile Include="Undo\CommandCollector.cs" />
+    <Compile Include="Undo\CommandManager.cs" />
+    <Compile Include="Undo\CompositeCommand.cs" />
+    <Compile Include="Undo\FirstExecuteCommand.cs" />
+    <Compile Include="Undo\ICommandExecutor.cs" />
+    <Compile Include="Undo\IUndoCommand.cs" />
+    <Compile Include="Undo\IValueCommand.cs" />
+    <Compile Include="Undo\PreExecutedCommand.cs" />
+    <Compile Include="Undo\PreExecutedCompositeCommand.cs" />
+    <Compile Include="Undo\RemoveFromCollection.cs" />
+    <Compile Include="Undo\ReplaceInList.cs" />
+    <Compile Include="Undo\SetInList.cs" />
+    <Compile Include="Undo\SetLocalizableString.cs" />
+    <Compile Include="Undo\SetValueCommand.cs" />
+    <Compile Include="Undo\SimpleCommand.cs" />
+    <Compile Include="Undo\SimpleCommandExecutor.cs" />
     <Compile Include="Utils\AttributeUtils.cs" />
     <Compile Include="Utils\CompilerUtils.cs" />
-    <Compile Include="Utils\ProcessUtils.cs" />
-    <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
+    <Compile Include="Utils\LzmaUtils.cs" />
+    <Compile Include="Utils\MonoUtils.cs" />
+    <Compile Include="Utils\ProcessUtils.cs" />
     <Compile Include="Utils\StreamUtils.cs" />
+    <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Utils\UpdateUtils.cs" />
     <Compile Include="Utils\WindowsUtils.cs" />
     <Compile Include="Utils\WindowsUtils.NativeMethods.cs" />
     <Compile Include="Utils\WindowsUtils.Platform.cs" />
     <Compile Include="Utils\WindowsUtils.Properties.cs" />
     <Compile Include="Utils\WindowsUtils.Taskbar.cs" />
-    <Compile Include="Utils\LzmaUtils.cs" />
-    <Compile Include="Utils\MonoUtils.cs" />
-    <Compile Include="Storage\Locations.cs" />
-    <Compile Include="Storage\BinaryStorage.cs" />
-    <Compile Include="Storage\XmlStorage.cs" />
-    <Compile Include="Storage\XmlNamespaceAttribute.cs" />
-    <Compile Include="Storage\EmbeddedFile.cs" />
-    <Compile Include="Storage\TemporaryFile.cs" />
-    <Compile Include="Storage\TemporaryDirectory.cs" />
-    <Compile Include="Storage\TemporaryFlagFile.cs" />
-    <Compile Include="Storage\TemporaryWorkingDirectory.cs" />
-    <Compile Include="Storage\AtomicWrite.cs" />
-    <Compile Include="Undo\IUndoCommand.cs" />
-    <Compile Include="Undo\IValueCommand.cs" />
-    <Compile Include="Undo\ICommandExecutor.cs" />
-    <Compile Include="Undo\CommandManager.cs" />
-    <Compile Include="Undo\PreExecutedCommand.cs" />
-    <Compile Include="Undo\SimpleCommand.cs" />
-    <Compile Include="Undo\FirstExecuteCommand.cs" />
-    <Compile Include="Undo\SetValueCommand.cs" />
-    <Compile Include="Undo\AddToCollection.cs" />
-    <Compile Include="Undo\CollectionCommand.cs" />
-    <Compile Include="Undo\SetInList.cs" />
-    <Compile Include="Undo\RemoveFromCollection.cs" />
-    <Compile Include="Undo\ReplaceInList.cs" />
-    <Compile Include="Undo\SetLocalizableString.cs" />
-    <Compile Include="Undo\SimpleCommandExecutor.cs" />
-    <Compile Include="Undo\CompositeCommand.cs" />
-    <Compile Include="Undo\PreExecutedCompositeCommand.cs" />
-    <Compile Include="Undo\CommandCollector.cs" />
     <Compile Include="Values\Design\EnumDescriptionConverter.cs" />
+    <Compile Include="Values\Design\EnumXmlConverter.cs" />
     <Compile Include="Values\Design\LanguageSetEditor.cs" />
     <Compile Include="Values\Design\StringConstructorConverter.cs" />
-    <Compile Include="Values\Design\EnumXmlConverter.cs" />
     <Compile Include="Values\Design\StructConverter.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Values\Design\TimeSpanEditor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\ImageResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ImageResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.de.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\ImageResources.resx" />
+    <EmbeddedResource Include="Properties\Resources.de.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\ClearButton.png" />
-    <None Include="Resources\CreateButton.png" />
-    <None Include="Resources\DeleteButton.png" />
-    <None Include="Resources\Error.png" />
-    <None Include="Resources\Info.png" />
+    <Content Include="Resources\CreateButton.png" />
+    <Content Include="Resources\DeleteButton.png" />
+    <Content Include="Resources\Error.png" />
+    <Content Include="Resources\Info.png" />
     <Content Include="Resources\Warning.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Undo\ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

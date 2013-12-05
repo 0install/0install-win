@@ -149,6 +149,7 @@ namespace Common.Controls
 
         private void HandleError(Exception ex)
         {
+#if FS_SECURITY
             if (!MonoUtils.IsUnix && ex is InvalidDataException && ex.Source == "System.Xml" && ex.InnerException != null)
             { // Parse XML exception message for position of the error
                 int lineStart = ex.Message.LastIndexOf('(') + 1;
@@ -166,6 +167,7 @@ namespace Common.Controls
                 SetStatus(ImageResources.Error, ex.Message);
             }
             else
+#endif
             {
                 SetStatus(ImageResources.Error, ex.InnerException == null
                     ? ex.Message

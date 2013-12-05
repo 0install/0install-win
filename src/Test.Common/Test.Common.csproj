@@ -73,6 +73,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppMutexText.cs" />
     <Compile Include="Cli\ArgumentUtilsTest.cs" />
     <Compile Include="Collections\AggregateDispatcherTest.cs" />
     <Compile Include="Collections\BucketizerTest.cs" />
@@ -87,11 +88,15 @@
     <Compile Include="LogTest.cs" />
     <Compile Include="MicroServer.cs" />
     <Compile Include="MoqExtensions.cs" />
+    <Compile Include="Storage\LocationsRedirect.cs" />
+    <Compile Include="Storage\XmlStorageTest.cs" />
+    <Compile Include="Streams\CircularBufferStreamTest.cs" />
+    <Compile Include="Streams\OffsetStreamTest.cs" />
     <Compile Include="Tasks\DownloadFileTest.cs" />
     <Compile Include="Tasks\ForEachTaskTest.cs" />
     <Compile Include="Tasks\MockTask.cs" />
-    <Compile Include="Tasks\WaitTaskTest.cs" />
     <Compile Include="Tasks\SimpleTaskTest.cs" />
+    <Compile Include="Tasks\WaitTaskTest.cs" />
     <Compile Include="TemporayDirectoryTest.cs" />
     <Compile Include="Undo\CollectionTest.cs" />
     <Compile Include="Undo\CommandCollectorTest.cs" />
@@ -99,15 +104,10 @@
     <Compile Include="Undo\PreExecutedCompositeCommandTest.cs" />
     <Compile Include="Undo\ReplaceInListTest.cs" />
     <Compile Include="Undo\SetLocalizableStringTest.cs" />
-    <Compile Include="AppMutexText.cs" />
     <Compile Include="Utils\FileUtilsTest.cs" />
-    <Compile Include="Utils\StringUtilsTest.cs" />
     <Compile Include="Utils\PackageBuilder.cs" />
     <Compile Include="Utils\StreamUtilsTest.cs" />
-    <Compile Include="Streams\OffsetStreamTest.cs" />
-    <Compile Include="Streams\CircularBufferStreamTest.cs" />
-    <Compile Include="Storage\LocationsRedirect.cs" />
-    <Compile Include="Storage\XmlStorageTest.cs" />
+    <Compile Include="Utils\StringUtilsTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
