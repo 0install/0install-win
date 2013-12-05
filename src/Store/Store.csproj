@@ -68,7 +68,7 @@
     <Compile Include="Feeds\IFeedCache.cs" />
     <Compile Include="Feeds\MemoryFeedCache.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="HandlerUtils.cs" />
+    <Compile Include="HandlerExtensions.cs" />
     <Compile Include="Icons\DiskIconCache.cs" />
     <Compile Include="Icons\IconCacheProvider.cs" />
     <Compile Include="Icons\IIconCache.cs" />

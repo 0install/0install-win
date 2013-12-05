@@ -22,7 +22,7 @@ namespace ZeroInstall.Store
     /// <summary>
     /// Contains extension methods for <see cref="IHandler"/>s.
     /// </summary>
-    public static class HandlerUtils
+    public static class HandlerExtensions
     {
         /// <summary>
         /// Calls <see cref="IHandler.Output"/> only when <see cref="IHandler.Batch"/> is <see langword="false"/>.
