@@ -26,6 +26,7 @@ using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
@@ -111,7 +112,7 @@ namespace ZeroInstall.Commands
             }
 
             var appEntry = GetAppEntry(integrationManager, ref interfaceID);
-            var feed = FeedManager.GetFeed(interfaceID);
+            var feed = FeedManager.GetFeedFresh(interfaceID);
 
             // If the user specified no specific integration options show an interactive UI
             if (!_addCategories.Any() && !_removeCategories.Any() && !_importLists.Any())
@@ -174,7 +175,7 @@ namespace ZeroInstall.Commands
             var appEntry = base.GetAppEntry(integrationManager, ref interfaceID);
 
             // Detect feed changes that may make an AppEntry update necessary
-            var feed = FeedManager.GetFeed(interfaceID);
+            var feed = FeedManager.GetFeedFresh(interfaceID);
             if (!appEntry.CapabilityLists.UnsequencedEquals(feed.CapabilityLists))
             {
                 string changedMessage = string.Format(Resources.CapabilitiesChanged, appEntry.Name);

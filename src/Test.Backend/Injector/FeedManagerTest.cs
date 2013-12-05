@@ -54,21 +54,46 @@ namespace ZeroInstall.Injector
 
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                // ReSharper disable AccessToDisposedClosure
+                // ReSharper disable once AccessToDisposedClosure
                 _feedCacheMock.Setup(x => x.GetFeed(tempFile)).Returns(feed).Verifiable();
-                // ReSharper restore AccessToDisposedClosure
 
-                bool stale = false;
-                Assert.AreSame(feed, Target.GetFeed(tempFile, ref stale));
-                Assert.IsFalse(stale);
+                Assert.AreSame(feed, Target.GetFeed(tempFile));
+                Assert.IsFalse(Target.Stale);
             }
         }
 
         [Test]
         public void LocalMissing()
         {
-            bool stale = true;
-            Assert.Throws<FileNotFoundException>(() => Target.GetFeed("invalid-" + Path.GetRandomFileName(), ref stale));
+            Assert.Throws<FileNotFoundException>(() => Target.GetFeed("invalid-" + Path.GetRandomFileName()));
+        }
+
+        [Test]
+        public void Download()
+        {
+            var feed = FeedTest.CreateTestFeed();
+            var feedStream = new MemoryStream();
+            using (var server = new MicroServer("feed.xml", feedStream))
+            {
+                feed.Uri = server.FileUri;
+                feed.SaveXml(feedStream);
+                var data = feedStream.ToArray();
+                feedStream.Position = 0;
+
+                // No previous feed
+                _feedCacheMock.Setup(x => x.Contains(feed.Uri.ToString())).Returns(false).Verifiable();
+                _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>().Verifiable();
+
+                _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
+                _feedCacheMock.Setup(x => x.GetFeed(feed.Uri.ToString())).Returns(feed).Verifiable();
+
+                // ReSharper disable once AccessToDisposedClosure
+                Resolver.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, null, data))
+                    .Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
+
+                ProvideCancellationToken();
+                Assert.AreEqual(feed, Target.GetFeed(feed.Uri.ToString()));
+            }
         }
 
         [Test]
@@ -86,10 +111,9 @@ namespace ZeroInstall.Injector
             _feedCacheMock.Setup(x => x.GetFeed(feed.Uri.ToString())).Returns(feed).Verifiable();
             using (var mirrorServer = new MicroServer("feeds/http/invalid/directory%23feed.xml/latest.xml", new MemoryStream(data)))
             {
-                // ReSharper disable AccessToDisposedClosure
+                // ReSharper disable once AccessToDisposedClosure
                 Resolver.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, mirrorServer.FileUri, data))
                     .Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
-                // ReSharper restore AccessToDisposedClosure
 
                 Config.FeedMirror = mirrorServer.ServerUri;
                 ProvideCancellationToken();
@@ -101,30 +125,49 @@ namespace ZeroInstall.Injector
         public void DetectFreshCached()
         {
             var feed = new Feed();
+            _feedCacheMock.Setup(x => x.Contains("http://test/feed.xml")).Returns(true).Verifiable();
+            _feedCacheMock.Setup(x => x.GetFeed("http://test/feed.xml")).Returns(feed).Verifiable();
+            new FeedPreferences {LastChecked = DateTime.UtcNow}.SaveFor("http://test/feed.xml");
 
-            _feedCacheMock.Setup(x => x.Contains("http://0install.de/feeds/test/test1.xml")).Returns(true).Verifiable();
-            _feedCacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(feed).Verifiable();
-
-            new FeedPreferences {LastChecked = DateTime.UtcNow}.SaveFor("http://0install.de/feeds/test/test1.xml");
-
-            bool stale = true;
-            Assert.AreSame(feed, Target.GetFeed("http://0install.de/feeds/test/test1.xml", ref stale));
-            Assert.IsFalse(stale);
+            Assert.AreSame(feed, Target.GetFeed("http://test/feed.xml"));
+            Assert.IsFalse(Target.Stale);
         }
 
         [Test]
-        public void DetectStatleCached()
+        public void Refresh()
+        {
+            var feed = FeedTest.CreateTestFeed();
+            var feedStream = new MemoryStream();
+            using (var server = new MicroServer("feed.xml", feedStream))
+            {
+                feed.Uri = server.FileUri;
+                feed.SaveXml(feedStream);
+                var data = feedStream.ToArray();
+                feedStream.Position = 0;
+
+                _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
+                _feedCacheMock.Setup(x => x.GetFeed(feed.Uri.ToString())).Returns(feed).Verifiable();
+
+                // ReSharper disable once AccessToDisposedClosure
+                Resolver.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, null, data))
+                    .Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
+
+                ProvideCancellationToken();
+                Target.Refresh = true;
+                Assert.AreEqual(feed, Target.GetFeed(feed.Uri.ToString()));
+            }
+        }
+
+        [Test]
+        public void DetectStaleCached()
         {
             var feed = new Feed();
+            _feedCacheMock.Setup(x => x.Contains("http://test/feed.xml")).Returns(true).Verifiable();
+            _feedCacheMock.Setup(x => x.GetFeed("http://test/feed.xml")).Returns(feed).Verifiable();
+            new FeedPreferences {LastChecked = DateTime.UtcNow - Config.Freshness}.SaveFor("http://test/feed.xml");
 
-            _feedCacheMock.Setup(x => x.Contains("http://0install.de/feeds/test/test1.xml")).Returns(true).Verifiable();
-            _feedCacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(feed).Verifiable();
-
-            new FeedPreferences {LastChecked = DateTime.UtcNow - Config.Freshness}.SaveFor("http://0install.de/feeds/test/test1.xml");
-
-            bool stale = true;
-            Assert.AreSame(feed, Target.GetFeed("http://0install.de/feeds/test/test1.xml", ref stale));
-            Assert.IsTrue(stale);
+            Assert.AreSame(feed, Target.GetFeed("http://test/feed.xml"));
+            Assert.IsTrue(Target.Stale);
         }
 
         [Test(Description = "Ensures valid feeds are correctly imported.")]

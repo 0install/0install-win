@@ -19,6 +19,7 @@ using System;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Injector;
 
 namespace ZeroInstall.Commands
 {
@@ -65,7 +66,7 @@ namespace ZeroInstall.Commands
             Handler.ShowProgressUI();
 
             using (var integrationManager = new IntegrationManager(Handler, MachineWide))
-                integrationManager.Repair(FeedManager.GetFeed);
+                integrationManager.Repair(FeedManager.GetFeedFresh);
 
             return 0;
         }

@@ -120,7 +120,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         private void BackgroundUpdate()
         {
-            if (StaleFeeds && Config.EffectiveNetworkUse == NetworkLevel.Full)
+            if (FeedManager.Stale)
             {
                 ProcessUtils.LaunchAssembly(
                     /*MonoUtils.IsUnix ? "0install-gtk" :*/ "0install-win",

@@ -75,7 +75,7 @@ namespace ZeroInstall.Commands
             Handler.ShowProgressUI();
 
             Solve();
-            if (StaleFeeds || UncachedImplementations.Count != 0) RefreshSolve();
+            if (FeedManager.Stale || UncachedImplementations.Count != 0) RefreshSolve();
             ShowSelections();
 
             DownloadUncachedImplementations();

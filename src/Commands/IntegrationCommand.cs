@@ -97,7 +97,7 @@ namespace ZeroInstall.Commands
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
-            var feed = FeedManager.GetFeed(interfaceID);
+            var feed = FeedManager.GetFeedFresh(interfaceID);
             DetectReplacement(ref interfaceID, ref feed);
             //TryToSolve(interfaceID);
 
@@ -118,7 +118,7 @@ namespace ZeroInstall.Commands
                 string.Format(Resources.FeedReplaced, interfaceID, feed.ReplacedBy.Target)))
             {
                 interfaceID = feed.ReplacedBy.Target.ToString();
-                feed = FeedManager.GetFeed(interfaceID);
+                feed = FeedManager.GetFeedFresh(interfaceID);
             }
         }
 

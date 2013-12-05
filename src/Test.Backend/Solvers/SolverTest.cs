@@ -113,9 +113,8 @@ namespace ZeroInstall.Solvers
             handlerMock.SetupGet(x => x.CancellationToken).Returns(new CancellationToken());
 
             var feedManagerMock = Resolver.GetMock<IFeedManager>();
-            bool temp = false;
             var parsedFeeds = ParseFeeds(feeds);
-            feedManagerMock.Setup(x => x.GetFeed(It.IsAny<string>(), ref temp)).Returns((string feedID, bool temp1) => parsedFeeds[feedID]);
+            feedManagerMock.Setup(x => x.GetFeed(It.IsAny<string>())).Returns((string feedID) => parsedFeeds[feedID]);
 
             Assert.AreEqual(
                 expected: ParseExpectedSelections(expectedSelections, requirements),

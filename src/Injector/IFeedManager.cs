@@ -36,22 +36,13 @@ namespace ZeroInstall.Injector
         bool Refresh { get; set; }
 
         /// <summary>
-        /// Returns a specific <see cref="Feed"/>.
+        /// Is set to <see langword="true"/> if any <see cref="Feed"/> returned by <see cref="GetFeed"/> is getting stale and should be updated by setting <see cref="Refresh"/> to <see langword="true"/>.
         /// </summary>
-        /// <param name="feedID">The canonical ID used to identify the feed.</param>
-        /// <param name="stale">Is set to <see langword="true"/> if the returned feed has passed <see cref="Config.Freshness"/>.</param>
-        /// <returns>The parsed <see cref="Feed"/> object.</returns>
-        /// <remarks><see cref="Feed"/>s are always served from the <see cref="IFeedCache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
-        /// <exception cref="SignatureException">Thrown if the signature data of a remote feed file could not be verified.</exception>
-        Feed GetFeed(string feedID, ref bool stale);
+        /// <remarks><see cref="Config.Freshness"/> controls the time span after which a feed is considered stale. The check is only performed when <see cref="Config.NetworkUse"/> is set to <see cref="NetworkLevel.Full"/>.</remarks>
+        bool Stale { get; set; }
 
         /// <summary>
-        /// Returns a specific <see cref="Feed"/> and automatically tries to update an existing one if it has become stale.
+        /// Returns a specific <see cref="Feed"/>. Automatically handles downloading and caching. Updates the <see cref="Stale"/> indicator.
         /// </summary>
         /// <param name="feedID">The canonical ID used to identify the feed.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>

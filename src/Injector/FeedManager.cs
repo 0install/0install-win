@@ -70,13 +70,16 @@ namespace ZeroInstall.Injector
         #region Properties
         /// <inheritdoc/>
         public bool Refresh { get; set; }
+
+        /// <inheritdoc/>
+        public bool Stale { get; set; }
         #endregion
 
         //--------------------//
 
         #region Get feed
         /// <inheritdoc/>
-        public Feed GetFeed(string feedID, ref bool stale)
+        public Feed GetFeed(string feedID)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
@@ -100,7 +103,7 @@ namespace ZeroInstall.Injector
                     Download(feedUrl);
                 }
 
-                return LoadCached(feedID, out stale);
+                return LoadCached(feedID);
             }
                 #region Error handling
             catch (KeyNotFoundException ex)
@@ -109,34 +112,6 @@ namespace ZeroInstall.Injector
                 throw new IOException(ex.Message, ex);
             }
             #endregion
-        }
-
-        /// <inheritdoc/>
-        public Feed GetFeed(string feedID)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            #endregion
-
-            bool stale = false;
-            var feed = GetFeed(feedID, ref stale);
-
-            // Detect outdated feed
-            if (stale && !Refresh && _config.EffectiveNetworkUse == NetworkLevel.Full)
-            {
-                Refresh = true;
-                try
-                {
-                    feed = GetFeed(feedID, ref stale);
-                }
-                catch (WebException)
-                {
-                    // Ignore missing internet connection and just keep outdated feed for now
-                }
-                Refresh = false;
-            }
-
-            return feed;
         }
         #endregion
 
@@ -174,24 +149,18 @@ namespace ZeroInstall.Injector
         /// Loads a <see cref="Feed"/> from the <see cref="_feedCache"/>.
         /// </summary>
         /// <param name="feedID">The ID used to identify the feed. Must be an HTTP(S) URL.</param>
-        /// <param name="stale">Indicates that the returned <see cref="Feed"/> should be updated.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedID"/> was not found in the cache.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
-        private Feed LoadCached(string feedID, out bool stale)
+        private Feed LoadCached(string feedID)
         {
-            // Detect when feeds get out-of-date
-            // TODO: Cache the last check value somewhere
-            var preferences = FeedPreferences.LoadForSafe(feedID);
-            TimeSpan lastChecked = DateTime.UtcNow - preferences.LastChecked;
-            TimeSpan lastCheckAttempt = DateTime.UtcNow - GetLastCheckAttempt(feedID);
-            stale = (lastChecked > _config.Freshness && lastCheckAttempt > _failedCheckDelay);
-
             try
             {
-                return _feedCache.GetFeed(feedID);
+                var feed = _feedCache.GetFeed(feedID);
+                Stale |= IsStale(feedID);
+                return feed;
             }
                 #region Error handling
             catch (InvalidDataException ex)
@@ -205,6 +174,16 @@ namespace ZeroInstall.Injector
                 throw new IOException(ex.Message, ex);
             }
             #endregion
+        }
+
+        private bool IsStale(string feedID)
+        {
+            if (_config.NetworkUse != NetworkLevel.Full) return false;
+
+            var preferences = FeedPreferences.LoadForSafe(feedID);
+            TimeSpan lastChecked = DateTime.UtcNow - preferences.LastChecked;
+            TimeSpan lastCheckAttempt = DateTime.UtcNow - GetLastCheckAttempt(feedID);
+            return (lastChecked > _config.Freshness && lastCheckAttempt > _failedCheckDelay);
         }
         #endregion
 

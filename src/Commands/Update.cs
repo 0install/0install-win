@@ -106,7 +106,7 @@ namespace ZeroInstall.Commands
         private void OldSolve()
         {
             FeedManager.Refresh = false;
-            _oldSelections = Solver.Solve(Requirements, out StaleFeeds);
+            _oldSelections = Solver.Solve(Requirements);
         }
 
         /// <summary>

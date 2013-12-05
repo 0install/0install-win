@@ -50,30 +50,17 @@ namespace ZeroInstall.Solvers
         }
 
         /// <inheritdoc/>
-        public Selections Solve(Requirements requirements, out bool staleFeeds)
-        {
-            try
-            {
-                return _primarySolver.Solve(requirements, out staleFeeds);
-            }
-            catch (SolverException ex)
-            {
-                Log.Warn(string.Format("Falling back to secondary solver for {0}. Primary solver failed:", requirements));
-                Log.Warn(ex);
-
-                return _secondarySolver.Solve(requirements, out staleFeeds);
-            }
-        }
-
-        /// <inheritdoc/>
         public Selections Solve(Requirements requirements)
         {
             try
             {
                 return _primarySolver.Solve(requirements);
             }
-            catch (SolverException)
+            catch (SolverException ex)
             {
+                Log.Warn(string.Format("Falling back to secondary solver for {0}. Primary solver failed:", requirements));
+                Log.Warn(ex);
+
                 return _secondarySolver.Solve(requirements);
             }
         }

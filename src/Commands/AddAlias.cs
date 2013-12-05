@@ -24,6 +24,7 @@ using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.Injector;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands
@@ -148,7 +149,7 @@ namespace ZeroInstall.Commands
             var alias = new AppAlias {Name = aliasName, Command = command};
             try
             {
-                integrationManager.AddAccessPoints(appEntry, FeedManager.GetFeed(interfaceID), new AccessPoint[] {alias});
+                integrationManager.AddAccessPoints(appEntry, FeedManager.GetFeedFresh(interfaceID), new AccessPoint[] {alias});
             }
                 #region Error handling
             catch (InvalidOperationException ex)

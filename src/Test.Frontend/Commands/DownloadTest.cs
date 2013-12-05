@@ -58,8 +58,7 @@ namespace ZeroInstall.Commands
             };
             CacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(testFeed2);
 
-            bool stale;
-            SolverMock.Setup(x => x.Solve(requirements, out stale)).Returns(selections).Verifiable();
+            SolverMock.Setup(x => x.Solve(requirements)).Returns(selections).Verifiable();
 
             // Download uncached implementations
             StoreMock.Setup(x => x.Contains(It.IsAny<ManifestDigest>())).Returns(false);

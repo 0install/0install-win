@@ -19,6 +19,7 @@ using System;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Injector;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands
@@ -69,7 +70,7 @@ namespace ZeroInstall.Commands
         {
             Handler.ShowProgressUI();
 
-            using (_syncManager = new SyncIntegrationManager(Config.ToSyncServer(), Config.SyncCryptoKey, feedID => FeedManager.GetFeed(feedID), Handler, MachineWide))
+            using (_syncManager = new SyncIntegrationManager(Config.ToSyncServer(), Config.SyncCryptoKey, FeedManager.GetFeedFresh, Handler, MachineWide))
                 Sync();
 
             return 0;

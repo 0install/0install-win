@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using Common.Utils;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Preferences;
 using ZeroInstall.Store;
@@ -92,7 +93,7 @@ namespace ZeroInstall.Commands
             {
                 // Determine interfaces from feed content (<feed-for> tags)
                 feedID = GetCanonicalID(AdditionalArgs[0]);
-                var feed = FeedManager.GetFeed(feedID);
+                var feed = FeedManager.GetFeedFresh(feedID);
                 return feed.FeedFor.Map(reference => reference.Target.ToString());
             }
         }

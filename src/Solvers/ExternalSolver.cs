@@ -67,7 +67,7 @@ namespace ZeroInstall.Solvers
         #endregion
 
         /// <inheritdoc />
-        public Selections Solve(Requirements requirements, out bool staleFeeds)
+        public Selections Solve(Requirements requirements)
         {
             #region Sanity checks
             if (requirements == null) throw new ArgumentNullException("requirements");
@@ -85,7 +85,7 @@ namespace ZeroInstall.Solvers
             _feedCache.Flush();
 
             // Detect when feeds get out-of-date
-            staleFeeds = result.Contains("<!-- STALE_FEEDS -->");
+            _feedManager.Stale = result.Contains("<!-- STALE_FEEDS -->");
 
             // Parse StandardOutput data as XML
             _handler.CancellationToken.ThrowIfCancellationRequested();
@@ -102,13 +102,6 @@ namespace ZeroInstall.Solvers
                 throw new SolverException(Resources.ExternalSolverOutputErrror, ex);
             }
             #endregion
-        }
-
-        /// <inheritdoc/>
-        public Selections Solve(Requirements requirements)
-        {
-            bool temp;
-            return Solve(requirements, out temp);
         }
 
         /// <summary>

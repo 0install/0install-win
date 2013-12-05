@@ -23,6 +23,7 @@ using ZeroInstall.Backend;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Store;
@@ -58,7 +59,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
         protected SyncIntegrationManager CreateSync(bool machineWide)
         {
             var resolver = new Resolver(this);
-            return new SyncIntegrationManager(resolver.Config.ToSyncServer(), resolver.Config.SyncCryptoKey, feedID => resolver.FeedManager.GetFeed(feedID), resolver.Handler, machineWide);
+            return new SyncIntegrationManager(resolver.Config.ToSyncServer(), resolver.Config.SyncCryptoKey, resolver.FeedManager.GetFeedFresh, resolver.Handler, machineWide);
         }
 
         /// <summary>
@@ -70,7 +71,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
         protected SyncIntegrationManager CreateSync(string cryptoKey, bool machineWide)
         {
             var resolver = new Resolver(this);
-            return new SyncIntegrationManager(resolver.Config.ToSyncServer(), cryptoKey, feedID => resolver.FeedManager.GetFeed(feedID), resolver.Handler, machineWide);
+            return new SyncIntegrationManager(resolver.Config.ToSyncServer(), cryptoKey, resolver.FeedManager.GetFeedFresh, resolver.Handler, machineWide);
         }
 
         /// <summary>
@@ -83,7 +84,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
         protected SyncIntegrationManager CreateSync(SyncServer server, string cryptoKey, bool machineWide)
         {
             var resolver = new Resolver(this);
-            return new SyncIntegrationManager(server, cryptoKey, feedID => resolver.FeedManager.GetFeed(feedID), resolver.Handler, machineWide);
+            return new SyncIntegrationManager(server, cryptoKey, resolver.FeedManager.GetFeedFresh, resolver.Handler, machineWide);
         }
         #endregion
 

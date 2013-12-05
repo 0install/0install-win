@@ -55,9 +55,6 @@ namespace ZeroInstall.Commands
 
         /// <summary>Indicates the user wants a machine-readable output.</summary>
         protected bool ShowXml;
-
-        /// <summary>Indicates that one or more of the <see cref="Model.Feed"/>s used by the <see cref="ISolver"/> should be updated.</summary>
-        protected bool StaleFeeds;
         #endregion
 
         #region Properties
@@ -140,7 +137,7 @@ namespace ZeroInstall.Commands
             Handler.ShowProgressUI();
 
             Solve();
-            if (StaleFeeds && Config.EffectiveNetworkUse == NetworkLevel.Full) RefreshSolve();
+            if (FeedManager.Stale) RefreshSolve();
             ShowSelections();
 
             Handler.CancellationToken.ThrowIfCancellationRequested();
@@ -150,7 +147,7 @@ namespace ZeroInstall.Commands
 
         #region Helpers
         /// <summary>
-        /// Runs <see cref="ISolver.Solve(ZeroInstall.Model.Requirements,out bool)"/> (unless <see cref="SelectionsDocument"/> is <see langword="true"/>) and stores the result in <see cref="Selections"/>.
+        /// Runs <see cref="ISolver.Solve"/> (unless <see cref="SelectionsDocument"/> is <see langword="true"/>) and stores the result in <see cref="Selections"/>.
         /// </summary>
         /// <returns>The same result as stored in <see cref="Selections"/>.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
@@ -166,7 +163,7 @@ namespace ZeroInstall.Commands
 
             try
             {
-                Selections = Solver.Solve(Requirements, out StaleFeeds);
+                Selections = Solver.Solve(Requirements);
             }
                 #region Error handling
             catch

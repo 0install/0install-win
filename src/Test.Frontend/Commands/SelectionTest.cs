@@ -46,8 +46,7 @@ namespace ZeroInstall.Commands
             var requirements = RequirementsTest.CreateTestRequirements();
             var selections = SelectionsManagerTest.CreateTestSelections();
 
-            bool stale;
-            SolverMock.Setup(x => x.Solve(requirements, out stale)).Returns(selections).Verifiable();
+            SolverMock.Setup(x => x.Solve(requirements)).Returns(selections).Verifiable();
             RunAndAssert(selections.ToXmlString(), 0, selections,
                 "--xml", "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0");
         }

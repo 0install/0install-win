@@ -173,14 +173,14 @@ namespace ZeroInstall.Central
         }
 
         /// <summary>
-        /// Calls <see cref="IFeedManager.GetFeed(string)"/>.
+        /// Calls <see cref="IFeedManager.GetFeed"/>.
         /// </summary>
         /// <returns>The loaded <see cref="Feed"/>; <see langword="null"/> on error.</returns>
         public Feed LoadFeedSafe(string feedID)
         {
             try
             {
-                return _feedManager.GetFeed(feedID);
+                return _feedManager.GetFeedFresh(feedID);
             }
                 #region Error handling
             catch (OperationCanceledException)

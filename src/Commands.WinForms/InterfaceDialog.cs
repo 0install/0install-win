@@ -188,7 +188,7 @@ namespace ZeroInstall.Commands.WinForms
             Feed feed;
             try
             {
-                feed = resolver.FeedManager.GetFeed(feedID);
+                feed = resolver.FeedManager.GetFeedFresh(feedID);
             }
                 #region Error handling
             catch (OperationCanceledException)

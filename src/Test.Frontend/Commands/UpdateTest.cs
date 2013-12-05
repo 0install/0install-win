@@ -49,8 +49,7 @@ namespace ZeroInstall.Commands
 
             Command.FeedManager.Refresh = true;
 
-            bool stale;
-            SolverMock.SetupSequence(x => x.Solve(requirements, out stale)).Returns(selectionsOld).Returns(selectionsNew);
+            SolverMock.SetupSequence(x => x.Solve(requirements)).Returns(selectionsOld).Returns(selectionsNew);
 
             var impl1 = new Implementation {ID = "id1"};
             var impl2 = new Implementation {ID = "id2"};

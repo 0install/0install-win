@@ -62,7 +62,7 @@ namespace ZeroInstall.Solvers
         #endregion
 
         /// <inheritdoc/>
-        public Selections Solve(Requirements requirements, out bool staleFeeds)
+        public Selections Solve(Requirements requirements)
         {
             #region Sanity checks
             if (requirements == null) throw new ArgumentNullException("requirements");
@@ -74,20 +74,11 @@ namespace ZeroInstall.Solvers
             var run = new BacktrackingRun(_config, _feedManager, _store, _handler);
             if (run.TryToSolve(requirements))
             {
-                staleFeeds = run.StaleFeeds;
-
                 run.Selections.InterfaceID = requirements.InterfaceID;
                 run.Selections.Command = requirements.Command;
                 return run.Selections;
             }
             else throw new SolverException("No solution found");
-        }
-
-        /// <inheritdoc/>
-        public Selections Solve(Requirements requirements)
-        {
-            bool temp;
-            return Solve(requirements, out temp);
         }
     }
 }

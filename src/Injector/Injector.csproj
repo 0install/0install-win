@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="Executor.cs" />
     <Compile Include="FeedManager.cs" />
+    <Compile Include="FeedManagerExtensions.cs" />
     <Compile Include="IFeedManager.cs" />
     <Compile Include="IFetcher.cs" />
     <Compile Include="ISolver.cs" />

@@ -30,7 +30,7 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Solvers
 {
     /// <summary>
-    /// Shared logic for keeping state during a single <see cref="ISolver.Solve(ZeroInstall.Model.Requirements,out bool)"/> run.
+    /// Shared logic for keeping state during a single <see cref="ISolver.Solve"/> run.
     /// </summary>
     internal abstract class SolverRun
     {
@@ -63,7 +63,7 @@ namespace ZeroInstall.Solvers
             Handler = handler;
 
             _comparer = new TransparentCache<string, SelectionCandidateComparer>(id => new SelectionCandidateComparer(config, _interfacePreferences[id].StabilityPolicy, store));
-            _feeds = new TransparentCache<string, Feed>(s => feedManager.GetFeed(s, ref _staleFeeds));
+            _feeds = new TransparentCache<string, Feed>(feedManager.GetFeed);
         }
         #endregion
 
@@ -82,10 +82,6 @@ namespace ZeroInstall.Solvers
         #endregion
 
         #region Properties
-        private bool _staleFeeds;
-
-        public bool StaleFeeds { get { return _staleFeeds; } }
-
         private readonly Selections _selections = new Selections();
 
         public Selections Selections { get { return _selections; } }
