@@ -43,13 +43,13 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A temporary directory containing the extracted content.</returns>
-        public static TemporaryDirectory DownloadAndApply(RetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor)
+        public static TemporaryDirectory DownloadAndApply(this RetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor)
         {
             var download = retrievalMethod as DownloadRetrievalMethod;
-            if (download != null) return DownloadAndApply(download, handler, executor);
+            if (download != null) return download.DownloadAndApply(handler, executor);
 
             var recipe = retrievalMethod as Recipe;
-            if (recipe != null) return DownloadAndApply(recipe, handler, executor);
+            if (recipe != null) return recipe.DownloadAndApply(handler, executor);
 
             throw new NotSupportedException(Resources.UnknownRetrievalMethodType);
         }
@@ -61,14 +61,14 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A temporary directory containing the extracted content.</returns>
-        public static TemporaryDirectory DownloadAndApply(DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor)
+        public static TemporaryDirectory DownloadAndApply(this DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            using (var downloadedFile = Download(retrievalMethod, handler, executor))
+            using (var downloadedFile = retrievalMethod.Download(handler, executor))
             {
                 var extractionDir = new TemporaryDirectory("0publish");
                 try
@@ -76,8 +76,8 @@ namespace ZeroInstall.Publish
                     new PerTypeDispatcher<DownloadRetrievalMethod>(true)
                     {
                         // ReSharper disable AccessToDisposedClosure
-                        (Archive archive) => RecipeUtils.ApplyArchive(archive, downloadedFile, extractionDir, handler),
-                        (SingleFile file) => RecipeUtils.ApplySingleFile(file, downloadedFile, extractionDir, handler)
+                        (Archive archive) => archive.Apply(downloadedFile, extractionDir, handler),
+                        (SingleFile file) => file.Apply(downloadedFile, extractionDir, handler)
                         // ReSharper restore AccessToDisposedClosure
                     }.Dispatch(retrievalMethod);
                 }
@@ -100,7 +100,7 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A temporary directory containing the result of the recipe.</returns>
-        public static TemporaryDirectory DownloadAndApply(Recipe recipe, ITaskHandler handler, ICommandExecutor executor)
+        public static TemporaryDirectory DownloadAndApply(this Recipe recipe, ITaskHandler handler, ICommandExecutor executor)
         {
             #region Sanity checks
             if (recipe == null) throw new ArgumentNullException("recipe");
@@ -112,11 +112,11 @@ namespace ZeroInstall.Publish
             {
                 // ReSharper disable LoopCanBeConvertedToQuery
                 foreach (var step in recipe.Steps.OfType<DownloadRetrievalMethod>())
-                    downloadedFiles.Add(Download(step, handler, executor));
+                    downloadedFiles.Add(step.Download(handler, executor));
                 // ReSharper restore LoopCanBeConvertedToQuery
 
                 // Apply the recipe
-                return RecipeUtils.ApplyRecipe(recipe, downloadedFiles, handler);
+                return recipe.Apply(downloadedFiles, handler);
             }
             finally
             {
@@ -132,7 +132,7 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A downloaded file.</returns>
-        public static TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor)
+        public static TemporaryFile Download(this DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
@@ -187,7 +187,7 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A temporary directory containing the extracted content.</returns>
-        public static TemporaryDirectory LocalApply(DownloadRetrievalMethod retrievalMethod, string localPath, ITaskHandler handler, ICommandExecutor executor)
+        public static TemporaryDirectory LocalApply(this DownloadRetrievalMethod retrievalMethod, string localPath, ITaskHandler handler, ICommandExecutor executor)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
@@ -216,7 +216,7 @@ namespace ZeroInstall.Publish
                             executor.Execute(new SetValueCommand<string>(() => archive.MimeType, value => archive.MimeType = value, mimeType));
                         }
 
-                        RecipeUtils.ApplyArchive(archive, localPath, extractionDir, handler);
+                        archive.Apply(localPath, extractionDir, handler);
                     },
                     (SingleFile file) =>
                     {
@@ -227,7 +227,7 @@ namespace ZeroInstall.Publish
                             executor.Execute(new SetValueCommand<string>(() => file.Destination, value => file.Destination = value, destination));
                         }
 
-                        RecipeUtils.ApplySingleFile(file, localPath, extractionDir, handler);
+                        file.Apply(localPath, extractionDir, handler);
                     }
                     // ReSharper restore AccessToDisposedClosure
                 }.Dispatch(retrievalMethod);

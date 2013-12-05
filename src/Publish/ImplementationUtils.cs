@@ -17,7 +17,6 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using Common;
 using Common.Tasks;
@@ -54,7 +53,7 @@ namespace ZeroInstall.Publish
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var implementationDir = RetrievalMethodUtils.DownloadAndApply(retrievalMethod, handler, new SimpleCommandExecutor());
+            var implementationDir = retrievalMethod.DownloadAndApply(handler, new SimpleCommandExecutor());
             try
             {
                 var digest = GenerateDigest(implementationDir, handler, store);
@@ -75,7 +74,7 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <param name="store"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
-        public static void AddMissing(Implementation implementation, ITaskHandler handler, ICommandExecutor executor, bool store = false)
+        public static void AddMissing(this Implementation implementation, ITaskHandler handler, ICommandExecutor executor, bool store = false)
         {
             #region Sanity checks
             if (implementation == null) throw new ArgumentNullException("implementation");
@@ -84,14 +83,28 @@ namespace ZeroInstall.Publish
 
             ConvertSha256ToSha256New(implementation, executor);
 
-            foreach (var retrievalMethod in implementation.RetrievalMethods
-                .Where(retrievalMethod => implementation.ManifestDigest == default(ManifestDigest) || IsDownloadSizeMissing(retrievalMethod)))
+            // ReSharper disable once LoopCanBePartlyConvertedToQuery
+            foreach (var retrievalMethod in implementation.RetrievalMethods)
             {
-                using (var tempDir = RetrievalMethodUtils.DownloadAndApply(retrievalMethod, handler, executor))
-                    UpdateDigest(implementation, tempDir, handler, executor, store);
+                if (implementation.IsManifestDigestMissing() || retrievalMethod.IsDownloadSizeMissing())
+                {
+                    using (var tempDir = retrievalMethod.DownloadAndApply(handler, executor))
+                        UpdateDigest(implementation, tempDir, handler, executor, store);
+                }
             }
 
             if (string.IsNullOrEmpty(implementation.ID)) implementation.ID = "sha1new=" + implementation.ManifestDigest.Sha1New;
+        }
+
+        private static bool IsManifestDigestMissing(this Implementation implementation)
+        {
+            return implementation.ManifestDigest == default(ManifestDigest);
+        }
+
+        private static bool IsDownloadSizeMissing(this RetrievalMethod retrievalMethod)
+        {
+            var downloadRetrievalMethod = retrievalMethod as DownloadRetrievalMethod;
+            return downloadRetrievalMethod != null && downloadRetrievalMethod.Size == 0;
         }
 
         private static void ConvertSha256ToSha256New(Implementation implementation, ICommandExecutor executor)
@@ -105,12 +118,6 @@ namespace ZeroInstall.Publish
                 implementation.ManifestDigest.Sha256.Base16Decode().Base32Encode());
 
             executor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, digest));
-        }
-
-        private static bool IsDownloadSizeMissing(RetrievalMethod retrievalMethod)
-        {
-            var downloadRetrievalMethod = retrievalMethod as DownloadRetrievalMethod;
-            return downloadRetrievalMethod != null && downloadRetrievalMethod.Size == 0;
         }
         #endregion
 

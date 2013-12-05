@@ -339,7 +339,7 @@ namespace ZeroInstall.Publish.Cli
         {
             new PerTypeDispatcher<Element>(true)
             {
-                (Implementation implementation) => ImplementationUtils.AddMissing(implementation, _handler, executor, _storeDownloads),
+                (Implementation implementation) => implementation.AddMissing(_handler, executor, _storeDownloads),
                 (Group group) => AddMissing(group.Elements, executor) // recursion
             }.Dispatch(elements);
         }

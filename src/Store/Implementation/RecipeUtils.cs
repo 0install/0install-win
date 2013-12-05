@@ -44,7 +44,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; may be <see langword="null"/>.</param>
         /// <returns>A <see cref="TemporaryDirectory"/> with the resulting directory content.</returns>
         /// <exception cref="NotSupportedException">Thrown if <paramref name="recipe"/> contains unknown step types.</exception>
-        public static TemporaryDirectory ApplyRecipe(Recipe recipe, IEnumerable<TemporaryFile> downloadedFiles, ITaskHandler handler, object tag = null)
+        public static TemporaryDirectory Apply(this Recipe recipe, IEnumerable<TemporaryFile> downloadedFiles, ITaskHandler handler, object tag = null)
         {
             #region Sanity checks
             if (recipe == null) throw new ArgumentNullException("recipe");
@@ -66,15 +66,15 @@ namespace ZeroInstall.Store.Implementation
                     (Model.Archive step) =>
                     {
                         downloadedEnum.MoveNext();
-                        ApplyArchive(step, downloadedEnum.Current, workingDir, handler, tag);
+                        step.Apply(downloadedEnum.Current, workingDir, handler, tag);
                     },
                     (SingleFile step) =>
                     {
                         downloadedEnum.MoveNext();
-                        ApplySingleFile(step, downloadedEnum.Current, workingDir, handler, tag);
+                        step.Apply(downloadedEnum.Current, workingDir, handler, tag);
                     },
-                    (RemoveStep step) => ApplyRemove(step, workingDir),
-                    (RenameStep step) => ApplyRename(step, workingDir)
+                    (RemoveStep step) => step.Apply(workingDir),
+                    (RenameStep step) => step.Apply(workingDir)
                 }.Dispatch(recipe.Steps);
                 // ReSharper restore AccessToDisposedClosure
                 return workingDir;
@@ -97,7 +97,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; may be <see langword="null"/>.</param>
         /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
-        public static void ApplyArchive(Model.Archive step, string localPath, TemporaryDirectory workingDir, ITaskHandler handler, object tag = null)
+        public static void Apply(this Model.Archive step, string localPath, TemporaryDirectory workingDir, ITaskHandler handler, object tag = null)
         {
             #region Sanity checks
             if (step == null) throw new ArgumentNullException("step");
@@ -134,7 +134,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; may be <see langword="null"/>.</param>
         /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
-        public static void ApplySingleFile(SingleFile step, string localPath, TemporaryDirectory workingDir, ITaskHandler handler, object tag = null)
+        public static void Apply(this SingleFile step, string localPath, TemporaryDirectory workingDir, ITaskHandler handler, object tag = null)
         {
             #region Sanity checks
             if (step == null) throw new ArgumentNullException("step");
@@ -148,7 +148,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 // ReSharper disable once AccessToDisposedClosure
                 handler.RunTask(new SimpleTask(Resources.CopyFiles, () => File.Copy(localPath, tempFile, overwrite: true)));
-                ApplySingleFile(step, tempFile, workingDir, handler, tag);
+                step.Apply(tempFile, workingDir, handler, tag);
             }
         }
 
@@ -162,7 +162,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; may be <see langword="null"/>.</param>
         /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
         [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "tag", Justification = "Number of method parameters must match overloaded method to ensure proper type-based compiler selection.")]
-        public static void ApplySingleFile(SingleFile step, TemporaryFile downloadedFile, TemporaryDirectory workingDir, ITaskHandler handler, object tag = null)
+        public static void Apply(this SingleFile step, TemporaryFile downloadedFile, TemporaryDirectory workingDir, ITaskHandler handler, object tag = null)
         {
             #region Sanity checks
             if (step == null) throw new ArgumentNullException("step");
@@ -195,7 +195,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="step">The <see cref="Model.Archive"/> to apply.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
         /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
-        public static void ApplyRemove(RemoveStep step, TemporaryDirectory workingDir)
+        public static void Apply(this RemoveStep step, TemporaryDirectory workingDir)
         {
             #region Sanity checks
             if (step == null) throw new ArgumentNullException("step");
@@ -224,7 +224,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="step">The <see cref="Model.Archive"/> to apply.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
         /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
-        public static void ApplyRename(RenameStep step, TemporaryDirectory workingDir)
+        public static void Apply(this RenameStep step, TemporaryDirectory workingDir)
         {
             #region Sanity checks
             if (step == null) throw new ArgumentNullException("step");

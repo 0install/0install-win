@@ -147,7 +147,7 @@ namespace ZeroInstall.Fetchers
 
         private void ApplyRecipe(IEnumerable<TemporaryFile> files, Recipe recipe, ManifestDigest manifestDigest)
         {
-            using (var recipeDir = RecipeUtils.ApplyRecipe(recipe, files, Handler, manifestDigest))
+            using (var recipeDir = recipe.Apply(files, Handler, manifestDigest))
                 Store.AddDirectory(recipeDir, manifestDigest, Handler);
         }
     }
