@@ -29,9 +29,9 @@ namespace ZeroInstall.Injector
         /// Checks whether a remote feed or catalog file has a a valid and trusted signature. Downloads missing GPG keys for verification and interactivley asks the user to approve new keys.
         /// </summary>
         /// <param name="uri">The URI the feed or catalog file originally came from.</param>
-        /// <param name="mirrorUri">The URI or local file path the file was actually loaded from; <see langword="null"/> if it is identical to <paramref name="uri"/>.</param>
         /// <param name="data">The data of the file.</param>
+        /// <param name="mirrorUri">The URI or local file path the file was actually loaded from; <see langword="null"/> if it is identical to <paramref name="uri"/>.</param>
         /// <exception cref="SignatureException">Thrown if no trusted signature was found.</exception>
-        ValidSignature CheckTrust(Uri uri, Uri mirrorUri, byte[] data);
+        ValidSignature CheckTrust(Uri uri, byte[] data, Uri mirrorUri = null);
     }
 }

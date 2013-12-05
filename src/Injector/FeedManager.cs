@@ -249,7 +249,7 @@ namespace ZeroInstall.Injector
             if (data == null) throw new ArgumentNullException("data");
             #endregion
 
-            var newSignature = _trustManager.CheckTrust(uri, mirrorUri, data);
+            var newSignature = _trustManager.CheckTrust(uri, data, mirrorUri);
             DetectAttacks(uri, data, newSignature);
 
             // Add to cache and remember time
