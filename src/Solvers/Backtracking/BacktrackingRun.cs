@@ -27,7 +27,7 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Solvers.Backtracking
 {
     /// <summary>
-    /// Holds state during a single <see cref="BacktrackingSolver.Solve(ZeroInstall.Model.Requirements,out bool)"/> run.
+    /// Holds state during a single <see cref="BacktrackingSolver.Solve"/> run.
     /// </summary>
     internal class BacktrackingRun : SolverRun
     {

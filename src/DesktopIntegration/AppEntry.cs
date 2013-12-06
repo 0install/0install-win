@@ -127,7 +127,7 @@ namespace ZeroInstall.DesktopIntegration
             return _capabilityLists.
                 Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
                 SelectMany(capabilityList => capabilityList.Entries.OfType<T>().Where(specificCapability => specificCapability.ID == id)).
-                First(() => new KeyNotFoundException(string.Format(Resources.UnableToFindTypeID, typeof(T).Name, id)));
+                First(noneException: () => new KeyNotFoundException(string.Format(Resources.UnableToFindTypeID, typeof(T).Name, id)));
         }
         #endregion
 

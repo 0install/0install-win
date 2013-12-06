@@ -144,7 +144,7 @@
   <data name="Options" xml:space="preserve">
     <value>Options:</value>
   </data>
-  <data name="OptionsStoreDownloads" xml:space="preserve">
+  <data name="OptionsKeepDownloads" xml:space="preserve">
     <value>Add any downloaded archives to the implementation store.</value>
   </data>
   <data name="OptionUnsign" xml:space="preserve">

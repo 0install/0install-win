@@ -280,7 +280,7 @@ namespace ZeroInstall.Model
                 #endregion
 
                 return Commands.First(command => command != null && command.Name == name,
-                    () => new KeyNotFoundException(string.Format(Resources.CommandNotFound, name)));
+                    noneException: () => new KeyNotFoundException(string.Format(Resources.CommandNotFound, name)));
             }
         }
         #endregion

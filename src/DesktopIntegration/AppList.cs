@@ -102,7 +102,7 @@ namespace ZeroInstall.DesktopIntegration
                 #endregion
 
                 return Entries.First(entry => ModelUtils.IDEquals(entry.InterfaceID, interfaceID),
-                    () => new KeyNotFoundException(string.Format(Resources.AppNotInList, interfaceID)));
+                    noneException: () => new KeyNotFoundException(string.Format(Resources.AppNotInList, interfaceID)));
             }
         }
         #endregion

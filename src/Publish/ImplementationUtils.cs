@@ -39,14 +39,14 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="retrievalMethod">The <see cref="RetrievalMethod"/> to use.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="store">Adds the downloaded archive to the default <see cref="IStore"/> when set to <see langword="true"/>.</param>
+        /// <param name="keepDownloads">Adds the downloaded archive to the default <see cref="IStore"/> when set to <see langword="true"/>.</param>
         /// <returns>A newly created <see cref="Implementation"/> containing one <see cref="Archive"/>.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if there was a problem extracting the archive.</exception>
         /// <exception cref="WebException">Thrown if there was a problem downloading the archive.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to temporary files was not permitted.</exception>
         /// <exception cref="NotSupportedException">Thrown if the archive's MIME type could not be determined.</exception>
-        public static Implementation Build(RetrievalMethod retrievalMethod, ITaskHandler handler, bool store = false)
+        public static Implementation Build(RetrievalMethod retrievalMethod, ITaskHandler handler, bool keepDownloads = false)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
@@ -56,7 +56,7 @@ namespace ZeroInstall.Publish
             var implementationDir = retrievalMethod.DownloadAndApply(handler, new SimpleCommandExecutor());
             try
             {
-                var digest = GenerateDigest(implementationDir, handler, store);
+                var digest = GenerateDigest(implementationDir, handler, keepDownloads);
                 return new Implementation {ID = "sha1new=" + digest.Sha1New, ManifestDigest = digest, RetrievalMethods = {retrievalMethod}};
             }
             finally
@@ -73,8 +73,8 @@ namespace ZeroInstall.Publish
         /// <param name="implementation">The <see cref="Implementation"/> to add data to.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
-        /// <param name="store"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
-        public static void AddMissing(this Implementation implementation, ITaskHandler handler, ICommandExecutor executor, bool store = false)
+        /// <param name="keepDownloads"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
+        public static void AddMissing(this Implementation implementation, ITaskHandler handler, ICommandExecutor executor, bool keepDownloads = false)
         {
             #region Sanity checks
             if (implementation == null) throw new ArgumentNullException("implementation");
@@ -89,7 +89,7 @@ namespace ZeroInstall.Publish
                 if (implementation.IsManifestDigestMissing() || retrievalMethod.IsDownloadSizeMissing())
                 {
                     using (var tempDir = retrievalMethod.DownloadAndApply(handler, executor))
-                        UpdateDigest(implementation, tempDir, handler, executor, store);
+                        implementation.UpdateDigest(tempDir, handler, executor, keepDownloads);
                 }
             }
 
@@ -129,10 +129,10 @@ namespace ZeroInstall.Publish
         /// <param name="path">The path of the directory to generate the digest for.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
-        /// <param name="store"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
-        private static void UpdateDigest(ImplementationBase implementation, string path, ITaskHandler handler, ICommandExecutor executor, bool store = false)
+        /// <param name="keepDownloads"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
+        private static void UpdateDigest(this ImplementationBase implementation, string path, ITaskHandler handler, ICommandExecutor executor, bool keepDownloads = false)
         {
-            var digest = GenerateDigest(path, handler, store);
+            var digest = GenerateDigest(path, handler, keepDownloads);
 
             if (implementation.ManifestDigest == default(ManifestDigest))
                 executor.Execute(new SetValueCommand<ManifestDigest>(() => implementation.ManifestDigest, value => implementation.ManifestDigest = value, digest));
@@ -145,12 +145,12 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="path">The path of the directory to generate the digest for.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="store"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
+        /// <param name="keepDownloads"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
         /// <returns>The newly generated digest.</returns>
-        public static ManifestDigest GenerateDigest(string path, ITaskHandler handler, bool store = false)
+        public static ManifestDigest GenerateDigest(string path, ITaskHandler handler, bool keepDownloads = false)
         {
             var digest = Manifest.CreateDigest(path, handler);
-            if (store)
+            if (keepDownloads)
             {
                 try
                 {

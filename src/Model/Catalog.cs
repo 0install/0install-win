@@ -119,7 +119,7 @@ namespace ZeroInstall.Model
                 #endregion
 
                 return Feeds.First(feed => feed.Uri == uri,
-                    () => new KeyNotFoundException(string.Format(Resources.FeedNotInCatalog, uri)));
+                    noneException: () => new KeyNotFoundException(string.Format(Resources.FeedNotInCatalog, uri)));
             }
         }
 

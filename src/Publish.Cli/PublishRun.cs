@@ -76,7 +76,7 @@ namespace ZeroInstall.Publish.Cli
         /// <summary>
         /// Add any downloaded archives to the implementation store.
         /// </summary>
-        private bool _storeDownloads;
+        private bool _keepDownloads;
 
         /// <summary>
         /// Add XML signature blocks to the feesd.
@@ -150,7 +150,7 @@ namespace ZeroInstall.Publish.Cli
                 },
                 // Modiciations
                 {"add-missing", () => Resources.OptionAddMissing, unused => _addMissing = true},
-                {"store-downloads", () => Resources.OptionsStoreDownloads, unused => _storeDownloads = true},
+                {"keep-downloads", () => Resources.OptionsKeepDownloads, unused => _keepDownloads = true},
                 // Signatures
                 {"x|xmlsign", () => Resources.OptionXmlSign, unused => _xmlSign = true},
                 {"u|unsign", () => Resources.OptionUnsign, unused => _unsign = true},
@@ -339,7 +339,7 @@ namespace ZeroInstall.Publish.Cli
         {
             new PerTypeDispatcher<Element>(true)
             {
-                (Implementation implementation) => implementation.AddMissing(_handler, executor, _storeDownloads),
+                (Implementation implementation) => implementation.AddMissing(_handler, executor, _keepDownloads),
                 (Group group) => AddMissing(group.Elements, executor) // recursion
             }.Dispatch(elements);
         }

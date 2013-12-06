@@ -138,7 +138,7 @@ namespace ZeroInstall.Store.Implementation
 
             // Determine the digest method to use
             string expectedDigestValue = expectedDigest.AvailableDigests.First(
-                () => new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest"));
+                noneException: () => new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest"));
 
             // Determine the source and target directories
             string source = Path.Combine(DirectoryPath, tempID);
@@ -203,7 +203,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             string expectedDigestValue = expectedDigest.AvailableDigests.First(
-                () => new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest"));
+                noneException: () => new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest"));
             var format = ManifestFormat.FromPrefix(expectedDigestValue);
 
             var actualManifest = Manifest.Generate(directory, format, handler, expectedDigest);
@@ -390,7 +390,7 @@ namespace ZeroInstall.Store.Implementation
             if (!Contains(manifestDigest)) throw new ImplementationNotFoundException(manifestDigest);
 
             string target = Path.Combine(DirectoryPath, manifestDigest.AvailableDigests.First(
-                () => new ArgumentException(Resources.NoKnownDigestMethod, "manifestDigest")));
+                noneException: () => new ArgumentException(Resources.NoKnownDigestMethod, "manifestDigest")));
             VerifyDirectory(target, manifestDigest, handler);
 
             // Reseal the directory in case the write protection got lost
