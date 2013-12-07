@@ -535,7 +535,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             foreach (var model in _capabilityModels.Where(model => model.Changed))
             {
-                var accessPoint = DesktopIntegration.AccessPoints.DefaultAccessPoint.FromCapability(model.Capability);
+                var accessPoint = model.Capability.ToAcessPoint();
                 if (model.Use) toAdd.Add(accessPoint);
                 else toRemove.Add(accessPoint);
             }

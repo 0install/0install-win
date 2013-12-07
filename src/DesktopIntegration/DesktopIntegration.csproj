@@ -58,6 +58,7 @@
     <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="AccessPoints\SendTo.cs" />
     <Compile Include="AccessPoints\MockAccessPoint.cs" />
+    <Compile Include="CapabilityExtensions.cs" />
     <Compile Include="CategoryIntegrationManager.cs" />
     <Compile Include="ConflictData.cs" />
     <Compile Include="ICategoryIntegrationManager.cs" />
