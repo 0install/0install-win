@@ -214,28 +214,47 @@ namespace ZeroInstall.Injector
                 }
                 catch (WebException ex)
                 {
-                    if (url.Host == "localhost" || url.Host == "127.0.0.1") throw;
-                    _handler.CancellationToken.ThrowIfCancellationRequested();
-                    Log.Warn(string.Format(Resources.FeedDownloadErrorSwitchToMirror, url, ex.Message));
+                    Log.Warn(string.Format(Resources.FeedDownloadError, url));
 
-                    var mirrorUrl = new Uri(_config.FeedMirror, string.Format(
-                        "feeds/{0}/{1}/{2}/latest.xml",
-                        url.Scheme,
-                        url.Host,
-                        string.Concat(url.Segments).TrimStart('/').Replace("/", "%23")));
+                    if (url.IsLoopback) throw;
+                    Log.Info(Resources.TryingFeedMirror);
                     try
                     {
-                        ImportFeed(url, mirrorUrl, webClient.DownloadData(mirrorUrl));
+                        DownloadMirror(url);
                     }
                     catch (WebException)
                     {
                         // Report the original problem instead of mirror errors
                         throw ex;
                     }
-
-                    _handler.CancellationToken.ThrowIfCancellationRequested();
                 }
             }
+            _handler.CancellationToken.ThrowIfCancellationRequested();
+        }
+
+        /// <summary>
+        /// Downloads a <see cref="Feed"/> from the <see cref="Config.FeedMirror"/>.
+        /// </summary>
+        /// <param name="url">The URL of download the feed from.</param>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
+        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="url"/> is an invalid interface ID.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="url"/> was not found in the cache.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
+        private void DownloadMirror(Uri url)
+        {
+            _handler.CancellationToken.ThrowIfCancellationRequested();
+
+            var mirrorUrl = new Uri(_config.FeedMirror, string.Format(
+                "feeds/{0}/{1}/{2}/latest.xml",
+                url.Scheme,
+                url.Host,
+                string.Concat(url.Segments).TrimStart('/').Replace("/", "%23")));
+
+            using (var webClient = new WebClientTimeout())
+                ImportFeed(url, mirrorUrl, webClient.DownloadData(mirrorUrl));
+
             _handler.CancellationToken.ThrowIfCancellationRequested();
         }
         #endregion

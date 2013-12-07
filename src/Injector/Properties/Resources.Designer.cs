@@ -119,13 +119,11 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error while downloading feed &apos;{0}&apos;:
-        ///{1}
-        ///Switching to mirror..
+        ///   Looks up a localized string similar to Error while downloading feed &apos;{0}&apos;..
         /// </summary>
-        internal static string FeedDownloadErrorSwitchToMirror {
+        internal static string FeedDownloadError {
             get {
-                return ResourceManager.GetString("FeedDownloadErrorSwitchToMirror", resourceCulture);
+                return ResourceManager.GetString("FeedDownloadError", resourceCulture);
             }
         }
         
@@ -255,6 +253,15 @@ namespace ZeroInstall.Injector.Properties {
         internal static string SolverProblem {
             get {
                 return ResourceManager.GetString("SolverProblem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trying feed mirror server.
+        /// </summary>
+        internal static string TryingFeedMirror {
+            get {
+                return ResourceManager.GetString("TryingFeedMirror", resourceCulture);
             }
         }
         

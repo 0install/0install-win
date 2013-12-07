@@ -139,10 +139,8 @@ Do you want to trust this key to sign feeds from '{3}'?
   <data name="ExternalSolverOutputErrror" xml:space="preserve">
     <value>The output of the external solver could not be processed.</value>
   </data>
-  <data name="FeedDownloadErrorSwitchToMirror" xml:space="preserve">
-    <value>Error while downloading feed '{0}':
-{1}
-Switching to mirror.</value>
+  <data name="FeedDownloadError" xml:space="preserve">
+    <value>Error while downloading feed '{0}'.</value>
   </data>
   <data name="FeedNotCachedOffline" xml:space="preserve">
     <value>The feed '{0}' is not cached and Zero Install is currently in off-line mode.</value>
@@ -188,6 +186,9 @@ New time: {2}</value>
   </data>
   <data name="SolverProblem" xml:space="preserve">
     <value>The solver encountered an unexpected problem.</value>
+  </data>
+  <data name="TryingFeedMirror" xml:space="preserve">
+    <value>Trying feed mirror server</value>
   </data>
   <data name="UnableToLoadKeyFile" xml:space="preserve">
     <value>Unable to download GnuPG key file for '{0}'.</value>

@@ -139,10 +139,8 @@ Möchten Sie diesem Key zum Signieren von Feeds von '{3}' vertrauen?
   <data name="ExternalSolverOutputErrror" xml:space="preserve">
     <value>Die Ausgabe des externen Solvers konnte nicht verarbeitet werden.</value>
   </data>
-  <data name="FeedDownloadErrorSwitchToMirror" xml:space="preserve">
-    <value>Fehler beim Runterladen des Feeds '{0}':
-{1}
-Wechsle zu Mirror.</value>
+  <data name="FeedDownloadError" xml:space="preserve">
+    <value>Fehler beim Runterladen des Feeds '{0}'.</value>
   </data>
   <data name="FeedNotCachedOffline" xml:space="preserve">
     <value>Der Feed '{0}' ist nicht gecacht und Zero Install befindet sich derzeit im Off-Line Modus.</value>
@@ -188,6 +186,9 @@ Neue Zeit: {2}</value>
   </data>
   <data name="SolverProblem" xml:space="preserve">
     <value>Der Solver ist auf ein unerwartetes Problem gestoßen.</value>
+  </data>
+  <data name="TryingFeedMirror" xml:space="preserve">
+    <value>Probiere Feed Mirror Server</value>
   </data>
   <data name="UnableToLoadKeyFile" xml:space="preserve">
     <value>Konnte GnuPG Schlüsseldatei für '{0}' nicht laden.</value>
