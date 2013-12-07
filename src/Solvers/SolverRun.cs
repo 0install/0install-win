@@ -74,10 +74,10 @@ namespace ZeroInstall.Solvers
         /// <summary>Maps interface IDs to <see cref="SelectionCandidateComparer"/>s.</summary>
         private readonly TransparentCache<string, SelectionCandidateComparer> _comparer;
 
-        /// <summary>Maps feed IDs to <see cref="FeedPreferences"/>.</summary>
+        /// <summary>Maps feed IDs to <see cref="FeedPreferences"/>. Transparent caching ensures individual preferences do not change during solver run.</summary>
         private readonly TransparentCache<string, FeedPreferences> _feedPreferences = new TransparentCache<string, FeedPreferences>(FeedPreferences.LoadForSafe);
 
-        /// <summary>Maps feed IDs to <see cref="Feed"/>s.</summary>
+        /// <summary>Maps feed IDs to <see cref="Feed"/>s. Transparent caching ensures individual feeds do not change during solver run.</summary>
         private readonly TransparentCache<string, Feed> _feeds;
         #endregion
 

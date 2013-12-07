@@ -62,7 +62,7 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            return string.IsNullOrEmpty(Command) ? Interface : Interface + " (" + Command + ")";
+            return string.Format("{0} ({1})", Interface, Command ?? Model.Command.NameRun);
         }
         #endregion
 

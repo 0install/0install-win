@@ -86,6 +86,9 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Helpers
+        /// <summary>
+        /// Returns a list of <see cref="Requirements"/> that describe the applications to be updated.
+        /// </summary>
         private IEnumerable<Requirements> GetTargets()
         {
             // Target every application in the AppList...

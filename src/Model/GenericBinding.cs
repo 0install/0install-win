@@ -42,7 +42,7 @@ namespace ZeroInstall.Model
         /// If set Install will select the given command within the implementation (which may cause additional dependencies and bindings to be selected). Otherwise, no command is selected.
         /// </summary>
         [Description("If set Zero Install will select the given command within the implementation (which may cause additional dependencies and bindings to be selected). Otherwise, no command is selected.")]
-        [XmlAttribute("command")]
+        [XmlAttribute("command"), DefaultValue("")]
         [TypeConverter(typeof(CommandNameConverter))]
         public string Command { get; set; }
         #endregion
