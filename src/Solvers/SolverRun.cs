@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Common.Collections;
+using Common.Utils;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Preferences;
@@ -108,8 +109,11 @@ namespace ZeroInstall.Solvers
         {
             var feed = _feeds[feedID];
 
-            // TODO: Add support for PackageImplementations
+            if (MonoUtils.IsUnix && feed.Elements.OfType<PackageImplementation>().Any())
+                throw new SolverException("Linux native package managers not supported yet!");
+
             var mainCandidates = feed.Elements.OfType<Implementation>().Select(implementation => GetCandidate(feedID, requirements, implementation));
+            // TODO: Windows <package-implementation>s
             var additionalCandidates = GetCandidates(feed.Feeds, requirements);
             return mainCandidates.Concat(additionalCandidates);
         }
