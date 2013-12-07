@@ -137,7 +137,7 @@ namespace ZeroInstall.Commands
         [SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "Explicit test for empty but non-null strings is intended")]
         protected int LaunchImplementation()
         {
-            if (Requirements.Command == "") throw new OptionException(Resources.NoRunWithEmptyCommand, "--command");
+            if (Requirements.EffectiveCommand == "") throw new OptionException(Resources.NoRunWithEmptyCommand, "--command");
 
             // Prevent the user from pressing any buttons once the child process is being launched
             Handler.DisableProgressUI();

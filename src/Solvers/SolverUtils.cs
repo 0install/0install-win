@@ -34,6 +34,7 @@ namespace ZeroInstall.Solvers
             var selection = new ImplementationSelection(allCandidates)
             {
                 ID = implementation.ID,
+                LocalPath = implementation.LocalPath,
                 ManifestDigest = implementation.ManifestDigest,
                 Architecture = implementation.Architecture,
                 Version = implementation.Version,
@@ -45,7 +46,9 @@ namespace ZeroInstall.Solvers
 
             selection.Dependencies.AddAll(implementation.Dependencies);
             selection.Bindings.AddAll(implementation.Bindings);
-            if (!string.IsNullOrEmpty(requirements.Command)) selection.Commands.Add(candidate.Implementation[requirements.Command]);
+
+            var command = candidate.Implementation.GetCommand(requirements.EffectiveCommand);
+            if (command != null) selection.Commands.Add(command);
 
             return selection;
         }
@@ -55,6 +58,7 @@ namespace ZeroInstall.Solvers
             var requirements = new Requirements
             {
                 InterfaceID = dependency.Interface,
+                Command = "",
                 Versions = dependency.EffectiveVersions,
                 Architecture = baseRequirements.Architecture
             };

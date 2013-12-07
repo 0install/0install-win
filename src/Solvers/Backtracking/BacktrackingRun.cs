@@ -31,6 +31,8 @@ namespace ZeroInstall.Solvers.Backtracking
     /// </summary>
     internal class BacktrackingRun : SolverRun
     {
+        private Requirements _topLevelRequirements;
+
         public BacktrackingRun(Config config, IFeedManager feedManager, IStore store, IHandler handler)
             : base(config, feedManager, store, handler)
         {}
@@ -40,6 +42,8 @@ namespace ZeroInstall.Solvers.Backtracking
         /// </summary>
         public bool TryToSolve(Requirements requirements)
         {
+            if (_topLevelRequirements == null) _topLevelRequirements = requirements;
+
             Handler.CancellationToken.ThrowIfCancellationRequested();
 
             var allCandidates = GetSortedCandidates(requirements);
@@ -83,28 +87,27 @@ namespace ZeroInstall.Solvers.Backtracking
             foreach (var candidate in candidates)
             {
                 AddToSelections(candidate, requirements, allCandidates);
-                if (TryToSolveCommand(candidate.Implementation, requirements) &&
-                    TryToSolveDependencies(candidate.Implementation.Dependencies, requirements))
+                if (TryToSolveCommand(candidate.Implementation.GetCommand(requirements.EffectiveCommand)) &&
+                    TryToSolveDependencies(candidate.Implementation.Dependencies))
                     return true;
                 else RemoveFromSelections(candidate);
             }
             return false;
         }
 
-        private bool TryToSolveDependencies(IEnumerable<Dependency> dependencies, Requirements requirements)
+        private bool TryToSolveDependencies(IEnumerable<Dependency> dependencies)
         {
-            // TODO: Sort: with restrictions first, then with sub-dependencies, then rest
-            var dependencyRequirements = dependencies.Select(dependency => dependency.ToRequirements(requirements));
+            var dependencyRequirements = dependencies.Select(dependency => dependency.ToRequirements(_topLevelRequirements));
             return dependencyRequirements.All(TryToSolve);
         }
 
-        private bool TryToSolveCommand(Implementation implementation, Requirements requirements)
+        private bool TryToSolveCommand(Command command)
         {
-            if (string.IsNullOrEmpty(requirements.Command)) return true;
-            var command = implementation[requirements.Command];
+            if (command == null) return true;
+            if (command.Runner != null)
+                if (!TryToSolve(command.Runner.ToRequirements(_topLevelRequirements))) return false;
 
-            if (command.Runner != null && !TryToSolve(command.Runner.ToRequirements(requirements))) return false;
-            return TryToSolveDependencies(command.Dependencies, requirements);
+            return TryToSolveDependencies(command.Dependencies);
         }
 
         private void AddToSelections(SelectionCandidate candidate, Requirements requirements, IEnumerable<SelectionCandidate> allCandidates)

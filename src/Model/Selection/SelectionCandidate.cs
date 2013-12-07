@@ -17,7 +17,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq;
 using ZeroInstall.Model.Preferences;
 using ZeroInstall.Model.Properties;
 
@@ -134,9 +133,9 @@ namespace ZeroInstall.Model.Selection
         /// </summary>
         private void CheckSuitabilty(Requirements requirements)
         {
-            if (!string.IsNullOrEmpty(requirements.Command) && !Implementation.Commands.Select(command => command.Name).Contains(requirements.Command))
-                Notes = string.Format(Resources.SelectionCandidateNoteCommand, requirements.Command);
-            else if (!Implementation.Architecture.IsCompatible(requirements.Architecture))
+            if (!Implementation.ContainsCommand(requirements.EffectiveCommand))
+                Notes = string.Format(Resources.SelectionCandidateNoteCommand, requirements.EffectiveCommand);
+            else if (!Implementation.Architecture.IsCompatible(requirements.EffectiveArchitecture))
             {
                 Notes = (Implementation.Architecture.Cpu == Cpu.Source)
                     ? Resources.SelectionCandidateNoteSource

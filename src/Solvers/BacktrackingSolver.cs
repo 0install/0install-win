@@ -69,13 +69,11 @@ namespace ZeroInstall.Solvers
             if (string.IsNullOrEmpty(requirements.InterfaceID)) throw new ArgumentException(Resources.MissingInterfaceID, "requirements");
             #endregion
 
-            requirements.Normalize();
-
             var run = new BacktrackingRun(_config, _feedManager, _store, _handler);
             if (run.TryToSolve(requirements))
             {
                 run.Selections.InterfaceID = requirements.InterfaceID;
-                run.Selections.Command = requirements.Command;
+                run.Selections.Command = requirements.EffectiveCommand;
                 return run.Selections;
             }
             else throw new SolverException("No solution found");

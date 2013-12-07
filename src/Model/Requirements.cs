@@ -55,13 +55,22 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// The name of the command in the implementation to execute.
+        /// The name of the command in the implementation to execute. Will default to <see cref="Model.Command.NameRun"/> or <see cref="Model.Command.NameCompile"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.
         /// </summary>
-        /// <remarks>Will default to <see cref="Model.Command.NameRun"/> or <see cref="Model.Command.NameCompile"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.</remarks>
-        [Description("The name of the command in the implementation to execute.")]
+        [Description("The name of the command in the implementation to execute. Will default to 'run' or 'compile' if null. Will not try to find any command if set to ''.")]
         [XmlAttribute("command")]
         [TypeConverter(typeof(CommandNameConverter))]
         public string Command { get; set; }
+
+        /// <summary>
+        /// Returns <see cref="Command"/>, replacing <see langword="null"/> with <see cref="Model.Command.NameRun"/> or <see cref="Model.Command.NameCompile"/>.
+        /// </summary>
+        [Browsable(false)]
+        [XmlIgnore]
+        public string EffectiveCommand
+        {
+            get { return Command ?? (Architecture.Cpu == Cpu.Source ? Model.Command.NameCompile : Model.Command.NameRun); }
+        }
 
         /// <summary>
         /// The architecture to find executables for. Find for the current system if left at default value.
@@ -70,6 +79,21 @@ namespace ZeroInstall.Model
         [Description("The architecture to find executables for. Find for the current system if left at default value.")]
         [XmlIgnore]
         public Architecture Architecture { get; set; }
+
+        /// <summary>
+        /// Returns <see cref="EffectiveCommand"/>, the default value with <see cref="Model.Architecture.CurrentSystem"/>.
+        /// </summary>
+        [Browsable(false)]
+        [XmlIgnore]
+        public Architecture EffectiveArchitecture
+        {
+            get
+            {
+                return new Architecture(
+                    (Architecture.OS == OS.All) ? Architecture.CurrentSystem.OS : Architecture.OS,
+                    (Architecture.Cpu == Cpu.All) ? Architecture.CurrentSystem.Cpu : Architecture.Cpu);
+            }
+        }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Architecture"/>
@@ -131,20 +155,6 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        #region Normalize
-        /// <summary>
-        /// Fills in missing values.
-        /// </summary>
-        public void Normalize()
-        {
-            Architecture = new Architecture(
-                (Architecture.OS == OS.All) ? Architecture.CurrentSystem.OS : Architecture.OS,
-                (Architecture.Cpu == Cpu.All) ? Architecture.CurrentSystem.Cpu : Architecture.Cpu);
-            if (Command == null)
-                Command = (Architecture.Cpu == Cpu.Source ? Model.Command.NameCompile : Model.Command.NameRun);
-        }
-        #endregion
-
         #region Clone
         /// <summary>
         /// Creates a deep copy of this <see cref="Requirements"/> instance.
@@ -171,8 +181,8 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            if (Versions == null) return string.Format("{0} ({1})", InterfaceID, Command);
-            else return string.Format("{0} ({1}): {2}", InterfaceID, Command, Versions);
+            if (Versions == null) return string.Format("{0} ({1})", InterfaceID, EffectiveCommand);
+            else return string.Format("{0} ({1}): {2}", InterfaceID, EffectiveCommand, Versions);
         }
 
         /// <summary>

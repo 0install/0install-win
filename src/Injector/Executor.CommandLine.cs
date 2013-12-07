@@ -63,7 +63,7 @@ namespace ZeroInstall.Injector
 
             // Clone the first implementation so the command can replaced without affecting Selections
             var mainImplementation = Selections.MainImplementation.CloneImplementation();
-            var command = mainImplementation[Selections.Command];
+            var command = mainImplementation.GetCommand(Selections.Command);
 
             string mainPath = FileUtils.UnifySlashes(Main);
             command.Path = (mainPath[0] == Path.DirectorySeparatorChar)
@@ -95,10 +95,10 @@ namespace ZeroInstall.Injector
             #region Sanity checks
             if (implementation == null) throw new ArgumentNullException("implementation");
             if (startInfo == null) throw new ArgumentNullException("startInfo");
-            if (string.IsNullOrEmpty(commandName)) throw new CommandException(string.Format(Resources.CommandNotSpecified, implementation.InterfaceID));
             #endregion
 
-            Command command = implementation[commandName];
+            if (string.IsNullOrEmpty(commandName)) throw new CommandException(string.Format(Resources.CommandNotSpecified, implementation.InterfaceID));
+            Command command = implementation.GetCommand(commandName);
 
             // Apply bindings implementations use to find themselves and their dependencies
             ApplyBindings(command, implementation, startInfo);

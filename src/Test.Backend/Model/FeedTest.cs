@@ -212,14 +212,14 @@ namespace ZeroInstall.Model
             Assert.AreEqual("de", implementation.Languages.ToString());
             Assert.AreEqual("GPL", implementation.License);
             Assert.AreEqual(Stability.Developer, implementation.Stability);
-            Assert.AreEqual("main1", implementation[Command.NameRun].Path);
+            Assert.AreEqual("main1", implementation.GetCommand(Command.NameRun).Path);
 
             implementation = feed.Elements[1];
             Assert.AreEqual(new Architecture(OS.FreeBSD, Cpu.I586), implementation.Architecture);
             Assert.AreEqual("de", implementation.Languages.ToString());
             Assert.AreEqual("GPL", implementation.License);
             Assert.AreEqual(Stability.Developer, implementation.Stability);
-            Assert.AreEqual("main2", implementation[Command.NameRun].Path);
+            Assert.AreEqual("main2", implementation.GetCommand(Command.NameRun).Path);
         }
 
         /// <summary>

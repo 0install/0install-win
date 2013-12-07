@@ -147,7 +147,7 @@ namespace ZeroInstall.Solvers
         {
             return feedReferences
                 .Where(feedReference =>
-                    feedReference.Architecture.IsCompatible(requirements.Architecture) &&
+                    feedReference.Architecture.IsCompatible(requirements.EffectiveArchitecture) &&
                     feedReference.Languages.ContainsAny(requirements.Languages))
                 .SelectMany(feedReference => GetCandidates(feedReference.Source, requirements));
         }

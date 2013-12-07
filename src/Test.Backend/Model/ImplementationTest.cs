@@ -47,15 +47,27 @@ namespace ZeroInstall.Model
         #endregion
 
         /// <summary>
-        /// Ensures that <see cref="Element.this"/> correctly retrieves commands.
+        /// Ensures that <see cref="Element.ContainsCommand"/> correctly checks for commands.
+        /// </summary>
+        [Test]
+        public void TestContainsCommand()
+        {
+            var implementation = CreateTestImplementation();
+            Assert.IsTrue(implementation.ContainsCommand(Command.NameRun));
+            Assert.IsFalse(implementation.ContainsCommand("other-command"));
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="Element.GetCommand"/> correctly retrieves commands.
         /// </summary>
         [Test]
         public void TestGetCommand()
         {
             var implementation = CreateTestImplementation();
-            Assert.AreEqual(implementation.Commands[0], implementation[Command.NameRun]);
+            Assert.AreEqual(implementation.Commands[0], implementation.GetCommand(Command.NameRun));
+            Assert.IsNull(implementation.GetCommand(""));
             // ReSharper disable UnusedVariable
-            Assert.Throws<KeyNotFoundException>(() => { var dummy = implementation["invalid"]; });
+            Assert.Throws<KeyNotFoundException>(() => { var dummy = implementation.GetCommand("invalid"); });
             // ReSharper restore UnusedVariable
         }
 
@@ -85,8 +97,8 @@ namespace ZeroInstall.Model
         {
             var implementation = new Implementation {Main = "main", SelfTest = "test"};
             implementation.Normalize("http://0install.de/feeds/test/test1.xml");
-            Assert.AreEqual("main", implementation[Command.NameRun].Path);
-            Assert.AreEqual("test", implementation[Command.NameTest].Path);
+            Assert.AreEqual("main", implementation.GetCommand(Command.NameRun).Path);
+            Assert.AreEqual("test", implementation.GetCommand(Command.NameTest).Path);
         }
 
         /// <summary>

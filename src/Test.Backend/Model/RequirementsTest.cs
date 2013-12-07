@@ -57,23 +57,20 @@ namespace ZeroInstall.Model
         }
 
         [Test]
-        public void TestNormalizeArchitecture()
+        public void TestEffectiveArchitecture()
         {
             var requirements = new Requirements();
-            requirements.Normalize();
-            Assert.AreEqual(Architecture.CurrentSystem, requirements.Architecture);
+            Assert.AreEqual(Architecture.CurrentSystem, requirements.EffectiveArchitecture);
         }
 
         [Test]
-        public void TestNormalizeCommand()
+        public void TestEffectiveCommand()
         {
             var requirements = new Requirements();
-            requirements.Normalize();
-            Assert.AreEqual(Command.NameRun, requirements.Command);
+            Assert.AreEqual(Command.NameRun, requirements.EffectiveCommand);
 
             requirements = new Requirements {Architecture = new Architecture(OS.All, Cpu.Source)};
-            requirements.Normalize();
-            Assert.AreEqual(Command.NameCompile, requirements.Command);
+            Assert.AreEqual(Command.NameCompile, requirements.EffectiveCommand);
         }
 
         [Test(Description = "Ensures that the class can be correctly cloned.")]

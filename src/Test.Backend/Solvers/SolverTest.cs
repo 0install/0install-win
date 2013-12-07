@@ -123,11 +123,9 @@ namespace ZeroInstall.Solvers
 
         private static Selections ParseExpectedSelections(string expectedSelections, Requirements requirements)
         {
-            requirements.Normalize();
-
             var expectedSelectionsParsed = XmlStorage.FromXmlString<Selections>(string.Format(
                 "<?xml version='1.0'?><selections interface='{0}' command='{1}' xmlns='http://zero-install.sourceforge.net/2004/injector/interface'>{2}</selections>",
-                requirements.InterfaceID, requirements.Command, expectedSelections));
+                requirements.InterfaceID, requirements.EffectiveCommand, expectedSelections));
             return expectedSelectionsParsed;
         }
 
