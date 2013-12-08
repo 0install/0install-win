@@ -18,7 +18,6 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model
 {
@@ -28,7 +27,7 @@ namespace ZeroInstall.Model
     [Description("Make a chosen implementation available as an executable in the search PATH.")]
     [Serializable]
     [XmlRoot("executable-in-path", Namespace = Feed.XmlNamespace), XmlType("executable-in-path", Namespace = Feed.XmlNamespace)]
-    public sealed class ExecutableInPath : Binding, IEquatable<ExecutableInPath>
+    public sealed class ExecutableInPath : ExecutableInBinding, IEquatable<ExecutableInPath>
     {
         #region Properties
         /// <summary>
@@ -37,14 +36,6 @@ namespace ZeroInstall.Model
         [Description("The name of the executable (without file extensions).")]
         [XmlAttribute("name")]
         public string Name { get; set; }
-
-        /// <summary>
-        /// The name of the <see cref="Command"/> in the <see cref="Implementation"/> to launch; leave <see langword="null"/> for <see cref="Model.Command.NameRun"/>.
-        /// </summary>
-        [Description("The name of the command in the implementation to launch; leave empty for 'run'.")]
-        [XmlAttribute("command"), DefaultValue("")]
-        [TypeConverter(typeof(CommandNameConverter))]
-        public string Command { get; set; }
         #endregion
 
         //--------------------//

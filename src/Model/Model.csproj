@@ -103,6 +103,7 @@
     <Compile Include="Element.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="EnvironmentBinding.cs" />
+    <Compile Include="ExecutableInBinding.cs" />
     <Compile Include="ExecutableInPath.cs" />
     <Compile Include="ExecutableInVar.cs" />
     <Compile Include="Feed.cs" />
@@ -172,6 +173,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Binding.cd" />
     <None Include="Capabilities\ClassDiagram.cd" />
     <None Include="Capabilities\capabilities.xsd">
       <SubType>Designer</SubType>

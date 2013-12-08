@@ -817,25 +817,36 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-  <xsd:complexType name="executable-in-var">
+  <xsd:complexType name="executable-in-binding" abstract="true">
     <xsd:annotation>
       <xsd:documentation>
-        Make a chosen implementation available by overlaying it onto another part of the file-system.
+        Make a chosen implementation available as an executable at runtime.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="feed:binding-base">
-        <xsd:attribute name="name" type="xsd:string" use="required">
-          <xsd:annotation>
-            <xsd:documentation>
-              The name of the environment variable.
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
+      <xsd:extension base="feed:feed-element">
         <xsd:attribute name="command" type="xsd:string">
           <xsd:annotation>
             <xsd:documentation>
               The name of the command in the implementation to launch. If missing, 'run' is assumed.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="executable-in-var">
+    <xsd:annotation>
+      <xsd:documentation>
+        Make a chosen implementation available as an executable path in an environment variable.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="feed:executable-in-binding">
+        <xsd:attribute name="name" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>
+              The name of the environment variable.
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
@@ -849,18 +860,11 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="feed:binding-base">
+      <xsd:extension base="feed:executable-in-binding">
         <xsd:attribute name="name" type="xsd:string" use="required">
           <xsd:annotation>
             <xsd:documentation>
               The name of the executable (without file extensions).
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <xsd:attribute name="command" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation>
-              The name of the command in the implementation to launch. If missing, 'run' is assumed.
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
