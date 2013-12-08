@@ -140,7 +140,7 @@ namespace ZeroInstall.Injector
             new PerTypeDispatcher<Binding>(ignoreMissing: true)
             {
                 (EnvironmentBinding environmentBinding) => ApplyEnvironmentBinding(environmentBinding, implementation, startInfo),
-                //(OverlayBinding overlayBinding) =>ApplyOverlayBinding(overlayBinding, implementation, startInfo),
+                //(OverlayBinding overlayBinding) => ApplyOverlayBinding(overlayBinding, implementation, startInfo),
                 (ExecutableInVar executableInVar) => ApplyExecutableInVar(executableInVar, implementation, startInfo),
                 (ExecutableInPath executableInPath) => ApplyExecutableInPath(executableInPath, implementation, startInfo)
             }.Dispatch(bindingContainer.Bindings);

@@ -70,12 +70,7 @@ namespace ZeroInstall.Solvers
             #endregion
 
             var run = new BacktrackingRun(_config, _feedManager, _store, _handler);
-            if (run.TryToSolve(requirements))
-            {
-                run.Selections.InterfaceID = requirements.InterfaceID;
-                run.Selections.Command = requirements.EffectiveCommand;
-                return run.Selections;
-            }
+            if (run.TryToSolve(requirements)) return run.Selections;
             else throw new SolverException("No solution found");
         }
     }

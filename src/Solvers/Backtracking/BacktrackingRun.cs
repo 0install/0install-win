@@ -42,7 +42,12 @@ namespace ZeroInstall.Solvers.Backtracking
         /// </summary>
         public bool TryToSolve(Requirements requirements)
         {
-            if (_topLevelRequirements == null) _topLevelRequirements = requirements;
+            if (_topLevelRequirements == null)
+            {
+                _topLevelRequirements = requirements;
+                Selections.InterfaceID = requirements.InterfaceID;
+                Selections.Command = requirements.EffectiveCommand;
+            }
 
             Handler.CancellationToken.ThrowIfCancellationRequested();
 
