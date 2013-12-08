@@ -111,7 +111,7 @@ namespace ZeroInstall.Solvers
             var requirements = new Requirements
             {
                 InterfaceID = runner.Interface,
-                Command = runner.Command,
+                Command = runner.Command ?? Command.NameRun,
                 Versions = runner.EffectiveVersions,
                 Architecture = topLevelRequirements.Architecture
             };
