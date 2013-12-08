@@ -28,6 +28,36 @@ namespace ZeroInstall.Solvers
     /// </summary>
     internal static class SolverUtils
     {
+        /// <summary>
+        /// Returns a list of <see cref="Requirements"/> that substitute blanks with appropriate default values.
+        /// Multiple different <see cref="Requirements"/> represent equally valid but mutually exclusive choices such as 32-bit vs 64-bit processes.
+        /// </summary>
+        /// <param name="requirements">The baseline <see cref="Requirements"/> to extend.</param>
+        /// <returns>1 or more alternative <see cref="Requirements"/> ordered from most to least optimal.</returns>
+        public static IEnumerable<Requirements> GetEffective(this Requirements requirements)
+        {
+            var effectiveRequirements = requirements.Clone();
+            effectiveRequirements.Command = requirements.Command ?? (requirements.Architecture.Cpu == Cpu.Source ? Command.NameCompile : Command.NameRun);
+            effectiveRequirements.Architecture = new Architecture(
+                (effectiveRequirements.Architecture.OS == OS.All) ? Architecture.CurrentSystem.OS : effectiveRequirements.Architecture.OS,
+                (effectiveRequirements.Architecture.Cpu == Cpu.All) ? Architecture.CurrentSystem.Cpu : effectiveRequirements.Architecture.Cpu);
+
+            if (effectiveRequirements.Architecture.Cpu == Cpu.X64)
+            { // x86-on-X64 compatability
+                var x86Requirements = effectiveRequirements.Clone();
+                x86Requirements.Architecture = new Architecture(x86Requirements.Architecture.OS, Cpu.I686);
+                return new[] {effectiveRequirements, x86Requirements};
+            }
+            else return new[] {effectiveRequirements};
+        }
+
+        /// <summary>
+        /// Turns a <see cref="SelectionCandidate"/> into a <see cref="ImplementationSelection"/>.
+        /// </summary>
+        /// <param name="candidate">The selected candidate.</param>
+        /// <param name="allCandidates">All candidates that were considered for selection (including the selected one). These are used to present the user with possible alternatives.</param>
+        /// <param name="requirements">The requirements the selected candidate was chosen for.</param>
+        /// <returns></returns>
         public static ImplementationSelection ToSelection(this SelectionCandidate candidate, IEnumerable<SelectionCandidate> allCandidates, Requirements requirements)
         {
             var implementation = candidate.Implementation;
@@ -47,41 +77,54 @@ namespace ZeroInstall.Solvers
             selection.Dependencies.AddAll(implementation.Dependencies);
             selection.Bindings.AddAll(implementation.Bindings);
 
-            var command = candidate.Implementation.GetCommand(requirements.EffectiveCommand);
+            var command = candidate.Implementation.GetCommand(requirements.Command);
             if (command != null) selection.Commands.Add(command);
 
             return selection;
         }
 
-        public static Requirements ToRequirements(this Dependency dependency, Requirements baseRequirements)
+        /// <summary>
+        /// Creates <see cref="Requirements"/> for solving a <see cref="Dependency"/>.
+        /// </summary>
+        /// <param name="dependency">The dependency to solve.</param>
+        /// <param name="topLevelRequirements">The top-level requirements specifying <see cref="Architecture"/> and custom restrictions.</param>
+        public static Requirements ToRequirements(this Dependency dependency, Requirements topLevelRequirements)
         {
             var requirements = new Requirements
             {
                 InterfaceID = dependency.Interface,
                 Command = "",
                 Versions = dependency.EffectiveVersions,
-                Architecture = baseRequirements.Architecture
+                Architecture = topLevelRequirements.Architecture
             };
-            requirements.VersionsFor.AddAll(baseRequirements.VersionsFor);
+            requirements.VersionsFor.AddAll(topLevelRequirements.VersionsFor);
             return requirements;
         }
 
-        public static Requirements ToRequirements(this Runner runner, Requirements baseRequirements)
+        /// <summary>
+        /// Creates <see cref="Requirements"/> for solving a <see cref="Runner"/> dependency.
+        /// </summary>
+        /// <param name="runner">The dependency to solve.</param>
+        /// <param name="topLevelRequirements">The top-level requirements specifying <see cref="Architecture"/> and custom restrictions.</param>
+        public static Requirements ToRequirements(this Runner runner, Requirements topLevelRequirements)
         {
             var requirements = new Requirements
             {
                 InterfaceID = runner.Interface,
                 Command = runner.Command,
                 Versions = runner.EffectiveVersions,
-                Architecture = baseRequirements.Architecture
+                Architecture = topLevelRequirements.Architecture
             };
-            requirements.VersionsFor.AddAll(baseRequirements.VersionsFor);
+            requirements.VersionsFor.AddAll(topLevelRequirements.VersionsFor);
             return requirements;
         }
 
-        public static bool Contains(this IEnumerable<SelectionCandidate> candidates, ImplementationSelection implementation)
+        /// <summary>
+        /// Checks wether a set of selection candidates contains an implementation with a specific ID.
+        /// </summary>
+        public static bool Contains(this IEnumerable<SelectionCandidate> candidates, string implementationID)
         {
-            return candidates.Select(c => c.Implementation.ID).Contains(implementation.ID);
+            return candidates.Select(c => c.Implementation.ID).Contains(implementationID);
         }
     }
 }

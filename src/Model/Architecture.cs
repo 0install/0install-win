@@ -309,8 +309,7 @@ namespace ZeroInstall.Model
             if (implementation == system || implementation == Cpu.All || system == Cpu.All) return true;
 
             // Compatible supersets
-            if (implementation == Cpu.PPC && system == Cpu.PPC64) return true;
-            if (implementation >= Cpu.I386 && implementation <= Cpu.X64 && system >= implementation && system <= Cpu.X64) return true;
+            if (implementation >= Cpu.I386 && implementation <= Cpu.I686 && system >= implementation && system <= Cpu.I686) return true;
 
             // No match
             return false;

@@ -16,6 +16,8 @@
  */
 
 using System;
+using System.Linq;
+using Common.Collections;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
@@ -69,9 +71,10 @@ namespace ZeroInstall.Solvers
             if (string.IsNullOrEmpty(requirements.InterfaceID)) throw new ArgumentException(Resources.MissingInterfaceID, "requirements");
             #endregion
 
-            var run = new BacktrackingRun(_config, _feedManager, _store, _handler);
-            if (run.TryToSolve(requirements)) return run.Selections;
-            else throw new SolverException("No solution found");
+            var solverRuns = requirements.GetEffective()
+                .Select(effectiveRequirements => new BacktrackingRun(effectiveRequirements, _handler.CancellationToken, _config, _feedManager, _store));
+            return solverRuns.First(run => run.TryToSolve(),
+                noneException: () => new SolverException("No solution found")).Selections;
         }
     }
 }

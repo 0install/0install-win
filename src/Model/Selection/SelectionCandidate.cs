@@ -133,9 +133,9 @@ namespace ZeroInstall.Model.Selection
         /// </summary>
         private void CheckSuitabilty(Requirements requirements)
         {
-            if (!Implementation.ContainsCommand(requirements.EffectiveCommand))
-                Notes = string.Format(Resources.SelectionCandidateNoteCommand, requirements.EffectiveCommand);
-            else if (!Implementation.Architecture.IsCompatible(requirements.EffectiveArchitecture))
+            if (!Implementation.ContainsCommand(requirements.Command))
+                Notes = string.Format(Resources.SelectionCandidateNoteCommand, requirements.Command);
+            else if (!Implementation.Architecture.IsCompatible(requirements.Architecture))
             {
                 Notes = (Implementation.Architecture.Cpu == Cpu.Source)
                     ? Resources.SelectionCandidateNoteSource

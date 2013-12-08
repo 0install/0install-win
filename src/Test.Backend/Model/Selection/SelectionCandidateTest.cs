@@ -31,7 +31,7 @@ namespace ZeroInstall.Model.Selection
         {
             var implementation = ImplementationTest.CreateTestImplementation();
             Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(),
-                implementation, new Requirements()).IsSuitable);
+                implementation, new Requirements {Command = Command.NameRun}).IsSuitable);
         }
 
         [Test]
@@ -39,9 +39,9 @@ namespace ZeroInstall.Model.Selection
         {
             var implementation = ImplementationTest.CreateTestImplementation();
             Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(),
-                implementation, new Requirements {Architecture = implementation.Architecture}).IsSuitable);
+                implementation, new Requirements {Command = Command.NameRun, Architecture = implementation.Architecture}).IsSuitable);
             Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(),
-                implementation, new Requirements {Architecture = new Architecture(OS.FreeBSD, Cpu.PPC)}).IsSuitable);
+                implementation, new Requirements {Command = Command.NameRun, Architecture = new Architecture(OS.FreeBSD, Cpu.PPC)}).IsSuitable);
         }
 
         [Test]
@@ -49,9 +49,9 @@ namespace ZeroInstall.Model.Selection
         {
             var implementation = ImplementationTest.CreateTestImplementation();
             Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(),
-                implementation, new Requirements {Versions = new VersionRange("..!1.1")}).IsSuitable);
+                implementation, new Requirements {Command = Command.NameRun, Versions = new VersionRange("..!1.1")}).IsSuitable);
             Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(),
-                implementation, new Requirements {Versions = new VersionRange("..!1.0")}).IsSuitable);
+                implementation, new Requirements {Command = Command.NameRun, Versions = new VersionRange("..!1.0")}).IsSuitable);
         }
 
         [Test]
@@ -60,10 +60,10 @@ namespace ZeroInstall.Model.Selection
             var implementation = ImplementationTest.CreateTestImplementation();
             Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml",
                 new FeedPreferences {Implementations = {new ImplementationPreferences {ID = implementation.ID, UserStability = Stability.Buggy}}},
-                implementation, new Requirements()).IsSuitable);
+                implementation, new Requirements {Command = Command.NameRun}).IsSuitable);
             Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml",
                 new FeedPreferences {Implementations = {new ImplementationPreferences {ID = implementation.ID, UserStability = Stability.Insecure}}},
-                implementation, new Requirements()).IsSuitable);
+                implementation, new Requirements {Command = Command.NameRun}).IsSuitable);
         }
     }
 }

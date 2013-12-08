@@ -18,6 +18,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Common.Collections;
+using Common.Tasks;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
@@ -29,34 +30,31 @@ namespace ZeroInstall.Solvers.Backtracking
     /// <summary>
     /// Holds state during a single <see cref="BacktrackingSolver.Solve"/> run.
     /// </summary>
-    internal class BacktrackingRun : SolverRun
+    internal sealed class BacktrackingRun : SolverRun
     {
-        private Requirements _topLevelRequirements;
-
-        public BacktrackingRun(Config config, IFeedManager feedManager, IStore store, IHandler handler)
-            : base(config, feedManager, store, handler)
+        /// <inheritdoc/>
+        public BacktrackingRun(Requirements requirements, CancellationToken cancellationToken, Config config, IFeedManager feedManager, IStore store) : base(requirements, cancellationToken, config, feedManager, store)
         {}
+
+        /// <inheritdoc/>
+        public override bool TryToSolve()
+        {
+            return TryToSolve(TopLevelRequirements);
+        }
 
         /// <summary>
         /// Try to satisfy a set of <paramref name="requirements"/>, respecting any existing <see cref="SolverRun.Selections"/>.
         /// </summary>
-        public bool TryToSolve(Requirements requirements)
+        private bool TryToSolve(Requirements requirements)
         {
-            if (_topLevelRequirements == null)
-            {
-                _topLevelRequirements = requirements;
-                Selections.InterfaceID = requirements.InterfaceID;
-                Selections.Command = requirements.EffectiveCommand;
-            }
-
-            Handler.CancellationToken.ThrowIfCancellationRequested();
+            CancellationToken.ThrowIfCancellationRequested();
 
             var allCandidates = GetSortedCandidates(requirements);
             var suitableCandidates = FilterSuitableCandidates(allCandidates, requirements.InterfaceID);
 
             // Stop if specific implementation already selected elsewhere in tree
             if (Selections.ContainsImplementation(requirements.InterfaceID))
-                return suitableCandidates.Contains(Selections[requirements.InterfaceID]);
+                return suitableCandidates.Contains(Selections[requirements.InterfaceID].ID);
 
             return TryToSelectCandidate(suitableCandidates, requirements, allCandidates);
         }
@@ -68,7 +66,6 @@ namespace ZeroInstall.Solvers.Backtracking
 
         private IEnumerable<SelectionCandidate> FilterSuitableCandidates(IEnumerable<SelectionCandidate> candidates, string interfaceID)
         {
-            // TODO: Prevent x86 AMD64 mixing
             return candidates.Where(candidate =>
                 candidate.IsSuitable &&
                 !ConflictsWithExistingRestrictions(interfaceID, candidate) &&
@@ -92,7 +89,7 @@ namespace ZeroInstall.Solvers.Backtracking
             foreach (var candidate in candidates)
             {
                 AddToSelections(candidate, requirements, allCandidates);
-                if (TryToSolveCommand(candidate.Implementation.GetCommand(requirements.EffectiveCommand)) &&
+                if (TryToSolveCommand(candidate.Implementation.GetCommand(requirements.Command)) &&
                     TryToSolveDependencies(candidate.Implementation.Dependencies))
                     return true;
                 else RemoveFromSelections(candidate);
@@ -102,7 +99,7 @@ namespace ZeroInstall.Solvers.Backtracking
 
         private bool TryToSolveDependencies(IEnumerable<Dependency> dependencies)
         {
-            var dependencyRequirements = dependencies.Select(dependency => dependency.ToRequirements(_topLevelRequirements));
+            var dependencyRequirements = dependencies.Select(dependency => dependency.ToRequirements(TopLevelRequirements));
             return dependencyRequirements.All(TryToSolve);
         }
 
@@ -110,7 +107,7 @@ namespace ZeroInstall.Solvers.Backtracking
         {
             if (command == null) return true;
             if (command.Runner != null)
-                if (!TryToSolve(command.Runner.ToRequirements(_topLevelRequirements))) return false;
+                if (!TryToSolve(command.Runner.ToRequirements(TopLevelRequirements))) return false;
 
             return TryToSolveDependencies(command.Dependencies);
         }

@@ -61,18 +61,17 @@ namespace ZeroInstall.Solvers
             if (y == null) throw new ArgumentNullException("y");
             #endregion
 
-            // TODO: Languages we understand come first
-
             // Preferred implementations come first
             if (x.EffectiveStability == Stability.Preferred && y.EffectiveStability != Stability.Preferred) return -1;
             if (x.EffectiveStability != Stability.Preferred && y.EffectiveStability == Stability.Preferred) return 1;
 
-            // Prefer available implementations next if we have limited network access
+            // TODO: Strongly prefer languages we understand
+
+            // Cached implementations come next if we have limited network access
             if (_networkUse != NetworkLevel.Full)
             {
                 bool xCached = _store.Contains(x.Implementation.ManifestDigest);
                 bool yCached = _store.Contains(x.Implementation.ManifestDigest);
-
                 if (xCached && !yCached) return -1;
                 if (!xCached && yCached) return 1;
             }
@@ -87,7 +86,9 @@ namespace ZeroInstall.Solvers
             if (x.Version > y.Version) return -1;
             if (x.Version < y.Version) return 1;
 
-            // TODO: Get best architecture
+            // More specific CPU types come first (checking whether the CPU type is compatible at all is done elsewhere)
+            if (x.Implementation.Architecture.Cpu > y.Implementation.Architecture.Cpu) return -1;
+            if (x.Implementation.Architecture.Cpu < y.Implementation.Architecture.Cpu) return 1;
 
             // TODO: Slightly prefer languages specialised to our country
 
@@ -96,12 +97,11 @@ namespace ZeroInstall.Solvers
             {
                 bool xCached = _store.Contains(x.Implementation.ManifestDigest);
                 bool yCached = _store.Contains(x.Implementation.ManifestDigest);
-
                 if (xCached && !yCached) return -1;
                 if (!xCached && yCached) return 1;
             }
 
-            // Order by ID so the order isn't random
+            // Order by ID so the order is not random
             return string.CompareOrdinal(x.Implementation.ID, y.Implementation.ID);
         }
     }

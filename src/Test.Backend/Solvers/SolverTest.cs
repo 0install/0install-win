@@ -40,7 +40,7 @@ namespace ZeroInstall.Solvers
                 {
                     {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /></implementation>"}
                 },
-                requirements: new Requirements {InterfaceID = "http://test/app.xml"},
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
                 expectedSelections: "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /></selection>");
         }
 
@@ -53,7 +53,7 @@ namespace ZeroInstall.Solvers
                     {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' /></implementation>"},
                     {"http://test/lib.xml", "<implementation version='1.0' id='lib1' />"}
                 },
-                requirements: new Requirements {InterfaceID = "http://test/app.xml"},
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
                 expectedSelections:
                     "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' /></selection>" +
                     "<selection interface='http://test/lib.xml' version='1.0' id='lib1' />");
@@ -68,7 +68,7 @@ namespace ZeroInstall.Solvers
                     {"http://test/app.xml", "<implementation version='1.0' id='app1'><requires interface='http://test/lib.xml' /><command name='run' path='test-app' /></implementation>"},
                     {"http://test/lib.xml", "<implementation version='1.0' id='lib1'><requires interface='http://test/app.xml' /></implementation>"}
                 },
-                requirements: new Requirements {InterfaceID = "http://test/app.xml"},
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
                 expectedSelections:
                     "<selection interface='http://test/app.xml' version='1.0' id='app1'><requires interface='http://test/lib.xml' /><command name='run' path='test-app' /></selection>" +
                     "<selection interface='http://test/lib.xml' version='1.0' id='lib1'><requires interface='http://test/app.xml' /></selection>");
@@ -85,7 +85,7 @@ namespace ZeroInstall.Solvers
                     {"http://test/liba.xml", "<implementation version='1.0' id='liba1' />"},
                     {"http://test/libb.xml", "<implementation version='1.0' id='libb1' /><implementation version='2.0' id='libb2' />"}
                 },
-                requirements: new Requirements {InterfaceID = "http://test/app.xml"},
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
                 expectedSelections:
                     "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></selection>" +
                     "<selection interface='http://test/liba.xml' version='1.0' id='liba1' />" +
@@ -99,11 +99,51 @@ namespace ZeroInstall.Solvers
                     {"http://test/liba.xml", "<implementation version='1.0' id='liba1'><restricts interface='http://test/libb.xml' version='1.0' /></implementation>"},
                     {"http://test/libb.xml", "<implementation version='1.0' id='libb1' /><implementation version='2.0' id='libb2' />"}
                 },
-                requirements: new Requirements {InterfaceID = "http://test/app.xml"},
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
                 expectedSelections:
                     "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></selection>" +
                     "<selection interface='http://test/liba.xml' version='1.0' id='liba1' />" +
                     "<selection interface='http://test/libb.xml' version='1.0' id='libb1' />");
+        }
+
+        [Test]
+        public void TestX86OnX64()
+        {
+            if (Architecture.CurrentSystem.Cpu != Cpu.X64) Assert.Ignore("Can only test on X64 systems");
+
+            // Prefer x64 when possible
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {
+                        "http://test/app.xml",
+                        "<group version='1.0'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' />" +
+                        "<implementation arch='*-i686' id='app32'/><implementation arch='*-x86_64' id='app64'/>" +
+                        "</group>"
+                    },
+                    {"http://test/lib.xml", "<implementation version='1.0' id='lib' />"}
+                },
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' arch='*-x86_64' id='app64'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' /></selection>" +
+                    "<selection interface='http://test/lib.xml' version='1.0' id='lib' />");
+
+            // Fall back to x86 to avoid 32bit/64bit mixing
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {
+                        "http://test/app.xml",
+                        "<group version='1.0'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' />" +
+                        "<implementation arch='*-i686' id='app32'/><implementation arch='*-x86_64' id='app64'/>" +
+                        "</group>"
+                    },
+                    {"http://test/lib.xml", "<implementation version='1.0' arch='*-i486' id='lib' />"}
+                },
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' arch='*-i686' id='app32'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' /></selection>" +
+                    "<selection interface='http://test/lib.xml' version='1.0' arch='*-i486' id='lib' />");
         }
 
         #region Helpers
@@ -125,7 +165,7 @@ namespace ZeroInstall.Solvers
         {
             var expectedSelectionsParsed = XmlStorage.FromXmlString<Selections>(string.Format(
                 "<?xml version='1.0'?><selections interface='{0}' command='{1}' xmlns='http://zero-install.sourceforge.net/2004/injector/interface'>{2}</selections>",
-                requirements.InterfaceID, requirements.EffectiveCommand, expectedSelections));
+                requirements.InterfaceID, requirements.Command, expectedSelections));
             return expectedSelectionsParsed;
         }
 

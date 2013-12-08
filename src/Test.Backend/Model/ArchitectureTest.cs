@@ -84,12 +84,12 @@ namespace ZeroInstall.Model
 
             // x86-series backwards-compatibility
             Assert.IsTrue(new Architecture(OS.Linux, Cpu.I386).IsCompatible(new Architecture(OS.Linux, Cpu.I686)));
-            Assert.IsTrue(new Architecture(OS.Linux, Cpu.I386).IsCompatible(new Architecture(OS.Linux, Cpu.X64)));
             Assert.IsFalse(new Architecture(OS.Linux, Cpu.I686).IsCompatible(new Architecture(OS.Linux, Cpu.I386)));
+            
+            // 32bit/64bit exclusion
+            Assert.IsFalse(new Architecture(OS.Linux, Cpu.I386).IsCompatible(new Architecture(OS.Linux, Cpu.X64)));
             Assert.IsFalse(new Architecture(OS.Linux, Cpu.X64).IsCompatible(new Architecture(OS.Linux, Cpu.I686)));
-
-            // PowerPC backwards-compatibility
-            Assert.IsTrue(new Architecture(OS.MacOSX, Cpu.PPC).IsCompatible(new Architecture(OS.MacOSX, Cpu.PPC64)));
+            Assert.IsFalse(new Architecture(OS.MacOSX, Cpu.PPC).IsCompatible(new Architecture(OS.MacOSX, Cpu.PPC64)));
             Assert.IsFalse(new Architecture(OS.MacOSX, Cpu.PPC64).IsCompatible(new Architecture(OS.MacOSX, Cpu.PPC)));
         }
     }

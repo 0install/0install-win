@@ -127,7 +127,7 @@ namespace ZeroInstall.Model.Selection
         /// <summary>
         /// Creates a new implemenetation selection.
         /// </summary>
-        /// <param name="candidates">A list of implementations that were considered for selection before this one was chosen.</param>
+        /// <param name="candidates">All candidates that were considered for selection (including the selected one). These are used to present the user with possible alternatives.</param>
         // ReSharper disable once ParameterTypeCanBeEnumerable.Local
         public ImplementationSelection(IEnumerable<SelectionCandidate> candidates)
         {

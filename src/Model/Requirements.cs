@@ -63,37 +63,12 @@ namespace ZeroInstall.Model
         public string Command { get; set; }
 
         /// <summary>
-        /// Returns <see cref="Command"/>, replacing <see langword="null"/> with <see cref="Model.Command.NameRun"/> or <see cref="Model.Command.NameCompile"/>.
-        /// </summary>
-        [Browsable(false)]
-        [XmlIgnore]
-        public string EffectiveCommand
-        {
-            get { return Command ?? (Architecture.Cpu == Cpu.Source ? Model.Command.NameCompile : Model.Command.NameRun); }
-        }
-
-        /// <summary>
         /// The architecture to find executables for. Find for the current system if left at default value.
         /// </summary>
         /// <remarks>Will default to <see cref="Model.Architecture.CurrentSystem"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.</remarks>
         [Description("The architecture to find executables for. Find for the current system if left at default value.")]
         [XmlIgnore]
         public Architecture Architecture { get; set; }
-
-        /// <summary>
-        /// Returns <see cref="EffectiveCommand"/>, the default value with <see cref="Model.Architecture.CurrentSystem"/>.
-        /// </summary>
-        [Browsable(false)]
-        [XmlIgnore]
-        public Architecture EffectiveArchitecture
-        {
-            get
-            {
-                return new Architecture(
-                    (Architecture.OS == OS.All) ? Architecture.CurrentSystem.OS : Architecture.OS,
-                    (Architecture.Cpu == Cpu.All) ? Architecture.CurrentSystem.Cpu : Architecture.Cpu);
-            }
-        }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Architecture"/>
@@ -181,8 +156,8 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            if (Versions == null) return string.Format("{0} ({1})", InterfaceID, EffectiveCommand);
-            else return string.Format("{0} ({1}): {2}", InterfaceID, EffectiveCommand, Versions);
+            if (Versions == null) return string.Format("{0} ({1})", InterfaceID, Command);
+            else return string.Format("{0} ({1}): {2}", InterfaceID, Command, Versions);
         }
 
         /// <summary>

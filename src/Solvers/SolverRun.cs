@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Common.Collections;
+using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
@@ -36,32 +37,35 @@ namespace ZeroInstall.Solvers
     internal abstract class SolverRun
     {
         #region Depdendencies
+        protected readonly Requirements TopLevelRequirements;
+        protected readonly CancellationToken CancellationToken;
         private readonly Config _config;
         private readonly IStore _store;
 
         /// <summary>
-        /// A callback object used when the the user needs to be asked questions or informed about download and IO tasks.
-        /// </summary>
-        protected readonly IHandler Handler;
-
-        /// <summary>
         /// Creates a new solver run.
         /// </summary>
+        /// <param name="requirements">The top-level requirements the solver should try to meet.</param>
+        /// <param name="cancellationToken"></param>
         /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="store">Used to check which <see cref="Implementation"/>s are already cached.</param>
-        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        protected SolverRun(Config config, IFeedManager feedManager, IStore store, IHandler handler)
+        protected SolverRun(Requirements requirements, CancellationToken cancellationToken, Config config, IFeedManager feedManager, IStore store)
         {
             #region Sanity checks
+            if (cancellationToken == null) throw new ArgumentNullException("cancellationToken");
             if (config == null) throw new ArgumentNullException("config");
             if (feedManager == null) throw new ArgumentNullException("feedManager");
             if (store == null) throw new ArgumentNullException("store");
             #endregion
 
+            CancellationToken = cancellationToken;
             _config = config;
             _store = store;
-            Handler = handler;
+
+            TopLevelRequirements = requirements;
+            Selections.InterfaceID = requirements.InterfaceID;
+            Selections.Command = requirements.Command;
 
             _comparer = new TransparentCache<string, SelectionCandidateComparer>(id => new SelectionCandidateComparer(config, _interfacePreferences[id].StabilityPolicy, store));
             _feeds = new TransparentCache<string, Feed>(feedManager.GetFeed);
@@ -85,8 +89,17 @@ namespace ZeroInstall.Solvers
         #region Properties
         private readonly Selections _selections = new Selections();
 
+        /// <summary>
+        /// The implementations selected by the solver run.
+        /// </summary>
         public Selections Selections { get { return _selections; } }
         #endregion
+
+        /// <summary>
+        /// Try to satisfy the <see cref="TopLevelRequirements"/>. If successful the result can be retrieved from <see cref="Selections"/>.
+        /// </summary>
+        /// <returns><see langword="true"/> if a solution was found; <see langword="false"/> otherwise.</returns>
+        public abstract bool TryToSolve();
 
         #region Candidates
         /// <summary>
@@ -147,7 +160,7 @@ namespace ZeroInstall.Solvers
         {
             return feedReferences
                 .Where(feedReference =>
-                    feedReference.Architecture.IsCompatible(requirements.EffectiveArchitecture) &&
+                    feedReference.Architecture.IsCompatible(requirements.Architecture) &&
                     feedReference.Languages.ContainsAny(requirements.Languages))
                 .SelectMany(feedReference => GetCandidates(feedReference.Source, requirements));
         }

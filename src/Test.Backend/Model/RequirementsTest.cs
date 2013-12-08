@@ -56,23 +56,6 @@ namespace ZeroInstall.Model
             Assert.DoesNotThrow(() => requirements.InterfaceID = "/feeds/test.xml", "Should absolute paths");
         }
 
-        [Test]
-        public void TestEffectiveArchitecture()
-        {
-            var requirements = new Requirements();
-            Assert.AreEqual(Architecture.CurrentSystem, requirements.EffectiveArchitecture);
-        }
-
-        [Test]
-        public void TestEffectiveCommand()
-        {
-            var requirements = new Requirements();
-            Assert.AreEqual(Command.NameRun, requirements.EffectiveCommand);
-
-            requirements = new Requirements {Architecture = new Architecture(OS.All, Cpu.Source)};
-            Assert.AreEqual(Command.NameCompile, requirements.EffectiveCommand);
-        }
-
         [Test(Description = "Ensures that the class can be correctly cloned.")]
         public void TestClone()
         {
