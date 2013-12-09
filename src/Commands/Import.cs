@@ -52,7 +52,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public Import(IBackendHandler handler) : base(handler)
         {
-            Options.Add("batch", () => Resources.OptionBatch, unused => Handler.Batch = true);
+            Options.Add("batch", () => Resources.OptionBatch, _ => Handler.Batch = true);
         }
         #endregion
 

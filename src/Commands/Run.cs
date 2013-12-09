@@ -80,7 +80,7 @@ namespace ZeroInstall.Commands
 
             Options.Add("m|main=", () => Resources.OptionMain, newMain => _main = newMain);
             Options.Add("w|wrapper=", () => Resources.OptionWrapper, newWrapper => _wrapper = newWrapper);
-            Options.Add("no-wait", () => Resources.OptionNoWait, unused => NoWait = true);
+            Options.Add("no-wait", () => Resources.OptionNoWait, _ => NoWait = true);
 
             // Work-around to disable interspersed arguments (needed for passing arguments through to sub-processes)
             Options.Add("<>", value =>

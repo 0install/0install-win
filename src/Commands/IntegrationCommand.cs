@@ -26,12 +26,12 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected IntegrationCommand(IBackendHandler handler) : base(handler)
         {
-            Options.Add("batch", () => Resources.OptionBatch, unused => Handler.Batch = true);
+            Options.Add("batch", () => Resources.OptionBatch, _ => Handler.Batch = true);
 
-            Options.Add("o|offline", () => Resources.OptionOffline, unused => Config.NetworkUse = NetworkLevel.Offline);
-            Options.Add("r|refresh", () => Resources.OptionRefresh, unused => FeedManager.Refresh = true);
+            Options.Add("o|offline", () => Resources.OptionOffline, _ => Config.NetworkUse = NetworkLevel.Offline);
+            Options.Add("r|refresh", () => Resources.OptionRefresh, _ => FeedManager.Refresh = true);
 
-            Options.Add("m|machine", () => Resources.OptionMachine, unused => MachineWide = true);
+            Options.Add("m|machine", () => Resources.OptionMachine, _ => MachineWide = true);
         }
         #endregion
 

@@ -85,11 +85,11 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public Selection(IBackendHandler handler) : base(handler)
         {
-            Options.Add("batch", () => Resources.OptionBatch, unused => Handler.Batch = true);
-            Options.Add("g|gui", () => Resources.OptionGui, unused => ShowModifySelections = true);
+            Options.Add("batch", () => Resources.OptionBatch, _ => Handler.Batch = true);
+            Options.Add("g|gui", () => Resources.OptionGui, _ => ShowModifySelections = true);
 
-            Options.Add("o|offline", () => Resources.OptionOffline, unused => Config.NetworkUse = NetworkLevel.Offline);
-            Options.Add("r|refresh", () => Resources.OptionRefresh, unused => FeedManager.Refresh = true);
+            Options.Add("o|offline", () => Resources.OptionOffline, _ => Config.NetworkUse = NetworkLevel.Offline);
+            Options.Add("r|refresh", () => Resources.OptionRefresh, _ => FeedManager.Refresh = true);
 
             Options.Add("with-store=", () => Resources.OptionWithStore, delegate(string path)
             {
@@ -99,7 +99,7 @@ namespace ZeroInstall.Commands
 
             Requirements.FromCommandLine(Options);
 
-            Options.Add("xml", () => Resources.OptionXml, unused => ShowXml = true);
+            Options.Add("xml", () => Resources.OptionXml, _ => ShowXml = true);
         }
         #endregion
 

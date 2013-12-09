@@ -62,7 +62,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public Download(IBackendHandler handler) : base(handler)
         {
-            Options.Add("show", () => Resources.OptionShow, unused => _show = true);
+            Options.Add("show", () => Resources.OptionShow, _ => _show = true);
         }
         #endregion
 

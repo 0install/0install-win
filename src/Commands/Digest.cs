@@ -66,8 +66,8 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public Digest(IBackendHandler handler) : base(handler)
         {
-            Options.Add("manifest", () => Resources.OptionManifest, unused => _printManifest = true);
-            Options.Add("digest", () => Resources.OptionDigest, unused => _printDigest = true);
+            Options.Add("manifest", () => Resources.OptionManifest, _ => _printManifest = true);
+            Options.Add("digest", () => Resources.OptionDigest, _ => _printDigest = true);
             Options.Add("algorithm=", () => Resources.OptionAlgorithm + "\n" + SupportedValues(ManifestFormat.All),
                 delegate(string algorithm)
                 {

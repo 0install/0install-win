@@ -52,7 +52,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public Central(IBackendHandler handler) : base(handler)
         {
-            Options.Add("m|machine", () => Resources.OptionMachine, unused => _machineWide = true);
+            Options.Add("m|machine", () => Resources.OptionMachine, _ => _machineWide = true);
         }
         #endregion
 

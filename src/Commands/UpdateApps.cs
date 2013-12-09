@@ -63,7 +63,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public UpdateApps(IBackendHandler handler) : base(handler)
         {
-            Options.Add("c|clean", () => Resources.OptionClean, unused => _clean = true);
+            Options.Add("c|clean", () => Resources.OptionClean, _ => _clean = true);
         }
         #endregion
 

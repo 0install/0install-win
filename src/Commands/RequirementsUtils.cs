@@ -54,7 +54,7 @@ namespace ZeroInstall.Commands
                 requirements.Versions = requirements.Versions.Intersect(new Constraint {NotBefore = version});
             });
             options.Add("s|source", () => Resources.OptionSource,
-                unused => requirements.Architecture = new Architecture(requirements.Architecture.OS, Cpu.Source));
+                _ => requirements.Architecture = new Architecture(requirements.Architecture.OS, Cpu.Source));
             options.Add("os=", () => Resources.OptionOS + "\n" + FrontendCommand.SupportedValues(Architecture.KnownOS),
                 (OS os) => requirements.Architecture = new Architecture(os, requirements.Architecture.Cpu));
             options.Add("cpu=", () => Resources.OptionCpu + "\n" + FrontendCommand.SupportedValues(Architecture.KnownCpu),

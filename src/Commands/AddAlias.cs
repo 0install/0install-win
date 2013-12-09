@@ -69,8 +69,8 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public AddAlias(IBackendHandler handler) : base(handler)
         {
-            Options.Add("resolve", () => Resources.OptionAliasResolve, unused => _resolve = true);
-            Options.Add("remove", () => Resources.OptionAliasRemove, unused => _remove = true);
+            Options.Add("resolve", () => Resources.OptionAliasResolve, _ => _resolve = true);
+            Options.Add("remove", () => Resources.OptionAliasRemove, _ => _remove = true);
         }
         #endregion
 

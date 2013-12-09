@@ -168,12 +168,12 @@ namespace ZeroInstall.Commands
         /// </summary>
         protected FrontendCommand(IBackendHandler handler) : base(handler)
         {
-            Options.Add("?|h|help", () => Resources.OptionHelp, unused =>
+            Options.Add("?|h|help", () => Resources.OptionHelp, _ =>
             {
                 Handler.Output(Resources.CommandLineArguments, HelpText);
                 throw new OperationCanceledException(); // Don't handle any of the other arguments
             });
-            Options.Add("v|verbose", () => Resources.OptionVerbose, unused => Handler.Verbosity++);
+            Options.Add("v|verbose", () => Resources.OptionVerbose, _ => Handler.Verbosity++);
         }
         #endregion
 
