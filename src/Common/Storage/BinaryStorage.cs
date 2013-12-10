@@ -272,28 +272,5 @@ namespace Common.Storage
                 SaveBinaryZip(data, fileStream, password, additionalFiles);
         }
         #endregion
-
-        //--------------------//
-
-        #region Embedded files
-        /// <summary>
-        /// Returns a stream containing a file embedded into a binary-ZIP archive.
-        /// </summary>
-        /// <param name="stream">The ZIP archive to be loaded.</param>
-        /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
-        /// <param name="name">The name of the embedded file.</param>
-        /// <returns>A stream containing the embedded file.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurred while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data.</exception>
-        public static Stream GetEmbeddedFileStream(Stream stream, string password, string name)
-        {
-            using (var zipFile = new ZipFile(stream))
-            {
-                zipFile.Password = password;
-                return zipFile.GetInputStream(zipFile.GetEntry(name));
-            }
-        }
-        #endregion
     }
 }

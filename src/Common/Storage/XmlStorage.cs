@@ -47,6 +47,23 @@ namespace Common.Storage
         public const string XsiNamespace = "http://www.w3.org/2001/XMLSchema-instance";
         #endregion
 
+        #region Serializer generation
+        /// <summary>
+        /// Gets a <see cref="XmlSerializer"/> for classes of the type <paramref name="type"/>.
+        /// </summary>
+        /// <param name="type">The type to get the serializer for.</param>
+        /// <returns>The <see cref="XmlSerializer"/>.</returns>
+        private static XmlSerializer GetSerializer(Type type)
+        {
+            var serializer = new XmlSerializer(type);
+            serializer.UnknownAttribute += (sender, e) => Log.Warn("Ignored XML attribute while deserializing: " + e.Attr);
+            serializer.UnknownElement += (sender, e) => Log.Warn("Ignored XML element while deserializing: " + e.Element);
+            return serializer;
+        }
+        #endregion
+
+        //--------------------//
+
         #region Load plain
         /// <summary>
         /// Loads an object from an XML file.
@@ -65,8 +82,7 @@ namespace Common.Storage
             if (stream.CanSeek) stream.Position = 0;
             try
             {
-                var serializer = new XmlSerializer(typeof(T));
-                return (T)serializer.Deserialize(stream);
+                return (T)GetSerializer(typeof(T)).Deserialize(stream);
             }
                 #region Error handling
             catch (InvalidOperationException ex)
@@ -141,7 +157,7 @@ namespace Common.Storage
             #endregion
 
             var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings {Encoding = new UTF8Encoding(false), Indent = true, IndentChars = "\t", NewLineChars = "\n"});
-            var serializer = new XmlSerializer(typeof(T));
+            var serializer = GetSerializer(typeof(T));
 
             // Detect and handle namespace attributes
             var rootAttribute = AttributeUtils.GetAttributes<XmlRootAttribute, T>().FirstOrDefault();
@@ -149,8 +165,10 @@ namespace Common.Storage
             var qualifiedNames = namespaceAttributes.Select(attr => attr.QualifiedName);
             if (rootAttribute != null) qualifiedNames = qualifiedNames.Concat(new[] {new XmlQualifiedName("", rootAttribute.Namespace)});
 
+            // ReSharper disable PossibleMultipleEnumeration
             if (qualifiedNames.Any()) serializer.Serialize(xmlWriter, data, new XmlSerializerNamespaces(qualifiedNames.ToArray()));
             else serializer.Serialize(xmlWriter, data);
+            // ReSharper restore PossibleMultipleEnumeration
 
             // End file with line break
             if (xmlWriter.Settings != null)
@@ -386,29 +404,6 @@ namespace Common.Storage
             {
                 SaveXmlZip(data, fileStream, password, additionalFiles);
                 atomic.Commit();
-            }
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Embedded files
-        /// <summary>
-        /// Returns a stream containing a file embedded into a XML-ZIP archive.
-        /// </summary>
-        /// <param name="stream">The ZIP archive to be loaded.</param>
-        /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
-        /// <param name="name">The name of the embedded file.</param>
-        /// <returns>A stream containing the embedded file.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurred while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data.</exception>
-        public static Stream GetEmbeddedFileStream(Stream stream, string password, string name)
-        {
-            using (var zipFile = new ZipFile(stream))
-            {
-                zipFile.Password = password;
-                return zipFile.GetInputStream(zipFile.GetEntry(name));
             }
         }
         #endregion
