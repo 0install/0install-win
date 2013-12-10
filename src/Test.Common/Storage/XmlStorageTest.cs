@@ -90,7 +90,7 @@ namespace Common.Storage
             var tempStream = new MemoryStream();
             testData1.SaveXmlZip(tempStream, null, new EmbeddedFile[0]);
             tempStream.Seek(0, SeekOrigin.Begin);
-            var testData2 = XmlStorage.LoadXmlZip<TestData>(tempStream, null, new EmbeddedFile[0]);
+            var testData2 = XmlStorage.LoadXmlZip<TestData>(tempStream);
 
             // Ensure data stayed the same
             Assert.AreEqual(testData1.Data, testData2.Data);
@@ -107,7 +107,7 @@ namespace Common.Storage
             var tempStream = new MemoryStream();
             testData1.SaveXmlZip(tempStream, "Test password", new EmbeddedFile[0]);
             tempStream.Seek(0, SeekOrigin.Begin);
-            var testData2 = XmlStorage.LoadXmlZip<TestData>(tempStream, "Test password", new EmbeddedFile[0]);
+            var testData2 = XmlStorage.LoadXmlZip<TestData>(tempStream, password: "Test password");
 
             // Ensure data stayed the same
             Assert.AreEqual(testData1.Data, testData2.Data);
@@ -123,7 +123,7 @@ namespace Common.Storage
             var testData = new TestData {Data = "Hello"};
             testData.SaveXmlZip(tempStream, "Correct password", new EmbeddedFile[0]);
             tempStream.Seek(0, SeekOrigin.Begin);
-            Assert.Throws<ZipException>(() => XmlStorage.LoadXmlZip<TestData>(tempStream, "Wront password", new EmbeddedFile[0]));
+            Assert.Throws<ZipException>(() => XmlStorage.LoadXmlZip<TestData>(tempStream, password: "Wrong password"));
         }
 
         /// <summary>

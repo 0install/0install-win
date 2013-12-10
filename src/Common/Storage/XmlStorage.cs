@@ -264,7 +264,7 @@ namespace Common.Storage
         /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
         /// <param name="stream">The ZIP archive to load.</param>
         /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
-        /// <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read; may be <see langword="null"/>.</param>
+        /// <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read.</param>
         /// <returns>The loaded object.</returns>
         /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
@@ -273,6 +273,7 @@ namespace Common.Storage
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
+            if (additionalFiles == null) throw new ArgumentNullException("additionalFiles");
             #endregion
 
             bool xmlFound = false;
@@ -293,16 +294,13 @@ namespace Common.Storage
                     }
                     else
                     {
-                        if (additionalFiles != null)
+                        // Read additional files from the ZIP archive
+                        foreach (EmbeddedFile file in additionalFiles)
                         {
-                            // Read additional files from the ZIP archive
-                            foreach (EmbeddedFile file in additionalFiles)
+                            if (StringUtils.EqualsIgnoreCase(zipEntry.Name, file.Filename))
                             {
-                                if (StringUtils.EqualsIgnoreCase(zipEntry.Name, file.Filename))
-                                {
-                                    var inputStream = zipFile.GetInputStream(zipEntry);
-                                    file.StreamDelegate(inputStream);
-                                }
+                                var inputStream = zipFile.GetInputStream(zipEntry);
+                                file.StreamDelegate(inputStream);
                             }
                         }
                     }
@@ -319,7 +317,7 @@ namespace Common.Storage
         /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
         /// <param name="path">The ZIP archive to load.</param>
         /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
-        /// <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read; may be <see langword="null"/>.</param>
+        /// <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read.</param>
         /// <returns>The loaded object.</returns>
         /// <exception cref="IOException">Thrown if a problem occurred while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
@@ -330,6 +328,7 @@ namespace Common.Storage
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (additionalFiles == null) throw new ArgumentNullException("additionalFiles");
             #endregion
 
             using (var fileStream = File.OpenRead(path))
