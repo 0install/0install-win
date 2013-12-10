@@ -290,7 +290,7 @@ namespace ZeroInstall.Commands
                 {
                     Path = AdditionalArgs[i * 3 + 2],
                     SubDir = (AdditionalArgs.Count > i * 3 + 3) ? AdditionalArgs[i * 3 + 3] : null,
-                    MimeType = (AdditionalArgs.Count > i * 3 + 4) ? AdditionalArgs[i * 3 + 4] : null
+                    MimeType = (AdditionalArgs.Count > i * 3 + 4) ? AdditionalArgs[i * 3 + 4] : Archive.GuessMimeType(AdditionalArgs[i * 3 + 2])
                 };
             }
             return archives;
