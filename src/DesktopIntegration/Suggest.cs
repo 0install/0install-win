@@ -43,13 +43,18 @@ namespace ZeroInstall.DesktopIntegration
             var category = feed.Categories.FirstOrDefault();
             if (feed.EntryPoints.Count < 2)
             { // Only a single entry point
-                return new[] {new MenuEntry {Name = feed.Name.RemoveAll(Path.GetInvalidFileNameChars()), Category = (category == null) ? "" : category.ToString(), Command = Command.NameRun}};
+                return new[] {new MenuEntry
+                {
+                    Name = feed.Name.RemoveAll(Path.GetInvalidFileNameChars()),
+                    Category = (category == null) ? "" : category.ToString(),
+                    Command = Command.NameRun
+                }};
             }
             else
             { // Multiple entry points
                 return
                     from entryPoint in feed.EntryPoints
-                    where !string.IsNullOrEmpty(entryPoint.Command)
+                    where !string.IsNullOrEmpty(entryPoint.Command) && !entryPoint.NeedsTerminal
                     select new MenuEntry
                     {
                         // Try to get a localized name for the command
