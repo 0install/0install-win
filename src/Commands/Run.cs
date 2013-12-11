@@ -28,6 +28,8 @@ using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Selection;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Commands
@@ -106,6 +108,25 @@ namespace ZeroInstall.Commands
         }
 
         #region Helpers
+        /// <inheritdoc/>
+        protected override Selections Solve()
+        {
+            if (Config.NetworkUse == NetworkLevel.Full)
+            {
+                // Prefer cached implementations (we download updates in the background later on)
+                Config.NetworkUse = NetworkLevel.Minimal;
+                try
+                {
+                    return base.Solve();
+                }
+                finally
+                {
+                    Config.NetworkUse = NetworkLevel.Full;
+                }
+            }
+            else return base.Solve();
+        }
+
         /// <summary>
         /// If any of the feeds are getting old spawn a background update process.
         /// </summary>
