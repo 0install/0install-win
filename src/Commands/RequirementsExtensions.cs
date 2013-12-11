@@ -23,9 +23,9 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Provides utility methods for <see cref="Requirements"/>.
+    /// Provides extension methods for <see cref="Requirements"/>.
     /// </summary>
-    public static class RequirementsUtils
+    public static class RequirementsExtensions
     {
         /// <summary>
         /// Configures an <see cref="OptionSet"/> parser to write data to a <see cref="Requirements"/> isntance.

@@ -89,7 +89,7 @@
     <Compile Include="RemoveApp.cs" />
     <Compile Include="RemoveFeed.cs" />
     <Compile Include="RepairApps.cs" />
-    <Compile Include="RequirementsUtils.cs" />
+    <Compile Include="RequirementsExtensions.cs" />
     <Compile Include="Run.cs" />
     <Compile Include="RunHook.cs" />
     <Compile Include="Selection.cs" />

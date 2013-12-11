@@ -22,7 +22,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Contains code for testing <see cref="RequirementsUtils"/>.
+    /// Contains code for testing <see cref="RequirementsExtensions"/>.
     /// </summary>
     [TestFixture]
     public class RequirementsUtilsTest
