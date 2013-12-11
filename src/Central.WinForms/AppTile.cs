@@ -224,7 +224,8 @@ namespace ZeroInstall.Central.WinForms
         private void buttonRun_Click(object sender, EventArgs e)
         {
             if (InterfaceID.StartsWith("fake:")) return;
-            Program.RunCommand(Commands.Run.Name, "--no-wait", InterfaceID);
+            if (Feed != null && Feed.NeedsTerminal) SelectCommand();
+            else Program.RunCommand(Commands.Run.Name, "--no-wait", InterfaceID);
         }
 
         private void buttonSelectVersion_Click(object sender, EventArgs e)
@@ -236,27 +237,7 @@ namespace ZeroInstall.Central.WinForms
         private void buttonSelectCommmand_Click(object sender, EventArgs e)
         {
             if (InterfaceID.StartsWith("fake:")) return;
-
-            string args;
-            string command = SelectCommandDialog.ShowDialog(this, _feed, out args);
-            if (command != null)
-            {
-                try
-                {
-                    // Cannot use in-process method here because the "args" string needs to be parsed by the operating system
-                    ProcessUtils.LaunchAssembly(Commands.WinForms.Program.ExeName, "run --no-wait --command=" + command.EscapeArgument() + " " + InterfaceID.EscapeArgument() + " " + args);
-                }
-                    #region Error handling
-                catch (FileNotFoundException ex)
-                {
-                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                }
-                catch (Win32Exception ex)
-                {
-                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                }
-                #endregion
-            }
+            SelectCommand();
         }
 
         private void buttonUpdate_Click(object sender, EventArgs e)
@@ -305,6 +286,35 @@ namespace ZeroInstall.Central.WinForms
             MainForm.DisableDragAndDrop = true;
             DoDragDrop(InterfaceID, DragDropEffects.Copy);
             MainForm.DisableDragAndDrop = true;
+        }
+        #endregion
+
+        #region Select command
+        /// <summary>
+        /// Uses <see cref="SelectCommandDialog"/> to ask the user which sub-command of the application to launch.
+        /// </summary>
+        private void SelectCommand()
+        {
+            string args;
+            string command = SelectCommandDialog.ShowDialog(this, _feed, out args);
+            if (command != null)
+            {
+                try
+                {
+                    // Cannot use in-process method here because the "args" string needs to be parsed by the operating system
+                    ProcessUtils.LaunchAssembly(Commands.WinForms.Program.ExeName, "run --no-wait --command=" + command.EscapeArgument() + " " + InterfaceID.EscapeArgument() + " " + args);
+                }
+                    #region Error handling
+                catch (FileNotFoundException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                }
+                catch (Win32Exception ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                }
+                #endregion
+            }
         }
         #endregion
     }

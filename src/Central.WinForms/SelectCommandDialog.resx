@@ -259,13 +259,13 @@
     <value>12, 15</value>
   </data>
   <data name="labelCommand.Size" type="System.Drawing.Size, System.Drawing">
-    <value>62, 13</value>
+    <value>57, 13</value>
   </data>
   <data name="labelCommand.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="labelCommand.Text" xml:space="preserve">
-    <value>&amp;Commands:</value>
+    <value>&amp;Command:</value>
   </data>
   <data name="&gt;&gt;labelCommand.Name" xml:space="preserve">
     <value>labelCommand</value>
@@ -298,6 +298,6 @@
     <value>SelectCommandDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Common.Controls.OKCancelDialog, Common, Version=1.14.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>Common.Controls.OKCancelDialog, Common.WinForms, Version=2.3.6.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
 </root>
