@@ -29,12 +29,12 @@ namespace ZeroInstall.DesktopIntegration
     /// <summary>
     /// Suggests suitable default <see cref="AccessPoint"/>s for specific <see cref="Feed"/>s.
     /// </summary>
-    public static class Suggestions
+    public static class Suggest
     {
         /// <summary>
         /// Returns a list of suitable default <see cref="MenuEntry"/>s.
         /// </summary>
-        public static IEnumerable<MenuEntry> SuggestMenuEntries(this Feed feed)
+        public static IEnumerable<MenuEntry> MenuEntries(Feed feed)
         {
             #region Sanity checks
             if (feed == null) throw new ArgumentNullException("feed");
@@ -69,7 +69,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Returns a list of suitable default <see cref="DesktopIcon"/>s.
         /// </summary>
-        public static IEnumerable<DesktopIcon> SuggestDesktopIcons(this Feed feed)
+        public static IEnumerable<DesktopIcon> DesktopIcons(Feed feed)
         {
             #region Sanity checks
             if (feed == null) throw new ArgumentNullException("feed");
@@ -81,7 +81,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Returns a list of suitable default <see cref="AppAlias"/>s.
         /// </summary>
-        public static IEnumerable<AppAlias> SuggestAliases(this Feed feed)
+        public static IEnumerable<AppAlias> Aliases(Feed feed)
         {
             #region Sanity checks
             if (feed == null) throw new ArgumentNullException("feed");

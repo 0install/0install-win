@@ -88,11 +88,11 @@ namespace ZeroInstall.DesktopIntegration
             }
             if (icons)
             {
-                accessPointsToAdd.AddRange(feed.SuggestMenuEntries().Cast<AccessPoint>());
-                accessPointsToAdd.AddRange(feed.SuggestDesktopIcons().Cast<AccessPoint>());
+                accessPointsToAdd.AddRange(Suggest.MenuEntries(feed).Cast<AccessPoint>());
+                accessPointsToAdd.AddRange(Suggest.DesktopIcons(feed).Cast<AccessPoint>());
             }
             if (aliases)
-                accessPointsToAdd.AddRange(feed.SuggestAliases().Cast<AccessPoint>());
+                accessPointsToAdd.AddRange(Suggest.Aliases(feed).Cast<AccessPoint>());
 
             try
             {
