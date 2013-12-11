@@ -32,12 +32,10 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class Import : FrontendCommand
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "import";
-        #endregion
 
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionImport; } }
 
@@ -46,9 +44,7 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMin { get { return 1; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public Import(IBackendHandler handler) : base(handler)
         {
@@ -56,9 +52,6 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        //--------------------//
-
-        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
@@ -69,7 +62,6 @@ namespace ZeroInstall.Commands
 
             return 0;
         }
-        #endregion
 
         #region Helpers
         /// <summary>

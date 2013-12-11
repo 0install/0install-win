@@ -34,20 +34,10 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public class Download : Selection
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "download";
-        #endregion
 
-        #region Variables
-        /// <summary>Indicates the user wants the implementation locations on the disk.</summary>
-        private bool _show;
-
-        /// <summary><see cref="Implementation"/>s referenced in <see cref="Selection.Selections"/> that are not available in the <see cref="IStore"/>.</summary>
-        protected ICollection<Implementation> UncachedImplementations;
-        #endregion
-
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionDownload; } }
 
@@ -56,9 +46,7 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         public override int GuiDelay { get { return Handler.Batch ? 1000 : 0; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public Download(IBackendHandler handler) : base(handler)
         {
@@ -66,9 +54,14 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        //--------------------//
+        #region State
+        /// <summary>Indicates the user wants the implementation locations on the disk.</summary>
+        private bool _show;
 
-        #region Execute
+        /// <summary><see cref="Implementation"/>s referenced in <see cref="Selection.Selections"/> that are not available in the <see cref="IStore"/>.</summary>
+        protected ICollection<Implementation> UncachedImplementations;
+        #endregion
+
         /// <inheritdoc/>
         public override int Execute()
         {
@@ -83,7 +76,6 @@ namespace ZeroInstall.Commands
             Handler.CancellationToken.ThrowIfCancellationRequested();
             return ShowOutput();
         }
-        #endregion
 
         #region Helpers
         /// <inheritdoc/>

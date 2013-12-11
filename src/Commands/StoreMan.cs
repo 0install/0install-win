@@ -53,12 +53,10 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class StoreMan : FrontendCommand
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "store";
-        #endregion
 
-        #region Properties
         /// <inheritdoc/>
         protected override string Description
         {
@@ -91,17 +89,12 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMin { get { return 1; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public StoreMan(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
-        //--------------------//
-
-        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
@@ -153,7 +146,6 @@ namespace ZeroInstall.Commands
                     throw new OptionException(Resources.UnknownMode, "");
             }
         }
-        #endregion
 
         #region Subcommands
         private void Add()

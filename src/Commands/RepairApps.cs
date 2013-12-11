@@ -29,15 +29,13 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class RepairApps : IntegrationCommand
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "repair-all";
 
         /// <summary>The alternative name of this command as used in command-line arguments in lower-case.</summary>
         public const string AltName = "repair-apps";
-        #endregion
 
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionRepairApps; } }
 
@@ -49,17 +47,12 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionRepairApps; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public RepairApps(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
-        //--------------------//
-
-        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
@@ -70,6 +63,5 @@ namespace ZeroInstall.Commands
 
             return 0;
         }
-        #endregion
     }
 }

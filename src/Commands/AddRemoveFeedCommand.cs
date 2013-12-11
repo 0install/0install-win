@@ -33,7 +33,7 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public abstract class AddRemoveFeedCommand : FrontendCommand
     {
-        #region Properties
+        #region Metadata
         /// <inheritdoc/>
         protected override string Usage { get { return "[OPTIONS] [INTERFACE] FEED"; } }
 
@@ -42,9 +42,7 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMax { get { return 2; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         protected AddRemoveFeedCommand(IBackendHandler handler) : base(handler)
         {
@@ -55,9 +53,6 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        //--------------------//
-
-        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
@@ -71,31 +66,12 @@ namespace ZeroInstall.Commands
                 return 1;
             }
 
-            var modified = ApplyFeedToInterfaces(feedID, interfaces);
+            var modifiedInterfaces = ApplyFeedToInterfaces(feedID, interfaces);
 
-            Handler.OutputLow(Resources.FeedManagement, (modified.Count == 0)
+            Handler.OutputLow(Resources.FeedManagement, (modifiedInterfaces.Count == 0)
                 ? NoneModifiedMessage
-                : string.Format(ModifiedMessage, StringUtils.Join(Environment.NewLine, modified)));
-            return (modified.Count == 0) ? 0 : 1;
-        }
-        #endregion
-
-        #region Helpers
-        private IList<string> GetInterfaces(out string feedID)
-        {
-            if (AdditionalArgs.Count == 2)
-            {
-                // Main interface for feed specified explicitly
-                feedID = GetCanonicalID(AdditionalArgs[1]);
-                return new[] {GetCanonicalID(AdditionalArgs[0])};
-            }
-            else
-            {
-                // Determine interfaces from feed content (<feed-for> tags)
-                feedID = GetCanonicalID(AdditionalArgs[0]);
-                var feed = FeedManager.GetFeedFresh(feedID);
-                return feed.FeedFor.Map(reference => reference.Target.ToString());
-            }
+                : string.Format(ModifiedMessage, StringUtils.Join(Environment.NewLine, modifiedInterfaces)));
+            return (modifiedInterfaces.Count == 0) ? 0 : 1;
         }
 
         /// <summary>
@@ -109,6 +85,27 @@ namespace ZeroInstall.Commands
 
         /// <summary>Message to be displayed if the command resulted in no changes.</summary>
         protected abstract string NoneModifiedMessage { get; }
+
+        #region Helpers
+        /// <summary>
+        /// Determines which <see cref="InterfacePreferences.Feeds"/> are to be updated.
+        /// </summary>
+        /// <param name="feedID">Returns the new feed being added/removed.</param>
+        /// <returns>A list of interfaces IDs to be updated.</returns>
+        private IList<string> GetInterfaces(out string feedID)
+        {
+            if (AdditionalArgs.Count == 2)
+            { // Main interface for feed specified explicitly
+                feedID = GetCanonicalID(AdditionalArgs[1]);
+                return new[] {GetCanonicalID(AdditionalArgs[0])};
+            }
+            else
+            { // Determine interfaces from feed content (<feed-for> tags)
+                feedID = GetCanonicalID(AdditionalArgs[0]);
+                var feed = FeedManager.GetFeedFresh(feedID);
+                return feed.FeedFor.Map(reference => reference.Target.ToString());
+            }
+        }
         #endregion
     }
 }

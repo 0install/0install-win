@@ -36,17 +36,10 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class SelfUpdate : Run
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "self-update";
-        #endregion
 
-        #region Variables
-        /// <summary>Perform the update even if the currently installed version is the same or newer.</summary>
-        private bool _force;
-        #endregion
-
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionSelfUpdate; } }
 
@@ -55,9 +48,7 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionSelfUpdate; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public SelfUpdate(IBackendHandler handler) : base(handler)
         {
@@ -73,9 +64,11 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        //--------------------//
+        #region State
+        /// <summary>Perform the update even if the currently installed version is the same or newer.</summary>
+        private bool _force;
+        #endregion
 
-        #region Parse
         /// <inheritdoc/>
         public override void Parse(IEnumerable<string> args)
         {
@@ -83,12 +76,10 @@ namespace ZeroInstall.Commands
 
             Requirements.InterfaceID = Config.SelfUpdateID;
 
-            // Always pass in the installation directory to the updater as an argument
+            // Pass in the installation directory to the updater as an argument
             AdditionalArgs.Add(Locations.InstallBase);
         }
-        #endregion
 
-        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
@@ -100,19 +91,26 @@ namespace ZeroInstall.Commands
             Solve();
             ShowSelections();
 
-            // Make sure the update is actually a newer version
-            var currentVersion = new ImplementationVersion(AppInfo.Current.Version);
-            var newVersion = Selections.Implementations[0].Version;
-            if (!_force && currentVersion >= newVersion)
+            if (UpdateFound())
+            {
+                DownloadUncachedImplementations();
+                Handler.CancellationToken.ThrowIfCancellationRequested();
+                return LaunchImplementation();
+            }
+            else
             {
                 Handler.OutputLow(Resources.ChangesFound, Resources.NoUpdatesFound);
                 return 1;
             }
+        }
 
-            DownloadUncachedImplementations();
-
-            Handler.CancellationToken.ThrowIfCancellationRequested();
-            return LaunchImplementation();
+        #region Helpers
+        private bool UpdateFound()
+        {
+            var currentVersion = new ImplementationVersion(AppInfo.Current.Version);
+            var newVersion = Selections.Implementations[0].Version;
+            bool updatesFound = newVersion > currentVersion || _force;
+            return updatesFound;
         }
         #endregion
     }

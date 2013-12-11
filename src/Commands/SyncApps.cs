@@ -30,17 +30,10 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class SyncApps : IntegrationCommand
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "sync";
-        #endregion
 
-        #region Variables
-        private SyncResetMode _syncResetMode = SyncResetMode.None;
-        private SyncIntegrationManager _syncManager;
-        #endregion
-
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionSync; } }
 
@@ -52,9 +45,7 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionSync; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public SyncApps(IBackendHandler handler) : base(handler)
         {
@@ -62,9 +53,11 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        //--------------------//
+        #region State
+        private SyncResetMode _syncResetMode = SyncResetMode.None;
+        private SyncIntegrationManager _syncManager;
+        #endregion
 
-        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
@@ -75,7 +68,6 @@ namespace ZeroInstall.Commands
 
             return 0;
         }
-        #endregion
 
         #region Helpers
         /// <summary>

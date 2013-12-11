@@ -38,23 +38,10 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public class Run : Download
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "run";
-        #endregion
 
-        #region Variables
-        /// <summary>An alternative executable to to run from the main <see cref="Model.Implementation"/> instead of <see cref="Element.Main"/>.</summary>
-        private string _main;
-
-        /// <summary>Instead of executing the selected program directly, pass it as an argument to this program. Useful for debuggers.</summary>
-        private string _wrapper;
-
-        /// <summary>Immediately returns once the chosen program has been launched instead of waiting for it to finish executing.</summary>
-        protected bool NoWait;
-        #endregion
-
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionRun; } }
 
@@ -69,9 +56,7 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         public override int GuiDelay { get { return FeedManager.Refresh ? 0 : 1500; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public Run(IBackendHandler handler) : base(handler)
         {
@@ -93,9 +78,17 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        //--------------------//
+        #region State
+        /// <summary>An alternative executable to to run from the main <see cref="Model.Implementation"/> instead of <see cref="Element.Main"/>.</summary>
+        private string _main;
 
-        #region Execute
+        /// <summary>Instead of executing the selected program directly, pass it as an argument to this program. Useful for debuggers.</summary>
+        private string _wrapper;
+
+        /// <summary>Immediately returns once the chosen program has been launched instead of waiting for it to finish executing.</summary>
+        protected bool NoWait;
+        #endregion
+
         /// <inheritdoc/>
         public override int Execute()
         {
@@ -111,7 +104,6 @@ namespace ZeroInstall.Commands
             Handler.CancellationToken.ThrowIfCancellationRequested();
             return LaunchImplementation();
         }
-        #endregion
 
         #region Helpers
         /// <summary>

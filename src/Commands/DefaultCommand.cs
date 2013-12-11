@@ -30,7 +30,7 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class DefaultCommand : FrontendCommand
     {
-        #region Properties
+        #region Metadata
         /// <inheritdoc/>
         protected override string Description
         {
@@ -48,9 +48,7 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMax { get { return 0; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public DefaultCommand(IBackendHandler handler) : base(handler)
         {
@@ -62,15 +60,11 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        //--------------------//
-
-        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
             Handler.Output(Resources.CommandLineArguments, HelpText);
             return 1;
         }
-        #endregion
     }
 }

@@ -30,12 +30,10 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public class Fetch : FrontendCommand
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "fetch";
-        #endregion
 
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return "Downloads a set of implementations piped in as XML via stdin. Only for IPC-use."; } }
 
@@ -47,17 +45,12 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionDownload; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public Fetch(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
-        //--------------------//
-
-        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
@@ -68,6 +61,5 @@ namespace ZeroInstall.Commands
 
             return 0;
         }
-        #endregion
     }
 }

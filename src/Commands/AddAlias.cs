@@ -35,20 +35,13 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class AddAlias : IntegrationCommand
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "alias";
 
         /// <summary>The alternative name of this command as used in command-line arguments in lower-case.</summary>
         public const string AltName = "add-alias";
-        #endregion
 
-        #region Variables
-        private bool _resolve;
-        private bool _remove;
-        #endregion
-
-        #region Properties
         /// <inheritdoc/>
         protected override string Usage { get { return "ALIAS [INTERFACE [COMMAND]]"; } }
 
@@ -63,9 +56,7 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionAppCommand; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public AddAlias(IBackendHandler handler) : base(handler)
         {
@@ -74,95 +65,101 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        //--------------------//
+        #region State
+        private bool _resolve;
+        private bool _remove;
+        #endregion
 
-        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
-            using (var integrationManager = new IntegrationManager(Handler, MachineWide))
+            if (_resolve || _remove)
             {
-                if (_resolve || _remove)
-                {
-                    if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
-
-                    return ResolveOrRemove(integrationManager, AdditionalArgs[0]);
-                }
-
+                if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
+                return ResolveOrRemove(
+                    aliasName: AdditionalArgs[0]);
+            }
+            else
+            {
                 if (AdditionalArgs.Count < 2 || string.IsNullOrEmpty(AdditionalArgs[1])) throw new OptionException(Resources.MissingArguments, "");
-
-                string interfaceID = GetCanonicalID(AdditionalArgs[1]);
-                string command = (AdditionalArgs.Count >= 3 ? AdditionalArgs[2] : null);
-                return CreateAlias(integrationManager, AdditionalArgs[0], interfaceID, command);
+                return CreateAlias(
+                    aliasName: AdditionalArgs[0],
+                    interfaceID: GetCanonicalID(AdditionalArgs[1]),
+                    command: (AdditionalArgs.Count >= 3) ? AdditionalArgs[2] : null);
             }
         }
 
+        #region Helpers
         /// <summary>
         /// Resolves or removes existing aliases.
         /// </summary>
-        /// <param name="integrationManager">Manages desktop integration operations.</param>
         /// <param name="aliasName">The name of the existing alias.</param>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        private int ResolveOrRemove(IIntegrationManager integrationManager, string aliasName)
+        private int ResolveOrRemove(string aliasName)
         {
-            AppEntry appEntry;
-            var appAlias = GetAppAlias(integrationManager.AppList, aliasName, out appEntry);
-            if (appAlias == null)
+            using (var integrationManager = new IntegrationManager(Handler, MachineWide))
             {
-                Handler.Output(Resources.AppAlias, string.Format(Resources.AliasNotFound, aliasName));
-                return 1;
-            }
+                AppEntry appEntry;
+                var appAlias = GetAppAlias(integrationManager.AppList, aliasName, out appEntry);
+                if (appAlias == null)
+                {
+                    Handler.Output(Resources.AppAlias, string.Format(Resources.AliasNotFound, aliasName));
+                    return 1;
+                }
 
-            if (_resolve)
-            {
-                string result = appEntry.InterfaceID;
-                if (!string.IsNullOrEmpty(appAlias.Command)) result += Environment.NewLine + "Command: " + appAlias.Command;
-                Handler.Output(Resources.AppAlias, result);
-            }
-            if (_remove)
-            {
-                integrationManager.RemoveAccessPoints(appEntry, new AccessPoint[] {appAlias});
+                if (_resolve)
+                {
+                    string result = appEntry.InterfaceID;
+                    if (!string.IsNullOrEmpty(appAlias.Command)) result += Environment.NewLine + "Command: " + appAlias.Command;
+                    Handler.Output(Resources.AppAlias, result);
+                }
+                if (_remove)
+                {
+                    integrationManager.RemoveAccessPoints(appEntry, new AccessPoint[] {appAlias});
 
-                Handler.Output(Resources.AppAlias, string.Format(Resources.AliasRemoved, aliasName, appEntry.Name));
+                    Handler.Output(Resources.AppAlias, string.Format(Resources.AliasRemoved, aliasName, appEntry.Name));
+                }
+                return 0;
             }
-            return 0;
         }
 
         /// <summary>
         /// Creates a new alias.
         /// </summary>
-        /// <param name="integrationManager">Manages desktop integration operations.</param>
         /// <param name="aliasName">The name of the alias to create.</param>
         /// <param name="interfaceID">The interface ID the alias shall point to.</param>
         /// <param name="command">A command within the interface the alias shall point to; may be <see langword="null"/>.</param>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        private int CreateAlias(IIntegrationManager integrationManager, string aliasName, string interfaceID, string command = null)
+        private int CreateAlias(string aliasName, string interfaceID, string command = null)
         {
             Handler.ShowProgressUI();
 
-            // Check this before modifying the environment
-            bool needsReopenTerminal = NeedsReopenTerminal(integrationManager.MachineWide);
-
-            var appEntry = GetAppEntry(integrationManager, ref interfaceID);
-
-            // Apply the new alias
-            var alias = new AppAlias {Name = aliasName, Command = command};
-            try
+            using (var integrationManager = new IntegrationManager(Handler, MachineWide))
             {
-                integrationManager.AddAccessPoints(appEntry, FeedManager.GetFeedFresh(interfaceID), new AccessPoint[] {alias});
-            }
-                #region Error handling
-            catch (InvalidOperationException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new NotSupportedException(ex.Message, ex);
-            }
-            #endregion
+                // Check this before modifying the environment
+                bool needsReopenTerminal = NeedsReopenTerminal(integrationManager.MachineWide);
 
-            Handler.OutputLow(
-                Resources.DesktopIntegration,
-                string.Format(needsReopenTerminal ? Resources.AliasCreatedReopenTerminal : Resources.AliasCreated, aliasName, appEntry.Name));
-            return 0;
+                var appEntry = GetAppEntry(integrationManager, ref interfaceID);
+
+                // Apply the new alias
+                var alias = new AppAlias {Name = aliasName, Command = command};
+                try
+                {
+                    integrationManager.AddAccessPoints(appEntry, FeedManager.GetFeedFresh(interfaceID), new AccessPoint[] {alias});
+                }
+                    #region Error handling
+                catch (InvalidOperationException ex)
+                {
+                    // Wrap exception since only certain exception types are allowed
+                    throw new NotSupportedException(ex.Message, ex);
+                }
+                #endregion
+
+                Handler.OutputLow(
+                    Resources.DesktopIntegration,
+                    string.Format(needsReopenTerminal ? Resources.AliasCreatedReopenTerminal : Resources.AliasCreated, aliasName, appEntry.Name));
+                return 0;
+            }
         }
 
         /// <summary>
@@ -179,9 +176,7 @@ namespace ZeroInstall.Commands
             string existingValue = Environment.GetEnvironmentVariable("PATH", variableTarget);
             return existingValue == null || !existingValue.Contains(stubDirPath);
         }
-        #endregion
 
-        #region Helpers
         /// <summary>
         /// Retrieves a specific <see cref="AppAlias"/>.
         /// </summary>

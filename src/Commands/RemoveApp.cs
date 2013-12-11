@@ -30,7 +30,7 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class RemoveApp : AppCommand
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "remove";
 
@@ -39,9 +39,7 @@ namespace ZeroInstall.Commands
 
         /// <summary>Another alternative name of this command as used in command-line arguments in lower-case.</summary>
         public const string AltName2 = "destory";
-        #endregion
 
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionRemoveApp; } }
 
@@ -50,17 +48,12 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         public override int GuiDelay { get { return FeedManager.Refresh ? 0 : 1000; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public RemoveApp(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
-        //--------------------//
-
-        #region Execute
         /// <inheritdoc/>
         protected override int ExecuteHelper(ICategoryIntegrationManager integrationManager, string interfaceID)
         {
@@ -79,6 +72,5 @@ namespace ZeroInstall.Commands
 
             return 0;
         }
-        #endregion
     }
 }

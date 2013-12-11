@@ -38,7 +38,7 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class IntegrateApp : AppCommand
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "integrate";
 
@@ -47,20 +47,7 @@ namespace ZeroInstall.Commands
 
         /// <summary>Another alternative name of this command as used in command-line arguments in lower-case.</summary>
         public const string AltName2 = "desktop";
-        #endregion
 
-        #region Variables
-        /// <summary>A list of all <see cref="AccessPoint"/> categories to be added to the already applied ones.</summary>
-        private readonly List<string> _addCategories = new List<string>();
-
-        /// <summary>A list of all <see cref="AccessPoint"/> categories to be removed from the already applied ones.</summary>
-        private readonly List<string> _removeCategories = new List<string>();
-
-        /// <summary>A list of <see cref="AccessPointList"/> files to be imported.</summary>
-        private readonly List<string> _importLists = new List<string>();
-        #endregion
-
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionIntegrateApp; } }
 
@@ -69,9 +56,7 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         public override int GuiDelay { get { return Handler.Batch ? 0 : 1000; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public IntegrateApp(IBackendHandler handler) : base(handler)
         {
@@ -93,9 +78,17 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        //--------------------//
+        #region State
+        /// <summary>A list of all <see cref="AccessPoint"/> categories to be added to the already applied ones.</summary>
+        private readonly List<string> _addCategories = new List<string>();
 
-        #region Execute
+        /// <summary>A list of all <see cref="AccessPoint"/> categories to be removed from the already applied ones.</summary>
+        private readonly List<string> _removeCategories = new List<string>();
+
+        /// <summary>A list of <see cref="AccessPointList"/> files to be imported.</summary>
+        private readonly List<string> _importLists = new List<string>();
+        #endregion
+
         /// <inheritdoc/>
         protected override int ExecuteHelper(ICategoryIntegrationManager integrationManager, string interfaceID)
         {
@@ -104,8 +97,7 @@ namespace ZeroInstall.Commands
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
-            // If the user only wants to remove stuff avoid fetching the feed
-            if (!_addCategories.Any() && !_importLists.Any() && _removeCategories.Any())
+            if (RemoveOnly())
             {
                 RemoveOnly(integrationManager, interfaceID);
                 return 0;
@@ -114,8 +106,7 @@ namespace ZeroInstall.Commands
             var appEntry = GetAppEntry(integrationManager, ref interfaceID);
             var feed = FeedManager.GetFeedFresh(interfaceID);
 
-            // If the user specified no specific integration options show an interactive UI
-            if (!_addCategories.Any() && !_removeCategories.Any() && !_importLists.Any())
+            if (NoSpecifiedIntegrations())
             {
                 Handler.ShowIntegrateApp(integrationManager, appEntry, feed);
                 return 0;
@@ -125,12 +116,29 @@ namespace ZeroInstall.Commands
             return 0;
         }
 
+        #region Helpers
+        /// <summary>
+        /// Determines whether the user specified only removals. This means we do not need to fetch any feeds.
+        /// </summary>
+        private bool RemoveOnly()
+        {
+            return !_addCategories.Any() && !_importLists.Any() && _removeCategories.Any();
+        }
+
         /// <summary>
         /// Applies the <see cref="_removeCategories"/> specified by the user.
         /// </summary>
         private void RemoveOnly(ICategoryIntegrationManager integrationManager, string interfaceID)
         {
             integrationManager.RemoveAccessPointCategories(integrationManager.AppList[interfaceID], _removeCategories.ToArray());
+        }
+
+        /// <summary>
+        /// Determines whether the user specified no integration changes. This means we need a GUI to ask what to do.
+        /// </summary>
+        private bool NoSpecifiedIntegrations()
+        {
+            return !_addCategories.Any() && !_removeCategories.Any() && !_importLists.Any();
         }
 
         /// <summary>
@@ -157,9 +165,7 @@ namespace ZeroInstall.Commands
             }
             #endregion
         }
-        #endregion
 
-        #region Helpers
         /// <summary>
         /// Finds an existing <see cref="AppEntry"/> or creates a new one for a specific interface ID and feed.
         /// </summary>

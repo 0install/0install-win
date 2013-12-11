@@ -28,16 +28,10 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class Central : FrontendCommand
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "central";
-        #endregion
 
-        #region Variables
-        private bool _machineWide;
-        #endregion
-
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionCentral; } }
 
@@ -46,9 +40,7 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMax { get { return 0; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public Central(IBackendHandler handler) : base(handler)
         {
@@ -56,9 +48,10 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        //--------------------//
+        #region State
+        private bool _machineWide;
+        #endregion
 
-        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
@@ -66,6 +59,5 @@ namespace ZeroInstall.Commands
                 /*MonoUtils.IsUnix ? "ZeroInstall-gtk" :*/ "ZeroInstall",
                 _machineWide ? "-m" : null);
         }
-        #endregion
     }
 }

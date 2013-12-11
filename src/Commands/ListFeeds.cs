@@ -30,12 +30,10 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class ListFeeds : FrontendCommand
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "list-feeds";
-        #endregion
 
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionListFeeds; } }
 
@@ -47,17 +45,12 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMax { get { return 1; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public ListFeeds(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
-        //--------------------//
-
-        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
@@ -69,7 +62,6 @@ namespace ZeroInstall.Commands
                 GetRegisteredFeeds(interfaceID));
             return 0;
         }
-        #endregion
 
         #region Helpers
         private static string GetRegisteredFeeds(string interfaceID)

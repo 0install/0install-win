@@ -30,28 +30,21 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class AddFeed : AddRemoveFeedCommand
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "add-feed";
-        #endregion
 
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionAddFeed; } }
 
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionAddFeed; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public AddFeed(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
-        //--------------------//
-
-        #region Helpers
         /// <summary>
         /// Adds a <see cref="FeedReference"/> to one or more <see cref="InterfacePreferences"/>.
         /// </summary>
@@ -83,6 +76,5 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         protected override string NoneModifiedMessage { get { return Resources.FeedAlreadyRegistered; } }
-        #endregion
     }
 }

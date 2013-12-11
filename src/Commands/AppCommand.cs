@@ -28,7 +28,7 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public abstract class AppCommand : IntegrationCommand
     {
-        #region Properties
+        #region Metadata
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionAppCommand; } }
 
@@ -37,17 +37,12 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMax { get { return 1; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         protected AppCommand(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
-        //--------------------//
-
-        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
@@ -64,6 +59,5 @@ namespace ZeroInstall.Commands
         /// <param name="interfaceID">The interface for the application to perform the operation on.</param>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
         protected abstract int ExecuteHelper(ICategoryIntegrationManager integrationManager, string interfaceID);
-        #endregion
     }
 }

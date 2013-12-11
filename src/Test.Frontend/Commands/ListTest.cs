@@ -46,12 +46,5 @@ namespace ZeroInstall.Commands
             CacheMock.Setup(x => x.ListAll()).Returns(new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml"});
             RunAndAssert("http://0install.de/feeds/test/test2.xml", 0, "test2");
         }
-
-        [Test(Description = "Ensures calling with too many arguments raises an exception.")]
-        public void TestTooManyArgs()
-        {
-            Command.Parse(new[] {"test1", "test2"});
-            Assert.Throws<OptionException>(() => Command.Execute(), "Should reject more than one argument");
-        }
     }
 }

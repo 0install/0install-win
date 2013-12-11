@@ -30,38 +30,29 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class Configure : FrontendCommand
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "config";
-        #endregion
 
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionConfig; } }
 
         /// <inheritdoc/>
         protected override string Usage { get { return "[NAME [VALUE]]"; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public Configure(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
-        //--------------------//
-
-        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
             switch (AdditionalArgs.Count)
             {
                 case 0:
-                    if (Handler.ShowConfig(Config))
-                    { // Only save if the user confirmed the changes
-                        Config.Save();
-                    }
+                    // Only save if the user confirmed the changes
+                    if (Handler.ShowConfig(Config)) Config.Save();
                     return 0;
 
                 case 1:
@@ -74,7 +65,6 @@ namespace ZeroInstall.Commands
                     throw new OptionException(Resources.TooManyArguments, "");
             }
         }
-        #endregion
 
         #region Helpers
         /// <summary>

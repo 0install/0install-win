@@ -17,12 +17,7 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public abstract class IntegrationCommand : FrontendCommand
     {
-        #region Variables
-        /// <summary>Apply the operation machine-wide instead of just for the current user.</summary>
-        protected bool MachineWide;
-        #endregion
-
-        #region Constructor
+        #region Metadata
         /// <inheritdoc/>
         protected IntegrationCommand(IBackendHandler handler) : base(handler)
         {
@@ -35,9 +30,11 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        //--------------------//
+        #region State
+        /// <summary>Apply the operation machine-wide instead of just for the current user.</summary>
+        protected bool MachineWide;
+        #endregion
 
-        #region Parse
         /// <inheritdoc/>
         public override void Parse(IEnumerable<string> args)
         {
@@ -45,7 +42,6 @@ namespace ZeroInstall.Commands
 
             if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
         }
-        #endregion
 
         #region Helpers
         /// <summary>

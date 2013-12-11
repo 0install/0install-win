@@ -34,24 +34,16 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class Update : Download
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "update";
-        #endregion
 
-        #region Variables
-        private Selections _oldSelections;
-        #endregion
-
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionUpdate; } }
 
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionUpdate; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public Update(IBackendHandler handler) : base(handler)
         {
@@ -62,9 +54,10 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        //--------------------//
+        #region State
+        private Selections _oldSelections;
+        #endregion
 
-        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
@@ -97,7 +90,6 @@ namespace ZeroInstall.Commands
             ShowOutput();
             return 0;
         }
-        #endregion
 
         #region Helpers
         /// <summary>

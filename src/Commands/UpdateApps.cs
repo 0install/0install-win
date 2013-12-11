@@ -33,19 +33,13 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class UpdateApps : IntegrationCommand
     {
-        #region Constants
+        #region State
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "update-all";
 
         /// <summary>The alternative name of this command as used in command-line arguments in lower-case.</summary>
         public const string AltName = "update-apps";
-        #endregion
 
-        #region Variables
-        private bool _clean;
-        #endregion
-
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionUpdateApps; } }
 
@@ -57,9 +51,7 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionUpdateApps; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public UpdateApps(IBackendHandler handler) : base(handler)
         {
@@ -67,9 +59,10 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        //--------------------//
+        #region State
+        private bool _clean;
+        #endregion
 
-        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
@@ -83,7 +76,6 @@ namespace ZeroInstall.Commands
 
             return 0;
         }
-        #endregion
 
         #region Helpers
         /// <summary>

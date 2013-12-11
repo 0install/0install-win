@@ -33,19 +33,10 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class Digest : FrontendCommand
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "digest";
-        #endregion
 
-        #region Variables
-        /// <summary>The hashing algorithm used to generate the manifest.</summary>
-        private ManifestFormat _algorithm = ManifestFormat.Sha1New;
-
-        private bool _printManifest, _printDigest;
-        #endregion
-
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionDigest; } }
 
@@ -60,9 +51,7 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMax { get { return 2; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public Digest(IBackendHandler handler) : base(handler)
         {
@@ -86,9 +75,13 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        //--------------------//
+        #region State
+        /// <summary>The hashing algorithm used to generate the manifest.</summary>
+        private ManifestFormat _algorithm = ManifestFormat.Sha1New;
 
-        #region Execute
+        private bool _printManifest, _printDigest;
+        #endregion
+
         /// <inheritdoc/>
         public override int Execute()
         {
@@ -101,7 +94,6 @@ namespace ZeroInstall.Commands
             Handler.Output("Manifest digest", GetOutput(manifest));
             return 0;
         }
-        #endregion
 
         #region Helpers
         private Manifest GenerateManifest(string path, string subdir)

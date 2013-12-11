@@ -29,15 +29,13 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class AddApp : AppCommand
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "add";
 
         /// <summary>The alternative name of this command as used in command-line arguments in lower-case.</summary>
         public const string AltName = "add-app";
-        #endregion
 
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionAddApp; } }
 
@@ -46,17 +44,12 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         public override int GuiDelay { get { return FeedManager.Refresh ? 0 : 1000; } }
-        #endregion
 
-        #region Constructor
         /// <inheritdoc/>
         public AddApp(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
-        //--------------------//
-
-        #region Execute
         /// <inheritdoc/>
         protected override int ExecuteHelper(ICategoryIntegrationManager integrationManager, string interfaceID)
         {
@@ -75,6 +68,5 @@ namespace ZeroInstall.Commands
             }
             return 0;
         }
-        #endregion
     }
 }

@@ -46,16 +46,7 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public abstract class FrontendCommand : Resolver
     {
-        #region Variables
-        /// <summary>The command-line argument parser used to evaluate user input.</summary>
-        protected readonly OptionSet Options = new OptionSet();
-
-        /// <summary>Feeds to add, terms to search for, etc.</summary>
-        [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists", Justification = "Using a List<T> for performance reasons")]
-        protected readonly List<string> AdditionalArgs = new List<string>();
-        #endregion
-
-        #region Properties
+        #region Metadata
         /// <summary>
         /// The name of this command as used in command-line arguments in lower-case.
         /// </summary>
@@ -119,6 +110,28 @@ namespace ZeroInstall.Commands
             }
         }
 
+        /// <summary>The command-line argument parser used to evaluate user input.</summary>
+        protected readonly OptionSet Options = new OptionSet();
+
+        /// <summary>
+        /// Creates a new command.
+        /// </summary>
+        protected FrontendCommand(IBackendHandler handler) : base(handler)
+        {
+            Options.Add("?|h|help", () => Resources.OptionHelp, _ =>
+            {
+                Handler.Output(Resources.CommandLineArguments, HelpText);
+                throw new OperationCanceledException(); // Don't handle any of the other arguments
+            });
+            Options.Add("v|verbose", () => Resources.OptionVerbose, _ => Handler.Verbosity++);
+        }
+        #endregion
+
+        #region State
+        /// <summary>Feeds to add, terms to search for, etc.</summary>
+        [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists", Justification = "Using a List<T> for performance reasons")]
+        protected readonly List<string> AdditionalArgs = new List<string>();
+
         private AppList _appList;
 
         /// <summary>
@@ -162,24 +175,6 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        #region Constructor
-        /// <summary>
-        /// Creates a new command.
-        /// </summary>
-        protected FrontendCommand(IBackendHandler handler) : base(handler)
-        {
-            Options.Add("?|h|help", () => Resources.OptionHelp, _ =>
-            {
-                Handler.Output(Resources.CommandLineArguments, HelpText);
-                throw new OperationCanceledException(); // Don't handle any of the other arguments
-            });
-            Options.Add("v|verbose", () => Resources.OptionVerbose, _ => Handler.Verbosity++);
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Parse
         /// <summary>
         /// Parses command-line arguments and stores the result in the command.
         /// </summary>
@@ -203,9 +198,7 @@ namespace ZeroInstall.Commands
 
             if (AdditionalArgs.Count > AdditionalArgsMax) throw new OptionException(Resources.TooManyArguments, "");
         }
-        #endregion
 
-        #region Execute
         /// <summary>
         /// Executes the commands specified by the command-line arguments. Must call <see cref="Parse"/> first!
         /// </summary>
@@ -227,7 +220,6 @@ namespace ZeroInstall.Commands
         /// <exception cref="BadImageFormatException">Thrown if an executable could not be launched.</exception>
         /// <remarks>When inheriting this method is usually replaced.</remarks>
         public abstract int Execute();
-        #endregion
 
         #region Helpers
         /// <summary>

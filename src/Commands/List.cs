@@ -18,7 +18,6 @@
 using System;
 using System.Linq;
 using System.Text;
-using NDesk.Options;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 
@@ -31,53 +30,38 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class List : FrontendCommand
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "list";
-        #endregion
 
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionList; } }
 
         /// <inheritdoc/>
         protected override string Usage { get { return "[PATTERN]"; } }
-        #endregion
 
-        #region Constructor
+        /// <inheritdoc/>
+        protected override int AdditionalArgsMax { get { return 1; } }
+
         /// <inheritdoc/>
         public List(IBackendHandler handler) : base(handler)
         {}
         #endregion
 
-        //--------------------//
-
-        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
-            string pattern;
-            switch (AdditionalArgs.Count)
-            {
-                case 0:
-                    pattern = null;
-                    break;
-                case 1:
-                    pattern = AdditionalArgs[0];
-                    break;
-                default:
-                    throw new OptionException(Resources.TooManyArguments, "");
-            }
-
-            Handler.Output(Resources.FoundFeeds, GetList(pattern));
+            Handler.Output(Resources.FoundFeeds,
+                (AdditionalArgs.Count == 0) ? GetList() : GetList(AdditionalArgs[0]));
             return 0;
         }
 
+        #region Helpers
         /// <summary>
         /// Build a list of all feed cache entries.
         /// </summary>
         /// <param name="pattern">Only return feeds that contain this substring; <see langword="null"/> to return all.</param>
-        private string GetList(string pattern)
+        private string GetList(string pattern = null)
         {
             var builder = new StringBuilder();
             var feeds = FeedCache.ListAll();

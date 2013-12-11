@@ -38,16 +38,14 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public class Selection : FrontendCommand
     {
-        #region Constants
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "select";
-        #endregion
 
-        #region Variables
         /// <summary>Cached <see cref="ISolver"/> results.</summary>
         protected Selections Selections;
 
-        /// <summary>Indicates the user provided a pre-created <see cref="Selections"/> XML document instead of using the <see cref="ISolver"/>.</summary>
+        /// <summary>Indicates the user provided a pre-computed <see cref="Selections"/> XML document instead of using the <see cref="ISolver"/>.</summary>
         protected bool SelectionsDocument;
 
         /// <summary>Indicates the user wants a UI to modify the <see cref="Selections"/>.</summary>
@@ -55,9 +53,7 @@ namespace ZeroInstall.Commands
 
         /// <summary>Indicates the user wants a machine-readable output.</summary>
         protected bool ShowXml;
-        #endregion
 
-        #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionSelect; } }
 
@@ -73,15 +69,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override string ActionTitle { get { return Resources.ActionSelection; } }
 
-        private readonly Requirements _requirements = new Requirements();
-
-        /// <summary>
-        /// A set of requirements/restrictions imposed by the user on the implementation selection process as parsed from the command-line arguments.
-        /// </summary>
-        public Requirements Requirements { get { return _requirements; } }
-        #endregion
-
-        #region Constructor
         /// <inheritdoc/>
         public Selection(IBackendHandler handler) : base(handler)
         {
@@ -103,34 +90,26 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
-        //--------------------//
+        #region State
+        private readonly Requirements _requirements = new Requirements();
 
-        #region Parse
+        /// <summary>
+        /// A set of requirements/restrictions imposed by the user on the implementation selection process as parsed from the command-line arguments.
+        /// </summary>
+        public Requirements Requirements { get { return _requirements; } }
+        #endregion
+
         /// <inheritdoc/>
         public override void Parse(IEnumerable<string> args)
         {
             base.Parse(args);
 
-            // The first argument is the interface ID
             Requirements.InterfaceID = GetCanonicalID(AdditionalArgs[0]);
             AdditionalArgs.RemoveAt(0);
 
-            if (File.Exists(Requirements.InterfaceID))
-            {
-                try
-                { // Try to parse as selections document
-                    Selections = XmlStorage.LoadXml<Selections>(Requirements.InterfaceID);
-                    Requirements.InterfaceID = Selections.InterfaceID;
-                    SelectionsDocument = true;
-                }
-                catch (InvalidDataException)
-                { // If that fails assume it is an interface
-                }
-            }
+            if (File.Exists(Requirements.InterfaceID)) TryParseSelectionsDocument();
         }
-        #endregion
 
-        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
@@ -143,9 +122,25 @@ namespace ZeroInstall.Commands
             Handler.CancellationToken.ThrowIfCancellationRequested();
             return ShowOutput();
         }
-        #endregion
 
         #region Helpers
+        /// <summary>
+        /// Trys to parse <see cref="Model.Requirements.InterfaceID"/> as a pre-computed <see cref="Model.Selection.Selections"/> document.
+        /// </summary>
+        /// <seealso cref="SelectionsDocument"/>
+        private void TryParseSelectionsDocument()
+        {
+            try
+            { // Try to parse as selections document
+                Selections = XmlStorage.LoadXml<Selections>(Requirements.InterfaceID);
+                Requirements.InterfaceID = Selections.InterfaceID;
+                SelectionsDocument = true;
+            }
+            catch (InvalidDataException)
+            { // If that fails assume it is an interface
+            }
+        }
+
         /// <summary>
         /// Runs <see cref="ISolver.Solve"/> (unless <see cref="SelectionsDocument"/> is <see langword="true"/>) and stores the result in <see cref="Selections"/>.
         /// </summary>
