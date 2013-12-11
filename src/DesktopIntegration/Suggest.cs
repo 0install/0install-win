@@ -80,7 +80,9 @@ namespace ZeroInstall.DesktopIntegration
             if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            return new[] {new DesktopIcon {Name = feed.Name.RemoveAll(Path.GetInvalidFileNameChars()), Command = Command.NameRun}};
+            return feed.NeedsTerminal
+                ? new DesktopIcon[0]
+                : new[] {new DesktopIcon {Name = feed.Name.RemoveAll(Path.GetInvalidFileNameChars()), Command = Command.NameRun}};
         }
 
         /// <summary>
