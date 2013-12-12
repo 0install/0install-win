@@ -123,7 +123,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         private void PreDownload(string interfaceID)
         {
-            if (Config.EffectiveNetworkUse == NetworkLevel.Full)
+            if (Config.NetworkUse == NetworkLevel.Full)
             {
                 ProcessUtils.LaunchAssembly(
                     /*MonoUtils.IsUnix ? "0install-gtk" :*/ "0install-win",

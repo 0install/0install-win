@@ -96,7 +96,7 @@ namespace ZeroInstall.Injector
                 else if (!_feedCache.Contains(feedID))
                 {
                     // Do not download in offline mode
-                    if (_config.EffectiveNetworkUse == NetworkLevel.Offline)
+                    if (_config.NetworkUse == NetworkLevel.Offline)
                         throw new IOException(string.Format(Resources.FeedNotCachedOffline, feedID));
 
                     // Try to download missing feed

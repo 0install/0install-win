@@ -46,7 +46,7 @@ namespace ZeroInstall.Solvers
             if (store == null) throw new ArgumentNullException("store");
             #endregion
 
-            _networkUse = config.EffectiveNetworkUse;
+            _networkUse = config.NetworkUse;
             _stabilityPolicy = (stabilityPolicy == Stability.Unset)
                 ? (config.HelpWithTesting ? Stability.Testing : Stability.Stable)
                 : stabilityPolicy;

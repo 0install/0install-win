@@ -150,7 +150,7 @@ namespace ZeroInstall.Solvers
 
         private bool NotSuitableBecauseOffline(SelectionCandidate candidate)
         {
-            return _config.EffectiveNetworkUse == NetworkLevel.Offline && !_store.Contains(candidate.Implementation.ManifestDigest);
+            return _config.NetworkUse == NetworkLevel.Offline && !_store.Contains(candidate.Implementation.ManifestDigest);
         }
 
         /// <summary>

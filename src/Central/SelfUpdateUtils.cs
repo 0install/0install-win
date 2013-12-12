@@ -64,7 +64,7 @@ namespace ZeroInstall.Central
         public static ImplementationVersion Check()
         {
             var resolver = new Resolver(new SilentHandler()) {FeedManager = {Refresh = true}};
-            if (resolver.Config.EffectiveNetworkUse == NetworkLevel.Offline) return null;
+            if (resolver.Config.NetworkUse == NetworkLevel.Offline) return null;
 
             // Run solver
             var requirements = new Requirements {InterfaceID = resolver.Config.SelfUpdateID, Command = "update"};
