@@ -46,7 +46,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Retrieves a value from the cache.
+        /// Retrieves a value from the cache. This method is thread-safe.
         /// </summary>
         public TValue this[TKey key]
         {

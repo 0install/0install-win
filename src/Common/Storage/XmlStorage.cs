@@ -28,8 +28,8 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using Common.Properties;
 using Common.Utils;
+using Common.Properties;
 using ICSharpCode.SharpZipLib.Zip;
 
 namespace Common.Storage
@@ -45,21 +45,6 @@ namespace Common.Storage
         /// The XML namespace used for XML Schema instance.
         /// </summary>
         public const string XsiNamespace = "http://www.w3.org/2001/XMLSchema-instance";
-        #endregion
-
-        #region Serializer generation
-        /// <summary>
-        /// Gets a <see cref="XmlSerializer"/> for classes of the type <paramref name="type"/>.
-        /// </summary>
-        /// <param name="type">The type to get the serializer for.</param>
-        /// <returns>The <see cref="XmlSerializer"/>.</returns>
-        private static XmlSerializer GetSerializer(Type type)
-        {
-            var serializer = new XmlSerializer(type);
-            serializer.UnknownAttribute += (sender, e) => Log.Warn("Ignored XML attribute while deserializing: " + e.Attr);
-            serializer.UnknownElement += (sender, e) => Log.Warn("Ignored XML element while deserializing: " + e.Element);
-            return serializer;
-        }
         #endregion
 
         //--------------------//
@@ -82,7 +67,7 @@ namespace Common.Storage
             if (stream.CanSeek) stream.Position = 0;
             try
             {
-                return (T)GetSerializer(typeof(T)).Deserialize(stream);
+                return (T)new XmlSerializer(typeof(T)).Deserialize(stream);
             }
                 #region Error handling
             catch (InvalidOperationException ex)
@@ -157,7 +142,7 @@ namespace Common.Storage
             #endregion
 
             var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings {Encoding = new UTF8Encoding(false), Indent = true, IndentChars = "\t", NewLineChars = "\n"});
-            var serializer = GetSerializer(typeof(T));
+            var serializer = new XmlSerializer(typeof(T));
 
             // Detect and handle namespace attributes
             var rootAttribute = AttributeUtils.GetAttributes<XmlRootAttribute, T>().FirstOrDefault();
@@ -349,6 +334,7 @@ namespace Common.Storage
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
+            if (additionalFiles == null) throw new ArgumentNullException("additionalFiles");
             #endregion
 
             if (stream.CanSeek) stream.Position = 0;
@@ -367,17 +353,14 @@ namespace Common.Storage
                 }
 
                 // Write additional files to the ZIP archive
-                if (additionalFiles != null)
+                foreach (EmbeddedFile file in additionalFiles)
                 {
-                    foreach (EmbeddedFile file in additionalFiles)
-                    {
-                        var entry = new ZipEntry(file.Filename) {DateTime = DateTime.Now};
-                        if (!string.IsNullOrEmpty(password)) entry.AESKeySize = 128;
-                        zipStream.SetLevel(file.CompressionLevel);
-                        zipStream.PutNextEntry(entry);
-                        file.StreamDelegate(zipStream);
-                        zipStream.CloseEntry();
-                    }
+                    var entry = new ZipEntry(file.Filename) {DateTime = DateTime.Now};
+                    if (!string.IsNullOrEmpty(password)) entry.AESKeySize = 128;
+                    zipStream.SetLevel(file.CompressionLevel);
+                    zipStream.PutNextEntry(entry);
+                    file.StreamDelegate(zipStream);
+                    zipStream.CloseEntry();
                 }
             }
         }
@@ -396,6 +379,7 @@ namespace Common.Storage
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (additionalFiles == null) throw new ArgumentNullException("additionalFiles");
             #endregion
 
             using (var atomic = new AtomicWrite(path))
