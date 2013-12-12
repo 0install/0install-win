@@ -140,14 +140,13 @@ namespace ZeroInstall.Commands.WinForms
             // Can only show GUI once
             if (_form != null) return;
 
-            _form = new ProgressForm(_cancellationToken);
-
             // Start GUI thread
             using (var guiReady = new ManualResetEvent(false))
             {
                 ProcessUtils.RunAsync(() =>
                 {
-                    _form.Initialize();
+                    _form = new ProgressForm(_cancellationToken);
+                    _form.CreateControl();
 
                     // Show the tray icon or the form
                     if (Batch) _form.ShowTrayIcon(_actionTitle, ToolTipIcon.None);

@@ -63,25 +63,18 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             _cancellationToken = cancellationToken;
-            _actionTitle = actionTitle ?? Resources.Working;
 
-            Shown += delegate { WindowsUtils.SetForegroundWindow(this); };
-        }
-
-        /// <summary>
-        /// Initializes the form and all its child controls without displaying it yet.
-        /// </summary>
-        public void Initialize()
-        {
             InitializeComponent();
-            labelWorking.Text = _actionTitle;
+
+            labelWorking.Text = _actionTitle = (actionTitle ?? Resources.Working);
             buttonModifySelectionsDone.Text = Resources.Done;
             buttonHide.Text = Resources.Hide;
             buttonCancel.Text = Resources.Cancel;
+
+            // ReSharper disable once DoNotCallOverridableMethodsInConstructor
             if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
 
-            CreateHandle();
-            CreateControl();
+            Shown += delegate { WindowsUtils.SetForegroundWindow(this); };
         }
         #endregion
 
