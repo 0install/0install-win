@@ -107,10 +107,9 @@ namespace ZeroInstall.Solvers
         /// </summary>
         public IList<SelectionCandidate> GetSortedCandidates(Requirements requirements)
         {
-            var mainCandidates = GetCandidates(requirements.InterfaceID, requirements);
-            var additionalCandidates = GetCandidates(_interfacePreferences[requirements.InterfaceID].Feeds, requirements);
-
-            var candidates = mainCandidates.Concat(additionalCandidates).ToList();
+            var candidates = Enumerable.Concat(
+                GetCandidates(requirements.InterfaceID, requirements),
+                GetCandidatesFromCustomFeeds(requirements)).ToList();
             candidates.Sort(_comparer[requirements.InterfaceID]);
             return candidates;
         }
@@ -125,10 +124,10 @@ namespace ZeroInstall.Solvers
             if (MonoUtils.IsUnix && feed.Elements.OfType<PackageImplementation>().Any())
                 throw new SolverException("Linux native package managers not supported yet!");
 
-            var mainCandidates = feed.Elements.OfType<Implementation>().Select(implementation => GetCandidate(feedID, requirements, implementation));
             // TODO: Windows <package-implementation>s
-            var additionalCandidates = GetCandidates(feed.Feeds, requirements);
-            return mainCandidates.Concat(additionalCandidates);
+            return Enumerable.Concat(
+                feed.Elements.OfType<Implementation>().Select(implementation => GetCandidate(feedID, requirements, implementation)),
+                GetCandidatesFromAdditionalFeeds(feed.Feeds, requirements));
         }
 
         /// <summary>
@@ -156,13 +155,18 @@ namespace ZeroInstall.Solvers
         /// <summary>
         /// Gets all <see cref="SelectionCandidate"/>s for a specific set of <see cref="Requirements"/> from a set of feeds.
         /// </summary>
-        private IEnumerable<SelectionCandidate> GetCandidates(IEnumerable<FeedReference> feedReferences, Requirements requirements)
+        private IEnumerable<SelectionCandidate> GetCandidatesFromAdditionalFeeds(IEnumerable<FeedReference> feedReferences, Requirements requirements)
         {
             return feedReferences
                 .Where(feedReference =>
                     feedReference.Architecture.IsCompatible(requirements.Architecture) &&
                     feedReference.Languages.ContainsAny(requirements.Languages))
                 .SelectMany(feedReference => GetCandidates(feedReference.Source, requirements));
+        }
+
+        private IEnumerable<SelectionCandidate> GetCandidatesFromCustomFeeds(Requirements requirements)
+        {
+            return GetCandidatesFromAdditionalFeeds(_interfacePreferences[requirements.InterfaceID].Feeds, requirements);
         }
         #endregion
     }
