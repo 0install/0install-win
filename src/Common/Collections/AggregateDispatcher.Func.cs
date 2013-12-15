@@ -47,6 +47,10 @@ namespace Common.Collections
         /// <param name="function">The delegate to call.</param>
         public void Add<TSpecific>(Func<TSpecific, IEnumerable<TResultElement>> function) where TSpecific : class, TBase
         {
+            #region Sanity checks
+            if (function == null) throw new ArgumentNullException("function");
+            #endregion
+
             _delegates.Add(value =>
             {
                 var specificValue = value as TSpecific;

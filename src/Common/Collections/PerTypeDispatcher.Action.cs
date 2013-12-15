@@ -57,6 +57,10 @@ namespace Common.Collections
         /// <param name="action">The delegate to call.</param>
         public void Add<TSpecific>(Action<TSpecific> action) where TSpecific : TBase
         {
+            #region Sanity checks
+            if (action == null) throw new ArgumentNullException("action");
+            #endregion
+
             _map.Add(typeof(TSpecific), obj => action((TSpecific)obj));
         }
 

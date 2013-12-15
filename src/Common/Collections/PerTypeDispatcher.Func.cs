@@ -45,7 +45,7 @@ namespace Common.Collections
         /// <summary>
         /// Creates a new dispatcher.
         /// </summary>
-        /// <param name="ignoreMissing"><see langword="true"/> to silently ignore dispatch attempts on unknown types; <see langword="false"/> to throw exceptions.</param>
+        /// <param name="ignoreMissing"><see langword="true"/> to return the default value (usually <see langword="null"/>) for dispatch attempts on unknown types; <see langword="false"/> to throw exceptions.</param>
         public PerTypeDispatcher(bool ignoreMissing)
         {
             _ignoreMissing = ignoreMissing;
@@ -58,6 +58,10 @@ namespace Common.Collections
         /// <param name="function">The delegate to call.</param>
         public void Add<TSpecific>(Func<TSpecific, TResult> function) where TSpecific : TBase
         {
+            #region Sanity checks
+            if (function == null) throw new ArgumentNullException("function");
+            #endregion
+
             _map.Add(typeof(TSpecific), obj => function((TSpecific)obj));
         }
 
