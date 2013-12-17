@@ -42,7 +42,6 @@ namespace ZeroInstall.Model.Selection
         /// <summary>
         /// The file name or URL of the feed listing the implementation.
         /// </summary>
-        [Browsable(false)]
         public string FeedID { get; private set; }
 
         /// <summary>

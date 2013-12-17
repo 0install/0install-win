@@ -128,35 +128,16 @@ namespace ZeroInstall.Commands.WinForms
                 linkLabel.LinkClicked += delegate
                 {
                     if (InterfaceDialog.Show(this, interfaceID, solveCallback, _feedCache))
-                        ReSolve(solveCallback);
+                    {
+                        TrackingDialog.Run(this, new SimpleTask(Resources.Working, () => { _selections = solveCallback(); }));
+                        SetSelections(_selections, _feedCache);
+                        _modifyLinks.Clear();
+                        BeginModifySelections(solveCallback);
+                    }
                 };
                 _modifyLinks.Add(linkLabel);
                 tableLayout.Controls.Add(linkLabel, 2, i);
             }
-        }
-
-        /// <summary>
-        /// Reruns the solver to reflect changes made to <see cref="InterfacePreferences"/> and <see cref="FeedPreferences"/>.
-        /// </summary>
-        /// <param name="solveCallback">Called to invoke the solver.</param>
-        private void ReSolve(Func<Selections> solveCallback)
-        {
-            // Prevent user interaction while solving
-            Visible = false;
-
-            var solveWorker = new BackgroundWorker();
-            solveWorker.DoWork += delegate { _selections = solveCallback(); };
-            solveWorker.RunWorkerCompleted += delegate
-            {
-                // Update the UI
-                SetSelections(_selections, _feedCache);
-                _modifyLinks.Clear();
-                BeginModifySelections(solveCallback);
-
-                // Restore user interaction
-                Visible = true;
-            };
-            solveWorker.RunWorkerAsync();
         }
 
         /// <summary>

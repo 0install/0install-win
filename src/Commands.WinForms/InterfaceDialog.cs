@@ -16,13 +16,10 @@
  */
 
 // Indicates that the solver provides no candidates and that they must therefore be generated here
-
 #define NO_SOLVER_CANDIDATES
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -38,6 +35,12 @@ using ZeroInstall.Model.Selection;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;
 
+#if NO_SOLVER_CANDIDATES
+using System.Collections.Generic;
+#else
+using Common.Tasks;
+#endif
+
 namespace ZeroInstall.Commands.WinForms
 {
     /// <summary>
@@ -49,10 +52,6 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>The interface to modify the preferences for.</summary>
         private readonly string _interfaceID;
 
-        /// <summary>Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</summary>
-        [SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        private readonly Func<Selections> _solveCallback;
-
         /// <summary>The feed cache used to retrieve <see cref="Feed"/>s for additional information about implementations.</summary>
         private readonly IFeedCache _feedCache;
 
@@ -63,6 +62,9 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>A list of all feed IDs contributing to the selection process associated with their respective preferences.</summary>
         private readonly IDictionary<string, FeedPreferences> _feeds = new Dictionary<string, FeedPreferences>();
 #else
+        /// <summary>Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</summary>
+        private readonly Func<Selections> _solveCallback;
+
         /// <summary>The last implementation selected for this interface.</summary>
         private ImplementationSelection _selection;
 #endif
@@ -87,7 +89,9 @@ namespace ZeroInstall.Commands.WinForms
             dataColumnUserStability.Items.AddRange(new object[] {Stability.Unset, Stability.Preferred, Stability.Packaged, Stability.Stable, Stability.Testing, Stability.Developer});
 
             _interfaceID = interfaceID;
+#if !NO_SOLVER_CANDIDATES
             _solveCallback = solveCallback;
+#endif
             _feedCache = feedCache;
 
             _interfacePreferences = InterfacePreferences.LoadForSafe(interfaceID);
@@ -310,8 +314,7 @@ namespace ZeroInstall.Commands.WinForms
             }
             dataGridVersions.DataSource = candidates;
 #else
-            // TODO: Display progress
-            _selection = _solveCallback()[_interfaceID];
+            TrackingDialog.Run(this, new SimpleTask(Resources.Working, () => { _selection = _solveCallback()[_interfaceID]; }));
 
             var list = new BindingList<SelectionCandidate> {AllowEdit = true, AllowNew = false};
             if (checkBoxShowAllVersions.Checked)
@@ -325,7 +328,13 @@ namespace ZeroInstall.Commands.WinForms
 #if NO_SOLVER_CANDIDATES
         private static SelectionCandidate GetSelectionCandidate(string feedID, Implementation implementation, FeedPreferences feedPreferences)
         {
-            return new SelectionCandidate(feedID, feedPreferences, implementation, new Requirements {Architecture = Architecture.CurrentSystem});
+            return new SelectionCandidate(feedID, feedPreferences, implementation,
+                // Minimalistic dummy requirements
+                new Requirements
+                {
+                    Command = Command.NameRun,
+                    Architecture = Architecture.CurrentSystem
+                });
         }
 #endif
         #endregion
