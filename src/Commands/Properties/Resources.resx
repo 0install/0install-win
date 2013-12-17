@@ -211,8 +211,12 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
     <value>Configuration</value>
   </data>
   <data name="ConfirmPurge" xml:space="preserve">
-    <value>Do you want to remove all applications in the Zero Install cache?
+    <value>Do you wish to remove all application files from the Zero Install cache?
 These files can downloaded again if needed.</value>
+  </data>
+  <data name="ConfirmRemoveAll" xml:space="preserve">
+    <value>Do you wish to remove all applications from the 'My applications' list? This prevents leftover menu entries after removing Zero Install.
+You can create a backup of this list by using '0install sync'.</value>
   </data>
   <data name="DataGridCommandAccessPointHelp" xml:space="preserve">
     <value>Start entering text in the last line to create a new entry.
@@ -273,8 +277,11 @@ The file must have a trusted digital signature, as when fetching from the networ
   <data name="DescriptionListFeeds" xml:space="preserve">
     <value>List all extra feeds added to URI using '0install add-feed'.</value>
   </data>
+  <data name="DescriptionRemoveAllApps" xml:space="preserve">
+    <value>Removes all applications from the application list and undoes any desktop environment integration. Use this command to clean up the system before removing Zero Install.</value>
+  </data>
   <data name="DescriptionRemoveApp" xml:space="preserve">
-    <value>Remove an application from the application list and undoes any desktop environment integration.</value>
+    <value>Removes an application from the application list and undoes any desktop environment integration.</value>
   </data>
   <data name="DescriptionRemoveFeed" xml:space="preserve">
     <value>Un-register a feed, reversing the effect of '0install add-feed'.</value>
@@ -584,6 +591,9 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Do you want to remove the {0} selected entries from the list?</value>
+  </data>
+  <data name="RemovingApplications" xml:space="preserve">
+    <value>Removing applications</value>
   </data>
   <data name="RemovingImplementations" xml:space="preserve">
     <value>Removing implementations</value>

@@ -334,12 +334,22 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to remove all applications in the Zero Install cache?
+        ///   Looks up a localized string similar to Do you wish to remove all application files from the Zero Install cache?
         ///These files can downloaded again if needed..
         /// </summary>
         public static string ConfirmPurge {
             get {
                 return ResourceManager.GetString("ConfirmPurge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you wish to remove all applications from the &apos;My applications&apos; list? This prevents leftover menu entries after removing Zero Install.
+        ///You can create a backup of this list by using &apos;0install sync&apos;..
+        /// </summary>
+        public static string ConfirmRemoveAll {
+            get {
+                return ResourceManager.GetString("ConfirmRemoveAll", resourceCulture);
             }
         }
         
@@ -511,7 +521,16 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove an application from the application list and undoes any desktop environment integration..
+        ///   Looks up a localized string similar to Removes all applications from the application list and undoes any desktop environment integration. Use this command to clean up the system before removing Zero Install..
+        /// </summary>
+        public static string DescriptionRemoveAllApps {
+            get {
+                return ResourceManager.GetString("DescriptionRemoveAllApps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removes an application from the application list and undoes any desktop environment integration..
         /// </summary>
         public static string DescriptionRemoveApp {
             get {
@@ -1401,6 +1420,15 @@ namespace ZeroInstall.Commands.Properties {
         public static string RemoveSelectedEntries {
             get {
                 return ResourceManager.GetString("RemoveSelectedEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing applications.
+        /// </summary>
+        public static string RemovingApplications {
+            get {
+                return ResourceManager.GetString("RemovingApplications", resourceCulture);
             }
         }
         

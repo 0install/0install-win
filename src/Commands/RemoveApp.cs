@@ -47,7 +47,7 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS] (PET-NAME|INTERFACE)"; } }
 
         /// <inheritdoc/>
-        public override int GuiDelay { get { return FeedManager.Refresh ? 0 : 1000; } }
+        public override int GuiDelay { get { return 1000; } }
 
         /// <inheritdoc/>
         public RemoveApp(IBackendHandler handler) : base(handler)

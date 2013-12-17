@@ -211,8 +211,12 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
     <value>Konfiguration</value>
   </data>
   <data name="ConfirmPurge" xml:space="preserve">
-    <value>Möchten Sie alle Anwendungen im Zero Install Cache entfernen?
+    <value>Möchten Sie alle Anwendungsdateien aus dem Zero Install Cache entfernen?
 Diese Dateien können bei Bedarf erneut heruntergeladen werden.</value>
+  </data>
+  <data name="ConfirmRemoveAll" xml:space="preserve">
+    <value>Möchten Sie alle Anwendungen aus der 'Meine Anwendungen' Liste entfernen? Dies verhindert übrig gebliebene Menüeinträge nach dem Entfenen von Zero Install.
+Sie können eine Kopie dieser Daten mit '0install sync' anlegen.</value>
   </data>
   <data name="DataGridCommandAccessPointHelp" xml:space="preserve">
     <value>Beginnen Sie Text in der letzten Zeile einzugeben um einen neuen Eintrag anzulegen.
@@ -273,8 +277,11 @@ Diese Datei muss eine vertrauenswürdige digitale Signatur besitzen, genauso wie
   <data name="DescriptionListFeeds" xml:space="preserve">
     <value>Listet alle zusätzlichen Feeds auf, die mit '0install add-feed' hinzugefügt wurden.</value>
   </data>
+  <data name="DescriptionRemoveAllApps" xml:space="preserve">
+    <value>Entfernt alle Anwendungen aus der Anwendungsliste und macht Integrationen in die Desktopumgebung rückgängig. Verwenden Sie diesen Befehl um das System aufzuräumen, bevor Sie Zero Install deinstallieren.</value>
+  </data>
   <data name="DescriptionRemoveApp" xml:space="preserve">
-    <value>Entfernt eine Anwendung aus der Anwendungsliste und mache Integrationen in die Desktopumgebung rückgängig.</value>
+    <value>Entfernt eine Anwendung aus der Anwendungsliste und macht Integrationen in die Desktopumgebung rückgängig.</value>
   </data>
   <data name="DescriptionRemoveFeed" xml:space="preserve">
     <value>Entfernt einen Feed. Dies ist das Gegenstück zu '0install add-feed'.</value>
@@ -584,6 +591,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Möchten Sie die {0} ausgewählten Einträge aus der Liste entfernen?</value>
+  </data>
+  <data name="RemovingApplications" xml:space="preserve">
+    <value>Entferne Anwendungen</value>
   </data>
   <data name="RemovingImplementations" xml:space="preserve">
     <value>Entferne Implementierungen</value>
