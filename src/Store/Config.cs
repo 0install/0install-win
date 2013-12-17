@@ -22,7 +22,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Design;
 using System.IO;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Text;
 using Common;
 using Common.Storage;
@@ -86,7 +85,7 @@ namespace ZeroInstall.Store
         public TimeSpan Freshness { get { return _freshness; } set { _freshness = value; } }
 
         /// <summary>
-        /// Always prefer the newest versions, even if they havent been marked as <see cref="Model.Stability.Stable"/> yet.
+        /// Always prefer the newest versions, even if they have not been marked as <see cref="Model.Stability.Stable"/> yet.
         /// </summary>
         [DefaultValue(false), Category("Policy"), DisplayName("Help with testing"), Description("Always prefer the newest versions, even if they havent been marked as stable yet.")]
         public bool HelpWithTesting { get; set; }
