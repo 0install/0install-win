@@ -19,6 +19,7 @@
 #define NO_SOLVER_CANDIDATES
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -35,9 +36,7 @@ using ZeroInstall.Model.Selection;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;
 
-#if NO_SOLVER_CANDIDATES
-using System.Collections.Generic;
-#else
+#if !NO_SOLVER_CANDIDATES
 using Common.Tasks;
 #endif
 
@@ -66,7 +65,7 @@ namespace ZeroInstall.Commands.WinForms
         private readonly Func<Selections> _solveCallback;
 
         /// <summary>The last implementation selected for this interface.</summary>
-        private ImplementationSelection _selection;
+        private IEnumerable<SelectionCandidate> _candidates;
 #endif
         #endregion
 
@@ -104,8 +103,8 @@ namespace ZeroInstall.Commands.WinForms
             if (_interfacePreferences.StabilityPolicy == Stability.Unset) comboBoxStability.SelectedItem = "Use default setting";
             else comboBoxStability.SelectedItem = _interfacePreferences.StabilityPolicy;
 
-            UpdateDataGridVersions();
             LoadFeeds();
+            ReSolve();
 
             if (_interfacePreferences.StabilityPolicy == Stability.Unset) comboBoxStability.SelectedItem = "Use default setting";
             else comboBoxStability.SelectedItem = _interfacePreferences.StabilityPolicy;
@@ -164,10 +163,6 @@ namespace ZeroInstall.Commands.WinForms
 #endif
                 listBoxFeeds.Items.Add(reference); // Add complex object => removable in GUI
             }
-
-#if NO_SOLVER_CANDIDATES
-            UpdateDataGridVersions();
-#endif
         }
 
         /// <summary>
@@ -240,7 +235,7 @@ namespace ZeroInstall.Commands.WinForms
             _interfacePreferences.Feeds.Add(reference);
             listBoxFeeds.Items.Add(reference);
 
-            UpdateDataGridVersions();
+            ReSolve();
         }
 
         /// <summary>
@@ -253,8 +248,20 @@ namespace ZeroInstall.Commands.WinForms
 
 #if NO_SOLVER_CANDIDATES
             _feeds.Remove(feed.Source);
-            UpdateDataGridVersions();
 #endif
+            ReSolve();
+        }
+
+        /// <summary>
+        /// Recalculates the <see cref="ImplementationSelection"/>
+        /// </summary>
+        private void ReSolve()
+        {
+#if !NO_SOLVER_CANDIDATES
+            TrackingDialog.Run(this, new SimpleTask(Resources.Working, () => { _candidates = _solveCallback()[_interfaceID].Candidates; }));
+#endif
+
+            UpdateDataGridVersions();
         }
 
         /// <summary>
@@ -314,13 +321,11 @@ namespace ZeroInstall.Commands.WinForms
             }
             dataGridVersions.DataSource = candidates;
 #else
-            TrackingDialog.Run(this, new SimpleTask(Resources.Working, () => { _selection = _solveCallback()[_interfaceID]; }));
-
             var list = new BindingList<SelectionCandidate> {AllowEdit = true, AllowNew = false};
             if (checkBoxShowAllVersions.Checked)
-                foreach (var candidate in _selection.Candidates) list.Add(candidate);
+                foreach (var candidate in _candidates) list.Add(candidate);
             else
-                foreach (var candidate in _selection.Candidates.Where(candidate => candidate.IsSuitable)) list.Add(candidate);
+                foreach (var candidate in _candidates.Where(candidate => candidate.IsSuitable)) list.Add(candidate);
             dataGridVersions.DataSource = list;
 #endif
         }
@@ -374,7 +379,7 @@ namespace ZeroInstall.Commands.WinForms
             try
             {
                 ApplySettings();
-                UpdateDataGridVersions();
+                ReSolve();
             }
                 #region Error handling
             catch (IOException ex)
@@ -434,7 +439,7 @@ namespace ZeroInstall.Commands.WinForms
             }
 #else
             // TODO: Filter out duplicates
-            foreach (var candidate in _selection.Candidates)
+            foreach (var candidate in _candidates)
             {
                 candidate.FeedPreferences.Normalize();
                 candidate.FeedPreferences.SaveFor(candidate.FeedID);
