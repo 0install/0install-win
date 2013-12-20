@@ -67,6 +67,7 @@ namespace ZeroInstall.Commands.Gtk
             AppMutex.Create("Zero Install");
 #endif
 
+            NetUtils.TrustCertificates(SyncIntegrationManager.DefaultServerPublicKey);
             return Run(args);
         }
 

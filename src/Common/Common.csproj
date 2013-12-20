@@ -162,6 +162,7 @@
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Utils\LzmaUtils.cs" />
     <Compile Include="Utils\MonoUtils.cs" />
+    <Compile Include="Utils\NetUtils.cs" />
     <Compile Include="Utils\ProcessUtils.cs" />
     <Compile Include="Utils\StreamUtils.cs" />
     <Compile Include="Utils\StringUtils.cs" />
