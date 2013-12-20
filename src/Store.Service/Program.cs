@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Service
         {
             // Encode installation path into mutex name to allow instance detection during updates
             string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());
-            if (AppMutex.Probe(mutexName + "-update")) return 1;
+            if (AppMutex.Probe(mutexName + "-update")) return 99;
 
             if (args == null || args.Length == 0)
             {

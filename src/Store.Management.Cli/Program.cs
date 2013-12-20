@@ -115,7 +115,7 @@ namespace ZeroInstall.Store.Management.Cli
             }
             catch (NotAdminException ex)
             {
-                if (WindowsUtils.IsWindows) return ProcessUtils.RunAssemblyAsAdmin("0install-win", new[] {"store"}.Concat(args).JoinEscapeArguments());
+                if (WindowsUtils.IsWindowsNT) return ProcessUtils.RunAssemblyAsAdmin("0install-win", new[] {"store"}.Concat(args).JoinEscapeArguments());
                 else
                 {
                     Log.Error(ex);

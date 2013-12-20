@@ -115,7 +115,7 @@ namespace ZeroInstall.Launcher.Cli
             }
             catch (NotAdminException ex)
             {
-                if (WindowsUtils.IsWindows) return ProcessUtils.RunAssemblyAsAdmin("0install-win", new[] {"run"}.Concat(args).JoinEscapeArguments());
+                if (WindowsUtils.IsWindowsNT) return ProcessUtils.RunAssemblyAsAdmin("0install-win", new[] {"run"}.Concat(args).JoinEscapeArguments());
                 else
                 {
                     Log.Error(ex);

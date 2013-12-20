@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -32,6 +31,7 @@ using Common.Controls;
 using Common.Storage;
 using Common.Utils;
 using Microsoft.Win32;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Central.WinForms
@@ -41,7 +41,6 @@ namespace ZeroInstall.Central.WinForms
     /// </summary>
     public static class Program
     {
-        #region Startup
         /// <summary>
         /// The canonical EXE name (without the file ending) for this binary.
         /// </summary>
@@ -62,7 +61,7 @@ namespace ZeroInstall.Central.WinForms
 
             // Encode installation path into mutex name to allow instance detection during updates
             string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());
-            if (AppMutex.Probe(mutexName + "-update")) return 1;
+            if (AppMutex.Probe(mutexName + "-update")) return 99;
             AppMutex.Create(mutexName);
 
             // Allow setup to detect Zero Install instances
@@ -104,43 +103,14 @@ namespace ZeroInstall.Central.WinForms
         /// Runs the application (called by main method or by embedding process).
         /// </summary>
         [STAThread] // Required for WinForms
-        // ReSharper disable once ParameterTypeCanBeEnumerable.Global
         public static int Run(string[] args)
         {
             bool machineWide = args.Any(arg => arg == "-m" || arg == "--machine");
-            if (machineWide && WindowsUtils.IsWindowsNT && !WindowsUtils.IsAdministrator) return RerunAsAdmin();
+            if (machineWide && WindowsUtils.IsWindowsNT && !WindowsUtils.IsAdministrator) return ProcessUtils.RunAssemblyAsAdmin("ZeroInstall", args.JoinEscapeArguments());
 
             Application.Run(new MainForm(machineWide));
             return 0;
         }
-
-        /// <summary>
-        /// Reruns the current command as an administrator.
-        /// </summary>
-        /// <returns>The exit code of the rerun command.</returns>
-        /// <remarks>The command-line arguments are pulled from the current process.</remarks>
-        private static int RerunAsAdmin()
-        {
-            if (!WindowsUtils.IsWindowsNT) throw new PlatformNotSupportedException();
-
-            var commandLine = new LinkedList<string>(Environment.GetCommandLineArgs());
-            string executable = commandLine.First.Value;
-
-            try
-            {
-                var startInfo = new ProcessStartInfo(executable, commandLine.JoinEscapeArguments()) {Verb = "runas"};
-                using (var process = Process.Start(startInfo))
-                {
-                    process.WaitForExit();
-                    return process.ExitCode;
-                }
-            }
-            catch (Win32Exception)
-            {
-                return 1;
-            }
-        }
-        #endregion
 
         #region Embed
         /// <summary>

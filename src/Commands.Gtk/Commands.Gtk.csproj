@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
+    <Compile Include="GuiHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="gtk-gui\generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,6 +102,10 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Backend\Backend.csproj">
+      <Project>{8CAA29B1-94B6-46C2-AF82-E049D35775C5}</Project>
+      <Name>Backend %28Backend\Backend%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Commands\Commands.csproj">
       <Project>{606C7FB6-2C58-11E0-8161-7159DFD72085}</Project>
       <Name>Commands</Name>

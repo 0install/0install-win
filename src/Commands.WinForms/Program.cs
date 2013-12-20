@@ -29,6 +29,7 @@ using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
@@ -162,7 +163,7 @@ namespace ZeroInstall.Commands.WinForms
                 {
                     handler.CloseProgressUI();
 
-                    if (WindowsUtils.IsWindows) return ProcessUtils.RunAssemblyAsAdmin("0install-win", args.JoinEscapeArguments());
+                    if (WindowsUtils.IsWindowsNT) return ProcessUtils.RunAssemblyAsAdmin("0install-win", args.JoinEscapeArguments());
                     else
                     {
                         Log.Error(ex);
