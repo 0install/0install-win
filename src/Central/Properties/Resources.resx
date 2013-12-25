@@ -208,7 +208,7 @@ in the start menu or on the desktop.</value>
     <value>Do you want to remove the {0} selected entries from the list?</value>
   </data>
   <data name="ResetList" xml:space="preserve">
-    <value>Do you want to reset the list to its orginal state?</value>
+    <value>Do you want to reset the list to its original state?</value>
   </data>
   <data name="RunButtonText" xml:space="preserve">
     <value>Run</value>

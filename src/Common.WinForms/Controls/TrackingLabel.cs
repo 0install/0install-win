@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Runtime.Remoting;
+using System.Security.Permissions;
 using System.Windows.Forms;
 using Common.Properties;
 using Common.Tasks;
@@ -226,6 +227,7 @@ namespace Common.Controls
 
         #region IPC timeout
         /// <inheritdoc/>
+        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.Infrastructure)]
         public override object InitializeLifetimeService()
         {
             return null; // Do not timeout progress reporting callbacks

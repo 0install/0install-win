@@ -325,7 +325,7 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to reset the list to its orginal state?.
+        ///   Looks up a localized string similar to Do you want to reset the list to its original state?.
         /// </summary>
         public static string ResetList {
             get {

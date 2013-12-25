@@ -140,6 +140,10 @@ namespace ZeroInstall.Store.Service
         /// <inheritdoc />
         protected override void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, ITaskHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             var callingIdentity = WindowsIdentity.GetCurrent();
             using (_serviceIdentity.Impersonate()) // Use system rights instead of calling user
             {

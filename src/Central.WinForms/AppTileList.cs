@@ -241,7 +241,7 @@ namespace ZeroInstall.Central.WinForms
         public void ShowCategories()
         {
             // Accumulate all categories
-            var categories = from tile in _tileDictionary.Values from category in tile.Feed.Categories select category.Name;
+            //var categories = from tile in _tileDictionary.Values from category in tile.Feed.Categories select category.Name;
 
             // TODO: Show category GUI
         }

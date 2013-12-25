@@ -11,3 +11,4 @@
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "GnuPG", Scope = "member", Target = "ZeroInstall.Capture.WinForms.MainForm.#InitializeComponent()")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "GnuPG", Scope = "member", Target = "ZeroInstall.Capture.WinForms.MainForm.#GetGnuPGSecretKeys()")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ZeroInstallTools", Scope = "member", Target = "ZeroInstall.Capture.WinForms.MainForm.#InitializeComponent()")]
