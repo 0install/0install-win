@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using Common.Collections;
 using Common.Utils;
 using Common.Values.Design;
 
@@ -119,7 +120,7 @@ namespace ZeroInstall.Model
 
             if (_parts.Length == 0) return new VersionRange(new VersionRangeRange(constraint.NotBefore, constraint.Before));
 
-            var parts = _parts.Select(part => part.Intersects(constraint)).Where(newPart => newPart != null);
+            var parts = _parts.Select(part => part.Intersects(constraint)).WhereNotNull();
             // ReSharper disable PossibleMultipleEnumeration
             return parts.Any() ? new VersionRange(parts.ToArray()) : None;
             // ReSharper restore PossibleMultipleEnumeration

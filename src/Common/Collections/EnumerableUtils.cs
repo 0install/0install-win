@@ -85,6 +85,15 @@ namespace Common.Collections
             if (result == null) throw noneException();
             return result;
         }
+
+        /// <summary>
+        /// Filters a sequence of elements to remove any <see langword="null"/> values.
+        /// </summary>
+        public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T> collection)
+        {
+            // ReSharper disable once CompareNonConstrainedGenericWithNull
+            return collection.Where(element => element != null);
+        }
         #endregion
 
         #region Clone
@@ -280,12 +289,12 @@ namespace Common.Collections
             #endregion
 
             // ReSharper disable CompareNonConstrainedGenericWithNull
-            foreach (var mine in mineList.Where(mine => mine != null)
+            foreach (var mine in mineList.WhereNotNull()
                 // Entry in mineList, but not in theirsList
                 .Where(mine => !theirsList.Contains(mine)))
                 removed(mine);
 
-            foreach (var theirs in theirsList.Where(theirs => theirs != null).
+            foreach (var theirs in theirsList.WhereNotNull().
                 // Entry in theirsList, but not in mineList
                 Where(theirs => !mineList.Contains(theirs)))
                 added(theirs);
@@ -316,7 +325,7 @@ namespace Common.Collections
             #endregion
 
             foreach (var theirs in (
-                from theirs in theirsList.Where(theirs => theirs != null)
+                from theirs in theirsList.WhereNotNull()
                 // Entry in theirsList, but not in mineList
                 where FindMergeID(mineList, theirs.MergeID) == null
                 select theirs).Where(theirs => !baseList.Contains(theirs)))

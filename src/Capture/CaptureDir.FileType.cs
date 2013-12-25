@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Security;
+using Common.Collections;
 using Microsoft.Win32;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
@@ -47,8 +48,7 @@ namespace ZeroInstall.Capture
             capabilities.Entries.AddAll((
                 from progID in snapshotDiff.ProgIDs
                 where !string.IsNullOrEmpty(progID)
-                select GetFileType(progID, snapshotDiff, commandMapper)).
-                Where(fileType => fileType != null));
+                select GetFileType(progID, snapshotDiff, commandMapper)).WhereNotNull());
         }
 
         /// <summary>

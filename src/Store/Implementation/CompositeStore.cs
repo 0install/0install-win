@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Remoting;
 using Common;
+using Common.Collections;
 using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation.Archive;
@@ -271,9 +272,7 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // Try to audit all contained stores
-            return _stores.Select(store => store.Audit(handler))
-                .Where(problems => problems != null).SelectMany(problems => problems);
+            return _stores.Select(store => store.Audit(handler)).WhereNotNull().SelectMany(problems => problems);
         }
         #endregion
 

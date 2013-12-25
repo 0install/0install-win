@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Common;
+using Common.Collections;
 using Common.Utils;
 using Microsoft.Win32;
 using ZeroInstall.Capture.Properties;
@@ -101,7 +102,7 @@ namespace ZeroInstall.Capture
             #endregion
 
             return RegUtils.GetSubKeyNames(typeKey, "shell").
-                Select(verbName => GetVerb(typeKey, commandMapper, verbName)).Where(verb => verb != null);
+                Select(verbName => GetVerb(typeKey, commandMapper, verbName)).WhereNotNull();
         }
 
         /// <summary>

@@ -46,13 +46,13 @@ namespace ZeroInstall.Capture
             if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
-            capabilities.Entries.AddAll(snapshotDiff.AutoPlayHandlersUser.
-                Select(handler => GetAutoPlay(handler, Registry.CurrentUser, snapshotDiff.AutoPlayAssocsUser, commandMapper)).
-                Where(autoPlay => autoPlay != null));
+            capabilities.Entries.AddAll(snapshotDiff.AutoPlayHandlersUser
+                .Select(handler => GetAutoPlay(handler, Registry.CurrentUser, snapshotDiff.AutoPlayAssocsUser, commandMapper))
+                .WhereNotNull());
 
-            capabilities.Entries.AddAll(snapshotDiff.AutoPlayHandlersMachine.
-                Select(handler => GetAutoPlay(handler, Registry.LocalMachine, snapshotDiff.AutoPlayAssocsMachine, commandMapper)).
-                Where(autoPlay => autoPlay != null));
+            capabilities.Entries.AddAll(snapshotDiff.AutoPlayHandlersMachine
+                .Select(handler => GetAutoPlay(handler, Registry.LocalMachine, snapshotDiff.AutoPlayAssocsMachine, commandMapper))
+                .WhereNotNull());
         }
 
         /// <summary>

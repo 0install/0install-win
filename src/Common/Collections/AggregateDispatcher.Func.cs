@@ -69,7 +69,7 @@ namespace Common.Collections
             if (element == null) throw new ArgumentNullException("element");
             #endregion
 
-            return _delegates.Select(del => del(element)).Where(x => x != null).SelectMany(x => x);
+            return _delegates.Select(del => del(element)).WhereNotNull().SelectMany(x => x);
         }
 
         #region IEnumerable
