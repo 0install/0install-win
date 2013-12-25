@@ -37,7 +37,8 @@ namespace ZeroInstall.Central.WinForms
     {
         #region Variables
         // Don't use WinForms designer for this, since it doesn't understand generics
-        private readonly FilteredTreeView<TrustNode> _treeViewTrustedKeys = new FilteredTreeView<TrustNode> {Separator = '#', CheckBoxes = true, Dock = DockStyle.Fill};
+        // ReSharper disable once InconsistentNaming
+        private readonly FilteredTreeView<TrustNode> treeViewTrustedKeys = new FilteredTreeView<TrustNode> {Separator = '#', CheckBoxes = true, Dock = DockStyle.Fill};
         #endregion
 
         #region Startup
@@ -45,8 +46,8 @@ namespace ZeroInstall.Central.WinForms
         {
             InitializeComponent();
 
-            panelTrustedKeys.Controls.Add(_treeViewTrustedKeys);
-            _treeViewTrustedKeys.CheckedEntriesChanged += _treeViewTrustedKeys_CheckedEntriesChanged;
+            panelTrustedKeys.Controls.Add(treeViewTrustedKeys);
+            treeViewTrustedKeys.CheckedEntriesChanged += treeViewTrustedKeys_CheckedEntriesChanged;
         }
 
         private void OptionsDialog_Load(object sender, EventArgs e)
@@ -121,7 +122,7 @@ namespace ZeroInstall.Central.WinForms
             var trustDB = TrustDB.LoadSafe();
             var trustNodes = new NamedCollection<TrustNode>();
             trustDB.Keys.Apply(key => key.Domains.Apply(domain => trustNodes.Add(new TrustNode(key.Fingerprint, domain))));
-            _treeViewTrustedKeys.Nodes = trustNodes;
+            treeViewTrustedKeys.Nodes = trustNodes;
         }
 
         private void SaveConfig()
@@ -147,7 +148,7 @@ namespace ZeroInstall.Central.WinForms
 
             // Write list of trusted keys
             var trustDB = new TrustDB();
-            foreach (var trustNode in _treeViewTrustedKeys.Nodes)
+            foreach (var trustNode in treeViewTrustedKeys.Nodes)
                 trustDB.TrustKey(trustNode.Fingerprint, trustNode.Domain);
             trustDB.Save();
         }
@@ -240,14 +241,17 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonResetCatalogSources_Click(object sender, EventArgs e)
         {
-            if (!Msg.YesNo(this, Resources.RemoveAllEntries, MsgSeverity.Warn)) return;
-            listBoxCatalogSources.Items.Clear();
-            listBoxCatalogSources.Items.Add(CatalogManager.DefaultSource);
+            if (Msg.YesNo(this, Resources.ResetList, MsgSeverity.Warn))
+            {
+                listBoxCatalogSources.Items.Clear();
+                listBoxCatalogSources.Items.Add(CatalogManager.DefaultSource);
+            }
         }
 
         private void buttonGoToCatalogSource_Click(object sender, EventArgs e)
         {
-            Program.OpenInBrowser(this, listBoxCatalogSources.SelectedItem.ToString());
+            if (listBoxCatalogSources.SelectedItem != null)
+                Program.OpenInBrowser(this, listBoxCatalogSources.SelectedItem.ToString());
         }
 
         private void buttonAddCatalogSource_Click(object sender, EventArgs e)
@@ -258,24 +262,30 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonRemoveCatalogSource_Click(object sender, EventArgs e)
         {
-            if (!Msg.YesNo(this, string.Format(Resources.RemoveSelectedEntries, listBoxCatalogSources.SelectedIndices.Count), MsgSeverity.Warn)) return;
-            foreach (int i in listBoxCatalogSources.SelectedIndices) listBoxCatalogSources.Items.RemoveAt(i);
+            if (Msg.YesNo(this, string.Format(Resources.RemoveSelectedEntries, listBoxCatalogSources.SelectedItems.Count), MsgSeverity.Warn))
+            {
+                foreach (var item in listBoxCatalogSources.SelectedItems.Cast<object>().ToList())
+                    listBoxCatalogSources.Items.Remove(item);
+            }
         }
         #endregion
 
         #region Trust buttons
-        private void _treeViewTrustedKeys_CheckedEntriesChanged(object sender, EventArgs e)
+        private void treeViewTrustedKeys_CheckedEntriesChanged(object sender, EventArgs e)
         {
             // Enable remove button when there are checked elements
-            buttonRemoveTrustedKey.Enabled = (_treeViewTrustedKeys.CheckedEntries.Count != 0);
+            buttonRemoveTrustedKey.Enabled = (treeViewTrustedKeys.CheckedEntries.Count != 0);
         }
 
         private void buttonRemoveTrustedKey_Click(object sender, EventArgs e)
         {
-            var checkedNodes = _treeViewTrustedKeys.CheckedEntries.ToList();
+            var checkedNodes = treeViewTrustedKeys.CheckedEntries.ToList();
 
-            if (!Msg.YesNo(this, string.Format(Resources.RemoveCheckedKeys, checkedNodes.Count), MsgSeverity.Warn)) return;
-            foreach (var node in checkedNodes.ToList()) _treeViewTrustedKeys.Nodes.Remove(node);
+            if (Msg.YesNo(this, string.Format(Resources.RemoveCheckedKeys, checkedNodes.Count), MsgSeverity.Warn))
+            {
+                foreach (var node in checkedNodes.ToList())
+                    treeViewTrustedKeys.Nodes.Remove(node);
+            }
         }
         #endregion
 

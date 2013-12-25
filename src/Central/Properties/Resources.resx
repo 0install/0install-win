@@ -198,9 +198,6 @@ in the start menu or on the desktop.</value>
   <data name="ProblemSavingOptions" xml:space="preserve">
     <value>There was a problem saving the options.</value>
   </data>
-  <data name="RemoveAllEntries" xml:space="preserve">
-    <value>Do you want to remove all entries from the list?</value>
-  </data>
   <data name="RemoveButtonTooltip" xml:space="preserve">
     <value>Remove from "my applications"</value>
   </data>
@@ -209,6 +206,9 @@ in the start menu or on the desktop.</value>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Do you want to remove the {0} selected entries from the list?</value>
+  </data>
+  <data name="ResetList" xml:space="preserve">
+    <value>Do you want to reset the list to its orginal state?</value>
   </data>
   <data name="RunButtonText" xml:space="preserve">
     <value>Run</value>

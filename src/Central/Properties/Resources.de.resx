@@ -197,9 +197,6 @@ fügen Sie sie zu "Meine Anwendungen" hinzu.</value>
   <data name="ProblemSavingOptions" xml:space="preserve">
     <value>Es gab ein Problem beim Speichern der Einstellungen.</value>
   </data>
-  <data name="RemoveAllEntries" xml:space="preserve">
-    <value>Möchten Sie alle Einträge aus der Liste entfernen?</value>
-  </data>
   <data name="RemoveButtonTooltip" xml:space="preserve">
     <value>Aus "Meine Anwendungen" entfernen</value>
   </data>
@@ -208,6 +205,9 @@ fügen Sie sie zu "Meine Anwendungen" hinzu.</value>
   </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Möchten Sie die {0} ausgewählten Einträge aus der Liste entfernen?</value>
+  </data>
+  <data name="ResetList" xml:space="preserve">
+    <value>Möchten Sie die Liste auf ihren ursprünglichen Zustand zurücksetzen?</value>
   </data>
   <data name="RunButtonText" xml:space="preserve">
     <value>Start</value>
