@@ -45,7 +45,7 @@ namespace ZeroInstall.Capture
             if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
-            capabilities.Entries.AddAll((
+            capabilities.Entries.AddRange((
                 from progID in snapshotDiff.ProgIDs
                 where !string.IsNullOrEmpty(progID)
                 select GetFileType(progID, snapshotDiff, commandMapper)).WhereNotNull());
@@ -104,10 +104,10 @@ namespace ZeroInstall.Capture
                 if (string.IsNullOrEmpty(description)) description = progIDKey.GetValue("", "").ToString();
                 capability.Descriptions.Add(description);
 
-                capability.Verbs.AddAll(GetVerbs(progIDKey, commandMapper));
+                capability.Verbs.AddRange(GetVerbs(progIDKey, commandMapper));
 
                 // Only return capabilities that have verbs associated with them
-                return capability.Verbs.IsEmpty ? null : capability;
+                return capability.Verbs.Count == 0 ? null : capability;
             }
         }
     }

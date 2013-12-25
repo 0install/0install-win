@@ -65,15 +65,14 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Properties
-        // Preserve order
-        private readonly C5.ArrayList<Feed> _feeds = new C5.ArrayList<Feed>();
+        private readonly List<Feed> _feeds = new List<Feed>();
 
         /// <summary>
         /// A list of <see cref="Feed"/>s contained within this catalog.
         /// </summary>
         [Browsable(false)]
         [XmlElement("interface", typeof(Feed), Namespace = Feed.XmlNamespace)]
-        public C5.ArrayList<Feed> Feeds { get { return _feeds; } }
+        public List<Feed> Feeds { get { return _feeds; } }
         #endregion
 
         #region Factory methods
@@ -158,7 +157,7 @@ namespace ZeroInstall.Model
         public Catalog Clone()
         {
             var catalog = new Catalog {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements};
-            catalog.Feeds.AddAll(Feeds.CloneElements());
+            catalog.Feeds.AddRange(Feeds.CloneElements());
             return catalog;
         }
 

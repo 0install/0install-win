@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Common.Collections;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
@@ -130,11 +131,11 @@ namespace ZeroInstall.DesktopIntegration
             bool aliases = categories.Contains(AppAlias.CategoryName) || all;
 
             // Build capability list
-            var accessPointsToRemove = new C5.LinkedList<AccessPoint>();
-            if (capabilities) accessPointsToRemove.AddAll(appEntry.AccessPoints.Entries.OfType<CapabilityRegistration>());
-            if (defaults) accessPointsToRemove.AddAll(appEntry.AccessPoints.Entries.OfType<DefaultAccessPoint>());
-            if (icons) accessPointsToRemove.AddAll(appEntry.AccessPoints.Entries.OfType<IconAccessPoint>());
-            if (aliases) accessPointsToRemove.AddAll(appEntry.AccessPoints.Entries.OfType<AppAlias>());
+            var accessPointsToRemove = new List<AccessPoint>();
+            if (capabilities) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<CapabilityRegistration>());
+            if (defaults) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<DefaultAccessPoint>());
+            if (icons) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<IconAccessPoint>());
+            if (aliases) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<AppAlias>());
 
             try
             {

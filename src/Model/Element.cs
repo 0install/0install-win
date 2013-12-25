@@ -169,38 +169,34 @@ namespace ZeroInstall.Model
         [XmlAttribute("doc-dir"), DefaultValue("")]
         public string DocDir { get; set; }
 
-        // Preserve order
-        private readonly C5.ArrayList<Dependency> _dependencies = new C5.ArrayList<Dependency>();
+        private readonly List<Dependency> _dependencies = new List<Dependency>();
 
         /// <summary>
         /// A list of interfaces this implementation depends upon.
         /// </summary>
         [Browsable(false)]
         [XmlElement("requires")]
-        public C5.ArrayList<Dependency> Dependencies { get { return _dependencies; } }
+        public List<Dependency> Dependencies { get { return _dependencies; } }
 
-        // Preserve order
-        private readonly C5.ArrayList<Restriction> _restrictions = new C5.ArrayList<Restriction>();
+        private readonly List<Restriction> _restrictions = new List<Restriction>();
 
         /// <summary>
         /// A list of interfaces that are restricted to specific versions when used.
         /// </summary>
         [Browsable(false)]
         [XmlElement("restricts")]
-        public C5.ArrayList<Restriction> Restrictions { get { return _restrictions; } }
+        public List<Restriction> Restrictions { get { return _restrictions; } }
 
-        // Preserve order
-        private readonly C5.ArrayList<Binding> _bindings = new C5.ArrayList<Binding>();
+        private readonly List<Binding> _bindings = new List<Binding>();
 
         /// <summary>
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(GenericBinding)), XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding)), XmlElement(typeof(ExecutableInVar)), XmlElement(typeof(ExecutableInPath))]
-        public C5.ArrayList<Binding> Bindings { get { return _bindings; } }
+        public List<Binding> Bindings { get { return _bindings; } }
 
-        // Preserve order
-        private readonly C5.ArrayList<Command> _commands = new C5.ArrayList<Command>();
+        private readonly List<Command> _commands = new List<Command>();
 
         /// <summary>
         /// A list of commands that can be used to launch this implementation.
@@ -208,7 +204,7 @@ namespace ZeroInstall.Model
         /// <remarks>This will eventually replace <see cref="Main"/> and <see cref="SelfTest"/>.</remarks>
         [Browsable(false)]
         [XmlElement("command")]
-        public C5.ArrayList<Command> Commands { get { return _commands; } }
+        public List<Command> Commands { get { return _commands; } }
         #endregion
 
         //--------------------//
@@ -254,14 +250,14 @@ namespace ZeroInstall.Model
             if (DocDir == null) DocDir = parent.DocDir;
             if (License == null) License = parent.License;
             if (Stability == Stability.Unset) Stability = parent.Stability;
-            if (Languages.IsEmpty) Languages.AddAll(parent.Languages);
+            if (Languages.Count == 0) Languages.AddAll(parent.Languages);
             if (Architecture == default(Architecture)) Architecture = parent.Architecture;
 
             // Accumulate list entries
-            Commands.AddAll(parent.Commands);
-            Dependencies.AddAll(parent.Dependencies);
-            Restrictions.AddAll(parent.Restrictions);
-            Bindings.AddAll(parent.Bindings);
+            Commands.AddRange(parent.Commands);
+            Dependencies.AddRange(parent.Dependencies);
+            Restrictions.AddRange(parent.Restrictions);
+            Bindings.AddRange(parent.Bindings);
         }
         #endregion
 
@@ -334,10 +330,10 @@ namespace ZeroInstall.Model
             to.Main = from.Main;
             to.SelfTest = from.SelfTest;
             to.DocDir = from.DocDir;
-            to.Commands.AddAll(from.Commands.CloneElements());
-            to.Dependencies.AddAll(from.Dependencies.CloneElements());
-            to.Restrictions.AddAll(from.Restrictions.CloneElements());
-            to.Bindings.AddAll(from.Bindings.CloneElements());
+            to.Commands.AddRange(from.Commands.CloneElements());
+            to.Dependencies.AddRange(from.Dependencies.CloneElements());
+            to.Restrictions.AddRange(from.Restrictions.CloneElements());
+            to.Bindings.AddRange(from.Bindings.CloneElements());
         }
         #endregion
 

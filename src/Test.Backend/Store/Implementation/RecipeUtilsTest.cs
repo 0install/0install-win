@@ -76,7 +76,7 @@ namespace ZeroInstall.Store.Implementation
                     Assert.IsTrue(File.Exists(path), "File should exist: " + path);
                     Assert.AreEqual("data", File.ReadAllText(path));
                     Assert.AreEqual(0, File.GetLastWriteTimeUtc(path).ToUnixTime(), "Single files should be set to Unix epoch");
-                    if (!MonoUtils.IsUnix) CollectionAssert.IsEmpty(FlagUtils.GetExternalFlags(".xbit", recipeDir));
+                    if (!MonoUtils.IsUnix) Assert.IsEmpty(FlagUtils.GetExternalFlags(".xbit", recipeDir));
                 }
             }
         }
@@ -103,8 +103,8 @@ namespace ZeroInstall.Store.Implementation
                 {
                     if (!MonoUtils.IsUnix)
                     {
-                        CollectionAssert.IsEmpty(FlagUtils.GetExternalFlags(".xbit", recipeDir));
-                        CollectionAssert.IsEmpty(FlagUtils.GetExternalFlags(".symlink", recipeDir));
+                        Assert.IsEmpty(FlagUtils.GetExternalFlags(".xbit", recipeDir));
+                        Assert.IsEmpty(FlagUtils.GetExternalFlags(".symlink", recipeDir));
                     }
 
                     // /symlink [deleted]

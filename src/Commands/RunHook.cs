@@ -100,7 +100,7 @@ namespace ZeroInstall.Commands
                 foreach (var command in _mainImplementation.Commands)
                 {
                     // Only handle simple commands (executable path, no arguments)
-                    if (string.IsNullOrEmpty(command.Path) || !command.Arguments.IsEmpty) continue;
+                    if (string.IsNullOrEmpty(command.Path) || command.Arguments.Count != 0) continue;
 
                     string processCommandLine = Path.Combine(_implementationDir, command.Path);
 
@@ -163,7 +163,7 @@ namespace ZeroInstall.Commands
             // Build a relaunch entry for each entry point
             var entries =
                 from entryPoint in _target.Feed.EntryPoints
-                where !string.IsNullOrEmpty(entryPoint.Command) && !entryPoint.Names.IsEmpty && !string.IsNullOrEmpty(entryPoint.BinaryName)
+                where !string.IsNullOrEmpty(entryPoint.Command) && entryPoint.Names.Count != 0 && !string.IsNullOrEmpty(entryPoint.BinaryName)
                 select new RelaunchEntry(
                     entryPoint.BinaryName,
                     entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture),

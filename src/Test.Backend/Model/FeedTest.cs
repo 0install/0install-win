@@ -231,10 +231,10 @@ namespace ZeroInstall.Model
             var feed = CreateTestFeed();
             feed.Strip();
 
-            CollectionAssert.IsEmpty(feed.Elements);
-            CollectionAssert.IsEmpty(feed.CapabilityLists);
-            CollectionAssert.IsEmpty(feed.UnknownAttributes);
-            CollectionAssert.IsEmpty(feed.UnknownElements);
+            Assert.IsEmpty(feed.Elements);
+            Assert.IsEmpty(feed.CapabilityLists);
+            Assert.IsEmpty(feed.UnknownAttributes);
+            Assert.IsEmpty(feed.UnknownElements);
         }
 
         /// <summary>

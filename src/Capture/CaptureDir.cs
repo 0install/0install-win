@@ -186,7 +186,7 @@ namespace ZeroInstall.Capture
             #endregion
 
             var group = new Group();
-            group.Commands.AddAll(commands);
+            group.Commands.AddRange(commands);
             if (implementation != null) group.Elements.Add(implementation);
 
             var feed = new Feed

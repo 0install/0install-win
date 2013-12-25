@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -34,15 +35,14 @@ namespace ZeroInstall.Model
     public sealed class Recipe : RetrievalMethod, IEquatable<Recipe>
     {
         #region Properties
-        // Preserve order
-        private readonly C5.ArrayList<IRecipeStep> _steps = new C5.ArrayList<IRecipeStep>();
+        private readonly List<IRecipeStep> _steps = new List<IRecipeStep>();
 
         /// <summary>
         /// An ordered list of <see cref="IRecipeStep"/>s to execute.
         /// </summary>
         [Description("An ordered list of archives to extract.")]
         [XmlIgnore]
-        public C5.ArrayList<IRecipeStep> Steps { get { return _steps; } }
+        public List<IRecipeStep> Steps { get { return _steps; } }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Steps"/>
@@ -60,7 +60,7 @@ namespace ZeroInstall.Model
             set
             {
                 _steps.Clear();
-                if (value != null && value.Length > 0) _steps.AddAll(value.OfType<IRecipeStep>());
+                if (value != null && value.Length > 0) _steps.AddRange(value.OfType<IRecipeStep>());
             }
         }
 
@@ -95,7 +95,7 @@ namespace ZeroInstall.Model
                 newSteps.Add(step);
             }
             Steps.Clear();
-            Steps.AddAll(newSteps);
+            Steps.AddRange(newSteps);
         }
         #endregion
 

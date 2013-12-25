@@ -113,7 +113,7 @@ namespace Common.Utils
         }
 
         [Test]
-        public void TestRemoveAll()
+        public void TestRemoveRange()
         {
             Assert.AreEqual("ac", "abcd".RemoveAll("bd"));
         }

@@ -185,7 +185,7 @@ namespace ZeroInstall.Store.Implementation
             _store.AddDirectory(_packageDir, digest, new SilentHandler());
 
             // After correctly adding a directory, the store should be valid
-            CollectionAssert.IsEmpty(_store.Audit(new SilentHandler()));
+            Assert.IsEmpty(_store.Audit(new SilentHandler()));
 
             // A contaminated store should be detected
             Directory.CreateDirectory(Path.Combine(_tempDir, "sha1new=abc"));

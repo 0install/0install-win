@@ -47,7 +47,7 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            return (Languages.IsEmpty)
+            return Languages.Count == 0
                 ? string.Format("{0} ({1})", Source, Architecture)
                 : string.Format("{0} ({1}, {2})", Source, Architecture, Languages);
         }

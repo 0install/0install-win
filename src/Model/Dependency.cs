@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -80,15 +81,14 @@ namespace ZeroInstall.Model
         [XmlAttribute("os"), DefaultValue(typeof(OS), "All")]
         public OS OS { get; set; }
 
-        // Preserve order
-        private readonly C5.ArrayList<Binding> _bindings = new C5.ArrayList<Binding>();
+        private readonly List<Binding> _bindings = new List<Binding>();
 
         /// <summary>
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(GenericBinding)), XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding)), XmlElement(typeof(ExecutableInVar)), XmlElement(typeof(ExecutableInPath))]
-        public C5.ArrayList<Binding> Bindings { get { return _bindings; } }
+        public List<Binding> Bindings { get { return _bindings; } }
         #endregion
 
         //--------------------//
@@ -113,8 +113,8 @@ namespace ZeroInstall.Model
         public Dependency CloneDependency()
         {
             var dependency = new Dependency {Interface = Interface, Importance = Importance, Use = Use};
-            dependency.Constraints.AddAll(Constraints.CloneElements());
-            dependency.Bindings.AddAll(Bindings.CloneElements());
+            dependency.Constraints.AddRange(Constraints.CloneElements());
+            dependency.Bindings.AddRange(Bindings.CloneElements());
             return dependency;
         }
 

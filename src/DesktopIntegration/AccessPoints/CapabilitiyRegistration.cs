@@ -68,7 +68,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             // Register all applicable capabilities
             var target = new InterfaceFeed(appEntry.InterfaceID, feed);
-            foreach (var capabilityList in appEntry.CapabilityLists.Filter(AreCapabilitiesApplicable))
+            foreach (var capabilityList in appEntry.CapabilityLists.Where(AreCapabilitiesApplicable))
             {
                 // ReSharper disable AccessToForEachVariableInClosure
                 var dispatcher = new PerTypeDispatcher<Model.Capabilities.Capability>(true);
@@ -102,7 +102,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             // Unregister all applicable capabilities
-            foreach (var capabilityList in appEntry.CapabilityLists.Filter(AreCapabilitiesApplicable))
+            foreach (var capabilityList in appEntry.CapabilityLists.Where(AreCapabilitiesApplicable))
             {
                 var dispatcher = new PerTypeDispatcher<Model.Capabilities.Capability>(true);
                 if (WindowsUtils.IsWindows)

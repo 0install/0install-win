@@ -35,15 +35,14 @@ namespace ZeroInstall.Model
     public sealed class Implementation : ImplementationBase, IEquatable<Implementation>
     {
         #region Properties
-        // Preserve order
-        private readonly C5.ArrayList<RetrievalMethod> _retrievalMethods = new C5.ArrayList<RetrievalMethod>();
+        private readonly List<RetrievalMethod> _retrievalMethods = new List<RetrievalMethod>();
 
         /// <summary>
         /// A list of <see cref="Archive"/>s as <see cref="RetrievalMethod"/>s.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(Archive)), XmlElement(typeof(SingleFile)), XmlElement(typeof(Recipe))]
-        public C5.ArrayList<RetrievalMethod> RetrievalMethods { get { return _retrievalMethods; } }
+        public List<RetrievalMethod> RetrievalMethods { get { return _retrievalMethods; } }
         #endregion
 
         //--------------------//
@@ -70,7 +69,7 @@ namespace ZeroInstall.Model
                 newRetrievalMethods.Add(retrievalMethod);
             }
             RetrievalMethods.Clear();
-            RetrievalMethods.AddAll(newRetrievalMethods);
+            RetrievalMethods.AddRange(newRetrievalMethods);
         }
         #endregion
 
@@ -85,7 +84,7 @@ namespace ZeroInstall.Model
         {
             var implementation = new Implementation();
             CloneFromTo(this, implementation);
-            implementation.RetrievalMethods.AddAll(RetrievalMethods.CloneElements());
+            implementation.RetrievalMethods.AddRange(RetrievalMethods.CloneElements());
             return implementation;
         }
 

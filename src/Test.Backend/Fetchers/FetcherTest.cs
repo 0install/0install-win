@@ -158,7 +158,7 @@ namespace ZeroInstall.Fetchers
             else
             {
                 var recipe = new Recipe();
-                recipe.Steps.AddAll(archives);
+                recipe.Steps.AddRange(archives);
                 return recipe;
             }
         }
@@ -167,7 +167,7 @@ namespace ZeroInstall.Fetchers
         {
             var digest = new ManifestDigest(sha256New: "test123");
             var testImplementation = new Implementation {ManifestDigest = digest};
-            testImplementation.RetrievalMethods.AddAll(retrievalMethod);
+            testImplementation.RetrievalMethods.AddRange(retrievalMethod);
 
             _storeMock.Setup(x => x.Contains(digest)).Returns(false).Verifiable();
             _storeMock.Setup(x => x.AddDirectory(It.Is<string>(path => directoryCheck(path)), digest, _handler)).Verifiable();

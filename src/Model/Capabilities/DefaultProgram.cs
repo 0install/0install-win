@@ -116,8 +116,8 @@ namespace ZeroInstall.Model.Capabilities
         {
             var capability = new DefaultProgram {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly, Service = Service};
             capability.Descriptions.AddAll(Descriptions.CloneElements());
-            capability.Icons.AddAll(Icons);
-            capability.Verbs.AddAll(Verbs.CloneElements());
+            capability.Icons.AddRange(Icons);
+            capability.Verbs.AddRange(Verbs.CloneElements());
             return capability;
         }
         #endregion

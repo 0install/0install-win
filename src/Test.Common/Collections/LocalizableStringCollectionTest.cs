@@ -72,7 +72,7 @@ namespace Common.Collections
         }
 
         [Test]
-        public void TestRemoveAll()
+        public void TestRemoveRange()
         {
             var dictionary = new LocalizableStringCollection
             {

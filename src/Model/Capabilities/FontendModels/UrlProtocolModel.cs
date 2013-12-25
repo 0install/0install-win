@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Linq;
 using Common.Utils;
 
 namespace ZeroInstall.Model.Capabilities.FontendModels
@@ -29,7 +30,7 @@ namespace ZeroInstall.Model.Capabilities.FontendModels
         /// <summary>
         /// All <see cref="UrlProtocol.KnownPrefixes"/> concatenated with ", ". If no <see cref="UrlProtocol.KnownPrefixes"/> is available <see cref="Capability.ID"/> will be returned.
         /// </summary>
-        public string KnownPrefixes { get { return _urlProtocol.KnownPrefixes.IsEmpty ? Capability.ID : StringUtils.Join(", ", _urlProtocol.KnownPrefixes.Map(extension => extension.Value)); } }
+        public string KnownPrefixes { get { return _urlProtocol.KnownPrefixes.Count == 0 ? Capability.ID : StringUtils.Join(", ", _urlProtocol.KnownPrefixes.Select(extension => extension.Value)); } }
 
         /// <inheritdoc />
         public UrlProtocolModel(UrlProtocol capability, bool used) : base(capability, used)

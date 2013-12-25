@@ -16,10 +16,10 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
-using C5;
 using Common.Collections;
 
 namespace ZeroInstall.Model.Capabilities
@@ -59,15 +59,14 @@ namespace ZeroInstall.Model.Capabilities
         [XmlAttribute("arch"), DefaultValue("*-*")]
         public string ArchitectureString { get { return Architecture.ToString(); } set { Architecture = new Architecture(value); } }
 
-        // Preserve order
-        private readonly ArrayList<Capability> _entries = new ArrayList<Capability>();
+        private readonly List<Capability> _entries = new List<Capability>();
 
         /// <summary>
         /// A list of <see cref="Capability"/>s.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(AppRegistration)), XmlElement(typeof(AutoPlay)), XmlElement(typeof(ComServer)), XmlElement(typeof(ContextMenu)), XmlElement(typeof(DefaultProgram)), XmlElement(typeof(FileType)), XmlElement(typeof(UrlProtocol))]
-        public ArrayList<Capability> Entries { get { return _entries; } }
+        public List<Capability> Entries { get { return _entries; } }
         #endregion
 
         //--------------------//
@@ -80,7 +79,7 @@ namespace ZeroInstall.Model.Capabilities
         public CapabilityList Clone()
         {
             var capabilityList = new CapabilityList {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Architecture = Architecture};
-            capabilityList.Entries.AddAll(Entries.CloneElements());
+            capabilityList.Entries.AddRange(Entries.CloneElements());
             return capabilityList;
         }
 

@@ -48,8 +48,7 @@ namespace ZeroInstall.Model.Selection
         [XmlAttribute("command")]
         public string Command { get; set; }
 
-        // Preserve order
-        private readonly C5.ArrayList<ImplementationSelection> _implementations = new C5.ArrayList<ImplementationSelection>();
+        private readonly List<ImplementationSelection> _implementations = new List<ImplementationSelection>();
 
         /// <summary>
         /// A list of <see cref="ImplementationSelection"/>s chosen in this selection.
@@ -57,7 +56,7 @@ namespace ZeroInstall.Model.Selection
         [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists", Justification = "Used for XML serialization")]
         [Description("A list of implementations chosen in this selection.")]
         [XmlElement("selection")]
-        public C5.ArrayList<ImplementationSelection> Implementations { get { return _implementations; } }
+        public List<ImplementationSelection> Implementations { get { return _implementations; } }
 
         /// <summary>
         /// The main implementation in the selection (the actual program to launch). Identified by <see cref="InterfaceID"/>.
@@ -79,7 +78,7 @@ namespace ZeroInstall.Model.Selection
         /// </summary>
         public Selections(IEnumerable<ImplementationSelection> implementations)
         {
-            Implementations.AddAll(implementations);
+            Implementations.AddRange(implementations);
         }
         #endregion
 
@@ -136,7 +135,7 @@ namespace ZeroInstall.Model.Selection
         public Selections Clone()
         {
             var selections = new Selections {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, InterfaceID = InterfaceID, Command = Command};
-            selections.Implementations.AddAll(Implementations.CloneElements());
+            selections.Implementations.AddRange(Implementations.CloneElements());
             return selections;
         }
 

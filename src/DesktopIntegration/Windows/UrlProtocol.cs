@@ -63,7 +63,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
 
-            if (urlProtocol.KnownPrefixes.IsEmpty)
+            if (urlProtocol.KnownPrefixes.Count == 0)
             {
                 if (accessPoint)
                 { // Can only be registered invasively by registering protocol ProgID (will replace existing and become default)
@@ -122,7 +122,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
 
-            if (urlProtocol.KnownPrefixes.IsEmpty)
+            if (urlProtocol.KnownPrefixes.Count == 0)
             {
                 if (accessPoint)
                 { // Was registered invasively by registering protocol ProgID

@@ -132,7 +132,7 @@ namespace ZeroInstall.Injector
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
         private void ApplyBindings(IBindingContainer bindingContainer, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
-            if (bindingContainer.Bindings.IsEmpty) return;
+            if (bindingContainer.Bindings.Count == 0) return;
 
             // Don't use bindings for PackageImplementations
             if (!string.IsNullOrEmpty(implementation.Package)) return;

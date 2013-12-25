@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Common.Collections;
 using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
@@ -80,14 +81,7 @@ namespace ZeroInstall.Model
         {
             if (other == null) return false;
 
-            // Cancel if the the number of decimal blocks don't match
-            if (_decimals.Length != other._decimals.Length)
-                return false;
-
-            // Cacnel if one of the decimal blocks does not match
-            return !_decimals.Where((part, i) => part != other._decimals[i]).Any();
-
-            // If we reach this, everything was equal
+            return _decimals.SequencedEquals(other._decimals);
         }
 
         /// <inheritdoc/>
@@ -103,11 +97,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                // ReSharper disable LoopCanBeConvertedToQuery
-                int result = 397;
-                foreach (long dec in _decimals) result = (result * 397) ^ (int)dec;
-                return result;
-                // ReSharper restore LoopCanBeConvertedToQuery
+                return _decimals.Aggregate(397, (current, dec) => (current * 397) ^ (int)dec);
             }
         }
         #endregion

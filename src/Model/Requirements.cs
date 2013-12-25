@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
@@ -117,15 +118,14 @@ namespace ZeroInstall.Model
         [XmlAttribute("version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string VersionsString { get { return (Versions == null) ? null : Versions.ToString(); } set { Versions = string.IsNullOrEmpty(value) ? null : new VersionRange(value); } }
 
-        // Preserve order
-        private readonly C5.ArrayList<VersionFor> _versionsFor = new C5.ArrayList<VersionFor>();
+        private readonly List<VersionFor> _versionsFor = new List<VersionFor>();
 
         /// <summary>
         /// The ranges of versions of specific sub-implementations that can be chosen.
         /// </summary>
         [Description("The ranges of versions of specific sub-implementations that can be chosen.")]
         [XmlElement("version-for")]
-        public C5.ArrayList<VersionFor> VersionsFor { get { return _versionsFor; } }
+        public List<VersionFor> VersionsFor { get { return _versionsFor; } }
         #endregion
 
         //--------------------//
@@ -139,7 +139,7 @@ namespace ZeroInstall.Model
         {
             var requirements = new Requirements {InterfaceID = InterfaceID, Command = Command, Architecture = Architecture, Versions = Versions};
             requirements._languages.AddAll(_languages);
-            requirements._versionsFor.AddAll(_versionsFor);
+            requirements._versionsFor.AddRange(_versionsFor);
 
             return requirements;
         }

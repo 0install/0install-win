@@ -17,8 +17,8 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Text;
+using Common.Collections;
 using Common.Values.Design;
 using ZeroInstall.Model.Properties;
 
@@ -136,15 +136,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, other)) return false;
 
-            // Cancel if the first part of the version or the number of additional parts don't match
-            if (!_firstPart.Equals(other._firstPart) ||
-                _additionalParts.Length != other._additionalParts.Length)
-                return false;
-
-            // Cacnel if one of the additional parts does not match
-            return !_additionalParts.Where((part, i) => !part.Equals(other._additionalParts[i])).Any();
-
-            // If we reach this, everything was equal
+            return _firstPart.Equals(other._firstPart) && _additionalParts.SequencedEquals(other._additionalParts);
         }
 
         /// <inheritdoc/>

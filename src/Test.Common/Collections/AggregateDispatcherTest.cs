@@ -56,7 +56,7 @@ namespace Common.Collections
         public void UnknownType()
         {
             var dispatcher = new AggregateDispatcher<Base, string>();
-            CollectionAssert.IsEmpty(dispatcher.Dispatch(new Sub1()));
+            Assert.IsEmpty(dispatcher.Dispatch(new Sub1()));
         }
     }
 }

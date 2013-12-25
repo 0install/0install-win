@@ -38,15 +38,14 @@ namespace ZeroInstall.Model.Capabilities
         [XmlIgnore]
         public override bool WindowsMachineWideOnly { get { return false; } }
 
-        // Preserve order, duplicate string entries are not allowed (but not enforced)
-        private readonly C5.ArrayList<FileTypeExtension> _extensions = new C5.ArrayList<FileTypeExtension>();
+        private readonly List<FileTypeExtension> _extensions = new List<FileTypeExtension>();
 
         /// <summary>
         /// A list of all file extensions associated with this file type.
         /// </summary>
         [Browsable(false)]
         [XmlElement("extension")]
-        public C5.ArrayList<FileTypeExtension> Extensions { get { return _extensions; } }
+        public List<FileTypeExtension> Extensions { get { return _extensions; } }
 
         /// <inheritdoc/>
         [XmlIgnore]
@@ -71,9 +70,9 @@ namespace ZeroInstall.Model.Capabilities
         {
             var capability = new FileType {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly};
             capability.Descriptions.AddAll(Descriptions.CloneElements());
-            capability.Icons.AddAll(Icons);
-            capability.Verbs.AddAll(Verbs.CloneElements());
-            capability.Extensions.AddAll(Extensions);
+            capability.Icons.AddRange(Icons);
+            capability.Verbs.AddRange(Verbs.CloneElements());
+            capability.Extensions.AddRange(Extensions);
             return capability;
         }
         #endregion

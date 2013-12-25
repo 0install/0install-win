@@ -16,12 +16,14 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using Common;
+using Common.Collections;
 using Common.Storage;
 using ZeroInstall.Model.Properties;
 
@@ -57,8 +59,7 @@ namespace ZeroInstall.Model.Preferences
         [XmlAttribute("stability-policy"), DefaultValue(typeof(Stability), "Unset")]
         public Stability StabilityPolicy { get { return _stabilityPolicy; } set { _stabilityPolicy = value; } }
 
-        // Preserve order
-        private readonly C5.LinkedList<FeedReference> _feeds = new C5.LinkedList<FeedReference>();
+        private readonly List<FeedReference> _feeds = new List<FeedReference>();
 
         /// <summary>
         /// Zero ore more additional feeds containing implementations of this interface.
@@ -66,7 +67,7 @@ namespace ZeroInstall.Model.Preferences
         [Description("Zero ore more additional feeds containing implementations of this interface.")]
         [XmlElement("feed")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.LinkedList<FeedReference> Feeds
+        public List<FeedReference> Feeds
         {
             get { return _feeds; }
         }

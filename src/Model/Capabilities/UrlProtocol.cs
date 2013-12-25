@@ -38,15 +38,14 @@ namespace ZeroInstall.Model.Capabilities
         [XmlIgnore]
         public override bool WindowsMachineWideOnly { get { return false; } }
 
-        // Preserve order
-        private readonly C5.ArrayList<KnownProtocolPrefix> _knownPrefixes = new C5.ArrayList<KnownProtocolPrefix>();
+        private readonly List<KnownProtocolPrefix> _knownPrefixes = new List<KnownProtocolPrefix>();
 
         /// <summary>
         /// A well-known protocol prefix such as "http". Should be empty and set in <see cref="Capability.ID"/> instead if it is a custom protocol.
         /// </summary>
         [Browsable(false)]
         [XmlElement("known-prefix")]
-        public C5.ArrayList<KnownProtocolPrefix> KnownPrefixes { get { return _knownPrefixes; } }
+        public List<KnownProtocolPrefix> KnownPrefixes { get { return _knownPrefixes; } }
 
         /// <inheritdoc/>
         [XmlIgnore]
@@ -70,10 +69,10 @@ namespace ZeroInstall.Model.Capabilities
         public override Capability Clone()
         {
             var capability = new UrlProtocol {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly};
-            capability.Icons.AddAll(Icons);
+            capability.Icons.AddRange(Icons);
             capability.Descriptions.AddAll(Descriptions.CloneElements());
-            capability.Verbs.AddAll(Verbs.CloneElements());
-            capability.KnownPrefixes.AddAll(KnownPrefixes);
+            capability.Verbs.AddRange(Verbs.CloneElements());
+            capability.KnownPrefixes.AddRange(KnownPrefixes);
             return capability;
         }
         #endregion

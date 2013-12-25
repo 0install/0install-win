@@ -16,12 +16,14 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using Common;
+using Common.Collections;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Model.Properties;
@@ -48,8 +50,7 @@ namespace ZeroInstall.Model.Preferences
         [XmlAttribute("last-checked"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public long LastCheckedUnix { get { return LastChecked.ToUnixTime(); } set { LastChecked = FileUtils.FromUnixTime(value); } }
 
-        // Preserve order
-        private readonly C5.LinkedList<ImplementationPreferences> _implementations = new C5.LinkedList<ImplementationPreferences>();
+        private readonly List<ImplementationPreferences> _implementations = new List<ImplementationPreferences>();
 
         /// <summary>
         /// A list of implementation-specific user-overrides.
@@ -57,7 +58,7 @@ namespace ZeroInstall.Model.Preferences
         [Description("A list of implementation-specific user-overrides.")]
         [XmlElement("implementation")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.LinkedList<ImplementationPreferences> Implementations
+        public List<ImplementationPreferences> Implementations
         {
             get { return _implementations; }
         }
@@ -92,7 +93,7 @@ namespace ZeroInstall.Model.Preferences
         /// </summary>
         public void Normalize()
         {
-            _implementations.RemoveAll(_implementations.FindAll(implementation => implementation.IsSuperflous));
+            _implementations.RemoveRange(_implementations.FindAll(implementation => implementation.IsSuperflous));
         }
         #endregion
 

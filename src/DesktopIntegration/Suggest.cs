@@ -43,12 +43,15 @@ namespace ZeroInstall.DesktopIntegration
             var category = feed.Categories.FirstOrDefault();
             if (feed.EntryPoints.Count < 2)
             { // Only a single entry point
-                return new[] {new MenuEntry
+                return new[]
                 {
-                    Name = feed.Name.RemoveAll(Path.GetInvalidFileNameChars()),
-                    Category = (category == null) ? "" : category.ToString(),
-                    Command = Command.NameRun
-                }};
+                    new MenuEntry
+                    {
+                        Name = feed.Name.RemoveAll(Path.GetInvalidFileNameChars()),
+                        Category = (category == null) ? "" : category.ToString(),
+                        Command = Command.NameRun
+                    }
+                };
             }
             else
             { // Multiple entry points
@@ -94,7 +97,7 @@ namespace ZeroInstall.DesktopIntegration
             if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            if (feed.EntryPoints.IsEmpty)
+            if (feed.EntryPoints.Count == 0)
             { // Only one entry point
                 if (feed.NeedsTerminal)
                 {

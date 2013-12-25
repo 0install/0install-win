@@ -73,9 +73,9 @@ namespace ZeroInstall.Injector
                 foreach (var dependency in implementation.Dependencies)
                     PrintNode(selections, builder, handled, store, indent, dependency.Interface);
 
-                if (!implementation.Commands.IsEmpty)
+                if (!(implementation.Commands.Count == 0))
                 {
-                    var command = implementation.Commands.First;
+                    var command = implementation.Commands[0];
 
                     // Recurse into command dependencies
                     foreach (var dependency in command.Dependencies)

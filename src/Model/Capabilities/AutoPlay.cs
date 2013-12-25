@@ -59,15 +59,14 @@ namespace ZeroInstall.Model.Capabilities
         [XmlElement("verb")]
         public Verb Verb { get; set; }
 
-        // Preserve order
-        private readonly C5.ArrayList<AutoPlayEvent> _events = new C5.ArrayList<AutoPlayEvent>();
+        private readonly List<AutoPlayEvent> _events = new List<AutoPlayEvent>();
 
         /// <summary>
         /// The IDs of the events this action can handle.
         /// </summary>
         [Browsable(false)]
         [XmlElement("event")]
-        public C5.ArrayList<AutoPlayEvent> Events { get { return _events; } }
+        public List<AutoPlayEvent> Events { get { return _events; } }
 
         /// <inheritdoc/>
         [XmlIgnore]
@@ -91,9 +90,9 @@ namespace ZeroInstall.Model.Capabilities
         public override Capability Clone()
         {
             var capability = new AutoPlay {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly, Provider = Provider, ProgID = ProgID, Verb = Verb.Clone()};
-            capability.Icons.AddAll(Icons);
+            capability.Icons.AddRange(Icons);
             capability.Descriptions.AddAll(Descriptions.CloneElements());
-            capability.Events.AddAll(Events);
+            capability.Events.AddRange(Events);
             return capability;
         }
         #endregion

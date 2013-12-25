@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -43,15 +44,14 @@ namespace ZeroInstall.Model
         [TypeConverter(typeof(CommandNameConverter))]
         public string Command { get; set; }
 
-        // Preserve order
-        private readonly C5.ArrayList<ArgBase> _arguments = new C5.ArrayList<ArgBase>();
+        private readonly List<ArgBase> _arguments = new List<ArgBase>();
 
         /// <summary>
         /// A list of command-line arguments to be passed to the runner before the path of the implementation.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(Arg)), XmlElement(typeof(ForEachArgs))]
-        public C5.ArrayList<ArgBase> Arguments { get { return _arguments; } }
+        public List<ArgBase> Arguments { get { return _arguments; } }
         #endregion
 
         //--------------------//
@@ -74,9 +74,9 @@ namespace ZeroInstall.Model
         public Runner CloneRunner()
         {
             var runner = new Runner {Interface = Interface, Use = Use, Command = Command};
-            runner.Bindings.AddAll(Bindings.CloneElements());
-            runner.Constraints.AddAll(Constraints.CloneElements());
-            runner.Arguments.AddAll(Arguments.CloneElements());
+            runner.Bindings.AddRange(Bindings.CloneElements());
+            runner.Constraints.AddRange(Constraints.CloneElements());
+            runner.Arguments.AddRange(Arguments.CloneElements());
             return runner;
         }
 

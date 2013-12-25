@@ -33,6 +33,62 @@ namespace Common.Collections
     [TestFixture]
     public class EnumerableUtilsTest
     {
+        #region Equality
+        [Test]
+        public void TestSequencedEqualsList()
+        {
+            Assert.IsTrue(new[] {"A", "B", "C"}.ToList().SequencedEquals(new[] {"A", "B", "C"}));
+            Assert.IsTrue(new string[0].ToList().SequencedEquals(new string[0]));
+            Assert.IsFalse(new[] {"A", "B", "C"}.ToList().SequencedEquals(new[] {"C", "B", "A"}));
+            Assert.IsFalse(new[] {"A", "B", "C"}.ToList().SequencedEquals(new[] {"X", "Y", "Z"}));
+            Assert.IsFalse(new[] {"A", "B", "C"}.ToList().SequencedEquals(new[] {"A", "B"}));
+            Assert.IsFalse(new[] {new object()}.ToList().SequencedEquals(new[] {new object()}));
+        }
+
+        [Test]
+        public void TestSequencedEqualsArray()
+        {
+            Assert.IsTrue(new[] {"A", "B", "C"}.SequencedEquals(new[] {"A", "B", "C"}));
+            Assert.IsTrue(new string[0].SequencedEquals(new string[0]));
+            Assert.IsFalse(new[] {"A", "B", "C"}.SequencedEquals(new[] {"C", "B", "A"}));
+            Assert.IsFalse(new[] {"A", "B", "C"}.SequencedEquals(new[] {"X", "Y", "Z"}));
+            Assert.IsFalse(new[] {"A", "B", "C"}.SequencedEquals(new[] {"A", "B"}));
+            Assert.IsFalse(new[] {new object()}.SequencedEquals(new[] {new object()}));
+        }
+
+        [Test]
+        public void TestUnsequencedEquals()
+        {
+            Assert.IsTrue(new[] {"A", "B", "C"}.UnsequencedEquals(new[] {"A", "B", "C"}));
+            Assert.IsTrue(new string[0].UnsequencedEquals(new string[0]));
+            Assert.IsTrue(new[] {"A", "B", "C"}.UnsequencedEquals(new[] {"C", "B", "A"}));
+            Assert.IsFalse(new[] {"A", "B", "C"}.UnsequencedEquals(new[] {"X", "Y", "Z"}));
+            Assert.IsFalse(new[] {"A", "B", "C"}.UnsequencedEquals(new[] {"A", "B"}));
+            Assert.IsFalse(new[] {new object()}.UnsequencedEquals(new[] {new object()}));
+        }
+
+        [Test]
+        public void TestGetSequencedHashCode()
+        {
+            Assert.AreEqual(new[] {"A", "B", "C"}.GetSequencedHashCode(), new[] {"A", "B", "C"}.GetSequencedHashCode());
+            Assert.AreEqual(new string[0].GetSequencedHashCode(), new string[0].GetSequencedHashCode());
+            Assert.AreNotEqual(new[] {"A", "B", "C"}.GetSequencedHashCode(), new[] {"C", "B", "A"}.GetSequencedHashCode());
+            Assert.AreNotEqual(new[] {"A", "B", "C"}.GetSequencedHashCode(), new[] {"X", "Y", "Z"}.GetSequencedHashCode());
+            Assert.AreNotEqual(new[] {"A", "B", "C"}.GetSequencedHashCode(), new[] {"A", "B"}.GetSequencedHashCode());
+        }
+
+        [Test]
+        public void TestGetUnsequencedHashCode()
+        {
+            Assert.AreEqual(new[] {"A", "B", "C"}.GetUnsequencedHashCode(), new[] {"A", "B", "C"}.GetUnsequencedHashCode());
+            Assert.AreEqual(new string[0].GetUnsequencedHashCode(), new string[0].GetUnsequencedHashCode());
+            Assert.AreEqual(new[] {"A", "B", "C"}.GetUnsequencedHashCode(), new[] {"C", "B", "A"}.GetUnsequencedHashCode());
+            Assert.AreNotEqual(new[] {"A", "B", "C"}.GetUnsequencedHashCode(), new[] {"X", "Y", "Z"}.GetUnsequencedHashCode());
+            Assert.AreNotEqual(new[] {"A", "B", "C"}.GetUnsequencedHashCode(), new[] {"A", "B"}.GetUnsequencedHashCode());
+        }
+        #endregion
+
+        #region Added elements
         /// <summary>
         /// Ensures that <see cref="EnumerableUtils.GetAddedElements{T}(T[],T[])"/> correctly detects elements added to an ordered collection.
         /// </summary>
@@ -42,7 +98,9 @@ namespace Common.Collections
             CollectionAssert.AreEqual(new[] {"B", "H"}, new[] {"A", "B", "C", "E", "G", "H"}.GetAddedElements(new[] {"A", "C", "E", "G"}));
             CollectionAssert.AreEqual(new[] {"C"}, new[] {"C", "D"}.GetAddedElements(new[] {"A", "D"}));
         }
+        #endregion
 
+        #region Transactions
         /// <summary>
         /// Ensures that <see cref="EnumerableUtils.ApplyWithRollback{T}"/> correctly performs rollbacks on exceptions.
         /// </summary>
@@ -92,8 +150,9 @@ namespace Common.Collections
 
             CollectionAssert.AreEqual(new[] {1, 2, 3}, actionCalledFor);
         }
+        #endregion
 
-        #region Private inner class
+        #region Merge
         private class MergeTest : IMergeable<MergeTest>
         {
             public string MergeID { get; set; }
@@ -136,7 +195,6 @@ namespace Common.Collections
             }
             #endregion
         }
-        #endregion
 
         /// <summary>
         /// Ensures that <see cref="EnumerableUtils.Merge{T}(System.Collections.Generic.ICollection{T},System.Collections.Generic.ICollection{T},System.Action{T},System.Action{T})"/> correctly detects added and removed elements.
@@ -217,7 +275,9 @@ namespace Common.Collections
             CollectionAssert.AreEqual(new[] {mineList[1], mineList[4]}, toRemove);
             CollectionAssert.AreEqual(new[] {theirsList[1], theirsList[4]}, toAdd);
         }
+        #endregion
 
+        #region List
         /// <summary>
         /// Ensures that <see cref="EnumerableUtils.RemoveLast{T}"/> correctly removes the last n elements from a list.
         /// </summary>
@@ -230,5 +290,6 @@ namespace Common.Collections
 
             Assert.Throws<ArgumentOutOfRangeException>(() => list.RemoveLast(-1));
         }
+        #endregion
     }
 }

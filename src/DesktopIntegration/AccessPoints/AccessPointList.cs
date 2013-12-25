@@ -16,9 +16,11 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
@@ -32,8 +34,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     public sealed class AccessPointList : XmlUnknown, ICloneable, IEquatable<AccessPointList>
     {
         #region Properties
-        // Preserve order
-        private readonly C5.LinkedList<AccessPoint> _accessPoints = new C5.LinkedList<AccessPoint>();
+        private readonly List<AccessPoint> _accessPoints = new List<AccessPoint>();
 
         /// <summary>
         /// A list of <see cref="AccessPoint"/>s.
@@ -41,7 +42,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         [Description("A list of access points.")]
         [XmlElement(typeof(AppAlias)), XmlElement(typeof(AutoPlay)), XmlElement(typeof(CapabilityRegistration)), XmlElement(typeof(ContextMenu)), XmlElement(typeof(DefaultProgram)), XmlElement(typeof(DesktopIcon)), XmlElement(typeof(FileType)), XmlElement(typeof(MenuEntry)), XmlElement(typeof(SendTo)), XmlElement(typeof(UrlProtocol)), XmlElement(typeof(QuickLaunch)), XmlElement(typeof(MockAccessPoint))]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.LinkedList<AccessPoint> Entries
+        public List<AccessPoint> Entries
         {
             get { return _accessPoints; }
         }

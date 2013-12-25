@@ -59,15 +59,14 @@ namespace ZeroInstall.DesktopIntegration
         #endregion
 
         #region Properties
-        // Preserve order
-        private readonly C5.LinkedList<AppEntry> _entries = new C5.LinkedList<AppEntry>();
+        private readonly List<AppEntry> _entries = new List<AppEntry>();
 
         /// <summary>
         /// A list of <see cref="AppEntry"/>s.
         /// </summary>
         [Description("A list of application entries.")]
         [XmlElement("app")]
-        public C5.LinkedList<AppEntry> Entries { get { return _entries; } }
+        public List<AppEntry> Entries { get { return _entries; } }
         #endregion
 
         //--------------------//

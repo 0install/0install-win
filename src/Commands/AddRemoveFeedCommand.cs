@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Common.Utils;
 using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
@@ -60,7 +61,7 @@ namespace ZeroInstall.Commands
 
             string feedID;
             var interfaces = GetInterfaces(out feedID);
-            if (interfaces.Count == 0)
+            if (!interfaces.Any())
             {
                 Handler.Output(Resources.FeedManagement, string.Format(Resources.MissingFeedFor, feedID));
                 return 1;
@@ -92,7 +93,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="feedID">Returns the new feed being added/removed.</param>
         /// <returns>A list of interfaces IDs to be updated.</returns>
-        private IList<string> GetInterfaces(out string feedID)
+        private IEnumerable<string> GetInterfaces(out string feedID)
         {
             if (AdditionalArgs.Count == 2)
             { // Main interface for feed specified explicitly
@@ -103,7 +104,7 @@ namespace ZeroInstall.Commands
             { // Determine interfaces from feed content (<feed-for> tags)
                 feedID = GetCanonicalID(AdditionalArgs[0]);
                 var feed = FeedManager.GetFeedFresh(feedID);
-                return feed.FeedFor.Map(reference => reference.Target.ToString());
+                return feed.FeedFor.Select(reference => reference.Target.ToString());
             }
         }
         #endregion

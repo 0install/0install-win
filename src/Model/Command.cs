@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -67,25 +68,23 @@ namespace ZeroInstall.Model
         [XmlAttribute("path")]
         public string Path { get; set; }
 
-        // Preserve order
-        private readonly C5.ArrayList<ArgBase> _arguments = new C5.ArrayList<ArgBase>();
+        private readonly List<ArgBase> _arguments = new List<ArgBase>();
 
         /// <summary>
         /// A list of command-line arguments to be passed to an implementation executable.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(Arg)), XmlElement(typeof(ForEachArgs))]
-        public C5.ArrayList<ArgBase> Arguments { get { return _arguments; } }
+        public List<ArgBase> Arguments { get { return _arguments; } }
 
-        // Preserve order
-        private readonly C5.ArrayList<Binding> _bindings = new C5.ArrayList<Binding>();
+        private readonly List<Binding> _bindings = new List<Binding>();
 
         /// <summary>
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(GenericBinding)), XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding)), XmlElement(typeof(ExecutableInVar)), XmlElement(typeof(ExecutableInPath))]
-        public C5.ArrayList<Binding> Bindings { get { return _bindings; } }
+        public List<Binding> Bindings { get { return _bindings; } }
 
         /// <summary>
         /// Switches the working directory of a process on startup to a location within an implementation.
@@ -94,25 +93,23 @@ namespace ZeroInstall.Model
         [XmlElement("working-dir")]
         public WorkingDir WorkingDir { get; set; }
 
-        // Preserve order
-        private readonly C5.ArrayList<Dependency> _dependencies = new C5.ArrayList<Dependency>();
+        private readonly List<Dependency> _dependencies = new List<Dependency>();
 
         /// <summary>
         /// A list of interfaces this command depends upon.
         /// </summary>
         [Browsable(false)]
         [XmlElement("requires")]
-        public C5.ArrayList<Dependency> Dependencies { get { return _dependencies; } }
+        public List<Dependency> Dependencies { get { return _dependencies; } }
 
-        // Preserve order
-        private readonly C5.ArrayList<Restriction> _restrictions = new C5.ArrayList<Restriction>();
+        private readonly List<Restriction> _restrictions = new List<Restriction>();
 
         /// <summary>
         /// A list of interfaces that are restricted to specific versions when used.
         /// </summary>
         [Browsable(false)]
         [XmlElement("restricts")]
-        public C5.ArrayList<Restriction> Restrictions { get { return _restrictions; } }
+        public List<Restriction> Restrictions { get { return _restrictions; } }
 
         /// <summary>
         /// A special kind of dependency: the program that is used to run this one. For example, a Python program might specify Python as its runner.
@@ -160,11 +157,11 @@ namespace ZeroInstall.Model
         public Command Clone()
         {
             var newCommand = new Command {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, IfZeroInstallVersion = IfZeroInstallVersion, Name = Name, Path = Path};
-            newCommand.Arguments.AddAll(Arguments.CloneElements());
-            newCommand.Bindings.AddAll(Bindings.CloneElements());
+            newCommand.Arguments.AddRange(Arguments.CloneElements());
+            newCommand.Bindings.AddRange(Bindings.CloneElements());
             if (WorkingDir != null) newCommand.WorkingDir = WorkingDir.Clone();
-            newCommand.Dependencies.AddAll(Dependencies.CloneElements());
-            newCommand.Restrictions.AddAll(Restrictions.CloneElements());
+            newCommand.Dependencies.AddRange(Dependencies.CloneElements());
+            newCommand.Restrictions.AddRange(Restrictions.CloneElements());
             if (Runner != null) newCommand.Runner = Runner.CloneRunner();
 
             return newCommand;

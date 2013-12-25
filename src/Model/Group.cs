@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
 using Common.Utils;
 
 namespace ZeroInstall.Model
@@ -36,15 +37,14 @@ namespace ZeroInstall.Model
     public sealed class Group : Element, IElementContainer, IEquatable<Group>
     {
         #region Properties
-        // Preserve order
-        private readonly C5.ArrayList<Element> _elements = new C5.ArrayList<Element>();
+        private readonly List<Element> _elements = new List<Element>();
 
         /// <summary>
         /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this group.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
-        public C5.ArrayList<Element> Elements { get { return _elements; } }
+        public List<Element> Elements { get { return _elements; } }
         #endregion
 
         //--------------------//
@@ -84,7 +84,7 @@ namespace ZeroInstall.Model
 
             // Replace original elements list with the collapsed version
             Elements.Clear();
-            Elements.AddAll(collapsedElements);
+            Elements.AddRange(collapsedElements);
         }
         #endregion
 

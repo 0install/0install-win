@@ -113,7 +113,7 @@ namespace ZeroInstall.Commands.WinForms
             WindowsUtils.SetForegroundWindow(this);
 
             checkBoxAutoUpdate.Checked = _appEntry.AutoUpdate;
-            checkBoxCapabilities.Visible = !_appEntry.CapabilityLists.IsEmpty;
+            checkBoxCapabilities.Visible = (_appEntry.CapabilityLists.Count != 0);
             checkBoxCapabilities.Checked = (_appEntry.AccessPoints == null) || _appEntry.AccessPoints.Entries.OfType<DesktopIntegration.AccessPoints.CapabilityRegistration>().Any();
 
             SetupCommandAccessPoints();
@@ -144,15 +144,14 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void SetupCommandComboBoxes()
         {
-            var commands = _feed.EntryPoints.Map(entryPoint => entryPoint.Command);
-            commands.UpdateOrAdd(Command.NameRun);
-            var commandsArray = commands.ToArray();
+            var commands = _feed.EntryPoints
+                .Select(entryPoint => entryPoint.Command)
+                .Concat(Command.NameRun).Distinct()
+                .Cast<object>().ToArray();
 
-            // ReSharper disable CoVariantArrayConversion
-            dataGridStartMenuColumnCommand.Items.AddRange(commandsArray);
-            dataGridDesktopColumnCommand.Items.AddRange(commandsArray);
-            dataGridAliasesColumnCommand.Items.AddRange(commandsArray);
-            // ReSharper restore CoVariantArrayConversion
+            dataGridStartMenuColumnCommand.Items.AddRange(commands);
+            dataGridDesktopColumnCommand.Items.AddRange(commands);
+            dataGridAliasesColumnCommand.Items.AddRange(commands);
         }
 
         /// <summary>

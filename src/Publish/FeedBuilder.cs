@@ -172,7 +172,7 @@ namespace ZeroInstall.Publish
                     }
                 }
             };
-            feed.Icons.AddAll(_icons);
+            feed.Icons.AddRange(_icons);
 
             return new SignedFeed(feed, SecretKey);
         }

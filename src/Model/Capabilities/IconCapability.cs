@@ -42,15 +42,14 @@ namespace ZeroInstall.Model.Capabilities
         [XmlElement("description")]
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }
 
-        // Preserve order
-        private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
+        private readonly List<Icon> _icons = new List<Icon>();
 
         /// <summary>
         /// Zero or more icons to represent the capability. Used for things like file icons.
         /// </summary>
         [Browsable(false)]
         [XmlElement("icon", Namespace = Feed.XmlNamespace)]
-        public C5.ArrayList<Icon> Icons { get { return _icons; } }
+        public List<Icon> Icons { get { return _icons; } }
         #endregion
 
         //--------------------//
@@ -69,7 +68,7 @@ namespace ZeroInstall.Model.Capabilities
             #endregion
 
             var suitableIcons = Icons.FindAll(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
-            if (!suitableIcons.IsEmpty) return suitableIcons.First;
+            if (!(suitableIcons.Count == 0)) return suitableIcons[0];
 
             throw new KeyNotFoundException(Resources.NoSuitableIconFound);
         }

@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using Common.Tasks;
 using Common.Utils;
@@ -40,8 +41,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             var capability = appEntry.GetCapability<Model.Capabilities.UrlProtocol>(Capability);
-            if (capability.KnownPrefixes.IsEmpty) return new[] {"protocol:" + capability.ID};
-            return capability.KnownPrefixes.Map(prefix => "protocol:" + prefix.Value);
+            if (capability.KnownPrefixes.Count == 0) return new[] {"protocol:" + capability.ID};
+            return capability.KnownPrefixes.Select(prefix => "protocol:" + prefix.Value);
         }
         #endregion
 

@@ -15,9 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model.Capabilities
 {
@@ -29,15 +31,14 @@ namespace ZeroInstall.Model.Capabilities
     public abstract class VerbCapability : IconCapability
     {
         #region Properties
-        // Preserve order
-        private readonly C5.ArrayList<Verb> _verbs = new C5.ArrayList<Verb>();
+        private readonly List<Verb> _verbs = new List<Verb>();
 
         /// <summary>
         /// A list of all available operations for the element.
         /// </summary>
         [Browsable(false)]
         [XmlElement("verb")]
-        public C5.ArrayList<Verb> Verbs { get { return _verbs; } }
+        public List<Verb> Verbs { get { return _verbs; } }
         #endregion
 
         //--------------------//

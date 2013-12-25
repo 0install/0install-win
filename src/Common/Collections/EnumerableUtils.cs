@@ -96,6 +96,110 @@ namespace Common.Collections
         }
         #endregion
 
+        #region Equality
+        /// <summary>
+        /// Determines whether two collections contain the same elements in the same order.
+        /// </summary>
+        /// <param name="first">The first of the two collections to compare.</param>
+        /// <param name="second">The first of the two collections to compare.</param>
+        /// <param name="comparer">Controls how to compare elements; leave <see langword="null"/> for default comparer.</param>
+        public static bool SequencedEquals<T>(this ICollection<T> first, ICollection<T> second, IEqualityComparer<T> comparer = null)
+        {
+            #region Sanity checks
+            if (first == null) throw new ArgumentNullException("first");
+            if (second == null) throw new ArgumentNullException("second");
+            #endregion
+
+            if (first.Count != second.Count) return false;
+            if (comparer == null) comparer = EqualityComparer<T>.Default;
+
+            return first.SequenceEqual(second, comparer);
+        }
+
+        /// <summary>
+        /// Determines whether two arrays contain the same elements in the same order.
+        /// </summary>
+        /// <param name="first">The first of the two collections to compare.</param>
+        /// <param name="second">The first of the two collections to compare.</param>
+        /// <param name="comparer">Controls how to compare elements; leave <see langword="null"/> for default comparer.</param>
+        public static bool SequencedEquals<T>(this T[] first, T[] second, IEqualityComparer<T> comparer = null)
+        {
+            #region Sanity checks
+            if (first == null) throw new ArgumentNullException("first");
+            if (second == null) throw new ArgumentNullException("second");
+            #endregion
+
+            if (first.Length != second.Length) return false;
+            if (comparer == null) comparer = EqualityComparer<T>.Default;
+
+            // ReSharper disable once LoopCanBeConvertedToQuery
+            for (int i = 0; i < first.Length; i++)
+                if (!comparer.Equals(first[i], second[i])) return false;
+            return true;
+        }
+
+        /// <summary>
+        /// Determines whether two collections contain the same elements disregarding the order they are in.
+        /// </summary>
+        /// <param name="first">The first of the two collections to compare.</param>
+        /// <param name="second">The first of the two collections to compare.</param>
+        /// <param name="comparer">Controls how to compare elements; leave <see langword="null"/> for default comparer.</param>
+        public static bool UnsequencedEquals<T>(this ICollection<T> first, ICollection<T> second, IEqualityComparer<T> comparer = null)
+        {
+            #region Sanity checks
+            if (first == null) throw new ArgumentNullException("first");
+            if (second == null) throw new ArgumentNullException("second");
+            #endregion
+
+            if (first.Count != second.Count) return false;
+            if (comparer == null) comparer = EqualityComparer<T>.Default;
+
+            if (first.GetUnsequencedHashCode(comparer) != second.GetUnsequencedHashCode(comparer)) return false;
+            return first.All(x => second.Contains(x, comparer));
+        }
+
+        /// <summary>
+        /// Generates a hash code for the contents of a collection. Changing the elements' order will change the hash.
+        /// </summary>
+        /// <param name="collection">The collection to generate the hash for.</param>
+        /// <param name="comparer">Controls how to compare elements; leave <see langword="null"/> for default comparer.</param>
+        /// <seealso cref="SequencedEquals{T}(System.Collections.Generic.ICollection{T},System.Collections.Generic.ICollection{T},System.Collections.Generic.IEqualityComparer{T})"/>
+        /// <seealso cref="SequencedEquals{T}(T[],T[],System.Collections.Generic.IEqualityComparer{T})"/>
+        public static int GetSequencedHashCode<T>(this IEnumerable<T> collection, IEqualityComparer<T> comparer = null)
+        {
+            #region Sanity checks
+            if (collection == null) throw new ArgumentNullException("collection");
+            #endregion
+
+            if (comparer == null) comparer = EqualityComparer<T>.Default;
+
+            unchecked
+            {
+                return collection.WhereNotNull().Aggregate(397, (current, element) => (current * 397) ^ comparer.GetHashCode(element));
+            }
+        }
+
+        /// <summary>
+        /// Generates a hash code for the contents of a collection. Changing the elements' order will not change the hash.
+        /// </summary>
+        /// <param name="collection">The collection to generate the hash for.</param>
+        /// <param name="comparer">Controls how to compare elements; leave <see langword="null"/> for default comparer.</param>
+        /// <seealso cref="UnsequencedEquals{T}"/>
+        public static int GetUnsequencedHashCode<T>(this IEnumerable<T> collection, IEqualityComparer<T> comparer = null)
+        {
+            #region Sanity checks
+            if (collection == null) throw new ArgumentNullException("collection");
+            #endregion
+
+            if (comparer == null) comparer = EqualityComparer<T>.Default;
+
+            unchecked
+            {
+                return collection.WhereNotNull().Aggregate(397, (current, element) => current ^ comparer.GetHashCode(element));
+            }
+        }
+        #endregion
+
         #region Clone
         /// <summary>
         /// Calls <see cref="ICloneable.Clone"/> for every element in a collection and returns the results as a new collection.
@@ -363,6 +467,34 @@ namespace Common.Collections
         #endregion
 
         #region List
+        /// <summary>
+        /// Adds multiple elements to the list.
+        /// </summary>
+        /// <remarks>This is a covariant wrapper for <see cref="List{T}.AddRange"/>.</remarks>
+        public static void AddRange<TList, TElements>(this List<TList> list, IEnumerable<TElements> elements)
+            where TElements : TList
+        {
+            #region Sanity checks
+            if (list == null) throw new ArgumentNullException("list");
+            #endregion
+
+            list.AddRange(elements.Cast<TList>());
+        }
+
+        /// <summary>
+        /// Removes multiple elements from the list.
+        /// </summary>
+        public static void RemoveRange<TList, TElements>(this List<TList> list, IEnumerable<TElements> elements)
+            where TElements : TList
+        {
+            #region Sanity checks
+            if (list == null) throw new ArgumentNullException("list");
+            if (elements == null) throw new ArgumentNullException("elements");
+            #endregion
+
+            foreach (var element in elements) list.Remove(element);
+        }
+
         /// <summary>
         /// Removes the last n elements from the list.
         /// </summary>

@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Common;
@@ -132,7 +133,7 @@ namespace ZeroInstall.DesktopIntegration
 
             // Get basic metadata and copy of capabilities from feed
             var appEntry = new AppEntry {InterfaceID = interfaceID, Name = feed.Name, Timestamp = DateTime.UtcNow};
-            appEntry.CapabilityLists.AddAll(feed.CapabilityLists.Map(list => list.Clone()));
+            appEntry.CapabilityLists.AddRange(feed.CapabilityLists.CloneElements());
 
             AppList.Entries.Add(appEntry);
             WriteAppDir(appEntry);
@@ -153,7 +154,7 @@ namespace ZeroInstall.DesktopIntegration
 
             // Get basic metadata and copy of capabilities from feed
             var appEntry = new AppEntry {InterfaceID = petName, Requirements = requirements, Name = feed.Name, Timestamp = DateTime.UtcNow};
-            appEntry.CapabilityLists.AddAll(feed.CapabilityLists.Map(list => list.Clone()));
+            appEntry.CapabilityLists.AddRange(feed.CapabilityLists.CloneElements());
 
             AppList.Entries.Add(appEntry);
             WriteAppDir(appEntry);
@@ -206,13 +207,13 @@ namespace ZeroInstall.DesktopIntegration
             // Temporarily remove capability-based access points but remember them for later reapplication
             var toReapply = new List<AccessPoint>();
             if (appEntry.AccessPoints != null)
-                toReapply.AddRange(appEntry.AccessPoints.Entries.Filter(accessPoint => accessPoint is DefaultAccessPoint || accessPoint is CapabilityRegistration));
+                toReapply.AddRange(appEntry.AccessPoints.Entries.Where(accessPoint => accessPoint is DefaultAccessPoint || accessPoint is CapabilityRegistration));
             RemoveAccessPointsInternal(appEntry, toReapply);
 
             // Update metadata and capabilities
             appEntry.Name = feed.Name;
             appEntry.CapabilityLists.Clear();
-            appEntry.CapabilityLists.AddAll(feed.CapabilityLists.Map(list => list.Clone()));
+            appEntry.CapabilityLists.AddRange(feed.CapabilityLists.CloneElements());
 
             // Reapply removed access points dumping any that have become incompatible
             foreach (var accessPoint in toReapply)
@@ -262,9 +263,8 @@ namespace ZeroInstall.DesktopIntegration
                         accessPoint.Unapply(appEntry, MachineWide);
                 });
 
-            // Add the access points to the AppList
-            foreach (var accessPoint in accessPoints)
-                appEntry.AccessPoints.Entries.UpdateOrAdd(accessPoint); // Replace pre-existing entries
+            appEntry.AccessPoints.Entries.RemoveRange(accessPoints); // Replace pre-existing entries
+            appEntry.AccessPoints.Entries.AddRange(accessPoints);
             appEntry.Timestamp = DateTime.UtcNow;
             // ReSharper restore PossibleMultipleEnumeration
         }
@@ -284,7 +284,7 @@ namespace ZeroInstall.DesktopIntegration
                 accessPoint.Unapply(appEntry, MachineWide);
 
             // Remove the access points from the AppList
-            appEntry.AccessPoints.Entries.RemoveAll(accessPoints);
+            appEntry.AccessPoints.Entries.RemoveRange(accessPoints);
             appEntry.Timestamp = DateTime.UtcNow;
             // ReSharper restore PossibleMultipleEnumeration
         }

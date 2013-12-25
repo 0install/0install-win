@@ -77,8 +77,7 @@ namespace ZeroInstall.DesktopIntegration
         [XmlElement("requirements", Namespace = Feed.XmlNamespace)]
         public Requirements Requirements { get; set; }
 
-        // Preserve order
-        private readonly C5.LinkedList<CapabilityList> _capabilityLists = new C5.LinkedList<CapabilityList>();
+        private readonly List<CapabilityList> _capabilityLists = new List<CapabilityList>();
 
         /// <summary>
         /// A set of <see cref="Capability"/> lists to be registered in the desktop environment. Only compatible architectures are handled.
@@ -86,7 +85,7 @@ namespace ZeroInstall.DesktopIntegration
         [Description("A set of Capability lists to be registered in the desktop environment. Only compatible architectures are handled.")]
         [XmlElement("capabilities", Namespace = CapabilityList.XmlNamespace)]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.LinkedList<CapabilityList> CapabilityLists
+        public List<CapabilityList> CapabilityLists
         {
             get { return _capabilityLists; }
         }

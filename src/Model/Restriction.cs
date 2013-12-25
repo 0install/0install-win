@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -51,15 +52,14 @@ namespace ZeroInstall.Model
         [TypeConverter(typeof(DistributionNameConverter))]
         public string Distribution { get; set; }
 
-        // Preserve order
-        private readonly C5.ArrayList<Constraint> _constraints = new C5.ArrayList<Constraint>();
+        private readonly List<Constraint> _constraints = new List<Constraint>();
 
         /// <summary>
         /// A list of version <see cref="Constraint"/>s that must be fulfilled.
         /// </summary>
         [Browsable(false)]
         [XmlElement("version")]
-        public C5.ArrayList<Constraint> Constraints { get { return _constraints; } }
+        public List<Constraint> Constraints { get { return _constraints; } }
 
         /// <summary>
         /// A more flexible alternative to <see cref="Constraints"/>.
@@ -101,7 +101,7 @@ namespace ZeroInstall.Model
         public virtual Restriction Clone()
         {
             var restriction = new Restriction {Interface = Interface, Versions = Versions};
-            restriction.Constraints.AddAll(Constraints.CloneElements());
+            restriction.Constraints.AddRange(Constraints.CloneElements());
             return restriction;
         }
 

@@ -215,7 +215,7 @@ namespace ZeroInstall.Publish.Cli
                         feed.Strip();
                         catalog.Feeds.Add(feed);
                     }
-                    if (catalog.Feeds.IsEmpty) throw new FileNotFoundException(Resources.NoFeedFilesFound);
+                    if (catalog.Feeds.Count == 0) throw new FileNotFoundException(Resources.NoFeedFilesFound);
 
                     SaveCatalog(catalog);
                     return ErrorLevel.OK;

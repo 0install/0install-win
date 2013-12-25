@@ -46,11 +46,11 @@ namespace ZeroInstall.Capture
             if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
-            capabilities.Entries.AddAll(snapshotDiff.AutoPlayHandlersUser
+            capabilities.Entries.AddRange(snapshotDiff.AutoPlayHandlersUser
                 .Select(handler => GetAutoPlay(handler, Registry.CurrentUser, snapshotDiff.AutoPlayAssocsUser, commandMapper))
                 .WhereNotNull());
 
-            capabilities.Entries.AddAll(snapshotDiff.AutoPlayHandlersMachine
+            capabilities.Entries.AddRange(snapshotDiff.AutoPlayHandlersMachine
                 .Select(handler => GetAutoPlay(handler, Registry.LocalMachine, snapshotDiff.AutoPlayAssocsMachine, commandMapper))
                 .WhereNotNull());
         }
@@ -92,7 +92,7 @@ namespace ZeroInstall.Capture
                         Verb = GetVerb(progIDKey, commandMapper, verbName)
                     };
 
-                    autoPlay.Events.AddAll(
+                    autoPlay.Events.AddRange(
                         from autoPlayAssoc in autoPlayAssocs
                         where autoPlayAssoc.Value == handler
                         select new AutoPlayEvent {Name = autoPlayAssoc.Key});

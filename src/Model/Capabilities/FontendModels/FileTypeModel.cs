@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Linq;
 using Common.Utils;
 
 namespace ZeroInstall.Model.Capabilities.FontendModels
@@ -29,7 +30,7 @@ namespace ZeroInstall.Model.Capabilities.FontendModels
         /// <summary>
         /// All <see cref="FileType.Extensions" /> concatenated with ", ".
         /// </summary>
-        public string Extensions { get { return StringUtils.Join(", ", _fileType.Extensions.Map(extension => extension.Value)); } }
+        public string Extensions { get { return StringUtils.Join(", ", _fileType.Extensions.Select(extension => extension.Value)); } }
 
         /// <inheritdoc />
         public FileTypeModel(FileType fileType, bool used) : base(fileType, used)

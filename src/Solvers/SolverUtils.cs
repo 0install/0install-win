@@ -74,8 +74,8 @@ namespace ZeroInstall.Solvers
             };
             if (candidate.FeedID != requirements.InterfaceID) selection.FromFeed = candidate.FeedID;
 
-            selection.Dependencies.AddAll(implementation.Dependencies);
-            selection.Bindings.AddAll(implementation.Bindings);
+            selection.Dependencies.AddRange(implementation.Dependencies);
+            selection.Bindings.AddRange(implementation.Bindings);
 
             var command = candidate.Implementation.GetCommand(requirements.Command);
             if (command != null) selection.Commands.Add(command);
@@ -97,7 +97,7 @@ namespace ZeroInstall.Solvers
                 Versions = dependency.EffectiveVersions,
                 Architecture = topLevelRequirements.Architecture
             };
-            requirements.VersionsFor.AddAll(topLevelRequirements.VersionsFor);
+            requirements.VersionsFor.AddRange(topLevelRequirements.VersionsFor);
             return requirements;
         }
 
@@ -115,7 +115,7 @@ namespace ZeroInstall.Solvers
                 Versions = runner.EffectiveVersions,
                 Architecture = topLevelRequirements.Architecture
             };
-            requirements.VersionsFor.AddAll(topLevelRequirements.VersionsFor);
+            requirements.VersionsFor.AddRange(topLevelRequirements.VersionsFor);
             return requirements;
         }
 

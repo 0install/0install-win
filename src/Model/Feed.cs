@@ -127,25 +127,23 @@ namespace ZeroInstall.Model
         [XmlElement("homepage"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string HomepageString { get { return Homepage != null ? Homepage.ToString() : null; } set { Homepage = (string.IsNullOrEmpty(value) ? null : new Uri(value)); } }
 
-        // Preserve order
-        private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
+        private readonly List<Icon> _icons = new List<Icon>();
 
         /// <summary>
         /// Zero or more icons representing the application. Used in the Catalog GUI as well as for desktop icons, menu entries, etc..
         /// </summary>
         [Browsable(false)]
         [XmlElement("icon")]
-        public C5.ArrayList<Icon> Icons { get { return _icons; } }
+        public List<Icon> Icons { get { return _icons; } }
 
-        // Preserve order
-        private readonly C5.ArrayList<Category> _categories = new C5.ArrayList<Category>();
+        private readonly List<Category> _categories = new List<Category>();
 
         /// <summary>
         /// Zero or more classifications for the interface.
         /// </summary>
         [Browsable(false)]
         [XmlElement("category")]
-        public C5.ArrayList<Category> Categories { get { return _categories; } }
+        public List<Category> Categories { get { return _categories; } }
 
         /// <summary>
         /// If <see langword="true"/>, indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
@@ -159,25 +157,23 @@ namespace ZeroInstall.Model
         [XmlElement("needs-terminal"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string NeedsTerminalString { get { return (NeedsTerminal ? "" : null); } set { NeedsTerminal = (value != null); } }
 
-        // Preserve order
-        private readonly C5.ArrayList<FeedReference> _feeds = new C5.ArrayList<FeedReference>();
+        private readonly List<FeedReference> _feeds = new List<FeedReference>();
 
         /// <summary>
         /// Zero ore more additional feeds containing implementations of this interface.
         /// </summary>
         [Browsable(false)]
         [XmlElement("feed")]
-        public C5.ArrayList<FeedReference> Feeds { get { return _feeds; } }
+        public List<FeedReference> Feeds { get { return _feeds; } }
 
-        // Preserve order
-        private readonly C5.ArrayList<InterfaceReference> _feedFor = new C5.ArrayList<InterfaceReference>();
+        private readonly List<InterfaceReference> _feedFor = new List<InterfaceReference>();
 
         /// <summary>
         /// The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
         /// </summary>
         [Browsable(false)]
         [XmlElement("feed-for")]
-        public C5.ArrayList<InterfaceReference> FeedFor { get { return _feedFor; } }
+        public List<InterfaceReference> FeedFor { get { return _feedFor; } }
 
         /// <summary>
         /// This feed's interface <see cref="Uri"/> has been replaced by the given interface. Any references to the old URI should be updated to use the new one.
@@ -187,28 +183,25 @@ namespace ZeroInstall.Model
         [XmlElement("replaced-by")]
         public InterfaceReference ReplacedBy { get; set; }
 
-        // Preserve order
-        private readonly C5.ArrayList<Element> _elements = new C5.ArrayList<Element>();
+        private readonly List<Element> _elements = new List<Element>();
 
         /// <summary>
         /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this interface.
         /// </summary>
         [Browsable(false)]
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
-        public C5.ArrayList<Element> Elements { get { return _elements; } }
+        public List<Element> Elements { get { return _elements; } }
 
-        // Preserve order
-        private readonly C5.ArrayList<EntryPoint> _entryPoints = new C5.ArrayList<EntryPoint>();
+        private readonly List<EntryPoint> _entryPoints = new List<EntryPoint>();
 
         /// <summary>
         /// A list of <see cref="EntryPoint"/>s for starting this interface.
         /// </summary>
         [Browsable(false)]
         [XmlElement("entry-point")]
-        public C5.ArrayList<EntryPoint> EntryPoints { get { return _entryPoints; } }
+        public List<EntryPoint> EntryPoints { get { return _entryPoints; } }
 
-        // Preserve order
-        private readonly C5.ArrayList<CapabilityList> _capabilityLists = new C5.ArrayList<CapabilityList>();
+        private readonly List<CapabilityList> _capabilityLists = new List<CapabilityList>();
 
         /// <summary>
         /// A set of <see cref="Capability"/> lists for different architectures.
@@ -216,7 +209,7 @@ namespace ZeroInstall.Model
         [Browsable(false)]
         [XmlElement("capabilities", Namespace = CapabilityList.XmlNamespace)]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<CapabilityList> CapabilityLists
+        public List<CapabilityList> CapabilityLists
         {
             get { return _capabilityLists; }
         }
@@ -262,7 +255,7 @@ namespace ZeroInstall.Model
 
             // Replace original elements list with the collapsed version
             Elements.Clear();
-            Elements.AddAll(collapsedElements);
+            Elements.AddRange(collapsedElements);
         }
 
         /// <summary>
@@ -389,12 +382,12 @@ namespace ZeroInstall.Model
             var entryPoint = GetEntryPoint(command);
             if (entryPoint != null)
             {
-                var suitableCommandIcons = entryPoint.Icons.FindAll(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
-                if (!suitableCommandIcons.IsEmpty) return suitableCommandIcons.First;
+                var suitableCommandIcons = entryPoint.Icons.Where(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
+                foreach (var icon in suitableCommandIcons) return icon;
             }
 
             var suitableFeedIcons = Icons.FindAll(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
-            if (!suitableFeedIcons.IsEmpty) return suitableFeedIcons.First;
+            if (suitableFeedIcons.Count != 0) return suitableFeedIcons[0];
 
             return null;
         }
@@ -410,15 +403,15 @@ namespace ZeroInstall.Model
         public Feed Clone()
         {
             var feed = new Feed {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, MinInjectorVersion = MinInjectorVersion, Uri = Uri, Name = Name, Homepage = Homepage, NeedsTerminal = NeedsTerminal};
-            feed.Feeds.AddAll(Feeds.CloneElements());
-            feed.FeedFor.AddAll(FeedFor.CloneElements());
+            feed.Feeds.AddRange(Feeds.CloneElements());
+            feed.FeedFor.AddRange(FeedFor.CloneElements());
             feed.Summaries.AddAll(Summaries.CloneElements());
             feed.Descriptions.AddAll(Descriptions.CloneElements());
-            feed.Categories.AddAll(Categories);
-            feed.Icons.AddAll(Icons);
-            feed.Elements.AddAll(Elements.CloneElements());
-            feed.EntryPoints.AddAll(EntryPoints.CloneElements());
-            feed.CapabilityLists.AddAll(CapabilityLists.CloneElements());
+            feed.Categories.AddRange(Categories);
+            feed.Icons.AddRange(Icons);
+            feed.Elements.AddRange(Elements.CloneElements());
+            feed.EntryPoints.AddRange(EntryPoints.CloneElements());
+            feed.CapabilityLists.AddRange(CapabilityLists.CloneElements());
             return feed;
         }
 

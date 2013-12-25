@@ -138,7 +138,7 @@ namespace ZeroInstall.Central.WinForms
             LoadCatalogAsync();
 
             bool firstRun = CentralUtils.OnFirstRun();
-            if (_tileManagement.AppList.Entries.IsEmpty)
+            if (_tileManagement.AppList.Entries.Count == 0)
             {
                 if (firstRun) using (var dialog = new IntroDialog()) dialog.ShowDialog(this);
 

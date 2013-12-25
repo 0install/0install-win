@@ -68,7 +68,7 @@ namespace ZeroInstall.Capture
                         ID = client,
                         Service = service
                     };
-                    defaultProgram.Verbs.AddAll(GetVerbs(clientKey, commandMapper));
+                    defaultProgram.Verbs.AddRange(GetVerbs(clientKey, commandMapper));
                     defaultProgram.InstallCommands = GetInstallCommands(clientKey, commandMapper.InstallationDir);
                     capabilities.Entries.Add(defaultProgram);
                 }

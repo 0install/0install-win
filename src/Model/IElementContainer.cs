@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
@@ -28,6 +29,6 @@ namespace ZeroInstall.Model
         /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this element.
         /// </summary>
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
-        C5.ArrayList<Element> Elements { get; }
+        List<Element> Elements { get; }
     }
 }

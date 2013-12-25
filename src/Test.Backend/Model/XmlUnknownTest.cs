@@ -53,6 +53,7 @@ namespace ZeroInstall.Model
             var dataChildAttibChange = XmlStorage.FromXmlString<XmlUnknownStub>("<root key1=\"value1\" key2=\"value2\"><element key=\"value\">text<child1 key=\"value\" /><child2 key=\"valueX\" /></element></root>");
             var dataTextChange = XmlStorage.FromXmlString<XmlUnknownStub>("<root key1=\"value1\" key2=\"value2\"><element key=\"value\">new text<child1 key=\"value\" /><child2 key=\"value\" /></element></root>");
 
+            Assert.AreEqual(dataBase, dataBase);
             Assert.AreEqual(dataBase, dataAttribSwap);
             Assert.AreEqual(dataBase.GetHashCode(), dataAttribSwap.GetHashCode());
             Assert.AreNotEqual(dataBase, dataChildSwap);

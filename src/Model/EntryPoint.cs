@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -86,15 +87,14 @@ namespace ZeroInstall.Model
         [XmlElement("description")]
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }
 
-        // Preserve order
-        private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
+        private readonly List<Icon> _icons = new List<Icon>();
 
         /// <summary>
         /// Zero or more icons representing the command. Used for desktop icons, menu entries, etc..
         /// </summary>
         [Browsable(false)]
         [XmlElement("icon")]
-        public C5.ArrayList<Icon> Icons { get { return _icons; } }
+        public List<Icon> Icons { get { return _icons; } }
         #endregion
 
         //--------------------//
@@ -120,7 +120,7 @@ namespace ZeroInstall.Model
             newEntryPoint.Names.AddAll(Names.CloneElements());
             newEntryPoint.Summaries.AddAll(Summaries.CloneElements());
             newEntryPoint.Descriptions.AddAll(Descriptions.CloneElements());
-            newEntryPoint.Icons.AddAll(Icons);
+            newEntryPoint.Icons.AddRange(Icons);
             return newEntryPoint;
         }
 

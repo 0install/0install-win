@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -48,15 +49,14 @@ namespace ZeroInstall.Model
         [XmlAttribute("separator"), DefaultValue("")]
         public string Separator { get; set; }
 
-        // Preserve order
-        private readonly C5.ArrayList<Arg> _arguments = new C5.ArrayList<Arg>();
+        private readonly List<Arg> _arguments = new List<Arg>();
 
         /// <summary>
         /// A list of command-line arguments to be passed to an executable. "${item}" will be substituted with each for-each value.
         /// </summary>
         [Browsable(false)]
         [XmlElement("arg")]
-        public C5.ArrayList<Arg> Arguments { get { return _arguments; } }
+        public List<Arg> Arguments { get { return _arguments; } }
         #endregion
 
         //--------------------//
@@ -79,7 +79,7 @@ namespace ZeroInstall.Model
         private ForEachArgs CloneForEachArgs()
         {
             var forEachArgs = new ForEachArgs {ItemFrom = ItemFrom, Separator = Separator};
-            forEachArgs.Arguments.AddAll(Arguments.CloneElements());
+            forEachArgs.Arguments.AddRange(Arguments.CloneElements());
             return forEachArgs;
         }
 

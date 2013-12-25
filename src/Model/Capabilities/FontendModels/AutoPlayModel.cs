@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Linq;
 using Common.Utils;
 
 namespace ZeroInstall.Model.Capabilities.FontendModels
@@ -29,7 +30,7 @@ namespace ZeroInstall.Model.Capabilities.FontendModels
         /// <summary>
         /// All <see cref="AutoPlay.Events"/> concatenated with ", ".
         /// </summary>
-        public string Events { get { return StringUtils.Join(", ", _autoPlay.Events.Map(ev => ev.Name)); } }
+        public string Events { get { return StringUtils.Join(", ", _autoPlay.Events.Select(ev => ev.Name)); } }
 
         /// <inheritdoc />
         public AutoPlayModel(AutoPlay capability, bool used) : base(capability, used)

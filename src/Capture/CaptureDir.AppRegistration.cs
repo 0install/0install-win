@@ -123,7 +123,7 @@ namespace ZeroInstall.Capture
                             KnownPrefixes = {new KnownProtocolPrefix {Value = protocol}}
                         };
 
-                        capability.Verbs.AddAll(GetVerbs(progIDKey, commandMapper));
+                        capability.Verbs.AddRange(GetVerbs(progIDKey, commandMapper));
                         capabilities.Entries.Add(capability);
                     }
                 }

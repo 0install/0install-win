@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using Common.Tasks;
 using Common.Utils;
@@ -40,7 +41,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             var capability = appEntry.GetCapability<Model.Capabilities.AutoPlay>(Capability);
-            return capability.Events.Map(@event => "autoplay-event:" + @event.Name);
+            return capability.Events.Select(@event => "autoplay-event:" + @event.Name);
         }
         #endregion
 

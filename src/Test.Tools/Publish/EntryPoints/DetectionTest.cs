@@ -53,7 +53,7 @@ namespace ZeroInstall.Publish.EntryPoints
         public void TestEmpty()
         {
             File.WriteAllText(Path.Combine(Directory.FullName, "empty"), "");
-            CollectionAssert.IsEmpty(Detection.ListCandidates(Directory).ToList());
+            Assert.IsEmpty(Detection.ListCandidates(Directory).ToList());
         }
     }
 }

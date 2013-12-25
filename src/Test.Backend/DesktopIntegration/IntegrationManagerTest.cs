@@ -16,6 +16,7 @@
  */
 
 using System;
+using Common.Collections;
 using Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Backend;
@@ -74,7 +75,7 @@ namespace ZeroInstall.DesktopIntegration
                 appEntry.AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {UnapplyFlagPath = unapplyFlag}}};
 
                 _integrationManager.RemoveApp(appEntry);
-                CollectionAssert.IsEmpty(_integrationManager.AppList.Entries);
+                Assert.IsEmpty(_integrationManager.AppList.Entries);
 
                 Assert.IsTrue(unapplyFlag.Set, "Access points should be unapplied when their AppEntry is removed");
                 Assert.DoesNotThrow(() => _integrationManager.RemoveApp(appEntry), "Allow multiple removals of applications.");
@@ -127,7 +128,7 @@ namespace ZeroInstall.DesktopIntegration
                 appEntry.AccessPoints = new AccessPointList {Entries = {accessPoint}};
 
                 _integrationManager.RemoveAccessPoints(appEntry, new[] {accessPoint});
-                CollectionAssert.IsEmpty(_integrationManager.AppList.Entries.First.AccessPoints.Entries);
+                Assert.IsEmpty(_integrationManager.AppList.Entries[0].AccessPoints.Entries);
 
                 Assert.IsTrue(unapplyFlag.Set, "Unapply() should be called");
 
@@ -148,7 +149,7 @@ namespace ZeroInstall.DesktopIntegration
 
             var appEntry = _integrationManager.AddApp("http://0install.de/feeds/test/test1.xml", feed);
             _integrationManager.AddAccessPoints(appEntry, feed, accessPoints);
-            CollectionAssert.AreEquivalent(accessPoints, _integrationManager.AppList.Entries.First.AccessPoints.Entries, "All access points should be applied.");
+            CollectionAssert.AreEquivalent(accessPoints, _integrationManager.AppList.Entries[0].AccessPoints.Entries, "All access points should be applied.");
 
             // Modify feed
             feed.Name = "Test 2";
@@ -156,7 +157,7 @@ namespace ZeroInstall.DesktopIntegration
 
             _integrationManager.UpdateApp(appEntry, feed);
             Assert.AreEqual("Test 2", appEntry.Name);
-            CollectionAssert.AreEquivalent(new[] {accessPoints[0]}, _integrationManager.AppList.Entries.First.AccessPoints.Entries, "Only the first access point should be left.");
+            CollectionAssert.AreEquivalent(new[] {accessPoints[0]}, _integrationManager.AppList.Entries[0].AccessPoints.Entries, "Only the first access point should be left.");
         }
 
         [Test]

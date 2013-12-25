@@ -121,7 +121,11 @@ namespace ZeroInstall.Central.WinForms
             // Read list of trusted keys
             var trustDB = TrustDB.LoadSafe();
             var trustNodes = new NamedCollection<TrustNode>();
-            trustDB.Keys.Apply(key => key.Domains.Apply(domain => trustNodes.Add(new TrustNode(key.Fingerprint, domain))));
+            foreach (var key in trustDB.Keys)
+            {
+                foreach (var domain in key.Domains)
+                    trustNodes.Add(new TrustNode(key.Fingerprint, domain));
+            }
             treeViewTrustedKeys.Nodes = trustNodes;
         }
 
