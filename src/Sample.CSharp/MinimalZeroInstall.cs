@@ -1,6 +1,6 @@
 ﻿using ZeroInstall.Backend;
-using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.Injector;
 
 class MinimalZeroInstall : ServiceLocator
 {

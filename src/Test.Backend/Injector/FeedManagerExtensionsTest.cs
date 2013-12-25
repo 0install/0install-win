@@ -15,10 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using NUnit.Framework;
 using ZeroInstall.Model;
-using ZeroInstall.Model.Preferences;
 
 namespace ZeroInstall.Injector
 {

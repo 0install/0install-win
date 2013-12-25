@@ -16,7 +16,6 @@
  */
 
 using System;
-using NDesk.Options;
 using NUnit.Framework;
 
 namespace ZeroInstall.Commands

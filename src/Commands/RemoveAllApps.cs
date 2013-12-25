@@ -59,7 +59,7 @@ namespace ZeroInstall.Commands
                 if (Handler.Batch || Handler.AskQuestion(Resources.ConfirmRemoveAll))
                 {
                     Handler.RunTask(new ForEachTask<AppEntry>(Resources.RemovingApplications, AppList.Entries, integrationManager.RemoveApp));
-                    
+
                     // Purge sync status, otherwise next sync would remove everything from server as well instead of restoring from there
                     File.Delete(AppList.GetDefaultPath(MachineWide) + SyncIntegrationManager.AppListLastSyncSuffix);
                 }

@@ -118,7 +118,7 @@ namespace ZeroInstall.Publish.Cli
             {
                 _feeds = ArgumentUtils.GetFiles(additionalArgs, "*.xml");
             }
-            #region Error handling
+                #region Error handling
             catch (FileNotFoundException ex)
             {
                 // Report as an invalid command-line argument

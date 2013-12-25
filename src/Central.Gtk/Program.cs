@@ -16,7 +16,6 @@
  */
 
 using System.Linq;
-using System.Security;
 using System.Security.Cryptography;
 using Common;
 using Common.Storage;
@@ -69,7 +68,7 @@ namespace ZeroInstall.Central.Gtk
         {
             bool machineWide = args.Any(arg => arg == "-m" || arg == "--machine");
             if (machineWide && WindowsUtils.IsWindowsNT && !WindowsUtils.IsAdministrator) return ProcessUtils.RunAssemblyAsAdmin("ZeroInstall", args.JoinEscapeArguments());
-            
+
             Application.Init();
             var window = new MainWindow();
             window.DeleteEvent += delegate { Application.Quit(); };

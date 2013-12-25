@@ -20,7 +20,6 @@ using System.IO;
 using System.Net;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Injector
