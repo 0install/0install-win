@@ -30,7 +30,7 @@ namespace ZeroInstall.Solvers
     /// <summary>
     /// Contains common code for testing specific <see cref="ISolver"/> implementations.
     /// </summary>
-    public abstract class SolverTest<T> : TestWithResolver<T> where T : class, ISolver
+    public abstract class SolverTest<T> : TestWithContainer<T> where T : class, ISolver
     {
         [Test]
         public void TestNoDependency()
@@ -149,10 +149,10 @@ namespace ZeroInstall.Solvers
         #region Helpers
         protected void RunAndAssert(IEnumerable<KeyValuePair<string, string>> feeds, Requirements requirements, string expectedSelections)
         {
-            var handlerMock = Resolver.GetMock<IHandler>();
+            var handlerMock = Container.GetMock<IHandler>();
             handlerMock.SetupGet(x => x.CancellationToken).Returns(new CancellationToken());
 
-            var feedManagerMock = Resolver.GetMock<IFeedManager>();
+            var feedManagerMock = Container.GetMock<IFeedManager>();
             var parsedFeeds = ParseFeeds(feeds);
             feedManagerMock.Setup(x => x.GetFeed(It.IsAny<string>())).Returns((string feedID) => parsedFeeds[feedID]);
 

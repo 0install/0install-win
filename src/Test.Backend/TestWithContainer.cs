@@ -27,11 +27,11 @@ namespace ZeroInstall
     /// Common base class for test fixtures that use <see cref="AutoMockContainer"/>.
     /// </summary>
     /// <typeparam name="T">The type of the object to be instantiated and tested.</typeparam>
-    public class TestWithResolver<T> where T : class
+    public class TestWithContainer<T> where T : class
     {
         private LocationsRedirect _redirect;
         private MockRepository _repository;
-        protected AutoMockContainer Resolver;
+        protected AutoMockContainer Container;
         protected Config Config;
 
         /// <summary>
@@ -42,9 +42,9 @@ namespace ZeroInstall
         [SetUp]
         public virtual void SetUp()
         {
-            Resolver = new AutoMockContainer(_repository = new MockRepository(MockBehavior.Loose));
-            Resolver.Register(Config = new Config());
-            Target = Resolver.Create<T>();
+            Container = new AutoMockContainer(_repository = new MockRepository(MockBehavior.Loose));
+            Container.Register(Config = new Config());
+            Target = Container.Create<T>();
 
             _redirect = new LocationsRedirect("0install-unit-tests");
         }
@@ -58,7 +58,7 @@ namespace ZeroInstall
 
         protected void ProvideCancellationToken()
         {
-            Resolver.GetMock<IHandler>().SetupGet(x => x.CancellationToken).Returns(new CancellationToken());
+            Container.GetMock<IHandler>().SetupGet(x => x.CancellationToken).Returns(new CancellationToken());
         }
     }
 }

@@ -146,7 +146,7 @@
     <Compile Include="DesktopIntegration\AppListTest.cs" />
     <Compile Include="Store\Trust\GnuPGTest.cs" />
     <Compile Include="Store\Trust\TestData.cs" />
-    <Compile Include="TestWithResolver.cs" />
+    <Compile Include="TestWithContainer.cs" />
     <Compile Include="Store\Icons\DiskIconCacheTest.cs" />
     <Compile Include="Store\Feeds\MemoryFeedCacheTest.cs" />
     <Compile Include="Model\Preferences\DiskFeedCacheTest.cs" />

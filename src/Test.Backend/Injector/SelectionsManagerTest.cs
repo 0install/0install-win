@@ -27,7 +27,7 @@ namespace ZeroInstall.Injector
     /// Contains test methods for <see cref="SelectionsManager"/>.
     /// </summary>
     [TestFixture]
-    public class SelectionsManagerTest : TestWithResolver<SelectionsManager>
+    public class SelectionsManagerTest : TestWithContainer<SelectionsManager>
     {
         #region Helpers
         /// <summary>
@@ -54,7 +54,7 @@ namespace ZeroInstall.Injector
             selections.Implementations.Add(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"});
 
             // Pretend the first implementation isn't cached, the second is and the third isn't
-            var storeMock = Resolver.GetMock<IStore>();
+            var storeMock = Container.GetMock<IStore>();
             storeMock.Setup(x => x.Contains(selections.Implementations[0].ManifestDigest)).Returns(false).Verifiable();
             storeMock.Setup(x => x.Contains(selections.Implementations[1].ManifestDigest)).Returns(true).Verifiable();
             storeMock.Setup(x => x.Contains(default(ManifestDigest))).Returns(false).Verifiable();
@@ -76,7 +76,7 @@ namespace ZeroInstall.Injector
                 new ImplementationSelection {ID = impl2.ID, InterfaceID = "http://0install.de/feeds/test/feed2.xml", FromFeed = "http://0install.de/feeds/test/sub2.xml"}
             };
 
-            var cacheMock = Resolver.GetMock<IFeedCache>();
+            var cacheMock = Container.GetMock<IFeedCache>();
             cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/feed1.xml")).Returns(new Feed {Elements = {impl1}}).Verifiable();
             cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(new Feed {Elements = {impl2}}).Verifiable();
 

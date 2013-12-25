@@ -34,7 +34,7 @@ namespace ZeroInstall.Injector
     /// Contains test methods for <see cref="FeedManager"/>.
     /// </summary>
     [TestFixture]
-    public class FeedManagerTest : TestWithResolver<FeedManager>
+    public class FeedManagerTest : TestWithContainer<FeedManager>
     {
         #region Shared
         private Mock<IFeedCache> _feedCacheMock;
@@ -43,7 +43,7 @@ namespace ZeroInstall.Injector
         public override void SetUp()
         {
             base.SetUp();
-            _feedCacheMock = Resolver.GetMock<IFeedCache>();
+            _feedCacheMock = Container.GetMock<IFeedCache>();
         }
         #endregion
 
@@ -88,7 +88,7 @@ namespace ZeroInstall.Injector
                 _feedCacheMock.Setup(x => x.GetFeed(feed.Uri.ToString())).Returns(feed).Verifiable();
 
                 // ReSharper disable once AccessToDisposedClosure
-                Resolver.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, data, null))
+                Container.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, data, null))
                     .Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
 
                 ProvideCancellationToken();
@@ -112,7 +112,7 @@ namespace ZeroInstall.Injector
             using (var mirrorServer = new MicroServer("feeds/http/invalid/directory%23feed.xml/latest.xml", new MemoryStream(data)))
             {
                 // ReSharper disable once AccessToDisposedClosure
-                Resolver.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, data, mirrorServer.FileUri))
+                Container.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, data, mirrorServer.FileUri))
                     .Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
 
                 Config.FeedMirror = mirrorServer.ServerUri;
@@ -149,7 +149,7 @@ namespace ZeroInstall.Injector
                 _feedCacheMock.Setup(x => x.GetFeed(feed.Uri.ToString())).Returns(feed).Verifiable();
 
                 // ReSharper disable once AccessToDisposedClosure
-                Resolver.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, data, null))
+                Container.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, data, null))
                     .Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
 
                 ProvideCancellationToken();
@@ -212,7 +212,7 @@ namespace ZeroInstall.Injector
         private byte[] SignFeed(Feed feed)
         {
             var data = feed.ToXmlString().ToStream().ToArray();
-            Resolver.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, data, null)).
+            Container.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, data, null)).
                 Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
             return data;
         }

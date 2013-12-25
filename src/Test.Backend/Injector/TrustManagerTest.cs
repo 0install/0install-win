@@ -32,7 +32,7 @@ namespace ZeroInstall.Injector
     /// Contains test methods for <see cref="TrustManager"/>.
     /// </summary>
     [TestFixture]
-    public class TrustManagerTest : TestWithResolver<TrustManager>
+    public class TrustManagerTest : TestWithContainer<TrustManager>
     {
         #region Constants
         private const string FeedText = "Feed data\n";
@@ -56,8 +56,8 @@ namespace ZeroInstall.Injector
         {
             base.SetUp();
 
-            _openPgpMock = Resolver.GetMock<IOpenPgp>();
-            _handlerMock = Resolver.GetMock<IHandler>();
+            _openPgpMock = Container.GetMock<IOpenPgp>();
+            _handlerMock = Container.GetMock<IHandler>();
 
             Config.KeyInfoServer = null;
             Config.AutoApproveKeys = false;
@@ -115,7 +115,7 @@ namespace ZeroInstall.Injector
         public void ExistingKeyAndNoAutoTrust()
         {
             RegisterKey();
-            Resolver.GetMock<IFeedCache>().Setup(x => x.Contains("http://localhost/test.xml")).Returns(true);
+            Container.GetMock<IFeedCache>().Setup(x => x.Contains("http://localhost/test.xml")).Returns(true);
             AnswerQuestionWith(false);
 
             using (var keyInfoServer = new MicroServer("key/" + _signature.Fingerprint, KeyInfoResponse.ToStream()))
@@ -130,7 +130,7 @@ namespace ZeroInstall.Injector
         public void ExistingKeyAndAutoTrust()
         {
             RegisterKey();
-            Resolver.GetMock<IFeedCache>().Setup(x => x.Contains("http://localhost/test.xml")).Returns(false);
+            Container.GetMock<IFeedCache>().Setup(x => x.Contains("http://localhost/test.xml")).Returns(false);
 
             using (var keyInfoServer = new MicroServer("key/" + _signature.Fingerprint, KeyInfoResponse.ToStream()))
             {
