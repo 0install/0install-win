@@ -8,8 +8,8 @@ Module MinimalZeroInstall
     End Sub
 
     Private Sub Run(requirements As Requirements)
-        Dim resolver = New Resolver(New CliHandler())
-        With resolver
+        Dim locator = New ServiceLocator(New CliHandler())
+        With locator
             Dim selections = .Solver.Solve(requirements)
             Dim missing = .SelectionsManager.GetUncachedImplementations(selections)
             .Fetcher.Fetch(missing)

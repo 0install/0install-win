@@ -58,7 +58,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Resolver.cs" />
+    <Compile Include="ServiceLocator.cs" />
     <Compile Include="SilentHandler.cs" />
   </ItemGroup>
   <ItemGroup>

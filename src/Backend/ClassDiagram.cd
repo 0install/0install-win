@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ZeroInstall.Backend.Resolver" Collapsed="true">
+  <Class Name="ZeroInstall.Backend.ServiceLocator" Collapsed="true">
     <Position X="0.5" Y="4.25" Width="1.5" />
-    <AssociationLine Name="CatalogManager" Type="ZeroInstall.Backend.CatalogManager" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="Handler" Type="ZeroInstall.Backend.IBackendHandler" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="1.625" Y="4.812" />
-        <Point X="1.625" Y="5.454" />
-        <Point X="4" Y="5.454" />
+        <Point X="0.875" Y="4.812" />
+        <Point X="0.875" Y="8.346" />
+        <Point X="4" Y="8.346" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="Config" Type="ZeroInstall.Store.Config" FixedFromPoint="true" FixedToPoint="true">
@@ -16,25 +16,11 @@
         <Point X="4" Y="0.781" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="FeedCache" Type="ZeroInstall.Store.Feeds.IFeedCache" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="Store" Type="ZeroInstall.Store.Implementation.IStore" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="1.25" Y="4.25" />
-        <Point X="1.25" Y="2.281" />
-        <Point X="4" Y="2.281" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="Fetcher" Type="ZeroInstall.Injector.IFetcher" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="1.25" Y="4.812" />
-        <Point X="1.25" Y="6.781" />
-        <Point X="4" Y="6.781" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="Handler" Type="ZeroInstall.Backend.IBackendHandler" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="0.875" Y="4.812" />
-        <Point X="0.875" Y="8.346" />
-        <Point X="4" Y="8.346" />
+        <Point X="1.438" Y="4.25" />
+        <Point X="1.438" Y="3.031" />
+        <Point X="4" Y="3.031" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="OpenPgp" Type="ZeroInstall.Store.Trust.IOpenPgp" FixedFromPoint="true" FixedToPoint="true">
@@ -44,25 +30,11 @@
         <Point X="4" Y="1.531" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="SelectionsManager" Type="ZeroInstall.Injector.SelectionsManager" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="FeedCache" Type="ZeroInstall.Store.Feeds.IFeedCache" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="1.062" Y="4.812" />
-        <Point X="1.062" Y="7.531" />
-        <Point X="4" Y="7.531" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="Solver" Type="ZeroInstall.Injector.ISolver" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="1.438" Y="4.812" />
-        <Point X="1.438" Y="6.031" />
-        <Point X="4" Y="6.031" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="Store" Type="ZeroInstall.Store.Implementation.IStore" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="1.438" Y="4.25" />
-        <Point X="1.438" Y="3.031" />
-        <Point X="4" Y="3.031" />
+        <Point X="1.25" Y="4.25" />
+        <Point X="1.25" Y="2.281" />
+        <Point X="4" Y="2.281" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="TrustManager" Type="ZeroInstall.Injector.ITrustManager" FixedFromPoint="true" FixedToPoint="true">
@@ -72,28 +44,56 @@
         <Point X="4" Y="3.781" />
       </Path>
     </AssociationLine>
+    <AssociationLine Name="CatalogManager" Type="ZeroInstall.Backend.CatalogManager" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.625" Y="4.812" />
+        <Point X="1.625" Y="5.454" />
+        <Point X="4" Y="5.454" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Solver" Type="ZeroInstall.Injector.ISolver" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.438" Y="4.812" />
+        <Point X="1.438" Y="6.031" />
+        <Point X="4" Y="6.031" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Fetcher" Type="ZeroInstall.Injector.IFetcher" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.25" Y="4.812" />
+        <Point X="1.25" Y="6.781" />
+        <Point X="4" Y="6.781" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="SelectionsManager" Type="ZeroInstall.Injector.SelectionsManager" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.062" Y="4.812" />
+        <Point X="1.062" Y="7.531" />
+        <Point X="4" Y="7.531" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>EAAYQAAAAhIIkgBAAAAAAAAIAAQAAAgQJAgACQAAAAA=</HashCode>
-      <FileName>Resolver.cs</FileName>
+      <FileName>ServiceLocator.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="CatalogManager" />
-      <Property Name="Config" />
-      <Property Name="FeedCache" />
-      <Property Name="FeedManager" />
-      <Property Name="Fetcher" />
       <Property Name="Handler" />
-      <Property Name="OpenPgp" />
-      <Property Name="SelectionsManager" />
-      <Property Name="Solver" />
+      <Property Name="Config" />
       <Property Name="Store" />
+      <Property Name="OpenPgp" />
+      <Property Name="FeedCache" />
       <Property Name="TrustManager" />
+      <Property Name="FeedManager" />
+      <Property Name="CatalogManager" />
+      <Property Name="Solver" />
+      <Property Name="Fetcher" />
+      <Property Name="SelectionsManager" />
     </ShowAsAssociation>
   </Class>
   <Class Name="ZeroInstall.Backend.SilentHandler" Collapsed="true">
     <Position X="4.75" Y="9" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAEAAAAEAMAAIAAAAAAAAAAABRAAAAAACgAA=</HashCode>
+      <HashCode>AQAAAAAAAEBAAAEAMAAIQAAAAAAAAAABQgAAAAACgAA=</HashCode>
       <FileName>SilentHandler.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -101,7 +101,7 @@
   <Class Name="ZeroInstall.Backend.CliHandler" Collapsed="true">
     <Position X="3" Y="9" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAEAAAAEAMAAIAAAAAAAAAAABRAAAAAACgAA=</HashCode>
+      <HashCode>AQAAAAAAAEBAAAEAMAAIQAAAAAAAAAABQAAAAAACgAA=</HashCode>
       <FileName>CliHandler.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -137,8 +137,8 @@
   <Interface Name="ZeroInstall.Backend.IBackendHandler" Collapsed="true">
     <Position X="4" Y="8" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAAAEAEAAAAAAAAAAAAAABBAAAAAACAAA=</HashCode>
-      <FileName>IHandler.cs</FileName>
+      <HashCode>AAAAAAAAAABAAAEAEAAAQAAAAAAAAAABAAAAAAACAAA=</HashCode>
+      <FileName>IBackendHandler.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="ZeroInstall.Store.Trust.IOpenPgp" Collapsed="true">

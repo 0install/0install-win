@@ -58,8 +58,8 @@ namespace ZeroInstall.Central.WinForms.Wizards
         /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
         protected SyncIntegrationManager CreateSync(bool machineWide)
         {
-            var resolver = new Resolver(this);
-            return new SyncIntegrationManager(resolver.Config.ToSyncServer(), resolver.Config.SyncCryptoKey, resolver.FeedManager.GetFeedFresh, resolver.Handler, machineWide);
+            var locator = new ServiceLocator(this);
+            return new SyncIntegrationManager(locator.Config.ToSyncServer(), locator.Config.SyncCryptoKey, locator.FeedManager.GetFeedFresh, locator.Handler, machineWide);
         }
 
         /// <summary>
@@ -70,8 +70,8 @@ namespace ZeroInstall.Central.WinForms.Wizards
         /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
         protected SyncIntegrationManager CreateSync(string cryptoKey, bool machineWide)
         {
-            var resolver = new Resolver(this);
-            return new SyncIntegrationManager(resolver.Config.ToSyncServer(), cryptoKey, resolver.FeedManager.GetFeedFresh, resolver.Handler, machineWide);
+            var locator = new ServiceLocator(this);
+            return new SyncIntegrationManager(locator.Config.ToSyncServer(), cryptoKey, locator.FeedManager.GetFeedFresh, locator.Handler, machineWide);
         }
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace ZeroInstall.Central.WinForms.Wizards
         /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
         protected SyncIntegrationManager CreateSync(SyncServer server, string cryptoKey, bool machineWide)
         {
-            var resolver = new Resolver(this);
-            return new SyncIntegrationManager(server, cryptoKey, resolver.FeedManager.GetFeedFresh, resolver.Handler, machineWide);
+            var locator = new ServiceLocator(this);
+            return new SyncIntegrationManager(server, cryptoKey, locator.FeedManager.GetFeedFresh, locator.Handler, machineWide);
         }
         #endregion
 

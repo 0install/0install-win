@@ -2,7 +2,7 @@
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
-class MinimalZeroInstall : Resolver
+class MinimalZeroInstall : ServiceLocator
 {
     public static void Main(string[] args)
     {

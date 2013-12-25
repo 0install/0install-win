@@ -44,7 +44,7 @@ namespace ZeroInstall.Commands
     /// <remarks>Specific sub-classes of this class are used to handle a commands like "0install COMMAND [OPTIONS]".</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [CLSCompliant(false)]
-    public abstract class FrontendCommand : Resolver
+    public abstract class FrontendCommand : ServiceLocator
     {
         #region Metadata
         /// <summary>

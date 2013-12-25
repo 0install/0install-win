@@ -29,10 +29,11 @@ using ZeroInstall.Store.Trust;
 namespace ZeroInstall.Backend
 {
     /// <summary>
-    /// A light-weight, hard-coded dependency injection resolver/container. Instantiates classes and their dependencies transparently on first use.
+    /// Instantiates requested services transparently on first use. Handles dependency injection internally.
+    /// Use exactly one instance of the service locator per user request to ensure consistent state during execution.
     /// </summary>
-    /// <remarks>Use the property setters to override default implementations, e.g. for mocking.</remarks>
-    public class Resolver
+    /// <remarks>Use the property setters to override default service implementations, e.g. for mocking.</remarks>
+    public class ServiceLocator
     {
         #region Variables
         private Config _config;
@@ -49,10 +50,10 @@ namespace ZeroInstall.Backend
 
         #region Constructor
         /// <summary>
-        /// Creates a new dependency resolver
+        /// Creates a new service locator.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public Resolver(IBackendHandler handler)
+        public ServiceLocator(IBackendHandler handler)
         {
             Handler = handler;
         }

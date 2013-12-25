@@ -183,11 +183,11 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             // Make sure the feed is in the cache
-            var resolver = new Resolver(new MinimalHandler(this));
+            var locator = new ServiceLocator(new MinimalHandler(this));
             Feed feed;
             try
             {
-                feed = resolver.FeedManager.GetFeedFresh(feedID);
+                feed = locator.FeedManager.GetFeedFresh(feedID);
             }
                 #region Error handling
             catch (OperationCanceledException)
