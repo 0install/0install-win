@@ -426,6 +426,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="MissingOptionValue" xml:space="preserve">
     <value>Fehlender benötigter Wert für die Option {0}.</value>
   </data>
+  <data name="MustBeAdminForMachineWide" xml:space="preserve">
+    <value>Sie müssen ein Administrator sein, um maschinenweite Operationen durchführen zu können.</value>
+  </data>
   <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
     <value>API hooking nicht möglich wegen einer nicht gecachten Implementierung.</value>
   </data>

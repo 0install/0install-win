@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using Common;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
@@ -98,7 +99,18 @@ namespace ZeroInstall.Injector
             if (arguments == null) throw new ArgumentNullException("arguments");
             #endregion
 
-            return Process.Start(GetStartInfo(arguments));
+            try
+            {
+                return Process.Start(GetStartInfo(arguments));
+            }
+                #region Error handling
+            catch (Win32Exception ex)
+            {
+                const int requestedOperationRequiresElevation = 740;
+                if (ex.NativeErrorCode == requestedOperationRequiresElevation) throw new NotAdminException(ex.Message);
+                else throw;
+            }
+            #endregion
         }
 
         /// <summary>
@@ -112,7 +124,7 @@ namespace ZeroInstall.Injector
         /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
-        public ProcessStartInfo GetStartInfo(params string[] arguments)
+        internal ProcessStartInfo GetStartInfo(params string[] arguments)
         {
             #region Sanity checks
             if (arguments == null) throw new ArgumentNullException("arguments");

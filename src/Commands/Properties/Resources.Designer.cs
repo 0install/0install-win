@@ -946,6 +946,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must be an administrator to perform machine-wide operations..
+        /// </summary>
+        public static string MustBeAdminForMachineWide {
+            get {
+                return ResourceManager.GetString("MustBeAdminForMachineWide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to API hooking not possible due to non-cached implementation..
         /// </summary>
         public static string NoApiHookingNonCacheImpl {

@@ -40,7 +40,7 @@ namespace ZeroInstall.Commands
         {
             base.Parse(args);
 
-            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException();
+            if (MachineWide && !WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminForMachineWide);
         }
 
         #region Helpers
