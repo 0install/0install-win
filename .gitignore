@@ -11,6 +11,7 @@ TestResult.xml
 *.DotSettings
 *.resources
 obj/
-_ReSharper.*/
-_TeamCity.*/
-_dotTrace.*/
+src/_ReSharper.*/
+src/_TeamCity.*/
+src/_dotTrace.*/
+src/packages/*/
