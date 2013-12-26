@@ -405,8 +405,8 @@ namespace ZeroInstall.Model
             var feed = new Feed {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, MinInjectorVersion = MinInjectorVersion, Uri = Uri, Name = Name, Homepage = Homepage, NeedsTerminal = NeedsTerminal};
             feed.Feeds.AddRange(Feeds.CloneElements());
             feed.FeedFor.AddRange(FeedFor.CloneElements());
-            feed.Summaries.AddAll(Summaries.CloneElements());
-            feed.Descriptions.AddAll(Descriptions.CloneElements());
+            feed.Summaries.AddRange(Summaries.CloneElements());
+            feed.Descriptions.AddRange(Descriptions.CloneElements());
             feed.Categories.AddRange(Categories);
             feed.Icons.AddRange(Icons);
             feed.Elements.AddRange(Elements.CloneElements());

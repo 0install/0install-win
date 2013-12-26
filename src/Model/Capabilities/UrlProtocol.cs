@@ -70,7 +70,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             var capability = new UrlProtocol {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly};
             capability.Icons.AddRange(Icons);
-            capability.Descriptions.AddAll(Descriptions.CloneElements());
+            capability.Descriptions.AddRange(Descriptions.CloneElements());
             capability.Verbs.AddRange(Verbs.CloneElements());
             capability.KnownPrefixes.AddRange(KnownPrefixes);
             return capability;

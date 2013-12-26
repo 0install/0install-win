@@ -72,9 +72,6 @@
     <Reference Include="atk-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="C5, Version=1.1.1.0, Culture=neutral, PublicKeyToken=06a1b38866503b69">
-      <HintPath>..\..\lib\C5.dll</HintPath>
-    </Reference>
     <Reference Include="NDesk.Options, Version=1.0.0.0, Culture=neutral, PublicKeyToken=454c612dc368e6ed">
       <HintPath>..\..\lib\NDesk.Options.dll</HintPath>
     </Reference>

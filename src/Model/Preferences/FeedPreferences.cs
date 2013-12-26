@@ -93,7 +93,7 @@ namespace ZeroInstall.Model.Preferences
         /// </summary>
         public void Normalize()
         {
-            _implementations.RemoveRange(_implementations.FindAll(implementation => implementation.IsSuperflous));
+            _implementations.RemoveAll(implementation => implementation.IsSuperflous);
         }
         #endregion
 

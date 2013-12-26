@@ -91,7 +91,7 @@ namespace ZeroInstall.Model.Capabilities
         {
             var capability = new AutoPlay {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly, Provider = Provider, ProgID = ProgID, Verb = Verb.Clone()};
             capability.Icons.AddRange(Icons);
-            capability.Descriptions.AddAll(Descriptions.CloneElements());
+            capability.Descriptions.AddRange(Descriptions.CloneElements());
             capability.Events.AddRange(Events);
             return capability;
         }

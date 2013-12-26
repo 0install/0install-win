@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace Common.Collections
     /// A collection of <see cref="LocalizableString"/>s with language-search methods.
     /// </summary>
     [Serializable]
-    public class LocalizableStringCollection : C5.ArrayList<LocalizableString>
+    public class LocalizableStringCollection : List<LocalizableString>, ICloneable
     {
         #region Add
         /// <summary>
@@ -131,7 +132,7 @@ namespace Common.Collections
                 return entry.Value;
 
             // Try to find first entry in collection
-            return IsEmpty ? null : First.Value;
+            return Count == 0 ? null : this[0].Value;
         }
         #endregion
 
@@ -147,7 +148,7 @@ namespace Common.Collections
             if (language == null) throw new ArgumentNullException("language");
             #endregion
 
-            RemoveAll(FindAll(entry => language.Equals(entry.Language)));
+            RemoveAll(entry => language.Equals(entry.Language));
             if (value != null) Add(new LocalizableString {Language = language, Value = value});
         }
         #endregion
@@ -159,13 +160,16 @@ namespace Common.Collections
         /// Creates a deep copy of this <see cref="LocalizableStringCollection"/> (elements are cloned).
         /// </summary>
         /// <returns>The cloned <see cref="LocalizableStringCollection"/>.</returns>
-        public override object Clone()
+        public LocalizableStringCollection Clone()
         {
             var newDict = new LocalizableStringCollection();
-            foreach (LocalizableString entry in this)
-                newDict.Add(entry.Clone());
-
+            newDict.AddRange(this.Select(entry => entry.Clone()));
             return newDict;
+        }
+
+        object ICloneable.Clone()
+        {
+            return Clone();
         }
         #endregion
     }

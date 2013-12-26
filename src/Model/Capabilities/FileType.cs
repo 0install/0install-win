@@ -69,7 +69,7 @@ namespace ZeroInstall.Model.Capabilities
         public override Capability Clone()
         {
             var capability = new FileType {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly};
-            capability.Descriptions.AddAll(Descriptions.CloneElements());
+            capability.Descriptions.AddRange(Descriptions.CloneElements());
             capability.Icons.AddRange(Icons);
             capability.Verbs.AddRange(Verbs.CloneElements());
             capability.Extensions.AddRange(Extensions);

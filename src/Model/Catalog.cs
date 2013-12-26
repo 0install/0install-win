@@ -87,16 +87,22 @@ namespace ZeroInstall.Model
             #endregion
 
             var newCatalog = new Catalog();
-            var feedUris = new C5.HashSet<Uri>(); // Hash interface URIs to detect duplicates quicker
+            newCatalog.Feeds.AddRange(catalogs.SelectMany(catalog => catalog.Feeds).Distinct(new FeedUriComparer()));
+            return newCatalog;
+        }
 
-            // Merge multiple catalogs and filter out duplicates
-            foreach (var feed in catalogs.SelectMany(catalog => catalog.Feeds.Where(feed => !feedUris.Contains(feed.Uri))))
+        private class FeedUriComparer : IEqualityComparer<Feed>
+        {
+            public bool Equals(Feed x, Feed y)
             {
-                newCatalog.Feeds.Add(feed);
-                feedUris.Add(feed.Uri);
+                return x.Uri == y.Uri;
             }
 
-            return newCatalog;
+            public int GetHashCode(Feed obj)
+            {
+                if (obj.Uri == null) return 0;
+                return obj.Uri.GetHashCode();
+            }
         }
         #endregion
 

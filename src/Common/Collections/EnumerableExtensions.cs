@@ -418,7 +418,7 @@ namespace Common.Collections
         {
             #region Sanity checks
             if (list == null) throw new ArgumentNullException("list");
-            if (number < 0) throw new ArgumentOutOfRangeException("number", "Must not be negative.");
+            if (number < 0) throw new ArgumentOutOfRangeException("number");
             #endregion
 
             list.RemoveRange(list.Count - number, number);
