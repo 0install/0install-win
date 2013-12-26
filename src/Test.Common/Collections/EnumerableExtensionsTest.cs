@@ -28,10 +28,10 @@ using NUnit.Framework;
 namespace Common.Collections
 {
     /// <summary>
-    /// Contains test methods for <see cref="EnumerableUtils"/>.
+    /// Contains test methods for <see cref="EnumerableExtensions"/>.
     /// </summary>
     [TestFixture]
-    public class EnumerableUtilsTest
+    public class EnumerableExtensionsTest
     {
         #region Equality
         [Test]
@@ -90,7 +90,7 @@ namespace Common.Collections
 
         #region Added elements
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.GetAddedElements{T}(T[],T[])"/> correctly detects elements added to an ordered collection.
+        /// Ensures that <see cref="EnumerableExtensions.GetAddedElements{T}(T[],T[])"/> correctly detects elements added to an ordered collection.
         /// </summary>
         [Test]
         public void TestGetAddedElements()
@@ -102,7 +102,7 @@ namespace Common.Collections
 
         #region Transactions
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.ApplyWithRollback{T}"/> correctly performs rollbacks on exceptions.
+        /// Ensures that <see cref="EnumerableExtensions.ApplyWithRollback{T}"/> correctly performs rollbacks on exceptions.
         /// </summary>
         [Test]
         public void TestApplyWithRollback()
@@ -120,7 +120,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.Try{T}"/> correctly handles fail conditions followed by success conditions.
+        /// Ensures that <see cref="EnumerableExtensions.Try{T}"/> correctly handles fail conditions followed by success conditions.
         /// </summary>
         [Test]
         public void TestTrySucceed()
@@ -136,7 +136,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.Try{T}"/> correctly handles pure fail conditions.
+        /// Ensures that <see cref="EnumerableExtensions.Try{T}"/> correctly handles pure fail conditions.
         /// </summary>
         [Test]
         public void TestTryFail()
@@ -152,134 +152,9 @@ namespace Common.Collections
         }
         #endregion
 
-        #region Merge
-        private class MergeTest : IMergeable<MergeTest>
-        {
-            public string MergeID { get; set; }
-
-            public string Data { get; set; }
-
-            public DateTime Timestamp { get; set; }
-
-            public static IEnumerable<MergeTest> BuildList(params string[] mergeIDs)
-            {
-                return mergeIDs.Select(value => new MergeTest {MergeID = value});
-            }
-
-            public override string ToString()
-            {
-                return MergeID + " (" + Data + ")";
-            }
-
-            #region Equality
-            public bool Equals(MergeTest other)
-            {
-                if (ReferenceEquals(null, other)) return false;
-                if (ReferenceEquals(this, other)) return true;
-                return Equals(other.MergeID, MergeID) && Equals(other.Data, Data);
-            }
-
-            public override bool Equals(object obj)
-            {
-                if (ReferenceEquals(null, obj)) return false;
-                if (ReferenceEquals(this, obj)) return true;
-                return obj.GetType() == typeof(MergeTest) && Equals((MergeTest)obj);
-            }
-
-            public override int GetHashCode()
-            {
-                unchecked
-                {
-                    return ((MergeID != null ? MergeID.GetHashCode() : 0) * 397) ^ (Data != null ? Data.GetHashCode() : 0);
-                }
-            }
-            #endregion
-        }
-
-        /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.Merge{T}(System.Collections.Generic.ICollection{T},System.Collections.Generic.ICollection{T},System.Action{T},System.Action{T})"/> correctly detects added and removed elements.
-        /// </summary>
-        [Test]
-        public void TestMergeSimple()
-        {
-            var mineList = new[] {1, 2, 4};
-            var theirsList = new[] {16, 8, 4};
-
-            ICollection<int> toRemove = new List<int>();
-            ICollection<int> toAdd = new List<int>();
-            EnumerableUtils.Merge(theirsList, mineList, toAdd.Add, toRemove.Add);
-
-            CollectionAssert.AreEqual(new[] {16, 8}, toAdd);
-            CollectionAssert.AreEqual(new[] {1, 2}, toRemove);
-        }
-
-        /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.Merge{T}(System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Action{T},System.Action{T})"/> correctly detects unchanged lists.
-        /// </summary>
-        [Test]
-        public void TestMergeEquals()
-        {
-            var list = new[] {new MergeTest {MergeID = "1"}};
-
-            EnumerableUtils.Merge(new MergeTest[0], list, list,
-                delegate(MergeTest element) { throw new AssertionException(element + " should not be detected as added."); },
-                delegate(MergeTest element) { throw new AssertionException(element + " should not be detected as removed."); });
-        }
-
-        /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.Merge{T}(System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Action{T},System.Action{T})"/> correctly detects added and removed elements.
-        /// </summary>
-        [Test]
-        public void TestMergeAddAndRemove()
-        {
-            var baseList = MergeTest.BuildList("a", "b", "c");
-            var theirsList = MergeTest.BuildList("a", "b", "d");
-            var mineList = MergeTest.BuildList("a", "c", "e");
-
-            ICollection<MergeTest> toRemove = new List<MergeTest>();
-            ICollection<MergeTest> toAdd = new List<MergeTest>();
-            EnumerableUtils.Merge(baseList, theirsList, mineList, toAdd.Add, toRemove.Add);
-
-            CollectionAssert.AreEqual(MergeTest.BuildList("d"), toAdd);
-            CollectionAssert.AreEqual(MergeTest.BuildList("c"), toRemove);
-        }
-
-        /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.Merge{T}(System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Collections.Generic.IEnumerable{T},System.Action{T},System.Action{T})"/> correctly modified elements.
-        /// </summary>
-        [Test]
-        public void TestMergeModify()
-        {
-            var baseList = MergeTest.BuildList("a", "b", "c", "d", "e");
-            var theirsList = new[]
-            {
-                new MergeTest {MergeID = "a"},
-                new MergeTest {MergeID = "b", Data = "123", Timestamp = new DateTime(2000, 1, 1)},
-                new MergeTest {MergeID = "c"},
-                new MergeTest {MergeID = "d", Data = "456", Timestamp = new DateTime(2000, 1, 1)},
-                new MergeTest {MergeID = "e", Data = "789", Timestamp = new DateTime(2999, 1, 1)}
-            };
-            var mineList = new[]
-            {
-                new MergeTest {MergeID = "a"},
-                new MergeTest {MergeID = "b"},
-                new MergeTest {MergeID = "c", Data = "abc", Timestamp = new DateTime(2000, 1, 1)},
-                new MergeTest {MergeID = "d", Data = "def", Timestamp = new DateTime(2999, 1, 1)},
-                new MergeTest {MergeID = "e", Data = "ghi", Timestamp = new DateTime(2000, 1, 1)}
-            };
-
-            ICollection<MergeTest> toRemove = new List<MergeTest>();
-            ICollection<MergeTest> toAdd = new List<MergeTest>();
-            EnumerableUtils.Merge(baseList, theirsList, mineList, toAdd.Add, toRemove.Add);
-
-            CollectionAssert.AreEqual(new[] {mineList[1], mineList[4]}, toRemove);
-            CollectionAssert.AreEqual(new[] {theirsList[1], theirsList[4]}, toAdd);
-        }
-        #endregion
-
         #region List
         /// <summary>
-        /// Ensures that <see cref="EnumerableUtils.RemoveLast{T}"/> correctly removes the last n elements from a list.
+        /// Ensures that <see cref="EnumerableExtensions.RemoveLast{T}"/> correctly removes the last n elements from a list.
         /// </summary>
         [Test]
         public void TestRemoveLast()

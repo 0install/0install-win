@@ -79,11 +79,12 @@
     <Compile Include="Collections\BucketRule.cs" />
     <Compile Include="Collections\ComparableTuple.cs" />
     <Compile Include="Collections\CultureComparer.cs" />
-    <Compile Include="Collections\EnumerableUtils.cs" />
+    <Compile Include="Collections\EnumerableExtensions.cs" />
     <Compile Include="Collections\IMergeable.cs" />
     <Compile Include="Collections\LanguageSet.cs" />
     <Compile Include="Collections\LocalizableString.cs" />
     <Compile Include="Collections\LocalizableStringCollection.cs" />
+    <Compile Include="Collections\Merge.cs" />
     <Compile Include="Collections\NamedCollection.cs" />
     <Compile Include="Collections\PerTypeDispatcher.Action.cs" />
     <Compile Include="Collections\PerTypeDispatcher.Func.cs" />

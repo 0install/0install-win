@@ -31,7 +31,7 @@ namespace Common.Collections
     /// <summary>
     /// Provides helper methods for enumerable collections.
     /// </summary>
-    public static class EnumerableUtils
+    public static class EnumerableExtensions
     {
         #region LINQ
         /// <summary>
@@ -368,101 +368,6 @@ namespace Common.Collections
                     else throw; // Rethrow exception if there are no more elements
                 }
             }
-        }
-        #endregion
-
-        #region Merge
-        /// <summary>
-        /// Performs a 2-way merge on two collections. <paramref name="theirsList"/> is updated to reflect <paramref name="mineList"/> using callback delegates.
-        /// </summary>
-        /// <param name="theirsList">The foreign list with changes that shell be merged in.</param>
-        /// <param name="mineList">The local list that shall be updated with foreign changes.</param>
-        /// <param name="added">Called for every element that should be added to <paramref name="mineList"/>.</param>
-        /// <param name="removed">Called for every element that should be removed from <paramref name="mineList"/>.</param>
-        /// <remarks>
-        /// <paramref name="theirsList"/> and <paramref name="mineList"/> should use an internal hashmap for <see cref="ICollection{T}.Contains"/> for better performance.
-        /// <see langword="null"/> elements are completely ignored.
-        /// </remarks>
-        public static void Merge<T>(ICollection<T> theirsList, ICollection<T> mineList, Action<T> added, Action<T> removed)
-        {
-            #region Sanity checks
-            if (theirsList == null) throw new ArgumentNullException("theirsList");
-            if (mineList == null) throw new ArgumentNullException("mineList");
-            if (added == null) throw new ArgumentNullException("added");
-            if (removed == null) throw new ArgumentNullException("removed");
-            #endregion
-
-            // ReSharper disable CompareNonConstrainedGenericWithNull
-            foreach (var mine in mineList.WhereNotNull()
-                // Entry in mineList, but not in theirsList
-                .Where(mine => !theirsList.Contains(mine)))
-                removed(mine);
-
-            foreach (var theirs in theirsList.WhereNotNull().
-                // Entry in theirsList, but not in mineList
-                Where(theirs => !mineList.Contains(theirs)))
-                added(theirs);
-            // ReSharper restore CompareNonConstrainedGenericWithNull
-        }
-
-        /// <summary>
-        /// Performs a 3-way merge on a set of collections. Changes between <paramref name="baseList"/> and <paramref name="theirsList"/> are applied to <paramref name="mineList"/> using callback delegates.
-        /// </summary>
-        /// <param name="baseList">A common baseline from which both <paramref name="theirsList"/> and <paramref name="mineList"/> were modified.</param>
-        /// <param name="theirsList">The foreign list with changes that shell be merged in.</param>
-        /// <param name="mineList">The local list that shall be updated with foreign changes.</param>
-        /// <param name="added">Called for every element that should be added to <paramref name="mineList"/>.</param>
-        /// <param name="removed">Called for every element that should be removed from <paramref name="mineList"/>.</param>
-        /// <remarks>
-        /// Modified elements are handled by calling <paramref name="removed"/> for the old state and <paramref name="added"/> for the new state.
-        /// <see langword="null"/> elements are completely ignored.
-        /// </remarks>
-        public static void Merge<T>(IEnumerable<T> baseList, IEnumerable<T> theirsList, IEnumerable<T> mineList, Action<T> added, Action<T> removed)
-            where T : class, IMergeable<T>
-        {
-            #region Sanity checks
-            if (baseList == null) throw new ArgumentNullException("baseList");
-            if (theirsList == null) throw new ArgumentNullException("theirsList");
-            if (mineList == null) throw new ArgumentNullException("mineList");
-            if (added == null) throw new ArgumentNullException("added");
-            if (removed == null) throw new ArgumentNullException("removed");
-            #endregion
-
-            foreach (var theirs in (
-                from theirs in theirsList.WhereNotNull()
-                // Entry in theirsList, but not in mineList
-                where FindMergeID(mineList, theirs.MergeID) == null
-                select theirs).Where(theirs => !baseList.Contains(theirs)))
-                added(theirs); // Added in theirsList
-
-            foreach (var mine in mineList)
-            {
-                if (mine == null) continue;
-
-                var matchingTheirs = FindMergeID(theirsList, mine.MergeID);
-                if (matchingTheirs == null)
-                { // Entry in mineList, but not in theirsList
-                    if (baseList.Contains(mine))
-                        removed(mine); // Removed from theirsList
-                }
-                else
-                { // Entry both in mineList and in theirsList
-                    if (!mine.Equals(matchingTheirs) && matchingTheirs.Timestamp > mine.Timestamp)
-                    { // Theirs newer than mine
-                        removed(mine);
-                        added(matchingTheirs);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Finds the first element in a list matching the specified <see cref="IMergeable{T}.MergeID"/>.
-        /// </summary>
-        private static T FindMergeID<T>(IEnumerable<T> elements, string id)
-            where T : class, IMergeable<T>
-        {
-            return elements.FirstOrDefault(element => element != null && element.MergeID == id);
         }
         #endregion
 

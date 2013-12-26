@@ -320,9 +320,15 @@ namespace ZeroInstall.DesktopIntegration
             var toAdd = new List<AppEntry>();
             var toRemove = new List<AppEntry>();
 
-            // Use 2-way merge for client-reset, 3-way merge otherwise
-            if (resetClient) EnumerableUtils.Merge(remoteAppList.Entries, AppList.Entries, toAdd.Add, toRemove.Add);
-            else EnumerableUtils.Merge(_appListLastSync.Entries, remoteAppList.Entries, AppList.Entries, toAdd.Add, toRemove.Add);
+            if (resetClient) Merge.TwoWay(
+                theirs: remoteAppList.Entries,
+                mine: AppList.Entries,
+                added: toAdd, removed: toRemove);
+            else Merge.ThreeWay(
+                reference: _appListLastSync.Entries,
+                theirs: remoteAppList.Entries,
+                mine: AppList.Entries,
+                added: toAdd, removed: toRemove);
 
             // Apply changes with rollback protection
             toRemove.ApplyWithRollback(RemoveAppInternal, AddAppHelper);

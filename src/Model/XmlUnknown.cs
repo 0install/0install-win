@@ -52,11 +52,11 @@ namespace ZeroInstall.Model
                 if (x == null || y == null) return false;
                 if (x.NamespaceURI != y.NamespaceURI || x.Name != y.Name || x.InnerText != y.InnerText) return false;
 
-                bool attributesEqual = EnumerableUtils.UnsequencedEquals(
+                bool attributesEqual = EnumerableExtensions.UnsequencedEquals(
                     x.Attributes.OfType<XmlAttribute>().ToArray(),
                     y.Attributes.OfType<XmlAttribute>().ToArray(),
                     comparer: XmlAttributeComparer.Instance);
-                bool elementsEqual = EnumerableUtils.SequencedEquals(
+                bool elementsEqual = EnumerableExtensions.SequencedEquals(
                     x.ChildNodes.OfType<XmlElement>().ToArray(),
                     y.ChildNodes.OfType<XmlElement>().ToArray(),
                     comparer: XmlElementComparer.Instance);
@@ -76,11 +76,11 @@ namespace ZeroInstall.Model
         protected bool Equals(XmlUnknown other)
         {
             if (other == null) return false;
-            bool attributesEqual = EnumerableUtils.UnsequencedEquals(
+            bool attributesEqual = EnumerableExtensions.UnsequencedEquals(
                 UnknownAttributes ?? new XmlAttribute[0],
                 other.UnknownAttributes ?? new XmlAttribute[0],
                 comparer: XmlAttributeComparer.Instance);
-            bool elementsEqual = EnumerableUtils.SequencedEquals(
+            bool elementsEqual = EnumerableExtensions.SequencedEquals(
                 UnknownElements ?? new XmlElement[0],
                 other.UnknownElements ?? new XmlElement[0],
                 comparer: XmlElementComparer.Instance);

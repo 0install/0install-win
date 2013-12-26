@@ -96,38 +96,38 @@ namespace ZeroInstall.Central
             var tiles = new List<IAppTile>();
 
             // Update the displayed AppList based on changes detected between the current and the new AppList
-            EnumerableUtils.Merge(
-                newAppList.Entries, _appList.Entries,
-                addedEntry =>
+            Merge.TwoWay(
+                theirs: newAppList.Entries, mine: _appList.Entries,
+                added: entry =>
                 {
-                    if (string.IsNullOrEmpty(addedEntry.InterfaceID) || addedEntry.Name == null) return;
+                    if (string.IsNullOrEmpty(entry.InterfaceID) || entry.Name == null) return;
                     try
                     {
-                        var status = (addedEntry.AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated;
-                        var tile = _tileListMyApps.QueueNewTile(addedEntry.InterfaceID, addedEntry.Name, status, _machineWide);
+                        var status = (entry.AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated;
+                        var tile = _tileListMyApps.QueueNewTile(entry.InterfaceID, entry.Name, status, _machineWide);
                         tiles.Add(tile);
 
                         // Update "added" status of tile in catalog list
-                        var catalogTile = _tileListCatalog.GetTile(addedEntry.InterfaceID);
+                        var catalogTile = _tileListCatalog.GetTile(entry.InterfaceID);
                         if (catalogTile != null) catalogTile.Status = tile.Status;
                     }
                         #region Error handling
                     catch (KeyNotFoundException)
                     {
-                        Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, addedEntry.InterfaceID));
+                        Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, entry.InterfaceID));
                     }
                     catch (C5.DuplicateNotAllowedException)
                     {
-                        Log.Warn(string.Format(Resources.IgnoringDuplicateAppListEntry, addedEntry.InterfaceID));
+                        Log.Warn(string.Format(Resources.IgnoringDuplicateAppListEntry, entry.InterfaceID));
                     }
                     #endregion
                 },
-                removedEntry =>
+                removed: entry =>
                 {
-                    _tileListMyApps.RemoveTile(removedEntry.InterfaceID);
+                    _tileListMyApps.RemoveTile(entry.InterfaceID);
 
                     // Update "added" status of tile in catalog list
-                    var catalogTile = _tileListCatalog.GetTile(removedEntry.InterfaceID);
+                    var catalogTile = _tileListCatalog.GetTile(entry.InterfaceID);
                     if (catalogTile != null) catalogTile.Status = AppStatus.Candidate;
                 });
             _tileListMyApps.AddQueuedTiles();
@@ -249,10 +249,10 @@ namespace ZeroInstall.Central
             if (newCatalog == null) throw new ArgumentNullException("newCatalog");
             #endregion
 
-            EnumerableUtils.Merge(
-                newCatalog.Feeds, _catalog.Feeds,
-                QueueCatalogTile,
-                removedFeed => _tileListCatalog.RemoveTile(removedFeed.UriString));
+            Merge.TwoWay(
+                theirs: newCatalog.Feeds, mine: _catalog.Feeds,
+                added: QueueCatalogTile,
+                removed: feed => _tileListCatalog.RemoveTile(feed.UriString));
             _tileListCatalog.AddQueuedTiles();
             _tileListCatalog.ShowCategories();
 

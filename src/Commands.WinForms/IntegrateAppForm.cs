@@ -520,9 +520,9 @@ namespace ZeroInstall.Commands.WinForms
             }
 
             // Determine differences between current and desired state
-            EnumerableUtils.Merge(_menuEntries, currentMenuEntries, toAdd.Add, toRemove.Add);
-            EnumerableUtils.Merge(_desktopIcons, currentDesktopIcons, toAdd.Add, toRemove.Add);
-            EnumerableUtils.Merge(_aliases, currentAliases, toAdd.Add, toRemove.Add);
+            Merge.TwoWay(theirs: _menuEntries, mine: currentMenuEntries, added: toAdd.Add, removed: toRemove.Add);
+            Merge.TwoWay(theirs: _desktopIcons, mine: currentDesktopIcons, added: toAdd.Add, removed: toRemove.Add);
+            Merge.TwoWay(theirs: _aliases, mine: currentAliases, added: toAdd.Add, removed: toRemove.Add);
         }
 
         /// <summary>
