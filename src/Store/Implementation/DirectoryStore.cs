@@ -21,7 +21,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using Common;
-using Common.Collections;
 using Common.Streams;
 using Common.Tasks;
 using Common.Utils;
@@ -124,7 +123,6 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="tempID">The temporary identifier of the directory inside the cache.</param>
         /// <param name="expectedDigest">The digest the <see cref="Model.Implementation"/> is supposed to match.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="expectedDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the temporary directory doesn't match the <paramref name="expectedDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="tempID"/> cannot be moved or the digest cannot be calculated.</exception>
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Model.Implementation"/> with the specified <paramref name="expectedDigest"/> in the store.</exception>
@@ -137,8 +135,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Determine the digest method to use
-            string expectedDigestValue = expectedDigest.AvailableDigests.First(
-                noneException: () => new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest"));
+            string expectedDigestValue = expectedDigest.Best;
 
             // Determine the source and target directories
             string source = Path.Combine(DirectoryPath, tempID);
@@ -190,7 +187,6 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="expectedDigest">The digest the <see cref="Manifest"/> of the <paramref name="directory"/> should have.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <returns>The generated <see cref="Manifest"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="expectedDigest"/> indicates no known hash methods.</exception>
         /// <exception cref="IOException">Thrown if the <paramref name="directory"/> could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the <paramref name="directory"/> is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the <paramref name="directory"/> doesn't match the <paramref name="expectedDigest"/>.</exception>
@@ -202,8 +198,7 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            string expectedDigestValue = expectedDigest.AvailableDigests.First(
-                noneException: () => new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest"));
+            string expectedDigestValue = expectedDigest.Best;
             var format = ManifestFormat.FromPrefix(expectedDigestValue);
 
             var actualManifest = Manifest.Generate(directory, format, handler, expectedDigest);
@@ -389,8 +384,7 @@ namespace ZeroInstall.Store.Implementation
 
             if (!Contains(manifestDigest)) throw new ImplementationNotFoundException(manifestDigest);
 
-            string target = Path.Combine(DirectoryPath, manifestDigest.AvailableDigests.First(
-                noneException: () => new ArgumentException(Resources.NoKnownDigestMethod, "manifestDigest")));
+            string target = Path.Combine(DirectoryPath, manifestDigest.Best);
             VerifyDirectory(target, manifestDigest, handler);
 
             // Reseal the directory in case the write protection got lost

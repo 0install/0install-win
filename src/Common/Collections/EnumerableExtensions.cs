@@ -51,42 +51,6 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Returns the first element in a list or throws a custom exception if no element exists.
-        /// </summary>
-        /// <param name="source">The list to get the first element from.</param>
-        /// <param name="noneException">Callback to retreive hte exception to be thrown if no element exists.</param>
-        public static T First<T>(this IEnumerable<T> source, Func<Exception> noneException) where T : class
-        {
-            #region Sanity checks
-            if (source == null) throw new ArgumentNullException("source");
-            if (noneException == null) throw new ArgumentNullException("noneException");
-            #endregion
-
-            var result = source.FirstOrDefault();
-            if (result == null) throw noneException();
-            return result;
-        }
-
-        /// <summary>
-        /// Returns the first element in a list or that matches a predicate or throws a custom exception if no such element exists.
-        /// </summary>
-        /// <param name="source">The list to get the first element from.</param>
-        /// <param name="predicate">The predicate the element must match.</param>
-        /// <param name="noneException">Callback to retreive hte exception to be thrown if no element exists.</param>
-        public static T First<T>(this IEnumerable<T> source, Func<T, bool> predicate, Func<Exception> noneException) where T : class
-        {
-            #region Sanity checks
-            if (source == null) throw new ArgumentNullException("source");
-            if (predicate == null) throw new ArgumentNullException("predicate");
-            if (noneException == null) throw new ArgumentNullException("noneException");
-            #endregion
-
-            var result = source.FirstOrDefault(predicate);
-            if (result == null) throw noneException();
-            return result;
-        }
-
-        /// <summary>
         /// Filters a sequence of elements to remove any <see langword="null"/> values.
         /// </summary>
         public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T> collection)

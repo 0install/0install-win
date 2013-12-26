@@ -58,8 +58,8 @@ namespace ZeroInstall.Model
         /// Provides XML Editors with location hints for XSD files.
         /// </summary>
         public const string XsiSchemaLocation = XmlNamespace + " " + XsdLocation + " " +
-            // Advertise the complementary capabilities namespace
-            CapabilityList.XmlNamespace + " " + CapabilityList.XsdLocation;
+                                                // Advertise the complementary capabilities namespace
+                                                CapabilityList.XmlNamespace + " " + CapabilityList.XsdLocation;
 
         /// <summary>
         /// Provides XML Editors with location hints for XSD files.
@@ -291,8 +291,16 @@ namespace ZeroInstall.Model
                 if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
                 #endregion
 
-                return Elements.OfType<Implementation>().First(implementation => implementation.ID == id,
-                    noneException: () => new KeyNotFoundException(string.Format("Unable to find implementation '{0}' in feed '{1}'.", id, Name)));
+                try
+                {
+                    return Elements.OfType<Implementation>().First(implementation => implementation.ID == id);
+                }
+                    #region Error handling
+                catch (InvalidOperationException)
+                {
+                    throw new KeyNotFoundException(string.Format("Unable to find implementation '{0}' in feed '{1}'.", id, Name));
+                }
+                #endregion
             }
         }
 
@@ -306,8 +314,16 @@ namespace ZeroInstall.Model
         {
             get
             {
-                return Elements.OfType<Implementation>().First(implementation => implementation.ManifestDigest.PartialEquals(digest),
-                    noneException: () => new KeyNotFoundException(string.Format("Unable to find implementation '{0}' in feed '{1}'.", digest, Name)));
+                try
+                {
+                    return Elements.OfType<Implementation>().First(implementation => implementation.ManifestDigest.PartialEquals(digest));
+                }
+                    #region Error handling
+                catch (InvalidOperationException)
+                {
+                    throw new KeyNotFoundException(string.Format("Unable to find implementation '{0}' in feed '{1}'.", digest, Name));
+                }
+                #endregion
             }
         }
 

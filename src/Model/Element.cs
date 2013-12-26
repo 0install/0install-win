@@ -292,8 +292,16 @@ namespace ZeroInstall.Model
 
             if (name.Length == 0) return null;
 
-            return Commands.First(command => command != null && command.Name == name,
-                noneException: () => new KeyNotFoundException(string.Format(Resources.CommandNotFound, name)));
+            try
+            {
+                return Commands.First(command => command != null && command.Name == name);
+            }
+                #region Error handling
+            catch (InvalidOperationException)
+            {
+                throw new KeyNotFoundException(string.Format(Resources.CommandNotFound, name));
+            }
+            #endregion
         }
         #endregion
 

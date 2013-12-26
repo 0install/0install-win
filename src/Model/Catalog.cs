@@ -123,8 +123,16 @@ namespace ZeroInstall.Model
                 if (uri == null) throw new ArgumentNullException("uri");
                 #endregion
 
-                return Feeds.First(feed => feed.Uri == uri,
-                    noneException: () => new KeyNotFoundException(string.Format(Resources.FeedNotInCatalog, uri)));
+                try
+                {
+                    return Feeds.First(feed => feed.Uri == uri);
+                }
+                    #region Error handling
+                catch (InvalidOperationException)
+                {
+                    throw new KeyNotFoundException(string.Format(Resources.FeedNotInCatalog, uri));
+                }
+                #endregion
             }
         }
 

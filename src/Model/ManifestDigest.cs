@@ -84,13 +84,20 @@ namespace ZeroInstall.Model
         {
             get
             {
-                var list = new List<string>(4);
-                if (!string.IsNullOrEmpty(Sha256New)) list.Add("sha256new_" + Sha256New);
-                if (!string.IsNullOrEmpty(Sha256)) list.Add("sha256=" + Sha256);
-                if (!string.IsNullOrEmpty(Sha1New)) list.Add("sha1new=" + Sha1New);
-                if (!string.IsNullOrEmpty(Sha1)) list.Add("sha1=" + Sha1);
-                return list;
+                if (!string.IsNullOrEmpty(Sha256New)) yield return "sha256new_" + Sha256New;
+                if (!string.IsNullOrEmpty(Sha256)) yield return "sha256=" + Sha256;
+                if (!string.IsNullOrEmpty(Sha1New)) yield return "sha1new=" + Sha1New;
+                if (!string.IsNullOrEmpty(Sha1)) yield return "sha1=" + Sha1;
             }
+        }
+
+        /// <summary>
+        /// Returns the best entry of <see cref="AvailableDigests"/>.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown if <see cref="AvailableDigests"/> is empty.</exception>
+        public string Best
+        {
+            get { return AvailableDigests.First(); }
         }
 
         /// <summary>

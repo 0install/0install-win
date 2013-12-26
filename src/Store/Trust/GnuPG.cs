@@ -19,9 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using Common;
 using Common.Cli;
-using Common.Collections;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Store.Properties;
@@ -75,9 +75,17 @@ namespace ZeroInstall.Store.Trust
             if (string.IsNullOrEmpty(keySpecifier)) return secretKeys[0];
 
             // Find the first secret key that matches the key specifier
-            return secretKeys.First(
-                key => key.Fingerprint == keySpecifier || key.KeyID == keySpecifier || key.UserID.ContainsIgnoreCase(keySpecifier),
-                noneException: () => new KeyNotFoundException(Resources.UnableToFindSecretKey));
+            try
+            {
+                return secretKeys.First(
+                    key => key.Fingerprint == keySpecifier || key.KeyID == keySpecifier || key.UserID.ContainsIgnoreCase(keySpecifier));
+            }
+                #region Error handling
+            catch (Exception)
+            {
+                throw new KeyNotFoundException(Resources.UnableToFindSecretKey);
+            }
+            #endregion
         }
 
         /// <inheritdoc/>

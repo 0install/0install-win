@@ -17,7 +17,6 @@
 
 using System;
 using System.Linq;
-using Common.Collections;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
@@ -73,8 +72,16 @@ namespace ZeroInstall.Solvers
 
             var solverRuns = requirements.GetEffective()
                 .Select(effectiveRequirements => new BacktrackingRun(effectiveRequirements, _handler.CancellationToken, _config, _feedManager, _store));
-            return solverRuns.First(run => run.TryToSolve(),
-                noneException: () => new SolverException("No solution found")).Selections;
+            try
+            {
+                return solverRuns.First(run => run.TryToSolve()).Selections;
+            }
+                #region Error handling
+            catch (InvalidOperationException)
+            {
+                throw new SolverException("No solution found");
+            }
+            #endregion
         }
     }
 }

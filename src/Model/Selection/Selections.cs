@@ -109,8 +109,16 @@ namespace ZeroInstall.Model.Selection
                 if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
                 #endregion
 
-                return _implementations.First(implementation => implementation.InterfaceID == interfaceID,
-                    noneException: () => new KeyNotFoundException(string.Format(Resources.ImplementationNotInSelection, InterfaceID)));
+                try
+                {
+                    return _implementations.First(implementation => implementation.InterfaceID == interfaceID);
+                }
+                    #region Error handling
+                catch (InvalidOperationException)
+                {
+                    throw new KeyNotFoundException(string.Format(Resources.ImplementationNotInSelection, InterfaceID));
+                }
+                #endregion
             }
         }
 

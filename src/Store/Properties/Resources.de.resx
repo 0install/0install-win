@@ -190,7 +190,7 @@ Falls Sie ein FAT-formatiertes Laufwerk verwenden, konvertieren Sie es bitte zu 
     <value>Der Datei- oder Verzeichnisname darf keinen Zeilenumbruch enthalten.</value>
   </data>
   <data name="NoKnownDigestMethod" xml:space="preserve">
-    <value>Es wurde keine bekannte Digest-Methode definiert.</value>
+    <value>Es wurde keine bekannte Digest-Methode angegeben.</value>
   </data>
   <data name="NonRootedPathInConfig" xml:space="preserve">
     <value>Der Pfad '{0}' ist nicht absolut. Relative Pfade sind nur im Portablen Modus erlaubt.

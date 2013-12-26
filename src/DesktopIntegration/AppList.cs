@@ -100,8 +100,16 @@ namespace ZeroInstall.DesktopIntegration
                 if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
                 #endregion
 
-                return Entries.First(entry => ModelUtils.IDEquals(entry.InterfaceID, interfaceID),
-                    noneException: () => new KeyNotFoundException(string.Format(Resources.AppNotInList, interfaceID)));
+                try
+                {
+                    return Entries.First(entry => ModelUtils.IDEquals(entry.InterfaceID, interfaceID));
+                }
+                    #region Error handling
+                catch (InvalidOperationException)
+                {
+                    throw new KeyNotFoundException(string.Format(Resources.AppNotInList, interfaceID));
+                }
+                #endregion
             }
         }
         #endregion
