@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Common.Collections;
@@ -95,10 +94,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                return _decimals.Aggregate(397, (current, dec) => (current * 397) ^ (int)dec);
-            }
+            return _decimals.GetSequencedHashCode();
         }
         #endregion
 

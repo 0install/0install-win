@@ -152,11 +152,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                // ReSharper disable LoopCanBeConvertedToQuery
-                int result = _firstPart.GetHashCode();
-                foreach (var part in _additionalParts) result = (result * 397) ^ part.GetHashCode();
-                return result;
-                // ReSharper restore LoopCanBeConvertedToQuery
+                return (_firstPart.GetHashCode() * 397) ^ _additionalParts.GetSequencedHashCode();
             }
         }
 

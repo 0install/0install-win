@@ -56,6 +56,7 @@
             // labelSummary
             // 
             resources.ApplyResources(this.labelSummary, "labelSummary");
+            this.labelSummary.AutoEllipsis = true;
             this.labelSummary.Name = "labelSummary";
             // 
             // textBoxArgs

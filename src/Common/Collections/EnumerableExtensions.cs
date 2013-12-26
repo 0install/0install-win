@@ -175,7 +175,11 @@ namespace Common.Collections
 
             unchecked
             {
-                return collection.WhereNotNull().Aggregate(397, (current, element) => (current * 397) ^ comparer.GetHashCode(element));
+                int result = 397;
+                // ReSharper disable once LoopCanBeConvertedToQuery
+                foreach (T unknown in collection.WhereNotNull())
+                    result = (result * 397) ^ comparer.GetHashCode(unknown);
+                return result;
             }
         }
 
@@ -195,7 +199,11 @@ namespace Common.Collections
 
             unchecked
             {
-                return collection.WhereNotNull().Aggregate(397, (current, element) => current ^ comparer.GetHashCode(element));
+                int result = 397;
+                // ReSharper disable once LoopCanBeConvertedToQuery
+                foreach (T unknown in collection.WhereNotNull())
+                    result = result ^ comparer.GetHashCode(unknown);
+                return result;
             }
         }
         #endregion
