@@ -26,7 +26,6 @@ namespace ZeroInstall.Model
                 @"ftp://",
                 @"www://",
                 @"http://.de/",
-                @"http://abc§.de/",
                 @"ggo;\\"
             };
             foreach (var uri in invalidUris)
@@ -55,7 +54,6 @@ namespace ZeroInstall.Model
                 @"ftp://",
                 @"www://",
                 @"http://.de/",
-                @"http://abc§.de/",
                 @"ggo;\\",
                 @"http://0install.de",
                 @"relative"

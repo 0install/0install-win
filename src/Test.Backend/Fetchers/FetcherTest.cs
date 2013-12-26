@@ -81,11 +81,12 @@ namespace ZeroInstall.Fetchers
         [Test]
         public void DownloadMultipleArchives()
         {
-            using (var server = new MicroServer("archive.zip", TestData.GetZipArchiveStream()))
+            using (var server1 = new MicroServer("archive.zip", TestData.GetZipArchiveStream()))
+            using (var server2 = new MicroServer("archive.zip", TestData.GetZipArchiveStream()))
             {
                 TestDownloadArchives(
-                    new Archive {Href = server.FileUri, MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveSize, Extract = "extract1", Destination = "destination1"},
-                    new Archive {Href = server.FileUri, MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveSize, Extract = "extract2", Destination = "destination2"});
+                    new Archive {Href = server1.FileUri, MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveSize, Extract = "extract1", Destination = "destination1"},
+                    new Archive {Href = server2.FileUri, MimeType = Archive.MimeTypeZip, Size = TestData.ZipArchiveSize, Extract = "extract2", Destination = "destination2"});
             }
         }
 
