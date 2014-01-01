@@ -32,7 +32,7 @@ namespace ZeroInstall.DesktopIntegration
     /// </summary>
     /// <remarks>
     /// To prevent raceconditions there may only be one desktop integration class instance active at any given time.
-    /// This class aquires a mutex upon calling its constructor and releases it upon calling <see cref="IntegrationManager.Dispose()"/>.
+    /// This class acquires a mutex upon calling its constructor and releases it upon calling <see cref="IntegrationManager.Dispose()"/>.
     /// </remarks>
     public class CategoryIntegrationManager : IntegrationManager, ICategoryIntegrationManager
     {

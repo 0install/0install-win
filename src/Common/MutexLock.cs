@@ -26,7 +26,7 @@ using System.Threading;
 namespace Common
 {
     /// <summary>
-    /// Provides a wrapper around <see cref="Mutex"/> that automatically aquires on creating and releases on <see cref="Dispose"/>
+    /// Provides a wrapper around <see cref="Mutex"/> that automatically acquires on creating and releases on <see cref="Dispose"/>
     /// </summary>
     /// <example>
     /// Instead of <code>lock (_object) { code(); }</code> for per-process locking use

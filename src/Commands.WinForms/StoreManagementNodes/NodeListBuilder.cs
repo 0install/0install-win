@@ -21,13 +21,12 @@ using System.IO;
 using Common;
 using Common.Collections;
 using Common.Tasks;
-using ZeroInstall.Commands.WinForms.StoreManagementNodes;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Management;
 
-namespace ZeroInstall.Commands.WinForms.Store
+namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 {
     /// <summary>
     /// Builds a list of <see cref="Node"/>s for <see cref="Feed"/>s and <see cref="Implementation"/>s.

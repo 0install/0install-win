@@ -29,7 +29,6 @@ using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Commands.WinForms.Store;
 using ZeroInstall.Commands.WinForms.StoreManagementNodes;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
