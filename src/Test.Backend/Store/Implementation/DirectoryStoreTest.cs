@@ -158,12 +158,6 @@ namespace ZeroInstall.Store.Implementation
         }
 
         [Test]
-        public void ShouldThrowOnAddWithEmptyDigest()
-        {
-            Assert.Throws<ArgumentException>(() => _store.AddDirectory(_packageDir, new ManifestDigest(), new SilentHandler()));
-        }
-
-        [Test]
         public void ShouldReturnCorrectPathOfPackageInCache()
         {
             string hash = Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler());
