@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Common.Collections
 {
@@ -50,15 +51,13 @@ namespace Common.Collections
         /// </summary>
         public TValue this[TKey key]
         {
+            [MethodImpl(MethodImplOptions.Synchronized)]
             get
             {
-                lock (_lookup)
-                {
-                    TValue result;
-                    if (!_lookup.TryGetValue(key, out result))
-                        _lookup.Add(key, result = _retriever(key));
-                    return result;
-                }
+                TValue result;
+                if (!_lookup.TryGetValue(key, out result))
+                    _lookup.Add(key, result = _retriever(key));
+                return result;
             }
         }
     }

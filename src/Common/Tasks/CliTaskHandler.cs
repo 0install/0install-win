@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Runtime.CompilerServices;
 using Common.Cli;
 
 namespace Common.Tasks
@@ -38,22 +39,17 @@ namespace Common.Tasks
         /// <inheritdoc/>
         public CancellationToken CancellationToken { get { return _cancellationToken; } }
 
-        /// <summary>Synchronization object used to prevent multiple concurrent <see cref="ITask"/>s.</summary>
-        private readonly object _taskLock = new object();
-
         /// <inheritdoc />
+        [MethodImpl(MethodImplOptions.Synchronized)] // Prevent multiple concurrent tasks
         public void RunTask(ITask task, object tag = null)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
             #endregion
 
-            lock (_taskLock) // Prevent multiple concurrent tasks
-            {
-                Log.Info(task.Name + "...");
-                using (new TrackingProgressBar(task))
-                    task.RunSync(_cancellationToken);
-            }
+            Log.Info(task.Name + "...");
+            using (new TrackingProgressBar(task))
+                task.RunSync(_cancellationToken);
         }
     }
 }

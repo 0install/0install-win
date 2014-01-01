@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using Common.Controls;
 using Common.Tasks;
@@ -96,14 +97,10 @@ namespace ZeroInstall.Central.WinForms.Wizards
         /// </summary>
         public CancellationToken CancellationToken { get { return _cancellationToken; } }
 
-        private readonly object _taskLock = new object();
-
+        [MethodImpl(MethodImplOptions.Synchronized)] // Prevent multiple concurrent tasks
         public void RunTask(ITask task, object tag = null)
         {
-            lock (_taskLock) // Prevent multiple concurrent tasks
-            {
-                Invoke(new Action(() => TrackingDialog.Run(this, task)));
-            }
+            Invoke(new Action(() => TrackingDialog.Run(this, task)));
         }
 
         /// <summary>
