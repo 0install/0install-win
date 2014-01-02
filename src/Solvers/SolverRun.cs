@@ -79,9 +79,6 @@ namespace ZeroInstall.Solvers
         /// <summary>Maps interface IDs to <see cref="SelectionCandidateComparer"/>s.</summary>
         private readonly TransparentCache<string, SelectionCandidateComparer> _comparer;
 
-        /// <summary>Maps feed IDs to <see cref="FeedPreferences"/>. Transparent caching ensures individual preferences do not change during solver run.</summary>
-        private readonly TransparentCache<string, FeedPreferences> _feedPreferences = new TransparentCache<string, FeedPreferences>(FeedPreferences.LoadForSafe);
-
         /// <summary>Maps feed IDs to <see cref="Feed"/>s. Transparent caching ensures individual feeds do not change during solver run.</summary>
         private readonly TransparentCache<string, Feed> _feeds;
         #endregion
@@ -107,66 +104,60 @@ namespace ZeroInstall.Solvers
         /// </summary>
         public IList<SelectionCandidate> GetSortedCandidates(Requirements requirements)
         {
-            var candidates = Enumerable.Concat(
-                GetCandidates(requirements.InterfaceID, requirements),
-                GetCandidatesFromCustomFeeds(requirements)).ToList();
+            var candidates = GetFeeds(requirements)
+                .SelectMany(x => GetCandidates(x.Key, x.Value, requirements))
+                .ToList();
             candidates.Sort(_comparer[requirements.InterfaceID]);
             return candidates;
         }
 
-        /// <summary>
-        /// Gets all <see cref="SelectionCandidate"/>s for a specific set of <see cref="Requirements"/> from a single feed.
-        /// </summary>
-        private IEnumerable<SelectionCandidate> GetCandidates(string feedID, Requirements requirements)
+        private IDictionary<string, Feed> GetFeeds(Requirements requirements)
         {
+            var dictionary = new Dictionary<string, Feed>();
+
+            AddFeed(dictionary, requirements.InterfaceID, requirements);
+            foreach (var reference in _interfacePreferences[requirements.InterfaceID].Feeds)
+                AddFeed(dictionary, reference.Source, requirements);
+
+            return dictionary;
+        }
+
+        private void AddFeed(IDictionary<string, Feed> dictionary, string feedID, Requirements requirements)
+        {
+            if (dictionary.ContainsKey(feedID)) return;
+
             var feed = _feeds[feedID];
+            dictionary.Add(feedID, feed);
+
+            foreach (var reference in feed.Feeds
+                .Where(reference => reference.Architecture.IsCompatible(requirements.Architecture) &&
+                                    reference.Languages.ContainsAny(requirements.Languages)))
+                AddFeed(dictionary, reference.Source, requirements);
+        }
+
+        private IEnumerable<SelectionCandidate> GetCandidates(string feedID, Feed feed, Requirements requirements)
+        {
+            var feedPreferences = FeedPreferences.LoadForSafe(feedID);
 
             if (MonoUtils.IsUnix && feed.Elements.OfType<PackageImplementation>().Any())
                 throw new SolverException("Linux native package managers not supported yet!");
-
             // TODO: Windows <package-implementation>s
-            return Enumerable.Concat(
-                feed.Elements.OfType<Implementation>().Select(implementation => GetCandidate(feedID, requirements, implementation)),
-                GetCandidatesFromAdditionalFeeds(feed.Feeds, requirements));
-        }
 
-        /// <summary>
-        /// Gets a <see cref="SelectionCandidate"/> for a specific <see cref="Implementation"/>.
-        /// </summary>
-        private SelectionCandidate GetCandidate(string feedID, Requirements requirements, Implementation implementation)
-        {
-            var feedPreferences = _feedPreferences[feedID];
-
-            // TODO: Check it is a valid implementation (has version number, manifest digest, etc.)
-            var candidate = new SelectionCandidate(feedID, feedPreferences, implementation, requirements);
-            if (candidate.IsSuitable && NotSuitableBecauseOffline(candidate))
+            foreach (var implementation in feed.Elements.OfType<Implementation>())
             {
-                candidate.IsSuitable = false;
-                candidate.Notes = Resources.SelectionCandidateNoteNotCached;
+                var candidate = new SelectionCandidate(feedID, feedPreferences, implementation, requirements);
+                if (candidate.IsSuitable && NotSuitableBecauseOffline(candidate))
+                {
+                    candidate.IsSuitable = false;
+                    candidate.Notes = Resources.SelectionCandidateNoteNotCached;
+                }
+                yield return candidate;
             }
-            return candidate;
         }
 
         private bool NotSuitableBecauseOffline(SelectionCandidate candidate)
         {
             return _config.NetworkUse == NetworkLevel.Offline && !_store.Contains(candidate.Implementation.ManifestDigest);
-        }
-
-        /// <summary>
-        /// Gets all <see cref="SelectionCandidate"/>s for a specific set of <see cref="Requirements"/> from a set of feeds.
-        /// </summary>
-        private IEnumerable<SelectionCandidate> GetCandidatesFromAdditionalFeeds(IEnumerable<FeedReference> feedReferences, Requirements requirements)
-        {
-            return feedReferences
-                .Where(feedReference =>
-                    feedReference.Architecture.IsCompatible(requirements.Architecture) &&
-                    feedReference.Languages.ContainsAny(requirements.Languages))
-                .SelectMany(feedReference => GetCandidates(feedReference.Source, requirements));
-        }
-
-        private IEnumerable<SelectionCandidate> GetCandidatesFromCustomFeeds(Requirements requirements)
-        {
-            return GetCandidatesFromAdditionalFeeds(_interfacePreferences[requirements.InterfaceID].Feeds, requirements);
         }
         #endregion
     }

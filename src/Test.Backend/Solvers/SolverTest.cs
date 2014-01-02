@@ -33,7 +33,7 @@ namespace ZeroInstall.Solvers
     public abstract class SolverTest<T> : TestWithContainer<T> where T : class, ISolver
     {
         [Test]
-        public void TestNoDependency()
+        public void Minimal()
         {
             RunAndAssert(
                 feeds: new Dictionary<string, string>
@@ -45,7 +45,7 @@ namespace ZeroInstall.Solvers
         }
 
         [Test]
-        public void TestSimpleDependency()
+        public void SimpleDependency()
         {
             RunAndAssert(
                 feeds: new Dictionary<string, string>
@@ -60,7 +60,7 @@ namespace ZeroInstall.Solvers
         }
 
         [Test]
-        public void TestCyclicDependency()
+        public void CyclicDependency()
         {
             RunAndAssert(
                 feeds: new Dictionary<string, string>
@@ -75,7 +75,33 @@ namespace ZeroInstall.Solvers
         }
 
         [Test]
-        public void TestRestriction()
+        public void SimpleFeedReference()
+        {
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app1.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app1' /></implementation><feed src='http://test/app2.xml' />"},
+                    {"http://test/app2.xml", "<implementation version='2.0' id='app2'><command name='run' path='test-app2' /></implementation>"}
+                },
+                requirements: new Requirements { InterfaceID = "http://test/app1.xml", Command = Command.NameRun },
+                expectedSelections: "<selection interface='http://test/app1.xml' from-feed='http://test/app2.xml' version='2.0' id='app2'><command name='run' path='test-app2' /></selection>");
+        }
+
+        [Test]
+        public void CyclicFeedReference()
+        {
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app1.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app1' /></implementation><feed src='http://test/app2.xml' />"},
+                    {"http://test/app2.xml", "<implementation version='2.0' id='app2'><command name='run' path='test-app2' /></implementation><feed src='http://test/app1.xml' />"}
+                },
+                requirements: new Requirements { InterfaceID = "http://test/app1.xml", Command = Command.NameRun },
+                expectedSelections: "<selection interface='http://test/app1.xml' from-feed='http://test/app2.xml' version='2.0' id='app2'><command name='run' path='test-app2' /></selection>");
+        }
+
+        [Test]
+        public void Restriction()
         {
             // without restriction
             RunAndAssert(
@@ -107,7 +133,7 @@ namespace ZeroInstall.Solvers
         }
 
         [Test]
-        public void TestX86OnX64()
+        public void X86OnX64()
         {
             if (Architecture.CurrentSystem.Cpu != Cpu.X64) Assert.Ignore("Can only test on X64 systems");
 
@@ -156,9 +182,9 @@ namespace ZeroInstall.Solvers
             var parsedFeeds = ParseFeeds(feeds);
             feedManagerMock.Setup(x => x.GetFeed(It.IsAny<string>())).Returns((string feedID) => parsedFeeds[feedID]);
 
-            Assert.AreEqual(
-                expected: ParseExpectedSelections(expectedSelections, requirements),
-                actual: Target.Solve(requirements));
+            var expected = ParseExpectedSelections(expectedSelections, requirements);
+            var actual = Target.Solve(requirements);
+            Assert.AreEqual(expected, actual);
         }
 
         private static Selections ParseExpectedSelections(string expectedSelections, Requirements requirements)
