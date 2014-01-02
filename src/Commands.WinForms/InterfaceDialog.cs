@@ -338,7 +338,7 @@ namespace ZeroInstall.Commands.WinForms
                 new Requirements
                 {
                     Command = Command.NameRun,
-                    Architecture = Architecture.CurrentSystem
+                    Architecture = new Architecture(Architecture.CurrentSystem.OS, Cpu.All)
                 });
         }
 #endif

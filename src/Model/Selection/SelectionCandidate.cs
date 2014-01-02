@@ -132,14 +132,10 @@ namespace ZeroInstall.Model.Selection
         /// </summary>
         private void CheckSuitabilty(Requirements requirements)
         {
-            if (!Implementation.ContainsCommand(requirements.Command))
-                Notes = string.Format(Resources.SelectionCandidateNoteCommand, requirements.Command);
+            if (Implementation.Architecture.Cpu == Cpu.Source && requirements.Architecture.Cpu != Cpu.Source)
+                Notes = Resources.SelectionCandidateNoteSource;
             else if (!Implementation.Architecture.IsCompatible(requirements.Architecture))
-            {
-                Notes = (Implementation.Architecture.Cpu == Cpu.Source)
-                    ? Resources.SelectionCandidateNoteSource
-                    : Resources.SelectionCandidateNoteIncompatibleArchitecture;
-            }
+                Notes = Resources.SelectionCandidateNoteIncompatibleArchitecture;
             else if (!Implementation.Languages.ContainsAny(requirements.Languages))
                 Notes = Resources.SelectionCandidateNoteWrongLanguage;
             else if (requirements.Versions != null && !requirements.Versions.Match(Version))
@@ -148,6 +144,8 @@ namespace ZeroInstall.Model.Selection
                 Notes = Resources.SelectionCandidateNoteBuggy;
             else if (EffectiveStability == Stability.Insecure)
                 Notes = Resources.SelectionCandidateNoteInsecure;
+            else if (!Implementation.ContainsCommand(requirements.Command))
+                Notes = string.Format(Resources.SelectionCandidateNoteCommand, requirements.Command);
             else IsSuitable = true;
         }
         #endregion
