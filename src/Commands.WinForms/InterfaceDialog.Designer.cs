@@ -58,7 +58,7 @@
             // buttonOK
             // 
             resources.ApplyResources(this.buttonOK, "buttonOK");
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            this.buttonOK.Click += new System.EventHandler(this.buttonOKApply_Click);
             // 
             // buttonCancel
             // 
@@ -218,7 +218,7 @@
             resources.ApplyResources(this.buttonApply, "buttonApply");
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.UseVisualStyleBackColor = true;
-            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
+            this.buttonApply.Click += new System.EventHandler(this.buttonOKApply_Click);
             // 
             // InterfaceDialog
             // 

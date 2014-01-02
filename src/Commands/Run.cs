@@ -109,7 +109,7 @@ namespace ZeroInstall.Commands
 
         #region Helpers
         /// <inheritdoc/>
-        protected override Selections Solve()
+        protected override void Solve()
         {
             if (Config.NetworkUse == NetworkLevel.Full)
             {
@@ -117,14 +117,14 @@ namespace ZeroInstall.Commands
                 Config.NetworkUse = NetworkLevel.Minimal;
                 try
                 {
-                    return base.Solve();
+                    base.Solve();
                 }
                 finally
                 {
                     Config.NetworkUse = NetworkLevel.Full;
                 }
             }
-            else return base.Solve();
+            else base.Solve();
         }
 
         /// <summary>

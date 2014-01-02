@@ -201,6 +201,9 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
   <data name="ChangesFound" xml:space="preserve">
     <value>Gefundene Änderungen:</value>
   </data>
+  <data name="CheckingFeed" xml:space="preserve">
+    <value>Prüfe Feed</value>
+  </data>
   <data name="CheckingForUpdates" xml:space="preserve">
     <value>Suche nach Updates</value>
   </data>
@@ -654,6 +657,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Verwendung:</value>
+  </data>
+  <data name="UseDefaultSetting" xml:space="preserve">
+    <value>Verwende Standardeinstellung</value>
   </data>
   <data name="UseInstead" xml:space="preserve">
     <value>Verwenden Sie stattdessen '{0}'.</value>

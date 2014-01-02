@@ -43,7 +43,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>A short title describing what the command being executed does.</summary>
         private readonly string _actionTitle;
 
-        /// <summary>A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/> after <see cref="BeginModifySelections"/>.</summary>
+        /// <summary>A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/> after <see cref="ModifySelections"/>.</summary>
         private EventWaitHandle _modifySelectionsWaitHandle;
 
         /// <summary>Indicates whether <see cref="selectionsControl"/> is intended to be visible or not. Will work even if the form itself is invisible (tray icon mode).</summary>
@@ -109,7 +109,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="waitHandle">A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/>.</param>
         /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public void BeginModifySelections(Func<Selections> solveCallback, EventWaitHandle waitHandle)
+        public void ModifySelections(Func<Selections> solveCallback, EventWaitHandle waitHandle)
         {
             #region Sanity checks
             if (solveCallback == null) throw new ArgumentNullException("solveCallback");

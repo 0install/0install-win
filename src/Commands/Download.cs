@@ -22,7 +22,6 @@ using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
-using ZeroInstall.Model.Selection;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementation;
 
@@ -79,9 +78,9 @@ namespace ZeroInstall.Commands
 
         #region Helpers
         /// <inheritdoc/>
-        protected override Selections Solve()
+        protected override void Solve()
         {
-            var result = base.Solve();
+            base.Solve();
 
             try
             {
@@ -94,8 +93,6 @@ namespace ZeroInstall.Commands
                 throw new SolverException(ex.Message, ex);
             }
             #endregion
-
-            return result;
         }
 
         /// <summary>

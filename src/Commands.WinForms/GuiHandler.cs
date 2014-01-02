@@ -274,7 +274,7 @@ namespace ZeroInstall.Commands.WinForms
                 _form.Show();
                 Application.DoEvents();
 
-                _form.BeginModifySelections(solveCallback, _modifySelectionsWaitHandle);
+                _form.ModifySelections(solveCallback, _modifySelectionsWaitHandle);
             }));
 
             _modifySelectionsWaitHandle.WaitOne();

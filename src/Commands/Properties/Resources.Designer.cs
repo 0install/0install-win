@@ -307,6 +307,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checking feed.
+        /// </summary>
+        public static string CheckingFeed {
+            get {
+                return ResourceManager.GetString("CheckingFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking for updates.
         /// </summary>
         public static string CheckingForUpdates {
@@ -1609,6 +1618,15 @@ namespace ZeroInstall.Commands.Properties {
         public static string Usage {
             get {
                 return ResourceManager.GetString("Usage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use default setting.
+        /// </summary>
+        public static string UseDefaultSetting {
+            get {
+                return ResourceManager.GetString("UseDefaultSetting", resourceCulture);
             }
         }
         

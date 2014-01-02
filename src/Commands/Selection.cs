@@ -149,12 +149,12 @@ namespace ZeroInstall.Commands
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
-        protected virtual Selections Solve()
+        protected virtual void Solve()
         {
             // TODO: Handle named apps
 
             // Don't run the solver if the user provided an external selections document
-            if (SelectionsDocument) return Selections;
+            if (SelectionsDocument) return;
 
             try
             {
@@ -170,7 +170,6 @@ namespace ZeroInstall.Commands
             #endregion
 
             Handler.CancellationToken.ThrowIfCancellationRequested();
-            return Selections;
         }
 
         /// <summary>
@@ -191,8 +190,18 @@ namespace ZeroInstall.Commands
         protected void ShowSelections()
         {
             Handler.ShowSelections(Selections, FeedCache);
-            if (ShowModifySelections && !SelectionsDocument) Handler.ModifySelections(Solve);
+            if (ShowModifySelections && !SelectionsDocument) Handler.ModifySelections(SolveCallback);
             Handler.CancellationToken.ThrowIfCancellationRequested();
+        }
+
+        /// <summary>
+        /// Run <see cref="Solve"/> and inform the caller as well as the <see cref="IBackendHandler"/> of any changes.
+        /// </summary>
+        private Selections SolveCallback()
+        {
+            Solve();
+            Handler.ShowSelections(Selections, FeedCache);
+            return Selections;
         }
 
         private int ShowOutput()

@@ -41,12 +41,6 @@ namespace ZeroInstall.Commands.WinForms
 
         /// <summary>The feed cache used to retrieve feeds for additional information about implementations.</summary>
         private IFeedCache _feedCache;
-
-        /// <summary>A list of all <see cref="TrackingControl"/>s used by <see cref="TrackTask"/>. Adressable by associated <see cref="Implementation"/> via <see cref="ManifestDigest"/>.</summary>
-        private readonly Dictionary<ManifestDigest, TrackingControl> _trackingControls = new Dictionary<ManifestDigest, TrackingControl>();
-
-        /// <summary>A list of all controls visible only while the user is busy with <see cref="BeginModifySelections"/>.</summary>
-        private readonly List<Control> _modifyLinks = new List<Control>();
         #endregion
 
         #region Constructor
@@ -82,10 +76,16 @@ namespace ZeroInstall.Commands.WinForms
             _selections = selections;
             _feedCache = feedCache;
 
-            // Build TableLayout rows
+            BuildTable();
+            if (_solveCallback != null) CreateLinkLabels();
+        }
+
+        private void BuildTable()
+        {
             tableLayout.Controls.Clear();
             tableLayout.RowStyles.Clear();
-            tableLayout.RowCount = selections.Implementations.Count;
+
+            tableLayout.RowCount = _selections.Implementations.Count;
             for (int i = 0; i < _selections.Implementations.Count; i++)
             {
                 // Lines have a fixed height but a variable width
@@ -93,20 +93,29 @@ namespace ZeroInstall.Commands.WinForms
 
                 // Get feed for each selected implementation
                 var implementation = _selections.Implementations[i];
-                Feed feed = (!string.IsNullOrEmpty(implementation.FromFeed) && _feedCache.Contains(implementation.FromFeed))
-                    ? _feedCache.GetFeed(implementation.FromFeed)
-                    : _feedCache.GetFeed(implementation.InterfaceID);
+                string feedID = (!string.IsNullOrEmpty(implementation.FromFeed) && _feedCache.Contains(implementation.FromFeed))
+                    ? implementation.FromFeed
+                    : implementation.InterfaceID;
+                var feed = _feedCache.GetFeed(feedID);
 
                 // Display application name and implementation version
                 tableLayout.Controls.Add(new Label {Text = feed.Name, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft}, 0, i);
                 tableLayout.Controls.Add(new Label {Text = implementation.Version.ToString(), Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft}, 1, i);
             }
         }
+        #endregion
+
+        #region Modify selections
+        /// <summary>
+        /// Called after preferences have been changed and the <see cref="ISolver"/> needs to be rerun.
+        /// Is set between <see cref="BeginModifySelections"/> and <see cref="EndModifySelections"/>; is <see langword="null"/> otherwise.
+        /// </summary>
+        private Func<Selections> _solveCallback;
 
         /// <summary>
         /// Allows the user to modify the <see cref="InterfacePreferences"/> and rerun the <see cref="ISolver"/> if desired.
         /// </summary>
-        /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
+        /// <param name="solveCallback">Called after preferences have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
         /// <remarks>
         ///   <para>This method must not be called from a background thread.</para>
         ///   <para>This method must not be called before <see cref="Control.Handle"/> has been created.</para>
@@ -118,25 +127,21 @@ namespace ZeroInstall.Commands.WinForms
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
-            for (int i = 0; i < _selections.Implementations.Count; i++)
-            {
-                string interfaceID = _selections.Implementations[i].InterfaceID;
+            _solveCallback = solveCallback;
+            CreateLinkLabels();
+        }
 
-                // Setup link label for modifying interface preferences
-                var linkLabel = new LinkLabel {Text = Resources.Change, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft};
-                linkLabel.LinkClicked += delegate
-                {
-                    if (InterfaceDialog.Show(this, interfaceID, solveCallback, _feedCache))
-                    {
-                        TrackingDialog.Run(this, new SimpleTask(Resources.Working, () => { _selections = solveCallback(); }));
-                        SetSelections(_selections, _feedCache);
-                        _modifyLinks.Clear();
-                        BeginModifySelections(solveCallback);
-                    }
-                };
-                _modifyLinks.Add(linkLabel);
-                tableLayout.Controls.Add(linkLabel, 2, i);
-            }
+        private void CreateLinkLabels()
+        {
+            for (int i = 0; i < _selections.Implementations.Count; i++)
+                tableLayout.Controls.Add(CreateLinkLabel(_selections.Implementations[i].InterfaceID), 2, i);
+        }
+
+        private LinkLabel CreateLinkLabel(string interfaceID)
+        {
+            var linkLabel = new LinkLabel {Text = Resources.Change, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft};
+            linkLabel.LinkClicked += delegate { InterfaceDialog.Show(this, interfaceID, _solveCallback, _feedCache); };
+            return linkLabel;
         }
 
         /// <summary>
@@ -144,12 +149,15 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         public void EndModifySelections()
         {
-            foreach (var control in _modifyLinks)
-                tableLayout.Controls.Remove(control);
+            _solveCallback = null;
+            BuildTable();
         }
         #endregion
 
         #region Task tracking
+        /// <summary>A list of all <see cref="TrackingControl"/>s used by <see cref="TrackTask"/>. Adressable by associated <see cref="Implementation"/> via <see cref="ManifestDigest"/>.</summary>
+        private readonly Dictionary<ManifestDigest, TrackingControl> _trackingControls = new Dictionary<ManifestDigest, TrackingControl>();
+
         /// <summary>
         /// Registers an <see cref="ITask"/> for a specific implementation for tracking.
         /// </summary>
