@@ -23,8 +23,10 @@ de.compile_netfx=.NET Assemblies zum schnelleren Anwendugsstart vorkompilieren..
 ;Used by downloader
 appname=Zero Install
 
-en.DesktopIcon=Desktop icon
-de.DesktopIcon=Desktopsymbol
+en.DesktopIcon=Create desktop icon
+de.DesktopIcon=Desktopsymbol erstellen
+en.StoreService=Install Store service (share app files between users)
+de.StoreService=Store Dienst installieren (Anwendungsdateien zwischen Benutzern teilen)
 
 [Setup]
 #ifdef PerUser
@@ -91,6 +93,9 @@ Source: ..\bundled\Solver\*; DestDir: {app}\Solver; Flags: ignoreversion recurse
 
 [Tasks]
 Name: desktopicon; Description: {cm:DesktopIcon}
+#ifndef PerUser
+  Name: storeservice; Description: {cm:StoreService}
+#endif
 
 [Icons]
 Name: {group}\Zero Install; Filename: {app}\ZeroInstall.exe
@@ -98,15 +103,16 @@ Name: {commondesktop}\Zero Install; Filename: {app}\ZeroInstall.exe; Tasks: desk
 
 [Run]
 #ifndef PerUser
+  Filename: {app}\0store-service.exe; Parameters: install --silent; Tasks: storeservice
   Filename: {app}\0store-service.exe; Parameters: start --silent
 #endif
 Filename: {app}\ZeroInstall.exe; Description: {cm:LaunchProgram,Zero Install}; Flags: nowait postinstall runasoriginaluser skipifsilent
 
 [UninstallRun]
-Filename: {app}\0install-win.exe; Parameters: "remove-all"; RunOnceId: RemoveAllApps
-Filename: {app}\0install-win.exe; Parameters: "store purge"; RunOnceId: PurgeCache
+Filename: {app}\0install-win.exe; Parameters: remove-all; RunOnceId: RemoveAllApps
+Filename: {app}\0install-win.exe; Parameters: store purge; RunOnceId: PurgeCache
 #ifndef PerUser
-  Filename: {app}\0store-service.exe; Parameters: "uninstall --silent"; RunOnceId: UninstallService
+  Filename: {app}\0store-service.exe; Parameters: uninstall --silent; RunOnceId: UninstallService
 #endif
 
 [UninstallDelete]
@@ -157,11 +163,6 @@ begin
 	end;
 
 	Result := true;
-end;
-
-function ShouldSkipPage(PageID: Integer): Boolean;
-begin
-  Result := (PageID = wpSelectTasks);
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
