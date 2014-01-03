@@ -44,6 +44,9 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>The interface to modify the preferences for.</summary>
         private readonly string _interfaceID;
 
+        /// <summary>The feed loaded from <see cref="_interfaceID"/>.</summary>
+        private readonly Feed _mainFeed;
+
         /// <summary>The feed cache used to retrieve <see cref="Feed"/>s for additional information about implementations.</summary>
         private readonly IFeedCache _feedCache;
 
@@ -76,13 +79,14 @@ namespace ZeroInstall.Commands.WinForms
             dataColumnUserStability.Items.AddRange(new object[] {Stability.Unset, Stability.Preferred, Stability.Packaged, Stability.Stable, Stability.Testing, Stability.Developer});
 
             _interfaceID = interfaceID;
+            _mainFeed = feedCache.GetFeed(_interfaceID);
             _solveCallback = solveCallback;
             _feedCache = feedCache;
         }
 
         private void InterfaceDialog_Load(object sender, EventArgs e)
         {
-            Text = string.Format(Resources.PropertiesFor, _feedCache.GetFeed(_interfaceID).Name);
+            Text = string.Format(Resources.PropertiesFor, _mainFeed.Name);
 
             _interfacePreferences = InterfacePreferences.LoadForSafe(_interfaceID);
             if (_interfacePreferences.StabilityPolicy == Stability.Unset) comboBoxStability.SelectedItem = Resources.UseDefaultSetting;
@@ -236,7 +240,7 @@ namespace ZeroInstall.Commands.WinForms
             listBoxFeeds.Items.Add(_interfaceID); // string, not removable in GUI
 
             // Feeds references from main feed
-            foreach (var reference in _feedCache.GetFeed(_interfaceID).Feeds)
+            foreach (var reference in _mainFeed.Feeds)
                 listBoxFeeds.Items.Add(reference.Source); // string, not removable in GUI
 
             // Custom feeds
