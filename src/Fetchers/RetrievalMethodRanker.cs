@@ -39,6 +39,8 @@ namespace ZeroInstall.Fetchers
         /// <inheritdoc/>
         public int Compare(RetrievalMethod x, RetrievalMethod y)
         {
+            if (x == y) return 0;
+
             if (x is DownloadRetrievalMethod && y is Recipe) return -1;
             if (x is Recipe && y is DownloadRetrievalMethod) return 1;
 

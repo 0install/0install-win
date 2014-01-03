@@ -123,7 +123,8 @@ namespace ZeroInstall.Store.Implementation
         public string GetPath(ManifestDigest manifestDigest)
         {
             // Use the first store that contains the implementation
-            return _stores.Select(store => store.GetPathSafe(manifestDigest)).FirstOrDefault(path => path != null);
+            return _stores.Select(store => store.GetPathSafe(manifestDigest))
+                .WhereNotNull().FirstOrDefault();
         }
         #endregion
 
@@ -164,7 +165,7 @@ namespace ZeroInstall.Store.Implementation
                 #endregion
             }
 
-            // If we reach this, the implementation couldn't be added to any store
+            // If we reach this, the implementation could not be added to any store
             if (innerException != null) Log.Error(innerException.Message);
             throw new IOException(Resources.UnableToAddImplementationToStore, innerException);
         }

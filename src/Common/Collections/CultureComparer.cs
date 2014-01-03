@@ -39,6 +39,8 @@ namespace Common.Collections
             if (y == null) throw new ArgumentNullException("y");
             #endregion
 
+            // ReSharper disable once PossibleUnintendedReferenceComparison
+            if (x == y) return 0;
             return StringComparer.Ordinal.Compare(x.ToString(), y.ToString());
         }
     }

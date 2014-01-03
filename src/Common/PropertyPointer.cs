@@ -80,7 +80,7 @@ namespace Common
     public static class PropertyPointer
     {
         /// <summary>
-        /// Wraps a <see cref="bool"/> pointer in a <see cref="string"/> pointer (using parsing and <see cref="object.ToString"/>.
+        /// Wraps a <see cref="bool"/> pointer in a <see cref="string"/> pointer.
         /// </summary>
         public static PropertyPointer<string> ToStringPointer(this PropertyPointer<bool> pointer)
         {
@@ -89,13 +89,13 @@ namespace Common
             #endregion
 
             return new PropertyPointer<string>(
-                () => pointer.Value.ToString(CultureInfo.InvariantCulture),
-                value => pointer.Value = (value == "1" || (value != "0" && bool.Parse(value))),
-                pointer.DefaultValue.ToString(CultureInfo.InvariantCulture));
+                getValue: () => pointer.Value.ToString(CultureInfo.InvariantCulture),
+                setValue: value => pointer.Value = (value == "1" || (value != "0" && bool.Parse(value))),
+                defaultValue: pointer.DefaultValue.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
-        /// Wraps an <see cref="int"/> pointer in a <see cref="string"/> pointer (using parsing and <see cref="object.ToString"/>.
+        /// Wraps an <see cref="int"/> pointer in a <see cref="string"/> pointer.
         /// </summary>
         public static PropertyPointer<string> ToStringPointer(this PropertyPointer<int> pointer)
         {
@@ -104,13 +104,13 @@ namespace Common
             #endregion
 
             return new PropertyPointer<string>(
-                () => pointer.Value.ToString(CultureInfo.InvariantCulture),
-                value => pointer.Value = int.Parse(value),
-                pointer.DefaultValue.ToString(CultureInfo.InvariantCulture));
+                getValue: () => pointer.Value.ToString(CultureInfo.InvariantCulture),
+                setValue: value => pointer.Value = int.Parse(value),
+                defaultValue: pointer.DefaultValue.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
-        /// Wraps an <see cref="long"/> pointer in a <see cref="string"/> pointer (using parsing and <see cref="object.ToString"/>.
+        /// Wraps an <see cref="long"/> pointer in a <see cref="string"/> pointer.
         /// </summary>
         public static PropertyPointer<string> ToStringPointer(this PropertyPointer<long> pointer)
         {
@@ -119,13 +119,13 @@ namespace Common
             #endregion
 
             return new PropertyPointer<string>(
-                () => pointer.Value.ToString(CultureInfo.InvariantCulture),
-                value => pointer.Value = long.Parse(value),
-                pointer.DefaultValue.ToString(CultureInfo.InvariantCulture));
+                getValue: () => pointer.Value.ToString(CultureInfo.InvariantCulture),
+                setValue: value => pointer.Value = long.Parse(value),
+                defaultValue: pointer.DefaultValue.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
-        /// Wraps a <see cref="TimeSpan"/> pointer in a <see cref="string"/> pointer (using parsing and <see cref="object.ToString"/>.
+        /// Wraps a <see cref="TimeSpan"/> pointer in a <see cref="string"/> pointer.
         /// </summary>
         public static PropertyPointer<string> ToStringPointer(this PropertyPointer<TimeSpan> pointer)
         {
@@ -134,13 +134,13 @@ namespace Common
             #endregion
 
             return new PropertyPointer<string>(
-                () => ((int)pointer.Value.TotalSeconds).ToString(CultureInfo.InvariantCulture),
-                value => pointer.Value = TimeSpan.FromSeconds(int.Parse(value)),
-                ((int)pointer.DefaultValue.TotalSeconds).ToString(CultureInfo.InvariantCulture));
+                getValue: () => ((int)pointer.Value.TotalSeconds).ToString(CultureInfo.InvariantCulture),
+                setValue: value => pointer.Value = TimeSpan.FromSeconds(int.Parse(value)),
+                defaultValue: ((int)pointer.DefaultValue.TotalSeconds).ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
-        /// Wraps an <see cref="Uri"/> pointer in a <see cref="string"/> pointer (using parsing and <see cref="object.ToString"/>.
+        /// Wraps an <see cref="Uri"/> pointer in a <see cref="string"/> pointer.
         /// </summary>
         public static PropertyPointer<string> ToStringPointer(this PropertyPointer<Uri> pointer)
         {
@@ -149,9 +149,9 @@ namespace Common
             #endregion
 
             return new PropertyPointer<string>(
-                () => (pointer.Value == null) ? null : pointer.Value.ToString(),
-                value => pointer.Value = (value == null) ? null : new Uri(value),
-                pointer.DefaultValue == null ? null : pointer.DefaultValue.ToString().ToLowerInvariant());
+                getValue: () => (pointer.Value == null) ? null : pointer.Value.ToString(),
+                setValue: value => pointer.Value = (value == null) ? null : new Uri(value),
+                defaultValue: (pointer.DefaultValue == null) ? null : pointer.DefaultValue.OriginalString);
         }
     }
 }
