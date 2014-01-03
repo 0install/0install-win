@@ -146,14 +146,20 @@ namespace ZeroInstall.Commands.WinForms
                 ProcessUtils.RunAsync(() =>
                 {
                     _form = new ProgressForm(_cancellationToken);
-                    _form.CreateControl();
 
-                    // Show the tray icon or the form
-                    if (Batch) _form.ShowTrayIcon(_actionTitle, ToolTipIcon.None);
+                    if (Batch)
+                    {
+                        // Force creation of handle for invisible form
+                        // ReSharper disable once UnusedVariable
+                        var handle = _form.Handle;
+
+                        _form.ShowTrayIcon(_actionTitle, ToolTipIcon.None);
+                    }
                     else _form.Show();
-                    // ReSharper disable AccessToDisposedClosure
-                    guiReady.Set(); // Signal that the GUI handles have been created
-                    // ReSharper restore AccessToDisposedClosure
+
+                    // Signal that the GUI handles have been created
+                    // ReSharper disable once AccessToDisposedClosure
+                    guiReady.Set();
 
                     Application.Run();
                 }, "GuiHandler.ProgressUI");
