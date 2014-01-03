@@ -148,7 +148,7 @@ namespace ZeroInstall.Store
         /// <summary>
         /// The default value for <see cref="KeyInfoServer"/>.
         /// </summary>
-        public const string DefaultKeyInfoServer = "https://keylookup.appspot.com";
+        public const string DefaultKeyInfoServer = "https://keylookup.appspot.com/";
 
         private Uri _keyInfoServer = new Uri(DefaultKeyInfoServer);
 
