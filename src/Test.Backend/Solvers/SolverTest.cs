@@ -22,6 +22,7 @@ using Moq;
 using NUnit.Framework;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Preferences;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Store;
 
@@ -75,6 +76,21 @@ namespace ZeroInstall.Solvers
         }
 
         [Test]
+        public void RunnerDependency()
+        {
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app'><runner interface='http://test/runner.xml' /></command></implementation>"},
+                    {"http://test/runner.xml", "<implementation version='1.0' id='runner1'><command name='run' path='test-runner' /></implementation>"}
+                },
+                requirements: new Requirements { InterfaceID = "http://test/app.xml", Command = Command.NameRun },
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'><runner interface='http://test/runner.xml' /></command></selection>" +
+                    "<selection interface='http://test/runner.xml' version='1.0' id='runner1'><command name='run' path='test-runner' /></selection>");
+        }
+
+        [Test]
         public void SimpleFeedReference()
         {
             RunAndAssert(
@@ -95,6 +111,20 @@ namespace ZeroInstall.Solvers
                 {
                     {"http://test/app1.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app1' /></implementation><feed src='http://test/app2.xml' />"},
                     {"http://test/app2.xml", "<implementation version='2.0' id='app2'><command name='run' path='test-app2' /></implementation><feed src='http://test/app1.xml' />"}
+                },
+                requirements: new Requirements { InterfaceID = "http://test/app1.xml", Command = Command.NameRun },
+                expectedSelections: "<selection interface='http://test/app1.xml' from-feed='http://test/app2.xml' version='2.0' id='app2'><command name='run' path='test-app2' /></selection>");
+        }
+
+        [Test]
+        public void CustomFeedReference()
+        {
+            new InterfacePreferences {Feeds = {new FeedReference {Source = "http://test/app2.xml"}}}.SaveFor("http://test/app1.xml");
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app1.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app1' /></implementation>"},
+                    {"http://test/app2.xml", "<implementation version='2.0' id='app2'><command name='run' path='test-app2' /></implementation>"}
                 },
                 requirements: new Requirements { InterfaceID = "http://test/app1.xml", Command = Command.NameRun },
                 expectedSelections: "<selection interface='http://test/app1.xml' from-feed='http://test/app2.xml' version='2.0' id='app2'><command name='run' path='test-app2' /></selection>");
