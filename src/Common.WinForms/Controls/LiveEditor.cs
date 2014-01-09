@@ -24,12 +24,15 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 using Common.Properties;
-using Common.Utils;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
+
+#if FS_SECURITY
+using System.IO;
+using Common.Utils;
+#endif
 
 namespace Common.Controls
 {
@@ -48,7 +51,7 @@ namespace Common.Controls
         /// <summary>
         /// The text editor control used internally.
         /// </summary>
-        internal TextEditorControl TextEditor { get; private set; }
+        public TextEditorControl TextEditor { get; private set; }
 
         public LiveEditor()
         {
@@ -80,7 +83,11 @@ namespace Common.Controls
             textEditor.Validating += TextEditor_Validating;
 
             Controls.Add(textEditor);
-            if (TextEditor != null) Controls.Remove(TextEditor);
+            if (TextEditor != null)
+            {
+                Controls.Remove(TextEditor);
+                TextEditor.Dispose();
+            }
             TextEditor = textEditor;
 
             SetStatus(ImageResources.Info, "OK");
