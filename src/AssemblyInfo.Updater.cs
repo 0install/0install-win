@@ -5,7 +5,7 @@ using System.Reflection;
 // Assembly info
 [assembly: AssemblyCompany("0install.de")]
 [assembly: AssemblyProduct("Zero Install")]
-[assembly: AssemblyCopyright("Copyright 2010-2013 Bastian Eicher and others")]
+[assembly: AssemblyCopyright("Copyright 2010-2014 Bastian Eicher et al")]
 
 // Version information
 [assembly: AssemblyVersion("1.2.9")]
