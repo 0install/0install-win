@@ -32,11 +32,11 @@ namespace ZeroInstall.Central
         /// </summary>
         public static bool OnFirstRun()
         {
-            string firstRunFlag = Locations.GetSaveConfigPath("0install.net", true, "central", "intro_done");
-            bool firstRun = !File.Exists(firstRunFlag);
-
+            bool firstRun = false;
             try
             {
+                string firstRunFlag = Locations.GetSaveConfigPath("0install.net", true, "central", "intro_done");
+                if (!File.Exists(firstRunFlag)) firstRun = true;
                 File.WriteAllText(firstRunFlag, "");
             }
                 #region Error handling
