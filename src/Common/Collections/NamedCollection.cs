@@ -32,7 +32,6 @@ namespace Common.Collections
     /// A keyed collection (pseudo-dictionary) of <see cref="INamed{T}"/> objects. Elements are automatically maintained in an alphabetically sorted order. Suitable for XML serialization.
     /// </summary>
     /// <remarks>Correct behavior with duplicate names or renaming without using the <see cref="Rename"/> method is not guaranteed!</remarks>
-    // ToDo: Reimplement without KeyedCollection to be able to use more efficent sorting
     public class NamedCollection<T> : KeyedCollection<string, T>, ICloneable where T : INamed<T>
     {
         #region Events

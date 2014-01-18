@@ -35,8 +35,6 @@ namespace ZeroInstall.Model.Capabilities
         [XmlIgnore]
         public override bool WindowsMachineWideOnly { get { return false; } }
 
-        // ToDo
-
         /// <inheritdoc/>
         [XmlIgnore]
         public override IEnumerable<string> ConflictIDs { get { return new[] {"classes:" + ID}; } }
