@@ -206,13 +206,13 @@
       <DependentUpon>SyncPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Wizards\SyncSetupWizard.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Wizards\SyncSetupWizard.Designer.cs">
       <DependentUpon>SyncSetupWizard.cs</DependentUpon>
     </Compile>
     <Compile Include="Wizards\SyncTroubleshootWizard.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Wizards\SyncTroubleshootWizard.Designer.cs">
       <DependentUpon>SyncTroubleshootWizard.cs</DependentUpon>

@@ -29,7 +29,7 @@ namespace ZeroInstall.Fetchers
         /// <summary>
         /// Asserts that <paramref name="x"/> is ranked over <paramref name="y"/>.
         /// </summary>
-        private void AssertOver(RetrievalMethod x, RetrievalMethod y)
+        private static void AssertOver(RetrievalMethod x, RetrievalMethod y)
         {
             Assert.Less(RetrievalMethodRanker.Instance.Compare(x, y), 0);
             Assert.Greater(RetrievalMethodRanker.Instance.Compare(y, x), 0);
