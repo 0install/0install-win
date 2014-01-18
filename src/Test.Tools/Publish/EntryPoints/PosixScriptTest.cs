@@ -44,14 +44,14 @@ namespace ZeroInstall.Publish.EntryPoints
         public void NotExecutable()
         {
             var candidate = new PosixScript {BaseDirectory = Directory};
-            Assert.IsFalse(candidate.Analyze(Deploy(Reference, executable: false)));
+            Assert.IsFalse(candidate.Analyze(Deploy(Reference, xbit: false)));
         }
 
         [Test]
         public void NoShebang()
         {
             var candidate = new PosixScript {BaseDirectory = Directory};
-            Assert.IsFalse(candidate.Analyze(Deploy(PosixBinaryTest.Reference32, executable: true)));
+            Assert.IsFalse(candidate.Analyze(Deploy(PosixBinaryTest.Reference32, xbit: true)));
         }
     }
 }

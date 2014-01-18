@@ -34,7 +34,7 @@ namespace ZeroInstall.Backend
         /// <summary>
         /// Always returns <see langword="true"/>.
         /// </summary>
-        public bool Batch { get { return true; } set { } }
+        public virtual bool Batch { get { return true; } set { } }
 
         /// <summary>
         /// Always returns 0.

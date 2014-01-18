@@ -17,8 +17,8 @@
 
 using System;
 using System.IO;
+using Common;
 using Common.Storage;
-using Moq;
 using NUnit.Framework;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Trust;
@@ -29,7 +29,7 @@ namespace ZeroInstall.Publish
     /// Contains test methods for <see cref="FeedUtils"/>.
     /// </summary>
     [TestFixture]
-    public class FeedUtilsTest
+    public class FeedUtilsTest : TestWithMocks
     {
         /// <summary>
         /// Ensures <see cref="FeedUtils.SignFeed"/> produces valid feed files.
@@ -43,17 +43,16 @@ namespace ZeroInstall.Publish
 
                 var feed = FeedTest.CreateTestFeed();
                 var secretKey = new OpenPgpSecretKey("fingerprint", "key", null, new DateTime(2000, 1, 1), OpenPgpAlgorithm.Rsa, 128);
-                var openPgpMock = new Mock<IOpenPgp>(MockBehavior.Strict);
+                var openPgpMock = MockRepository.Create<IOpenPgp>();
                 const string passphrase = "passphrase123";
                 const string publicKey = "public";
                 var signature = new byte[] {1, 2, 3};
 
                 openPgpMock.Setup(x => x.DetachSign(tempFile, secretKey.Fingerprint, passphrase))
-                    .Callback(() => File.WriteAllBytes(tempFile + ".sig", signature)).Verifiable();
-                openPgpMock.Setup(x => x.GetPublicKey(secretKey.Fingerprint)).Returns(publicKey).Verifiable();
+                    .Callback(() => File.WriteAllBytes(tempFile + ".sig", signature));
+                openPgpMock.Setup(x => x.GetPublicKey(secretKey.Fingerprint)).Returns(publicKey);
                 feed.SaveXml(tempFile);
                 FeedUtils.SignFeed(tempFile, secretKey, passphrase, openPgpMock.Object);
-                openPgpMock.Verify();
 
                 string signedFeed = File.ReadAllText(tempFile);
                 string expectedFeed = feed.ToXmlString() + Store.Feeds.FeedUtils.SignatureBlockStart +

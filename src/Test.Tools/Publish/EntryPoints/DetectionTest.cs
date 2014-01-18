@@ -30,11 +30,11 @@ namespace ZeroInstall.Publish.EntryPoints
         [Test]
         public void TestListCandidates()
         {
-            Deploy(DotNetExeTest.Reference);
-            Deploy(WindowsExeTest.Reference32);
-            Deploy(PythonScriptTest.Reference, executable: true);
-            Deploy(PosixScriptTest.Reference, executable: true);
-            Deploy(PosixBinaryTest.Reference32, executable: true);
+            Deploy(DotNetExeTest.Reference, xbit: false);
+            Deploy(WindowsExeTest.Reference32, xbit: false);
+            Deploy(PythonScriptTest.Reference, xbit: true);
+            Deploy(PosixScriptTest.Reference, xbit: true);
+            Deploy(PosixBinaryTest.Reference32, xbit: true);
 
             var candidates = Detection.ListCandidates(Directory).ToList();
             CollectionAssert.AreEquivalent(

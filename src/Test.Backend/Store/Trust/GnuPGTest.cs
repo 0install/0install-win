@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common.Storage;
 using Common.Utils;
 using NUnit.Framework;
 
@@ -25,33 +24,13 @@ namespace ZeroInstall.Store.Trust
     /// Contains test methods for <see cref="GnuPG"/>.
     /// </summary>
     [TestFixture]
-    public class GnuPGTest
+    public class GnuPGTest : TestWithContainer<GnuPG>
     {
-        #region Shared
-        private LocationsRedirect _redirect;
-        private GnuPG _gnuPG;
-
-        [SetUp]
-        public void SetUp()
-        {
-            // Don't use real GnuPG profile
-            _redirect = new LocationsRedirect("0install-unit-tests");
-
-            _gnuPG = new GnuPG();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _redirect.Dispose();
-        }
-        #endregion
-
         [Test]
         public void TestImportExport()
         {
-            _gnuPG.ImportKey(TestData.GetResource("5B5CB97421BAA5DC.gpg").ReadToArray());
-            Assert.IsTrue(_gnuPG.GetPublicKey("5B5CB97421BAA5DC").StartsWith("-----BEGIN PGP PUBLIC KEY BLOCK-----"));
+            Target.ImportKey(TestData.GetResource("5B5CB97421BAA5DC.gpg").ReadToArray());
+            Assert.IsTrue(Target.GetPublicKey("5B5CB97421BAA5DC").StartsWith("-----BEGIN PGP PUBLIC KEY BLOCK-----"));
         }
     }
 }

@@ -35,11 +35,8 @@ namespace ZeroInstall.Injector
     [TestFixture]
     public class ExecutorTest
     {
-        #region Constants
         private const string Test1Path = "test1 path", Test2Path = "test2 path";
-        #endregion
 
-        #region Shared
         private LocationsRedirect _redirect;
 
         [SetUp]
@@ -54,12 +51,11 @@ namespace ZeroInstall.Injector
         {
             _redirect.Dispose();
         }
-        #endregion
 
         [Test]
         public void TestExceptionEmpty()
         {
-            Assert.Throws<ArgumentException>(() => new Executor(new Selections(), new Mock<IStore>().Object), "Empty selections should be rejected");
+            Assert.Throws<ArgumentException>(() => new Executor(new Selections(), new Mock<IStore>(MockBehavior.Loose).Object), "Empty selections should be rejected");
         }
 
         [Test]

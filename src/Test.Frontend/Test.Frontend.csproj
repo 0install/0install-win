@@ -28,6 +28,7 @@
     <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <CodeAnalysisRuleSet>..\NoAnalysis.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>1685</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -118,6 +119,7 @@
     <Compile Include="Commands\ListTest.cs" />
     <Compile Include="Commands\RequirementsUtilsTest.cs" />
     <Compile Include="Commands\SelectionTest.cs" />
+    <Compile Include="Commands\SelectionTestBase.cs" />
     <Compile Include="Commands\StoreManTest.cs" />
     <Compile Include="Commands\UpdateTest.cs" />
   </ItemGroup>

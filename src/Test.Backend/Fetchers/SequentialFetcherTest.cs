@@ -15,10 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common.Tasks;
 using NUnit.Framework;
-using ZeroInstall.Injector;
-using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Fetchers
 {
@@ -26,11 +23,6 @@ namespace ZeroInstall.Fetchers
     /// Runs test methods for <see cref="SequentialFetcher"/>
     /// </summary>
     [TestFixture]
-    public class SequentialFetcherTest : FetcherTest
-    {
-        protected override IFetcher CreateFetcher(IStore store, ITaskHandler handler)
-        {
-            return new SequentialFetcher(store, handler);
-        }
-    }
+    public class SequentialFetcherTest : FetcherTest<SequentialFetcher>
+    {}
 }

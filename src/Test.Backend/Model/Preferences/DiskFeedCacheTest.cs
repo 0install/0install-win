@@ -19,9 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Common;
 using Common.Storage;
 using Common.Utils;
-using Moq;
 using NUnit.Framework;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;
@@ -32,18 +32,20 @@ namespace ZeroInstall.Model.Preferences
     /// Contains test methods for <see cref="DiskFeedCache"/>.
     /// </summary>
     [TestFixture]
-    public class DiskFeedCacheTest
+    public class DiskFeedCacheTest : TestWithMocks
     {
         private TemporaryDirectory _tempDir;
         private DiskFeedCache _cache;
         private Feed _feed1, _feed2;
 
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
+            base.SetUp();
+
             // Create a temporary cache
             _tempDir = new TemporaryDirectory("0install-unit-tests");
-            _cache = new DiskFeedCache(_tempDir, new Mock<IOpenPgp>().Object);
+            _cache = new DiskFeedCache(_tempDir, MockRepository.Create<IOpenPgp>().Object);
 
             // Add some dummy feeds to the cache
             _feed1 = FeedTest.CreateTestFeed();
@@ -58,9 +60,11 @@ namespace ZeroInstall.Model.Preferences
         }
 
         [TearDown]
-        public void TearDown()
+        public override void TearDown()
         {
             _tempDir.Dispose();
+
+            base.TearDown();
         }
 
         [Test]

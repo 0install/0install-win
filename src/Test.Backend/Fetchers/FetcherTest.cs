@@ -34,28 +34,19 @@ namespace ZeroInstall.Fetchers
     /// <summary>
     /// Contains test methods for <see cref="IFetcher"/> implementations.
     /// </summary>
-    public abstract class FetcherTest
+    public abstract class FetcherTest<TFetcher> : TestWithContainer<TFetcher>
+        where TFetcher : class, IFetcher
     {
-        #region Shared
-        private readonly ITaskHandler _handler = new SilentTaskHandler();
         private Mock<IStore> _storeMock;
-        private IFetcher _fetcher;
-
-        protected abstract IFetcher CreateFetcher(IStore store, ITaskHandler handler);
 
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
-            _storeMock = new Mock<IStore>();
-            _fetcher = CreateFetcher(_storeMock.Object, _handler);
-        }
+            base.SetUp();
 
-        [TearDown]
-        public void TearDown()
-        {
-            _storeMock.Verify();
+            _storeMock = Container.GetMock<IStore>();
+            _storeMock.Setup(x => x.Flush());
         }
-        #endregion
 
         [Test]
         public void DownloadSingleArchive()
@@ -147,10 +138,10 @@ namespace ZeroInstall.Fetchers
             var archiveInfos = archives.Select(archive => new ArchiveFileInfo {SubDir = archive.Extract, Destination = archive.Destination, MimeType = archive.MimeType, StartOffset = archive.StartOffset});
             var testImplementation = new Implementation {ManifestDigest = digest, RetrievalMethods = {GetRetrievalMethod(archives)}};
 
-            _storeMock.Setup(x => x.Contains(digest)).Returns(false).Verifiable();
-            _storeMock.Setup(x => x.AddArchives(archiveInfos.IsEqual(), digest, _handler)).Verifiable();
+            _storeMock.Setup(x => x.Contains(digest)).Returns(false);
+            _storeMock.Setup(x => x.AddArchives(archiveInfos.IsEqual(), digest, Container.Resolve<ITaskHandler>()));
 
-            _fetcher.Fetch(new[] {testImplementation});
+            Target.Fetch(new[] {testImplementation});
         }
 
         private static RetrievalMethod GetRetrievalMethod(Archive[] archives)
@@ -170,10 +161,10 @@ namespace ZeroInstall.Fetchers
             var testImplementation = new Implementation {ManifestDigest = digest};
             testImplementation.RetrievalMethods.AddRange(retrievalMethod);
 
-            _storeMock.Setup(x => x.Contains(digest)).Returns(false).Verifiable();
-            _storeMock.Setup(x => x.AddDirectory(It.Is<string>(path => directoryCheck(path)), digest, _handler)).Verifiable();
+            _storeMock.Setup(x => x.Contains(digest)).Returns(false);
+            _storeMock.Setup(x => x.AddDirectory(It.Is<string>(path => directoryCheck(path)), digest, Container.Resolve<ITaskHandler>()));
 
-            _fetcher.Fetch(new[] {testImplementation});
+            Target.Fetch(new[] {testImplementation});
         }
         #endregion
 
@@ -183,16 +174,17 @@ namespace ZeroInstall.Fetchers
             var digest = new ManifestDigest(sha256New: "test123");
             var testImplementation = new Implementation {ManifestDigest = digest, RetrievalMethods = {new Recipe()}};
 
-            _storeMock.Setup(x => x.Contains(digest)).Returns(true).Verifiable();
-            _fetcher.Fetch(new[] {testImplementation});
+            _storeMock.Setup(x => x.Contains(digest)).Returns(true);
+            Target.Fetch(new[] {testImplementation});
         }
 
         [Test]
         public void NoSuitableMethod()
         {
             var implementation = new Implementation {ManifestDigest = new ManifestDigest(sha256New: "test123")};
+            _storeMock.Setup(x => x.Contains(implementation.ManifestDigest)).Returns(false);
 
-            Assert.Throws<NotSupportedException>(() => _fetcher.Fetch(new[] {implementation}));
+            Assert.Throws<NotSupportedException>(() => Target.Fetch(new[] {implementation}));
         }
 
         [Test]
@@ -203,8 +195,9 @@ namespace ZeroInstall.Fetchers
                 ManifestDigest = new ManifestDigest(sha256New: "test123"),
                 RetrievalMethods = {new Archive {MimeType = "test/format"}}
             };
+            _storeMock.Setup(x => x.Contains(implementation.ManifestDigest)).Returns(false);
 
-            Assert.Throws<NotSupportedException>(() => _fetcher.Fetch(new[] {implementation}));
+            Assert.Throws<NotSupportedException>(() => Target.Fetch(new[] {implementation}));
         }
 
         [Test]
@@ -215,8 +208,9 @@ namespace ZeroInstall.Fetchers
                 ManifestDigest = new ManifestDigest(sha256New: "test123"),
                 RetrievalMethods = {new Recipe {Steps = {new Archive {MimeType = Archive.MimeTypeZip}, new Archive {MimeType = "test/format"}}}}
             };
+            _storeMock.Setup(x => x.Contains(implementation.ManifestDigest)).Returns(false);
 
-            Assert.Throws<NotSupportedException>(() => _fetcher.Fetch(new[] {implementation}));
+            Assert.Throws<NotSupportedException>(() => Target.Fetch(new[] {implementation}));
         }
     }
 }

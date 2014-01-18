@@ -21,7 +21,6 @@ using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using NUnit.Framework;
-using ZeroInstall.Backend;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Implementation
@@ -201,7 +200,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 File.WriteAllText(tempFile, "data");
 
-                new SingleFile {Destination = "file"}.Apply(tempFile.Path, workingDir, new SilentHandler());
+                new SingleFile {Destination = "file"}.Apply(tempFile.Path, workingDir, new MockHandler());
 
                 Assert.IsTrue(File.Exists(tempFile), "Files passed in as string paths should be copied");
                 Assert.IsTrue(File.Exists(Path.Combine(workingDir, "file")));
@@ -216,7 +215,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 File.WriteAllText(tempFile, "data");
 
-                new SingleFile {Destination = "file"}.Apply(tempFile, workingDir, new SilentHandler());
+                new SingleFile {Destination = "file"}.Apply(tempFile, workingDir, new MockHandler());
 
                 Assert.IsFalse(File.Exists(tempFile), "Files passed in as temp objects should be moved");
                 Assert.IsTrue(File.Exists(Path.Combine(workingDir, "file")));

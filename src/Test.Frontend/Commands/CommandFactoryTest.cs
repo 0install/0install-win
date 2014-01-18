@@ -17,7 +17,6 @@
 
 using NDesk.Options;
 using NUnit.Framework;
-using ZeroInstall.Backend;
 
 namespace ZeroInstall.Commands
 {
@@ -42,7 +41,7 @@ namespace ZeroInstall.Commands
 
         private static FrontendCommand CreateCommand(string name)
         {
-            var handler = new SilentHandler();
+            var handler = new MockHandler();
             try
             {
                 return CommandFactory.CreateAndParse(new[] {name, "--verbose"}, handler);

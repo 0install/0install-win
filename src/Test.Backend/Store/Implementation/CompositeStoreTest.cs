@@ -17,10 +17,10 @@
 
 using System.Collections.Generic;
 using System.IO;
+using Common;
 using Common.Tasks;
 using Moq;
 using NUnit.Framework;
-using ZeroInstall.Backend;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation.Archive;
 
@@ -30,53 +30,46 @@ namespace ZeroInstall.Store.Implementation
     /// Uses mocking to ensure <see cref="CompositeStore"/> correctly delegates work to its child <see cref="IStore"/>s.
     /// </summary>
     [TestFixture]
-    public class CompositeStoreTest
+    public class CompositeStoreTest : TestWithMocks
     {
-        #region Shared
-        // Dummy data used by the tests
+        #region Constants
         private static readonly ManifestDigest _digest1 = new ManifestDigest(sha1New: "abc");
         private static readonly ManifestDigest _digest2 = new ManifestDigest(sha1New: "123");
         private static readonly ArchiveFileInfo _archive1 = new ArchiveFileInfo {Path = "path1"};
         private static readonly ArchiveFileInfo _archive2 = new ArchiveFileInfo {Path = "path2"};
         private static readonly IEnumerable<ArchiveFileInfo> _archives = new[] {_archive1, _archive2};
-        private static readonly ITaskHandler _handler = new SilentHandler();
+        private static readonly ITaskHandler _handler = new MockHandler();
+        #endregion
 
         private Mock<IStore> _mockStore1, _mockStore2;
         private CompositeStore _testStore;
 
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
+            base.SetUp();
+
             // Prepare mock objects that will be injected with methods in the tests
-            _mockStore1 = new Mock<IStore>(MockBehavior.Strict);
-            _mockStore2 = new Mock<IStore>(MockBehavior.Strict);
+            _mockStore1 = MockRepository.Create<IStore>();
+            _mockStore2 = MockRepository.Create<IStore>();
 
             _testStore = new CompositeStore(new[] {_mockStore1.Object, _mockStore2.Object});
         }
-
-        [TearDown]
-        public void TearDown()
-        {
-            // Ensure no method calls were left out
-            _mockStore1.Verify();
-            _mockStore2.Verify();
-        }
-        #endregion
 
         #region List all
         [Test]
         public void TestListAll()
         {
-            _mockStore1.Setup(x => x.ListAll()).Returns(new[] {_digest1}).Verifiable();
-            _mockStore2.Setup(x => x.ListAll()).Returns(new[] {_digest2}).Verifiable();
+            _mockStore1.Setup(x => x.ListAll()).Returns(new[] {_digest1});
+            _mockStore2.Setup(x => x.ListAll()).Returns(new[] {_digest2});
             CollectionAssert.AreEquivalent(new[] {_digest1, _digest2}, _testStore.ListAll(), "Should combine results from all stores");
         }
 
         [Test]
         public void TestListAllTemp()
         {
-            _mockStore1.Setup(x => x.ListAllTemp()).Returns(new[] {"abc"}).Verifiable();
-            _mockStore2.Setup(x => x.ListAllTemp()).Returns(new[] {"def"}).Verifiable();
+            _mockStore1.Setup(x => x.ListAllTemp()).Returns(new[] {"abc"});
+            _mockStore2.Setup(x => x.ListAllTemp()).Returns(new[] {"def"});
             CollectionAssert.AreEquivalent(new[] {"abc", "def"}, _testStore.ListAllTemp(), "Should combine results from all stores");
         }
         #endregion
@@ -85,34 +78,34 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestContainsFirst()
         {
-            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true).Verifiable();
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true);
             Assert.IsTrue(_testStore.Contains(_digest1));
 
-            _mockStore1.Setup(x => x.Contains("dir1")).Returns(true).Verifiable();
+            _mockStore1.Setup(x => x.Contains("dir1")).Returns(true);
             Assert.IsTrue(_testStore.Contains("dir1"));
         }
 
         [Test]
         public void TestContainsSecond()
         {
-            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
-            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true).Verifiable();
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true);
             Assert.IsTrue(_testStore.Contains(_digest1));
 
-            _mockStore1.Setup(x => x.Contains("dir1")).Returns(false).Verifiable();
-            _mockStore2.Setup(x => x.Contains("dir1")).Returns(true).Verifiable();
+            _mockStore1.Setup(x => x.Contains("dir1")).Returns(false);
+            _mockStore2.Setup(x => x.Contains("dir1")).Returns(true);
             Assert.IsTrue(_testStore.Contains("dir1"));
         }
 
         [Test]
         public void TestContainsFalse()
         {
-            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
-            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false);
             Assert.IsFalse(_testStore.Contains(_digest1));
 
-            _mockStore1.Setup(x => x.Contains("dir1")).Returns(false).Verifiable();
-            _mockStore2.Setup(x => x.Contains("dir1")).Returns(false).Verifiable();
+            _mockStore1.Setup(x => x.Contains("dir1")).Returns(false);
+            _mockStore2.Setup(x => x.Contains("dir1")).Returns(false);
             Assert.IsFalse(_testStore.Contains("dir1"));
         }
 
@@ -120,7 +113,7 @@ namespace ZeroInstall.Store.Implementation
         public void TestContainsCache()
         {
             // First have underlying store report true
-            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true).Verifiable();
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true);
             Assert.IsTrue(_testStore.Contains(_digest1));
 
             // Then check the composite cached the result
@@ -129,8 +122,8 @@ namespace ZeroInstall.Store.Implementation
 
             // Then clear cache and report different result
             _testStore.Flush();
-            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
-            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false);
             Assert.IsFalse(_testStore.Contains(_digest1));
         }
         #endregion
@@ -139,23 +132,23 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestGetPathFirst()
         {
-            _mockStore1.Setup(x => x.GetPath(_digest1)).Returns("path").Verifiable();
+            _mockStore1.Setup(x => x.GetPath(_digest1)).Returns("path");
             Assert.AreEqual("path", _testStore.GetPath(_digest1), "Should get path from first mock");
         }
 
         [Test]
         public void TestGetPathSecond()
         {
-            _mockStore1.Setup(x => x.GetPath(_digest1)).Returns((string)null).Verifiable();
-            _mockStore2.Setup(x => x.GetPath(_digest1)).Returns("path").Verifiable();
+            _mockStore1.Setup(x => x.GetPath(_digest1)).Returns((string)null);
+            _mockStore2.Setup(x => x.GetPath(_digest1)).Returns("path");
             Assert.AreEqual("path", _testStore.GetPath(_digest1), "Should get path from second mock");
         }
 
         [Test]
         public void TestGetPathFail()
         {
-            _mockStore1.Setup(x => x.GetPath(_digest1)).Returns((string)null).Verifiable();
-            _mockStore2.Setup(x => x.GetPath(_digest1)).Returns((string)null).Verifiable();
+            _mockStore1.Setup(x => x.GetPath(_digest1)).Returns((string)null);
+            _mockStore2.Setup(x => x.GetPath(_digest1)).Returns((string)null);
             Assert.IsNull(_testStore.GetPath(_digest1));
         }
         #endregion
@@ -164,23 +157,23 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestAddDirectoryFirst()
         {
-            _mockStore2.Setup(x => x.AddDirectory("path", _digest1, _handler)).Verifiable();
+            _mockStore2.Setup(x => x.AddDirectory("path", _digest1, _handler));
             _testStore.AddDirectory("path", _digest1, _handler);
         }
 
         [Test]
         public void TestAddDirectorySecond()
         {
-            _mockStore2.Setup(x => x.AddDirectory("path", _digest1, _handler)).Throws(new IOException("Fake IO exception for testing")).Verifiable();
-            _mockStore1.Setup(x => x.AddDirectory("path", _digest1, _handler)).Verifiable();
+            _mockStore2.Setup(x => x.AddDirectory("path", _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
+            _mockStore1.Setup(x => x.AddDirectory("path", _digest1, _handler));
             _testStore.AddDirectory("path", _digest1, _handler);
         }
 
         [Test]
         public void TestAddDirectoryFail()
         {
-            _mockStore2.Setup(x => x.AddDirectory("path", _digest1, _handler)).Throws(new IOException("Fake IO exception for testing")).Verifiable();
-            _mockStore1.Setup(x => x.AddDirectory("path", _digest1, _handler)).Throws(new IOException("Fake IO exception for testing")).Verifiable();
+            _mockStore2.Setup(x => x.AddDirectory("path", _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
+            _mockStore1.Setup(x => x.AddDirectory("path", _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
             Assert.Throws<IOException>(() => _testStore.AddDirectory("path", _digest1, _handler), "Should pass through fatal exceptions");
         }
         #endregion
@@ -189,23 +182,23 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestAddArchivesFirst()
         {
-            _mockStore2.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Verifiable();
+            _mockStore2.Setup(x => x.AddArchives(_archives, _digest1, _handler));
             _testStore.AddArchives(_archives, _digest1, _handler);
         }
 
         [Test]
         public void TestAddArchivesSecond()
         {
-            _mockStore2.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Throws(new IOException("Fake IO exception for testing")).Verifiable();
-            _mockStore1.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Verifiable();
+            _mockStore2.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
+            _mockStore1.Setup(x => x.AddArchives(_archives, _digest1, _handler));
             _testStore.AddArchives(_archives, _digest1, _handler);
         }
 
         [Test]
         public void TestAddArchivesFail()
         {
-            _mockStore2.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Throws(new IOException("Fake IO exception for testing")).Verifiable();
-            _mockStore1.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Throws(new IOException("Fake IO exception for testing")).Verifiable();
+            _mockStore2.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
+            _mockStore1.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
             Assert.Throws<IOException>(() => _testStore.AddArchives(_archives, _digest1, _handler), "Should pass through fatal exceptions");
         }
         #endregion
@@ -214,27 +207,27 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestRemoveBoth()
         {
-            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true).Verifiable();
-            _mockStore1.Setup(x => x.Remove(_digest1)).Verifiable();
-            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true).Verifiable();
-            _mockStore2.Setup(x => x.Remove(_digest1)).Verifiable();
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true);
+            _mockStore1.Setup(x => x.Remove(_digest1));
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true);
+            _mockStore2.Setup(x => x.Remove(_digest1));
             _testStore.Remove(_digest1);
         }
 
         [Test]
         public void TestRemoveSecond()
         {
-            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
-            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true).Verifiable();
-            _mockStore2.Setup(x => x.Remove(_digest1)).Verifiable();
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true);
+            _mockStore2.Setup(x => x.Remove(_digest1));
             _testStore.Remove(_digest1);
         }
 
         [Test]
         public void TestRemoveFail()
         {
-            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
-            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false);
             Assert.Throws<ImplementationNotFoundException>(() => _testStore.Remove(_digest1), "Should report if none of the stores contained the implementation");
         }
         #endregion
@@ -243,8 +236,8 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestOptimise()
         {
-            _mockStore1.Setup(x => x.Optimise(_handler)).Throws(new IOException("Fake IO exception for testing")).Verifiable();
-            _mockStore2.Setup(x => x.Optimise(_handler)).Verifiable();
+            _mockStore1.Setup(x => x.Optimise(_handler)).Throws(new IOException("Fake IO exception for testing"));
+            _mockStore2.Setup(x => x.Optimise(_handler));
             Assert.DoesNotThrow(() => _testStore.Optimise(_handler), "Exceptions should be caught and logged");
         }
         #endregion
@@ -253,13 +246,13 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestVerify()
         {
-            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
-            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true).Verifiable();
-            _mockStore2.Setup(x => x.Verify(_digest1, _handler)).Verifiable();
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true);
+            _mockStore2.Setup(x => x.Verify(_digest1, _handler));
             _testStore.Verify(_digest1, _handler);
 
-            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
-            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false).Verifiable();
+            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false);
             Assert.Throws<ImplementationNotFoundException>(() => _testStore.Verify(_digest1, _handler));
         }
         #endregion
@@ -270,8 +263,8 @@ namespace ZeroInstall.Store.Implementation
         {
             var problem1 = new DigestMismatchException("Problem 1");
             var problem2 = new DigestMismatchException("Problem 2");
-            _mockStore1.Setup(x => x.Audit(_handler)).Returns(new[] {problem1}).Verifiable();
-            _mockStore2.Setup(x => x.Audit(_handler)).Returns(new[] {problem2}).Verifiable();
+            _mockStore1.Setup(x => x.Audit(_handler)).Returns(new[] {problem1});
+            _mockStore2.Setup(x => x.Audit(_handler)).Returns(new[] {problem2});
 
             // Copy the result into a list to force the enumerator to run through
             var problems = new List<DigestMismatchException>(_testStore.Audit(_handler));
@@ -282,8 +275,8 @@ namespace ZeroInstall.Store.Implementation
         public void TestAuditPartial()
         {
             var problem = new DigestMismatchException("Problem 1");
-            _mockStore1.Setup(x => x.Audit(_handler)).Returns(() => null).Verifiable();
-            _mockStore2.Setup(x => x.Audit(_handler)).Returns(new[] {problem}).Verifiable();
+            _mockStore1.Setup(x => x.Audit(_handler)).Returns(() => null);
+            _mockStore2.Setup(x => x.Audit(_handler)).Returns(new[] {problem});
 
             // Copy the result into a list to force the enumerator to run through
             var problems = new List<DigestMismatchException>(_testStore.Audit(_handler));

@@ -22,7 +22,6 @@ using System.Threading;
 using Common.Storage;
 using Common.Utils;
 using NUnit.Framework;
-using ZeroInstall.Backend;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Implementation
@@ -97,7 +96,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldTellIfItContainsAnImplementation()
         {
-            string hash = Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler());
+            string hash = Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new MockHandler());
 
             Directory.Move(_packageDir, Path.Combine(_store.DirectoryPath, hash));
             Assert.True(_store.Contains(new ManifestDigest(hash)));
@@ -106,8 +105,8 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldAllowToAddFolder()
         {
-            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler()));
-            _store.AddDirectory(_packageDir, digest, new SilentHandler());
+            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new MockHandler()));
+            _store.AddDirectory(_packageDir, digest, new MockHandler());
 
             Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
             CollectionAssert.AreEqual(new[] {digest}, _store.ListAll(), "After adding, Store must show the added package in the complete list");
@@ -118,8 +117,8 @@ namespace ZeroInstall.Store.Implementation
         {
             Directory.Delete(_tempDir, recursive: true);
 
-            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler()));
-            _store.AddDirectory(_packageDir, digest, new SilentHandler());
+            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new MockHandler()));
+            _store.AddDirectory(_packageDir, digest, new MockHandler());
 
             Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
             CollectionAssert.AreEqual(new[] {digest}, _store.ListAll(), "After adding, Store must show the added package in the complete list");
@@ -149,9 +148,9 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldAllowToRemove()
         {
-            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler()));
+            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new MockHandler()));
 
-            _store.AddDirectory(_packageDir, digest, new SilentHandler());
+            _store.AddDirectory(_packageDir, digest, new MockHandler());
             Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
             _store.Remove(digest);
             Assert.IsFalse(_store.Contains(digest), "After remove, Store may no longer contain the added package");
@@ -160,7 +159,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldReturnCorrectPathOfPackageInCache()
         {
-            string hash = Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler());
+            string hash = Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new MockHandler());
 
             Directory.Move(_packageDir, Path.Combine(_store.DirectoryPath, hash));
             Assert.AreEqual(Path.Combine(_store.DirectoryPath, hash), _store.GetPath(new ManifestDigest(hash)), "Store must return the correct path for Implementations it contains");
@@ -175,15 +174,15 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldDetectDamagedImplementations()
         {
-            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha1New, new SilentHandler()));
-            _store.AddDirectory(_packageDir, digest, new SilentHandler());
+            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha1New, new MockHandler()));
+            _store.AddDirectory(_packageDir, digest, new MockHandler());
 
             // After correctly adding a directory, the store should be valid
-            Assert.IsEmpty(_store.Audit(new SilentHandler()));
+            Assert.IsEmpty(_store.Audit(new MockHandler()));
 
             // A contaminated store should be detected
             Directory.CreateDirectory(Path.Combine(_tempDir, "sha1new=abc"));
-            DigestMismatchException problem = _store.Audit(new SilentHandler()).First();
+            DigestMismatchException problem = _store.Audit(new MockHandler()).First();
             Assert.AreEqual("sha1new=abc", problem.ExpectedHash);
             Assert.AreEqual("sha1new=da39a3ee5e6b4b0d3255bfef95601890afd80709", problem.ActualHash);
         }
@@ -191,7 +190,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void StressTest()
         {
-            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler()));
+            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new MockHandler()));
 
             Exception exception = null;
             var threads = new Thread[100];
@@ -201,7 +200,7 @@ namespace ZeroInstall.Store.Implementation
                 {
                     try
                     {
-                        _store.AddDirectory(_packageDir, digest, new SilentHandler());
+                        _store.AddDirectory(_packageDir, digest, new MockHandler());
                         _store.Remove(digest);
                     }
                     catch (ImplementationAlreadyInStoreException)

@@ -45,15 +45,15 @@ namespace ZeroInstall.Publish.EntryPoints
         /// Deploys a reference file for a <see cref="Candidate"/> from an internal resource.
         /// </summary>
         /// <param name="reference">Uses <see cref="Candidate.RelativePath"/> as the resource name.</param>
-        /// <param name="executable">Set to <see langword="true"/> to mark the file as Unix executable.</param>
+        /// <param name="xbit">Set to <see langword="true"/> to mark the file as Unix executable.</param>
         /// <returns></returns>
-        protected FileInfo Deploy(Candidate reference, bool executable = false)
+        protected FileInfo Deploy(Candidate reference, bool xbit)
         {
             var file = new FileInfo(Path.Combine(Directory.FullName, reference.RelativePath));
             using (var stream = file.Create())
                 GetResource(reference.RelativePath).CopyTo(stream);
 
-            if (executable)
+            if (xbit)
             {
                 if (MonoUtils.IsUnix) FileUtils.SetExecutable(file.FullName, true);
                 else FlagUtils.SetExternalFlag(Path.Combine(Directory.FullName, ".xbit"), reference.RelativePath);

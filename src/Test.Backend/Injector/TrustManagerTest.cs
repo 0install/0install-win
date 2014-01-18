@@ -22,7 +22,6 @@ using Common;
 using Common.Utils;
 using Moq;
 using NUnit.Framework;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;
 
@@ -47,9 +46,7 @@ namespace ZeroInstall.Injector
         private const string KeyInfoResponse = @"<?xml version='1.0'?><key-lookup><item vote=""good"">Key information</item></key-lookup>";
         #endregion
 
-        #region Shared
         private Mock<IOpenPgp> _openPgpMock;
-        private Mock<IHandler> _handlerMock;
 
         [SetUp]
         public override void SetUp()
@@ -57,12 +54,10 @@ namespace ZeroInstall.Injector
             base.SetUp();
 
             _openPgpMock = Container.GetMock<IOpenPgp>();
-            _handlerMock = Container.GetMock<IHandler>();
 
             Config.KeyInfoServer = null;
             Config.AutoApproveKeys = false;
         }
-        #endregion
 
         [Test]
         public void PreviouslyTrusted()
@@ -85,7 +80,7 @@ namespace ZeroInstall.Injector
         [Test]
         public void MultipleSignatures()
         {
-            _openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {new BadSignature("xyz"), _signature}).Verifiable();
+            _openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {new BadSignature("xyz"), _signature});
             TrustKey();
 
             Assert.AreEqual(_signature, Target.CheckTrust(new Uri("http://localhost/test.xml"), _combinedBytes));
@@ -95,7 +90,7 @@ namespace ZeroInstall.Injector
         public void ExistingKeyAndReject()
         {
             RegisterKey();
-            AnswerQuestionWith(false);
+            MockHandler.AnswerQuestionWith = false;
 
             Assert.Throws<SignatureException>(() => Target.CheckTrust(new Uri("http://localhost/test.xml"), _combinedBytes));
             Assert.IsFalse(IsKeyTrusted, "Key should not be trusted");
@@ -105,7 +100,7 @@ namespace ZeroInstall.Injector
         public void ExistingKeyAndApprove()
         {
             RegisterKey();
-            AnswerQuestionWith(true);
+            MockHandler.AnswerQuestionWith = true;
 
             Assert.AreEqual(_signature, Target.CheckTrust(new Uri("http://localhost/test.xml"), _combinedBytes));
             Assert.IsTrue(IsKeyTrusted, "Key should be trusted");
@@ -116,7 +111,7 @@ namespace ZeroInstall.Injector
         {
             RegisterKey();
             Container.GetMock<IFeedCache>().Setup(x => x.Contains("http://localhost/test.xml")).Returns(true);
-            AnswerQuestionWith(false);
+            MockHandler.AnswerQuestionWith = false;
 
             using (var keyInfoServer = new MicroServer("key/" + _signature.Fingerprint, KeyInfoResponse.ToStream()))
             {
@@ -144,7 +139,7 @@ namespace ZeroInstall.Injector
         public void DownloadKeyAndReject()
         {
             ExpectKeyImport();
-            AnswerQuestionWith(false);
+            MockHandler.AnswerQuestionWith = false;
 
             using (var server = new MicroServer(_signature.Fingerprint + ".gpg", new MemoryStream(_keyData)))
                 Assert.Throws<SignatureException>(() => Target.CheckTrust(new Uri(server.ServerUri, "test.xml"), _combinedBytes));
@@ -155,7 +150,7 @@ namespace ZeroInstall.Injector
         public void DownloadKeyAndApprove()
         {
             ExpectKeyImport();
-            AnswerQuestionWith(true);
+            MockHandler.AnswerQuestionWith = true;
 
             using (var server = new MicroServer(_signature.Fingerprint + ".gpg", new MemoryStream(_keyData)))
                 Assert.AreEqual(_signature, Target.CheckTrust(new Uri(server.ServerUri, "test.xml"), _combinedBytes));
@@ -166,7 +161,7 @@ namespace ZeroInstall.Injector
         public void DownloadKeyFromMirrorAndApprove()
         {
             ExpectKeyImport();
-            AnswerQuestionWith(true);
+            MockHandler.AnswerQuestionWith = true;
 
             using (var server = new MicroServer(_signature.Fingerprint + ".gpg", new MemoryStream(_keyData)))
                 Assert.AreEqual(_signature, Target.CheckTrust(new Uri("http://localhost/test.xml"), _combinedBytes, new Uri(server.ServerUri, "test.xml")));
@@ -175,7 +170,7 @@ namespace ZeroInstall.Injector
 
         private void RegisterKey()
         {
-            _openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {_signature}).Verifiable();
+            _openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {_signature});
         }
 
         private static void TrustKey()
@@ -185,27 +180,18 @@ namespace ZeroInstall.Injector
 
         private static bool IsKeyTrusted { get { return TrustDB.LoadSafe().IsTrusted(_signature.Fingerprint, new Domain {Value = "localhost"}); } }
 
-        private void AnswerQuestionWith(bool answer)
-        {
-            _handlerMock.Setup(x => x.AskQuestion(It.IsAny<string>(), It.IsAny<string>())).Returns(answer).Verifiable();
-        }
-
         private void ExpectKeyImport()
         {
             _openPgpMock.SetupSequence(x => x.Verify(_feedBytes, _signatureBytes))
                 .Returns(new OpenPgpSignature[] {new MissingKeySignature(_signature.Fingerprint)})
                 .Returns(new OpenPgpSignature[] {_signature});
-            _openPgpMock.Setup(x => x.ImportKey(_keyData)).Verifiable();
-
-            ProvideCancellationToken();
+            _openPgpMock.Setup(x => x.ImportKey(_keyData));
         }
 
         private void UseKeyInfoServer(MicroServer keyInfoServer)
         {
             Config.AutoApproveKeys = true;
             Config.KeyInfoServer = keyInfoServer.ServerUri;
-
-            ProvideCancellationToken();
         }
     }
 }

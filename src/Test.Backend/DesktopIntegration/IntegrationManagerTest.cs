@@ -19,7 +19,6 @@ using System;
 using Common.Collections;
 using Common.Storage;
 using NUnit.Framework;
-using ZeroInstall.Backend;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Capabilities;
@@ -41,7 +40,7 @@ namespace ZeroInstall.DesktopIntegration
         {
             _appListFile = new TemporaryFile("0install-unit-tests");
             new AppList().SaveXml(_appListFile);
-            _integrationManager = new IntegrationManager(_appListFile, new SilentHandler());
+            _integrationManager = new IntegrationManager(_appListFile, new MockHandler());
         }
 
         [TearDown]

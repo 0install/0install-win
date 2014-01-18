@@ -312,11 +312,11 @@ namespace Common.Utils
                 // Set up delegate mocks
                 var dirCallbackMock = new Mock<IActionSimulator<string>>(MockBehavior.Strict);
                 // ReSharper disable AccessToDisposedClosure
-                dirCallbackMock.Setup(x => x.Invoke(tempDir)).Verifiable();
+                dirCallbackMock.Setup(x => x.Invoke(tempDir));
                 // ReSharper restore AccessToDisposedClosure
-                dirCallbackMock.Setup(x => x.Invoke(subDirPath)).Verifiable();
+                dirCallbackMock.Setup(x => x.Invoke(subDirPath));
                 var fileCallbackMock = new Mock<IActionSimulator<string>>(MockBehavior.Strict);
-                fileCallbackMock.Setup(x => x.Invoke(filePath)).Verifiable();
+                fileCallbackMock.Setup(x => x.Invoke(filePath));
 
                 new DirectoryInfo(tempDir).Walk(
                     dir => dirCallbackMock.Object.Invoke(dir.FullName),

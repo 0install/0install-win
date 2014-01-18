@@ -55,9 +55,9 @@ namespace ZeroInstall.Injector
 
             // Pretend the first implementation isn't cached, the second is and the third isn't
             var storeMock = Container.GetMock<IStore>();
-            storeMock.Setup(x => x.Contains(selections.Implementations[0].ManifestDigest)).Returns(false).Verifiable();
-            storeMock.Setup(x => x.Contains(selections.Implementations[1].ManifestDigest)).Returns(true).Verifiable();
-            storeMock.Setup(x => x.Contains(default(ManifestDigest))).Returns(false).Verifiable();
+            storeMock.Setup(x => x.Contains(selections.Implementations[0].ManifestDigest)).Returns(false);
+            storeMock.Setup(x => x.Contains(selections.Implementations[1].ManifestDigest)).Returns(true);
+            storeMock.Setup(x => x.Contains(default(ManifestDigest))).Returns(false);
 
             var implementationSelections = Target.GetUncachedImplementationSelections(selections);
 
@@ -77,8 +77,8 @@ namespace ZeroInstall.Injector
             };
 
             var cacheMock = Container.GetMock<IFeedCache>();
-            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/feed1.xml")).Returns(new Feed {Elements = {impl1}}).Verifiable();
-            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(new Feed {Elements = {impl2}}).Verifiable();
+            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/feed1.xml")).Returns(new Feed {Elements = {impl1}});
+            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(new Feed {Elements = {impl2}});
 
             var implementations = Target.GetOriginalImplementations(implementationSelections);
 

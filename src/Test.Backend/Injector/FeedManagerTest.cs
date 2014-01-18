@@ -36,16 +36,15 @@ namespace ZeroInstall.Injector
     [TestFixture]
     public class FeedManagerTest : TestWithContainer<FeedManager>
     {
-        #region Shared
         private Mock<IFeedCache> _feedCacheMock;
 
         [SetUp]
         public override void SetUp()
         {
             base.SetUp();
+
             _feedCacheMock = Container.GetMock<IFeedCache>();
         }
-        #endregion
 
         [Test]
         public void Local()
@@ -55,7 +54,7 @@ namespace ZeroInstall.Injector
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // ReSharper disable once AccessToDisposedClosure
-                _feedCacheMock.Setup(x => x.GetFeed(tempFile)).Returns(feed).Verifiable();
+                _feedCacheMock.Setup(x => x.GetFeed(tempFile)).Returns(feed);
 
                 Assert.AreSame(feed, Target.GetFeed(tempFile));
                 Assert.IsFalse(Target.Stale);
@@ -81,17 +80,16 @@ namespace ZeroInstall.Injector
                 feedStream.Position = 0;
 
                 // No previous feed
-                _feedCacheMock.Setup(x => x.Contains(feed.Uri.ToString())).Returns(false).Verifiable();
-                _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>().Verifiable();
+                _feedCacheMock.Setup(x => x.Contains(feed.Uri.ToString())).Returns(false);
+                _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>();
 
-                _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
-                _feedCacheMock.Setup(x => x.GetFeed(feed.Uri.ToString())).Returns(feed).Verifiable();
+                _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data));
+                _feedCacheMock.Setup(x => x.GetFeed(feed.Uri.ToString())).Returns(feed);
 
                 // ReSharper disable once AccessToDisposedClosure
                 Container.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, data, null))
                     .Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
 
-                ProvideCancellationToken();
                 Assert.AreEqual(feed, Target.GetFeed(feed.Uri.ToString()));
             }
         }
@@ -104,11 +102,11 @@ namespace ZeroInstall.Injector
             var data = feed.ToXmlString().ToStream().ToArray();
 
             // No previous feed
-            _feedCacheMock.Setup(x => x.Contains(feed.Uri.ToString())).Returns(false).Verifiable();
-            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>().Verifiable();
+            _feedCacheMock.Setup(x => x.Contains(feed.Uri.ToString())).Returns(false);
+            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>();
 
-            _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
-            _feedCacheMock.Setup(x => x.GetFeed(feed.Uri.ToString())).Returns(feed).Verifiable();
+            _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data));
+            _feedCacheMock.Setup(x => x.GetFeed(feed.Uri.ToString())).Returns(feed);
             using (var mirrorServer = new MicroServer("feeds/http/invalid/directory%23feed.xml/latest.xml", new MemoryStream(data)))
             {
                 // ReSharper disable once AccessToDisposedClosure
@@ -116,7 +114,6 @@ namespace ZeroInstall.Injector
                     .Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
 
                 Config.FeedMirror = mirrorServer.ServerUri;
-                ProvideCancellationToken();
                 Assert.AreEqual(feed, Target.GetFeed(feed.Uri.ToString()));
             }
         }
@@ -125,8 +122,8 @@ namespace ZeroInstall.Injector
         public void DetectFreshCached()
         {
             var feed = new Feed();
-            _feedCacheMock.Setup(x => x.Contains("http://test/feed.xml")).Returns(true).Verifiable();
-            _feedCacheMock.Setup(x => x.GetFeed("http://test/feed.xml")).Returns(feed).Verifiable();
+            _feedCacheMock.Setup(x => x.Contains("http://test/feed.xml")).Returns(true);
+            _feedCacheMock.Setup(x => x.GetFeed("http://test/feed.xml")).Returns(feed);
             new FeedPreferences {LastChecked = DateTime.UtcNow}.SaveFor("http://test/feed.xml");
 
             Assert.AreSame(feed, Target.GetFeed("http://test/feed.xml"));
@@ -145,14 +142,14 @@ namespace ZeroInstall.Injector
                 var data = feedStream.ToArray();
                 feedStream.Position = 0;
 
-                _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
-                _feedCacheMock.Setup(x => x.GetFeed(feed.Uri.ToString())).Returns(feed).Verifiable();
+                _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data));
+                _feedCacheMock.Setup(x => x.GetFeed(feed.Uri.ToString())).Returns(feed);
+                _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Returns(new[] {new ValidSignature("fingerprint", new DateTime(200, 1, 1))});
 
                 // ReSharper disable once AccessToDisposedClosure
                 Container.GetMock<ITrustManager>().Setup(x => x.CheckTrust(feed.Uri, data, null))
                     .Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
 
-                ProvideCancellationToken();
                 Target.Refresh = true;
                 Assert.AreEqual(feed, Target.GetFeed(feed.Uri.ToString()));
             }
@@ -162,8 +159,8 @@ namespace ZeroInstall.Injector
         public void DetectStaleCached()
         {
             var feed = new Feed();
-            _feedCacheMock.Setup(x => x.Contains("http://test/feed.xml")).Returns(true).Verifiable();
-            _feedCacheMock.Setup(x => x.GetFeed("http://test/feed.xml")).Returns(feed).Verifiable();
+            _feedCacheMock.Setup(x => x.Contains("http://test/feed.xml")).Returns(true);
+            _feedCacheMock.Setup(x => x.GetFeed("http://test/feed.xml")).Returns(feed);
             new FeedPreferences {LastChecked = DateTime.UtcNow - Config.Freshness}.SaveFor("http://test/feed.xml");
 
             Assert.AreSame(feed, Target.GetFeed("http://test/feed.xml"));
@@ -177,9 +174,9 @@ namespace ZeroInstall.Injector
             var data = SignFeed(feed);
 
             // No previous feed
-            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>().Verifiable();
+            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>();
 
-            _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
+            _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data));
             Target.ImportFeed(feed.Uri, data);
         }
 
@@ -189,6 +186,8 @@ namespace ZeroInstall.Injector
             var feed = FeedTest.CreateTestFeed();
             var data = feed.ToXmlString().ToStream().ToArray();
 
+            Container.GetMock<ITrustManager>().Setup(x => x.CheckTrust(new Uri("http://invalid/"), data, null))
+                .Returns(new ValidSignature("a", new DateTime(2000, 1, 1)));
             Assert.Throws<InvalidInterfaceIDException>(() => Target.ImportFeed(new Uri("http://invalid/"), data));
         }
 
@@ -199,7 +198,7 @@ namespace ZeroInstall.Injector
             var data = SignFeed(feed);
 
             // Newer signautre present => replay attack
-            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Returns(new[] {new ValidSignature("fingerprint", new DateTime(2002, 1, 1))}).Verifiable();
+            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Returns(new[] {new ValidSignature("fingerprint", new DateTime(2002, 1, 1))});
 
             Assert.Throws<ReplayAttackException>(() => Target.ImportFeed(feed.Uri, data));
         }

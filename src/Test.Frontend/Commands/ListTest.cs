@@ -17,6 +17,7 @@
 
 using System;
 using NUnit.Framework;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Commands
 {
@@ -24,25 +25,19 @@ namespace ZeroInstall.Commands
     /// Contains integration tests for <see cref="List"/>.
     /// </summary>
     [TestFixture]
-    public class ListTest : FrontendCommandTest
+    public class ListTest : FrontendCommandTest<List>
     {
-        /// <inheritdoc/>
-        protected override FrontendCommand GetCommand()
-        {
-            return new List(HandlerMock.Object);
-        }
-
         [Test(Description = "Ensures calling with no arguments returns all feeds in the cache.")]
         public void TestNoArgs()
         {
-            CacheMock.Setup(x => x.ListAll()).Returns(new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml"});
+            Container.GetMock<IFeedCache>().Setup(x => x.ListAll()).Returns(new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml"});
             RunAndAssert("http://0install.de/feeds/test/test1.xml" + Environment.NewLine + "http://0install.de/feeds/test/test2.xml", 0);
         }
 
         [Test(Description = "Ensures calling with a single argument returns a filtered list of feeds in the cache.")]
         public void TestPattern()
         {
-            CacheMock.Setup(x => x.ListAll()).Returns(new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml"});
+            Container.GetMock<IFeedCache>().Setup(x => x.ListAll()).Returns(new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml"});
             RunAndAssert("http://0install.de/feeds/test/test2.xml", 0, "test2");
         }
     }

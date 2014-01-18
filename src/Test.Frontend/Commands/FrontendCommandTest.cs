@@ -19,11 +19,8 @@ using System;
 using System.IO;
 using System.Linq;
 using Common.Storage;
-using Common.Tasks;
 using Common.Utils;
-using Moq;
 using NUnit.Framework;
-using ZeroInstall.Backend;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Injector;
@@ -38,62 +35,21 @@ namespace ZeroInstall.Commands
     /// <summary>
     /// Contains common code for testing specific <see cref="FrontendCommand"/>s.
     /// </summary>
-    public abstract class FrontendCommandTest
+    /// <typeparam name="TCommand">The specific type of <see cref="FrontendCommand"/> to test.</typeparam>
+    public abstract class FrontendCommandTest<TCommand> : TestWithContainer<TCommand>
+        where TCommand : FrontendCommand
     {
-        #region Properties
-        private MockRepository _mockRepository;
-
-        protected Mock<IBackendHandler> HandlerMock { get; private set; }
-        protected Mock<IFeedCache> CacheMock { get; private set; }
-        protected Mock<IOpenPgp> OpenPgpMock { get; private set; }
-        protected Mock<IStore> StoreMock { get; private set; }
-        protected Mock<ISolver> SolverMock { get; private set; }
-        protected Mock<IFetcher> FetcherMock { get; private set; }
-
-        /// <summary>The command to be tested.</summary>
-        protected FrontendCommand Command { get; private set; }
-        #endregion
-
-        /// <summary>Creates an instance of the command type to be tested using the mocks.</summary>
-        protected abstract FrontendCommand GetCommand();
-
-        private LocationsRedirect _redirect;
-
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
-            // Don't store generated executables settings in real user profile
-            _redirect = new LocationsRedirect("0install-unit-tests");
+            base.SetUp();
 
-            _mockRepository = new MockRepository(MockBehavior.Strict);
-
-            HandlerMock = _mockRepository.Create<IBackendHandler>();
-            HandlerMock.SetupAllProperties();
-            HandlerMock.Setup(x => x.ShowProgressUI());
-            HandlerMock.SetupGet(x => x.CancellationToken).Returns(new CancellationToken());
-            HandlerMock.Setup(x => x.RunTask(It.IsAny<ITask>(), It.IsAny<object>()))
-                .Callback((ITask task, object tag) => task.RunSync());
-
-            CacheMock = _mockRepository.Create<IFeedCache>();
-            OpenPgpMock = _mockRepository.Create<IOpenPgp>();
-            StoreMock = _mockRepository.Create<IStore>();
-            SolverMock = _mockRepository.Create<ISolver>();
-            FetcherMock = _mockRepository.Create<IFetcher>(MockBehavior.Loose);
-
-            Command = GetCommand();
-            Command.Config = new Config();
-            Command.FeedCache = CacheMock.Object;
-            Command.OpenPgp = OpenPgpMock.Object;
-            Command.Store = StoreMock.Object;
-            Command.Solver = SolverMock.Object;
-            Command.Fetcher = FetcherMock.Object;
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _redirect.Dispose();
-            _mockRepository.Verify();
+            Target.Config = Container.Resolve<Config>();
+            Target.FeedCache = Container.Resolve<IFeedCache>();
+            Target.OpenPgp = Container.Resolve<IOpenPgp>();
+            Target.Store = Container.Resolve<IStore>();
+            Target.Solver = Container.Resolve<ISolver>();
+            Target.Fetcher = Container.Resolve<IFetcher>();
         }
 
         /// <summary>
@@ -104,13 +60,9 @@ namespace ZeroInstall.Commands
         /// <param name="args">The arguments to pass to <see cref="FrontendCommand.Parse"/>.</param>
         protected void RunAndAssert(string expectedOutput, int expectedExitStatus, params string[] args)
         {
-            string output = null;
-            HandlerMock.Setup(x => x.Output(It.IsAny<string>(), It.IsAny<string>()))
-                .Callback((string title, string information) => output = information);
-
-            Command.Parse(args);
-            Assert.AreEqual(expectedExitStatus, Command.Execute());
-            Assert.AreEqual(expectedOutput, output);
+            Target.Parse(args);
+            Assert.AreEqual(expectedExitStatus, Target.Execute());
+            Assert.AreEqual(expectedOutput, MockHandler.LastOutput);
         }
 
         [Test]
@@ -119,29 +71,29 @@ namespace ZeroInstall.Commands
             // Absolute paths
             if (WindowsUtils.IsWindows)
             {
-                Assert.AreEqual(@"C:\test\file", Command.GetCanonicalID("file:///C:/test/file"));
-                Assert.AreEqual(@"C:\test\file", Command.GetCanonicalID(@"C:\test\file"));
+                Assert.AreEqual(@"C:\test\file", Target.GetCanonicalID("file:///C:/test/file"));
+                Assert.AreEqual(@"C:\test\file", Target.GetCanonicalID(@"C:\test\file"));
             }
             if (MonoUtils.IsUnix)
             {
-                Assert.AreEqual("/var/test/file", Command.GetCanonicalID("file:///var/test/file"));
-                Assert.AreEqual("/var/test/file", Command.GetCanonicalID("/var/test/file"));
+                Assert.AreEqual("/var/test/file", Target.GetCanonicalID("file:///var/test/file"));
+                Assert.AreEqual("/var/test/file", Target.GetCanonicalID("/var/test/file"));
             }
 
             // Relative paths
             Assert.AreEqual(
                 new[] {Environment.CurrentDirectory, "test", "file"}.Aggregate(Path.Combine),
-                Command.GetCanonicalID("file:test/file"));
+                Target.GetCanonicalID("file:test/file"));
             Assert.AreEqual(
                 new[] {Environment.CurrentDirectory, "test", "file"}.Aggregate(Path.Combine),
-                Command.GetCanonicalID(Path.Combine("test", "file")));
+                Target.GetCanonicalID(Path.Combine("test", "file")));
 
             // Invalid paths
-            Assert.Throws<InvalidInterfaceIDException>(() => Command.GetCanonicalID("file:/test/file"));
-            if (WindowsUtils.IsWindows) Assert.Throws<InvalidInterfaceIDException>(() => Command.GetCanonicalID(":::"));
+            Assert.Throws<InvalidInterfaceIDException>(() => Target.GetCanonicalID("file:/test/file"));
+            if (WindowsUtils.IsWindows) Assert.Throws<InvalidInterfaceIDException>(() => Target.GetCanonicalID(":::"));
 
             // URIs
-            Assert.AreEqual("http://0install.de/feeds/test/test1.xml", Command.GetCanonicalID("http://0install.de/feeds/test/test1.xml"));
+            Assert.AreEqual("http://0install.de/feeds/test/test1.xml", Target.GetCanonicalID("http://0install.de/feeds/test/test1.xml"));
         }
 
         [Test]
@@ -160,8 +112,8 @@ namespace ZeroInstall.Commands
                 }
             }.SaveXml(AppList.GetDefaultPath());
 
-            Assert.AreEqual("http://0install.de/feeds/test/test1.xml", Command.GetCanonicalID("alias:test"));
-            Assert.Throws<InvalidInterfaceIDException>(() => Command.GetCanonicalID("alias:invalid"));
+            Assert.AreEqual("http://0install.de/feeds/test/test1.xml", Target.GetCanonicalID("alias:test"));
+            Assert.Throws<InvalidInterfaceIDException>(() => Target.GetCanonicalID("alias:invalid"));
         }
     }
 }

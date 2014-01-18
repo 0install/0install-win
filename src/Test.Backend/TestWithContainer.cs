@@ -15,10 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Common;
 using Common.Storage;
 using Common.Tasks;
 using Moq;
 using NUnit.Framework;
+using ZeroInstall.Backend;
 using ZeroInstall.Store;
 
 namespace ZeroInstall
@@ -26,39 +28,46 @@ namespace ZeroInstall
     /// <summary>
     /// Common base class for test fixtures that use <see cref="AutoMockContainer"/>.
     /// </summary>
-    /// <typeparam name="T">The type of the object to be instantiated and tested.</typeparam>
-    public class TestWithContainer<T> where T : class
+    /// <typeparam name="TTarget">The type of the object to be instantiated and tested.</typeparam>
+    public class TestWithContainer<TTarget> : TestWithMocks
+        where TTarget : class
     {
         private LocationsRedirect _redirect;
-        private MockRepository _repository;
-        protected AutoMockContainer Container;
-        protected Config Config;
+
+        protected AutoMockContainer Container { get; private set; }
+        protected Config Config { get; private set; }
+        protected MockHandler MockHandler { get; private set; }
 
         /// <summary>
         /// The object to be tested.
         /// </summary>
-        protected T Target;
+        protected TTarget Target;
 
         [SetUp]
-        public virtual void SetUp()
+        public override void SetUp()
         {
-            Container = new AutoMockContainer(_repository = new MockRepository(MockBehavior.Loose));
+            base.SetUp();
+
+            Container = new AutoMockContainer(MockRepository);
+
+            MockHandler = new MockHandler();
+            Container.Register<IBackendHandler>(MockHandler);
+            Container.Register<IHandler>(MockHandler);
+            Container.Register<ITaskHandler>(MockHandler);
+
             Container.Register(Config = new Config());
-            Target = Container.Create<T>();
+
+            Target = Container.Create<TTarget>();
 
             _redirect = new LocationsRedirect("0install-unit-tests");
         }
 
         [TearDown]
-        public void TearDown()
+        public override void TearDown()
         {
             _redirect.Dispose();
-            _repository.VerifyAll();
-        }
 
-        protected void ProvideCancellationToken()
-        {
-            Container.GetMock<IHandler>().SetupGet(x => x.CancellationToken).Returns(new CancellationToken());
+            base.TearDown();
         }
     }
 }

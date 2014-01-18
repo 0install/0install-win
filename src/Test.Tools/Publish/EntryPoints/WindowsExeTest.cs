@@ -76,7 +76,7 @@ namespace ZeroInstall.Publish.EntryPoints
         public void NotExe()
         {
             var candidate = new WindowsExe {BaseDirectory = Directory};
-            Assert.IsFalse(candidate.Analyze(Deploy(PosixScriptTest.Reference)));
+            Assert.IsFalse(candidate.Analyze(Deploy(PosixScriptTest.Reference, xbit: false)));
         }
     }
 }
