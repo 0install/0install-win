@@ -180,7 +180,7 @@ namespace ZeroInstall.Injector
             _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>().Verifiable();
 
             _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data)).Verifiable();
-            Target.ImportFeed(feed.Uri, null, data);
+            Target.ImportFeed(feed.Uri, data);
         }
 
         [Test(Description = "Ensures feeds with incorrect URIs are rejected.")]
@@ -189,7 +189,7 @@ namespace ZeroInstall.Injector
             var feed = FeedTest.CreateTestFeed();
             var data = feed.ToXmlString().ToStream().ToArray();
 
-            Assert.Throws<InvalidInterfaceIDException>(() => Target.ImportFeed(new Uri("http://invalid/"), null, data));
+            Assert.Throws<InvalidInterfaceIDException>(() => Target.ImportFeed(new Uri("http://invalid/"), data));
         }
 
         [Test(Description = "Ensures replay attacks are detected.")]
@@ -201,7 +201,7 @@ namespace ZeroInstall.Injector
             // Newer signautre present => replay attack
             _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Returns(new[] {new ValidSignature("fingerprint", new DateTime(2002, 1, 1))}).Verifiable();
 
-            Assert.Throws<ReplayAttackException>(() => Target.ImportFeed(feed.Uri, null, data));
+            Assert.Throws<ReplayAttackException>(() => Target.ImportFeed(feed.Uri, data));
         }
 
         /// <summary>

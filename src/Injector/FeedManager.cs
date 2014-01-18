@@ -209,7 +209,7 @@ namespace ZeroInstall.Injector
             {
                 try
                 {
-                    ImportFeed(url, null, webClient.DownloadData(url));
+                    ImportFeed(url, webClient.DownloadData(url));
                     _handler.CancellationToken.ThrowIfCancellationRequested();
                 }
                 catch (WebException ex)
@@ -253,7 +253,7 @@ namespace ZeroInstall.Injector
                 string.Concat(url.Segments).TrimStart('/').Replace("/", "%23")));
 
             using (var webClient = new WebClientTimeout())
-                ImportFeed(url, mirrorUrl, webClient.DownloadData(mirrorUrl));
+                ImportFeed(url, webClient.DownloadData(mirrorUrl), mirrorUrl);
 
             _handler.CancellationToken.ThrowIfCancellationRequested();
         }
@@ -261,7 +261,7 @@ namespace ZeroInstall.Injector
 
         #region Import feed
         /// <inheritdoc/>
-        public void ImportFeed(Uri uri, Uri mirrorUri, byte[] data)
+        public void ImportFeed(Uri uri, byte[] data, Uri mirrorUri = null)
         {
             #region Sanity checks
             if (uri == null) throw new ArgumentNullException("uri");
