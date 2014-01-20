@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010-2014 Bastian Eicher
+ * Copyright 2010-2013 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -18,7 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
-using ELFSharp.ELF;
+using ELFSharp;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
