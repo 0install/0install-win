@@ -165,6 +165,9 @@ Ungespeicherte Änderungen verwerfen</value>
   <data name="HintTextMultiline" xml:space="preserve">
     <value>Eine komplette, u.U. mehrzeilige Beschreibung.</value>
   </data>
+  <data name="HrefMissing" xml:space="preserve">
+    <value>Die Download URL fehlt.</value>
+  </data>
   <data name="ImageFormatNotSupported" xml:space="preserve">
     <value>Das Bildformat wird von Zero Install nicht unterstützt.</value>
   </data>

@@ -140,6 +140,7 @@ namespace ZeroInstall.Publish
             if (executor == null) throw new ArgumentNullException("executor");
             #endregion
 
+            if (retrievalMethod.Href == null) throw new ArgumentException(Resources.HrefMissing, "retrievalMethod");
             new PerTypeDispatcher<DownloadRetrievalMethod>(false)
             {
                 // ReSharper disable AccessToDisposedClosure
