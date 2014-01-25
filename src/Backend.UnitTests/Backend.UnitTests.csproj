@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeroInstall</RootNamespace>
-    <AssemblyName>Test.Backend</AssemblyName>
+    <AssemblyName>ZeroInstall.Backend.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
@@ -57,7 +57,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Backend\Backend.csproj">
       <Project>{8CAA29B1-94B6-46C2-AF82-E049D35775C5}</Project>
-      <Name>Backend %28Backend\Backend%29</Name>
+      <Name>Backend</Name>
     </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
@@ -87,9 +87,9 @@
       <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
       <Name>Store</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Test.Common\Test.Common.csproj">
+    <ProjectReference Include="..\Common.UnitTests\Common.UnitTests.csproj">
       <Project>{CA9D6092-4365-4385-9700-9570A98EF09D}</Project>
-      <Name>Test.Common</Name>
+      <Name>Common.UnitTests</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
