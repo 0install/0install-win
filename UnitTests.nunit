@@ -2,8 +2,8 @@
   <Settings activeconfig="Debug" />
   <Config name="Debug" buildpathtype="Auto">
     <assembly path="build/Backend/Debug/Common.UnitTests.dll" />
-    <assembly path="build/Backend/Debug/Backend.UnitTests.dll" />
-    <assembly path="build/Frontend/Debug/Frontend.UnitTests.dll" />
-    <assembly path="build/Tools/Debug/Tools.UnitTests.dll" />
+    <assembly path="build/Backend/Debug/ZeroInstall.Backend.UnitTests.dll" />
+    <assembly path="build/Frontend/Debug/ZeroInstall.Frontend.UnitTests.dll" />
+    <assembly path="build/Tools/Debug/ZeroInstall.Tools.UnitTests.dll" />
   </Config>
 </NUnitProject>
