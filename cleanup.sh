@@ -2,16 +2,16 @@
 #Removes compilation artifacts and other temporary files.
 cd `dirname $0`
 
-# Clear binaries (leave Documentation and Portable intact)
-rm -rf build/Backend build/Frontend build/Tools build/Updater build/Publish
+#Compiled artifacts
+rm -rf build
 
-# Clear object caches
-rm -f src/*.cache
+#Solution-wide
+rm -f src/*.userprefs src/*.suo src/*.user src/*.cache
+
+#Per-project
 rm -rf src/*/obj
-rm -f src/*/.pidb
+rm -f src/*/*.pidb
+rm -f src/*/*.csproj.user
 
-# Remove MonoDevelop user preferences
-rm -f src/*.userprefs
-
-# Remove NUnit logs
+#NUnit logs
 rm -f *.VisualState.xml TestResult.xml
