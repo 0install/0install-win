@@ -49,9 +49,6 @@
     <Reference Include="LinqBridge">
       <HintPath>..\..\lib\LinqBridge.dll</HintPath>
     </Reference>
-    <Reference Include="C5">
-      <HintPath>..\..\lib\C5.dll</HintPath>
-    </Reference>
     <Reference Include="ELFSharp">
       <HintPath>..\..\lib\ELFSharp.dll</HintPath>
     </Reference>

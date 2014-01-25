@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Remoting;
 using System.Security.Permissions;
 using System.Threading;
@@ -135,6 +136,7 @@ namespace ZeroInstall.Commands.WinForms
         private ProgressForm _form;
 
         /// <inheritdoc/>
+        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "handle", Justification = "Need to retrieve value from Form.Handle to force window handle creation")]
         public void ShowProgressUI()
         {
             // Can only show GUI once
