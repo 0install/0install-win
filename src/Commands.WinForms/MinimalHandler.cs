@@ -18,7 +18,6 @@
 using System;
 using System.Windows.Forms;
 using Common;
-using ZeroInstall.Backend;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands.WinForms

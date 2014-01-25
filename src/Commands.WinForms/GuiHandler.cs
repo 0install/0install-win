@@ -25,7 +25,6 @@ using Common;
 using Common.Controls;
 using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.Backend;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;

@@ -382,9 +382,9 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Backend\Backend.csproj">
+    <ProjectReference Include="..\Services\Services.csproj">
       <Project>{8CAA29B1-94B6-46C2-AF82-E049D35775C5}</Project>
-      <Name>Backend %28Backend\Backend%29</Name>
+      <Name>Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Central\Central.csproj">
       <Project>{47DF9A89-30C2-40B8-8DAC-363E4A4BD6B5}</Project>
@@ -410,9 +410,9 @@
       <Project>{F48937E1-3763-465F-9F12-6CBBBFF61784}</Project>
       <Name>DesktopIntegration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Injector\Injector.csproj">
+    <ProjectReference Include="..\Services.Interfaces\Services.Interfaces.csproj">
       <Project>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</Project>
-      <Name>Injector</Name>
+      <Name>Services.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>

@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using Common.Storage;
 using Moq;
 using NUnit.Framework;
-using ZeroInstall.Injector;
+using ZeroInstall.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Preferences;
 using ZeroInstall.Model.Selection;

@@ -18,7 +18,6 @@
 using System;
 using System.IO;
 using Common.Tasks;
-using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 

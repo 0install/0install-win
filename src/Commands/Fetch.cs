@@ -18,7 +18,6 @@
 using System;
 using System.Linq;
 using Common.Storage;
-using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
 

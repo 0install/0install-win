@@ -25,6 +25,7 @@ using Moq;
 using NUnit.Framework;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
+using ZeroInstall.Solvers;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Injector

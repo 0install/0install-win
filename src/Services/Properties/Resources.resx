@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AskKeyTrust" xml:space="preserve">
+    <value>Feed: {0}
+- Valid signature from {1}
+- {2}
+Do you want to trust this key to sign feeds from '{3}'?
+</value>
+  </data>
+  <data name="BindingNotSupportedOnCurrentOS" xml:space="preserve">
+    <value>{0} bindings are currently not supported on this operating system.</value>
+  </data>
+  <data name="CommandLineEmpty" xml:space="preserve">
+    <value>The resulting command-line is empty.</value>
+  </data>
+  <data name="CommandNotSpecified" xml:space="preserve">
+    <value>Command for '{0}' not specified.</value>
+  </data>
+  <data name="DownloadInAnotherWindow" xml:space="preserve">
+    <value>Download already running in another window</value>
+  </data>
+  <data name="EnvironmentBindingValueInvalid" xml:space="preserve">
+    <value>&lt;environment&gt; bindings must contain either a 'value' or an 'insert' attribute.</value>
+  </data>
+  <data name="ExternalSolverOutputErrror" xml:space="preserve">
+    <value>The output of the external solver could not be processed.</value>
+  </data>
+  <data name="FeedDownloadError" xml:space="preserve">
+    <value>Error while downloading feed '{0}'.</value>
+  </data>
+  <data name="FeedNotCachedOffline" xml:space="preserve">
+    <value>The feed '{0}' is not cached and Zero Install is currently in off-line mode.</value>
+  </data>
+  <data name="FeedNoTrustedSignatures" xml:space="preserve">
+    <value>The feed '{0}' was not signed with any trusted keys.</value>
+  </data>
+  <data name="FeedUriMismatch" xml:space="preserve">
+    <value>The &lt;interface&gt; uri attribute ('{0}') does not match the URL the feed was downloaded from ('{1}').</value>
+  </data>
+  <data name="FeedUriMissing" xml:space="preserve">
+    <value>The &lt;interface&gt; uri attribute missing. Should be '{0}'.</value>
+  </data>
+  <data name="FetcherProblem" xml:space="preserve">
+    <value>The solver encountered an unexpected problem.</value>
+  </data>
+  <data name="FileNotExpectedSize" xml:space="preserve">
+    <value>The file downloaded from {0} doesn't have the expected size. Was supposed to be {1} bytes but was actually {2} bytes.</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>File not found: {0}</value>
+  </data>
+  <data name="IllegalCharInBindingName" xml:space="preserve">
+    <value>Illegal character in {0} binding name.</value>
+  </data>
+  <data name="IntegrateAppUseGui" xml:space="preserve">
+    <value>Please use the GUI version of Zero Install or specify explicit integration options using command-line arguments.</value>
+  </data>
+  <data name="MissingBindingName" xml:space="preserve">
+    <value>Missing name in {0} binding.</value>
+  </data>
+  <data name="MissingInterfaceID" xml:space="preserve">
+    <value>No interface was specified.</value>
+  </data>
+  <data name="NoImplementationsPassed" xml:space="preserve">
+    <value>At least one implementation must be passed.</value>
+  </data>
+  <data name="NoKeyInfoServerData" xml:space="preserve">
+    <value>The key information server was unable to provide any additional information about this key.</value>
+  </data>
+  <data name="NoManifestDigest" xml:space="preserve">
+    <value>No manifest digest for implementation '{0}' found.</value>
+  </data>
+  <data name="NoModifySelectionsInCli" xml:space="preserve">
+    <value>The graphical policy editor is not available in command-line mode.</value>
+  </data>
+  <data name="NoRetrievalMethod" xml:space="preserve">
+    <value>No working retrieval method found for implementation '{0}' found.</value>
+  </data>
+  <data name="NoSelectedVersion" xml:space="preserve">
+    <value>No selected version</value>
+  </data>
+  <data name="NotCached" xml:space="preserve">
+    <value>(not cached)</value>
+  </data>
+  <data name="NotInterfaceID" xml:space="preserve">
+    <value>The interface '{0}' doesn't start with 'http:' and doesn't exist as a file '{1}' either.</value>
+  </data>
+  <data name="ReplayAttack" xml:space="preserve">
+    <value>A possible replay attack was detected. The new feed's modification time is before old version.
+Feed ID: {0}
+Old time: {1}
+New time: {2}</value>
+  </data>
+  <data name="SelectionCandidateNoteNotCached" xml:space="preserve">
+    <value>Implementation not in cache (currently in off-line mode)</value>
+  </data>
+  <data name="SolverProblem" xml:space="preserve">
+    <value>The solver encountered an unexpected problem.</value>
+  </data>
+  <data name="Try0installWin" xml:space="preserve">
+    <value>Try using the command '0install-win' instead of '0install'.</value>
+  </data>
+  <data name="TryingFeedMirror" xml:space="preserve">
+    <value>Trying feed mirror server</value>
+  </data>
+  <data name="UnableToCacheCatalog" xml:space="preserve">
+    <value>Unable to cache the downloaded application catalog.</value>
+  </data>
+  <data name="UnableToLoadCachedCatalog" xml:space="preserve">
+    <value>Unable to load cached application catalog from disk.</value>
+  </data>
+  <data name="UnableToLoadKeyFile" xml:space="preserve">
+    <value>Unable to download GnuPG key file for '{0}'.</value>
+  </data>
+  <data name="UnableToParseKeyInfo" xml:space="preserve">
+    <value>Unable to parse key information for '{0}'.</value>
+  </data>
+  <data name="UnableToRetrieveKeyInfo" xml:space="preserve">
+    <value>Unable to retrieve key information for '{0}'.</value>
+  </data>
+  <data name="UntrustedKeys" xml:space="preserve">
+    <value>The feed is signed with untrusted keys!</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>The working directory has already been changed by a previous command.</value>
+  </data>
+  <data name="WorkingDirInvalidPath" xml:space="preserve">
+    <value>The working directory contains an invalid path (potentially a security risk).</value>
+  </data>
+</root>

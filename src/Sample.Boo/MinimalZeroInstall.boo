@@ -1,4 +1,4 @@
-﻿import ZeroInstall.Backend
+﻿import ZeroInstall
 import ZeroInstall.Model
 import ZeroInstall.Injector
 

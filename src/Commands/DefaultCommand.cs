@@ -19,7 +19,6 @@ using System;
 using System.Text;
 using Common.Info;
 using Common.Storage;
-using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 
 namespace ZeroInstall.Commands

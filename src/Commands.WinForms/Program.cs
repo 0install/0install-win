@@ -32,6 +32,7 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.Solvers;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Trust;
 

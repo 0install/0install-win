@@ -1,12 +1,12 @@
 ﻿#import clr
-#clr.AddReferenceToFile("ZeroInstall.Backend.dll", "ZeroInstall.Model.dll", "ZeroInstall.Injector.dll")
+#clr.AddReferenceToFile("ZeroInstall.Services.dll", "ZeroInstall.Model.dll")
 
 import sys
-from ZeroInstall.Backend import ServiceLocator, CliHandler
+from ZeroInstall import ServiceLocator, CliHandler
 from ZeroInstall.Model import Requirements
 from ZeroInstall.Injector import Executor
 
-requirements = Requirements(InterfaceID = sys.argv[0]) # sys.argv[1]
+requirements = Requirements(InterfaceID = sys.argv[1]) # sys.argv[0]
 
 locator = ServiceLocator(CliHandler())
 selections = locator.Solver.Solve(requirements)

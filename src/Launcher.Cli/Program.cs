@@ -25,11 +25,11 @@ using Common;
 using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
-using ZeroInstall.Backend;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.Solvers;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Trust;
 

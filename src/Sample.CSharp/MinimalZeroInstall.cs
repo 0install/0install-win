@@ -1,4 +1,4 @@
-﻿using ZeroInstall.Backend;
+﻿using ZeroInstall;
 using ZeroInstall.Model;
 using ZeroInstall.Injector;
 

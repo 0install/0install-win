@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using Common;
 using Common.Utils;
-using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Injector;
+using ZeroInstall.Feeds;
 using ZeroInstall.Model;
+using ZeroInstall.Solvers;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands

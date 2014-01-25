@@ -16,7 +16,6 @@
  */
 
 using System;
-using ZeroInstall.Backend;
 
 namespace ZeroInstall.Commands.Gtk
 {

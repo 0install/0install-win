@@ -27,6 +27,7 @@ using Common.Utils;
 using EasyHook;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.Windows;
+using ZeroInstall.Feeds;
 using ZeroInstall.Hooking;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;

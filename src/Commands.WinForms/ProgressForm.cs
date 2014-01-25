@@ -23,10 +23,10 @@ using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Preferences;
 using ZeroInstall.Model.Selection;
+using ZeroInstall.Solvers;
 using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Commands.WinForms

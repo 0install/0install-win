@@ -52,9 +52,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Backend\Backend.csproj">
+    <ProjectReference Include="..\Services\Services.csproj">
       <Project>{8CAA29B1-94B6-46C2-AF82-E049D35775C5}</Project>
-      <Name>Backend</Name>
+      <Name>Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
@@ -64,21 +64,13 @@
       <Project>{F48937E1-3763-465F-9F12-6CBBBFF61784}</Project>
       <Name>DesktopIntegration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fetchers\Fetchers.csproj">
-      <Project>{37C09DC0-86FA-422C-B7EA-6970BF348ED0}</Project>
-      <Name>Fetchers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Injector\Injector.csproj">
+    <ProjectReference Include="..\Services.Interfaces\Services.Interfaces.csproj">
       <Project>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</Project>
-      <Name>Injector</Name>
+      <Name>Services.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Solvers\Solvers.csproj">
-      <Project>{E82511A6-0126-4FC2-AABD-0310C66FA2D8}</Project>
-      <Name>Solvers</Name>
     </ProjectReference>
     <ProjectReference Include="..\Store\Store.csproj">
       <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
@@ -90,26 +82,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DesktopIntegration\AppListTest.cs" />
     <Compile Include="DesktopIntegration\IntegrationManagerTest.cs" />
     <Compile Include="DesktopIntegration\SyncIntegrationManagerTest.cs" />
-    <Compile Include="Fetchers\RetrievalMethodRankerTest.cs" />
+    <Compile Include="Feeds\FeedManagerTest.cs" />
+    <Compile Include="Feeds\TrustManagerTest.cs" />
     <Compile Include="Fetchers\FetcherTest.cs" />
+    <Compile Include="Fetchers\RetrievalMethodRankerTest.cs" />
     <Compile Include="Fetchers\SequentialFetcherTest.cs" />
     <Compile Include="Fetchers\TestData.cs" />
     <Compile Include="Injector\ExecutorTest.cs" />
     <Compile Include="MockHandler.cs" />
-    <Compile Include="Model\FeedElementUtilsTest.cs" />
-    <Compile Include="Solvers\SolverUtilsTest.cs" />
-    <Compile Include="Store\ConfigTest.cs" />
-    <Compile Include="Injector\FeedManagerTest.cs" />
-    <Compile Include="Injector\TrustManagerTest.cs" />
-    <Compile Include="Model\Selection\ImplementationSelectionTest.cs" />
-    <Compile Include="Model\GenericBindingTest.cs" />
-    <Compile Include="Model\RequirementsTest.cs" />
-    <Compile Include="Model\Selection\SelectionCandidateTest.cs" />
-    <Compile Include="Injector\SelectionsManagerTest.cs" />
-    <Compile Include="Solvers\BacktrackingSolverTest.cs" />
-    <Compile Include="Solvers\SolverTest.cs" />
     <Compile Include="Model\ArchitectureTest.cs" />
     <Compile Include="Model\ArchiveTest.cs" />
     <Compile Include="Model\Capabilities\CapabilityListTest.cs" />
@@ -119,43 +102,52 @@
     <Compile Include="Model\EnvironmentBindingTest.cs" />
     <Compile Include="Model\ExecutableInPathTest.cs" />
     <Compile Include="Model\ExecutableInVarTest.cs" />
+    <Compile Include="Model\FeedElementUtilsTest.cs" />
     <Compile Include="Model\FeedExtensions.cs" />
     <Compile Include="Model\FeedReferenceTest.cs" />
     <Compile Include="Model\FeedTest.cs" />
+    <Compile Include="Model\GenericBindingTest.cs" />
     <Compile Include="Model\ImplementationTest.cs" />
     <Compile Include="Model\ImplementationVersionTest.cs" />
     <Compile Include="Model\ManifestDigestTest.cs" />
     <Compile Include="Model\ModelUtilsTest.cs" />
     <Compile Include="Model\OverlayBindingTest.cs" />
     <Compile Include="Model\PackageImplementationTest.cs" />
-    <Compile Include="Model\RestrictionTest.cs" />
-    <Compile Include="Model\RunnerTest.cs" />
-    <Compile Include="Model\SingleFileTest.cs" />
-    <Compile Include="Model\VersionRangeTest.cs" />
-    <Compile Include="Model\XmlUnknownTest.cs" />
-    <Compile Include="DesktopIntegration\AppListTest.cs" />
-    <Compile Include="Store\Trust\GnuPGTest.cs" />
-    <Compile Include="Store\Trust\TestData.cs" />
-    <Compile Include="TestWithContainer.cs" />
-    <Compile Include="Store\Icons\DiskIconCacheTest.cs" />
-    <Compile Include="Store\Feeds\MemoryFeedCacheTest.cs" />
     <Compile Include="Model\Preferences\DiskFeedCacheTest.cs" />
     <Compile Include="Model\Preferences\FeedPreferencesTest.cs" />
     <Compile Include="Model\Preferences\InterfacePreferencesTest.cs" />
-    <Compile Include="Store\Trust\TrustDBTest.cs" />
+    <Compile Include="Model\RequirementsTest.cs" />
+    <Compile Include="Model\RestrictionTest.cs" />
+    <Compile Include="Model\RunnerTest.cs" />
+    <Compile Include="Model\Selection\ImplementationSelectionTest.cs" />
+    <Compile Include="Model\Selection\SelectionCandidateTest.cs" />
+    <Compile Include="Model\SingleFileTest.cs" />
+    <Compile Include="Model\VersionRangeTest.cs" />
+    <Compile Include="Model\XmlUnknownTest.cs" />
+    <Compile Include="Solvers\BacktrackingSolverTest.cs" />
+    <Compile Include="Solvers\SelectionsManagerTest.cs" />
+    <Compile Include="Solvers\SolverTest.cs" />
+    <Compile Include="Solvers\SolverUtilsTest.cs" />
+    <Compile Include="Store\ConfigTest.cs" />
     <Compile Include="Store\Feeds\FeedUtilsTest.cs" />
-    <Compile Include="Store\Management\ImplementationUtilsTest.cs" />
+    <Compile Include="Store\Feeds\MemoryFeedCacheTest.cs" />
+    <Compile Include="Store\Icons\DiskIconCacheTest.cs" />
     <Compile Include="Store\Implementation\Archive\ExtractorTest.cs" />
     <Compile Include="Store\Implementation\Archive\TarExtractorTest.cs" />
     <Compile Include="Store\Implementation\Archive\TestData.cs" />
     <Compile Include="Store\Implementation\Archive\ZipExtractorTest.cs" />
+    <Compile Include="Store\Implementation\CompositeStoreTest.cs" />
+    <Compile Include="Store\Implementation\DirectoryStoreTest.cs" />
     <Compile Include="Store\Implementation\FlagUtilsTest.cs" />
     <Compile Include="Store\Implementation\ManifestFormatTest.cs" />
     <Compile Include="Store\Implementation\ManifestGeneratorTest.cs" />
     <Compile Include="Store\Implementation\ManifestTest.cs" />
-    <Compile Include="Store\Implementation\CompositeStoreTest.cs" />
-    <Compile Include="Store\Implementation\DirectoryStoreTest.cs" />
     <Compile Include="Store\Implementation\RecipeUtilsTest.cs" />
+    <Compile Include="Store\Management\ImplementationUtilsTest.cs" />
+    <Compile Include="Store\Trust\GnuPGTest.cs" />
+    <Compile Include="Store\Trust\TestData.cs" />
+    <Compile Include="Store\Trust\TrustDBTest.cs" />
+    <Compile Include="TestWithContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Store\Implementation\Archive\testArchive.gem" />

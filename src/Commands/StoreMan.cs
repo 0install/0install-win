@@ -23,7 +23,6 @@ using System.Text;
 using Common.Tasks;
 using Common.Utils;
 using NDesk.Options;
-using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;

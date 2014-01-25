@@ -22,11 +22,11 @@ using System.IO;
 using System.Net;
 using Common.Storage;
 using NDesk.Options;
-using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Injector;
+using ZeroInstall.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
+using ZeroInstall.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementation;
 

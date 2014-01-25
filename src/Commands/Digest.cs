@@ -19,7 +19,6 @@ using System;
 using System.IO;
 using Common.Storage;
 using NDesk.Options;
-using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;

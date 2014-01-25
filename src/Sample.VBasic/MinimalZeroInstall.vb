@@ -1,4 +1,4 @@
-﻿Imports ZeroInstall.Backend
+﻿Imports ZeroInstall
 Imports ZeroInstall.Model
 Imports ZeroInstall.Injector
 

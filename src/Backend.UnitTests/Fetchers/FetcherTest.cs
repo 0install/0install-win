@@ -24,7 +24,6 @@ using Common.Tasks;
 using Common.Utils;
 using Moq;
 using NUnit.Framework;
-using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Implementation.Archive;

@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Preferences;

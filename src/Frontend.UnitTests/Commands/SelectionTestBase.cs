@@ -18,10 +18,9 @@
 using Common.Storage;
 using NDesk.Options;
 using NUnit.Framework;
-using ZeroInstall.Backend;
-using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
+using ZeroInstall.Solvers;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands

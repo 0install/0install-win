@@ -20,8 +20,9 @@ using Common.Storage;
 using Moq;
 using NUnit.Framework;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Injector;
+using ZeroInstall.Fetchers;
 using ZeroInstall.Model;
+using ZeroInstall.Solvers;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 

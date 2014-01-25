@@ -24,7 +24,6 @@ using System.Net;
 using System.Windows.Forms;
 using Common;
 using Common.Utils;
-using ZeroInstall.Backend;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;

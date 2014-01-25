@@ -21,7 +21,6 @@ using System.Security.Permissions;
 using System.Threading;
 using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.Backend;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;

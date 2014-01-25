@@ -20,11 +20,10 @@ using System.Linq;
 using Common.Storage;
 using Common.Utils;
 using NDesk.Options;
-using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.Injector;
+using ZeroInstall.Feeds;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands

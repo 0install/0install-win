@@ -70,9 +70,9 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Backend\Backend.csproj">
+    <ProjectReference Include="..\Services\Services.csproj">
       <Project>{8caa29b1-94b6-46c2-af82-e049d35775c5}</Project>
-      <Name>Backend %28Backend\Backend%29</Name>
+      <Name>Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Commands\Commands.csproj">
       <Project>{606c7fb6-2c58-11e0-8161-7159dfd72085}</Project>
@@ -82,9 +82,9 @@
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Injector\Injector.csproj">
+    <ProjectReference Include="..\Services.Interfaces\Services.Interfaces.csproj">
       <Project>{33df4c92-ac4a-4a36-89a2-db334be3d229}</Project>
-      <Name>Injector</Name>
+      <Name>Services.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{e9329c91-2656-418c-9d4a-7a4378dcd852}</Project>

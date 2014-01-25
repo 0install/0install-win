@@ -19,11 +19,10 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
-using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
+using ZeroInstall.Solvers;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands

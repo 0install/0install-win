@@ -1,4 +1,4 @@
-﻿open ZeroInstall.Backend
+﻿open ZeroInstall
 open ZeroInstall.Model
 open ZeroInstall.Injector
 

@@ -23,10 +23,9 @@ using System.Net;
 using Common;
 using Common.Collections;
 using Common.Storage;
-using ZeroInstall.Backend;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Injector;
+using ZeroInstall.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Trust;
 

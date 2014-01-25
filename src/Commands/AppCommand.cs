@@ -16,7 +16,6 @@
  */
 
 using System;
-using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 

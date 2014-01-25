@@ -30,14 +30,12 @@
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <VisibleItems>InheritedMembers, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\..\src\Backend\Backend.csproj" />
       <DocumentationSource sourceFile="..\..\src\Common\Common.csproj" />
       <DocumentationSource sourceFile="..\..\src\Common.WinForms\Common.WinForms.csproj" />
       <DocumentationSource sourceFile="..\..\src\DesktopIntegration\DesktopIntegration.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Fetchers\Fetchers.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Injector\Injector.csproj" />
       <DocumentationSource sourceFile="..\..\src\Model\Model.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Solvers\Solvers.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Services\Services.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Services.Interfaces\Services.Interfaces.csproj" />
       <DocumentationSource sourceFile="..\..\src\Store\Store.csproj" />
     </DocumentationSources>
     <ProjectSummary>This chapter describes the public and protected aspects of the Zero Install Backend API.</ProjectSummary>
@@ -58,12 +56,13 @@
       <NamespaceSummaryItem name="Common.Undo" isDocumented="True">Contains base classes for an Undo-system based on the Command pattern.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Utils" isDocumented="True">Contains utility classes that provide helper functions for strings, files, etc.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Values.Design" isDocumented="True">Contains &lt;see cref="System.ComponentModel.TypeConverter" /&gt;s. These are used to provide a better runtime experience when using &lt;see cref="System.Windows.Forms.PropertyGrid" /&gt;.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Backend" isDocumented="True">Provides dependency injection for Zero Install's backend modules.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall" isDocumented="True">Provides dependency injection for Zero Install's backend modules.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration" isDocumented="True">Provides methods for integrating applications with the desktop environment.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration.AccessPoints" isDocumented="True">Contains structures for parsing and in-memory representation of access points applied to a system.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration.Unix" isDocumented="True">Contains desktop integration code for Unix-like systems (e.g. Linux).</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration.Windows" isDocumented="True">Contains Windows-specific desktop integration code.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Fetchers" isDocumented="True">Contains &lt;see cref="ZeroInstall.Injector.IFetcher" /&gt; implementations.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Feeds" isDocumented="True">Download and verify &lt;see cref="ZeroInstall.Model.Feed" /&gt;s.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Fetchers" isDocumented="True">Download and extract implementations.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Injector" isDocumented="True">Contains code for launching implementations and injecting the selected dependencies.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Model" isDocumented="True">Contains structures for parsing and in-memory representation of Zero Install feeds. The XML representation is defined here: http://0install.net/interface-spec.html</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Model.Capabilities" isDocumented="True">Extends the feed format with structures for describing application capabilities.</NamespaceSummaryItem>

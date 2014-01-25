@@ -18,10 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using ZeroInstall.Backend;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementation;
 

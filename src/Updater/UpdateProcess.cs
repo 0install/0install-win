@@ -207,6 +207,18 @@ namespace ZeroInstall.Updater
                 filesToDelete.AddRange(shortcuts.Select(x => Path.Combine(userProgams, x)));
                 filesToDelete.AddRange(shortcuts.Select(x => Path.Combine(commonPrograms, x)));
             }
+            if (NewVersion >= new Version("2.3.9"))
+            {
+                var appFiles = new[]
+                {
+                    "C5.dll",
+                    "ZeroInstall.Backend.dll", Path.Combine("de", "ZeroInstall.Backend.dll"),  
+                    "ZeroInstall.Fetchers.dll", Path.Combine("de", "ZeroInstall.Fetchers.dll"),
+                    "ZeroInstall.Solvers.dll", Path.Combine("de", "ZeroInstall.Solvers.dll"),
+                    "ZeroInstall.Injector.dll", Path.Combine("de", "ZeroInstall.Injector.dll")
+                };
+                filesToDelete.AddRange(appFiles.Select(x => Path.Combine(Target, x)));
+            }
 
             foreach (string file in filesToDelete.Where(File.Exists))
                 File.Delete(file);
