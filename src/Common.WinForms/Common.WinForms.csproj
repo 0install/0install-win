@@ -57,9 +57,6 @@
     <Reference Include="ICSharpCode.TextEditor">
       <HintPath>..\..\lib\ICSharpCode.TextEditor.dll</HintPath>
     </Reference>
-    <Reference Include="C5">
-      <HintPath>..\..\lib\C5.dll</HintPath>
-    </Reference>
     <Reference Include="TaskDialog">
       <HintPath>..\..\lib\TaskDialog.dll</HintPath>
     </Reference>

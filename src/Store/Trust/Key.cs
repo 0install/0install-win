@@ -16,15 +16,14 @@
  */
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Store.Trust
 {
     /// <summary>
     /// A known OpenPGP key, trusted to sign feeds from a certain set of domains.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlType("key", Namespace = TrustDB.XmlNamespace)]
     public sealed class Key : ICloneable, IEquatable<Key>
     {
@@ -36,14 +35,14 @@ namespace ZeroInstall.Store.Trust
         public string Fingerprint { get; set; }
 
         // Order is preserved, duplicate entries are not intended
-        private readonly C5.HashedLinkedList<Domain> _domains = new C5.HashedLinkedList<Domain>();
+        private readonly SortedSet<Domain> _domains = new SortedSet<Domain>();
 
         // Note: Can not use ICollection<T> interface with XML Serialization
         /// <summary>
         /// A list of <see cref="Domain"/>s this key is valid for.
         /// </summary>
         [XmlElement("domain")]
-        public C5.HashedLinkedList<Domain> Domains { get { return _domains; } }
+        public SortedSet<Domain> Domains { get { return _domains; } }
         #endregion
 
         //--------------------//
@@ -80,7 +79,7 @@ namespace ZeroInstall.Store.Trust
         public bool Equals(Key other)
         {
             if (other == null) return false;
-            return Fingerprint == other.Fingerprint && Domains.UnsequencedEquals(other.Domains);
+            return Fingerprint == other.Fingerprint && Domains.SetEquals(other.Domains);
         }
 
         /// <inheritdoc/>

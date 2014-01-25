@@ -29,7 +29,6 @@ namespace Common.Undo
     /// <summary>
     /// Combines multiple already executed <see cref="IUndoCommand"/>s into a single atomic transaction.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     public class PreExecutedCompositeCommand : PreExecutedCommand
     {
         #region Variables

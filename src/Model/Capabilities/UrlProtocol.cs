@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Collections;
 
@@ -27,7 +26,6 @@ namespace ZeroInstall.Model.Capabilities
     /// <summary>
     /// An application's ability to handle a certain URL protocol such as HTTP.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [Description("An application's ability to handle a certain URL protocol such as HTTP.")]
     [Serializable]
     [XmlRoot("url-protocol", Namespace = CapabilityList.XmlNamespace), XmlType("url-protocol", Namespace = CapabilityList.XmlNamespace)]

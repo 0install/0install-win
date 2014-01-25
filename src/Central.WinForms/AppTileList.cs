@@ -46,7 +46,7 @@ namespace ZeroInstall.Central.WinForms
         private readonly Panel _scrollPanel;
 
         /// <summary>Maps interface IDs to <see cref="AppTile"/>s.</summary>
-        private readonly C5.IDictionary<string, AppTile> _tileDictionary = new C5.HashDictionary<string, AppTile>();
+        private readonly IDictionary<string, AppTile> _tileDictionary = new Dictionary<string, AppTile>();
 
         /// <summary><see langword="true"/> if the last tile used <see cref="TileColorLight"/>; <see langword="false"/> if the last tile used <see cref="TileColorDark"/>.</summary>
         private bool _lastTileLight;
@@ -140,7 +140,7 @@ namespace ZeroInstall.Central.WinForms
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             if (appName == null) throw new ArgumentNullException("appName");
-            if (_tileDictionary.Contains(interfaceID)) throw new C5.DuplicateNotAllowedException();
+            if (_tileDictionary.ContainsKey(interfaceID)) throw new InvalidOperationException("Duplicate interface ID");
             #endregion
 
             var tile = new AppTile(interfaceID, appName, status, IconCache, machineWide) {Width = _flowLayout.Width};
@@ -181,7 +181,7 @@ namespace ZeroInstall.Central.WinForms
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             #endregion
 
-            return _tileDictionary.Contains(interfaceID) ? _tileDictionary[interfaceID] : null;
+            return _tileDictionary.ContainsKey(interfaceID) ? _tileDictionary[interfaceID] : null;
         }
 
         /// <inheritdoc/>
@@ -194,12 +194,7 @@ namespace ZeroInstall.Central.WinForms
         public void RemoveTile(string interfaceID)
         {
             if (string.IsNullOrEmpty(interfaceID)) return;
-            try
-            {
-                RemoveTile(_tileDictionary[interfaceID]);
-            }
-            catch (C5.NoSuchItemException)
-            {}
+            RemoveTile(_tileDictionary[interfaceID]);
         }
 
         /// <summary>

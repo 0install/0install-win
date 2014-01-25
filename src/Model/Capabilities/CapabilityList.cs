@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Collections;
 
@@ -27,7 +26,6 @@ namespace ZeroInstall.Model.Capabilities
     /// <summary>
     /// Groups a number of application <see cref="Capability"/>s (for a specific operating system) that can be registered in a desktop environment.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Description("Groups a number of application capabilities (for a specific operating system) that can be registered in a desktop environment.")]
     [Serializable]
     [XmlRoot("capabilities", Namespace = XmlNamespace), XmlType("capabilities", Namespace = XmlNamespace)]

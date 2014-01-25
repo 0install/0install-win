@@ -33,7 +33,6 @@ namespace ZeroInstall.DesktopIntegration
     /// <summary>
     /// Stores a list of applications and the kind of desktop integration the user chose for them.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("app-list", Namespace = XmlNamespace), XmlType("app-list", Namespace = XmlNamespace)]
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
     //[XmlNamespace("caps", CapabilityList.XmlNamespace)]

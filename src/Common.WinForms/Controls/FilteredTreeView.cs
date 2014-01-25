@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Common.Collections;
 using Common.Properties;
@@ -128,13 +129,13 @@ namespace Common.Controls
             }
         }
 
-        private readonly C5.HashSet<T> _checkedEntries = new C5.HashSet<T>();
+        private readonly HashSet<T> _checkedEntries = new HashSet<T>();
 
         /// <summary>
         /// Returns an array of all <see cref="INamed{T}"/> objects currently marked with a check box.
         /// </summary>
         /// <see cref="CheckBoxes"/>
-        public ICollection<T> CheckedEntries { get { return new C5.GuardedCollection<T>(_checkedEntries); } }
+        public ICollection<T> CheckedEntries { get { return _checkedEntries.ToList(); } }
 
         private char _separator = '.';
 

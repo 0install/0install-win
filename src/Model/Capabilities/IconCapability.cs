@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Collections;
 using Common.Utils;
@@ -29,7 +28,6 @@ namespace ZeroInstall.Model.Capabilities
     /// <summary>
     /// Abstract base class for capabilities that can have multiple <see cref="Icon"/>s and descriptions.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [Serializable]
     [XmlType("icon-capability", Namespace = CapabilityList.XmlNamespace)]
     public abstract class IconCapability : DefaultCapability, IIconContainer, IDescriptionContainer

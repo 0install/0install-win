@@ -31,7 +31,6 @@ namespace ZeroInstall.Model
     /// A set of requirements/restrictions imposed by the user on the <see cref="Implementation"/> selection process.
     /// </summary>
     /// <remarks>This is used as input for the solver.</remarks>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Description("A set of requirements/restrictions imposed by the user on the Implementation selection process.")]
     [XmlRoot("requirements", Namespace = Feed.XmlNamespace), XmlType("requirements", Namespace = Feed.XmlNamespace)]
     public class Requirements : ICloneable, IEquatable<Requirements>
@@ -137,8 +136,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Requirements"/>.</returns>
         public Requirements Clone()
         {
-            var requirements = new Requirements {InterfaceID = InterfaceID, Command = Command, Architecture = Architecture, Versions = Versions};
-            requirements._languages.AddAll(_languages);
+            var requirements = new Requirements {InterfaceID = InterfaceID, Command = Command, Architecture = Architecture, Versions = Versions, Languages = new LanguageSet(Languages)};
             requirements._versionsFor.AddRange(_versionsFor);
 
             return requirements;

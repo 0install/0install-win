@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Xml.Serialization;
 using ZeroInstall.Model.Design;
@@ -29,7 +28,6 @@ namespace ZeroInstall.Model
     /// An implementation provided by a distribution-specific package manager instead of Zero Install.
     /// </summary>
     /// <remarks>Any <see cref="Binding"/>s inside <see cref="Dependency"/>s for the <see cref="Feed"/> will be ignored; it is assumed that the requiring component knows how to use the packaged version without further help.</remarks>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Description("An implementation provided by a distribution-specific package manager instead of Zero Install.")]
     [Serializable]
     [XmlRoot("package-implementation", Namespace = Feed.XmlNamespace), XmlType("package-implementation", Namespace = Feed.XmlNamespace)]

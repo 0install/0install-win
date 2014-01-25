@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Collections;
 using ZeroInstall.Model.Design;
@@ -45,7 +44,6 @@ namespace ZeroInstall.Model
     /// <summary>
     /// A reference to an interface that is required as dependency.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Description("A reference to an interface that is required as dependency.")]
     [Serializable]
     [XmlRoot("dependency", Namespace = Feed.XmlNamespace), XmlType("depedency", Namespace = Feed.XmlNamespace)]

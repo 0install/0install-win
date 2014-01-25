@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Collections;
 
@@ -27,7 +26,6 @@ namespace ZeroInstall.Model.Capabilities
     /// <summary>
     /// An application's ability to handle one or more AutoPlay events.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [Description("An application's ability to handle one or more AutoPlay events.")]
     [Serializable]
     [XmlRoot("auto-play", Namespace = CapabilityList.XmlNamespace), XmlType("auto-play", Namespace = CapabilityList.XmlNamespace)]

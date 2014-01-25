@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Collections;
 using ZeroInstall.Model.Design;
@@ -29,7 +28,6 @@ namespace ZeroInstall.Model
     /// A command says how to run an <see cref="Implementation"/> as a program.
     /// </summary>
     /// <seealso cref="Element.Commands"/>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Description("A command says how to run an implementation as a program.")]
     [Serializable]
     [XmlRoot("command", Namespace = Feed.XmlNamespace), XmlType("command", Namespace = Feed.XmlNamespace)]

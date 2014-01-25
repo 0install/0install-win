@@ -53,9 +53,6 @@
     <Reference Include="LinqBridge">
       <HintPath>..\..\lib\LinqBridge.dll</HintPath>
     </Reference>
-    <Reference Include="C5">
-      <HintPath>..\..\lib\C5.dll</HintPath>
-    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>

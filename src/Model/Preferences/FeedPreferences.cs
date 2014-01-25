@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -33,7 +32,6 @@ namespace ZeroInstall.Model.Preferences
     /// <summary>
     /// Stores user-specific preferences for a <see cref="Model.Feed"/>.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("feed-preferences", Namespace = Feed.XmlNamespace), XmlType("feed-preferences", Namespace = Feed.XmlNamespace)]
     public sealed class FeedPreferences : XmlUnknown, ICloneable, IEquatable<FeedPreferences>
     {

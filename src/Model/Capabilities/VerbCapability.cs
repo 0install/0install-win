@@ -17,7 +17,6 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Collections;
 
@@ -26,7 +25,6 @@ namespace ZeroInstall.Model.Capabilities
     /// <summary>
     /// Abstract base class for capabilities that can have multiple <see cref="Verb"/>s.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [XmlType("verb-capability", Namespace = CapabilityList.XmlNamespace)]
     public abstract class VerbCapability : IconCapability
     {

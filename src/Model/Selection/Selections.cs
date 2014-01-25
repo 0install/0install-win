@@ -29,7 +29,6 @@ namespace ZeroInstall.Model.Selection
     /// <summary>
     /// Represents a set of <see cref="ImplementationBase"/>s chosen by a solver.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("selections", Namespace = Feed.XmlNamespace), XmlType("selections", Namespace = Feed.XmlNamespace)]
     public sealed class Selections : XmlUnknown, ICloneable, IEquatable<Selections>
     {

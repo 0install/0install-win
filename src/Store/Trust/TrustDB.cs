@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -32,7 +31,6 @@ namespace ZeroInstall.Store.Trust
     /// <summary>
     /// A database of OpenPGP the users trusts to sign <see cref="Feed"/>s.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("trusted-keys", Namespace = XmlNamespace), XmlType("trusted-keys", Namespace = XmlNamespace)]
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]
     public sealed class TrustDB : ICloneable, IEquatable<TrustDB>
@@ -105,7 +103,7 @@ namespace ZeroInstall.Store.Trust
                 Keys.Add(targetKey);
             }
 
-            targetKey.Domains.UpdateOrAdd(domain);
+            targetKey.Domains.Add(domain);
         }
 
         /// <summary>
@@ -120,7 +118,7 @@ namespace ZeroInstall.Store.Trust
             #endregion
 
             foreach (Key key in Keys.Where(key => key.Fingerprint == fingerprint))
-                key.Domains.RemoveAllCopies(domain);
+                key.Domains.Remove(domain);
         }
         #endregion
 

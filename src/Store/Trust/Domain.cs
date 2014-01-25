@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Store.Trust
@@ -23,8 +24,9 @@ namespace ZeroInstall.Store.Trust
     /// <summary>
     /// A specific domain with feeds a <see cref="Key"/> is trusted to sign.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Only implemented IComparable<T> for SortedSet<T> support")]
     [XmlType("domain", Namespace = TrustDB.XmlNamespace)]
-    public struct Domain : ICloneable, IEquatable<Domain>
+    public struct Domain : ICloneable, IEquatable<Domain>, IComparable<Domain>
     {
         #region Properties
         /// <summary>
@@ -101,6 +103,12 @@ namespace ZeroInstall.Store.Trust
         public override int GetHashCode()
         {
             return (Value ?? "").GetHashCode();
+        }
+
+        /// <inheritdoc/>
+        public int CompareTo(Domain other)
+        {
+            return StringComparer.InvariantCultureIgnoreCase.Compare(Value, other.Value);
         }
         #endregion
     }

@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Common.Collections;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Store.Implementation;
@@ -41,7 +42,7 @@ namespace ZeroInstall.Injector
             #endregion
 
             var builder = new StringBuilder();
-            PrintNode(selections, builder, new C5.HashSet<string>(), store, "", selections.InterfaceID);
+            PrintNode(selections, builder, new HashSet<string>(), store, "", selections.InterfaceID);
             return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
         }
 
@@ -54,7 +55,7 @@ namespace ZeroInstall.Injector
         /// <param name="store">A store to search for implementation storage locations.</param>
         /// <param name="indent">An indention prefix for the current recursion level (to create a visual hierachy).</param>
         /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
-        private static void PrintNode(Selections selections, StringBuilder builder, C5.HashSet<string> handled, IStore store, string indent, string interfaceID)
+        private static void PrintNode(Selections selections, StringBuilder builder, HashSet<string> handled, IStore store, string indent, string interfaceID)
         {
             // Prevent infinite recursion
             if (handled.Contains(interfaceID)) return;

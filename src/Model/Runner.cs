@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Collections;
 using ZeroInstall.Model.Design;
@@ -29,7 +28,6 @@ namespace ZeroInstall.Model
     /// A special kind of dependency: the program that is used to run this one. For example, a Python program might specify Python as its runner.
     /// </summary>
     /// <seealso cref="Model.Command.Runner"/>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Description("A special kind of dependency: the program that is used to run this one. For example, a Python program might specify Python as its runner.")]
     [Serializable]
     [XmlRoot("runner", Namespace = Feed.XmlNamespace), XmlType("runner", Namespace = Feed.XmlNamespace)]

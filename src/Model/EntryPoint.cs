@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Collections;
 using ZeroInstall.Model.Design;
@@ -29,7 +28,6 @@ namespace ZeroInstall.Model
     /// Associates a <see cref="Command"/> with a user-friendly name and description.
     /// </summary>
     /// <seealso cref="Feed.EntryPoints"/>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Description("Associates a command with a user-friendly name and description.")]
     [Serializable]
     [XmlRoot("entry-point", Namespace = Feed.XmlNamespace), XmlType("entry-point", Namespace = Feed.XmlNamespace)]

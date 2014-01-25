@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting;
@@ -37,7 +36,6 @@ namespace ZeroInstall.Store.Implementation
     ///   <para>When adding new <see cref="Model.Implementation"/>s the last child <see cref="IStore"/> that doesn't throw an <see cref="UnauthorizedAccessException"/> is used.</para>
     ///   <para>When when retrieving existing <see cref="Model.Implementation"/>s the first child <see cref="IStore"/> that returns <see langword="true"/> for <see cref="IStore.Contains(ZeroInstall.Model.ManifestDigest)"/> is used.</para>
     /// </remarks>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public class CompositeStore : MarshalByRefObject, IStore
     {
         #region Variables
@@ -69,22 +67,14 @@ namespace ZeroInstall.Store.Implementation
         public IEnumerable<ManifestDigest> ListAll()
         {
             // Merge the lists from all contained stores, eliminating duplicates
-            var result = new C5.TreeSet<ManifestDigest>();
-            foreach (var store in _stores)
-                result.AddSorted(store.ListAllSafe());
-
-            return result;
+            return new SortedSet<ManifestDigest>(_stores.SelectMany(x => x.ListAllSafe()));
         }
 
         /// <inheritdoc />
         public IEnumerable<string> ListAllTemp()
         {
             // Merge the lists from all contained stores, eliminating duplicates
-            var result = new C5.TreeSet<string>(StringComparer.Ordinal);
-            foreach (var store in _stores)
-                result.AddSorted(store.ListAllTempSafe());
-
-            return result;
+            return new SortedSet<string>(_stores.SelectMany(x => x.ListAllTempSafe()), StringComparer.Ordinal);
         }
         #endregion
 

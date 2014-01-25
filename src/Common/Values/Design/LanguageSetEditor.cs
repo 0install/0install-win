@@ -70,9 +70,7 @@ namespace Common.Values.Design
 
             editorService.DropDownControl(listBox);
 
-            var result = new LanguageSet();
-            result.AddAll(listBox.CheckedItems.Cast<CultureInfo>());
-            return result;
+            return new LanguageSet(listBox.CheckedItems.Cast<CultureInfo>());
         }
     }
 }

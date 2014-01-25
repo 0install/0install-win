@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Common.Collections;
 using Common.Storage;
@@ -35,7 +34,6 @@ namespace ZeroInstall.Commands
     /// <summary>
     /// Add an application to the application list (if missing) and integrate it into the desktop environment.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [CLSCompliant(false)]
     public sealed class IntegrateApp : AppCommand
     {

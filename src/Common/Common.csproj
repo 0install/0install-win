@@ -53,9 +53,6 @@
     <Reference Include="Mono.Posix" Condition=" '$(OS)' == 'Windows_NT' ">
       <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
     </Reference>
-    <Reference Include="C5">
-      <HintPath>..\..\lib\C5.dll</HintPath>
-    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -80,6 +77,8 @@
     <Compile Include="Collections\ComparableTuple.cs" />
     <Compile Include="Collections\CultureComparer.cs" />
     <Compile Include="Collections\EnumerableExtensions.cs" />
+    <Compile Include="Collections\HashPrimeNumbers.cs" />
+    <Compile Include="Collections\HashSet.cs" />
     <Compile Include="Collections\IMergeable.cs" />
     <Compile Include="Collections\LanguageSet.cs" />
     <Compile Include="Collections\LocalizableString.cs" />
@@ -88,6 +87,8 @@
     <Compile Include="Collections\NamedCollection.cs" />
     <Compile Include="Collections\PerTypeDispatcher.Action.cs" />
     <Compile Include="Collections\PerTypeDispatcher.Func.cs" />
+    <Compile Include="Collections\RBTree.cs" />
+    <Compile Include="Collections\SortedSet.cs" />
     <Compile Include="Collections\TransparentCache.cs" />
     <Compile Include="Controls\TimeSpanControl.cs">
       <SubType>UserControl</SubType>

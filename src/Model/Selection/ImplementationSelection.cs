@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
@@ -31,7 +30,6 @@ namespace ZeroInstall.Model.Selection
     /// </summary>
     /// <remarks>This class does not contain information on how to download the implementation in case it is not in cache. That must be obtained from a <see cref="Model.Implementation"/> instance.</remarks>
     /// <seealso cref="Selections.Implementations"/>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [XmlType("selection", Namespace = Feed.XmlNamespace)]
     public sealed class ImplementationSelection : ImplementationBase, IEquatable<ImplementationSelection>
     {

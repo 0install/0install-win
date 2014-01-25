@@ -116,7 +116,7 @@ namespace ZeroInstall.Central
                     {
                         Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, entry.InterfaceID));
                     }
-                    catch (C5.DuplicateNotAllowedException)
+                    catch (InvalidOperationException)
                     {
                         Log.Warn(string.Format(Resources.IgnoringDuplicateAppListEntry, entry.InterfaceID));
                     }
@@ -275,7 +275,7 @@ namespace ZeroInstall.Central
                 tile.Feed = feed;
             }
                 #region Error handling
-            catch (C5.DuplicateNotAllowedException)
+            catch (InvalidOperationException)
             {
                 Log.Warn(string.Format(Resources.IgnoringDuplicateAppListEntry, feed.Uri));
             }

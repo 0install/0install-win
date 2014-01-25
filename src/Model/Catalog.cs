@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
 using Common.Collections;
@@ -33,7 +32,6 @@ namespace ZeroInstall.Model
     /// For specific <see cref="Implementation"/>s, fetch the original <see cref="Feed"/>s.
     /// Catalogs downloaded from remote locations are protected from tampering by a OpenPGP signature.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Description("Contains a list of feeds, reduced to only contain information relevant for overview lists.")]
     [Serializable]
     [XmlRoot("catalog", Namespace = XmlNamespace), XmlType("catalog", Namespace = XmlNamespace)]

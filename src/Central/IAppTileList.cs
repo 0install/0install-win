@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.ComponentModel;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store.Icons;
@@ -39,7 +40,7 @@ namespace ZeroInstall.Central
         /// <param name="appName">The name of the application this tile represents.</param>
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        /// <exception cref="C5.DuplicateNotAllowedException">Thrown if the list already contains an <see cref="IAppTile"/> with the specified <paramref name="interfaceID"/>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the list already contains an <see cref="IAppTile"/> with the specified <paramref name="interfaceID"/>.</exception>
         IAppTile QueueNewTile(string interfaceID, string appName, AppStatus status, bool machineWide);
 
         /// <summary>

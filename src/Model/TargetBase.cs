@@ -27,7 +27,6 @@ namespace ZeroInstall.Model
     /// Abstract base class for <see cref="Element"/> and <see cref="FeedReference"/>.
     /// Contains language and architecture parameters.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlType("target-base", Namespace = Feed.XmlNamespace)]
     public abstract class TargetBase : FeedElement
     {
@@ -92,7 +91,7 @@ namespace ZeroInstall.Model
             to.UnknownElements = from.UnknownElements;
             to.UnknownAttributes = from.UnknownAttributes;
             to.Languages.Clear();
-            to.Languages.AddAll(from.Languages);
+            to.Languages = new LanguageSet(from.Languages);
             to.ArchitectureString = from.ArchitectureString;
         }
         #endregion
@@ -102,7 +101,7 @@ namespace ZeroInstall.Model
         protected bool Equals(TargetBase other)
         {
             if (other == null) return false;
-            return base.Equals(other) && _languages.UnsequencedEquals(other._languages) && other.Architecture == Architecture;
+            return base.Equals(other) && _languages.SetEquals(other._languages) && other.Architecture == Architecture;
         }
 
         /// <inheritdoc/>

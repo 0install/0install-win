@@ -39,7 +39,7 @@ namespace Common.Collections
     [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "A Set is a special case of a Collection.")]
     [TypeConverter(typeof(StringConstructorConverter<LanguageSet>))]
     [Editor(typeof(LanguageSetEditor), typeof(UITypeEditor))]
-    public sealed class LanguageSet : C5.TreeSet<CultureInfo>
+    public sealed class LanguageSet : SortedSet<CultureInfo>
     {
         #region Constants
         /// <summary>
@@ -60,28 +60,43 @@ namespace Common.Collections
         /// <summary>
         /// Creates a new empty language collection.
         /// </summary>
-        public LanguageSet() : base(new CultureComparer())
+        public LanguageSet()
+            : base(new CultureComparer())
+        {}
+
+        /// <summary>
+        /// Creates a new language collection pre-filled with a set of languages.
+        /// </summary>
+        /// <param name="collection"></param>
+        public LanguageSet(IEnumerable<CultureInfo> collection)
+            : base(collection, new CultureComparer())
         {}
 
         /// <summary>
         /// Deserializes a space-separated list of languages codes (in the same format as used by the $LANG environment variable).
         /// </summary>
-        public LanguageSet(string value) : this()
+        public LanguageSet(string value)
+            : this(ParseString(value))
+        {}
+
+        private static IEnumerable<CultureInfo> ParseString(string value)
         {
-            if (string.IsNullOrEmpty(value)) return;
+            if (string.IsNullOrEmpty(value)) yield break;
 
             // Replace list by parsing input string split by spaces
-            foreach (string language in value.Split(' '))
+            foreach (string langCode in value.Split(' '))
             {
-                // Handle Unix-style language codes (even though they are not actually valid in XML)
+                CultureInfo language = null;
                 try
                 {
-                    Add(new CultureInfo(language.Replace('_', '-')));
+                    // Handle Unix-style language codes (even though they are not actually valid in XML)
+                    language = new CultureInfo(langCode.Replace('_', '-'));
                 }
                 catch (ArgumentException)
                 {
                     Log.Error("Ignoring unknown language code: " + language);
                 }
+                if (language != null) yield return language;
             }
         }
         #endregion

@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Collections;
 using ZeroInstall.Model;
@@ -28,7 +27,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     /// <summary>
     /// Contains a set of <see cref="AccessPoint"/>s to be registered in a desktop environment.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlRoot("access-points", Namespace = AppList.XmlNamespace), XmlType("access-points", Namespace = AppList.XmlNamespace)]
     public sealed class AccessPointList : XmlUnknown, ICloneable, IEquatable<AccessPointList>

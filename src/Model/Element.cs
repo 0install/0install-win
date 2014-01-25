@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Xml.Serialization;
@@ -73,7 +72,6 @@ namespace ZeroInstall.Model
     /// Abstract base class for <see cref="ImplementationBase"/> and <see cref="Group"/>.
     /// Contains those parameters that can be transferred from a <see cref="Group"/> to an <see cref="Implementation"/>.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlType("element", Namespace = Feed.XmlNamespace)]
     public abstract class Element : TargetBase, IBindingContainer, IDependencyContainer, ICloneable
     {
@@ -250,7 +248,7 @@ namespace ZeroInstall.Model
             if (DocDir == null) DocDir = parent.DocDir;
             if (License == null) License = parent.License;
             if (Stability == Stability.Unset) Stability = parent.Stability;
-            if (Languages.Count == 0) Languages.AddAll(parent.Languages);
+            if (Languages.Count == 0) Languages = new LanguageSet(parent.Languages);
             if (Architecture == default(Architecture)) Architecture = parent.Architecture;
 
             // Accumulate list entries

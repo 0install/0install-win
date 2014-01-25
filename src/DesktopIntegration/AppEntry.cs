@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
 using Common.Collections;
@@ -33,7 +32,6 @@ namespace ZeroInstall.DesktopIntegration
     /// <summary>
     /// Represents an application in the <see cref="AppList"/> indentified by its interface URI.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlType("app", Namespace = AppList.XmlNamespace)]
     public sealed class AppEntry : XmlUnknown, IMergeable<AppEntry>, ICloneable
     {

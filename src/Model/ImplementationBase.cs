@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Utils;
 
@@ -28,7 +27,6 @@ namespace ZeroInstall.Model
     /// Information for identifying an implementation of a <see cref="Feed"/>.
     /// Common base for <see cref="Implementation"/> and <see cref="PackageImplementation"/>.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlType("implementation-base", Namespace = Feed.XmlNamespace)]
     public abstract class ImplementationBase : Element
     {
