@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Xml.Serialization;
 using Common.Collections;
 using Common.Utils;
@@ -66,7 +67,7 @@ namespace ZeroInstall.Model.Capabilities
             #endregion
 
             var suitableIcons = Icons.FindAll(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
-            if (!(suitableIcons.Count == 0)) return suitableIcons[0];
+            if (suitableIcons.Any()) return suitableIcons[0];
 
             throw new KeyNotFoundException(Resources.NoSuitableIconFound);
         }

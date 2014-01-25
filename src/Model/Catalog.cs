@@ -93,11 +93,20 @@ namespace ZeroInstall.Model
         {
             public bool Equals(Feed x, Feed y)
             {
+                #region Sanity checks
+                if (x == null) throw new ArgumentNullException("x");
+                if (y == null) throw new ArgumentNullException("y");
+                #endregion
+
                 return x.Uri == y.Uri;
             }
 
             public int GetHashCode(Feed obj)
             {
+                #region Sanity checks
+                if (obj == null) throw new ArgumentNullException("obj");
+                #endregion
+
                 if (obj.Uri == null) return 0;
                 return obj.Uri.GetHashCode();
             }

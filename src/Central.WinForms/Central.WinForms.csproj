@@ -281,6 +281,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\CryptoKeyChangedPage.de.resx">
       <DependentUpon>CryptoKeyChangedPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\CryptoKeyChangedPage.resx">
       <DependentUpon>CryptoKeyChangedPage.cs</DependentUpon>
@@ -288,6 +289,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\ExistingCryptoKeyPage.de.resx">
       <DependentUpon>ExistingCryptoKeyPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\ExistingCryptoKeyPage.resx">
       <DependentUpon>ExistingCryptoKeyPage.cs</DependentUpon>
@@ -295,6 +297,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\NewCryptoKeyPage.de.resx">
       <DependentUpon>NewCryptoKeyPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\NewCryptoKeyPage.resx">
       <DependentUpon>NewCryptoKeyPage.cs</DependentUpon>
@@ -302,6 +305,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\RegisterPage.de.resx">
       <DependentUpon>RegisterPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\RegisterPage.resx">
       <DependentUpon>RegisterPage.cs</DependentUpon>
