@@ -24,8 +24,8 @@ using Common.Storage;
 using Common.Streams;
 using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.Model;
 using ZeroInstall.Store.Implementations.Archives;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations
@@ -89,9 +89,9 @@ namespace ZeroInstall.Store.Implementations
         }
 
         /// <summary>
-        /// Applies a <see cref="Model.Archive"/> to a <see cref="TemporaryDirectory"/>.
+        /// Applies a <see cref="Store.Model.Archive"/> to a <see cref="TemporaryDirectory"/>.
         /// </summary>
-        /// <param name="step">The <see cref="Model.Archive"/> to apply.</param>
+        /// <param name="step">The <see cref="Store.Model.Archive"/> to apply.</param>
         /// <param name="localPath">The local path of the archive.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
@@ -128,7 +128,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Applies a <see cref="SingleFile"/> to a <see cref="TemporaryDirectory"/>.
         /// </summary>
-        /// <param name="step">The <see cref="Model.Archive"/> to apply.</param>
+        /// <param name="step">The <see cref="Store.Model.Archive"/> to apply.</param>
         /// <param name="localPath">The local path of the file.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
@@ -155,7 +155,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Applies a <see cref="SingleFile"/> to a <see cref="TemporaryDirectory"/>.
         /// </summary>
-        /// <param name="step">The <see cref="Model.Archive"/> to apply.</param>
+        /// <param name="step">The <see cref="Store.Model.Archive"/> to apply.</param>
         /// <param name="downloadedFile">The file downloaded from <see cref="DownloadRetrievalMethod.Href"/>.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
@@ -192,7 +192,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Applies a <see cref="RemoveStep"/> to a <see cref="TemporaryDirectory"/>.
         /// </summary>
-        /// <param name="step">The <see cref="Model.Archive"/> to apply.</param>
+        /// <param name="step">The <see cref="Store.Model.Archive"/> to apply.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
         /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
         public static void Apply(this RemoveStep step, TemporaryDirectory workingDir)
@@ -221,7 +221,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Applies a <see cref="RenameStep"/> to a <see cref="TemporaryDirectory"/>.
         /// </summary>
-        /// <param name="step">The <see cref="Model.Archive"/> to apply.</param>
+        /// <param name="step">The <see cref="Store.Model.Archive"/> to apply.</param>
         /// <param name="workingDir">The <see cref="TemporaryDirectory"/> to apply the changes to.</param>
         /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
         public static void Apply(this RenameStep step, TemporaryDirectory workingDir)

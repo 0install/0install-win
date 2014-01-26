@@ -23,13 +23,13 @@ using Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.Model;
 using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Commands

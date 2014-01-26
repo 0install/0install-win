@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ZeroInstall.Store.Model.Feed">
+    <Position X="3.5" Y="0.5" Width="1.75" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Property Name="HomepageString" Hidden="true" />
+      <Method Name="ICloneable.Clone" Hidden="true" />
+      <Property Name="MinInjectorVersionString" Hidden="true" />
+      <Property Name="NeedsTerminalString" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+      <Property Name="UriString" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Summaries" Type="Common.Collections.LocalizableString" FixedFromPoint="true">
+      <Path>
+        <Point X="5.25" Y="4.612" />
+        <Point X="5.625" Y="4.612" />
+        <Point X="5.625" Y="4.899" />
+        <Point X="6.75" Y="4.899" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.185" Y="0.037" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Descriptions" Type="Common.Collections.LocalizableString">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.329" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ANAoEIAQBDAgQHkMnABQgARAAIQBEMCASAgAAAAIABI=</HashCode>
+      <FileName>Feed.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Summaries" />
+      <Property Name="Descriptions" />
+      <Property Name="Feeds" />
+      <Property Name="FeedFor" />
+      <Property Name="Elements" />
+      <Property Name="Icons" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.InterfaceReference">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ICloneable.Clone" Hidden="true" />
+      <Property Name="TargetString" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAMgAAAACAAAAAAAIAAAAAAAAAAABA=</HashCode>
+      <FileName>InterfaceReference.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.FeedReference">
+    <Position X="0.5" Y="2" Width="1.75" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ICloneable.Clone" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAMgAAAAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
+      <FileName>FeedReference.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Element" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAggAAIIAACACImABAKABQAADAEIEASECABBAACBA=</HashCode>
+      <FileName>Element.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Implementation" Collapsed="true">
+    <Position X="7.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAkAACAAAAAQAAAIAAAAABAAAAABA=</HashCode>
+      <FileName>Implementation.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.ImplementationBase" Collapsed="true">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAgAAEkABAAAAAACAAAIAAAAAAAAAAAAE=</HashCode>
+      <FileName>ImplementationBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Group" Collapsed="true">
+    <Position X="5.5" Y="2" Width="1.5" />
+    <AssociationLine Name="Elements" Type="ZeroInstall.Store.Model.Element" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.938" Y="2" />
+        <Point X="5.938" Y="1" />
+        <Point X="6.5" Y="1" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.286" Y="-0.44" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAEkAAQAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
+      <FileName>Group.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Elements" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Common.Collections.LocalizableString" Collapsed="true">
+    <Position X="6.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Icon">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQMgAMAAAAAQAAAAKAAAAAAAAAAABA=</HashCode>
+      <FileName>Icon.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -18,8 +18,8 @@
 using Common;
 using Common.Storage;
 using Common.StructureEditor;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Capabilities;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {

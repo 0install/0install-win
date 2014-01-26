@@ -20,11 +20,11 @@ using Common.Storage;
 using Moq;
 using NUnit.Framework;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Model;
 using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands
 {

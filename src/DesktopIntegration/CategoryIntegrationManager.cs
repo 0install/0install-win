@@ -23,7 +23,7 @@ using Common.Collections;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -37,7 +37,7 @@ namespace ZeroInstall.DesktopIntegration
     public class CategoryIntegrationManager : IntegrationManager, ICategoryIntegrationManager
     {
         #region Constants
-        /// <summary>Indicates that all <see cref="ZeroInstall.Model.Capabilities.Capability"/>s and <see cref="AccessPoint"/>s shall be integrated.</summary>
+        /// <summary>Indicates that all <see cref="Store.Model.Capabilities.Capability"/>s and <see cref="AccessPoint"/>s shall be integrated.</summary>
         private const string AllCategoryName = "all";
 
         /// <summary>A list of all known <see cref="AccessPoint"/> categories.</summary>
@@ -82,7 +82,7 @@ namespace ZeroInstall.DesktopIntegration
                 accessPointsToAdd.AddRange((
                     from capabilityList in appEntry.CapabilityLists
                     where capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)
-                    from capability in capabilityList.Entries.OfType<Model.Capabilities.DefaultCapability>()
+                    from capability in capabilityList.Entries.OfType<Store.Model.Capabilities.DefaultCapability>()
                     where !capability.WindowsMachineWideOnly || MachineWide || !WindowsUtils.IsWindows
                     where !capability.ExplicitOnly
                     select capability.ToAcessPoint()));
@@ -169,7 +169,7 @@ namespace ZeroInstall.DesktopIntegration
 
             foreach (var defaultProgram in appEntry.CapabilityLists.
                 Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
-                SelectMany(capabilityList => capabilityList.Entries.OfType<Model.Capabilities.DefaultProgram>()))
+                SelectMany(capabilityList => capabilityList.Entries.OfType<Store.Model.Capabilities.DefaultProgram>()))
                 Windows.DefaultProgram.ToggleIconsVisible(defaultProgram, iconsVisible);
         }
         #endregion

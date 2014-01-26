@@ -28,8 +28,8 @@ using Common.Storage;
 using Common.Tasks;
 using Common.Undo;
 using NDesk.Options;
-using ZeroInstall.Model;
 using ZeroInstall.Publish.Cli.Properties;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 using SharedResources = ZeroInstall.Publish.Properties.Resources;
 

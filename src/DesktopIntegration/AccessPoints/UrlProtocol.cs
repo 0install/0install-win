@@ -21,14 +21,14 @@ using System.Linq;
 using System.Xml.Serialization;
 using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
     /// Makes an application the default handler for a specific URL protocol.
     /// </summary>
-    /// <seealso cref="ZeroInstall.Model.Capabilities.UrlProtocol"/>
+    /// <seealso cref="ZeroInstall.Store.Model.Capabilities.UrlProtocol"/>
     [XmlType("url-protocol", Namespace = AppList.XmlNamespace)]
     public class UrlProtocol : DefaultAccessPoint, IEquatable<UrlProtocol>
     {
@@ -40,7 +40,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Model.Capabilities.UrlProtocol>(Capability);
+            var capability = appEntry.GetCapability<Store.Model.Capabilities.UrlProtocol>(Capability);
             if (capability.KnownPrefixes.Count == 0) return new[] {"protocol:" + capability.ID};
             return capability.KnownPrefixes.Select(prefix => "protocol:" + prefix.Value);
         }
@@ -55,7 +55,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var capability = appEntry.GetCapability<Model.Capabilities.UrlProtocol>(Capability);
+            var capability = appEntry.GetCapability<Store.Model.Capabilities.UrlProtocol>(Capability);
             if (capability == null) return;
 
             var target = new InterfaceFeed(appEntry.InterfaceID, feed);
@@ -69,7 +69,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Model.Capabilities.UrlProtocol>(Capability);
+            var capability = appEntry.GetCapability<Store.Model.Capabilities.UrlProtocol>(Capability);
             if (capability == null) return;
 
             if (WindowsUtils.IsWindows) Windows.UrlProtocol.Unregister(capability, machineWide, accessPoint: true);

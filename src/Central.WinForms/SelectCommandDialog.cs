@@ -21,7 +21,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using ZeroInstall.Central.Properties;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Central.WinForms
 {

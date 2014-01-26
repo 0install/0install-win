@@ -1,5 +1,5 @@
-﻿using ZeroInstall.Model;
-using ZeroInstall.Services;
+﻿using ZeroInstall.Services;
+using ZeroInstall.Store.Model;
 
 class MinimalZeroInstall : ServiceLocator
 {

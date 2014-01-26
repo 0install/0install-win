@@ -16,7 +16,7 @@
  */
 
 using System.Collections.Generic;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Services.Fetchers
 {

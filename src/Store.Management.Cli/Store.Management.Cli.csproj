@@ -86,10 +86,6 @@
       <Project>{33df4c92-ac4a-4a36-89a2-db334be3d229}</Project>
       <Name>Services.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{e9329c91-2656-418c-9d4a-7a4378dcd852}</Project>
-      <Name>Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Store\Store.csproj">
       <Project>{bd330a44-dabf-43e9-83b4-0750f8f1db9d}</Project>
       <Name>Store</Name>

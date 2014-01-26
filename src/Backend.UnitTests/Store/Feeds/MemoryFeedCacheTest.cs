@@ -19,7 +19,7 @@ using System;
 using Common;
 using Moq;
 using NUnit.Framework;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Store.Feeds

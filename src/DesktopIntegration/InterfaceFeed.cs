@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -30,7 +30,7 @@ namespace ZeroInstall.DesktopIntegration
         public readonly string InterfaceID;
 
         /// <summary>
-        /// The data aquired from <see cref="InterfaceID"/>. <see cref="Model.Feed.Normalize"/> has already been called.
+        /// The data aquired from <see cref="InterfaceID"/>. <see cref="Store.Model.Feed.Normalize"/> has already been called.
         /// </summary>
         public readonly Feed Feed;
 

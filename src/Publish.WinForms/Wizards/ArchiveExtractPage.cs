@@ -22,8 +22,8 @@ using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using Common.Utils;
-using ZeroInstall.Model;
 using ZeroInstall.Publish.Properties;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {

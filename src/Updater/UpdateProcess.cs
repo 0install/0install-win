@@ -215,7 +215,9 @@ namespace ZeroInstall.Updater
                     "ZeroInstall.Backend.dll", Path.Combine("de", "ZeroInstall.Backend.dll"),  
                     "ZeroInstall.Fetchers.dll", Path.Combine("de", "ZeroInstall.Fetchers.dll"),
                     "ZeroInstall.Solvers.dll", Path.Combine("de", "ZeroInstall.Solvers.dll"),
-                    "ZeroInstall.Injector.dll", Path.Combine("de", "ZeroInstall.Injector.dll")
+                    "ZeroInstall.Injector.dll", Path.Combine("de", "ZeroInstall.Injector.dll"),
+                    "ZeroInstall.Model.dll", "ZeroInstall.Model.XmlSerializers.dll", Path.Combine("de", "ZeroInstall.Model.dll"),
+                    "ZeroInstall.Solvers.dll", Path.Combine("de", "ZeroInstall.Solvers.dll")
                 };
                 filesToDelete.AddRange(appFiles.Select(x => Path.Combine(Target, x)));
             }
@@ -252,7 +254,7 @@ namespace ZeroInstall.Updater
         #endregion
 
         #region Run Ngen
-        private static readonly string[] _ngenAssemblies = {"ZeroInstall.exe", "0install.exe", "0install-win.exe", "0launch.exe", "0alias.exe", "0store.exe", "StoreService.exe", "ZeroInstall.Model.XmlSerializers.dll", "ZeroInstall.DesktopIntegration.XmlSerializers.dll", "ZeroInstall.Store.XmlSerializers.dll"};
+        private static readonly string[] _ngenAssemblies = {"ZeroInstall.exe", "0install.exe", "0install-win.exe", "0launch.exe", "0alias.exe", "0store.exe", "StoreService.exe", "ZeroInstall.DesktopIntegration.XmlSerializers.dll", "ZeroInstall.Store.XmlSerializers.dll"};
 
         /// <summary>
         /// Runs ngen in the background to pre-compile new/updated .NET assemblies.

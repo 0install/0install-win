@@ -26,7 +26,7 @@ using Microsoft.Win32;
 namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
-    /// Contains control logic for applying <see cref="ZeroInstall.Model.Capabilities.UrlProtocol"/> and <see cref="AccessPoints.UrlProtocol"/> on Windows systems.
+    /// Contains control logic for applying <see cref="Store.Model.Capabilities.UrlProtocol"/> and <see cref="AccessPoints.UrlProtocol"/> on Windows systems.
     /// </summary>
     public static class UrlProtocol
     {
@@ -52,7 +52,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="urlProtocol"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Model.Capabilities.UrlProtocol urlProtocol, bool machineWide, ITaskHandler handler, bool accessPoint = false)
+        public static void Register(InterfaceFeed target, Store.Model.Capabilities.UrlProtocol urlProtocol, bool machineWide, ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
             if (urlProtocol == null) throw new ArgumentNullException("urlProtocol");
@@ -112,7 +112,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="urlProtocol"/> is invalid.</exception>
-        public static void Unregister(Model.Capabilities.UrlProtocol urlProtocol, bool machineWide, bool accessPoint = false)
+        public static void Unregister(Store.Model.Capabilities.UrlProtocol urlProtocol, bool machineWide, bool accessPoint = false)
         {
             #region Sanity checks
             if (urlProtocol == null) throw new ArgumentNullException("urlProtocol");

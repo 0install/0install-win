@@ -28,8 +28,8 @@ using Common.Controls;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Capabilities.FontendModels;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Capabilities.FontendModels;
 
 namespace ZeroInstall.Commands.WinForms
 {
@@ -60,17 +60,17 @@ namespace ZeroInstall.Commands.WinForms
         private readonly List<CapabilityModel> _capabilityModels = new List<CapabilityModel>();
 
         /// <summary>
-        /// A list of <see cref="ZeroInstall.DesktopIntegration.AccessPoints.MenuEntry"/>s as displayed by the <see cref="dataGridStartMenu"/>.
+        /// A list of <see cref="DesktopIntegration.AccessPoints.MenuEntry"/>s as displayed by the <see cref="dataGridStartMenu"/>.
         /// </summary>
         private readonly BindingList<DesktopIntegration.AccessPoints.MenuEntry> _menuEntries = new BindingList<DesktopIntegration.AccessPoints.MenuEntry>();
 
         /// <summary>
-        /// A list of <see cref="ZeroInstall.DesktopIntegration.AccessPoints.DesktopIcon"/>s as displayed by the <see cref="dataGridDesktop"/>.
+        /// A list of <see cref="DesktopIntegration.AccessPoints.DesktopIcon"/>s as displayed by the <see cref="dataGridDesktop"/>.
         /// </summary>
         private readonly BindingList<DesktopIntegration.AccessPoints.DesktopIcon> _desktopIcons = new BindingList<DesktopIntegration.AccessPoints.DesktopIcon>();
 
         /// <summary>
-        /// A list of <see cref="ZeroInstall.DesktopIntegration.AccessPoints.AppAlias"/>es as displayed by the <see cref="dataGridAliases"/>.
+        /// A list of <see cref="DesktopIntegration.AccessPoints.AppAlias"/>es as displayed by the <see cref="dataGridAliases"/>.
         /// </summary>
         private readonly BindingList<DesktopIntegration.AccessPoints.AppAlias> _aliases = new BindingList<DesktopIntegration.AccessPoints.AppAlias>();
 
@@ -106,7 +106,7 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Loads the <see cref="ZeroInstall.Model.Capabilities.Capability"/>s of <see cref="_appEntry"/> into the controls of this form.
+        /// Loads the <see cref="Store.Model.Capabilities.Capability"/>s of <see cref="_appEntry"/> into the controls of this form.
         /// </summary>
         private void IntegrateAppForm_Load(object sender, EventArgs e)
         {
@@ -126,9 +126,9 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Commmand access points
         /// <summary>
-        /// Sets up the UI elements for configuring <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/>s.
+        /// Sets up the UI elements for configuring <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>s.
         /// </summary>
-        /// <remarks>Users create <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/>s themselves based on <see cref="EntryPoint"/>s.</remarks>
+        /// <remarks>Users create <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>s themselves based on <see cref="EntryPoint"/>s.</remarks>
         private void SetupCommandAccessPoints()
         {
             SetupCommandAccessPoint(checkBoxStartMenuSimple, labelStartMenuSimple, _menuEntries, () => Suggest.MenuEntries(_feed));
@@ -155,7 +155,7 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Reads the <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/>s from <see cref="AppEntry.AccessPoints"/> or uses suggestion methods to fill in defaults.
+        /// Reads the <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>s from <see cref="AppEntry.AccessPoints"/> or uses suggestion methods to fill in defaults.
         /// </summary>
         private void LoadCommandAccessPoints()
         {
@@ -183,13 +183,13 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Hooks up event handlers for <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/>s.
+        /// Hooks up event handlers for <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>s.
         /// </summary>
-        /// <typeparam name="T">The specific kind of <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/> to handle.</typeparam>
-        /// <param name="checkBoxSimple">The simple mode checkbox for this type of <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
-        /// <param name="labelSimple">A simple mode description for this type of <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
-        /// <param name="accessPoints">A list of applied <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
-        /// <param name="getSuggestions">Retrieves a list of default <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/> suggested by the system.</param>
+        /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> to handle.</typeparam>
+        /// <param name="checkBoxSimple">The simple mode checkbox for this type of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
+        /// <param name="labelSimple">A simple mode description for this type of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
+        /// <param name="accessPoints">A list of applied <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
+        /// <param name="getSuggestions">Retrieves a list of default <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> suggested by the system.</param>
         private void SetupCommandAccessPoint<T>(CheckBox checkBoxSimple, Label labelSimple, ICollection<T> accessPoints, Func<IEnumerable<T>> getSuggestions)
             where T : DesktopIntegration.AccessPoints.CommandAccessPoint
         {
@@ -200,9 +200,9 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Default access points
         /// <summary>
-        /// Sets up the UI elements for configuring <see cref="ZeroInstall.DesktopIntegration.AccessPoints.DefaultAccessPoint"/>s.
+        /// Sets up the UI elements for configuring <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/>s.
         /// </summary>
-        /// <remarks>Users enable or disable predefined <see cref="ZeroInstall.DesktopIntegration.AccessPoints.DefaultAccessPoint"/>s based on <see cref="ZeroInstall.Model.Capabilities.DefaultCapability"/>s.</remarks>
+        /// <remarks>Users enable or disable predefined <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/>s based on <see cref="Store.Model.Capabilities.DefaultCapability"/>s.</remarks>
         private void SetupDefaultAccessPoints()
         {
             SetupDefaultAccessPoint(checkBoxFileTypesSimple, labelFileTypesSimple, checkBoxFileTypesAll, _fileTypesBinding);
@@ -218,13 +218,13 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Hooks up event handlers for <see cref="ZeroInstall.DesktopIntegration.AccessPoints.DefaultAccessPoint"/>s.
+        /// Hooks up event handlers for <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/>s.
         /// </summary>
-        /// <typeparam name="T">The specific kind of <see cref="ZeroInstall.DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
-        /// <param name="checkBoxSimple">The simple mode checkbox for this type of <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
-        /// <param name="labelSimple">A simple mode description for this type of <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
-        /// <param name="checkBoxSelectAll">The "select all" checkbox for this type of <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
-        /// <param name="model">A model represeting the underlying <see cref="ZeroInstall.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
+        /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
+        /// <param name="checkBoxSimple">The simple mode checkbox for this type of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
+        /// <param name="labelSimple">A simple mode description for this type of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
+        /// <param name="checkBoxSelectAll">The "select all" checkbox for this type of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
+        /// <param name="model">A model represeting the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
         private void SetupDefaultAccessPoint<T>(CheckBox checkBoxSimple, Label labelSimple, CheckBox checkBoxSelectAll, BindingList<T> model)
             where T : CapabilityModel
         {
@@ -243,33 +243,33 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Reads the <see cref="ZeroInstall.Model.Capabilities.DefaultCapability"/>s from <see cref="Feed.CapabilityLists"/> and creates a coressponding model for turning <see cref="ZeroInstall.DesktopIntegration.AccessPoints.DefaultAccessPoint"/> on and off.
+        /// Reads the <see cref="Store.Model.Capabilities.DefaultCapability"/>s from <see cref="Feed.CapabilityLists"/> and creates a coressponding model for turning <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> on and off.
         /// </summary>
         private void LoadDefaultAccessPoints()
         {
             foreach (var capabilityList in _appEntry.CapabilityLists.Where(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
             {
-                var dispatcher = new PerTypeDispatcher<Model.Capabilities.Capability>(true)
+                var dispatcher = new PerTypeDispatcher<Store.Model.Capabilities.Capability>(true)
                 {
-                    (Model.Capabilities.FileType fileType) =>
+                    (Store.Model.Capabilities.FileType fileType) =>
                     {
                         var model = new FileTypeModel(fileType, IsCapabillityUsed<DesktopIntegration.AccessPoints.FileType>(fileType));
                         _fileTypesBinding.Add(model);
                         _capabilityModels.Add(model);
                     },
-                    (Model.Capabilities.UrlProtocol urlProtocol) =>
+                    (Store.Model.Capabilities.UrlProtocol urlProtocol) =>
                     {
                         var model = new UrlProtocolModel(urlProtocol, IsCapabillityUsed<DesktopIntegration.AccessPoints.UrlProtocol>(urlProtocol));
                         _urlProtocolsBinding.Add(model);
                         _capabilityModels.Add(model);
                     },
-                    (Model.Capabilities.AutoPlay autoPlay) =>
+                    (Store.Model.Capabilities.AutoPlay autoPlay) =>
                     {
                         var model = new AutoPlayModel(autoPlay, IsCapabillityUsed<DesktopIntegration.AccessPoints.AutoPlay>(autoPlay));
                         _autoPlayBinding.Add(model);
                         _capabilityModels.Add(model);
                     },
-                    (Model.Capabilities.ContextMenu contextMenu) =>
+                    (Store.Model.Capabilities.ContextMenu contextMenu) =>
                     {
                         var model = new ContextMenuModel(contextMenu, IsCapabillityUsed<DesktopIntegration.AccessPoints.ContextMenu>(contextMenu));
                         _contextMenuBinding.Add(model);
@@ -278,7 +278,7 @@ namespace ZeroInstall.Commands.WinForms
                 };
                 if (_integrationManager.MachineWide)
                 {
-                    dispatcher.Add((Model.Capabilities.DefaultProgram defaultProgram) =>
+                    dispatcher.Add((Store.Model.Capabilities.DefaultProgram defaultProgram) =>
                     {
                         var model = new DefaultProgramModel(defaultProgram, IsCapabillityUsed<DesktopIntegration.AccessPoints.DefaultProgram>(defaultProgram));
                         _defaultProgramBinding.Add(model);
@@ -305,12 +305,12 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Helpers
         /// <summary>
-        /// Checks whether a <see cref="ZeroInstall.Model.Capabilities.DefaultCapability"/> is already used by the user.
+        /// Checks whether a <see cref="Store.Model.Capabilities.DefaultCapability"/> is already used by the user.
         /// </summary>
-        /// <typeparam name="T">The specific kind of <see cref="ZeroInstall.DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
-        /// <param name="toCheck">The <see cref="ZeroInstall.Model.Capabilities.Capability"/> to check for usage.</param>
+        /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
+        /// <param name="toCheck">The <see cref="Store.Model.Capabilities.Capability"/> to check for usage.</param>
         /// <returns><see langword="true"/>, if <paramref name="toCheck"/> is already in usage.</returns>
-        private bool IsCapabillityUsed<T>(Model.Capabilities.DefaultCapability toCheck)
+        private bool IsCapabillityUsed<T>(Store.Model.Capabilities.DefaultCapability toCheck)
             where T : DesktopIntegration.AccessPoints.DefaultAccessPoint
         {
             if (_appEntry.AccessPoints == null) return false;
@@ -321,8 +321,8 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Sets all <see cref="CapabilityModel.Use"/> values within a list/model to a specific value.
         /// </summary>
-        /// <typeparam name="T">The specific kind of <see cref="ZeroInstall.DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
-        /// <param name="model">A model represeting the underlying <see cref="ZeroInstall.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
+        /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
+        /// <param name="model">A model represeting the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
         /// <param name="value">The value to set.</param>
         private static void CapabilityModelSetAll<T>(BindingList<T> model, bool value)
             where T : CapabilityModel
@@ -351,13 +351,13 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Configures the visibility and check state of a <see cref="CheckBox"/> for simple <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/> configuration.
+        /// Configures the visibility and check state of a <see cref="CheckBox"/> for simple <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> configuration.
         /// </summary>
-        /// <typeparam name="T">The specific kind of <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/> to handle.</typeparam>
+        /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to configure.</param>
         /// <param name="label">A description for the <paramref name="checkBox"/>.</param>
-        /// <param name="accessPoints">The currently applied <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
-        /// <param name="getSuggestions">Retrieves a list of default <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/> suggested by the system.</param>
+        /// <param name="accessPoints">The currently applied <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
+        /// <param name="getSuggestions">Retrieves a list of default <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> suggested by the system.</param>
         private static void SetCommandAccessPointCheckBox<T>(CheckBox checkBox, Label label, IEnumerable<T> accessPoints, Func<IEnumerable<T>> getSuggestions)
             where T : DesktopIntegration.AccessPoints.CommandAccessPoint
         {
@@ -366,12 +366,12 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Configures the visibility and check state of a <see cref="CheckBox"/> for simple <see cref="ZeroInstall.DesktopIntegration.AccessPoints.DefaultAccessPoint"/> configuration.
+        /// Configures the visibility and check state of a <see cref="CheckBox"/> for simple <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> configuration.
         /// </summary>
-        /// <typeparam name="T">The specific kind of <see cref="ZeroInstall.DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
+        /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to configure.</param>
         /// <param name="label">A description for the <paramref name="checkBox"/>.</param>
-        /// <param name="model">A model represeting the underlying <see cref="ZeroInstall.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
+        /// <param name="model">A model represeting the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
         private static void SetDefaultAccessPointCheckBox<T>(CheckBox checkBox, Label label, BindingList<T> model)
             where T : CapabilityModel
         {
@@ -396,12 +396,12 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Applies the state of a <see cref="CheckBox"/> for simple <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/> configuration.
+        /// Applies the state of a <see cref="CheckBox"/> for simple <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> configuration.
         /// </summary>
-        /// <typeparam name="T">The specific kind of <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/> to handle.</typeparam>
+        /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to read.</param>
-        /// <param name="current">The currently applied <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
-        /// <param name="getSuggestions">Retrieves a list of default <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/> suggested by the system.</param>
+        /// <param name="current">The currently applied <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
+        /// <param name="getSuggestions">Retrieves a list of default <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> suggested by the system.</param>
         private static void ApplyCommandAccessPointCheckBox<T>(CheckBox checkBox, ICollection<T> current, Func<IEnumerable<T>> getSuggestions)
             where T : DesktopIntegration.AccessPoints.CommandAccessPoint
         {
@@ -414,11 +414,11 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Applies the state of a <see cref="CheckBox"/> for simple <see cref="ZeroInstall.DesktopIntegration.AccessPoints.DefaultAccessPoint"/> configuration.
+        /// Applies the state of a <see cref="CheckBox"/> for simple <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> configuration.
         /// </summary>
-        /// <typeparam name="T">The specific kind of <see cref="ZeroInstall.DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
+        /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to read.</param>
-        /// <param name="model">A model represeting the underlying <see cref="ZeroInstall.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
+        /// <param name="model">A model represeting the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
         private static void ApplyDefaultAccessPointCheckBox<T>(CheckBox checkBox, BindingList<T> model)
             where T : CapabilityModel
         {
@@ -433,7 +433,7 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Apply
         /// <summary>
-        /// Integrates all <see cref="ZeroInstall.Model.Capabilities.Capability"/>s chosen by the user.
+        /// Integrates all <see cref="Store.Model.Capabilities.Capability"/>s chosen by the user.
         /// </summary>
         private void buttonOK_Click(object sender, EventArgs e)
         {
@@ -499,10 +499,10 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Determines changes to <see cref="ZeroInstall.DesktopIntegration.AccessPoints.CommandAccessPoint"/>s specified by the user.
+        /// Determines changes to <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>s specified by the user.
         /// </summary>
-        /// <param name="toAdd">List to add <see cref="ZeroInstall.DesktopIntegration.AccessPoints.AccessPoint"/>s to be added to.</param>
-        /// <param name="toRemove">List to add <see cref="ZeroInstall.DesktopIntegration.AccessPoints.AccessPoint"/>s to be removed to.</param>
+        /// <param name="toAdd">List to add <see cref="DesktopIntegration.AccessPoints.AccessPoint"/>s to be added to.</param>
+        /// <param name="toRemove">List to add <see cref="DesktopIntegration.AccessPoints.AccessPoint"/>s to be removed to.</param>
         private void HandleCommandAccessPointChanges(ICollection<DesktopIntegration.AccessPoints.AccessPoint> toAdd, ICollection<DesktopIntegration.AccessPoints.AccessPoint> toRemove)
         {
             // Build lists with current integration state
@@ -526,10 +526,10 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Determines changes to <see cref="ZeroInstall.DesktopIntegration.AccessPoints.DefaultAccessPoint"/>s specified by the user.
+        /// Determines changes to <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/>s specified by the user.
         /// </summary>
-        /// <param name="toAdd">List to add <see cref="ZeroInstall.DesktopIntegration.AccessPoints.AccessPoint"/>s to be added to.</param>
-        /// <param name="toRemove">List to add <see cref="ZeroInstall.DesktopIntegration.AccessPoints.AccessPoint"/>s to be removed to.</param>
+        /// <param name="toAdd">List to add <see cref="DesktopIntegration.AccessPoints.AccessPoint"/>s to be added to.</param>
+        /// <param name="toRemove">List to add <see cref="DesktopIntegration.AccessPoints.AccessPoint"/>s to be removed to.</param>
         private void HandleDefaultAccessPointChanges(ICollection<DesktopIntegration.AccessPoints.AccessPoint> toAdd, ICollection<DesktopIntegration.AccessPoints.AccessPoint> toRemove)
         {
             foreach (var model in _capabilityModels.Where(model => model.Changed))

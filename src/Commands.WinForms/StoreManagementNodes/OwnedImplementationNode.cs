@@ -18,8 +18,8 @@
 using System;
 using System.ComponentModel;
 using System.IO;
-using ZeroInstall.Model;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 {
@@ -30,7 +30,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
     {
         #region Variables
         private readonly FeedNode _iface;
-        private readonly Model.Implementation _implementation;
+        private readonly Implementation _implementation;
         #endregion
 
         #region Properties
@@ -64,11 +64,11 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
         /// <param name="digest">The digest identifying the implementation.</param>
         /// <param name="iface">The node of the interface owning the implementation.</param>
-        /// <param name="implementation">Information about the implementation from a <see cref="Model.Feed"/> file.</param>
+        /// <param name="implementation">Information about the implementation from a <see cref="Feed"/> file.</param>
         /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        public OwnedImplementationNode(StoreManageForm parent, IStore store, ManifestDigest digest, FeedNode iface, Model.Implementation implementation)
+        public OwnedImplementationNode(StoreManageForm parent, IStore store, ManifestDigest digest, FeedNode iface, Implementation implementation)
             : base(parent, store, digest)
         {
             _iface = iface;

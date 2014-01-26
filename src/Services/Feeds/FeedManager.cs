@@ -24,11 +24,11 @@ using System.Net;
 using Common;
 using Common.Controls;
 using Common.Storage;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Preferences;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Preferences;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Services.Feeds

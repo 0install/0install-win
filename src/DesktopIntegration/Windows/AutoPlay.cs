@@ -23,12 +23,12 @@ using System.Linq;
 using System.Net;
 using Common.Tasks;
 using Microsoft.Win32;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
-    /// Contains control logic for applying <see cref="ZeroInstall.Model.Capabilities.AutoPlay"/> and <see cref="AccessPoints.AutoPlay"/> on Windows systems.
+    /// Contains control logic for applying <see cref="Store.Model.Capabilities.AutoPlay"/> and <see cref="AccessPoints.AutoPlay"/> on Windows systems.
     /// </summary>
     public static class AutoPlay
     {
@@ -66,13 +66,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="autoPlay">The AutoPlay handler information to be applied.</param>
         /// <param name="machineWide">Register the handler machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        /// <param name="accessPoint">Indicates that the handler should become the default handler for all <see cref="ZeroInstall.Model.Capabilities.AutoPlay.Events"/>.</param>
+        /// <param name="accessPoint">Indicates that the handler should become the default handler for all <see cref="Store.Model.Capabilities.AutoPlay.Events"/>.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="autoPlay"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Model.Capabilities.AutoPlay autoPlay, bool machineWide, ITaskHandler handler, bool accessPoint = false)
+        public static void Register(InterfaceFeed target, Store.Model.Capabilities.AutoPlay autoPlay, bool machineWide, ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
             if (autoPlay == null) throw new ArgumentNullException("autoPlay");
@@ -132,11 +132,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="autoPlay">The AutoPlay handler information to be removed.</param>
         /// <param name="machineWide">Remove the handler machine-wide instead of just for the current user.</param>
-        /// <param name="accessPoint">Indicates that the handler should was the default handler for all <see cref="ZeroInstall.Model.Capabilities.AutoPlay.Events"/>.</param>
+        /// <param name="accessPoint">Indicates that the handler should was the default handler for all <see cref="Store.Model.Capabilities.AutoPlay.Events"/>.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="autoPlay"/> is invalid.</exception>
-        public static void Unregister(Model.Capabilities.AutoPlay autoPlay, bool machineWide, bool accessPoint = false)
+        public static void Unregister(Store.Model.Capabilities.AutoPlay autoPlay, bool machineWide, bool accessPoint = false)
         {
             #region Sanity checks
             if (autoPlay == null) throw new ArgumentNullException("autoPlay");

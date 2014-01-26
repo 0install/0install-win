@@ -32,11 +32,11 @@ using ZeroInstall.Central.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.WinForms;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Model;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Icons;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Central.WinForms

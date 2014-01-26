@@ -28,8 +28,8 @@ using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration.Properties;
-using ZeroInstall.Model;
 using ZeroInstall.Store.Icons;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.Windows
 {

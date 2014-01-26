@@ -20,7 +20,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Text;
 using Common.Utils;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
 {

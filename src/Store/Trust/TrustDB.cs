@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 using Common;
 using Common.Collections;
 using Common.Storage;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Trust

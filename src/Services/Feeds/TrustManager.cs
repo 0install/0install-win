@@ -23,10 +23,10 @@ using System.Net;
 using System.Xml;
 using Common;
 using Common.Controls;
-using ZeroInstall.Model;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Services.Feeds

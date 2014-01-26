@@ -18,7 +18,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Common.Controls;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {

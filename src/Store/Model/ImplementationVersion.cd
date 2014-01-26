@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ZeroInstall.Store.Model.ImplementationVersion" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="1.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="_firstPart" Type="ZeroInstall.Store.Model.VersionDottedList">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.299" Y="0.037" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_additionalParts" Type="ZeroInstall.Store.Model.VersionPart">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.223" Y="0.321" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAQEgACAAgAAAAAAAYEAAAAAAAAAByA=</HashCode>
+      <FileName>ImplementationVersion.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_firstPart" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_additionalParts" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.VersionPart" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="2.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Modifier" Type="ZeroInstall.Store.Model.VersionModifier">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.806" Y="0.258" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="DottedList" Type="ZeroInstall.Store.Model.VersionDottedList">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.652" Y="0.727" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAgABAAAAAAAAAQEgAAAIAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>VersionPart.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Modifier" />
+      <Property Name="DottedList" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.VersionDottedList" Collapsed="true">
+    <Position X="6.5" Y="1.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAQEgAgAIAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>VersionDottedList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Element" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <AssociationLine Name="Version" Type="ZeroInstall.Store.Model.ImplementationVersion">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.99" Y="0.474" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>IAAAAgAAIIAACACIkABAKABQAADAEIEASECABBBACBA=</HashCode>
+      <FileName>Element.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Version" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Constraint" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <Members>
+      <Property Name="BeforeString" Hidden="true" />
+      <Property Name="NotBeforeString" Hidden="true" />
+    </Members>
+    <AssociationLine Name="NotBefore" Type="ZeroInstall.Store.Model.ImplementationVersion" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="1.955" />
+        <Point X="3.625" Y="1.955" />
+        <Point X="3.625" Y="1.812" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.391" Y="-0.065" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Before" Type="ZeroInstall.Store.Model.ImplementationVersion">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.102" Y="0.037" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAMgAAAAAIAAAAAAIAAAAAAAAQAABQ=</HashCode>
+      <FileName>Constraint.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="NotBefore" />
+      <Property Name="Before" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Enum Name="ZeroInstall.Store.Model.VersionModifier">
+    <Position X="3.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAACAAAAAAAAAEAAAEAAAA=</HashCode>
+      <FileName>VersionPart.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

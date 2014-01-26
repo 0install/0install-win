@@ -17,7 +17,7 @@
 
 using NDesk.Options;
 using NUnit.Framework;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands
 {

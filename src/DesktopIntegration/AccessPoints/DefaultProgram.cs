@@ -20,14 +20,14 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
     /// Makes an application a default program of some kind (e.g. default web-browser, default e-mail client, ...).
     /// </summary>
-    /// <seealso cref="ZeroInstall.Model.Capabilities.DefaultProgram"/>
+    /// <seealso cref="ZeroInstall.Store.Model.Capabilities.DefaultProgram"/>
     [XmlType("default-program", Namespace = AppList.XmlNamespace)]
     public class DefaultProgram : DefaultAccessPoint, IEquatable<DefaultProgram>
     {
@@ -39,7 +39,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Model.Capabilities.DefaultProgram>(Capability);
+            var capability = appEntry.GetCapability<Store.Model.Capabilities.DefaultProgram>(Capability);
             return new[] {"clients:" + capability.Service};
         }
         #endregion
@@ -53,7 +53,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var capability = appEntry.GetCapability<Model.Capabilities.DefaultProgram>(Capability);
+            var capability = appEntry.GetCapability<Store.Model.Capabilities.DefaultProgram>(Capability);
             if (capability == null) return;
 
             var target = new InterfaceFeed(appEntry.InterfaceID, feed);
@@ -68,7 +68,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Model.Capabilities.DefaultProgram>(Capability);
+            var capability = appEntry.GetCapability<Store.Model.Capabilities.DefaultProgram>(Capability);
             if (capability == null) return;
 
             if (WindowsUtils.IsWindows && machineWide)

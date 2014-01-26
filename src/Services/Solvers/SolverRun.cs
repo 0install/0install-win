@@ -21,13 +21,13 @@ using System.Linq;
 using Common.Collections;
 using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Preferences;
-using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Preferences;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Services.Solvers
 {

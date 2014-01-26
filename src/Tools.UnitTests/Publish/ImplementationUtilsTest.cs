@@ -21,9 +21,9 @@ using Common.Tasks;
 using Common.Undo;
 using Common.Utils;
 using NUnit.Framework;
-using ZeroInstall.Model;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish
 {

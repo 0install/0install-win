@@ -24,21 +24,21 @@ using Common;
 using Common.Streams;
 using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.Model;
 using ZeroInstall.Store.Implementations.Archives;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations
 {
     /// <summary>
-    /// Models a cache directory that stores <see cref="Model.Implementation"/>s, each in its own sub-directory named by its <see cref="ManifestDigest"/>.
+    /// Models a cache directory that stores <see cref="Store.Model.Implementation"/>s, each in its own sub-directory named by its <see cref="ManifestDigest"/>.
     /// </summary>
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
     public class DirectoryStore : MarshalByRefObject, IStore, IEquatable<DirectoryStore>
     {
         #region Properties
         /// <summary>
-        /// The directory containing the cached <see cref="Model.Implementation"/>s.
+        /// The directory containing the cached <see cref="Store.Model.Implementation"/>s.
         /// </summary>
         public string DirectoryPath { get; private set; }
         #endregion
@@ -121,11 +121,11 @@ namespace ZeroInstall.Store.Implementations
         /// Verifies the <see cref="ManifestDigest"/> of a directory temporarily stored inside the cache and moves it to the final location if it passes.
         /// </summary>
         /// <param name="tempID">The temporary identifier of the directory inside the cache.</param>
-        /// <param name="expectedDigest">The digest the <see cref="Model.Implementation"/> is supposed to match.</param>
+        /// <param name="expectedDigest">The digest the <see cref="Store.Model.Implementation"/> is supposed to match.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="DigestMismatchException">Thrown if the temporary directory doesn't match the <paramref name="expectedDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="tempID"/> cannot be moved or the digest cannot be calculated.</exception>
-        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Model.Implementation"/> with the specified <paramref name="expectedDigest"/> in the store.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Store.Model.Implementation"/> with the specified <paramref name="expectedDigest"/> in the store.</exception>
         [SuppressMessage("Microsoft.Usage", "CA2208:InstantiateArgumentExceptionsCorrectly")]
         protected virtual void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, ITaskHandler handler)
         {

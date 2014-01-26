@@ -20,13 +20,13 @@ using System.IO;
 using Common;
 using Common.Storage;
 using Common.Utils;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Services.Solvers.External;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Services.Solvers
 {

@@ -22,8 +22,8 @@ using System.Security;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Capture.Properties;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Capabilities;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.Capture
 {

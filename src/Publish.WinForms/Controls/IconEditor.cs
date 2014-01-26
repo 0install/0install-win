@@ -25,12 +25,12 @@ using System.Net;
 using Common;
 using Common.Controls;
 using ZeroInstall.Publish.Properties;
-using Icon = ZeroInstall.Model.Icon;
+using Icon = ZeroInstall.Store.Model.Icon;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
     /// <summary>
-    /// Edits <see cref="Model.Icon"/> instances.
+    /// Edits <see cref="Store.Model.Icon"/> instances.
     /// </summary>
     public partial class IconEditor : IconEditorShim
     {

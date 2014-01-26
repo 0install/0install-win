@@ -21,8 +21,8 @@ using System.IO;
 using System.Linq;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Model;
 using ZeroInstall.Services;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands
 {

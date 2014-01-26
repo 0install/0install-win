@@ -23,7 +23,7 @@ using Common.Tasks;
 namespace ZeroInstall.DesktopIntegration.Unix
 {
     /// <summary>
-    /// Contains control logic for applying <see cref="ZeroInstall.Model.Capabilities.ContextMenu"/> and <see cref="AccessPoints.ContextMenu"/> on GNOME systems.
+    /// Contains control logic for applying <see cref="Store.Model.Capabilities.ContextMenu"/> and <see cref="AccessPoints.ContextMenu"/> on GNOME systems.
     /// </summary>
     public static class ContextMenu
     {
@@ -40,7 +40,7 @@ namespace ZeroInstall.DesktopIntegration.Unix
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="contextMenu"/> is invalid.</exception>
-        public static void Apply(InterfaceFeed target, Model.Capabilities.ContextMenu contextMenu, bool machineWide, ITaskHandler handler)
+        public static void Apply(InterfaceFeed target, Store.Model.Capabilities.ContextMenu contextMenu, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (contextMenu == null) throw new ArgumentNullException("contextMenu");
@@ -62,7 +62,7 @@ namespace ZeroInstall.DesktopIntegration.Unix
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="contextMenu"/> is invalid.</exception>
-        public static void Remove(Model.Capabilities.ContextMenu contextMenu, bool machineWide)
+        public static void Remove(Store.Model.Capabilities.ContextMenu contextMenu, bool machineWide)
         {
             #region Sanity checks
             if (contextMenu == null) throw new ArgumentNullException("contextMenu");

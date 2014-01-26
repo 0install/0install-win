@@ -88,8 +88,8 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private void buttonNext_Click(object sender, EventArgs e)
         {
             _feedBuilder.Icons.Clear();
-            _feedBuilder.Icons.Add(new Model.Icon {Href = textBoxHrefIco.Uri, MimeType = Model.Icon.MimeTypeIco});
-            _feedBuilder.Icons.Add(new Model.Icon {Href = textBoxHrefPng.Uri, MimeType = Model.Icon.MimeTypePng});
+            _feedBuilder.Icons.Add(new Store.Model.Icon {Href = textBoxHrefIco.Uri, MimeType = Store.Model.Icon.MimeTypeIco});
+            _feedBuilder.Icons.Add(new Store.Model.Icon {Href = textBoxHrefPng.Uri, MimeType = Store.Model.Icon.MimeTypePng});
             Next();
         }
     }

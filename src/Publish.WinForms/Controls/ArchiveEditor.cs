@@ -17,8 +17,8 @@
 
 using System;
 using Common;
-using ZeroInstall.Model;
 using ZeroInstall.Publish.Properties;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {

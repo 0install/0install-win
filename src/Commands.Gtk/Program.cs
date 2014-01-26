@@ -28,10 +28,10 @@ using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Model;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Commands.Gtk

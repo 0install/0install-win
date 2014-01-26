@@ -22,7 +22,7 @@ using System.Threading;
 using Common.Storage;
 using Common.Utils;
 using NUnit.Framework;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Implementations
 {

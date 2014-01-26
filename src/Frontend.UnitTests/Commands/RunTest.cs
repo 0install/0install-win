@@ -20,13 +20,13 @@ using System.Diagnostics;
 using Common.Storage;
 using Moq;
 using NUnit.Framework;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Commands
 {

@@ -20,11 +20,11 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Selection;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Commands
 {

@@ -15,11 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using ZeroInstall.Model;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Services.Solvers
 {

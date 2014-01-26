@@ -22,7 +22,7 @@ using Common.Storage;
 using Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration
 {

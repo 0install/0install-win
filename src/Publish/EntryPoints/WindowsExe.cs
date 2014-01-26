@@ -19,7 +19,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using Common.Utils;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
 {

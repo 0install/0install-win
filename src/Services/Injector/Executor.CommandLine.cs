@@ -25,10 +25,10 @@ using System.IO;
 using System.Linq;
 using Common.Collections;
 using Common.Utils;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Services.Injector
 {

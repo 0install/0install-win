@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using ZeroInstall.Model.Selection;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall
 {

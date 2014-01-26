@@ -16,7 +16,7 @@
  */
 
 using NUnit.Framework;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Services.Fetchers
 {

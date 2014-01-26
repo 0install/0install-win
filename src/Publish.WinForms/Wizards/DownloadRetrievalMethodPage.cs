@@ -17,7 +17,7 @@
 
 using System;
 using System.Windows.Forms;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {

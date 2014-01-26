@@ -21,8 +21,8 @@ using System.IO;
 using System.Runtime.Remoting;
 using Common;
 using Common.Tasks;
-using ZeroInstall.Model;
 using ZeroInstall.Store.Implementations.Archives;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Implementations
 {

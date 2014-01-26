@@ -21,7 +21,7 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {

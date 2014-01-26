@@ -21,9 +21,9 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Common.Tasks;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Selection;
 using ZeroInstall.Services;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Commands
 {

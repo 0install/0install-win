@@ -17,7 +17,7 @@
 
 using System;
 using System.Runtime.Serialization;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Services.Injector
 {

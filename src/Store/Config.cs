@@ -29,7 +29,7 @@ using Common.Utils;
 using Common.Values.Design;
 using IniParser;
 using Microsoft.Win32;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store
@@ -78,14 +78,14 @@ namespace ZeroInstall.Store
 
         // ReSharper disable LocalizableElement
         /// <summary>
-        /// The maximum age a cached <see cref="Model.Feed"/> may have until it is considered stale (needs to be updated).
+        /// The maximum age a cached <see cref="Store.Model.Feed"/> may have until it is considered stale (needs to be updated).
         /// </summary>
         [DefaultValue(typeof(TimeSpan), "7.00:00:00"), Category("Policy"), DisplayName("Freshness"), Description("The maximum age a cached feed may have until it is considered stale (needs to be updated).")]
         [Editor(typeof(TimeSpanEditor), typeof(UITypeEditor))]
         public TimeSpan Freshness { get { return _freshness; } set { _freshness = value; } }
 
         /// <summary>
-        /// Always prefer the newest versions, even if they have not been marked as <see cref="Model.Stability.Stable"/> yet.
+        /// Always prefer the newest versions, even if they have not been marked as <see cref="Store.Model.Stability.Stable"/> yet.
         /// </summary>
         [DefaultValue(false), Category("Policy"), DisplayName("Help with testing"), Description("Always prefer the newest versions, even if they havent been marked as stable yet.")]
         public bool HelpWithTesting { get; set; }

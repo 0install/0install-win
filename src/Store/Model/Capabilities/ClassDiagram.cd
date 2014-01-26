@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ZeroInstall.Store.Model.Capabilities.AutoPlay">
+    <Position X="6.75" Y="7.25" Width="1.5" />
+    <Members>
+      <Field Name="_events" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Verb" Type="ZeroInstall.Store.Model.Capabilities.Verb" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="7.974" />
+        <Point X="6" Y="7.974" />
+        <Point X="6" Y="9.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ANAIAAAAAAAEAAAEgAAAAAAAAgAAAIAAAAAAAQAAABA=</HashCode>
+      <FileName>Capabilities\AutoPlay.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Verb" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Events" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Capabilities.AppRegistration">
+    <Position X="4" Y="3" Width="1.75" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ABAIAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAAAEAAABA=</HashCode>
+      <FileName>Capabilities\AppRegistration.cs</FileName>
+      <NewMemberFileName>Capabilities\GamesExplorer.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Capabilities.Capability">
+    <Position X="4" Y="0.75" Width="1.75" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ICloneable.Clone" Hidden="true" />
+      <Field Name="XmlNamespace" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ABAIAAAQAAAAgAAIgAAAAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
+      <FileName>Capabilities\Capability.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Capabilities.CapabilityList">
+    <Position X="1.5" Y="0.5" Width="1.5" />
+    <Members>
+      <Field Name="_entries" Hidden="true" />
+      <Property Name="ArchitectureString" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ICloneable.Clone" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AIAAgIAAAAIAACEMgAAAAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
+      <FileName>Capabilities\CapabilityList.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Entries" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Capabilities.ComServer">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ABAIAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
+      <FileName>Capabilities\ComServer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Capabilities.ContextMenu">
+    <Position X="6" Y="4.75" Width="1.5" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AJAIAAAAAAAAAAAEgAAACAAAAAAAAIAAAAAAAAAAABA=</HashCode>
+      <FileName>Capabilities\ContextMenu.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Verb" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Capabilities.DefaultProgram">
+    <Position X="10.75" Y="8.25" Width="1.5" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ABAIAEQAEAAAAgAEgAAAAAoAIIAAQIAAAAAABAAAABA=</HashCode>
+      <FileName>Capabilities\DefaultProgram.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="InstallCommands" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Capabilities.FileType">
+    <Position X="9" Y="8.25" Width="1.5" />
+    <Members>
+      <Field Name="_extensions" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ABAIAAAAAAAAAAAEgAAAAAAABAAAAIAAAAgAAAAAABA=</HashCode>
+      <FileName>Capabilities\FileType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Extensions" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Capabilities.UrlProtocol">
+    <Position X="12.5" Y="8.25" Width="1.5" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ABAIAAAAAAAAAAAEgAAAAAACAAAAAIAAAAAAACAAABA=</HashCode>
+      <FileName>Capabilities\UrlProtocol.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Capabilities.VerbCapability" Collapsed="true">
+    <Position X="10.75" Y="7.25" Width="1.5" />
+    <Members>
+      <Field Name="_verbs" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Verbs" Type="ZeroInstall.Store.Model.Capabilities.Verb" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.75" Y="7.595" />
+        <Point X="8.604" Y="7.595" />
+        <Point X="8.604" Y="11.01" />
+        <Point X="6.25" Y="11.01" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAACAABAAAAAAA=</HashCode>
+      <FileName>Capabilities\VerbCapability.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Verbs" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Capabilities.GamesExplorer">
+    <Position X="2.25" Y="3" Width="1.5" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ABAIAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
+      <FileName>Capabilities\GamesExplorer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Capabilities.IconCapability">
+    <Position X="7.75" Y="4.75" Width="1.75" />
+    <Members>
+      <Field Name="_descriptions" Hidden="true" />
+      <Field Name="_icons" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="GetIcon" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ABAgAAAAAAAgACAAgAAAAAAAAAAAAICAAAAAAAAAAAA=</HashCode>
+      <FileName>Capabilities\IconCapability.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Capabilities.Verb">
+    <Position X="4.75" Y="9.5" Width="1.5" />
+    <Members>
+      <Field Name="_descriptions" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ICloneable.Clone" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAigAAAAAAAgAAgMgAAAFAQAAgEAAIAAIAAACAAAABA=</HashCode>
+      <FileName>Capabilities\Verb.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.133" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Capabilities.DefaultCapability">
+    <Position X="6.75" Y="3" Width="1.75" />
+    <Members>
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAACAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Capabilities\DefaultCapability.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="ZeroInstall.Store.Model.Capabilities.FileTypeExtension">
+    <Position X="9" Y="10.75" Width="1.5" />
+    <Members>
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="operator !=" Hidden="true" />
+      <Method Name="operator ==" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAkgAAAAQEgYAEAAARAIAAAIAAAAAggCCAAiA=</HashCode>
+      <FileName>Capabilities\FileTypeExtension.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.1" Collapsed="true" />
+  </Struct>
+  <Struct Name="ZeroInstall.Store.Model.Capabilities.AutoPlayEvent">
+    <Position X="6.75" Y="9.5" Width="1.5" />
+    <Members>
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="operator !=" Hidden="true" />
+      <Method Name="operator ==" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAECCAAAAAAAEgQAEAQQAAAAgIIAAACAAAMAAAiA=</HashCode>
+      <FileName>Capabilities\AutoPlayEvent.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Struct>
+  <Struct Name="ZeroInstall.Store.Model.Capabilities.InstallCommands">
+    <Position X="10.75" Y="10.5" Width="1.5" />
+    <Members>
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="operator !=" Hidden="true" />
+      <Method Name="operator ==" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAABAAAEgAAAAAAAAEAAAIQAAAAgAAAAEiA=</HashCode>
+      <FileName>Capabilities\InstallCommands.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.1" Collapsed="true" />
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

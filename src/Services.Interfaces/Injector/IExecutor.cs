@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Selection;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Services.Injector
 {
@@ -15,12 +15,12 @@ namespace ZeroInstall.Services.Injector
     public interface IExecutor
     {
         /// <summary>
-        /// The specific <see cref="Model.Implementation"/>s chosen for the <see cref="Dependency"/>s.
+        /// The specific <see cref="Store.Model.Implementation"/>s chosen for the <see cref="Dependency"/>s.
         /// </summary>
         Selections Selections { get; }
 
         /// <summary>
-        /// An alternative executable to to run from the main <see cref="Model.Implementation"/> instead of <see cref="Element.Main"/>. May not contain command-line arguments! Whitespaces do not need to be escaped.
+        /// An alternative executable to to run from the main <see cref="Store.Model.Implementation"/> instead of <see cref="Element.Main"/>. May not contain command-line arguments! Whitespaces do not need to be escaped.
         /// </summary>
         string Main { get; set; }
 
@@ -36,7 +36,7 @@ namespace ZeroInstall.Services.Injector
         /// <param name="arguments">Arguments to be passed to the launched programs.</param>
         /// <returns>The newly created <see cref="Process"/>.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Model.Implementation"/>s is not cached yet.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Store.Model.Implementation"/>s is not cached yet.</exception>
         /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>

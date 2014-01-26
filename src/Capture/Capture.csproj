@@ -88,13 +88,13 @@
       <Project>{F48937E1-3763-465F-9F12-6CBBBFF61784}</Project>
       <Name>DesktopIntegration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
-      <Name>Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Publish\Publish.csproj">
       <Project>{841CD750-F9D0-4A2D-98C7-7A340C781F41}</Project>
       <Name>Publish</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store\Store.csproj">
+      <Project>{bd330a44-dabf-43e9-83b4-0750f8f1db9d}</Project>
+      <Name>Store</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

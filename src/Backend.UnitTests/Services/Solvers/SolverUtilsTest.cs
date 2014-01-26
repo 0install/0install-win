@@ -17,7 +17,7 @@
 
 using System.Linq;
 using NUnit.Framework;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Services.Solvers
 {

@@ -20,24 +20,24 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Common.Tasks;
-using ZeroInstall.Model;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Management
 {
     /// <summary>
-    /// Provides utiltity methods for managing <see cref="Model.Implementation"/>s.
+    /// Provides utiltity methods for managing <see cref="Store.Model.Implementation"/>s.
     /// </summary>
     public static class ImplementationUtils
     {
         /// <summary>
-        /// Tries to find an <see cref="Model.Implementation"/> with a specific <see cref="ManifestDigest"/> in a list of <see cref="Feed"/>s.
+        /// Tries to find an <see cref="Store.Model.Implementation"/> with a specific <see cref="ManifestDigest"/> in a list of <see cref="Feed"/>s.
         /// </summary>
         /// <param name="feeds">The list of <see cref="Feed"/>s to search in.</param>
         /// <param name="digest">The digest to search for.</param>
         /// <param name="feed">Returns the <see cref="Feed"/> a match was found in; <see langword="null"/> if no match found.</param>
-        /// <returns>The matching <see cref="Model.Implementation"/>; <see langword="null"/> if no match found.</returns>
+        /// <returns>The matching <see cref="Store.Model.Implementation"/>; <see langword="null"/> if no match found.</returns>
         public static Model.Implementation GetImplementation(this IEnumerable<Feed> feeds, ManifestDigest digest, out Feed feed)
         {
             #region Sanity checks

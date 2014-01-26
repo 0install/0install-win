@@ -28,11 +28,11 @@ using EasyHook;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.Windows;
 using ZeroInstall.Hooking;
-using ZeroInstall.Model;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
 using EntryPoint = ZeroInstall.Hooking.EntryPoint;
 
 namespace ZeroInstall.Commands
@@ -124,7 +124,7 @@ namespace ZeroInstall.Commands
             // Redirect Windows SPAD commands to Zero Install
             foreach (var defaultProgram in _target.Feed.CapabilityLists
                 .Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem))
-                .SelectMany(capabilityList => capabilityList.Entries.OfType<Model.Capabilities.DefaultProgram>()))
+                .SelectMany(capabilityList => capabilityList.Entries.OfType<Store.Model.Capabilities.DefaultProgram>()))
             {
                 if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.Reinstall))
                     filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.Reinstall, defaultProgram.InstallCommands.ReinstallArgs, "--machine --batch --add=defaults " + _target.InterfaceID.EscapeArgument()));
@@ -138,7 +138,7 @@ namespace ZeroInstall.Commands
         }
 
         /// <summary>
-        /// Builds a <see cref="RegistryFilterRule"/> for a <see cref="ZeroInstall.Model.Capabilities.InstallCommands"/> entry.
+        /// Builds a <see cref="RegistryFilterRule"/> for a <see cref="Store.Model.Capabilities.InstallCommands"/> entry.
         /// </summary>
         /// <param name="path">The path of the command relative to the <see name="_implementationDir"/>.</param>
         /// <param name="arguments">Additional arguments passed to the <paramref name="path"/>.</param>

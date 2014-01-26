@@ -21,10 +21,10 @@ using System.Linq;
 using Common.Collections;
 using Common.Storage;
 using Common.Tasks;
-using ZeroInstall.Model;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Services.Fetchers
 {
@@ -40,7 +40,7 @@ namespace ZeroInstall.Services.Fetchers
         /// <summary>
         /// Creates a new download fetcher.
         /// </summary>
-        /// <param name="store">The location to store the downloaded and unpacked <see cref="Model.Implementation"/>s in.</param>
+        /// <param name="store">The location to store the downloaded and unpacked <see cref="ZeroInstall.Store.Model.Implementation"/>s in.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         protected FetcherBase(IStore store, ITaskHandler handler)
         {

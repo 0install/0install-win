@@ -22,11 +22,11 @@ using System.Windows.Forms;
 using Common.Controls;
 using Common.Tasks;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Preferences;
-using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Preferences;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Commands.WinForms
 {

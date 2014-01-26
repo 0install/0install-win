@@ -23,13 +23,13 @@ using System.Windows.Forms;
 using Common;
 using Common.Tasks;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 {
     /// <summary>
-    /// Models information about a <see cref="Model.Feed"/> in the <see cref="IFeedCache"/> for display in a GUI.
+    /// Models information about a <see cref="Feed"/> in the <see cref="IFeedCache"/> for display in a GUI.
     /// </summary>
     public sealed class FeedNode : Node
     {
@@ -54,8 +54,8 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// Creates a new feed node.
         /// </summary>
         /// <param name="parent">The window containing this node. Used for callbacks.</param>
-        /// <param name="cache">The <see cref="IFeedCache"/> the <see cref="Model.Feed"/> is located in.</param>
-        /// <param name="feed">The <see cref="Model.Feed"/> to be represented by this node.</param>
+        /// <param name="cache">The <see cref="IFeedCache"/> the <see cref="Feed"/> is located in.</param>
+        /// <param name="feed">The <see cref="Feed"/> to be represented by this node.</param>
         public FeedNode(StoreManageForm parent, IFeedCache cache, Feed feed) : base(parent)
         {
             #region Sanity checks
@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 
         #region Delete
         /// <summary>
-        /// Deletes this <see cref="Model.Feed"/> from the <see cref="IFeedCache"/> it is located in.
+        /// Deletes this <see cref="Feed"/> from the <see cref="IFeedCache"/> it is located in.
         /// </summary>
         /// <exception cref="KeyNotFoundException">Thrown if no matching feed could be found in the <see cref="IFeedCache"/>.</exception>
         /// <exception cref="IOException">Thrown if the feed could not be deleted.</exception>

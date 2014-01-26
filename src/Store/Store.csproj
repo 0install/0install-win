@@ -54,6 +54,7 @@
     <Reference Include="INIFileParser">
       <HintPath>..\..\lib\INIFileParser.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +101,109 @@
     <Compile Include="Implementations\StoreFactory.cs" />
     <Compile Include="Implementations\StoreUtils.cs" />
     <Compile Include="Management\ImplementationUtils.cs" />
+    <Compile Include="Model\Architecture.cs" />
+    <Compile Include="Model\Archive.cs" />
+    <Compile Include="Model\Arg.cs" />
+    <Compile Include="Model\ArgBase.cs" />
+    <Compile Include="Model\Binding.cs" />
+    <Compile Include="Model\Capabilities\AppRegistration.cs" />
+    <Compile Include="Model\Capabilities\AutoPlay.cs" />
+    <Compile Include="Model\Capabilities\AutoPlayEvent.cs" />
+    <Compile Include="Model\Capabilities\Capability.cs" />
+    <Compile Include="Model\Capabilities\CapabilityList.cs" />
+    <Compile Include="Model\Capabilities\ComServer.cs" />
+    <Compile Include="Model\Capabilities\ContextMenu.cs" />
+    <Compile Include="Model\Capabilities\DefaultCapability.cs" />
+    <Compile Include="Model\Capabilities\DefaultProgram.cs" />
+    <Compile Include="Model\Capabilities\FileType.cs" />
+    <Compile Include="Model\Capabilities\FileTypeExtension.cs" />
+    <Compile Include="Model\Capabilities\FontendModels\AutoPlayModel.cs" />
+    <Compile Include="Model\Capabilities\FontendModels\CapabilityModel.cs" />
+    <Compile Include="Model\Capabilities\FontendModels\ContextMenuModel.cs" />
+    <Compile Include="Model\Capabilities\FontendModels\DefaultProgramModel.cs" />
+    <Compile Include="Model\Capabilities\FontendModels\FileTypeModel.cs" />
+    <Compile Include="Model\Capabilities\FontendModels\IconCapabilityModel.cs" />
+    <Compile Include="Model\Capabilities\FontendModels\UrlProtocolModel.cs" />
+    <Compile Include="Model\Capabilities\IconCapability.cs" />
+    <Compile Include="Model\Capabilities\InstallCommands.cs" />
+    <Compile Include="Model\Capabilities\KnownProtocolPrefix.cs" />
+    <Compile Include="Model\Capabilities\UrlProtocol.cs" />
+    <Compile Include="Model\Capabilities\Verb.cs" />
+    <Compile Include="Model\Capabilities\VerbCapability.cs" />
+    <Compile Include="Model\Catalog.cs">
+      <DependentUpon>catalog.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\Command.cs" />
+    <Compile Include="Model\Constraint.cs" />
+    <Compile Include="Model\Dependency.cs" />
+    <Compile Include="Model\Design\ArchitectureConverter.cs" />
+    <Compile Include="Model\Design\ArchiveMimeTypeConverter.cs" />
+    <Compile Include="Model\Design\ArgBaseConverter.cs" />
+    <Compile Include="Model\Design\CategoryNameConverter.cs" />
+    <Compile Include="Model\Design\CommandNameConverter.cs" />
+    <Compile Include="Model\Design\DistributionNameConverter.cs" />
+    <Compile Include="Model\Design\IconMimeTypeConverter.cs" />
+    <Compile Include="Model\Design\InstallCommandsConverter.cs" />
+    <Compile Include="Model\Design\LicenseNameConverter.cs" />
+    <Compile Include="Model\Design\ManifestDigestConverter.cs" />
+    <Compile Include="Model\Design\UseConverter.cs" />
+    <Compile Include="Model\DownloadRetrievalMethod.cs" />
+    <Compile Include="Model\Element.cs" />
+    <Compile Include="Model\EntryPoint.cs" />
+    <Compile Include="Model\EnvironmentBinding.cs" />
+    <Compile Include="Model\ExecutableInBinding.cs" />
+    <Compile Include="Model\ExecutableInPath.cs" />
+    <Compile Include="Model\ExecutableInVar.cs" />
+    <Compile Include="Model\Feed.cs" />
+    <Compile Include="Model\FeedElement.cs" />
+    <Compile Include="Model\FeedElementUtils.cs" />
+    <Compile Include="Model\FeedReference.cs" />
+    <Compile Include="Model\ForEachArgs.cs" />
+    <Compile Include="Model\GenericBinding.cs" />
+    <Compile Include="Model\GlobalSuppressions.cs" />
+    <Compile Include="Model\Group.cs" />
+    <Compile Include="Model\IArgBaseContainer.cs" />
+    <Compile Include="Model\IBindingContainer.cs" />
+    <Compile Include="Model\Icon.cs" />
+    <Compile Include="Model\IDependencyContainer.cs" />
+    <Compile Include="Model\IDescriptionContainer.cs" />
+    <Compile Include="Model\IElementContainer.cs" />
+    <Compile Include="Model\IIconContainer.cs" />
+    <Compile Include="Model\Implementation.cs" />
+    <Compile Include="Model\ImplementationBase.cs" />
+    <Compile Include="Model\ImplementationVersion.cs" />
+    <Compile Include="Model\InterfaceReference.cs" />
+    <Compile Include="Model\InvalidInterfaceIDException.cs" />
+    <Compile Include="Model\IRecipeStep.cs" />
+    <Compile Include="Model\ISummaryContainer.cs" />
+    <Compile Include="Model\ManifestDigest.cs" />
+    <Compile Include="Model\ManifestDigestPartialEqualityComparer.cs" />
+    <Compile Include="Model\ModelUtils.cs" />
+    <Compile Include="Model\OverlayBinding.cs" />
+    <Compile Include="Model\PackageImplementation.cs" />
+    <Compile Include="Model\Preferences\FeedPreferences.cs" />
+    <Compile Include="Model\Preferences\ImplementationPreferences.cs" />
+    <Compile Include="Model\Preferences\InterfacePreferences.cs" />
+    <Compile Include="Model\Recipe.cs" />
+    <Compile Include="Model\RemoveStep.cs" />
+    <Compile Include="Model\RenameStep.cs" />
+    <Compile Include="Model\Requirements.cs" />
+    <Compile Include="Model\Restriction.cs" />
+    <Compile Include="Model\RetrievalMethod.cs" />
+    <Compile Include="Model\Runner.cs" />
+    <Compile Include="Model\Selection\ImplementationSelection.cs" />
+    <Compile Include="Model\Selection\SelectionCandidate.cs" />
+    <Compile Include="Model\Selection\Selections.cs" />
+    <Compile Include="Model\SingleFile.cs" />
+    <Compile Include="Model\TargetBase.cs" />
+    <Compile Include="Model\VersionDottedList.cs" />
+    <Compile Include="Model\VersionFor.cs" />
+    <Compile Include="Model\VersionPart.cs" />
+    <Compile Include="Model\VersionRange.cs" />
+    <Compile Include="Model\VersionRangePart.cs" />
+    <Compile Include="Model\WorkingDir.cs" />
+    <Compile Include="Model\XmlUnknown.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -132,15 +236,28 @@
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
-      <Name>Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Implementations\Archives\ClassDiagram.cd" />
     <None Include="Implementations\Manifest.cd" />
     <None Include="Implementations\Store.cd" />
+    <None Include="Model\Binding.cd" />
+    <None Include="Model\Capabilities\capabilities.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Model\Capabilities\ClassDiagram.cd" />
+    <None Include="Model\catalog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Model\Dependency.cd" />
+    <None Include="Model\Element.cd" />
+    <None Include="Model\Feed.cd" />
+    <None Include="Model\ImplementationVersion.cd" />
+    <None Include="Model\interface.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Model\RetrievalMethods.cd" />
+    <None Include="Model\VersionRange.cd" />
     <None Include="Trust\ClassDiagram.cd" />
     <None Include="Trust\trust.xsd">
       <SubType>Designer</SubType>

@@ -18,20 +18,20 @@
 using System;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations
 {
     /// <summary>
-    /// Indicates an <see cref="Model.Implementation"/> being added to an <see cref="IStore"/> is already in the store.
+    /// Indicates an <see cref="Store.Model.Implementation"/> being added to an <see cref="IStore"/> is already in the store.
     /// </summary>
     [Serializable]
     public sealed class ImplementationAlreadyInStoreException : Exception
     {
         #region Properties
         /// <summary>
-        /// The hash value the <see cref="Model.Implementation"/> was supposed to have.
+        /// The hash value the <see cref="Store.Model.Implementation"/> was supposed to have.
         /// </summary>
         public ManifestDigest ManifestDigest { get; private set; }
         #endregion
@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Creates a new implementation already in store exception.
         /// </summary>
-        /// <param name="manifestDigest">The digest of the <see cref="Model.Implementation"/> that was supposed to be added.</param>
+        /// <param name="manifestDigest">The digest of the <see cref="Store.Model.Implementation"/> that was supposed to be added.</param>
         public ImplementationAlreadyInStoreException(ManifestDigest manifestDigest)
             : base(string.Format(Resources.ImplementationAlreadyInStore, manifestDigest))
         {

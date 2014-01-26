@@ -22,7 +22,7 @@ using System.IO;
 using System.Linq;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration
 {

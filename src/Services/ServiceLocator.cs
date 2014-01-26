@@ -16,8 +16,6 @@
  */
 
 using System;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Injector;
@@ -25,6 +23,8 @@ using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Selection;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Services
@@ -72,7 +72,7 @@ namespace ZeroInstall.Services
         public Config Config { get { return Get(ref _config, Config.Load); } set { _config = value; } }
 
         /// <summary>
-        /// Describes an object that allows the storage and retrieval of <see cref="Model.Implementation"/> directories.
+        /// Describes an object that allows the storage and retrieval of <see cref="Implementation"/> directories.
         /// </summary>
         public IStore Store { get { return Get(ref _store, StoreFactory.CreateDefault); } set { _store = value; } }
 
@@ -102,12 +102,12 @@ namespace ZeroInstall.Services
         public CatalogManager CatalogManager { get { return Get(ref _catalogManager, () => new CatalogManager(TrustManager)); } set { _catalogManager = value; } }
 
         /// <summary>
-        /// Chooses a set of <see cref="Model.Implementation"/>s to satisfy the requirements of a program and its user. 
+        /// Chooses a set of <see cref="Implementation"/>s to satisfy the requirements of a program and its user. 
         /// </summary>
         public ISolver Solver { get { return Get(ref _solver, () => SolverFactory.CreateDefault(Config, FeedCache, FeedManager, Store, Handler)); } set { _solver = value; } }
 
         /// <summary>
-        /// Used to download missing <see cref="Model.Implementation"/>s.
+        /// Used to download missing <see cref="Implementation"/>s.
         /// </summary>
         public IFetcher Fetcher { get { return Get(ref _fetcher, () => new SequentialFetcher(Store, Handler)); } set { _fetcher = value; } }
 

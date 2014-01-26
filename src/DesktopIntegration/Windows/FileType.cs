@@ -25,12 +25,12 @@ using System.Net;
 using Common.Tasks;
 using Common.Utils;
 using Microsoft.Win32;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
-    /// Contains control logic for applying <see cref="ZeroInstall.Model.Capabilities.FileType"/> and <see cref="AccessPoints.FileType"/> on Windows systems.
+    /// Contains control logic for applying <see cref="Store.Model.Capabilities.FileType"/> and <see cref="AccessPoints.FileType"/> on Windows systems.
     /// </summary>
     public static class FileType
     {
@@ -71,7 +71,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <summary>The registry value name for the flag indicating a menue entry should only appear when the SHIFT key is pressed.</summary>
         public const string RegValueExtended = "extended";
 
-        /// <summary>The registry subkey containing <see cref="ZeroInstall.Model.Capabilities.FileType"/> references.</summary>
+        /// <summary>The registry subkey containing <see cref="Store.Model.Capabilities.FileType"/> references.</summary>
         public const string RegSubKeyIcon = "DefaultIcon";
 
         /// <summary>The registry subkey containing "open with" ProgID references.</summary>
@@ -98,7 +98,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="fileType"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Model.Capabilities.FileType fileType, bool machineWide, ITaskHandler handler, bool accessPoint = false)
+        public static void Register(InterfaceFeed target, Store.Model.Capabilities.FileType fileType, bool machineWide, ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
             if (fileType == null) throw new ArgumentNullException("fileType");
@@ -181,7 +181,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="fileType"/> is invalid.</exception>
-        public static void Unregister(Model.Capabilities.FileType fileType, bool machineWide, bool accessPoint = false)
+        public static void Unregister(Store.Model.Capabilities.FileType fileType, bool machineWide, bool accessPoint = false)
         {
             #region Sanity checks
             if (fileType == null) throw new ArgumentNullException("fileType");
@@ -256,7 +256,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         #region Helpers
         /// <summary>
-        /// Registers a <see cref="ZeroInstall.Model.Capabilities.VerbCapability"/> in a registry key.
+        /// Registers a <see cref="Store.Model.Capabilities.VerbCapability"/> in a registry key.
         /// </summary>
         /// <param name="registryKey">The registry key to write the new data to.</param>
         /// <param name="target">The application being integrated.</param>
@@ -268,14 +268,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="capability"/> is invalid.</exception>
-        internal static void RegisterVerbCapability(RegistryKey registryKey, InterfaceFeed target, Model.Capabilities.VerbCapability capability, bool machineWide, ITaskHandler handler)
+        internal static void RegisterVerbCapability(RegistryKey registryKey, InterfaceFeed target, Store.Model.Capabilities.VerbCapability capability, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (capability == null) throw new ArgumentNullException("capability");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            if (capability is Model.Capabilities.UrlProtocol) registryKey.SetValue(UrlProtocol.ProtocolIndicator, "");
+            if (capability is Store.Model.Capabilities.UrlProtocol) registryKey.SetValue(UrlProtocol.ProtocolIndicator, "");
 
             string description = capability.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture);
             if (description != null) registryKey.SetValue("", description);
@@ -315,13 +315,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
         }
 
         /// <summary>
-        /// Generates a command-line string for launching a <see cref="ZeroInstall.Model.Capabilities.Verb"/>.
+        /// Generates a command-line string for launching a <see cref="Store.Model.Capabilities.Verb"/>.
         /// </summary>
         /// <param name="target">The application being integrated.</param>
         /// <param name="verb">The verb to get to launch command for.</param>
         /// <param name="machineWide">Store the stub in a machine-wide directory instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        internal static string GetLaunchCommandLine(InterfaceFeed target, Model.Capabilities.Verb verb, bool machineWide, ITaskHandler handler)
+        internal static string GetLaunchCommandLine(InterfaceFeed target, Store.Model.Capabilities.Verb verb, bool machineWide, ITaskHandler handler)
         {
             string launchCommand = "\"" + target.GetRunStub(machineWide, handler, verb.Command) + "\"";
             if (!string.IsNullOrEmpty(verb.Arguments)) launchCommand += " " + verb.Arguments;

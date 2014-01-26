@@ -21,7 +21,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using ZeroInstall.Central.Properties;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Central.WinForms
 {

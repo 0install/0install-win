@@ -19,7 +19,7 @@ using System;
 using System.IO;
 using Common.Cli;
 using Common.Undo;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish
@@ -46,7 +46,7 @@ namespace ZeroInstall.Publish
 
         #region Constructor
         /// <summary>
-        /// Starts with a <see cref="ZeroInstall.Model.Feed"/> loaded from a file.
+        /// Starts with a <see cref="Feed"/> loaded from a file.
         /// </summary>
         /// <param name="signedFeed">The feed to be edited.</param>
         /// <param name="path">The path of the file the <paramref name="signedFeed"/> was loaded from.</param>
@@ -61,7 +61,7 @@ namespace ZeroInstall.Publish
         }
 
         /// <summary>
-        /// Starts with a <see cref="ZeroInstall.Model.Feed"/> that has not been saved on disk yet.
+        /// Starts with a <see cref="Feed"/> that has not been saved on disk yet.
         /// </summary>
         /// <param name="signedFeed">The feed to be edited.</param>
         public FeedEditing(SignedFeed signedFeed) : this(signedFeed, null)
@@ -70,7 +70,7 @@ namespace ZeroInstall.Publish
         }
 
         /// <summary>
-        /// Starts with an empty <see cref="ZeroInstall.Model.Feed"/>.
+        /// Starts with an empty <see cref="Feed"/>.
         /// </summary>
         public FeedEditing() : this(new SignedFeed(new Feed()), null)
         {}

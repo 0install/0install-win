@@ -25,8 +25,8 @@ using Common.Collections;
 using Common.Storage;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Model;
 using ZeroInstall.Services.Feeds;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Central

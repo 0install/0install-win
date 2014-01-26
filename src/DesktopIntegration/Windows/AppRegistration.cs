@@ -23,18 +23,18 @@ using System.Linq;
 using System.Net;
 using Common.Tasks;
 using Microsoft.Win32;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Capabilities;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
 {
     /// <summary>
-    /// Contains control logic for applying <see cref="ZeroInstall.Model.Capabilities.AppRegistration"/> on Windows systems.
+    /// Contains control logic for applying <see cref="Store.Model.Capabilities.AppRegistration"/> on Windows systems.
     /// </summary>
     public static class AppRegistration
     {
         #region Constants
-        /// <summary>Prepended before <see cref="ZeroInstall.Model.Capabilities.AppRegistration.CapabilityRegPath"/>. This prevents conflicts with non-Zero Install installations.</summary>
+        /// <summary>Prepended before <see cref="Store.Model.Capabilities.AppRegistration.CapabilityRegPath"/>. This prevents conflicts with non-Zero Install installations.</summary>
         private const string CapabilityPrefix = @"SOFTWARE\Zero Install\Applications\";
 
         /// <summary>The HKLM registry key for registering applications as candidates for default programs.</summary>
@@ -49,13 +49,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <summary>The registry value name for the application icon.</summary>
         public const string RegValueAppIcon = "ApplicationIcon";
 
-        /// <summary>The registry subkey containing <see cref="ZeroInstall.Model.Capabilities.FileType"/> references.</summary>
+        /// <summary>The registry subkey containing <see cref="Store.Model.Capabilities.FileType"/> references.</summary>
         public const string RegSubKeyFileAssocs = "FileAssociations";
 
-        /// <summary>The registry subkey containing <see cref="ZeroInstall.Model.Capabilities.UrlProtocol"/> references.</summary>
+        /// <summary>The registry subkey containing <see cref="Store.Model.Capabilities.UrlProtocol"/> references.</summary>
         public const string RegSubKeyUrlAssocs = "URLAssociations";
 
-        /// <summary>The registry subkey containing <see cref="ZeroInstall.Model.Capabilities.DefaultProgram"/> references.</summary>
+        /// <summary>The registry subkey containing <see cref="Store.Model.Capabilities.DefaultProgram"/> references.</summary>
         public const string RegSubKeyStartMenu = "StartMenu";
         #endregion
 
@@ -73,7 +73,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="appRegistration"/> or <paramref name="verbCapabilities"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Model.Capabilities.AppRegistration appRegistration, IEnumerable<VerbCapability> verbCapabilities, bool machineWide, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, Store.Model.Capabilities.AppRegistration appRegistration, IEnumerable<VerbCapability> verbCapabilities, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (appRegistration == null) throw new ArgumentNullException("appRegistration");
@@ -98,7 +98,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                 using (var fileAssocsKey = capabilitiesKey.CreateSubKey(RegSubKeyFileAssocs))
                 {
-                    foreach (var fileType in verbCapabilities.OfType<Model.Capabilities.FileType>())
+                    foreach (var fileType in verbCapabilities.OfType<Store.Model.Capabilities.FileType>())
                     {
                         // ReSharper disable AccessToForEachVariableInClosure
                         foreach (var extension in fileType.Extensions.Where(extension => !string.IsNullOrEmpty(extension.Value) && !string.IsNullOrEmpty(fileType.ID)))
@@ -109,7 +109,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                 using (var urlAssocsKey = capabilitiesKey.CreateSubKey(RegSubKeyUrlAssocs))
                 {
-                    foreach (var urlProtocol in verbCapabilities.OfType<Model.Capabilities.UrlProtocol>())
+                    foreach (var urlProtocol in verbCapabilities.OfType<Store.Model.Capabilities.UrlProtocol>())
                     {
                         foreach (var prefix in urlProtocol.KnownPrefixes)
                             urlAssocsKey.SetValue(prefix.Value, FileType.RegKeyPrefix + urlProtocol.ID);
@@ -118,7 +118,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                 using (var startMenuKey = capabilitiesKey.CreateSubKey(RegSubKeyStartMenu))
                 {
-                    foreach (var defaultProgram in verbCapabilities.OfType<Model.Capabilities.DefaultProgram>().Where(defaultProgram => !string.IsNullOrEmpty(defaultProgram.ID) && !string.IsNullOrEmpty(defaultProgram.Service)))
+                    foreach (var defaultProgram in verbCapabilities.OfType<Store.Model.Capabilities.DefaultProgram>().Where(defaultProgram => !string.IsNullOrEmpty(defaultProgram.ID) && !string.IsNullOrEmpty(defaultProgram.Service)))
                         startMenuKey.SetValue(defaultProgram.Service, defaultProgram.ID);
                 }
             }
@@ -137,7 +137,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="appRegistration"/>.</exception>
-        public static void Unregister(Model.Capabilities.AppRegistration appRegistration, bool machineWide)
+        public static void Unregister(Store.Model.Capabilities.AppRegistration appRegistration, bool machineWide)
         {
             #region Sanity checks
             if (appRegistration == null) throw new ArgumentNullException("appRegistration");

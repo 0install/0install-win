@@ -29,18 +29,18 @@ using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Model;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Represents a command issued via the command-line. Not to be confused with <see cref="Model.Command"/>!
+    /// Represents a command issued via the command-line. Not to be confused with <see cref="Command"/>!
     /// </summary>
     /// <remarks>Specific sub-classes of this class are used to handle a commands like "0install COMMAND [OPTIONS]".</remarks>
     [CLSCompliant(false)]
@@ -212,7 +212,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing an XML file.</exception>
         /// <exception cref="SignatureException">Thrown if the signature data could not be handled for some reason.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown if no interface ID was specified while one was needed.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if an <see cref="Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="DigestMismatchException">Thrown if an <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         /// <exception cref="SolverException">Thrown if the <see cref="ISolver"/> was unable to solve all dependencies.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
         /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>

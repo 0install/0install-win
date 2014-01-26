@@ -23,10 +23,10 @@ using Common.Storage;
 using Common.Utils;
 using Moq;
 using NUnit.Framework;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Services.Injector
 {

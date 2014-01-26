@@ -21,10 +21,10 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using Common;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Services.Injector
 {
@@ -35,14 +35,14 @@ namespace ZeroInstall.Services.Injector
     {
         #region Dependencies
         /// <summary>
-        /// Used to locate the selected <see cref="Model.Implementation"/>s.
+        /// Used to locate the selected <see cref="Store.Model.Implementation"/>s.
         /// </summary>
         private readonly IStore _store;
 
         /// <summary>
         /// Creates a new executor.
         /// </summary>
-        /// <param name="store">Used to locate the selected <see cref="Model.Implementation"/>s.</param>
+        /// <param name="store">Used to locate the selected <see cref="Store.Model.Implementation"/>s.</param>
         public Executor(IStore store)
         {
             #region Sanity checks
@@ -93,7 +93,7 @@ namespace ZeroInstall.Services.Injector
         /// <param name="arguments">Arguments to be passed to the launched programs.</param>
         /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Model.Implementation"/>s is not cached yet.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Store.Model.Implementation"/>s is not cached yet.</exception>
         /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>

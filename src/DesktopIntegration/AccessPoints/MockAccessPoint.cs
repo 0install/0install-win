@@ -21,12 +21,12 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
 using Common.Tasks;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
-    /// A mock access point that does nothing (used for testing). Points to a <see cref="ZeroInstall.Model.Capabilities.FileType"/>.
+    /// A mock access point that does nothing (used for testing). Points to a <see cref="Store.Model.Capabilities.FileType"/>.
     /// </summary>
     [XmlType("mock", Namespace = AppList.XmlNamespace)]
     public class MockAccessPoint : DefaultAccessPoint, IEquatable<MockAccessPoint>
@@ -72,7 +72,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (!string.IsNullOrEmpty(ID))
             {
                 // Trigger exceptions in case invalid capabilities are referenced
-                appEntry.GetCapability<Model.Capabilities.FileType>(Capability);
+                appEntry.GetCapability<Store.Model.Capabilities.FileType>(Capability);
             }
 
             if (!string.IsNullOrEmpty(ApplyFlagPath)) File.WriteAllText(ApplyFlagPath, "");
@@ -88,7 +88,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (!string.IsNullOrEmpty(ID))
             {
                 // Trigger exceptions in case invalid capabilities are referenced
-                appEntry.GetCapability<Model.Capabilities.FileType>(Capability);
+                appEntry.GetCapability<Store.Model.Capabilities.FileType>(Capability);
             }
 
             if (!string.IsNullOrEmpty(UnapplyFlagPath)) File.WriteAllText(UnapplyFlagPath, "");

@@ -18,9 +18,9 @@
 using System;
 using System.Collections.Generic;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Preferences;
 using ZeroInstall.Services;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Preferences;
 
 namespace ZeroInstall.Commands
 {

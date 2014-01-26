@@ -17,7 +17,7 @@
 
 using System.IO;
 using NUnit.Framework;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Capture
 {

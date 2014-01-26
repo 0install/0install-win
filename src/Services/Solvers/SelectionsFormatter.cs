@@ -19,9 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Common.Collections;
-using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Services.Solvers
 {

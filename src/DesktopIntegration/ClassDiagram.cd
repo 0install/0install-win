@@ -132,7 +132,7 @@
       <FileName>AccessPoints\CommandAccessPoint.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Model.Capabilities.CapabilityList">
+  <Class Name="ZeroInstall.Store.Model.Capabilities.CapabilityList">
     <Position X="9.5" Y="0.5" Width="1.5" />
     <Members>
       <Property Name="ArchitectureString" Hidden="true" />
@@ -201,7 +201,7 @@
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.Model.Capabilities.Capability" Collapsed="true">
+  <Class Name="ZeroInstall.Store.Model.Capabilities.Capability" Collapsed="true">
     <Position X="12" Y="0.5" Width="1.5" />
     <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />

@@ -20,7 +20,7 @@ using System.IO;
 using Common;
 using Common.Storage;
 using NUnit.Framework;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish

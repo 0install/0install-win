@@ -19,10 +19,10 @@ using System.Collections.Generic;
 using Common.Storage;
 using Moq;
 using NUnit.Framework;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Preferences;
-using ZeroInstall.Model.Selection;
 using ZeroInstall.Services.Feeds;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Preferences;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Services.Solvers
 {

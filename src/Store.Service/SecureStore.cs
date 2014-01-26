@@ -26,14 +26,14 @@ using System.Security.Principal;
 using Common;
 using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.Model;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Service.Properties;
 
 namespace ZeroInstall.Store.Service
 {
     /// <summary>
-    /// Models a cache directory that stores <see cref="Model.Implementation"/>s using ACLs and impersonation to ensure security in IPC scenarios.
+    /// Models a cache directory that stores <see cref="Store.Model.Implementation"/>s using ACLs and impersonation to ensure security in IPC scenarios.
     /// </summary>
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
     public class SecureStore : DirectoryStore, IEquatable<SecureStore>

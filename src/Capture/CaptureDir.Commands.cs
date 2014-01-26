@@ -24,8 +24,8 @@ using Common.Collections;
 using Common.Utils;
 using Microsoft.Win32;
 using ZeroInstall.Capture.Properties;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Capabilities;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.Capture
 {

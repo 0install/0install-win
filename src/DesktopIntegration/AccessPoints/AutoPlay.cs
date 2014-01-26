@@ -21,14 +21,14 @@ using System.Linq;
 using System.Xml.Serialization;
 using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
     /// Makes an application the default AutoPlay handler for a specific event.
     /// </summary>
-    /// <seealso cref="ZeroInstall.Model.Capabilities.AutoPlay"/>
+    /// <seealso cref="ZeroInstall.Store.Model.Capabilities.AutoPlay"/>
     [XmlType("auto-play", Namespace = AppList.XmlNamespace)]
     public class AutoPlay : DefaultAccessPoint, IEquatable<AutoPlay>
     {
@@ -40,7 +40,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Model.Capabilities.AutoPlay>(Capability);
+            var capability = appEntry.GetCapability<Store.Model.Capabilities.AutoPlay>(Capability);
             return capability.Events.Select(@event => "autoplay-event:" + @event.Name);
         }
         #endregion
@@ -54,7 +54,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var capability = appEntry.GetCapability<Model.Capabilities.AutoPlay>(Capability);
+            var capability = appEntry.GetCapability<Store.Model.Capabilities.AutoPlay>(Capability);
             if (capability == null) return;
 
             var target = new InterfaceFeed(appEntry.InterfaceID, feed);
@@ -68,7 +68,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Model.Capabilities.AutoPlay>(Capability);
+            var capability = appEntry.GetCapability<Store.Model.Capabilities.AutoPlay>(Capability);
             if (capability == null) return;
 
             if (WindowsUtils.IsWindows) Windows.AutoPlay.Unregister(capability, machineWide, accessPoint: true);

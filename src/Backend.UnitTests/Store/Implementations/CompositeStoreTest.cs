@@ -21,8 +21,8 @@ using Common;
 using Common.Tasks;
 using Moq;
 using NUnit.Framework;
-using ZeroInstall.Model;
 using ZeroInstall.Store.Implementations.Archives;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Implementations
 {

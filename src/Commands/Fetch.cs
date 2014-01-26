@@ -19,8 +19,8 @@ using System;
 using System.Linq;
 using Common.Storage;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Model;
 using ZeroInstall.Services;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands
 {

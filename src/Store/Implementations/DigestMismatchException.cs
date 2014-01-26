@@ -18,20 +18,20 @@
 using System;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations
 {
     /// <summary>
-    /// Indicates an <see cref="Model.Implementation"/> directory does not match a <see cref="ManifestDigest"/>.
+    /// Indicates an <see cref="Store.Model.Implementation"/> directory does not match a <see cref="ManifestDigest"/>.
     /// </summary>
     [Serializable]
     public sealed class DigestMismatchException : Exception
     {
         #region Properties
         /// <summary>
-        /// The hash value the <see cref="Model.Implementation"/> was supposed to have.
+        /// The hash value the <see cref="Store.Model.Implementation"/> was supposed to have.
         /// </summary>
         public string ExpectedHash { get; private set; }
 
@@ -55,7 +55,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Creates a new digest mismatch exception.
         /// </summary>
-        /// <param name="expectedHash">The hash value the <see cref="Model.Implementation"/> was supposed to have.</param>
+        /// <param name="expectedHash">The hash value the <see cref="Store.Model.Implementation"/> was supposed to have.</param>
         /// <param name="actualHash">The hash value that was actually calculated.</param>
         /// <param name="expectedManifest">The <see cref="Manifest"/> that resulted in the <paramref name="expectedHash"/>; may be <seealso langword="null"/>.</param>
         /// <param name="actualManifest">The <see cref="Manifest"/> that resulted in the <paramref name="actualHash"/>.</param>

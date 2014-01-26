@@ -19,11 +19,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Model;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -96,7 +96,7 @@ namespace ZeroInstall.Commands
         }
 
         /// <summary>
-        /// Downloads any <see cref="Model.Implementation"/>s in <see cref="Selection"/> that are missing from <see cref="IStore"/>.
+        /// Downloads any <see cref="Implementation"/>s in <see cref="Selection"/> that are missing from <see cref="IStore"/>.
         /// </summary>
         /// <remarks>Makes sure <see cref="ISolver"/> ran with up-to-date feeds before downloading any implementations.</remarks>
         protected void DownloadUncachedImplementations()

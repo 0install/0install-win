@@ -19,8 +19,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Capabilities;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.Capture
 {

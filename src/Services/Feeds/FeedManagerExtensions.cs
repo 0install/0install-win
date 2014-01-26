@@ -19,8 +19,8 @@ using System;
 using System.IO;
 using System.Net;
 using Common;
-using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Services.Feeds

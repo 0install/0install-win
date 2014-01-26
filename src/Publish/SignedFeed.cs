@@ -19,7 +19,7 @@ using System;
 using System.IO;
 using Common.Cli;
 using Common.Storage;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish

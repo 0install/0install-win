@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ArchitectureStringFormat" xml:space="preserve">
+    <value>The string must be in the form "os-cpu".</value>
+  </data>
   <data name="ArchiveInvalid" xml:space="preserve">
     <value>The archive file is invalid or damaged.</value>
   </data>
   <data name="ArchiveInvalidPath" xml:space="preserve">
     <value>The archive contains an invalid path (potentially a security risk): {0}</value>
+  </data>
+  <data name="CommandNotFound" xml:space="preserve">
+    <value>Unable to find command '{0}'.</value>
   </data>
   <data name="CopyFiles" xml:space="preserve">
     <value>Copying files</value>
@@ -140,6 +146,12 @@ Actual value: {1}</value>
   <data name="DirectoryNotFound" xml:space="preserve">
     <value>The directory '{0}' could not be found.</value>
   </data>
+  <data name="ErrorLoadingFeedPrefs" xml:space="preserve">
+    <value>Error loading feed preferences for '{0}'. Reverting to default values.</value>
+  </data>
+  <data name="ErrorLoadingInterfacePrefs" xml:space="preserve">
+    <value>Error loading interface preferences for '{0}'. Reverting to default values.</value>
+  </data>
   <data name="ErrorLoadingTrustDB" xml:space="preserve">
     <value>Error loading the trust database. Reverting to default values.</value>
   </data>
@@ -148,6 +160,9 @@ Actual value: {1}</value>
   </data>
   <data name="FeedNotInCache" xml:space="preserve">
     <value>'{0}' could not be located in the feed cache. Looked for file at: {1}</value>
+  </data>
+  <data name="FeedNotInCatalog" xml:space="preserve">
+    <value>Unable to find feed '{0}' in catalog.</value>
   </data>
   <data name="FileMissingDest" xml:space="preserve">
     <value>A &lt;file&gt; tag is missing a destination attribute.</value>
@@ -167,9 +182,18 @@ Actual value: {1}</value>
   <data name="ImplementationNotFound" xml:space="preserve">
     <value>The implementation '{0}' could not be located.</value>
   </data>
+  <data name="ImplementationNotInSelection" xml:space="preserve">
+    <value>Unable to find implementation for interface '{0}' in the selection.</value>
+  </data>
   <data name="InsufficientFSTimeAccuracy" xml:space="preserve">
     <value>The underlying file system does not store file change times with sufficient accuracy.
 If you are using a FAT-formatted drive please convert it to NTFS.</value>
+  </data>
+  <data name="InvalidDigest" xml:space="preserve">
+    <value>Digest '{0}' is not in the form 'algorithm=value'.</value>
+  </data>
+  <data name="InvalidInterfaceID" xml:space="preserve">
+    <value>The interface '{0}' is not a valid 'http(s):' URI and is not a valid local path either.</value>
   </data>
   <data name="InvalidLinesInManifest" xml:space="preserve">
     <value>The manifest file contains invalid lines.</value>
@@ -186,6 +210,24 @@ If you are using a FAT-formatted drive please convert it to NTFS.</value>
   <data name="MissingPath" xml:space="preserve">
     <value>No path specified.</value>
   </data>
+  <data name="MissingSlashInUri" xml:space="preserve">
+    <value>Missing '/' after host name in URI '{0}'.</value>
+  </data>
+  <data name="MustBeDottedList" xml:space="preserve">
+    <value>The dot-separated list may only contain decimal numbers.</value>
+  </data>
+  <data name="MustBeSpecificCPU" xml:space="preserve">
+    <value>The value must be a specific CPU (not "All" or "Unknown").</value>
+  </data>
+  <data name="MustBeSpecificOS" xml:space="preserve">
+    <value>The value must be a specific operating system (not "All" or "Unknown").</value>
+  </data>
+  <data name="MustBeValidVersionPart" xml:space="preserve">
+    <value>The version number may only contain dot-separated decimals and modifier strings.</value>
+  </data>
+  <data name="MustStartWithDottedList" xml:space="preserve">
+    <value>The version number must begin with a list of dot-separated decimals.</value>
+  </data>
   <data name="NewlineInName" xml:space="preserve">
     <value>The file or directory name must not contain a newline character.</value>
   </data>
@@ -195,6 +237,9 @@ If you are using a FAT-formatted drive please convert it to NTFS.</value>
   <data name="NonRootedPathInConfig" xml:space="preserve">
     <value>The path '{0}' is not an absolute path. Relative paths are only allowed in portable mode.
 Specified in the configuration file '{1}'.</value>
+  </data>
+  <data name="NoSuitableIconFound" xml:space="preserve">
+    <value>No suitable icon was found.</value>
   </data>
   <data name="NumberTooLarge" xml:space="preserve">
     <value>The number value is too large.</value>
@@ -223,6 +268,12 @@ You can delete the file '{1}' to fix the problem. Other settings may also be los
   <data name="RecipeInvalidPath" xml:space="preserve">
     <value>A recipe step contains an invalid path (potentially a security risk): {0}</value>
   </data>
+  <data name="RelativePathInNonRemoteFeed" xml:space="preserve">
+    <value>The relative path '{0}' was specified in a remote feed. Only local feeds may contain relative paths.</value>
+  </data>
+  <data name="RelativeUriInRemoteFeed" xml:space="preserve">
+    <value>The relative HREF '{0}' was specified in a remote feed. Only local feeds may contain relative HREFs.</value>
+  </data>
   <data name="RemovingTempFiles" xml:space="preserve">
     <value>Removing temporary files</value>
   </data>
@@ -231,6 +282,27 @@ You can delete the file '{1}' to fix the problem. Other settings may also be los
   </data>
   <data name="RubyGemInvalid" xml:space="preserve">
     <value>Unable to find data.tar.gz inside Ruby Gem file.</value>
+  </data>
+  <data name="SelectionCandidateNoteBuggy" xml:space="preserve">
+    <value>Buggy implementation</value>
+  </data>
+  <data name="SelectionCandidateNoteCommand" xml:space="preserve">
+    <value>Does not provide command '{0}'.</value>
+  </data>
+  <data name="SelectionCandidateNoteIncompatibleArchitecture" xml:space="preserve">
+    <value>Incompatible operating system or CPU</value>
+  </data>
+  <data name="SelectionCandidateNoteInsecure" xml:space="preserve">
+    <value>Insecure implementation</value>
+  </data>
+  <data name="SelectionCandidateNoteSource" xml:space="preserve">
+    <value>Non-executable source implementation</value>
+  </data>
+  <data name="SelectionCandidateNoteVersionMismatch" xml:space="preserve">
+    <value>Implementation version too old or too new</value>
+  </data>
+  <data name="SelectionCandidateNoteWrongLanguage" xml:space="preserve">
+    <value>Wrong language</value>
   </data>
   <data name="SignatureAldreadyExists" xml:space="preserve">
     <value>Signature file already exists.</value>
@@ -250,11 +322,23 @@ You can delete the file '{1}' to fix the problem. Other settings may also be los
   <data name="UnknownArchiveType" xml:space="preserve">
     <value>Unknown archive type.</value>
   </data>
+  <data name="UnknownCpu" xml:space="preserve">
+    <value>Unknown CPU.</value>
+  </data>
+  <data name="UnknownModifier" xml:space="preserve">
+    <value>Unknown modifier.</value>
+  </data>
+  <data name="UnknownOS" xml:space="preserve">
+    <value>Unknown operating system.</value>
+  </data>
   <data name="UnknownRecipeStepType" xml:space="preserve">
     <value>The recipe step type '{0}' is unknown.</value>
   </data>
   <data name="UnsupportedArchiveMimeType" xml:space="preserve">
     <value>The archive MIME type '{0}' is not supported.</value>
+  </data>
+  <data name="VersionRangeEndNotExclusive" xml:space="preserve">
+    <value>End of version range must be exclusive. Use '..!{0}', not '..{0}'.</value>
   </data>
   <data name="WrongPassphrase" xml:space="preserve">
     <value>The passphrase you entered is incorrect.</value>

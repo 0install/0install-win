@@ -22,9 +22,9 @@ using Common;
 using Common.Tasks;
 using Common.Undo;
 using Common.Utils;
-using ZeroInstall.Model;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish
 {

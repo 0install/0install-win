@@ -61,6 +61,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The string must be in the form &quot;os-cpu&quot;..
+        /// </summary>
+        internal static string ArchitectureStringFormat {
+            get {
+                return ResourceManager.GetString("ArchitectureStringFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The archive file is invalid or damaged..
         /// </summary>
         internal static string ArchiveInvalid {
@@ -75,6 +84,15 @@ namespace ZeroInstall.Store.Properties {
         internal static string ArchiveInvalidPath {
             get {
                 return ResourceManager.GetString("ArchiveInvalidPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to find command &apos;{0}&apos;..
+        /// </summary>
+        internal static string CommandNotFound {
+            get {
+                return ResourceManager.GetString("CommandNotFound", resourceCulture);
             }
         }
         
@@ -126,6 +144,24 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error loading feed preferences for &apos;{0}&apos;. Reverting to default values..
+        /// </summary>
+        internal static string ErrorLoadingFeedPrefs {
+            get {
+                return ResourceManager.GetString("ErrorLoadingFeedPrefs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading interface preferences for &apos;{0}&apos;. Reverting to default values..
+        /// </summary>
+        internal static string ErrorLoadingInterfacePrefs {
+            get {
+                return ResourceManager.GetString("ErrorLoadingInterfacePrefs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error loading the trust database. Reverting to default values..
         /// </summary>
         internal static string ErrorLoadingTrustDB {
@@ -149,6 +185,15 @@ namespace ZeroInstall.Store.Properties {
         internal static string FeedNotInCache {
             get {
                 return ResourceManager.GetString("FeedNotInCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to find feed &apos;{0}&apos; in catalog..
+        /// </summary>
+        internal static string FeedNotInCatalog {
+            get {
+                return ResourceManager.GetString("FeedNotInCatalog", resourceCulture);
             }
         }
         
@@ -207,12 +252,39 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to find implementation for interface &apos;{0}&apos; in the selection..
+        /// </summary>
+        internal static string ImplementationNotInSelection {
+            get {
+                return ResourceManager.GetString("ImplementationNotInSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The underlying file system does not store file change times with sufficient accuracy.
         ///If you are using a FAT-formatted drive please convert it to NTFS..
         /// </summary>
         internal static string InsufficientFSTimeAccuracy {
             get {
                 return ResourceManager.GetString("InsufficientFSTimeAccuracy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Digest &apos;{0}&apos; is not in the form &apos;algorithm=value&apos;..
+        /// </summary>
+        internal static string InvalidDigest {
+            get {
+                return ResourceManager.GetString("InvalidDigest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The interface &apos;{0}&apos; is not a valid &apos;http(s):&apos; URI and is not a valid local path either..
+        /// </summary>
+        internal static string InvalidInterfaceID {
+            get {
+                return ResourceManager.GetString("InvalidInterfaceID", resourceCulture);
             }
         }
         
@@ -262,6 +334,60 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Missing &apos;/&apos; after host name in URI &apos;{0}&apos;..
+        /// </summary>
+        internal static string MissingSlashInUri {
+            get {
+                return ResourceManager.GetString("MissingSlashInUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The dot-separated list may only contain decimal numbers..
+        /// </summary>
+        internal static string MustBeDottedList {
+            get {
+                return ResourceManager.GetString("MustBeDottedList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value must be a specific CPU (not &quot;All&quot; or &quot;Unknown&quot;)..
+        /// </summary>
+        internal static string MustBeSpecificCPU {
+            get {
+                return ResourceManager.GetString("MustBeSpecificCPU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value must be a specific operating system (not &quot;All&quot; or &quot;Unknown&quot;)..
+        /// </summary>
+        internal static string MustBeSpecificOS {
+            get {
+                return ResourceManager.GetString("MustBeSpecificOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The version number may only contain dot-separated decimals and modifier strings..
+        /// </summary>
+        internal static string MustBeValidVersionPart {
+            get {
+                return ResourceManager.GetString("MustBeValidVersionPart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The version number must begin with a list of dot-separated decimals..
+        /// </summary>
+        internal static string MustStartWithDottedList {
+            get {
+                return ResourceManager.GetString("MustStartWithDottedList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file or directory name must not contain a newline character..
         /// </summary>
         internal static string NewlineInName {
@@ -286,6 +412,15 @@ namespace ZeroInstall.Store.Properties {
         internal static string NonRootedPathInConfig {
             get {
                 return ResourceManager.GetString("NonRootedPathInConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No suitable icon was found..
+        /// </summary>
+        internal static string NoSuitableIconFound {
+            get {
+                return ResourceManager.GetString("NoSuitableIconFound", resourceCulture);
             }
         }
         
@@ -365,6 +500,24 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The relative path &apos;{0}&apos; was specified in a remote feed. Only local feeds may contain relative paths..
+        /// </summary>
+        internal static string RelativePathInNonRemoteFeed {
+            get {
+                return ResourceManager.GetString("RelativePathInNonRemoteFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The relative HREF &apos;{0}&apos; was specified in a remote feed. Only local feeds may contain relative HREFs..
+        /// </summary>
+        internal static string RelativeUriInRemoteFeed {
+            get {
+                return ResourceManager.GetString("RelativeUriInRemoteFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Removing temporary files.
         /// </summary>
         internal static string RemovingTempFiles {
@@ -388,6 +541,69 @@ namespace ZeroInstall.Store.Properties {
         internal static string RubyGemInvalid {
             get {
                 return ResourceManager.GetString("RubyGemInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buggy implementation.
+        /// </summary>
+        internal static string SelectionCandidateNoteBuggy {
+            get {
+                return ResourceManager.GetString("SelectionCandidateNoteBuggy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Does not provide command &apos;{0}&apos;..
+        /// </summary>
+        internal static string SelectionCandidateNoteCommand {
+            get {
+                return ResourceManager.GetString("SelectionCandidateNoteCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incompatible operating system or CPU.
+        /// </summary>
+        internal static string SelectionCandidateNoteIncompatibleArchitecture {
+            get {
+                return ResourceManager.GetString("SelectionCandidateNoteIncompatibleArchitecture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insecure implementation.
+        /// </summary>
+        internal static string SelectionCandidateNoteInsecure {
+            get {
+                return ResourceManager.GetString("SelectionCandidateNoteInsecure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Non-executable source implementation.
+        /// </summary>
+        internal static string SelectionCandidateNoteSource {
+            get {
+                return ResourceManager.GetString("SelectionCandidateNoteSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Implementation version too old or too new.
+        /// </summary>
+        internal static string SelectionCandidateNoteVersionMismatch {
+            get {
+                return ResourceManager.GetString("SelectionCandidateNoteVersionMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong language.
+        /// </summary>
+        internal static string SelectionCandidateNoteWrongLanguage {
+            get {
+                return ResourceManager.GetString("SelectionCandidateNoteWrongLanguage", resourceCulture);
             }
         }
         
@@ -446,6 +662,33 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unknown CPU..
+        /// </summary>
+        internal static string UnknownCpu {
+            get {
+                return ResourceManager.GetString("UnknownCpu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown modifier..
+        /// </summary>
+        internal static string UnknownModifier {
+            get {
+                return ResourceManager.GetString("UnknownModifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown operating system..
+        /// </summary>
+        internal static string UnknownOS {
+            get {
+                return ResourceManager.GetString("UnknownOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The recipe step type &apos;{0}&apos; is unknown..
         /// </summary>
         internal static string UnknownRecipeStepType {
@@ -460,6 +703,15 @@ namespace ZeroInstall.Store.Properties {
         internal static string UnsupportedArchiveMimeType {
             get {
                 return ResourceManager.GetString("UnsupportedArchiveMimeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End of version range must be exclusive. Use &apos;..!{0}&apos;, not &apos;..{0}&apos;..
+        /// </summary>
+        internal static string VersionRangeEndNotExclusive {
+            get {
+                return ResourceManager.GetString("VersionRangeEndNotExclusive", resourceCulture);
             }
         }
         

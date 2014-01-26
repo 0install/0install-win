@@ -21,11 +21,11 @@ using System.Net;
 using Common.Info;
 using Common.Storage;
 using Common.Utils;
-using ZeroInstall.Model;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Central

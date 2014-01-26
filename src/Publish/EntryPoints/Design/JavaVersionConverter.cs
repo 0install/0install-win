@@ -17,7 +17,7 @@
 
 using System.ComponentModel;
 using Common.Values.Design;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.EntryPoints.Design
 {

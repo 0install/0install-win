@@ -20,9 +20,9 @@ using Common.Collections;
 using Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Capabilities;
-using FileType = ZeroInstall.Model.Capabilities.FileType;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Capabilities;
+using FileType = ZeroInstall.Store.Model.Capabilities.FileType;
 
 namespace ZeroInstall.DesktopIntegration
 {

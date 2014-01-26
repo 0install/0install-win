@@ -22,28 +22,28 @@ using ZeroInstall.DesktopIntegration.AccessPoints;
 namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
-    /// Contains extension methods for <see cref="Model.Capabilities.Capability"/>s.
+    /// Contains extension methods for <see cref="Store.Model.Capabilities.Capability"/>s.
     /// </summary>
     public static class CapabilityExtensions
     {
         /// <summary>
-        /// Creates a <see cref="DefaultAccessPoint"/> referencing a specific <see cref="ZeroInstall.Model.Capabilities.DefaultCapability"/>.
+        /// Creates a <see cref="DefaultAccessPoint"/> referencing a specific <see cref="Store.Model.Capabilities.DefaultCapability"/>.
         /// </summary>
-        /// <param name="capability">The <see cref="ZeroInstall.Model.Capabilities.DefaultCapability"/> to create a <see cref="DefaultAccessPoint"/> for.</param>
+        /// <param name="capability">The <see cref="Store.Model.Capabilities.DefaultCapability"/> to create a <see cref="DefaultAccessPoint"/> for.</param>
         /// <returns>The newly created <see cref="DefaultAccessPoint"/>.</returns>
-        public static AccessPoint ToAcessPoint(this Model.Capabilities.DefaultCapability capability)
+        public static AccessPoint ToAcessPoint(this Store.Model.Capabilities.DefaultCapability capability)
         {
             #region Sanity checks
             if (capability == null) throw new ArgumentNullException("capability");
             #endregion
 
-            return new PerTypeDispatcher<Model.Capabilities.DefaultCapability, DefaultAccessPoint>(ignoreMissing: false)
+            return new PerTypeDispatcher<Store.Model.Capabilities.DefaultCapability, DefaultAccessPoint>(ignoreMissing: false)
             {
-                (Model.Capabilities.AutoPlay x) => new AutoPlay {Capability = capability.ID},
-                (Model.Capabilities.ContextMenu x) => new ContextMenu {Capability = capability.ID},
-                (Model.Capabilities.DefaultProgram x) => new DefaultProgram {Capability = capability.ID},
-                (Model.Capabilities.FileType x) => new FileType {Capability = capability.ID},
-                (Model.Capabilities.UrlProtocol x) => new UrlProtocol {Capability = capability.ID},
+                (Store.Model.Capabilities.AutoPlay x) => new AutoPlay {Capability = capability.ID},
+                (Store.Model.Capabilities.ContextMenu x) => new ContextMenu {Capability = capability.ID},
+                (Store.Model.Capabilities.DefaultProgram x) => new DefaultProgram {Capability = capability.ID},
+                (Store.Model.Capabilities.FileType x) => new FileType {Capability = capability.ID},
+                (Store.Model.Capabilities.UrlProtocol x) => new UrlProtocol {Capability = capability.ID},
             }.Dispatch(capability);
         }
     }

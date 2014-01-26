@@ -4,16 +4,16 @@ using Common;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Model;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Common base class for commands that manage <see cref="ZeroInstall.DesktopIntegration"/>.
+    /// Common base class for commands that manage <see cref="DesktopIntegration"/>.
     /// </summary>
     [CLSCompliant(false)]
     public abstract class IntegrationCommand : FrontendCommand

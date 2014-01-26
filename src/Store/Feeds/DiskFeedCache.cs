@@ -22,7 +22,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using Common.Storage;
 using Common.Utils;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 using ZeroInstall.Store.Trust;
 

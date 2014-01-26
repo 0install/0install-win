@@ -21,8 +21,8 @@ using Common.Collections;
 using Common.Storage;
 using Common.Tasks;
 using NUnit.Framework;
-using ZeroInstall.Model;
 using ZeroInstall.Publish.EntryPoints;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish

@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Common.Utils;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Capture
 {
@@ -31,7 +31,7 @@ namespace ZeroInstall.Capture
     {
         #region Private structs
         /// <summary>
-        /// An association of a command-line with a <see cref="Model.Command"/>.
+        /// An association of a command-line with a <see cref="Store.Model.Command"/>.
         /// </summary>
         private struct CommandTuple
         {

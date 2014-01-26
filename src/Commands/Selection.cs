@@ -23,13 +23,13 @@ using System.Net;
 using Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Model;
-using ZeroInstall.Model.Selection;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Commands
 {
@@ -126,7 +126,7 @@ namespace ZeroInstall.Commands
 
         #region Helpers
         /// <summary>
-        /// Trys to parse <see cref="Model.Requirements.InterfaceID"/> as a pre-computed <see cref="Model.Selection.Selections"/> document.
+        /// Trys to parse <see cref="Store.Model.Requirements.InterfaceID"/> as a pre-computed <see cref="Store.Model.Selection.Selections"/> document.
         /// </summary>
         /// <seealso cref="SelectionsDocument"/>
         private void TryParseSelectionsDocument()

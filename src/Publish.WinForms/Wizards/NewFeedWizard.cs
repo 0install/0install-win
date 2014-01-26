@@ -22,9 +22,9 @@ using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using Common.Tasks;
-using ZeroInstall.Model;
 using ZeroInstall.Publish.EntryPoints;
 using ZeroInstall.Publish.Properties;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish.WinForms.Wizards

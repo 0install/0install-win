@@ -18,8 +18,8 @@
 using System;
 using System.IO;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Model;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 {

@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ZeroInstall.Store.Model.Binding" Collapsed="true">
+    <Position X="3.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Binding.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Dependency" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="3.25" Width="1.75" />
+    <Members>
+      <Field Name="_bindings" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Bindings" Type="ZeroInstall.Store.Model.Binding">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.12" Y="-0.294" Height="0.182" Width="0.764" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAEgAAAAABIAAAEAIAAAEAAAAAAABE=</HashCode>
+      <FileName>Dependency.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Bindings" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.EnvironmentBinding">
+    <Position X="4.5" Y="6.5" Width="1.75" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAIAAAAAEgAAAIAQAAAAAAJAAAAAgAAAAABA=</HashCode>
+      <FileName>EnvironmentBinding.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Mode" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.OverlayBinding">
+    <Position X="2.5" Y="6.5" Width="1.75" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="OverlayBinding" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAEgAABAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
+      <FileName>OverlayBinding.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Element" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <AssociationLine Name="Dependencies" Type="ZeroInstall.Store.Model.Dependency" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="0.932" />
+        <Point X="4.146" Y="0.932" />
+        <Point X="4.146" Y="3.375" />
+        <Point X="5.75" Y="3.375" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Bindings" Type="ZeroInstall.Store.Model.Binding" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.719" Y="1.191" />
+        <Point X="0.719" Y="5.688" />
+        <Point X="3.5" Y="5.688" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Commands" Type="ZeroInstall.Store.Model.Command">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.984" Y="0.206" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>IAAAggAAIIAACACImABAKABQAADAEIEASECABBAACBA=</HashCode>
+      <FileName>Element.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Dependencies" />
+      <Property Name="Restrictions" />
+      <Property Name="Bindings" />
+      <Property Name="Commands" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Constraint">
+    <Position X="8.75" Y="0.75" Width="1.75" />
+    <Members>
+      <Property Name="BeforeString" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ICloneable.Clone" Hidden="true" />
+      <Property Name="NotBeforeString" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAMgAAAAAIAAAAAAIAAAAAAAAQAABQ=</HashCode>
+      <FileName>Constraint.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Command">
+    <Position X="1" Y="2.25" Width="1.5" />
+    <Members>
+      <Field Name="_arguments" Hidden="true" />
+      <Field Name="_bindings" Hidden="true" />
+      <Field Name="_dependencies" Hidden="true" />
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ICloneable.Clone" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Dependencies" Type="ZeroInstall.Store.Model.Dependency" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="4.543" />
+        <Point X="5.75" Y="4.543" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIKMgAAACARAAABAAIAAYECEQACAABA=</HashCode>
+      <FileName>Command.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Runner" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Dependencies" />
+      <Property Name="Restrictions" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Runner" Collapsed="true">
+    <Position X="3.5" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAABAAAAAAAAIABYAAAAAAAABA=</HashCode>
+      <FileName>Runner.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Model.Restriction">
+    <Position X="5.75" Y="0.5" Width="1.75" />
+    <Members>
+      <Field Name="_constraints" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ICloneable.Clone" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAEAgAAAAAAAABQMgABAAAAAAAAAAJEAAAAAAAAAABA=</HashCode>
+      <FileName>Restriction.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Constraints" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Enum Name="ZeroInstall.Store.Model.EnvironmentMode">
+    <Position X="7.25" Y="6.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAAAACA=</HashCode>
+      <FileName>EnvironmentBinding.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

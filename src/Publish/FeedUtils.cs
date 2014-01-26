@@ -25,8 +25,8 @@ using Common;
 using Common.Cli;
 using Common.Storage;
 using Common.Utils;
-using ZeroInstall.Model;
 using ZeroInstall.Publish.Properties;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish

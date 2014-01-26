@@ -19,15 +19,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Common.Tasks;
-using ZeroInstall.Model;
 using ZeroInstall.Store.Implementations.Archives;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Implementations
 {
     /// <summary>
-    /// Describes an object that allows the storage and retrieval of <see cref="Model.Implementation"/> directories.
+    /// Describes an object that allows the storage and retrieval of <see cref="Store.Model.Implementation"/> directories.
     /// </summary>
-    /// <remarks>A store caches <see cref="Model.Implementation"/>s identified by their <see cref="ManifestDigest"/>s.</remarks>
+    /// <remarks>A store caches <see cref="Store.Model.Implementation"/>s identified by their <see cref="ManifestDigest"/>s.</remarks>
     public interface IStore
     {
         /// <summary>
@@ -45,7 +45,7 @@ namespace ZeroInstall.Store.Implementations
         IEnumerable<string> ListAllTemp();
 
         /// <summary>
-        /// Determines whether the store contains a local copy of an implementation identified by a specific <see cref="Model.ManifestDigest"/>.
+        /// Determines whether the store contains a local copy of an implementation identified by a specific <see cref="Store.Model.ManifestDigest"/>.
         /// </summary>
         /// <param name="manifestDigest">The digest of the implementation to check for.</param>
         /// <returns>
@@ -82,7 +82,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="path"/> cannot be moved or the digest cannot be calculated.</exception>
-        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Store.Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to <paramref name="path"/> or write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if <paramref name="path"/> doesn't match the <paramref name="manifestDigest"/>.</exception>
         void AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler);
@@ -96,7 +96,7 @@ namespace ZeroInstall.Store.Implementations
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="NotSupportedException">Thrown if an archive type is unknown or not supported.</exception>
         /// <exception cref="IOException">Thrown if one of the archives cannot be extracted.</exception>
-        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Store.Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to one of the archives or write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the archives content doesn't match the <paramref name="manifestDigest"/>.</exception>
         void AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler);

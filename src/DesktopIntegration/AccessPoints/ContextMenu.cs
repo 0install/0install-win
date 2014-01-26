@@ -20,14 +20,14 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
 {
     /// <summary>
     /// Integrates an application into a file manager's context menu.
     /// </summary>
-    /// <seealso cref="ZeroInstall.Model.Capabilities.ContextMenu"/>
+    /// <seealso cref="ZeroInstall.Store.Model.Capabilities.ContextMenu"/>
     [XmlType("context-menu", Namespace = AppList.XmlNamespace)]
     public class ContextMenu : DefaultAccessPoint, IEquatable<ContextMenu>
     {
@@ -39,7 +39,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Model.Capabilities.ContextMenu>(Capability);
+            var capability = appEntry.GetCapability<Store.Model.Capabilities.ContextMenu>(Capability);
             return new[] {"context-menu-" + (capability.AllObjects ? "all" : "files") + ":" + capability.ID + @"\" + capability.Verb};
         }
         #endregion
@@ -53,7 +53,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var capability = appEntry.GetCapability<Model.Capabilities.ContextMenu>(Capability);
+            var capability = appEntry.GetCapability<Store.Model.Capabilities.ContextMenu>(Capability);
             if (capability == null) return;
 
             var target = new InterfaceFeed(appEntry.InterfaceID, feed);
@@ -68,7 +68,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Model.Capabilities.ContextMenu>(Capability);
+            var capability = appEntry.GetCapability<Store.Model.Capabilities.ContextMenu>(Capability);
             if (capability == null) return;
 
             if (WindowsUtils.IsWindows) Windows.ContextMenu.Remove(capability, machineWide);

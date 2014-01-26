@@ -23,7 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Common.Tasks;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations

@@ -22,7 +22,7 @@ using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using NUnit.Framework;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Icons
 {

@@ -21,7 +21,7 @@ using System.IO;
 using System.Linq;
 using Common.Storage;
 using Common.Tasks;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Icons
 {

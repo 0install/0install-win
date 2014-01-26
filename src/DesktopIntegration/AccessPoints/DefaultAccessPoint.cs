@@ -23,7 +23,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     /// <summary>
     /// Makes an application the default handler for something.
     /// </summary>
-    /// <seealso cref="ZeroInstall.Model.Capabilities.Capability"/>
+    /// <seealso cref="ZeroInstall.Store.Model.Capabilities.Capability"/>
     [XmlType("default-access-point", Namespace = AppList.XmlNamespace)]
     public abstract class DefaultAccessPoint : AccessPoint
     {

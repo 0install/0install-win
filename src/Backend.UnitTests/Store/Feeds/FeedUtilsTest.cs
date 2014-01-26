@@ -20,7 +20,7 @@ using System.IO;
 using System.Text;
 using Common;
 using NUnit.Framework;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Store.Feeds

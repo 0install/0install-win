@@ -18,7 +18,7 @@
 using System;
 using System.ComponentModel;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Central
 {
