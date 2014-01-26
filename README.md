@@ -2,7 +2,7 @@ Directory structure
 ===================
 
 - The directory `src` contains the Visual Studio solution with the actual source code.
-- The directory `lib` contains pre-compiled 3rd party libraries. Their licensing conditions are detailed in `3rd party code.txt`.
+- The directory `lib` contains pre-compiled 3rd party libraries which are not available via NuGet.
 - The directory `doc` contains scripts for generating source code and developer documentation.
 - The directory `modeling` contains UML and other diagrams.
 - The directory `isntaller` contains scripts for creating a Windows installer.
