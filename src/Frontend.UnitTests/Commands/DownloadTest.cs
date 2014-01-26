@@ -92,9 +92,7 @@ namespace ZeroInstall.Commands
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 selections.SaveXml(tempFile);
-
-                RunAndAssert(Resources.AllComponentsDownloaded, 0, selections,
-                    tempFile);
+                RunAndAssert(Resources.AllComponentsDownloaded, 0, selections, tempFile);
             }
         }
     }

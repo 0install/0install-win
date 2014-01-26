@@ -17,11 +17,13 @@
 
 using System;
 using System.Diagnostics;
+using Common.Storage;
 using Moq;
 using NUnit.Framework;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
+using ZeroInstall.Model.Selection;
 using ZeroInstall.Solvers;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
@@ -46,12 +48,12 @@ namespace ZeroInstall.Commands
             var testImplementation1 = testFeed1[selections.Implementations[0].ID];
             Container.GetMock<IFeedCache>().Setup(x => x.GetFeed("http://0install.de/feeds/test/sub1.xml")).Returns(testFeed1);
 
-            var testImplementation2 = new Implementation { ID = "id2", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0") };
+            var testImplementation2 = new Implementation {ID = "id2", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0")};
             var testFeed2 = new Feed
             {
                 Uri = new Uri("http://0install.de/feeds/test/sub2.xml"),
                 Name = "Sub 2",
-                Elements = { testImplementation2 }
+                Elements = {testImplementation2}
             };
             Container.GetMock<IFeedCache>().Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(testFeed2);
 
@@ -70,5 +72,41 @@ namespace ZeroInstall.Commands
                 "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0",
                 "--main=Main", "--wrapper=Wrapper", "http://0install.de/feeds/test/test1.xml", "--arg1", "--arg2");
         }
+
+        [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
+        public override void TestImportSelections()
+        {
+            var testFeed1 = FeedTest.CreateTestFeed();
+            testFeed1.Uri = new Uri("http://0install.de/feeds/test/sub1.xml");
+            testFeed1.Name = "Sub 1";
+            Container.GetMock<IFeedCache>().Setup(x => x.GetFeed("http://0install.de/feeds/test/sub1.xml")).Returns(testFeed1);
+            var testImplementation1 = (Implementation)testFeed1.Elements[0];
+
+            var testImplementation2 = new Implementation {ID = "id2", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0")};
+            var testFeed2 = new Feed
+            {
+                Uri = new Uri("http://0install.de/feeds/test/sub2.xml"),
+                Name = "Sub 2",
+                Elements = {testImplementation2}
+            };
+            Container.GetMock<IFeedCache>().Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(testFeed2);
+
+            var selections = SelectionsManagerTest.CreateTestSelections();
+
+            // Download uncached implementations
+            Container.GetMock<IStore>().Setup(x => x.Contains(It.IsAny<ManifestDigest>())).Returns(false);
+            Container.GetMock<IFetcher>().Setup(x => x.Fetch(new[] {testImplementation1, testImplementation2}));
+
+            Container.GetMock<IExecutor>().Setup(x => x.Start(It.IsAny<Selections>(), "--arg1", "--arg2")).Returns((Process)null);
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
+            {
+                selections.SaveXml(tempFile);
+                RunAndAssert(null, 0, selections, tempFile, "--arg1", "--arg2");
+            }
+        }
+
+        [Ignore("Not applicable")]
+        public override void TestTooManyArgs()
+        {}
     }
 }

@@ -4,9 +4,8 @@
 import sys
 from ZeroInstall import ServiceLocator, CliHandler
 from ZeroInstall.Model import Requirements
-from ZeroInstall.Injector import Executor
 
-requirements = Requirements(InterfaceID = sys.argv[1]) # sys.argv[0]
+requirements = Requirements(InterfaceID = sys.argv[1])
 
 services = ServiceLocator(CliHandler())
 selections = services.Solver.Solve(requirements)

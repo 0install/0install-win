@@ -56,7 +56,7 @@ namespace ZeroInstall.Commands
         }
 
         [Test(Description = "Ensures calling with too many arguments raises an exception.")]
-        public void TestTooManyArgs()
+        public virtual void TestTooManyArgs()
         {
             Assert.Throws<OptionException>(
                 () => Target.Parse(new[] {"http://0install.de/feeds/test/test1.xml", "arg1"}),
