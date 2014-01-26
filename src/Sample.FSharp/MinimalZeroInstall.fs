@@ -1,5 +1,5 @@
-﻿open ZeroInstall
-open ZeroInstall.Model
+﻿open ZeroInstall.Model
+open ZeroInstall.Services
 
 let locator = new ServiceLocator(new CliHandler())
 let solve = locator.Solver.Solve

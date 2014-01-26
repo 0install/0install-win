@@ -28,7 +28,7 @@ using ZeroInstall.Model;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
 
-namespace ZeroInstall.Fetchers
+namespace ZeroInstall.Services.Fetchers
 {
     /// <summary>
     /// Contains test methods for <see cref="IFetcher"/> implementations.

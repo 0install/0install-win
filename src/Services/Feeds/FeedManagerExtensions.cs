@@ -23,7 +23,7 @@ using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Feeds
+namespace ZeroInstall.Services.Feeds
 {
     /// <summary>
     /// Provides extension methods for <see cref="IFeedManager"/>.

@@ -20,10 +20,10 @@ using Common;
 using Common.Storage;
 using Moq;
 using NUnit.Framework;
-using ZeroInstall.Fetchers;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
-using ZeroInstall.Solvers;
+using ZeroInstall.Services.Fetchers;
+using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 

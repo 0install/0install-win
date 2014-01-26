@@ -1,9 +1,9 @@
 ﻿#import clr
-#clr.AddReferenceToFile("ZeroInstall.Services.dll", "ZeroInstall.Model.dll")
+#clr.AddReferenceToFile("ZeroInstall.Model.dll", "ZeroInstall.Services.dll")
 
 import sys
-from ZeroInstall import ServiceLocator, CliHandler
 from ZeroInstall.Model import Requirements
+from ZeroInstall.Services import ServiceLocator, CliHandler
 
 requirements = Requirements(InterfaceID = sys.argv[1])
 

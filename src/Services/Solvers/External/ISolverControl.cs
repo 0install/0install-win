@@ -17,7 +17,7 @@
 
 using System.IO;
 
-namespace ZeroInstall.Solvers.External
+namespace ZeroInstall.Services.Solvers.External
 {
     /// <summary>
     /// Interacts with the external process used by <see cref="ExternalSolver"/>.

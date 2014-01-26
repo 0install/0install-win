@@ -20,15 +20,15 @@ using System.IO;
 using Common;
 using Common.Storage;
 using Common.Utils;
-using ZeroInstall.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
-using ZeroInstall.Properties;
-using ZeroInstall.Solvers.External;
+using ZeroInstall.Services.Feeds;
+using ZeroInstall.Services.Properties;
+using ZeroInstall.Services.Solvers.External;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 
-namespace ZeroInstall.Solvers
+namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
     /// Uses an external process to solve requirements.

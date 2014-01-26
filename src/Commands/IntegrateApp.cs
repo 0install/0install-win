@@ -25,8 +25,9 @@ using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.Feeds;
 using ZeroInstall.Model;
+using ZeroInstall.Services;
+using ZeroInstall.Services.Feeds;
 
 namespace ZeroInstall.Commands
 {

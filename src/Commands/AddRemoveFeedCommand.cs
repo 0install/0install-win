@@ -20,9 +20,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Preferences;
+using ZeroInstall.Services;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands

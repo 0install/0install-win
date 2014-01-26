@@ -20,10 +20,10 @@ using System.Diagnostics;
 using System.Text;
 using System.Web;
 using Common;
-using ZeroInstall.Properties;
+using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 
-namespace ZeroInstall.Solvers.External
+namespace ZeroInstall.Services.Solvers.External
 {
     /// <summary>
     /// Helper class for <see cref="ExternalSolver"/> for parsing <see cref="Process.StandardError"/> data.

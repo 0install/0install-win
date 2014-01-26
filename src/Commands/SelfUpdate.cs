@@ -24,6 +24,7 @@ using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
+using ZeroInstall.Services;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 

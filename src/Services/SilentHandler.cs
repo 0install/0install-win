@@ -24,7 +24,7 @@ using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 
-namespace ZeroInstall
+namespace ZeroInstall.Services
 {
     /// <summary>
     /// Ignores progress reports and silently answer all questions with "No".

@@ -27,6 +27,7 @@ using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
+using ZeroInstall.Services;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Icons;
 using Icon = ZeroInstall.Model.Icon;

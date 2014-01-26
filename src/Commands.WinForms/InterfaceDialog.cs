@@ -30,7 +30,7 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Preferences;
 using ZeroInstall.Model.Selection;
-using ZeroInstall.Solvers;
+using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Commands.WinForms

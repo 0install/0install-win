@@ -24,12 +24,12 @@ using Common.Utils;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
-using ZeroInstall.Properties;
+using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 
-namespace ZeroInstall
+namespace ZeroInstall.Services
 {
     /// <summary>
     /// Uses the stderr stream to inform the user about the progress of tasks and ask the user questions.

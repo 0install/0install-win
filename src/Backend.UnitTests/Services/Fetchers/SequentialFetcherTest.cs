@@ -17,12 +17,12 @@
 
 using NUnit.Framework;
 
-namespace ZeroInstall.Solvers
+namespace ZeroInstall.Services.Fetchers
 {
     /// <summary>
-    /// Runs test methods for <see cref="BacktrackingSolver"/>.
+    /// Runs test methods for <see cref="SequentialFetcher"/>
     /// </summary>
     [TestFixture]
-    public class BacktrackingSolverTest : SolverTest<BacktrackingSolver>
+    public class SequentialFetcherTest : FetcherTest<SequentialFetcher>
     {}
 }

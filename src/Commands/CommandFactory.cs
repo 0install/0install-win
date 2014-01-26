@@ -22,6 +22,7 @@ using System.Linq;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
+using ZeroInstall.Services;
 
 namespace ZeroInstall.Commands
 {

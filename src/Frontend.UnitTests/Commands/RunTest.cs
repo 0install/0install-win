@@ -20,11 +20,11 @@ using System.Diagnostics;
 using Common.Storage;
 using Moq;
 using NUnit.Framework;
-using ZeroInstall.Fetchers;
-using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
-using ZeroInstall.Solvers;
+using ZeroInstall.Services.Fetchers;
+using ZeroInstall.Services.Injector;
+using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 

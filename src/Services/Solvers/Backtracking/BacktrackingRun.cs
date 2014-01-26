@@ -19,13 +19,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Common.Collections;
 using Common.Tasks;
-using ZeroInstall.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 
-namespace ZeroInstall.Solvers.Backtracking
+namespace ZeroInstall.Services.Solvers.Backtracking
 {
     /// <summary>
     /// Holds state during a single <see cref="BacktrackingSolver.Solve"/> run.

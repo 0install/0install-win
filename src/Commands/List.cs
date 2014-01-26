@@ -19,6 +19,7 @@ using System;
 using System.Linq;
 using System.Text;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Services;
 
 namespace ZeroInstall.Commands
 {

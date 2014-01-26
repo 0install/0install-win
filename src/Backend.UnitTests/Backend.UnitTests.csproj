@@ -85,13 +85,13 @@
     <Compile Include="DesktopIntegration\AppListTest.cs" />
     <Compile Include="DesktopIntegration\IntegrationManagerTest.cs" />
     <Compile Include="DesktopIntegration\SyncIntegrationManagerTest.cs" />
-    <Compile Include="Feeds\FeedManagerTest.cs" />
-    <Compile Include="Feeds\TrustManagerTest.cs" />
-    <Compile Include="Fetchers\FetcherTest.cs" />
-    <Compile Include="Fetchers\RetrievalMethodRankerTest.cs" />
-    <Compile Include="Fetchers\SequentialFetcherTest.cs" />
-    <Compile Include="Fetchers\TestData.cs" />
-    <Compile Include="Injector\ExecutorTest.cs" />
+    <Compile Include="Services\Feeds\FeedManagerTest.cs" />
+    <Compile Include="Services\Feeds\TrustManagerTest.cs" />
+    <Compile Include="Services\Fetchers\FetcherTest.cs" />
+    <Compile Include="Services\Fetchers\RetrievalMethodRankerTest.cs" />
+    <Compile Include="Services\Fetchers\SequentialFetcherTest.cs" />
+    <Compile Include="Services\Fetchers\TestData.cs" />
+    <Compile Include="Services\Injector\ExecutorTest.cs" />
     <Compile Include="MockHandler.cs" />
     <Compile Include="Model\ArchitectureTest.cs" />
     <Compile Include="Model\ArchiveTest.cs" />
@@ -124,10 +124,10 @@
     <Compile Include="Model\SingleFileTest.cs" />
     <Compile Include="Model\VersionRangeTest.cs" />
     <Compile Include="Model\XmlUnknownTest.cs" />
-    <Compile Include="Solvers\BacktrackingSolverTest.cs" />
-    <Compile Include="Solvers\SelectionsManagerTest.cs" />
-    <Compile Include="Solvers\SolverTest.cs" />
-    <Compile Include="Solvers\SolverUtilsTest.cs" />
+    <Compile Include="Services\Solvers\BacktrackingSolverTest.cs" />
+    <Compile Include="Services\Solvers\SelectionsManagerTest.cs" />
+    <Compile Include="Services\Solvers\SolverTest.cs" />
+    <Compile Include="Services\Solvers\SolverUtilsTest.cs" />
     <Compile Include="Store\ConfigTest.cs" />
     <Compile Include="Store\Feeds\FeedUtilsTest.cs" />
     <Compile Include="Store\Feeds\MemoryFeedCacheTest.cs" />
@@ -159,7 +159,7 @@
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.zip" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Fetchers\testArchive.zip" />
+    <EmbeddedResource Include="Services\Fetchers\testArchive.zip" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Store\Trust\5B5CB97421BAA5DC.gpg" />

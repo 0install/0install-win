@@ -26,10 +26,10 @@ using Common;
 using Common.Controls;
 using Common.Storage;
 using ZeroInstall.Model;
-using ZeroInstall.Properties;
+using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Feeds
+namespace ZeroInstall.Services.Feeds
 {
     /// <summary>
     /// Provides access to remote and local <see cref="Catalog"/>s. Handles downloading, signature verification and caching.

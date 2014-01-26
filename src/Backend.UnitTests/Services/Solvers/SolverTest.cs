@@ -19,12 +19,12 @@ using System.Collections.Generic;
 using Common.Storage;
 using Moq;
 using NUnit.Framework;
-using ZeroInstall.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Preferences;
 using ZeroInstall.Model.Selection;
+using ZeroInstall.Services.Feeds;
 
-namespace ZeroInstall.Solvers
+namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
     /// Contains common code for testing specific <see cref="ISolver"/> implementations.

@@ -21,7 +21,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using Common.Utils;
 
-namespace ZeroInstall.Fetchers
+namespace ZeroInstall.Services.Fetchers
 {
     /// <summary>
     /// Utility class that provides access to the test data contained in the assembly as resources.

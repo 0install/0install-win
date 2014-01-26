@@ -25,10 +25,10 @@ using Moq;
 using NUnit.Framework;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
-using ZeroInstall.Solvers;
+using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Implementations;
 
-namespace ZeroInstall.Injector
+namespace ZeroInstall.Services.Injector
 {
     /// <summary>
     /// Contains test methods for <see cref="Executor"/>.

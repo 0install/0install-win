@@ -1,5 +1,5 @@
-﻿import ZeroInstall
-import ZeroInstall.Model
+﻿import ZeroInstall.Model
+import ZeroInstall.Services
 
 def Main(argv as (string)):
     requirements = Requirements(InterfaceID:argv[0])

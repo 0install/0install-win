@@ -20,6 +20,7 @@ using Common.Storage;
 using Common.Tasks;
 using Moq;
 using NUnit.Framework;
+using ZeroInstall.Services;
 using ZeroInstall.Store;
 
 namespace ZeroInstall

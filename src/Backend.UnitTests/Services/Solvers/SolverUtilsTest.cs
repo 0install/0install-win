@@ -19,7 +19,7 @@ using System.Linq;
 using NUnit.Framework;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Solvers
+namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
     /// Contains test methods for <see cref="SolverUtils"/>.

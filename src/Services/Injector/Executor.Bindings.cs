@@ -28,10 +28,10 @@ using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
-using ZeroInstall.Properties;
+using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
 
-namespace ZeroInstall.Injector
+namespace ZeroInstall.Services.Injector
 {
     partial class Executor
     {

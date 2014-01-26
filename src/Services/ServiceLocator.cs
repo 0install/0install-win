@@ -16,18 +16,18 @@
  */
 
 using System;
-using ZeroInstall.Feeds;
-using ZeroInstall.Fetchers;
-using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
-using ZeroInstall.Solvers;
+using ZeroInstall.Services.Feeds;
+using ZeroInstall.Services.Fetchers;
+using ZeroInstall.Services.Injector;
+using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall
+namespace ZeroInstall.Services
 {
     /// <summary>
     /// Instantiates requested services transparently on first use. Handles dependency injection internally.

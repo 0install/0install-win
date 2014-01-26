@@ -19,7 +19,7 @@ using Common;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 
-namespace ZeroInstall.Solvers
+namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
     /// Wraps two solvers always passing requests to the primary one intially and falling back to secondary one should the primary one fail.

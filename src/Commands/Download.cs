@@ -20,7 +20,8 @@ using System.Collections.Generic;
 using System.IO;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
-using ZeroInstall.Solvers;
+using ZeroInstall.Services;
+using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 

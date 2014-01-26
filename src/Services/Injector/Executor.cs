@@ -23,10 +23,10 @@ using System.IO;
 using Common;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
-using ZeroInstall.Properties;
+using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
 
-namespace ZeroInstall.Injector
+namespace ZeroInstall.Services.Injector
 {
     /// <summary>
     /// Executes a set of <see cref="Selections"/> as a program using dependency injection.

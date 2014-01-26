@@ -16,6 +16,7 @@
  */
 
 using ZeroInstall.Model.Selection;
+using ZeroInstall.Services;
 using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall

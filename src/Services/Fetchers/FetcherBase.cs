@@ -22,11 +22,11 @@ using Common.Collections;
 using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.Model;
-using ZeroInstall.Properties;
+using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
 
-namespace ZeroInstall.Fetchers
+namespace ZeroInstall.Services.Fetchers
 {
     /// <summary>
     /// An abstract base class for <see cref="IFetcher"/> implementations.

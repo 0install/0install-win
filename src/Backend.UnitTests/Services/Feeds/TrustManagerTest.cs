@@ -25,7 +25,7 @@ using NUnit.Framework;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Feeds
+namespace ZeroInstall.Services.Feeds
 {
     /// <summary>
     /// Contains test methods for <see cref="TrustManager"/>.

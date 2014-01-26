@@ -18,7 +18,7 @@
 using NUnit.Framework;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Fetchers
+namespace ZeroInstall.Services.Fetchers
 {
     /// <summary>
     /// Ensures that <see cref="RetrievalMethodRanker"/> correctly ranks <see cref="RetrievalMethod"/>s.

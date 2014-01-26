@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using ZeroInstall.Feeds;
 using ZeroInstall.Model;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 
-namespace ZeroInstall.Solvers
+namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
     /// Creates <see cref="ISolver"/> instances.

@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Services;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands

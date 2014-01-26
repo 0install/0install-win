@@ -20,7 +20,7 @@ using System.Linq;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 
-namespace ZeroInstall.Solvers
+namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
     /// Helper functions for <see cref="ISolver"/> implementations.

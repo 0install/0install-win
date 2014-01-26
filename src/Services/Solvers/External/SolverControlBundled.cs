@@ -22,7 +22,7 @@ using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Store;
 
-namespace ZeroInstall.Solvers.External
+namespace ZeroInstall.Services.Solvers.External
 {
     /// <summary>
     /// Interacts with the external process used by <see cref="ExternalSolver"/> using a bundled Python distribution.

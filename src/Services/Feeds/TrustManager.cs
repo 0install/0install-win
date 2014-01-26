@@ -24,12 +24,12 @@ using System.Xml;
 using Common;
 using Common.Controls;
 using ZeroInstall.Model;
-using ZeroInstall.Properties;
+using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Feeds
+namespace ZeroInstall.Services.Feeds
 {
     /// <summary>
     /// Methods for verifying signatures and user trust.

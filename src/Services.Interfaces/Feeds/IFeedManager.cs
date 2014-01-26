@@ -23,7 +23,7 @@ using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Feeds
+namespace ZeroInstall.Services.Feeds
 {
     /// <summary>
     /// Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.

@@ -18,7 +18,7 @@
 using System.Collections.Generic;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Fetchers
+namespace ZeroInstall.Services.Fetchers
 {
     /// <summary>
     /// Compares <see cref="RetrievalMethod"/>s and sortes them from most to least preferred by <see cref="IFetcher"/>s.

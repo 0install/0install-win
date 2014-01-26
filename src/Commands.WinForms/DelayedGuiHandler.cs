@@ -24,6 +24,7 @@ using Common.Utils;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
+using ZeroInstall.Services;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;

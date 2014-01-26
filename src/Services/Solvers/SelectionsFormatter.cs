@@ -20,10 +20,10 @@ using System.Collections.Generic;
 using System.Text;
 using Common.Collections;
 using ZeroInstall.Model.Selection;
-using ZeroInstall.Properties;
+using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
 
-namespace ZeroInstall.Solvers
+namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
     /// Formats <see cref="Selections"/> for string output.

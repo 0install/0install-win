@@ -22,7 +22,7 @@ using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Solvers
+namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
     /// Chooses a set of <see cref="Model.Implementation"/>s to satisfy the requirements of a program and its user. 

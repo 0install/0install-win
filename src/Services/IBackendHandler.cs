@@ -23,7 +23,7 @@ using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 
-namespace ZeroInstall
+namespace ZeroInstall.Services
 {
     /// <summary>
     /// Callback methods to inform the user about tasks being run, ask the user questions and display custom UI elements.

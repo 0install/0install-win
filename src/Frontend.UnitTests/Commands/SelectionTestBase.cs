@@ -20,7 +20,8 @@ using NDesk.Options;
 using NUnit.Framework;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
-using ZeroInstall.Solvers;
+using ZeroInstall.Services;
+using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands

@@ -22,7 +22,7 @@ using ZeroInstall.Model.Selection;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 
-namespace ZeroInstall.Solvers
+namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
     /// Ranks <see cref="SelectionCandidate"/>s.

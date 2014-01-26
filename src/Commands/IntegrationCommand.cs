@@ -4,9 +4,10 @@ using Common;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Feeds;
 using ZeroInstall.Model;
-using ZeroInstall.Solvers;
+using ZeroInstall.Services;
+using ZeroInstall.Services.Feeds;
+using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands

@@ -17,15 +17,15 @@
 
 using System;
 using System.Linq;
-using ZeroInstall.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
-using ZeroInstall.Properties;
-using ZeroInstall.Solvers.Backtracking;
+using ZeroInstall.Services.Feeds;
+using ZeroInstall.Services.Properties;
+using ZeroInstall.Services.Solvers.Backtracking;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 
-namespace ZeroInstall.Solvers
+namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
     /// Uses limited backtracking to solve <see cref="Requirements"/>. Does not find all possible solutions!

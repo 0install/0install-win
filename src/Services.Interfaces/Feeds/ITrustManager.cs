@@ -18,7 +18,7 @@
 using System;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Feeds
+namespace ZeroInstall.Services.Feeds
 {
     /// <summary>
     /// Methods for verifying signatures and user trust.

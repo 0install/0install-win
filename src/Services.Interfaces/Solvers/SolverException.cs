@@ -18,7 +18,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace ZeroInstall.Solvers
+namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
     /// Represents errors that occurred in an <see cref="ISolver"/> implementation.

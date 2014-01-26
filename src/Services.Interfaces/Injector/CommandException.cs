@@ -19,7 +19,7 @@ using System;
 using System.Runtime.Serialization;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Injector
+namespace ZeroInstall.Services.Injector
 {
     /// <summary>
     /// Indicates <see cref="IExecutor"/> had a problem locating or processing a <see cref="Command"/>.

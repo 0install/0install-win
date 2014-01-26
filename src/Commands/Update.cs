@@ -22,7 +22,8 @@ using System.Text;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
-using ZeroInstall.Solvers;
+using ZeroInstall.Services;
+using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands

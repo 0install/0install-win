@@ -27,9 +27,10 @@ using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Injector;
 using ZeroInstall.Model;
-using ZeroInstall.Solvers;
+using ZeroInstall.Services;
+using ZeroInstall.Services.Injector;
+using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
 

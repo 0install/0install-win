@@ -21,15 +21,15 @@ using System.Linq;
 using Common.Collections;
 using Common.Tasks;
 using Common.Utils;
-using ZeroInstall.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Preferences;
 using ZeroInstall.Model.Selection;
-using ZeroInstall.Properties;
+using ZeroInstall.Services.Feeds;
+using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 
-namespace ZeroInstall.Solvers
+namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
     /// Shared logic for keeping state during a single <see cref="ISolver.Solve"/> run.
@@ -143,9 +143,8 @@ namespace ZeroInstall.Solvers
                 throw new SolverException("Linux native package managers not supported yet!");
             // TODO: Windows <package-implementation>s
 
-            foreach (var implementation in feed.Elements.OfType<Implementation>())
+            foreach (var candidate in feed.Elements.OfType<Implementation>().Select(implementation => new SelectionCandidate(feedID, feedPreferences, implementation, requirements)))
             {
-                var candidate = new SelectionCandidate(feedID, feedPreferences, implementation, requirements);
                 if (candidate.IsSuitable && NotSuitableBecauseOffline(candidate))
                 {
                     candidate.IsSuitable = false;

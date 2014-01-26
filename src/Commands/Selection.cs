@@ -23,10 +23,11 @@ using System.Net;
 using Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
-using ZeroInstall.Solvers;
+using ZeroInstall.Services;
+using ZeroInstall.Services.Feeds;
+using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 

@@ -9,7 +9,7 @@
     <ProjectGuid>{8CAA29B1-94B6-46C2-AF82-E049D35775C5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZeroInstall</RootNamespace>
+    <RootNamespace>ZeroInstall.Services</RootNamespace>
     <AssemblyName>ZeroInstall.Services</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>

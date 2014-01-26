@@ -21,7 +21,7 @@ using Common.Cli;
 using Common.Storage;
 using ZeroInstall.Store;
 
-namespace ZeroInstall.Solvers.External
+namespace ZeroInstall.Services.Solvers.External
 {
     /// <summary>
     /// Interacts with the external process used by <see cref="ExternalSolver"/> using a native Python distribution.

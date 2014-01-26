@@ -20,6 +20,7 @@ using System.IO;
 using Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Services;
 
 namespace ZeroInstall.Commands
 {

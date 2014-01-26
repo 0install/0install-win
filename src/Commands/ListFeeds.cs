@@ -20,6 +20,7 @@ using System.IO;
 using System.Text;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model.Preferences;
+using ZeroInstall.Services;
 
 namespace ZeroInstall.Commands
 {

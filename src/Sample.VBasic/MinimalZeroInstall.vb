@@ -1,5 +1,5 @@
-﻿Imports ZeroInstall
-Imports ZeroInstall.Model
+﻿Imports ZeroInstall.Model
+Imports ZeroInstall.Services
 
 Module MinimalZeroInstall
     Sub Main(ByVal args As String())

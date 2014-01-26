@@ -22,10 +22,10 @@ using System.Threading;
 using Common;
 using Common.Tasks;
 using ZeroInstall.Model;
-using ZeroInstall.Properties;
+using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
 
-namespace ZeroInstall.Fetchers
+namespace ZeroInstall.Services.Fetchers
 {
     /// <summary>
     /// Downloads <see cref="Implementation"/>s sequentially.

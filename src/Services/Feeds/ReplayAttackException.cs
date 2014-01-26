@@ -19,10 +19,10 @@ using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
-using ZeroInstall.Properties;
+using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Feeds;
 
-namespace ZeroInstall.Feeds
+namespace ZeroInstall.Services.Feeds
 {
     /// <summary>
     /// Indicates a feed file that downloaded by the <see cref="IFeedManager"/> is older than a version already located in the <see cref="IFeedCache"/>.

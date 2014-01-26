@@ -26,7 +26,7 @@ using Common.Collections;
 using Common.Controls;
 using Common.Storage;
 using ZeroInstall.Central.Properties;
-using ZeroInstall.Feeds;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;

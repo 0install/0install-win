@@ -23,6 +23,7 @@ using Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
+using ZeroInstall.Services;
 
 namespace ZeroInstall.Commands
 {
