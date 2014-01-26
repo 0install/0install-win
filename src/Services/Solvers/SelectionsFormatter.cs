@@ -21,7 +21,7 @@ using System.Text;
 using Common.Collections;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Properties;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Solvers
 {

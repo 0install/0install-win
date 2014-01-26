@@ -27,7 +27,7 @@ using Common;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Service.Properties;
 
 namespace ZeroInstall.Store.Service

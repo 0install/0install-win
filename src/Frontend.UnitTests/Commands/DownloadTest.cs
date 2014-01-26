@@ -24,7 +24,7 @@ using ZeroInstall.Fetchers;
 using ZeroInstall.Model;
 using ZeroInstall.Solvers;
 using ZeroInstall.Store.Feeds;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Commands
 {

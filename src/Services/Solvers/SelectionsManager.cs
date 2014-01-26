@@ -22,7 +22,7 @@ using System.Linq;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Store.Feeds;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Solvers
 {

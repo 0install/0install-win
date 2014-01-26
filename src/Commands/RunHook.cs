@@ -32,7 +32,7 @@ using ZeroInstall.Hooking;
 using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 using EntryPoint = ZeroInstall.Hooking.EntryPoint;
 
 namespace ZeroInstall.Commands

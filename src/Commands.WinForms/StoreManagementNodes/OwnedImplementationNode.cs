@@ -19,7 +19,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 {

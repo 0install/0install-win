@@ -24,7 +24,7 @@ using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Solvers;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Central

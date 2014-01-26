@@ -28,7 +28,7 @@ using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Solvers;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Commands
 {

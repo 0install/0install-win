@@ -25,8 +25,8 @@ using Common.Utils;
 using Moq;
 using NUnit.Framework;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Implementation.Archive;
+using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Implementations.Archives;
 
 namespace ZeroInstall.Fetchers
 {

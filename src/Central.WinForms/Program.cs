@@ -32,7 +32,7 @@ using Common.Storage;
 using Common.Utils;
 using Microsoft.Win32;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Central.WinForms
 {

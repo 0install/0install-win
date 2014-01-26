@@ -26,7 +26,7 @@ using NUnit.Framework;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Solvers;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Injector
 {

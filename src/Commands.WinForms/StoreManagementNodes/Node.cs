@@ -25,7 +25,7 @@ using Common;
 using Common.Controls;
 using Common.Tasks;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 {

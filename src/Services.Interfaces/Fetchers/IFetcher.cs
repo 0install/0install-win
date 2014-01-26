@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Fetchers
 {

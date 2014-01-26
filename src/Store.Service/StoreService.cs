@@ -28,7 +28,7 @@ using System.Security;
 using System.Security.Principal;
 using System.ServiceProcess;
 using Common.Storage;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Service.Properties;
 
 namespace ZeroInstall.Store.Service

@@ -23,7 +23,7 @@ using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.EntryPoints;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish

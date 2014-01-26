@@ -20,7 +20,7 @@ using System.Reflection;
 using Common;
 using Common.Utils;
 using NUnit.Framework;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Publish.EntryPoints
 {

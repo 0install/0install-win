@@ -28,7 +28,7 @@ using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Central.WinForms.Wizards
 {

@@ -77,8 +77,8 @@
       <NamespaceSummaryItem name="ZeroInstall.Store.Feeds" isDocumented="True">Contains classes for managing the feed cache.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Icons" isDocumented="True">Contains classes for managing the icon cache.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Trust" isDocumented="True">Contains classes for managing GnuPG signatures.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Store.Implementation" isDocumented="True">Contains classes for managing the implementation stores/caches and manifest generation.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Store.Implementation.Archive" isDocumented="True">Contains classes for safely extracting different kinds of archives.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Store.Implementations" isDocumented="True">Contains classes for managing the implementation stores/caches and manifest generation.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Store.Implementations.Archives" isDocumented="True">Contains classes for safely extracting different kinds of archives.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Management" isDocumented="True">Contains utility classes for store/cache management tools.</NamespaceSummaryItem>
     </NamespaceSummaries>
   </PropertyGroup>

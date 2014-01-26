@@ -23,8 +23,8 @@ using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Properties;
-using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Implementation.Archive;
+using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Implementations.Archives;
 
 namespace ZeroInstall.Fetchers
 {

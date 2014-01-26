@@ -23,7 +23,7 @@ using ZeroInstall.Model.Selection;
 using ZeroInstall.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall

@@ -31,7 +31,7 @@ using Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Commands.WinForms.StoreManagementNodes;
 using ZeroInstall.Store.Feeds;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Commands.WinForms
 {

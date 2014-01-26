@@ -132,17 +132,17 @@
     <Compile Include="Store\Feeds\FeedUtilsTest.cs" />
     <Compile Include="Store\Feeds\MemoryFeedCacheTest.cs" />
     <Compile Include="Store\Icons\DiskIconCacheTest.cs" />
-    <Compile Include="Store\Implementation\Archive\ExtractorTest.cs" />
-    <Compile Include="Store\Implementation\Archive\TarExtractorTest.cs" />
-    <Compile Include="Store\Implementation\Archive\TestData.cs" />
-    <Compile Include="Store\Implementation\Archive\ZipExtractorTest.cs" />
-    <Compile Include="Store\Implementation\CompositeStoreTest.cs" />
-    <Compile Include="Store\Implementation\DirectoryStoreTest.cs" />
-    <Compile Include="Store\Implementation\FlagUtilsTest.cs" />
-    <Compile Include="Store\Implementation\ManifestFormatTest.cs" />
-    <Compile Include="Store\Implementation\ManifestGeneratorTest.cs" />
-    <Compile Include="Store\Implementation\ManifestTest.cs" />
-    <Compile Include="Store\Implementation\RecipeUtilsTest.cs" />
+    <Compile Include="Store\Implementations\Archives\ExtractorTest.cs" />
+    <Compile Include="Store\Implementations\Archives\TarExtractorTest.cs" />
+    <Compile Include="Store\Implementations\Archives\TestData.cs" />
+    <Compile Include="Store\Implementations\Archives\ZipExtractorTest.cs" />
+    <Compile Include="Store\Implementations\CompositeStoreTest.cs" />
+    <Compile Include="Store\Implementations\DirectoryStoreTest.cs" />
+    <Compile Include="Store\Implementations\FlagUtilsTest.cs" />
+    <Compile Include="Store\Implementations\ManifestFormatTest.cs" />
+    <Compile Include="Store\Implementations\ManifestGeneratorTest.cs" />
+    <Compile Include="Store\Implementations\ManifestTest.cs" />
+    <Compile Include="Store\Implementations\RecipeUtilsTest.cs" />
     <Compile Include="Store\Management\ImplementationUtilsTest.cs" />
     <Compile Include="Store\Trust\GnuPGTest.cs" />
     <Compile Include="Store\Trust\TestData.cs" />
@@ -150,13 +150,13 @@
     <Compile Include="TestWithContainer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Store\Implementation\Archive\testArchive.gem" />
-    <EmbeddedResource Include="Store\Implementation\Archive\testArchive.tar" />
-    <EmbeddedResource Include="Store\Implementation\Archive\testArchiveHardlink.tar" />
-    <EmbeddedResource Include="Store\Implementation\Archive\testArchive.tar.bz2" />
-    <EmbeddedResource Include="Store\Implementation\Archive\testArchive.tar.gz" />
-    <EmbeddedResource Include="Store\Implementation\Archive\testArchive.tar.lzma" />
-    <EmbeddedResource Include="Store\Implementation\Archive\testArchive.zip" />
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchive.gem" />
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar" />
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchiveHardlink.tar" />
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar.bz2" />
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar.gz" />
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar.lzma" />
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchive.zip" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Fetchers\testArchive.zip" />

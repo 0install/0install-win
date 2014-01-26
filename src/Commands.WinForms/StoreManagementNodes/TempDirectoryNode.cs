@@ -21,7 +21,7 @@ using System.IO;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 {

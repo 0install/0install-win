@@ -21,7 +21,7 @@ using System.IO;
 using System.Linq;
 using Common.Tasks;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Management

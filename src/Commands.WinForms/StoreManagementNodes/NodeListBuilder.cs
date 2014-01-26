@@ -23,7 +23,7 @@ using Common.Collections;
 using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Management;
 
 namespace ZeroInstall.Commands.WinForms.StoreManagementNodes

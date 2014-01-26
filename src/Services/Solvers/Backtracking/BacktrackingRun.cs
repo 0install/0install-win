@@ -23,7 +23,7 @@ using ZeroInstall.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Solvers.Backtracking
 {

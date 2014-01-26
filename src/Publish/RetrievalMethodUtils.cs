@@ -26,7 +26,7 @@ using Common.Undo;
 using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Properties;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Publish
 {
