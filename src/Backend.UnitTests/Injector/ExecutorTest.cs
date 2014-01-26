@@ -56,7 +56,7 @@ namespace ZeroInstall.Injector
         [Test]
         public void TestExceptionEmpty()
         {
-            Assert.Throws<ArgumentException>(() => new Executor(new Selections(), new Mock<IStore>(MockBehavior.Loose).Object), "Empty selections should be rejected");
+            Assert.Throws<ArgumentException>(() => new Executor(new Mock<IStore>(MockBehavior.Loose).Object).Start(new Selections()), "Empty selections should be rejected");
         }
 
         [Test]
@@ -91,8 +91,8 @@ namespace ZeroInstall.Injector
         {
             var storeMock = new Mock<IStore>(MockBehavior.Loose);
             storeMock.Setup(x => x.GetPath(It.IsAny<ManifestDigest>())).Returns("test path");
-            var executor = new Executor(selections, storeMock.Object);
-            Assert.Throws<CommandException>(() => executor.GetStartInfo(), "Invalid Selections should be rejected");
+            var executor = new Executor(storeMock.Object);
+            Assert.Throws<CommandException>(() => executor.GetStartInfo(selections), "Invalid Selections should be rejected");
         }
 
         private static IStore GetMockStore(Selections selections)
@@ -139,8 +139,8 @@ namespace ZeroInstall.Injector
             var selections = SelectionsManagerTest.CreateTestSelections();
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
-            var executor = new Executor(selections, GetMockStore(selections));
-            var startInfo = executor.GetStartInfo("--custom");
+            var executor = new Executor(GetMockStore(selections));
+            var startInfo = executor.GetStartInfo(selections, "--custom");
             Assert.AreEqual(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
                 startInfo.FileName,
@@ -171,8 +171,8 @@ namespace ZeroInstall.Injector
             var selections = SelectionsManagerTest.CreateTestSelections();
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
-            var executor = new Executor(selections, GetMockStore(selections)) {Wrapper = "wrapper --wrapper"};
-            var startInfo = executor.GetStartInfo("--custom");
+            var executor = new Executor(GetMockStore(selections)) {Wrapper = "wrapper --wrapper"};
+            var startInfo = executor.GetStartInfo(selections, "--custom");
             Assert.AreEqual("wrapper", startInfo.FileName);
             Assert.AreEqual(
                 new[]
@@ -200,8 +200,8 @@ namespace ZeroInstall.Injector
             var selections = SelectionsManagerTest.CreateTestSelections();
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
-            var executor = new Executor(selections, GetMockStore(selections)) {Main = "main"};
-            var startInfo = executor.GetStartInfo("--custom");
+            var executor = new Executor(GetMockStore(selections)) {Main = "main"};
+            var startInfo = executor.GetStartInfo(selections, "--custom");
             Assert.AreEqual(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
                 startInfo.FileName,
@@ -229,8 +229,8 @@ namespace ZeroInstall.Injector
             var selections = SelectionsManagerTest.CreateTestSelections();
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
-            var executor = new Executor(selections, GetMockStore(selections)) {Main = "/main"};
-            var startInfo = executor.GetStartInfo("--custom");
+            var executor = new Executor(GetMockStore(selections)) {Main = "/main"};
+            var startInfo = executor.GetStartInfo(selections, "--custom");
             Assert.AreEqual(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
                 startInfo.FileName,
@@ -259,8 +259,8 @@ namespace ZeroInstall.Injector
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
             selections.Implementations[1].Commands[0].Path = null;
 
-            var executor = new Executor(selections, GetMockStore(selections));
-            var startInfo = executor.GetStartInfo("--custom");
+            var executor = new Executor(GetMockStore(selections));
+            var startInfo = executor.GetStartInfo(selections, "--custom");
             Assert.AreEqual(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
                 startInfo.FileName);
@@ -293,8 +293,8 @@ namespace ZeroInstall.Injector
             });
             selections.Implementations[2].Bindings.Add(new EnvironmentBinding {Name = "SPLIT_ARG", Value = "split1" + Path.PathSeparator + "split2"});
 
-            var executor = new Executor(selections, GetMockStore(selections));
-            var startInfo = executor.GetStartInfo();
+            var executor = new Executor(GetMockStore(selections));
+            var startInfo = executor.GetStartInfo(selections);
             Assert.AreEqual(
                 Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path)),
                 startInfo.FileName,

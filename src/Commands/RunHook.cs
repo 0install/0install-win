@@ -66,7 +66,7 @@ namespace ZeroInstall.Commands
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the main implementation is not cached (possibly because it is installed natively).</exception>
-        public RunHook(Executor executor, IFeedManager feedManager, IHandler handler)
+        public RunHook(IExecutor executor, IFeedManager feedManager, IHandler handler)
         {
             string interfaceID = executor.Selections.InterfaceID;
             _target = new InterfaceFeed(interfaceID, feedManager.GetFeed(interfaceID));

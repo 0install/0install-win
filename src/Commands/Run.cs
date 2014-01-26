@@ -26,7 +26,6 @@ using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
-using ZeroInstall.Model;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 
@@ -63,8 +62,8 @@ namespace ZeroInstall.Commands
             //Options.Remove("xml");
             //Options.Remove("show");
 
-            Options.Add("m|main=", () => Resources.OptionMain, newMain => _main = newMain);
-            Options.Add("w|wrapper=", () => Resources.OptionWrapper, newWrapper => _wrapper = newWrapper);
+            Options.Add("m|main=", () => Resources.OptionMain, newMain => Executor.Main = newMain);
+            Options.Add("w|wrapper=", () => Resources.OptionWrapper, newWrapper => Executor.Wrapper = newWrapper);
             Options.Add("no-wait", () => Resources.OptionNoWait, _ => NoWait = true);
 
             // Work-around to disable interspersed arguments (needed for passing arguments through to sub-processes)
@@ -79,12 +78,6 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region State
-        /// <summary>An alternative executable to to run from the main <see cref="Model.Implementation"/> instead of <see cref="Element.Main"/>.</summary>
-        private string _main;
-
-        /// <summary>Instead of executing the selected program directly, pass it as an argument to this program. Useful for debuggers.</summary>
-        private string _wrapper;
-
         /// <summary>Immediately returns once the chosen program has been launched instead of waiting for it to finish executing.</summary>
         protected bool NoWait;
         #endregion
@@ -153,16 +146,13 @@ namespace ZeroInstall.Commands
             // Prevent the user from pressing any buttons once the child process is being launched
             Handler.DisableProgressUI();
 
-            // Prepare new child process
-            var executor = new Executor(Selections, Store) {Main = _main, Wrapper = _wrapper};
-
-            using (var runHook = CreateRunHook(executor))
+            using (var runHook = CreateRunHook(Executor))
             {
                 Process process;
                 try
                 {
                     // Launch new child process
-                    process = executor.Start(AdditionalArgs.ToArray());
+                    process = Executor.Start(Selections, AdditionalArgs.ToArray());
 
                     if (process == null) return 0;
                 }
@@ -190,7 +180,7 @@ namespace ZeroInstall.Commands
             }
         }
 
-        private IDisposable CreateRunHook(Executor executor)
+        private IDisposable CreateRunHook(IExecutor executor)
         {
             if (Config.AllowApiHooking && WindowsUtils.IsWindows)
             {

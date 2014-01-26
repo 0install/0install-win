@@ -62,7 +62,6 @@
     <Compile Include="Fetchers\RetrievalMethodRanker.cs" />
     <Compile Include="Fetchers\SequentialFetcher.cs" />
     <Compile Include="IBackendHandler.cs" />
-    <Compile Include="Injector\CommandException.cs" />
     <Compile Include="Injector\Executor.Bindings.cs" />
     <Compile Include="Injector\Executor.CommandLine.cs" />
     <Compile Include="Injector\Executor.cs" />

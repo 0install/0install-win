@@ -31,67 +31,42 @@ namespace ZeroInstall.Injector
     /// <summary>
     /// Executes a set of <see cref="Selections"/> as a program using dependency injection.
     /// </summary>
-    public partial class Executor
+    public partial class Executor : IExecutor
     {
-        #region Properties
-        /// <summary>
-        /// The specific <see cref="Model.Implementation"/>s chosen for the <see cref="Dependency"/>s.
-        /// </summary>
-        public Selections Selections { get; private set; }
-
+        #region Dependencies
         /// <summary>
         /// Used to locate the selected <see cref="Model.Implementation"/>s.
         /// </summary>
-        public IStore Store { get; private set; }
+        private readonly IStore _store;
 
         /// <summary>
-        /// An alternative executable to to run from the main <see cref="Model.Implementation"/> instead of <see cref="Element.Main"/>. May not contain command-line arguments! Whitespaces do not need to be escaped.
+        /// Creates a new executor.
         /// </summary>
-        public string Main { get; set; }
-
-        /// <summary>
-        /// Instead of executing the selected program directly, pass it as an argument to this program. Useful for debuggers. May contain command-line arguments. Whitespaces must be escaped!
-        /// </summary>
-        public string Wrapper { get; set; }
-        #endregion
-
-        #region Constructor
-        /// <summary>
-        /// Creates a new launcher from <see cref="Selections"/>.
-        /// </summary>
-        /// <param name="selections">
-        ///   The specific <see cref="ImplementationSelection"/>s chosen for the <see cref="Dependency"/>s.
-        ///   This object must _not_ be modified once it has been passed into this constructor!
-        /// </param>
         /// <param name="store">Used to locate the selected <see cref="Model.Implementation"/>s.</param>
-        public Executor(Selections selections, IStore store)
+        public Executor(IStore store)
         {
             #region Sanity checks
-            if (selections == null) throw new ArgumentNullException("selections");
             if (store == null) throw new ArgumentNullException("store");
-            if (selections.Implementations.Count == 0) throw new ArgumentException(Resources.NoImplementationsPassed, "selections");
             #endregion
 
-            Selections = selections;
-            Store = store;
+            _store = store;
         }
         #endregion
 
         //--------------------//
 
+        /// <inheritdoc/>
+        public Selections Selections { get; private set; }
+
+        /// <inheritdoc/>
+        public string Main { get; set; }
+
+        /// <inheritdoc/>
+        public string Wrapper { get; set; }
+
         #region Start process
-        /// <summary>
-        /// Starts the program as specified by the <see cref="Selections"/>.
-        /// </summary>
-        /// <param name="arguments">Arguments to be passed to the launched programs.</param>
-        /// <returns>The newly created <see cref="Process"/>.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Model.Implementation"/>s is not cached yet.</exception>
-        /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
-        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched or if a problem occurred while creating a hard link.</exception>
-        public Process Start(params string[] arguments)
+        /// <inheritdoc/>
+        public Process Start(Selections selections, params string[] arguments)
         {
             #region Sanity checks
             if (arguments == null) throw new ArgumentNullException("arguments");
@@ -99,7 +74,7 @@ namespace ZeroInstall.Injector
 
             try
             {
-                return Process.Start(GetStartInfo(arguments));
+                return Process.Start(GetStartInfo(selections, arguments));
             }
                 #region Error handling
             catch (Win32Exception ex)
@@ -114,6 +89,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Prepares a <see cref="ProcessStartInfo"/> for executing the program as specified by the <see cref="Selections"/>.
         /// </summary>
+        /// <param name="selections">The specific <see cref="ImplementationSelection"/>s chosen by the solver.</param>
         /// <param name="arguments">Arguments to be passed to the launched programs.</param>
         /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
@@ -122,11 +98,14 @@ namespace ZeroInstall.Injector
         /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
-        internal ProcessStartInfo GetStartInfo(params string[] arguments)
+        internal ProcessStartInfo GetStartInfo(Selections selections, params string[] arguments)
         {
             #region Sanity checks
             if (arguments == null) throw new ArgumentNullException("arguments");
             #endregion
+
+            if (selections.Implementations.Count == 0) throw new ArgumentException(Resources.NoImplementationsPassed, "selections");
+            Selections = selections;
 
             var startInfo = BuildStartInfoWithBindings();
             var commandLine = GetCommandLine(GetMainImplementation(), Selections.Command, startInfo);
@@ -139,12 +118,7 @@ namespace ZeroInstall.Injector
         #endregion
 
         #region Path
-        /// <summary>
-        /// Locates an implementation on the disk (usually in an <see cref="IStore"/>).
-        /// </summary>
-        /// <param name="implementation">The <see cref="ImplementationBase"/> to be located.</param>
-        /// <returns>A fully qualified path pointing to the implementation's location on the local disk.</returns>
-        /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
+        /// <inheritdoc/>
         public string GetImplementationPath(ImplementationBase implementation)
         {
             #region Sanity checks
@@ -153,7 +127,7 @@ namespace ZeroInstall.Injector
 
             if (string.IsNullOrEmpty(implementation.LocalPath))
             {
-                string path = Store.GetPath(implementation.ManifestDigest);
+                string path = _store.GetPath(implementation.ManifestDigest);
                 if (path == null) throw new ImplementationNotFoundException(implementation.ManifestDigest);
                 return path;
             }

@@ -24,6 +24,7 @@ using NUnit.Framework;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Fetchers;
+using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Solvers;
 using ZeroInstall.Store;
@@ -51,6 +52,7 @@ namespace ZeroInstall.Commands
             Target.Store = Container.Resolve<IStore>();
             Target.Solver = Container.Resolve<ISolver>();
             Target.Fetcher = Container.Resolve<IFetcher>();
+            Target.Executor = Container.Resolve<IExecutor>();
         }
 
         /// <summary>

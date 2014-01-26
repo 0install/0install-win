@@ -18,6 +18,7 @@
 using System;
 using ZeroInstall.Feeds;
 using ZeroInstall.Fetchers;
+using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Model.Selection;
 using ZeroInstall.Solvers;
@@ -45,6 +46,7 @@ namespace ZeroInstall
         private CatalogManager _catalogManager;
         private ISolver _solver;
         private IFetcher _fetcher;
+        private IExecutor _executor;
         private SelectionsManager _selectionsManager;
         #endregion
 
@@ -108,6 +110,11 @@ namespace ZeroInstall
         /// Used to download missing <see cref="Model.Implementation"/>s.
         /// </summary>
         public IFetcher Fetcher { get { return Get(ref _fetcher, () => new SequentialFetcher(Store, Handler)); } set { _fetcher = value; } }
+
+        /// <summary>
+        /// Used to download missing <see cref="Model.Implementation"/>s.
+        /// </summary>
+        public IExecutor Executor { get { return Get(ref _executor, () => new Executor(Store)); } set { _executor = value; } }
 
         /// <summary>
         /// Contains helper methods for filtering <see cref="Selections"/>.

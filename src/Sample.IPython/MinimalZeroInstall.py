@@ -8,8 +8,8 @@ from ZeroInstall.Injector import Executor
 
 requirements = Requirements(InterfaceID = sys.argv[1]) # sys.argv[0]
 
-locator = ServiceLocator(CliHandler())
-selections = locator.Solver.Solve(requirements)
-missing = locator.SelectionsManager.GetUncachedImplementations(selections)
-locator.Fetcher.Fetch(missing)
-Executor(selections, locator.Store).Start()
+services = ServiceLocator(CliHandler())
+selections = services.Solver.Solve(requirements)
+missing = services.SelectionsManager.GetUncachedImplementations(selections)
+services.Fetcher.Fetch(missing)
+services.Executor.Start(selections)

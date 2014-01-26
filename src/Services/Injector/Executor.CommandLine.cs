@@ -32,7 +32,7 @@ using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Injector
 {
-    public partial class Executor
+    partial class Executor
     {
         #region Structs
         /// <summary>

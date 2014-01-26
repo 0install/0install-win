@@ -22,12 +22,11 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Indicates <see cref="Executor"/> had a problem locating or processing a <see cref="Command"/>.
+    /// Indicates <see cref="IExecutor"/> had a problem locating or processing a <see cref="Command"/>.
     /// </summary>
     [Serializable]
     public sealed class CommandException : Exception
     {
-        #region Constructor
         /// <summary>
         /// Creates a new missing main exception.
         /// </summary>
@@ -51,6 +50,5 @@ namespace ZeroInstall.Injector
         /// </summary>
         private CommandException(SerializationInfo info, StreamingContext context) : base(info, context)
         {}
-        #endregion
     }
 }

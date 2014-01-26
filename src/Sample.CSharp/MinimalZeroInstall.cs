@@ -1,6 +1,5 @@
 ﻿using ZeroInstall;
 using ZeroInstall.Model;
-using ZeroInstall.Injector;
 
 class MinimalZeroInstall : ServiceLocator
 {
@@ -17,6 +16,6 @@ class MinimalZeroInstall : ServiceLocator
         var selections = Solver.Solve(requirements);
         var missing = SelectionsManager.GetUncachedImplementations(selections);
         Fetcher.Fetch(missing);
-        new Executor(selections, Store).Start();
+        Executor.Start(selections);
     }
 }

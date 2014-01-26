@@ -1,12 +1,11 @@
 ﻿open ZeroInstall
 open ZeroInstall.Model
-open ZeroInstall.Injector
 
 let locator = new ServiceLocator(new CliHandler())
 let solve = locator.Solver.Solve
 let uncached = locator.SelectionsManager.GetUncachedImplementations
 let fetch = locator.Fetcher.Fetch
-let execute selections = (new Executor (selections, locator.Store)).Start()
+let execute = locator.Executor.Start
 
 let run requirements =
     let selections = solve requirements
