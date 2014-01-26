@@ -112,7 +112,7 @@ namespace ZeroInstall
         public IFetcher Fetcher { get { return Get(ref _fetcher, () => new SequentialFetcher(Store, Handler)); } set { _fetcher = value; } }
 
         /// <summary>
-        /// Used to download missing <see cref="Model.Implementation"/>s.
+        /// Executes a set of <see cref="Selections"/> as a program using dependency injection.
         /// </summary>
         public IExecutor Executor { get { return Get(ref _executor, () => new Executor(Store)); } set { _executor = value; } }
 
