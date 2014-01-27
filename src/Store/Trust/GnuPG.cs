@@ -81,7 +81,7 @@ namespace ZeroInstall.Store.Trust
                     key => key.Fingerprint == keySpecifier || key.KeyID == keySpecifier || key.UserID.ContainsIgnoreCase(keySpecifier));
             }
                 #region Error handling
-            catch (Exception)
+            catch
             {
                 throw new KeyNotFoundException(Resources.UnableToFindSecretKey);
             }

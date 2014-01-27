@@ -235,7 +235,7 @@ namespace ZeroInstall.Publish
                 }.Dispatch(retrievalMethod);
             }
                 #region Error handling
-            catch (Exception)
+            catch
             {
                 extractionDir.Dispose();
                 throw;

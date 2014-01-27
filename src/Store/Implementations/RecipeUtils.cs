@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using Common.Collections;
 using Common.Dispatch;
 using Common.Storage;
 using Common.Streams;
@@ -64,7 +63,7 @@ namespace ZeroInstall.Store.Implementations
                 // ReSharper disable AccessToDisposedClosure
                 new PerTypeDispatcher<IRecipeStep>(false)
                 {
-                    (Model.Archive step) =>
+                    (Archive step) =>
                     {
                         downloadedEnum.MoveNext();
                         step.Apply(downloadedEnum.Current, workingDir, handler, tag);
@@ -81,7 +80,7 @@ namespace ZeroInstall.Store.Implementations
                 return workingDir;
             }
                 #region Error handling
-            catch (Exception)
+            catch
             {
                 workingDir.Dispose();
                 throw;
@@ -98,7 +97,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; may be <see langword="null"/>.</param>
         /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
-        public static void Apply(this Model.Archive step, string localPath, TemporaryDirectory workingDir, ITaskHandler handler, object tag = null)
+        public static void Apply(this Archive step, string localPath, TemporaryDirectory workingDir, ITaskHandler handler, object tag = null)
         {
             #region Sanity checks
             if (step == null) throw new ArgumentNullException("step");

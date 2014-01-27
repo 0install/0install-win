@@ -296,7 +296,7 @@ namespace Common.Utils
         // ReSharper disable once MemberCanBePrivate.Global
         public interface IActionSimulator<in T>
         {
-            void Invoke(T obj);
+            void Execute(T obj);
         }
 
         [Test]
@@ -312,15 +312,15 @@ namespace Common.Utils
                 // Set up delegate mocks
                 var dirCallbackMock = new Mock<IActionSimulator<string>>(MockBehavior.Strict);
                 // ReSharper disable AccessToDisposedClosure
-                dirCallbackMock.Setup(x => x.Invoke(tempDir)).Verifiable();
+                dirCallbackMock.Setup(x => x.Execute(tempDir)).Verifiable();
                 // ReSharper restore AccessToDisposedClosure
-                dirCallbackMock.Setup(x => x.Invoke(subDirPath)).Verifiable();
+                dirCallbackMock.Setup(x => x.Execute(subDirPath)).Verifiable();
                 var fileCallbackMock = new Mock<IActionSimulator<string>>(MockBehavior.Strict);
-                fileCallbackMock.Setup(x => x.Invoke(filePath)).Verifiable();
+                fileCallbackMock.Setup(x => x.Execute(filePath)).Verifiable();
 
                 new DirectoryInfo(tempDir).Walk(
-                    dir => dirCallbackMock.Object.Invoke(dir.FullName),
-                    file => fileCallbackMock.Object.Invoke(file.FullName));
+                    dir => dirCallbackMock.Object.Execute(dir.FullName),
+                    file => fileCallbackMock.Object.Execute(file.FullName));
 
                 dirCallbackMock.Verify();
                 fileCallbackMock.Verify();

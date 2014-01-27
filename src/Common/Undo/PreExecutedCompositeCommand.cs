@@ -64,7 +64,7 @@ namespace Common.Undo
                 for (countExecute = 0; countExecute < _commands.Count; countExecute++)
                     _commands[countExecute].Execute();
             }
-            catch (Exception)
+            catch
             { // Rollback before reporting exception
                 for (int countUndo = countExecute - 1; countUndo >= 0; countUndo--)
                     _commands[countUndo].Undo();
@@ -83,7 +83,7 @@ namespace Common.Undo
                 for (countUndo = _commands.Count - 1; countUndo >= 0; countUndo--)
                     _commands[countUndo].Undo();
             }
-            catch (Exception)
+            catch
             { // Rollback before reporting exception
                 for (int countExecute = countUndo + 1; countExecute < _commands.Count; countExecute++)
                     _commands[countExecute].Execute();

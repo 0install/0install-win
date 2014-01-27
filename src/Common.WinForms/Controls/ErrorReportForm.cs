@@ -86,6 +86,7 @@ namespace Common.Controls
         /// <param name="uploadUri">The URI to upload error reports to.</param>
         /// <remarks>If an exception is caught any remaining threads will continue to execute until the error has been reported. Then the entire process will be terminated.</remarks>
         [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "If the actual exception is unknown the generic top-level Exception is the most appropriate")]
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "We are already handling unexpected exceptions. We need to ignore any additional problems in the cleanup process.")]
         [Conditional("ERROR_REPORT")]
         public static void SetupMonitoring(Uri uploadUri)
         {
@@ -96,25 +97,32 @@ namespace Common.Controls
             // Only execute this code once per process
             if (!Monitor.TryEnter(_monitoringLock)) return;
 
-            // Catch exceptions on normal threads
+            CatchOnNormalThreads(uploadUri);
+            CatchOnWinFormsThreads(uploadUri);
+        }
+
+        private static void CatchOnNormalThreads(Uri uploadUri)
+        {
             AppDomain.CurrentDomain.UnhandledException += delegate(object sender, UnhandledExceptionEventArgs e)
             {
-                // Prevent any further user interaction with the crashing application
-                foreach (Form form in Application.OpenForms)
-                    form.Invoke(new Action(form.Hide));
+                HideForms();
 
+                Log.Error("AppDomain.CurrentDomain.UnhandledException raised");
                 Report((e.ExceptionObject as Exception) ?? new Exception("Unknown error"), uploadUri);
+
                 Process.GetCurrentProcess().Kill();
             };
+        }
 
-            // Catch exceptions on WinForms threads sooner (otherwise they might upset intermediate native code)
+        private static void CatchOnWinFormsThreads(Uri uploadUri)
+        {
             Application.ThreadException += delegate(object sender, ThreadExceptionEventArgs e)
             {
-                // Prevent any further user interaction with the crashing application
-                foreach (Form form in Application.OpenForms)
-                    form.Invoke(new Action(form.Hide));
+                HideForms();
 
+                Log.Error("Application.ThreadException raised");
                 Report(e.Exception ?? new Exception("Unknown error"), uploadUri);
+
                 Process.GetCurrentProcess().Kill();
             };
             try
@@ -123,6 +131,23 @@ namespace Common.Controls
             }
             catch (InvalidOperationException)
             {}
+        }
+
+        /// <summary>
+        /// Prevent any further user interaction with the crashing application
+        /// </summary>
+        private static void HideForms()
+        {
+            foreach (Form form in Application.OpenForms)
+            {
+                try
+                {
+                    form.Invoke(new Action(form.Hide));
+                }
+                    // ReSharper disable once EmptyGeneralCatchClause
+                catch
+                {}
+            }
         }
 
         /// <summary>
