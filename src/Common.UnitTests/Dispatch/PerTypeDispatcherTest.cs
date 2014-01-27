@@ -21,10 +21,9 @@
  */
 
 using System.Collections.Generic;
-using Common.Dispatch;
 using NUnit.Framework;
 
-namespace Common.Collections
+namespace Common.Dispatch
 {
     /// <summary>
     /// Contains test methods for <see cref="PerTypeDispatcher{TBase,TResult}"/>.

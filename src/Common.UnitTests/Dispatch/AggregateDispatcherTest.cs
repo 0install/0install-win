@@ -20,10 +20,9 @@
  * THE SOFTWARE.
  */
 
-using Common.Dispatch;
 using NUnit.Framework;
 
-namespace Common.Collections
+namespace Common.Dispatch
 {
     /// <summary>
     /// Contains test methods for <see cref="AggregateDispatcher{TBase,TResultElement}"/>.

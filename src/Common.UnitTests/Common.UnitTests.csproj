@@ -65,17 +65,17 @@
   <ItemGroup>
     <Compile Include="AppMutexText.cs" />
     <Compile Include="Cli\ArgumentUtilsTest.cs" />
-    <Compile Include="Collections\AggregateDispatcherTest.cs" />
     <Compile Include="Collections\BucketizerTest.cs" />
     <Compile Include="Collections\ComparableTupleTest.cs" />
     <Compile Include="Collections\EnumerableExtensionsTest.cs" />
     <Compile Include="Collections\LanguageSetTest.cs" />
     <Compile Include="Collections\LocalizableStringCollectionTest.cs" />
     <Compile Include="Collections\MergeTest.cs" />
-    <Compile Include="Collections\PerTypeDispatcherTest.cs" />
     <Compile Include="Collections\TransparentCacheTest.cs" />
     <Compile Include="Controls\TrackingLabelTest.cs" />
     <Compile Include="Controls\TrackingProgressBarTest.cs" />
+    <Compile Include="Dispatch\AggregateDispatcherTest.cs" />
+    <Compile Include="Dispatch\PerTypeDispatcherTest.cs" />
     <Compile Include="LogTest.cs" />
     <Compile Include="MicroServer.cs" />
     <Compile Include="MoqExtensions.cs" />
