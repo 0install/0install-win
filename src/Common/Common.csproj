@@ -148,7 +148,6 @@
     <Compile Include="Tasks\ThreadTask.cs" />
     <Compile Include="Tasks\WaitTask.cs" />
     <Compile Include="TimedLogEvent.cs" />
-    <Compile Include="ToStringWrapper.cs" />
     <Compile Include="Undo\AddToCollection.cs" />
     <Compile Include="Undo\CollectionCommand.cs" />
     <Compile Include="Undo\CommandCollector.cs" />

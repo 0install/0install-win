@@ -18,7 +18,6 @@
 using System;
 using System.Globalization;
 using System.Windows.Forms;
-using Common;
 using Common.Controls;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Store.Model;
@@ -32,13 +31,21 @@ namespace ZeroInstall.Central.WinForms
     {
         #region Inner classes
         /// <summary>
-        /// Wraps <see cref="EntryPoint"/>s so that their <see cref="object.ToString"/> methods return localized names.
+        /// Wraps <see cref="Element"/>s so that their <see cref="object.ToString"/> methods return localized names.
         /// </summary>
-        private class EntryPointWrapper : ToStringWrapper<EntryPoint>
+        private class EntryPointWrapper
         {
-            public EntryPointWrapper(EntryPoint entryPoint) :
-                base(entryPoint, () => entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture) ?? entryPoint.Command)
-            {}
+            public readonly EntryPoint Element;
+
+            public EntryPointWrapper(EntryPoint element)
+            {
+                Element = element;
+            }
+
+            public override string ToString()
+            {
+                return Element.Names.GetBestLanguage(CultureInfo.CurrentUICulture) ?? Element.Command;
+            }
         }
         #endregion
 
