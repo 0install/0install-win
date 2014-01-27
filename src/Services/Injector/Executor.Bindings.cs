@@ -24,6 +24,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Common.Collections;
+using Common.Dispatch;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Services.Properties;

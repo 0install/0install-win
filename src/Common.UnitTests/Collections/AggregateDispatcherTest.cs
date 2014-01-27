@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using Common.Dispatch;
 using NUnit.Framework;
 
 namespace Common.Collections

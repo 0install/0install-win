@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Collections;
 using Common.Controls;
+using Common.Dispatch;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;

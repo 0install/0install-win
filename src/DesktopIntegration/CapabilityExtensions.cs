@@ -17,6 +17,7 @@
 
 using System;
 using Common.Collections;
+using Common.Dispatch;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 
 namespace ZeroInstall.DesktopIntegration

@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Common.Properties;
 
-namespace Common.Collections
+namespace Common.Dispatch
 {
     /// <summary>
     /// Calls different function delegates (with return values) based on the runtime types of objects.

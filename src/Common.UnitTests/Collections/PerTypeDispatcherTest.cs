@@ -21,6 +21,7 @@
  */
 
 using System.Collections.Generic;
+using Common.Dispatch;
 using NUnit.Framework;
 
 namespace Common.Collections

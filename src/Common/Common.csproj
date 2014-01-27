@@ -70,8 +70,8 @@
     <Compile Include="Cli\ProgressBar.cs" />
     <Compile Include="Cli\TrackingProgessBar.cs" />
     <Compile Include="Cli\UnhandledErrorsException.cs" />
-    <Compile Include="Collections\AggregateDispatcher.Action.cs" />
-    <Compile Include="Collections\AggregateDispatcher.Func.cs" />
+    <Compile Include="Dispatch\AggregateDispatcher.Action.cs" />
+    <Compile Include="Dispatch\AggregateDispatcher.Func.cs" />
     <Compile Include="Collections\Bucketizer.cs" />
     <Compile Include="Collections\BucketRule.cs" />
     <Compile Include="Collections\ComparableTuple.cs" />
@@ -85,8 +85,8 @@
     <Compile Include="Collections\LocalizableStringCollection.cs" />
     <Compile Include="Collections\Merge.cs" />
     <Compile Include="Collections\NamedCollection.cs" />
-    <Compile Include="Collections\PerTypeDispatcher.Action.cs" />
-    <Compile Include="Collections\PerTypeDispatcher.Func.cs" />
+    <Compile Include="Dispatch\PerTypeDispatcher.Action.cs" />
+    <Compile Include="Dispatch\PerTypeDispatcher.Func.cs" />
     <Compile Include="Collections\RBTree.cs" />
     <Compile Include="Collections\SortedSet.cs" />
     <Compile Include="Collections\TransparentCache.cs" />

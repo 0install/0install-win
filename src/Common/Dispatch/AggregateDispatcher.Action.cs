@@ -24,37 +24,35 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
-namespace Common.Collections
+namespace Common.Dispatch
 {
     /// <summary>
-    /// Calls different function delegates (with enumerable return values) based on the runtime types of objects.
-    /// Aggregates results when multiple delegates match a type (through inheritance).
+    /// Calls different action delegates based on the runtime types of objects.
+    /// Calls multiple delegates when they all match a type (through inheritance).
     /// </summary>
     /// <typeparam name="TBase">The common base type of all objects to be dispatched.</typeparam>
-    /// <typeparam name="TResultElement">The enumerable return values of the delegates.</typeparam>
     [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
-    public class AggregateDispatcher<TBase, TResultElement> : IEnumerable<Func<TBase, IEnumerable<TResultElement>>>
+    public class AggregateDispatcher<TBase> : IEnumerable<Action<TBase>>
         where TBase : class
     {
-        private readonly List<Func<TBase, IEnumerable<TResultElement>>> _delegates = new List<Func<TBase, IEnumerable<TResultElement>>>();
+        private readonly List<Action<TBase>> _delegates = new List<Action<TBase>>();
 
         /// <summary>
         /// Adds a dispatch delegate.
         /// </summary>
         /// <typeparam name="TSpecific">The specific type to call the delegate for. Matches all subtypes as well.</typeparam>
-        /// <param name="function">The delegate to call.</param>
-        public void Add<TSpecific>(Func<TSpecific, IEnumerable<TResultElement>> function) where TSpecific : class, TBase
+        /// <param name="action">The delegate to call.</param>
+        public void Add<TSpecific>(Action<TSpecific> action) where TSpecific : class, TBase
         {
             #region Sanity checks
-            if (function == null) throw new ArgumentNullException("function");
+            if (action == null) throw new ArgumentNullException("action");
             #endregion
 
             _delegates.Add(value =>
             {
                 var specificValue = value as TSpecific;
-                return specificValue == null ? null : function(specificValue);
+                if (specificValue != null) action(specificValue);
             });
         }
 
@@ -63,17 +61,17 @@ namespace Common.Collections
         /// </summary>
         /// <param name="element">The element to be dispatched.</param>
         /// <returns>The values returned by all matching delegates aggregated.</returns>
-        public IEnumerable<TResultElement> Dispatch(TBase element)
+        public void Dispatch(TBase element)
         {
             #region Sanity checks
             if (element == null) throw new ArgumentNullException("element");
             #endregion
 
-            return _delegates.Select(del => del(element)).WhereNotNull().SelectMany(x => x);
+            foreach (var del in _delegates) del(element);
         }
 
         #region IEnumerable
-        public IEnumerator<Func<TBase, IEnumerable<TResultElement>>> GetEnumerator()
+        public IEnumerator<Action<TBase>> GetEnumerator()
         {
             return _delegates.GetEnumerator();
         }

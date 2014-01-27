@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 using Common.Collections;
+using Common.Dispatch;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Store.Model;
