@@ -97,40 +97,14 @@ namespace Common.Controls
             // Only execute this code once per process
             if (!Monitor.TryEnter(_monitoringLock)) return;
 
-            CatchOnNormalThreads(uploadUri);
-            CatchOnWinFormsThreads(uploadUri);
-        }
-
-        private static void CatchOnNormalThreads(Uri uploadUri)
-        {
             AppDomain.CurrentDomain.UnhandledException += delegate(object sender, UnhandledExceptionEventArgs e)
             {
-                HideForms();
-
                 Log.Error("AppDomain.CurrentDomain.UnhandledException raised");
-                Report((e.ExceptionObject as Exception) ?? new Exception("Unknown error"), uploadUri);
 
-                Process.GetCurrentProcess().Kill();
-            };
-        }
-
-        private static void CatchOnWinFormsThreads(Uri uploadUri)
-        {
-            Application.ThreadException += delegate(object sender, ThreadExceptionEventArgs e)
-            {
                 HideForms();
-
-                Log.Error("Application.ThreadException raised");
-                Report(e.Exception ?? new Exception("Unknown error"), uploadUri);
-
+                Report((e.ExceptionObject as Exception) ?? new Exception("Unknown error"), uploadUri);
                 Process.GetCurrentProcess().Kill();
             };
-            try
-            {
-                Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
-            }
-            catch (InvalidOperationException)
-            {}
         }
 
         /// <summary>
