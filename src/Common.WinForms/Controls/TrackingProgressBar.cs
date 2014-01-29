@@ -257,9 +257,15 @@ namespace Common.Controls
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-                if (_task != null) HookOut();
-            base.Dispose(disposing);
+            try
+            {
+                if (disposing)
+                    if (_task != null) HookOut();
+            }
+            finally
+            {
+                base.Dispose(disposing);
+            }
         }
         #endregion
     }

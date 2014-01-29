@@ -86,7 +86,6 @@ namespace Common.Controls
         /// <param name="uploadUri">The URI to upload error reports to.</param>
         /// <remarks>If an exception is caught any remaining threads will continue to execute until the error has been reported. Then the entire process will be terminated.</remarks>
         [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "If the actual exception is unknown the generic top-level Exception is the most appropriate")]
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "We are already handling unexpected exceptions. We need to ignore any additional problems in the cleanup process.")]
         [Conditional("ERROR_REPORT")]
         public static void SetupMonitoring(Uri uploadUri)
         {
@@ -110,6 +109,7 @@ namespace Common.Controls
         /// <summary>
         /// Prevent any further user interaction with the crashing application
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "We are already handling unexpected exceptions. We need to ignore any additional problems in the cleanup process.")]
         private static void HideForms()
         {
             foreach (Form form in Application.OpenForms)
