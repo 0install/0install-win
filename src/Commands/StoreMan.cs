@@ -163,7 +163,7 @@ namespace ZeroInstall.Commands
             else if (Directory.Exists(path))
             { // A single directory
                 if (AdditionalArgs.Count > 3) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))");
-                Store.AddDirectory(path, manifestDigest, Handler);
+                Store.AddDirectory(Path.GetFullPath(path), manifestDigest, Handler);
             }
             else throw new FileNotFoundException(string.Format(Resources.NoSuchFileOrDirectory, path), path);
         }
@@ -195,7 +195,9 @@ namespace ZeroInstall.Commands
             Handler.ShowProgressUI();
 
             var store = (AdditionalArgs.Count == 3) ? new DirectoryStore(AdditionalArgs[2]) : Store;
-            store.AddDirectory(AdditionalArgs[1], new ManifestDigest(Path.GetFileName(AdditionalArgs[1])), Handler);
+
+            string path = AdditionalArgs[1];
+            store.AddDirectory(Path.GetFullPath(path), new ManifestDigest(Path.GetFileName(path)), Handler);
         }
 
         private void Find()
@@ -279,7 +281,7 @@ namespace ZeroInstall.Commands
             {
                 archives[i] = new ArchiveFileInfo
                 {
-                    Path = AdditionalArgs[i * 3 + 2],
+                    Path = Path.GetFullPath(AdditionalArgs[i * 3 + 2]),
                     SubDir = (AdditionalArgs.Count > i * 3 + 3) ? AdditionalArgs[i * 3 + 3] : null,
                     MimeType = (AdditionalArgs.Count > i * 3 + 4) ? AdditionalArgs[i * 3 + 4] : Archive.GuessMimeType(AdditionalArgs[i * 3 + 2])
                 };

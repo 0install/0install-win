@@ -54,6 +54,24 @@ namespace ZeroInstall.Commands
         }
 
         [Test]
+        public void TestAddArchiveRelativePath()
+        {
+            using (var tempDir = new TemporaryWorkingDirectory("0install-unit-tests"))
+            {
+                var digest = new ManifestDigest(sha256New: "abc");
+                string path = Path.Combine(tempDir, "archive");
+                File.WriteAllText(path, "xyz");
+                Container.GetMock<IStore>().Setup(x => x.AddArchives(new[]
+                {
+                    new ArchiveFileInfo {Path = path}
+                }, digest, Container.Resolve<ITaskHandler>()));
+
+                RunAndAssert(null, (int)StoreErrorLevel.OK,
+                    "add", "sha256new_" + digest.Sha256New, "archive");
+            }
+        }
+
+        [Test]
         public void TestAddArchiveExtract()
         {
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
@@ -124,6 +142,20 @@ namespace ZeroInstall.Commands
         }
 
         [Test]
+        public void TestAddDirectoryRelativePath()
+        {
+            using (var tempDir = new TemporaryWorkingDirectory("0install-unit-tests"))
+            {
+                var digest = new ManifestDigest(sha256New: "abc");
+                string path = tempDir;
+                Container.GetMock<IStore>().Setup(x => x.AddDirectory(path, digest, Container.Resolve<IBackendHandler>()));
+
+                RunAndAssert(null, (int)StoreErrorLevel.OK,
+                    "add", "sha256new_" + digest.Sha256New, ".");
+            }
+        }
+
+        [Test]
         public void TestAuditPass()
         {
             Container.GetMock<IStore>().Setup(x => x.Audit(Container.Resolve<IBackendHandler>())).Returns(new DigestMismatchException[0]);
@@ -152,12 +184,29 @@ namespace ZeroInstall.Commands
         [Test]
         public void TestCopy()
         {
-            var digest = new ManifestDigest(sha256New: "abc");
-            string path = Path.Combine("somedir", "sha256new_" + digest.Sha256New);
-            Container.GetMock<IStore>().Setup(x => x.AddDirectory(path, digest, Container.Resolve<IBackendHandler>()));
+            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
+            {
+                var digest = new ManifestDigest(sha256New: "abc");
+                string path = Path.Combine(tempDir, "sha256new_" + digest.Sha256New);
+                Container.GetMock<IStore>().Setup(x => x.AddDirectory(path, digest, Container.Resolve<IBackendHandler>()));
 
-            RunAndAssert(null, (int)StoreErrorLevel.OK,
-                "copy", path);
+                RunAndAssert(null, (int)StoreErrorLevel.OK,
+                    "copy", path);
+            }
+        }
+
+        [Test]
+        public void TestCopyyRelativePath()
+        {
+            using (var tempDir = new TemporaryWorkingDirectory("0install-unit-tests"))
+            {
+                var digest = new ManifestDigest(sha256New: "abc");
+                string path = Path.Combine(tempDir, "sha256new_" + digest.Sha256New);
+                Container.GetMock<IStore>().Setup(x => x.AddDirectory(path, digest, Container.Resolve<IBackendHandler>()));
+
+                RunAndAssert(null, (int)StoreErrorLevel.OK,
+                    "copy", "sha256new_" + digest.Sha256New);
+            }
         }
 
         [Test]
