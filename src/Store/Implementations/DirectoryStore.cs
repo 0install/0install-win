@@ -219,14 +219,17 @@ namespace ZeroInstall.Store.Implementations
         {
             if (!Directory.Exists(DirectoryPath)) return new ManifestDigest[0];
 
-            return FileUtils.GetDirectories(DirectoryPath)
-                .Select(path => new ManifestDigest(Path.GetFileName(path)))
-                .Where(IsValid).ToList();
-        }
-
-        private static bool IsValid(ManifestDigest digest)
-        {
-            return digest != default(ManifestDigest);
+            var result = new List<ManifestDigest>();
+            foreach (string path in FileUtils.GetDirectories(DirectoryPath))
+            {
+                try
+                {
+                    result.Add(new ManifestDigest(Path.GetFileName(path)));
+                }
+                catch (NotSupportedException)
+                { }
+            }
+            return result;
         }
 
         /// <inheritdoc />
@@ -234,7 +237,21 @@ namespace ZeroInstall.Store.Implementations
         {
             if (!Directory.Exists(DirectoryPath)) return new string[0];
 
-            return FileUtils.GetDirectories(DirectoryPath).Where(IsValid).ToList();
+            var result = new List<string>();
+            foreach (string path in FileUtils.GetDirectories(DirectoryPath))
+            {
+                try
+                {
+                    // ReSharper disable once ObjectCreationAsStatement
+                    new ManifestDigest(Path.GetFileName(path));
+                }
+                catch (NotSupportedException)
+                {
+                    // Anything that is not a valid digest is considered a temp directory
+                    result.Add(path);
+                }
+            }
+            return result;
         }
 
         private static bool IsValid(string path)
