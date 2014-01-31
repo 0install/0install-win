@@ -96,8 +96,8 @@ namespace ZeroInstall.Store.Service
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a cache directory is not permitted.</exception>
         private MarshalByRefObject CreateStore()
         {
-            // Use first custom machine-wide location or fallback to default
-            string path = StoreFactory.GetImplementationDirs(excludeUserProfile: true).First();
+            string path = StoreFactory.GetImplementationDirs(excludeUserProfile: true).Last();
+            eventLog.WriteEntry("Using cache directory: " + path, EventLogEntryType.Information);
 
             return new SecureStore(path, WindowsIdentity.GetCurrent(), eventLog);
         }

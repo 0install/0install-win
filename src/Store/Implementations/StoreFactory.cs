@@ -90,7 +90,22 @@ namespace ZeroInstall.Store.Implementations
             if (!excludeUserProfile)
             {
                 // Add the user cache to have a reliable fallback location for storage
-                yield return Locations.GetCacheDirPath("0install.net", false, "implementations");
+                yield return Locations.GetCacheDirPath("0install.net", machineWide: false, resource: "implementations");
+            }
+
+            // Add the system cache when not in portable mode
+            if (!Locations.IsPortable)
+            {
+                string systemCache;
+                try
+                {
+                    systemCache = Locations.GetCacheDirPath("0install.net", machineWide: true, resource: "implementations");
+                }
+                catch (UnauthorizedAccessException)
+                { // Standard users cannot create machine-wide directories, only use them if they already exist
+                    systemCache = null;
+                }
+                if (systemCache != null) yield return systemCache;
             }
 
             // Add custom cache locations
@@ -120,21 +135,6 @@ namespace ZeroInstall.Store.Implementations
 
                     yield return result;
                 }
-            }
-
-            // Add the system cache when not in portable mode
-            if (!Locations.IsPortable)
-            {
-                string systemCache;
-                try
-                {
-                    systemCache = Locations.GetCacheDirPath("0install.net", true, "implementations");
-                }
-                catch (UnauthorizedAccessException)
-                { // Standard users cannot create machine-wide directories, only use them if they already exist
-                    systemCache = null;
-                }
-                if (systemCache != null) yield return systemCache;
             }
         }
     }
