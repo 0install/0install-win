@@ -23,7 +23,6 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using System.Security.Cryptography;
-using System.Security.Principal;
 using System.ServiceProcess;
 using System.Threading;
 using Common;
@@ -155,7 +154,7 @@ namespace ZeroInstall.Updater
         public bool StopService()
         {
             // Do not touch the service in portable mode
-            if (File.Exists(Path.Combine(Target, "_portable"))) return false;
+            if (File.Exists(Path.Combine(Target, Locations.PortableFlagName))) return false;
 
             // Determine whether the service is installed and running
             var controller = ServiceController.GetServices().FirstOrDefault(service => service.ServiceName == "0store-service");
@@ -313,21 +312,11 @@ namespace ZeroInstall.Updater
         public void FixPermissions()
         {
             // Do not touch ACLs in portable mode
-            if (File.Exists(Path.Combine(Target, "_portable"))) return;
+            if (File.Exists(Path.Combine(Target, Locations.PortableFlagName))) return;
 
-            var directory = new DirectoryInfo(Path.Combine(Locations.SystemCacheDir, "0install.net"));
-            if (directory.Exists)
-            {
-                // Only reset ACLs if directory is not already under admin control
-                var owner = directory.GetAccessControl().GetOwner(typeof(SecurityIdentifier));
-                if (!owner.Equals(new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null)))
-                {
-                    if (!WindowsUtils.IsAdministrator) throw new UnauthorizedAccessException();
-
-                    directory.ResetAcl();
-                    directory.SetAccessControl(Locations.SecureSharedAcl);
-                }
-            }
+            string path = Path.Combine(Locations.SystemCacheDir, "0install.net");
+            if (!File.Exists(Path.Combine(path, Locations.SecuredFlagName)))
+                Locations.SecureExistingMachineWideDir(path);
         }
         #endregion
 

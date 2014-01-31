@@ -41,43 +41,23 @@ namespace Common.Storage
     /// </remarks>
     public static class Locations
     {
-        #region Constants
-        /// <summary>
-        /// ACL that gives normal users read and execute access and admins and the the system full access. Do not modify!
-        /// </summary>
-        public static readonly DirectorySecurity SecureSharedAcl;
-
-        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
-        static Locations()
-        {
-            if (WindowsUtils.IsWindowsNT)
-            {
-                SecureSharedAcl = new DirectorySecurity();
-                SecureSharedAcl.SetOwner(new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null));
-                SecureSharedAcl.SetAccessRuleProtection(isProtected: true, preserveInheritance: false);
-                SecureSharedAcl.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier("S-1-1-0" /*Everyone*/), FileSystemRights.ReadAndExecute, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
-                SecureSharedAcl.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null), FileSystemRights.ReadAndExecute, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
-                SecureSharedAcl.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null), FileSystemRights.FullControl, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
-                SecureSharedAcl.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.LocalSystemSid, null), FileSystemRights.FullControl, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
-            }
-        }
-        #endregion
-
-        #region Variables
         /// <summary>
         /// The directory the application binaries are located in without a trailing directory separator charachter.
         /// </summary>
         public static readonly string InstallBase = AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar);
-        #endregion
 
-        #region Properties
-        private static bool _isPortable = File.Exists(Path.Combine(InstallBase, "_portable"));
+        /// <summary>
+        /// The name of the flag file whose existence determines whether <see cref="IsPortable"/> is set to <see langword="true"/>.
+        /// </summary>
+        public const string PortableFlagName = "_portable";
+
+        private static bool _isPortable = File.Exists(Path.Combine(InstallBase, PortableFlagName));
 
         /// <summary>
         /// Indicates whether the application is currently operating in portable mode.
         /// </summary>
         /// <remarks>
-        ///   <para>Portable mode is activated by placing a file named "_portable" in <see cref="InstallBase"/>.</para>
+        ///   <para>Portable mode is activated by placing a file named <see cref="PortableFlagName"/> in <see cref="InstallBase"/>.</para>
         ///   <para>When portable mode is active files are stored and loaded from <see cref="PortableBase"/> instead of the user profile and sysem directories.</para>
         /// </remarks>
         public static bool IsPortable { get { return _isPortable; } set { _isPortable = value; } }
@@ -254,8 +234,6 @@ namespace Common.Storage
         }
         #endregion
 
-        #endregion
-
         #region Helpers
         /// <summary>
         /// Returns the value of an environment variable or a default value if it isn't set.
@@ -267,19 +245,6 @@ namespace Common.Storage
         {
             string value = Environment.GetEnvironmentVariable(variable);
             return (string.IsNullOrEmpty(value)) ? defaultValue : value;
-        }
-
-        /// <summary>
-        /// Ensures that a directory used by multiple users on a machine is created with appropriate ACLs.
-        /// </summary>
-        /// <exception cref="UnauthorizedAccessException">Thrown if a directory needs to be created with protecting ACLs but the current user has insufficient rights.</exception>
-        private static void SecureMachineWideDir(string path)
-        {
-            if (WindowsUtils.IsWindowsNT && !Directory.Exists(path))
-            {
-                if (!WindowsUtils.IsAdministrator) throw new UnauthorizedAccessException("Must be admin!");
-                Directory.CreateDirectory(path, SecureSharedAcl);
-            }
         }
         #endregion
 
@@ -487,7 +452,7 @@ namespace Common.Storage
                 if (machineWide)
                 {
                     appPath = Path.Combine(SystemCacheDir, appName);
-                    SecureMachineWideDir(appPath);
+                    CreateSecureMachineWideDir(appPath);
                 }
                 else
                 {
@@ -533,13 +498,77 @@ namespace Common.Storage
             string appPath = Path.Combine(
                 Environment.GetFolderPath(machineWide ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.ApplicationData),
                 appName);
-            if (machineWide) SecureMachineWideDir(appPath);
+            if (machineWide) CreateSecureMachineWideDir(appPath);
             string path = Path.Combine(appPath, resourceCombined);
 
             // Ensure the directory exists
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
             return Path.GetFullPath(path);
+        }
+        #endregion
+
+        #region ACL Security
+        /// <summary>
+        /// The name of the flag file whose existence indicates that a directory has been secured with <see cref="SecureExistingMachineWideDir"/>.
+        /// </summary>
+        public const string SecuredFlagName = "_secured";
+
+        /// <summary>
+        /// ACL that gives normal users read and execute access and admins and the the system full access.
+        /// </summary>
+        private static readonly DirectorySecurity _secureSharedAcl;
+
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
+        static Locations()
+        {
+            if (WindowsUtils.IsWindowsNT)
+            {
+                _secureSharedAcl = new DirectorySecurity();
+                _secureSharedAcl.SetOwner(new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null));
+                _secureSharedAcl.SetAccessRuleProtection(isProtected: true, preserveInheritance: false);
+                _secureSharedAcl.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier("S-1-1-0" /*Everyone*/), FileSystemRights.ReadAndExecute, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+                _secureSharedAcl.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null), FileSystemRights.ReadAndExecute, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+                _secureSharedAcl.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null), FileSystemRights.FullControl, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+                _secureSharedAcl.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.LocalSystemSid, null), FileSystemRights.FullControl, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+            }
+        }
+
+        /// <summary>
+        /// Creates a directory with ACLs that block write-access for regular users.
+        /// </summary>
+        /// <exception cref="NotAdminException">Thrown if a directory does not exist yet and the user is not an administrator.</exception>
+        private static void CreateSecureMachineWideDir(string path)
+        {
+            if (Directory.Exists(path)) return;
+
+            if (WindowsUtils.IsWindowsNT)
+            {
+                if (!WindowsUtils.IsAdministrator) throw new NotAdminException();
+
+                Directory.CreateDirectory(path, _secureSharedAcl);
+                File.Create(Path.Combine(path, SecuredFlagName));
+            }
+            else Directory.CreateDirectory(path);
+        }
+
+        /// <summary>
+        /// Applies ACLs to an existing directory that block write-access for regular users. Does nothing if the directory does not exist.
+        /// </summary>
+        /// <exception cref="NotAdminException">Thrown if a directory exists and the user is not an administrator.</exception>
+        public static void SecureExistingMachineWideDir(string path)
+        {
+            if (!Directory.Exists(path)) return;
+
+            if (WindowsUtils.IsWindowsNT)
+            {
+                if (!WindowsUtils.IsAdministrator) throw new NotAdminException();
+
+                var directory = new DirectoryInfo(path);
+                directory.ResetAcl();
+                directory.SetAccessControl(_secureSharedAcl);
+                File.Create(Path.Combine(path, SecuredFlagName));
+            }
         }
         #endregion
     }
