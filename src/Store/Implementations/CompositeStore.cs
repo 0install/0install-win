@@ -139,7 +139,11 @@ namespace ZeroInstall.Store.Implementations
                     store.AddDirectory(path, manifestDigest, handler);
                     return;
                 }
-                    #region Error handling
+                #region Error handling
+                catch (ImplementationAlreadyInStoreException)
+                {
+                    throw; // Do not try any further
+                }
                 catch (IOException ex)
                 {
                     innerException = ex; // Remember the last error

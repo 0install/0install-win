@@ -255,13 +255,6 @@ namespace ZeroInstall.Commands.WinForms
                     ErrorBox.Show(ex.Message.GetLeftPartAtFirstOccurrence(Environment.NewLine), errorLog);
                     return 1;
                 }
-                catch (ImplementationNotFoundException ex)
-                {
-                    handler.CloseProgressUI();
-                    Log.Error(ex);
-                    ErrorBox.Show(ex.Message, errorLog);
-                    return 1;
-                }
                 catch (CommandException ex)
                 {
                     handler.CloseProgressUI();

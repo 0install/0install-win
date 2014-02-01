@@ -183,11 +183,6 @@ namespace ZeroInstall.Store.Management.Cli
                 Log.Error(ex);
                 return 1;
             }
-            catch (ImplementationNotFoundException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
             catch (CommandException ex)
             {
                 Log.Error(ex);

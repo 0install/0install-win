@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using ZeroInstall.Store.Model;
@@ -27,7 +28,7 @@ namespace ZeroInstall.Store.Implementations
     /// Indicates an <see cref="Store.Model.Implementation"/> could not be found in a <see cref="IStore"/>.
     /// </summary>
     [Serializable]
-    public sealed class ImplementationNotFoundException : Exception
+    public sealed class ImplementationNotFoundException : IOException
     {
         #region Properties
         /// <summary>
