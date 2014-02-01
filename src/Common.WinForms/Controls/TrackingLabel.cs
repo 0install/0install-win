@@ -199,11 +199,12 @@ namespace Common.Controls
             if (sender.State != TaskState.Data) return;
 
             // Copy values so they can be safely accessed from another thread
+            bool unitsByte = sender.UnitsByte;
             long unitsProcessed = sender.UnitsProcessed;
             long unitsTotal = sender.UnitsTotal;
 
-            // Handle events coming from a non-UI thread, block caller
-            Invoke(new Action(() => OnProgressChanged(sender.UnitsByte, unitsProcessed, unitsTotal)));
+            // Handle events coming from a non-UI thread, do not block caller
+            BeginInvoke(new Action(() => OnProgressChanged(unitsByte, unitsProcessed, unitsTotal)));
         }
 
         /// <summary>

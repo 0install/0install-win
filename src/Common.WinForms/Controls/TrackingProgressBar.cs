@@ -220,8 +220,8 @@ namespace Common.Controls
             TaskState state = sender.State;
             double progress = sender.Progress;
 
-            // Handle events coming from a non-UI thread, block caller
-            Invoke(new Action(() => OnProgressChanged(state, progress)));
+            // Handle events coming from a non-UI thread, do not block caller
+            BeginInvoke(new Action(() => OnProgressChanged(state, progress)));
         }
 
         /// <summary>
