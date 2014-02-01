@@ -95,48 +95,35 @@ namespace Common.Tasks
         /// <inheritdoc />
         protected override void RunTask()
         {
-            try
+            var request = WebRequest.Create(Source);
+
+            // Open the target file for writing
+            using (FileStream fileStream = File.Open(Target, FileMode.OpenOrCreate, FileAccess.Write))
             {
-                var request = WebRequest.Create(Source);
+                // TODO: SetResumePoint()
 
-                // Open the target file for writing
-                using (FileStream fileStream = File.Open(Target, FileMode.OpenOrCreate, FileAccess.Write))
+                lock (StateLock) State = TaskState.Header;
+
+                // ReSharper disable AssignNullToNotNullAttribute
+                var responseRequest = request.BeginGetResponse(null, null);
+                // ReSharper restore AssignNullToNotNullAttribute
+
+                // Wait for the download request to complete or a cancel request to arrive
+                if (WaitHandle.WaitAny(new[] { responseRequest.AsyncWaitHandle, CancelRequest }) == 1)
+                    throw new OperationCanceledException();
+
+                // Process the response
+                using (WebResponse response = request.EndGetResponse(responseRequest))
                 {
-                    // TODO: SetResumePoint()
-
                     if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
-                    lock (StateLock) State = TaskState.Header;
+                    ReadHeader(response);
+                    // TODO: VerifyResumePoint()
+                    lock (StateLock) State = TaskState.Data;
 
-                    // Start the server request, allowing for cancellation
-                    // ReSharper disable AssignNullToNotNullAttribute
-                    var responseRequest = request.BeginGetResponse(null, null);
-                    // ReSharper restore AssignNullToNotNullAttribute
-
-                    // Wait for the download request to complete or a cancel request to arrive
-                    if (WaitHandle.WaitAny(new[] {responseRequest.AsyncWaitHandle, CancelRequest}) == 1)
-                        throw new OperationCanceledException();
-
-                    // Process the response
-                    using (WebResponse response = request.EndGetResponse(responseRequest))
-                    {
-                        if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
-                        ReadHeader(response);
-                        // TODO: VerifyResumePoint()
-                        lock (StateLock) State = TaskState.Data;
-
-                        // Start writing data to the file
-                        if (response != null) WriteStreamToTarget(response.GetResponseStream(), fileStream);
-                        if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
-                    }
+                    // Start writing data to the file
+                    if (response != null) WriteStreamToTarget(response.GetResponseStream(), fileStream);
                 }
             }
-                #region Error handling
-            catch (UnauthorizedAccessException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new IOException(ex.Message, ex);
-            }
-            #endregion
 
             lock (StateLock) State = TaskState.Complete;
         }

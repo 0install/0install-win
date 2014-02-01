@@ -78,64 +78,48 @@ namespace ZeroInstall.Store.Implementations
         /// <inheritdoc />
         protected override void RunTask()
         {
-            try
-            {
-                if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
-                lock (StateLock) State = TaskState.Started;
+            lock (StateLock) State = TaskState.Header;
+            var entries = Format.GetSortedDirectoryEntries(TargetDir);
+            UnitsTotal = entries.OfType<FileInfo>().Sum(file => file.Length);
 
-                // Get the complete (recursive) content of the directory sorted according to the format specification
-                var entries = Format.GetSortedDirectoryEntries(TargetDir);
-                UnitsTotal = TotalFileSize(entries);
+            lock (StateLock) State = TaskState.Data;
+            Result = new Manifest(Format, GetNodes(entries));
 
-                var externalXbits = FlagUtils.GetExternalFlags(".xbit", TargetDir);
-                var externalSymlinks = FlagUtils.GetExternalFlags(".symlink", TargetDir);
-
-                if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
-                lock (StateLock) State = TaskState.Data;
-
-                // Iterate through the directory listing to build a list of manifets entries
-                var nodes = new List<ManifestNode>(entries.Length);
-                foreach (var entry in entries)
-                {
-                    var file = entry as FileInfo;
-                    if (file != null)
-                    {
-                        // Don't include manifest management files in manifest
-                        if (file.Name == ".manifest" || file.Name == ".xbit" || file.Name == ".symlink") continue;
-
-                        nodes.Add(GetFileNode(file, Format, externalXbits, externalSymlinks));
-                        UnitsProcessed += file.Length;
-                    }
-                    else
-                    {
-                        var directory = entry as DirectoryInfo;
-                        if (directory != null) nodes.Add(GetDirectoryNode(directory, Format, Path.GetFullPath(TargetDir)));
-                    }
-
-                    if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
-                }
-
-                Result = new Manifest(Format, nodes);
-            }
-                #region Error handling
-            catch (UnauthorizedAccessException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new IOException(ex.Message, ex);
-            }
-            #endregion
-
-            if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
             lock (StateLock) State = TaskState.Complete;
         }
 
         /// <summary>
-        /// Determines the combined size of all files listed in a filesystem-element collection.
+        /// Creates manifest nodes for a set of file system elements.
         /// </summary>
-        /// <returns>The size of all files summed up in bytes.</returns>
-        private static long TotalFileSize(IEnumerable<FileSystemInfo> entries)
+        /// <param name="entries">The file system elements to create nodes for.</param>
+        /// <returns>The nodes for the elements.</returns>
+        private IEnumerable<ManifestNode> GetNodes(IEnumerable<FileSystemInfo> entries)
         {
-            return entries.OfType<FileInfo>().Sum(file => file.Length);
+            var externalXbits = FlagUtils.GetExternalFlags(".xbit", TargetDir);
+            var externalSymlinks = FlagUtils.GetExternalFlags(".symlink", TargetDir);
+
+            // Iterate through the directory listing to build a list of manifets entries
+            var nodes = new List<ManifestNode>();
+            foreach (var entry in entries)
+            {
+                if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
+
+                var file = entry as FileInfo;
+                if (file != null)
+                {
+                    // Don't include manifest management files in manifest
+                    if (file.Name == ".manifest" || file.Name == ".xbit" || file.Name == ".symlink") continue;
+
+                    nodes.Add(GetFileNode(file, Format, externalXbits, externalSymlinks));
+                    UnitsProcessed += file.Length;
+                }
+                else
+                {
+                    var directory = entry as DirectoryInfo;
+                    if (directory != null) nodes.Add(GetDirectoryNode(directory, Format, Path.GetFullPath(TargetDir)));
+                }
+            }
+            return nodes;
         }
 
         /// <summary>
