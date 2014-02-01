@@ -27,6 +27,7 @@ using System.ServiceProcess;
 using System.Threading;
 using Common;
 using Common.Storage;
+using Common.Tasks;
 using Common.Utils;
 using Microsoft.Win32;
 using ZeroInstall.Updater.Properties;
@@ -177,7 +178,7 @@ namespace ZeroInstall.Updater
         /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
         public void CopyFiles()
         {
-            FileUtils.CopyDirectory(Source, Target, preserveDirectoryModificationTime: false, overwrite: true);
+            new CopyDirectory(Source, Target, preserveDirectoryTimestamps: false, overwrite: true).RunSync();
         }
         #endregion
 

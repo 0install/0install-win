@@ -28,7 +28,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Common.Properties;
-
 #if FS_SECURITY
 using System.ComponentModel;
 using System.Security.AccessControl;
@@ -176,68 +175,7 @@ namespace Common.Utils
             return tempDir;
         }
         #endregion
-
-        #region Copy
-        /// <summary>
-        /// Copies the content of a directory to a new location preserving the original file modification times.
-        /// </summary>
-        /// <param name="sourcePath">The path of source directory. Must exist!</param>
-        /// <param name="destinationPath">The path of the target directory. May exist. Must be empty if <paramref name="overwrite"/> is <see langword="false"/>.</param>
-        /// <param name="preserveDirectoryModificationTime"><see langword="true"/> to preserve the modification times for directories as well; <see langword="false"/> to preserve only the file modification times.</param>
-        /// <param name="overwrite">Overwrite exisiting files and directories at the <paramref name="destinationPath"/>. This will even replace read-only files!</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="sourcePath"/> and <paramref name="destinationPath"/> are equal.</exception>
-        /// <exception cref="DirectoryNotFoundException">Thrown if <paramref name="sourcePath"/> does not exist.</exception>
-        /// <exception cref="IOException">Thrown if <paramref name="destinationPath"/> already exists and <paramref name="overwrite"/> is <see langword="false"/>.</exception>
-        public static void CopyDirectory(string sourcePath, string destinationPath, bool preserveDirectoryModificationTime = true, bool overwrite = false)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(sourcePath)) throw new ArgumentNullException("sourcePath");
-            if (string.IsNullOrEmpty(destinationPath)) throw new ArgumentNullException("destinationPath");
-            if (sourcePath == destinationPath) throw new ArgumentException(Resources.SourceDestinationEqual);
-            #endregion
-
-            if (!Directory.Exists(sourcePath)) throw new DirectoryNotFoundException(Resources.SourceDirNotExist);
-            if (Directory.Exists(destinationPath))
-            { // Fail if overwrite is off but the target directory already exists and contains elements
-                if (!overwrite && Directory.GetFileSystemEntries(destinationPath).Length > 0)
-                    throw new IOException(Resources.DestinationDirExist);
-            }
-            else Directory.CreateDirectory(destinationPath);
-
-            // Copy individual files
-            foreach (string sourceSubPath in Directory.GetFiles(sourcePath))
-            {
-                var sourceFile = new FileInfo(sourceSubPath);
-                var destinationFile = new FileInfo(Path.Combine(destinationPath, Path.GetFileName(sourceSubPath) ?? ""));
-
-                if (destinationFile.Exists)
-                {
-                    if (!overwrite) continue;
-                    if (destinationFile.IsReadOnly) destinationFile.IsReadOnly = false;
-                }
-
-                File.Copy(sourceFile.FullName, destinationFile.FullName, overwrite);
-
-                destinationFile.Refresh();
-                if (destinationFile.IsReadOnly) destinationFile.IsReadOnly = false;
-                destinationFile.LastWriteTimeUtc = sourceFile.LastWriteTimeUtc;
-            }
-
-            // Recurse into sub-direcories
-            foreach (string sourceSubPath in Directory.GetDirectories(sourcePath))
-            {
-                string destinationSubPath = Path.Combine(destinationPath, Path.GetFileName(sourceSubPath) ?? "");
-                CopyDirectory(sourceSubPath, destinationSubPath, preserveDirectoryModificationTime, overwrite);
-            }
-
-            if (preserveDirectoryModificationTime)
-            {
-                // Set directory write time as last step, since file changes within the directory may cause the OS to reset the value
-                Directory.SetLastWriteTimeUtc(destinationPath, Directory.GetLastWriteTimeUtc(sourcePath));
-            }
-        }
-        #endregion
-
+        
         #region Replace
         /// <summary>
         /// Replaces one file with another. Rolls back in case of problems.

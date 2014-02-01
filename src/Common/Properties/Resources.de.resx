@@ -135,6 +135,9 @@
   <data name="CannotCanonicalizeDacl" xml:space="preserve">
     <value>Die DACL kann nicht in eine kanonische Form überfürht werden, da es dabei zu einem Informationsverlust kommen könnte.</value>
   </data>
+  <data name="CopyFiles" xml:space="preserve">
+    <value>Kopiere Dateien</value>
+  </data>
   <data name="DestinationDirExist" xml:space="preserve">
     <value>Das Zielverzeichnis existiert bereits.</value>
   </data>

@@ -138,6 +138,7 @@
     <Compile Include="Streams\OffsetStream.cs" />
     <Compile Include="Tasks\CancellationToken.cs" />
     <Compile Include="Tasks\CliTaskHandler.cs" />
+    <Compile Include="Tasks\CopyDirectory.cs" />
     <Compile Include="Tasks\DownloadFile.cs" />
     <Compile Include="Tasks\ForEachTask.cs" />
     <Compile Include="Tasks\ITask.cs" />
@@ -197,6 +198,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

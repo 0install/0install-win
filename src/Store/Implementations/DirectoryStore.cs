@@ -253,11 +253,6 @@ namespace ZeroInstall.Store.Implementations
             }
             return result;
         }
-
-        private static bool IsValid(string path)
-        {
-            return new ManifestDigest(Path.GetFileName(path)) == default(ManifestDigest);
-        }
         #endregion
 
         #region Contains
@@ -302,7 +297,7 @@ namespace ZeroInstall.Store.Implementations
                 // Copy the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
                 try
                 {
-                    handler.RunTask(new SimpleTask(Resources.CopyFiles, () => FileUtils.CopyDirectory(path, tempDir)), manifestDigest);
+                    handler.RunTask(new CopyDirectory(path, tempDir), manifestDigest);
                 }
                     #region Error handling
                 catch (IOException ex)

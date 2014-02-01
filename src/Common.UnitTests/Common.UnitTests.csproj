@@ -83,6 +83,7 @@
     <Compile Include="Storage\XmlStorageTest.cs" />
     <Compile Include="Streams\CircularBufferStreamTest.cs" />
     <Compile Include="Streams\OffsetStreamTest.cs" />
+    <Compile Include="Tasks\CopyDirectoryTest.cs" />
     <Compile Include="Tasks\DownloadFileTest.cs" />
     <Compile Include="Tasks\ForEachTaskTest.cs" />
     <Compile Include="Tasks\MockTask.cs" />

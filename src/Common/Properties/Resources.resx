@@ -135,6 +135,9 @@
   <data name="CannotCanonicalizeDacl" xml:space="preserve">
     <value>The DACL cannot be canonicalized since it would potentially result in a loss of information.</value>
   </data>
+  <data name="CopyFiles" xml:space="preserve">
+    <value>Copying files</value>
+  </data>
   <data name="DestinationDirExist" xml:space="preserve">
     <value>The destination directory already exists.</value>
   </data>
