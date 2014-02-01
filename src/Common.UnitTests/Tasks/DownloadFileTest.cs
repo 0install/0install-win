@@ -127,28 +127,6 @@ namespace Common.Tasks
             Assert.IsTrue(exceptionThrown, download.State.ToString());
         }
 
-        [Test(Description = "Starts downloading a small file, stops again right away and then restarts the download allowing it to complete.")]
-        public void TestCancelRestart()
-        {
-            // Start a very slow download of the file and then cancel it right away again
-            _server.Slow = true;
-            var download = new DownloadFile(_server.FileUri, _tempFile);
-            download.Start();
-            download.Cancel();
-
-            // Restart the download with full speed
-            _server.Slow = false;
-            download.Start();
-            download.Join();
-
-            // Read the file
-            string fileContent = File.ReadAllText(_tempFile);
-
-            // Ensure the download was successful and the file is identical
-            Assert.AreEqual(TaskState.Complete, download.State, download.ErrorMessage);
-            Assert.AreEqual(TestFileContent, fileContent, "Downloaded file doesn't match original");
-        }
-
         [Test(Description = "Ensure files with an incorrect size are rejected.")]
         public void TestIncorrectSize()
         {

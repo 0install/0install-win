@@ -55,13 +55,6 @@ namespace Common.Tasks
         public WebHeaderCollection Headers { get; private set; }
 
         /// <summary>
-        /// Indicates whether the server supports resuming downloads without starting over from the beginning.
-        /// </summary>
-        /// <remarks>This value is always <see langword="false"/> until <see cref="TaskState.Data"/> has been reached.</remarks>
-        [Description("Indicates whether the server supports resuming downloads without starting over from the beginning.")]
-        public bool SupportsResume { get; private set; }
-
-        /// <summary>
         /// The local path to save the file to.
         /// </summary>
         [Description("The local path to save the file to.")]
@@ -100,8 +93,6 @@ namespace Common.Tasks
             // Open the target file for writing
             using (FileStream fileStream = File.Open(Target, FileMode.OpenOrCreate, FileAccess.Write))
             {
-                // TODO: SetResumePoint()
-
                 lock (StateLock) State = TaskState.Header;
 
                 // ReSharper disable AssignNullToNotNullAttribute
@@ -117,7 +108,6 @@ namespace Common.Tasks
                 {
                     if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
                     ReadHeader(response);
-                    // TODO: VerifyResumePoint()
                     lock (StateLock) State = TaskState.Data;
 
                     // Start writing data to the file
@@ -145,26 +135,6 @@ namespace Common.Tasks
             if (UnitsTotal == -1 || response.ContentLength == -1) UnitsTotal = response.ContentLength;
             else if (UnitsTotal != response.ContentLength)
                 throw new WebException(string.Format(Resources.FileNotExpectedSize, Source, UnitsTotal, response.ContentLength));
-
-            // HTTP servers with range-support and FTP servers support resuming downloads
-            SupportsResume = (response is HttpWebResponse && Headers[HttpResponseHeader.AcceptRanges] == "bytes") || response is FtpWebResponse;
-        }
-
-        /// <summary>
-        /// Configures the <paramref name="request"/> to start downloading at <paramref name="position"/>.
-        /// </summary>
-        /// <exception cref="NotSupportedException">Thrown if the request use an unsupported protocol.</exception>
-        private static void SetResumePoint(WebRequest request, int position)
-        {
-            // Use Range header for HTTP resuming
-            var httpWebRequest = request as HttpWebRequest;
-            if (httpWebRequest != null) httpWebRequest.AddRange(position);
-            else
-            {
-                var ftpWebRequest = request as FtpWebRequest;
-                if (ftpWebRequest != null) ftpWebRequest.ContentOffset = position;
-                else throw new NotSupportedException(Resources.HttpAndFtpOnly);
-            }
         }
 
         /// <summary>
