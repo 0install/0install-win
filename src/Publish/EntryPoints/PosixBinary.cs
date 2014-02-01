@@ -18,7 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
-using ELFSharp;
+using ELFSharp.ELF;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
@@ -39,10 +39,18 @@ namespace ZeroInstall.Publish.EntryPoints
 
             IELF elfData;
             if (!ELFReader.TryLoad(file.FullName, out elfData)) return false;
-            if (elfData.Class == Class.NotELF || elfData.Type != FileType.Executable) return false;
-            Name = file.Name;
-            Architecture = new Architecture(OS.Linux, GetCpu(elfData));
-            return true;
+
+            try
+            {
+                if (elfData.Class == Class.NotELF || elfData.Type != FileType.Executable) return false;
+                Name = file.Name;
+                Architecture = new Architecture(OS.Linux, GetCpu(elfData));
+                return true;
+            }
+            finally
+            {
+                elfData.Dispose();
+            }
         }
 
         private static Cpu GetCpu(IELF elfData)
