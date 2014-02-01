@@ -34,10 +34,10 @@ namespace Common.Tasks
         /// <inheritdoc />
         public int Verbosity { get; set; }
 
-        private readonly CancellationToken _cancellationToken = new CancellationToken();
+        protected readonly CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
 
         /// <inheritdoc/>
-        public CancellationToken CancellationToken { get { return _cancellationToken; } }
+        public CancellationToken CancellationToken { get { return CancellationTokenSource.Token; } }
 
         /// <inheritdoc />
         [MethodImpl(MethodImplOptions.Synchronized)] // Prevent multiple concurrent tasks
@@ -49,7 +49,7 @@ namespace Common.Tasks
 
             Log.Info(task.Name + "...");
             using (new TrackingProgressBar(task))
-                task.RunSync(_cancellationToken);
+                task.RunSync(CancellationToken);
         }
     }
 }

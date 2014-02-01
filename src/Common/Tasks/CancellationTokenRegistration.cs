@@ -21,28 +21,32 @@
  */
 
 using System;
-using System.Threading;
 
 namespace Common.Tasks
 {
     /// <summary>
-    /// Ignores progress reports.
+    /// Represents a callback delegate that has been registered with a <see cref="CancellationToken"/>.
     /// </summary>
-    public class SilentTaskHandler : MarshalByRefObject, ITaskHandler
+    [Serializable]
+    public struct CancellationTokenRegistration : IDisposable
     {
-        protected readonly CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
+        private readonly CancellationTokenSource _source;
+        private readonly Action _callback;
 
-        /// <inheritdoc/>
-        public CancellationToken CancellationToken { get { return CancellationTokenSource.Token; } }
-
-        /// <inheritdoc />
-        public void RunTask(ITask task, object tag = null)
+        internal CancellationTokenRegistration(CancellationTokenSource source, Action callback)
         {
-            #region Sanity checks
-            if (task == null) throw new ArgumentNullException("task");
-            #endregion
+            _source = source;
+            _callback = callback;
 
-            task.RunSync(CancellationToken);
+            if (_source != null) _source.CancellationRequested += _callback;
+        }
+
+        /// <summary>
+        /// Unregisters the callback.
+        /// </summary>
+        public void Dispose()
+        {
+            if (_source != null) _source.CancellationRequested -= _callback;
         }
     }
 }

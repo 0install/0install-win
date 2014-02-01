@@ -237,10 +237,8 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Handler
-        private readonly CancellationToken _cancellationToken = new CancellationToken();
-
         /// <inheritdoc/>
-        public CancellationToken CancellationToken { get { return _cancellationToken; } }
+        public CancellationToken CancellationToken { get { return default(CancellationToken); } }
 
         /// <inheritdoc/>
         public void RunTask(ITask task, object tag = null)

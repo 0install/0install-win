@@ -43,10 +43,10 @@ namespace ZeroInstall.Commands.WinForms
     public sealed class GuiHandler : MarshalByRefObject, IBackendHandler, IDisposable
     {
         #region Properties
-        private readonly CancellationToken _cancellationToken;
+        private readonly CancellationTokenSource _cancellationTokenSource;
 
         /// <inheritdoc/>
-        public CancellationToken CancellationToken { get { return _cancellationToken; } }
+        public CancellationToken CancellationToken { get { return _cancellationTokenSource.Token; } }
 
         /// <inheritdoc />
         public int Verbosity { get; set; }
@@ -69,17 +69,17 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Constructor
         /// <summary>
-        /// Creates a new GUI handler with an external <see cref="CancellationToken"/>.
+        /// Creates a new GUI handler with an external <see cref="CancellationTokenSource"/>.
         /// </summary>
-        public GuiHandler(CancellationToken cancellationToken)
+        public GuiHandler(CancellationTokenSource cancellationTokenSource)
         {
-            _cancellationToken = cancellationToken;
+            _cancellationTokenSource = cancellationTokenSource;
         }
 
         /// <summary>
-        /// Creates a new GUI handler with its own <see cref="CancellationToken"/>.
+        /// Creates a new GUI handler with its own <see cref="CancellationTokenSource"/>.
         /// </summary>
-        public GuiHandler() : this(new CancellationToken())
+        public GuiHandler() : this(new CancellationTokenSource())
         {}
         #endregion
 
@@ -128,7 +128,7 @@ namespace ZeroInstall.Commands.WinForms
                 }
             }
 
-            task.RunSync(_cancellationToken);
+            task.RunSync(CancellationToken);
         }
         #endregion
 
@@ -147,7 +147,7 @@ namespace ZeroInstall.Commands.WinForms
             {
                 ProcessUtils.RunAsync(() =>
                 {
-                    _form = new ProgressForm(_cancellationToken);
+                    _form = new ProgressForm(_cancellationTokenSource);
 
                     if (Batch)
                     {

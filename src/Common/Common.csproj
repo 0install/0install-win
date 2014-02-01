@@ -137,6 +137,8 @@
     <Compile Include="Streams\DisposeWrapperStream.cs" />
     <Compile Include="Streams\OffsetStream.cs" />
     <Compile Include="Tasks\CancellationToken.cs" />
+    <Compile Include="Tasks\CancellationTokenRegistration.cs" />
+    <Compile Include="Tasks\CancellationTokenSource.cs" />
     <Compile Include="Tasks\CliTaskHandler.cs" />
     <Compile Include="Tasks\CopyDirectory.cs" />
     <Compile Include="Tasks\DownloadFile.cs" />

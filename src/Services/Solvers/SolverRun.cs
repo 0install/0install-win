@@ -53,7 +53,6 @@ namespace ZeroInstall.Services.Solvers
         protected SolverRun(Requirements requirements, CancellationToken cancellationToken, Config config, IFeedManager feedManager, IStore store)
         {
             #region Sanity checks
-            if (cancellationToken == null) throw new ArgumentNullException("cancellationToken");
             if (config == null) throw new ArgumentNullException("config");
             if (feedManager == null) throw new ArgumentNullException("feedManager");
             if (store == null) throw new ArgumentNullException("store");

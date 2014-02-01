@@ -21,67 +21,51 @@
  */
 
 using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Remoting;
-using System.Security.Permissions;
 
 namespace Common.Tasks
 {
     /// <summary>
-    /// Propagates notification that operations should be canceled.<br/>
-    /// Once a token has been signaled it remains in that state and cannot be reused.
+    /// Propagates notification that operations should be canceled.
     /// </summary>
-    public sealed class CancellationToken : MarshalByRefObject
+    [Serializable]
+    public struct CancellationToken
     {
-        private volatile bool _isCancellationRequested; // Volatile justification: Write access is locked, many reads
+        private readonly CancellationTokenSource _source;
 
         /// <summary>
-        /// Indicates whether <see cref="RequestCancellation"/> has been called.
+        /// Creates a new token controlled by a specific <see cref="CancellationTokenSource"/>.
         /// </summary>
-        public bool IsCancellationRequested { get { return _isCancellationRequested; } }
-
-        /// <summary>
-        /// Raised the first time <see cref="RequestCancellation"/> is called. Subsequent calls will not raise this event again.
-        /// </summary>
-        /// <remarks>
-        ///   <para>This event is raised from a background thread. Wrap via synchronization context to update UI elements.</para>
-        ///   <para>Handling this blocks the task, therefore observers should handle the event quickly.</para>
-        /// </remarks>
-        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
-        public event Action CancellationRequested;
-
-        private readonly object _lock = new object();
-
-        /// <summary>
-        /// Notifies all listening entities that their operations should be canceled.
-        /// </summary>
-        public void RequestCancellation()
+        internal CancellationToken(CancellationTokenSource source)
         {
-            lock (_lock)
-            {
-                // Don't trigger more than once
-                if (_isCancellationRequested) return;
-
-                _isCancellationRequested = true;
-                if (CancellationRequested != null)
-                {
-                    try
-                    {
-                        CancellationRequested();
-                    }
-                    catch (RemotingException)
-                    {}
-                }
-            }
+            _source = source;
         }
 
         /// <summary>
-        /// Throws an <see cref="OperationCanceledException"/> if <see cref="RequestCancellation"/> has been called.
+        /// Registers a delegate that will be called when <see cref="IsCancellationRequested"/> is set.
         /// </summary>
-        /// <exception cref="OperationCanceledException">Thrown if <see cref="RequestCancellation"/> has been called.</exception>
+        /// <param name="callback">The delegate to be executed when <see cref="IsCancellationRequested"/> is set.</param>
+        /// <returns>A handle that can be used to deregister the callback.</returns>
+        /// <remarks>
+        /// The callback is called from a background thread. Wrap via synchronization context to update UI elements.
+        /// Handling this blocks the task, therefore observers should handle the event quickly.
+        /// </remarks>
+        public CancellationTokenRegistration Register(Action callback)
+        {
+            return new CancellationTokenRegistration(_source, callback);
+        }
+
+        /// <summary>
+        /// Indicates whether <see cref="IsCancellationRequested"/> has been set.
+        /// </summary>
+        public bool IsCancellationRequested { get { return (_source != null) && _source.IsCancellationRequested; } }
+
+        /// <summary>
+        /// Throws an <see cref="OperationCanceledException"/> if <see cref="IsCancellationRequested"/> has been set.
+        /// </summary>
+        /// <exception cref="OperationCanceledException">Thrown if <see cref="IsCancellationRequested"/> has been set.</exception>
         public void ThrowIfCancellationRequested()
         {
-            if (_isCancellationRequested) throw new OperationCanceledException();
+            if (IsCancellationRequested) throw new OperationCanceledException();
         }
 
         /// <inheritdoc/>
@@ -89,14 +73,5 @@ namespace Common.Tasks
         {
             return "CancellationToken {IsCancellationRequested=" + IsCancellationRequested + "}";
         }
-
-        #region IPC timeout
-        /// <inheritdoc/>
-        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.Infrastructure)]
-        public override object InitializeLifetimeService()
-        {
-            return null; // Do not timeout progress reporting callbacks
-        }
-        #endregion
     }
 }

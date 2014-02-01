@@ -174,16 +174,14 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         #region Control
         /// <inheritdoc/>
-        public override void RunSync(CancellationToken cancellationToken = null)
+        public override void RunSync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (cancellationToken != null)
+            using (cancellationToken.Register(Cancel))
             {
-                cancellationToken.CancellationRequested += Cancel;
                 cancellationToken.ThrowIfCancellationRequested();
+                Start();
+                Join();
             }
-            Start();
-            Join();
-            if (cancellationToken != null) cancellationToken.CancellationRequested -= Cancel;
 
             switch (State)
             {

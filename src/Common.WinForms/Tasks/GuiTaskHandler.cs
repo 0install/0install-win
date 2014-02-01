@@ -31,10 +31,10 @@ namespace Common.Tasks
     /// </summary>
     public class GuiTaskHandler : MarshalByRefObject, ITaskHandler
     {
-        private readonly CancellationToken _cancellationToken = new CancellationToken();
+        protected readonly CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
 
         /// <inheritdoc/>
-        public CancellationToken CancellationToken { get { return _cancellationToken; } }
+        public CancellationToken CancellationToken { get { return CancellationTokenSource.Token; } }
 
         /// <inheritdoc />
         public void RunTask(ITask task, object tag = null)

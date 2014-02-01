@@ -24,6 +24,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using System.Threading;
 
 namespace Common.Tasks
 {
@@ -124,7 +125,7 @@ namespace Common.Tasks
         /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskState.WebError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="TaskState.Ready"/>.</exception>
         /// <remarks>Even though the task runs synchronously it may be still executed on a separate thread so it can be canceled from other threads.</remarks>
-        void RunSync(CancellationToken cancellationToken = null);
+        void RunSync(CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Starts executing the task in a background thread.

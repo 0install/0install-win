@@ -38,7 +38,7 @@ namespace ZeroInstall.Commands.WinForms
     {
         #region Variables
         /// <summary>Signaled when the user wishes to cancel the current process.</summary>
-        private readonly CancellationToken _cancellationToken;
+        private readonly CancellationTokenSource _cancellationTokenSource;
 
         /// <summary>A short title describing what the command being executed does.</summary>
         private readonly string _actionTitle;
@@ -54,15 +54,15 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Creates a new progress tracking form.
         /// </summary>
-        /// <param name="cancellationToken">Signaled when the user wishes to cancel the current process.</param>
+        /// <param name="cancellationTokenSource">Used to signal when the user wishes to cancel the current process.</param>
         /// <param name="actionTitle">A short title describing what the command being executed does; may be <see langword="null"/>.</param>
-        public ProgressForm(CancellationToken cancellationToken, string actionTitle = null)
+        public ProgressForm(CancellationTokenSource cancellationTokenSource, string actionTitle = null)
         {
             #region Sanity checks
-            if (cancellationToken == null) throw new ArgumentNullException("cancellationToken");
+            if (cancellationTokenSource == null) throw new ArgumentNullException("cancellationTokenSource");
             #endregion
 
-            _cancellationToken = cancellationToken;
+            _cancellationTokenSource = cancellationTokenSource;
 
             InitializeComponent();
 
@@ -260,7 +260,7 @@ namespace ZeroInstall.Commands.WinForms
             // Stop tracking selction tasks
             selectionsControl.StopTracking();
 
-            _cancellationToken.RequestCancellation();
+            _cancellationTokenSource.Cancel();
 
             // Unblock any waiting thread
             if (_modifySelectionsWaitHandle != null) _modifySelectionsWaitHandle.Set();

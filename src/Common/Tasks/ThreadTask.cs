@@ -143,35 +143,30 @@ namespace Common.Tasks
 
         #region Control
         /// <inheritdoc/>
-        public virtual void RunSync(CancellationToken cancellationToken = null)
+        public virtual void RunSync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (cancellationToken != null)
+            using (cancellationToken.Register(Cancel))
             {
-                cancellationToken.CancellationRequested += Cancel;
                 cancellationToken.ThrowIfCancellationRequested();
-            }
-            try
-            {
-                lock (StateLock) State = TaskState.Started;
-
-                // Run task with prevliges of original user if possible
-                if (_originalIdentity != null)
+                try
                 {
-                    using (_originalIdentity.Impersonate())
-                        RunTask();
+                    lock (StateLock) State = TaskState.Started;
+
+                    // Run task with prevliges of original user if possible
+                    if (_originalIdentity != null)
+                    {
+                        using (_originalIdentity.Impersonate())
+                            RunTask();
+                    }
+                    else RunTask();
                 }
-                else RunTask();
-            }
-            catch (OperationCanceledException)
-            {
-                // Reset the state so the task can be started again
-                State = TaskState.Ready;
-                Thread = new Thread(ThreadExecute);
-                throw;
-            }
-            finally
-            {
-                if (cancellationToken != null) cancellationToken.CancellationRequested -= Cancel;
+                catch (OperationCanceledException)
+                {
+                    // Reset the state so the task can be started again
+                    State = TaskState.Ready;
+                    Thread = new Thread(ThreadExecute);
+                    throw;
+                }
             }
         }
 

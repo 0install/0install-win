@@ -55,10 +55,10 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Properties
-        private readonly CancellationToken _cancellationToken = new CancellationToken();
+        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         /// <inheritdoc/>
-        public CancellationToken CancellationToken { get { return _cancellationToken; } }
+        public CancellationToken CancellationToken { get { return _cancellationTokenSource.Token; } }
         #endregion
 
         #region IPC timeout
@@ -94,7 +94,7 @@ namespace ZeroInstall.Commands.WinForms
                 _uiDone.Set();
 
                 // Create target but keep it hidden until all defered actions are complete (ensures correct order)
-                var newTarget = new GuiHandler(_cancellationToken);
+                var newTarget = new GuiHandler(_cancellationTokenSource);
                 if (_onTargetCreate != null) _onTargetCreate(newTarget);
                 return _target = newTarget;
             }

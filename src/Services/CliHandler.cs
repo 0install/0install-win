@@ -56,7 +56,7 @@ namespace ZeroInstall.Services
                 Console.TreatControlCAsInput = false;
                 Console.CancelKeyPress += delegate(object sender, ConsoleCancelEventArgs e)
                 {
-                    CancellationToken.RequestCancellation();
+                    CancellationTokenSource.Cancel();
                     e.Cancel = true;
                 };
             }
