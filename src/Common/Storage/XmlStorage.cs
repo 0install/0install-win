@@ -32,6 +32,11 @@ using Common.Properties;
 using Common.Utils;
 using ICSharpCode.SharpZipLib.Zip;
 
+#if SLIMDX
+using System.Drawing;
+using Common.Collections;
+#endif
+
 namespace Common.Storage
 {
     /// <summary>
@@ -45,6 +50,67 @@ namespace Common.Storage
         /// The XML namespace used for XML Schema instance.
         /// </summary>
         public const string XsiNamespace = "http://www.w3.org/2001/XMLSchema-instance";
+        #endregion
+
+        #region Serializer generation
+#if SLIMDX
+        /// <summary>An internal cache of XML serializers identified by the target type and ignored sub-types.</summary>
+        private static readonly TransparentCache<Type, XmlSerializer> _serializers = new TransparentCache<Type, XmlSerializer>(CreateSerializer);
+
+        /// <summary>Used to mark something as "serialize as XML attribute".</summary>
+        private static readonly XmlAttributes _asAttribute = new XmlAttributes {XmlAttribute = new XmlAttributeAttribute()};
+
+        /// <summary>Used to mark something to be ignored when serializing.</summary>
+        private static readonly XmlAttributes _ignore = new XmlAttributes {XmlIgnore = true};
+
+        /// <summary>
+        /// Creates a new <see cref="XmlSerializer"/> for the type <paramref name="type"/> and applies a set of default augmentations for .NET types.
+        /// </summary>
+        /// <param name="type">The type to create the serializer for.</param>
+        /// <returns>The newly created <see cref="XmlSerializer"/>.</returns>
+        /// <remarks>This method may be rather slow, so its results should be cached.</remarks>
+        private static XmlSerializer CreateSerializer(Type type)
+        {
+            var overrides = new XmlAttributeOverrides();
+
+            #region Augment .NET BCL types
+            MembersAsAttributes<Point>(overrides, "X", "Y");
+            MembersAsAttributes<Size>(overrides, "Width", "Height");
+            MembersAsAttributes<Rectangle>(overrides, "X", "Y", "Width", "Height");
+            overrides.Add(typeof(Rectangle), "Location", _ignore);
+            overrides.Add(typeof(Rectangle), "Size", _ignore);
+            overrides.Add(typeof(Exception), "Data", _ignore);
+            #endregion
+
+            #region Augement SlimDX types
+            MembersAsAttributes<SlimDX.Color3>(overrides, "Red", "Green", "Blue");
+            MembersAsAttributes<SlimDX.Color4>(overrides, "Alpha", "Red", "Green", "Blue");
+            MembersAsAttributes<SlimDX.Half2>(overrides, "X", "Y");
+            MembersAsAttributes<SlimDX.Half3>(overrides, "X", "Y", "Z");
+            MembersAsAttributes<SlimDX.Half4>(overrides, "X", "Y", "Z", "W");
+            MembersAsAttributes<SlimDX.Vector2>(overrides, "X", "Y");
+            MembersAsAttributes<SlimDX.Vector3>(overrides, "X", "Y", "Z");
+            MembersAsAttributes<SlimDX.Vector4>(overrides, "X", "Y", "Z", "W");
+            MembersAsAttributes<SlimDX.Quaternion>(overrides, "X", "Y", "Z", "W");
+            MembersAsAttributes<SlimDX.Rational>(overrides, "Numerator", "Denominator");
+            #endregion
+
+            var serializer = new XmlSerializer(type, overrides);
+            serializer.UnknownAttribute += (sender, e) => Log.Warn("Ignored XML attribute while deserializing: " + e.Attr.Name + "=" + e.Attr.Value);
+            serializer.UnknownElement += (sender, e) => Log.Warn("Ignored XML element while deserializing: " + e.Element.Name);
+            return serializer;
+        }
+
+        /// <summary>
+        /// Configures a set of members of a type to be serialized as XML attributes.
+        /// </summary>
+        private static void MembersAsAttributes<T>(XmlAttributeOverrides overrides, params string[] members)
+        {
+            Type type = typeof(T);
+            foreach (string memeber in members)
+                overrides.Add(type, memeber, _asAttribute);
+        }
+#endif
         #endregion
 
         //--------------------//
@@ -67,7 +133,11 @@ namespace Common.Storage
             if (stream.CanSeek) stream.Position = 0;
             try
             {
+#if SLIMDX
+                return (T)_serializers[typeof(T)].Deserialize(stream);
+#else
                 return (T)new XmlSerializer(typeof(T)).Deserialize(stream);
+#endif
             }
                 #region Error handling
             catch (InvalidOperationException ex)
@@ -142,7 +212,11 @@ namespace Common.Storage
             #endregion
 
             var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings {Encoding = new UTF8Encoding(false), Indent = true, IndentChars = "\t", NewLineChars = "\n"});
+#if SLIMDX
+            var serializer = _serializers[typeof(T)];
+#else
             var serializer = new XmlSerializer(typeof(T));
+#endif
 
             // Detect and handle namespace attributes
             var rootAttribute = AttributeUtils.GetAttributes<XmlRootAttribute, T>().FirstOrDefault();
