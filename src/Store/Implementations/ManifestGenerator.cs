@@ -102,7 +102,7 @@ namespace ZeroInstall.Store.Implementations
             var nodes = new List<ManifestNode>();
             foreach (var entry in entries)
             {
-                if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
+                ThrowIfCancellationRequested();
 
                 var file = entry as FileInfo;
                 if (file != null)

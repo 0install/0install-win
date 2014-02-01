@@ -37,9 +37,6 @@ namespace Common.Tasks
     public abstract class ThreadTask : MarshalByRefObject, ITask
     {
         #region Variables
-        /// <summary>Flag that indicates the current process should be canceled.</summary>
-        protected readonly AutoResetEvent CancelRequest = new AutoResetEvent(false);
-
         /// <summary>Synchronization handle to prevent race conditions with thread startup/shutdown or <see cref="ITask.State"/> switching.</summary>
         protected readonly object StateLock = new object();
 
@@ -115,6 +112,20 @@ namespace Common.Tasks
             // Copy to local variable to prevent threading issues
             TaskEventHandler progressChanged = ProgressChanged;
             if (progressChanged != null) progressChanged(this);
+        }
+        #endregion
+
+        #region Cancellation
+        /// <summary>Flag that indicates the current process should be canceled.</summary>
+        protected readonly AutoResetEvent CancelRequest = new AutoResetEvent(false);
+
+        /// <summary>
+        /// Throws an <see cref="OperationCanceledException"/> if <see cref="CancelRequest"/> has been signaled.
+        /// </summary>
+        /// <exception cref="OperationCanceledException">Thrown if <see cref="CancelRequest"/> has been casignaledlled.</exception>
+        protected void ThrowIfCancellationRequested()
+        {
+            if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
         }
         #endregion
 

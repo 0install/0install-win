@@ -85,7 +85,7 @@ namespace Common.Tasks
 
             foreach (var element in _target)
             {
-                if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
+                ThrowIfCancellationRequested();
                 _work(element);
                 lock (StateLock) UnitsProcessed++;
             }

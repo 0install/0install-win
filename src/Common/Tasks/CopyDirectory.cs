@@ -106,12 +106,11 @@ namespace Common.Tasks
             lock (StateLock) State = TaskState.Complete;
         }
 
-        private void CopyDirectories(List<DirectoryInfo> sourceDirectories)
+        private void CopyDirectories(IEnumerable<DirectoryInfo> sourceDirectories)
         {
             foreach (var sourceDirectory in sourceDirectories)
             {
-                if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
-
+                ThrowIfCancellationRequested();
                 Directory.CreateDirectory(PathInDestination(sourceDirectory));
             }
         }
@@ -120,7 +119,7 @@ namespace Common.Tasks
         {
             foreach (var sourceFile in sourceFiles)
             {
-                if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
+                ThrowIfCancellationRequested();
 
                 var destinationFile = new FileInfo(PathInDestination(sourceFile));
                 if (destinationFile.Exists)
@@ -147,7 +146,7 @@ namespace Common.Tasks
         {
             foreach (var sourceDirectory in sourceDirectories)
             {
-                if (CancelRequest.WaitOne(0, exitContext: false)) throw new OperationCanceledException();
+                ThrowIfCancellationRequested();
 
                 Directory.SetLastWriteTimeUtc(PathInDestination(sourceDirectory), sourceDirectory.LastWriteTimeUtc);
             }
