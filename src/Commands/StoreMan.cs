@@ -20,6 +20,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using Common;
 using Common.Tasks;
 using Common.Utils;
 using NDesk.Options;
@@ -42,8 +44,11 @@ namespace ZeroInstall.Commands
         ///<summary>Everything is OK.</summary>
         OK = 0,
 
+        /// <summary>An implementation to be added is already in the store.</summary>
+        ImplementationAlreadyInStore = 10,
+
         /// <summary>A manifest digest for an implementation did not match the expected value.</summary>
-        DigestMismatch = 20,
+        DigestMismatch = 20
     }
     #endregion
 
@@ -101,15 +106,13 @@ namespace ZeroInstall.Commands
             switch (AdditionalArgs[0])
             {
                 case "add":
-                    Add();
-                    return (int)StoreErrorLevel.OK;
+                    return (int)Add();
 
                 case "audit":
                     return (int)Audit();
 
                 case "copy":
-                    Copy();
-                    return (int)StoreErrorLevel.OK;
+                    return (int)Copy();
 
                 case "find":
                     Find();
@@ -148,7 +151,7 @@ namespace ZeroInstall.Commands
         }
 
         #region Subcommands
-        private void Add()
+        private StoreErrorLevel Add()
         {
             if (AdditionalArgs.Count < 3) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))");
 
@@ -156,16 +159,26 @@ namespace ZeroInstall.Commands
 
             var manifestDigest = new ManifestDigest(AdditionalArgs[1]);
             string path = AdditionalArgs[2];
-            if (File.Exists(path))
-            { // One or more archives (combined/overlayed)
-                Store.AddArchives(GetArchiveFileInfos(), manifestDigest, Handler);
+            try
+            {
+                if (File.Exists(path))
+                { // One or more archives (combined/overlayed)
+                    Store.AddArchives(GetArchiveFileInfos(), manifestDigest, Handler);
+                    return StoreErrorLevel.OK;
+                }
+                else if (Directory.Exists(path))
+                { // A single directory
+                    if (AdditionalArgs.Count > 3) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))");
+                    Store.AddDirectory(Path.GetFullPath(path), manifestDigest, Handler);
+                    return StoreErrorLevel.OK;
+                }
+                else throw new FileNotFoundException(string.Format(Resources.NoSuchFileOrDirectory, path), path);
             }
-            else if (Directory.Exists(path))
-            { // A single directory
-                if (AdditionalArgs.Count > 3) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))");
-                Store.AddDirectory(Path.GetFullPath(path), manifestDigest, Handler);
+            catch (ImplementationAlreadyInStoreException ex)
+            {
+                Log.Warn(ex);
+                return StoreErrorLevel.ImplementationAlreadyInStore;
             }
-            else throw new FileNotFoundException(string.Format(Resources.NoSuchFileOrDirectory, path), path);
         }
 
         private StoreErrorLevel Audit()
@@ -187,7 +200,7 @@ namespace ZeroInstall.Commands
             }
         }
 
-        private void Copy()
+        private StoreErrorLevel Copy()
         {
             if (AdditionalArgs.Count < 2) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + "copy DIRECTORY [CACHE]");
             if (AdditionalArgs.Count > 3) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + "copy DIRECTORY [CACHE]");
@@ -197,7 +210,16 @@ namespace ZeroInstall.Commands
             var store = (AdditionalArgs.Count == 3) ? new DirectoryStore(AdditionalArgs[2]) : Store;
 
             string path = AdditionalArgs[1];
-            store.AddDirectory(Path.GetFullPath(path), new ManifestDigest(Path.GetFileName(path)), Handler);
+            try
+            {
+                store.AddDirectory(Path.GetFullPath(path), new ManifestDigest(Path.GetFileName(path)), Handler);
+                return StoreErrorLevel.OK;
+            }
+            catch (ImplementationAlreadyInStoreException ex)
+            {
+                Log.Warn(ex);
+                return StoreErrorLevel.ImplementationAlreadyInStore;
+            }
         }
 
         private void Find()
