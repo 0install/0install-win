@@ -216,8 +216,7 @@ namespace ZeroInstall.Updater
                     "ZeroInstall.Fetchers.dll", Path.Combine("de", "ZeroInstall.Fetchers.dll"),
                     "ZeroInstall.Solvers.dll", Path.Combine("de", "ZeroInstall.Solvers.dll"),
                     "ZeroInstall.Injector.dll", Path.Combine("de", "ZeroInstall.Injector.dll"),
-                    "ZeroInstall.Model.dll", "ZeroInstall.Model.XmlSerializers.dll", Path.Combine("de", "ZeroInstall.Model.dll"),
-                    "ZeroInstall.Solvers.dll", Path.Combine("de", "ZeroInstall.Solvers.dll")
+                    "ZeroInstall.Model.dll", "ZeroInstall.Model.XmlSerializers.dll", Path.Combine("de", "ZeroInstall.Model.dll")
                 };
                 filesToDelete.AddRange(appFiles.Select(x => Path.Combine(Target, x)));
             }

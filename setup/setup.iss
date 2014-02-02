@@ -82,6 +82,20 @@ Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Te
 Source: ..\bundled\GnuPG\*; DestDir: {app}\GnuPG; Flags: ignoreversion recursesubdirs
 Source: ..\bundled\Solver\*; DestDir: {app}\Solver; Flags: ignoreversion recursesubdirs
 
+[InstallDelete]
+;Deletes obsolete files
+Name: {app}\C5.*; Type: files
+Name: {app}\ZeroInstall.Backend.*; Type: files  
+Name: {app}\de\ZeroInstall.Backend.dll; Type: files  
+Name: {app}\ZeroInstall.Fetchers.*; Type: files
+Name: {app}\de\ZeroInstall.Fetchers.dll; Type: files  
+Name: {app}\ZeroInstall.Solvers.*; Type: files
+Name: {app}\de\ZeroInstall.Solvers.dll; Type: files  
+Name: {app}\ZeroInstall.Injector.*; Type: files
+Name: {app}\de\ZeroInstall.Injector.dll; Type: files  
+Name: {app}\ZeroInstall.Model.*; Type: files
+Name: {app}\de\ZeroInstall.Model.dll; Type: files
+
 [Registry]
 #ifdef PerUser
   Root: HKCU32; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty
