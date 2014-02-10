@@ -30,7 +30,7 @@ using Common.Utils;
 namespace Common.Tasks
 {
     /// <summary>
-    /// 
+    /// Copies the content of a directory to a new location preserving the original file modification times.
     /// </summary>
     public class CopyDirectory : ThreadTask
     {
@@ -57,7 +57,7 @@ namespace Common.Tasks
         public bool Overwrite { get; private set; }
 
         /// <summary>
-        /// 
+        /// Creates a new directory copy task.
         /// </summary>
         /// <param name="sourcePath">The path of source directory. Must exist!</param>
         /// <param name="destinationPath">The path of the target directory. May exist. Must be empty if <paramref name="overwrite"/> is <see langword="false"/>.</param>

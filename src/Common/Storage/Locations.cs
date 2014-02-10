@@ -510,7 +510,7 @@ namespace Common.Storage
 
         #region ACL Security
         /// <summary>
-        /// The name of the flag file whose existence indicates that a directory has been secured with <see cref="SecureExistingMachineWideDir"/>.
+        /// The name of the flag file whose existence indicates that a directory has been secured with ACLs to prevent non-admins from writing there.
         /// </summary>
         public const string SecuredFlagName = "_secured";
 
