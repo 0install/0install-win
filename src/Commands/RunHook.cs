@@ -33,6 +33,7 @@ using ZeroInstall.Services.Injector;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Selection;
 using EntryPoint = ZeroInstall.Hooking.EntryPoint;
 
 namespace ZeroInstall.Commands
@@ -62,19 +63,21 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Hooks into the creation of new processes on the current thread to inject API hooks.
         /// </summary>
+        /// <param name="selections">The implementations chosen for launch.</param>
         /// <param name="executor">The executor used to launch the new process.</param>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the main implementation is not cached (possibly because it is installed natively).</exception>
-        public RunHook(IExecutor executor, IFeedManager feedManager, IHandler handler)
+        public RunHook(Selections selections, IExecutor executor, IFeedManager feedManager, IHandler handler)
         {
-            string interfaceID = executor.Selections.InterfaceID;
+            string interfaceID = selections.InterfaceID;
             _target = new InterfaceFeed(interfaceID, feedManager.GetFeed(interfaceID));
 
-            var mainImplementation = executor.Selections.MainImplementation;
+            var mainImplementation = selections.MainImplementation;
             _implementationDir = executor.GetImplementationPath(mainImplementation);
             _mainImplementation = _target.Feed[mainImplementation.ID];
 
+            _handler = handler;
             _registryFilter = GetRegistryFilter();
             _relaunchControl = GetRelaunchControl();
 
@@ -82,8 +85,6 @@ namespace ZeroInstall.Commands
             _hookW.ThreadACL.SetInclusiveACL(new[] {Thread.CurrentThread.ManagedThreadId});
             _hookA = LocalHook.Create(LocalHook.GetProcAddress("kernel32.dll", "CreateProcessA"), new UnsafeNativeMethods.DCreateProcessA(CreateProcessACallback), null);
             _hookA.ThreadACL.SetInclusiveACL(new[] {Thread.CurrentThread.ManagedThreadId});
-
-            _handler = handler;
         }
         #endregion
 
@@ -110,7 +111,7 @@ namespace ZeroInstall.Commands
                     { // Try to use a machine-wide stub if possible
                         registryCommandLine = _target.GetRunStub(true, _handler, command.Name);
                     }
-                    catch (InvalidOperationException)
+                    catch (UnauthorizedAccessException)
                     { // Fall back to per-user stub
                         registryCommandLine = _target.GetRunStub(false, _handler, command.Name);
                     }

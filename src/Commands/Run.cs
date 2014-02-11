@@ -30,6 +30,7 @@ using ZeroInstall.Services.Injector;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Commands
 {
@@ -148,7 +149,7 @@ namespace ZeroInstall.Commands
             // Prevent the user from pressing any buttons once the child process is being launched
             Handler.DisableProgressUI();
 
-            using (var runHook = CreateRunHook(Executor))
+            using (var runHook = CreateRunHook())
             {
                 Process process;
                 try
@@ -182,13 +183,13 @@ namespace ZeroInstall.Commands
             }
         }
 
-        private IDisposable CreateRunHook(IExecutor executor)
+        private IDisposable CreateRunHook()
         {
             if (Config.AllowApiHooking && WindowsUtils.IsWindows)
             {
                 try
                 {
-                    return new RunHook(executor, FeedManager, Handler);
+                    return new RunHook(Selections, Executor, FeedManager, Handler);
                 }
                     #region Error handling
                 catch (ImplementationNotFoundException)
