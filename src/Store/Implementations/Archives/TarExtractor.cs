@@ -125,6 +125,11 @@ namespace ZeroInstall.Store.Implementations.Archives
                 // Wrap exception since only certain exception types are allowed
                 throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
             }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+            }
             #endregion
 
             _tar.Dispose();

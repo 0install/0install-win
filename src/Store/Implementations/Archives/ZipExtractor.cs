@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using Common.Tasks;
 using Common.Utils;
+using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Store.Properties;
 
@@ -109,7 +110,17 @@ namespace ZeroInstall.Store.Implementations.Archives
                 SetDirectoryWriteTimes();
             }
                 #region Error handling
-            catch (ZipException ex)
+            catch (SharpZipBaseException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+            }
+            catch (InvalidDataException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+            }
+            catch (ArgumentOutOfRangeException ex)
             {
                 // Wrap exception since only certain exception types are allowed
                 throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);

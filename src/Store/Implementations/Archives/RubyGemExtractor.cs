@@ -15,7 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.IO;
+using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Tar;
 using ZeroInstall.Store.Properties;
 
@@ -56,8 +58,19 @@ namespace ZeroInstall.Store.Implementations.Archives
                 }
             }
                 #region Error handling
-            catch (TarException ex)
+            catch (SharpZipBaseException ex)
             {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+            }
+            catch (InvalidDataException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
                 throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
             }
             #endregion
