@@ -159,17 +159,17 @@ namespace ZeroInstall.Store
         public Uri KeyInfoServer { get { return _keyInfoServer; } set { _keyInfoServer = value.Sanitize(); } }
 
         /// <summary>
-        /// The default value for <see cref="SelfUpdateID"/>.
+        /// The default value for <see cref="SelfUpdateUri"/>.
         /// </summary>
-        public const string DefaultSelfUpdateID = "http://0install.de/feeds/ZeroInstall.xml";
+        public const string DefaultSelfUpdateUri = "http://0install.de/feeds/ZeroInstall.xml";
 
-        private string _selfUpdateID = DefaultSelfUpdateID;
+        private Uri _selfUpdateUri = new Uri(DefaultSelfUpdateUri);
 
         /// <summary>
         /// The ID used by the solver to search for updates for Zero Install itself.
         /// </summary>
-        [DefaultValue(DefaultSelfUpdateID), Category("Sources"), DisplayName("Self-update ID"), Description("The ID used by the solver to search for updates for Zero Install itself.")]
-        public string SelfUpdateID { get { return _selfUpdateID; } set { _selfUpdateID = value; } }
+        [DefaultValue(typeof(Uri), DefaultSelfUpdateUri), Category("Sources"), DisplayName("Self-update URI"), Description("The URI used by the solver to search for updates for Zero Install itself.")]
+        public Uri SelfUpdateUri { get { return _selfUpdateUri; } set { _selfUpdateUri = value.Sanitize(); } }
 
         /// <summary>
         /// The default value for <see cref="SyncServer"/>.
@@ -234,7 +234,7 @@ namespace ZeroInstall.Store
                 {"allow_api_hooking", new PropertyPointer<bool>(() => AllowApiHooking, value => AllowApiHooking = value).ToStringPointer()},
                 {"feed_mirror", new PropertyPointer<Uri>(() => FeedMirror, value => FeedMirror = value, new Uri(DefaultFeedMirror)).ToStringPointer()},
                 {"key_info_server", new PropertyPointer<Uri>(() => KeyInfoServer, value => KeyInfoServer = value, new Uri(DefaultKeyInfoServer)).ToStringPointer()},
-                {"self_update_id", new PropertyPointer<string>(() => SelfUpdateID, value => SelfUpdateID = value, DefaultSelfUpdateID)},
+                {"self_update_uri", new PropertyPointer<Uri>(() => SelfUpdateUri, value => SelfUpdateUri = value,  new Uri(DefaultSelfUpdateUri)).ToStringPointer()},
                 {"sync_server", new PropertyPointer<Uri>(() => SyncServer, value => SyncServer = value, new Uri(DefaultSyncServer)).ToStringPointer()},
                 {"sync_server_user", new PropertyPointer<string>(() => SyncServerUsername, value => SyncServerUsername = value, "")},
                 {"sync_server_pw", new PropertyPointer<string>(() => SyncServerPassword, value => SyncServerPassword = value, "", true)},

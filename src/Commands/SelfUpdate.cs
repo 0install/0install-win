@@ -74,7 +74,7 @@ namespace ZeroInstall.Commands
         {
             if (Options.Parse(args).Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs.JoinEscapeArguments(), "");
 
-            Requirements.InterfaceID = Config.SelfUpdateID;
+            Requirements.InterfaceID = Config.SelfUpdateUri.ToString();
 
             // Pass in the installation directory to the updater as an argument
             AdditionalArgs.Add(Locations.InstallBase);
