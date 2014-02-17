@@ -45,7 +45,7 @@ de.StoreService=Store Dienst installieren (Anwendungsdateien zwischen Benutzern 
   UninstallDisplayName=Zero Install
   DefaultDirName={pf}\Zero Install
 #endif
-OutputDir=..\build\Setup
+OutputDir=..\build\Installer
 
 ShowLanguageDialog=auto
 MinVersion=0,5.0

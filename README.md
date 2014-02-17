@@ -5,13 +5,13 @@ Directory structure
 - The directory `lib` contains pre-compiled 3rd party libraries. Their licensing conditions are detailed in `3rd party code.txt`.
 - The directory `doc` contains scripts for generating source code and developer documentation.
 - The directory `modeling` contains UML and other diagrams.
-- The directory `setup` contains scripts for creating a Windows Installer.
+- The directory `isntaller` contains scripts for creating a Windows installer.
 - The directory `bundled` contains a portable GnuPG distribution (Windows only) and an external solver (all platforms).
 - The directory `build` contains the results of various compilation processes. It is created on first usage. It can contain the following subdirectories:
   - Backend: Contains the libraries forming the Zero Install Backend.
   - Frontend: Contains the executables for the Zero Install Frontend plus all required libraries (including the Backend).
   - Tools: Contains the executables for Zero Install Tools such as the Feed Editor plus all required libraries (including the Backend).
-  - Setup: Contains generated ZIP archives and Setup EXE files.
+  - Installer: Contains the generated installers.
   - Documentation: Contains the generated source code documentation.
 
 `VERSION`, `VERSION_TOOLS` and `VERSION_UPDATER` contain the version numbers used by build scripts.
@@ -24,8 +24,8 @@ Windows
 
 The external solver (required) is not included in the repository. To get it run `bundled/download-solver.ps1`.
 
-`build.cmd` will call build scripts in subdirectories to create a complete Zero Install for Windows release in `build/Frontend/Setup`.
-Note: Please read `setup/readme.txt` aswell for information about required tools.
+`build.cmd` will call build scripts in subdirectories to create a Zero Install for Windows installer in `build/Frontend/Installer`.
+Note: Please read `omstaööer/readme.txt` aswell for information about required tools.
 
 `cleanup.cmd` will delete any temporary files created by the build process or Visual Studio.
 
@@ -39,7 +39,7 @@ Linux
 
 The external solver (required) is not included in the repository. To get it run `bundled/download-solver.sh`.
 
-`build.sh` will perform a partial debug compilation using Mono's xbuild. A setup package will not be built.
+`build.sh` will perform a partial debug compilation using Mono's xbuild. A installer package will not be built.
 
 `cleanup.sh` will delete any temporary files created by the xbuild build process.
 

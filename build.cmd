@@ -18,9 +18,9 @@ if not exist "%~dp0bundled\Solver" (
   cd /d "%~dp0"
 )
 
-::Create archives and installer
+::Create installer
 echo.
-call "%~dp0setup\build.cmd" %*
+call "%~dp0installer\build.cmd" %*
 
 ::Optionally create debug build and documentation
 if "%BUILD_DOC%"=="TRUE" (
