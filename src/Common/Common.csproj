@@ -52,6 +52,7 @@
     <Reference Include="Mono.Posix" Condition=" '$(OS)' != 'Windows_NT' " />
     <Reference Include="Mono.Posix" Condition=" '$(OS)' == 'Windows_NT' ">
       <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
+      <CopyToOutputDirectory>false</CopyToOutputDirectory>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
