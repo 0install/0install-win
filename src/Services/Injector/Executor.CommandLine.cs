@@ -23,7 +23,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using Common.Collections;
 using Common.Dispatch;
 using Common.Utils;
 using ZeroInstall.Services.Properties;

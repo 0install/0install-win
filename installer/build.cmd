@@ -23,7 +23,7 @@ if errorlevel 1 pause
 echo Building per-user installer...
 cd /d "%~dp0"
 "%ProgramFiles_temp%\Inno Setup 5\iscc.exe" /q "/dVersion=%version%" /dPerUser=1 zero-install.iss
-if errorlevel 1 pause]
+if errorlevel 1 pause
 
 
 if "%1"=="+run" "%~dp0..\build\Installer\zero-install.exe" /silent
