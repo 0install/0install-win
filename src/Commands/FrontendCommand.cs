@@ -240,7 +240,7 @@ namespace ZeroInstall.Commands
                 else if (id.StartsWith("file:///")) return FileUtils.UnifySlashes(id.Substring(WindowsUtils.IsWindows ? 8 : 7));
                 else if (id.StartsWith("file:/")) throw new ArgumentException(Resources.FilePrefixAbsoluteUsage);
                 else if (id.StartsWith("file:")) return Path.GetFullPath(FileUtils.UnifySlashes(id.Substring(5)));
-                else if (ModelUtils.IsValidUri(id)) return id;
+                else if (ModelUtils.IsValidUri(id)) return id.GetLeftPartAtFirstOccurrence('#');
                 else
                 { // Assume invalid URIs are...
                     if (!id.EndsWithIgnoreCase(".xml"))
