@@ -132,17 +132,17 @@ namespace ZeroInstall.Commands.WinForms
                 #region Error handling
             catch (OperationCanceledException)
             {
-                _candidates = new SelectionCandidate[0];
+                _candidates = Enumerable.Empty<SelectionCandidate>();
             }
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                _candidates = new SelectionCandidate[0];
+                _candidates = Enumerable.Empty<SelectionCandidate>();
             }
             catch (WebException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                _candidates = new SelectionCandidate[0];
+                _candidates = Enumerable.Empty<SelectionCandidate>();
             }
             #endregion
 
@@ -171,7 +171,7 @@ namespace ZeroInstall.Commands.WinForms
                 #region Error handling
             catch (KeyNotFoundException)
             {
-                return new SelectionCandidate[0];
+                return Enumerable.Empty<SelectionCandidate>();
             }
             #endregion
         }

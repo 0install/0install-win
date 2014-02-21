@@ -65,7 +65,7 @@ namespace ZeroInstall.Capture
         /// <param name="mainExe">The relative path to the main EXE; leave <see langword="null"/> for auto-detection.</param>
         private static IEnumerable<Command> GetCommands(string installationDir, string mainExe)
         {
-            if (installationDir == null) return new Command[0];
+            if (installationDir == null) return Enumerable.Empty<Command>();
             installationDir = Path.GetFullPath(installationDir);
 
             bool isFirstExe = true;

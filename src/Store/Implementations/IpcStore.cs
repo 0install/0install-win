@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Remoting;
 using Common;
 using Common.Tasks;
@@ -43,7 +44,7 @@ namespace ZeroInstall.Store.Implementations
             catch (RemotingException)
             {
                 // Ignore remoting errors in case service is offline
-                return new ManifestDigest[0];
+                return Enumerable.Empty<ManifestDigest>();
             }
             #endregion
         }
@@ -59,7 +60,7 @@ namespace ZeroInstall.Store.Implementations
             catch (RemotingException)
             {
                 // Ignore remoting errors in case service is offline
-                return new string[0];
+                return Enumerable.Empty<string>();
             }
             #endregion
         }
@@ -197,7 +198,7 @@ namespace ZeroInstall.Store.Implementations
             catch (RemotingException)
             {
                 // Ignore remoting errors in case service is offline
-                return new DigestMismatchException[0];
+                return Enumerable.Empty<DigestMismatchException>();
             }
             #endregion
         }

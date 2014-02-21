@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Common.Storage;
 using Common.Tasks;
 using Moq;
@@ -158,7 +159,7 @@ namespace ZeroInstall.Commands
         [Test]
         public void TestAuditPass()
         {
-            Container.GetMock<IStore>().Setup(x => x.Audit(Container.Resolve<IBackendHandler>())).Returns(new DigestMismatchException[0]);
+            Container.GetMock<IStore>().Setup(x => x.Audit(Container.Resolve<IBackendHandler>())).Returns(Enumerable.Empty<DigestMismatchException>());
 
             RunAndAssert(Resources.AuditPass, (int)StoreErrorLevel.OK,
                 "audit");

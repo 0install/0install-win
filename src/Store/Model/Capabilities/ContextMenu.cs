@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Store.Model.Capabilities
@@ -54,7 +55,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         public override IEnumerable<string> ConflictIDs
         {
             // Note: Context menu entries are only created via AccessPoints, the capability itself does nothing
-            get { return new string[0]; }
+            get { return Enumerable.Empty<string>(); }
         }
         #endregion
 

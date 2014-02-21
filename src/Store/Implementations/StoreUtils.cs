@@ -59,7 +59,7 @@ namespace ZeroInstall.Store.Implementations
             catch (UnauthorizedAccessException)
             {
                 // Ignore authorization errors since listing is not a critical task
-                return new ManifestDigest[0];
+                return Enumerable.Empty<ManifestDigest>();
             }
             #endregion
         }
@@ -81,7 +81,7 @@ namespace ZeroInstall.Store.Implementations
             catch (UnauthorizedAccessException)
             {
                 // Ignore authorization errors since listing is not a critical task
-                return new string[0];
+                return Enumerable.Empty<string>();
             }
             #endregion
         }

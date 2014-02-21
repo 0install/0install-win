@@ -212,7 +212,7 @@ namespace ZeroInstall.Store.Service
         /// </summary>
         public override IEnumerable<DigestMismatchException> Audit(ITaskHandler handler)
         {
-            return new DigestMismatchException[0];
+            return Enumerable.Empty<DigestMismatchException>();
         }
 
         /// <summary>

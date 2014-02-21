@@ -76,7 +76,7 @@ namespace ZeroInstall.Store.Icons
         /// <inheritdoc/>
         public IEnumerable<string> ListAll()
         {
-            if (!Directory.Exists(DirectoryPath)) return new string[0];
+            if (!Directory.Exists(DirectoryPath)) return Enumerable.Empty<string>();
 
             // Find all files whose names begin with an URL protocol
             var files = Directory.GetFiles(DirectoryPath, "http*")

@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Common;
 using Common.Cli;
@@ -105,10 +106,10 @@ namespace ZeroInstall.Store.Feeds
             if (feedData == null) throw new ArgumentNullException("feedData");
             #endregion
 
-            if (feedData.Length == 0) return new OpenPgpSignature[0];
+            if (feedData.Length == 0) return Enumerable.Empty<OpenPgpSignature>();
 
             int signatureStartIndex = GetSignatureStartIndex(feedData);
-            if (signatureStartIndex == -1) return new OpenPgpSignature[0];
+            if (signatureStartIndex == -1) return Enumerable.Empty<OpenPgpSignature>();
 
             try
             {

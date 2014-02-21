@@ -93,7 +93,7 @@ namespace ZeroInstall.Store.Feeds
         /// <inheritdoc/>
         public IEnumerable<string> ListAll()
         {
-            if (!Directory.Exists(DirectoryPath)) return new string[0];
+            if (!Directory.Exists(DirectoryPath)) return Enumerable.Empty<string>();
 
             // Find all files whose names begin with an URL protocol
             string[] files = Directory.GetFiles(DirectoryPath, "http*");

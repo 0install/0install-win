@@ -298,8 +298,8 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             var toReAdd = (appEntry.AccessPoints == null)
-                ? new AccessPoint[0]
-                : appEntry.AccessPoints.Entries.ToArray();
+                ? Enumerable.Empty<AccessPoint>()
+                : appEntry.AccessPoints.Entries.ToList();
             AddAccessPointsInternal(appEntry, feed, toReAdd);
 
             WriteAppDir(appEntry);

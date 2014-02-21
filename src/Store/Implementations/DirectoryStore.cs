@@ -217,7 +217,7 @@ namespace ZeroInstall.Store.Implementations
         /// <inheritdoc />
         public IEnumerable<ManifestDigest> ListAll()
         {
-            if (!Directory.Exists(DirectoryPath)) return new ManifestDigest[0];
+            if (!Directory.Exists(DirectoryPath)) return Enumerable.Empty<ManifestDigest>();
 
             var result = new List<ManifestDigest>();
             foreach (string path in FileUtils.GetDirectories(DirectoryPath))
@@ -235,7 +235,7 @@ namespace ZeroInstall.Store.Implementations
         /// <inheritdoc />
         public IEnumerable<string> ListAllTemp()
         {
-            if (!Directory.Exists(DirectoryPath)) return new string[0];
+            if (!Directory.Exists(DirectoryPath)) return Enumerable.Empty<string>();
 
             var result = new List<string>();
             foreach (string path in FileUtils.GetDirectories(DirectoryPath))
