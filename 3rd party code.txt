@@ -28,10 +28,10 @@ MIT license: http://opensource.org/licenses/mit-license
 Applied patches: NDesk.Options.*.patch
 Self-compiled managed DLL: NDesk.Options.dll
 
-ICSharpCode.SharpZipLib 0.86.0
+ICSharpCode.SharpZipLib post-0.86.0-GIT-checkout
 http://www.icsharpcode.net/OpenSource/SharpZipLib/
 GNU GPL with GNU Classpath exception: ICSharpCode.SharpZipLib.license.txt
-Applied patches: ICSharpCode.SharpZipLib.*.patch
+Custom patches: https://github.com/bastianeicher/SharpZipLib
 Self-compiled managed DLL: ICSharpCode.SharpZipLib.dll
 
 ICSharpCode.TextEditor
