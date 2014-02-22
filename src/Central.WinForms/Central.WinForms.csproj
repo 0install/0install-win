@@ -77,6 +77,12 @@
     <Compile Include="IntroDialog.Designer.cs">
       <DependentUpon>IntroDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="MoreAppsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MoreAppsDialog.Designer.cs">
+      <DependentUpon>MoreAppsDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectCommandDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -242,6 +248,12 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MoreAppsDialog.de.resx">
+      <DependentUpon>MoreAppsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MoreAppsDialog.resx">
+      <DependentUpon>MoreAppsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OptionsDialog.de.resx">
       <DependentUpon>OptionsDialog.cs</DependentUpon>

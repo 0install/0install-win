@@ -411,10 +411,10 @@
         private System.Windows.Forms.LinkLabel linkSyncAccount;
         private Common.Controls.UriTextBox textBoxSyncServer;
         private System.Windows.Forms.Label labelServer;
-        private System.Windows.Forms.TabControl tabOptions;
+        internal System.Windows.Forms.TabControl tabOptions;
         private System.Windows.Forms.TabPage tabPageUpdates;
         private System.Windows.Forms.TabPage tabPageStorage;
-        private System.Windows.Forms.TabPage tabPageCatalog;
+        internal System.Windows.Forms.TabPage tabPageCatalog;
         private System.Windows.Forms.TabPage tabPageTrust;
         private System.Windows.Forms.TabPage tabPageSync;
         private System.Windows.Forms.GroupBox groupNetworkUse;

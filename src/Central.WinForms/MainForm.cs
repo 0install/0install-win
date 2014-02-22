@@ -24,7 +24,6 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 using Common;
-using Common.Controls;
 using Common.Info;
 using Common.Storage;
 using Common.Utils;
@@ -183,6 +182,16 @@ namespace ZeroInstall.Central.WinForms
                 AddCustomInterface((string)e.Data.GetData(DataFormats.Text));
         }
 
+        /// <summary>
+        /// Adds a custom interface to <see cref="tileListCatalog"/>.
+        /// </summary>
+        /// <param name="interfaceID">The URI of the interface to be added.</param>
+        private void AddCustomInterface(string interfaceID)
+        {
+            Program.RunCommand(_machineWide, AddApp.Name, interfaceID);
+            tabControlApps.SelectTab(tabPageAppList);
+        }
+
         private void MainForm_DragEnter(object sender, DragEventArgs e)
         {
             // Allow dropping of strings and files
@@ -331,12 +340,11 @@ namespace ZeroInstall.Central.WinForms
             LoadCatalogAsync();
         }
 
-        private void buttonAddOtherApp_Click(object sender, EventArgs e)
+        private void buttonMoreApps_Click(object sender, EventArgs e)
         {
-            string interfaceID = InputBox.Show(this, "Zero Install", Resources.EnterInterfaceUrl);
-            if (string.IsNullOrEmpty(interfaceID)) return;
-
-            AddCustomInterface(interfaceID);
+            using (var dialog = new MoreAppsDialog(_machineWide))
+                dialog.ShowDialog(this);
+            LoadCatalogAsync();
         }
 
         private void buttonOptions_Click(object sender, EventArgs e)
@@ -366,18 +374,6 @@ namespace ZeroInstall.Central.WinForms
         private void buttonIntro_Click(object sender, EventArgs e)
         {
             using (var dialog = new IntroDialog()) dialog.ShowDialog(this);
-        }
-        #endregion
-
-        #region Helpers
-        /// <summary>
-        /// Adds a custom interface to <see cref="tileListCatalog"/>.
-        /// </summary>
-        /// <param name="interfaceID">The URI of the interface to be added.</param>
-        private void AddCustomInterface(string interfaceID)
-        {
-            Program.RunCommand(_machineWide, AddApp.Name, interfaceID);
-            tabControlApps.SelectTab(tabPageAppList);
         }
         #endregion
 

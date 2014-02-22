@@ -43,7 +43,7 @@
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
             this.labelLoadingCatalog = new System.Windows.Forms.Label();
             this.labelLastCatalogError = new System.Windows.Forms.Label();
-            this.buttonAddOtherApp = new System.Windows.Forms.Button();
+            this.buttonMoreApps = new System.Windows.Forms.Button();
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
             this.tileListCatalog = new ZeroInstall.Central.WinForms.AppTileList();
             this.buttonOptions = new Common.Controls.SplitButton();
@@ -152,7 +152,7 @@
             // 
             this.tabPageCatalog.Controls.Add(this.labelLoadingCatalog);
             this.tabPageCatalog.Controls.Add(this.labelLastCatalogError);
-            this.tabPageCatalog.Controls.Add(this.buttonAddOtherApp);
+            this.tabPageCatalog.Controls.Add(this.buttonMoreApps);
             this.tabPageCatalog.Controls.Add(this.buttonRefreshCatalog);
             this.tabPageCatalog.Controls.Add(this.tileListCatalog);
             resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
@@ -171,12 +171,12 @@
             this.labelLastCatalogError.ForeColor = System.Drawing.Color.Red;
             this.labelLastCatalogError.Name = "labelLastCatalogError";
             // 
-            // buttonAddOtherApp
+            // buttonMoreApps
             // 
-            resources.ApplyResources(this.buttonAddOtherApp, "buttonAddOtherApp");
-            this.buttonAddOtherApp.Name = "buttonAddOtherApp";
-            this.buttonAddOtherApp.UseVisualStyleBackColor = true;
-            this.buttonAddOtherApp.Click += new System.EventHandler(this.buttonAddOtherApp_Click);
+            resources.ApplyResources(this.buttonMoreApps, "buttonMoreApps");
+            this.buttonMoreApps.Name = "buttonMoreApps";
+            this.buttonMoreApps.UseVisualStyleBackColor = true;
+            this.buttonMoreApps.Click += new System.EventHandler(this.buttonMoreApps_Click);
             // 
             // buttonRefreshCatalog
             // 
@@ -332,7 +332,7 @@
         private System.Windows.Forms.PictureBox pictureBoxLogo;
         private System.Windows.Forms.Button buttonRefreshCatalog;
         private System.ComponentModel.BackgroundWorker appListWorker;
-        private System.Windows.Forms.Button buttonAddOtherApp;
+        private System.Windows.Forms.Button buttonMoreApps;
         private Common.Controls.SplitButton buttonSync;
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.TableLayoutPanel rootTable;
