@@ -87,17 +87,37 @@ namespace ZeroInstall.Services.Solvers
         /// </summary>
         /// <param name="dependency">The dependency to solve.</param>
         /// <param name="topLevelRequirements">The top-level requirements specifying <see cref="Architecture"/> and custom restrictions.</param>
-        public static Requirements ToRequirements(this Dependency dependency, Requirements topLevelRequirements)
+        public static IEnumerable<Requirements> ToRequirements(this Dependency dependency, Requirements topLevelRequirements)
         {
-            var requirements = new Requirements
+            var executableBindings = dependency.Bindings.OfType<ExecutableInBinding>().ToList();
+
+            if (executableBindings.Count == 0)
             {
-                InterfaceID = dependency.Interface,
-                Command = "",
-                Versions = dependency.EffectiveVersions,
-                Architecture = topLevelRequirements.Architecture
-            };
-            requirements.VersionsFor.AddRange(topLevelRequirements.VersionsFor);
-            return requirements;
+                var requirements = new Requirements
+                {
+                    InterfaceID = dependency.Interface,
+                    Command = "",
+                    Versions = dependency.EffectiveVersions,
+                    Architecture = topLevelRequirements.Architecture
+                };
+                requirements.VersionsFor.AddRange(topLevelRequirements.VersionsFor);
+                yield return requirements;
+            }
+            else
+            {
+                foreach (var binding in executableBindings)
+                {
+                    var requirements = new Requirements
+                    {
+                        InterfaceID = dependency.Interface,
+                        Command = binding.Command ?? Command.NameRun,
+                        Versions = dependency.EffectiveVersions,
+                        Architecture = topLevelRequirements.Architecture
+                    };
+                    requirements.VersionsFor.AddRange(topLevelRequirements.VersionsFor);
+                    yield return requirements;
+                }
+            }
         }
 
         /// <summary>

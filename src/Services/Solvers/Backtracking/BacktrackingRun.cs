@@ -99,13 +99,16 @@ namespace ZeroInstall.Services.Solvers.Backtracking
 
         private bool TryToSolveDependencies(IEnumerable<Dependency> dependencies)
         {
-            var dependencyRequirements = dependencies.Select(dependency => dependency.ToRequirements(TopLevelRequirements));
+            var dependencyRequirements = dependencies.SelectMany(dependency => dependency.ToRequirements(TopLevelRequirements));
             return dependencyRequirements.All(TryToSolve);
         }
 
         private bool TryToSolveCommand(Command command)
         {
             if (command == null) return true;
+
+            if (command.Bindings.OfType<ExecutableInBinding>().Any()) throw new SolverException("<executable-in-*> not supported in <command>");
+
             if (command.Runner != null)
                 if (!TryToSolve(command.Runner.ToRequirements(TopLevelRequirements))) return false;
 
