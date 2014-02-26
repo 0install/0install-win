@@ -37,8 +37,8 @@ namespace ZeroInstall.Services.Solvers
     internal abstract class SolverRun
     {
         #region Depdendencies
+        protected CancellationToken CancellationToken;
         protected readonly Requirements TopLevelRequirements;
-        protected readonly CancellationToken CancellationToken;
         private readonly Config _config;
         private readonly IStore _store;
 
