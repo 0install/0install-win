@@ -52,11 +52,10 @@ namespace ZeroInstall.Services.Solvers.Backtracking
             var allCandidates = GetSortedCandidates(requirements);
             var suitableCandidates = FilterSuitableCandidates(allCandidates, requirements.InterfaceID);
 
-            // Stop if specific implementation already selected elsewhere in tree
-            if (Selections.ContainsImplementation(requirements.InterfaceID))
-                return suitableCandidates.Contains(Selections[requirements.InterfaceID].ID);
-
-            return TryToSelectCandidate(suitableCandidates, requirements, allCandidates);
+            var existingSelection = Selections.GetImplementation(requirements.InterfaceID);
+            return (existingSelection == null)
+                ? TryToSelectCandidate(suitableCandidates, requirements, allCandidates)
+                : TryToUseExistingCandidate(requirements, suitableCandidates, existingSelection);
         }
 
         /// <summary>
@@ -68,11 +67,11 @@ namespace ZeroInstall.Services.Solvers.Backtracking
         {
             return candidates.Where(candidate =>
                 candidate.IsSuitable &&
-                !ConflictsWithExistingRestrictions(interfaceID, candidate) &&
+                !ConflictsWithExistingRestrictions(candidate, interfaceID) &&
                 !ConflictsWithExistingSelections(candidate));
         }
 
-        private bool ConflictsWithExistingRestrictions(string interfaceID, SelectionCandidate candidate)
+        private bool ConflictsWithExistingRestrictions(SelectionCandidate candidate, string interfaceID)
         {
             return _restrictions.Any(restriction =>
                 restriction.Interface == interfaceID && !restriction.EffectiveVersions.Match(candidate.Version));
@@ -81,7 +80,19 @@ namespace ZeroInstall.Services.Solvers.Backtracking
         private bool ConflictsWithExistingSelections(SelectionCandidate candidate)
         {
             return candidate.Implementation.Restrictions.Any(restriction =>
-                Selections.ContainsImplementation(restriction.Interface) && !restriction.EffectiveVersions.Match(Selections[restriction.Interface].Version));
+            {
+                var implemenation = Selections.GetImplementation(restriction.Interface);
+                return implemenation != null && !restriction.EffectiveVersions.Match(implemenation.Version);
+            });
+        }
+
+        private bool TryToUseExistingCandidate(Requirements requirements, IEnumerable<SelectionCandidate> suitableCandidates, ImplementationSelection selection)
+        {
+            if (!suitableCandidates.Contains(selection)) return false;
+
+            if (!selection.ContainsCommand(requirements.Command))
+                selection.AddCommand(requirements.Command, from: GetOriginalImplementation(selection));
+            return true;
         }
 
         private bool TryToSelectCandidate(IEnumerable<SelectionCandidate> candidates, Requirements requirements, IList<SelectionCandidate> allCandidates)

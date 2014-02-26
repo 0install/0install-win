@@ -80,6 +80,14 @@ namespace ZeroInstall.Services.Solvers
 
         /// <summary>Maps feed IDs to <see cref="Feed"/>s. Transparent caching ensures individual feeds do not change during solver run.</summary>
         private readonly TransparentCache<string, Feed> _feeds;
+
+        /// <summary>
+        /// Retrieves the original <see cref="Implementation"/> an <see cref="ImplementationSelection"/> was based ofF.
+        /// </summary>
+        protected Implementation GetOriginalImplementation(ImplementationSelection implemenationSelection)
+        {
+            return _feeds[implemenationSelection.FromFeed ?? implemenationSelection.InterfaceID][implemenationSelection.ID];
+        }
         #endregion
 
         #region Properties

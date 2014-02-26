@@ -17,6 +17,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Common.Collections;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
@@ -73,13 +74,23 @@ namespace ZeroInstall.Services.Solvers
             };
             if (candidate.FeedID != requirements.InterfaceID) selection.FromFeed = candidate.FeedID;
 
-            selection.Dependencies.AddRange(implementation.Dependencies);
-            selection.Bindings.AddRange(implementation.Bindings);
-
-            var command = candidate.Implementation[requirements.Command];
-            if (command != null) selection.Commands.Add(command);
+            selection.Dependencies.AddRange(implementation.Dependencies.CloneElements());
+            selection.Bindings.AddRange(implementation.Bindings.CloneElements());
+            selection.AddCommand(requirements.Command, from: candidate.Implementation);
 
             return selection;
+        }
+
+        /// <summary>
+        /// Adds a <see cref="Command"/> specified in an <see cref="Implementation"/> to a <see cref="ImplementationSelection"/>.
+        /// </summary>
+        /// <param name="selection">The <see cref="ImplementationSelection"/> to add the <see cref="Command"/> to.</param>
+        /// <param name="commandName">The <see cref="Command.Name"/> to look for.</param>
+        /// <param name="from">The <see cref="Implementation"/> to get the <see cref="Command"/> from.</param>
+        public static void AddCommand(this ImplementationSelection selection, string commandName, Implementation from)
+        {
+            var command = from[commandName];
+            if (command != null) selection.Commands.Add(command.Clone());
         }
 
         /// <summary>
@@ -141,9 +152,9 @@ namespace ZeroInstall.Services.Solvers
         /// <summary>
         /// Checks wether a set of selection candidates contains an implementation with a specific ID.
         /// </summary>
-        public static bool Contains(this IEnumerable<SelectionCandidate> candidates, string implementationID)
+        public static bool Contains(this IEnumerable<SelectionCandidate> candidates, ImplementationBase implementation)
         {
-            return candidates.Select(c => c.Implementation.ID).Contains(implementationID);
+            return candidates.Select(x => x.Implementation.ID).Contains(implementation.ID);
         }
     }
 }
