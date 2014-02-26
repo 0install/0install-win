@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Common;
 using Common.Cli;
 using Common.Storage;
@@ -241,5 +242,13 @@ namespace ZeroInstall.Store.Trust
             return null;
         }
         #endregion
+
+        // NOTE: Run only one gpg instance at a time to prevent file system race confitions
+        /// <inheritdoc/>
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        protected override string Execute(string arguments, Action<StreamWriter> inputCallback, CliErrorHandler errorHandler)
+        {
+            return base.Execute(arguments, inputCallback, errorHandler);
+        }
     }
 }

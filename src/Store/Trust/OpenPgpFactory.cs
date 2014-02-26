@@ -22,12 +22,15 @@ namespace ZeroInstall.Store.Trust
     /// </summary>
     public static class OpenPgpFactory
     {
+        /// <summary>Singleton pattern.</summary>
+        private static readonly GnuPG _gnuPG = new GnuPG();
+
         /// <summary>
         /// Creates an <see cref="IOpenPgp"/> instance.
         /// </summary>
         public static IOpenPgp CreateDefault()
         {
-            return new GnuPG();
+            return _gnuPG;
         }
     }
 }

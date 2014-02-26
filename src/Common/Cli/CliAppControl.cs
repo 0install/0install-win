@@ -65,7 +65,7 @@ namespace Common.Cli
         /// <returns>The application's complete output to the stdout-stream.</returns>
         /// <exception cref="IOException">Thrown if the external application could not be launched.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if there was output to stderr and <paramref name="errorHandler"/> was <see langword="null"/>.</exception>
-        protected string Execute(string arguments, Action<StreamWriter> inputCallback, CliErrorHandler errorHandler)
+        protected virtual string Execute(string arguments, Action<StreamWriter> inputCallback, CliErrorHandler errorHandler)
         {
             Process process;
             try
