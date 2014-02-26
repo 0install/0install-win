@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Common.Utils;
@@ -58,16 +59,22 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Element.GetCommand"/> correctly retrieves commands.
+        /// Ensures that <see cref="Element.GetCommand"/> and <see cref="Element.this"/> correctly retrieve commands.
         /// </summary>
         [Test]
         public void TestGetCommand()
         {
             var implementation = CreateTestImplementation();
+
             Assert.AreEqual(implementation.Commands[0], implementation.GetCommand(Command.NameRun));
-            Assert.IsNull(implementation.GetCommand(""));
+            Assert.AreEqual(implementation.Commands[0], implementation[Command.NameRun]);
+
             // ReSharper disable UnusedVariable
-            Assert.Throws<KeyNotFoundException>(() => { var dummy = implementation.GetCommand("invalid"); });
+            Assert.Throws<ArgumentNullException>(() => { var dummy = implementation.GetCommand(""); });
+            Assert.IsNull(implementation[""]);
+
+            Assert.IsNull(implementation.GetCommand("invalid"));
+            Assert.Throws<KeyNotFoundException>(() => { var dummy = implementation["invalid"]; });
             // ReSharper restore UnusedVariable
         }
 
@@ -97,8 +104,8 @@ namespace ZeroInstall.Store.Model
         {
             var implementation = new Implementation {Main = "main", SelfTest = "test"};
             implementation.Normalize("http://0install.de/feeds/test/test1.xml");
-            Assert.AreEqual("main", implementation.GetCommand(Command.NameRun).Path);
-            Assert.AreEqual("test", implementation.GetCommand(Command.NameTest).Path);
+            Assert.AreEqual("main", implementation[Command.NameRun].Path);
+            Assert.AreEqual("test", implementation[Command.NameTest].Path);
         }
 
         /// <summary>

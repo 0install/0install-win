@@ -129,15 +129,19 @@ namespace ZeroInstall.DesktopIntegration
         public void TestContainsEntry()
         {
             var appList = CreateTestAppListWithAPs();
-            Assert.IsTrue(appList.Contains("http://0install.de/feeds/test/test1.xml"));
-            Assert.IsFalse(appList.Contains("http://0install.de/feeds/test/test2.xml"));
+            Assert.IsTrue(appList.ContainsEntry("http://0install.de/feeds/test/test1.xml"));
+            Assert.IsFalse(appList.ContainsEntry("http://0install.de/feeds/test/test2.xml"));
         }
 
         [Test]
         public void TestGetEntry()
         {
             var appList = CreateTestAppListWithAPs();
+
+            Assert.AreEqual(appList.Entries[0], appList.GetEntry("http://0install.de/feeds/test/test1.xml"));
             Assert.AreEqual(appList.Entries[0], appList["http://0install.de/feeds/test/test1.xml"]);
+
+            Assert.IsNull(appList.GetEntry("http://0install.de/feeds/test/test2.xml"));
             // ReSharper disable UnusedVariable
             Assert.Throws<KeyNotFoundException>(() => { var dummy = appList["http://0install.de/feeds/test/test2.xml"]; });
             // ReSharper restore UnusedVariable

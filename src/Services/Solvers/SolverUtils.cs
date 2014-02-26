@@ -76,7 +76,7 @@ namespace ZeroInstall.Services.Solvers
             selection.Dependencies.AddRange(implementation.Dependencies);
             selection.Bindings.AddRange(implementation.Bindings);
 
-            var command = candidate.Implementation.GetCommand(requirements.Command);
+            var command = candidate.Implementation[requirements.Command];
             if (command != null) selection.Commands.Add(command);
 
             return selection;

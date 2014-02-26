@@ -304,33 +304,10 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
-        /// Returns the first <see cref="Implementation"/> with a specific <see cref="ManifestDigest"/>.
-        /// </summary>
-        /// <param name="digest">The <see cref="ManifestDigest"/> to look for.</param>
-        /// <returns>The identified <see cref="Implementation"/> or <see langword="null"/> no matching one was found.</returns>
-        /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
-        public Implementation this[ManifestDigest digest]
-        {
-            get
-            {
-                try
-                {
-                    return Elements.OfType<Implementation>().First(implementation => implementation.ManifestDigest.PartialEquals(digest));
-                }
-                    #region Error handling
-                catch (InvalidOperationException)
-                {
-                    throw new KeyNotFoundException(string.Format("Unable to find implementation '{0}' in feed '{1}'.", digest, Name));
-                }
-                #endregion
-            }
-        }
-
-        /// <summary>
-        /// Returns the first <see cref="EntryPoint"/> referencing a specific <see cref="Command"/>.
+        /// Returns the first <see cref="EntryPoint"/> referencing a specific <see cref="Command"/>. Safe for missing elements.
         /// </summary>
         /// <param name="command">The command name to search for.</param>
-        /// <returns>The identified <see cref="EntryPoint"/> or <see langword="null"/> no matching one was found.</returns>
+        /// <returns>The identified <see cref="EntryPoint"/>; <see langword="null"/> no matching one was found.</returns>
         public EntryPoint GetEntryPoint(string command)
         {
             #region Sanity checks

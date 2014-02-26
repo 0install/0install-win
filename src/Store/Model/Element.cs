@@ -259,7 +259,7 @@ namespace ZeroInstall.Store.Model
         }
         #endregion
 
-        #region Command query
+        #region Query
         /// <summary>
         /// Determines whether <see cref="Commands"/> contains a <see cref="Command"/> with a specific name.
         /// </summary>
@@ -279,27 +279,44 @@ namespace ZeroInstall.Store.Model
         /// Returns the <see cref="Command"/> with a specific name.
         /// </summary>
         /// <param name="name">The <see cref="Command.Name"/> to look for; <see cref="string.Empty"/> for none.</param>
-        /// <returns>The first matching command or <see langword="null"/> if <paramref name="name"/> is <see cref="string.Empty"/>.</returns>
+        /// <returns>The first matching command; <see langword="null"/> if <paramref name="name"/> is <see cref="string.Empty"/>.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if no matching <see cref="Command"/> was found.</exception>
+        /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will not be considered.</remarks>
+        public Command this[string name]
+        {
+            get
+            {
+                #region Sanity checks
+                if (name == null) throw new ArgumentNullException("name");
+                #endregion
+
+                if (name.Length == 0) return null;
+                try
+                {
+                    return Commands.First(command => command != null && command.Name == name);
+                }
+                #region Error handling
+                catch (InvalidOperationException)
+                {
+                    throw new KeyNotFoundException(string.Format(Resources.CommandNotFound, name));
+                }
+                #endregion
+            }
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Command"/> with a specific name. Safe for missing elements.
+        /// </summary>
+        /// <param name="name">The <see cref="Command.Name"/> to look for.</param>
+        /// <returns>The first matching command; <see langword="null"/> if no matching one was found.</returns>
         /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will not be considered.</remarks>
         public Command GetCommand(string name)
         {
             #region Sanity checks
-            if (name == null) throw new ArgumentNullException("name");
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(name);
             #endregion
 
-            if (name.Length == 0) return null;
-
-            try
-            {
-                return Commands.First(command => command != null && command.Name == name);
-            }
-                #region Error handling
-            catch (InvalidOperationException)
-            {
-                throw new KeyNotFoundException(string.Format(Resources.CommandNotFound, name));
-            }
-            #endregion
+            return Commands.FirstOrDefault(command => command != null && command.Name == name);
         }
         #endregion
 

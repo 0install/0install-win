@@ -212,14 +212,14 @@ namespace ZeroInstall.Store.Model
             Assert.AreEqual("de", implementation.Languages.ToString());
             Assert.AreEqual("GPL", implementation.License);
             Assert.AreEqual(Stability.Developer, implementation.Stability);
-            Assert.AreEqual("main1", implementation.GetCommand(Command.NameRun).Path);
+            Assert.AreEqual("main1", implementation[Command.NameRun].Path);
 
             implementation = feed.Elements[1];
             Assert.AreEqual(new Architecture(OS.FreeBSD, Cpu.I586), implementation.Architecture);
             Assert.AreEqual("de", implementation.Languages.ToString());
             Assert.AreEqual("GPL", implementation.License);
             Assert.AreEqual(Stability.Developer, implementation.Stability);
-            Assert.AreEqual("main2", implementation.GetCommand(Command.NameRun).Path);
+            Assert.AreEqual("main2", implementation[Command.NameRun].Path);
         }
 
         /// <summary>
@@ -260,7 +260,7 @@ namespace ZeroInstall.Store.Model
         /// Ensures that contained <see cref="Implementation"/>s are correctly returned by ID.
         /// </summary>
         [Test]
-        public void TestGetImplementationString()
+        public void TestGetImplementation()
         {
             var feed = CreateTestFeed();
 
@@ -268,19 +268,6 @@ namespace ZeroInstall.Store.Model
             // ReSharper disable UnusedVariable
             Assert.Throws<KeyNotFoundException>(() => { var dummy = feed["invalid"]; });
             // ReSharper restore UnusedVariable
-        }
-
-        /// <summary>
-        /// Ensures that contained <see cref="Implementation"/>s are correctly returned by <see cref="ManifestDigest"/>.
-        /// </summary>
-        [Test]
-        public void TestGetImplementationDigest()
-        {
-            var feed = CreateTestFeed();
-
-            Assert.AreEqual(CreateTestImplementation(), feed[new ManifestDigest(sha256: "123")]);
-            // ReSharper disable once UnusedVariable
-            Assert.Throws<KeyNotFoundException>(() => { var dummy = feed[new ManifestDigest(sha256: "456")]; });
         }
 
         /// <summary>

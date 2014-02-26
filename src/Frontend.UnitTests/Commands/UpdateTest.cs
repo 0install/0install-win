@@ -39,8 +39,8 @@ namespace ZeroInstall.Commands
         public override void TestNormal()
         {
             var requirements = RequirementsTest.CreateTestRequirements();
-            var selectionsOld = SelectionsManagerTest.CreateTestSelections();
-            var selectionsNew = SelectionsManagerTest.CreateTestSelections();
+            var selectionsOld = SelectionsTest.CreateTestSelections();
+            var selectionsNew = SelectionsTest.CreateTestSelections();
             selectionsNew.Implementations[1].Version = new ImplementationVersion("2.0");
             selectionsNew.Implementations.Add(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/sub3.xml", ID = "id3", Version = new ImplementationVersion("0.1")});
 
@@ -67,7 +67,7 @@ namespace ZeroInstall.Commands
         [Test(Description = "Ensures local Selections XMLs are rejected.")]
         public override void TestImportSelections()
         {
-            var selections = SelectionsManagerTest.CreateTestSelections();
+            var selections = SelectionsTest.CreateTestSelections();
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 selections.SaveXml(tempFile);

@@ -40,7 +40,7 @@ namespace ZeroInstall.Commands
         public override void TestNormal()
         {
             var requirements = RequirementsTest.CreateTestRequirements();
-            var selections = SelectionsManagerTest.CreateTestSelections();
+            var selections = SelectionsTest.CreateTestSelections();
 
             var testFeed1 = FeedTest.CreateTestFeed();
             testFeed1.Uri = new Uri("http://0install.de/feeds/test/sub1.xml");
@@ -91,7 +91,7 @@ namespace ZeroInstall.Commands
             };
             Container.GetMock<IFeedCache>().Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(testFeed2);
 
-            var selections = SelectionsManagerTest.CreateTestSelections();
+            var selections = SelectionsTest.CreateTestSelections();
 
             // Download uncached implementations
             Container.GetMock<IStore>().Setup(x => x.Contains(It.IsAny<ManifestDigest>())).Returns(false);

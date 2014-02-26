@@ -129,7 +129,7 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             // Prevent double entries
-            if (AppList.Contains(interfaceID)) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, feed.Name));
+            if (AppList.ContainsEntry(interfaceID)) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, feed.Name));
 
             // Get basic metadata and copy of capabilities from feed
             var appEntry = new AppEntry {InterfaceID = interfaceID, Name = feed.Name, Timestamp = DateTime.UtcNow};
@@ -150,7 +150,7 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             // Prevent double entries
-            if (AppList.Contains(petName)) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, feed.Name));
+            if (AppList.ContainsEntry(petName)) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, feed.Name));
 
             // Get basic metadata and copy of capabilities from feed
             var appEntry = new AppEntry {InterfaceID = petName, Requirements = requirements, Name = feed.Name, Timestamp = DateTime.UtcNow};

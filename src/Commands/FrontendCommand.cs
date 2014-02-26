@@ -246,7 +246,7 @@ namespace ZeroInstall.Commands
                     if (!id.EndsWithIgnoreCase(".xml"))
                     {
                         // ... pet names or...
-                        if (AppList.Contains(id)) return id;
+                        if (AppList.ContainsEntry(id)) return id;
 
                         // ... short names...
                         var feed = CatalogManager.GetCached().FindByShortName(id);

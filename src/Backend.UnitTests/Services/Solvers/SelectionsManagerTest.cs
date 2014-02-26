@@ -29,28 +29,10 @@ namespace ZeroInstall.Services.Solvers
     [TestFixture]
     public class SelectionsManagerTest : TestWithContainer<SelectionsManager>
     {
-        #region Helpers
-        /// <summary>
-        /// Creates a <see cref="Selections"/> with two implementations, one using the other as a runner plus a number of bindings.
-        /// </summary>
-        public static Selections CreateTestSelections()
-        {
-            return new Selections
-            {
-                InterfaceID = "http://0install.de/feeds/test/test1.xml", Command = Command.NameRun,
-                Implementations =
-                {
-                    ImplementationSelectionTest.CreateTestImplementation1(),
-                    ImplementationSelectionTest.CreateTestImplementation2()
-                }
-            };
-        }
-        #endregion
-
         [Test]
         public void TestGetUncachedImplementationSelections()
         {
-            var selections = CreateTestSelections();
+            var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.Add(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"});
 
             // Pretend the first implementation isn't cached, the second is and the third isn't

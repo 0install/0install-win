@@ -96,10 +96,21 @@ namespace ZeroInstall.Store.Model.Selection
 
         #region Query
         /// <summary>
+        /// Determines whether an <see cref="ImplementationSelection"/> for a specific interface is listed in the selection.
+        /// </summary>
+        /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
+        /// <returns><see langword="true"/> if an implementation was found; <see langword="false"/> otherwise.</returns>
+        public bool ContainsImplementation(string interfaceID)
+        {
+            return _implementations.Any(implementation => implementation.InterfaceID == interfaceID);
+        }
+
+        /// <summary>
         /// Returns the <see cref="ImplementationSelection"/> for a specific interface.
         /// </summary>
         /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
-        /// <exception cref="KeyNotFoundException">Thrown if no <see cref="ImplementationSelection"/> matching <paramref name="interfaceID"/> was found in <see cref="Implementations"/>.</exception>
+        /// <returns>The first matching implementation.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown if no matching implementation was found.</exception>
         public ImplementationSelection this[string interfaceID]
         {
             get
@@ -122,13 +133,17 @@ namespace ZeroInstall.Store.Model.Selection
         }
 
         /// <summary>
-        /// Determines whether an <see cref="ImplementationSelection"/> for a specific interface is listed in the selection.
+        /// Returns the <see cref="ImplementationSelection"/> for a specific interface. Safe for missing elements.
         /// </summary>
         /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
-        /// <returns><see langword="true"/> if an implementation was found; <see langword="false"/> otherwise.</returns>
-        public bool ContainsImplementation(string interfaceID)
+        /// <returns>The first matching implementation; <see langword="null"/> if no matching one was found.</returns>
+        public ImplementationSelection GetImplementation(string interfaceID)
         {
-            return _implementations.Any(implementation => implementation.InterfaceID == interfaceID);
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            #endregion
+
+            return _implementations.FirstOrDefault(implementation => implementation.InterfaceID == interfaceID);
         }
         #endregion
 

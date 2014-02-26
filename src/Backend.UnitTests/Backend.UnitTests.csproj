@@ -117,6 +117,7 @@
     <Compile Include="Store\Model\RunnerTest.cs" />
     <Compile Include="Store\Model\Selection\ImplementationSelectionTest.cs" />
     <Compile Include="Store\Model\Selection\SelectionCandidateTest.cs" />
+    <Compile Include="Store\Model\Selection\SelectionsTest.cs" />
     <Compile Include="Store\Model\SingleFileTest.cs" />
     <Compile Include="Store\Model\VersionRangeTest.cs" />
     <Compile Include="Store\Model\XmlUnknownTest.cs" />

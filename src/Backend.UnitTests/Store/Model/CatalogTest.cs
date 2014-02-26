@@ -57,14 +57,17 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Catalog.this"/> correctly finds contained <see cref="Feed"/>s.
+        /// Ensures that <see cref="Catalog.GetFeed"/> and <see cref="Catalog.this"/> correctly find contained <see cref="Feed"/>s.
         /// </summary>
         [Test]
         public void TestGetFeed()
         {
             var catalog = CreateTestCatalog();
 
+            Assert.AreEqual(FeedTest.CreateTestFeed(), catalog.GetFeed(new Uri("http://0install.de/feeds/test/test1.xml")));
             Assert.AreEqual(FeedTest.CreateTestFeed(), catalog[new Uri("http://0install.de/feeds/test/test1.xml")]);
+
+            Assert.IsNull(catalog.GetFeed(new Uri("http://invalid")));
             // ReSharper disable UnusedVariable
             Assert.Throws<KeyNotFoundException>(() => { var dummy = catalog[new Uri("http://invalid")]; });
             // ReSharper restore UnusedVariable

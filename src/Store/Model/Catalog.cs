@@ -117,6 +117,20 @@ namespace ZeroInstall.Store.Model
 
         #region Query
         /// <summary>
+        /// Determines whether this catalog contains a <see cref="Feed"/> with a specific URI.
+        /// </summary>
+        /// <param name="uri">The <see cref="Feed.Uri"/> to look for.</param>
+        /// <returns><see langword="true"/> if a matching feed was found; <see langword="false"/> otherwise.</returns>
+        public bool ContainsFeed(Uri uri)
+        {
+            #region Sanity checks
+            if (uri == null) throw new ArgumentNullException("uri");
+            #endregion
+
+            return Feeds.Any(feed => feed.Uri == uri);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Feed"/> with a specific URI.
         /// </summary>
         /// <param name="uri">The <see cref="Feed.Uri"/> to look for.</param>
@@ -141,6 +155,20 @@ namespace ZeroInstall.Store.Model
                 }
                 #endregion
             }
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Feed"/> with a specific URI. Safe for missing elements.
+        /// </summary>
+        /// <param name="uri">The <see cref="Feed.Uri"/> to look for.</param>
+        /// <returns>The identified <see cref="Feed"/>; <see langword="null"/> if no matching entry was found.</returns>
+        public Feed GetFeed(Uri uri)
+        {
+            #region Sanity checks
+            if (uri == null) throw new ArgumentNullException("uri");
+            #endregion
+
+            return Feeds.FirstOrDefault(feed => feed.Uri == uri);
         }
 
         /// <summary>

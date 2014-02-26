@@ -37,7 +37,7 @@ namespace ZeroInstall.Commands
         public virtual void TestNormal()
         {
             var requirements = RequirementsTest.CreateTestRequirements();
-            var selections = SelectionsManagerTest.CreateTestSelections();
+            var selections = SelectionsTest.CreateTestSelections();
 
             Container.GetMock<ISolver>().Setup(x => x.Solve(requirements)).Returns(selections);
             RunAndAssert(selections.ToXmlString(), 0, selections,
@@ -47,7 +47,7 @@ namespace ZeroInstall.Commands
         [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
         public virtual void TestImportSelections()
         {
-            var selections = SelectionsManagerTest.CreateTestSelections();
+            var selections = SelectionsTest.CreateTestSelections();
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 selections.SaveXml(tempFile);

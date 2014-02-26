@@ -76,7 +76,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="interfaceID">The <see cref="AppEntry.InterfaceID"/> to look for.</param>
         /// <returns><see langword="true"/> if a matching entry was found; <see langword="false"/> otherwise.</returns>
-        public bool Contains(string interfaceID)
+        public bool ContainsEntry(string interfaceID)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
@@ -86,10 +86,10 @@ namespace ZeroInstall.DesktopIntegration
         }
 
         /// <summary>
-        /// Tries to find an <see cref="AppEntry"/> for a specific interface ID.
+        /// Gets an <see cref="AppEntry"/> for a specific interface ID.
         /// </summary>
         /// <param name="interfaceID">The <see cref="AppEntry.InterfaceID"/> to look for.</param>
-        /// <returns>The first matching <see cref="AppEntry"/> ; <see langword="null"/> if no match was found.</returns>
+        /// <returns>The first matching <see cref="AppEntry"/>.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if no entry matching the interface ID was found.</exception>
         public AppEntry this[string interfaceID]
         {
@@ -110,6 +110,20 @@ namespace ZeroInstall.DesktopIntegration
                 }
                 #endregion
             }
+        }
+
+        /// <summary>
+        /// Gets an <see cref="AppEntry"/> for a specific interface ID. Safe for missing elements.
+        /// </summary>
+        /// <param name="interfaceID">The <see cref="AppEntry.InterfaceID"/> to look for.</param>
+        /// <returns>The first matching <see cref="AppEntry"/>; <see langword="null"/> if no match was found.</returns>
+        public AppEntry GetEntry(string interfaceID)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            #endregion
+
+            return Entries.FirstOrDefault(entry => ModelUtils.IDEquals(entry.InterfaceID, interfaceID));
         }
         #endregion
 

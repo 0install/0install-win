@@ -23,7 +23,6 @@ using Common.Storage;
 using Common.Utils;
 using Moq;
 using NUnit.Framework;
-using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
@@ -62,19 +61,19 @@ namespace ZeroInstall.Services.Injector
         [Test]
         public void TestExceptionMultipleInvalidBindings()
         {
-            var selections = SelectionsManagerTest.CreateTestSelections();
+            var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations[1].Commands[0].Bindings.Add(new EnvironmentBinding()); // Missing name
             ExpectCommandException(selections);
 
-            selections = SelectionsManagerTest.CreateTestSelections();
+            selections = SelectionsTest.CreateTestSelections();
             selections.Implementations[1].Commands[0].Bindings.Add(new EnvironmentBinding {Name = "test", Insert = "test1", Value = "test2"}); // Conflicting insert and value
             ExpectCommandException(selections);
 
-            selections = SelectionsManagerTest.CreateTestSelections();
+            selections = SelectionsTest.CreateTestSelections();
             selections.Implementations[1].Commands[0].Bindings.Add(new ExecutableInVar()); // Missing name
             ExpectCommandException(selections);
 
-            selections = SelectionsManagerTest.CreateTestSelections();
+            selections = SelectionsTest.CreateTestSelections();
             selections.Implementations[1].Commands[0].Bindings.Add(new ExecutableInPath()); // Missing name
             ExpectCommandException(selections);
         }
@@ -82,7 +81,7 @@ namespace ZeroInstall.Services.Injector
         [Test]
         public void TestExceptionMultipleWorkingDirs()
         {
-            var selections = SelectionsManagerTest.CreateTestSelections();
+            var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations[1].Commands[0].WorkingDir = new WorkingDir();
             ExpectCommandException(selections);
         }
@@ -136,7 +135,7 @@ namespace ZeroInstall.Services.Injector
         [Test]
         public void TestGetStartInfo()
         {
-            var selections = SelectionsManagerTest.CreateTestSelections();
+            var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
             var executor = new Executor(GetMockStore(selections));
@@ -168,7 +167,7 @@ namespace ZeroInstall.Services.Injector
         {
             if (!WindowsUtils.IsWindows) Assert.Ignore("Wrapper command-line parsing relies on a Win32 API and therefore will not work on non-Windows platforms");
 
-            var selections = SelectionsManagerTest.CreateTestSelections();
+            var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
             var executor = new Executor(GetMockStore(selections)) {Wrapper = "wrapper --wrapper"};
@@ -197,7 +196,7 @@ namespace ZeroInstall.Services.Injector
         [Test]
         public void TestGetStartInfoMainRelative()
         {
-            var selections = SelectionsManagerTest.CreateTestSelections();
+            var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
             var executor = new Executor(GetMockStore(selections)) {Main = "main"};
@@ -226,7 +225,7 @@ namespace ZeroInstall.Services.Injector
         [Test]
         public void TestGetStartInfoMainAbsolute()
         {
-            var selections = SelectionsManagerTest.CreateTestSelections();
+            var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
             var executor = new Executor(GetMockStore(selections)) {Main = "/main"};
@@ -255,7 +254,7 @@ namespace ZeroInstall.Services.Injector
         [Test]
         public void TestGetStartInfoPathlessCommand()
         {
-            var selections = SelectionsManagerTest.CreateTestSelections();
+            var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
             selections.Implementations[1].Commands[0].Path = null;
 
@@ -283,7 +282,7 @@ namespace ZeroInstall.Services.Injector
         [Test]
         public void TestGetStartInfoForEachArgs()
         {
-            var selections = SelectionsManagerTest.CreateTestSelections();
+            var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
 
             selections.Implementations[1].Commands[0].Arguments.Add(new ForEachArgs

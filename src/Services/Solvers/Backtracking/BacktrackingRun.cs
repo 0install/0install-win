@@ -89,7 +89,7 @@ namespace ZeroInstall.Services.Solvers.Backtracking
             foreach (var candidate in candidates)
             {
                 AddToSelections(candidate, requirements, allCandidates);
-                if (TryToSolveCommand(candidate.Implementation.GetCommand(requirements.Command)) &&
+                if (TryToSolveCommand(candidate.Implementation[requirements.Command]) &&
                     TryToSolveDependencies(candidate.Implementation.Dependencies))
                     return true;
                 else RemoveFromSelections(candidate);

@@ -267,9 +267,11 @@ namespace ZeroInstall.Central
             try
             {
                 string interfaceID = feed.UriString;
-                var status = _appList.Contains(interfaceID)
-                    ? ((_appList[interfaceID].AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated)
-                    : AppStatus.Candidate;
+                var appEntry = _appList.GetEntry(interfaceID);
+
+                var status = (appEntry == null)
+                    ? AppStatus.Candidate
+                    : ((appEntry.AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated);
                 var tile = _tileListCatalog.QueueNewTile(interfaceID, feed.Name, status, _machineWide);
                 tile.Feed = feed;
             }

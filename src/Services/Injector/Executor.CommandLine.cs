@@ -63,7 +63,7 @@ namespace ZeroInstall.Services.Injector
 
             // Clone the first implementation so the command can replaced without affecting Selections
             var mainImplementation = Selections.MainImplementation.CloneImplementation();
-            var command = mainImplementation.GetCommand(Selections.Command);
+            var command = mainImplementation[Selections.Command];
 
             string mainPath = FileUtils.UnifySlashes(Main);
             command.Path = (mainPath[0] == Path.DirectorySeparatorChar)
@@ -98,7 +98,7 @@ namespace ZeroInstall.Services.Injector
             #endregion
 
             if (string.IsNullOrEmpty(commandName)) throw new CommandException(string.Format(Resources.CommandNotSpecified, implementation.InterfaceID));
-            Command command = implementation.GetCommand(commandName);
+            Command command = implementation[commandName];
 
             // Apply bindings implementations use to find themselves and their dependencies
             ApplyBindings(command, implementation, startInfo);
