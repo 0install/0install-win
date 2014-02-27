@@ -21,6 +21,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using Common.Collections;
 using Common.Tasks;
 using Microsoft.Win32;
 using ZeroInstall.Store.Model;
@@ -98,12 +99,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                 using (var fileAssocsKey = capabilitiesKey.CreateSubKey(RegSubKeyFileAssocs))
                 {
-                    foreach (var fileType in verbCapabilities.OfType<Store.Model.Capabilities.FileType>())
+                    foreach (var fileType in verbCapabilities.OfType<Store.Model.Capabilities.FileType>().Except(x => string.IsNullOrEmpty(x.ID)))
                     {
-                        // ReSharper disable AccessToForEachVariableInClosure
-                        foreach (var extension in fileType.Extensions.Where(extension => !string.IsNullOrEmpty(extension.Value) && !string.IsNullOrEmpty(fileType.ID)))
+                        foreach (var extension in fileType.Extensions.Except(x => string.IsNullOrEmpty(x.Value)))
                             fileAssocsKey.SetValue(extension.Value, FileType.RegKeyPrefix + fileType.ID);
-                        // ReSharper restore AccessToForEachVariableInClosure
                     }
                 }
 
@@ -118,7 +117,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                 using (var startMenuKey = capabilitiesKey.CreateSubKey(RegSubKeyStartMenu))
                 {
-                    foreach (var defaultProgram in verbCapabilities.OfType<Store.Model.Capabilities.DefaultProgram>().Where(defaultProgram => !string.IsNullOrEmpty(defaultProgram.ID) && !string.IsNullOrEmpty(defaultProgram.Service)))
+                    foreach (var defaultProgram in verbCapabilities.OfType<Store.Model.Capabilities.DefaultProgram>().Except(x => string.IsNullOrEmpty(x.ID) || string.IsNullOrEmpty(x.Service)))
                         startMenuKey.SetValue(defaultProgram.Service, defaultProgram.ID);
                 }
             }

@@ -147,7 +147,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             var commands = _feed.EntryPoints
                 .Select(entryPoint => entryPoint.Command)
-                .Concat(Command.NameRun).Distinct()
+                .Append(Command.NameRun).Distinct()
                 .Cast<object>().ToArray();
 
             dataGridStartMenuColumnCommand.Items.AddRange(commands);
@@ -248,7 +248,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void LoadDefaultAccessPoints()
         {
-            foreach (var capabilityList in _appEntry.CapabilityLists.Where(list => list.Architecture.IsCompatible(Architecture.CurrentSystem)))
+            foreach (var capabilityList in _appEntry.CapabilityLists.Where(x => x.Architecture.IsCompatible()))
             {
                 var dispatcher = new PerTypeDispatcher<Store.Model.Capabilities.Capability>(true)
                 {
@@ -328,7 +328,7 @@ namespace ZeroInstall.Commands.WinForms
         private static void CapabilityModelSetAll<T>(BindingList<T> model, bool value)
             where T : CapabilityModel
         {
-            foreach (var element in model.Where(element => !element.Capability.ExplicitOnly))
+            foreach (var element in model.Except(element => element.Capability.ExplicitOnly))
                 element.Use = value;
             model.ResetBindings();
         }

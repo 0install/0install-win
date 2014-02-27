@@ -23,6 +23,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using Common;
+using Common.Collections;
 using Common.Controls;
 using Common.Storage;
 using ZeroInstall.Services.Properties;
@@ -174,7 +175,7 @@ namespace ZeroInstall.Services.Feeds
             if (string.IsNullOrEmpty(path)) return new[] {DefaultSource};
 
             var result = new List<string>();
-            foreach (string line in File.ReadAllLines(path, Encoding.UTF8).Where(line => !line.StartsWith("#") && !string.IsNullOrEmpty(line)))
+            foreach (string line in File.ReadAllLines(path, Encoding.UTF8).Except(string.IsNullOrEmpty).Except(line => line.StartsWith("#")))
             {
                 Uri catalogUrl;
                 result.Add(ModelUtils.TryParseUri(line, out catalogUrl)

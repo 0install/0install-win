@@ -124,7 +124,7 @@ namespace ZeroInstall.DesktopIntegration
             try
             {
                 return _capabilityLists.
-                    Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
+                    Where(capabilityList => capabilityList.Architecture.IsCompatible()).
                     SelectMany(capabilityList => capabilityList.Entries.OfType<T>().Where(specificCapability => specificCapability.ID == id)).
                     First();
             }

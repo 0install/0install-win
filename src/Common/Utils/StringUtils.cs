@@ -28,6 +28,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using Common.Collections;
 
 namespace Common.Utils
 {
@@ -172,7 +173,7 @@ namespace Common.Utils
         // ReSharper disable once ParameterTypeCanBeEnumerable.Global
         public static string StripCharacters(this string value, char[] characters)
         {
-            return new string(value.Where(x => !characters.Contains(x)).ToArray());
+            return new string(value.Except(characters.Contains).ToArray());
         }
         #endregion
 

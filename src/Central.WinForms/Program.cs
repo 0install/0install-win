@@ -146,7 +146,7 @@ namespace ZeroInstall.Central.WinForms
             ProcessUtils.RunAsync(
                 () =>
                 {
-                    Commands.WinForms.Program.Run(machineWide ? args.Concat("--machine").ToArray() : args);
+                    Commands.WinForms.Program.Run(machineWide ? args.Append("--machine").ToArray() : args);
                     if (callback != null) context.Send(state => callback(), null);
                 },
                 "0install-win (" + args.JoinEscapeArguments() + ")");

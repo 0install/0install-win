@@ -70,7 +70,7 @@ namespace Common.Dispatch
             if (element == null) throw new ArgumentNullException("element");
             #endregion
 
-            return _delegates.Select(del => del(element)).WhereNotNull().SelectMany(x => x);
+            return _delegates.Select(del => del(element)).WhereNotNull().Flatten();
         }
 
         #region IEnumerable

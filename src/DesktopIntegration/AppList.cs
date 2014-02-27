@@ -141,7 +141,7 @@ namespace ZeroInstall.DesktopIntegration
                 if (appEntry.AccessPoints == null) continue;
                 foreach (var accessPoint in appEntry.AccessPoints.Entries)
                 {
-                    foreach (string conflictID in accessPoint.GetConflictIDs(appEntry).Where(conflictID => !conflictIDs.ContainsKey(conflictID)))
+                    foreach (string conflictID in accessPoint.GetConflictIDs(appEntry).Except(conflictIDs.ContainsKey))
                         conflictIDs.Add(conflictID, new ConflictData(appEntry, accessPoint));
                 }
             }

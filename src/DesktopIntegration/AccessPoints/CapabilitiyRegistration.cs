@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
-using Common.Collections;
 using Common.Dispatch;
 using Common.Tasks;
 using Common.Utils;
@@ -51,10 +50,8 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            return appEntry.CapabilityLists.
-                Where(capabilityList => capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem)).
-                SelectMany(capabilityList => capabilityList.Entries.SelectMany(capability => capability.ConflictIDs)).
-                Select(conflictID => "capability:" + conflictID);
+            return appEntry.CapabilityLists.Where(x => x.Architecture.IsCompatible())
+                .SelectMany(x => x.Entries.Select(capability => "capability:" + capability.ConflictIDs));
         }
         #endregion
 
@@ -69,7 +66,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             // Register all applicable capabilities
             var target = new InterfaceFeed(appEntry.InterfaceID, feed);
-            foreach (var capabilityList in appEntry.CapabilityLists.Where(AreCapabilitiesApplicable))
+            foreach (var capabilityList in appEntry.CapabilityLists.Where(x => x.Architecture.IsCompatible()))
             {
                 // ReSharper disable AccessToForEachVariableInClosure
                 var dispatcher = new PerTypeDispatcher<Store.Model.Capabilities.Capability>(true);
@@ -103,7 +100,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             // Unregister all applicable capabilities
-            foreach (var capabilityList in appEntry.CapabilityLists.Where(AreCapabilitiesApplicable))
+            foreach (var capabilityList in appEntry.CapabilityLists.Where(x => x.Architecture.IsCompatible()))
             {
                 var dispatcher = new PerTypeDispatcher<Store.Model.Capabilities.Capability>(true);
                 if (WindowsUtils.IsWindows)
@@ -125,11 +122,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                 }
                 dispatcher.Dispatch(capabilityList.Entries);
             }
-        }
-
-        private static bool AreCapabilitiesApplicable(Store.Model.Capabilities.CapabilityList capabilityList)
-        {
-            return capabilityList.Architecture.IsCompatible(Architecture.CurrentSystem);
         }
         #endregion
 

@@ -22,6 +22,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using Common.Collections;
 using Common.Tasks;
 using Common.Utils;
 using Microsoft.Win32;
@@ -120,7 +121,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             using (var classesKey = hive.OpenSubKey(RegKeyClasses, writable: true))
             {
-                foreach (var extension in fileType.Extensions.Where(extension => !string.IsNullOrEmpty(extension.Value)))
+                foreach (var extension in fileType.Extensions.Except(x => string.IsNullOrEmpty(x.Value)))
                 {
                     // Register extensions
                     using (var extensionKey = classesKey.CreateSubKey(extension.Value))
@@ -192,7 +193,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
             using (var classesKey = hive.OpenSubKey(RegKeyClasses, writable: true))
             {
-                foreach (var extension in fileType.Extensions.Where(extension => !string.IsNullOrEmpty(extension.Value)))
+                foreach (var extension in fileType.Extensions.Except(extension => string.IsNullOrEmpty(extension.Value)))
                 {
                     // Unegister MIME types
                     if (!string.IsNullOrEmpty(extension.MimeType))

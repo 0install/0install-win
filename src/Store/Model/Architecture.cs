@@ -280,6 +280,15 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
+        /// Determines whether this implementation architecture (the current instance) can run on the <see cref="CurrentSystem"/> architecture.
+        /// </summary>
+        /// <seealso cref="CurrentSystem"/>
+        public bool IsCompatible()
+        {
+            return IsCompatible(CurrentSystem);
+        }
+
+        /// <summary>
         /// Determines whether an <paramref name="implementation"/> OS is compatible with a <paramref name="system"/> OS.
         /// </summary>
         private static bool AreCompatible(OS implementation, OS system)

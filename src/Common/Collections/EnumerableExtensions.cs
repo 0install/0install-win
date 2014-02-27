@@ -35,19 +35,28 @@ namespace Common.Collections
     {
         #region LINQ
         /// <summary>
-        /// Appends an element to a list.
+        /// Filters a sequence of elements to remove any that match the <paramref name="predicate"/>.
+        /// The opposite of <see cref="Enumerable.Where{TSource}(System.Collections.Generic.IEnumerable{TSource},System.Func{TSource,bool})"/>.
         /// </summary>
-        public static IEnumerable<T> Concat<T>(this IEnumerable<T> enumeration, T element)
+        public static IEnumerable<T> Except<T>(this IEnumerable<T> enumeration, Func<T, bool> predicate)
         {
-            return enumeration.Concat(new[] {element});
+            return enumeration.Where(x => !predicate(x));
+        }
+        
+        /// <summary>
+        /// Flattens a list of lists.
+        /// </summary>
+        public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<T>> enumeration)
+        {
+            return enumeration.SelectMany(x => x);
         }
 
         /// <summary>
-        /// Prepends an element to a list.
+        /// Appends an element to a list.
         /// </summary>
-        public static IEnumerable<T> Concat<T>(this T element, IEnumerable<T> enumeration)
+        public static IEnumerable<T> Append<T>(this IEnumerable<T> enumeration, T element)
         {
-            return new[] {element}.Concat(enumeration);
+            return enumeration.Concat(new[] {element});
         }
 
         /// <summary>
