@@ -84,6 +84,21 @@ namespace ZeroInstall.Store.Implementations
         {
             return false;
         }
+
+        /// <inheritdoc/>
+        public void Flush()
+        {
+            try
+            {
+                GetServiceProxy().Flush();
+            }
+                #region Error handling
+            catch (RemotingException)
+            {
+                // Ignore remoting errors in case service is offline
+            }
+            #endregion
+        }
         #endregion
 
         #region Get path
@@ -199,23 +214,6 @@ namespace ZeroInstall.Store.Implementations
             {
                 // Ignore remoting errors in case service is offline
                 return Enumerable.Empty<DigestMismatchException>();
-            }
-            #endregion
-        }
-        #endregion
-
-        #region Caches
-        /// <inheritdoc/>
-        public void Flush()
-        {
-            try
-            {
-                GetServiceProxy().Flush();
-            }
-                #region Error handling
-            catch (RemotingException)
-            {
-                // Ignore remoting errors in case service is offline
             }
             #endregion
         }

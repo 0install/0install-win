@@ -67,6 +67,11 @@ namespace ZeroInstall.Store.Implementations
         bool Contains(string directory);
 
         /// <summary>
+        /// Clears any in-memory caches.
+        /// </summary>
+        void Flush();
+
+        /// <summary>
         /// Determines the local path of an implementation with a given <see cref="ManifestDigest"/>.
         /// </summary>
         /// <param name="manifestDigest">The digest the implementation to look for.</param>
@@ -148,10 +153,5 @@ namespace ZeroInstall.Store.Implementations
         /// <exception cref="IOException">Thrown if a directory in the store could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
         IEnumerable<DigestMismatchException> Audit(ITaskHandler handler);
-
-        /// <summary>
-        /// Clears any in-memory caches.
-        /// </summary>
-        void Flush();
     }
 }

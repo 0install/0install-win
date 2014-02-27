@@ -40,6 +40,7 @@ namespace ZeroInstall.Store.Implementations
     {
         #region Variables
         private readonly IStore[] _stores;
+        private readonly TransparentCache<ManifestDigest, bool> _containsCache;
         #endregion
 
         #region Constructor
@@ -57,6 +58,7 @@ namespace ZeroInstall.Store.Implementations
             #endregion
 
             _stores = stores.ToArray();
+            _containsCache = new TransparentCache<ManifestDigest, bool>(manifestDigest => _stores.Any(store => store.Contains(manifestDigest)));
         }
         #endregion
 
@@ -82,29 +84,19 @@ namespace ZeroInstall.Store.Implementations
         /// <inheritdoc />
         public bool Contains(ManifestDigest manifestDigest)
         {
-            lock (_containsCache)
-            {
-                bool result;
-                if (_containsCache.TryGetValue(manifestDigest, out result)) return result;
-            }
-
-            // Check if any store contains the implementation
-            if (_stores.Any(store => store.Contains(manifestDigest)))
-            {
-                lock (_containsCache) _containsCache[manifestDigest] = true;
-                return true;
-            }
-
-            // If we reach this, none of the stores contains the implementation
-            lock (_containsCache) _containsCache[manifestDigest] = false;
-            return false;
+            return _containsCache[manifestDigest];
         }
 
         /// <inheritdoc />
         public bool Contains(string directory)
         {
-            // Check if any store contains the implementation
             return _stores.Any(store => store.Contains(directory));
+        }
+
+        /// <inheritdoc />
+        public void Flush()
+        {
+            _containsCache.Clear();
         }
         #endregion
 
@@ -139,7 +131,7 @@ namespace ZeroInstall.Store.Implementations
                     store.AddDirectory(path, manifestDigest, handler);
                     return;
                 }
-                #region Error handling
+                    #region Error handling
                 catch (ImplementationAlreadyInStoreException)
                 {
                     throw; // Do not try any further
@@ -268,17 +260,6 @@ namespace ZeroInstall.Store.Implementations
             #endregion
 
             return _stores.Select(store => store.Audit(handler)).WhereNotNull().Flatten();
-        }
-        #endregion
-
-        #region Caches
-        // TODO: Replace with lock-less multi-threaded dictionary
-        private readonly Dictionary<ManifestDigest, bool> _containsCache = new Dictionary<ManifestDigest, bool>();
-
-        /// <inheritdoc />
-        public void Flush()
-        {
-            lock (_containsCache) _containsCache.Clear();
         }
         #endregion
 

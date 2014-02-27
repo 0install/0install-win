@@ -16,9 +16,9 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Common.Collections;
 using Common.Controls;
 using Common.Tasks;
 using ZeroInstall.Commands.Properties;
@@ -51,6 +51,8 @@ namespace ZeroInstall.Commands.WinForms
         {
             InitializeComponent();
             CreateHandle();
+
+            _trackingControls = new TransparentCache<ManifestDigest, TrackingControl>(CreateTrackingControl);
         }
         #endregion
 
@@ -156,7 +158,18 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Task tracking
         /// <summary>A list of all <see cref="TrackingControl"/>s used by <see cref="TrackTask"/>. Adressable by associated <see cref="Implementation"/> via <see cref="ManifestDigest"/>.</summary>
-        private readonly Dictionary<ManifestDigest, TrackingControl> _trackingControls = new Dictionary<ManifestDigest, TrackingControl>();
+        private readonly TransparentCache<ManifestDigest, TrackingControl> _trackingControls;
+
+        private TrackingControl CreateTrackingControl(ManifestDigest manifestDigest)
+        {
+            var trackingControl = new TrackingControl {Dock = DockStyle.Fill};
+            trackingControl.CreateGraphics(); // Ensure control initialization even in tray icon mode
+
+            int i = _selections.Implementations.FindIndex(x => x.ManifestDigest.PartialEquals(manifestDigest));
+            tableLayout.Controls.Add(trackingControl, 2, i);
+
+            return trackingControl;
+        }
 
         /// <summary>
         /// Registers an <see cref="ITask"/> for a specific implementation for tracking.
@@ -174,27 +187,7 @@ namespace ZeroInstall.Commands.WinForms
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
-            for (int i = 0; i < _selections.Implementations.Count; i++)
-            {
-                // Locate the row for the implementation the task is associated to
-                var implementation = _selections.Implementations[i];
-                if (implementation.ManifestDigest.PartialEquals(tag))
-                {
-                    // Try to find an existing tracking control
-                    TrackingControl trackingControl;
-                    if (!_trackingControls.TryGetValue(implementation.ManifestDigest, out trackingControl))
-                    {
-                        // Create a new tracking control if none exists
-                        trackingControl = new TrackingControl {Dock = DockStyle.Fill};
-                        trackingControl.CreateGraphics(); // Ensure control initialization even in tray icon mode
-                        _trackingControls.Add(implementation.ManifestDigest, trackingControl);
-                        tableLayout.Controls.Add(trackingControl, 2, i);
-                    }
-
-                    // Start tracking the task
-                    trackingControl.Task = task;
-                }
-            }
+            _trackingControls[tag].Task = task;
         }
 
         /// <summary>

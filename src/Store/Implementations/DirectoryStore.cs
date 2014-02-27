@@ -227,7 +227,7 @@ namespace ZeroInstall.Store.Implementations
                     result.Add(new ManifestDigest(Path.GetFileName(path)));
                 }
                 catch (NotSupportedException)
-                { }
+                {}
             }
             return result;
         }
@@ -267,6 +267,12 @@ namespace ZeroInstall.Store.Implementations
         public bool Contains(string directory)
         {
             return Directory.Exists(Path.Combine(DirectoryPath, directory));
+        }
+
+        /// <inheritdoc />
+        public void Flush()
+        {
+            // No internal caching
         }
         #endregion
 
@@ -441,14 +447,6 @@ namespace ZeroInstall.Store.Implementations
                 }
                 if (problem != null) yield return problem;
             }
-        }
-        #endregion
-
-        #region Caches
-        /// <inheritdoc />
-        public void Flush()
-        {
-            // No internal caching
         }
         #endregion
 

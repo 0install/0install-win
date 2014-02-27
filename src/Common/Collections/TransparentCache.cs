@@ -22,13 +22,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace Common.Collections
 {
     /// <summary>
     /// Transparently caches retrieval requests, passed through to a callback on first request.
     /// </summary>
+    /// <remarks>This class is thread-safe.</remarks>
     /// <typeparam name="TKey">The type of keys used to request values.</typeparam>
     /// <typeparam name="TValue">The type of values returned.</typeparam>
     public class TransparentCache<TKey, TValue>
@@ -46,19 +46,44 @@ namespace Common.Collections
             _retriever = retriever;
         }
 
+        private readonly object _lock = new object();
+
         /// <summary>
         /// Retrieves a value from the cache. This method is thread-safe.
         /// </summary>
         public TValue this[TKey key]
         {
-            [MethodImpl(MethodImplOptions.Synchronized)]
             get
             {
-                TValue result;
-                if (!_lookup.TryGetValue(key, out result))
-                    _lookup.Add(key, result = _retriever(key));
-                return result;
+                lock (_lock)
+                {
+                    TValue result;
+                    if (!_lookup.TryGetValue(key, out result))
+                        _lookup.Add(key, result = _retriever(key));
+                    return result;
+                }
             }
+        }
+
+        /// <summary>
+        /// All cached values.
+        /// </summary>
+        public IEnumerable<TValue> Values
+        {
+            get
+            {
+                lock (_lock)
+                    return _lookup.Values;
+            }
+        }
+
+        /// <summary>
+        /// Removes all entries from the cache.
+        /// </summary>
+        public void Clear()
+        {
+            lock (_lock)
+                _lookup.Clear();
         }
     }
 }
