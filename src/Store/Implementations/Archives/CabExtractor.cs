@@ -81,7 +81,8 @@ namespace ZeroInstall.Store.Implementations.Archives
                 _cabEngine.Unpack(_streamContext, _ => true);
 
                 // CABs do not store modification times for diretories but manifests need them to be consistent, so we fix them to the beginning of the Unix epoch
-                new DirectoryInfo(TargetDir).Walk(dir => dir.LastWriteTimeUtc = FileUtils.FromUnixTime(0));
+                foreach (var subDirectory in new DirectoryInfo(TargetDir).GetDirectories())
+                    subDirectory.Walk(dir => dir.LastWriteTimeUtc = FileUtils.FromUnixTime(0));
             }
                 #region Error handling
             catch (CabException ex)
