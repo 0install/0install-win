@@ -62,6 +62,9 @@
     <Reference Include="Microsoft.Deployment.Compression.Cab">
       <HintPath>..\..\lib\Microsoft.Deployment.Compression.Cab.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Deployment.WindowsInstaller">
+      <HintPath>..\..\lib\Microsoft.Deployment.WindowsInstaller.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
@@ -81,6 +84,7 @@
     <Compile Include="Implementations\Archives\CabExtractor.cs" />
     <Compile Include="Implementations\Archives\Extractor.cs" />
     <Compile Include="Implementations\Archives\MicrosoftExtractor.cs" />
+    <Compile Include="Implementations\Archives\MsiExtractor.cs" />
     <Compile Include="Implementations\Archives\RubyGemExtractor.cs" />
     <Compile Include="Implementations\Archives\TarBz2Extractor.cs" />
     <Compile Include="Implementations\Archives\TarExtractor.cs" />

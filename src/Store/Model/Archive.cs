@@ -43,6 +43,7 @@ namespace ZeroInstall.Store.Model
             MimeTypeTarLzma = "application/x-lzma-compressed-tar",
             MimeTypeRubyGem = "application/x-ruby-gem",
             MimeTypeCab = "application/vnd.ms-cab-compressed",
+            MimeTypeMsi = "application/x-msi",
             MimeTypeDeb = "application/x-deb",
             MimeTypeRpm = "application/x-rpm",
             MimeTypeDmg = "application/x-apple-diskimage";
@@ -50,7 +51,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// All known <see cref="MimeType"/> values for archives.
         /// </summary>
-        public static readonly string[] KnownMimeTypes = {MimeTypeZip, MimeTypeTar, MimeTypeTarGzip, MimeTypeTarBzip, MimeTypeTarLzma, MimeTypeRubyGem, MimeTypeCab, MimeTypeDeb, MimeTypeRpm, MimeTypeDmg};
+        public static readonly string[] KnownMimeTypes = {MimeTypeZip, MimeTypeTar, MimeTypeTarGzip, MimeTypeTarBzip, MimeTypeTarLzma, MimeTypeRubyGem, MimeTypeCab, MimeTypeMsi, MimeTypeDeb, MimeTypeRpm, MimeTypeDmg};
 
         /// <summary>
         /// Tries to guess the MIME type of an archive file by looking at its file extension.
@@ -71,6 +72,7 @@ namespace ZeroInstall.Store.Model
             if (fileName.EndsWithIgnoreCase(".tar.lzma")) return MimeTypeTarLzma;
             if (fileName.EndsWithIgnoreCase(".gem")) return MimeTypeRubyGem;
             if (fileName.EndsWithIgnoreCase(".cab")) return MimeTypeCab;
+            if (fileName.EndsWithIgnoreCase(".msi")) return MimeTypeMsi;
             if (fileName.EndsWithIgnoreCase(".deb")) return MimeTypeDeb;
             if (fileName.EndsWithIgnoreCase(".rpm")) return MimeTypeRpm;
             if (fileName.EndsWithIgnoreCase(".dmg")) return MimeTypeDmg;

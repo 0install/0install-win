@@ -101,6 +101,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                     return;
 
                 case Model.Archive.MimeTypeCab:
+                case Model.Archive.MimeTypeMsi:
                     if (!WindowsUtils.IsWindows) throw new NotSupportedException(Resources.CabExtractionOnlyOnWindows);
                     return;
 
@@ -151,6 +152,8 @@ namespace ZeroInstall.Store.Implementations.Archives
                 case Model.Archive.MimeTypeCab:
                     extractor = new CabExtractor(stream, target);
                     break;
+                case Model.Archive.MimeTypeMsi:
+                    throw new NotSupportedException("MSIs can only be accessed as local files, not as streams!");
 
                 default:
                     throw new NotSupportedException(string.Format(Resources.UnsupportedArchiveMimeType, mimeType));
@@ -172,6 +175,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         public static Extractor FromFile(string path, string target, string mimeType = null, long startOffset = 0)
         {
             if (string.IsNullOrEmpty(mimeType)) mimeType = Model.Archive.GuessMimeType(path);
+            if (mimeType == Model.Archive.MimeTypeMsi) return new MsiExtractor(path, target);
 
             Stream stream = File.OpenRead(path);
             if (startOffset != 0) stream = new OffsetStream(stream, startOffset);
@@ -196,7 +200,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         /// <param name="entryName">The path of the archive entry relative to the archive's root.</param>
         /// <returns>The trimmed path or <see langword="null"/> if the <paramref name="entryName"/> doesn't lie within the <see cref="SubDir"/>.</returns>
-        protected string GetSubEntryName(string entryName)
+        protected virtual string GetSubEntryName(string entryName)
         {
             entryName = FileUtils.UnifySlashes(entryName);
 
