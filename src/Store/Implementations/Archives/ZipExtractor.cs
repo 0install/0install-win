@@ -46,11 +46,6 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
         public ZipExtractor(Stream stream, string target) : base(stream, target)
         {
-            #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
-            #endregion
-
             try
             {
                 // Read the central directory
@@ -101,7 +96,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                     else if (centralEntry.IsFile)
                     {
                         if (IsSymlink(centralEntry)) CreateSymlink(entryName, _zip.ReadToString());
-                        else WriteFile(entryName, modTime, _zip, centralEntry.Size, IsExecutable(centralEntry));
+                        else WriteFile(entryName, centralEntry.Size, modTime, _zip, IsExecutable(centralEntry));
                     }
 
                     UnitsProcessed += centralEntry.CompressedSize;

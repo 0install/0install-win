@@ -250,39 +250,54 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// Creates a directory in the filesystem and sets its last write time.
         /// </summary>
         /// <param name="relativePath">A path relative to the archive's root.</param>
-        /// <param name="dateTime">The last write time to set.</param>
-        protected void CreateDirectory(string relativePath, DateTime dateTime)
+        /// <param name="lastWriteTime">The last write time to set.</param>
+        protected void CreateDirectory(string relativePath, DateTime lastWriteTime)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             #endregion
 
-            string directoryPath = CombinePath(relativePath);
+            string fullPath = CombinePath(relativePath);
 
-            Directory.CreateDirectory(directoryPath);
-            _directoryWriteTimes.Add(new KeyValuePair<string, DateTime>(directoryPath, dateTime));
+            Directory.CreateDirectory(fullPath);
+            _directoryWriteTimes.Add(new KeyValuePair<string, DateTime>(fullPath, lastWriteTime));
         }
 
         /// <summary>
         /// Writes a file to the filesystem and sets its last write time.
         /// </summary>
         /// <param name="relativePath">A path relative to the archive's root.</param>
-        /// <param name="dateTime">The last write time to set.</param>
+        /// <param name="fileSize">The length of the zip entries uncompressed data, needed because stream's Length property is always 0.</param>
+        /// <param name="lastWriteTime">The last write time to set.</param>
         /// <param name="stream">The stream containing the file data to be written.</param>
-        /// <param name="length">The length of the zip entries uncompressed data, needed because stream's Length property is always 0.</param>
         /// <param name="executable"><see langword="true"/> if the file's executable bit is set; <see langword="false"/> otherwise.</param>
-        protected void WriteFile(string relativePath, DateTime dateTime, Stream stream, long length, bool executable)
+        protected void WriteFile(string relativePath, long fileSize, DateTime lastWriteTime, Stream stream, bool executable = false)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            string filePath = CombinePath(relativePath);
-            string directoryPath = Path.GetDirectoryName(filePath);
+            using (var fileStream = OpenFileWriteStream(relativePath, fileSize, executable))
+                if (fileSize != 0) StreamToFile(stream, fileStream);
+
+            File.SetLastWriteTimeUtc(CombinePath(relativePath), lastWriteTime);
+        }
+
+        /// <summary>
+        /// Creates a stream for writing an extracted file to the filesystem.
+        /// </summary>
+        /// <param name="relativePath">A path relative to the archive's root.</param>
+        /// <param name="fileSize">The length of the zip entries uncompressed data, needed because stream's Length property is always 0.</param>
+        /// <param name="executable"><see langword="true"/> if the file's executable bit is set; <see langword="false"/> otherwise.</param>
+        /// <returns>A stream for writing the extracted file.</returns>
+        protected FileStream OpenFileWriteStream(string relativePath, long fileSize, bool executable = false)
+        {
+            string fullPath = CombinePath(relativePath);
+            string directoryPath = Path.GetDirectoryName(fullPath);
             if (directoryPath != null && !Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
 
-            bool alreadyExists = File.Exists(filePath);
+            bool alreadyExists = File.Exists(fullPath);
 
             // If a symlink is overwritten by a normal file, remove the symlink flag
             if (alreadyExists)
@@ -291,13 +306,12 @@ namespace ZeroInstall.Store.Implementations.Archives
                 FlagUtils.RemoveExternalFlag(Path.Combine(TargetDir, ".symlink"), flagRelativePath);
             }
 
-            using (var fileStream = File.Create(filePath))
-                if (length != 0) StreamToFile(stream, fileStream);
-
             if (executable) SetExecutableBit(relativePath);
             else if (alreadyExists) RemoveExecutableBit(relativePath); // If an executable file is overwritten by a non-executable file, remove the xbit flag
 
-            File.SetLastWriteTimeUtc(filePath, dateTime);
+            var fileStream = File.Create(fullPath);
+            fileStream.SetLength(fileSize);
+            return fileStream;
         }
 
         /// <summary>
@@ -386,7 +400,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="relativePath">A path relative to the archive's root.</param>
         /// <returns>The combined path as an absolute path.</returns>
         /// <exception cref="IOException">Thrown if <paramref name="relativePath"/> is invalid (e.g. is absolute, points outside the archive's root, contains invalid characters).</exception>
-        private string CombinePath(string relativePath)
+        protected string CombinePath(string relativePath)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");

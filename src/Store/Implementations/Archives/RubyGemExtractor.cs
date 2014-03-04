@@ -28,7 +28,6 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// </summary>
     public class RubyGemExtractor : TarGzExtractor
     {
-        #region Constructor
         /// <summary>
         /// Prepares to extract a Ruby Gem archive.
         /// </summary>
@@ -75,6 +74,5 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
             #endregion
         }
-        #endregion
     }
 }

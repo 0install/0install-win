@@ -42,11 +42,6 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
         public TarExtractor(Stream stream, string target) : base(stream, target)
         {
-            #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
-            #endregion
-
             try
             {
                 _tar = new TarInputStream(stream) {IsStreamOwner = false};
@@ -107,7 +102,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                     if (entry.IsDirectory) CreateDirectory(entryName, entry.TarHeader.ModTime);
                     else if (entry.TarHeader.TypeFlag == TarHeader.LF_LINK) CreateHardlink(entryName, entry.TarHeader.LinkName);
                     else if (entry.TarHeader.TypeFlag == TarHeader.LF_SYMLINK) CreateSymlink(entryName, entry.TarHeader.LinkName);
-                    else WriteFile(entryName, entry.TarHeader.ModTime, _tar, entry.Size, IsExecutable(entry));
+                    else WriteFile(entryName, entry.Size, entry.TarHeader.ModTime, _tar, IsExecutable(entry));
 
                     UnitsProcessed = Stream.Position;
                 }
