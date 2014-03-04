@@ -310,7 +310,6 @@ namespace ZeroInstall.Store.Implementations.Archives
             else if (alreadyExists) RemoveExecutableBit(relativePath); // If an executable file is overwritten by a non-executable file, remove the xbit flag
 
             var fileStream = File.Create(fullPath);
-            fileStream.SetLength(fileSize);
             return fileStream;
         }
 
