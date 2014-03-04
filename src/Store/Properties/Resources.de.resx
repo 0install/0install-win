@@ -129,6 +129,9 @@
   <data name="CommandNotFound" xml:space="preserve">
     <value>Der Command '{0}' konnte nicht gefunden werden.</value>
   </data>
+  <data name="CabExtractionOnlyOnWindows" xml:space="preserve">
+    <value>CAB und MSI entpacken wird nur unter Windows unterstützt.</value>
+  </data>
   <data name="CopyFiles" xml:space="preserve">
     <value>Kopiere Dateien</value>
   </data>

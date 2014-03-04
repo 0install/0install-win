@@ -117,6 +117,10 @@ namespace ZeroInstall.Store.Implementations.Archives
                 case Model.Archive.MimeTypeRubyGem:
                     return;
 
+                case Model.Archive.MimeTypeCab:
+                    if (!WindowsUtils.IsWindows) throw new NotSupportedException(Resources.CabExtractionOnlyOnWindows);
+                    return;
+
                 default:
                     throw new NotSupportedException(string.Format(Resources.UnsupportedArchiveMimeType, mimeType));
             }
@@ -160,6 +164,9 @@ namespace ZeroInstall.Store.Implementations.Archives
                     break;
                 case Model.Archive.MimeTypeRubyGem:
                     extractor = new RubyGemExtractor(stream, target);
+                    break;
+                case Model.Archive.MimeTypeCab:
+                    extractor = new CabExtractor(stream, target);
                     break;
 
                 default:

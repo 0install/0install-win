@@ -89,6 +89,7 @@
     <Compile Include="Services\Fetchers\TestData.cs" />
     <Compile Include="Services\Injector\ExecutorTest.cs" />
     <Compile Include="MockHandler.cs" />
+    <Compile Include="Store\Implementations\Archives\CabExtractorTest.cs" />
     <Compile Include="Store\Model\ArchitectureTest.cs" />
     <Compile Include="Store\Model\ArchiveTest.cs" />
     <Compile Include="Store\Model\Capabilities\CapabilityListTest.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="TestWithContainer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchive.cab" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.gem" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchiveHardlink.tar" />

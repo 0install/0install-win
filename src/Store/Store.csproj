@@ -43,6 +43,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="LinqBridge">
@@ -54,8 +56,12 @@
     <Reference Include="INIFileParser">
       <HintPath>..\..\lib\INIFileParser.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml" />
+    <Reference Include="WixToolset.Dtf.Compression">
+      <HintPath>..\..\lib\WixToolset.Dtf.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="WixToolset.Dtf.Compression.Cab">
+      <HintPath>..\..\lib\WixToolset.Dtf.Compression.Cab.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
@@ -72,6 +78,7 @@
     <Compile Include="Icons\IIconCache.cs" />
     <Compile Include="IHandler.cs" />
     <Compile Include="Implementations\Archives\ArchiveFileInfo.cs" />
+    <Compile Include="Implementations\Archives\CabExtractor.cs" />
     <Compile Include="Implementations\Archives\Extractor.cs" />
     <Compile Include="Implementations\Archives\RubyGemExtractor.cs" />
     <Compile Include="Implementations\Archives\TarBz2Extractor.cs" />
