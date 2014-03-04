@@ -298,6 +298,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (directoryPath != null && !Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
 
             bool alreadyExists = File.Exists(fullPath);
+            var stream = File.Create(fullPath);
 
             // If a symlink is overwritten by a normal file, remove the symlink flag
             if (alreadyExists)
@@ -309,8 +310,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (executable) SetExecutableBit(relativePath);
             else if (alreadyExists) RemoveExecutableBit(relativePath); // If an executable file is overwritten by a non-executable file, remove the xbit flag
 
-            var fileStream = File.Create(fullPath);
-            return fileStream;
+            return stream;
         }
 
         /// <summary>
