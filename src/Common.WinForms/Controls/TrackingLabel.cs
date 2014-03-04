@@ -203,8 +203,8 @@ namespace Common.Controls
             long unitsProcessed = sender.UnitsProcessed;
             long unitsTotal = sender.UnitsTotal;
 
-            // Handle events coming from a non-UI thread, do not block caller
-            BeginInvoke(new Action(() => OnProgressChanged(unitsByte, unitsProcessed, unitsTotal)));
+            // Handle events coming from a non-UI thread, block caller
+            Invoke(new Action(() => OnProgressChanged(unitsByte, unitsProcessed, unitsTotal)));
         }
 
         /// <summary>
