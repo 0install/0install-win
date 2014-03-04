@@ -27,27 +27,32 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementations.Archives
 {
     /// <summary>
-    /// Provides methods for extracting a MS Cabinet archive (optionally as a background task).
+    /// Extracts a MS Cabinet archive.
     /// </summary>
-    public class CabExtractor : Extractor, IUnpackStreamContext
+    public sealed class CabExtractor : Extractor
     {
-        #region Variables
+        #region Stream
+        private readonly StreamContext _streamContext;
         private readonly CabEngine _cabEngine = new CabEngine();
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Prepares to extract a MS Cabinet archive contained in a stream.
         /// </summary>
-        /// <param name="stream">The stream containing the archive data to be extracted. Will not be disposed.</param>
+        /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
-        public CabExtractor(Stream stream, string target)
-            : base(stream, target)
+        internal CabExtractor(Stream stream, string target)
+            : base(target)
         {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            #endregion
+
+            _streamContext = new StreamContext(this, stream);
+
             try
             {
-                UnitsTotal = _cabEngine.GetFileInfo(this, _ => true).Sum(x => x.Length);
+                UnitsTotal = _cabEngine.GetFileInfo(_streamContext, _ => true).Sum(x => x.Length);
             }
                 #region Error handling
             catch (CabException ex)
@@ -57,11 +62,14 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
             #endregion
         }
+
+        /// <inheritdoc/>
+        public override void Dispose()
+        {
+            _streamContext.Dispose();
+        }
         #endregion
 
-        //--------------------//
-
-        #region Extraction
         /// <inheritdoc />
         protected override void RunTask()
         {
@@ -70,7 +78,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             try
             {
                 if (!Directory.Exists(EffectiveTargetDir)) Directory.CreateDirectory(EffectiveTargetDir);
-                _cabEngine.Unpack(this, _ => true);
+                _cabEngine.Unpack(_streamContext, _ => true);
 
                 // CABs do not store modification times for diretories but manifests need them to be consistent, so we fix them to the beginning of the Unix epoch
                 new DirectoryInfo(TargetDir).Walk(dir => dir.LastWriteTimeUtc = FileUtils.FromUnixTime(0));
@@ -93,47 +101,51 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
             #endregion
 
-            Stream.Dispose();
             lock (StateLock) State = TaskState.Complete;
         }
 
-        Stream IUnpackStreamContext.OpenArchiveReadStream(int archiveNumber, string archiveName, CompressionEngine compressionEngine)
+        private class StreamContext : IUnpackStreamContext, IDisposable
         {
-            return new DuplicateStream(Stream);
+            private readonly CabExtractor _extractor;
+            private readonly Stream _fileStream;
+
+            public StreamContext(CabExtractor extractor, Stream fileStream)
+            {
+                _extractor = extractor;
+                _fileStream = fileStream;
+            }
+
+            public Stream OpenArchiveReadStream(int archiveNumber, string archiveName, CompressionEngine compressionEngine)
+            {
+                return new DuplicateStream(_fileStream);
+            }
+
+            public void CloseArchiveReadStream(int archiveNumber, string archiveName, Stream stream)
+            {}
+
+            private long _bytesStaged;
+
+            public Stream OpenFileWriteStream(string path, long fileSize, DateTime lastWriteTime)
+            {
+                string entryName = _extractor.GetSubEntryName(path);
+                if (entryName == null) return null;
+
+                _bytesStaged = fileSize;
+                return _extractor.OpenFileWriteStream(entryName, fileSize);
+            }
+
+            public void CloseFileWriteStream(string path, Stream stream, FileAttributes attributes, DateTime lastWriteTime)
+            {
+                stream.Close();
+                File.SetLastWriteTimeUtc(_extractor.CombinePath(_extractor.GetSubEntryName(path)), lastWriteTime);
+
+                _extractor.UnitsProcessed += _bytesStaged;
+            }
+
+            public void Dispose()
+            {
+                _fileStream.Dispose();
+            }
         }
-
-        void IUnpackStreamContext.CloseArchiveReadStream(int archiveNumber, string archiveName, Stream stream)
-        {}
-
-        private long _bytesStaged;
-
-        Stream IUnpackStreamContext.OpenFileWriteStream(string path, long fileSize, DateTime lastWriteTime)
-        {
-            string entryName = GetSubEntryName(path);
-            if (entryName == null) return null;
-
-            _bytesStaged = fileSize;
-            return OpenFileWriteStream(entryName, fileSize);
-        }
-
-        void IUnpackStreamContext.CloseFileWriteStream(string path, Stream stream, FileAttributes attributes, DateTime lastWriteTime)
-        {
-            stream.Close();
-            File.SetLastWriteTimeUtc(CombinePath(GetSubEntryName(path)), lastWriteTime);
-
-            UnitsProcessed += _bytesStaged;
-        }
-        #endregion
-
-        #region Cancel
-        /// <inheritdoc/>
-        public override void Cancel()
-        {
-            base.Cancel();
-
-            // Make sure any left-over worker threads are terminated
-            Stream.Dispose();
-        }
-        #endregion
     }
 }

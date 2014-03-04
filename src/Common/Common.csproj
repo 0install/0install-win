@@ -136,7 +136,6 @@
     <Compile Include="Storage\XmlStorage.cs" />
     <Compile Include="Streams\CircularBufferStream.cs" />
     <Compile Include="Streams\DisposeWrapperStream.cs" />
-    <Compile Include="Streams\OffsetStream.cs" />
     <Compile Include="Tasks\CancellationToken.cs" />
     <Compile Include="Tasks\CancellationTokenRegistration.cs" />
     <Compile Include="Tasks\CancellationTokenSource.cs" />

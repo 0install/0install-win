@@ -57,8 +57,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestGzCompressed()
         {
-            using (var archive = TestData.GetResource("testArchive.tar.gz"))
-                TestExtract(Model.Archive.MimeTypeTarGzip, archive);
+            TestExtract(Model.Archive.MimeTypeTarGzip, TestData.GetResource("testArchive.tar.gz"));
         }
 
         [Test]
@@ -70,8 +69,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestBz2Compressed()
         {
-            using (var archive = TestData.GetResource("testArchive.tar.bz2"))
-                TestExtract(Model.Archive.MimeTypeTarBzip, archive);
+            TestExtract(Model.Archive.MimeTypeTarBzip, TestData.GetResource("testArchive.tar.bz2"));
         }
 
         [Test]
@@ -109,14 +107,13 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestRubyGem()
         {
-            using (var archive = TestData.GetResource("testArchive.gem"))
-                TestExtract(Model.Archive.MimeTypeRubyGem, archive);
+            TestExtract(Model.Archive.MimeTypeRubyGem, TestData.GetResource("testArchive.gem"));
         }
 
         private void TestExtract(string mimeType, Stream archive)
         {
-            var extractor = Extractor.CreateExtractor(archive, mimeType, _sandbox);
-            extractor.RunSync();
+            using (var extractor = Extractor.FromStream(archive, _sandbox, mimeType))
+                extractor.RunSync();
 
             Assert.IsTrue(File.Exists("subdir1/regular"), "Should extract file 'regular'");
             Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc("subdir1/regular"), "Correct last write time for file 'regular' should be set");
@@ -128,11 +125,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestHardlink()
         {
-            using (var archive = TestData.GetResource("testArchiveHardlink.tar"))
-            {
-                var extractor = Extractor.CreateExtractor(archive, Model.Archive.MimeTypeTar, _sandbox);
+            using (var extractor = Extractor.FromStream(TestData.GetResource("testArchiveHardlink.tar"), _sandbox, Model.Archive.MimeTypeTar))
                 extractor.RunSync();
-            }
 
             Assert.AreEqual("data", File.ReadAllText("file1"));
             Assert.AreEqual("data", File.ReadAllText("file2"));

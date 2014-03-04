@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Implementations.Archives
     [TestFixture]
     public class ExtractorTest
     {
-        [Test(Description = "Ensures Extractor.CreateExtractor() correctly creates a ZipExtractor.")]
+        [Test(Description = "Ensures Extractor.FromStream() correctly creates a ZipExtractor.")]
         public void TestCreateExtractor()
         {
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
@@ -44,11 +44,8 @@ namespace ZeroInstall.Store.Implementations.Archives
                     zipStream.CloseEntry();
                 }
 
-                using (var stream = File.OpenRead(path))
-                {
-                    var extractor = Extractor.CreateExtractor(stream, Model.Archive.MimeTypeZip, tempDir);
+                using (var extractor = Extractor.FromStream(File.OpenRead(path), tempDir, Model.Archive.MimeTypeZip))
                     Assert.IsInstanceOf(typeof(ZipExtractor), extractor);
-                }
             }
         }
 

@@ -21,7 +21,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Common.Dispatch;
 using Common.Storage;
-using Common.Streams;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Store.Implementations.Archives;
@@ -116,9 +115,8 @@ namespace ZeroInstall.Store.Implementations
 
             if (string.IsNullOrEmpty(step.MimeType)) throw new IOException(Resources.UnknownArchiveType);
 
-            using (var stream = new OffsetStream(File.OpenRead(localPath), step.StartOffset))
+            using (var extractor = Extractor.FromFile(localPath, workingDir, step.MimeType))
             {
-                var extractor = Extractor.CreateExtractor(stream, step.MimeType, workingDir);
                 extractor.SubDir = step.Extract;
                 extractor.Destination = FileUtils.UnifySlashes(step.Destination);
                 handler.RunTask(extractor, tag); // Defer task to handler

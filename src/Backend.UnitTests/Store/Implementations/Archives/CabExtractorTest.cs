@@ -33,9 +33,8 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (!WindowsUtils.IsWindows) Assert.Ignore("CAB extraction relies on a Win32 API and therefore will not work on non-Windows platforms");
 
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
-            using (var archive = TestData.GetResource("testArchive.cab"))
+            using (var extractor = Extractor.FromStream(TestData.GetResource("testArchive.cab"), sandbox, Archive.MimeTypeCab))
             {
-                var extractor = Extractor.CreateExtractor(archive, Archive.MimeTypeCab, sandbox);
                 extractor.RunSync();
 
                 string filePath = Path.Combine(sandbox, "file");
@@ -58,9 +57,8 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (!WindowsUtils.IsWindows) Assert.Ignore("CAB extraction relies on a Win32 API and therefore will not work on non-Windows platforms");
 
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
-            using (var archive = TestData.GetResource("testArchive.cab"))
+            using (var extractor = Extractor.FromStream(TestData.GetResource("testArchive.cab"), sandbox, Archive.MimeTypeCab))
             {
-                var extractor = Extractor.CreateExtractor(archive, Archive.MimeTypeCab, sandbox);
                 extractor.SubDir = "folder1";
                 extractor.RunSync();
 

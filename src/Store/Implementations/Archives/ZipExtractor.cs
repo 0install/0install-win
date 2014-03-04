@@ -26,26 +26,30 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementations.Archives
 {
     /// <summary>
-    /// Provides methods for extracting a ZIP archive (optionally as a background task).
+    /// Extracts a ZIP archive.
     /// </summary>
-    public class ZipExtractor : Extractor
+    public sealed class ZipExtractor : Extractor
     {
-        #region Variables
+        #region Stream
         /// <summary>Information about the files in the archive as stored in the central directory.</summary>
         private readonly ZipEntry[] _centralDirectory;
 
-        private readonly ZipInputStream _zip;
-        #endregion
+        private readonly ZipInputStream _zipStream;
 
-        #region Constructor
         /// <summary>
         /// Prepares to extract a ZIP archive contained in a stream.
         /// </summary>
-        /// <param name="stream">The stream containing the archive data to be extracted. Will not be disposed.</param>
+        /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
-        public ZipExtractor(Stream stream, string target) : base(stream, target)
+        internal ZipExtractor(Stream stream, string target) : base(target)
         {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            #endregion
+
+            UnitsTotal = stream.Length;
+
             try
             {
                 // Read the central directory
@@ -57,7 +61,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 }
                 stream.Seek(0, SeekOrigin.Begin);
 
-                _zip = new ZipInputStream(stream) {IsStreamOwner = false};
+                _zipStream = new ZipInputStream(stream);
             }
                 #region Error handling
             catch (ZipException ex)
@@ -67,11 +71,14 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
             #endregion
         }
+
+        /// <inheritdoc/>
+        public override void Dispose()
+        {
+            _zipStream.Dispose();
+        }
         #endregion
 
-        //--------------------//
-
-        #region Extraction
         /// <inheritdoc />
         protected override void RunTask()
         {
@@ -84,7 +91,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 // Read ZIP file sequentially and reference central directory in parallel
                 int i = 0;
                 ZipEntry localEntry;
-                while ((localEntry = _zip.GetNextEntry()) != null)
+                while ((localEntry = _zipStream.GetNextEntry()) != null)
                 {
                     ZipEntry centralEntry = _centralDirectory[i++];
 
@@ -95,8 +102,8 @@ namespace ZeroInstall.Store.Implementations.Archives
                     if (centralEntry.IsDirectory) CreateDirectory(entryName, modTime);
                     else if (centralEntry.IsFile)
                     {
-                        if (IsSymlink(centralEntry)) CreateSymlink(entryName, _zip.ReadToString());
-                        else WriteFile(entryName, centralEntry.Size, modTime, _zip, IsExecutable(centralEntry));
+                        if (IsSymlink(centralEntry)) CreateSymlink(entryName, _zipStream.ReadToString());
+                        else WriteFile(entryName, centralEntry.Size, modTime, _zipStream, IsExecutable(centralEntry));
                     }
 
                     UnitsProcessed += centralEntry.CompressedSize;
@@ -122,7 +129,6 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
             #endregion
 
-            _zip.Dispose();
             lock (StateLock) State = TaskState.Complete;
         }
 
@@ -183,17 +189,5 @@ namespace ZeroInstall.Store.Implementations.Archives
             const int executeFlags = (1 + 8 + 64) << 16; // Octal: 111
             return (entry.ExternalFileAttributes & executeFlags) > 0; // Check if anybody is allowed to execute
         }
-        #endregion
-
-        #region Cancel
-        /// <inheritdoc/>
-        public override void Cancel()
-        {
-            base.Cancel();
-
-            // Make sure any left-over worker threads are terminated
-            _zip.Dispose();
-        }
-        #endregion
     }
 }

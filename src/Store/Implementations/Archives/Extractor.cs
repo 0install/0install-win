@@ -22,14 +22,15 @@ using System.IO;
 using System.Net;
 using Common.Tasks;
 using Common.Utils;
+using WixToolset.Dtf.Compression;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations.Archives
 {
     /// <summary>
-    /// Provides methods for extracting an archive (optionally as a background task).
+    /// Extracts an archive.
     /// </summary>
-    public abstract class Extractor : ThreadTask
+    public abstract class Extractor : ThreadTask, IDisposable
     {
         #region Variables
         /// <summary>
@@ -44,11 +45,6 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         /// <inheritdoc />
         public override bool UnitsByte { get { return true; } }
-
-        /// <summary>
-        /// The backing stream to extract the data from.
-        /// </summary>
-        public Stream Stream { get; private set; }
 
         /// <summary>
         /// The sub-directory in the archive (with Unix-style slashes) to be extracted; <see langword="null"/> to extract entire archive.
@@ -78,19 +74,14 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Prepares to extract an archive contained in a stream.
         /// </summary>
-        /// <param name="stream">The stream containing the archive data.</param>
         /// <param name="target">The path to the directory to extract into.</param>
-        protected Extractor(Stream stream, string target)
+        protected Extractor(string target)
         {
             #region Sanity checks
-            if (stream == null) throw new ArgumentNullException("stream");
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            Stream = stream;
             TargetDir = target;
-
-            UnitsTotal = stream.Length;
         }
         #endregion
 
@@ -127,15 +118,15 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
 
         /// <summary>
-        /// Creates a new <see cref="Extractor"/> for extracting a sub-directory from an archive stream.
+        /// Creates a new <see cref="Extractor"/> for extracting from an archive stream.
         /// </summary>
-        /// <param name="stream">The stream containing the archive data to be extracted. Will not be disposed.</param>
-        /// <param name="mimeType">The MIME type of archive format of the stream.</param>
+        /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
+        /// <param name="mimeType">The MIME type of archive format of the stream.</param>
         /// <returns>The newly created <see cref="Extractor"/>.</returns>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
         /// <exception cref="NotSupportedException">Thrown if the <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
-        public static Extractor CreateExtractor(Stream stream, string mimeType, string target)
+        public static Extractor FromStream(Stream stream, string target, string mimeType)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -174,6 +165,34 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
 
             return extractor;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Extractor"/> for extracting from an archive file.
+        /// </summary>
+        /// <param name="path">The path of the archive file to be extracted.</param>
+        /// <param name="target">The path to the directory to extract into.</param>
+        /// <param name="mimeType">The MIME type of archive format of the stream. Leave <see langword="null"/> to guess based on file name.</param>
+        /// <param name="startOffset"></param>
+        /// <returns>The newly created <see cref="Extractor"/>.</returns>
+        /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
+        /// <exception cref="NotSupportedException">Thrown if the <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
+        public static Extractor FromFile(string path, string target, string mimeType = null, long startOffset = 0)
+        {
+            if (string.IsNullOrEmpty(mimeType)) mimeType = Model.Archive.GuessMimeType(path);
+
+            Stream stream = File.OpenRead(path);
+            if (startOffset != 0) stream = new OffsetStream(stream, startOffset);
+
+            try
+            {
+                return FromStream(stream, target, mimeType);
+            }
+            catch (Exception)
+            {
+                stream.Dispose();
+                throw;
+            }
         }
         #endregion
 
@@ -498,5 +517,10 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
         }
         #endregion
+
+        /// <summary>
+        /// Disposed the underlying <see cref="Stream"/>.
+        /// </summary>
+        public abstract void Dispose();
     }
 }

@@ -22,19 +22,31 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementations.Archives
 {
     /// <summary>
-    /// Provides methods for extracting a LZMA-compressed TAR archive (optionally as a background task).
+    /// Extracts a LZMA-compressed TAR archive.
     /// </summary>
-    public class TarLzmaExtractor : TarExtractor
+    public sealed class TarLzmaExtractor : TarExtractor
     {
+        private readonly Stream _stream;
+
         /// <summary>
         /// Prepares to extract a TAR archive contained in a LZMA-compressed stream.
         /// </summary>
-        /// <param name="stream">The stream containing the archive data to be extracted. Will not be disposed.</param>
+        /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
-        public TarLzmaExtractor(Stream stream, string target)
-            : base(stream, GetDecompressionStream(stream), target)
-        {}
+        internal TarLzmaExtractor(Stream stream, string target)
+            : base(GetDecompressionStream(stream), target)
+        {
+            _stream = stream;
+            UnitsTotal = stream.Length;
+        }
+
+        /// <inheritdoc/>
+        public override void Dispose()
+        {
+            base.Dispose();
+            _stream.Dispose();
+        }
 
         /// <summary>
         /// Adds a LZMA-extraction layer around a stream.
@@ -56,6 +68,20 @@ namespace ZeroInstall.Store.Implementations.Archives
                 throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
             }
             #endregion
+        }
+
+        /// <inheritdoc/>
+        protected override void UpdateProgress()
+        {
+            // Use original stream instead of decompressed stream to track progress
+            UnitsProcessed = _stream.Position;
+        }
+
+        /// <inheritdoc/>
+        public override void Cancel()
+        {
+            base.Dispose(); // Stop worker threads
+            base.Cancel();
         }
     }
 }

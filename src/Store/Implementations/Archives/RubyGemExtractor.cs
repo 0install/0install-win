@@ -24,17 +24,17 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementations.Archives
 {
     /// <summary>
-    /// Provides methods for extracting a Ruby Gem archive (optionally as a background task).
+    /// Extracts a Ruby Gem archive.
     /// </summary>
-    public class RubyGemExtractor : TarGzExtractor
+    public sealed class RubyGemExtractor : TarGzExtractor
     {
         /// <summary>
         /// Prepares to extract a Ruby Gem archive.
         /// </summary>
-        /// <param name="stream">The stream containing the archive data to be extracted. Will not be disposed.</param>
+        /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
-        public RubyGemExtractor(Stream stream, string target)
+        internal RubyGemExtractor(Stream stream, string target)
             : base(GetPartialStream(stream), target)
         {}
 

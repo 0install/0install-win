@@ -72,11 +72,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test(Description = "Tests whether the extractor correctly restores files including their last changed timestamps.")]
         public void TestFileExtract()
         {
-            using (var archive = TestData.GetResource("testArchive.zip"))
-            {
-                var extractor = Extractor.CreateExtractor(archive, Model.Archive.MimeTypeZip, _sandbox);
+            using (var extractor = Extractor.FromStream(TestData.GetResource("testArchive.zip"), _sandbox, Model.Archive.MimeTypeZip))
                 extractor.RunSync();
-            }
 
             Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "subdir1/regular")), "Should extract file 'regular'");
             Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc(Path.Combine(_sandbox, "subdir1/regular")), "Correct last write time for file 'regular' should be set");
@@ -88,8 +85,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void ExtractionIntoFolder()
         {
-            var extractor = Extractor.CreateExtractor(new MemoryStream(_archiveData), Model.Archive.MimeTypeZip, _sandbox);
-            extractor.RunSync();
+            using (var extractor = Extractor.FromStream(new MemoryStream(_archiveData), _sandbox, Model.Archive.MimeTypeZip))
+                extractor.RunSync();
 
             Assert.IsTrue(Directory.Exists(_sandbox));
             var comparer = new CompareHierarchyToExtractedFolder(_sandbox);
@@ -124,9 +121,11 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void ExtractionOfSubDir()
         {
-            var extractor = Extractor.CreateExtractor(new MemoryStream(_archiveData), Model.Archive.MimeTypeZip, _sandbox);
-            extractor.SubDir = "/sub/folder/";
-            extractor.RunSync();
+            using (var extractor = Extractor.FromStream(new MemoryStream(_archiveData), _sandbox, Model.Archive.MimeTypeZip))
+            {
+                extractor.SubDir = "/sub/folder/";
+                extractor.RunSync();
+            }
 
             Assert.IsTrue(Directory.Exists(Path.Combine(_sandbox, "nestedFolder")));
             Assert.AreEqual(PackageBuilder.DefaultDate, Directory.GetLastWriteTimeUtc(Path.Combine(_sandbox, "nestedFolder")));
@@ -138,9 +137,11 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void EnsureSubDirDoesNotTouchFileNames()
         {
-            var extractor = Extractor.CreateExtractor(new MemoryStream(_archiveData), Model.Archive.MimeTypeZip, _sandbox);
-            extractor.SubDir = "/sub/folder/nested";
-            extractor.RunSync();
+            using (var extractor = Extractor.FromStream(new MemoryStream(_archiveData), _sandbox, Model.Archive.MimeTypeZip))
+            {
+                extractor.SubDir = "/sub/folder/nested";
+                extractor.RunSync();
+            }
 
             Assert.IsFalse(Directory.Exists(Path.Combine(_sandbox, "Folder")), "Should not apply subdir matching to part of filename");
             Assert.IsFalse(File.Exists(Path.Combine(_sandbox, "File")), "Should not apply subdir matching to part of filename");
@@ -151,8 +152,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             File.WriteAllText(Path.Combine(_sandbox, "file1"), @"Wrong content");
             File.WriteAllText(Path.Combine(_sandbox, "file0"), @"This file should not be touched");
-            var extractor = Extractor.CreateExtractor(new MemoryStream(_archiveData), Model.Archive.MimeTypeZip, _sandbox);
-            extractor.RunSync();
+
+            using (var extractor = Extractor.FromStream(new MemoryStream(_archiveData), _sandbox, Model.Archive.MimeTypeZip))
+                extractor.RunSync();
 
             Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "file0")), "Extractor cleaned directory.");
             string file0Content = File.ReadAllText(Path.Combine(_sandbox, "file0"));

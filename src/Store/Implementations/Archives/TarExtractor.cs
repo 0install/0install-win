@@ -25,53 +25,31 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementations.Archives
 {
     /// <summary>
-    /// Provides methods for extracting a TAR archive (optionally as a background task).
+    /// Extracts a TAR archive.
     /// </summary>
     public class TarExtractor : Extractor
     {
-        #region Variables
-        private readonly TarInputStream _tar;
-        #endregion
+        #region Stream
+        private readonly TarInputStream _tarStream;
 
-        #region Constructor
         /// <summary>
         /// Prepares to extract a TAR archive contained in a stream.
         /// </summary>
-        /// <param name="stream">The stream containing the archive data to be extracted. Will not be disposed.</param>
+        /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
-        public TarExtractor(Stream stream, string target) : base(stream, target)
-        {
-            try
-            {
-                _tar = new TarInputStream(stream) {IsStreamOwner = false};
-            }
-            catch (SharpZipBaseException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
-            }
-        }
-
-        /// <summary>
-        /// Prepares to extract a TAR archive contained in a compressed stream.
-        /// </summary>
-        /// <param name="stream">The compressed stream. Only used to track progress. Will not be disposed.</param>
-        /// <param name="decompressionStream">A non-seekable decompressed view of <paramref name="stream"/>. Will be disposed.</param>
-        /// <param name="target">The path to the directory to extract into.</param>
-        /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
-        protected TarExtractor(Stream stream, Stream decompressionStream, string target)
-            : base(stream, target)
+        internal TarExtractor(Stream stream, string target)
+            : base(target)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
-            if (decompressionStream == null) throw new ArgumentNullException("decompressionStream");
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
+
+            UnitsTotal = stream.Length;
 
             try
             {
-                _tar = new TarInputStream(decompressionStream) {IsStreamOwner = true};
+                _tarStream = new TarInputStream(stream);
             }
             catch (SharpZipBaseException ex)
             {
@@ -79,11 +57,14 @@ namespace ZeroInstall.Store.Implementations.Archives
                 throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
             }
         }
+
+        /// <inheritdoc/>
+        public override void Dispose()
+        {
+            _tarStream.Dispose();
+        }
         #endregion
 
-        //--------------------//
-
-        #region Extraction
         /// <inheritdoc />
         protected override void RunTask()
         {
@@ -94,7 +75,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 if (!Directory.Exists(EffectiveTargetDir)) Directory.CreateDirectory(EffectiveTargetDir);
 
                 TarEntry entry;
-                while ((entry = _tar.GetNextEntry()) != null)
+                while ((entry = _tarStream.GetNextEntry()) != null)
                 {
                     string entryName = GetSubEntryName(entry.Name);
                     if (string.IsNullOrEmpty(entryName)) continue;
@@ -102,9 +83,9 @@ namespace ZeroInstall.Store.Implementations.Archives
                     if (entry.IsDirectory) CreateDirectory(entryName, entry.TarHeader.ModTime);
                     else if (entry.TarHeader.TypeFlag == TarHeader.LF_LINK) CreateHardlink(entryName, entry.TarHeader.LinkName);
                     else if (entry.TarHeader.TypeFlag == TarHeader.LF_SYMLINK) CreateSymlink(entryName, entry.TarHeader.LinkName);
-                    else WriteFile(entryName, entry.Size, entry.TarHeader.ModTime, _tar, IsExecutable(entry));
+                    else WriteFile(entryName, entry.Size, entry.TarHeader.ModTime, _tarStream, IsExecutable(entry));
 
-                    UnitsProcessed = Stream.Position;
+                    UpdateProgress();
                 }
 
                 SetDirectoryWriteTimes();
@@ -127,8 +108,15 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
             #endregion
 
-            _tar.Dispose();
             lock (StateLock) State = TaskState.Complete;
+        }
+
+        /// <summary>
+        /// Updates <see cref="ThreadTask.UnitsProcessed"/> to reflect the number of bytes extracted so far.
+        /// </summary>
+        protected virtual void UpdateProgress()
+        {
+            UnitsProcessed = _tarStream.Position;
         }
 
         /// <summary>
@@ -149,17 +137,5 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             ((TarInputStream)stream).CopyEntryContents(fileStream);
         }
-        #endregion
-
-        #region Cancel
-        /// <inheritdoc/>
-        public override void Cancel()
-        {
-            base.Cancel();
-
-            // Make sure any left-over worker threads are terminated
-            _tar.Dispose();
-        }
-        #endregion
     }
 }

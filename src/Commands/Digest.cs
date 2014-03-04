@@ -23,7 +23,6 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
-using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -108,9 +107,8 @@ namespace ZeroInstall.Commands
             {
                 using (var tempDir = new TemporaryDirectory("0install"))
                 {
-                    using (var stream = File.OpenRead(path))
+                    using (var extractor = Extractor.FromFile(path, tempDir))
                     {
-                        var extractor = Extractor.CreateExtractor(stream, Archive.GuessMimeType(path), tempDir);
                         extractor.SubDir = subdir;
                         Handler.RunTask(extractor);
                     }
