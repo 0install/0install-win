@@ -204,6 +204,8 @@ namespace Common.Tasks
             CancelRequest.Set();
             if (!Thread.IsAlive) return;
             Thread.Join();
+
+            lock (StateLock) State = TaskState.Ready;
         }
         #endregion
 

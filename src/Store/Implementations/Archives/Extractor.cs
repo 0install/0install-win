@@ -202,6 +202,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <inheritdoc/>
         public override void RunSync(CancellationToken cancellationToken = default(CancellationToken))
         {
+            // NOTE: Run on own thread even though it says synchronous, so we can cancel long running IO by killing the thread
             using (cancellationToken.Register(Cancel))
             {
                 cancellationToken.ThrowIfCancellationRequested();
@@ -215,15 +216,12 @@ namespace ZeroInstall.Store.Implementations.Archives
                     return;
 
                 case TaskState.WebError:
-                    State = TaskState.Ready;
                     throw new WebException(ErrorMessage);
 
                 case TaskState.IOError:
-                    State = TaskState.Ready;
                     throw new IOException(ErrorMessage);
 
                 default:
-                    State = TaskState.Ready;
                     throw new OperationCanceledException();
             }
         }
@@ -238,6 +236,8 @@ namespace ZeroInstall.Store.Implementations.Archives
                 Thread.Abort();
                 Thread.Join();
             }
+
+            lock (StateLock) State = TaskState.Ready;
         }
         #endregion
 

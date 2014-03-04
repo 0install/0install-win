@@ -36,12 +36,9 @@ namespace Common.Controls
     /// </summary>
     public sealed partial class TrackingDialog : Form
     {
-        #region Variables
-        /// <summary>Indicates that the task has been canceled and that the window may be closed.</summary>
-        private readonly ManualResetEvent _allowWindowClose = new ManualResetEvent(false);
-        #endregion
+        private readonly ITask _task;
+        private bool _cancellationStarted;
 
-        #region Constructor
         /// <summary>
         /// Creates a new progress-tracking dialog.
         /// </summary>
@@ -57,6 +54,8 @@ namespace Common.Controls
             buttonCancel.Text = Resources.Cancel;
             buttonCancel.Enabled = task.CanCancel;
 
+            _task = task;
+
             Icon = icon;
             Text = task.Name;
             CreateHandle();
@@ -69,27 +68,24 @@ namespace Common.Controls
             // Note: Must perform task start on a separate thread because it might send messages back to the GUI thread (which therefore must not be blocked)
             new Thread(task.Start).Start();
 
-            bool cancellationStarted = false;
-            FormClosing += delegate(object sender, FormClosingEventArgs e)
+            FormClosing += OnFormClosing;
+        }
+
+        private void OnFormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Only close the window if the task has been completed or canceled
+            if (_task.State == TaskState.Ready || _task.State >= TaskState.Complete) return;
+
+            if (_task.CanCancel || !_cancellationStarted)
             {
-                // Only close the window if the task has been completed or canceled
-                if (task.State >= TaskState.Complete || _allowWindowClose.WaitOne(0, exitContext: false)) return;
+                _cancellationStarted = true; // Only start cancellation once
+                buttonCancel.Enabled = false; // Don't tempt user to press Cancel again
 
-                if (task.CanCancel || !cancellationStarted)
-                {
-                    cancellationStarted = true; // Only start cancellation once
-                    buttonCancel.Enabled = false; // Don't tempt user to press Cancel again
+                // Note: Must perform cancellation on a separate thread because it might send messages back to the GUI thread (which therefore must not be blocked)
+                new Thread(_task.Cancel).Start();
+            }
 
-                    // Note: Must perform cancellation on a separate thread because it might send messages back to the GUI thread (which therefore must not be blocked)
-                    new Thread(() =>
-                    {
-                        _allowWindowClose.Set(); // Allow the window to be closed now
-                        task.Cancel();
-                    }).Start();
-                }
-
-                e.Cancel = true; // Window cannot be closed yet
-            };
+            e.Cancel = true; // Window cannot be closed yet
         }
 
         // Must be public for IPC
@@ -103,9 +99,7 @@ namespace Common.Controls
             // Close window when the task has been completed or cancelled (and thus become ready again)
             if (sender.State >= TaskState.Complete || sender.State == TaskState.Ready) Invoke(new Action(Close));
         }
-        #endregion
 
-        #region Static access
         /// <summary>
         /// Runs the <paramref name="task"/>, displays the progress and returns after the task completes. Equivalent to calling <see cref="ITask.RunSync"/>.
         /// </summary>
@@ -142,6 +136,5 @@ namespace Common.Controls
                     throw new OperationCanceledException();
             }
         }
-        #endregion
     }
 }
