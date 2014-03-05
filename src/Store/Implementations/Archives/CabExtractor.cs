@@ -93,16 +93,6 @@ namespace ZeroInstall.Store.Implementations.Archives
                 // Wrap exception since only certain exception types are allowed
                 throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
             }
-            catch (InvalidDataException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
-            }
             #endregion
 
             lock (StateLock) State = TaskState.Complete;
@@ -111,17 +101,17 @@ namespace ZeroInstall.Store.Implementations.Archives
         private class StreamContext : IUnpackStreamContext, IDisposable
         {
             private readonly CabExtractor _extractor;
-            private readonly Stream _fileStream;
+            private readonly Stream _cabStream;
 
-            public StreamContext(CabExtractor extractor, Stream fileStream)
+            public StreamContext(CabExtractor extractor, Stream cabStream)
             {
                 _extractor = extractor;
-                _fileStream = fileStream;
+                _cabStream = cabStream;
             }
 
             public Stream OpenArchiveReadStream(int archiveNumber, string archiveName, CompressionEngine compressionEngine)
             {
-                return new DuplicateStream(_fileStream);
+                return new DuplicateStream(_cabStream);
             }
 
             public void CloseArchiveReadStream(int archiveNumber, string archiveName, Stream stream)
@@ -134,6 +124,9 @@ namespace ZeroInstall.Store.Implementations.Archives
                 #region Sanity checks
                 if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
                 #endregion
+
+                var token = _extractor.CancellationToken;
+                token.ThrowIfCancellationRequested();
 
                 string entryName = _extractor.GetSubEntryName(path);
                 if (entryName == null) return null;
@@ -157,7 +150,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             public void Dispose()
             {
-                _fileStream.Dispose();
+                _cabStream.Dispose();
             }
         }
     }

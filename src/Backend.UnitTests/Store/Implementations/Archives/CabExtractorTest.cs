@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc(filePath), "Correct last write time should be set");
                 Assert.AreEqual("def", File.ReadAllText(filePath));
 
-                Assert.AreEqual(FileUtils.FromUnixTime(0), Directory.GetLastWriteTimeUtc(Path.Combine(sandbox,"folder1")), "Fixed last write time should be set on directories");
+                Assert.AreEqual(FileUtils.FromUnixTime(0), Directory.GetLastWriteTimeUtc(Path.Combine(sandbox, "folder1")), "Fixed last write time should be set on directories");
             }
         }
 
@@ -67,6 +67,17 @@ namespace ZeroInstall.Store.Implementations.Archives
                 Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc(filePath), "Correct last write time should be set");
                 Assert.AreEqual("def", File.ReadAllText(filePath));
             }
+        }
+
+        private static readonly byte[] _garbageData = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+
+        [Test]
+        public void TestExtractInvalidData()
+        {
+            if (!WindowsUtils.IsWindows) Assert.Ignore("CAB extraction relies on a Win32 API and therefore will not work on non-Windows platforms");
+
+            using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
+                Assert.Throws<IOException>(() => Extractor.FromStream(new MemoryStream(_garbageData), sandbox, Archive.MimeTypeCab));
         }
     }
 }
