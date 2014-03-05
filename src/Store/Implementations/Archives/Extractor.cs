@@ -21,7 +21,7 @@ using System.ComponentModel;
 using System.IO;
 using Common.Tasks;
 using Common.Utils;
-using WixToolset.Dtf.Compression;
+using Microsoft.Deployment.Compression;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations.Archives

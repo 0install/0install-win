@@ -70,11 +70,11 @@ MIT license: http://opensource.org/licenses/mit-license
 Source unmodified
 Pre-compiled managed DLL: Microsoft.Win32.TaskScheduler.dll
 
-WiX Toolset 4.0
+WiX Toolset 3.8
 http://wixtoolset.org/
 Microsoft Reciprocal License: http://opensource.org/licenses/MS-RL
 Source unmodified
-Pre-compiled managed DLLs: WixToolset.Dtf.*.dll
+Pre-compiled managed DLLs: Microsoft.Deployment.*.dll
 
 EasyHook 2.6
 http://easyhook.codeplex.com/

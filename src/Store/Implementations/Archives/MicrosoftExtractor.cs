@@ -17,8 +17,8 @@
 
 using System;
 using System.IO;
-using WixToolset.Dtf.Compression;
-using WixToolset.Dtf.Compression.Cab;
+using Microsoft.Deployment.Compression;
+using Microsoft.Deployment.Compression.Cab;
 
 namespace ZeroInstall.Store.Implementations.Archives
 {

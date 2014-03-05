@@ -56,11 +56,11 @@
     <Reference Include="INIFileParser">
       <HintPath>..\..\lib\INIFileParser.dll</HintPath>
     </Reference>
-    <Reference Include="WixToolset.Dtf.Compression">
-      <HintPath>..\..\lib\WixToolset.Dtf.Compression.dll</HintPath>
+    <Reference Include="Microsoft.Deployment.Compression">
+      <HintPath>..\..\lib\Microsoft.Deployment.Compression.dll</HintPath>
     </Reference>
-    <Reference Include="WixToolset.Dtf.Compression.Cab">
-      <HintPath>..\..\lib\WixToolset.Dtf.Compression.Cab.dll</HintPath>
+    <Reference Include="Microsoft.Deployment.Compression.Cab">
+      <HintPath>..\..\lib\Microsoft.Deployment.Compression.Cab.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
