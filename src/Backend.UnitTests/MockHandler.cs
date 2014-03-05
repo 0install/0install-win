@@ -22,7 +22,7 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall
 {
     /// <summary>
-    /// A minimalistic <see cref="IBackendHandler"/> that allows you to pre-record answers and retrieve output.
+    /// A minimalistic <see cref="ICommandHandler"/> that allows you to pre-record answers and retrieve output.
     /// </summary>
     public class MockHandler : SilentHandler
     {

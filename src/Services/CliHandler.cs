@@ -37,7 +37,7 @@ namespace ZeroInstall.Services
     /// Provides hooks for specializition in derived implementations.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Diamond inheritance structure leads to false positive.")]
-    public class CliHandler : CliTaskHandler, IBackendHandler
+    public class CliHandler : CliTaskHandler, ICommandHandler
     {
         /// <inheritdoc />
         public bool Batch { get; set; }

@@ -49,7 +49,7 @@ namespace ZeroInstall.Commands
         public override string ActionTitle { get { return Resources.ActionRepairApps; } }
 
         /// <inheritdoc/>
-        public RepairApps(IBackendHandler handler) : base(handler)
+        public RepairApps(ICommandHandler handler) : base(handler)
         {}
         #endregion
 

@@ -51,8 +51,8 @@ namespace ZeroInstall
             Container = new AutoMockContainer(MockRepository);
 
             MockHandler = new MockHandler();
-            Container.Register<IBackendHandler>(MockHandler);
-            Container.Register<IHandler>(MockHandler);
+            Container.Register<ICommandHandler>(MockHandler);
+            Container.Register<IInteractionHandler>(MockHandler);
             Container.Register<ITaskHandler>(MockHandler);
 
             Container.Register(Config = new Config());

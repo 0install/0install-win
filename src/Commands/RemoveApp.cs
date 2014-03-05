@@ -50,7 +50,7 @@ namespace ZeroInstall.Commands
         public override int GuiDelay { get { return 1000; } }
 
         /// <inheritdoc/>
-        public RemoveApp(IBackendHandler handler) : base(handler)
+        public RemoveApp(ICommandHandler handler) : base(handler)
         {}
         #endregion
 

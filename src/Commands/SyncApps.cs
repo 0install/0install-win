@@ -47,7 +47,7 @@ namespace ZeroInstall.Commands
         public override string ActionTitle { get { return Resources.ActionSync; } }
 
         /// <inheritdoc/>
-        public SyncApps(IBackendHandler handler) : base(handler)
+        public SyncApps(ICommandHandler handler) : base(handler)
         {
             Options.Add("reset=", () => Resources.OptionSyncReset, (SyncResetMode mode) => _syncResetMode = mode);
         }

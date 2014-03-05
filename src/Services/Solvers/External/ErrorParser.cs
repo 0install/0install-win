@@ -43,7 +43,7 @@ namespace ZeroInstall.Services.Solvers.External
         #endregion
 
         #region Variables
-        private readonly IHandler _handler;
+        private readonly IInteractionHandler _handler;
 
         private StringBuilder _cache;
         private ErrorMode _currentErrorMode;
@@ -54,7 +54,7 @@ namespace ZeroInstall.Services.Solvers.External
         /// Creates a new error parser.
         /// </summary>
         /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
-        public ErrorParser(IHandler handler)
+        public ErrorParser(IInteractionHandler handler)
         {
             _handler = handler;
         }

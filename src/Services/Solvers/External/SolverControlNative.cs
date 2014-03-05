@@ -28,9 +28,9 @@ namespace ZeroInstall.Services.Solvers.External
     /// </summary>
     internal sealed class SolverControlNative : CliAppControl, ISolverControl
     {
-        private readonly IHandler _handler;
+        private readonly IInteractionHandler _handler;
 
-        public SolverControlNative(IHandler handler)
+        public SolverControlNative(IInteractionHandler handler)
         {
             _handler = handler;
         }

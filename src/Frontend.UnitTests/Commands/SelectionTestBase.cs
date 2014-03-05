@@ -67,9 +67,9 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Verifies that calling <see cref="FrontendCommand.Parse"/> and <see cref="FrontendCommand.Execute"/> causes a specific reuslt.
         /// </summary>
-        /// <param name="expectedOutput">The expected string for a <see cref="IHandler.Output"/> call; <see langword="null"/> if none.</param>
+        /// <param name="expectedOutput">The expected string for a <see cref="IInteractionHandler.Output"/> call; <see langword="null"/> if none.</param>
         /// <param name="expectedExitStatus">The expected exit status code returned by <see cref="FrontendCommand.Execute"/>.</param>
-        /// <param name="expectedSelections">The expected value passed to <see cref="IBackendHandler.ShowSelections"/>.</param>
+        /// <param name="expectedSelections">The expected value passed to <see cref="ICommandHandler.ShowSelections"/>.</param>
         /// <param name="args">The arguments to pass to <see cref="FrontendCommand.Parse"/>.</param>
         protected void RunAndAssert(string expectedOutput, int expectedExitStatus, Selections expectedSelections, params string[] args)
         {

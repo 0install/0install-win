@@ -53,7 +53,7 @@ namespace ZeroInstall.Commands
         public override string ActionTitle { get { return Resources.ActionUpdateApps; } }
 
         /// <inheritdoc/>
-        public UpdateApps(IBackendHandler handler) : base(handler)
+        public UpdateApps(ICommandHandler handler) : base(handler)
         {
             Options.Add("c|clean", () => Resources.OptionClean, _ => _clean = true);
         }

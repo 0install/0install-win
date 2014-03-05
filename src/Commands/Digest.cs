@@ -52,7 +52,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 2; } }
 
         /// <inheritdoc/>
-        public Digest(IBackendHandler handler) : base(handler)
+        public Digest(ICommandHandler handler) : base(handler)
         {
             Options.Add("manifest", () => Resources.OptionManifest, _ => _printManifest = true);
             Options.Add("digest", () => Resources.OptionDigest, _ => _printDigest = true);

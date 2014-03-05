@@ -35,7 +35,7 @@ namespace ZeroInstall.Commands.WinForms
     /// Wraps a <see cref="GuiHandler"/> and displays it only after a certain delay (or immediately when it is required).
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Disposal is handled sufficiently by GC in this case")]
-    public sealed class DelayedGuiHandler : MarshalByRefObject, IBackendHandler, IDisposable
+    public sealed class DelayedGuiHandler : MarshalByRefObject, ICommandHandler, IDisposable
     {
         #region Variables
         /// <summary>The actual GUI to show with a delay.</summary>

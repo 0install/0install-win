@@ -50,7 +50,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 0; } }
 
         /// <inheritdoc/>
-        public DefaultCommand(IBackendHandler handler) : base(handler)
+        public DefaultCommand(ICommandHandler handler) : base(handler)
         {
             Options.Add("V|version", () => Resources.OptionVersion, _ =>
             {

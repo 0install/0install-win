@@ -47,7 +47,7 @@ namespace ZeroInstall.Commands
         public override int GuiDelay { get { return Handler.Batch ? 1000 : 0; } }
 
         /// <inheritdoc/>
-        public Download(IBackendHandler handler) : base(handler)
+        public Download(ICommandHandler handler) : base(handler)
         {
             Options.Add("show", () => Resources.OptionShow, _ => _show = true);
         }

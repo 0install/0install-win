@@ -42,7 +42,7 @@ namespace ZeroInstall.Services.Feeds
         private readonly Config _config;
         private readonly IFeedCache _feedCache;
         private readonly ITrustManager _trustManager;
-        private readonly IHandler _handler;
+        private readonly IInteractionHandler _handler;
 
         /// <summary>
         /// Creates a new feed manager.
@@ -51,7 +51,7 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="feedCache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
         /// <param name="trustManager">Methods for verifying signatures and user trust.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public FeedManager(Config config, IFeedCache feedCache, ITrustManager trustManager, IHandler handler)
+        public FeedManager(Config config, IFeedCache feedCache, ITrustManager trustManager, IInteractionHandler handler)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");

@@ -57,7 +57,7 @@ namespace ZeroInstall.Commands
         public override int GuiDelay { get { return Handler.Batch ? 0 : 1000; } }
 
         /// <inheritdoc/>
-        public IntegrateApp(IBackendHandler handler) : base(handler)
+        public IntegrateApp(ICommandHandler handler) : base(handler)
         {
             string categoryList = StringUtils.Join(", ", CategoryIntegrationManager.Categories);
 

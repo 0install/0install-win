@@ -44,7 +44,7 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS]"; } }
 
         /// <inheritdoc/>
-        public RemoveAllApps(IBackendHandler handler) : base(handler)
+        public RemoveAllApps(ICommandHandler handler) : base(handler)
         {}
         #endregion
 

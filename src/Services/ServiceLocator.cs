@@ -55,7 +55,7 @@ namespace ZeroInstall.Services
         /// Creates a new service locator.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public ServiceLocator(IBackendHandler handler)
+        public ServiceLocator(ICommandHandler handler)
         {
             Handler = handler;
         }
@@ -64,7 +64,7 @@ namespace ZeroInstall.Services
         /// <summary>
         /// A callback object used when the the user needs to be asked questions or informed about download and IO tasks.
         /// </summary>
-        public IBackendHandler Handler { get; private set; }
+        public ICommandHandler Handler { get; private set; }
 
         /// <summary>
         /// User settings controlling network behaviour, solving, etc.

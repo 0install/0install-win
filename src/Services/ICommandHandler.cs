@@ -29,14 +29,14 @@ namespace ZeroInstall.Services
     /// Callback methods to inform the user about tasks being run, ask the user questions and display custom UI elements.
     /// </summary>
     /// <remarks>The methods may be called from a background thread. Implementations apply appropriate thread-synchronization to update UI elements.</remarks>
-    public interface IBackendHandler : IHandler
+    public interface ICommandHandler : IInteractionHandler
     {
         /// <summary>
         /// Provides information for a potential GUI backing this handler.
         /// </summary>
         /// <param name="actionTitle">A delegate that returns a short title describing what the command being executed does.</param>
         /// <param name="delay">The number of milliseconds by which to delay the initial display of the GUI.</param>
-        /// <remarks>Should be called before <see cref="IHandler.ShowProgressUI"/>.</remarks>
+        /// <remarks>Should be called before <see cref="IInteractionHandler.ShowProgressUI"/>.</remarks>
         void SetGuiHints(Func<string> actionTitle, int delay);
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace ZeroInstall.Services
         /// <param name="selections">The <see cref="Selections"/> as provided by the solver.</param>
         /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
         /// <remarks>
-        ///   <para>Only call this between <see cref="IHandler.ShowProgressUI"/> and <see cref="IHandler.CloseProgressUI"/>.</para>
+        ///   <para>Only call this between <see cref="IInteractionHandler.ShowProgressUI"/> and <see cref="IInteractionHandler.CloseProgressUI"/>.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
         /// </remarks>
         void ShowSelections(Selections selections, IFeedCache feedCache);
@@ -57,7 +57,7 @@ namespace ZeroInstall.Services
         /// </summary>
         /// <param name="solveCallback">Called after interface preferences have been changed and the solver needs to be rerun.</param>
         /// <remarks>
-        ///   <para>Only call this between <see cref="ShowSelections"/> and <see cref="IHandler.CloseProgressUI"/>.</para>
+        ///   <para>Only call this between <see cref="ShowSelections"/> and <see cref="IInteractionHandler.CloseProgressUI"/>.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
         /// </remarks>
         void ModifySelections(Func<Selections> solveCallback);
@@ -69,7 +69,7 @@ namespace ZeroInstall.Services
         /// <param name="appEntry">The application being integrated.</param>
         /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
         /// <remarks>
-        ///   <para>Only call this between <see cref="IHandler.ShowProgressUI"/> and <see cref="IHandler.CloseProgressUI"/>.</para>
+        ///   <para>Only call this between <see cref="IInteractionHandler.ShowProgressUI"/> and <see cref="IInteractionHandler.CloseProgressUI"/>.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
         /// </remarks>
         void ShowIntegrateApp(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed);

@@ -59,7 +59,7 @@ namespace ZeroInstall.Commands
         public override int GuiDelay { get { return FeedManager.Refresh ? 0 : 1500; } }
 
         /// <inheritdoc/>
-        public Run(IBackendHandler handler) : base(handler)
+        public Run(ICommandHandler handler) : base(handler)
         {
             //Options.Remove("xml");
             //Options.Remove("show");

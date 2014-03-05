@@ -58,7 +58,7 @@ namespace ZeroInstall.Commands
         public override string ActionTitle { get { return Resources.ActionAppCommand; } }
 
         /// <inheritdoc/>
-        public AddAlias(IBackendHandler handler) : base(handler)
+        public AddAlias(ICommandHandler handler) : base(handler)
         {
             Options.Add("resolve", () => Resources.OptionAliasResolve, _ => _resolve = true);
             Options.Add("remove", () => Resources.OptionAliasRemove, _ => _remove = true);

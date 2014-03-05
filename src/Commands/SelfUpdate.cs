@@ -50,7 +50,7 @@ namespace ZeroInstall.Commands
         public override string ActionTitle { get { return Resources.ActionSelfUpdate; } }
 
         /// <inheritdoc/>
-        public SelfUpdate(IBackendHandler handler) : base(handler)
+        public SelfUpdate(ICommandHandler handler) : base(handler)
         {
             NoWait = true;
             FeedManager.Refresh = true;

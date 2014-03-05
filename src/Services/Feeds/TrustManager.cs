@@ -40,7 +40,7 @@ namespace ZeroInstall.Services.Feeds
         private readonly Config _config;
         private readonly IOpenPgp _openPgp;
         private readonly IFeedCache _feedCache;
-        private readonly IHandler _handler;
+        private readonly IInteractionHandler _handler;
 
         /// <summary>
         /// Creates a new trust manager.
@@ -49,7 +49,7 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="openPgp">The OpenPGP-compatible system used to validate the signatures.</param>
         /// <param name="feedCache">Provides access to a cache of <see cref="Feed"/>s that were downloaded via HTTP(S).</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions.</param>
-        public TrustManager(Config config, IOpenPgp openPgp, IFeedCache feedCache, IHandler handler)
+        public TrustManager(Config config, IOpenPgp openPgp, IFeedCache feedCache, IInteractionHandler handler)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");

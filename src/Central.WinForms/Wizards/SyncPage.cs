@@ -36,7 +36,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
     /// <summary>
     /// Base class for <see cref="Wizard"/> pages that need a <see cref="SyncApps"/>.
     /// </summary>
-    internal partial class SyncPage : UserControl, IBackendHandler
+    internal partial class SyncPage : UserControl, ICommandHandler
     {
         protected readonly bool MachineWide;
 
@@ -89,7 +89,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
         }
         #endregion
 
-        #region IBackendHandler
+        #region ICommandHandler
         private readonly CancellationToken _cancellationToken = new CancellationToken();
 
         /// <summary>

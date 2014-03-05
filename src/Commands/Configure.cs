@@ -41,7 +41,7 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[NAME [VALUE]]"; } }
 
         /// <inheritdoc/>
-        public Configure(IBackendHandler handler) : base(handler)
+        public Configure(ICommandHandler handler) : base(handler)
         {}
         #endregion
 

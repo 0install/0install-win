@@ -42,7 +42,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 0; } }
 
         /// <inheritdoc/>
-        public Central(IBackendHandler handler) : base(handler)
+        public Central(ICommandHandler handler) : base(handler)
         {
             Options.Add("m|machine", () => Resources.OptionMachine, _ => _machineWide = true);
         }

@@ -76,7 +76,7 @@
     <Compile Include="Icons\DiskIconCache.cs" />
     <Compile Include="Icons\IconCacheProvider.cs" />
     <Compile Include="Icons\IIconCache.cs" />
-    <Compile Include="IHandler.cs" />
+    <Compile Include="IInteractionHandler.cs" />
     <Compile Include="Implementations\Archives\ArchiveFileInfo.cs" />
     <Compile Include="Implementations\Archives\CabExtractor.cs" />
     <Compile Include="Implementations\Archives\Extractor.cs" />

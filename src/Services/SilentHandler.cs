@@ -31,7 +31,7 @@ namespace ZeroInstall.Services
     /// Ignores progress reports and silently answer all questions with "No".
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Diamond inheritance structure leads to false positive.")]
-    public class SilentHandler : SilentTaskHandler, IBackendHandler
+    public class SilentHandler : SilentTaskHandler, ICommandHandler
     {
         /// <summary>
         /// Always returns <see langword="true"/>.

@@ -20,14 +20,14 @@ using System;
 namespace ZeroInstall.Store
 {
     /// <summary>
-    /// Contains extension methods for <see cref="IHandler"/>s.
+    /// Contains extension methods for <see cref="IInteractionHandler"/>s.
     /// </summary>
     public static class HandlerExtensions
     {
         /// <summary>
-        /// Calls <see cref="IHandler.Output"/> only when <see cref="IHandler.Batch"/> is <see langword="false"/>.
+        /// Calls <see cref="IInteractionHandler.Output"/> only when <see cref="IInteractionHandler.Batch"/> is <see langword="false"/>.
         /// </summary>
-        public static void OutputLow(this IHandler handler, string title, string message)
+        public static void OutputLow(this IInteractionHandler handler, string title, string message)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");

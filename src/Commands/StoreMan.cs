@@ -95,7 +95,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMin { get { return 1; } }
 
         /// <inheritdoc/>
-        public StoreMan(IBackendHandler handler) : base(handler)
+        public StoreMan(ICommandHandler handler) : base(handler)
         {}
         #endregion
 

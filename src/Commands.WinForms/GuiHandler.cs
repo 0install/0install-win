@@ -40,7 +40,7 @@ namespace ZeroInstall.Commands.WinForms
     /// Uses <see cref="System.Windows.Forms"/> to inform the user about the progress of tasks and ask the user questions.
     /// </summary>
     /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
-    public sealed class GuiHandler : MarshalByRefObject, IBackendHandler, IDisposable
+    public sealed class GuiHandler : MarshalByRefObject, ICommandHandler, IDisposable
     {
         #region Properties
         private readonly CancellationTokenSource _cancellationTokenSource;

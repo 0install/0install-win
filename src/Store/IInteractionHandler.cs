@@ -24,7 +24,7 @@ namespace ZeroInstall.Store
     /// Callback methods to inform the user about tasks being run and ask the user questions.
     /// </summary>
     /// <remarks>The methods may be called from a background thread. Implementations apply appropriate thread-synchronization to update UI elements.</remarks>
-    public interface IHandler : ITaskHandler
+    public interface IInteractionHandler : ITaskHandler
     {
         /// <summary>
         /// Do not show progress reports, questions or messages (except for non-intrusive background messages like tray icons) unless a critical error occurs.

@@ -41,7 +41,7 @@ namespace ZeroInstall.Commands
         public override string ActionTitle { get { return Resources.ActionRemoveFeed; } }
 
         /// <inheritdoc/>
-        public RemoveFeed(IBackendHandler handler) : base(handler)
+        public RemoveFeed(ICommandHandler handler) : base(handler)
         {}
         #endregion
 

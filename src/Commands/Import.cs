@@ -46,7 +46,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMin { get { return 1; } }
 
         /// <inheritdoc/>
-        public Import(IBackendHandler handler) : base(handler)
+        public Import(ICommandHandler handler) : base(handler)
         {
             Options.Add("batch", () => Resources.OptionBatch, _ => Handler.Batch = true);
         }

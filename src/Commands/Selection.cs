@@ -71,7 +71,7 @@ namespace ZeroInstall.Commands
         public override string ActionTitle { get { return Resources.ActionSelection; } }
 
         /// <inheritdoc/>
-        public Selection(IBackendHandler handler) : base(handler)
+        public Selection(ICommandHandler handler) : base(handler)
         {
             Options.Add("batch", () => Resources.OptionBatch, _ => Handler.Batch = true);
             Options.Add("g|gui", () => Resources.OptionGui, _ => ShowModifySelections = true);
@@ -196,7 +196,7 @@ namespace ZeroInstall.Commands
         }
 
         /// <summary>
-        /// Run <see cref="Solve"/> and inform the caller as well as the <see cref="IBackendHandler"/> of any changes.
+        /// Run <see cref="Solve"/> and inform the caller as well as the <see cref="ICommandHandler"/> of any changes.
         /// </summary>
         private Selections SolveCallback()
         {

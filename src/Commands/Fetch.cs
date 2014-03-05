@@ -47,7 +47,7 @@ namespace ZeroInstall.Commands
         public override string ActionTitle { get { return Resources.ActionDownload; } }
 
         /// <inheritdoc/>
-        public Fetch(IBackendHandler handler) : base(handler)
+        public Fetch(ICommandHandler handler) : base(handler)
         {}
         #endregion
 

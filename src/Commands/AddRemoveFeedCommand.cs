@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 2; } }
 
         /// <inheritdoc/>
-        protected AddRemoveFeedCommand(IBackendHandler handler) : base(handler)
+        protected AddRemoveFeedCommand(ICommandHandler handler) : base(handler)
         {
             Options.Add("batch", () => Resources.OptionBatch, _ => Handler.Batch = true);
 

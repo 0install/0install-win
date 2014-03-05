@@ -29,9 +29,9 @@ namespace ZeroInstall.Services.Solvers.External
     /// </summary>
     internal sealed class SolverControlBundled : BundledCliAppControl, ISolverControl
     {
-        private readonly IHandler _handler;
+        private readonly IInteractionHandler _handler;
 
-        public SolverControlBundled(IHandler handler)
+        public SolverControlBundled(IInteractionHandler handler)
         {
             _handler = handler;
         }

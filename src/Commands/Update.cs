@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands
         public override string ActionTitle { get { return Resources.ActionUpdate; } }
 
         /// <inheritdoc/>
-        public Update(IBackendHandler handler) : base(handler)
+        public Update(ICommandHandler handler) : base(handler)
         {
             //Options.Remove("o|offline");
             //Options.Remove("r|refresh");

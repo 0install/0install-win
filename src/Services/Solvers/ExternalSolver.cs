@@ -40,7 +40,7 @@ namespace ZeroInstall.Services.Solvers
         private readonly Config _config;
         private readonly IFeedCache _feedCache;
         private readonly IFeedManager _feedManager;
-        private readonly IHandler _handler;
+        private readonly IInteractionHandler _handler;
 
         /// <summary>
         /// Creates a new external solver.
@@ -49,7 +49,7 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="feedCache">Provides access to a cache of <see cref="Feed"/>s that were downloaded via HTTP(S).</param>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public ExternalSolver(Config config, IFeedCache feedCache, IFeedManager feedManager, IHandler handler)
+        public ExternalSolver(Config config, IFeedCache feedCache, IFeedManager feedManager, IInteractionHandler handler)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");

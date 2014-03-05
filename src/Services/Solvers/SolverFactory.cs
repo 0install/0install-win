@@ -36,7 +36,7 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="store">Used to check which <see cref="Implementation"/>s are already cached.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public static ISolver CreateDefault(Config config, IFeedCache feedCache, IFeedManager feedManager, IStore store, IHandler handler)
+        public static ISolver CreateDefault(Config config, IFeedCache feedCache, IFeedManager feedManager, IStore store, IInteractionHandler handler)
         {
             ISolver
                 backtrackingSolver = new BacktrackingSolver(config, feedManager, store, handler),

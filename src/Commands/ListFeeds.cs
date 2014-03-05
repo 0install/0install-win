@@ -47,7 +47,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 1; } }
 
         /// <inheritdoc/>
-        public ListFeeds(IBackendHandler handler) : base(handler)
+        public ListFeeds(ICommandHandler handler) : base(handler)
         {}
         #endregion
 

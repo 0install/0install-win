@@ -85,7 +85,7 @@ namespace ZeroInstall.Commands
         public virtual string ActionTitle { get { return null; } }
 
         /// <summary>
-        /// The number of milliseconds by which to delay the initial display of the <see cref="IHandler"/> GUI.
+        /// The number of milliseconds by which to delay the initial display of the <see cref="IInteractionHandler"/> GUI.
         /// </summary>
         public virtual int GuiDelay { get { return 0; } }
 
@@ -116,7 +116,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Creates a new command.
         /// </summary>
-        protected FrontendCommand(IBackendHandler handler) : base(handler)
+        protected FrontendCommand(ICommandHandler handler) : base(handler)
         {
             Options.Add("?|h|help", () => Resources.OptionHelp, _ =>
             {

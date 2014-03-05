@@ -24,7 +24,7 @@ using ZeroInstall.Store;
 namespace ZeroInstall.Commands.WinForms
 {
     /// <summary>
-    /// Like <see cref="SilentHandler"/> but with <see cref="Msg"/> for <see cref="IHandler.AskQuestion"/>.
+    /// Like <see cref="SilentHandler"/> but with <see cref="Msg"/> for <see cref="IInteractionHandler.AskQuestion"/>.
     /// </summary>
     public class MinimalHandler : SilentHandler
     {

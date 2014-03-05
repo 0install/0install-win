@@ -65,7 +65,7 @@ namespace ZeroInstall.Launcher.Cli
         /// </summary>
         public static int Run(string[] args)
         {
-            IBackendHandler handler = new CliHandler();
+            ICommandHandler handler = new CliHandler();
             FrontendCommand command;
             try
             {

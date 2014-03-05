@@ -61,7 +61,7 @@
     <Compile Include="Fetchers\GlobalSuppressions.cs" />
     <Compile Include="Fetchers\RetrievalMethodRanker.cs" />
     <Compile Include="Fetchers\SequentialFetcher.cs" />
-    <Compile Include="IBackendHandler.cs" />
+    <Compile Include="ICommandHandler.cs" />
     <Compile Include="Injector\Executor.Bindings.cs" />
     <Compile Include="Injector\Executor.CommandLine.cs" />
     <Compile Include="Injector\Executor.cs" />

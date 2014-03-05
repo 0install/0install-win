@@ -46,7 +46,7 @@ namespace ZeroInstall.Commands
         public override int GuiDelay { get { return FeedManager.Refresh ? 0 : 1000; } }
 
         /// <inheritdoc/>
-        public AddApp(IBackendHandler handler) : base(handler)
+        public AddApp(ICommandHandler handler) : base(handler)
         {}
         #endregion
 

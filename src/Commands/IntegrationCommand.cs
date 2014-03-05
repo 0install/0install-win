@@ -20,7 +20,7 @@ namespace ZeroInstall.Commands
     {
         #region Metadata
         /// <inheritdoc/>
-        protected IntegrationCommand(IBackendHandler handler) : base(handler)
+        protected IntegrationCommand(ICommandHandler handler) : base(handler)
         {
             Options.Add("batch", () => Resources.OptionBatch, _ => Handler.Batch = true);
 
