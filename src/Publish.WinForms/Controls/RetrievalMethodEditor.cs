@@ -140,10 +140,14 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 Msg.Inform(this, ex.Message, MsgSeverity.Warn);
                 return;
             }
-            #endregion
+                #endregion
 
-            if (CommandExecutor == null) commandCollector.BuildComposite().Execute();
-            else CommandExecutor.Execute(commandCollector.BuildComposite());
+            finally
+            {
+                var command = commandCollector.BuildComposite();
+                if (CommandExecutor == null) command.Execute();
+                else CommandExecutor.Execute(command);
+            }
 
             _labelUpdateHint.Visible = false;
         }

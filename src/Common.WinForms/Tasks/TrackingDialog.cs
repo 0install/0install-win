@@ -68,6 +68,9 @@ namespace Common.Tasks
             _taskThread.Start();
         }
 
+        /// <summary>
+        /// An exception thrown by <see cref="ITask.RunSync"/>, if any.
+        /// </summary>
         public Exception Exception { get; private set; }
 
         private void RunTask()
