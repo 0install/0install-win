@@ -327,12 +327,12 @@ namespace ZeroInstall.DesktopIntegration
         #endregion
 
         #region AppDir
-        private void WriteAppDir(AppEntry appEntry)
+        private static void WriteAppDir(AppEntry appEntry)
         {
             // TODO: Implement
         }
 
-        private void DeleteAppDir(AppEntry appEntry)
+        private static void DeleteAppDir(AppEntry appEntry)
         {
             // TODO: Implement
         }

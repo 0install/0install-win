@@ -126,6 +126,8 @@ namespace ZeroInstall.Store.Model
         /// <exception cref="NotSupportedException">Thrown if <paramref name="id"/> is not a valid manifest digest.</exception>
         public ManifestDigest(string id) : this()
         {
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+
             if (id.StartsWith("sha1=")) Sha1 = id.Substring("sha1=".Length);
             else if (id.StartsWith("sha1new=")) Sha1New = id.Substring("sha1new=".Length);
             else if (id.StartsWith("sha256=")) Sha256 = id.Substring("sha256=".Length);

@@ -49,6 +49,7 @@ namespace Common.Storage
         /// <summary>
         /// The name of the flag file whose existence determines whether <see cref="IsPortable"/> is set to <see langword="true"/>.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
         public const string PortableFlagName = "_portable";
 
         private static bool _isPortable = File.Exists(Path.Combine(InstallBase, PortableFlagName));
@@ -512,6 +513,7 @@ namespace Common.Storage
         /// <summary>
         /// The name of the flag file whose existence indicates that a directory has been secured with ACLs to prevent non-admins from writing there.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
         public const string SecuredFlagName = "_secured";
 
         /// <summary>
