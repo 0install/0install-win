@@ -1,5 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ZeroInstall.Store.Implementations.Archives.ZipExtractor" Collapsed="true">
+    <Position X="2.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAACAAAAQAAEAAAAACAAQAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Implementations\Archives\ZipExtractor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Store.Implementations.Archives.CabExtractor" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Implementations\Archives\CabExtractor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="ZeroInstall.Store.Implementations.Archives.Extractor" Collapsed="true">
     <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
@@ -8,54 +22,56 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
+  <Class Name="ZeroInstall.Store.Implementations.Archives.MicrosoftExtractor" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAACAEAAACAAAAAAgAAAAAAAAAAAAoACAAAAA=</HashCode>
+      <FileName>Implementations\Archives\MicrosoftExtractor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
   <Class Name="ZeroInstall.Store.Implementations.Archives.RubyGemExtractor" Collapsed="true">
-    <Position X="2" Y="3.5" Width="2" />
+    <Position X="2" Y="3.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementations\Archives\RubyGemExtractor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementations.Archives.TarBz2Extractor" Collapsed="true">
-    <Position X="4" Y="2.5" Width="1.5" />
+    <Position X="5.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgABA=</HashCode>
       <FileName>Implementations\Archives\TarBz2Extractor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementations.Archives.TarExtractor" Collapsed="true">
-    <Position X="4" Y="1.5" Width="1.5" />
+    <Position X="4" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAACCAAAAAgAAAAAAAAAARAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAACCAAAAQAAAAAAAAAAARAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementations\Archives\TarExtractor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementations.Archives.TarGzExtractor" Collapsed="true">
-    <Position X="2.25" Y="2.5" Width="1.5" />
+    <Position X="2.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgABA=</HashCode>
       <FileName>Implementations\Archives\TarGzExtractor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementations.Archives.TarLzmaExtractor" Collapsed="true">
-    <Position X="5.75" Y="2.5" Width="1.5" />
+    <Position X="4" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgABA=</HashCode>
       <FileName>Implementations\Archives\TarLzmaExtractor.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Store.Implementations.Archives.ZipExtractor" Collapsed="true">
-    <Position X="0.5" Y="1.5" Width="1.5" />
+  <Struct Name="ZeroInstall.Store.Implementations.Archives.ArchiveFileInfo">
+    <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAQAACAAAAAgAEAAAAACAAQAAAAAIAAAAAAAAAA=</HashCode>
-      <FileName>Implementations\Archives\ZipExtractor.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAYEgAAAAAAAAAAAAIAEAAAABACAAAA=</HashCode>
+      <FileName>Implementations\Archives\ArchiveFileInfo.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="ZeroInstall.Store.Implementations.Archives.CabExtractor" Collapsed="true">
-    <Position X="2.25" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAACAIABAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Implementations\Archives\CabExtractor.cs</FileName>
-    </TypeIdentifier>
-  </Class>
+    <Lollipop Position="0.2" />
+  </Struct>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

@@ -20,7 +20,6 @@ using System.IO;
 using System.Linq;
 using Common.Tasks;
 using Common.Utils;
-using WixToolset.Dtf.Compression;
 using WixToolset.Dtf.Compression.Cab;
 using ZeroInstall.Store.Properties;
 
@@ -29,12 +28,8 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// <summary>
     /// Extracts a MS Cabinet archive.
     /// </summary>
-    public class CabExtractor : Extractor
+    public class CabExtractor : MicrosoftExtractor
     {
-        #region Stream
-        private readonly StreamContext _streamContext;
-        private readonly CabEngine _cabEngine = new CabEngine();
-
         /// <summary>
         /// Prepares to extract a MS Cabinet archive contained in a stream.
         /// </summary>
@@ -48,11 +43,11 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            _streamContext = new StreamContext(this, stream);
+            CabStream = stream;
 
             try
             {
-                UnitsTotal = _cabEngine.GetFileInfo(_streamContext, _ => true).Sum(x => x.Length);
+                UnitsTotal = CabEngine.GetFileInfo(this, _ => true).Sum(x => x.Length);
             }
                 #region Error handling
             catch (CabException ex)
@@ -63,16 +58,6 @@ namespace ZeroInstall.Store.Implementations.Archives
             #endregion
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _cabEngine.Dispose();
-                _streamContext.Dispose();
-            }
-        }
-        #endregion
-
         /// <inheritdoc />
         protected override void Execute()
         {
@@ -81,7 +66,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             try
             {
                 if (!Directory.Exists(EffectiveTargetDir)) Directory.CreateDirectory(EffectiveTargetDir);
-                _cabEngine.Unpack(_streamContext, _ => true);
+                CabEngine.Unpack(this, _ => true);
 
                 // CABs do not store modification times for diretories but manifests need them to be consistent, so we fix them to the beginning of the Unix epoch
                 foreach (var subDirectory in new DirectoryInfo(TargetDir).GetDirectories())
@@ -96,62 +81,6 @@ namespace ZeroInstall.Store.Implementations.Archives
             #endregion
 
             lock (StateLock) State = TaskState.Complete;
-        }
-
-        private class StreamContext : IUnpackStreamContext, IDisposable
-        {
-            private readonly CabExtractor _extractor;
-            private readonly Stream _cabStream;
-
-            public StreamContext(CabExtractor extractor, Stream cabStream)
-            {
-                _extractor = extractor;
-                _cabStream = cabStream;
-            }
-
-            public Stream OpenArchiveReadStream(int archiveNumber, string archiveName, CompressionEngine compressionEngine)
-            {
-                return new DuplicateStream(_cabStream);
-            }
-
-            public void CloseArchiveReadStream(int archiveNumber, string archiveName, Stream stream)
-            {}
-
-            private long _bytesStaged;
-
-            public Stream OpenFileWriteStream(string path, long fileSize, DateTime lastWriteTime)
-            {
-                #region Sanity checks
-                if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-                #endregion
-
-                var token = _extractor.CancellationToken;
-                token.ThrowIfCancellationRequested();
-
-                string entryName = _extractor.GetSubEntryName(path);
-                if (entryName == null) return null;
-
-                _bytesStaged = fileSize;
-                return _extractor.OpenFileWriteStream(entryName);
-            }
-
-            public void CloseFileWriteStream(string path, Stream stream, FileAttributes attributes, DateTime lastWriteTime)
-            {
-                #region Sanity checks
-                if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-                if (stream == null) throw new ArgumentNullException("stream");
-                #endregion
-
-                stream.Close();
-                File.SetLastWriteTimeUtc(_extractor.CombinePath(_extractor.GetSubEntryName(path)), lastWriteTime);
-
-                _extractor.UnitsProcessed += _bytesStaged;
-            }
-
-            public void Dispose()
-            {
-                _cabStream.Dispose();
-            }
         }
     }
 }

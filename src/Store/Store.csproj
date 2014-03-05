@@ -80,6 +80,7 @@
     <Compile Include="Implementations\Archives\ArchiveFileInfo.cs" />
     <Compile Include="Implementations\Archives\CabExtractor.cs" />
     <Compile Include="Implementations\Archives\Extractor.cs" />
+    <Compile Include="Implementations\Archives\MicrosoftExtractor.cs" />
     <Compile Include="Implementations\Archives\RubyGemExtractor.cs" />
     <Compile Include="Implementations\Archives\TarBz2Extractor.cs" />
     <Compile Include="Implementations\Archives\TarExtractor.cs" />
