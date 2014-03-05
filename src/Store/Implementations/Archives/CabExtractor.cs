@@ -19,7 +19,6 @@ using System;
 using System.IO;
 using System.Linq;
 using Common.Tasks;
-using Common.Utils;
 using Microsoft.Deployment.Compression.Cab;
 using ZeroInstall.Store.Properties;
 
@@ -67,10 +66,6 @@ namespace ZeroInstall.Store.Implementations.Archives
             {
                 if (!Directory.Exists(EffectiveTargetDir)) Directory.CreateDirectory(EffectiveTargetDir);
                 CabEngine.Unpack(this, _ => true);
-
-                // CABs do not store modification times for diretories but manifests need them to be consistent, so we fix them to the beginning of the Unix epoch
-                foreach (var subDirectory in new DirectoryInfo(TargetDir).GetDirectories())
-                    subDirectory.Walk(dir => dir.LastWriteTimeUtc = FileUtils.FromUnixTime(0));
             }
                 #region Error handling
             catch (CabException ex)
