@@ -79,7 +79,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         #endregion
 
         /// <inheritdoc />
-        protected override void RunTask()
+        protected override void Execute()
         {
             lock (StateLock) State = TaskState.Data;
 

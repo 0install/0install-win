@@ -69,7 +69,7 @@ namespace Common.Tasks
         }
 
         /// <summary>
-        /// An exception thrown by <see cref="ITask.RunSync"/>, if any.
+        /// An exception thrown by <see cref="ITask.Run"/>, if any.
         /// </summary>
         public Exception Exception { get; private set; }
 
@@ -77,7 +77,7 @@ namespace Common.Tasks
         {
             try
             {
-                _task.RunSync(_cancellationTokenSource.Token);
+                _task.Run(_cancellationTokenSource.Token);
             }
             catch (Exception ex)
             {

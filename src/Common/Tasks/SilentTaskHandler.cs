@@ -41,7 +41,7 @@ namespace Common.Tasks
             if (task == null) throw new ArgumentNullException("task");
             #endregion
 
-            task.RunSync(CancellationToken);
+            task.Run(CancellationToken);
         }
 
         #region Dispose

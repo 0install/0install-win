@@ -49,7 +49,7 @@ namespace Common.Tasks
 
             Log.Info(task.Name + "...");
             using (new TrackingProgressBar(task))
-                task.RunSync(CancellationToken);
+                task.Run(CancellationToken);
         }
 
         #region Dispose

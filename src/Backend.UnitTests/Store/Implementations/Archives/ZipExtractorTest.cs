@@ -73,7 +73,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         public void TestFileExtract()
         {
             using (var extractor = Extractor.FromStream(TestData.GetResource("testArchive.zip"), _sandbox, Model.Archive.MimeTypeZip))
-                extractor.RunSync();
+                extractor.Run();
 
             Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "subdir1/regular")), "Should extract file 'regular'");
             Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc(Path.Combine(_sandbox, "subdir1/regular")), "Correct last write time for file 'regular' should be set");
@@ -86,7 +86,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         public void ExtractionIntoFolder()
         {
             using (var extractor = Extractor.FromStream(new MemoryStream(_archiveData), _sandbox, Model.Archive.MimeTypeZip))
-                extractor.RunSync();
+                extractor.Run();
 
             Assert.IsTrue(Directory.Exists(_sandbox));
             var comparer = new CompareHierarchyToExtractedFolder(_sandbox);
@@ -124,7 +124,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var extractor = Extractor.FromStream(new MemoryStream(_archiveData), _sandbox, Model.Archive.MimeTypeZip))
             {
                 extractor.SubDir = "/sub/folder/";
-                extractor.RunSync();
+                extractor.Run();
             }
 
             Assert.IsTrue(Directory.Exists(Path.Combine(_sandbox, "nestedFolder")));
@@ -140,7 +140,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var extractor = Extractor.FromStream(new MemoryStream(_archiveData), _sandbox, Model.Archive.MimeTypeZip))
             {
                 extractor.SubDir = "/sub/folder/nested";
-                extractor.RunSync();
+                extractor.Run();
             }
 
             Assert.IsFalse(Directory.Exists(Path.Combine(_sandbox, "Folder")), "Should not apply subdir matching to part of filename");
@@ -154,7 +154,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             File.WriteAllText(Path.Combine(_sandbox, "file0"), @"This file should not be touched");
 
             using (var extractor = Extractor.FromStream(new MemoryStream(_archiveData), _sandbox, Model.Archive.MimeTypeZip))
-                extractor.RunSync();
+                extractor.Run();
 
             Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "file0")), "Extractor cleaned directory.");
             string file0Content = File.ReadAllText(Path.Combine(_sandbox, "file0"));
@@ -187,7 +187,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var archive = TestData.GetResource("testArchive.zip"))
             {
                 var extractor = new ZipExtractor(archive, _sandbox);
-                extractor.RunSync();
+                extractor.Run();
             }
 
             if (MonoUtils.IsUnix)
@@ -205,7 +205,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var archive = TestData.GetResource("testArchive.zip"))
             {
                 var extractor = new ZipExtractor(archive, _sandbox);
-                extractor.RunSync();
+                extractor.Run();
             }
 
             string target;
@@ -231,7 +231,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 builder.GeneratePackageArchive(archiveStream);
                 archiveStream.Seek(0, SeekOrigin.Begin);
                 var extractor = new ZipExtractor(archiveStream, _sandbox);
-                Assert.Throws<IOException>(() => extractor.RunSync(), "ZipExtractor must not accept archives with '..' as entry");
+                Assert.Throws<IOException>(() => extractor.Run(), "ZipExtractor must not accept archives with '..' as entry");
                 archiveStream.Dispose();
             }
         }
@@ -249,7 +249,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 var extractor = new ZipExtractor(archiveStream, _sandbox);
 
                 const string message = "ZipExtractor should correctly extract empty files in an archive";
-                Assert.DoesNotThrow(() => extractor.RunSync());
+                Assert.DoesNotThrow(() => extractor.Run());
                 Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "emptyFile")), message);
                 Assert.AreEqual(new byte[] {}, File.ReadAllBytes(Path.Combine(_sandbox, "emptyFile")), message);
             }
@@ -268,7 +268,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 var extractor = new ZipExtractor(archiveStream, _sandbox) {Destination = "custom"};
 
                 const string message = "ZipExtractor should correctly extract empty files in an archive to custom destination";
-                Assert.DoesNotThrow(() => extractor.RunSync());
+                Assert.DoesNotThrow(() => extractor.Run());
                 Assert.IsTrue(File.Exists(new[] {_sandbox, "custom", "emptyFile"}.Aggregate(Path.Combine)), message);
                 Assert.AreEqual(new byte[] {}, File.ReadAllBytes(new[] {_sandbox, "custom", "emptyFile"}.Aggregate(Path.Combine)), message);
             }

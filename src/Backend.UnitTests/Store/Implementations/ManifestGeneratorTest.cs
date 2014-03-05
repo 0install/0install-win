@@ -58,7 +58,7 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void ShouldGenerateManifestWithAllFilesListed()
         {
-            _someGenerator.RunSync();
+            _someGenerator.Run();
             Assert.IsNotNull(_someGenerator.Result);
             ValidatePackage();
         }
@@ -133,7 +133,7 @@ namespace ZeroInstall.Store.Implementations
         {
             bool changedToStarted = false;
             _someGenerator.StateChanged += sender => { if (sender.State == TaskState.Started) changedToStarted = true; };
-            _someGenerator.RunSync();
+            _someGenerator.Run();
             Assert.IsTrue(changedToStarted);
         }
 
@@ -142,7 +142,7 @@ namespace ZeroInstall.Store.Implementations
         {
             bool changedToComplete = false;
             _someGenerator.StateChanged += sender => { if (sender.State == TaskState.Complete) changedToComplete = true; };
-            _someGenerator.RunSync();
+            _someGenerator.Run();
             Assert.AreEqual(TaskState.Complete, _someGenerator.State);
             Assert.IsTrue(changedToComplete);
         }
@@ -152,14 +152,14 @@ namespace ZeroInstall.Store.Implementations
         {
             bool progressChanged = false;
             _someGenerator.ProgressChanged += delegate { progressChanged = true; };
-            _someGenerator.RunSync();
+            _someGenerator.Run();
             Assert.IsTrue(progressChanged);
         }
 
         [Test]
         public void ShouldCalculateCorrectTotalSize()
         {
-            _someGenerator.RunSync();
+            _someGenerator.Run();
             Assert.AreEqual(6, _someGenerator.Result.TotalSize);
         }
     }

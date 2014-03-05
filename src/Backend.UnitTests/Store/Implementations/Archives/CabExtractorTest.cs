@@ -35,7 +35,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
             using (var extractor = Extractor.FromStream(TestData.GetResource("testArchive.cab"), sandbox, Archive.MimeTypeCab))
             {
-                extractor.RunSync();
+                extractor.Run();
 
                 string filePath = Path.Combine(sandbox, "file");
                 Assert.IsTrue(File.Exists(filePath), "Should extract file 'file'");
@@ -60,7 +60,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var extractor = Extractor.FromStream(TestData.GetResource("testArchive.cab"), sandbox, Archive.MimeTypeCab))
             {
                 extractor.SubDir = "folder1";
-                extractor.RunSync();
+                extractor.Run();
 
                 string filePath = Path.Combine(sandbox, "file");
                 Assert.IsTrue(File.Exists(filePath), "Should extract file 'dir/file'");

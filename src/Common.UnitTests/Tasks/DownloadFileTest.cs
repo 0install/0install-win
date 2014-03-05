@@ -56,12 +56,12 @@ namespace Common.Tasks
             _tempFile.Dispose();
         }
 
-        [Test(Description = "Downloads a small file using RunSync().")]
+        [Test(Description = "Downloads a small file using Run().")]
         public void TestRunSync()
         {
             // Download the file
             var download = new DownloadFile(_server.FileUri, _tempFile);
-            download.RunSync();
+            download.Run();
 
             // Read the file
             string fileContent = File.ReadAllText(_tempFile);
@@ -71,7 +71,7 @@ namespace Common.Tasks
             Assert.AreEqual(TestFileContent, fileContent, "Downloaded file doesn't match original");
         }
 
-        [Test(Description = "Starts downloading a small file using RunSync() and stops again right away using Cancel().")]
+        [Test(Description = "Starts downloading a small file using Run() and stops again right away using Cancel().")]
         public void TestCancelSync()
         {
             // Prepare a very slow download of the file and monitor for a cancellation exception
@@ -83,7 +83,7 @@ namespace Common.Tasks
             {
                 try
                 {
-                    download.RunSync(cancellationTokenSource.Token);
+                    download.Run(cancellationTokenSource.Token);
                 }
                 catch (OperationCanceledException)
                 {
@@ -104,7 +104,7 @@ namespace Common.Tasks
         public void TestIncorrectSize()
         {
             var download = new DownloadFile(_server.FileUri, _tempFile, 1024);
-            Assert.Throws<WebException>(() => download.RunSync());
+            Assert.Throws<WebException>(() => download.Run());
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Common.Tasks
 
             try
             {
-                new CopyDirectory(temp1, temp2).RunSync();
+                new CopyDirectory(temp1, temp2).Run();
                 FileAssert.AreEqual(
                     expected: Path.Combine(Path.Combine(temp1, "subdir"), "file"),
                     actual: Path.Combine(Path.Combine(temp2, "subdir"), "file"));
@@ -53,7 +53,7 @@ namespace Common.Tasks
                     actual: File.GetLastWriteTimeUtc(Path.Combine(Path.Combine(temp2, "subdir"), "file")),
                     message: "Last-write time for copied file is invalid");
 
-                Assert.Throws<IOException>(() => new CopyDirectory(temp1, temp2).RunSync());
+                Assert.Throws<IOException>(() => new CopyDirectory(temp1, temp2).Run());
             }
             finally
             {
@@ -74,7 +74,7 @@ namespace Common.Tasks
 
             string temp = FileUtils.GetTempDirectory("unit-tests");
             Directory.Delete(temp);
-            Assert.Throws<DirectoryNotFoundException>(() => new CopyDirectory(temp, "a").RunSync());
+            Assert.Throws<DirectoryNotFoundException>(() => new CopyDirectory(temp, "a").Run());
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Common.Tasks
 
             try
             {
-                new CopyDirectory(temp1, temp2, preserveDirectoryTimestamps: false).RunSync();
+                new CopyDirectory(temp1, temp2, preserveDirectoryTimestamps: false).Run();
                 FileAssert.AreEqual(
                     expected: Path.Combine(Path.Combine(temp1, "subdir"), "file"),
                     actual: Path.Combine(Path.Combine(temp2, "subdir"), "file"));
@@ -102,7 +102,7 @@ namespace Common.Tasks
                     actual: File.GetLastWriteTimeUtc(Path.Combine(Path.Combine(temp2, "subdir"), "file")),
                     message: "Last-write time for copied file is invalid");
 
-                Assert.Throws<IOException>(() => new CopyDirectory(temp1, temp2).RunSync());
+                Assert.Throws<IOException>(() => new CopyDirectory(temp1, temp2).Run());
             }
             finally
             {
@@ -130,7 +130,7 @@ namespace Common.Tasks
 
             try
             {
-                new CopyDirectory(temp1, temp2, preserveDirectoryTimestamps: true, overwrite: true).RunSync();
+                new CopyDirectory(temp1, temp2, preserveDirectoryTimestamps: true, overwrite: true).Run();
                 FileAssert.AreEqual(
                     expected: Path.Combine(Path.Combine(temp1, "subdir"), "file"),
                     actual: Path.Combine(Path.Combine(temp2, "subdir"), "file"));

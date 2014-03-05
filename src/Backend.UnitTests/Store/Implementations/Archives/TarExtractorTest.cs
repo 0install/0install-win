@@ -113,7 +113,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         private void TestExtract(string mimeType, Stream archive)
         {
             using (var extractor = Extractor.FromStream(archive, _sandbox, mimeType))
-                extractor.RunSync();
+                extractor.Run();
 
             Assert.IsTrue(File.Exists("subdir1/regular"), "Should extract file 'regular'");
             Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc("subdir1/regular"), "Correct last write time for file 'regular' should be set");
@@ -126,7 +126,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         public void TestHardlink()
         {
             using (var extractor = Extractor.FromStream(TestData.GetResource("testArchiveHardlink.tar"), _sandbox, Model.Archive.MimeTypeTar))
-                extractor.RunSync();
+                extractor.Run();
 
             Assert.AreEqual("data", File.ReadAllText("file1"));
             Assert.AreEqual("data", File.ReadAllText("file2"));
@@ -159,7 +159,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var archive = TestData.GetResource("testArchive.tar"))
             {
                 var extractor = new TarExtractor(archive, _sandbox);
-                extractor.RunSync();
+                extractor.Run();
             }
 
             if (MonoUtils.IsUnix)
@@ -180,7 +180,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var archive = TestData.GetResource("testArchive.tar"))
             {
                 var extractor = new TarExtractor(archive, _sandbox);
-                extractor.RunSync();
+                extractor.Run();
             }
 
             string target;

@@ -76,7 +76,7 @@ namespace ZeroInstall.Store.Implementations
 
         #region Thread code
         /// <inheritdoc />
-        protected override void RunTask()
+        protected override void Execute()
         {
             lock (StateLock) State = TaskState.Header;
             var entries = Format.GetSortedDirectoryEntries(TargetDir);

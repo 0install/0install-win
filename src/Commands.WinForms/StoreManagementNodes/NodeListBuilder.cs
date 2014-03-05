@@ -79,7 +79,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         private IEnumerable<Feed> _feeds;
 
         /// <inheritdoc/>
-        protected override void RunTask()
+        protected override void Execute()
         {
             Nodes = new NamedCollection<Node>();
             _feeds = _feedCache.GetAll();

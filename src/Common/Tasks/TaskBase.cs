@@ -126,7 +126,7 @@ namespace Common.Tasks
         protected CancellationToken CancellationToken;
 
         /// <inheritdoc/>
-        public virtual void RunSync(CancellationToken cancellationToken = default(CancellationToken))
+        public virtual void Run(CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
             CancellationToken = cancellationToken;
@@ -139,9 +139,9 @@ namespace Common.Tasks
                 if (_originalIdentity != null)
                 {
                     using (_originalIdentity.Impersonate())
-                        RunTask();
+                        Execute();
                 }
-                else RunTask();
+                else Execute();
             }
                 #region Error handling
             catch (OperationCanceledException)
@@ -174,6 +174,6 @@ namespace Common.Tasks
         /// <exception cref="OperationCanceledException">Thrown if the operation was canceled.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
         /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskState.WebError"/>.</exception>
-        protected abstract void RunTask();
+        protected abstract void Execute();
     }
 }

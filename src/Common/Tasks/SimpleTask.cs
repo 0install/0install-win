@@ -71,7 +71,7 @@ namespace Common.Tasks
 
         #region Thread code
         /// <inheritdoc/>
-        protected override void RunTask()
+        protected override void Execute()
         {
             _work();
 

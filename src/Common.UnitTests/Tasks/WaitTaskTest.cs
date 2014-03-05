@@ -38,7 +38,7 @@ namespace Common.Tasks
             using (var waitHandle = new ManualResetEvent(false))
             {
                 var task = new WaitTask("Test task", waitHandle);
-                var waitThread = new Thread(() => task.RunSync());
+                var waitThread = new Thread(() => task.Run());
                 waitThread.Start();
 
                 Thread.Sleep(100);
@@ -50,7 +50,7 @@ namespace Common.Tasks
             }
         }
 
-        [Test(Description = "Starts waiting for an everblocking handle using RunSync() and stops again right away using Cancel().")]
+        [Test(Description = "Starts waiting for an everblocking handle using Run() and stops again right away using Cancel().")]
         public void TestCancel()
         {
             using (var waitHandle = new ManualResetEvent(false))
@@ -63,7 +63,7 @@ namespace Common.Tasks
                 {
                     try
                     {
-                        task.RunSync(cancellationTokenSource.Token);
+                        task.Run(cancellationTokenSource.Token);
                     }
                     catch (OperationCanceledException)
                     {

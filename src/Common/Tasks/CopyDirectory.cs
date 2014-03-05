@@ -80,7 +80,7 @@ namespace Common.Tasks
         private DirectoryInfo _source, _destination;
 
         /// <inheritdoc/>
-        protected override void RunTask()
+        protected override void Execute()
         {
             _source = new DirectoryInfo(SourcePath);
             _destination = new DirectoryInfo(DestinationPath);

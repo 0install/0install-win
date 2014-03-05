@@ -160,7 +160,7 @@ namespace ZeroInstall.Capture
             if (Directory.Exists(implementationDir)) Directory.Delete(implementationDir, recursive: true);
 
             // TODO: Use callback logic to report progress
-            new CopyDirectory(installationDir, implementationDir).RunSync();
+            new CopyDirectory(installationDir, implementationDir).Run();
 
             return new Implementation
             {

@@ -40,7 +40,7 @@ namespace Common.Tasks
         /// <summary>
         /// Runs and tracks an <see cref="ITask"/>. Returns once the task has been completed.
         /// </summary>
-        /// <param name="task">The task to be run. (<see cref="ITask.RunSync"/> or equivalent is called on it.)</param>
+        /// <param name="task">The task to be run. (<see cref="ITask.Run"/> or equivalent is called on it.)</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
         /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskState.WebError"/>.</exception>

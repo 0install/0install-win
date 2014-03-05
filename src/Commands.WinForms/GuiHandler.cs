@@ -129,7 +129,7 @@ namespace ZeroInstall.Commands.WinForms
                 }
             }
 
-            task.RunSync(CancellationToken);
+            task.Run(CancellationToken);
         }
         #endregion
 
