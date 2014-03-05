@@ -119,7 +119,7 @@ namespace Common.Controls
         /// </summary>
         /// <param name="sender">The <see cref="ITask"/> that called this method.</param>
         /// <remarks>May be called from any thread.</remarks>
-        // Must be public for IPC
+        // Note: Must be public for IPC
         // ReSharper disable MemberCanBePrivate.Global
         public void OnStateChanged(ITask sender)
             // ReSharper restore MemberCanBePrivate.Global
@@ -187,7 +187,7 @@ namespace Common.Controls
         /// <param name="sender">The <see cref="ITask"/> that called this method.</param>
         /// <remarks>May be called from any thread.</remarks>
         // ReSharper disable MemberCanBePrivate.Global
-        // Must be public for IPC
+        // Note: Must be public for IPC
         public void OnProgressChanged(ITask sender)
             // ReSharper restore MemberCanBePrivate.Global
         {

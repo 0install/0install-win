@@ -1,4 +1,6 @@
-﻿namespace Common.Controls
+﻿using Common.Controls;
+
+namespace Common.Tasks
 {
     partial class TrackingDialog
     {
@@ -78,6 +80,8 @@
             this.Name = "TrackingDialog";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TrackingDialog_FormClosing);
+            this.Shown += new System.EventHandler(this.TrackingDialog_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

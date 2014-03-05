@@ -35,7 +35,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
     public sealed partial class NewFeedWizard : Wizard
     {
         private SignedFeed _signedFeed;
-        private readonly FeedBuilder _feedBuilder = new FeedBuilder(new GuiTaskHandler());
+        private readonly FeedBuilder _feedBuilder;
 
         /// <summary>
         /// Runs the wizard.
@@ -55,6 +55,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private NewFeedWizard(IOpenPgp openPgp)
         {
             InitializeComponent();
+            _feedBuilder = new FeedBuilder(new GuiTaskHandler(this));
 
             #region Pages
             var sourcePage = new SourcePage();

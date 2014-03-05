@@ -27,13 +27,13 @@ using System.Net;
 namespace Common.Tasks
 {
     /// <summary>
-    /// Callback methods to inform the user about tasks being run.
+    /// Callback methods to inform the user about <see cref="ITask"/>s being run.
     /// </summary>
-    /// <remarks>The methods may be called from a background thread. Apply appropriate thread-synchronization to update UI elements.</remarks>
-    public interface ITaskHandler
+    /// <remarks>The methods may be called from a background thread. Implementations apply appropriate thread-synchronization to update UI elements.</remarks>
+    public interface ITaskHandler : IDisposable
     {
         /// <summary>
-        /// Signaled when the user wishes to cancel the current process.
+        /// Used to signal when the user wishes to cancel the entire current process (and any <see cref="ITask"/>s it includes).
         /// </summary>
         CancellationToken CancellationToken { get; }
 
@@ -41,15 +41,14 @@ namespace Common.Tasks
         /// Runs and tracks an <see cref="ITask"/>. Returns once the task has been completed.
         /// </summary>
         /// <param name="task">The task to be run. (<see cref="ITask.RunSync"/> or equivalent is called on it.)</param>
-        /// <param name="tag">An object used to associate the <paramref name="task"/> with a specific process; may be <see langword="null"/>.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
         /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskState.WebError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="ITask.State"/> is not <see cref="TaskState.Ready"/>.</exception>
         /// <remarks>
-        /// This may be called multiple times concurrently but the concurrent calls must not depend on each other! The specific implementation of this method may chose whether to actually run the tasks concurrently or in sequence.
-        /// There should not be more than one <see cref="ITask"/> running with a specific <paramref name="tag"/> at any given time.
+        /// This may be called multiple times concurrently but the concurrent calls must not depend on each other!
+        /// The specific implementation of this method may chose whether to actually run the tasks concurrently or in sequence.
         /// </remarks>
-        void RunTask(ITask task, object tag = null);
+        void RunTask(ITask task);
     }
 }

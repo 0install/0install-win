@@ -18,7 +18,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Threading;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
@@ -146,29 +145,6 @@ namespace ZeroInstall.Store.Implementations
             _someGenerator.RunSync();
             Assert.AreEqual(TaskState.Complete, _someGenerator.State);
             Assert.IsTrue(changedToComplete);
-        }
-
-        [Test]
-        public void ShouldOfferJoin()
-        {
-            var completedLock = new ManualResetEvent(false);
-            _someGenerator.StateChanged += delegate(ITask sender)
-            {
-                if (sender.State == TaskState.Complete)
-                    completedLock.Set();
-            };
-            _someGenerator.Start();
-            _someGenerator.Join();
-            bool didTerminate;
-            try
-            {
-                Assert.AreEqual(TaskState.Complete, _someGenerator.State, "After Join() the ManifestGenerator must be in Complete state.");
-            }
-            finally
-            {
-                didTerminate = completedLock.WaitOne(2000, exitContext: false);
-            }
-            Assert.IsTrue(didTerminate, "ManifestGenerator did not terminate");
         }
 
         [Test]

@@ -24,7 +24,7 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// <summary>
     /// Extracts a LZMA-compressed TAR archive.
     /// </summary>
-    public sealed class TarLzmaExtractor : TarExtractor
+    public class TarLzmaExtractor : TarExtractor
     {
         private readonly Stream _stream;
 
@@ -39,13 +39,6 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             _stream = stream;
             UnitsTotal = stream.Length;
-        }
-
-        /// <inheritdoc/>
-        public override void Dispose()
-        {
-            base.Dispose();
-            _stream.Dispose();
         }
 
         /// <summary>
@@ -75,13 +68,6 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             // Use original stream instead of decompressed stream to track progress
             UnitsProcessed = _stream.Position;
-        }
-
-        /// <inheritdoc/>
-        public override void Cancel()
-        {
-            base.Dispose(); // Stop worker threads
-            base.Cancel();
         }
     }
 }

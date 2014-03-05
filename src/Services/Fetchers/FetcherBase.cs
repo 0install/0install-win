@@ -118,7 +118,7 @@ namespace ZeroInstall.Services.Fetchers
             var tempFile = new TemporaryFile("0install-fetcher");
             try
             {
-                Handler.RunTask(new DownloadFile(retrievalMethod.Href, tempFile, retrievalMethod.DownloadSize), manifestDigest);
+                Handler.RunTask(new DownloadFile(retrievalMethod.Href, tempFile, retrievalMethod.DownloadSize) {Tag = manifestDigest});
                 return tempFile;
             }
                 #region Error handling

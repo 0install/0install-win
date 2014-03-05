@@ -58,10 +58,9 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
         }
 
-        /// <inheritdoc/>
-        public override void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            _tarStream.Dispose();
+            if (disposing) _tarStream.Dispose();
         }
         #endregion
 
@@ -112,7 +111,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
 
         /// <summary>
-        /// Updates <see cref="ThreadTask.UnitsProcessed"/> to reflect the number of bytes extracted so far.
+        /// Updates <see cref="TaskBase.UnitsProcessed"/> to reflect the number of bytes extracted so far.
         /// </summary>
         protected virtual void UpdateProgress()
         {

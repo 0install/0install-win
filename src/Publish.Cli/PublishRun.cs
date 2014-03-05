@@ -22,7 +22,6 @@ using System.Linq;
 using System.Net;
 using Common;
 using Common.Cli;
-using Common.Collections;
 using Common.Dispatch;
 using Common.Info;
 using Common.Storage;
@@ -39,7 +38,7 @@ namespace ZeroInstall.Publish.Cli
     /// <summary>
     /// Represents a single run of the 0publish tool.
     /// </summary>
-    public sealed class PublishRun
+    public sealed class PublishRun : IDisposable
     {
         #region Variables
         /// <summary>
@@ -345,5 +344,10 @@ namespace ZeroInstall.Publish.Cli
             }.Dispatch(elements);
         }
         #endregion
+
+        public void Dispose()
+        {
+            _handler.Dispose();
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// <summary>
     /// Extracts a BZip2-compressed TAR archive.
     /// </summary>
-    public sealed class TarBz2Extractor : TarExtractor
+    public class TarBz2Extractor : TarExtractor
     {
         private readonly Stream _stream;
 

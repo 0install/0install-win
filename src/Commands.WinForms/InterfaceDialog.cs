@@ -127,7 +127,8 @@ namespace ZeroInstall.Commands.WinForms
         {
             try
             {
-                TrackingDialog.Run(this, new SimpleTask(Resources.Working, () => { _candidates = _solveCallback()[_interfaceID].Candidates ?? GenerateDummyCandidates(); }));
+                var task = new SimpleTask(Resources.Working, () => { _candidates = _solveCallback()[_interfaceID].Candidates ?? GenerateDummyCandidates(); });
+                using (var handler = new GuiTaskHandler(this)) handler.RunTask(task);
             }
                 #region Error handling
             catch (OperationCanceledException)
@@ -266,7 +267,8 @@ namespace ZeroInstall.Commands.WinForms
             Feed feed = null;
             try
             {
-                TrackingDialog.Run(this, new SimpleTask(Resources.CheckingFeed, () => feed = XmlStorage.FromXmlString<Feed>(new WebClient().DownloadString(feedID))));
+                var task = new SimpleTask(Resources.CheckingFeed, () => feed = XmlStorage.FromXmlString<Feed>(new WebClient().DownloadString(feedID)));
+                using (var handler = new GuiTaskHandler(this)) handler.RunTask(task);
             }
                 #region Error handling
             catch (OperationCanceledException)

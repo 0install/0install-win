@@ -21,7 +21,6 @@
  */
 
 using System;
-using System.Threading;
 
 namespace Common.Tasks
 {
@@ -36,7 +35,7 @@ namespace Common.Tasks
         public CancellationToken CancellationToken { get { return CancellationTokenSource.Token; } }
 
         /// <inheritdoc />
-        public void RunTask(ITask task, object tag = null)
+        public void RunTask(ITask task)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
@@ -44,5 +43,19 @@ namespace Common.Tasks
 
             task.RunSync(CancellationToken);
         }
+
+        #region Dispose
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing) CancellationTokenSource.Dispose();
+        }
+        #endregion
     }
 }

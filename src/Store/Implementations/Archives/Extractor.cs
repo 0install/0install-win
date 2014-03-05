@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Net;
 using Common.Tasks;
 using Common.Utils;
 using WixToolset.Dtf.Compression;
@@ -30,15 +29,8 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// <summary>
     /// Extracts an archive.
     /// </summary>
-    public abstract class Extractor : ThreadTask, IDisposable
+    public abstract class Extractor : TaskBase, IDisposable
     {
-        #region Variables
-        /// <summary>
-        /// Stores the last write times for directories so they can be set by <see cref="SetDirectoryWriteTimes"/>.
-        /// </summary>
-        private readonly List<KeyValuePair<string, DateTime>> _directoryWriteTimes = new List<KeyValuePair<string, DateTime>>();
-        #endregion
-
         #region Properties
         /// <inheritdoc />
         public override string Name { get { return Resources.ExtractingArchive; } }
@@ -198,49 +190,6 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         //--------------------//
 
-        #region Control
-        /// <inheritdoc/>
-        public override void RunSync(CancellationToken cancellationToken = default(CancellationToken))
-        {
-            // NOTE: Run on own thread even though it says synchronous, so we can cancel long running IO by killing the thread
-            using (cancellationToken.Register(Cancel))
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                Start();
-                Join();
-            }
-
-            switch (State)
-            {
-                case TaskState.Complete:
-                    return;
-
-                case TaskState.WebError:
-                    throw new WebException(ErrorMessage);
-
-                case TaskState.IOError:
-                    throw new IOException(ErrorMessage);
-
-                default:
-                    throw new OperationCanceledException();
-            }
-        }
-
-        /// <inheritdoc />
-        public override void Cancel()
-        {
-            lock (StateLock)
-            {
-                if (State == TaskState.Ready || State >= TaskState.Complete) return;
-
-                Thread.Abort();
-                Thread.Join();
-            }
-
-            lock (StateLock) State = TaskState.Ready;
-        }
-        #endregion
-
         #region Get sub entries
         /// <summary>
         /// Returns the name of an archive entry trimmed by the selected sub-directory prefix.
@@ -273,6 +222,11 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         #region Write entries
         /// <summary>
+        /// Stores the last write times for directories so they can be set by <see cref="SetDirectoryWriteTimes"/>.
+        /// </summary>
+        private readonly List<KeyValuePair<string, DateTime>> _directoryWriteTimes = new List<KeyValuePair<string, DateTime>>();
+
+        /// <summary>
         /// Creates a directory in the filesystem and sets its last write time.
         /// </summary>
         /// <param name="relativePath">A path relative to the archive's root.</param>
@@ -304,7 +258,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            using (var fileStream = OpenFileWriteStream(relativePath, fileSize, executable))
+            using (var fileStream = OpenFileWriteStream(relativePath, executable: executable))
                 if (fileSize != 0) StreamToFile(stream, fileStream);
 
             File.SetLastWriteTimeUtc(CombinePath(relativePath), lastWriteTime);
@@ -314,11 +268,12 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// Creates a stream for writing an extracted file to the filesystem.
         /// </summary>
         /// <param name="relativePath">A path relative to the archive's root.</param>
-        /// <param name="fileSize">The length of the zip entries uncompressed data, needed because stream's Length property is always 0.</param>
         /// <param name="executable"><see langword="true"/> if the file's executable bit is set; <see langword="false"/> otherwise.</param>
         /// <returns>A stream for writing the extracted file.</returns>
-        protected FileStream OpenFileWriteStream(string relativePath, long fileSize, bool executable = false)
+        protected FileStream OpenFileWriteStream(string relativePath, bool executable = false)
         {
+            CancellationToken.ThrowIfCancellationRequested();
+
             string fullPath = CombinePath(relativePath);
             string directoryPath = Path.GetDirectoryName(fullPath);
             if (directoryPath != null && !Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
@@ -416,7 +371,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <remarks>Can be overwritten for archive formats that don't simply write a <see cref="Stream"/> to a file.</remarks>
         protected virtual void StreamToFile(Stream stream, FileStream fileStream)
         {
-            stream.CopyTo(fileStream);
+            stream.CopyTo(fileStream, cancellationToken: CancellationToken);
         }
 
         /// <summary>
@@ -518,9 +473,19 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
         #endregion
 
+        //--------------------//
+
+        #region Dispose
         /// <summary>
-        /// Disposed the underlying <see cref="Stream"/>.
+        /// Disposes the underlying <see cref="Stream"/>.
         /// </summary>
-        public abstract void Dispose();
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected abstract void Dispose(bool disposing);
+        #endregion
     }
 }

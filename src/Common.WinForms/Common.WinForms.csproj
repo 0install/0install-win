@@ -154,12 +154,6 @@
     <Compile Include="Controls\TrackingControl.Designer.cs">
       <DependentUpon>TrackingControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TrackingDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\TrackingDialog.Designer.cs">
-      <DependentUpon>TrackingDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\TrackingLabel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -193,6 +187,12 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Tasks\GuiTaskHandler.cs" />
+    <Compile Include="Tasks\TrackingDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tasks\TrackingDialog.Designer.cs">
+      <DependentUpon>TrackingDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Undo\MultiPropertyChangedCommand.cs" />
     <Compile Include="Undo\MultiPropertyTracker.cs" />
     <Compile Include="Undo\PropertyChangedCommand.cs" />

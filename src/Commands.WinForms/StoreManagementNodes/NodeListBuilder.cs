@@ -31,7 +31,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
     /// <summary>
     /// Builds a list of <see cref="Node"/>s for <see cref="Feed"/>s and <see cref="Implementation"/>s.
     /// </summary>
-    public sealed class NodeListBuilder : ThreadTask
+    public sealed class NodeListBuilder : TaskBase
     {
         #region Dependencies
         private readonly IStore _store;

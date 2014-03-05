@@ -47,6 +47,9 @@ namespace Common.Tasks
         WebError,
 
         /// <summary>An error occurred while writing the file.</summary>
-        IOError
+        IOError,
+
+        /// <summary>The task was canceled by the user before completion.</summary>
+        Canceled
     }
 }

@@ -225,8 +225,8 @@ namespace ZeroInstall.Store.Implementations
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var generator = new ManifestGenerator(path, format);
-            handler.RunTask(generator, tag); // Defer task to handler
+            var generator = new ManifestGenerator(path, format) {Tag = tag};
+            handler.RunTask(generator);
             return generator.Result;
         }
 

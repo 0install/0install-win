@@ -52,7 +52,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             try
             {
                 var retrievalMethod = new T {Href = textBoxUrl.Uri};
-                var temporaryDirectory = retrievalMethod.DownloadAndApply(new GuiTaskHandler(), new SimpleCommandExecutor());
+                var temporaryDirectory = retrievalMethod.DownloadAndApply(new GuiTaskHandler(this), new SimpleCommandExecutor());
 
                 _feedBuilder.RetrievalMethod = retrievalMethod;
                 _feedBuilder.TemporaryDirectory = temporaryDirectory;

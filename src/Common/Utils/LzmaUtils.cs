@@ -126,6 +126,8 @@ namespace Common.Utils
                 // Stop producer thread when the buffer stream is closed
                 thread.Abort();
                 thread.Join();
+
+                baseStream.Dispose();
             });
         }
     }

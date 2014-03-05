@@ -64,7 +64,7 @@ namespace ZeroInstall.Services.Fetchers
                         while (!mutex.WaitOne(100, exitContext: false)) // NOTE: Might be blocked more than once
                         {
                             // Wait for mutex to be released
-                            Handler.RunTask(new WaitTask(Resources.DownloadInAnotherWindow, mutex), manifestDigest);
+                            Handler.RunTask(new WaitTask(Resources.DownloadInAnotherWindow, mutex) {Tag = manifestDigest});
                         }
                     }
                         #region Error handling

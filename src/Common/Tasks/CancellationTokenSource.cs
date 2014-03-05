@@ -24,13 +24,14 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Remoting;
 using System.Security.Permissions;
+using System.Threading;
 
 namespace Common.Tasks
 {
     /// <summary>
     /// Signals to <see cref="CancellationToken"/>s that they should be canceled.
     /// </summary>
-    public class CancellationTokenSource : MarshalByRefObject
+    public sealed class CancellationTokenSource : MarshalByRefObject, IDisposable
     {
         /// <summary>
         /// Gets a <see cref="CancellationToken"/> associated with this <see cref="CancellationTokenSource"/>.
@@ -54,6 +55,13 @@ namespace Common.Tasks
         /// </summary>
         public bool IsCancellationRequested { get { return _isCancellationRequested; } }
 
+        private readonly ManualResetEvent _waitHandle = new ManualResetEvent(false);
+
+        /// <summary>
+        /// Gets a wait handle that is signaled when see cref="Cancel"/> has been called.
+        /// </summary>
+        internal WaitHandle WaitHandle { get { return _waitHandle; } }
+
         private readonly object _lock = new object();
 
         /// <summary>
@@ -65,6 +73,8 @@ namespace Common.Tasks
             {
                 // Don't trigger more than once
                 if (_isCancellationRequested) return;
+
+                _waitHandle.Set();
 
                 _isCancellationRequested = true;
                 if (CancellationRequested != null)
@@ -83,6 +93,12 @@ namespace Common.Tasks
         public override string ToString()
         {
             return "CancellationTokenSource {IsCancellationRequested=" + IsCancellationRequested + "}";
+        }
+
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            _waitHandle.Close();
         }
 
         #region IPC timeout

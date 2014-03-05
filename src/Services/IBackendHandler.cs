@@ -28,7 +28,7 @@ namespace ZeroInstall.Services
     /// <summary>
     /// Callback methods to inform the user about tasks being run, ask the user questions and display custom UI elements.
     /// </summary>
-    /// <remarks>The methods may be called from a background thread. Apply appropriate thread-synchronization to update UI elements.</remarks>
+    /// <remarks>The methods may be called from a background thread. Implementations apply appropriate thread-synchronization to update UI elements.</remarks>
     public interface IBackendHandler : IHandler
     {
         /// <summary>

@@ -33,24 +33,12 @@ namespace Common.Tasks
     public class SimpleTaskTest
     {
         [Test(Description = "Ensures the work delegate gets called synchronously.")]
-        public void TestCallbackSync()
+        public void TestCallback()
         {
             bool called = false;
 
             var task = new SimpleTask("Test task", () => called = true);
             task.RunSync();
-
-            Assert.IsTrue(called);
-        }
-
-        [Test(Description = "Ensures the work delegate gets called asynchronously.")]
-        public void TestCallbackAsync()
-        {
-            bool called = false;
-
-            var task = new SimpleTask("Test task", () => called = true);
-            task.Start();
-            task.Join();
 
             Assert.IsTrue(called);
         }

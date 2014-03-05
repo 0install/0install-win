@@ -76,6 +76,7 @@ namespace ZeroInstall.Commands.WinForms
         public void Dispose()
         {
             if (_target != null) _target.Dispose();
+            _cancellationTokenSource.Dispose();
         }
         #endregion
 
@@ -176,13 +177,13 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <inheritdoc />
-        public void RunTask(ITask task, object tag = null)
+        public void RunTask(ITask task)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
             #endregion
 
-            InitTarget().RunTask(task, tag);
+            InitTarget().RunTask(task);
         }
 
         /// <inheritdoc/>

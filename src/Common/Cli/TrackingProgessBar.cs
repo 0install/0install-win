@@ -60,7 +60,7 @@ namespace Common.Cli
         /// Changes the look of the progress bar depending on the <see cref="TaskState"/> of <see cref="_task"/>.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
-        // Must be public for IPC
+        // Note: Must be public for IPC
         // ReSharper disable MemberCanBePrivate.Global
         public void OnStateChanged(ITask sender)
             // ReSharper restore MemberCanBePrivate.Global
@@ -79,7 +79,7 @@ namespace Common.Cli
         /// Changes the value of the progress bar depending on the number of already processed bytes.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
-        // Must be public for IPC
+        // Note: Must be public for IPC
         // ReSharper disable MemberCanBePrivate.Global
         public void OnProgressChanged(ITask sender)
             // ReSharper restore MemberCanBePrivate.Global

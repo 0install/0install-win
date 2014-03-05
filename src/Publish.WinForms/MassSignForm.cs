@@ -158,7 +158,7 @@ namespace ZeroInstall.Publish.WinForms
                 }
                 #endregion
             });
-            TrackingDialog.Run(this, task, Icon);
+            using (var handler = new GuiTaskHandler(this)) handler.RunTask(task);
             Msg.Inform(this, "Successfully signed files.", MsgSeverity.Info);
         }
         #endregion

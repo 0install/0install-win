@@ -21,6 +21,8 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 
 namespace Common.Tasks
 {
@@ -30,6 +32,7 @@ namespace Common.Tasks
     [Serializable]
     public struct CancellationToken
     {
+        [SuppressMessage("Microsoft.Usage", "CA2235:MarkAllNonSerializableFields", Justification = "Access to this field is remoted.")]
         private readonly CancellationTokenSource _source;
 
         /// <summary>
@@ -41,9 +44,9 @@ namespace Common.Tasks
         }
 
         /// <summary>
-        /// Registers a delegate that will be called when <see cref="IsCancellationRequested"/> is set.
+        /// Registers a delegate that will be called when cancellation has been requested.
         /// </summary>
-        /// <param name="callback">The delegate to be executed when <see cref="IsCancellationRequested"/> is set.</param>
+        /// <param name="callback">The delegate to be executed when cancellation has been requested.</param>
         /// <returns>A handle that can be used to deregister the callback.</returns>
         /// <remarks>
         /// The callback is called from a background thread. Wrap via synchronization context to update UI elements.
@@ -55,18 +58,23 @@ namespace Common.Tasks
         }
 
         /// <summary>
-        /// Indicates whether <see cref="IsCancellationRequested"/> has been set.
+        /// Indicates whether cancellation has been requested.
         /// </summary>
         public bool IsCancellationRequested { get { return (_source != null) && _source.IsCancellationRequested; } }
 
         /// <summary>
-        /// Throws an <see cref="OperationCanceledException"/> if <see cref="IsCancellationRequested"/> has been set.
+        /// Throws an <see cref="OperationCanceledException"/> if cancellation has been requested.
         /// </summary>
-        /// <exception cref="OperationCanceledException">Thrown if <see cref="IsCancellationRequested"/> has been set.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if cancellation has been requested.</exception>
         public void ThrowIfCancellationRequested()
         {
             if (IsCancellationRequested) throw new OperationCanceledException();
         }
+
+        /// <summary>
+        /// Gets a wait handle that is signaled when cancellation has been requested.
+        /// </summary>
+        public WaitHandle WaitHandle { get { return _source == null ? new ManualResetEvent(false) : _source.WaitHandle; } }
 
         /// <inheritdoc/>
         public override string ToString()

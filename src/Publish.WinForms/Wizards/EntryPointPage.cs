@@ -60,8 +60,9 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             Candidate[] candidates = null;
             try
             {
-                TrackingDialog.Run(this, new SimpleTask("Searching for executable files", () =>
-                    candidates = Detection.ListCandidates(new DirectoryInfo(workingDirectory)).ToArray()));
+                var task = new SimpleTask("Searching for executable files", () =>
+                    candidates = Detection.ListCandidates(new DirectoryInfo(workingDirectory)).ToArray());
+                using (var handler = new GuiTaskHandler(this)) handler.RunTask(task);
             }
                 #region Error handling
             catch (ArgumentException ex)

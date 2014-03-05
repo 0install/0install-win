@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Common;
 using Common.Cli;
@@ -35,6 +36,7 @@ namespace ZeroInstall.Services
     /// Uses the stderr stream to inform the user about the progress of tasks and ask the user questions.
     /// Provides hooks for specializition in derived implementations.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Diamond inheritance structure leads to false positive.")]
     public class CliHandler : CliTaskHandler, IBackendHandler
     {
         /// <inheritdoc />

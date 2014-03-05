@@ -38,41 +38,32 @@ namespace Common.Tasks
             using (var waitHandle = new ManualResetEvent(false))
             {
                 var task = new WaitTask("Test task", waitHandle);
-                task.Start();
+                var waitThread = new Thread(() => task.RunSync());
+                waitThread.Start();
+
+                Thread.Sleep(100);
                 Assert.AreEqual(TaskState.Started, task.State);
 
                 waitHandle.Set();
-                task.Join();
+                waitThread.Join();
                 Assert.AreEqual(TaskState.Complete, task.State);
             }
         }
 
-        [Test(Description = "Starts waiting for an everblocking handle using Start() and stops again right away using Cancel().")]
-        public void TestCancelAsync()
-        {
-            using (var waitHandle = new ManualResetEvent(false))
-            {
-                var task = new WaitTask("Test task", waitHandle);
-                task.Start();
-                task.Cancel();
-
-                Assert.AreEqual(TaskState.Ready, task.State);
-            }
-        }
-
         [Test(Description = "Starts waiting for an everblocking handle using RunSync() and stops again right away using Cancel().")]
-        public void TestCancelSync()
+        public void TestCancel()
         {
             using (var waitHandle = new ManualResetEvent(false))
             {
                 // Monitor for a cancellation exception
                 var task = new WaitTask("Test task", waitHandle);
                 bool exceptionThrown = false;
+                var cancellationTokenSource = new CancellationTokenSource();
                 var waitThread = new Thread(() =>
                 {
                     try
                     {
-                        task.RunSync();
+                        task.RunSync(cancellationTokenSource.Token);
                     }
                     catch (OperationCanceledException)
                     {
@@ -83,7 +74,7 @@ namespace Common.Tasks
                 // Start and then cancel the download
                 waitThread.Start();
                 Thread.Sleep(100);
-                task.Cancel();
+                cancellationTokenSource.Cancel();
                 waitThread.Join();
 
                 Assert.IsTrue(exceptionThrown, task.State.ToString());

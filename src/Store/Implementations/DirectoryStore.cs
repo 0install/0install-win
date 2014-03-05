@@ -302,7 +302,7 @@ namespace ZeroInstall.Store.Implementations
                 // Copy the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
                 try
                 {
-                    handler.RunTask(new CopyDirectory(path, tempDir), manifestDigest);
+                    handler.RunTask(new CopyDirectory(path, tempDir) {Tag = manifestDigest});
                 }
                     #region Error handling
                 catch (IOException ex)
@@ -346,7 +346,8 @@ namespace ZeroInstall.Store.Implementations
                     {
                         extractor.SubDir = archiveInfo.SubDir;
                         extractor.Destination = archiveInfo.Destination;
-                        handler.RunTask(extractor, manifestDigest); // Defer task to handler
+                        extractor.Tag = manifestDigest;
+                        handler.RunTask(extractor);
                     }
                 }
 

@@ -98,6 +98,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             _modifySelectionsWaitHandle.Close();
             if (_form != null) _form.Dispose();
+            _cancellationTokenSource.Dispose();
         }
         #endregion
 
@@ -108,16 +109,16 @@ namespace ZeroInstall.Commands.WinForms
         private readonly object _genericTaskLock = new object();
 
         /// <inheritdoc />
-        public void RunTask(ITask task, object tag = null)
+        public void RunTask(ITask task)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
             #endregion
 
-            if (tag is ManifestDigest)
+            if (task.Tag is ManifestDigest)
             {
                 // Handle events coming from a non-UI thread
-                _form.Invoke(new Action(() => _form.TrackTask(task, (ManifestDigest)tag)));
+                _form.Invoke(new Action(() => _form.TrackTask(task, (ManifestDigest)task.Tag)));
             }
             else
             {

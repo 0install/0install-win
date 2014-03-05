@@ -26,7 +26,7 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// <summary>
     /// Extracts a Ruby Gem archive.
     /// </summary>
-    public sealed class RubyGemExtractor : TarGzExtractor
+    public class RubyGemExtractor : TarGzExtractor
     {
         /// <summary>
         /// Prepares to extract a Ruby Gem archive.

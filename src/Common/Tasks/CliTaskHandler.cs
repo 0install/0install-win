@@ -41,7 +41,7 @@ namespace Common.Tasks
 
         /// <inheritdoc />
         [MethodImpl(MethodImplOptions.Synchronized)] // Prevent multiple concurrent tasks
-        public void RunTask(ITask task, object tag = null)
+        public void RunTask(ITask task)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
@@ -51,5 +51,19 @@ namespace Common.Tasks
             using (new TrackingProgressBar(task))
                 task.RunSync(CancellationToken);
         }
+
+        #region Dispose
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing) CancellationTokenSource.Dispose();
+        }
+        #endregion
     }
 }

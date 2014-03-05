@@ -148,6 +148,11 @@ namespace ZeroInstall.Publish.Cli
                 return (int)ErrorLevel.IOError;
             }
             #endregion
+
+            finally
+            {
+                run.Dispose();
+            }
         }
     }
 }

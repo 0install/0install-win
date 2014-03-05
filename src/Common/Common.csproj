@@ -147,8 +147,8 @@
     <Compile Include="Tasks\ITaskHandler.cs" />
     <Compile Include="Tasks\SilentTaskHandler.cs" />
     <Compile Include="Tasks\SimpleTask.cs" />
+    <Compile Include="Tasks\TaskBase.cs" />
     <Compile Include="Tasks\TaskState.cs" />
-    <Compile Include="Tasks\ThreadTask.cs" />
     <Compile Include="Tasks\WaitTask.cs" />
     <Compile Include="TimedLogEvent.cs" />
     <Compile Include="Undo\AddToCollection.cs" />

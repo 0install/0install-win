@@ -34,26 +34,13 @@ namespace Common.Tasks
     public class ForEachTaskTest
     {
         [Test(Description = "Ensures the work delegate gets called synchronously.")]
-        public void TestCallbackSync()
+        public void TestCallback()
         {
             var target = new[] {"element1", "element2", "element2"};
             var calledFor = new List<string>();
 
             var task = new ForEachTask<string>("Test task", target, calledFor.Add);
             task.RunSync();
-
-            CollectionAssert.AreEqual(target, calledFor);
-        }
-
-        [Test(Description = "Ensures the work delegate gets called asynchronously.")]
-        public void TestCallbackAsync()
-        {
-            var target = new[] {"element1", "element2", "element2"};
-            var calledFor = new List<string>();
-
-            var task = new ForEachTask<string>("Test task", target, calledFor.Add);
-            task.Start();
-            task.Join();
 
             CollectionAssert.AreEqual(target, calledFor);
         }

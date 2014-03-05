@@ -28,7 +28,7 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// <summary>
     /// Extracts a ZIP archive.
     /// </summary>
-    public sealed class ZipExtractor : Extractor
+    public class ZipExtractor : Extractor
     {
         #region Stream
         /// <summary>Information about the files in the archive as stored in the central directory.</summary>
@@ -72,10 +72,9 @@ namespace ZeroInstall.Store.Implementations.Archives
             #endregion
         }
 
-        /// <inheritdoc/>
-        public override void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            _zipStream.Dispose();
+            if (disposing) _zipStream.Dispose();
         }
         #endregion
 

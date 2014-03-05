@@ -94,7 +94,7 @@ namespace ZeroInstall.Commands.WinForms
                 _feedCache.Flush();
                 var listBuilder = new NodeListBuilder(this, _store, _feedCache);
 
-                TrackingDialog.Run(this, listBuilder);
+                using (var handler = new GuiTaskHandler(this)) handler.RunTask(listBuilder);
 
                 _treeView.Nodes = listBuilder.Nodes;
                 _treeView.SelectedEntry = null;
@@ -241,10 +241,9 @@ namespace ZeroInstall.Commands.WinForms
         public CancellationToken CancellationToken { get { return default(CancellationToken); } }
 
         /// <inheritdoc/>
-        public void RunTask(ITask task, object tag = null)
+        public void RunTask(ITask task)
         {
-            // Handle events coming from a non-UI thread, block caller
-            Invoke(new Action(() => TrackingDialog.Run(this, task, Icon)));
+            using (var handler = new GuiTaskHandler(this)) handler.RunTask(task);
         }
         #endregion
     }

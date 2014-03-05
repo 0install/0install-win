@@ -72,8 +72,6 @@
     <Compile Include="Collections\LocalizableStringCollectionTest.cs" />
     <Compile Include="Collections\MergeTest.cs" />
     <Compile Include="Collections\TransparentCacheTest.cs" />
-    <Compile Include="Controls\TrackingLabelTest.cs" />
-    <Compile Include="Controls\TrackingProgressBarTest.cs" />
     <Compile Include="Dispatch\AggregateDispatcherTest.cs" />
     <Compile Include="Dispatch\PerTypeDispatcherTest.cs" />
     <Compile Include="LogTest.cs" />
@@ -85,7 +83,6 @@
     <Compile Include="Tasks\CopyDirectoryTest.cs" />
     <Compile Include="Tasks\DownloadFileTest.cs" />
     <Compile Include="Tasks\ForEachTaskTest.cs" />
-    <Compile Include="Tasks\MockTask.cs" />
     <Compile Include="Tasks\SimpleTaskTest.cs" />
     <Compile Include="Tasks\WaitTaskTest.cs" />
     <Compile Include="TemporayDirectoryTest.cs" />
@@ -103,6 +100,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

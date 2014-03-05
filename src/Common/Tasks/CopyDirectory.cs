@@ -32,7 +32,7 @@ namespace Common.Tasks
     /// <summary>
     /// Copies the content of a directory to a new location preserving the original file modification times.
     /// </summary>
-    public class CopyDirectory : ThreadTask
+    public class CopyDirectory : TaskBase
     {
         public override string Name { get { return Resources.CopyFiles; } }
 
@@ -110,7 +110,7 @@ namespace Common.Tasks
         {
             foreach (var sourceDirectory in sourceDirectories)
             {
-                ThrowIfCancellationRequested();
+                CancellationToken.ThrowIfCancellationRequested();
                 Directory.CreateDirectory(PathInDestination(sourceDirectory));
             }
         }
@@ -119,7 +119,7 @@ namespace Common.Tasks
         {
             foreach (var sourceFile in sourceFiles)
             {
-                ThrowIfCancellationRequested();
+                CancellationToken.ThrowIfCancellationRequested();
 
                 var destinationFile = new FileInfo(PathInDestination(sourceFile));
                 if (destinationFile.Exists)
@@ -146,7 +146,7 @@ namespace Common.Tasks
         {
             foreach (var sourceDirectory in sourceDirectories)
             {
-                ThrowIfCancellationRequested();
+                CancellationToken.ThrowIfCancellationRequested();
 
                 Directory.SetLastWriteTimeUtc(PathInDestination(sourceDirectory), sourceDirectory.LastWriteTimeUtc);
             }

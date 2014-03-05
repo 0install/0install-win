@@ -150,7 +150,7 @@ namespace ZeroInstall.Store.Service
                 try
                 {
                     var tempDirectory = new DirectoryInfo(Path.Combine(DirectoryPath, tempID));
-                    handler.RunTask(new SimpleTask(Resources.SettingFilePermissions, tempDirectory.ResetAcl), expectedDigest);
+                    handler.RunTask(new SimpleTask(Resources.SettingFilePermissions, tempDirectory.ResetAcl) {Tag = expectedDigest});
 
                     base.VerifyAndAdd(tempID, expectedDigest, handler);
                 }

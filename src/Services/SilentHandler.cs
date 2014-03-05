@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Common.Tasks;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
@@ -29,6 +30,7 @@ namespace ZeroInstall.Services
     /// <summary>
     /// Ignores progress reports and silently answer all questions with "No".
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Diamond inheritance structure leads to false positive.")]
     public class SilentHandler : SilentTaskHandler, IBackendHandler
     {
         /// <summary>

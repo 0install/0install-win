@@ -119,7 +119,8 @@ namespace ZeroInstall.Store.Implementations
             {
                 extractor.SubDir = step.Extract;
                 extractor.Destination = FileUtils.UnifySlashes(step.Destination);
-                handler.RunTask(extractor, tag); // Defer task to handler
+                extractor.Tag = tag;
+                handler.RunTask(extractor);
             }
         }
 

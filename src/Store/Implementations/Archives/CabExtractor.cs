@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Implementations.Archives
     /// <summary>
     /// Extracts a MS Cabinet archive.
     /// </summary>
-    public sealed class CabExtractor : Extractor
+    public class CabExtractor : Extractor
     {
         #region Stream
         private readonly StreamContext _streamContext;
@@ -63,10 +63,13 @@ namespace ZeroInstall.Store.Implementations.Archives
             #endregion
         }
 
-        /// <inheritdoc/>
-        public override void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            _streamContext.Dispose();
+            if (disposing)
+            {
+                _cabEngine.Dispose();
+                _streamContext.Dispose();
+            }
         }
         #endregion
 
@@ -128,15 +131,24 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             public Stream OpenFileWriteStream(string path, long fileSize, DateTime lastWriteTime)
             {
+                #region Sanity checks
+                if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+                #endregion
+
                 string entryName = _extractor.GetSubEntryName(path);
                 if (entryName == null) return null;
 
                 _bytesStaged = fileSize;
-                return _extractor.OpenFileWriteStream(entryName, fileSize);
+                return _extractor.OpenFileWriteStream(entryName);
             }
 
             public void CloseFileWriteStream(string path, Stream stream, FileAttributes attributes, DateTime lastWriteTime)
             {
+                #region Sanity checks
+                if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+                if (stream == null) throw new ArgumentNullException("stream");
+                #endregion
+
                 stream.Close();
                 File.SetLastWriteTimeUtc(_extractor.CombinePath(_extractor.GetSubEntryName(path)), lastWriteTime);
 

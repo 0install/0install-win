@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Common.Tasks
 {
@@ -30,7 +31,9 @@ namespace Common.Tasks
     [Serializable]
     public struct CancellationTokenRegistration : IDisposable
     {
+        [SuppressMessage("Microsoft.Usage", "CA2235:MarkAllNonSerializableFields", Justification = "Access to this field is remoted.")]
         private readonly CancellationTokenSource _source;
+
         private readonly Action _callback;
 
         internal CancellationTokenRegistration(CancellationTokenSource source, Action callback)

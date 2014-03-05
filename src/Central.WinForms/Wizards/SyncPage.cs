@@ -98,9 +98,9 @@ namespace ZeroInstall.Central.WinForms.Wizards
         public CancellationToken CancellationToken { get { return _cancellationToken; } }
 
         [MethodImpl(MethodImplOptions.Synchronized)] // Prevent multiple concurrent tasks
-        public void RunTask(ITask task, object tag = null)
+        public void RunTask(ITask task)
         {
-            Invoke(new Action(() => TrackingDialog.Run(this, task)));
+            using (var handler = new GuiTaskHandler(this)) handler.RunTask(task);
         }
 
         /// <summary>

@@ -23,7 +23,7 @@ namespace ZeroInstall.Store
     /// <summary>
     /// Callback methods to inform the user about tasks being run and ask the user questions.
     /// </summary>
-    /// <remarks>The methods may be called from a background thread. They internally apply appropriate thread-synchronization when updating GUIs.</remarks>
+    /// <remarks>The methods may be called from a background thread. Implementations apply appropriate thread-synchronization to update UI elements.</remarks>
     public interface IHandler : ITaskHandler
     {
         /// <summary>

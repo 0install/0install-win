@@ -28,7 +28,7 @@ namespace Common.Tasks
     /// <summary>
     /// Waits for a <see cref="WaitHandle"/> to become available.
     /// </summary>
-    public sealed class WaitTask : ThreadTask
+    public sealed class WaitTask : TaskBase
     {
         #region Variables
         /// <summary>The <see cref="WaitHandle"/> to wait for.</summary>
@@ -72,7 +72,7 @@ namespace Common.Tasks
             try
             {
                 // Wait for the target handle or a cancel request to arrive
-                if (WaitHandle.WaitAny(new[] {_waitHandle, CancelRequest}) == 1)
+                if (WaitHandle.WaitAny(new[] {_waitHandle, CancellationToken.WaitHandle}) == 1)
                     throw new OperationCanceledException();
             }
             catch (AbandonedMutexException ex)

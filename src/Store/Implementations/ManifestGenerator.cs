@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Implementations
     /// <summary>
     /// Generates a <see cref="Manifest"/> for a directory in the filesystem as a background task.
     /// </summary>
-    public class ManifestGenerator : ThreadTask
+    public class ManifestGenerator : TaskBase
     {
         #region Properties
         /// <inheritdoc />
@@ -49,7 +49,7 @@ namespace ZeroInstall.Store.Implementations
         public ManifestFormat Format { get; private set; }
 
         /// <summary>
-        /// If <see cref="ThreadTask.State"/> is <see cref="TaskState.Complete"/> this property contains the generated <see cref="Manifest"/>; otherwise it's <see langword="null"/>.
+        /// If <see cref="TaskBase.State"/> is <see cref="TaskState.Complete"/> this property contains the generated <see cref="Manifest"/>; otherwise it's <see langword="null"/>.
         /// </summary>
         public Manifest Result { get; private set; }
         #endregion
@@ -102,7 +102,7 @@ namespace ZeroInstall.Store.Implementations
             var nodes = new List<ManifestNode>();
             foreach (var entry in entries)
             {
-                ThrowIfCancellationRequested();
+                CancellationToken.ThrowIfCancellationRequested();
 
                 var file = entry as FileInfo;
                 if (file != null)

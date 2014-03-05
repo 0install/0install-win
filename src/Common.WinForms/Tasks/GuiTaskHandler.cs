@@ -22,28 +22,45 @@
 
 using System;
 using System.Security.Permissions;
-using Common.Controls;
+using System.Windows.Forms;
 
 namespace Common.Tasks
 {
     /// <summary>
     /// Uses <see cref="TrackingDialog"/> to inform the user about the progress of tasks.
     /// </summary>
-    public class GuiTaskHandler : MarshalByRefObject, ITaskHandler
+    public sealed class GuiTaskHandler : MarshalByRefObject, ITaskHandler
     {
-        protected readonly CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
+        private readonly IWin32Window _owner;
+
+        public GuiTaskHandler(IWin32Window owner = null)
+        {
+            _owner = owner;
+        }
+
+        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         /// <inheritdoc/>
-        public CancellationToken CancellationToken { get { return CancellationTokenSource.Token; } }
+        public CancellationToken CancellationToken { get { return _cancellationTokenSource.Token; } }
+
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            _cancellationTokenSource.Dispose();
+        }
 
         /// <inheritdoc />
-        public void RunTask(ITask task, object tag = null)
+        public void RunTask(ITask task)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
             #endregion
 
-            TrackingDialog.Run(null, task);
+            using (var dialog = new TrackingDialog(task, _cancellationTokenSource))
+            {
+                dialog.ShowDialog(_owner);
+                if (dialog.Exception != null) throw dialog.Exception;
+            }
         }
 
         #region IPC timeout

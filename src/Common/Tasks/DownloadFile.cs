@@ -32,7 +32,7 @@ namespace Common.Tasks
     /// <summary>
     /// Downloads a file from a specific internet address to a local file (optionally as a background task).
     /// </summary>
-    public class DownloadFile : ThreadTask
+    public class DownloadFile : TaskBase
     {
         #region Properties
         /// <inheritdoc />
@@ -100,13 +100,13 @@ namespace Common.Tasks
                 // ReSharper restore AssignNullToNotNullAttribute
 
                 // Wait for the download request to complete or a cancel request to arrive
-                if (WaitHandle.WaitAny(new[] {responseRequest.AsyncWaitHandle, CancelRequest}) == 1)
+                if (WaitHandle.WaitAny(new[] {responseRequest.AsyncWaitHandle, CancellationToken.WaitHandle}) == 1)
                     throw new OperationCanceledException();
 
                 // Process the response
                 using (WebResponse response = request.EndGetResponse(responseRequest))
                 {
-                    ThrowIfCancellationRequested();
+                    CancellationToken.ThrowIfCancellationRequested();
                     ReadHeader(response);
                     lock (StateLock) State = TaskState.Data;
 
@@ -152,7 +152,7 @@ namespace Common.Tasks
             {
                 fileStream.Write(buffer, 0, length);
                 bytesDownloaded += length;
-                ThrowIfCancellationRequested();
+                CancellationToken.ThrowIfCancellationRequested();
 
                 // Only report progress once every 250ms
                 if (DateTime.UtcNow - lastProgressReport >= new TimeSpan(0, 0, 0, 0, 250))
