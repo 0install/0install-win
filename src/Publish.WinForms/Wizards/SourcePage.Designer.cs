@@ -56,7 +56,7 @@
             this.labelQuestion.Name = "labelQuestion";
             this.labelQuestion.Size = new System.Drawing.Size(400, 22);
             this.labelQuestion.TabIndex = 1;
-            this.labelQuestion.Text = "Where can we get the application from?";
+            this.labelQuestion.Text = "How is the application distributed?";
             // 
             // buttonArchive
             // 
@@ -66,7 +66,7 @@
             this.buttonArchive.Name = "buttonArchive";
             this.buttonArchive.Size = new System.Drawing.Size(396, 35);
             this.buttonArchive.TabIndex = 2;
-            this.buttonArchive.Text = "Archive (ZIP, TAR, ...)";
+            this.buttonArchive.Text = "Archive (.zip, .tar, .msi, ...)";
             this.buttonArchive.UseVisualStyleBackColor = true;
             this.buttonArchive.Click += new System.EventHandler(this.buttonArchive_Click);
             // 
@@ -78,7 +78,7 @@
             this.buttonSingleFile.Name = "buttonSingleFile";
             this.buttonSingleFile.Size = new System.Drawing.Size(396, 35);
             this.buttonSingleFile.TabIndex = 3;
-            this.buttonSingleFile.Text = "Single Executable (EXE, JAR, ...)";
+            this.buttonSingleFile.Text = "Single Executable (.exe, .jar, ...)";
             this.buttonSingleFile.UseVisualStyleBackColor = true;
             this.buttonSingleFile.Click += new System.EventHandler(this.buttonSingleFile_Click);
             // 
@@ -90,7 +90,7 @@
             this.buttonSetup.Name = "buttonSetup";
             this.buttonSetup.Size = new System.Drawing.Size(396, 35);
             this.buttonSetup.TabIndex = 4;
-            this.buttonSetup.Text = "&Setup (EXE, MSI, ...)";
+            this.buttonSetup.Text = "&Setup (.exe)";
             this.buttonSetup.UseVisualStyleBackColor = true;
             this.buttonSetup.Click += new System.EventHandler(this.buttonSetup_Click);
             // 

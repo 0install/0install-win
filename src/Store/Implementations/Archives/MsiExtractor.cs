@@ -239,7 +239,14 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <inheritdoc/>
         protected override string GetSubEntryName(string entryName)
         {
-            return base.GetSubEntryName(_files[entryName].FullPath);
+            try
+            {
+                return base.GetSubEntryName(_files[entryName].FullPath);
+            }
+            catch (KeyNotFoundException)
+            {
+                return null;
+            }
         }
     }
 }
