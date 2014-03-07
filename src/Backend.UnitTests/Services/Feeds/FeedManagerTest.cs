@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using Common;
 using Common.Storage;
-using Common.Utils;
+using Common.Streams;
 using Moq;
 using NUnit.Framework;
 using ZeroInstall.Store.Feeds;

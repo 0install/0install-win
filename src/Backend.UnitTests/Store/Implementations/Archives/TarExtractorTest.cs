@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using Common.Storage;
+using Common.Streams;
 using Common.Utils;
 using NUnit.Framework;
 

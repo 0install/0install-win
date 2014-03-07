@@ -17,8 +17,8 @@
 
 using System;
 using System.IO;
+using Common.Streams;
 using Common.Tasks;
-using Common.Utils;
 using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Store.Properties;

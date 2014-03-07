@@ -24,7 +24,7 @@ using System.Text;
 using Common;
 using Common.Cli;
 using Common.Storage;
-using Common.Utils;
+using Common.Streams;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;

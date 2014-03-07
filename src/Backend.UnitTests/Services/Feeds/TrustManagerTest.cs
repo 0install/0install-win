@@ -19,7 +19,7 @@ using System;
 using System.IO;
 using System.Text;
 using Common;
-using Common.Utils;
+using Common.Streams;
 using Moq;
 using NUnit.Framework;
 using ZeroInstall.Store.Feeds;

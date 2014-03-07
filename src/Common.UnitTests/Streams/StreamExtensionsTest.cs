@@ -23,30 +23,31 @@
 using System.IO;
 using System.Text;
 using Common.Storage;
+using Common.Utils;
 using NUnit.Framework;
 
-namespace Common.Utils
+namespace Common.Streams
 {
     /// <summary>
-    /// Contains test methods for <see cref="StreamUtils"/>.
+    /// Contains test methods for <see cref="StreamExtensions"/>.
     /// </summary>
     [TestFixture]
-    public class StreamUtilsTest
+    public class StreamExtensionsTest
     {
         /// <summary>
-        /// Ensures <see cref="StreamUtils.Equals(System.IO.Stream,System.IO.Stream)"/> works correctly.
+        /// Ensures <see cref="StreamExtensions.ContentEquals"/> works correctly.
         /// </summary>
         [Test]
-        public void TestEquals()
+        public void TestContentEquals()
         {
-            Assert.IsTrue(StreamUtils.Equals("abc".ToStream(), "abc".ToStream()));
-            Assert.IsFalse(StreamUtils.Equals("ab".ToStream(), "abc".ToStream()));
-            Assert.IsFalse(StreamUtils.Equals("abc".ToStream(), "ab".ToStream()));
-            Assert.IsFalse(StreamUtils.Equals("abc".ToStream(), "".ToStream()));
+            Assert.IsTrue("abc".ToStream().ContentEquals("abc".ToStream()));
+            Assert.IsFalse("ab".ToStream().ContentEquals("abc".ToStream()));
+            Assert.IsFalse("abc".ToStream().ContentEquals("ab".ToStream()));
+            Assert.IsFalse("abc".ToStream().ContentEquals("".ToStream()));
         }
 
         /// <summary>
-        /// Ensures <see cref="StreamUtils.ToStream"/> and <see cref="StreamUtils.ReadToString"/> work correctly.
+        /// Ensures <see cref="StreamExtensions.ToStream"/> and <see cref="StreamExtensions.ReadToString"/> work correctly.
         /// </summary>
         [Test]
         public void TestString()
@@ -57,7 +58,7 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Ensures <see cref="StreamUtils.WriteTo(System.IO.Stream,System.String)"/> correctly writes streams to files.
+        /// Ensures <see cref="StreamExtensions.WriteTo(System.IO.Stream,System.String)"/> correctly writes streams to files.
         /// </summary>
         [Test]
         public void TestWriteToFile()

@@ -25,12 +25,12 @@ using System.IO;
 using System.Text;
 using Common.Tasks;
 
-namespace Common.Utils
+namespace Common.Streams
 {
     /// <summary>
-    /// Provides generic helper methods for <see cref="Stream"/>s.
+    /// Provides extension methods for <see cref="Stream"/>s.
     /// </summary>
-    public static class StreamUtils
+    public static class StreamExtensions
     {
         /// <summary>
         /// Copies the content of one stream to another.
@@ -77,7 +77,7 @@ namespace Common.Utils
         /// Compares two streams for bit-wise equality.
         /// </summary>
         /// <remarks>Will try to <see cref="Stream.Seek"/> to the start of both streams.</remarks>
-        public static bool Equals(Stream stream1, Stream stream2)
+        public static bool ContentEquals(this Stream stream1, Stream stream2)
         {
             #region Sanity checks
             if (stream1 == null) throw new ArgumentNullException("stream1");

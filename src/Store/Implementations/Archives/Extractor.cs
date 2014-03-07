@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using Common.Streams;
 using Common.Tasks;
 using Common.Utils;
 using Microsoft.Deployment.Compression;

@@ -17,6 +17,7 @@
 
 using System.Security.Cryptography;
 using Common;
+using Common.Streams;
 using Common.Tasks;
 using Common.Undo;
 using Common.Utils;

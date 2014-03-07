@@ -20,6 +20,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Common;
 using Common.Storage;
+using Common.Streams;
 using Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;

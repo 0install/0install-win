@@ -25,6 +25,7 @@ using System.Net;
 using System.Reflection;
 using Common;
 using Common.Storage;
+using Common.Streams;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;

@@ -18,6 +18,7 @@
 using System.IO;
 using System.Linq;
 using Common.Storage;
+using Common.Streams;
 using Common.Tasks;
 using Common.Utils;
 using NUnit.Framework;
@@ -40,7 +41,7 @@ namespace ZeroInstall.Store.Implementations
                 TestData.GetResource("testArchive.zip").WriteTo(archiveFile);
 
                 var downloadedFiles = new[] {archiveFile};
-                var recipe = new Recipe {Steps = {new Model.Archive {MimeType = Model.Archive.MimeTypeZip, Destination = "subDir"}}};
+                var recipe = new Recipe {Steps = {new Archive {MimeType = Archive.MimeTypeZip, Destination = "subDir"}}};
 
                 using (TemporaryDirectory recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
                 {
@@ -67,7 +68,7 @@ namespace ZeroInstall.Store.Implementations
                 TestData.GetResource("testArchive.zip").WriteTo(archiveFile);
 
                 var downloadedFiles = new[] {archiveFile, singleFile};
-                var recipe = new Recipe {Steps = {new Model.Archive {MimeType = Model.Archive.MimeTypeZip}, new SingleFile {Destination = "subdir2/executable"}}};
+                var recipe = new Recipe {Steps = {new Archive {MimeType = Archive.MimeTypeZip}, new SingleFile {Destination = "subdir2/executable"}}};
 
                 using (TemporaryDirectory recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
                 {
@@ -93,7 +94,7 @@ namespace ZeroInstall.Store.Implementations
                 {
                     Steps =
                     {
-                        new Model.Archive {MimeType = Model.Archive.MimeTypeZip},
+                        new Archive {MimeType = Archive.MimeTypeZip},
                         new RemoveStep {Path = "symlink"},
                         new RemoveStep {Path = "subdir2"}
                     }
@@ -130,7 +131,7 @@ namespace ZeroInstall.Store.Implementations
                 {
                     Steps =
                     {
-                        new Model.Archive {MimeType = Model.Archive.MimeTypeZip},
+                        new Archive {MimeType = Archive.MimeTypeZip},
                         new RenameStep {Source = "symlink", Destination = "subdir3/symlink2"},
                         new RenameStep {Source = "subdir2/executable", Destination = "subdir2/executable2"}
                     }
@@ -174,7 +175,7 @@ namespace ZeroInstall.Store.Implementations
         {
             using (var tempArchive = new TemporaryFile("0install-unit-tests"))
             {
-                Assert.Throws<IOException>(() => new Recipe {Steps = {new Model.Archive {Destination = "../destination"}}}.Apply(new[] {tempArchive}, new SilentTaskHandler()),
+                Assert.Throws<IOException>(() => new Recipe {Steps = {new Archive {Destination = "../destination"}}}.Apply(new[] {tempArchive}, new SilentTaskHandler()),
                     "Should reject breakout path in Archive.Destination");
             }
 

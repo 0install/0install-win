@@ -25,6 +25,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using Common;
 using Common.Storage;
+using Common.Streams;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration.Properties;

@@ -29,6 +29,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using Common.Properties;
+using Common.Streams;
 using Common.Utils;
 using ICSharpCode.SharpZipLib.Zip;
 
