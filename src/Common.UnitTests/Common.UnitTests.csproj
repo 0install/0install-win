@@ -95,7 +95,6 @@
     <Compile Include="Undo\ReplaceInListTest.cs" />
     <Compile Include="Undo\SetLocalizableStringTest.cs" />
     <Compile Include="Utils\FileUtilsTest.cs" />
-    <Compile Include="Utils\PackageBuilder.cs" />
     <Compile Include="Utils\StringUtilsTest.cs" />
   </ItemGroup>
   <ItemGroup>

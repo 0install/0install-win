@@ -20,7 +20,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using Common.Storage;
-using Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 
@@ -32,40 +31,28 @@ namespace ZeroInstall.Store.Implementations
     [TestFixture]
     public class DirectoryStoreTest
     {
-        #region Helpers
-        /// <summary>
-        /// Creates a temporary directory containing exactly one file named "file.txt" containing 3 ASCII-encoded capital As.
-        /// </summary>
-        /// <returns>The path of the directory</returns>
-        internal static string CreateArtificialPackage()
-        {
-            string packageDir = FileUtils.GetTempDirectory("0install-unit-tests");
-            string subDir = Path.Combine(packageDir, "subdir");
-            Directory.CreateDirectory(subDir);
-            File.WriteAllText(Path.Combine(subDir, "file.txt"), @"AAA");
-            File.SetLastWriteTimeUtc(Path.Combine(subDir, "file.txt"), new DateTime(2000, 1, 1));
-
-            return packageDir;
-        }
-        #endregion
-
         private TemporaryDirectory _tempDir;
         private DirectoryStore _store;
-        private string _packageDir;
 
         [SetUp]
         public void SetUp()
         {
             _tempDir = new TemporaryDirectory("0install-unit-tests");
             _store = new DirectoryStore(_tempDir);
-            _packageDir = CreateArtificialPackage();
         }
 
         [TearDown]
         public void TearDown()
         {
             _tempDir.Dispose();
-            if (Directory.Exists(_packageDir)) Directory.Delete(_packageDir, recursive: true);
+        }
+
+        [Test]
+        public void TestContains()
+        {
+            Directory.CreateDirectory(Path.Combine(_tempDir, "sha256new_123ABC"));
+            Assert.IsTrue(_store.Contains(new ManifestDigest(sha256New: "123ABC")));
+            Assert.IsFalse(_store.Contains(new ManifestDigest(sha256New: "456XYZ")));
         }
 
         [Test]
@@ -94,22 +81,16 @@ namespace ZeroInstall.Store.Implementations
         }
 
         [Test]
-        public void ShouldTellIfItContainsAnImplementation()
-        {
-            string hash = Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new MockHandler());
-
-            Directory.Move(_packageDir, Path.Combine(_store.DirectoryPath, hash));
-            Assert.True(_store.Contains(new ManifestDigest(hash)));
-        }
-
-        [Test]
         public void ShouldAllowToAddFolder()
         {
-            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new MockHandler()));
-            _store.AddDirectory(_packageDir, digest, new MockHandler());
+            using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
+            {
+                var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, new MockHandler()));
+                _store.AddDirectory(packageDir, digest, new MockHandler());
 
-            Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
-            CollectionAssert.AreEqual(new[] {digest}, _store.ListAll(), "After adding, Store must show the added package in the complete list");
+                Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
+                CollectionAssert.AreEqual(new[] {digest}, _store.ListAll(), "After adding, Store must show the added package in the complete list");
+            }
         }
 
         [Test]
@@ -117,13 +98,16 @@ namespace ZeroInstall.Store.Implementations
         {
             Directory.Delete(_tempDir, recursive: true);
 
-            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new MockHandler()));
-            _store.AddDirectory(_packageDir, digest, new MockHandler());
+            using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
+            {
+                var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, new MockHandler()));
+                _store.AddDirectory(packageDir, digest, new MockHandler());
 
-            Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
-            CollectionAssert.AreEqual(new[] {digest}, _store.ListAll(), "After adding, Store must show the added package in the complete list");
+                Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
+                CollectionAssert.AreEqual(new[] {digest}, _store.ListAll(), "After adding, Store must show the added package in the complete list");
 
-            Assert.IsTrue(Directory.Exists(_tempDir), "Store directory should have been recreated");
+                Assert.IsTrue(Directory.Exists(_tempDir), "Store directory should have been recreated");
+            }
         }
 
         [Test]
@@ -148,21 +132,19 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void ShouldAllowToRemove()
         {
-            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new MockHandler()));
+            string implPath = Path.Combine(_tempDir, "sha256new_123ABC");
+            Directory.CreateDirectory(implPath);
 
-            _store.AddDirectory(_packageDir, digest, new MockHandler());
-            Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
-            _store.Remove(digest);
-            Assert.IsFalse(_store.Contains(digest), "After remove, Store may no longer contain the added package");
+            _store.Remove(new ManifestDigest(sha256New: "123ABC"));
+            Assert.IsFalse(Directory.Exists(implPath), "After remove, Store may no longer contain the added package");
         }
 
         [Test]
         public void ShouldReturnCorrectPathOfPackageInCache()
         {
-            string hash = Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new MockHandler());
-
-            Directory.Move(_packageDir, Path.Combine(_store.DirectoryPath, hash));
-            Assert.AreEqual(Path.Combine(_store.DirectoryPath, hash), _store.GetPath(new ManifestDigest(hash)), "Store must return the correct path for Implementations it contains");
+            string implPath = Path.Combine(_tempDir, "sha256new_123ABC");
+            Directory.CreateDirectory(implPath);
+            Assert.AreEqual(implPath, _store.GetPath(new ManifestDigest(sha256New: "123ABC")), "Store must return the correct path for Implementations it contains");
         }
 
         [Test]
@@ -174,53 +156,68 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void ShouldDetectDamagedImplementations()
         {
-            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha1New, new MockHandler()));
-            _store.AddDirectory(_packageDir, digest, new MockHandler());
+            using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
+            {
+                new PackageBuilder().AddFolder("subdir")
+                    .AddFile("file", "AAA", new DateTime(2000, 1, 1))
+                    .WritePackageInto(packageDir);
 
-            // After correctly adding a directory, the store should be valid
-            Assert.IsEmpty(_store.Audit(new MockHandler()));
+                var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha1New, new MockHandler()));
+                _store.AddDirectory(packageDir, digest, new MockHandler());
 
-            // A contaminated store should be detected
-            Directory.CreateDirectory(Path.Combine(_tempDir, "sha1new=abc"));
-            DigestMismatchException problem = _store.Audit(new MockHandler()).First();
-            Assert.AreEqual("sha1new=abc", problem.ExpectedHash);
-            Assert.AreEqual("sha1new=da39a3ee5e6b4b0d3255bfef95601890afd80709", problem.ActualHash);
+                // After correctly adding a directory, the store should be valid
+                Assert.IsEmpty(_store.Audit(new MockHandler()));
+
+                // A contaminated store should be detected
+                Directory.CreateDirectory(Path.Combine(_tempDir, "sha1new=abc"));
+                DigestMismatchException problem = _store.Audit(new MockHandler()).First();
+                Assert.AreEqual("sha1new=abc", problem.ExpectedHash);
+                Assert.AreEqual("sha1new=da39a3ee5e6b4b0d3255bfef95601890afd80709", problem.ActualHash);
+            }
         }
 
         [Test]
         public void StressTest()
         {
-            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new MockHandler()));
-
-            Exception exception = null;
-            var threads = new Thread[100];
-            for (int i = 0; i < threads.Length; i++)
+            using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                threads[i] = new Thread(() =>
+                new PackageBuilder().AddFolder("subdir")
+                    .AddFile("file", "AAA", new DateTime(2000, 1, 1))
+                    .WritePackageInto(packageDir);
+
+                var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, new MockHandler()));
+
+                Exception exception = null;
+                var threads = new Thread[100];
+                for (int i = 0; i < threads.Length; i++)
                 {
-                    try
+                    threads[i] = new Thread(() =>
                     {
-                        _store.AddDirectory(_packageDir, digest, new MockHandler());
-                        _store.Remove(digest);
-                    }
-                    catch (ImplementationAlreadyInStoreException)
-                    {}
-                    catch (ImplementationNotFoundException)
-                    {}
-                    catch (Exception ex)
-                    {
-                        exception = ex;
-                    }
-                });
-                threads[i].Start();
+                        try
+                        {
+                            // ReSharper disable once AccessToDisposedClosure
+                            _store.AddDirectory(packageDir, digest, new MockHandler());
+                            _store.Remove(digest);
+                        }
+                        catch (ImplementationAlreadyInStoreException)
+                        {}
+                        catch (ImplementationNotFoundException)
+                        {}
+                        catch (Exception ex)
+                        {
+                            exception = ex;
+                        }
+                    });
+                    threads[i].Start();
+                }
+
+                foreach (var thread in threads)
+                    thread.Join();
+                if (exception != null)
+                    Assert.Fail(exception.ToString());
+
+                Assert.IsFalse(_store.Contains(digest));
             }
-
-            foreach (var thread in threads)
-                thread.Join();
-            if (exception != null)
-                Assert.Fail(exception.ToString());
-
-            Assert.IsFalse(_store.Contains(digest));
         }
     }
 }

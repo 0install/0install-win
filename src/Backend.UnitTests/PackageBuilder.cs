@@ -27,7 +27,7 @@ using System.IO;
 using System.Text;
 using ICSharpCode.SharpZipLib.Zip;
 
-namespace Common.Utils
+namespace ZeroInstall
 {
     public abstract class HierarchyEntry
     {

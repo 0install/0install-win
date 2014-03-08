@@ -39,17 +39,12 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         private static Manifest CreateTestManifest()
         {
-            // Create a test directory to create a manifest for
-            string tempDir = DirectoryStoreTest.CreateArtificialPackage();
-
-            try
+            using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                // Generate manifest, write it to a file and read the file again
-                return Manifest.Generate(tempDir, ManifestFormat.Sha1New, new MockHandler());
-            }
-            finally
-            { // Clean up
-                Directory.Delete(tempDir, recursive: true);
+                new PackageBuilder().AddFolder("subdir")
+                    .AddFile("file", "AAA", new DateTime(2000, 1, 1))
+                    .WritePackageInto(packageDir);
+                return Manifest.Generate(packageDir, ManifestFormat.Sha1New, new MockHandler());
             }
         }
         #endregion
@@ -96,9 +91,12 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void TestCalculateDigest()
         {
-            string packageDir = DirectoryStoreTest.CreateArtificialPackage() + Path.DirectorySeparatorChar;
-            try
+            using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
             {
+                new PackageBuilder().AddFolder("subdir")
+                    .AddFile("file", "AAA", new DateTime(2000, 1, 1))
+                    .WritePackageInto(packageDir);
+
                 Assert.AreEqual(
                     Manifest.CreateDotFile(packageDir, ManifestFormat.Sha1, new MockHandler()),
                     Manifest.Generate(packageDir, ManifestFormat.Sha1, new MockHandler()).CalculateDigest(),
@@ -116,18 +114,17 @@ namespace ZeroInstall.Store.Implementations
                     Manifest.Generate(packageDir, ManifestFormat.Sha256New, new MockHandler()).CalculateDigest(),
                     "sha256new dot file and digest should match");
             }
-            finally
-            {
-                Directory.Delete(packageDir, recursive: true);
-            }
         }
 
         [Test]
         public void TestCreateDigest()
         {
-            string packageDir = DirectoryStoreTest.CreateArtificialPackage();
-            try
+            using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
             {
+                new PackageBuilder().AddFolder("subdir")
+                    .AddFile("file", "AAA", new DateTime(2000, 1, 1))
+                    .WritePackageInto(packageDir);
+
                 ManifestDigest digest1 = Manifest.CreateDigest(packageDir, new MockHandler());
                 Assert.IsNullOrEmpty(digest1.Sha1); // sha1 is deprecated
                 Assert.IsNotNullOrEmpty(digest1.Sha1New);
@@ -137,24 +134,19 @@ namespace ZeroInstall.Store.Implementations
                 ManifestDigest digest2 = Manifest.CreateDigest(packageDir, new MockHandler());
                 Assert.AreEqual(digest1, digest2);
             }
-            finally
-            {
-                Directory.Delete(packageDir, recursive: true);
-            }
         }
 
         [Test(Description = "Ensures that ToXmlString() correctly outputs a serialized form of the manifest.")]
         public void TestToString()
         {
-            string packageDir = DirectoryStoreTest.CreateArtificialPackage();
-            try
+            using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
             {
+                new PackageBuilder().AddFolder("subdir")
+                    .AddFile("file", "AAA", new DateTime(2000, 1, 1))
+                    .WritePackageInto(packageDir);
+
                 var manifest = Manifest.Generate(packageDir, ManifestFormat.Sha1New, new MockHandler());
-                Assert.AreEqual("D /subdir\nF 606ec6e9bd8a8ff2ad14e5fade3f264471e82251 946684800 3 file.txt\n", manifest.ToString().Replace(Environment.NewLine, "\n"));
-            }
-            finally
-            {
-                Directory.Delete(packageDir, recursive: true);
+                Assert.AreEqual("D /subdir\nF 606ec6e9bd8a8ff2ad14e5fade3f264471e82251 946684800 3 file\n", manifest.ToString().Replace(Environment.NewLine, "\n"));
             }
         }
 
