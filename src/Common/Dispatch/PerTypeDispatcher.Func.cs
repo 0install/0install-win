@@ -24,6 +24,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Common.Properties;
 
 namespace Common.Dispatch
@@ -85,6 +86,21 @@ namespace Common.Dispatch
                 if (_ignoreMissing) return default(TResult);
                 else throw new KeyNotFoundException(string.Format(Resources.MissingDispatchAction, type.Name));
             }
+        }
+
+        /// <summary>
+        /// Calls <see cref="Dispatch(TBase)"/> for every element in a collection. Set up with <see cref="Add{TSpecific}"/> first.
+        /// </summary>
+        /// <param name="elements">The elements to be dispatched.</param>
+        /// <returns>The values returned by the matching delegates.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown if no delegate matching one of the element types was <see cref="Add{TSpecific}"/>ed and <see cref="_ignoreMissing"/> is <see langword="false"/>.</exception>
+        public IEnumerable<TResult> Dispatch(IEnumerable<TBase> elements)
+        {
+            #region Sanity checks
+            if (elements == null) throw new ArgumentNullException("elements");
+            #endregion
+
+            return elements.Select(Dispatch);
         }
 
         #region IEnumerable

@@ -34,19 +34,19 @@ namespace Common.Dispatch
     /// Aggregates results when multiple delegates match a type (through inheritance).
     /// </summary>
     /// <typeparam name="TBase">The common base type of all objects to be dispatched.</typeparam>
-    /// <typeparam name="TResultElement">The enumerable return values of the delegates.</typeparam>
+    /// <typeparam name="TResult">The enumerable return values of the delegates.</typeparam>
     [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
-    public class AggregateDispatcher<TBase, TResultElement> : IEnumerable<Func<TBase, IEnumerable<TResultElement>>>
+    public class AggregateDispatcher<TBase, TResult> : IEnumerable<Func<TBase, IEnumerable<TResult>>>
         where TBase : class
     {
-        private readonly List<Func<TBase, IEnumerable<TResultElement>>> _delegates = new List<Func<TBase, IEnumerable<TResultElement>>>();
+        private readonly List<Func<TBase, IEnumerable<TResult>>> _delegates = new List<Func<TBase, IEnumerable<TResult>>>();
 
         /// <summary>
         /// Adds a dispatch delegate.
         /// </summary>
         /// <typeparam name="TSpecific">The specific type to call the delegate for. Matches all subtypes as well.</typeparam>
         /// <param name="function">The delegate to call.</param>
-        public void Add<TSpecific>(Func<TSpecific, IEnumerable<TResultElement>> function) where TSpecific : class, TBase
+        public void Add<TSpecific>(Func<TSpecific, IEnumerable<TResult>> function) where TSpecific : class, TBase
         {
             #region Sanity checks
             if (function == null) throw new ArgumentNullException("function");
@@ -64,7 +64,7 @@ namespace Common.Dispatch
         /// </summary>
         /// <param name="element">The element to be dispatched.</param>
         /// <returns>The values returned by all matching delegates aggregated.</returns>
-        public IEnumerable<TResultElement> Dispatch(TBase element)
+        public IEnumerable<TResult> Dispatch(TBase element)
         {
             #region Sanity checks
             if (element == null) throw new ArgumentNullException("element");
@@ -73,8 +73,22 @@ namespace Common.Dispatch
             return _delegates.Select(del => del(element)).WhereNotNull().Flatten();
         }
 
+        /// <summary>
+        /// Calls <see cref="Dispatch(TBase)"/> for every element in a collection. Set up with <see cref="Add{TSpecific}"/> first.
+        /// </summary>
+        /// <param name="elements">The elements to be dispatched.</param>
+        /// <returns>The values returned by the matching delegates.</returns>
+        public IEnumerable<TResult> Dispatch(IEnumerable<TBase> elements)
+        {
+            #region Sanity checks
+            if (elements == null) throw new ArgumentNullException("elements");
+            #endregion
+
+            return elements.SelectMany(Dispatch);
+        }
+
         #region IEnumerable
-        public IEnumerator<Func<TBase, IEnumerable<TResultElement>>> GetEnumerator()
+        public IEnumerator<Func<TBase, IEnumerable<TResult>>> GetEnumerator()
         {
             return _delegates.GetEnumerator();
         }

@@ -70,6 +70,20 @@ namespace Common.Dispatch
             foreach (var del in _delegates) del(element);
         }
 
+        /// <summary>
+        /// Calls <see cref="Dispatch(TBase)"/> for every element in a collection. Set up with <see cref="Add{TSpecific}"/> first.
+        /// </summary>
+        /// <param name="elements">The elements to be dispatched.</param>
+        public void Dispatch(IEnumerable<TBase> elements)
+        {
+            #region Sanity checks
+            if (elements == null) throw new ArgumentNullException("elements");
+            #endregion
+
+            foreach (var element in elements)
+                Dispatch(element);
+        }
+
         #region IEnumerable
         public IEnumerator<Action<TBase>> GetEnumerator()
         {
