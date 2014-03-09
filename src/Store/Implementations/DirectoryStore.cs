@@ -21,6 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using Common;
+using Common.Dispatch;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Store.Implementations.Archives;
@@ -379,6 +380,41 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Optimise
+
+        #region Structs
+        private struct DedupKey
+        {
+            public readonly long Size;
+            public readonly ManifestFormat Format;
+            public readonly string Digest;
+
+            public DedupKey(long size, ManifestFormat format, string digest)
+            {
+                Size = size;
+                Format = format;
+                Digest = digest;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (!(obj is DedupKey)) return false;
+                var other = (DedupKey)obj;
+                return Size == other.Size && Format.Equals(other.Format) && string.Equals(Digest, other.Digest);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    int hashCode = Size.GetHashCode();
+                    hashCode = (hashCode * 397) ^ Format.GetHashCode();
+                    hashCode = (hashCode * 397) ^ Digest.GetHashCode();
+                    return hashCode;
+                }
+            }
+        }
+        #endregion
+
         /// <inheritdoc />
         public virtual void Optimise(ITaskHandler handler)
         {
@@ -386,7 +422,49 @@ namespace ZeroInstall.Store.Implementations
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // TODO: Implement
+            if (!Directory.Exists(DirectoryPath)) return;
+
+            var fileHashes = new Dictionary<DedupKey, string>();
+            handler.RunTask(new ForEachTask<string>("Optimising", Directory.GetDirectories(DirectoryPath), implementationPath =>
+            {
+                var manifest = GetManifest(implementationPath);
+                if (manifest == null) return;
+
+                string currentDirectory = Path.DirectorySeparatorChar + "";
+                new AggregateDispatcher<ManifestNode>
+                {
+                    (ManifestDirectory x) => { currentDirectory = FileUtils.UnifySlashes(x.FullPath); },
+                    (ManifestFileBase x) =>
+                    {
+                        var key = new DedupKey(x.Size, manifest.Format, x.Digest);
+                        string path = implementationPath + Path.Combine(currentDirectory, x.FileName);
+
+                        string existingPath;
+                        if (fileHashes.TryGetValue(key, out existingPath) && !FileUtils.AreHardlinked(path, existingPath))
+                        {
+                            File.Delete(path);
+                            FileUtils.CreateHardlink(path, existingPath);
+                            File.SetLastWriteTimeUtc(path, FileUtils.FromUnixTime(x.ModifiedTime));
+                            Log.Info(string.Format("Hardlinked '{0}' with '{1}'", path, existingPath));
+                        }
+                        else fileHashes.Add(key, path);
+                    }
+                }.Dispatch(manifest);
+            }));
+        } 
+
+        private static Manifest GetManifest(string directory)
+        {
+            try
+            {
+                return Manifest.Load(
+                    Path.Combine(directory, ".manifest"),
+                    ManifestFormat.FromPrefix(Path.GetFileName(directory)));
+            }
+            catch (NotSupportedException)
+            {
+                return null;
+            }
         }
         #endregion
 

@@ -259,7 +259,7 @@ namespace Common.Utils
             #endregion
 
             if (!IsWindows) return;
-            SafeNativeMethods.SetForegroundWindow(form.Handle);
+            UnsafeNativeMethods.SetForegroundWindow(form.Handle);
         }
         #endregion
 
@@ -392,6 +392,40 @@ namespace Common.Utils
 
             if (!IsWindowsNT) throw new NotSupportedException(Resources.OnlyAvailableOnWindows);
             if (!UnsafeNativeMethods.CreateHardLink(source, target, IntPtr.Zero)) throw new Win32Exception();
+        }
+
+        /// <summary>
+        /// Determines whether to files are hardlinked.
+        /// </summary>
+        /// <param name="path1">The path of the first file.</param>
+        /// <param name="path2">The path of the second file.</param>
+        /// <remarks>Only available on Windows 2000 or newer.</remarks>
+        public static bool AreHardlinked(string path1, string path2)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path1)) throw new ArgumentNullException("path1");
+            if (string.IsNullOrEmpty(path2)) throw new ArgumentNullException("path2");
+            #endregion
+
+            if (!IsWindowsNT) throw new NotSupportedException(Resources.OnlyAvailableOnWindows);
+            return GetFileIndex(path1) == GetFileIndex(path2);
+        }
+
+        private static ulong GetFileIndex(string path)
+        {
+            var handle = UnsafeNativeMethods.CreateFile(path, FileAccess.Read, FileShare.Read, IntPtr.Zero, FileMode.Open, FileAttributes.Archive, IntPtr.Zero);
+            if (handle == IntPtr.Zero) throw new Win32Exception();
+
+            try
+            {
+                UnsafeNativeMethods.BY_HANDLE_FILE_INFORMATION fileInfo;
+                if (!UnsafeNativeMethods.GetFileInformationByHandle(handle, out fileInfo)) throw new Win32Exception();
+                return fileInfo.FileIndexLow + (fileInfo.FileIndexHigh << 32);
+            }
+            finally
+            {
+                UnsafeNativeMethods.CloseHandle(handle);
+            }
         }
         #endregion
     }

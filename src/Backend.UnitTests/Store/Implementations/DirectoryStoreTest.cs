@@ -20,6 +20,8 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using Common.Storage;
+using Common.Tasks;
+using Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 
@@ -78,6 +80,51 @@ namespace ZeroInstall.Store.Implementations
             Directory.CreateDirectory(Path.Combine(_tempDir, "sha1=test"));
             Directory.CreateDirectory(Path.Combine(_tempDir, "temp=stuff"));
             CollectionAssert.AreEqual(new[] {Path.Combine(_tempDir, "temp=stuff")}, _store.ListAllTemp());
+        }
+
+        [Test]
+        public void TestOptimise()
+        {
+            var handler = new SilentTaskHandler();
+
+            string package1Path = Path.Combine(_tempDir, "sha256=1");
+            new PackageBuilder()
+                .AddFile("fileA", "abc", new DateTime(2000, 1, 1))
+                .AddFolder("dir").AddFile("fileB", "abc", new DateTime(2000, 1, 1))
+                .WritePackageInto(package1Path);
+            Manifest.CreateDotFile(package1Path, ManifestFormat.Sha256, handler);
+
+            string package2Path = Path.Combine(_tempDir, "sha256=2");
+            new PackageBuilder()
+                .AddFile("fileA", "abc", new DateTime(2000, 2, 2))
+                .AddFolder("dir").AddFile("fileB", "def", new DateTime(2000, 2, 2))
+                .WritePackageInto(package2Path);
+            Manifest.CreateDotFile(package2Path, ManifestFormat.Sha256, handler);
+
+            string package3Path = Path.Combine(_tempDir, "sha256new_3");
+            new PackageBuilder()
+                .AddFile("fileA", "abc", new DateTime(2000, 1, 1))
+                .WritePackageInto(package3Path);
+            Manifest.CreateDotFile(package3Path, ManifestFormat.Sha256New, handler);
+
+            _store.Optimise(new SilentTaskHandler());
+
+            Assert.IsTrue(FileUtils.AreHardlinked(
+                Path.Combine(package1Path, "fileA"),
+                Path.Combine(package1Path, "dir", "fileB")),
+                message: "Identical files within implementations should be hardlinked.");
+            Assert.IsTrue(FileUtils.AreHardlinked(
+                Path.Combine(package1Path, "fileA"),
+                Path.Combine(package2Path, "fileA")),
+                message: "Identical files across implementations with the same manifest format should be hardlinked.");
+            Assert.IsFalse(FileUtils.AreHardlinked(
+                Path.Combine(package1Path, "dir", "fileB"),
+                Path.Combine(package2Path, "dir", "fileB")),
+                message: "Different files should not be hardlinked.");
+            Assert.IsFalse(FileUtils.AreHardlinked(
+                Path.Combine(package1Path, "fileA"),
+                Path.Combine(package3Path, "fileA")),
+                message: "Files across manifest format borders should not be hardlinked.");
         }
 
         [Test]

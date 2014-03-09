@@ -175,7 +175,7 @@ namespace Common.Utils
             return tempDir;
         }
         #endregion
-        
+
         #region Replace
         /// <summary>
         /// Replaces one file with another. Rolls back in case of problems.
@@ -348,7 +348,7 @@ namespace Common.Utils
             var allowed = new List<CommonAce>();
             var allowedObject = new List<CommonAce>();
             var inherited = new List<CommonAce>();
-            foreach (CommonAce ace in securityDescriptor.DiscretionaryAcl)
+            foreach (var ace in securityDescriptor.DiscretionaryAcl.Cast<CommonAce>())
             {
                 if ((ace.AceFlags & AceFlags.Inherited) == AceFlags.Inherited) inherited.Add(ace);
                 else
@@ -591,6 +591,51 @@ namespace Common.Utils
                 #endregion
             }
             else throw new PlatformNotSupportedException();
+        }
+
+        /// <summary>
+        /// Determines whether to files are hardlinked.
+        /// </summary>
+        /// <param name="path1">The path of the first file.</param>
+        /// <param name="path2">The path of the second file.</param>
+        public static bool AreHardlinked(string path1, string path2)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path1)) throw new ArgumentNullException("path1");
+            if (string.IsNullOrEmpty(path2)) throw new ArgumentNullException("path2");
+            #endregion
+
+            if (MonoUtils.IsUnix)
+            {
+                try
+                {
+                    return MonoUtils.AreHardlinked(path1, path2);
+                }
+                    #region Error handling
+                catch (InvalidOperationException ex)
+                {
+                    throw new IOException(Resources.UnixSubsystemFail, ex);
+                }
+                catch (IOException ex)
+                {
+                    throw new IOException(Resources.UnixSubsystemFail, ex);
+                }
+                #endregion
+            }
+            else if (WindowsUtils.IsWindowsNT)
+            {
+                try
+                {
+                    return WindowsUtils.AreHardlinked(path1, path2);
+                }
+                    #region Error handling
+                catch (Win32Exception ex)
+                {
+                    throw new IOException(ex.Message, ex);
+                }
+                #endregion
+            }
+            else return false;
         }
         #endregion
 

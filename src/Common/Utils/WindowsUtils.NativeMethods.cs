@@ -21,9 +21,12 @@
  */
 
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
+using Microsoft.Win32.SafeHandles;
+using FILETIME = System.Runtime.InteropServices.ComTypes.FILETIME;
 
 namespace Common.Utils
 {
@@ -44,11 +47,6 @@ namespace Common.Utils
 
             [DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
             public static extern uint GetModuleFileName(IntPtr hModule, [Out]StringBuilder lpFilename, int nSize);
-
-
-            // Foreground window
-            [DllImport("user32", SetLastError = true)]
-            public static extern bool SetForegroundWindow(IntPtr hWnd);
 
 
 #if SLIMDX
@@ -92,6 +90,11 @@ namespace Common.Utils
         [SuppressUnmanagedCodeSecurity]
         private static class UnsafeNativeMethods
         {
+            // Foreground window
+            [DllImport("user32", SetLastError = true)]
+            public static extern bool SetForegroundWindow(IntPtr hWnd);
+
+
             // Command-line arguments
             [DllImport("kernel32")]
             public static extern IntPtr LocalFree(IntPtr hMem);
@@ -144,6 +147,27 @@ namespace Common.Utils
 
             [DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
             public static extern int CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, int dwFlags);
+
+            [StructLayout(LayoutKind.Sequential)]
+            public struct BY_HANDLE_FILE_INFORMATION
+            {
+                public uint FileAttributes;
+                public FILETIME CreationTime;
+                public FILETIME LastAccessTime;
+                public FILETIME LastWriteTime;
+                public uint VolumeSerialNumber;
+                public uint FileSizeHigh;
+                public uint FileSizeLow;
+                public uint NumberOfLinks;
+                public uint FileIndexHigh;
+                public uint FileIndexLow;
+            }
+
+            [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+            public static extern IntPtr CreateFile(string lpFileName, [MarshalAs(UnmanagedType.U4)] FileAccess dwDesiredAccess, [MarshalAs(UnmanagedType.U4)] FileShare dwShareMode, IntPtr lpSecurityAttributes, [MarshalAs(UnmanagedType.U4)] FileMode dwCreationDisposition, [MarshalAs(UnmanagedType.U4)] FileAttributes dwFlagsAndAttributes, IntPtr hTemplateFile);
+
+            [DllImport("kernel32.dll", SetLastError = true)]
+            public static extern bool GetFileInformationByHandle(IntPtr handle, out BY_HANDLE_FILE_INFORMATION lpFileInformation);
 
 
 #if SLIMDX

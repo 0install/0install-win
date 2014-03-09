@@ -27,8 +27,12 @@ using Mono.Unix;
 namespace Common.Utils
 {
     /// <summary>
-    /// Provides helper methods for Unix-specific features of the Mono library. Make sure you are running a Unixoid system before calling any methods in this class!
+    /// Provides helper methods for Unix-specific features of the Mono library.
     /// </summary>
+    /// <remarks>
+    /// This class has a dependency on <code>Mono.Posix</code>.
+    /// Make sure you are running a Unixoid system before calling any methods in this class, to avoid missing assembly exceptions.
+    /// </remarks>
     public static class MonoUtils
     {
         #region OS
@@ -71,6 +75,23 @@ namespace Common.Utils
             #endregion
 
             new UnixFileInfo(target).CreateLink(source);
+        }
+
+        /// <summary>
+        /// Determines whether to files are hardlinked.
+        /// </summary>
+        /// <param name="path1">The path of the first file.</param>
+        /// <param name="path2">The path of the second file.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
+        /// <exception cref="IOException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
+        public static bool AreHardlinked(string path1, string path2)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path1)) throw new ArgumentNullException("path1");
+            if (string.IsNullOrEmpty(path2)) throw new ArgumentNullException("path2");
+            #endregion
+
+            return UnixFileSystemInfo.GetFileSystemEntry(path1).Inode == UnixFileSystemInfo.GetFileSystemEntry(path2).Inode;
         }
         #endregion
 
