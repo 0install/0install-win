@@ -159,7 +159,7 @@ namespace Common
     /// <summary>
     /// Parallel For state class.
     /// </summary>
-    public sealed class ParallelFor : IDisposable
+    private sealed class ParallelFor : IDisposable
     {
       /// <summary>
       /// Single instance of parallelFor class for singleton pattern
@@ -167,15 +167,9 @@ namespace Common
       private volatile static ParallelFor instance = null;
 
       /// <summary>
-      /// Delegate defining For loop body.
-      /// </summary>
-      /// <param name="index">Loop index.</param>
-      public delegate void ForLoopDelegate(int index);
-
-      /// <summary>
       /// For-loop body
       /// </summary>
-      public ForLoopDelegate LoopFunction;
+      public Action<int> LoopFunction;
 
       /// <summary>
       /// Current loop index
@@ -203,7 +197,7 @@ namespace Common
       /// <param name="start">The start.</param>
       /// <param name="stop">The stop.</param>
       /// <param name="loopBody">The loop body.</param>
-      public void DoFor(int start, int stop, ForLoopDelegate loopBody)
+      public void DoFor(int start, int stop, Action<int> loopBody)
       {
         this.currentJobIndex = start - 1;
         this.stopIndex = stop;
@@ -348,7 +342,7 @@ namespace Common
     /// ParallelForEach state class.
     /// </summary>
     /// <typeparam name="T">type</typeparam>
-    public sealed class ParallelForEach<T> : IDisposable
+    private sealed class ParallelForEach<T> : IDisposable
     {
       /// <summary>
       /// Single instance of parallelFor class for singleton pattern
@@ -356,15 +350,9 @@ namespace Common
       private volatile static ParallelForEach<T> instance = null;
 
       /// <summary>
-      /// Delegate defining Foreach loop body.
-      /// </summary>
-      /// <param name="item">Loop item.</param>
-      public delegate void ForEachLoopDelegate(T item);
-
-      /// <summary>
       /// Foreach-loop body
       /// </summary>
-      public ForEachLoopDelegate LoopFunction;
+      public Action<T> LoopFunction;
 
       /// <summary>
       /// Enumerator for the source IEnumerable.
@@ -386,7 +374,7 @@ namespace Common
       /// </summary>
       /// <param name="items">The items.</param>
       /// <param name="loopBody">The loop body.</param>
-      public void DoForEach(IEnumerable<T> items, ForEachLoopDelegate loopBody)
+      public void DoForEach(IEnumerable<T> items, Action<T> loopBody)
       {
         this.enumerator = items.GetEnumerator();
         this.LoopFunction = loopBody;
@@ -613,8 +601,9 @@ namespace Common
     /// </code>
     /// If <c>Parallel.ThreadCount</c> is exactly <c>1</c>, no threads are spawned.
     /// </remarks>
-    public static void For(int start, int stop, ParallelFor.ForLoopDelegate loopBody)
+    public static void For(int start, int stop, Action<int> loopBody)
     {
+      if (loopBody == null) throw new ArgumentNullException("loopBody");
       if (Parallel.threadCount == 1)
       {
         for (int i = start; i < stop; i++)
@@ -656,8 +645,10 @@ namespace Common
     /// </code>
     /// If <c>Parallel.ThreadCount</c> is exactly <c>1</c>, no threads are spawned.
     /// </remarks>
-    public static void ForEach<T>(IEnumerable<T> items, ParallelForEach<T>.ForEachLoopDelegate loopBody)
+    public static void ForEach<T>(IEnumerable<T> items, Action<T> loopBody)
     {
+      if (items == null) throw new ArgumentNullException("items");
+      if (loopBody == null) throw new ArgumentNullException("loopBody");
       if (Parallel.threadCount == 1)
       {
         foreach (T item in items)
