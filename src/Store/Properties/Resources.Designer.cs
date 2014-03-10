@@ -225,6 +225,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finding duplicate files in &apos;{0}&apos;.
+        /// </summary>
+        internal static string FindingDuplicateFiles {
+            get {
+                return ResourceManager.GetString("FindingDuplicateFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Generating {0} manifest.
         /// </summary>
         internal static string GeneratingManifest {

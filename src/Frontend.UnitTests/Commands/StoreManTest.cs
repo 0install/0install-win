@@ -17,10 +17,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Common.Storage;
 using Common.Tasks;
+using Common.Utils;
 using Moq;
 using NUnit.Framework;
 using ZeroInstall.Commands.Properties;
@@ -235,9 +237,9 @@ namespace ZeroInstall.Commands
         [Test]
         public void TestOptimise()
         {
-            Container.GetMock<IStore>().Setup(x => x.Optimise(Container.Resolve<ICommandHandler>()));
+            Container.GetMock<IStore>().Setup(x => x.Optimise(Container.Resolve<ICommandHandler>())).Returns(123);
 
-            RunAndAssert(null, (int)StoreErrorLevel.OK,
+            RunAndAssert(string.Format(Resources.StorageReclaimed, StringUtils.FormatBytes(123, CultureInfo.CurrentCulture)), (int)StoreErrorLevel.OK,
                 "optimise");
         }
 

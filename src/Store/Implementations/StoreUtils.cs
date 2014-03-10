@@ -123,30 +123,5 @@ namespace ZeroInstall.Store.Implementations
             }
             return false;
         }
-
-        /// <summary>
-        /// Wrapper for <see cref="IStore.Optimise"/>, handling exceptions.
-        /// </summary>
-        public static void OptimiseSafe(this IStore store, ITaskHandler handler)
-        {
-            #region Sanity checks
-            if (store == null) throw new ArgumentNullException("store");
-            #endregion
-
-            try
-            {
-                store.Optimise(handler);
-            }
-                #region Sanity checks
-            catch (IOException ex)
-            {
-                Log.Error(ex);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Log.Error(ex);
-            }
-            #endregion
-        }
     }
 }

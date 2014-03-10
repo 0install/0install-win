@@ -119,12 +119,13 @@ namespace ZeroInstall.Store.Implementations
         /// Reads in all the manifest files in the store and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one and replaces it with a hard-link to the other.
         /// </summary>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        /// <returns>The number of bytes saved by deduplication.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if two files could not be hard-linked together.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if a damaged implementation is encountered while optimizing.</exception>
         /// <remarks>If the store does not support optimising this method call may be silently ignored.</remarks>
-        void Optimise(ITaskHandler handler);
+        long Optimise(ITaskHandler handler);
 
         /// <summary>
         /// Recalculates the digests for an entry in the store and ensures it is correct. Will not delete any defective entries!

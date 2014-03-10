@@ -173,6 +173,9 @@ Tatsächlicher Wert: {1}</value>
   <data name="FileToSignNotFound" xml:space="preserve">
     <value>Die Datei die signiert werden soll kann nicht gefunden werden.</value>
   </data>
+  <data name="FindingDuplicateFiles" xml:space="preserve">
+    <value>Suche Dateiduplikate in '{0}'</value>
+  </data>
   <data name="GeneratingManifest" xml:space="preserve">
     <value>Generiere {0} Manifest</value>
   </data>

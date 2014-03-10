@@ -369,12 +369,11 @@ namespace ZeroInstall.Store.Implementations
             string path = GetPath(manifestDigest);
             if (path == null) throw new ImplementationNotFoundException(manifestDigest);
 
-            FileUtils.DisableWriteProtection(path);
-
             // Move the directory to be deleted to a temporary directory to ensure the removal operation is atomic
             string tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
             Directory.Move(path, tempDir);
 
+            FileUtils.DisableWriteProtection(tempDir);
             Directory.Delete(tempDir, recursive: true);
         }
         #endregion
@@ -419,65 +418,78 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         /// <inheritdoc />
-        public virtual void Optimise(ITaskHandler handler)
+        public virtual long Optimise(ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            if (!Directory.Exists(DirectoryPath)) return;
+            if (!Directory.Exists(DirectoryPath)) return 0;
 
             var fileHashes = new Dictionary<DedupKey, string>();
-            handler.RunTask(new ForEachTask<string>("Optimising", Directory.GetDirectories(DirectoryPath), implementationPath =>
-            {
-                var manifest = GetManifest(implementationPath);
-                if (manifest == null) return;
-
-                string currentDirectory = Path.DirectorySeparatorChar + "";
-                new AggregateDispatcher<ManifestNode>
+            long savedSpace = 0;
+            handler.RunTask(new ForEachTask<ManifestDigest>(
+                name: string.Format(Resources.FindingDuplicateFiles, DirectoryPath),
+                target: ListAll(),
+                work: manifestDigest =>
                 {
-                    (ManifestDirectory x) => { currentDirectory = FileUtils.UnifySlashes(x.FullPath); },
-                    (ManifestFileBase x) =>
+                    var manifest = Manifest.Load(
+                        Path.Combine(GetPath(manifestDigest), ".manifest"),
+                        ManifestFormat.FromPrefix(manifestDigest.Best));
+
+                    string currentDirectory = "";
+                    new AggregateDispatcher<ManifestNode>
                     {
-                        var key = new DedupKey(x.Size, x.ModifiedTime, manifest.Format, x.Digest);
-                        string path = implementationPath + Path.Combine(currentDirectory, x.FileName);
+                        (ManifestDirectory x) => { currentDirectory = x.FullPath; },
+                        (ManifestFileBase x) =>
+                        {
+                            if (x.Size == 0) return;
 
-                        string existingPath;
-                        if (fileHashes.TryGetValue(key, out existingPath) && !FileUtils.AreHardlinked(path, existingPath))
-                            CreateHardlink(path, existingPath);
-                        else fileHashes.Add(key, path);
-                    }
-                }.Dispatch(manifest);
-            }));
+                            var key = new DedupKey(x.Size, x.ModifiedTime, manifest.Format, x.Digest);
+                            string path = manifestDigest.Best + currentDirectory + '/' + x.FileName;
+
+                            string existingPath;
+                            if (fileHashes.TryGetValue(key, out existingPath))
+                            {
+                                if (CreateHardlink(path, existingPath)) savedSpace += x.Size;
+                            }
+                            else fileHashes.Add(key, path);
+                        }
+                    }.Dispatch(manifest);
+                }));
+            return savedSpace;
         }
 
-        private static Manifest GetManifest(string directory)
-        {
-            try
-            {
-                return Manifest.Load(
-                    Path.Combine(directory, ".manifest"),
-                    ManifestFormat.FromPrefix(Path.GetFileName(directory)));
-            }
-            catch (NotSupportedException)
-            {
-                return null;
-            }
-        }
-
-        private void CreateHardlink(string source, string destination)
+        /// <summary>
+        /// Creates a hardlink between two implementation files.
+        /// </summary>
+        /// <param name="source">The Unix-style path to the hardlink to create, relative to <see cref="DirectoryPath"/>. Existing file will be replaced.</param>
+        /// <param name="destination">The Unix-style path to existing file the hardlink shall point to, relative to <see cref="DirectoryPath"/>.</param>
+        /// <returns><see langword="true"/> the hardlink was created; <see langword="false"/> if the files were already linked.</returns>
+        private bool CreateHardlink(string source, string destination)
         {
             string tempFile = Path.Combine(DirectoryPath, Path.GetRandomFileName());
+            string destinationFile = Path.Combine(DirectoryPath, FileUtils.UnifySlashes(destination));
+            string sourceFile = Path.Combine(DirectoryPath, FileUtils.UnifySlashes(source));
+            string sourceImplementation = Path.Combine(DirectoryPath, source.GetLeftPartAtFirstOccurrence('/'));
+            string destinationImplementation = Path.Combine(DirectoryPath, destination.GetLeftPartAtFirstOccurrence('/'));
+
+            if (FileUtils.AreHardlinked(sourceFile, destinationFile)) return false;
+
+            FileUtils.DisableWriteProtection(sourceImplementation);
+            if (destinationImplementation != sourceImplementation) FileUtils.DisableWriteProtection(destinationImplementation);
             try
             {
-                FileUtils.CreateHardlink(tempFile, destination);
-                FileUtils.Replace(tempFile, source);
-                Log.Info(string.Format("Hardlinked '{0}' with '{1}'", source, destination));
+                FileUtils.CreateHardlink(tempFile, destinationFile);
+                FileUtils.Replace(tempFile, sourceFile);
             }
             finally
             {
-                File.Delete(tempFile);
+                if (File.Exists(tempFile)) File.Delete(tempFile);
+                FileUtils.EnableWriteProtection(sourceImplementation);
+                if (destinationImplementation != sourceImplementation) FileUtils.EnableWriteProtection(destinationImplementation);
             }
+            return true;
         }
         #endregion
 

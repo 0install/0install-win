@@ -438,8 +438,7 @@ namespace Common.Utils
                     break;
 
                 case PlatformID.Win32NT:
-                    // Find NTFS ACL inheritance starting at any level
-                    Walk(directory, dir => dir.ToggleWriteProtectionWinNT(false));
+                    directory.ToggleWriteProtectionWinNT(false);
 
                     // Remove any classic read-only attributes
                     try

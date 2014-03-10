@@ -82,54 +82,83 @@ namespace ZeroInstall.Store.Implementations
             CollectionAssert.AreEqual(new[] {Path.Combine(_tempDir, "temp=stuff")}, _store.ListAllTemp());
         }
 
-        [Test]
-        public void TestOptimise()
+        private string DeployPackage(string id, PackageBuilder builder)
         {
-            var handler = new SilentTaskHandler();
+            string path = Path.Combine(_tempDir, id);
+            builder.WritePackageInto(path);
+            Manifest.CreateDotFile(path, ManifestFormat.FromPrefix(id), new SilentTaskHandler());
+            FileUtils.EnableWriteProtection(path);
+            return path;
+        }
 
-            string package1Path = Path.Combine(_tempDir, "sha256=1");
-            new PackageBuilder()
+        [Test]
+        public void ShouldHardlinkIdenticalFilesInSameImplementation()
+        {
+            string package1Path = DeployPackage("sha256=1", new PackageBuilder()
                 .AddFile("fileA", "abc", new DateTime(2000, 1, 1))
-                .AddFile("fileX", "abc", new DateTime(2000, 2, 2))
-                .AddFolder("dir").AddFile("fileB", "abc", new DateTime(2000, 1, 1))
-                .WritePackageInto(package1Path);
-            Manifest.CreateDotFile(package1Path, ManifestFormat.Sha256, handler);
+                .AddFolder("dir").AddFile("fileB", "abc", new DateTime(2000, 1, 1)));
 
-            string package2Path = Path.Combine(_tempDir, "sha256=2");
-            new PackageBuilder()
-                .AddFile("fileA", "abc", new DateTime(2000, 1, 1))
-                .AddFolder("dir").AddFile("fileB", "def", new DateTime(2000, 1, 1))
-                .WritePackageInto(package2Path);
-            Manifest.CreateDotFile(package2Path, ManifestFormat.Sha256, handler);
-
-            string package3Path = Path.Combine(_tempDir, "sha256new_3");
-            new PackageBuilder()
-                .AddFile("fileA", "abc", new DateTime(2000, 1, 1))
-                .WritePackageInto(package3Path);
-            Manifest.CreateDotFile(package3Path, ManifestFormat.Sha256New, handler);
-
-            _store.Optimise(new SilentTaskHandler());
-
+            Assert.AreEqual(3, _store.Optimise(new SilentTaskHandler()));
+            Assert.AreEqual(0, _store.Optimise(new SilentTaskHandler()));
             Assert.IsTrue(FileUtils.AreHardlinked(
                 Path.Combine(package1Path, "fileA"),
-                Path.Combine(package1Path, "dir", "fileB")),
-                message: "Identical files within implementations should be hardlinked.");
+                Path.Combine(package1Path, "dir", "fileB")));
+        }
+
+        [Test]
+        public void ShouldHardlinkIdenticalFilesInDifferentImplementations()
+        {
+            string package1Path = DeployPackage("sha256=1", new PackageBuilder()
+                .AddFile("fileA", "abc", new DateTime(2000, 1, 1)));
+            string package2Path = DeployPackage("sha256=2", new PackageBuilder()
+                .AddFile("fileA", "abc", new DateTime(2000, 1, 1)));
+
+            Assert.AreEqual(3, _store.Optimise(new SilentTaskHandler()));
+            Assert.AreEqual(0, _store.Optimise(new SilentTaskHandler()));
+            Assert.IsTrue(FileUtils.AreHardlinked(
+                Path.Combine(package1Path, "fileA"),
+                Path.Combine(package2Path, "fileA")));
+        }
+
+        [Test]
+        public void ShouldNotHardlinkWithDifferentTimestamps()
+        {
+            string package1Path = DeployPackage("sha256=1", new PackageBuilder()
+                .AddFile("fileA", "abc", new DateTime(2000, 1, 1))
+                .AddFile("fileX", "abc", new DateTime(2000, 2, 2)));
+
+            Assert.AreEqual(0, _store.Optimise(new SilentTaskHandler()));
             Assert.IsFalse(FileUtils.AreHardlinked(
                 Path.Combine(package1Path, "fileA"),
-                Path.Combine(package1Path, "fileX")),
-                message: "Identical files within different timestamps should not be hardlinked.");
-            Assert.IsTrue(FileUtils.AreHardlinked(
-                Path.Combine(package1Path, "fileA"),
-                Path.Combine(package2Path, "fileA")),
-                message: "Identical files across implementations with the same manifest format should be hardlinked.");
+                Path.Combine(package1Path, "fileX")));
+        }
+
+        [Test]
+        public void ShouldNotHardlinkDifferentFiles()
+        {
+            string package1Path = DeployPackage("sha256=1", new PackageBuilder()
+                .AddFolder("dir").AddFile("fileB", "abc", new DateTime(2000, 1, 1)));
+            string package2Path = DeployPackage("sha256=2", new PackageBuilder()
+                .AddFolder("dir").AddFile("fileB", "def", new DateTime(2000, 1, 1)));
+
+            Assert.AreEqual(0, _store.Optimise(new SilentTaskHandler()));
             Assert.IsFalse(FileUtils.AreHardlinked(
                 Path.Combine(package1Path, "dir", "fileB"),
-                Path.Combine(package2Path, "dir", "fileB")),
-                message: "Different files should not be hardlinked.");
+                Path.Combine(package2Path, "dir", "fileB")));
+        }
+
+        [Test]
+        public void ShouldNotHardlinkAcrossManifestFormatBorders()
+        {
+            string package1Path = DeployPackage("sha256=1", new PackageBuilder()
+                .AddFile("fileA", "abc", new DateTime(2000, 1, 1)));
+            string package2Path = DeployPackage("sha256new_2", new PackageBuilder()
+                .AddFile("fileA", "abc", new DateTime(2000, 1, 1)));
+
+            Assert.AreEqual(0, _store.Optimise(new SilentTaskHandler()));
             Assert.IsFalse(FileUtils.AreHardlinked(
                 Path.Combine(package1Path, "fileA"),
-                Path.Combine(package3Path, "fileA")),
-                message: "Files across manifest format borders should not be hardlinked.");
+                Path.Combine(package2Path, "fileA")));
         }
 
         [Test]

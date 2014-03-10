@@ -465,6 +465,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="OpenInFileManager" xml:space="preserve">
     <value>&amp;Open in file manager</value>
   </data>
+  <data name="OptimiseComplete" xml:space="preserve">
+    <value>Optimization complete</value>
+  </data>
   <data name="OptionAlgorithm" xml:space="preserve">
     <value>The {HASH} algorithm to use for the digest.</value>
   </data>
@@ -612,6 +615,9 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   </data>
   <data name="SelectedImplementations" xml:space="preserve">
     <value>Selected implementations:</value>
+  </data>
+  <data name="StorageReclaimed" xml:space="preserve">
+    <value>{0} storage space reclaimed.</value>
   </data>
   <data name="StoreAudit" xml:space="preserve">
     <value>Store audit</value>

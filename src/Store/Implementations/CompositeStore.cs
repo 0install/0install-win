@@ -220,15 +220,14 @@ namespace ZeroInstall.Store.Implementations
 
         #region Optimise
         /// <inheritdoc />
-        public void Optimise(ITaskHandler handler)
+        public long Optimise(ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             // Try to optimize all contained stores
-            foreach (var store in _stores)
-                store.OptimiseSafe(handler);
+            return _stores.Sum(x => x.Optimise(handler));
         }
         #endregion
 

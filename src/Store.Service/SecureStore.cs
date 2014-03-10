@@ -218,8 +218,10 @@ namespace ZeroInstall.Store.Service
         /// <summary>
         /// Does nothing. Should be handled by an administrator directly instead of using the service.
         /// </summary>
-        public override void Optimise(ITaskHandler handler)
-        {}
+        public override long Optimise(ITaskHandler handler)
+        {
+            return 0;
+        }
         #endregion
 
         //--------------------//

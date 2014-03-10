@@ -465,6 +465,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="OpenInFileManager" xml:space="preserve">
     <value>Im Dateimanger &amp;öffnen</value>
   </data>
+  <data name="OptimiseComplete" xml:space="preserve">
+    <value>Optimierung abgeschlossen</value>
+  </data>
   <data name="OptionAlgorithm" xml:space="preserve">
     <value>Der {HASH} Algorithmus der für den Digest verwendet werden soll.</value>
   </data>
@@ -612,6 +615,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="SelectedImplementations" xml:space="preserve">
     <value>Ausgewählte Implementierungen:</value>
+  </data>
+  <data name="StorageReclaimed" xml:space="preserve">
+    <value>{0} Speicherplatz zurückgewonnen.</value>
   </data>
   <data name="StoreAudit" xml:space="preserve">
     <value>Store Überprüfung</value>

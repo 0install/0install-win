@@ -232,16 +232,6 @@ namespace ZeroInstall.Store.Implementations
         }
         #endregion
 
-        #region Optimise
-        [Test]
-        public void TestOptimise()
-        {
-            _mockStore1.Setup(x => x.Optimise(_handler)).Throws(new IOException("Fake IO exception for testing"));
-            _mockStore2.Setup(x => x.Optimise(_handler));
-            Assert.DoesNotThrow(() => _testStore.Optimise(_handler), "Exceptions should be caught and logged");
-        }
-        #endregion
-
         #region Verify
         [Test]
         public void TestVerify()

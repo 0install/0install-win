@@ -15,12 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting;
-using Common;
 using Common.Tasks;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
@@ -162,27 +160,12 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Optimise
-        /// <inheritdoc/>
-        public void Optimise(ITaskHandler handler)
+        /// <summary>
+        /// Does nothing. Should be handled by an administrator directly instead of using the service.
+        /// </summary>
+        public long Optimise(ITaskHandler handler)
         {
-            try
-            {
-                GetServiceProxy().Optimise(handler);
-            }
-                #region Sanity checks
-            catch (IOException ex)
-            {
-                Log.Error(ex);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Log.Error(ex);
-            }
-            catch (RemotingException)
-            {
-                // Ignore remoting errors in case service is offline
-            }
-            #endregion
+            return 0;
         }
         #endregion
 
