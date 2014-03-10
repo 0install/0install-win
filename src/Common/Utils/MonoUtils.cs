@@ -23,6 +23,7 @@
 using System;
 using System.IO;
 using Mono.Unix;
+using Mono.Unix.Native;
 
 namespace Common.Utils
 {
@@ -92,6 +93,22 @@ namespace Common.Utils
             #endregion
 
             return UnixFileSystemInfo.GetFileSystemEntry(path1).Inode == UnixFileSystemInfo.GetFileSystemEntry(path2).Inode;
+        }
+
+        /// <summary>
+        /// Renames a file. Atomically replaces the destination if present.
+        /// </summary>
+        /// <param name="sourcePath">The path of the file to rename.</param>
+        /// <param name="destinationPath">The new path of the file. Must reside on the same file system as <paramref name="sourcePath"/>.</param>
+        /// <exception cref="IOException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
+        public static void Rename(string sourcePath, string destinationPath)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(sourcePath)) throw new ArgumentNullException("sourcePath");
+            if (string.IsNullOrEmpty(destinationPath)) throw new ArgumentNullException("destinationPath");
+            #endregion
+
+            if (Stdlib.rename(sourcePath, destinationPath) != 0) throw new UnixIOException(Stdlib.GetLastError());
         }
         #endregion
 

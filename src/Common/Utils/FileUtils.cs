@@ -180,8 +180,8 @@ namespace Common.Utils
         /// <summary>
         /// Replaces one file with another. Rolls back in case of problems.
         /// </summary>
-        /// <param name="sourcePath">The path of source directory. Must exist!</param>
-        /// <param name="destinationPath">The path of the target directory. Must not exist!</param>
+        /// <param name="sourcePath">The path of source directory.</param>
+        /// <param name="destinationPath">The path of the target directory. Must reside on the same file system as <paramref name="sourcePath"/>.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="sourcePath"/> and <paramref name="destinationPath"/> are equal.</exception>
         /// <exception cref="IOException">Thrown if the file could not be replaced.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if the read or write access to the files was denied.</exception>
@@ -193,13 +193,6 @@ namespace Common.Utils
             if (sourcePath == destinationPath) throw new ArgumentException(Resources.SourceDestinationEqual);
             #endregion
 
-            // Simply move if the destination does not exist
-            if (!File.Exists(destinationPath))
-            {
-                File.Move(sourcePath, destinationPath);
-                return;
-            }
-
             // Prepend random string for temp file name
             string directory = Path.GetDirectoryName(Path.GetFullPath(destinationPath));
             string backupPath = directory + Path.DirectorySeparatorChar + "backup." + Path.GetRandomFileName() + "." + Path.GetFileName(destinationPath);
@@ -207,27 +200,31 @@ namespace Common.Utils
             switch (Environment.OSVersion.Platform)
             {
                 case PlatformID.Win32NT:
-                    // Use native replace method with temporary backup file for rollback
-                    File.Replace(sourcePath, destinationPath, backupPath, ignoreMetadataErrors: true);
-                    File.Delete(backupPath);
+                    if (File.Exists(destinationPath))
+                    {
+                        File.Replace(sourcePath, destinationPath, backupPath, ignoreMetadataErrors: true);
+                        File.Delete(backupPath);
+                    }
+                    else File.Move(sourcePath, destinationPath);
                     break;
 
                 case PlatformID.MacOSX:
                 case PlatformID.Unix:
-                    // TODO: Use POSIX move command
+                    MonoUtils.Rename(sourcePath, destinationPath);
+                    break;
 
                 default:
                     // Emulate replace method
-                    File.Move(destinationPath, backupPath);
+                    if (File.Exists(destinationPath)) File.Move(destinationPath, backupPath);
                     try
                     {
                         File.Move(sourcePath, destinationPath);
-                        File.Delete(backupPath);
+                        if (File.Exists(backupPath)) File.Delete(backupPath);
                     }
                     catch
                     {
                         // Rollback
-                        File.Move(backupPath, destinationPath);
+                        if (File.Exists(backupPath)) File.Move(backupPath, destinationPath);
                         throw;
                     }
                     break;
