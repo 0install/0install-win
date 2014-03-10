@@ -23,6 +23,7 @@ using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using NUnit.Framework;
+using ZeroInstall.Store.Management;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Implementations
@@ -46,6 +47,7 @@ namespace ZeroInstall.Store.Implementations
         [TearDown]
         public void TearDown()
         {
+            _store.Purge(new SilentTaskHandler());
             _tempDir.Dispose();
         }
 
@@ -235,7 +237,7 @@ namespace ZeroInstall.Store.Implementations
         }
 
         [Test]
-        public void ShouldDetectDamagedImplementations()
+        public void TestAudit()
         {
             using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
             {

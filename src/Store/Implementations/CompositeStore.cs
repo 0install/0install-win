@@ -258,7 +258,7 @@ namespace ZeroInstall.Store.Implementations
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            return _stores.Select(store => store.Audit(handler)).WhereNotNull().Flatten();
+            return _stores.SelectMany(store => store.Audit(handler));
         }
         #endregion
 

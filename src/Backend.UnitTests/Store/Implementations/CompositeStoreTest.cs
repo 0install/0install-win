@@ -17,6 +17,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Common;
 using Common.Tasks;
 using Moq;
@@ -265,7 +266,7 @@ namespace ZeroInstall.Store.Implementations
         public void TestAuditPartial()
         {
             var problem = new DigestMismatchException("Problem 1");
-            _mockStore1.Setup(x => x.Audit(_handler)).Returns(() => null);
+            _mockStore1.Setup(x => x.Audit(_handler)).Returns(Enumerable.Empty<DigestMismatchException>);
             _mockStore2.Setup(x => x.Audit(_handler)).Returns(new[] {problem});
 
             // Copy the result into a list to force the enumerator to run through

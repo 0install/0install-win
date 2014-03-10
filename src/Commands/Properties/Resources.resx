@@ -435,9 +435,6 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
     <value>API hooking not possible due to non-cached implementation.</value>
   </data>
-  <data name="NoAuditSupport" xml:space="preserve">
-    <value>This store does not support auditing.</value>
-  </data>
   <data name="NoLongerUsed" xml:space="preserve">
     <value>No longer used: </value>
   </data>

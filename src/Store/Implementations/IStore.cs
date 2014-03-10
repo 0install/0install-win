@@ -128,7 +128,7 @@ namespace ZeroInstall.Store.Implementations
         long Optimise(ITaskHandler handler);
 
         /// <summary>
-        /// Recalculates the digests for an entry in the store and ensures it is correct. Will not delete any defective entries!
+        /// Recalculates the digests for an entry in the store and ensures it is correct. Will not delete any defective entries.
         /// </summary>
         /// <param name="manifestDigest">The digest of the implementation to be verified.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
@@ -142,14 +142,10 @@ namespace ZeroInstall.Store.Implementations
         void Verify(ManifestDigest manifestDigest, ITaskHandler handler);
 
         /// <summary>
-        /// Recalculates the digests for all entries in the store and ensures they are correct. Will not delete any defective entries!
+        /// Recalculates the digests for all entries in the store and ensures they are correct. Will delete defective entries after user confirmation.
         /// </summary>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <returns>
-        /// A list of digest mismatch problems that were encountered. The comparisons are only performed on demand as the returned enumerator is probed.<br/>
-        /// -or-<br/>
-        /// <see langword="null"/> if the store does not support auditing.
-        /// </returns>
+        /// <returns>A list of digest mismatch problems that were encountered.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a directory in the store could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>

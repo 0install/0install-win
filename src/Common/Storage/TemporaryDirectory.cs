@@ -88,11 +88,13 @@ namespace Common.Storage
 
 #endif
 
+#if DEBUG
+                Directory.Delete(Path, recursive: true);
+#else
                 try
                 {
                     Directory.Delete(Path, recursive: true);
                 }
-                    #region Error handling
                 catch (IOException ex)
                 {
                     Log.Warn(ex);
@@ -101,7 +103,7 @@ namespace Common.Storage
                 {
                     Log.Warn(ex);
                 }
-                #endregion
+#endif
             }
         }
         #endregion

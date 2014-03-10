@@ -177,14 +177,6 @@ namespace ZeroInstall.Commands
         }
 
         [Test]
-        public void TestAuditNoSupport()
-        {
-            Container.GetMock<IStore>().Setup(x => x.Audit(Container.Resolve<ICommandHandler>())).Returns((IEnumerable<DigestMismatchException>)null);
-
-            Assert.Throws<NotSupportedException>(() => RunAndAssert(null, 0, "audit"));
-        }
-
-        [Test]
         public void TestCopy()
         {
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))

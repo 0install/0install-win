@@ -435,9 +435,6 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
     <value>API hooking nicht möglich wegen einer nicht gecachten Implementierung.</value>
   </data>
-  <data name="NoAuditSupport" xml:space="preserve">
-    <value>Dieser Store unterstützt kein Auditing.</value>
-  </data>
   <data name="NoLongerUsed" xml:space="preserve">
     <value>Nicht mehr verwendet: </value>
   </data>

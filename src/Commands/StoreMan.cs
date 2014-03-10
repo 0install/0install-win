@@ -186,10 +186,7 @@ namespace ZeroInstall.Commands
         {
             Handler.ShowProgressUI();
 
-            var problems = GetStore().Audit(Handler);
-            if (problems == null) throw new NotSupportedException(Resources.NoAuditSupport);
-
-            if (problems.Any())
+            if (GetStore().Audit(Handler).Any())
             {
                 Handler.Output(Resources.StoreAudit, Resources.AuditErrors);
                 return StoreErrorLevel.DigestMismatch;

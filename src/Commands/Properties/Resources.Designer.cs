@@ -973,15 +973,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This store does not support auditing..
-        /// </summary>
-        public static string NoAuditSupport {
-            get {
-                return ResourceManager.GetString("NoAuditSupport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No longer used: .
         /// </summary>
         public static string NoLongerUsed {
