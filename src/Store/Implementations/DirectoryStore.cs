@@ -385,12 +385,14 @@ namespace ZeroInstall.Store.Implementations
         private struct DedupKey
         {
             public readonly long Size;
+            public readonly long LastModified;
             public readonly ManifestFormat Format;
             public readonly string Digest;
 
-            public DedupKey(long size, ManifestFormat format, string digest)
+            public DedupKey(long size, long lastModified, ManifestFormat format, string digest)
             {
                 Size = size;
+                LastModified = lastModified;
                 Format = format;
                 Digest = digest;
             }
@@ -399,7 +401,7 @@ namespace ZeroInstall.Store.Implementations
             {
                 if (!(obj is DedupKey)) return false;
                 var other = (DedupKey)obj;
-                return Size == other.Size && Format.Equals(other.Format) && string.Equals(Digest, other.Digest);
+                return Size == other.Size && LastModified == other.LastModified && Format.Equals(other.Format) && string.Equals(Digest, other.Digest);
             }
 
             public override int GetHashCode()
@@ -407,6 +409,7 @@ namespace ZeroInstall.Store.Implementations
                 unchecked
                 {
                     int hashCode = Size.GetHashCode();
+                    hashCode = (hashCode * 397) ^ LastModified.GetHashCode();
                     hashCode = (hashCode * 397) ^ Format.GetHashCode();
                     hashCode = (hashCode * 397) ^ Digest.GetHashCode();
                     return hashCode;
@@ -436,22 +439,17 @@ namespace ZeroInstall.Store.Implementations
                     (ManifestDirectory x) => { currentDirectory = FileUtils.UnifySlashes(x.FullPath); },
                     (ManifestFileBase x) =>
                     {
-                        var key = new DedupKey(x.Size, manifest.Format, x.Digest);
+                        var key = new DedupKey(x.Size, x.ModifiedTime, manifest.Format, x.Digest);
                         string path = implementationPath + Path.Combine(currentDirectory, x.FileName);
 
                         string existingPath;
                         if (fileHashes.TryGetValue(key, out existingPath) && !FileUtils.AreHardlinked(path, existingPath))
-                        {
-                            File.Delete(path);
-                            FileUtils.CreateHardlink(path, existingPath);
-                            File.SetLastWriteTimeUtc(path, FileUtils.FromUnixTime(x.ModifiedTime));
-                            Log.Info(string.Format("Hardlinked '{0}' with '{1}'", path, existingPath));
-                        }
+                            CreateHardlink(path, existingPath);
                         else fileHashes.Add(key, path);
                     }
                 }.Dispatch(manifest);
             }));
-        } 
+        }
 
         private static Manifest GetManifest(string directory)
         {
@@ -464,6 +462,21 @@ namespace ZeroInstall.Store.Implementations
             catch (NotSupportedException)
             {
                 return null;
+            }
+        }
+
+        private void CreateHardlink(string source, string destination)
+        {
+            string tempFile = Path.Combine(DirectoryPath, Path.GetRandomFileName());
+            try
+            {
+                FileUtils.CreateHardlink(tempFile, destination);
+                FileUtils.Replace(tempFile, source);
+                Log.Info(string.Format("Hardlinked '{0}' with '{1}'", source, destination));
+            }
+            finally
+            {
+                File.Delete(tempFile);
             }
         }
         #endregion

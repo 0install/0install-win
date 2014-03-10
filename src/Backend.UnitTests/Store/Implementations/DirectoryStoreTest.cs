@@ -90,14 +90,15 @@ namespace ZeroInstall.Store.Implementations
             string package1Path = Path.Combine(_tempDir, "sha256=1");
             new PackageBuilder()
                 .AddFile("fileA", "abc", new DateTime(2000, 1, 1))
+                .AddFile("fileX", "abc", new DateTime(2000, 2, 2))
                 .AddFolder("dir").AddFile("fileB", "abc", new DateTime(2000, 1, 1))
                 .WritePackageInto(package1Path);
             Manifest.CreateDotFile(package1Path, ManifestFormat.Sha256, handler);
 
             string package2Path = Path.Combine(_tempDir, "sha256=2");
             new PackageBuilder()
-                .AddFile("fileA", "abc", new DateTime(2000, 2, 2))
-                .AddFolder("dir").AddFile("fileB", "def", new DateTime(2000, 2, 2))
+                .AddFile("fileA", "abc", new DateTime(2000, 1, 1))
+                .AddFolder("dir").AddFile("fileB", "def", new DateTime(2000, 1, 1))
                 .WritePackageInto(package2Path);
             Manifest.CreateDotFile(package2Path, ManifestFormat.Sha256, handler);
 
@@ -113,6 +114,10 @@ namespace ZeroInstall.Store.Implementations
                 Path.Combine(package1Path, "fileA"),
                 Path.Combine(package1Path, "dir", "fileB")),
                 message: "Identical files within implementations should be hardlinked.");
+            Assert.IsFalse(FileUtils.AreHardlinked(
+                Path.Combine(package1Path, "fileA"),
+                Path.Combine(package1Path, "fileX")),
+                message: "Identical files within different timestamps should not be hardlinked.");
             Assert.IsTrue(FileUtils.AreHardlinked(
                 Path.Combine(package1Path, "fileA"),
                 Path.Combine(package2Path, "fileA")),
