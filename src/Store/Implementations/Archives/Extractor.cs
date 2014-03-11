@@ -315,22 +315,17 @@ namespace ZeroInstall.Store.Implementations.Archives
             string sourceDirectory = Path.GetDirectoryName(sourceAbsolute);
             if (sourceDirectory != null && !Directory.Exists(sourceDirectory)) Directory.CreateDirectory(sourceDirectory);
 
-            switch (Environment.OSVersion.Platform)
+            if (UnixUtils.IsUnix) FileUtils.CreateSymlink(sourceAbsolute, target);
+                // NOTE: NTFS symbolic links require admin privileges; do not use them here
+                //else if (WindowsUtils.IsWindowsNT) {...}
+            else
             {
-                case PlatformID.Unix:
-                case PlatformID.MacOSX:
-                    FileUtils.CreateSymlink(sourceAbsolute, target);
-                    break;
+                // Write link data as a normal file
+                File.WriteAllText(sourceAbsolute, target);
 
-                case PlatformID.Win32NT: // NTFS symbolic links require admin privileges; do not use them here
-                default:
-                    // Write link data as a normal file
-                    File.WriteAllText(sourceAbsolute, target);
-
-                    // Non-Unixoid OSes (e.g. Windows) can't store the symlink flag directly in the filesystem; remember in a text-file instead
-                    string flagRelativePath = string.IsNullOrEmpty(Destination) ? source : Path.Combine(Destination, source);
-                    FlagUtils.SetExternalFlag(Path.Combine(TargetDir, ".symlink"), flagRelativePath);
-                    break;
+                // Non-Unixoid OSes (e.g. Windows) can't store the symlink flag directly in the filesystem; remember in a text-file instead
+                string flagRelativePath = string.IsNullOrEmpty(Destination) ? source : Path.Combine(Destination, source);
+                FlagUtils.SetExternalFlag(Path.Combine(TargetDir, ".symlink"), flagRelativePath);
             }
         }
 
@@ -433,20 +428,12 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             #endregion
 
-            switch (Environment.OSVersion.Platform)
+            if (UnixUtils.IsUnix) FileUtils.SetExecutable(Path.Combine(EffectiveTargetDir, relativePath), true);
+            else
             {
-                case PlatformID.Unix:
-                case PlatformID.MacOSX:
-                    FileUtils.SetExecutable(Path.Combine(EffectiveTargetDir, relativePath), true);
-                    break;
-
-                case PlatformID.Win32Windows:
-                case PlatformID.Win32NT:
-                default:
-                    // Non-Unixoid OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
-                    string flagRelativePath = string.IsNullOrEmpty(Destination) ? relativePath : Path.Combine(Destination, relativePath);
-                    FlagUtils.SetExternalFlag(Path.Combine(TargetDir, ".xbit"), flagRelativePath);
-                    break;
+                // Non-Unixoid OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
+                string flagRelativePath = string.IsNullOrEmpty(Destination) ? relativePath : Path.Combine(Destination, relativePath);
+                FlagUtils.SetExternalFlag(Path.Combine(TargetDir, ".xbit"), flagRelativePath);
             }
         }
 
@@ -460,20 +447,12 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             #endregion
 
-            switch (Environment.OSVersion.Platform)
+            if (UnixUtils.IsUnix) FileUtils.SetExecutable(Path.Combine(EffectiveTargetDir, relativePath), false);
+            else
             {
-                case PlatformID.Unix:
-                case PlatformID.MacOSX:
-                    FileUtils.SetExecutable(Path.Combine(EffectiveTargetDir, relativePath), false);
-                    break;
-
-                case PlatformID.Win32Windows:
-                case PlatformID.Win32NT:
-                default:
-                    // Non-Unixoid OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
-                    string flagRelativePath = string.IsNullOrEmpty(Destination) ? relativePath : Path.Combine(Destination, relativePath);
-                    FlagUtils.RemoveExternalFlag(Path.Combine(TargetDir, ".xbit"), flagRelativePath);
-                    break;
+                // Non-Unixoid OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
+                string flagRelativePath = string.IsNullOrEmpty(Destination) ? relativePath : Path.Combine(Destination, relativePath);
+                FlagUtils.RemoveExternalFlag(Path.Combine(TargetDir, ".xbit"), flagRelativePath);
             }
         }
         #endregion

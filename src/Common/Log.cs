@@ -105,19 +105,7 @@ namespace Common
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Any kind of problems writing the log file should be ignored")]
         static Log()
         {
-            string filePath;
-            switch (Environment.OSVersion.Platform)
-            {
-                case PlatformID.Unix:
-                case PlatformID.MacOSX:
-                    // TODO: Write to sensible log directory
-
-                case PlatformID.Win32Windows:
-                case PlatformID.Win32NT:
-                default:
-                    filePath = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(AppInfo.Current.Name) + " Log.txt");
-                    break;
-            }
+            string filePath = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(AppInfo.Current.Name) + " Log.txt");
 
             // Try to open the file for writing but give up right away if there are any problems
             FileStream file;

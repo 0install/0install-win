@@ -32,6 +32,7 @@ using Common.Properties;
 using System.ComponentModel;
 using System.Security.AccessControl;
 using System.Security.Principal;
+
 #endif
 
 namespace Common.Utils
@@ -197,37 +198,31 @@ namespace Common.Utils
             string directory = Path.GetDirectoryName(Path.GetFullPath(destinationPath));
             string backupPath = directory + Path.DirectorySeparatorChar + "backup." + Path.GetRandomFileName() + "." + Path.GetFileName(destinationPath);
 
-            switch (Environment.OSVersion.Platform)
+            if (WindowsUtils.IsWindowsNT)
             {
-                case PlatformID.Win32NT:
-                    if (File.Exists(destinationPath))
-                    {
-                        File.Replace(sourcePath, destinationPath, backupPath, ignoreMetadataErrors: true);
-                        File.Delete(backupPath);
-                    }
-                    else File.Move(sourcePath, destinationPath);
-                    break;
-
-                case PlatformID.MacOSX:
-                case PlatformID.Unix:
-                    UnixUtils.Rename(sourcePath, destinationPath);
-                    break;
-
-                default:
-                    // Emulate replace method
-                    if (File.Exists(destinationPath)) File.Move(destinationPath, backupPath);
-                    try
-                    {
-                        File.Move(sourcePath, destinationPath);
-                        if (File.Exists(backupPath)) File.Delete(backupPath);
-                    }
-                    catch
-                    {
-                        // Rollback
-                        if (File.Exists(backupPath)) File.Move(backupPath, destinationPath);
-                        throw;
-                    }
-                    break;
+                if (File.Exists(destinationPath))
+                {
+                    File.Replace(sourcePath, destinationPath, backupPath, ignoreMetadataErrors: true);
+                    File.Delete(backupPath);
+                }
+                else File.Move(sourcePath, destinationPath);
+            }
+#if FS_SECURITY
+            else if (UnixUtils.IsUnix) UnixUtils.Rename(sourcePath, destinationPath);
+#endif
+            else
+            {
+                if (File.Exists(destinationPath)) File.Move(destinationPath, backupPath);
+                try
+                {
+                    File.Move(sourcePath, destinationPath);
+                    if (File.Exists(backupPath)) File.Delete(backupPath);
+                }
+                catch
+                { // Rollback
+                    if (File.Exists(backupPath)) File.Move(backupPath, destinationPath);
+                    throw;
+                }
             }
         }
         #endregion
@@ -399,18 +394,8 @@ namespace Common.Utils
 
             var directory = new DirectoryInfo(path);
 
-            // Use only best method for platform
-            switch (Environment.OSVersion.Platform)
-            {
-                case PlatformID.Unix:
-                case PlatformID.MacOSX:
-                    directory.ToggleWriteProtectionUnix(true);
-                    break;
-
-                case PlatformID.Win32NT:
-                    directory.ToggleWriteProtectionWinNT(true);
-                    break;
-            }
+            if (UnixUtils.IsUnix) directory.ToggleWriteProtectionUnix(true);
+            else if (WindowsUtils.IsWindowsNT) directory.ToggleWriteProtectionWinNT(true);
         }
 
         /// <summary>
@@ -429,27 +414,20 @@ namespace Common.Utils
 
             var directory = new DirectoryInfo(path);
 
-            // Disable all applicable methods
-            switch (Environment.OSVersion.Platform)
+            if (UnixUtils.IsUnix) directory.ToggleWriteProtectionUnix(false);
+            else if (WindowsUtils.IsWindows)
             {
-                case PlatformID.Unix:
-                case PlatformID.MacOSX:
-                    ToggleWriteProtectionUnix(directory, false);
-                    break;
+                if (WindowsUtils.IsWindowsNT) directory.ToggleWriteProtectionWinNT(false);
 
-                case PlatformID.Win32NT:
-                    directory.ToggleWriteProtectionWinNT(false);
-
-                    // Remove any classic read-only attributes
-                    try
-                    {
-                        Walk(directory,
-                            dir => dir.Attributes = FileAttributes.Normal,
-                            file => file.IsReadOnly = false);
-                    }
-                    catch (ArgumentException)
-                    {}
-                    break;
+                // Remove classic read-only attributes
+                try
+                {
+                    Walk(directory,
+                        dir => dir.Attributes = FileAttributes.Normal,
+                        file => file.IsReadOnly = false);
+                }
+                catch (ArgumentException)
+                {}
             }
         }
 
