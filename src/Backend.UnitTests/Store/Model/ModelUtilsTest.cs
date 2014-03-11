@@ -94,7 +94,7 @@ namespace ZeroInstall.Store.Model
         {
             Assert.AreEqual(
                 // Colon is preserved on POSIX systems but not on other OSes
-                MonoUtils.IsUnix ? "http:##0install.de#feeds#test#test1.xml" : "http%3a##0install.de#feeds#test#test1.xml",
+                UnixUtils.IsUnix ? "http:##0install.de#feeds#test#test1.xml" : "http%3a##0install.de#feeds#test#test1.xml",
                 ModelUtils.PrettyEscape("http://0install.de/feeds/test/test1.xml"));
         }
 
@@ -104,7 +104,7 @@ namespace ZeroInstall.Store.Model
             Assert.AreEqual(
                 "http://0install.de/feeds/test/test1.xml",
                 // Colon is preserved on POSIX systems but not on other OSes
-                ModelUtils.PrettyUnescape(MonoUtils.IsUnix ? "http:##0install.de#feeds#test#test1.xml" : "http%3a##0install.de#feeds#test#test1.xml"));
+                ModelUtils.PrettyUnescape(UnixUtils.IsUnix ? "http:##0install.de#feeds#test#test1.xml" : "http%3a##0install.de#feeds#test#test1.xml"));
         }
     }
 }

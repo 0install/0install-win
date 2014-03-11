@@ -230,7 +230,7 @@ namespace Common.Utils
         [Test]
         public void TestCreateSymlinkPosixFile()
         {
-            if (!MonoUtils.IsUnix) Assert.Ignore("Can only test POSIX symlinks on Unixoid system");
+            if (!UnixUtils.IsUnix) Assert.Ignore("Can only test POSIX symlinks on Unixoid system");
 
             using (var tempDir = new TemporaryDirectory("unit-tests"))
             {
@@ -251,7 +251,7 @@ namespace Common.Utils
         [Test]
         public void TestCreateSymlinkPosixDirectory()
         {
-            if (!MonoUtils.IsUnix) Assert.Ignore("Can only test POSIX symlinks on Unixoid system");
+            if (!UnixUtils.IsUnix) Assert.Ignore("Can only test POSIX symlinks on Unixoid system");
 
             using (var tempDir = new TemporaryDirectory("unit-tests"))
             {
@@ -350,7 +350,7 @@ namespace Common.Utils
         [Test]
         public void TestSetExecutable()
         {
-            if (!MonoUtils.IsUnix) Assert.Ignore("Can only test executable bits on Unixoid system");
+            if (!UnixUtils.IsUnix) Assert.Ignore("Can only test executable bits on Unixoid system");
 
             using (var tempFile = new TemporaryFile("unit-tests"))
             {

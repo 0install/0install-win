@@ -32,15 +32,15 @@ namespace Common.Utils
     /// </summary>
     /// <remarks>
     /// This class has a dependency on <code>Mono.Posix</code>.
-    /// Make sure you are running a Unixoid system before calling any methods in this class, to avoid missing assembly exceptions.
+    /// Make sure to check <see cref="IsUnix"/> before calling any other methods in this class to avoid missing assembly exceptions.
     /// </remarks>
-    public static class MonoUtils
+    public static class UnixUtils
     {
         #region OS
         /// <summary>
         /// <see langword="true"/> if the current operating system is a Unixoid system (e.g. Linux or MacOS X).
         /// </summary>
-        public static bool IsUnix { get { return Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX; } }
+        public static bool IsUnix { get { return Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX || Environment.OSVersion.Platform == (PlatformID)128; } }
         #endregion
 
         #region Links

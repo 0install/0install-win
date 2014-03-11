@@ -146,7 +146,7 @@ namespace ZeroInstall.Services.Solvers
         {
             var feedPreferences = FeedPreferences.LoadForSafe(feedID);
 
-            if (MonoUtils.IsUnix && feed.Elements.OfType<PackageImplementation>().Any())
+            if (UnixUtils.IsUnix && feed.Elements.OfType<PackageImplementation>().Any())
                 throw new SolverException("Linux native package managers not supported yet!");
             // TODO: Windows <package-implementation>s
 

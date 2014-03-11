@@ -157,7 +157,7 @@ namespace Common.Controls
         private void HandleError(Exception ex)
         {
 #if FS_SECURITY
-            if (!MonoUtils.IsUnix && ex is InvalidDataException && ex.Source == "System.Xml" && ex.InnerException != null)
+            if (!UnixUtils.IsUnix && ex is InvalidDataException && ex.Source == "System.Xml" && ex.InnerException != null)
             { // Parse XML exception message for position of the error
                 int lineStart = ex.Message.LastIndexOf('(') + 1;
                 int lineLength = ex.Message.LastIndexOf(',') - lineStart;

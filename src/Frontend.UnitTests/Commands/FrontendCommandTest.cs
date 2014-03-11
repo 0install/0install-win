@@ -77,7 +77,7 @@ namespace ZeroInstall.Commands
                 Assert.AreEqual(@"C:\test\file", Target.GetCanonicalID("file:///C:/test/file"));
                 Assert.AreEqual(@"C:\test\file", Target.GetCanonicalID(@"C:\test\file"));
             }
-            if (MonoUtils.IsUnix)
+            if (UnixUtils.IsUnix)
             {
                 Assert.AreEqual("/var/test/file", Target.GetCanonicalID("file:///var/test/file"));
                 Assert.AreEqual("/var/test/file", Target.GetCanonicalID("/var/test/file"));

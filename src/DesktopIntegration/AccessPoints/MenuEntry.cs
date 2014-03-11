@@ -61,7 +61,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             var target = new InterfaceFeed(appEntry.InterfaceID, feed);
             if (WindowsUtils.IsWindows) Windows.Shortcut.Create(this, target, handler, machineWide);
-            else if (MonoUtils.IsUnix) Unix.FreeDesktop.Create(this, target, machineWide, handler);
+            else if (UnixUtils.IsUnix) Unix.FreeDesktop.Create(this, target, machineWide, handler);
         }
 
         /// <inheritdoc/>
@@ -72,7 +72,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             if (WindowsUtils.IsWindows) Windows.Shortcut.Remove(this, machineWide);
-            else if (MonoUtils.IsUnix) Unix.FreeDesktop.Remove(this, machineWide);
+            else if (UnixUtils.IsUnix) Unix.FreeDesktop.Remove(this, machineWide);
         }
         #endregion
 

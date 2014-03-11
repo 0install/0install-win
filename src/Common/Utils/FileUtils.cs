@@ -210,7 +210,7 @@ namespace Common.Utils
 
                 case PlatformID.MacOSX:
                 case PlatformID.Unix:
-                    MonoUtils.Rename(sourcePath, destinationPath);
+                    UnixUtils.Rename(sourcePath, destinationPath);
                     break;
 
                 default:
@@ -458,8 +458,8 @@ namespace Common.Utils
         {
             try
             {
-                if (enable) Walk(directory, dir => MonoUtils.MakeReadOnly(dir.FullName), file => MonoUtils.MakeReadOnly(file.FullName));
-                else Walk(directory, dir => MonoUtils.MakeWritable(dir.FullName), file => MonoUtils.MakeWritable(file.FullName));
+                if (enable) Walk(directory, dir => UnixUtils.MakeReadOnly(dir.FullName), file => UnixUtils.MakeReadOnly(file.FullName));
+                else Walk(directory, dir => UnixUtils.MakeWritable(dir.FullName), file => UnixUtils.MakeWritable(file.FullName));
             }
                 #region Error handling
             catch (InvalidOperationException ex)
@@ -509,11 +509,11 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            if (MonoUtils.IsUnix)
+            if (UnixUtils.IsUnix)
             {
                 try
                 {
-                    MonoUtils.CreateSymlink(source, target);
+                    UnixUtils.CreateSymlink(source, target);
                 }
                     #region Error handling
                 catch (InvalidOperationException ex)
@@ -556,11 +556,11 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            if (MonoUtils.IsUnix)
+            if (UnixUtils.IsUnix)
             {
                 try
                 {
-                    MonoUtils.CreateHardlink(source, target);
+                    UnixUtils.CreateHardlink(source, target);
                 }
                     #region Error handling
                 catch (InvalidOperationException ex)
@@ -601,11 +601,11 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(path2)) throw new ArgumentNullException("path2");
             #endregion
 
-            if (MonoUtils.IsUnix)
+            if (UnixUtils.IsUnix)
             {
                 try
                 {
-                    return MonoUtils.AreHardlinked(path1, path2);
+                    return UnixUtils.AreHardlinked(path1, path2);
                 }
                     #region Error handling
                 catch (InvalidOperationException ex)
@@ -647,11 +647,11 @@ namespace Common.Utils
             if (!File.Exists(path)) return false;
 
             // TODO: Detect special files on Windows
-            if (!MonoUtils.IsUnix) return true;
+            if (!UnixUtils.IsUnix) return true;
 
             try
             {
-                return MonoUtils.IsRegularFile(path);
+                return UnixUtils.IsRegularFile(path);
             }
                 #region Error handling
             catch (InvalidOperationException ex)
@@ -674,11 +674,11 @@ namespace Common.Utils
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to query the file's properties.</exception>
         public static bool IsSymlink(string path)
         {
-            if ((!File.Exists(path) && !Directory.Exists(path)) || !MonoUtils.IsUnix) return false;
+            if ((!File.Exists(path) && !Directory.Exists(path)) || !UnixUtils.IsUnix) return false;
 
             try
             {
-                return MonoUtils.IsSymlink(path);
+                return UnixUtils.IsSymlink(path);
             }
                 #region Error handling
             catch (InvalidOperationException ex)
@@ -702,7 +702,7 @@ namespace Common.Utils
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to query the file's properties.</exception>
         public static bool IsSymlink(string path, out string target)
         {
-            if ((!File.Exists(path) && !Directory.Exists(path)) || !MonoUtils.IsUnix)
+            if ((!File.Exists(path) && !Directory.Exists(path)) || !UnixUtils.IsUnix)
             {
                 target = null;
                 return false;
@@ -710,7 +710,7 @@ namespace Common.Utils
 
             try
             {
-                return MonoUtils.IsSymlink(path, out target);
+                return UnixUtils.IsSymlink(path, out target);
             }
                 #region Error handling
             catch (InvalidOperationException ex)
@@ -732,11 +732,11 @@ namespace Common.Utils
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to query the file's properties.</exception>
         public static bool IsExecutable(string path)
         {
-            if (!File.Exists(path) || !MonoUtils.IsUnix) return false;
+            if (!File.Exists(path) || !UnixUtils.IsUnix) return false;
 
             try
             {
-                return MonoUtils.IsExecutable(path);
+                return UnixUtils.IsExecutable(path);
             }
                 #region Error handling
             catch (InvalidOperationException ex)
@@ -762,12 +762,12 @@ namespace Common.Utils
         {
             #region Sanity checks
             if (!File.Exists(path)) throw new FileNotFoundException("", path);
-            if (!MonoUtils.IsUnix) throw new PlatformNotSupportedException();
+            if (!UnixUtils.IsUnix) throw new PlatformNotSupportedException();
             #endregion
 
             try
             {
-                MonoUtils.SetExecutable(path, executable);
+                UnixUtils.SetExecutable(path, executable);
             }
                 #region Error handling
             catch (InvalidOperationException ex)

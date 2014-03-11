@@ -190,7 +190,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 extractor.Run();
             }
 
-            if (MonoUtils.IsUnix)
+            if (UnixUtils.IsUnix)
                 Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox, "subdir2/executable")), "File 'executable' should be marked as executable");
             else
             {
@@ -209,7 +209,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
 
             string target;
-            if (MonoUtils.IsUnix)
+            if (UnixUtils.IsUnix)
                 Assert.IsTrue(FileUtils.IsSymlink(Path.Combine(_sandbox, "symlink"), out target));
             else
             {

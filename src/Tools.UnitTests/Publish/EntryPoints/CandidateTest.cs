@@ -55,7 +55,7 @@ namespace ZeroInstall.Publish.EntryPoints
 
             if (xbit)
             {
-                if (MonoUtils.IsUnix) FileUtils.SetExecutable(file.FullName, true);
+                if (UnixUtils.IsUnix) FileUtils.SetExecutable(file.FullName, true);
                 else FlagUtils.SetExternalFlag(Path.Combine(Directory.FullName, ".xbit"), reference.RelativePath);
             }
 

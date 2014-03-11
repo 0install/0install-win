@@ -276,7 +276,7 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void ShouldNotFollowDirectorySymlinks()
         {
-            if (!MonoUtils.IsUnix) Assert.Ignore("Can only test symlinks on Unixoid system");
+            if (!UnixUtils.IsUnix) Assert.Ignore("Can only test symlinks on Unixoid system");
 
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {

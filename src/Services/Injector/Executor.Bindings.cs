@@ -302,7 +302,7 @@ namespace ZeroInstall.Services.Injector
             }
             #endregion
 
-            if (MonoUtils.IsUnix) FileUtils.SetExecutable(deployedPath, true);
+            if (UnixUtils.IsUnix) FileUtils.SetExecutable(deployedPath, true);
 
             return deployedPath;
         }
@@ -320,7 +320,7 @@ namespace ZeroInstall.Services.Injector
                     ? "runenv.clr4.template"
                     : "runenv.clr2.template";
             }
-            else if (MonoUtils.IsUnix) templateName = "runenv.sh.template";
+            else if (UnixUtils.IsUnix) templateName = "runenv.sh.template";
             else throw new NotSupportedException(string.Format(Resources.BindingNotSupportedOnCurrentOS, @"<executable-in-*>"));
 
             string path = Path.Combine(Locations.GetCacheDirPath("0install.net", false, "injector", "executables"), templateName);

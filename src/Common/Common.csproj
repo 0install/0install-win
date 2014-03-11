@@ -175,10 +175,10 @@
     <Compile Include="Utils\CompilerUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Utils\LzmaUtils.cs" />
-    <Compile Include="Utils\MonoUtils.cs" />
     <Compile Include="Utils\NetUtils.cs" />
     <Compile Include="Utils\ProcessUtils.cs" />
     <Compile Include="Utils\StringUtils.cs" />
+    <Compile Include="Utils\UnixUtils.cs" />
     <Compile Include="Utils\UpdateUtils.cs" />
     <Compile Include="Utils\WindowsUtils.cs" />
     <Compile Include="Utils\WindowsUtils.NativeMethods.cs" />

@@ -58,7 +58,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
             var target = new InterfaceFeed(appEntry.InterfaceID, feed);
             if (WindowsUtils.IsWindows) Windows.ContextMenu.Apply(target, capability, machineWide, handler);
-            else if (MonoUtils.IsUnix) Unix.ContextMenu.Apply(target, capability, machineWide, handler);
+            else if (UnixUtils.IsUnix) Unix.ContextMenu.Apply(target, capability, machineWide, handler);
         }
 
         /// <inheritdoc/>
@@ -72,7 +72,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (capability == null) return;
 
             if (WindowsUtils.IsWindows) Windows.ContextMenu.Remove(capability, machineWide);
-            else if (MonoUtils.IsUnix) Unix.ContextMenu.Remove(capability, machineWide);
+            else if (UnixUtils.IsUnix) Unix.ContextMenu.Remove(capability, machineWide);
         }
         #endregion
 

@@ -48,12 +48,12 @@ namespace ZeroInstall.Store.Implementations
                     // /dest/symlink [S]
                     string path = new[] {recipeDir, "subDir", "symlink"}.Aggregate(Path.Combine);
                     Assert.IsTrue(File.Exists(path), "File should exist: " + path);
-                    if (!MonoUtils.IsUnix) CollectionAssert.AreEquivalent(new[] {path}, FlagUtils.GetExternalFlags(".symlink", recipeDir));
+                    if (!UnixUtils.IsUnix) CollectionAssert.AreEquivalent(new[] {path}, FlagUtils.GetExternalFlags(".symlink", recipeDir));
 
                     // /dest/subdir2/executable [deleted]
                     path = new[] {recipeDir, "subDir", "subdir2", "executable"}.Aggregate(Path.Combine);
                     Assert.IsTrue(File.Exists(path), "File should exist: " + path);
-                    if (!MonoUtils.IsUnix) CollectionAssert.AreEquivalent(new[] {path}, FlagUtils.GetExternalFlags(".xbit", recipeDir));
+                    if (!UnixUtils.IsUnix) CollectionAssert.AreEquivalent(new[] {path}, FlagUtils.GetExternalFlags(".xbit", recipeDir));
                 }
             }
         }
@@ -77,7 +77,7 @@ namespace ZeroInstall.Store.Implementations
                     Assert.IsTrue(File.Exists(path), "File should exist: " + path);
                     Assert.AreEqual("data", File.ReadAllText(path));
                     Assert.AreEqual(0, File.GetLastWriteTimeUtc(path).ToUnixTime(), "Single files should be set to Unix epoch");
-                    if (!MonoUtils.IsUnix) Assert.IsEmpty(FlagUtils.GetExternalFlags(".xbit", recipeDir));
+                    if (!UnixUtils.IsUnix) Assert.IsEmpty(FlagUtils.GetExternalFlags(".xbit", recipeDir));
                 }
             }
         }
@@ -102,7 +102,7 @@ namespace ZeroInstall.Store.Implementations
 
                 using (TemporaryDirectory recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
                 {
-                    if (!MonoUtils.IsUnix)
+                    if (!UnixUtils.IsUnix)
                     {
                         Assert.IsEmpty(FlagUtils.GetExternalFlags(".xbit", recipeDir));
                         Assert.IsEmpty(FlagUtils.GetExternalFlags(".symlink", recipeDir));
@@ -139,7 +139,7 @@ namespace ZeroInstall.Store.Implementations
 
                 using (TemporaryDirectory recipeDir = recipe.Apply(downloadedFiles, new SilentTaskHandler()))
                 {
-                    if (!MonoUtils.IsUnix)
+                    if (!UnixUtils.IsUnix)
                     {
                         CollectionAssert.AreEquivalent(
                             new[] {new[] {recipeDir, "subdir2", "executable2"}.Aggregate(Path.Combine)},
@@ -156,7 +156,7 @@ namespace ZeroInstall.Store.Implementations
                     // /subdir3/symlink2 [S]
                     path = new[] {recipeDir, "subdir3", "symlink2"}.Aggregate(Path.Combine);
                     Assert.IsTrue(File.Exists(path), "Missing file: " + path);
-                    if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsSymlink(path), "Not symlink: " + path);
+                    if (UnixUtils.IsUnix) Assert.IsTrue(FileUtils.IsSymlink(path), "Not symlink: " + path);
 
                     // /subdir2/executable [deleted]
                     path = new[] {recipeDir, "subdir2", "executable"}.Aggregate(Path.Combine);
@@ -165,7 +165,7 @@ namespace ZeroInstall.Store.Implementations
                     // /subdir2/executable2 [X]
                     path = new[] {recipeDir, "subdir2", "executable2"}.Aggregate(Path.Combine);
                     Assert.IsTrue(File.Exists(path), "Missing file: " + path);
-                    if (MonoUtils.IsUnix) Assert.IsTrue(FileUtils.IsExecutable(path), "Not executable: " + path);
+                    if (UnixUtils.IsUnix) Assert.IsTrue(FileUtils.IsExecutable(path), "Not executable: " + path);
                 }
             }
         }

@@ -114,7 +114,7 @@ namespace ZeroInstall.Store.Model
             result = result.Replace("%2f", "#");
 
             // Do not encode : on Unixoid systems
-            if (MonoUtils.IsUnix) result = result.Replace("%3a", ":");
+            if (UnixUtils.IsUnix) result = result.Replace("%3a", ":");
 
             return result;
         }
@@ -129,7 +129,7 @@ namespace ZeroInstall.Store.Model
             #endregion
 
             // Do not encode : on Unixoid systems
-            if (MonoUtils.IsUnix) escaped = escaped.Replace(":", "%3a");
+            if (UnixUtils.IsUnix) escaped = escaped.Replace(":", "%3a");
 
             // Decode # as slash
             return Unescape(escaped.Replace("#", "%2f"));

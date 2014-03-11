@@ -81,7 +81,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                     if (machineWide)
                         dispatcher.Add((Store.Model.Capabilities.DefaultProgram defaultProgram) => Windows.DefaultProgram.Register(target, defaultProgram, handler));
                 }
-                else if (MonoUtils.IsUnix)
+                else if (UnixUtils.IsUnix)
                 {
                     dispatcher.Add((Store.Model.Capabilities.FileType fileType) => Unix.FileType.Register(target, fileType, machineWide, handler));
                     dispatcher.Add((Store.Model.Capabilities.UrlProtocol urlProtocol) => Unix.UrlProtocol.Register(target, urlProtocol, machineWide, handler));
@@ -114,7 +114,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                     if (machineWide)
                         dispatcher.Add((Store.Model.Capabilities.DefaultProgram defaultProgram) => Windows.DefaultProgram.Unregister(defaultProgram));
                 }
-                else if (MonoUtils.IsUnix)
+                else if (UnixUtils.IsUnix)
                 {
                     dispatcher.Add((Store.Model.Capabilities.FileType fileType) => Unix.FileType.Unregister(fileType, machineWide));
                     dispatcher.Add((Store.Model.Capabilities.UrlProtocol urlProtocol) => Unix.UrlProtocol.Unregister(urlProtocol, machineWide));
