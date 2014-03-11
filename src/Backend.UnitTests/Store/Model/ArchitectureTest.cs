@@ -39,7 +39,7 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
-        /// Ensures <see cref="Architecture.IsCompatible"/> correctly determines which kinds of packages can run on which machines.
+        /// Ensures <see cref="Architecture.IsCompatible(ZeroInstall.Store.Model.Architecture)"/> correctly determines which kinds of packages can run on which machines.
         /// </summary>
         [Test]
         public void TestIsCompatible()

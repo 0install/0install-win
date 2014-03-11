@@ -152,25 +152,15 @@ namespace ZeroInstall.Store.Model
         public Cpu Cpu { get; set; }
 
         /// <summary>
-        /// Returns an architecture representing the currently running system.
+        /// An architecture representing the currently running system.
         /// </summary>
-        public static Architecture CurrentSystem
-        {
-            get
-            {
-                if (WindowsUtils.IsWindows) return new Architecture(OS.Windows, WindowsUtils.Is64BitOperatingSystem ? Cpu.X64 : Cpu.I486);
+        public static readonly Architecture CurrentSystem = GetCurrentSystem();
 
-                // TODO: Improve detection of other operating systems and CPUs
-                switch (Environment.OSVersion.Platform)
-                {
-                    case PlatformID.Unix:
-                        return new Architecture(OS.Linux, WindowsUtils.Is64BitProcess ? Cpu.X64 : Cpu.I586);
-                    case PlatformID.MacOSX:
-                        return new Architecture(OS.MacOSX, WindowsUtils.Is64BitProcess ? Cpu.X64 : Cpu.I686);
-                    default:
-                        return new Architecture(OS.Unknown, Cpu.Unknown);
-                }
-            }
+        private static Architecture GetCurrentSystem()
+        {
+            if (WindowsUtils.IsWindows) return new Architecture(OS.Windows, WindowsUtils.Is64BitOperatingSystem ? Cpu.X64 : Cpu.I486);
+            else if (UnixUtils.IsUnix) return new Architecture(ParseOSString(UnixUtils.OSName), ParseCpuString(UnixUtils.CpuType));
+            else return new Architecture(OS.Unknown, Cpu.Unknown);
         }
         #endregion
 

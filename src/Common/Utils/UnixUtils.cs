@@ -41,6 +41,47 @@ namespace Common.Utils
         /// <see langword="true"/> if the current operating system is a Unixoid system (e.g. Linux or MacOS X).
         /// </summary>
         public static bool IsUnix { get { return Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX || Environment.OSVersion.Platform == (PlatformID)128; } }
+
+        /// <summary>
+        /// The operating system name as reported by the "uname" system call.
+        /// </summary>
+        public static string OSName
+        {
+            get
+            {
+                Utsname buffer;
+                Syscall.uname(out buffer);
+                return buffer.sysname;
+            }
+        }
+
+        /// <summary>
+        /// The CPU type as reported by the "uname" system call (after applying some normalization).
+        /// </summary>
+        public static string CpuType
+        {
+            get
+            {
+                Utsname buffer;
+                Syscall.uname(out buffer);
+                string cpuType = buffer.machine;
+
+                // Normalize names
+                switch (cpuType)
+                {
+                    case "x86":
+                        return "i386";
+                    case "amd64":
+                        return "x86_64";
+                    case "Power Macintosh":
+                        return "ppc";
+                    case "i86pc":
+                        return "i686";
+                    default:
+                        return cpuType;
+                }
+            }
+        }
         #endregion
 
         #region Links
