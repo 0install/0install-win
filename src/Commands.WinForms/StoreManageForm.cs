@@ -30,6 +30,7 @@ using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Commands.WinForms.StoreManagementNodes;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 
@@ -38,7 +39,7 @@ namespace ZeroInstall.Commands.WinForms
     /// <summary>
     /// Displays the content of caches (<see cref="IFeedCache"/> and <see cref="IStore"/>) in a combined tree view.
     /// </summary>
-    public sealed partial class StoreManageForm : Form, ITaskHandler
+    public sealed partial class StoreManageForm : Form, IInteractionHandler
     {
         #region Variables
         private readonly IStore _store;
@@ -201,28 +202,18 @@ namespace ZeroInstall.Commands.WinForms
             }
                 #region Error handling
             catch (OperationCanceledException)
-            {
-                return;
-            }
+            {}
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-                return;
             }
             catch (UnauthorizedAccessException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-                return;
-            }
-            catch (DigestMismatchException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                // TODO: Provide option for deleting
-                return;
             }
             #endregion
 
-            Msg.Inform(this, Resources.AuditPass, MsgSeverity.Info);
+            RefreshList();
         }
 
         private void buttonRefresh_Click(object sender, EventArgs e)
@@ -236,14 +227,43 @@ namespace ZeroInstall.Commands.WinForms
         }
         #endregion
 
-        #region Handler
+        #region IInteractionHandler
         /// <inheritdoc/>
         public CancellationToken CancellationToken { get { return default(CancellationToken); } }
+
+        /// <summary>
+        /// Always returns <see langword="false"/>.
+        /// </summary>
+        public bool Batch { get { return false; } set { } }
+
+        /// <summary>
+        /// Always returns 1. This ensures that information hidden by the GUI is at least retrievable from the log files.
+        /// </summary>
+        public int Verbosity { get { return 1; } set { } }
+
+        public void ShowProgressUI()
+        {}
+
+        public void DisableProgressUI()
+        {}
+
+        public void CloseProgressUI()
+        {}
 
         /// <inheritdoc/>
         public void RunTask(ITask task)
         {
             using (var handler = new GuiTaskHandler(this)) handler.RunTask(task);
+        }
+
+        public bool AskQuestion(string question, string batchInformation = null)
+        {
+            return Msg.YesNo(this, question, MsgSeverity.Warn);
+        }
+
+        public void Output(string title, string information)
+        {
+            Msg.Inform(this, information, MsgSeverity.Info);
         }
         #endregion
     }

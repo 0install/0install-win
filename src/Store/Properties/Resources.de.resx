@@ -126,11 +126,11 @@
   <data name="ArchiveInvalidPath" xml:space="preserve">
     <value>Das Archiv enthält einen ungültigen Pfad (möglicherweise ein Sicherheitsrisiko): {0}</value>
   </data>
-  <data name="CommandNotFound" xml:space="preserve">
-    <value>Der Command '{0}' konnte nicht gefunden werden.</value>
-  </data>
   <data name="CabExtractionOnlyOnWindows" xml:space="preserve">
     <value>CAB und MSI entpacken wird nur unter Windows unterstützt.</value>
+  </data>
+  <data name="CommandNotFound" xml:space="preserve">
+    <value>Der Command '{0}' konnte nicht gefunden werden.</value>
   </data>
   <data name="CopyFiles" xml:space="preserve">
     <value>Kopiere Dateien</value>
@@ -142,9 +142,19 @@
     <value>Lösche Implementierung {0}</value>
   </data>
   <data name="DigestMismatch" xml:space="preserve">
-    <value>Der Manifest-Hash einer Implementierung entspricht nicht dem erwarteten Wert!
-Erwarteter Wert: {0}
-Tatsächlicher Wert: {1}</value>
+    <value>Der Manifest-Hash einer Implementierung entspricht nicht dem erwarteten Wert.</value>
+  </data>
+  <data name="DigestMismatchActualDigest" xml:space="preserve">
+    <value>Tatsächlicher Wert: {0}</value>
+  </data>
+  <data name="DigestMismatchActualManifest" xml:space="preserve">
+    <value>Tatsächliches Manifest: {0}</value>
+  </data>
+  <data name="DigestMismatchExpectedDigest" xml:space="preserve">
+    <value>Erwarteter Wert: {0}</value>
+  </data>
+  <data name="DigestMismatchExpectedManifest" xml:space="preserve">
+    <value>Erwartetes Manifest: {0}</value>
   </data>
   <data name="DirectoryNotFound" xml:space="preserve">
     <value>Das Verzeichnis '{0}' konnte nicht gefunden werden.</value>
@@ -184,6 +194,15 @@ Tatsächlicher Wert: {1}</value>
   </data>
   <data name="ImplementationAlreadyInStore" xml:space="preserve">
     <value>Die Implementierung '{0}' ist bereits im Store.</value>
+  </data>
+  <data name="ImplementationDamaged" xml:space="preserve">
+    <value>Die Implementierung '{0}' ist beschädigt</value>
+  </data>
+  <data name="ImplementationDamagedAskRemove" xml:space="preserve">
+    <value>Möchten Sie sie entfernen? Eine neue Kopie wird automatisch heruntergeladen, wenn sie wieder benötigt wird.</value>
+  </data>
+  <data name="ImplementationDamagedBatchInformation" xml:space="preserve">
+    <value>Führen Sie '0install store remove {0}' aus, um sie zu entfernen. Eine neue Kopie wird automatisch heruntergeladen, wenn sie wieder benötigt wird.</value>
   </data>
   <data name="ImplementationNotFound" xml:space="preserve">
     <value>Die Implementierung '{0}' konnte nicht gefunden werden.</value>

@@ -18,6 +18,8 @@
 using System;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
+using System.Text;
+using Common.Collections;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 
@@ -33,20 +35,20 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// The hash value the <see cref="Store.Model.Implementation"/> was supposed to have.
         /// </summary>
-        public string ExpectedHash { get; private set; }
+        public string ExpectedDigest { get; private set; }
 
         /// <summary>
-        /// The <see cref="Manifest"/> that resulted in the <see cref="ExpectedHash"/>.
+        /// The <see cref="Manifest"/> that resulted in the <see cref="ExpectedDigest"/>.
         /// </summary>
         public Manifest ExpectedManifest { get; private set; }
 
         /// <summary>
         /// The hash value that was actually calculated.
         /// </summary>
-        public string ActualHash { get; private set; }
+        public string ActualDigest { get; private set; }
 
         /// <summary>
-        /// The <see cref="Manifest"/> that resulted in the <see cref="ActualHash"/>.
+        /// The <see cref="Manifest"/> that resulted in the <see cref="ActualDigest"/>.
         /// </summary>
         public Manifest ActualManifest { get; private set; }
         #endregion
@@ -55,21 +57,42 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Creates a new digest mismatch exception.
         /// </summary>
-        /// <param name="expectedHash">The hash value the <see cref="Store.Model.Implementation"/> was supposed to have.</param>
-        /// <param name="actualHash">The hash value that was actually calculated.</param>
-        /// <param name="expectedManifest">The <see cref="Manifest"/> that resulted in the <paramref name="expectedHash"/>; may be <seealso langword="null"/>.</param>
-        /// <param name="actualManifest">The <see cref="Manifest"/> that resulted in the <paramref name="actualHash"/>.</param>
-        public DigestMismatchException(string expectedHash, string actualHash, Manifest expectedManifest = null, Manifest actualManifest = null)
-            : base(string.Format(Resources.DigestMismatch, expectedHash, actualHash))
+        /// <param name="expectedDigest">The digest value the <see cref="Store.Model.Implementation"/> was supposed to have.</param>
+        /// <param name="actualDigest">The digest value that was actually calculated.</param>
+        /// <param name="expectedManifest">The <see cref="Manifest"/> that resulted in the <paramref name="expectedDigest"/>; may be <seealso langword="null"/>.</param>
+        /// <param name="actualManifest">The <see cref="Manifest"/> that resulted in the <paramref name="actualDigest"/>.</param>
+        public DigestMismatchException(string expectedDigest = null, string actualDigest = null, Manifest expectedManifest = null, Manifest actualManifest = null)
+            : base(GetMessage(expectedDigest, actualDigest, expectedManifest, actualManifest))
         {
-            ExpectedHash = expectedHash;
-            ActualHash = actualHash;
+            ExpectedDigest = expectedDigest;
+            ActualDigest = actualDigest;
             ExpectedManifest = expectedManifest;
             ActualManifest = actualManifest;
         }
 
+        private static string GetMessage(string expectedDigest, string actualDigest, Manifest expectedManifest, Manifest actualManifest)
+        {
+            var builder = new StringBuilder(Resources.DigestMismatch);
+            if (!string.IsNullOrEmpty(expectedDigest)) builder.AppendLine(string.Format(Resources.DigestMismatchExpectedDigest, expectedDigest));
+            if (!string.IsNullOrEmpty(actualDigest)) builder.AppendLine(string.Format(Resources.DigestMismatchActualDigest, actualDigest));
+
+            if (expectedManifest != null && actualManifest != null)
+            { // Diff
+                Merge.TwoWay(expectedManifest, actualManifest,
+                    added: node => builder.AppendLine("unexpected: " + node),
+                    removed: node => builder.AppendLine("missing: " + node));
+            }
+            else
+            {
+                if (expectedManifest != null) builder.AppendLine(string.Format(Resources.DigestMismatchExpectedManifest, expectedManifest));
+                if (actualManifest != null) builder.AppendLine(string.Format(Resources.DigestMismatchActualManifest, actualManifest));
+            }
+            return builder.ToString();
+        }
+
         /// <inheritdoc/>
-        public DigestMismatchException() : base(string.Format(Resources.DigestMismatch, "unknown", "unknown"))
+        public DigestMismatchException()
+            : base(GetMessage(null, null, null, null))
         {}
 
         /// <inheritdoc/>
@@ -89,9 +112,9 @@ namespace ZeroInstall.Store.Implementations
             if (info == null) throw new ArgumentNullException("info");
             #endregion
 
-            ExpectedHash = info.GetString("ExpectedHash");
+            ExpectedDigest = info.GetString("ExpectedDigest");
             ExpectedManifest = (Manifest)info.GetValue("ExpectedManifest", typeof(Manifest));
-            ActualHash = info.GetString("ActualHash");
+            ActualDigest = info.GetString("ActualDigest");
             ActualManifest = (Manifest)info.GetValue("ActualManifest", typeof(Manifest));
         }
         #endregion
@@ -105,9 +128,9 @@ namespace ZeroInstall.Store.Implementations
             if (info == null) throw new ArgumentNullException("info");
             #endregion
 
-            info.AddValue("ExpectedHash", ExpectedHash);
+            info.AddValue("ExpectedDigest", ExpectedDigest);
             info.AddValue("ExpectedManifest", ExpectedManifest);
-            info.AddValue("ActualHash", ActualHash);
+            info.AddValue("ActualDigest", ActualDigest);
             info.AddValue("ActualManifest", ActualManifest);
 
             base.GetObjectData(info, context);

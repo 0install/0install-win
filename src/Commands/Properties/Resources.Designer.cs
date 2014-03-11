@@ -244,24 +244,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to One or more problems were found in the store..
-        /// </summary>
-        public static string AuditErrors {
-            get {
-                return ResourceManager.GetString("AuditErrors", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No problems were found in the store..
-        /// </summary>
-        public static string AuditPass {
-            get {
-                return ResourceManager.GetString("AuditPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Cached interfaces.
         /// </summary>
         public static string CachedInterfaces {
@@ -604,7 +586,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Checks that every implementation in the cache is undamaged.
+        ///   Looks up a localized string similar to Checks that all implementations in the cache are undamaged.
         ///Additional arguments specify custom cache locations..
         /// </summary>
         public static string DescriptionStoreAudit {

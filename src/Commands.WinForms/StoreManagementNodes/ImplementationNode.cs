@@ -22,8 +22,8 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Common;
-using Common.Tasks;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 
@@ -108,7 +108,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 
         #region Verify
         /// <inheritdoc/>
-        public override void Verify(ITaskHandler handler)
+        public override void Verify(IInteractionHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -129,7 +129,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
                     try
                     {
                         Verify(Parent);
-                        Msg.Inform(Parent, Resources.AuditPass, MsgSeverity.Info);
+                        Parent.RefreshList();
                     }
                         #region Error handling
                     catch (OperationCanceledException)
@@ -141,11 +141,6 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
                     catch (UnauthorizedAccessException ex)
                     {
                         Msg.Inform(Parent, ex.Message, MsgSeverity.Warn);
-                    }
-                    catch (DigestMismatchException ex)
-                    {
-                        Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
-                        // TODO: Provide option for deleting
                     }
                     #endregion
                 }));

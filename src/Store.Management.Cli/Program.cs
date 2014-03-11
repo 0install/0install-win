@@ -165,7 +165,6 @@ namespace ZeroInstall.Store.Management.Cli
             catch (DigestMismatchException ex)
             {
                 Log.Error(ex);
-                if (handler.Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
                 return 1;
             }
             catch (SignatureException ex)

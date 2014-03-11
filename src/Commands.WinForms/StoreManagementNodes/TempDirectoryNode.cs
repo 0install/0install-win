@@ -18,9 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
@@ -103,7 +103,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <summary>
         /// Does nothing.
         /// </summary>
-        public override void Verify(ITaskHandler handler)
+        public override void Verify(IInteractionHandler handler)
         {}
         #endregion
     }

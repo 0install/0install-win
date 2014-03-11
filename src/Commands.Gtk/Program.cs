@@ -213,7 +213,6 @@ namespace ZeroInstall.Commands.Gtk
                 {
                     handler.CloseProgressUI();
                     Log.Error(ex);
-                    Log.Info("Generated manifest:\n" + ex.ActualManifest);
                     Msg.Inform(null, Resources.DownloadDamaged, MsgSeverity.Error);
                     return 1;
                 }

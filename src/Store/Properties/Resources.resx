@@ -142,9 +142,19 @@
     <value>Deleting implementation {0}</value>
   </data>
   <data name="DigestMismatch" xml:space="preserve">
-    <value>An implementation's manifest hash doesn't match the expected value!
-Expected value: {0}
-Actual value: {1}</value>
+    <value>An implementation's manifest hash doesn't match the expected value.</value>
+  </data>
+  <data name="DigestMismatchActualDigest" xml:space="preserve">
+    <value>Actual value: {0}</value>
+  </data>
+  <data name="DigestMismatchActualManifest" xml:space="preserve">
+    <value>Actual manifest: {0}</value>
+  </data>
+  <data name="DigestMismatchExpectedDigest" xml:space="preserve">
+    <value>Expected value: {0}</value>
+  </data>
+  <data name="DigestMismatchExpectedManifest" xml:space="preserve">
+    <value>Expected manifest: {0}</value>
   </data>
   <data name="DirectoryNotFound" xml:space="preserve">
     <value>The directory '{0}' could not be found.</value>
@@ -184,6 +194,15 @@ Actual value: {1}</value>
   </data>
   <data name="ImplementationAlreadyInStore" xml:space="preserve">
     <value>The implementation '{0}' is already in the store.</value>
+  </data>
+  <data name="ImplementationDamaged" xml:space="preserve">
+    <value>The implementation '{0}' is damaged.</value>
+  </data>
+  <data name="ImplementationDamagedAskRemove" xml:space="preserve">
+    <value>Do you want to remove it? A new copy will be automatically downloaded again when needed.</value>
+  </data>
+  <data name="ImplementationDamagedBatchInformation" xml:space="preserve">
+    <value>Run '0install store remove {0}' to remove it. A new copy will be automatically downloaded again when needed.</value>
   </data>
   <data name="ImplementationNotFound" xml:space="preserve">
     <value>The implementation '{0}' could not be located.</value>

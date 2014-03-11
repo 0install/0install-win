@@ -186,16 +186,10 @@ namespace ZeroInstall.Commands
         {
             Handler.ShowProgressUI();
 
-            if (GetStore().Audit(Handler).Any())
-            {
-                Handler.Output(Resources.StoreAudit, Resources.AuditErrors);
-                return StoreErrorLevel.DigestMismatch;
-            }
-            else
-            {
-                Handler.Output(Resources.StoreAudit, Resources.AuditPass);
-                return StoreErrorLevel.OK;
-            }
+            var store = GetStore();
+            foreach (var manifestDigest in store.ListAll())
+                store.Verify(manifestDigest, Handler);
+            return StoreErrorLevel.OK;
         }
 
         private StoreErrorLevel Copy()

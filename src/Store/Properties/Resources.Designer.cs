@@ -133,13 +133,47 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An implementation&apos;s manifest hash doesn&apos;t match the expected value!
-        ///Expected value: {0}
-        ///Actual value: {1}.
+        ///   Looks up a localized string similar to An implementation&apos;s manifest hash doesn&apos;t match the expected value..
         /// </summary>
         internal static string DigestMismatch {
             get {
                 return ResourceManager.GetString("DigestMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actual value: {0}.
+        /// </summary>
+        internal static string DigestMismatchActualDigest {
+            get {
+                return ResourceManager.GetString("DigestMismatchActualDigest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actual manifest: {0}.
+        /// </summary>
+        internal static string DigestMismatchActualManifest {
+            get {
+                return ResourceManager.GetString("DigestMismatchActualManifest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected value: {0}.
+        /// </summary>
+        internal static string DigestMismatchExpectedDigest {
+            get {
+                return ResourceManager.GetString("DigestMismatchExpectedDigest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected manifest: {0}.
+        /// </summary>
+        internal static string DigestMismatchExpectedManifest {
+            get {
+                return ResourceManager.GetString("DigestMismatchExpectedManifest", resourceCulture);
             }
         }
         
@@ -257,6 +291,33 @@ namespace ZeroInstall.Store.Properties {
         internal static string ImplementationAlreadyInStore {
             get {
                 return ResourceManager.GetString("ImplementationAlreadyInStore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The implementation &apos;{0}&apos; is damaged..
+        /// </summary>
+        internal static string ImplementationDamaged {
+            get {
+                return ResourceManager.GetString("ImplementationDamaged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to remove it? A new copy will be automatically downloaded again when needed..
+        /// </summary>
+        internal static string ImplementationDamagedAskRemove {
+            get {
+                return ResourceManager.GetString("ImplementationDamagedAskRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run &apos;0install store remove {0}&apos; to remove it. A new copy will be automatically downloaded again when needed..
+        /// </summary>
+        internal static string ImplementationDamagedBatchInformation {
+            get {
+                return ResourceManager.GetString("ImplementationDamagedBatchInformation", resourceCulture);
             }
         }
         

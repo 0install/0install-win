@@ -170,7 +170,6 @@ namespace ZeroInstall.Alias.Cli
             catch (DigestMismatchException ex)
             {
                 Log.Error(ex);
-                //if (command.Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
                 return 1;
             }
             catch (InvalidInterfaceIDException ex)

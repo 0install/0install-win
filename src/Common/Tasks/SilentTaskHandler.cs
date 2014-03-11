@@ -44,6 +44,11 @@ namespace Common.Tasks
             task.Run(CancellationToken);
         }
 
+        /// <summary>
+        /// Always returns 0.
+        /// </summary>
+        public int Verbosity { get { return 0; } set { } }
+
         #region Dispose
         /// <inheritdoc/>
         public void Dispose()

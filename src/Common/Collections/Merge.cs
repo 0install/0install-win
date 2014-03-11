@@ -26,6 +26,7 @@ using System.Linq;
 
 namespace Common.Collections
 {
+    // ReSharper disable PossibleMultipleEnumeration
     /// <summary>
     /// Provides utility methods for merging <see cref="ICollection{T}"/>s.
     /// </summary>
@@ -42,7 +43,7 @@ namespace Common.Collections
         /// <paramref name="theirs"/> and <paramref name="mine"/> should use an internal hashmap for <see cref="ICollection{T}.Contains"/> for better performance.
         /// <see langword="null"/> elements are completely ignored.
         /// </remarks>
-        public static void TwoWay<T>(ICollection<T> theirs, ICollection<T> mine, Action<T> added, Action<T> removed)
+        public static void TwoWay<T>(IEnumerable<T> theirs, IEnumerable<T> mine, Action<T> added, Action<T> removed)
         {
             #region Sanity checks
             if (theirs == null) throw new ArgumentNullException("theirs");
@@ -71,7 +72,7 @@ namespace Common.Collections
         /// <paramref name="theirs"/> and <paramref name="mine"/> should use an internal hashmap for <see cref="ICollection{T}.Contains"/> for better performance.
         /// <see langword="null"/> elements are completely ignored.
         /// </remarks>
-        public static void TwoWay<T, TAdded, TRemoved>(ICollection<T> theirs, ICollection<T> mine, ICollection<TAdded> added, ICollection<TRemoved> removed)
+        public static void TwoWay<T, TAdded, TRemoved>(IEnumerable<T> theirs, IEnumerable<T> mine, ICollection<TAdded> added, ICollection<TRemoved> removed)
             where T : class, TAdded, TRemoved
         {
             TwoWay(theirs, mine, added.Add, removed.Add);
@@ -89,7 +90,7 @@ namespace Common.Collections
         /// Modified elements are handled by calling <paramref name="removed"/> for the old state and <paramref name="added"/> for the new state.
         /// <see langword="null"/> elements are completely ignored.
         /// </remarks>
-        public static void ThreeWay<T>(ICollection<T> reference, ICollection<T> theirs, ICollection<T> mine, Action<T> added, Action<T> removed)
+        public static void ThreeWay<T>(IEnumerable<T> reference, IEnumerable<T> theirs, IEnumerable<T> mine, Action<T> added, Action<T> removed)
             where T : class, IMergeable<T>
         {
             #region Sanity checks
@@ -137,7 +138,7 @@ namespace Common.Collections
         /// Modified elements are handled by adding to <paramref name="removed"/> for the old state and to <paramref name="added"/> for the new state.
         /// <see langword="null"/> elements are completely ignored.
         /// </remarks>
-        public static void ThreeWay<T, TAdded, TRemoved>(ICollection<T> reference, ICollection<T> theirs, ICollection<T> mine, ICollection<TAdded> added, ICollection<TRemoved> removed)
+        public static void ThreeWay<T, TAdded, TRemoved>(IEnumerable<T> reference, IEnumerable<T> theirs, IEnumerable<T> mine, ICollection<TAdded> added, ICollection<TRemoved> removed)
             where T : class, IMergeable<T>, TAdded, TRemoved
         {
             ThreeWay(reference, theirs, mine, added.Add, removed.Add);
@@ -152,4 +153,6 @@ namespace Common.Collections
             return elements.FirstOrDefault(element => element != null && element.MergeID == id);
         }
     }
+
+    // ReSharper restore PossibleMultipleEnumeration
 }

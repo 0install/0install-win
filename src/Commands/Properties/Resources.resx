@@ -180,12 +180,6 @@ You may have to close and reopen your terminal for this to become effective.</va
 If you select 'Yes' potentially incompatible integrations will be removed.
 If you select 'No' Zero Install will continue to use the old capabilities.</value>
   </data>
-  <data name="AuditErrors" xml:space="preserve">
-    <value>One or more problems were found in the store.</value>
-  </data>
-  <data name="AuditPass" xml:space="preserve">
-    <value>No problems were found in the store.</value>
-  </data>
   <data name="CachedInterfaces" xml:space="preserve">
     <value>Cached interfaces</value>
   </data>
@@ -307,7 +301,7 @@ Returns an exit status of zero if it selected a set of versions, and a status of
     <value>Adds the contents of a directory or archive to the cache.</value>
   </data>
   <data name="DescriptionStoreAudit" xml:space="preserve">
-    <value>Checks that every implementation in the cache is undamaged.
+    <value>Checks that all implementations in the cache are undamaged.
 Additional arguments specify custom cache locations.</value>
   </data>
   <data name="DescriptionStoreCopy" xml:space="preserve">

@@ -104,7 +104,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
         }
 
         /// <summary>
-        /// Always returns 1.
+        /// Always returns 1. This ensures that information hidden by the GUI is at least retrievable from the log files.
         /// </summary>
         public int Verbosity { get { return 1; } set { } }
 

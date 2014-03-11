@@ -39,11 +39,6 @@ namespace ZeroInstall.Services
         public virtual bool Batch { get { return true; } set { } }
 
         /// <summary>
-        /// Always returns 0.
-        /// </summary>
-        public int Verbosity { get { return 0; } set { } }
-
-        /// <summary>
         /// Does nothing.
         /// </summary>
         public void SetGuiHints(Func<string> actionTitle, int delay)

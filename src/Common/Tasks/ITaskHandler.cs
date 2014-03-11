@@ -50,5 +50,11 @@ namespace Common.Tasks
         /// The specific implementation of this method may chose whether to actually run the tasks concurrently or in sequence.
         /// </remarks>
         void RunTask(ITask task);
+
+        /// <summary>
+        /// The detail level of messages printed to the console or log file.
+        /// 0 = normal, 1 = verbose, 2 = very verbose
+        /// </summary>
+        int Verbosity { get; set; }
     }
 }

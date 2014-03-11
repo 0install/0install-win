@@ -17,14 +17,13 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using Common.Storage;
-using Common.Tasks;
 using Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Store.Management;
 using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations
 {
@@ -34,12 +33,14 @@ namespace ZeroInstall.Store.Implementations
     [TestFixture]
     public class DirectoryStoreTest
     {
+        private MockHandler _handler;
         private TemporaryDirectory _tempDir;
         private DirectoryStore _store;
 
         [SetUp]
         public void SetUp()
         {
+            _handler = new MockHandler();
             _tempDir = new TemporaryDirectory("0install-unit-tests");
             _store = new DirectoryStore(_tempDir);
         }
@@ -47,7 +48,7 @@ namespace ZeroInstall.Store.Implementations
         [TearDown]
         public void TearDown()
         {
-            _store.Purge(new SilentTaskHandler());
+            _store.Purge(_handler);
             _tempDir.Dispose();
         }
 
@@ -88,7 +89,7 @@ namespace ZeroInstall.Store.Implementations
         {
             string path = Path.Combine(_tempDir, id);
             builder.WritePackageInto(path);
-            Manifest.CreateDotFile(path, ManifestFormat.FromPrefix(id), new SilentTaskHandler());
+            Manifest.CreateDotFile(path, ManifestFormat.FromPrefix(id), _handler);
             FileUtils.EnableWriteProtection(path);
             return path;
         }
@@ -100,8 +101,8 @@ namespace ZeroInstall.Store.Implementations
                 .AddFile("fileA", "abc", new DateTime(2000, 1, 1))
                 .AddFolder("dir").AddFile("fileB", "abc", new DateTime(2000, 1, 1)));
 
-            Assert.AreEqual(3, _store.Optimise(new SilentTaskHandler()));
-            Assert.AreEqual(0, _store.Optimise(new SilentTaskHandler()));
+            Assert.AreEqual(3, _store.Optimise(_handler));
+            Assert.AreEqual(0, _store.Optimise(_handler));
             Assert.IsTrue(FileUtils.AreHardlinked(
                 Path.Combine(package1Path, "fileA"),
                 Path.Combine(package1Path, "dir", "fileB")));
@@ -115,8 +116,8 @@ namespace ZeroInstall.Store.Implementations
             string package2Path = DeployPackage("sha256=2", new PackageBuilder()
                 .AddFile("fileA", "abc", new DateTime(2000, 1, 1)));
 
-            Assert.AreEqual(3, _store.Optimise(new SilentTaskHandler()));
-            Assert.AreEqual(0, _store.Optimise(new SilentTaskHandler()));
+            Assert.AreEqual(3, _store.Optimise(_handler));
+            Assert.AreEqual(0, _store.Optimise(_handler));
             Assert.IsTrue(FileUtils.AreHardlinked(
                 Path.Combine(package1Path, "fileA"),
                 Path.Combine(package2Path, "fileA")));
@@ -129,7 +130,7 @@ namespace ZeroInstall.Store.Implementations
                 .AddFile("fileA", "abc", new DateTime(2000, 1, 1))
                 .AddFile("fileX", "abc", new DateTime(2000, 2, 2)));
 
-            Assert.AreEqual(0, _store.Optimise(new SilentTaskHandler()));
+            Assert.AreEqual(0, _store.Optimise(_handler));
             Assert.IsFalse(FileUtils.AreHardlinked(
                 Path.Combine(package1Path, "fileA"),
                 Path.Combine(package1Path, "fileX")));
@@ -143,7 +144,7 @@ namespace ZeroInstall.Store.Implementations
             string package2Path = DeployPackage("sha256=2", new PackageBuilder()
                 .AddFolder("dir").AddFile("fileB", "def", new DateTime(2000, 1, 1)));
 
-            Assert.AreEqual(0, _store.Optimise(new SilentTaskHandler()));
+            Assert.AreEqual(0, _store.Optimise(_handler));
             Assert.IsFalse(FileUtils.AreHardlinked(
                 Path.Combine(package1Path, "dir", "fileB"),
                 Path.Combine(package2Path, "dir", "fileB")));
@@ -157,7 +158,7 @@ namespace ZeroInstall.Store.Implementations
             string package2Path = DeployPackage("sha256new_2", new PackageBuilder()
                 .AddFile("fileA", "abc", new DateTime(2000, 1, 1)));
 
-            Assert.AreEqual(0, _store.Optimise(new SilentTaskHandler()));
+            Assert.AreEqual(0, _store.Optimise(_handler));
             Assert.IsFalse(FileUtils.AreHardlinked(
                 Path.Combine(package1Path, "fileA"),
                 Path.Combine(package2Path, "fileA")));
@@ -168,8 +169,8 @@ namespace ZeroInstall.Store.Implementations
         {
             using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, new MockHandler()));
-                _store.AddDirectory(packageDir, digest, new MockHandler());
+                var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, _handler));
+                _store.AddDirectory(packageDir, digest, _handler);
 
                 Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
                 CollectionAssert.AreEqual(new[] {digest}, _store.ListAll(), "After adding, Store must show the added package in the complete list");
@@ -183,8 +184,8 @@ namespace ZeroInstall.Store.Implementations
 
             using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, new MockHandler()));
-                _store.AddDirectory(packageDir, digest, new MockHandler());
+                var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, _handler));
+                _store.AddDirectory(packageDir, digest, _handler);
 
                 Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
                 CollectionAssert.AreEqual(new[] {digest}, _store.ListAll(), "After adding, Store must show the added package in the complete list");
@@ -237,26 +238,34 @@ namespace ZeroInstall.Store.Implementations
         }
 
         [Test]
-        public void TestAudit()
+        public void TestAuditPass()
         {
             using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
             {
                 new PackageBuilder().AddFolder("subdir")
                     .AddFile("file", "AAA", new DateTime(2000, 1, 1))
                     .WritePackageInto(packageDir);
+                var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha1New, _handler));
+                _store.AddDirectory(packageDir, digest, _handler);
 
-                var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha1New, new MockHandler()));
-                _store.AddDirectory(packageDir, digest, new MockHandler());
-
-                // After correctly adding a directory, the store should be valid
-                Assert.IsEmpty(_store.Audit(new MockHandler()));
-
-                // A contaminated store should be detected
-                Directory.CreateDirectory(Path.Combine(_tempDir, "sha1new=abc"));
-                DigestMismatchException problem = _store.Audit(new MockHandler()).First();
-                Assert.AreEqual("sha1new=abc", problem.ExpectedHash);
-                Assert.AreEqual("sha1new=da39a3ee5e6b4b0d3255bfef95601890afd80709", problem.ActualHash);
+                _store.Verify(digest, _handler);
+                Assert.IsNull(_handler.LastQuestion);
             }
+        }
+
+        [Test]
+        public void TestAuditFail()
+        {
+            Directory.CreateDirectory(Path.Combine(_tempDir, "sha1new=abc"));
+            Assert.IsTrue(_store.Contains(new ManifestDigest(sha1New: "abc")));
+
+            _handler.AnswerQuestionWith = true;
+            _store.Verify(new ManifestDigest(sha1New: "abc"), _handler);
+            Assert.AreEqual(
+                expected: string.Format(Resources.ImplementationDamaged + Environment.NewLine + Resources.ImplementationDamagedAskRemove, "sha1new=abc"),
+                actual: _handler.LastQuestion);
+
+            Assert.IsFalse(_store.Contains(new ManifestDigest(sha1New: "abc")));
         }
 
         [Test]
@@ -268,7 +277,7 @@ namespace ZeroInstall.Store.Implementations
                     .AddFile("file", "AAA", new DateTime(2000, 1, 1))
                     .WritePackageInto(packageDir);
 
-                var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, new MockHandler()));
+                var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, _handler));
 
                 Exception exception = null;
                 var threads = new Thread[100];
@@ -279,7 +288,7 @@ namespace ZeroInstall.Store.Implementations
                         try
                         {
                             // ReSharper disable once AccessToDisposedClosure
-                            _store.AddDirectory(packageDir, digest, new MockHandler());
+                            _store.AddDirectory(packageDir, digest, _handler);
                             _store.Remove(digest);
                         }
                         catch (ImplementationAlreadyInStoreException)

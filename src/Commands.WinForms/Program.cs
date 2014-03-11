@@ -244,7 +244,6 @@ namespace ZeroInstall.Commands.WinForms
                 {
                     handler.CloseProgressUI();
                     Log.Error(ex);
-                    Log.Info("Generated manifest:\n" + ex.ActualManifest);
                     ErrorBox.Show(Resources.DownloadDamaged, errorLog);
                     return 1;
                 }

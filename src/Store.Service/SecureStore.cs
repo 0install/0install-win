@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -204,16 +203,8 @@ namespace ZeroInstall.Store.Service
         /// <summary>
         /// Does nothing. Should be handled by an administrator directly instead of using the service.
         /// </summary>
-        public override void Verify(ManifestDigest manifestDigest, ITaskHandler handler)
+        public override void Verify(ManifestDigest manifestDigest, IInteractionHandler handler)
         {}
-
-        /// <summary>
-        /// Does nothing. Should be handled by an administrator directly instead of using the service.
-        /// </summary>
-        public override IEnumerable<DigestMismatchException> Audit(ITaskHandler handler)
-        {
-            return Enumerable.Empty<DigestMismatchException>();
-        }
 
         /// <summary>
         /// Does nothing. Should be handled by an administrator directly instead of using the service.

@@ -34,7 +34,12 @@ namespace ZeroInstall
         /// <summary>
         /// The prerecorded result for <see cref="AskQuestion"/>.
         /// </summary>
-        public bool AnswerQuestionWith;
+        public bool AnswerQuestionWith { get; set; }
+
+        /// <summary>
+        /// Last <see cref="Selections"/> passed to <see cref="ShowSelections"/>.
+        /// </summary>
+        public string LastQuestion { get; private set; }
 
         /// <summary>
         /// Fakes asking the user a question.
@@ -42,13 +47,14 @@ namespace ZeroInstall
         /// <returns>The current value of <see cref="AnswerQuestionWith"/>.</returns>
         public override bool AskQuestion(string question, string batchInformation = null)
         {
+            LastQuestion = question;
             return AnswerQuestionWith;
         }
 
         /// <summary>
         /// Last information string passed to <see cref="Output"/>.
         /// </summary>
-        public string LastOutput;
+        public string LastOutput { get; private set; }
 
         /// <summary>
         /// Fakes showing an information string output to the user.
@@ -61,7 +67,7 @@ namespace ZeroInstall
         /// <summary>
         /// Last <see cref="Selections"/> passed to <see cref="ShowSelections"/>.
         /// </summary>
-        public Selections LastSelections;
+        public Selections LastSelections { get; private set; }
 
         /// <summary>
         /// Fakes showing <see cref="Selections"/> to the user.

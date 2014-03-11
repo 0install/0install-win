@@ -128,27 +128,16 @@ namespace ZeroInstall.Store.Implementations
         long Optimise(ITaskHandler handler);
 
         /// <summary>
-        /// Recalculates the digests for an entry in the store and ensures it is correct. Will not delete any defective entries.
+        /// Recalculates the digests for an entry in the store and ensures it is correct. Will delete damaged implementations after user confirmation.
         /// </summary>
         /// <param name="manifestDigest">The digest of the implementation to be verified.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress or asked questions.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> indicates no known hash methods.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if no implementation matching <paramref name="manifestDigest"/> could be found in the store.</exception>
         /// <exception cref="IOException">Thrown if the entry's directory could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the entry's directory is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if the entry's directory doesn't match <paramref name="manifestDigest"/>.</exception>
         /// <remarks>If the store does not support verification this method call may be silently ignored.</remarks>
-        void Verify(ManifestDigest manifestDigest, ITaskHandler handler);
-
-        /// <summary>
-        /// Recalculates the digests for all entries in the store and ensures they are correct. Will delete defective entries after user confirmation.
-        /// </summary>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <returns>A list of digest mismatch problems that were encountered.</returns>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="IOException">Thrown if a directory in the store could not be processed.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
-        IEnumerable<DigestMismatchException> Audit(ITaskHandler handler);
+        void Verify(ManifestDigest manifestDigest, IInteractionHandler handler);
     }
 }

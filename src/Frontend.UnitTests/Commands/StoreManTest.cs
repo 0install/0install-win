@@ -16,10 +16,8 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
@@ -159,20 +157,13 @@ namespace ZeroInstall.Commands
         }
 
         [Test]
-        public void TestAuditPass()
+        public void TestAudit()
         {
-            Container.GetMock<IStore>().Setup(x => x.Audit(Container.Resolve<ICommandHandler>())).Returns(Enumerable.Empty<DigestMismatchException>());
+            var storeMock = Container.GetMock<IStore>();
+            storeMock.Setup(x => x.ListAll()).Returns(new[] { new ManifestDigest("sha256new_123AB") });
+            storeMock.Setup(x => x.Verify(new ManifestDigest("sha256new_123AB"), MockHandler));
 
-            RunAndAssert(Resources.AuditPass, (int)StoreErrorLevel.OK,
-                "audit");
-        }
-
-        [Test]
-        public void TestAuditFail()
-        {
-            Container.GetMock<IStore>().Setup(x => x.Audit(Container.Resolve<ICommandHandler>())).Returns(new[] {new DigestMismatchException()});
-
-            RunAndAssert(Resources.AuditErrors, (int)StoreErrorLevel.DigestMismatch,
+            RunAndAssert(null, (int)StoreErrorLevel.OK,
                 "audit");
         }
 

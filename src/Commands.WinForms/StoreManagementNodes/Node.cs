@@ -23,7 +23,7 @@ using System.IO;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
-using Common.Tasks;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 
@@ -89,8 +89,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if the entry's directory could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the entry's directory is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if the entry's directory doesn't match the <see cref="ManifestDigest"/>.</exception>
-        public abstract void Verify(ITaskHandler handler);
+        public abstract void Verify(IInteractionHandler handler);
         #endregion
 
         #region Comparison

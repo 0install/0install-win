@@ -204,8 +204,18 @@ namespace ZeroInstall.Store.Implementations
             var actualManifest = Manifest.Generate(directory, format, handler, expectedDigest);
             string actualDigestValue = actualManifest.CalculateDigest();
 
+            string manifestFilePath = Path.Combine(directory, ".manifest");
+            var expectedManifest = File.Exists(manifestFilePath) ? Manifest.Load(manifestFilePath, format) : null;
+
             if (actualDigestValue != expectedDigestValue)
-                throw new DigestMismatchException(expectedDigestValue, actualDigestValue, actualManifest: actualManifest);
+            {
+                throw new DigestMismatchException(
+                    expectedDigestValue,
+                    actualDigestValue,
+                    // Only log the complete manifests in verbose mode
+                    (handler.Verbosity > 0) ? expectedManifest : null,
+                    (handler.Verbosity > 0) ? actualManifest : null);
+            }
 
             return actualManifest;
         }
@@ -496,7 +506,7 @@ namespace ZeroInstall.Store.Implementations
         #region Verify
         /// <inheritdoc />
         [SuppressMessage("Microsoft.Usage", "CA2208:InstantiateArgumentExceptionsCorrectly")]
-        public virtual void Verify(ManifestDigest manifestDigest, ITaskHandler handler)
+        public virtual void Verify(ManifestDigest manifestDigest, IInteractionHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -505,7 +515,18 @@ namespace ZeroInstall.Store.Implementations
             if (!Contains(manifestDigest)) throw new ImplementationNotFoundException(manifestDigest);
 
             string target = Path.Combine(DirectoryPath, manifestDigest.Best);
-            VerifyDirectory(target, manifestDigest, handler);
+            try
+            {
+                VerifyDirectory(target, manifestDigest, handler);
+            }
+            catch (DigestMismatchException ex)
+            {
+                Log.Error(ex);
+                if (handler.AskQuestion(
+                    question: string.Format(Resources.ImplementationDamaged + Environment.NewLine + Resources.ImplementationDamagedAskRemove, ex.ExpectedDigest),
+                    batchInformation: string.Format(Resources.ImplementationDamaged + Environment.NewLine + Resources.ImplementationDamagedBatchInformation, ex.ExpectedDigest)))
+                    handler.RunTask(new SimpleTask(string.Format(Resources.DeletingImplementation, ex.ExpectedDigest), () => Remove(new ManifestDigest(ex.ExpectedDigest))));
+            }
 
             // Reseal the directory in case the write protection got lost
             try
@@ -514,41 +535,10 @@ namespace ZeroInstall.Store.Implementations
             }
                 #region Error handling
             catch (IOException)
-            {
-                Log.Warn(string.Format(Resources.UnableToWriteProtect, target));
-            }
+            {}
             catch (UnauthorizedAccessException)
-            {
-                Log.Warn(string.Format(Resources.UnableToWriteProtect, target));
-            }
+            {}
             #endregion
-        }
-        #endregion
-
-        #region Audit
-        /// <inheritdoc />
-        public virtual IEnumerable<DigestMismatchException> Audit(ITaskHandler handler)
-        {
-            #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
-            // Iterate through all entries - their names are the expected digest values
-            foreach (ManifestDigest digest in ListAll())
-            {
-                // Calculate the actual digest and compare it with the expected one
-                DigestMismatchException problem = null;
-                try
-                {
-                    Verify(digest, handler);
-                }
-                catch (DigestMismatchException ex)
-                {
-                    Log.Warn(ex);
-                    problem = ex;
-                }
-                if (problem != null) yield return problem;
-            }
         }
         #endregion
 

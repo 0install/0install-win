@@ -32,12 +32,6 @@ namespace ZeroInstall.Store
         bool Batch { get; set; }
 
         /// <summary>
-        /// The detail level of messages printed to the console or log file.
-        /// 0 = normal, 1 = verbose, 2 = very verbose
-        /// </summary>
-        int Verbosity { get; set; }
-
-        /// <summary>
         /// Prepares any UI elements necessary to track the progress of <see cref="ITask"/>s.
         /// </summary>
         void ShowProgressUI();

@@ -171,7 +171,7 @@ namespace ZeroInstall.Store.Implementations
 
         #region Verify
         /// <inheritdoc/>
-        public void Verify(ManifestDigest manifestDigest, ITaskHandler handler)
+        public void Verify(ManifestDigest manifestDigest, IInteractionHandler handler)
         {
             try
             {
@@ -181,22 +181,6 @@ namespace ZeroInstall.Store.Implementations
             catch (RemotingException)
             {
                 // Ignore remoting errors in case service is offline
-            }
-            #endregion
-        }
-
-        /// <inheritdoc/>
-        public IEnumerable<DigestMismatchException> Audit(ITaskHandler handler)
-        {
-            try
-            {
-                return GetServiceProxy().Audit(handler);
-            }
-                #region Error handling
-            catch (RemotingException)
-            {
-                // Ignore remoting errors in case service is offline
-                return Enumerable.Empty<DigestMismatchException>();
             }
             #endregion
         }

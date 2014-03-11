@@ -21,8 +21,8 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 using Common;
-using Common.Tasks;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
 
@@ -87,7 +87,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <summary>
         /// Does nothing.
         /// </summary>
-        public override void Verify(ITaskHandler handler)
+        public override void Verify(IInteractionHandler handler)
         {}
         #endregion
 

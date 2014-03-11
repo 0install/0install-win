@@ -17,9 +17,7 @@
 
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Common;
-using Common.Tasks;
 using Moq;
 using NUnit.Framework;
 using ZeroInstall.Store.Implementations.Archives;
@@ -39,9 +37,9 @@ namespace ZeroInstall.Store.Implementations
         private static readonly ArchiveFileInfo _archive1 = new ArchiveFileInfo {Path = "path1"};
         private static readonly ArchiveFileInfo _archive2 = new ArchiveFileInfo {Path = "path2"};
         private static readonly IEnumerable<ArchiveFileInfo> _archives = new[] {_archive1, _archive2};
-        private static readonly ITaskHandler _handler = new MockHandler();
         #endregion
 
+        private MockHandler _handler;
         private Mock<IStore> _mockStore1, _mockStore2;
         private CompositeStore _testStore;
 
@@ -49,6 +47,8 @@ namespace ZeroInstall.Store.Implementations
         public override void SetUp()
         {
             base.SetUp();
+
+            _handler = new MockHandler();
 
             // Prepare mock objects that will be injected with methods in the tests
             _mockStore1 = MockRepository.Create<IStore>();
@@ -240,38 +240,8 @@ namespace ZeroInstall.Store.Implementations
             _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
             _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true);
             _mockStore2.Setup(x => x.Verify(_digest1, _handler));
+
             _testStore.Verify(_digest1, _handler);
-
-            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
-            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false);
-            Assert.Throws<ImplementationNotFoundException>(() => _testStore.Verify(_digest1, _handler));
-        }
-        #endregion
-
-        #region Audit
-        [Test]
-        public void TestAuditBoth()
-        {
-            var problem1 = new DigestMismatchException("Problem 1");
-            var problem2 = new DigestMismatchException("Problem 2");
-            _mockStore1.Setup(x => x.Audit(_handler)).Returns(new[] {problem1});
-            _mockStore2.Setup(x => x.Audit(_handler)).Returns(new[] {problem2});
-
-            // Copy the result into a list to force the enumerator to run through
-            var problems = new List<DigestMismatchException>(_testStore.Audit(_handler));
-            CollectionAssert.AreEquivalent(new[] {problem1, problem2}, problems, "Should combine results from all stores");
-        }
-
-        [Test]
-        public void TestAuditPartial()
-        {
-            var problem = new DigestMismatchException("Problem 1");
-            _mockStore1.Setup(x => x.Audit(_handler)).Returns(Enumerable.Empty<DigestMismatchException>);
-            _mockStore2.Setup(x => x.Audit(_handler)).Returns(new[] {problem});
-
-            // Copy the result into a list to force the enumerator to run through
-            var problems = new List<DigestMismatchException>(_testStore.Audit(_handler));
-            CollectionAssert.AreEquivalent(new[] {problem}, problems, "Should combine results from all stores");
         }
         #endregion
     }

@@ -180,12 +180,6 @@ Sie müssen eventuell ihr Terminal schließen und wieder öffnen damit dies wirk
 Wenn Sie 'Ja' wählen werden möglicherweise nicht mehr kompatible Integrationen entfernt.
 Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.</value>
   </data>
-  <data name="AuditErrors" xml:space="preserve">
-    <value>Es wurden ein oder mehrere Probleme im Store gefunden.</value>
-  </data>
-  <data name="AuditPass" xml:space="preserve">
-    <value>Es wurden keine Probleme im Store gefunden.</value>
-  </data>
   <data name="CachedInterfaces" xml:space="preserve">
     <value>Gecachte Interfaces</value>
   </data>

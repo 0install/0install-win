@@ -233,7 +233,7 @@ namespace ZeroInstall.Store.Implementations
 
         #region Verify
         /// <inheritdoc />
-        public void Verify(ManifestDigest manifestDigest, ITaskHandler handler)
+        public void Verify(ManifestDigest manifestDigest, IInteractionHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -247,18 +247,6 @@ namespace ZeroInstall.Store.Implementations
                 verified = true;
             }
             if (!verified) throw new ImplementationNotFoundException(manifestDigest);
-        }
-        #endregion
-
-        #region Audit
-        /// <inheritdoc />
-        public IEnumerable<DigestMismatchException> Audit(ITaskHandler handler)
-        {
-            #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
-            return _stores.SelectMany(store => store.Audit(handler));
         }
         #endregion
 
