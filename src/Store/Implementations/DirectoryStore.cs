@@ -379,11 +379,12 @@ namespace ZeroInstall.Store.Implementations
             string path = GetPath(manifestDigest);
             if (path == null) throw new ImplementationNotFoundException(manifestDigest);
 
+            FileUtils.DisableWriteProtection(path);
+
             // Move the directory to be deleted to a temporary directory to ensure the removal operation is atomic
             string tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
             Directory.Move(path, tempDir);
 
-            FileUtils.DisableWriteProtection(tempDir);
             Directory.Delete(tempDir, recursive: true);
         }
         #endregion
