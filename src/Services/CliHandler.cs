@@ -39,7 +39,7 @@ namespace ZeroInstall.Services
     [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Diamond inheritance structure leads to false positive.")]
     public class CliHandler : CliTaskHandler, ICommandHandler
     {
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public bool Batch { get; set; }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace ZeroInstall.Services
         #endregion
 
         #region Question
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public bool AskQuestion(string question, string batchInformation = null)
         {
             if (Batch)
@@ -126,7 +126,7 @@ namespace ZeroInstall.Services
         #endregion
 
         #region Messages
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public void Output(string title, string information)
         {
             Console.WriteLine(information);
@@ -134,7 +134,7 @@ namespace ZeroInstall.Services
         #endregion
 
         #region Dialogs
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public virtual void ShowIntegrateApp(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
         {
             throw new NeedGuiException(Resources.IntegrateAppUseGui);

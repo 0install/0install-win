@@ -32,7 +32,7 @@ namespace ZeroInstall.Store.Model.Capabilities.FontendModels
         /// </summary>
         public string Extensions { get { return StringUtils.Join(", ", _fileType.Extensions.Select(extension => extension.Value)); } }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public FileTypeModel(FileType fileType, bool used) : base(fileType, used)
         {
             _fileType = fileType;

@@ -42,31 +42,31 @@ namespace Common.Values.Design
     public abstract class ValueTypeConverter<T> : TypeConverter where T : struct
     {
         #region Capabilities
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override bool GetCreateInstanceSupported(ITypeDescriptorContext context)
         {
             return true;
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override bool GetPropertiesSupported(ITypeDescriptorContext context)
         {
             return true;
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
             return TypeDescriptor.GetProperties(value, attributes);
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             return (destinationType == typeof(InstanceDescriptor)) || base.CanConvertFrom(context, destinationType);
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
@@ -74,7 +74,7 @@ namespace Common.Values.Design
         #endregion
 
         #region Convert to
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (culture == null) throw new ArgumentNullException("culture");
@@ -90,7 +90,7 @@ namespace Common.Values.Design
         #endregion
 
         #region Convert from
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (culture == null) throw new ArgumentNullException("culture");
@@ -108,7 +108,7 @@ namespace Common.Values.Design
         #endregion
 
         #region Create instance
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override object CreateInstance(ITypeDescriptorContext context, IDictionary propertyValues)
         {
             return GetObject(propertyValues);

@@ -49,7 +49,7 @@ namespace Common.Tasks
             _cancellationTokenSource.Dispose();
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public void RunTask(ITask task)
         {
             #region Sanity checks

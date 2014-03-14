@@ -32,7 +32,7 @@ namespace ZeroInstall.Store.Model.Capabilities.FontendModels
         /// </summary>
         public string KnownPrefixes { get { return _urlProtocol.KnownPrefixes.Count == 0 ? Capability.ID : StringUtils.Join(", ", _urlProtocol.KnownPrefixes.Select(extension => extension.Value)); } }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public UrlProtocolModel(UrlProtocol capability, bool used) : base(capability, used)
         {
             _urlProtocol = capability;

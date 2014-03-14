@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Model.Capabilities.FontendModels
         /// </summary>
         public string Description { get { return _iconCapability.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture); } }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         protected IconCapabilityModel(IconCapability capability, bool used) : base(capability, used)
         {
             _iconCapability = capability;

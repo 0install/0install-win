@@ -62,7 +62,7 @@ namespace ZeroInstall.Services
             // No UI, so nothing to do
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public virtual bool AskQuestion(string question, string batchInformation = null)
         {
             return false;
@@ -80,7 +80,7 @@ namespace ZeroInstall.Services
             // No UI, so nothing to do
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public virtual void Output(string title, string information)
         {
             // No UI, so nothing to do

@@ -31,7 +31,7 @@ namespace Common.Tasks
     /// </summary>
     public class CliTaskHandler : MarshalByRefObject, ITaskHandler
     {
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public int Verbosity { get; set; }
 
         protected readonly CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
@@ -39,7 +39,7 @@ namespace Common.Tasks
         /// <inheritdoc/>
         public CancellationToken CancellationToken { get { return CancellationTokenSource.Token; } }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         [MethodImpl(MethodImplOptions.Synchronized)] // Prevent multiple concurrent tasks
         public void RunTask(ITask task)
         {

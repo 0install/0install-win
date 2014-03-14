@@ -48,15 +48,15 @@ namespace ZeroInstall.Commands.WinForms
         /// <inheritdoc/>
         public CancellationToken CancellationToken { get { return _cancellationTokenSource.Token; } }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public int Verbosity { get; set; }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public bool Batch { get; set; }
 
         private string _actionTitle;
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public void SetGuiHints(Func<string> actionTitle, int delay)
         {
             #region Sanity checks
@@ -108,7 +108,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>Synchronization object used to prevent multiple concurrent generic <see cref="ITask"/>s.</summary>
         private readonly object _genericTaskLock = new object();
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public void RunTask(ITask task)
         {
             #region Sanity checks
@@ -209,7 +209,7 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Question
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public bool AskQuestion(string question, string batchInformation = null)
         {
             #region Sanity checks
@@ -291,7 +291,7 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Messages
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public void Output(string title, string information)
         {
             DisableProgressUI();

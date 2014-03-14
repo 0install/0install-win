@@ -66,7 +66,7 @@ namespace ZeroInstall.Services.Solvers
         }
         #endregion
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public Selections Solve(Requirements requirements)
         {
             #region Sanity checks

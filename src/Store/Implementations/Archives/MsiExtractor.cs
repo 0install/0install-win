@@ -186,7 +186,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
         #endregion
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         protected override void Execute()
         {
             lock (StateLock) State = TaskState.Data;

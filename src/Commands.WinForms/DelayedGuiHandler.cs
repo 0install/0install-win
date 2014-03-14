@@ -144,7 +144,7 @@ namespace ZeroInstall.Commands.WinForms
         // Keep local read cache, assume no inner changes
         private int _verbosity;
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public int Verbosity
         {
             get { return _verbosity; }
@@ -158,7 +158,7 @@ namespace ZeroInstall.Commands.WinForms
         // Keep local read cache, assume no inner changes
         private bool _batch;
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public bool Batch
         {
             get { return _batch; }
@@ -169,14 +169,14 @@ namespace ZeroInstall.Commands.WinForms
             }
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public void SetGuiHints(Func<string> actionTitle, int delay)
         {
             _delay = delay;
             ApplyToTarget(target => target.SetGuiHints(actionTitle, delay));
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public void RunTask(ITask task)
         {
             #region Sanity checks
@@ -192,7 +192,7 @@ namespace ZeroInstall.Commands.WinForms
             ApplyToTarget(target => target.DisableProgressUI());
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public bool AskQuestion(string question, string batchInformation = null)
         {
             #region Sanity checks
@@ -223,7 +223,7 @@ namespace ZeroInstall.Commands.WinForms
             InitTarget().ModifySelections(solveCallback);
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public void Output(string title, string information)
         {
             InitTarget().Output(title, information);

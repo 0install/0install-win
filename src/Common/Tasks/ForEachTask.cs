@@ -46,7 +46,7 @@ namespace Common.Tasks
         /// <inheritdoc/>
         public override string Name { get { return _name; } }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override bool UnitsByte { get { return false; } }
         #endregion
 

@@ -67,7 +67,7 @@ namespace ZeroInstall.Store.Service
         #endregion
 
         #region Lifetime
-        /// <inheritdoc />
+        /// <inheritdoc/>
         [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.Infrastructure)]
         public override object InitializeLifetimeService()
         {
@@ -82,7 +82,7 @@ namespace ZeroInstall.Store.Service
         // ReSharper disable AssignNullToNotNullAttribute
 
         #region Temp dir
-        /// <inheritdoc />
+        /// <inheritdoc/>
         protected override string GetTempDir()
         {
             var callingIdentity = WindowsIdentity.GetCurrent();
@@ -109,7 +109,7 @@ namespace ZeroInstall.Store.Service
             }
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         protected override void DeleteTempDir(string path)
         {
             var callingIdentity = WindowsIdentity.GetCurrent();
@@ -136,7 +136,7 @@ namespace ZeroInstall.Store.Service
         #endregion
 
         #region Verify directory
-        /// <inheritdoc />
+        /// <inheritdoc/>
         protected override void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, ITaskHandler handler)
         {
             #region Sanity checks

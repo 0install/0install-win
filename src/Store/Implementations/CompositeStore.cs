@@ -65,14 +65,14 @@ namespace ZeroInstall.Store.Implementations
         //--------------------//
 
         #region List all
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public IEnumerable<ManifestDigest> ListAll()
         {
             // Merge the lists from all contained stores, eliminating duplicates
             return new SortedSet<ManifestDigest>(_stores.SelectMany(x => x.ListAllSafe()));
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public IEnumerable<string> ListAllTemp()
         {
             // Merge the lists from all contained stores, eliminating duplicates
@@ -81,19 +81,19 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Contains
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public bool Contains(ManifestDigest manifestDigest)
         {
             return _containsCache[manifestDigest];
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public bool Contains(string directory)
         {
             return _stores.Any(store => store.Contains(directory));
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public void Flush()
         {
             _containsCache.Clear();
@@ -101,7 +101,7 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Get path
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public string GetPath(ManifestDigest manifestDigest)
         {
             // Use the first store that contains the implementation
@@ -111,7 +111,7 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Add directory
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public void AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
@@ -158,7 +158,7 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Add archive
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public void AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
@@ -203,7 +203,7 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Remove
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public void Remove(ManifestDigest manifestDigest)
         {
             Flush();
@@ -219,7 +219,7 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Optimise
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public long Optimise(ITaskHandler handler)
         {
             #region Sanity checks
@@ -232,7 +232,7 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Verify
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public void Verify(ManifestDigest manifestDigest, IInteractionHandler handler)
         {
             #region Sanity checks

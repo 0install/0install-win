@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Model.Capabilities.FontendModels
         /// </summary>
         public string Name { get { return _contextMenu.Verb.Name; } }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public ContextMenuModel(ContextMenu contextMenu, bool used) : base(contextMenu, used)
         {
             _contextMenu = contextMenu;

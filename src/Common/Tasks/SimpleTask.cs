@@ -45,7 +45,7 @@ namespace Common.Tasks
         /// <inheritdoc/>
         public override bool CanCancel { get { return false; } }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override bool UnitsByte { get { return false; } }
         #endregion
 

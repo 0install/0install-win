@@ -224,7 +224,7 @@ namespace ZeroInstall.Store.Implementations
         //--------------------//
 
         #region List all
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public IEnumerable<ManifestDigest> ListAll()
         {
             if (!Directory.Exists(DirectoryPath)) return Enumerable.Empty<ManifestDigest>();
@@ -242,7 +242,7 @@ namespace ZeroInstall.Store.Implementations
             return result;
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public IEnumerable<string> ListAllTemp()
         {
             if (!Directory.Exists(DirectoryPath)) return Enumerable.Empty<string>();
@@ -266,20 +266,20 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Contains
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public bool Contains(ManifestDigest manifestDigest)
         {
             // Check for all supported digest algorithms
             return manifestDigest.AvailableDigests.Any(digest => Directory.Exists(Path.Combine(DirectoryPath, digest)));
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public bool Contains(string directory)
         {
             return Directory.Exists(Path.Combine(DirectoryPath, directory));
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public void Flush()
         {
             // No internal caching
@@ -287,7 +287,7 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Get
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public string GetPath(ManifestDigest manifestDigest)
         {
             // Check for all supported digest algorithms
@@ -296,7 +296,7 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Add
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public void AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
@@ -336,7 +336,7 @@ namespace ZeroInstall.Store.Implementations
             }
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public void AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
@@ -373,7 +373,7 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Remove
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public virtual void Remove(ManifestDigest manifestDigest)
         {
             string path = GetPath(manifestDigest);
@@ -427,7 +427,7 @@ namespace ZeroInstall.Store.Implementations
         }
         #endregion
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public virtual long Optimise(ITaskHandler handler)
         {
             #region Sanity checks
@@ -504,7 +504,7 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Verify
-        /// <inheritdoc />
+        /// <inheritdoc/>
         [SuppressMessage("Microsoft.Usage", "CA2208:InstantiateArgumentExceptionsCorrectly")]
         public virtual void Verify(ManifestDigest manifestDigest, IInteractionHandler handler)
         {

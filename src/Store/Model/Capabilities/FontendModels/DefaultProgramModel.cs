@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Model.Capabilities.FontendModels
         /// </summary>
         public string Service { get { return _defaultProgram.Service; } }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public DefaultProgramModel(DefaultProgram capability, bool used) : base(capability, used)
         {
             _defaultProgram = capability;

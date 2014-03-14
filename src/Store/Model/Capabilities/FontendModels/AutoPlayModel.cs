@@ -32,7 +32,7 @@ namespace ZeroInstall.Store.Model.Capabilities.FontendModels
         /// </summary>
         public string Events { get { return StringUtils.Join(", ", _autoPlay.Events.Select(ev => ev.Name)); } }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public AutoPlayModel(AutoPlay capability, bool used) : base(capability, used)
         {
             _autoPlay = capability;

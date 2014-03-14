@@ -34,7 +34,7 @@ namespace Common.Tasks
         /// <inheritdoc/>
         public CancellationToken CancellationToken { get { return CancellationTokenSource.Token; } }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public void RunTask(ITask task)
         {
             #region Sanity checks

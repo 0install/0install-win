@@ -36,34 +36,34 @@ namespace Common.Tasks
     public abstract class TaskBase : MarshalByRefObject, ITask
     {
         #region Properties
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public abstract string Name { get; }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public object Tag { get; set; }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public virtual bool CanCancel { get { return true; } }
 
         private TaskState _state;
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public TaskState State { get { return _state; } protected set { value.To(ref _state, OnStateChanged); } }
 
         private long _unitsProcessed;
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public long UnitsProcessed { get { return _unitsProcessed; } protected set { value.To(ref _unitsProcessed, OnProgressChanged); } }
 
         private long _unitsTotal = -1;
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public long UnitsTotal { get { return _unitsTotal; } protected set { value.To(ref _unitsTotal, OnProgressChanged); } }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public abstract bool UnitsByte { get; }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public double Progress
         {
             get
@@ -82,7 +82,7 @@ namespace Common.Tasks
         #endregion
 
         #region Events
-        /// <inheritdoc />
+        /// <inheritdoc/>
         [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
         public event Action<ITask> StateChanged;
 
@@ -93,7 +93,7 @@ namespace Common.Tasks
             if (stateChanged != null) stateChanged(this);
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
         public event Action<ITask> ProgressChanged;
 

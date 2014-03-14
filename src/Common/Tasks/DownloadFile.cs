@@ -35,10 +35,10 @@ namespace Common.Tasks
     public class DownloadFile : TaskBase
     {
         #region Properties
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override string Name { get { return string.Format(Resources.Downloading, Source); } }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override bool UnitsByte { get { return true; } }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Common.Tasks
         //--------------------//
 
         #region Thread code
-        /// <inheritdoc />
+        /// <inheritdoc/>
         protected override void Execute()
         {
             var request = WebRequest.Create(Source);
