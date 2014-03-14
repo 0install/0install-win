@@ -17,8 +17,8 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Security.Permissions;
 using System.Threading;
+using Common;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration;
@@ -35,7 +35,7 @@ namespace ZeroInstall.Commands.WinForms
     /// Wraps a <see cref="GuiHandler"/> and displays it only after a certain delay (or immediately when it is required).
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Disposal is handled sufficiently by GC in this case")]
-    public sealed class DelayedGuiHandler : MarshalByRefObject, ICommandHandler, IDisposable
+    public sealed class DelayedGuiHandler : MarshalNoTimeout, ICommandHandler
     {
         #region Variables
         /// <summary>The actual GUI to show with a delay.</summary>
@@ -59,15 +59,6 @@ namespace ZeroInstall.Commands.WinForms
 
         /// <inheritdoc/>
         public CancellationToken CancellationToken { get { return _cancellationTokenSource.Token; } }
-        #endregion
-
-        #region IPC timeout
-        /// <inheritdoc/>
-        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.Infrastructure)]
-        public override object InitializeLifetimeService()
-        {
-            return null; // Do not timeout progress reporting callbacks
-        }
         #endregion
 
         #region Dispose

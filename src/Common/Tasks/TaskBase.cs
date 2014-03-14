@@ -35,7 +35,6 @@ namespace Common.Tasks
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Disposing WaitHandle is not necessary since the SafeWaitHandle is never touched")]
     public abstract class TaskBase : MarshalByRefObject, ITask
     {
-        #region Properties
         /// <inheritdoc/>
         public abstract string Name { get; }
 
@@ -45,93 +44,30 @@ namespace Common.Tasks
         /// <inheritdoc/>
         public virtual bool CanCancel { get { return true; } }
 
-        private TaskState _state;
-
-        /// <inheritdoc/>
-        public TaskState State { get { return _state; } protected set { value.To(ref _state, OnStateChanged); } }
-
-        private long _unitsProcessed;
-
-        /// <inheritdoc/>
-        public long UnitsProcessed { get { return _unitsProcessed; } protected set { value.To(ref _unitsProcessed, OnProgressChanged); } }
-
-        private long _unitsTotal = -1;
-
-        /// <inheritdoc/>
-        public long UnitsTotal { get { return _unitsTotal; } protected set { value.To(ref _unitsTotal, OnProgressChanged); } }
-
-        /// <inheritdoc/>
-        public abstract bool UnitsByte { get; }
-
-        /// <inheritdoc/>
-        public double Progress
-        {
-            get
-            {
-                switch (UnitsTotal)
-                {
-                    case -1:
-                        return -1;
-                    case 0:
-                        return 1;
-                    default:
-                        return UnitsProcessed / (double)UnitsTotal;
-                }
-            }
-        }
-        #endregion
-
-        #region Events
-        /// <inheritdoc/>
-        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
-        public event Action<ITask> StateChanged;
-
-        private void OnStateChanged()
-        {
-            // Copy to local variable to prevent threading issues
-            Action<ITask> stateChanged = StateChanged;
-            if (stateChanged != null) stateChanged(this);
-        }
-
-        /// <inheritdoc/>
-        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
-        public event Action<ITask> ProgressChanged;
-
-        private void OnProgressChanged()
-        {
-            // Copy to local variable to prevent threading issues
-            Action<ITask> progressChanged = ProgressChanged;
-            if (progressChanged != null) progressChanged(this);
-        }
-        #endregion
-
-        #region Constructor
         protected TaskBase()
         {
             if (WindowsUtils.IsWindowsNT)
                 _originalIdentity = WindowsIdentity.GetCurrent();
         }
-        #endregion
 
-        //--------------------//
-
-        #region Control
-        /// <summary>Synchronization handle to prevent race conditions with <see cref="ITask.State"/> switching.</summary>
-        protected readonly object StateLock = new object();
-
+        #region Run
         /// <summary>The identity of the user that originally created this task.</summary>
         private readonly WindowsIdentity _originalIdentity;
 
         /// <summary>Signaled when the user wishes to cancel the task execution.</summary>
         protected CancellationToken CancellationToken;
 
+        /// <summary>>Used to report back the task's progress.</summary>
+        private IProgress<TaskSnapshot> _progress;
+
         /// <inheritdoc/>
-        public virtual void Run(CancellationToken cancellationToken = default(CancellationToken))
+        public void Run(CancellationToken cancellationToken = default(CancellationToken), IProgress<TaskSnapshot> progress = null)
         {
             cancellationToken.ThrowIfCancellationRequested();
             CancellationToken = cancellationToken;
+            _progress = progress;
 
-            lock (StateLock) State = TaskState.Started;
+            Status = TaskStatus.Started;
 
             try
             {
@@ -146,25 +82,75 @@ namespace Common.Tasks
                 #region Error handling
             catch (OperationCanceledException)
             {
-                lock (StateLock) State = TaskState.Canceled;
+                Status = TaskStatus.Canceled;
                 throw;
             }
             catch (IOException)
             {
-                lock (StateLock) State = TaskState.IOError;
+                Status = TaskStatus.IOError;
                 throw;
             }
             catch (UnauthorizedAccessException)
             {
-                lock (StateLock) State = TaskState.IOError;
+                Status = TaskStatus.IOError;
                 throw;
             }
             catch (WebException)
             {
-                lock (StateLock) State = TaskState.WebError;
+                Status = TaskStatus.WebError;
                 throw;
             }
             #endregion
+        }
+        #endregion
+
+        #region Progress
+        private TaskStatus _status;
+
+        /// <summary>The current status of the task.</summary>
+        protected internal TaskStatus Status { get { return _status; } protected set { value.To(ref _status, OnProgressChanged); } }
+
+        /// <summary>
+        /// <see langword="true"/> if <see cref="UnitsProcessed"/> and <see cref="UnitsTotal"/> are measured in bytes;
+        /// <see langword="false"/> if they are measured in generic units.
+        /// </summary>
+        protected abstract bool UnitsByte { get; }
+
+        private long _unitsProcessed;
+
+        /// <summary>The number of units that have been processed so far.</summary>
+        protected long UnitsProcessed { get { return _unitsProcessed; } set { value.To(ref _unitsProcessed, OnProgressChangedThrottled); } }
+
+        private long _unitsTotal = -1;
+
+        /// <summary>The total number of units that are to be processed; -1 for unknown.</summary>
+        protected long UnitsTotal { get { return _unitsTotal; } set { value.To(ref _unitsTotal, OnProgressChanged); } }
+
+        /// <summary>
+        /// Informs the caller of the current progress, if a callback was registered.
+        /// </summary>
+        private void OnProgressChanged()
+        {
+            if (_progress == null) return;
+
+            _progress.Report(new TaskSnapshot(_status, UnitsByte, _unitsProcessed, _unitsTotal));
+        }
+
+        private DateTime _lastProgress;
+        private static readonly TimeSpan _progressRate = TimeSpan.FromMilliseconds(250);
+
+        /// <summary>
+        /// Informs the caller of the current progress, if a callback was registered. Limits the rate of progress updates.
+        /// </summary>
+        private void OnProgressChangedThrottled()
+        {
+            if (_progress == null) return;
+
+            var now = DateTime.Now;
+            if ((now - _lastProgress) < _progressRate) return;
+
+            _progress.Report(new TaskSnapshot(_status, UnitsByte, _unitsProcessed, _unitsTotal));
+            _lastProgress = now;
         }
         #endregion
 
@@ -172,8 +158,8 @@ namespace Common.Tasks
         /// The actual code to be executed.
         /// </summary>
         /// <exception cref="OperationCanceledException">Thrown if the operation was canceled.</exception>
-        /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
-        /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskState.WebError"/>.</exception>
+        /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskStatus.IOError"/>.</exception>
+        /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskStatus.WebError"/>.</exception>
         protected abstract void Execute();
     }
 }

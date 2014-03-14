@@ -63,7 +63,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         public override string Name { get { return "Loading"; } }
 
         /// <inheritdoc/>
-        public override bool UnitsByte { get { return false; } }
+        protected override bool UnitsByte { get { return false; } }
 
         /// <summary>
         /// All generated nodes.
@@ -88,7 +88,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
             foreach (var digest in _store.ListAll()) Add(digest);
             foreach (string path in _store.ListAllTemp()) Add(path);
 
-            lock (StateLock) State = TaskState.Complete;
+            Status = TaskStatus.Complete;
         }
 
         private void Add(Feed feed)

@@ -32,11 +32,11 @@ namespace ZeroInstall.Store.Implementations
     public class ManifestGenerator : TaskBase
     {
         #region Properties
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override string Name { get { return string.Format(Resources.GeneratingManifest, Format); } }
 
-        /// <inheritdoc />
-        public override bool UnitsByte { get { return true; } }
+        /// <inheritdoc/>
+        protected override bool UnitsByte { get { return true; } }
 
         /// <summary>
         /// The path of the directory to analyze. No trailing <see cref="Path.DirectorySeparatorChar"/>!
@@ -49,7 +49,7 @@ namespace ZeroInstall.Store.Implementations
         public ManifestFormat Format { get; private set; }
 
         /// <summary>
-        /// If <see cref="TaskBase.State"/> is <see cref="TaskState.Complete"/> this property contains the generated <see cref="Manifest"/>; otherwise it's <see langword="null"/>.
+        /// If <see cref="TaskBase.Status"/> is <see cref="TaskStatus.Complete"/> this property contains the generated <see cref="Manifest"/>; otherwise it's <see langword="null"/>.
         /// </summary>
         public Manifest Result { get; private set; }
         #endregion
@@ -75,17 +75,17 @@ namespace ZeroInstall.Store.Implementations
         //--------------------//
 
         #region Thread code
-        /// <inheritdoc />
+        /// <inheritdoc/>
         protected override void Execute()
         {
-            lock (StateLock) State = TaskState.Header;
+            Status = TaskStatus.Header;
             var entries = Format.GetSortedDirectoryEntries(TargetDir);
             UnitsTotal = entries.OfType<FileInfo>().Sum(file => file.Length);
 
-            lock (StateLock) State = TaskState.Data;
+            Status = TaskStatus.Data;
             Result = new Manifest(Format, GetNodes(entries));
 
-            lock (StateLock) State = TaskState.Complete;
+            Status = TaskStatus.Complete;
         }
 
         /// <summary>

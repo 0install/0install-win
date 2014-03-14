@@ -37,7 +37,7 @@
             this.progressBarWorking = new System.Windows.Forms.ProgressBar();
             this.selectionsControl = new ZeroInstall.Commands.WinForms.SelectionsControl();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.trackingControl = new Common.Controls.TrackingControl();
+            this.trackingControl = new Common.Controls.TaskControl();
             this.buttonModifySelectionsDone = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -157,7 +157,7 @@
         private System.Windows.Forms.Label labelWorking;
         private System.Windows.Forms.ProgressBar progressBarWorking;
         private System.Windows.Forms.ToolTip toolTip;
-        private Common.Controls.TrackingControl trackingControl;
+        private Common.Controls.TaskControl trackingControl;
         private System.Windows.Forms.Button buttonModifySelectionsDone;
 
     }

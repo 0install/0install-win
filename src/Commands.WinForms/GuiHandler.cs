@@ -18,7 +18,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Remoting;
-using System.Security.Permissions;
 using System.Threading;
 using System.Windows.Forms;
 using Common;
@@ -40,7 +39,7 @@ namespace ZeroInstall.Commands.WinForms
     /// Uses <see cref="System.Windows.Forms"/> to inform the user about the progress of tasks and ask the user questions.
     /// </summary>
     /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
-    public sealed class GuiHandler : MarshalByRefObject, ICommandHandler, IDisposable
+    public sealed class GuiHandler : MarshalNoTimeout, ICommandHandler
     {
         #region Properties
         private readonly CancellationTokenSource _cancellationTokenSource;
@@ -83,15 +82,6 @@ namespace ZeroInstall.Commands.WinForms
         {}
         #endregion
 
-        #region IPC timeout
-        /// <inheritdoc/>
-        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.Infrastructure)]
-        public override object InitializeLifetimeService()
-        {
-            return null; // Do not timeout progress reporting callbacks
-        }
-        #endregion
-
         #region Dispose
         /// <inheritdoc/>
         public void Dispose()
@@ -115,21 +105,22 @@ namespace ZeroInstall.Commands.WinForms
             if (task == null) throw new ArgumentNullException("task");
             #endregion
 
+            IProgress<TaskSnapshot> progress = null;
             if (task.Tag is ManifestDigest)
             {
                 // Handle events coming from a non-UI thread
-                _form.Invoke(new Action(() => _form.TrackTask(task, (ManifestDigest)task.Tag)));
+                _form.Invoke(new Action(() => progress = _form.SetupProgress(task.Name, (ManifestDigest)task.Tag)));
             }
             else
             {
                 lock (_genericTaskLock) // Prevent multiple concurrent generic tasks
                 {
                     // Handle events coming from a non-UI thread
-                    _form.Invoke(new Action(() => _form.TrackTask(task)));
+                    _form.Invoke(new Action(() => progress = _form.SetupProgress(task.Name)));
                 }
             }
 
-            task.Run(CancellationToken);
+            task.Run(CancellationToken, progress);
         }
         #endregion
 

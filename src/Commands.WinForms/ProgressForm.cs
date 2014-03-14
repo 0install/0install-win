@@ -145,43 +145,50 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Task tracking
         /// <summary>
-        /// Registers a generic <see cref="ITask"/> for tracking. Should only be one running at a time.
+        /// Creates a new GUI element for tracking a <see cref="ITask"/> and returns a handle to it. Should only be one running at a time.
         /// </summary>
-        /// <param name="task">The task to be tracked. May or may not alreay be running.</param>
+        /// <param name="taskName">The name of the task to be tracked.</param>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public void TrackTask(ITask task)
+        public IProgress<TaskSnapshot> SetupProgress(string taskName)
         {
             #region Sanity checks
-            if (task == null) throw new ArgumentNullException("task");
+            if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException("taskName");
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
             trackingControl.Visible = true;
-            trackingControl.Task = task;
 
             // Hide other stuff
             labelWorking.Visible = progressBarWorking.Visible = false;
             if (_selectionsShown) selectionsControl.Hide();
+
+            trackingControl.TaskName = taskName;
+            return new Progress<TaskSnapshot>(trackingControl.Report);
         }
 
         /// <summary>
-        /// Registers an <see cref="ITask"/> for a specific implementation for tracking. May run multiple in parallel.
+        /// Creates a new GUI element for tracking a <see cref="ITask"/> for a specific implementation and returns a handle to it. May run multiple in parallel.
         /// </summary>
-        /// <param name="task">The task to be tracked. May or may not alreay be running.</param>
-        /// <param name="tag">A digest used to associate the <paramref name="task"/> with a specific implementation.</param>
+        /// <param name="taskName">The name of the task to be tracked.</param>
+        /// <param name="tag">A digest used to associate the task with a specific implementation.</param>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public void TrackTask(ITask task, ManifestDigest tag)
+        public IProgress<TaskSnapshot> SetupProgress(string taskName, ManifestDigest tag)
         {
             #region Sanity checks
-            if (task == null) throw new ArgumentNullException("task");
+            if (string.IsNullOrEmpty(taskName)) throw new ArgumentNullException("taskName");
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
             // Hide other stuff
             trackingControl.Visible = false;
 
-            if (_selectionsShown) selectionsControl.TrackTask(task, tag);
-            else TrackTask(task);
+            if (_selectionsShown)
+            {
+                var control = selectionsControl.TrackingControls[tag];
+                control.TaskName = taskName;
+                return new Progress<TaskSnapshot>(control.Report);
+            }
+            else return SetupProgress(taskName);
         }
         #endregion
 
@@ -256,9 +263,6 @@ namespace ZeroInstall.Commands.WinForms
         {
             Hide();
             HideTrayIcon();
-
-            // Stop tracking selction tasks
-            selectionsControl.StopTracking();
 
             _cancellationTokenSource.Cancel();
 

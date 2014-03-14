@@ -29,7 +29,7 @@ namespace Common.Tasks
     /// <summary>
     /// Uses the stderr stream to inform the user about the progress of tasks.
     /// </summary>
-    public class CliTaskHandler : MarshalByRefObject, ITaskHandler
+    public class CliTaskHandler : MarshalNoTimeout, ITaskHandler
     {
         /// <inheritdoc/>
         public int Verbosity { get; set; }
@@ -48,8 +48,8 @@ namespace Common.Tasks
             #endregion
 
             Log.Info(task.Name + "...");
-            using (new TrackingProgressBar(task))
-                task.Run(CancellationToken);
+            using (var progressBar = new ProgressBar())
+                task.Run(CancellationToken, progressBar);
         }
 
         #region Dispose

@@ -23,33 +23,15 @@
 namespace Common.Tasks
 {
     /// <summary>
-    /// Represents different states a (usually Web- or IO-related) task can be in.
+    /// Defines a provider for progress updates.
     /// </summary>
-    /// <seealso cref="ITask.State"/>
-    public enum TaskState
+    /// <typeparam name="T">The type of progress update value.</typeparam>
+    public interface IProgress<T>
     {
-        /// <summary>The task is ready to begin.</summary>
-        Ready,
-
-        /// <summary>The thread has just been started.</summary>
-        Started,
-
-        /// <summary>Handling the header.</summary>
-        Header,
-
-        /// <summary>Handling the actual data.</summary>
-        Data,
-
-        /// <summary>The task has been completed sucessfully.</summary>
-        Complete,
-
-        /// <summary>An error occurred during the task.</summary>
-        WebError,
-
-        /// <summary>An error occurred while writing the file.</summary>
-        IOError,
-
-        /// <summary>The task was canceled by the user before completion.</summary>
-        Canceled
+        /// <summary>
+        /// Reports a progress update.
+        /// </summary>
+        /// <param name="value">The value of the updated progress.</param>
+        void Report(T value);
     }
 }

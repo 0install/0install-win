@@ -20,47 +20,36 @@
  * THE SOFTWARE.
  */
 
-using System;
-
 namespace Common.Tasks
 {
     /// <summary>
-    /// Ignores progress reports.
+    /// Represents different states a (usually Web- or IO-related) task can be in.
     /// </summary>
-    public class SilentTaskHandler : MarshalNoTimeout, ITaskHandler
+    /// <seealso cref="TaskSnapshot.Status"/>
+    public enum TaskStatus
     {
-        protected readonly CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
+        /// <summary>The task is ready to begin.</summary>
+        Ready,
 
-        /// <inheritdoc/>
-        public CancellationToken CancellationToken { get { return CancellationTokenSource.Token; } }
+        /// <summary>The thread has just been started.</summary>
+        Started,
 
-        /// <inheritdoc/>
-        public void RunTask(ITask task)
-        {
-            #region Sanity checks
-            if (task == null) throw new ArgumentNullException("task");
-            #endregion
+        /// <summary>Handling the header.</summary>
+        Header,
 
-            task.Run(CancellationToken);
-        }
+        /// <summary>Handling the actual data.</summary>
+        Data,
 
-        /// <summary>
-        /// Always returns 0.
-        /// </summary>
-        public int Verbosity { get { return 0; } set { } }
+        /// <summary>The task has been completed sucessfully.</summary>
+        Complete,
 
-        #region Dispose
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        /// <summary>An error occurred during the task.</summary>
+        WebError,
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing) CancellationTokenSource.Dispose();
-        }
-        #endregion
+        /// <summary>An error occurred while writing the file.</summary>
+        IOError,
+
+        /// <summary>The task was canceled by the user before completion.</summary>
+        Canceled
     }
 }

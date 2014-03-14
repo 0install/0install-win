@@ -28,20 +28,21 @@ using Common.Properties;
 namespace Common.Tasks
 {
     /// <summary>
-    /// A dialog with a progress bar that tracks the progress of an <see cref="ITask"/>.
+    /// A dialog with a progress bar that runs and tracks the progress of an <see cref="ITask"/>.
     /// </summary>
-    internal sealed partial class TrackingDialog : Form
+    internal sealed partial class TaskRunDialog : Form
     {
         private readonly ITask _task;
         private readonly Thread _taskThread;
         private readonly CancellationTokenSource _cancellationTokenSource;
+        private readonly Progress<TaskSnapshot> _progress = new Progress<TaskSnapshot>();
 
         /// <summary>
         /// Creates a new progress-tracking dialog.
         /// </summary>
         /// <param name="task">The trackable task to execute and display.</param>
         /// <param name="cancellationTokenSource"></param>
-        public TrackingDialog(ITask task, CancellationTokenSource cancellationTokenSource)
+        public TaskRunDialog(ITask task, CancellationTokenSource cancellationTokenSource)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
@@ -60,10 +61,13 @@ namespace Common.Tasks
 
         private void TrackingDialog_Shown(object sender, EventArgs e)
         {
-            // Hook up event tracking
-            trackingProgressBar.Task = _task;
-            labelProgress.Task = _task;
-            _task.StateChanged += OnTaskStateChanged;
+            _progress.ProgressChanged += trackingProgressBar.Report;
+            _progress.ProgressChanged += labelProgress.Report;
+            _progress.ProgressChanged += progress =>
+            {
+                if (progress.Status >= TaskStatus.Complete)
+                    Close();
+            };
 
             _taskThread.Start();
         }
@@ -77,7 +81,7 @@ namespace Common.Tasks
         {
             try
             {
-                _task.Run(_cancellationTokenSource.Token);
+                _task.Run(_cancellationTokenSource.Token, _progress);
             }
             catch (Exception ex)
             {
@@ -85,22 +89,10 @@ namespace Common.Tasks
             }
         }
 
-        // NOTE: Must be public for IPC
-        // ReSharper disable once MemberCanBePrivate.Global
-        public void OnTaskStateChanged(ITask sender)
-        {
-            #region Sanity checks
-            if (sender == null) throw new ArgumentNullException("sender");
-            #endregion
-
-            // Close window when the task has been completed
-            if (sender.State >= TaskState.Complete) Invoke(new Action(Close));
-        }
-
         private void TrackingDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Only close the window if the task has been completed or canceled
-            if (!_taskThread.IsAlive || _task.State >= TaskState.Complete) return;
+            // Only close the window if the task is no longer running
+            if (!_taskThread.IsAlive) return;
 
             if (_task.CanCancel)
             {

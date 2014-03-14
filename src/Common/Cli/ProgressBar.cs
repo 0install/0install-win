@@ -34,28 +34,28 @@ namespace Common.Cli
     /// A progress bar rendered on the <see cref="Console"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "IDisposable is only implemented here to support using() blocks.")]
-    public class ProgressBar : MarshalByRefObject, IDisposable
+    public class ProgressBar : MarshalByRefObject, IProgress<TaskSnapshot>, IDisposable
     {
         #region Properties
-        private TaskState _state;
+        private TaskStatus _status;
 
         /// <summary>
         /// The current status of the task.
         /// </summary>
         [Description("The current status of the task.")]
-        public TaskState State
+        public TaskStatus Status
         {
-            get { return _state; }
+            get { return _status; }
             set
             {
                 #region Sanity checks
-                if (!Enum.IsDefined(typeof(TaskState), value))
-                    throw new InvalidEnumArgumentException("value", (int)value, typeof(TaskState));
+                if (!Enum.IsDefined(typeof(TaskStatus), value))
+                    throw new InvalidEnumArgumentException("value", (int)value, typeof(TaskStatus));
                 #endregion
 
                 try
                 {
-                    value.To(ref _state, Draw);
+                    value.To(ref _status, Draw);
                 }
                 catch (IOException)
                 {}
@@ -115,7 +115,23 @@ namespace Common.Cli
         }
         #endregion
 
-        //--------------------//
+        #region IProgress
+        // NOTE: No need for thread marshaling when writing to the console
+        void IProgress<TaskSnapshot>.Report(TaskSnapshot snapshot)
+        {
+            Status = snapshot.Status;
+
+            // When the status is complete the bar should always be full
+            if (Status == TaskStatus.Complete) Value = Maximum;
+
+            // Clamp the progress to values between 0 and 1
+            double value = snapshot.Value;
+            if (value < 0) value = 0;
+            else if (value > 1) value = 1;
+
+            Value = (int)(value * Maximum);
+        }
+        #endregion
 
         #region Draw
         /// <summary>
@@ -149,38 +165,38 @@ namespace Common.Cli
             Console.Error.Write(']');
 
             Console.Error.Write(' ');
-            PrintState();
+            PrintStatus();
 
             // Blanks at the end to overwrite any excess
             Console.Error.Write(@"          ");
             Console.CursorLeft -= 10;
         }
 
-        private void PrintState()
+        private void PrintStatus()
         {
-            switch (State)
+            switch (Status)
             {
-                case TaskState.Header:
+                case TaskStatus.Header:
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.Error.Write(Resources.StateHeader);
                     break;
 
-                case TaskState.Data:
+                case TaskStatus.Data:
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.Error.Write(Resources.StateData);
                     break;
 
-                case TaskState.Complete:
+                case TaskStatus.Complete:
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Error.Write(Resources.StateComplete);
                     break;
 
-                case TaskState.WebError:
+                case TaskStatus.WebError:
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Error.Write(Resources.StateWebError);
                     break;
 
-                case TaskState.IOError:
+                case TaskStatus.IOError:
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Error.Write(Resources.StateIOError);
                     break;
@@ -198,8 +214,6 @@ namespace Common.Cli
             _lastValue = Value;
         }
         #endregion
-
-        //--------------------//
 
         #region Dispose
         /// <summary>

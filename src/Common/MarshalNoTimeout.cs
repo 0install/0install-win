@@ -21,46 +21,20 @@
  */
 
 using System;
+using System.Security.Permissions;
 
-namespace Common.Tasks
+namespace Common
 {
     /// <summary>
-    /// Ignores progress reports.
+    /// Derive from this class to enable remoting without timeouts. Keeps remoting object alive as long as process is running.
     /// </summary>
-    public class SilentTaskHandler : MarshalNoTimeout, ITaskHandler
+    public abstract class MarshalNoTimeout : MarshalByRefObject
     {
-        protected readonly CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
-
         /// <inheritdoc/>
-        public CancellationToken CancellationToken { get { return CancellationTokenSource.Token; } }
-
-        /// <inheritdoc/>
-        public void RunTask(ITask task)
+        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.Infrastructure)]
+        public override object InitializeLifetimeService()
         {
-            #region Sanity checks
-            if (task == null) throw new ArgumentNullException("task");
-            #endregion
-
-            task.Run(CancellationToken);
+            return null; 
         }
-
-        /// <summary>
-        /// Always returns 0.
-        /// </summary>
-        public int Verbosity { get { return 0; } set { } }
-
-        #region Dispose
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing) CancellationTokenSource.Dispose();
-        }
-        #endregion
     }
 }

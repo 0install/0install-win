@@ -67,7 +67,7 @@ namespace Common.Tasks
             string fileContent = File.ReadAllText(_tempFile);
 
             // Ensure the download was successful and the file is identical
-            Assert.AreEqual(TaskState.Complete, download.State);
+            Assert.AreEqual(TaskStatus.Complete, download.Status);
             Assert.AreEqual(TestFileContent, fileContent, "Downloaded file doesn't match original");
         }
 
@@ -97,7 +97,7 @@ namespace Common.Tasks
             cancellationTokenSource.Cancel();
             downloadThread.Join();
 
-            Assert.IsTrue(exceptionThrown, download.State.ToString());
+            Assert.IsTrue(exceptionThrown, download.Status.ToString());
         }
 
         [Test(Description = "Ensure files with an incorrect size are rejected.")]

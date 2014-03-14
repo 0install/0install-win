@@ -20,7 +20,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using Common.Collections;
 using Common.Controls;
-using Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Feeds;
@@ -52,7 +51,7 @@ namespace ZeroInstall.Commands.WinForms
             InitializeComponent();
             CreateHandle();
 
-            _trackingControls = new TransparentCache<ManifestDigest, TrackingControl>(CreateTrackingControl);
+            TrackingControls = new TransparentCache<ManifestDigest, TaskControl>(CreateTrackingControl);
         }
         #endregion
 
@@ -157,46 +156,21 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Task tracking
-        /// <summary>A list of all <see cref="TrackingControl"/>s used by <see cref="TrackTask"/>. Adressable by associated <see cref="Implementation"/> via <see cref="ManifestDigest"/>.</summary>
-        private readonly TransparentCache<ManifestDigest, TrackingControl> _trackingControls;
+        /// <summary>
+        /// A list of <see cref="TaskControl"/>s adressable by associated <see cref="Implementation"/> via <see cref="ManifestDigest"/>.
+        /// Missing entries are transparently created on request.
+        /// </summary>
+        internal readonly TransparentCache<ManifestDigest, TaskControl> TrackingControls;
 
-        private TrackingControl CreateTrackingControl(ManifestDigest manifestDigest)
+        private TaskControl CreateTrackingControl(ManifestDigest manifestDigest)
         {
-            var trackingControl = new TrackingControl {Dock = DockStyle.Fill};
+            var trackingControl = new TaskControl {Dock = DockStyle.Fill};
             trackingControl.CreateGraphics(); // Ensure control initialization even in tray icon mode
 
             int i = _selections.Implementations.FindIndex(x => x.ManifestDigest.PartialEquals(manifestDigest));
             tableLayout.Controls.Add(trackingControl, 2, i);
 
             return trackingControl;
-        }
-
-        /// <summary>
-        /// Registers an <see cref="ITask"/> for a specific implementation for tracking.
-        /// </summary>
-        /// <param name="task">The task to be tracked. May or may not alreay be running.</param>
-        /// <param name="tag">A digest used to associate the <paramref name="task"/> with a specific implementation.</param>
-        /// <remarks>
-        ///   <para>This method must not be called from a background thread.</para>
-        ///   <para>This method must not be called before <see cref="Control.Handle"/> has been created.</para>
-        /// </remarks>
-        public void TrackTask(ITask task, ManifestDigest tag)
-        {
-            #region Sanity checks
-            if (task == null) throw new ArgumentNullException("task");
-            if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
-            #endregion
-
-            _trackingControls[tag].Task = task;
-        }
-
-        /// <summary>
-        /// Stops tracking <see cref="ITask"/>s.
-        /// </summary>
-        public void StopTracking()
-        {
-            foreach (var trackingControl in _trackingControls.Values)
-                trackingControl.Task = null;
         }
         #endregion
     }

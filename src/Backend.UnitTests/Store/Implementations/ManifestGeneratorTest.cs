@@ -19,8 +19,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using Common.Storage;
-using Common.Tasks;
-using Common.Utils;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Implementations
@@ -120,40 +118,6 @@ namespace ZeroInstall.Store.Implementations
         {
             string fullPath = Path.Combine(directory, node.FileName);
             Assert.IsTrue(File.Exists(fullPath), "File " + fullPath + " does not exist.");
-        }
-
-        [Test]
-        public void ShouldReportReadyStateAtBeginning()
-        {
-            Assert.AreEqual(TaskState.Ready, _someGenerator.State);
-        }
-
-        [Test]
-        public void ShouldReportTransitionFromReadyToStarted()
-        {
-            bool changedToStarted = false;
-            _someGenerator.StateChanged += sender => { if (sender.State == TaskState.Started) changedToStarted = true; };
-            _someGenerator.Run();
-            Assert.IsTrue(changedToStarted);
-        }
-
-        [Test]
-        public void ShouldReportTransitionToComplete()
-        {
-            bool changedToComplete = false;
-            _someGenerator.StateChanged += sender => { if (sender.State == TaskState.Complete) changedToComplete = true; };
-            _someGenerator.Run();
-            Assert.AreEqual(TaskState.Complete, _someGenerator.State);
-            Assert.IsTrue(changedToComplete);
-        }
-
-        [Test]
-        public void ShouldReportChangedProgress()
-        {
-            bool progressChanged = false;
-            _someGenerator.ProgressChanged += delegate { progressChanged = true; };
-            _someGenerator.Run();
-            Assert.IsTrue(progressChanged);
         }
 
         [Test]

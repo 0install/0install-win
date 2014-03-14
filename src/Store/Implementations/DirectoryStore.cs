@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.Implementations
     /// Models a cache directory that stores <see cref="Store.Model.Implementation"/>s, each in its own sub-directory named by its <see cref="ManifestDigest"/>.
     /// </summary>
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
-    public class DirectoryStore : MarshalByRefObject, IStore, IEquatable<DirectoryStore>
+    public class DirectoryStore : MarshalNoTimeout, IStore, IEquatable<DirectoryStore>
     {
         #region Properties
         /// <summary>

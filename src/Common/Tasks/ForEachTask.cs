@@ -47,7 +47,7 @@ namespace Common.Tasks
         public override string Name { get { return _name; } }
 
         /// <inheritdoc/>
-        public override bool UnitsByte { get { return false; } }
+        protected override bool UnitsByte { get { return false; } }
         #endregion
 
         #region Constructor
@@ -81,16 +81,16 @@ namespace Common.Tasks
         /// <inheritdoc/>
         protected override void Execute()
         {
-            lock (StateLock) State = TaskState.Data;
+            Status = TaskStatus.Data;
 
             foreach (var element in _target)
             {
                 CancellationToken.ThrowIfCancellationRequested();
                 _work(element);
-                lock (StateLock) UnitsProcessed++;
+                UnitsProcessed++;
             }
 
-            lock (StateLock) State = TaskState.Complete;
+            Status = TaskStatus.Complete;
         }
         #endregion
     }

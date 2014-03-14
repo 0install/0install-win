@@ -189,7 +189,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <inheritdoc/>
         protected override void Execute()
         {
-            lock (StateLock) State = TaskState.Data;
+            Status = TaskStatus.Data;
 
             try
             {
@@ -219,7 +219,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
             #endregion
 
-            lock (StateLock) State = TaskState.Complete;
+            Status = TaskStatus.Complete;
         }
 
         private void ExtractCab(Stream stream)

@@ -42,7 +42,7 @@ namespace Common.Tasks
         public override string Name { get { return _name; } }
 
         /// <inheritdoc/>
-        public override bool UnitsByte { get { return false; } }
+        protected override bool UnitsByte { get { return false; } }
         #endregion
 
         #region Constructor
@@ -81,7 +81,7 @@ namespace Common.Tasks
                 Log.Warn(ex.Message);
             }
 
-            lock (StateLock) State = TaskState.Complete;
+            Status = TaskStatus.Complete;
         }
         #endregion
     }

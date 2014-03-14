@@ -66,16 +66,6 @@ namespace ZeroInstall.Store.Service
         }
         #endregion
 
-        #region Lifetime
-        /// <inheritdoc/>
-        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.Infrastructure)]
-        public override object InitializeLifetimeService()
-        {
-            // Keep remoting object alive indefinitely
-            return null;
-        }
-        #endregion
-
         //--------------------//
 
         // ReSharper disable PossibleNullReferenceException

@@ -46,7 +46,7 @@ namespace Common.Tasks
         public override bool CanCancel { get { return false; } }
 
         /// <inheritdoc/>
-        public override bool UnitsByte { get { return false; } }
+        protected override bool UnitsByte { get { return false; } }
         #endregion
 
         #region Constructor
@@ -75,7 +75,7 @@ namespace Common.Tasks
         {
             _work();
 
-            lock (StateLock) State = TaskState.Complete;
+            Status = TaskStatus.Complete;
         }
         #endregion
     }

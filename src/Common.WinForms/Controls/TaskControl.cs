@@ -21,50 +21,48 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
+using Common.Tasks;
 
-namespace Common.Tasks
+namespace Common.Controls
 {
     /// <summary>
-    /// Uses <see cref="TaskRunDialog"/> to inform the user about the progress of tasks.
+    /// Combines a <see cref="TaskProgressBar"/> and a <see cref="TaskLabel"/>.
     /// </summary>
-    public sealed class GuiTaskHandler : MarshalNoTimeout, ITaskHandler
+    public sealed partial class TaskControl : UserControl
     {
-        private readonly IWin32Window _owner;
-
-        public GuiTaskHandler(IWin32Window owner = null)
+        /// <summary>
+        /// The name of the task being tracked.
+        /// </summary>
+        [Description("The name of the task being tracked.")]
+        [DefaultValue("")]
+        public string TaskName
         {
-            _owner = owner;
-        }
-
-        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-
-        /// <inheritdoc/>
-        public CancellationToken CancellationToken { get { return _cancellationTokenSource.Token; } }
-
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            _cancellationTokenSource.Dispose();
-        }
-
-        /// <inheritdoc/>
-        public void RunTask(ITask task)
-        {
-            #region Sanity checks
-            if (task == null) throw new ArgumentNullException("task");
-            #endregion
-
-            using (var dialog = new TaskRunDialog(task, _cancellationTokenSource))
+            get { return labelOperation.Text; }
+            set
             {
-                dialog.ShowDialog(_owner);
-                if (dialog.Exception != null) throw dialog.Exception;
+                labelOperation.Text = (value ?? "");
+                toolTip.SetToolTip(labelOperation, labelOperation.Text); // Show as tooltip in case text is cut off
             }
         }
 
         /// <summary>
-        /// Always returns 1. This ensures that information hidden by the GUI is at least retrievable from the log files.
+        /// Creates a new tracking control.
         /// </summary>
-        public int Verbosity { get { return 1; } set { } }
+        public TaskControl()
+        {
+            InitializeComponent();
+            CreateHandle();
+        }
+
+        /// <summary>
+        /// Sets the current progress to be displayed.
+        /// </summary>
+        public void Report(TaskSnapshot snapshot)
+        {
+            progressBar.Report(snapshot);
+            progressLabel.Report(snapshot);
+        }
     }
 }

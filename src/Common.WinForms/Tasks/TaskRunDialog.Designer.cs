@@ -2,7 +2,7 @@
 
 namespace Common.Tasks
 {
-    partial class TrackingDialog
+    partial class TaskRunDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -31,8 +31,8 @@ namespace Common.Tasks
         /// </summary>
         private void InitializeComponent()
         {
-            this.trackingProgressBar = new Common.Controls.TrackingProgressBar();
-            this.labelProgress = new Common.Controls.TrackingLabel();
+            this.trackingProgressBar = new Common.Controls.TaskProgressBar();
+            this.labelProgress = new Common.Controls.TaskLabel();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -89,8 +89,8 @@ namespace Common.Tasks
 
         #endregion
 
-        private TrackingProgressBar trackingProgressBar;
-        private Common.Controls.TrackingLabel labelProgress;
+        private TaskProgressBar trackingProgressBar;
+        private Common.Controls.TaskLabel labelProgress;
         private System.Windows.Forms.Button buttonCancel;
     }
 }

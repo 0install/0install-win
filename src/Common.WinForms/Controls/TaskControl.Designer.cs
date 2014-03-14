@@ -1,6 +1,6 @@
 ﻿namespace Common.Controls
 {
-    partial class TrackingControl
+    partial class TaskControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.labelOperation = new System.Windows.Forms.Label();
-            this.progressBar = new Common.Controls.TrackingProgressBar();
-            this.progressLabel = new Common.Controls.TrackingLabel();
+            this.progressBar = new Common.Controls.TaskProgressBar();
+            this.progressLabel = new Common.Controls.TaskLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
@@ -77,8 +77,8 @@
         #endregion
 
         private System.Windows.Forms.Label labelOperation;
-        private Common.Controls.TrackingProgressBar progressBar;
-        private Common.Controls.TrackingLabel progressLabel;
+        private Common.Controls.TaskProgressBar progressBar;
+        private Common.Controls.TaskLabel progressLabel;
         private System.Windows.Forms.ToolTip toolTip;
 
     }

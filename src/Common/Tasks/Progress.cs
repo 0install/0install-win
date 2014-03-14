@@ -21,50 +21,47 @@
  */
 
 using System;
-using System.Windows.Forms;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 
 namespace Common.Tasks
 {
     /// <summary>
-    /// Uses <see cref="TaskRunDialog"/> to inform the user about the progress of tasks.
+    /// Reports progress updates using events. Automatically handles thread- and IPC-marshaling.
     /// </summary>
-    public sealed class GuiTaskHandler : MarshalNoTimeout, ITaskHandler
+    public class Progress<T> : MarshalByRefObject, IProgress<T>
     {
-        private readonly IWin32Window _owner;
+        /// <summary>
+        /// Raised for each reported progress value.
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
+        public event Action<T> ProgressChanged;
 
-        public GuiTaskHandler(IWin32Window owner = null)
-        {
-            _owner = owner;
-        }
-
-        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-
-        /// <inheritdoc/>
-        public CancellationToken CancellationToken { get { return _cancellationTokenSource.Token; } }
-
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            _cancellationTokenSource.Dispose();
-        }
-
-        /// <inheritdoc/>
-        public void RunTask(ITask task)
-        {
-            #region Sanity checks
-            if (task == null) throw new ArgumentNullException("task");
-            #endregion
-
-            using (var dialog = new TaskRunDialog(task, _cancellationTokenSource))
-            {
-                dialog.ShowDialog(_owner);
-                if (dialog.Exception != null) throw dialog.Exception;
-            }
-        }
+        private readonly SynchronizationContext _synchronizationContext;
 
         /// <summary>
-        /// Always returns 1. This ensures that information hidden by the GUI is at least retrievable from the log files.
+        /// Captures the current synchronization context for callbacks.
         /// </summary>
-        public int Verbosity { get { return 1; } set { } }
+        public Progress(Action<T> callback = null)
+        {
+            _synchronizationContext = SynchronizationContext.Current;
+
+            if (callback != null) ProgressChanged += callback;
+        }
+
+        void IProgress<T>.Report(T value)
+        {
+            OnReport(value);
+        }
+
+        protected virtual void OnReport(T value)
+        {
+            var callback = ProgressChanged;
+            if (callback != null)
+            {
+                if (_synchronizationContext != null) _synchronizationContext.Post(_ => callback(value), null);
+                else ThreadPool.QueueUserWorkItem(_ => callback(value));
+            }
+        }
     }
 }

@@ -148,16 +148,16 @@
     <Compile Include="Controls\SplitButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\TrackingControl.cs">
+    <Compile Include="Controls\TaskControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\TrackingControl.Designer.cs">
-      <DependentUpon>TrackingControl.cs</DependentUpon>
+    <Compile Include="Controls\TaskControl.Designer.cs">
+      <DependentUpon>TaskControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TrackingLabel.cs">
+    <Compile Include="Controls\TaskLabel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\TrackingProgressBar.cs">
+    <Compile Include="Controls\TaskProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\UriTextBox.cs">
@@ -187,11 +187,11 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Tasks\GuiTaskHandler.cs" />
-    <Compile Include="Tasks\TrackingDialog.cs">
+    <Compile Include="Tasks\TaskRunDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Tasks\TrackingDialog.Designer.cs">
-      <DependentUpon>TrackingDialog.cs</DependentUpon>
+    <Compile Include="Tasks\TaskRunDialog.Designer.cs">
+      <DependentUpon>TaskRunDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Undo\MultiPropertyChangedCommand.cs" />
     <Compile Include="Undo\MultiPropertyTracker.cs" />

@@ -33,11 +33,11 @@ namespace ZeroInstall.Store.Implementations.Archives
     public abstract class Extractor : TaskBase, IDisposable
     {
         #region Properties
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override string Name { get { return Resources.ExtractingArchive; } }
 
-        /// <inheritdoc />
-        public override bool UnitsByte { get { return true; } }
+        /// <inheritdoc/>
+        protected override bool UnitsByte { get { return true; } }
 
         /// <summary>
         /// The sub-directory in the archive (with Unix-style slashes) to be extracted; <see langword="null"/> to extract entire archive.

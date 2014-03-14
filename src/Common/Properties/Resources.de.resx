@@ -228,9 +228,6 @@
   <data name="StateMustBeReady" xml:space="preserve">
     <value>Der Zustand muss "Ready" sein.</value>
   </data>
-  <data name="StateReady" xml:space="preserve">
-    <value>Bereit</value>
-  </data>
   <data name="StateWebError" xml:space="preserve">
     <value>Web Fehler</value>
   </data>

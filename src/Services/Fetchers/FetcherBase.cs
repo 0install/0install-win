@@ -31,7 +31,7 @@ namespace ZeroInstall.Services.Fetchers
     /// <summary>
     /// An abstract base class for <see cref="IFetcher"/> implementations.
     /// </summary>
-    public abstract class FetcherBase : MarshalByRefObject, IFetcher
+    public abstract class FetcherBase : IFetcher
     {
         #region Dependencies
         protected readonly IStore Store;

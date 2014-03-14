@@ -42,11 +42,11 @@ namespace Common.Tasks
                 waitThread.Start();
 
                 Thread.Sleep(100);
-                Assert.AreEqual(TaskState.Started, task.State);
+                Assert.AreEqual(TaskStatus.Started, task.Status);
 
                 waitHandle.Set();
                 waitThread.Join();
-                Assert.AreEqual(TaskState.Complete, task.State);
+                Assert.AreEqual(TaskStatus.Complete, task.Status);
             }
         }
 
@@ -77,7 +77,7 @@ namespace Common.Tasks
                 cancellationTokenSource.Cancel();
                 waitThread.Join();
 
-                Assert.IsTrue(exceptionThrown, task.State.ToString());
+                Assert.IsTrue(exceptionThrown, task.Status.ToString());
             }
         }
     }

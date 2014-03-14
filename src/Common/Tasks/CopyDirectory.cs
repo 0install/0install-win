@@ -34,10 +34,11 @@ namespace Common.Tasks
     /// </summary>
     public class CopyDirectory : TaskBase
     {
+        /// <inheritdoc/>
         public override string Name { get { return Resources.CopyFiles; } }
 
         /// <inheritdoc/>
-        public override bool UnitsByte { get { return true; } }
+        protected override bool UnitsByte { get { return true; } }
 
         /// <summary>
         /// The path of source directory. Must exist!
@@ -92,18 +93,18 @@ namespace Common.Tasks
             }
             else _destination.Create();
 
-            lock (StateLock) State = TaskState.Header;
+            Status = TaskStatus.Header;
             var sourceDirectories = new List<DirectoryInfo>();
             var sourceFiles = new List<FileInfo>();
             _source.Walk(sourceDirectories.Add, sourceFiles.Add);
-            lock (StateLock) UnitsTotal = sourceFiles.Sum(file => file.Length);
+            UnitsTotal = sourceFiles.Sum(file => file.Length);
 
-            lock (StateLock) State = TaskState.Data;
+            Status = TaskStatus.Data;
             CopyDirectories(sourceDirectories);
             CopyFiles(sourceFiles);
             if (PreserveDirectoryTimestamps)
                 CopyDirectoryTimestamps(sourceDirectories);
-            lock (StateLock) State = TaskState.Complete;
+            Status = TaskStatus.Complete;
         }
 
         private void CopyDirectories(IEnumerable<DirectoryInfo> sourceDirectories)
@@ -126,7 +127,7 @@ namespace Common.Tasks
                 {
                     if (!Overwrite)
                     {
-                        lock (StateLock) UnitsProcessed += sourceFile.Length;
+                        UnitsProcessed += sourceFile.Length;
                         continue;
                     }
                     if (destinationFile.IsReadOnly) destinationFile.IsReadOnly = false;
@@ -138,7 +139,7 @@ namespace Common.Tasks
                 if (destinationFile.IsReadOnly) destinationFile.IsReadOnly = false;
                 destinationFile.LastWriteTimeUtc = sourceFile.LastWriteTimeUtc;
 
-                lock (StateLock) UnitsProcessed += sourceFile.Length;
+                UnitsProcessed += sourceFile.Length;
             }
         }
 

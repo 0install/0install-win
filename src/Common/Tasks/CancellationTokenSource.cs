@@ -23,7 +23,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Remoting;
-using System.Security.Permissions;
 using System.Threading;
 
 namespace Common.Tasks
@@ -31,7 +30,7 @@ namespace Common.Tasks
     /// <summary>
     /// Signals to <see cref="CancellationToken"/>s that they should be canceled.
     /// </summary>
-    public sealed class CancellationTokenSource : MarshalByRefObject, IDisposable
+    public sealed class CancellationTokenSource : MarshalNoTimeout, IDisposable
     {
         /// <summary>
         /// Gets a <see cref="CancellationToken"/> associated with this <see cref="CancellationTokenSource"/>.
@@ -100,14 +99,5 @@ namespace Common.Tasks
         {
             _waitHandle.Close();
         }
-
-        #region IPC timeout
-        /// <inheritdoc/>
-        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.Infrastructure)]
-        public override object InitializeLifetimeService()
-        {
-            return null; // Do not timeout progress reporting callbacks
-        }
-        #endregion
     }
 }

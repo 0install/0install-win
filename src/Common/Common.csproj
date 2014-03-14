@@ -69,7 +69,6 @@
     <Compile Include="Cli\CliAppControl.cs" />
     <Compile Include="Cli\CliUtils.cs" />
     <Compile Include="Cli\ProgressBar.cs" />
-    <Compile Include="Cli\TrackingProgessBar.cs" />
     <Compile Include="Cli\UnhandledErrorsException.cs" />
     <Compile Include="Dispatch\AggregateDispatcher.Action.cs" />
     <Compile Include="Dispatch\AggregateDispatcher.Func.cs" />
@@ -107,6 +106,7 @@
     <Compile Include="Info\ExceptionInfo.cs" />
     <Compile Include="Info\OSInfo.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="MarshalNoTimeout.cs" />
     <Compile Include="MsgSeverity.cs" />
     <Compile Include="MutexLock.cs" />
     <Compile Include="NamedComparer.cs" />
@@ -145,12 +145,15 @@
     <Compile Include="Tasks\CopyDirectory.cs" />
     <Compile Include="Tasks\DownloadFile.cs" />
     <Compile Include="Tasks\ForEachTask.cs" />
+    <Compile Include="Tasks\IProgress.cs" />
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Tasks\ITaskHandler.cs" />
+    <Compile Include="Tasks\Progress.cs" />
     <Compile Include="Tasks\SilentTaskHandler.cs" />
     <Compile Include="Tasks\SimpleTask.cs" />
     <Compile Include="Tasks\TaskBase.cs" />
-    <Compile Include="Tasks\TaskState.cs" />
+    <Compile Include="Tasks\TaskSnapshot.cs" />
+    <Compile Include="Tasks\TaskStatus.cs" />
     <Compile Include="Tasks\WaitTask.cs" />
     <Compile Include="TimedLogEvent.cs" />
     <Compile Include="Undo\AddToCollection.cs" />
