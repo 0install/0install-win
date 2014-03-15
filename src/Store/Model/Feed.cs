@@ -229,16 +229,16 @@ namespace ZeroInstall.Store.Model
             #endregion
 
             // Apply if-0install-version filter
-            Elements.RemoveFiltered();
-            Icons.RemoveFiltered();
-            Categories.RemoveFiltered();
-            Feeds.RemoveFiltered();
-            FeedFor.RemoveFiltered();
-            EntryPoints.RemoveFiltered();
+            _elements.RemoveAll(FeedElement.FilterMismatch);
+            _icons.RemoveAll(FeedElement.FilterMismatch);
+            _categories.RemoveAll(FeedElement.FilterMismatch);
+            _feeds.RemoveAll(FeedElement.FilterMismatch);
+            _feedFor.RemoveAll(FeedElement.FilterMismatch);
+            _entryPoints.RemoveAll(FeedElement.FilterMismatch);
 
             var collapsedElements = new List<Element>();
 
-            foreach (var element in Elements)
+            foreach (var element in _elements)
             {
                 // Flatten structure in groups, set missing default values in implementations
                 element.Normalize(feedID);
@@ -251,10 +251,8 @@ namespace ZeroInstall.Store.Model
                 }
                 else collapsedElements.Add(element);
             }
-
-            // Replace original elements list with the collapsed version
-            Elements.Clear();
-            Elements.AddRange(collapsedElements);
+            _elements.Clear();
+            _elements.AddRange(collapsedElements);
         }
 
         /// <summary>

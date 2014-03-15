@@ -220,10 +220,10 @@ namespace ZeroInstall.Store.Model
             #endregion
 
             // Apply if-0install-version filter
-            Commands.RemoveFiltered();
-            Dependencies.RemoveFiltered();
-            Restrictions.RemoveFiltered();
-            Bindings.RemoveFiltered();
+            _commands.RemoveAll(FilterMismatch);
+            _dependencies.RemoveAll(FilterMismatch);
+            _restrictions.RemoveAll(FilterMismatch);
+            _bindings.RemoveAll(FilterMismatch);
 
             // Convert legacy launch commands
             if (Main != null) Commands.Add(new Command {Name = Command.NameRun, Path = Main});

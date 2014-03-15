@@ -84,17 +84,10 @@ namespace ZeroInstall.Store.Model
             base.Normalize(feedID);
 
             // Apply if-0install-version filter
-            Steps.RemoveFiltered();
+            _steps.RemoveAll(FilterMismatch);
 
-            // Normalize recipe steps and rebuild list to update sequenced hash value
-            var newSteps = new List<IRecipeStep>();
-            foreach (var step in Steps)
-            {
+            foreach (var step in _steps)
                 step.Normalize(feedID);
-                newSteps.Add(step);
-            }
-            Steps.Clear();
-            Steps.AddRange(newSteps);
         }
         #endregion
 

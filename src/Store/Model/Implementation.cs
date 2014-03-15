@@ -56,18 +56,10 @@ namespace ZeroInstall.Store.Model
             base.Normalize(feedID);
 
             // Apply if-0install-version filter
-            Commands.RemoveFiltered();
-            RetrievalMethods.RemoveFiltered();
+            _retrievalMethods.RemoveAll(FilterMismatch);
 
-            // Normalize retrieval methods and rebuild list to update sequenced hash value
-            var newRetrievalMethods = new List<RetrievalMethod>();
-            foreach (var retrievalMethod in RetrievalMethods)
-            {
+            foreach (var retrievalMethod in _retrievalMethods)
                 retrievalMethod.Normalize(feedID);
-                newRetrievalMethods.Add(retrievalMethod);
-            }
-            RetrievalMethods.Clear();
-            RetrievalMethods.AddRange(newRetrievalMethods);
         }
         #endregion
 

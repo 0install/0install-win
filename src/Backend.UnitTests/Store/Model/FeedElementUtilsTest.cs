@@ -32,17 +32,9 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestFilterMismatch()
         {
-            Assert.IsFalse(new EntryPoint().FilterMismatch());
-            Assert.IsFalse(new EntryPoint {IfZeroInstallVersion = new VersionRange("0..")}.FilterMismatch());
-            Assert.IsTrue(new EntryPoint {IfZeroInstallVersion = new VersionRange("..!0")}.FilterMismatch());
-        }
-
-        [Test]
-        public void TestRemoveFiltered()
-        {
-            var list = new List<EntryPoint> {new EntryPoint(), new EntryPoint {IfZeroInstallVersion = new VersionRange("..!0")}, new EntryPoint {IfZeroInstallVersion = new VersionRange("0..")}};
-            list.RemoveFiltered();
-            CollectionAssert.AreEqual(new[] {new EntryPoint(), new EntryPoint {IfZeroInstallVersion = new VersionRange("0..")}}, list);
+            Assert.IsFalse(FeedElement.FilterMismatch(new EntryPoint()));
+            Assert.IsFalse(FeedElement.FilterMismatch(new EntryPoint {IfZeroInstallVersion = new VersionRange("0..")}));
+            Assert.IsTrue(FeedElement.FilterMismatch(new EntryPoint {IfZeroInstallVersion = new VersionRange("..!0")}));
         }
 
         [Test]

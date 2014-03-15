@@ -16,9 +16,7 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using Common.Info;
 using Common.Utils;
@@ -31,45 +29,6 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     public static class FeedElementUtils
     {
-        private static readonly ImplementationVersion _zeroInstallVersion = new ImplementationVersion(AppInfo.Load(Assembly.GetCallingAssembly()).Version);
-
-        public static bool FilterMismatch<T>(this T element)
-            where T : FeedElement
-        {
-            #region Sanity checks
-            if (element == null) throw new ArgumentNullException("element");
-            #endregion
-
-            return element.IfZeroInstallVersion != null && !element.IfZeroInstallVersion.Match(_zeroInstallVersion);
-        }
-
-        /// <summary>
-        /// Filters those elements that do not pass an <see cref="FeedElement.IfZeroInstallVersion"/> test.
-        /// </summary>
-        public static void RemoveFiltered<T>(this ICollection<T> elements)
-            where T : FeedElement
-        {
-            #region Sanity checks
-            if (elements == null) throw new ArgumentNullException("elements");
-            #endregion
-
-            var toRemove = elements.Where(FilterMismatch);
-            foreach (var element in toRemove.ToList()) elements.Remove(element);
-        }
-
-        /// <summary>
-        /// Filters those elements that do not pass an <see cref="FeedElement.IfZeroInstallVersion"/> test.
-        /// </summary>
-        public static void RemoveFiltered(this ICollection<IRecipeStep> elements)
-        {
-            #region Sanity checks
-            if (elements == null) throw new ArgumentNullException("elements");
-            #endregion
-
-            var toRemove = elements.OfType<FeedElement>().Where(FilterMismatch);
-            foreach (var element in toRemove.ToList()) elements.Remove((IRecipeStep)element);
-        }
-
         /// <summary>
         /// Turns a relative path into an absolute one, using the file containing the reference as the base.
         /// </summary>

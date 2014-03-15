@@ -60,11 +60,11 @@ namespace ZeroInstall.Store.Model
             #endregion
 
             // Apply if-0install-version filter
-            Elements.RemoveFiltered();
+            _elements.RemoveAll(FilterMismatch);
 
             var collapsedElements = new List<Element>();
 
-            foreach (var element in Elements)
+            foreach (var element in _elements)
             {
                 element.InheritFrom(this);
 
@@ -75,14 +75,12 @@ namespace ZeroInstall.Store.Model
                 if (group != null)
                 {
                     // Move implementations out of sub-groups
-                    collapsedElements.AddRange(group.Elements);
+                    collapsedElements.AddRange(group._elements);
                 }
                 else collapsedElements.Add(element);
             }
-
-            // Replace original elements list with the collapsed version
-            Elements.Clear();
-            Elements.AddRange(collapsedElements);
+            _elements.Clear();
+            _elements.AddRange(collapsedElements);
         }
         #endregion
 

@@ -15,8 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.ComponentModel;
+using System.Reflection;
 using System.Xml.Serialization;
+using Common.Info;
 
 namespace ZeroInstall.Store.Model
 {
@@ -36,7 +39,33 @@ namespace ZeroInstall.Store.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="IfZeroInstallVersion"/>
         [XmlAttribute("if-0install-version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string IfZeroInstallVersionString { get { return (IfZeroInstallVersion == null) ? null : IfZeroInstallVersion.ToString(); } set { IfZeroInstallVersion = string.IsNullOrEmpty(value) ? null : new VersionRange(value); } }
+        public string IfZeroInstallVersionString { get { return (IfZeroInstallVersion == null) ? null : IfZeroInstallVersion.ToString(); } set { IfZeroInstallVersion = String.IsNullOrEmpty(value) ? null : new VersionRange(value); } }
+
+        #region Filter
+        /// <summary>
+        /// The version number of the currently running Zero Install instance.
+        /// </summary>
+        private static readonly ImplementationVersion _zeroInstallVersion = new ImplementationVersion(AppInfo.Load(Assembly.GetCallingAssembly()).Version);
+
+        /// <summary>
+        /// Checks whether an element passes the specified <see cref="IfZeroInstallVersion"/> restriction, if any.
+        /// </summary>
+        protected internal static bool FilterMismatch<T>(T element)
+            where T : FeedElement
+        {
+            if (element == null) return false;
+
+            return element.IfZeroInstallVersion != null && !element.IfZeroInstallVersion.Match(_zeroInstallVersion);
+        }
+
+        /// <summary>
+        /// Checks whether an element passes the specified <see cref="IfZeroInstallVersion"/> restriction, if any.
+        /// </summary>
+        protected static bool FilterMismatch(IRecipeStep step)
+        {
+            return FilterMismatch(step as FeedElement);
+        }
+        #endregion
 
         #region Equality
         /// <inheritdoc/>
