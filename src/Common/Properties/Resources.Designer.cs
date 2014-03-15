@@ -61,15 +61,6 @@ namespace Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The archive file is invalid or damaged..
-        /// </summary>
-        internal static string ArchiveInvalid {
-            get {
-                return ResourceManager.GetString("ArchiveInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The argument must be greater than zero..
         /// </summary>
         internal static string ArgMustBeGreaterThanZero {

@@ -4,12 +4,12 @@ Modified zlib license
 NuGet package: NUnit
 
 Moq
-https://github.com/Moq/moq4
+http://github.com/Moq/moq4
 New BSD license: http://opensource.org/licenses/BSD-3-Clause
 NuGet package: Moq
 
 Moq.Contrib 0.3
-https://code.google.com/p/moq-contrib/
+http://code.google.com/p/moq-contrib/
 New BSD license: http://opensource.org/licenses/BSD-3-Clause
 NuGet package: Moq.Contrib
 
@@ -17,6 +17,11 @@ LinqBridge
 http://code.google.com/p/linqbridge/
 MIT license: http://opensource.org/licenses/mit-license
 NuGet package: LinqBridge
+
+SevenZipSharp
+http://sevenzipsharp.codeplex.com/
+GNU LGPL: http://www.gnu.org/copyleft/lesser.html
+NuGet package: SevenZipSharp
 
 Json.NET
 http://james.newtonking.com/json
@@ -47,7 +52,7 @@ Self-compiled managed DLL: NDesk.Options.dll
 ICSharpCode.SharpZipLib post-0.86.0-GIT-checkout
 http://www.icsharpcode.net/OpenSource/SharpZipLib/
 GNU GPL with GNU Classpath exception: ICSharpCode.SharpZipLib.license.txt
-Custom patches: https://github.com/bastianeicher/SharpZipLib
+Custom patches: http://github.com/bastianeicher/SharpZipLib
 Self-compiled managed DLL: ICSharpCode.SharpZipLib.dll
 
 ICSharpCode.TextEditor
@@ -55,11 +60,6 @@ http://www.icsharpcode.net/OpenSource/SD/
 GNU LGPL: http://www.gnu.org/copyleft/lesser.html
 Applied patches: ICSharpCode.TextEditor.*.patch
 Self-compiled managed DLL: ICSharpCode.TextEditor.dll
-
-LZMA SDK 4.65
-http://www.7-zip.org/sdk.html
-Public domain
-Self-compiled managed DLL: SevenZip.dll
 
 ELFSharp 0.0.10
 http://antmicro.com/projects/elfsharp/

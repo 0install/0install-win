@@ -59,9 +59,6 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="SevenZip">
-      <HintPath>..\..\lib\SevenZip.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Global.cs" />
@@ -179,7 +176,6 @@
     <Compile Include="Utils\AttributeUtils.cs" />
     <Compile Include="Utils\CompilerUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
-    <Compile Include="Utils\LzmaUtils.cs" />
     <Compile Include="Utils\NetUtils.cs" />
     <Compile Include="Utils\ProcessUtils.cs" />
     <Compile Include="Utils\StringUtils.cs" />
