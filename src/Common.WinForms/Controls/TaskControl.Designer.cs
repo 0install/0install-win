@@ -42,6 +42,7 @@
             this.labelOperation.Name = "labelOperation";
             this.labelOperation.Size = new System.Drawing.Size(200, 16);
             this.labelOperation.TabIndex = 0;
+            this.labelOperation.UseMnemonic = false;
             // 
             // progressBar
             // 

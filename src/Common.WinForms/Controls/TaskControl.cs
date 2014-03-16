@@ -20,7 +20,6 @@
  * THE SOFTWARE.
  */
 
-using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 using Common.Tasks;
