@@ -189,7 +189,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             {
                 return FromStream(stream, target, mimeType);
             }
-            catch (Exception)
+            catch
             {
                 stream.Dispose();
                 throw;

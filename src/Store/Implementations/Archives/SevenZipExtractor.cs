@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Common.Storage;
 using Common.Tasks;
@@ -59,7 +60,17 @@ namespace ZeroInstall.Store.Implementations.Archives
                 UnitsTotal = _extractor.UnpackedSize;
             }
                 #region Error handling
+            catch (KeyNotFoundException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+            }
             catch (ArgumentException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+            }
+            catch (NullReferenceException ex)
             {
                 // Wrap exception since only certain exception types are allowed
                 throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);

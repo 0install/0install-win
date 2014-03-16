@@ -86,13 +86,14 @@ namespace Common.Tasks
             catch (Exception ex)
             {
                 Exception = ex;
+                Invoke(new Action(Close));
             }
         }
 
         private void TrackingDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Only close the window if the task is no longer running
-            if (!_taskThread.IsAlive) return;
+            if (!_taskThread.IsAlive || Exception != null) return;
 
             if (_task.CanCancel)
             {
