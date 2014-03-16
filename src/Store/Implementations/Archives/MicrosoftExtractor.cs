@@ -17,8 +17,10 @@
 
 using System;
 using System.IO;
+using Common.Utils;
 using Microsoft.Deployment.Compression;
 using Microsoft.Deployment.Compression.Cab;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations.Archives
 {
@@ -32,7 +34,9 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         protected MicrosoftExtractor(string target)
             : base(target)
-        {}
+        {
+            if (!WindowsUtils.IsWindows) throw new NotSupportedException(Resources.ExtractionOnlyOnWindows);
+        }
 
         Stream IUnpackStreamContext.OpenArchiveReadStream(int archiveNumber, string archiveName, CompressionEngine compressionEngine)
         {
@@ -52,11 +56,11 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             CancellationToken.ThrowIfCancellationRequested();
 
-            string entryName = GetSubEntryName(path);
-            if (entryName == null) return null;
+            string relativePath = GetRelativePath(path);
+            if (relativePath == null) return null;
 
             _bytesStaged = fileSize;
-            return OpenFileWriteStream(entryName);
+            return OpenFileWriteStream(relativePath);
         }
 
         void IUnpackStreamContext.CloseFileWriteStream(string path, Stream stream, FileAttributes attributes, DateTime lastWriteTime)
@@ -67,7 +71,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             #endregion
 
             stream.Close();
-            File.SetLastWriteTimeUtc(CombinePath(GetSubEntryName(path)), lastWriteTime);
+            File.SetLastWriteTimeUtc(CombinePath(GetRelativePath(path)), lastWriteTime);
 
             UnitsProcessed += _bytesStaged;
         }

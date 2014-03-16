@@ -18,11 +18,6 @@ http://code.google.com/p/linqbridge/
 MIT license: http://opensource.org/licenses/mit-license
 NuGet package: LinqBridge
 
-SevenZipSharp
-http://sevenzipsharp.codeplex.com/
-GNU LGPL: http://www.gnu.org/copyleft/lesser.html
-NuGet package: SevenZipSharp
-
 Json.NET
 http://james.newtonking.com/json
 MIT license: http://opensource.org/licenses/mit-license
@@ -42,6 +37,16 @@ TaskDialog
 http://www.codeproject.com/KB/vista/TaskDialogWinForms.aspx
 Public domain
 Self-compiled managed DLL: TaskDialog.dll
+
+SevenZipSharp
+http://sevenzipsharp.codeplex.com/
+GNU LGPL: http://www.gnu.org/copyleft/lesser.html
+NuGet package: SevenZipSharp
+
+7-Zip Extra files
+http://www.7-zip.org/
+GNU LGPL: http://www.gnu.org/copyleft/lesser.html
+Pre-compiled native DLLs: 7zxa.dll, 7zxa-x64.dll
 
 NDesk.Options post-0.2.1-GIT-checkout
 http://ndesk.org/Options

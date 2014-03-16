@@ -25,15 +25,15 @@ using ZeroInstall.Store.Model;
 namespace ZeroInstall.Store.Implementations.Archives
 {
     [TestFixture]
-    public class CabExtractorTest
+    public class SevenZipExtractorTest
     {
         [Test]
         public void TestExtract()
         {
-            if (!WindowsUtils.IsWindows) Assert.Ignore("CAB extraction relies on a Win32 API and therefore will not work on non-Windows platforms");
+            if (!WindowsUtils.IsWindows) Assert.Ignore("7z extraction relies on a Win32 DLL and therefore will not work on non-Windows platforms");
 
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
-            using (var extractor = Extractor.FromStream(TestData.GetResource("testArchive.cab"), sandbox, Archive.MimeTypeCab))
+            using (var extractor = Extractor.FromStream(TestData.GetResource("testArchive.7z"), sandbox, Archive.MimeType7Z))
             {
                 extractor.Run();
 
@@ -52,10 +52,10 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestExtractSubDir()
         {
-            if (!WindowsUtils.IsWindows) Assert.Ignore("CAB extraction relies on a Win32 API and therefore will not work on non-Windows platforms");
+            if (!WindowsUtils.IsWindows) Assert.Ignore("7z extraction relies on a Win32 DLL and therefore will not work on non-Windows platforms");
 
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
-            using (var extractor = Extractor.FromStream(TestData.GetResource("testArchive.cab"), sandbox, Archive.MimeTypeCab))
+            using (var extractor = Extractor.FromStream(TestData.GetResource("testArchive.7z"), sandbox, Archive.MimeType7Z))
             {
                 extractor.SubDir = "folder1";
                 extractor.Run();
@@ -72,10 +72,10 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestExtractInvalidData()
         {
-            if (!WindowsUtils.IsWindows) Assert.Ignore("CAB extraction relies on a Win32 API and therefore will not work on non-Windows platforms");
+            if (!WindowsUtils.IsWindows) Assert.Ignore("7z extraction relies on a Win32 DLL and therefore will not work on non-Windows platforms");
 
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
-                Assert.Throws<IOException>(() => Extractor.FromStream(new MemoryStream(_garbageData), sandbox, Archive.MimeTypeCab));
+                Assert.Throws<IOException>(() => Extractor.FromStream(new MemoryStream(_garbageData), sandbox, Archive.MimeType7Z));
         }
     }
 }

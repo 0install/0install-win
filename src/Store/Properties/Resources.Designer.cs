@@ -88,15 +88,6 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CAB and MSI extraction is only supported on Windows..
-        /// </summary>
-        internal static string CabExtractionOnlyOnWindows {
-            get {
-                return ResourceManager.GetString("CabExtractionOnlyOnWindows", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Unable to find command &apos;{0}&apos;..
         /// </summary>
         internal static string CommandNotFound {
@@ -219,6 +210,15 @@ namespace ZeroInstall.Store.Properties {
         internal static string ExtractingArchive {
             get {
                 return ResourceManager.GetString("ExtractingArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extracting this archive type is only supported on Windows..
+        /// </summary>
+        internal static string ExtractionOnlyOnWindows {
+            get {
+                return ResourceManager.GetString("ExtractionOnlyOnWindows", resourceCulture);
             }
         }
         

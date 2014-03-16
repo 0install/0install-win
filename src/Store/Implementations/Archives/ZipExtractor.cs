@@ -94,15 +94,15 @@ namespace ZeroInstall.Store.Implementations.Archives
                 {
                     ZipEntry centralEntry = _centralDirectory[i++];
 
-                    string entryName = GetSubEntryName(centralEntry.Name);
-                    if (string.IsNullOrEmpty(entryName)) continue;
+                    string relativePath = GetRelativePath(centralEntry.Name);
+                    if (string.IsNullOrEmpty(relativePath)) continue;
                     DateTime modTime = GetEntryDateTime(centralEntry, localEntry);
 
-                    if (centralEntry.IsDirectory) CreateDirectory(entryName, modTime);
+                    if (centralEntry.IsDirectory) CreateDirectory(relativePath, modTime);
                     else if (centralEntry.IsFile)
                     {
-                        if (IsSymlink(centralEntry)) CreateSymlink(entryName, _zipStream.ReadToString());
-                        else WriteFile(entryName, centralEntry.Size, modTime, _zipStream, IsExecutable(centralEntry));
+                        if (IsSymlink(centralEntry)) CreateSymlink(relativePath, _zipStream.ReadToString());
+                        else WriteFile(relativePath, centralEntry.Size, modTime, _zipStream, IsExecutable(centralEntry));
                     }
 
                     UnitsProcessed += centralEntry.CompressedSize;

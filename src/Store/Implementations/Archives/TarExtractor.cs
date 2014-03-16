@@ -76,13 +76,13 @@ namespace ZeroInstall.Store.Implementations.Archives
                 TarEntry entry;
                 while ((entry = _tarStream.GetNextEntry()) != null)
                 {
-                    string entryName = GetSubEntryName(entry.Name);
-                    if (string.IsNullOrEmpty(entryName)) continue;
+                    string relativePath = GetRelativePath(entry.Name);
+                    if (string.IsNullOrEmpty(relativePath)) continue;
 
-                    if (entry.IsDirectory) CreateDirectory(entryName, entry.TarHeader.ModTime);
-                    else if (entry.TarHeader.TypeFlag == TarHeader.LF_LINK) CreateHardlink(entryName, entry.TarHeader.LinkName);
-                    else if (entry.TarHeader.TypeFlag == TarHeader.LF_SYMLINK) CreateSymlink(entryName, entry.TarHeader.LinkName);
-                    else WriteFile(entryName, entry.Size, entry.TarHeader.ModTime, _tarStream, IsExecutable(entry));
+                    if (entry.IsDirectory) CreateDirectory(relativePath, entry.TarHeader.ModTime);
+                    else if (entry.TarHeader.TypeFlag == TarHeader.LF_LINK) CreateHardlink(relativePath, entry.TarHeader.LinkName);
+                    else if (entry.TarHeader.TypeFlag == TarHeader.LF_SYMLINK) CreateSymlink(relativePath, entry.TarHeader.LinkName);
+                    else WriteFile(relativePath, entry.Size, entry.TarHeader.ModTime, _tarStream, IsExecutable(entry));
 
                     UpdateProgress();
                 }

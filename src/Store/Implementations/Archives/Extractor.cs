@@ -101,9 +101,10 @@ namespace ZeroInstall.Store.Implementations.Archives
                 case Model.Archive.MimeTypeRubyGem:
                     return;
 
+                case Model.Archive.MimeType7Z:
                 case Model.Archive.MimeTypeCab:
                 case Model.Archive.MimeTypeMsi:
-                    if (!WindowsUtils.IsWindows) throw new NotSupportedException(Resources.CabExtractionOnlyOnWindows);
+                    if (!WindowsUtils.IsWindows) throw new NotSupportedException(Resources.ExtractionOnlyOnWindows);
                     return;
 
                 default:
@@ -150,6 +151,9 @@ namespace ZeroInstall.Store.Implementations.Archives
                 case Model.Archive.MimeTypeRubyGem:
                     extractor = new RubyGemExtractor(stream, target);
                     break;
+                case Model.Archive.MimeType7Z:
+                    extractor = new SevenZipExtractor(stream, target);
+                    break;
                 case Model.Archive.MimeTypeCab:
                     extractor = new CabExtractor(stream, target);
                     break;
@@ -195,13 +199,13 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         //--------------------//
 
-        #region Get sub entries
+        #region Relative path
         /// <summary>
-        /// Returns the name of an archive entry trimmed by the selected sub-directory prefix.
+        /// Returns the path of an archive entry trimmed by the selected sub-directory prefix.
         /// </summary>
-        /// <param name="entryName">The path of the archive entry relative to the archive's root.</param>
+        /// <param name="entryName">The Unix-style path of the archive entry relative to the archive's root.</param>
         /// <returns>The trimmed path or <see langword="null"/> if the <paramref name="entryName"/> doesn't lie within the <see cref="SubDir"/>.</returns>
-        protected virtual string GetSubEntryName(string entryName)
+        protected virtual string GetRelativePath(string entryName)
         {
             entryName = FileUtils.UnifySlashes(entryName);
 

@@ -126,9 +126,6 @@
   <data name="ArchiveInvalidPath" xml:space="preserve">
     <value>The archive contains an invalid path (potentially a security risk): {0}</value>
   </data>
-  <data name="CabExtractionOnlyOnWindows" xml:space="preserve">
-    <value>CAB and MSI extraction is only supported on Windows.</value>
-  </data>
   <data name="CommandNotFound" xml:space="preserve">
     <value>Unable to find command '{0}'.</value>
   </data>
@@ -170,6 +167,9 @@
   </data>
   <data name="ExtractingArchive" xml:space="preserve">
     <value>Extracting archive</value>
+  </data>
+  <data name="ExtractionOnlyOnWindows" xml:space="preserve">
+    <value>Extracting this archive type is only supported on Windows.</value>
   </data>
   <data name="FeedNotInCache" xml:space="preserve">
     <value>'{0}' could not be located in the feed cache. Looked for file at: {1}</value>

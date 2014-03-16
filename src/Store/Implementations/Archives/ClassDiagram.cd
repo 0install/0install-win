@@ -68,12 +68,19 @@
   <Class Name="ZeroInstall.Store.Implementations.Archives.MsiExtractor" Collapsed="true">
     <Position X="2.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EABIAAAAACAQQAQAAAAAACAAAAAAAAQAAAAAAAAAEAA=</HashCode>
+      <HashCode>EgBIAAAAACAQQAQAAAAAACAAAAAAAAQAAAAAAAAAEAA=</HashCode>
       <FileName>Implementations\Archives\MsiExtractor.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="ZeroInstall.Store.Implementations.Archives.SevenZipExtractor" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAQgAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Implementations\Archives\SevenZipExtractor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Struct Name="ZeroInstall.Store.Implementations.Archives.ArchiveFileInfo">
-    <Position X="9.25" Y="0.5" Width="1.5" />
+    <Position X="9.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAYEgAAAAAAAAAAAAIAEAAAABACAAAA=</HashCode>
       <FileName>Implementations\Archives\ArchiveFileInfo.cs</FileName>
