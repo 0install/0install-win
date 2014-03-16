@@ -93,12 +93,8 @@ namespace ZeroInstall.Store.Implementations.Archives
             {
                 if (!Directory.Exists(EffectiveTargetDir)) Directory.CreateDirectory(EffectiveTargetDir);
 
-                if (string.IsNullOrEmpty(SubDir))
-                {
-                    _extractor.Extracting += OnExtracting;
-                    _extractor.ExtractArchive(EffectiveTargetDir);
-                }
-                else ExtractWithSubDir();
+                if (_extractor.IsSolid || string.IsNullOrEmpty(SubDir)) ExtractComplete();
+                else ExtractIndividual();
             }
                 #region Error handling
             catch (SevenZipException ex)
@@ -111,17 +107,37 @@ namespace ZeroInstall.Store.Implementations.Archives
             Status = TaskStatus.Complete;
         }
 
-        private void OnExtracting(object sender, ProgressEventArgs e)
+        /// <summary>
+        /// Extracts all files from the archive in one go.
+        /// </summary>
+        private void ExtractComplete()
         {
-            UnitsProcessed = UnitsTotal * e.PercentDone / 100;
-            if (CancellationToken.IsCancellationRequested) e.Cancel = true;
+            _extractor.Extracting += (sender, e) =>
+            {
+                UnitsProcessed = UnitsTotal * e.PercentDone / 100;
+                if (CancellationToken.IsCancellationRequested) e.Cancel = true;
+            };
+
+            if (string.IsNullOrEmpty(SubDir)) _extractor.ExtractArchive(EffectiveTargetDir);
+            else
+            {
+                using (var tempDirectory = new TemporaryDirectory("0install"))
+                {
+                    _extractor.ExtractArchive(tempDirectory);
+
+                    string subDir = FileUtils.UnifySlashes(SubDir);
+                    if (FileUtils.IsBreakoutPath(subDir)) return;
+                    string tempSubDir = Path.Combine(tempDirectory, subDir);
+                    if (Directory.Exists(tempSubDir))
+                        new MoveDirectory(tempSubDir, EffectiveTargetDir).Run(CancellationToken);
+                }
+            }
         }
 
         /// <summary>
-        /// Extracts individual files from the archive, respecting the specified <see cref="Extractor.SubDir"/>.
-        /// Very slow if <see cref="SevenZip.SevenZipExtractor.IsSolid"/>.
+        /// Extracts files from the archive one-by-one.
         /// </summary>
-        private void ExtractWithSubDir()
+        private void ExtractIndividual()
         {
             foreach (var entry in _extractor.ArchiveFileData)
             {
@@ -133,7 +149,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 {
                     using (var stream = OpenFileWriteStream(relativePath))
                         _extractor.ExtractFile(entry.Index, stream);
-                    File.SetLastWriteTimeUtc(CombinePath(relativePath), entry.LastWriteTime);
+                    File.SetLastWriteTimeUtc(CombinePath(relativePath), new DateTime(entry.LastWriteTime.Ticks, DateTimeKind.Utc));
 
                     UnitsProcessed += (long)entry.Size;
                 }
