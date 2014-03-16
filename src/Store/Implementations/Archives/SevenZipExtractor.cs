@@ -32,13 +32,7 @@ namespace ZeroInstall.Store.Implementations.Archives
     public class SevenZipExtractor : Extractor
     {
         #region Stream
-        static SevenZipExtractor()
-        {
-            SevenZipBase.SetLibraryPath(Path.Combine(Locations.InstallBase, WindowsUtils.Is64BitProcess ? "7zxa-x64.dll" : "7zxa.dll"));
-        }
-
         private readonly Stream _stream;
-        private readonly SevenZip.SevenZipExtractor _extractor;
 
         /// <summary>
         /// Prepares to extract a 7z archive contained in a stream.
@@ -55,13 +49,41 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             if (!WindowsUtils.IsWindows) throw new NotSupportedException(Resources.ExtractionOnlyOnWindows);
 
+            _stream = stream;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing) _stream.Dispose();
+        }
+        #endregion
+
+        /// <inheritdoc/>
+        protected override void Execute()
+        {
+            Status = TaskStatus.Header;
+
             try
             {
-                _stream = stream;
-                _extractor = new SevenZip.SevenZipExtractor(stream);
-                UnitsTotal = _extractor.UnpackedSize;
+                // NOTE: Must do initialization here since the constructor may be called on a different thread and SevenZipSharp is thread-affine
+                SevenZipBase.SetLibraryPath(Path.Combine(Locations.InstallBase, WindowsUtils.Is64BitProcess ? "7zxa-x64.dll" : "7zxa.dll"));
+                using (var extractor = new SevenZip.SevenZipExtractor(_stream))
+                {
+                    UnitsTotal = extractor.UnpackedSize;
+
+                    Status = TaskStatus.Data;
+                    if (!Directory.Exists(EffectiveTargetDir)) Directory.CreateDirectory(EffectiveTargetDir);
+
+                    if (extractor.IsSolid || string.IsNullOrEmpty(SubDir)) ExtractComplete(extractor);
+                    else ExtractIndividual(extractor);
+                }
             }
                 #region Error handling
+            catch (SevenZipException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+            }
             catch (KeyNotFoundException ex)
             {
                 // Wrap exception since only certain exception types are allowed
@@ -78,37 +100,6 @@ namespace ZeroInstall.Store.Implementations.Archives
                 throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
             }
             #endregion
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _extractor.Dispose();
-                _stream.Dispose();
-            }
-        }
-        #endregion
-
-        /// <inheritdoc/>
-        protected override void Execute()
-        {
-            Status = TaskStatus.Data;
-
-            try
-            {
-                if (!Directory.Exists(EffectiveTargetDir)) Directory.CreateDirectory(EffectiveTargetDir);
-
-                if (_extractor.IsSolid || string.IsNullOrEmpty(SubDir)) ExtractComplete();
-                else ExtractIndividual();
-            }
-                #region Error handling
-            catch (SevenZipException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
-            }
-            #endregion
 
             Status = TaskStatus.Complete;
         }
@@ -116,20 +107,20 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Extracts all files from the archive in one go.
         /// </summary>
-        private void ExtractComplete()
+        private void ExtractComplete(SevenZip.SevenZipExtractor extractor)
         {
-            _extractor.Extracting += (sender, e) =>
+            extractor.Extracting += (sender, e) =>
             {
                 UnitsProcessed = UnitsTotal * e.PercentDone / 100;
                 if (CancellationToken.IsCancellationRequested) e.Cancel = true;
             };
 
-            if (string.IsNullOrEmpty(SubDir)) _extractor.ExtractArchive(EffectiveTargetDir);
+            if (string.IsNullOrEmpty(SubDir)) extractor.ExtractArchive(EffectiveTargetDir);
             else
             {
                 using (var tempDirectory = new TemporaryDirectory("0install"))
                 {
-                    _extractor.ExtractArchive(tempDirectory);
+                    extractor.ExtractArchive(tempDirectory);
 
                     string subDir = FileUtils.UnifySlashes(SubDir);
                     if (FileUtils.IsBreakoutPath(subDir)) return;
@@ -143,9 +134,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// Extracts files from the archive one-by-one.
         /// </summary>
-        private void ExtractIndividual()
+        private void ExtractIndividual(SevenZip.SevenZipExtractor extractor)
         {
-            foreach (var entry in _extractor.ArchiveFileData)
+            foreach (var entry in extractor.ArchiveFileData)
             {
                 string relativePath = GetRelativePath(entry.FileName.Replace('\\', '/'));
                 if (relativePath == null) continue;
@@ -154,7 +145,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 else
                 {
                     using (var stream = OpenFileWriteStream(relativePath))
-                        _extractor.ExtractFile(entry.Index, stream);
+                        extractor.ExtractFile(entry.Index, stream);
                     File.SetLastWriteTimeUtc(CombinePath(relativePath), new DateTime(entry.LastWriteTime.Ticks, DateTimeKind.Utc));
 
                     UnitsProcessed += (long)entry.Size;

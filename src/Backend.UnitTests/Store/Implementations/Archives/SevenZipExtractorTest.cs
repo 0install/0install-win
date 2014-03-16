@@ -75,7 +75,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (!WindowsUtils.IsWindows) Assert.Ignore("7z extraction relies on a Win32 DLL and therefore will not work on non-Windows platforms");
 
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
-                Assert.Throws<IOException>(() => Extractor.FromStream(new MemoryStream(_garbageData), sandbox, Archive.MimeType7Z));
+                Assert.Throws<IOException>(() => Extractor.FromStream(new MemoryStream(_garbageData), sandbox, Archive.MimeType7Z).Run());
         }
     }
 }
