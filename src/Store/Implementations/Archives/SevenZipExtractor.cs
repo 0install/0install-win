@@ -73,7 +73,6 @@ namespace ZeroInstall.Store.Implementations.Archives
 
                     Status = TaskStatus.Data;
                     if (!Directory.Exists(EffectiveTargetDir)) Directory.CreateDirectory(EffectiveTargetDir);
-
                     if (extractor.IsSolid || string.IsNullOrEmpty(SubDir)) ExtractComplete(extractor);
                     else ExtractIndividual(extractor);
                 }
@@ -115,9 +114,10 @@ namespace ZeroInstall.Store.Implementations.Archives
                 if (CancellationToken.IsCancellationRequested) e.Cancel = true;
             };
 
+            CancellationToken.ThrowIfCancellationRequested();
             if (string.IsNullOrEmpty(SubDir)) extractor.ExtractArchive(EffectiveTargetDir);
             else
-            {
+            { // Use an intermediate temp directory in order to get only a subdir even though we have to extract everything
                 using (var tempDirectory = new TemporaryDirectory("0install"))
                 {
                     extractor.ExtractArchive(tempDirectory);
@@ -129,6 +129,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                         new MoveDirectory(tempSubDir, EffectiveTargetDir).Run(CancellationToken);
                 }
             }
+            CancellationToken.ThrowIfCancellationRequested();
         }
 
         /// <summary>
