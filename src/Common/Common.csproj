@@ -147,6 +147,7 @@
     <Compile Include="Tasks\IProgress.cs" />
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Tasks\ITaskHandler.cs" />
+    <Compile Include="Tasks\MoveDirectory.cs" />
     <Compile Include="Tasks\Progress.cs" />
     <Compile Include="Tasks\SilentTaskHandler.cs" />
     <Compile Include="Tasks\SimpleTask.cs" />

@@ -55,6 +55,9 @@ namespace Common.Tasks
         /// </summary>
         public bool PreserveDirectoryTimestamps { get; set; }
 
+        /// <summary>
+        /// Overwrite exisiting files and directories at the <see cref="DestinationPath"/>. This will even replace read-only files!
+        /// </summary>
         public bool Overwrite { get; private set; }
 
         /// <summary>
@@ -133,7 +136,7 @@ namespace Common.Tasks
                     if (destinationFile.IsReadOnly) destinationFile.IsReadOnly = false;
                 }
 
-                sourceFile.CopyTo(destinationFile.FullName, Overwrite);
+                CopyFile(sourceFile, destinationFile);
 
                 destinationFile.Refresh();
                 if (destinationFile.IsReadOnly) destinationFile.IsReadOnly = false;
@@ -141,6 +144,11 @@ namespace Common.Tasks
 
                 UnitsProcessed += sourceFile.Length;
             }
+        }
+
+        protected virtual void CopyFile(FileInfo sourceFile, FileInfo destinationFile)
+        {
+            sourceFile.CopyTo(destinationFile.FullName, Overwrite);
         }
 
         private void CopyDirectoryTimestamps(IEnumerable<DirectoryInfo> sourceDirectories)
