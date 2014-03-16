@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.IO;
 
 namespace Common.Tasks
@@ -49,6 +50,11 @@ namespace Common.Tasks
 
         protected override void CopyFile(FileInfo sourceFile, FileInfo destinationFile)
         {
+            #region Sanity checks
+            if (sourceFile == null) throw new ArgumentNullException("sourceFile");
+            if (destinationFile == null) throw new ArgumentNullException("destinationFile");
+            #endregion
+
             if (Overwrite && destinationFile.Exists) destinationFile.Delete();
             sourceFile.MoveTo(destinationFile.FullName);
         }

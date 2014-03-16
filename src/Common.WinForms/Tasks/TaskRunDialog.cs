@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Windows.Forms;
 using Common.Properties;
@@ -77,6 +78,7 @@ namespace Common.Tasks
         /// </summary>
         public Exception Exception { get; private set; }
 
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Exceptions are rethrown on the UI thread.")]
         private void RunTask()
         {
             try

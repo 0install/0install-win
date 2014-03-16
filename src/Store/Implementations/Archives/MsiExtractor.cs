@@ -167,7 +167,14 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing) _database.Close();
+            try
+            {
+                if (disposing) _database.Close();
+            }
+            finally
+            {
+                base.Dispose(disposing);
+            }
         }
         #endregion
 
