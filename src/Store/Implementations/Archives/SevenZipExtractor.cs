@@ -37,6 +37,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             SevenZipBase.SetLibraryPath(Path.Combine(Locations.InstallBase, WindowsUtils.Is64BitProcess ? "7zxa-x64.dll" : "7zxa.dll"));
         }
 
+        private readonly Stream _stream;
         private readonly SevenZip.SevenZipExtractor _extractor;
 
         /// <summary>
@@ -56,6 +57,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             try
             {
+                _stream = stream;
                 _extractor = new SevenZip.SevenZipExtractor(stream);
                 UnitsTotal = _extractor.UnpackedSize;
             }
@@ -80,7 +82,11 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing) _extractor.Dispose();
+            if (disposing)
+            {
+                _extractor.Dispose();
+                _stream.Dispose();
+            }
         }
         #endregion
 
