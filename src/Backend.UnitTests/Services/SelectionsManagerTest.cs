@@ -21,7 +21,7 @@ using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
-namespace ZeroInstall.Services.Solvers
+namespace ZeroInstall.Services
 {
     /// <summary>
     /// Contains test methods for <see cref="SelectionsManager"/>.

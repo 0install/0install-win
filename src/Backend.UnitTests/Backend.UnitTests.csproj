@@ -128,8 +128,8 @@
     <Compile Include="Store\Model\SingleFileTest.cs" />
     <Compile Include="Store\Model\VersionRangeTest.cs" />
     <Compile Include="Store\Model\XmlUnknownTest.cs" />
+    <Compile Include="Services\SelectionsManagerTest.cs" />
     <Compile Include="Services\Solvers\BacktrackingSolverTest.cs" />
-    <Compile Include="Services\Solvers\SelectionsManagerTest.cs" />
     <Compile Include="Services\Solvers\SolverTest.cs" />
     <Compile Include="Services\Solvers\SolverUtilsTest.cs" />
     <Compile Include="Store\ConfigTest.cs" />

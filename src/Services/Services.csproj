@@ -82,6 +82,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="SelectionsFormatter.cs" />
+    <Compile Include="SelectionsManager.cs" />
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="SilentHandler.cs" />
     <Compile Include="Solvers\BacktrackingSolver.cs" />
@@ -93,8 +95,6 @@
     <Compile Include="Solvers\External\SolverControlNative.cs" />
     <Compile Include="Solvers\FallbackSolver.cs" />
     <Compile Include="Solvers\SelectionCandidateComparer.cs" />
-    <Compile Include="Solvers\SelectionsFormatter.cs" />
-    <Compile Include="Solvers\SelectionsManager.cs" />
     <Compile Include="Solvers\SolverFactory.cs" />
     <Compile Include="Solvers\SolverRun.cs" />
     <Compile Include="Solvers\SolverUtils.cs" />

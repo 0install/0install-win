@@ -24,7 +24,7 @@ using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
-namespace ZeroInstall.Services.Solvers
+namespace ZeroInstall.Services
 {
     /// <summary>
     /// Contains helper methods for filtering <see cref="Selections"/>.

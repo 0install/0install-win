@@ -23,7 +23,7 @@ using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model.Selection;
 
-namespace ZeroInstall.Services.Solvers
+namespace ZeroInstall.Services
 {
     /// <summary>
     /// Formats <see cref="Selections"/> for string output.
