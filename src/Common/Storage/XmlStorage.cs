@@ -182,7 +182,7 @@ namespace Common.Storage
         /// <summary>
         /// Loads an object from an XML string.
         /// </summary>
-        /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
+        /// <typeparam name="T">The type of object the XML string shall be converted into.</typeparam>
         /// <param name="data">The XML string to be parsed.</param>
         /// <returns>The loaded object.</returns>
         /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
@@ -264,7 +264,7 @@ namespace Common.Storage
         /// <summary>
         /// Returns an object as an XML string ending with a line break.
         /// </summary>
-        /// <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
+        /// <typeparam name="T">The type of object to be saved in an XML string.</typeparam>
         /// <param name="data">The object to be stored.</param>
         /// <returns>A string containing the XML code.</returns>
         public static string ToXmlString<T>(this T data)
