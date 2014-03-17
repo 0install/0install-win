@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Model
 
         /// <summary>Supports only FreeBSD.</summary>
         [XmlEnum("FreeBSD")]
-        FreeBSD,
+        FreeBsd,
 
         /// <summary>Supports only MacOS X.</summary>
         [XmlEnum("MacOSX")]
@@ -106,11 +106,11 @@ namespace ZeroInstall.Store.Model
 
         /// <summary>Supports CPUs with the PowerPC-architecture (used in older Macs).</summary>
         [XmlEnum("ppc")]
-        PPC,
+        Ppc,
 
         /// <summary>Requires a 64-bit capable PowerPC CPU.</summary>
         [XmlEnum("ppc64")]
-        PPC64,
+        Ppc64,
 
         /// <summary>This is a source release and therefore architecture-independent.</summary>
         [XmlEnum("src")]
@@ -132,10 +132,10 @@ namespace ZeroInstall.Store.Model
     {
         #region Constants
         /// <summary>A list of all known <see cref="OS"/> values.</summary>
-        public static readonly OS[] KnownOS = {OS.All, OS.Linux, OS.Solaris, OS.FreeBSD, OS.MacOSX, OS.Darwin, OS.Windows, OS.Cygwin};
+        public static readonly OS[] KnownOS = {OS.All, OS.Linux, OS.Solaris, OS.FreeBsd, OS.MacOSX, OS.Darwin, OS.Windows, OS.Cygwin};
 
         /// <summary>A list of all known <see cref="Cpu"/> values, except for <see cref="Store.Model.Cpu.Source"/>.</summary>
-        public static readonly Cpu[] KnownCpu = {Cpu.All, Cpu.I386, Cpu.I486, Cpu.I586, Cpu.I686, Cpu.X64, Cpu.PPC, Cpu.PPC64};
+        public static readonly Cpu[] KnownCpu = {Cpu.All, Cpu.I386, Cpu.I486, Cpu.I586, Cpu.I686, Cpu.X64, Cpu.Ppc, Cpu.Ppc64};
         #endregion
 
         #region Properties
@@ -209,7 +209,7 @@ namespace ZeroInstall.Store.Model
                 case "Solaris":
                     return OS.Solaris;
                 case "FreeBSD":
-                    return OS.FreeBSD;
+                    return OS.FreeBsd;
                 case "MacOSX":
                     return OS.MacOSX;
                 case "Darwin":
@@ -246,9 +246,9 @@ namespace ZeroInstall.Store.Model
                 case "x86_64":
                     return Cpu.X64;
                 case "ppc":
-                    return Cpu.PPC;
+                    return Cpu.Ppc;
                 case "ppc64":
-                    return Cpu.PPC64;
+                    return Cpu.Ppc64;
                 case "src":
                     return Cpu.Source;
                 default:

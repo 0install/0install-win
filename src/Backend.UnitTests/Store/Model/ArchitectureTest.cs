@@ -67,7 +67,7 @@ namespace ZeroInstall.Store.Model
             Assert.IsFalse(new Architecture(OS.MacOSX, Cpu.I686).IsCompatible(new Architecture(OS.Darwin, Cpu.I686)));
             Assert.IsTrue(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.Linux, Cpu.I686)));
             Assert.IsTrue(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.Solaris, Cpu.I686)));
-            Assert.IsTrue(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.FreeBSD, Cpu.I686)));
+            Assert.IsTrue(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.FreeBsd, Cpu.I686)));
             Assert.IsTrue(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.Darwin, Cpu.I686)));
             Assert.IsTrue(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.MacOSX, Cpu.I686)));
             Assert.IsTrue(new Architecture(OS.Posix, Cpu.I686).IsCompatible(new Architecture(OS.Posix, Cpu.I686)));
@@ -79,8 +79,8 @@ namespace ZeroInstall.Store.Model
             Assert.IsTrue(new Architecture(OS.MacOSX, Cpu.All).IsCompatible(new Architecture(OS.MacOSX, Cpu.I686)));
 
             // CPU mismatches
-            Assert.IsFalse(new Architecture(OS.MacOSX, Cpu.I686).IsCompatible(new Architecture(OS.MacOSX, Cpu.PPC)));
-            Assert.IsFalse(new Architecture(OS.Linux, Cpu.PPC).IsCompatible(new Architecture(OS.Linux, Cpu.I586)));
+            Assert.IsFalse(new Architecture(OS.MacOSX, Cpu.I686).IsCompatible(new Architecture(OS.MacOSX, Cpu.Ppc)));
+            Assert.IsFalse(new Architecture(OS.Linux, Cpu.Ppc).IsCompatible(new Architecture(OS.Linux, Cpu.I586)));
 
             // x86-series backwards-compatibility
             Assert.IsTrue(new Architecture(OS.Linux, Cpu.I386).IsCompatible(new Architecture(OS.Linux, Cpu.I686)));
@@ -89,8 +89,8 @@ namespace ZeroInstall.Store.Model
             // 32bit/64bit exclusion
             Assert.IsFalse(new Architecture(OS.Linux, Cpu.I386).IsCompatible(new Architecture(OS.Linux, Cpu.X64)));
             Assert.IsFalse(new Architecture(OS.Linux, Cpu.X64).IsCompatible(new Architecture(OS.Linux, Cpu.I686)));
-            Assert.IsFalse(new Architecture(OS.MacOSX, Cpu.PPC).IsCompatible(new Architecture(OS.MacOSX, Cpu.PPC64)));
-            Assert.IsFalse(new Architecture(OS.MacOSX, Cpu.PPC64).IsCompatible(new Architecture(OS.MacOSX, Cpu.PPC)));
+            Assert.IsFalse(new Architecture(OS.MacOSX, Cpu.Ppc).IsCompatible(new Architecture(OS.MacOSX, Cpu.Ppc64)));
+            Assert.IsFalse(new Architecture(OS.MacOSX, Cpu.Ppc64).IsCompatible(new Architecture(OS.MacOSX, Cpu.Ppc)));
         }
     }
 }

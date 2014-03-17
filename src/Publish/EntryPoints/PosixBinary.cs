@@ -64,9 +64,9 @@ namespace ZeroInstall.Publish.EntryPoints
                 case Machine.AMD64:
                     return Cpu.X64;
                 case Machine.PPC:
-                    return Cpu.PPC;
+                    return Cpu.Ppc;
                 case Machine.PPC64:
-                    return Cpu.PPC64;
+                    return Cpu.Ppc64;
                 default:
                     return Cpu.Unknown;
             }

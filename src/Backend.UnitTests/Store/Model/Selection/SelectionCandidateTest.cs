@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.Model.Selection
             Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(),
                 implementation, new Requirements {Command = Command.NameRun, Architecture = implementation.Architecture}).IsSuitable);
             Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(),
-                implementation, new Requirements {Command = Command.NameRun, Architecture = new Architecture(OS.FreeBSD, Cpu.PPC)}).IsSuitable);
+                implementation, new Requirements {Command = Command.NameRun, Architecture = new Architecture(OS.FreeBsd, Cpu.Ppc)}).IsSuitable);
         }
 
         [Test]

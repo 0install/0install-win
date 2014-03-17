@@ -145,7 +145,7 @@ namespace ZeroInstall.Store.Model
             return new Group
             {
                 Languages = {"de"},
-                Architecture = new Architecture(OS.FreeBSD, Cpu.I586),
+                Architecture = new Architecture(OS.FreeBsd, Cpu.I586),
                 License = "GPL",
                 Stability = Stability.Developer,
                 Elements =
@@ -208,14 +208,14 @@ namespace ZeroInstall.Store.Model
             feed.Normalize("http://0install.de/feeds/test/test1.xml");
 
             var implementation = feed.Elements[0];
-            Assert.AreEqual(new Architecture(OS.FreeBSD, Cpu.I586), implementation.Architecture);
+            Assert.AreEqual(new Architecture(OS.FreeBsd, Cpu.I586), implementation.Architecture);
             Assert.AreEqual("de", implementation.Languages.ToString());
             Assert.AreEqual("GPL", implementation.License);
             Assert.AreEqual(Stability.Developer, implementation.Stability);
             Assert.AreEqual("main1", implementation[Command.NameRun].Path);
 
             implementation = feed.Elements[1];
-            Assert.AreEqual(new Architecture(OS.FreeBSD, Cpu.I586), implementation.Architecture);
+            Assert.AreEqual(new Architecture(OS.FreeBsd, Cpu.I586), implementation.Architecture);
             Assert.AreEqual("de", implementation.Languages.ToString());
             Assert.AreEqual("GPL", implementation.License);
             Assert.AreEqual(Stability.Developer, implementation.Stability);
