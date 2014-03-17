@@ -64,11 +64,7 @@ namespace Common.Tasks
         {
             _progress.ProgressChanged += trackingProgressBar.Report;
             _progress.ProgressChanged += labelProgress.Report;
-            _progress.ProgressChanged += progress =>
-            {
-                if (progress.Status >= TaskStatus.Complete)
-                    Close();
-            };
+            _progress.ProgressChanged += progress => { if (progress.Status == TaskStatus.Complete) Close(); };
 
             _taskThread.Start();
         }
