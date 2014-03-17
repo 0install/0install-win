@@ -40,10 +40,10 @@ namespace ZeroInstall.Services.Solvers
         {
             ISolver
                 backtrackingSolver = new BacktrackingSolver(config, feedManager, store, handler),
-                externalSovler = new ExternalSolver(config, feedCache, feedManager, handler),
-                fallbackSolver = new FallbackSolver(backtrackingSolver, externalSovler);
+                pythonSolver = new PythonSolver(config, feedCache, feedManager, handler),
+                fallbackSolver = new FallbackSolver(backtrackingSolver, pythonSolver);
 
-            return config.ExperimentalSolver ? fallbackSolver : externalSovler;
+            return config.ExperimentalSolver ? fallbackSolver : pythonSolver;
         }
     }
 }

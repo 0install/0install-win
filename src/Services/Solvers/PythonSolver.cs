@@ -22,7 +22,7 @@ using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Properties;
-using ZeroInstall.Services.Solvers.External;
+using ZeroInstall.Services.Solvers.Python;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
@@ -31,10 +31,10 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
-    /// Uses an external process to solve requirements.
+    /// Uses a Python process to solve requirements.
     /// </summary>
     /// <remarks>This class is immutable and thread-safe.</remarks>
-    public sealed class ExternalSolver : ISolver
+    public sealed class PythonSolver : ISolver
     {
         #region Dependencies
         private readonly Config _config;
@@ -43,13 +43,13 @@ namespace ZeroInstall.Services.Solvers
         private readonly IInteractionHandler _handler;
 
         /// <summary>
-        /// Creates a new external solver.
+        /// Creates a new Python solver.
         /// </summary>
         /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
         /// <param name="feedCache">Provides access to a cache of <see cref="Feed"/>s that were downloaded via HTTP(S).</param>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public ExternalSolver(Config config, IFeedCache feedCache, IFeedManager feedManager, IInteractionHandler handler)
+        public PythonSolver(Config config, IFeedCache feedCache, IFeedManager feedManager, IInteractionHandler handler)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
@@ -59,7 +59,6 @@ namespace ZeroInstall.Services.Solvers
             #endregion
 
             _config = config;
-
             _feedCache = feedCache;
             _feedManager = feedManager;
             _handler = handler;

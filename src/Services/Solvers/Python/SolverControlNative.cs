@@ -21,10 +21,10 @@ using Common.Cli;
 using Common.Storage;
 using ZeroInstall.Store;
 
-namespace ZeroInstall.Services.Solvers.External
+namespace ZeroInstall.Services.Solvers.Python
 {
     /// <summary>
-    /// Interacts with the external process used by <see cref="ExternalSolver"/> using a native Python distribution.
+    /// Interacts with the external process used by <see cref="PythonSolver"/> using a native Python distribution.
     /// </summary>
     internal sealed class SolverControlNative : CliAppControl, ISolverControl
     {

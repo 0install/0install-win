@@ -22,10 +22,10 @@ using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Store;
 
-namespace ZeroInstall.Services.Solvers.External
+namespace ZeroInstall.Services.Solvers.Python
 {
     /// <summary>
-    /// Interacts with the external process used by <see cref="ExternalSolver"/> using a bundled Python distribution.
+    /// Interacts with the external process used by <see cref="PythonSolver"/> using a bundled Python distribution.
     /// </summary>
     internal sealed class SolverControlBundled : BundledCliAppControl, ISolverControl
     {

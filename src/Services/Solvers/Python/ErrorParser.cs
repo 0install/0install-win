@@ -23,10 +23,10 @@ using Common;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 
-namespace ZeroInstall.Services.Solvers.External
+namespace ZeroInstall.Services.Solvers.Python
 {
     /// <summary>
-    /// Helper class for <see cref="ExternalSolver"/> for parsing <see cref="Process.StandardError"/> data.
+    /// Helper class for <see cref="PythonSolver"/> for parsing <see cref="Process.StandardError"/> data.
     /// </summary>
     internal class ErrorParser
     {

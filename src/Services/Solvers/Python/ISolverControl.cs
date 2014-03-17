@@ -17,10 +17,10 @@
 
 using System.IO;
 
-namespace ZeroInstall.Services.Solvers.External
+namespace ZeroInstall.Services.Solvers.Python
 {
     /// <summary>
-    /// Interacts with the external process used by <see cref="ExternalSolver"/>.
+    /// Interacts with the external process used by <see cref="PythonSolver"/>.
     /// </summary>
     internal interface ISolverControl
     {
