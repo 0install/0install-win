@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Common.Storage;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model
@@ -75,6 +76,14 @@ namespace ZeroInstall.Store.Model
             Assert.AreEqual(
                 "--command=command --os=Windows --cpu=i586 --version=1.0..!2.0 --version-for=http://0install.de/feeds/test/test2.xml 2.0..!3.0 http://0install.de/feeds/test/test1.xml",
                 CreateTestRequirements().Clone().ToCommandLineArgs());
+        }
+
+        [Test]
+        public void TestJson()
+        {
+            Assert.AreEqual(
+                expected: "{\"interface\":\"http://0install.de/feeds/test/test1.xml\",\"command\":\"command\",\"source\":false,\"os\":\"Windows\",\"cpu\":\"i586\",\"extra_restrictions\":{\"http://0install.de/feeds/test/test2.xml\":\"2.0..!3.0\"}}",
+                actual: CreateTestRequirements().ToJsonString());
         }
     }
 }

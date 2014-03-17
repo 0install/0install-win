@@ -19,10 +19,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using Common.Collections;
 using Common.Utils;
+using Newtonsoft.Json;
 using ZeroInstall.Store.Model.Design;
 
 namespace ZeroInstall.Store.Model
@@ -35,7 +37,7 @@ namespace ZeroInstall.Store.Model
     [XmlRoot("requirements", Namespace = Feed.XmlNamespace), XmlType("requirements", Namespace = Feed.XmlNamespace)]
     public class Requirements : ICloneable, IEquatable<Requirements>
     {
-        #region Properites
+        #region Properties
         private string _interfaceID;
 
         /// <summary>
@@ -43,7 +45,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <exception cref="InvalidInterfaceIDException">Thrown when trying to set an invalid interface ID.</exception>
         [Description("The URI or local path (must be absolute) to the interface to solve the dependencies for.")]
-        [XmlAttribute("interface")]
+        [XmlAttribute("interface"), JsonProperty("interface")]
         public string InterfaceID
         {
             get { return _interfaceID; }
@@ -58,7 +60,7 @@ namespace ZeroInstall.Store.Model
         /// The name of the command in the implementation to execute. Will default to <see cref="Store.Model.Command.NameRun"/> or <see cref="Store.Model.Command.NameCompile"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.
         /// </summary>
         [Description("The name of the command in the implementation to execute. Will default to 'run' or 'compile' if null. Will not try to find any command if set to ''.")]
-        [XmlAttribute("command")]
+        [XmlAttribute("command"), JsonProperty("command")]
         [TypeConverter(typeof(CommandNameConverter))]
         public string Command { get; set; }
 
@@ -67,14 +69,32 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <remarks>Will default to <see cref="Store.Model.Architecture.CurrentSystem"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.</remarks>
         [Description("The architecture to find executables for. Find for the current system if left at default value.")]
-        [XmlIgnore]
+        [XmlIgnore, JsonIgnore]
         public Architecture Architecture { get; set; }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Architecture"/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        [XmlAttribute("arch"), DefaultValue("*-*")]
+        [XmlAttribute("arch"), DefaultValue("*-*"), JsonIgnore]
         public string ArchitectureString { get { return Architecture.ToString(); } set { Architecture = new Architecture(value); } }
+
+        /// <summary>Used for JSON serialization.</summary>
+        /// <seealso cref="Architecture"/>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [XmlIgnore, JsonProperty("source")]
+        public bool Source { get { return Architecture.Cpu == Cpu.Source; } set { if (value) Architecture = new Architecture(Architecture.OS, Cpu.Source); } }
+
+        /// <summary>Used for JSON serialization.</summary>
+        /// <seealso cref="Architecture"/>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [XmlIgnore, JsonProperty("os")]
+        public string OSString { get { return Architecture.OS.ConvertToString(); } set { Architecture = new Architecture(value.ConvertFromString<OS>(), Architecture.Cpu); } }
+
+        /// <summary>Used for JSON serialization.</summary>
+        /// <seealso cref="Architecture"/>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [XmlIgnore, JsonProperty("cpu")]
+        public string CpuString { get { return Architecture.Cpu.ConvertToString(); } set { Architecture = new Architecture(Architecture.OS, value.ConvertFromString<Cpu>()); } }
 
         // Order is always alphabetical, duplicate entries are not allowed
         private LanguageSet _languages = new LanguageSet();
@@ -85,7 +105,7 @@ namespace ZeroInstall.Store.Model
         /// <example>For example, the value "en_GB fr" would be search for British English or French.</example>
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Complete set can be replaced by PropertyGrid.")]
         [Description("The natural language(s) to look for.")]
-        [XmlIgnore]
+        [XmlIgnore, JsonIgnore]
         public LanguageSet Languages
         {
             get { return _languages; }
@@ -102,19 +122,20 @@ namespace ZeroInstall.Store.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Architecture"/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        [XmlAttribute("langs"), DefaultValue("")]
+        [XmlAttribute("langs"), DefaultValue(""), JsonIgnore]
         public string LanguagesString { get { return _languages.ToString(); } set { _languages = new LanguageSet(value); } }
 
         /// <summary>
         /// The range of versions of the implementation that can be chosen. <see langword="null"/> for no limit.
         /// </summary>
         [Description("The range of versions of the implementation that can be chosen. null for no limit.")]
-        [XmlIgnore]
+        [XmlIgnore, JsonIgnore]
         public VersionRange Versions { get; set; }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Versions"/>
-        [XmlAttribute("version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        [XmlAttribute("version"), JsonIgnore]
         public string VersionsString { get { return (Versions == null) ? null : Versions.ToString(); } set { Versions = string.IsNullOrEmpty(value) ? null : new VersionRange(value); } }
 
         private readonly List<VersionFor> _versionsFor = new List<VersionFor>();
@@ -123,8 +144,22 @@ namespace ZeroInstall.Store.Model
         /// The ranges of versions of specific sub-implementations that can be chosen.
         /// </summary>
         [Description("The ranges of versions of specific sub-implementations that can be chosen.")]
-        [XmlElement("version-for")]
+        [XmlElement("version-for"), JsonIgnore]
         public List<VersionFor> VersionsFor { get { return _versionsFor; } }
+
+        /// <summary>Used for JSON serialization.</summary>
+        /// <seealso cref="VersionsFor"/>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [XmlIgnore, JsonProperty("extra_restrictions")]
+        public Dictionary<string, string> ExtraRestrictions
+        {
+            get { return _versionsFor.ToDictionary(x => x.InterfaceID, x => x.VersionsString); }
+            set
+            {
+                _versionsFor.Clear();
+                _versionsFor.AddRange(value.Select(x => new VersionFor {InterfaceID = x.Key, VersionsString = x.Value}));
+            }
+        }
         #endregion
 
         //--------------------//
