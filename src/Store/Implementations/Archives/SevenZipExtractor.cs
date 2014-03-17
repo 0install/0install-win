@@ -108,11 +108,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         private void ExtractComplete(SevenZip.SevenZipExtractor extractor)
         {
-            extractor.Extracting += (sender, e) =>
-            {
-                UnitsProcessed = UnitsTotal * e.PercentDone / 100;
-                if (CancellationToken.IsCancellationRequested) e.Cancel = true;
-            };
+            extractor.Extracting += (sender, e) => { UnitsProcessed = UnitsTotal * e.PercentDone / 100; };
 
             CancellationToken.ThrowIfCancellationRequested();
             if (string.IsNullOrEmpty(SubDir)) extractor.ExtractArchive(EffectiveTargetDir);
