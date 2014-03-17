@@ -65,6 +65,12 @@ namespace ZeroInstall.Services.Feeds
             _trustManager = trustManager;
             _handler = handler;
         }
+
+        /// <inheritdoc/>
+        public void Flush()
+        {
+            _feedCache.Flush();
+        }
         #endregion
 
         #region Properties

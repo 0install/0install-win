@@ -66,5 +66,10 @@ namespace ZeroInstall.Services.Feeds
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the feed file or the cache is not permitted.</exception>
         /// <exception cref="SignatureException">Thrown if the signature data of the feed file could not be handled or if no signatures were trusted.</exception>
         void ImportFeed(Uri uri, byte[] data, Uri mirrorUri = null);
+
+        /// <summary>
+        /// Calls <see cref="IFeedCache.Flush"/> on the underlying <see cref="IFeedCache"/>.
+        /// </summary>
+        void Flush();
     }
 }
