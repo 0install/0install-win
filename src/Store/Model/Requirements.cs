@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 using Common.Collections;
 using Common.Utils;
@@ -196,28 +195,6 @@ namespace ZeroInstall.Store.Model
         public override string ToString()
         {
             return string.Format("{0} ({1})", InterfaceID, Command);
-        }
-
-        /// <summary>
-        /// Transforms the requirements into a command-line argument string.
-        /// </summary>
-        public string ToCommandLineArgs()
-        {
-            var builder = new StringBuilder();
-
-            if (Command != null) builder.Append("--command=" + Command.EscapeArgument() + " ");
-            if (Architecture.Cpu == Cpu.Source) builder.Append("--source ");
-            else
-            {
-                if (Architecture.OS != OS.All) builder.Append("--os=" + Architecture.OS.ConvertToString().EscapeArgument() + " ");
-                if (Architecture.Cpu != Cpu.All) builder.Append("--cpu=" + Architecture.Cpu.ConvertToString().EscapeArgument() + " ");
-            }
-            //builder.Append("--languages=" + _languages.ToXmlString().EscapeArgument() + " ");
-            foreach (var pair in ExtraRestrictions)
-                builder.Append("--version-for=" + pair.InterfaceID.EscapeArgument() + " " + pair.Versions.ToString().EscapeArgument() + " ");
-            builder.Append(InterfaceID.EscapeArgument());
-
-            return builder.ToString();
         }
         #endregion
 

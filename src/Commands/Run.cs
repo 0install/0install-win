@@ -129,7 +129,7 @@ namespace ZeroInstall.Commands
             {
                 ProcessUtils.LaunchAssembly(
                     /*MonoUtils.IsUnix ? "0install-gtk" :*/ "0install-win",
-                    "update --batch " + Requirements.ToCommandLineArgs());
+                    "update --batch " + Requirements.ToCommandLine());
             }
         }
 

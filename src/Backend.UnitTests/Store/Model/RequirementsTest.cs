@@ -17,6 +17,7 @@
 
 using Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.Services;
 
 namespace ZeroInstall.Store.Model
 {
@@ -78,7 +79,7 @@ namespace ZeroInstall.Store.Model
         {
             Assert.AreEqual(
                 "--command=command --os=Windows --cpu=i586 --version-for=http://0install.de/feeds/test/test1.xml 1.0..!2.0 --version-for=http://0install.de/feeds/test/test2.xml 2.0..!3.0 http://0install.de/feeds/test/test1.xml",
-                CreateTestRequirements().Clone().ToCommandLineArgs());
+                CreateTestRequirements().Clone().ToCommandLine());
         }
 
         [Test]
