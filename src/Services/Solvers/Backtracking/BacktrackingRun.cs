@@ -74,7 +74,7 @@ namespace ZeroInstall.Services.Solvers.Backtracking
         private bool ConflictsWithExistingRestrictions(SelectionCandidate candidate, string interfaceID)
         {
             return _restrictions.Any(restriction =>
-                restriction.Interface == interfaceID && !restriction.EffectiveVersions.Match(candidate.Version));
+                restriction.Interface == interfaceID && !restriction.Versions.Match(candidate.Version));
         }
 
         private bool ConflictsWithExistingSelections(SelectionCandidate candidate)
@@ -82,7 +82,7 @@ namespace ZeroInstall.Services.Solvers.Backtracking
             return candidate.Implementation.Restrictions.Any(restriction =>
             {
                 var implemenation = Selections.GetImplementation(restriction.Interface);
-                return implemenation != null && !restriction.EffectiveVersions.Match(implemenation.Version);
+                return implemenation != null && !restriction.Versions.Match(implemenation.Version);
             });
         }
 

@@ -71,12 +71,19 @@ namespace ZeroInstall.Store.Model
         /// <seealso cref="Versions"/>
         [XmlAttribute("version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string VersionsString { get { return (Versions == null) ? null : Versions.ToString(); } set { Versions = string.IsNullOrEmpty(value) ? null : new VersionRange(value); } }
+        #endregion
 
+        //--------------------//
+
+        #region Normalize
         /// <summary>
-        /// A merged view of <see cref="Constraints"/> and <see cref="Versions"/>.
+        /// Handles legacy elements (converts <see cref="Constraints"/> to <see cref="Versions"/>).
         /// </summary>
-        [XmlIgnore, Browsable(false)]
-        public VersionRange EffectiveVersions { get { return Constraints.Aggregate(Versions ?? new VersionRange(), (current, constraint) => current.Intersect(constraint)); } }
+        /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
+        public void Normalize()
+        {
+            Versions = Constraints.Aggregate(Versions ?? new VersionRange(), (current, constraint) => current.Intersect(constraint));
+        }
         #endregion
 
         //--------------------//

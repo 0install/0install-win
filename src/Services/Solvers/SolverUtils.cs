@@ -108,7 +108,7 @@ namespace ZeroInstall.Services.Solvers
                 {
                     InterfaceID = dependency.Interface,
                     Command = "",
-                    Versions = dependency.EffectiveVersions,
+                    Versions = dependency.Versions,
                     Architecture = topLevelRequirements.Architecture
                 };
                 requirements.VersionsFor.AddRange(topLevelRequirements.VersionsFor);
@@ -122,7 +122,7 @@ namespace ZeroInstall.Services.Solvers
                     {
                         InterfaceID = dependency.Interface,
                         Command = binding.Command ?? Command.NameRun,
-                        Versions = dependency.EffectiveVersions,
+                        Versions = dependency.Versions,
                         Architecture = topLevelRequirements.Architecture
                     };
                     requirements.VersionsFor.AddRange(topLevelRequirements.VersionsFor);
@@ -142,7 +142,7 @@ namespace ZeroInstall.Services.Solvers
             {
                 InterfaceID = runner.Interface,
                 Command = runner.Command ?? Command.NameRun,
-                Versions = runner.EffectiveVersions,
+                Versions = runner.Versions,
                 Architecture = topLevelRequirements.Architecture
             };
             requirements.VersionsFor.AddRange(topLevelRequirements.VersionsFor);

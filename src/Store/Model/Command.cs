@@ -132,6 +132,8 @@ namespace ZeroInstall.Store.Model
             _restrictions.RemoveAll(FilterMismatch);
             _bindings.RemoveAll(FilterMismatch);
             if (FilterMismatch(WorkingDir)) WorkingDir = null;
+
+            foreach (var restriction in Restrictions) restriction.Normalize();
         }
         #endregion
 

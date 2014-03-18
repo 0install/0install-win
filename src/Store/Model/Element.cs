@@ -229,6 +229,7 @@ namespace ZeroInstall.Store.Model
             if (Main != null) Commands.Add(new Command {Name = Command.NameRun, Path = Main});
             if (SelfTest != null) Commands.Add(new Command {Name = Command.NameTest, Path = SelfTest});
 
+            foreach (var restriction in Restrictions) restriction.Normalize();
             foreach (var command in Commands) command.Normalize();
         }
 

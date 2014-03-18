@@ -61,10 +61,10 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
-        /// Ensures <see cref="Restriction.EffectiveVersions"/> deduces correct values from <see cref="Restriction.Constraints"/>.
+        /// Ensures <see cref="Restriction.Normalize"/> deduces correct <see cref="Restriction.Versions"/> values from <see cref="Restriction.Constraints"/>.
         /// </summary>
         [Test]
-        public void TestConstraintCollapsing()
+        public void TestNormalize()
         {
             var restriction = new Restriction
             {
@@ -74,7 +74,8 @@ namespace ZeroInstall.Store.Model
                     new Constraint {NotBefore = new ImplementationVersion("0.9"), Before = new ImplementationVersion("1.9")},
                 }
             };
-            Assert.AreEqual(new VersionRange("1.0..!1.9"), restriction.EffectiveVersions);
+            restriction.Normalize();
+            Assert.AreEqual(new VersionRange("1.0..!1.9"), restriction.Versions);
         }
     }
 }
