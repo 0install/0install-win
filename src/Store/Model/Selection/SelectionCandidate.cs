@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using ZeroInstall.Store.Model.Preferences;
 using ZeroInstall.Store.Properties;
 
@@ -138,7 +139,7 @@ namespace ZeroInstall.Store.Model.Selection
                 Notes = Resources.SelectionCandidateNoteIncompatibleArchitecture;
             else if (!Implementation.Languages.ContainsAny(requirements.Languages))
                 Notes = Resources.SelectionCandidateNoteWrongLanguage;
-            else if (requirements.Versions != null && !requirements.Versions.Match(Version))
+            else if (requirements.RootRestrictions.Any(x => !x.Match(Version)))
                 Notes = Resources.SelectionCandidateNoteVersionMismatch;
             else if (EffectiveStability == Stability.Buggy)
                 Notes = Resources.SelectionCandidateNoteBuggy;

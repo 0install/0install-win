@@ -194,6 +194,22 @@ namespace ZeroInstall.Services.Solvers
         }
 
         [Test]
+        public void ExtraRestrictions()
+        {
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /></implementation><implementation version='2.0' id='app2'><command name='run' path='test-app' /></implementation>"}
+                },
+                requirements: new Requirements
+                {
+                    InterfaceID = "http://test/app.xml", Command = Command.NameRun,
+                    ExtraRestrictions = {new VersionFor {InterfaceID = "http://test/app.xml", Versions = new VersionRange("..!2.0")}}
+                },
+                expectedSelections: "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /></selection>");
+        }
+
+        [Test]
         public void X86OnX64()
         {
             if (Architecture.CurrentSystem.Cpu != Cpu.X64) Assert.Ignore("Can only test on X64 systems");

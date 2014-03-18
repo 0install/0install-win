@@ -28,7 +28,7 @@ namespace ZeroInstall.Commands
     public static class RequirementsExtensions
     {
         /// <summary>
-        /// Configures an <see cref="OptionSet"/> parser to write data to a <see cref="Requirements"/> isntance.
+        /// Configures an <see cref="OptionSet"/> parser to write data to a <see cref="Requirements"/> instance.
         /// </summary>
         [CLSCompliant(false)]
         public static void FromCommandLine(this Requirements requirements, OptionSet options)
@@ -38,21 +38,16 @@ namespace ZeroInstall.Commands
             if (options == null) throw new ArgumentNullException("options");
             #endregion
 
-            options.Add("command=", () => Resources.OptionCommand, command => requirements.Command = command);
+            options.Add("command=", () => Resources.OptionCommand,
+                command => requirements.Command = command);
+            options.Add("before=", () => Resources.OptionBefore,
+                (ImplementationVersion version) => requirements.ExtraRestrictions.Add(new VersionFor {Versions = new VersionRange("..!" + version)}));
+            options.Add("not-before=", () => Resources.OptionNotBefore,
+                (ImplementationVersion version) => requirements.ExtraRestrictions.Add(new VersionFor {Versions = new VersionRange(version + "..")}));
             options.Add("version=", () => Resources.OptionVersionRange,
-                (VersionRange range) => requirements.Versions = range);
+                (VersionRange range) => requirements.ExtraRestrictions.Add(new VersionFor {Versions = range}));
             options.Add("version-for==", () => Resources.OptionVersionRangeFor,
-                (string interfaceID, VersionRange range) => requirements.VersionsFor.Add(new VersionFor {InterfaceID = interfaceID, Versions = range}));
-            options.Add("before=", () => Resources.OptionBefore, delegate(ImplementationVersion version)
-            {
-                if (requirements.Versions == null) requirements.Versions = new VersionRange();
-                requirements.Versions = requirements.Versions.Intersect(new Constraint {Before = version});
-            });
-            options.Add("not-before=", () => Resources.OptionNotBefore, delegate(ImplementationVersion version)
-            {
-                if (requirements.Versions == null) requirements.Versions = new VersionRange();
-                requirements.Versions = requirements.Versions.Intersect(new Constraint {NotBefore = version});
-            });
+                (string interfaceID, VersionRange range) => requirements.ExtraRestrictions.Add(new VersionFor {InterfaceID = interfaceID, Versions = range}));
             options.Add("s|source", () => Resources.OptionSource,
                 _ => requirements.Architecture = new Architecture(requirements.Architecture.OS, Cpu.Source));
             options.Add("os=", () => Resources.OptionOS + "\n" + FrontendCommand.SupportedValues(Architecture.KnownOS),

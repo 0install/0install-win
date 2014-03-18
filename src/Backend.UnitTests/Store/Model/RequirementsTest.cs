@@ -38,8 +38,11 @@ namespace ZeroInstall.Store.Model
                 Command = "command",
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
                 //Languages = {"de-DE", "en-US"},
-                Versions = new VersionRange("1.0..!2.0"),
-                VersionsFor = {new VersionFor {InterfaceID = "http://0install.de/feeds/test/test2.xml", Versions = new VersionRange("2.0..!3.0")}}
+                ExtraRestrictions =
+                {
+                    new VersionFor {InterfaceID = "http://0install.de/feeds/test/test1.xml", Versions = new VersionRange("1.0..!2.0")},
+                    new VersionFor {InterfaceID = "http://0install.de/feeds/test/test2.xml", Versions = new VersionRange("2.0..!3.0")}
+                }
             };
         }
         #endregion
@@ -74,15 +77,24 @@ namespace ZeroInstall.Store.Model
         public void TestToCommandLineArgs()
         {
             Assert.AreEqual(
-                "--command=command --os=Windows --cpu=i586 --version=1.0..!2.0 --version-for=http://0install.de/feeds/test/test2.xml 2.0..!3.0 http://0install.de/feeds/test/test1.xml",
+                "--command=command --os=Windows --cpu=i586 --version-for=http://0install.de/feeds/test/test1.xml 1.0..!2.0 --version-for=http://0install.de/feeds/test/test2.xml 2.0..!3.0 http://0install.de/feeds/test/test1.xml",
                 CreateTestRequirements().Clone().ToCommandLineArgs());
+        }
+
+        [Test]
+        public void TestRootRestrictions()
+        {
+            var requirements = CreateTestRequirements();
+            CollectionAssert.AreEqual(
+                expected: new[] {new VersionRange("1.0..!2.0")},
+                actual: requirements.RootRestrictions);
         }
 
         [Test]
         public void TestJson()
         {
             Assert.AreEqual(
-                expected: "{\"interface\":\"http://0install.de/feeds/test/test1.xml\",\"command\":\"command\",\"source\":false,\"os\":\"Windows\",\"cpu\":\"i586\",\"extra_restrictions\":{\"http://0install.de/feeds/test/test2.xml\":\"2.0..!3.0\"}}",
+                expected: "{\"interface\":\"http://0install.de/feeds/test/test1.xml\",\"command\":\"command\",\"source\":false,\"os\":\"Windows\",\"cpu\":\"i586\",\"extra_restrictions\":{\"http://0install.de/feeds/test/test1.xml\":\"1.0..!2.0\",\"http://0install.de/feeds/test/test2.xml\":\"2.0..!3.0\"}}",
                 actual: CreateTestRequirements().ToJsonString());
         }
     }

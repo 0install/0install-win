@@ -108,10 +108,10 @@ namespace ZeroInstall.Services.Solvers
                 {
                     InterfaceID = dependency.Interface,
                     Command = "",
-                    Versions = dependency.Versions,
                     Architecture = topLevelRequirements.Architecture
                 };
-                requirements.VersionsFor.AddRange(topLevelRequirements.VersionsFor);
+                requirements.CopyVersionRestrictions(from: dependency);
+                requirements.CopyVersionRestrictions(from: topLevelRequirements);
                 yield return requirements;
             }
             else
@@ -122,10 +122,10 @@ namespace ZeroInstall.Services.Solvers
                     {
                         InterfaceID = dependency.Interface,
                         Command = binding.Command ?? Command.NameRun,
-                        Versions = dependency.Versions,
                         Architecture = topLevelRequirements.Architecture
                     };
-                    requirements.VersionsFor.AddRange(topLevelRequirements.VersionsFor);
+                    requirements.CopyVersionRestrictions(from: dependency);
+                    requirements.CopyVersionRestrictions(from: topLevelRequirements);
                     yield return requirements;
                 }
             }
@@ -142,11 +142,21 @@ namespace ZeroInstall.Services.Solvers
             {
                 InterfaceID = runner.Interface,
                 Command = runner.Command ?? Command.NameRun,
-                Versions = runner.Versions,
                 Architecture = topLevelRequirements.Architecture
             };
-            requirements.VersionsFor.AddRange(topLevelRequirements.VersionsFor);
+            requirements.CopyVersionRestrictions(from: runner);
+            requirements.CopyVersionRestrictions(from: topLevelRequirements);
             return requirements;
+        }
+
+        private static void CopyVersionRestrictions(this Requirements requirements, Restriction from)
+        {
+            if (from.Versions != null) requirements.ExtraRestrictions.Add(new VersionFor {InterfaceID = from.Interface, Versions = from.Versions});
+        }
+
+        private static void CopyVersionRestrictions(this Requirements requirements, Requirements from)
+        {
+            requirements.ExtraRestrictions.AddRange(from.ExtraRestrictions);
         }
 
         /// <summary>
