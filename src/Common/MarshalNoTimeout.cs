@@ -34,7 +34,7 @@ namespace Common
         [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.Infrastructure)]
         public override object InitializeLifetimeService()
         {
-            return null; 
+            return null;
         }
     }
 }

@@ -52,7 +52,7 @@ namespace Common.StructureEditor
         internal IEnumerable<ChildInfo> GetPossibleChildrenFor(TContainer container)
         {
             return _descriptions.SelectMany(description => description.GetPossibleChildrenFor(container))
-                .Append((ChildInfo)null); // split marker
+                .Append(null); // split marker
         }
 
         private abstract class DescriptionBase

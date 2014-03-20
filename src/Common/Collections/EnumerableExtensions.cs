@@ -42,7 +42,7 @@ namespace Common.Collections
         {
             return enumeration.Where(x => !predicate(x));
         }
-        
+
         /// <summary>
         /// Flattens a list of lists.
         /// </summary>

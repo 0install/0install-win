@@ -160,7 +160,7 @@ namespace ZeroInstall.Commands
         public void TestAudit()
         {
             var storeMock = Container.GetMock<IStore>();
-            storeMock.Setup(x => x.ListAll()).Returns(new[] { new ManifestDigest("sha256new_123AB") });
+            storeMock.Setup(x => x.ListAll()).Returns(new[] {new ManifestDigest("sha256new_123AB")});
             storeMock.Setup(x => x.Verify(new ManifestDigest("sha256new_123AB"), MockHandler));
 
             RunAndAssert(null, (int)StoreErrorLevel.OK,

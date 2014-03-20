@@ -28,10 +28,10 @@ using System.Windows.Forms;
 using Common.Properties;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
-
 #if FS_SECURITY
 using System.IO;
 using Common.Utils;
+
 #endif
 
 namespace Common.Controls

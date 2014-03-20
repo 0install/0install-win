@@ -212,7 +212,7 @@ namespace ZeroInstall.Updater
                 var appFiles = new[]
                 {
                     "C5.dll",
-                    "ZeroInstall.Backend.dll", Path.Combine("de", "ZeroInstall.Backend.dll"),  
+                    "ZeroInstall.Backend.dll", Path.Combine("de", "ZeroInstall.Backend.dll"),
                     "ZeroInstall.Fetchers.dll", Path.Combine("de", "ZeroInstall.Fetchers.dll"),
                     "ZeroInstall.Solvers.dll", Path.Combine("de", "ZeroInstall.Solvers.dll"),
                     "ZeroInstall.Injector.dll", Path.Combine("de", "ZeroInstall.Injector.dll"),

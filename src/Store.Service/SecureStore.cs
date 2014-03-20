@@ -20,7 +20,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
-using System.Security.Permissions;
 using System.Security.Principal;
 using Common;
 using Common.Tasks;

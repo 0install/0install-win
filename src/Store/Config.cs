@@ -234,7 +234,7 @@ namespace ZeroInstall.Store
                 {"allow_api_hooking", new PropertyPointer<bool>(() => AllowApiHooking, value => AllowApiHooking = value).ToStringPointer()},
                 {"feed_mirror", new PropertyPointer<Uri>(() => FeedMirror, value => FeedMirror = value, new Uri(DefaultFeedMirror)).ToStringPointer()},
                 {"key_info_server", new PropertyPointer<Uri>(() => KeyInfoServer, value => KeyInfoServer = value, new Uri(DefaultKeyInfoServer)).ToStringPointer()},
-                {"self_update_uri", new PropertyPointer<Uri>(() => SelfUpdateUri, value => SelfUpdateUri = value,  new Uri(DefaultSelfUpdateUri)).ToStringPointer()},
+                {"self_update_uri", new PropertyPointer<Uri>(() => SelfUpdateUri, value => SelfUpdateUri = value, new Uri(DefaultSelfUpdateUri)).ToStringPointer()},
                 {"sync_server", new PropertyPointer<Uri>(() => SyncServer, value => SyncServer = value, new Uri(DefaultSyncServer)).ToStringPointer()},
                 {"sync_server_user", new PropertyPointer<string>(() => SyncServerUsername, value => SyncServerUsername = value, "")},
                 {"sync_server_pw", new PropertyPointer<string>(() => SyncServerPassword, value => SyncServerPassword = value, "", true)},

@@ -8,7 +8,7 @@ http://github.com/Moq/moq4
 New BSD license: http://opensource.org/licenses/BSD-3-Clause
 NuGet package: Moq
 
-Moq.Contrib 0.3
+Moq.Contrib
 http://code.google.com/p/moq-contrib/
 New BSD license: http://opensource.org/licenses/BSD-3-Clause
 NuGet package: Moq.Contrib
@@ -69,7 +69,6 @@ Self-compiled managed DLL: ICSharpCode.TextEditor.dll
 ELFSharp 0.0.10
 http://antmicro.com/projects/elfsharp/
 X11 license: ELFSharp.license.txt
-Integrated LinqBridge
 Self-compiled managed DLL: ELFSharp.dll
 
 INI File Parser v1.7

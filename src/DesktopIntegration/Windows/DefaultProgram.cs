@@ -101,7 +101,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
                     if (defaultProgram.Service == Store.Model.Capabilities.DefaultProgram.ServiceMail)
                     {
-                        var mailToProtocol = new Store.Model.Capabilities.UrlProtocol { Verbs = { new Verb { Name = Verb.NameOpen } } };
+                        var mailToProtocol = new Store.Model.Capabilities.UrlProtocol {Verbs = {new Verb {Name = Verb.NameOpen}}};
                         using (var mailToKey = appKey.CreateSubKey(@"Protocols\mailto"))
                             FileType.RegisterVerbCapability(mailToKey, target, mailToProtocol, true, handler);
                     }

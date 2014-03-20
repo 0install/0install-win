@@ -17,8 +17,6 @@
 
 using System;
 using System.IO;
-using System.Reflection;
-using Common.Info;
 using Common.Utils;
 using ZeroInstall.Store.Properties;
 

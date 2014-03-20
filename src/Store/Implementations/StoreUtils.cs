@@ -17,10 +17,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using Common;
-using Common.Tasks;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Implementations

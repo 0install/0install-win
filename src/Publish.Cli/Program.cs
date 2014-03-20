@@ -147,7 +147,7 @@ namespace ZeroInstall.Publish.Cli
                 Log.Error(ex);
                 return (int)ErrorLevel.IOError;
             }
-            #endregion
+                #endregion
 
             finally
             {

@@ -296,7 +296,7 @@ namespace ZeroInstall.Store.Model
                 {
                     return Commands.First(command => command != null && command.Name == name);
                 }
-                #region Error handling
+                    #region Error handling
                 catch (InvalidOperationException)
                 {
                     throw new KeyNotFoundException(string.Format(Resources.CommandNotFound, name));
