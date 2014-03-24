@@ -31,13 +31,6 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     public class Requirements : ICloneable, IEquatable<Requirements>
     {
-        #region Constants
-        /// <summary>
-        /// Used as a placeholder in <see cref="ExtraRestrictions"/> when <see cref="InterfaceID"/> is not known yet.
-        /// </summary>
-        public const string RootID = "<root>";
-        #endregion
-
         #region Properties
         private string _interfaceID;
 
@@ -53,18 +46,7 @@ namespace ZeroInstall.Store.Model
             set
             {
                 ModelUtils.ValidateInterfaceID(value);
-                UpdateRootID(value);
                 _interfaceID = value;
-            }
-        }
-
-        private void UpdateRootID(string value)
-        {
-            VersionRange range;
-            if (_extraRestrictions.TryGetValue(RootID, out range))
-            {
-                _extraRestrictions[value] = range;
-                _extraRestrictions.Remove(RootID);
             }
         }
 

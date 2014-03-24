@@ -63,7 +63,7 @@ namespace ZeroInstall.Commands
             Container.GetMock<IFetcher>().Setup(x => x.Fetch(new[] {testImplementation1, testImplementation2}));
 
             RunAndAssert(Resources.AllComponentsDownloaded, 0, selections,
-                "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--version=1.0..!2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0");
+                "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0");
         }
 
         [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]

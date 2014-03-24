@@ -85,7 +85,22 @@ namespace ZeroInstall.Commands
                 Store = new CompositeStore(new[] {new DirectoryStore(path), Store});
             });
 
-            Requirements.FromCommandLine(Options);
+            Options.Add("command=", () => Resources.OptionCommand,
+                command => _requirements.Command = command);
+            Options.Add("before=", () => Resources.OptionBefore,
+                (ImplementationVersion version) => _before = version);
+            Options.Add("not-before=", () => Resources.OptionNotBefore,
+                (ImplementationVersion version) => _notBefore = version);
+            Options.Add("version=", () => Resources.OptionVersionRange,
+                (VersionRange range) => _version = range);
+            Options.Add("version-for==", () => Resources.OptionVersionRangeFor,
+                (string interfaceID, VersionRange range) => _requirements.ExtraRestrictions[interfaceID] = range);
+            Options.Add("s|source", () => Resources.OptionSource,
+                _ => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Cpu.Source));
+            Options.Add("os=", () => Resources.OptionOS + "\n" + SupportedValues(Architecture.KnownOS),
+                (OS os) => _requirements.Architecture = new Architecture(os, _requirements.Architecture.Cpu));
+            Options.Add("cpu=", () => Resources.OptionCpu + "\n" + SupportedValues(Architecture.KnownCpu),
+                (Cpu cpu) => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, cpu));
 
             Options.Add("xml", () => Resources.OptionXml, _ => ShowXml = true);
         }
@@ -98,6 +113,10 @@ namespace ZeroInstall.Commands
         /// A set of requirements/restrictions imposed by the user on the implementation selection process as parsed from the command-line arguments.
         /// </summary>
         public Requirements Requirements { get { return _requirements; } }
+
+        // Intermediate variables, transferred to Requirements after parsing
+        private VersionRange _version;
+        private ImplementationVersion _before, _notBefore;
         #endregion
 
         /// <inheritdoc/>
@@ -105,10 +124,13 @@ namespace ZeroInstall.Commands
         {
             base.Parse(args);
 
-            Requirements.InterfaceID = GetCanonicalID(AdditionalArgs[0]);
+            _requirements.InterfaceID = GetCanonicalID(AdditionalArgs[0]);
             AdditionalArgs.RemoveAt(0);
 
-            if (File.Exists(Requirements.InterfaceID)) TryParseSelectionsDocument();
+            if (_version != null) _requirements.ExtraRestrictions[_requirements.InterfaceID] = _version;
+            else if (_before != null || _notBefore != null) _requirements.ExtraRestrictions[_requirements.InterfaceID] = new VersionRange(_notBefore, _before);
+
+            if (File.Exists(_requirements.InterfaceID)) TryParseSelectionsDocument();
         }
 
         /// <inheritdoc/>

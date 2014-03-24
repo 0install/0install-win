@@ -153,7 +153,7 @@ namespace ZeroInstall.Store.Model.Selection
         private static bool Match(Requirements requirements, ImplementationVersion version)
         {
             VersionRange range;
-            if (!requirements.ExtraRestrictions.TryGetValue(requirements.InterfaceID ?? Requirements.RootID, out range)) return true;
+            if (!requirements.ExtraRestrictions.TryGetValue(requirements.InterfaceID, out range)) return true;
             return range.Match(version);
         }
         #endregion

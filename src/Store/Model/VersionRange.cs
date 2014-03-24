@@ -82,6 +82,16 @@ namespace ZeroInstall.Store.Model
             // Iterate through all parts
             _parts = Array.ConvertAll(value.Split('|'), part => VersionRangePart.FromString(part.Trim()));
         }
+
+        /// <summary>
+        /// Creates a single interval version range.
+        /// </summary>
+        /// <param name="notBefore">The lower, inclusive border of the range; may be <see langword="null"/>.</param>
+        /// <param name="before">The upper, exclusive border of the range; may be <see langword="null"/>.</param>
+        public VersionRange(ImplementationVersion notBefore, ImplementationVersion before)
+        {
+            _parts = new VersionRangePart[] {new VersionRangeRange(notBefore, before)};
+        }
         #endregion
 
         #region Factory methods

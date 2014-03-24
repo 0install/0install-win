@@ -69,7 +69,7 @@ namespace ZeroInstall.Commands
             executorMock.Setup(x => x.Start(selections, "--arg1", "--arg2")).Returns((Process)null);
 
             RunAndAssert(null, 0, selections,
-                "--command=command", "--os=Windows", "--cpu=i586", "--version=1.0..!2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0",
+                "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0",
                 "--main=Main", "--wrapper=Wrapper", "http://0install.de/feeds/test/test1.xml", "--arg1", "--arg2");
         }
 
