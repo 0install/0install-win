@@ -55,7 +55,7 @@ namespace ZeroInstall.Commands
             var options = new OptionSet();
 
             requirements.FromCommandLine(options);
-            options.Parse(new[] {"--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"});
+            options.Parse(new[] {"--command=command", "--os=Windows", "--cpu=i586", "--before=2.0"});
             requirements.InterfaceID = "http://0install.de/feeds/test/test1.xml";
 
             Assert.AreEqual(
@@ -64,11 +64,7 @@ namespace ZeroInstall.Commands
                     InterfaceID = "http://0install.de/feeds/test/test1.xml",
                     Command = "command",
                     Architecture = new Architecture(OS.Windows, Cpu.I586),
-                    ExtraRestrictions =
-                    {
-                        new VersionFor {InterfaceID = "http://0install.de/feeds/test/test1.xml", Versions = new VersionRange("1.0..")},
-                        new VersionFor {InterfaceID = "http://0install.de/feeds/test/test1.xml", Versions = new VersionRange("..!2.0")}
-                    }
+                    ExtraRestrictions = {{"http://0install.de/feeds/test/test1.xml", new VersionRange("..!2.0")}}
                 },
                 actual: requirements);
         }

@@ -220,7 +220,6 @@
     <Compile Include="Model\SingleFile.cs" />
     <Compile Include="Model\TargetBase.cs" />
     <Compile Include="Model\VersionDottedList.cs" />
-    <Compile Include="Model\VersionFor.cs" />
     <Compile Include="Model\VersionPart.cs" />
     <Compile Include="Model\VersionRange.cs" />
     <Compile Include="Model\VersionRangePart.cs" />

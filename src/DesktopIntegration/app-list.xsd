@@ -23,6 +23,13 @@
       <xsd:documentation>Represents an application indentified by its interface URI.</xsd:documentation>
     </xsd:annotation>
     <xsd:choice minOccurs="0" maxOccurs="unbounded">
+      <xsd:element name="requirements-json" type="xsd:string" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            A set of requirements/restrictions imposed by the user on the implementation selection process in a JSON-serialized format.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
       <xsd:element ref="caps:capabilities" />
       <xsd:element name="access-points" type="apps:access-points" maxOccurs="1" />
     </xsd:choice>

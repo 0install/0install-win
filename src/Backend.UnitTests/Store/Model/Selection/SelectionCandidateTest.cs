@@ -53,14 +53,14 @@ namespace ZeroInstall.Store.Model.Selection
                 {
                     InterfaceID = "http://0install.de/feeds/test/test1.xml",
                     Command = Command.NameRun,
-                    ExtraRestrictions = {new VersionFor {InterfaceID = "http://0install.de/feeds/test/test1.xml", Versions = new VersionRange("..!1.1")}}
+                    ExtraRestrictions = {{"http://0install.de/feeds/test/test1.xml", new VersionRange("..!1.1")}}
                 }).IsSuitable);
             Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(), implementation,
                 new Requirements
                 {
                     InterfaceID = "http://0install.de/feeds/test/test1.xml",
                     Command = Command.NameRun,
-                    ExtraRestrictions = {new VersionFor {InterfaceID = "http://0install.de/feeds/test/test1.xml", Versions = new VersionRange("..!1.0")}}
+                    ExtraRestrictions = {{"http://0install.de/feeds/test/test1.xml", new VersionRange("..!1.0")}}
                 }).IsSuitable);
         }
 

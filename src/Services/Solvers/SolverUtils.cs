@@ -151,7 +151,7 @@ namespace ZeroInstall.Services.Solvers
 
         private static void CopyVersionRestrictions(this Requirements requirements, Restriction from)
         {
-            if (from.Versions != null) requirements.ExtraRestrictions.Add(new VersionFor {InterfaceID = from.Interface, Versions = from.Versions});
+            if (from.Versions != null) requirements.ExtraRestrictions.Add(from.Interface, from.Versions);
         }
 
         private static void CopyVersionRestrictions(this Requirements requirements, Requirements from)

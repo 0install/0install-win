@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
 using Common.Collections;
+using Common.Storage;
 using Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
@@ -72,8 +73,13 @@ namespace ZeroInstall.DesktopIntegration
         /// A set of requirements/restrictions imposed by the user on the implementation selection process. May be <see langword="null"/> if <see cref="InterfaceID"/> is not a pet-name.
         /// </summary>
         [Description("A set of requirements/restrictions imposed by the user on the implementation selection process. May be null if InterfaceID is not a pet-name.")]
-        [XmlElement("requirements", Namespace = Feed.XmlNamespace)]
+        [XmlIgnore]
         public Requirements Requirements { get; set; }
+
+        /// <summary>Used for XML+JSON serialization.</summary>
+        /// <seealso cref="Requirements"/>
+        [XmlElement("requirements-json"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string RequirementsJson { get { return (Requirements == null) ? null : Requirements.ToJsonString(); } set { Requirements = JsonStorage.FromJsonString<Requirements>(value); } }
 
         private readonly List<CapabilityList> _capabilityLists = new List<CapabilityList>();
 

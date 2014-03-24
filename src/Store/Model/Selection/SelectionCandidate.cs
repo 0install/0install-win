@@ -139,7 +139,7 @@ namespace ZeroInstall.Store.Model.Selection
                 Notes = Resources.SelectionCandidateNoteIncompatibleArchitecture;
             else if (!Implementation.Languages.ContainsAny(requirements.Languages))
                 Notes = Resources.SelectionCandidateNoteWrongLanguage;
-            else if (requirements.RootRestrictions.Any(x => !x.Match(Version)))
+            else if (!Match(requirements, Version))
                 Notes = Resources.SelectionCandidateNoteVersionMismatch;
             else if (EffectiveStability == Stability.Buggy)
                 Notes = Resources.SelectionCandidateNoteBuggy;
@@ -148,6 +148,13 @@ namespace ZeroInstall.Store.Model.Selection
             else if (!Implementation.ContainsCommand(requirements.Command))
                 Notes = string.Format(Resources.SelectionCandidateNoteCommand, requirements.Command);
             else IsSuitable = true;
+        }
+
+        private static bool Match(Requirements requirements, ImplementationVersion version)
+        {
+            VersionRange range;
+            if (!requirements.ExtraRestrictions.TryGetValue(requirements.InterfaceID ?? Requirements.RootID, out range)) return true;
+            return range.Match(version);
         }
         #endregion
 

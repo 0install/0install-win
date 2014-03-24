@@ -204,7 +204,7 @@ namespace ZeroInstall.Services.Solvers
                 requirements: new Requirements
                 {
                     InterfaceID = "http://test/app.xml", Command = Command.NameRun,
-                    ExtraRestrictions = {new VersionFor {InterfaceID = "http://test/app.xml", Versions = new VersionRange("..!2.0")}}
+                    ExtraRestrictions = {{"http://test/app.xml", new VersionRange("..!2.0")}}
                 },
                 expectedSelections: "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /></selection>");
         }

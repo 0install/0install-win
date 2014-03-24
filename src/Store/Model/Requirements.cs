@@ -19,8 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Xml.Serialization;
 using Common.Collections;
 using Common.Utils;
 using Newtonsoft.Json;
@@ -29,13 +27,17 @@ using ZeroInstall.Store.Model.Design;
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
-    /// A set of requirements/restrictions imposed by the user on the <see cref="Implementation"/> selection process.
+    /// A set of requirements/restrictions imposed by the user on the <see cref="Implementation"/> selection process. Used as input for the solver.
     /// </summary>
-    /// <remarks>This is used as input for the solver.</remarks>
-    [Description("A set of requirements/restrictions imposed by the user on the Implementation selection process.")]
-    [XmlRoot("requirements", Namespace = Feed.XmlNamespace), XmlType("requirements", Namespace = Feed.XmlNamespace)]
     public class Requirements : ICloneable, IEquatable<Requirements>
     {
+        #region Constants
+        /// <summary>
+        /// Used as a placeholder in <see cref="ExtraRestrictions"/> when <see cref="InterfaceID"/> is not known yet.
+        /// </summary>
+        public const string RootID = "<root>";
+        #endregion
+
         #region Properties
         private string _interfaceID;
 
@@ -44,19 +46,25 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <exception cref="InvalidInterfaceIDException">Thrown when trying to set an invalid interface ID.</exception>
         [Description("The URI or local path (must be absolute) to the interface to solve the dependencies for.")]
-        [XmlAttribute("interface"), JsonProperty("interface")]
+        [JsonProperty("interface")]
         public string InterfaceID
         {
             get { return _interfaceID; }
             set
             {
                 ModelUtils.ValidateInterfaceID(value);
-
-                // Update any root restrictions
-                foreach (var versionFor in _extraRestrictions.Where(versionFor => versionFor.InterfaceID == InterfaceID))
-                    versionFor.InterfaceID = value;
-
+                UpdateRootID(value);
                 _interfaceID = value;
+            }
+        }
+
+        private void UpdateRootID(string value)
+        {
+            VersionRange range;
+            if (_extraRestrictions.TryGetValue(RootID, out range))
+            {
+                _extraRestrictions[value] = range;
+                _extraRestrictions.Remove(RootID);
             }
         }
 
@@ -64,7 +72,7 @@ namespace ZeroInstall.Store.Model
         /// The name of the command in the implementation to execute. Will default to <see cref="Store.Model.Command.NameRun"/> or <see cref="Store.Model.Command.NameCompile"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.
         /// </summary>
         [Description("The name of the command in the implementation to execute. Will default to 'run' or 'compile' if null. Will not try to find any command if set to ''.")]
-        [XmlAttribute("command"), JsonProperty("command")]
+        [JsonProperty("command")]
         [TypeConverter(typeof(CommandNameConverter))]
         public string Command { get; set; }
 
@@ -73,31 +81,25 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <remarks>Will default to <see cref="Store.Model.Architecture.CurrentSystem"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.</remarks>
         [Description("The architecture to find executables for. Find for the current system if left at default value.")]
-        [XmlIgnore, JsonIgnore]
+        [JsonIgnore]
         public Architecture Architecture { get; set; }
-
-        /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="Architecture"/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        [XmlAttribute("arch"), DefaultValue("*-*"), JsonIgnore]
-        public string ArchitectureString { get { return Architecture.ToString(); } set { Architecture = new Architecture(value); } }
 
         /// <summary>Used for JSON serialization.</summary>
         /// <seealso cref="Architecture"/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [XmlIgnore, JsonProperty("source")]
+        [JsonProperty("source")]
         public bool Source { get { return Architecture.Cpu == Cpu.Source; } set { if (value) Architecture = new Architecture(Architecture.OS, Cpu.Source); } }
 
         /// <summary>Used for JSON serialization.</summary>
         /// <seealso cref="Architecture"/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [XmlIgnore, JsonProperty("os")]
+        [JsonProperty("os")]
         public string OSString { get { return Architecture.OS.ConvertToString(); } set { Architecture = new Architecture(value.ConvertFromString<OS>(), Architecture.Cpu); } }
 
         /// <summary>Used for JSON serialization.</summary>
         /// <seealso cref="Architecture"/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [XmlIgnore, JsonProperty("cpu")]
+        [JsonProperty("cpu")]
         public string CpuString { get { return Architecture.Cpu.ConvertToString(); } set { Architecture = new Architecture(Architecture.OS, value.ConvertFromString<Cpu>()); } }
 
         // Order is always alphabetical, duplicate entries are not allowed
@@ -109,7 +111,7 @@ namespace ZeroInstall.Store.Model
         /// <example>For example, the value "en_GB fr" would be search for British English or French.</example>
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Complete set can be replaced by PropertyGrid.")]
         [Description("The natural language(s) to look for.")]
-        [XmlIgnore, JsonIgnore]
+        [JsonIgnore]
         public LanguageSet Languages
         {
             get { return _languages; }
@@ -123,48 +125,20 @@ namespace ZeroInstall.Store.Model
             }
         }
 
-        /// <summary>Used for XML serialization.</summary>
+        /// <summary>Used for JSON serialization.</summary>
         /// <seealso cref="Architecture"/>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        [XmlAttribute("langs"), DefaultValue(""), JsonIgnore]
+        [JsonProperty("langs", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue("")]
         public string LanguagesString { get { return _languages.ToString(); } set { _languages = new LanguageSet(value); } }
 
-        private readonly List<VersionFor> _extraRestrictions = new List<VersionFor>();
+        private readonly Dictionary<string, VersionRange> _extraRestrictions = new Dictionary<string, VersionRange>();
 
         /// <summary>
         /// The ranges of versions of specific sub-implementations that can be chosen.
         /// </summary>
         [Description("The ranges of versions of specific sub-implementations that can be chosen.")]
-        [XmlElement("version-for"), JsonIgnore]
-        public List<VersionFor> ExtraRestrictions { get { return _extraRestrictions; } }
-
-        /// <summary>Used for JSON serialization.</summary>
-        /// <seealso cref="ExtraRestrictions"/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [XmlIgnore, JsonProperty("extra_restrictions")]
-        public Dictionary<string, string> ExtraRestrictionsDictionary
-        {
-            get { return _extraRestrictions.ToDictionary(x => x.InterfaceID, x => x.VersionsString); }
-            set
-            {
-                _extraRestrictions.Clear();
-                _extraRestrictions.AddRange(value.Select(x => new VersionFor {InterfaceID = x.Key, VersionsString = x.Value}));
-            }
-        }
-
-        /// <summary>
-        /// The <see cref="ExtraRestrictions"/> directly applicable to <see cref="InterfaceID"/>.
-        /// </summary>
-        [XmlIgnore, JsonIgnore]
-        public IEnumerable<VersionRange> RootRestrictions
-        {
-            get
-            {
-                return from restriction in _extraRestrictions
-                    where restriction.InterfaceID == InterfaceID
-                    select restriction.Versions;
-            }
-        }
+        [JsonProperty("extra_restrictions")]
+        public Dictionary<string, VersionRange> ExtraRestrictions { get { return _extraRestrictions; } }
         #endregion
 
         //--------------------//
@@ -177,8 +151,7 @@ namespace ZeroInstall.Store.Model
         public Requirements Clone()
         {
             var requirements = new Requirements {InterfaceID = InterfaceID, Command = Command, Architecture = Architecture, Languages = new LanguageSet(Languages)};
-            requirements._extraRestrictions.AddRange(_extraRestrictions);
-
+            requirements.ExtraRestrictions.AddRange(ExtraRestrictions);
             return requirements;
         }
 
@@ -207,7 +180,7 @@ namespace ZeroInstall.Store.Model
             if (Command != other.Command) return false;
             if (Architecture != other.Architecture) return false;
             if (!_languages.SequencedEquals(other._languages)) return false;
-            if (!_extraRestrictions.SequencedEquals(other._extraRestrictions)) return false;
+            if (!_extraRestrictions.UnsequencedEquals(other._extraRestrictions)) return false;
             return true;
         }
 
@@ -229,7 +202,7 @@ namespace ZeroInstall.Store.Model
                 result = (result * 397) ^ Architecture.GetHashCode();
                 // ReSharper disable once NonReadonlyFieldInGetHashCode
                 result = (result * 397) ^ _languages.GetSequencedHashCode();
-                result = (result * 397) ^ _extraRestrictions.GetSequencedHashCode();
+                result = (result * 397) ^ _extraRestrictions.GetUnsequencedHashCode();
                 return result;
             }
         }

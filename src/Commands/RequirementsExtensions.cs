@@ -41,13 +41,13 @@ namespace ZeroInstall.Commands
             options.Add("command=", () => Resources.OptionCommand,
                 command => requirements.Command = command);
             options.Add("before=", () => Resources.OptionBefore,
-                (ImplementationVersion version) => requirements.ExtraRestrictions.Add(new VersionFor {Versions = new VersionRange("..!" + version)}));
+                (ImplementationVersion version) => requirements.ExtraRestrictions[Requirements.RootID] = new VersionRange("..!" + version));
             options.Add("not-before=", () => Resources.OptionNotBefore,
-                (ImplementationVersion version) => requirements.ExtraRestrictions.Add(new VersionFor {Versions = new VersionRange(version + "..")}));
+                (ImplementationVersion version) => requirements.ExtraRestrictions[Requirements.RootID] = new VersionRange(version + ".."));
             options.Add("version=", () => Resources.OptionVersionRange,
-                (VersionRange range) => requirements.ExtraRestrictions.Add(new VersionFor {Versions = range}));
+                (VersionRange range) => requirements.ExtraRestrictions[Requirements.RootID] = range);
             options.Add("version-for==", () => Resources.OptionVersionRangeFor,
-                (string interfaceID, VersionRange range) => requirements.ExtraRestrictions.Add(new VersionFor {InterfaceID = interfaceID, Versions = range}));
+                (string interfaceID, VersionRange range) => requirements.ExtraRestrictions[interfaceID] = range);
             options.Add("s|source", () => Resources.OptionSource,
                 _ => requirements.Architecture = new Architecture(requirements.Architecture.OS, Cpu.Source));
             options.Add("os=", () => Resources.OptionOS + "\n" + FrontendCommand.SupportedValues(Architecture.KnownOS),

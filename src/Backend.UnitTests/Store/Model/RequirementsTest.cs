@@ -41,8 +41,8 @@ namespace ZeroInstall.Store.Model
                 //Languages = {"de-DE", "en-US"},
                 ExtraRestrictions =
                 {
-                    new VersionFor {InterfaceID = "http://0install.de/feeds/test/test1.xml", Versions = new VersionRange("1.0..!2.0")},
-                    new VersionFor {InterfaceID = "http://0install.de/feeds/test/test2.xml", Versions = new VersionRange("2.0..!3.0")}
+                    {"http://0install.de/feeds/test/test1.xml", new VersionRange("1.0..!2.0")},
+                    {"http://0install.de/feeds/test/test2.xml", new VersionRange("2.0..!3.0")}
                 }
             };
         }
@@ -80,15 +80,6 @@ namespace ZeroInstall.Store.Model
             Assert.AreEqual(
                 "--command=command --os=Windows --cpu=i586 --version-for=http://0install.de/feeds/test/test1.xml 1.0..!2.0 --version-for=http://0install.de/feeds/test/test2.xml 2.0..!3.0 http://0install.de/feeds/test/test1.xml",
                 CreateTestRequirements().Clone().ToCommandLine());
-        }
-
-        [Test]
-        public void TestRootRestrictions()
-        {
-            var requirements = CreateTestRequirements();
-            CollectionAssert.AreEqual(
-                expected: new[] {new VersionRange("1.0..!2.0")},
-                actual: requirements.RootRestrictions);
         }
 
         [Test]
