@@ -35,6 +35,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using Common.Tasks;
 
 namespace Common
 {
@@ -172,6 +173,11 @@ namespace Common
       public Action<int> LoopFunction;
 
       /// <summary>
+      /// For-loop body
+      /// </summary>
+      public CancellationToken CancellationToken;
+
+      /// <summary>
       /// Current loop index
       /// </summary>
       private int currentJobIndex;
@@ -197,11 +203,13 @@ namespace Common
       /// <param name="start">The start.</param>
       /// <param name="stop">The stop.</param>
       /// <param name="loopBody">The loop body.</param>
-      public void DoFor(int start, int stop, Action<int> loopBody)
+      /// <param name="cancellationToken">Used to signal if the user wishes to cancel the loop before it completes.</param>
+      public void DoFor(int start, int stop, Action<int> loopBody, CancellationToken cancellationToken)
       {
         this.currentJobIndex = start - 1;
         this.stopIndex = stop;
         this.LoopFunction = loopBody;
+        this.CancellationToken = cancellationToken;
 
         // Signal waiting task to all threads and mark them not idle.
         for (int i = 0; i < this.threadCount; i++)
@@ -293,7 +301,7 @@ namespace Common
 
           localJobIndex = Interlocked.Increment(ref currentJobIndex);
 
-          while (localJobIndex < stopIndex)
+          while (localJobIndex < stopIndex && !CancellationToken.IsCancellationRequested)
           {
             ////Console.WriteLine("Thread " + threadIndex + " of " + workerThreads.Count + " running task " + localJobIndex);
             LoopFunction(localJobIndex);
@@ -583,6 +591,7 @@ namespace Common
     /// <param name="start">Loop start index.</param>
     /// <param name="stop">Loop stop index.</param>
     /// <param name="loopBody">Loop body.</param>
+    /// <param name="cancellationToken">Used to signal if the user wishes to cancel the loop before it completes.</param>
     /// <remarks>The method is used to parallelise for loop by running iterations across
     /// several threads.
     /// Example usage:
@@ -601,7 +610,7 @@ namespace Common
     /// </code>
     /// If <c>Parallel.ThreadCount</c> is exactly <c>1</c>, no threads are spawned.
     /// </remarks>
-    public static void For(int start, int stop, Action<int> loopBody)
+    public static void For(int start, int stop, Action<int> loopBody, CancellationToken cancellationToken = default(CancellationToken))
     {
       if (loopBody == null) throw new ArgumentNullException("loopBody");
       if (Parallel.threadCount == 1)
@@ -609,6 +618,7 @@ namespace Common
         for (int i = start; i < stop; i++)
         {
           loopBody(i);
+          cancellationToken.ThrowIfCancellationRequested();
         }
       }
       else
@@ -616,7 +626,8 @@ namespace Common
         lock (lockObject)
         {
           ParallelFor parallel = ParallelFor.GetInstance(threadCount);
-          parallel.DoFor(start, stop, loopBody);
+          parallel.DoFor(start, stop, loopBody, cancellationToken);
+          cancellationToken.ThrowIfCancellationRequested();
         }
       }
     }
