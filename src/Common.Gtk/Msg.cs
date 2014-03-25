@@ -151,7 +151,7 @@ namespace Common.Gtk
                 default:
                 case MsgSeverity.Info:
                     // ReSharper disable once BitwiseOperatorOnEnumWithoutFlags
-                    type = ((buttons & ButtonsType.YesNo) == ButtonsType.YesNo) ? MessageType.Question : MessageType.Info;
+                    type = buttons.HasFlag(ButtonsType.YesNo) ? MessageType.Question : MessageType.Info;
                     break;
             }
 

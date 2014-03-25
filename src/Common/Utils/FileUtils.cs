@@ -28,6 +28,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Common.Properties;
+using Common.Values;
 #if FS_SECURITY
 using System.ComponentModel;
 using System.Security.AccessControl;
@@ -342,7 +343,7 @@ namespace Common.Utils
             var inherited = new List<CommonAce>();
             foreach (var ace in securityDescriptor.DiscretionaryAcl.Cast<CommonAce>())
             {
-                if ((ace.AceFlags & AceFlags.Inherited) == AceFlags.Inherited) inherited.Add(ace);
+                if (ace.AceFlags.HasFlag(AceFlags.Inherited)) inherited.Add(ace);
                 else
                 {
                     switch (ace.AceType)

@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using Common.Streams;
 using Common.Tasks;
+using Common.Values;
 using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Store.Properties;
@@ -175,7 +176,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (entry.HostSystem != (int)HostSystemID.Unix) return false;
 
             const int symlinkFlag = (1 << 13) << 16;
-            return (entry.ExternalFileAttributes & symlinkFlag) == symlinkFlag;
+            return entry.ExternalFileAttributes.HasFlag(symlinkFlag);
         }
 
         /// <summary>

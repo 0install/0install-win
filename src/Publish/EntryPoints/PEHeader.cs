@@ -19,6 +19,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.InteropServices;
+using Common.Values;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
@@ -226,7 +227,7 @@ namespace ZeroInstall.Publish.EntryPoints
             get
             {
                 const ushort imageFile32BitMachine = 0x0100;
-                return (imageFile32BitMachine & FileHeader.Characteristics) == imageFile32BitMachine;
+                return FileHeader.Characteristics.HasFlag(imageFile32BitMachine);
             }
         }
 

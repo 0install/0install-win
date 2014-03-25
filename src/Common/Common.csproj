@@ -198,6 +198,7 @@
     <Compile Include="Values\Design\StringConstructorConverter.cs" />
     <Compile Include="Values\Design\StructConverter.cs" />
     <Compile Include="Values\Design\TimeSpanEditor.cs" />
+    <Compile Include="Values\EnumExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\ImageResources.resx">
