@@ -113,17 +113,17 @@ namespace ZeroInstall.Store.Implementations.Archives
             CancellationToken.ThrowIfCancellationRequested();
             if (string.IsNullOrEmpty(SubDir)) extractor.ExtractArchive(EffectiveTargetDir);
             else
-            { // Use an intermediate temp directory in order to get only a subdir even though we have to extract everything
-                using (var tempDirectory = new TemporaryDirectory("0install"))
-                {
-                    extractor.ExtractArchive(tempDirectory);
+            {
+                // Use an intermediate temp directory (on the same filesystem)
+                string tempDir = Path.Combine(TargetDir, Path.GetRandomFileName());
+                extractor.ExtractArchive(tempDir);
 
-                    string subDir = FileUtils.UnifySlashes(SubDir);
-                    if (FileUtils.IsBreakoutPath(subDir)) return;
-                    string tempSubDir = Path.Combine(tempDirectory, subDir);
-                    if (Directory.Exists(tempSubDir))
-                        new MoveDirectory(tempSubDir, EffectiveTargetDir).Run(CancellationToken);
-                }
+                // Get only a specific subdir even though we extracted everything
+                string subDir = FileUtils.UnifySlashes(SubDir);
+                string tempSubDir = Path.Combine(tempDir, subDir);
+                if (!FileUtils.IsBreakoutPath(subDir) && Directory.Exists(tempSubDir))
+                    new MoveDirectory(tempSubDir, EffectiveTargetDir, overwrite: true).Run(CancellationToken);
+                else Directory.Delete(tempDir, recursive: true);
             }
             CancellationToken.ThrowIfCancellationRequested();
         }
