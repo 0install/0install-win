@@ -256,7 +256,7 @@ namespace Common.Utils
         {
             // Check if any execution rights are set
             var fileInfo = UnixFileSystemInfo.GetFileSystemEntry(path);
-            return ((fileInfo.FileAccessPermissions & AllExecutePermission) > 0);
+            return (fileInfo.FileAccessPermissions & AllExecutePermission) > 0;
         }
 
         /// <summary>

@@ -134,7 +134,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="fileStream">Stream access to the file to write.</param>
         protected override void StreamToFile(Stream stream, FileStream fileStream)
         {
-            ((TarInputStream)stream).CopyEntryContents(fileStream);
+            _tarStream.CopyEntryContents(fileStream);
         }
     }
 }
