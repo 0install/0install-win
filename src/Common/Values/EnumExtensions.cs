@@ -42,6 +42,7 @@ namespace Common.Values
         /// <summary>
         /// Checks whether a flag is set.
         /// </summary>
+        [CLSCompliant(false)]
         public static bool HasFlag(this ushort enumRef, ushort flag)
         {
             return (enumRef & flag) == flag;
