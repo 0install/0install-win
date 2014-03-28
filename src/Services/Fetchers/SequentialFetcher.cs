@@ -52,41 +52,45 @@ namespace ZeroInstall.Services.Fetchers
             foreach (var implementation in implementations)
             {
                 Handler.CancellationToken.ThrowIfCancellationRequested();
+                Fetch(implementation);
+            }
+        }
 
-                var manifestDigest = implementation.ManifestDigest;
-                if (!manifestDigest.AvailableDigests.Any()) throw new NotSupportedException(string.Format(Resources.NoManifestDigest, implementation.ID));
+        private void Fetch(Implementation implementation)
+        {
+            var manifestDigest = implementation.ManifestDigest;
+            if (!manifestDigest.AvailableDigests.Any()) throw new NotSupportedException(string.Format(Resources.NoManifestDigest, implementation.ID));
 
-                // Use mutex to detect concurrent download of same implementation in other processes
-                using (var mutex = new Mutex(false, "0install-fetcher-" + manifestDigest.AvailableDigests.First()))
+            // Use mutex to detect concurrent download of same implementation in other processes
+            using (var mutex = new Mutex(false, "0install-fetcher-" + manifestDigest.AvailableDigests.First()))
+            {
+                try
                 {
-                    try
+                    while (!mutex.WaitOne(100, exitContext: false)) // NOTE: Might be blocked more than once
                     {
-                        while (!mutex.WaitOne(100, exitContext: false)) // NOTE: Might be blocked more than once
-                        {
-                            // Wait for mutex to be released
-                            Handler.RunTask(new WaitTask(Resources.DownloadInAnotherWindow, mutex) {Tag = manifestDigest});
-                        }
+                        // Wait for mutex to be released
+                        Handler.RunTask(new WaitTask(Resources.DownloadInAnotherWindow, mutex) {Tag = manifestDigest});
                     }
-                        #region Error handling
-                    catch (AbandonedMutexException ex)
-                    {
-                        // Abandoned mutexes also get owned, but indicate something may have gone wrong elsewhere
-                        Log.Warn(ex.Message);
-                    }
-                    #endregion
+                }
+                    #region Error handling
+                catch (AbandonedMutexException ex)
+                {
+                    // Abandoned mutexes also get owned, but indicate something may have gone wrong elsewhere
+                    Log.Warn(ex.Message);
+                }
+                #endregion
 
-                    try
-                    {
-                        // Check if another process added the implementation in the meantime
-                        Store.Flush();
-                        if (Store.Contains(manifestDigest)) return;
+                try
+                {
+                    // Check if another process added the implementation in the meantime
+                    Store.Flush();
+                    if (Store.Contains(manifestDigest)) return;
 
-                        FetchImplementation(implementation);
-                    }
-                    finally
-                    {
-                        mutex.ReleaseMutex();
-                    }
+                    FetchImplementation(implementation);
+                }
+                finally
+                {
+                    mutex.ReleaseMutex();
                 }
             }
         }
