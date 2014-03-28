@@ -19,26 +19,7 @@
         </para>
         <para>
           For further information visit the
-          <externalLink><linkText>Zero Install project website</linkText><linkUri>http://0install.net/</linkUri><linkTarget>_blank</linkTarget></externalLink>.
-        </para>
-      </content>
-    </section>
-
-    <section address="features">
-      <title>Features</title>
-      <content>
-        <para>
-          <list class="bullet">
-            <listItem>Fully compatible implementation of the existing
-              <externalLink><linkText>feed format</linkText><linkUri>http://0install.net/interface-spec.html</linkUri><linkTarget>_blank</linkTarget></externalLink>
-            </listItem>
-            <listItem>Supports the same command-line arguments for &quot;0launch&quot; command</listItem>
-            <listItem>Central list for all running downloads</listItem>
-            <listItem>&quot;App Store&quot;-like interface with recommended feeds</listItem>
-            <listItem>Optional server-side list of &quot;My feeds&quot;</listItem>
-            <listItem>Windows service for shared cache</listItem>
-            <listItem>Runs on Windows 2000, XP, Server 2003, Vista, Server 2008, 7 and Server 2008 R2</listItem>
-          </list>
+          <externalLink><linkText>Zero Install project website</linkText><linkUri>http://0install.de/</linkUri><linkTarget>_blank</linkTarget></externalLink>.
         </para>
       </content>
     </section>

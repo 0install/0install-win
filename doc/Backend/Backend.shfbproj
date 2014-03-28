@@ -54,14 +54,15 @@
       <NamespaceSummaryItem name="Common.Tasks" isDocumented="True">Contains classes for tracking the progress of background tasks.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Undo" isDocumented="True">Contains base classes for an Undo-system based on the Command pattern.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Utils" isDocumented="True">Contains utility classes that provide helper functions for strings, files, etc.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Values.Design" isDocumented="True">Contains &lt;see cref="System.ComponentModel.TypeConverter" /&gt;s. These are used to provide a better runtime experience when using &lt;see cref="System.Windows.Forms.PropertyGrid" /&gt;.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Common.Values" isDocumented="True">Contains data structures and helpers for Value Types.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Common.Values.Design" isDocumented="True">Contains &lt;see cref="System.ComponentModel.TypeConverter" /&gt;s. These are used for serialization and to provide a better runtime experience when using &lt;see cref="System.Windows.Forms.PropertyGrid" /&gt;.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall" isDocumented="True">Provides dependency injection for Zero Install's backend modules.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration" isDocumented="True">Provides methods for integrating applications with the desktop environment.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration.AccessPoints" isDocumented="True">Contains structures for parsing and in-memory representation of access points applied to a system.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration.Unix" isDocumented="True">Contains desktop integration code for Unix-like systems (e.g. Linux).</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration.Windows" isDocumented="True">Contains Windows-specific desktop integration code.</NamespaceSummaryItem>
-	  <NamespaceSummaryItem name="ZeroInstall.Services" isDocumented="True">...</NamespaceSummaryItem>
-	  <NamespaceSummaryItem name="ZeroInstall.Services.Feeds" isDocumented="True">Download and verify Feed"s.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Services" isDocumented="True">Provides services used by Frontend implementations. Use ServiceLocator for dependency injection!</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Services.Feeds" isDocumented="True">Download and verify Feeds.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Services.Fetchers" isDocumented="True">Download and extract implementations.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Services.Injector" isDocumented="True">Contains code for launching implementations and injecting the selected dependencies.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Services.Solvers" isDocumented="True">Solves requirements by selecting a specific combination of Implementations from Feeds.</NamespaceSummaryItem>
@@ -86,79 +87,7 @@
     <ContentLayout Include="Layout.content" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="images\" />
-    <Folder Include="images\uml\" />
-    <Folder Include="images\uml\class\" />
-    <Folder Include="images\uml\sequence\" />
-    <Folder Include="user\" />
-    <Folder Include="user\uml\" />
-    <Folder Include="user\uml\class\" />
-    <Folder Include="user\uml\sequence\" />
-    <Folder Include="design\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="index.aml" />
-    <None Include="user\index.aml" />
-    <None Include="user\getting_started.aml" />
-    <None Include="user\task_tracking.aml" />
-    <None Include="user\uml\class\feeds.aml" />
-    <None Include="user\uml\class\fetchers.aml" />
-    <None Include="user\uml\class\handler.aml" />
-    <None Include="user\uml\class\model.aml" />
-    <None Include="user\uml\class\policy.aml" />
-    <None Include="user\uml\class\solver.aml" />
-    <None Include="user\uml\class\store_implementation.aml" />
-    <None Include="user\uml\class\tasks.aml" />
-    <None Include="user\uml\sequence\manifest_generator_run_task.aml" />
-    <None Include="user\uml\sequence\directory_store_add_archive.aml" />
-    <None Include="depolyment.aml" />
-    <None Include="design\index.aml" />
-    <None Include="design\task_tracking.aml" />
-    <None Include="design\solver.aml" />
-    <None Include="design\solver_external.aml" />
-    <None Include="design\unit_tests.aml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="images\uml\class\Feeds.png">
-      <ImageId>uml_class_feeds</ImageId>
-      <AlternateText>Feeds</AlternateText>
-    </Image>
-    <Image Include="images\uml\class\Tasks.png">
-      <ImageId>uml_class_tasks</ImageId>
-      <AlternateText>Tasks</AlternateText>
-    </Image>
-    <Image Include="images\uml\class\Store.Implementation.png">
-      <ImageId>uml_class_store_implementation</ImageId>
-      <AlternateText>Store.Implementation</AlternateText>
-    </Image>
-    <Image Include="images\uml\class\Solver.png">
-      <ImageId>uml_class_solver</ImageId>
-      <AlternateText>Solver</AlternateText>
-    </Image>
-    <Image Include="images\uml\class\Policy.png">
-      <ImageId>uml_class_policy</ImageId>
-      <AlternateText>Policy</AlternateText>
-    </Image>
-    <Image Include="images\uml\class\Model.png">
-      <ImageId>uml_class_model</ImageId>
-      <AlternateText>Model</AlternateText>
-    </Image>
-    <Image Include="images\uml\class\Handler.png">
-      <ImageId>uml_class_handler</ImageId>
-      <AlternateText>Handler</AlternateText>
-    </Image>
-    <Image Include="images\uml\class\Fetchers.png">
-      <ImageId>uml_class_fetchers</ImageId>
-      <AlternateText>Fetchers</AlternateText>
-    </Image>
-    <Image Include="images\uml\sequence\ManifestGenerator_RunTask.png">
-      <ImageId>uml_sequence_manifest_generator_run_task</ImageId>
-      <AlternateText>ManifestGenerator.RunTask</AlternateText>
-    </Image>
-    <Image Include="images\uml\sequence\DirectoryStore_AddArchive.png">
-      <ImageId>uml_sequence_directory_store_add_archive</ImageId>
-      <AlternateText>DirectoryStore.AddArchive</AlternateText>
-    </Image>
   </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
   </PropertyGroup>

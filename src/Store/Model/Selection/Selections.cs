@@ -60,7 +60,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// <summary>
         /// The main implementation in the selection (the actual program to launch). Identified by <see cref="InterfaceID"/>.
         /// </summary>
-        /// <exception cref="KeyNotFoundException">Thrown if no <see cref="ImplementationSelection"/> matching <see cref="InterfaceID"/>/> was found in <see cref="Implementations"/>.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if no <see cref="ImplementationSelection"/> matching <see cref="InterfaceID"/> was found in <see cref="Implementations"/>.</exception>
         [XmlIgnore]
         public ImplementationSelection MainImplementation { get { return this[InterfaceID]; } }
         #endregion

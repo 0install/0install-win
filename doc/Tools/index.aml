@@ -8,12 +8,5 @@
         The Zero Install Tools provide additional features for developers (e.g. editing feed files) which are not required for normal end-user operation of the system.
       </para>
     </introduction>
-
-    <section address="features">
-      <title>Features</title>
-      <content>
-        <para>...</para>
-      </content>
-    </section>
   </developerConceptualDocument>
 </topic>

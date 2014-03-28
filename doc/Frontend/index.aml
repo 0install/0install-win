@@ -8,12 +8,5 @@
         The Zero Install Frontend contains GUI and CLI executables that are used by the end-user. They surface the functionality provided by the Zero Install backend.
       </para>
     </introduction>
-
-    <section address="features">
-      <title>Features</title>
-      <content>
-        <para>...</para>
-      </content>
-    </section>
   </developerConceptualDocument>
 </topic>

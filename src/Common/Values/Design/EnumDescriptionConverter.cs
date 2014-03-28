@@ -28,7 +28,7 @@ using Common.Utils;
 namespace Common.Values.Design
 {
     /// <summary>
-    /// Type converter for <see cref="Enum"/> <see cref="Enum"/>s annotated with <see cref="DescriptionAttribute"/>s.
+    /// Type converter for <see cref="Enum"/>s annotated with <see cref="DescriptionAttribute"/>s.
     /// </summary>
     /// <typeparam name="T">The type the converter is used for.</typeparam>
     /// <example>
