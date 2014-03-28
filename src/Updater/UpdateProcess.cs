@@ -311,6 +311,9 @@ namespace ZeroInstall.Updater
         /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
         public void FixPermissions()
         {
+            // Changing ACLs in the "All Users" AppData folder fails on Windows XP
+            if (!WindowsUtils.IsWindowsVista) return;
+
             // Do not touch ACLs in portable mode
             if (File.Exists(Path.Combine(Target, Locations.PortableFlagName))) return;
 
