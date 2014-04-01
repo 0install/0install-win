@@ -50,8 +50,12 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            return appEntry.CapabilityLists.Where(x => x.Architecture.IsCompatible())
-                .SelectMany(x => x.Entries.Select(capability => "capability:" + capability.ConflictIDs));
+            return
+                from capabilityList in appEntry.CapabilityLists
+                where capabilityList.Architecture.IsCompatible()
+                from capability in capabilityList.Entries
+                from id in capability.ConflictIDs
+                select id;
         }
         #endregion
 
