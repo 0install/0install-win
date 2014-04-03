@@ -79,64 +79,39 @@ namespace ZeroInstall.Services.Feeds
             var trustDB = TrustDB.LoadSafe();
             var signatures = FeedUtils.GetSignatures(_openPgp, data);
 
-            // Try to find already trusted key
             // ReSharper disable PossibleMultipleEnumeration
-            // ReSharper disable AccessToModifiedClosure
-            var validSignatures = signatures.OfType<ValidSignature>().ToList();
-            var trustedSignature = validSignatures.FirstOrDefault(sig => trustDB.IsTrusted(sig.Fingerprint, domain));
-            if (trustedSignature != null) return trustedSignature;
-            // ReSharper restore PossibleMultipleEnumeration
-            // ReSharper restore AccessToModifiedClosure
+            // ReSharper disable LoopCanBePartlyConvertedToQuery
 
-            // Try to find valid key and ask user to approve it
-            trustedSignature = validSignatures.FirstOrDefault(signature => IsKeyApproved(uri, signature, domain));
-            if (trustedSignature != null)
+            foreach (var signature in signatures.OfType<ValidSignature>())
+                if (trustDB.IsTrusted(signature.Fingerprint, domain)) return signature;
+
+            foreach (var signature in signatures.OfType<ValidSignature>())
+                if (TrustNew(trustDB, uri, signature, domain)) return signature;
+
+            foreach (var signature in signatures.OfType<MissingKeySignature>())
             {
-                // Add newly approved key to trust database
-                trustDB.TrustKey(trustedSignature.Fingerprint, domain);
-                trustDB.Save();
-
-                return trustedSignature;
+                DownloadMissingKey(uri, mirrorUri, signature);
+                goto KeyImported;
             }
 
-            // Download missing key file
-            // ReSharper disable PossibleMultipleEnumeration
-            var missingKey = signatures.OfType<MissingKeySignature>().FirstOrDefault();
+            // ReSharper restore LoopCanBePartlyConvertedToQuery
             // ReSharper restore PossibleMultipleEnumeration
-            if (missingKey != null)
-            {
-                var keyUri = new Uri(mirrorUri ?? uri, missingKey.KeyID + ".gpg");
-                byte[] keyData;
-                if (keyUri.IsFile)
-                { // Load key file from local file
-                    keyData = File.ReadAllBytes(keyUri.LocalPath);
-                }
-                else
-                { // Load key file from server
-                    try
-                    {
-                        // TODO: Add tracking and better cancellation support
-                        _handler.CancellationToken.ThrowIfCancellationRequested();
-                        using (var webClient = new WebClientTimeout())
-                            keyData = webClient.DownloadData(keyUri);
-                    }
-                        #region Error handling
-                    catch (WebException ex)
-                    {
-                        // Wrap exception to add context information
-                        throw new SignatureException(string.Format(Resources.UnableToLoadKeyFile, uri) + "\n" + ex.Message, ex);
-                    }
-                    #endregion
-                }
-                _handler.CancellationToken.ThrowIfCancellationRequested();
-                _openPgp.ImportKey(keyData);
-                goto KeyImported; // Re-evaluate signatures after importing new key material
-            }
 
             throw new SignatureException(string.Format(Resources.FeedNoTrustedSignatures, uri));
         }
 
-        private bool IsKeyApproved(Uri uri, ValidSignature signature, Domain domain)
+        private bool TrustNew(TrustDB trustDB, Uri uri, ValidSignature signature, Domain domain)
+        {
+            if (AskKeyApproval(uri, signature, domain))
+            {
+                trustDB.TrustKey(signature.Fingerprint, domain);
+                trustDB.Save();
+                return true;
+            }
+            else return false;
+        }
+
+        private bool AskKeyApproval(Uri uri, ValidSignature signature, Domain domain)
         {
             bool goodVote;
             var keyInformation = GetKeyInformation(signature.Fingerprint, out goodVote) ?? Resources.NoKeyInfoServerData;
@@ -146,6 +121,35 @@ namespace ZeroInstall.Services.Feeds
 
             // Otherwise ask user
             return _handler.AskQuestion(string.Format(Resources.AskKeyTrust, uri, signature.Fingerprint, keyInformation, domain), Resources.UntrustedKeys);
+        }
+
+        private void DownloadMissingKey(Uri uri, Uri mirrorUri, MissingKeySignature signature)
+        {
+            var keyUri = new Uri(mirrorUri ?? uri, signature.KeyID + ".gpg");
+            byte[] keyData;
+            if (keyUri.IsFile)
+            { // Load key file from local file
+                keyData = File.ReadAllBytes(keyUri.LocalPath);
+            }
+            else
+            { // Load key file from server
+                try
+                {
+                    // TODO: Add tracking and better cancellation support
+                    _handler.CancellationToken.ThrowIfCancellationRequested();
+                    using (var webClient = new WebClientTimeout())
+                        keyData = webClient.DownloadData(keyUri);
+                }
+                    #region Error handling
+                catch (WebException ex)
+                {
+                    // Wrap exception to add context information
+                    throw new SignatureException(string.Format(Resources.UnableToLoadKeyFile, uri) + "\n" + ex.Message, ex);
+                }
+                #endregion
+            }
+            _handler.CancellationToken.ThrowIfCancellationRequested();
+            _openPgp.ImportKey(keyData);
         }
 
         /// <summary>

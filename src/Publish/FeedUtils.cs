@@ -144,8 +144,9 @@ namespace ZeroInstall.Publish
             try
             {
                 var signatures = Store.Feeds.FeedUtils.GetSignatures(openPgp, File.ReadAllBytes(path));
-                var validSignature = signatures.OfType<ValidSignature>().FirstOrDefault();
-                if (validSignature != null) return openPgp.GetSecretKey(validSignature.Fingerprint);
+
+                foreach (var signature in signatures.OfType<ValidSignature>())
+                    return openPgp.GetSecretKey(signature.Fingerprint);
             }
                 #region Error handling
             catch (KeyNotFoundException)
