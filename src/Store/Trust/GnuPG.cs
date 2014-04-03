@@ -63,7 +63,7 @@ namespace ZeroInstall.Store.Trust
             {
                 writer.BaseStream.Write(data, 0, data.Length);
                 writer.Close();
-            }, ErrorHandlerException);
+            }, ErrorHandler);
         }
 
         /// <inheritdoc/>
@@ -92,7 +92,7 @@ namespace ZeroInstall.Store.Trust
         /// <inheritdoc/>
         public OpenPgpSecretKey[] ListSecretKeys()
         {
-            string result = Execute("--batch --no-secmem-warning --list-secret-keys --with-colons --fixed-list-mode --fingerprint", null, ErrorHandlerException);
+            string result = Execute("--batch --no-secmem-warning --list-secret-keys --with-colons --fixed-list-mode --fingerprint", null, ErrorHandler);
             string[] lines = result.SplitMultilineText();
 
             // Each secret key is represented by 4 lines of encoded information
@@ -129,7 +129,7 @@ namespace ZeroInstall.Store.Trust
             string arguments = "--batch --no-secmem-warning --armor --export";
             if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user " + keySpecifier.EscapeArgument();
 
-            return Execute(arguments, null, ErrorHandlerException);
+            return Execute(arguments, null, ErrorHandler);
         }
 
         /// <inheritdoc/>
@@ -154,7 +154,7 @@ namespace ZeroInstall.Store.Trust
             arguments += " --detach-sign " + path.EscapeArgument();
 
             if (string.IsNullOrEmpty(passphrase)) passphrase = "\n";
-            Execute(arguments, writer => writer.WriteLine(passphrase), ErrorHandlerException);
+            Execute(arguments, writer => writer.WriteLine(passphrase), ErrorHandler);
         }
         #endregion
 
@@ -176,7 +176,7 @@ namespace ZeroInstall.Store.Trust
                 {
                     writer.BaseStream.Write(data, 0, data.Length);
                     writer.Close();
-                }, ErrorHandlerLog);
+                }, ErrorHandler);
             }
             string[] lines = result.SplitMultilineText();
 
@@ -210,36 +210,36 @@ namespace ZeroInstall.Store.Trust
         /// <returns>Always <see langword="null"/>.</returns>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
         /// <exception cref="SignatureException">Thrown if there was an unexcpected GnuPG error.</exception>
-        private static string ErrorHandlerException(string line)
+        private static string ErrorHandler(string line)
         {
-            if (line.StartsWith("gpg: WARNING:"))
+            if (line.StartsWith("gpg: Signature made ") ||
+                line.StartsWith("gpg: Good signature from ") ||
+                line.StartsWith("gpg: WARNING: This key is not certified") ||
+                line.Contains("There is no indication") ||
+                line.StartsWith("Primary key fingerprint: ") ||
+                line.StartsWith("gpg: Can't check signature: public key not found"))
+                return null;
+
+            if (line.StartsWith("gpg: BAD signature from ") ||
+                line.StartsWith("gpg: WARNING:") ||
+                (line.StartsWith("gpg: renaming ") && line.EndsWith("failed: Permission denied")))
             {
                 Log.Warn(line);
                 return null;
             }
+
             if (line.StartsWith("gpg: waiting for lock") ||
                 (line.StartsWith("gpg: keyring ") && line.EndsWith(" created")) ||
-                (line.StartsWith("gpg: ") && line.EndsWith(": trustdb created")) ||
-                (line.StartsWith("gpg: renaming ") && line.EndsWith("failed: Permission denied")))
+                (line.StartsWith("gpg: ") && line.EndsWith(": trustdb created")))
             {
                 Log.Info(line);
                 return null;
             }
+
             if (line.StartsWith("gpg: skipped ") && line.EndsWith(": bad passphrase")) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: bad passphrase")) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: file exists")) throw new IOException(Resources.SignatureAldreadyExists);
-            throw new SignatureException(line);
-        }
-
-        /// <summary>
-        /// Provides error handling for GnuPG stderr with logging.
-        /// </summary>
-        /// <param name="line">The error line written to stderr.</param>
-        /// <returns>Always <see langword="null"/>.</returns>
-        private static string ErrorHandlerLog(string line)
-        {
-            Log.Info(line);
-            return null;
+            throw new IOException(line);
         }
         #endregion
 
