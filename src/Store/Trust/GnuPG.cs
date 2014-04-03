@@ -111,7 +111,7 @@ namespace ZeroInstall.Store.Trust
                 catch (FormatException ex)
                 {
                     // Wrap exception since only certain exception types are allowed
-                    throw new UnhandledErrorsException(ex.Message, ex);
+                    throw new IOException(ex.Message, ex);
                 }
                 #endregion
             }
@@ -193,7 +193,7 @@ namespace ZeroInstall.Store.Trust
                 catch (FormatException ex)
                 {
                     // Wrap exception since only certain exception types are allowed
-                    throw new UnhandledErrorsException(ex.Message, ex);
+                    throw new IOException(ex.Message, ex);
                 }
                 #endregion
             }

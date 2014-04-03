@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Common;
-using Common.Cli;
 using Common.Controls;
 using Common.Tasks;
 using ZeroInstall.Store.Model;
@@ -147,11 +146,6 @@ namespace ZeroInstall.Publish.WinForms
                     throw new IOException(ex.Message, ex);
                 }
                 catch (WrongPassphraseException ex)
-                {
-                    // Wrap exception since only certain exception types are allowed
-                    throw new IOException(ex.Message, ex);
-                }
-                catch (UnhandledErrorsException ex)
                 {
                     // Wrap exception since only certain exception types are allowed
                     throw new IOException(ex.Message, ex);

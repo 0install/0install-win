@@ -72,7 +72,6 @@
     <Compile Include="Cli\CliAppControl.cs" />
     <Compile Include="Cli\CliUtils.cs" />
     <Compile Include="Cli\ProgressBar.cs" />
-    <Compile Include="Cli\UnhandledErrorsException.cs" />
     <Compile Include="Dispatch\AggregateDispatcher.Action.cs" />
     <Compile Include="Dispatch\AggregateDispatcher.Func.cs" />
     <Compile Include="Collections\Bucketizer.cs" />

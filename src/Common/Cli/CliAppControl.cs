@@ -64,7 +64,6 @@ namespace Common.Cli
         /// <param name="errorHandler">A callback method to call whenever something is written to the stdout-stream and possibly to respond to it; <see langword="null"/> for none.</param>
         /// <returns>The application's complete output to the stdout-stream.</returns>
         /// <exception cref="IOException">Thrown if the external application could not be launched.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if there was output to stderr and <paramref name="errorHandler"/> was <see langword="null"/>.</exception>
         protected virtual string Execute(string arguments, Action<StreamWriter> inputCallback, CliErrorHandler errorHandler)
         {
             Process process;
@@ -144,7 +143,7 @@ namespace Common.Cli
             }
 
             if (stderrList.Count > 0)
-                throw new UnhandledErrorsException(StringUtils.Join("\n", stderrList));
+                throw new IOException(StringUtils.Join("\n", stderrList));
             return stdoutBuffer.ToString();
         }
         #endregion

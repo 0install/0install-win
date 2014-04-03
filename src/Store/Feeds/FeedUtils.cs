@@ -21,7 +21,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Common;
-using Common.Cli;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 using ZeroInstall.Store.Trust;
@@ -111,19 +110,9 @@ namespace ZeroInstall.Store.Feeds
             int signatureStartIndex = GetSignatureStartIndex(feedData);
             if (signatureStartIndex == -1) return Enumerable.Empty<OpenPgpSignature>();
 
-            try
-            {
-                return openPgp.Verify(
-                    IsolateFeed(feedData, signatureStartIndex),
-                    IsolateAndDecodeSignature(feedData, signatureStartIndex));
-            }
-                #region Error handling
-            catch (UnhandledErrorsException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new SignatureException(ex.Message, ex);
-            }
-            #endregion}
+            return openPgp.Verify(
+                IsolateFeed(feedData, signatureStartIndex),
+                IsolateAndDecodeSignature(feedData, signatureStartIndex));
         }
 
         /// <summary>

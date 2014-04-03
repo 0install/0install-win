@@ -22,7 +22,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Common;
-using Common.Cli;
 using Common.Storage;
 using Common.Streams;
 using ZeroInstall.Publish.Properties;
@@ -83,7 +82,6 @@ namespace ZeroInstall.Publish
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the file is not permitted.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         /// <remarks>
         /// The file is not parsed before signing; invalid XML files are signed as well.
         /// The existing file must end with a line break.

@@ -18,7 +18,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using Common.Cli;
 
 namespace ZeroInstall.Store.Trust
 {
@@ -33,7 +32,6 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         /// <param name="data">The key data to be imported.</param>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         void ImportKey(byte[] data);
 
         /// <summary>
@@ -42,14 +40,12 @@ namespace ZeroInstall.Store.Trust
         /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair; <see langword="null"/> to use the default key.</param>
         /// <exception cref="KeyNotFoundException">Thrown if the specified key could not be found on the system.</exception>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         OpenPgpSecretKey GetSecretKey(string keySpecifier);
 
         /// <summary>
         /// Returns a list of information about available secret keys.
         /// </summary>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         OpenPgpSecretKey[] ListSecretKeys();
 
         /// <summary>
@@ -58,7 +54,6 @@ namespace ZeroInstall.Store.Trust
         /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair.</param>
         /// <returns>The public key in the ASCII Armored format.</returns>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         string GetPublicKey(string keySpecifier);
 
         /// <summary>
@@ -77,7 +72,6 @@ namespace ZeroInstall.Store.Trust
         /// <exception cref="FileNotFoundException">Thrown if the file to be signed could not be found.</exception>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
         /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         /// <remarks>The detached signature is stored in a file named <paramref name="path"/> with ".sig" appended.</remarks>
         void DetachSign(string path, string keySpecifier, string passphrase);
 
@@ -88,7 +82,6 @@ namespace ZeroInstall.Store.Trust
         /// <param name="signature">The signature data.</param>
         /// <returns>A list of signatures found, both valid and invalid.</returns>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         IEnumerable<OpenPgpSignature> Verify(byte[] data, byte[] signature);
     }
 }

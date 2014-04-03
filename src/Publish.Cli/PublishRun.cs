@@ -184,7 +184,6 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file or the catalog file is not permitted.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if an OpenPGP key could not be found.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         /// <exception cref="NotSupportedException">Thrown if a MIME type doesn't belong to a known and supported archive type.</exception>
         public ErrorLevel Execute()
         {
@@ -234,7 +233,6 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file is not permitted.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if an OpenPGP key could not be found.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         private void SaveFeed(FeedEditing feedEditing)
         {
             if (_unsign)
@@ -290,7 +288,6 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the catalog file could not be written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a catalog file is not permitted.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if an OpenPGP key could not be found.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         private void SaveCatalog(Catalog catalog)
         {
             if (_xmlSign)

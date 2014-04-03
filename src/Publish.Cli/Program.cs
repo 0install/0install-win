@@ -137,11 +137,6 @@ namespace ZeroInstall.Publish.Cli
                 Log.Error(ex);
                 return (int)ErrorLevel.InvalidArguments;
             }
-            catch (UnhandledErrorsException ex)
-            {
-                Log.Error(ex);
-                return (int)ErrorLevel.IOError;
-            }
             catch (NotSupportedException ex)
             {
                 Log.Error(ex);
