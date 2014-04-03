@@ -35,35 +35,22 @@ namespace ZeroInstall.Store.Trust
     /// <remarks>This class is immutable and thread-safe.</remarks>
     public class GnuPG : BundledCliAppControl, IOpenPgp
     {
-        #region Properties
         /// <inheritdoc/>
         protected override string AppBinary { get { return "gpg"; } }
 
         /// <inheritdoc/>
         protected override string AppDirName { get { return "GnuPG"; } }
-        #endregion
-
-        //--------------------//
-
-        #region Execute
-        /// <inheritdoc/>
-        protected override ProcessStartInfo GetStartInfo(string arguments, bool hidden = false)
-        {
-            var startInfo = base.GetStartInfo(arguments, hidden);
-            if (Locations.IsPortable) startInfo.EnvironmentVariables["GNUPGHOME"] = Locations.GetSaveConfigPath("GnuPG", false, "gnupg");
-            return startInfo;
-        }
-        #endregion
 
         #region Keys
         /// <inheritdoc/>
         public void ImportKey(byte[] data)
         {
-            Execute("--batch --no-secmem-warning --quiet --import", writer =>
-            {
-                writer.BaseStream.Write(data, 0, data.Length);
-                writer.Close();
-            }, ErrorHandler);
+            Execute("--batch --no-secmem-warning --quiet --import",
+                inputCallback: writer =>
+                {
+                    writer.BaseStream.Write(data, 0, data.Length);
+                    writer.Close();
+                });
         }
 
         /// <inheritdoc/>
@@ -92,7 +79,7 @@ namespace ZeroInstall.Store.Trust
         /// <inheritdoc/>
         public OpenPgpSecretKey[] ListSecretKeys()
         {
-            string result = Execute("--batch --no-secmem-warning --list-secret-keys --with-colons --fixed-list-mode --fingerprint", null, ErrorHandler);
+            string result = Execute("--batch --no-secmem-warning --list-secret-keys --with-colons --fixed-list-mode --fingerprint");
             string[] lines = result.SplitMultilineText();
 
             // Each secret key is represented by 4 lines of encoded information
@@ -129,7 +116,7 @@ namespace ZeroInstall.Store.Trust
             string arguments = "--batch --no-secmem-warning --armor --export";
             if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user " + keySpecifier.EscapeArgument();
 
-            return Execute(arguments, null, ErrorHandler);
+            return Execute(arguments);
         }
 
         /// <inheritdoc/>
@@ -154,7 +141,8 @@ namespace ZeroInstall.Store.Trust
             arguments += " --detach-sign " + path.EscapeArgument();
 
             if (string.IsNullOrEmpty(passphrase)) passphrase = "\n";
-            Execute(arguments, writer => writer.WriteLine(passphrase), ErrorHandler);
+            Execute(arguments,
+                inputCallback: writer => writer.WriteLine(passphrase));
         }
         #endregion
 
@@ -171,12 +159,12 @@ namespace ZeroInstall.Store.Trust
             using (var signatureFile = new TemporaryFile("0install-sig"))
             {
                 File.WriteAllBytes(signatureFile, signature);
-                string arguments = "--batch --no-secmem-warning --status-fd 1 --verify " + signatureFile.Path.EscapeArgument() + " -";
-                result = Execute(arguments, writer =>
-                {
-                    writer.BaseStream.Write(data, 0, data.Length);
-                    writer.Close();
-                }, ErrorHandler);
+                result = Execute("--batch --no-secmem-warning --status-fd 1 --verify " + signatureFile.Path.EscapeArgument() + " -",
+                    inputCallback: writer =>
+                    {
+                        writer.BaseStream.Write(data, 0, data.Length);
+                        writer.Close();
+                    });
             }
             string[] lines = result.SplitMultilineText();
 
@@ -202,15 +190,25 @@ namespace ZeroInstall.Store.Trust
         }
         #endregion
 
-        #region Error handler
-        /// <summary>
-        /// Handles GnuPG stderr output.
-        /// </summary>
-        /// <param name="line">The error line written to stderr.</param>
-        /// <returns>Always <see langword="null"/>.</returns>
-        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
-        /// <exception cref="SignatureException">Thrown if there was an unexcpected GnuPG error.</exception>
-        private static string ErrorHandler(string line)
+        #region Execute
+        // NOTE: Run only one gpg instance at a time to prevent file system race confitions
+        /// <inheritdoc/>
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        protected override string Execute(string arguments, Action<StreamWriter> inputCallback = null)
+        {
+            return base.Execute(arguments, inputCallback);
+        }
+
+        /// <inheritdoc/>
+        protected override ProcessStartInfo GetStartInfo(string arguments, bool hidden = false)
+        {
+            var startInfo = base.GetStartInfo(arguments, hidden);
+            if (Locations.IsPortable) startInfo.EnvironmentVariables["GNUPGHOME"] = Locations.GetSaveConfigPath("GnuPG", false, "gnupg");
+            return startInfo;
+        }
+
+        /// <inheritdoc/>
+        protected override string HandleStderr(string line)
         {
             if (line.StartsWith("gpg: Signature made ") ||
                 line.StartsWith("gpg: Good signature from ") ||
@@ -242,13 +240,5 @@ namespace ZeroInstall.Store.Trust
             throw new IOException(line);
         }
         #endregion
-
-        // NOTE: Run only one gpg instance at a time to prevent file system race confitions
-        /// <inheritdoc/>
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        protected override string Execute(string arguments, Action<StreamWriter> inputCallback, CliErrorHandler errorHandler)
-        {
-            return base.Execute(arguments, inputCallback, errorHandler);
-        }
     }
 }

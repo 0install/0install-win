@@ -30,10 +30,12 @@ namespace ZeroInstall.Services.Solvers.Python
     internal sealed class SolverControlBundled : BundledCliAppControl, ISolverControl
     {
         private readonly IInteractionHandler _handler;
+        private readonly ErrorParser _errorParser;
 
         public SolverControlBundled(IInteractionHandler handler)
         {
             _handler = handler;
+            _errorParser = new ErrorParser(handler);
         }
 
         /// <inheritdoc/>
@@ -68,9 +70,15 @@ namespace ZeroInstall.Services.Solvers.Python
         public string ExecuteSolver(string arguments)
         {
             var errorParser = new ErrorParser(_handler);
-            var result = Execute(arguments, null, errorParser.HandleStdErrorLine);
+            var result = Execute(arguments);
             errorParser.Flush(); // Handle any left-over error messages
             return result;
+        }
+
+        /// <inheritdoc/>
+        protected override string HandleStderr(string line)
+        {
+            return _errorParser.HandleStdErrorLine(line);
         }
     }
 }

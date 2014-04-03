@@ -31,45 +31,29 @@ using Common.Utils;
 
 namespace Common.Cli
 {
-
-    #region Delegates
-    /// <summary>
-    /// A callback method for handling error messages from a CLI application.
-    /// </summary>
-    /// <param name="line">The error line written to stderr.</param>
-    /// <returns>The response to write to stdin; <see langword="null"/> for none.</returns>
-    public delegate string CliErrorHandler(string line);
-    #endregion
-
     /// <summary>
     /// Provides an interface to an external command-line application controlled via arguments and stdin and monitored via stdout and stderr.
     /// </summary>
     public abstract class CliAppControl
     {
-        #region Properties
         /// <summary>
         /// The name of the application's binary (without a file extension).
         /// </summary>
         protected abstract string AppBinary { get; }
-        #endregion
 
-        //--------------------//
-
-        #region Execute
         /// <summary>
         /// Runs the external application, processes its output and waits until it has terminated.
         /// </summary>
         /// <param name="arguments">Command-line arguments to launch the application with.</param>
         /// <param name="inputCallback">Callback allow you to write to the application's stdin-stream right after startup; <see langword="null"/> for none.</param>
-        /// <param name="errorHandler">A callback method to call whenever something is written to the stdout-stream and possibly to respond to it; <see langword="null"/> for none.</param>
         /// <returns>The application's complete output to the stdout-stream.</returns>
         /// <exception cref="IOException">Thrown if the external application could not be launched.</exception>
-        protected virtual string Execute(string arguments, Action<StreamWriter> inputCallback, CliErrorHandler errorHandler)
-        {
+        protected virtual string Execute(string arguments, Action<StreamWriter> inputCallback = null)        {
             Process process;
             try
             {
                 process = Process.Start(GetStartInfo(arguments, hidden: true));
+                if (process == null) return null;
             }
                 #region Error handling
             catch (Win32Exception ex)
@@ -110,22 +94,18 @@ namespace Common.Cli
             if (inputCallback != null) inputCallback(process.StandardInput);
 
             // Start handling messages to stderr
-            if (errorHandler != null)
+            do
             {
-                do
+                // Locking for thread-safe producer-consumer-behaviour
+                lock (stderrList)
                 {
-                    // Locking for thread-safe producer-consumer-behaviour
-                    lock (stderrList)
+                    while (stderrList.Count > 0)
                     {
-                        while (stderrList.Count > 0)
-                        {
-                            string result = errorHandler(stderrList.Dequeue());
-                            if (!string.IsNullOrEmpty(result)) process.StandardInput.WriteLine(result);
-                        }
+                        string result = HandleStderr(stderrList.Dequeue());
+                        if (!string.IsNullOrEmpty(result)) process.StandardInput.WriteLine(result);
                     }
-                } while (!process.WaitForExit(50));
-            }
-            else process.WaitForExit();
+                }
+            } while (!process.WaitForExit(50));
 
             // Finish any pending async operations
             stdoutThread.Join();
@@ -133,22 +113,15 @@ namespace Common.Cli
             process.Close();
 
             // Handle any left over stderr messages
-            if (errorHandler != null)
+            while (stderrList.Count > 0)
             {
-                while (stderrList.Count > 0)
-                {
-                    string result = errorHandler(stderrList.Dequeue());
-                    if (!string.IsNullOrEmpty(result)) process.StandardInput.WriteLine(result);
-                }
+                string result = HandleStderr(stderrList.Dequeue());
+                if (!string.IsNullOrEmpty(result)) process.StandardInput.WriteLine(result);
             }
 
-            if (stderrList.Count > 0)
-                throw new IOException(StringUtils.Join("\n", stderrList));
             return stdoutBuffer.ToString();
         }
-        #endregion
 
-        #region Start info
         /// <summary>
         /// Creates the <see cref="ProcessStartInfo"/> used by <see cref="Execute"/> to launch the external application.
         /// </summary>
@@ -173,6 +146,16 @@ namespace Common.Cli
 
             return startInfo;
         }
-        #endregion
+
+        /// <summary>
+        /// A hook method for handling stderr messages from the CLI application.
+        /// </summary>
+        /// <param name="line">The error line written to stderr.</param>
+        /// <returns>The response to write to stdin; <see langword="null"/> for none.</returns>
+        protected virtual string HandleStderr(string line)
+        {
+            Log.Warn(line);
+            return null;
+        }
     }
 }
