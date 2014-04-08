@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>ZeroInstall.Publish</id>
+        <version>$version$</version>
+        <authors>Bastian Eicher</authors>
+        <projectUrl>http://0install.de/</projectUrl>
+        <licenseUrl>http://opensource.org/licenses/LGPL</licenseUrl>
+        <iconUrl>https://0install.de/wp-content/uploads/icon.png</iconUrl>
+        <description>The Zero Install Publishing API provides methods for creating and modifying feed files.
+The Zero Install Publishing Tools (including the Feed Editor) are built upon this API. You can use the API to automate complex feed creation/update tasks.</description>
+        <summary>Zero Install Publishing API (create and modify feeds)</summary>
+        <dependencies>
+            <dependency id="ZeroInstall.Store" version="$version$" />
+        </dependencies>
+        <references>
+            <reference file="ZeroInstall.Capture.dll" />
+            <reference file="ZeroInstall.Publish.dll" />
+        </references>
+    </metadata>
+    <files>
+        <file src="..\build\Tools\Release\ZeroInstall.Capture.dll" target="lib\net20" />
+        <file src="..\build\Tools\Release\ZeroInstall.Capture.xml" target="lib\net20" />
+        <file src="..\build\Tools\Release\ZeroInstall.Publish.dll" target="lib\net20" />
+        <file src="..\build\Tools\Release\ZeroInstall.Publish.xml" target="lib\net20" />
+
+        <!-- Satellite assemblies (translations) -->
+        <file src="..\build\Tools\Release\de\ZeroInstall.Capture.resources.dll" target="lib\net20\de" />
+        <file src="..\build\Tools\Release\de\ZeroInstall.Publish.resources.dll" target="lib\net20\de" />
+
+        <!-- Symbols and source code -->
+        <file src="..\build\Tools\Release\ZeroInstall.Capture.pdb" target="lib\net20" />
+        <file src="..\src\Capture\**\*.cs" target="src\Capture" />
+        <file src="..\build\Tools\Release\ZeroInstall.Publish.pdb" target="lib\net20" />
+        <file src="..\src\Publish\**\*.cs" target="src\Publish" />
+    </files>
+</package>

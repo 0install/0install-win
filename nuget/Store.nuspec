@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>ZeroInstall.Store</id>
+        <version>$version$</version>
+        <authors>Bastian Eicher</authors>
+        <projectUrl>http://0install.de/</projectUrl>
+        <licenseUrl>http://opensource.org/licenses/LGPL</licenseUrl>
+        <iconUrl>https://0install.de/wp-content/uploads/icon.png</iconUrl>
+        <description>The Zero Install Storage API contains data models and management functions for all local file storage used by Zero Install.
+This API provides a common basis for the packages ZeroInstall.Services and ZeroInstall.Publish. You will usually get this package indirectly as a dependency from there.</description>
+        <summary>Zero Install Storage API (data models and management functions)</summary>
+        <dependencies>
+            <dependency id="NanoByte.Common" version="1.0.1" />
+            <dependency id="ICSharpCode.SharpZipLib.Patched" version="0.86.1" />
+            <dependency id="SevenZipSharp" version="0.64" />
+            <dependency id="Newtonsoft.Json" version="6.0.2" />
+        </dependencies>
+        <references>
+            <reference file="ZeroInstall.Store.dll" />
+        </references>
+    </metadata>
+    <files>
+        <file src="..\build\Backend\Release\ZeroInstall.Store.dll" target="lib\net20" />
+        <file src="..\build\Backend\Release\ZeroInstall.Store.xml" target="lib\net20" />
+        <file src="..\build\Backend\Release\ZeroInstall.Store.XmlSerializers.dll" target="lib\net20" />
+
+        <!-- Satellite assemblies (translations) -->
+        <file src="..\build\Backend\Release\de\ZeroInstall.Store.resources.dll" target="lib\net20\de" />
+
+        <!-- Bundled dependencies -->
+        <file src="..\build\Backend\Release\INIFileParser.dll" target="lib\net20" />
+        <file src="..\build\Backend\Release\INIFileParser.xml" target="lib\net20" />
+        <file src="..\build\Backend\Release\Microsoft.Deployment.Compression.Cab.dll" target="lib\net20" />
+        <file src="..\build\Backend\Release\Microsoft.Deployment.Compression.Cab.xml" target="lib\net20" />
+        <file src="..\build\Backend\Release\Microsoft.Deployment.Compression.dll" target="lib\net20" />
+        <file src="..\build\Backend\Release\Microsoft.Deployment.Compression.xml" target="lib\net20" />
+        <file src="..\build\Backend\Release\Microsoft.Deployment.WindowsInstaller.dll" target="lib\net20" />
+        <file src="..\build\Backend\Release\Microsoft.Deployment.WindowsInstaller.xml" target="lib\net20" />
+
+        <!-- Bundled native dependencies -->
+        <file src="..\build\Backend\Release\7zxa.dll" target="content" />
+        <file src="..\build\Backend\Release\7zxa-x64.dll" target="content" />
+        <file src="install.ps1" target="tools" /> <!-- CopyToOutputDirectory -->
+
+        <!-- Symbols and source code -->
+        <file src="..\build\Backend\Release\ZeroInstall.Store.pdb" target="lib\net20" />
+        <file src="..\src\Store\**\*.cs" target="src\Store" />
+    </files>
+</package>

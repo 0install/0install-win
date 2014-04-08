@@ -6,7 +6,6 @@ if "%2"=="+doc" set BUILD_DOC=TRUE
 if "%3"=="+doc" set BUILD_DOC=TRUE
 if "%4"=="+doc" set BUILD_DOC=TRUE
 
-::Create release build
 echo.
 call "%~dp0src\build.cmd" Release
 
@@ -18,7 +17,8 @@ if not exist "%~dp0bundled\Solver" (
   cd /d "%~dp0"
 )
 
-::Create installer
+echo.
+call "%~dp0nuget\build.cmd" %*
 echo.
 call "%~dp0installer\build.cmd" %*
 
