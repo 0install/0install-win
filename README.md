@@ -5,7 +5,7 @@ Directory structure
 - The directory `lib` contains pre-compiled 3rd party libraries which are not available via NuGet.
 - The directory `doc` contains scripts for generating source code and developer documentation.
 - The directory `modeling` contains UML and other diagrams.
-- The directory `isntaller` contains scripts for creating a Windows installer.
+- The directory `installer` contains scripts for creating a Windows installer.
 - The directory `bundled` contains a portable GnuPG distribution (Windows only) and an external solver (all platforms).
 - The directory `build` contains the results of various compilation processes. It is created on first usage. It can contain the following subdirectories:
   - Backend: Contains the libraries forming the Zero Install Backend.
@@ -25,7 +25,7 @@ Windows
 The external solver (required) is not included in the repository. To get it run `bundled/download-solver.ps1`.
 
 `build.cmd` will call build scripts in subdirectories to create a Zero Install for Windows installer in `build/Frontend/Installer`.
-Note: Please read `omstaööer/readme.txt` aswell for information about required tools.
+Note: Please read `installer/readme.txt` aswell for information about required tools.
 
 `cleanup.cmd` will delete any temporary files created by the build process or Visual Studio.
 

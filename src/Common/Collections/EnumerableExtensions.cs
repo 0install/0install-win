@@ -44,6 +44,14 @@ namespace Common.Collections
         }
 
         /// <summary>
+        /// Filters a sequence of elements to remove any that are equal to <paramref name="element"/>.
+        /// </summary>
+        public static IEnumerable<T> Except<T>(this IEnumerable<T> enumeration, T element)
+        {
+            return enumeration.Except(new[] {element});
+        }
+
+        /// <summary>
         /// Flattens a list of lists.
         /// </summary>
         public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<T>> enumeration)
