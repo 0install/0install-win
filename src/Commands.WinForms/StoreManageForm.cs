@@ -155,13 +155,17 @@ namespace ZeroInstall.Commands.WinForms
         {
             try
             {
-                Process.Start(new ProcessStartInfo(Path.Combine(Locations.InstallBase, "0install-win.exe"), "store manage") {Verb = "runas", ErrorDialog = true});
+                Process.Start(new ProcessStartInfo(Path.Combine(Locations.InstallBase, "0install-win.exe"), "store manage") {Verb = "runas"});
                 Close();
             }
-            catch (FileNotFoundException)
-            {}
-            catch (Win32Exception)
-            {}
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (Win32Exception ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
