@@ -61,7 +61,6 @@ namespace Common.Controls
 
         private void SetupUndoTracking(PropertyGrid propertyGrid)
         {
-#if FS_SECURITY
             if (UnixUtils.IsUnix)
             { // WORKAROUND: e.OldValue is not reliable on Mono, use MultiPropertyTracker instead
                 var tracker = new MultiPropertyTracker(propertyGrid);
@@ -72,7 +71,6 @@ namespace Common.Controls
                 };
             }
             else
-#endif
             {
                 propertyGrid.PropertyValueChanged += delegate(object sender, PropertyValueChangedEventArgs e)
                 {

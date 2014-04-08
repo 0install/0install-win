@@ -246,9 +246,6 @@
   <data name="UndoNotAvailable" xml:space="preserve">
     <value>Dieser Rückgängig-Befehl kann nicht ausgeführt werden, bis der eigentliche Befehl ausgeführt wurde.</value>
   </data>
-  <data name="UnhandledCliErrors" xml:space="preserve">
-    <value>Ein oder mehrere Fehler von einer externen Befehlszeilenanwendung wurden nicht behandelt.</value>
-  </data>
   <data name="UnixSubsystemFail" xml:space="preserve">
     <value>Das Unix Subsystem war nicht in der Lage die Anfrage zu bearbeiten. Eventuell haben Sie unzureichende Rechte.</value>
   </data>

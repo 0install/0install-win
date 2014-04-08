@@ -22,19 +22,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Text;
 using Common.Properties;
 using Common.Values;
-#if FS_SECURITY
-using System.ComponentModel;
-using System.Security.AccessControl;
-using System.Security.Principal;
-
-#endif
 
 namespace Common.Utils
 {
@@ -208,9 +205,7 @@ namespace Common.Utils
                 }
                 else File.Move(sourcePath, destinationPath);
             }
-#if FS_SECURITY
             else if (UnixUtils.IsUnix) UnixUtils.Rename(sourcePath, destinationPath);
-#endif
             else
             {
                 if (File.Exists(destinationPath)) File.Move(destinationPath, backupPath);
@@ -291,8 +286,6 @@ namespace Common.Utils
                 Walk(subDir, dirAction, fileAction);
         }
         #endregion
-
-#if FS_SECURITY
 
         #region ACLs
         /// <summary>
@@ -760,7 +753,5 @@ namespace Common.Utils
             #endregion
         }
         #endregion
-
-#endif
     }
 }

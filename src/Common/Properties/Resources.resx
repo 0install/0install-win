@@ -246,9 +246,6 @@
   <data name="UndoNotAvailable" xml:space="preserve">
     <value>This undo command cannot be performed until the actual command has been performed.</value>
   </data>
-  <data name="UnhandledCliErrors" xml:space="preserve">
-    <value>One or more errors from an external command-line application were not handled.</value>
-  </data>
   <data name="UnixSubsystemFail" xml:space="preserve">
     <value>The Unix subsystem failed to process the request. You may have insufficient rights.</value>
   </data>

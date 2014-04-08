@@ -73,7 +73,6 @@ namespace Common.Storage
 
             if (Directory.Exists(Path))
             {
-#if FS_SECURITY
                 try
                 {
                     // Write protection might prevent a directory from being deleted (especially on Unixoid systems)
@@ -85,8 +84,6 @@ namespace Common.Storage
                 catch (UnauthorizedAccessException)
                 {}
                 #endregion
-
-#endif
 
 #if DEBUG
                 Directory.Delete(Path, recursive: true);

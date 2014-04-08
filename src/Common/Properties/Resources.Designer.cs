@@ -448,15 +448,6 @@ namespace Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to One or more errors from an external command-line application were not handled..
-        /// </summary>
-        internal static string UnhandledCliErrors {
-            get {
-                return ResourceManager.GetString("UnhandledCliErrors", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The Unix subsystem failed to process the request. You may have insufficient rights..
         /// </summary>
         internal static string UnixSubsystemFail {

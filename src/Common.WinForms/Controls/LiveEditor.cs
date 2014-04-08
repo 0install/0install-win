@@ -24,15 +24,12 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using Common.Properties;
+using Common.Utils;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
-#if FS_SECURITY
-using System.IO;
-using Common.Utils;
-
-#endif
 
 namespace Common.Controls
 {
@@ -156,7 +153,6 @@ namespace Common.Controls
 
         private void HandleError(Exception ex)
         {
-#if FS_SECURITY
             if (!UnixUtils.IsUnix && ex is InvalidDataException && ex.Source == "System.Xml" && ex.InnerException != null)
             { // Parse XML exception message for position of the error
                 int lineStart = ex.Message.LastIndexOf('(') + 1;
@@ -174,7 +170,6 @@ namespace Common.Controls
                 SetStatus(ImageResources.Error, ex.Message);
             }
             else
-#endif
             {
                 SetStatus(ImageResources.Error, ex.InnerException == null
                     ? ex.Message

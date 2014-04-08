@@ -26,7 +26,7 @@
     <Optimize>false</Optimize>
     <OutputPath>..\..\build\Backend\Debug\</OutputPath>
     <DocumentationFile>..\..\build\Backend\Debug\Common.WinForms.xml</DocumentationFile>
-    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;FS_SECURITY</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
@@ -118,6 +118,7 @@
     <Compile Include="Controls\InspectionForm.Designer.cs">
       <DependentUpon>InspectionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ITouchControl.cs" />
     <Compile Include="Controls\IWizardPage.cs" />
     <Compile Include="Controls\LiveEditor.cs">
       <SubType>UserControl</SubType>
@@ -160,6 +161,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\TaskProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TouchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\TouchPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\UriTextBox.cs">

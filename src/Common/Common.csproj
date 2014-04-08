@@ -26,7 +26,7 @@
     <Optimize>false</Optimize>
     <OutputPath>..\..\build\Backend\Debug\</OutputPath>
     <DocumentationFile>..\..\build\Backend\Debug\Common.xml</DocumentationFile>
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS;FS_SECURITY</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
@@ -72,6 +72,7 @@
     <Compile Include="Cli\CliAppControl.cs" />
     <Compile Include="Cli\CliUtils.cs" />
     <Compile Include="Cli\ProgressBar.cs" />
+    <Compile Include="Controls\TouchEventArgs.cs" />
     <Compile Include="Dispatch\AggregateDispatcher.Action.cs" />
     <Compile Include="Dispatch\AggregateDispatcher.Func.cs" />
     <Compile Include="Collections\Bucketizer.cs" />
@@ -103,6 +104,7 @@
     </Compile>
     <Compile Include="Future.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="IChangeNotify.cs" />
     <Compile Include="INamed.cs" />
     <Compile Include="Info\AppInfo.cs" />
     <Compile Include="Info\ExceptionInfo.cs" />
@@ -191,6 +193,8 @@
     <Compile Include="Utils\WindowsUtils.Platform.cs" />
     <Compile Include="Utils\WindowsUtils.Properties.cs" />
     <Compile Include="Utils\WindowsUtils.Taskbar.cs" />
+    <Compile Include="Utils\WindowsUtils.Touch.cs" />
+    <Compile Include="Utils\WindowsUtils.WindowMessages.cs" />
     <Compile Include="Values\Design\EnumDescriptionConverter.cs" />
     <Compile Include="Values\Design\EnumXmlConverter.cs" />
     <Compile Include="Values\Design\LanguageSetEditor.cs" />

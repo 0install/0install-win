@@ -28,10 +28,6 @@ using System.Text;
 using Common.Info;
 using Common.Utils;
 
-#if LUA
-using LuaInterface;
-#endif
-
 namespace Common
 {
 
@@ -229,9 +225,6 @@ namespace Common
         /// <summary>
         /// Prints a message to the log as-is (no time stamp, etc.). Usually used for <see cref="Console"/> output.
         /// </summary>
-#if LUA
-        [LuaGlobal(Name = "Echo", Description = "Prints a message to the log as-is (no time stamp, etc.). Usually used for console output.")]
-#endif
         public static void Echo(string message)
         {
             AddEntry(LogSeverity.Echo, message);
@@ -240,9 +233,6 @@ namespace Common
         /// <summary>
         /// Writes nice-to-know information to the log.
         /// </summary>
-#if LUA
-        [LuaGlobal(Name = "Info", Description = "Writes nice-to-know information to the log.")]
-#endif
         public static void Info(string message)
         {
             AddEntry(LogSeverity.Info, message);
@@ -251,9 +241,6 @@ namespace Common
         /// <summary>
         /// Writes a warning that doesn't have to be acted upon immediately to the log.
         /// </summary>
-#if LUA
-        [LuaGlobal(Name = "Warn", Description = "Writes a warning that doesn't have to be acted upon immediately to the log.")]
-#endif
         public static void Warn(string message)
         {
             AddEntry(LogSeverity.Warn, message);
@@ -272,9 +259,6 @@ namespace Common
         /// <summary>
         /// Writes a critical error that should be attended to to the log.
         /// </summary>
-#if LUA
-        [LuaGlobal(Name = "Error", Description = "Writes a critical error that should be attended to to the log.")]
-#endif
         public static void Error(string message)
         {
             AddEntry(LogSeverity.Error, message);

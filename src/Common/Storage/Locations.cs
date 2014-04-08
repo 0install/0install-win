@@ -484,7 +484,6 @@ namespace Common.Storage
             else Directory.CreateDirectory(path);
         }
 
-#if FS_SECURITY
         /// <summary>
         /// Applies ACLs to an existing directory that block write-access for regular users. Does nothing if the directory does not exist.
         /// </summary>
@@ -503,7 +502,6 @@ namespace Common.Storage
                 File.Create(Path.Combine(path, SecuredFlagName));
             }
         }
-#endif
         #endregion
     }
 }

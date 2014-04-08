@@ -224,8 +224,6 @@ namespace Common.Utils
         }
         #endregion
 
-#if FS_SECURITY
-
         #region Links
         [Test]
         public void TestCreateSymlinkPosixFile()
@@ -365,7 +363,5 @@ namespace Common.Utils
             }
         }
         #endregion
-
-#endif
     }
 }

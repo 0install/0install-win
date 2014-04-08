@@ -49,7 +49,6 @@ namespace Common.Utils
             public static extern uint GetModuleFileName(IntPtr hModule, [Out]StringBuilder lpFilename, int nSize);
 
 
-#if SLIMDX
             // Window messages
             [DllImport("user32", CharSet = CharSet.Auto)]
             [return: MarshalAs(UnmanagedType.Bool)]
@@ -84,7 +83,6 @@ namespace Common.Utils
             [DllImport("user32")]
             [return: MarshalAs(UnmanagedType.Bool)]
             public static extern void CloseTouchInputHandle(IntPtr lParam);
-#endif
         }
 
         [SuppressUnmanagedCodeSecurity]
@@ -170,7 +168,6 @@ namespace Common.Utils
             public static extern bool GetFileInformationByHandle(IntPtr handle, out BY_HANDLE_FILE_INFORMATION lpFileInformation);
 
 
-#if SLIMDX
 // ReSharper disable MemberHidesStaticFromOuterClass
             // Window messages
             [DllImport("user32", CharSet = CharSet.Auto)]
@@ -180,7 +177,6 @@ namespace Common.Utils
             [return: MarshalAs(UnmanagedType.Bool)]
             public static extern bool ReleaseCapture();
 // ReSharper restore MemberHidesStaticFromOuterClass
-#endif
         }
     }
 }
