@@ -82,7 +82,7 @@ namespace ZeroInstall.Central
         /// <exception cref="NotSupportedException">Thrown when called on a non-Windows NT-based operating system.</exception>
         public static void Run()
         {
-            if (WindowsUtils.IsWindowsNT) ProcessUtils.LaunchAssembly("0install-win", "self-update");
+            if (WindowsUtils.IsWindowsNT) ProcessUtils.LaunchAssembly("0install-win", "self-update --restart-central");
             else throw new NotSupportedException();
         }
     }

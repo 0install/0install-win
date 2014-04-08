@@ -535,6 +535,9 @@ Im Offline-Modus wird kein Interface erneuert, auch wenn es veraltet ist und neu
   <data name="OptionRefresh" xml:space="preserve">
     <value>Rufe aktualisierte Kopien aller verwendeten Feeds ab.</value>
   </data>
+  <data name="OptionRestartCentral" xml:space="preserve">
+    <value>Starte die '0install central' GUI nach dem Update neu.</value>
+  </data>
   <data name="Options" xml:space="preserve">
     <value>Optionen:</value>
   </data>

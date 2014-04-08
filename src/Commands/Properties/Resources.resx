@@ -535,6 +535,9 @@ In off-line mode, no interfaces are refreshed even if they are out-of-date, and 
   <data name="OptionRefresh" xml:space="preserve">
     <value>Fetch fresh copies of all used feeds.</value>
   </data>
+  <data name="OptionRestartCentral" xml:space="preserve">
+    <value>Restart the '0install central' GUI after the update.</value>
+  </data>
   <data name="Options" xml:space="preserve">
     <value>Options:</value>
   </data>

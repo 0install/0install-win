@@ -60,12 +60,16 @@ namespace ZeroInstall.Commands
             //Options.Remove("refresh");
 
             Options.Add("force", () => Resources.OptionForceSelfUpdate, _ => _force = true);
+            Options.Add("restart-central", () => Resources.OptionRestartCentral, _ => _restartCentral = true);
         }
         #endregion
 
         #region State
         /// <summary>Perform the update even if the currently installed version is the same or newer.</summary>
         private bool _force;
+
+        /// <summary>Restart the <see cref="Central"/> GUI after the update.</summary>
+        private bool _restartCentral;
         #endregion
 
         /// <inheritdoc/>
@@ -77,6 +81,8 @@ namespace ZeroInstall.Commands
 
             // Pass in the installation directory to the updater as an argument
             AdditionalArgs.Add(Locations.InstallBase);
+
+            if (_restartCentral) AdditionalArgs.Add("--restart-central");
         }
 
         /// <inheritdoc/>

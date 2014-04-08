@@ -39,6 +39,9 @@ namespace ZeroInstall.Updater.WinForms
 
         /// <summary>Indicates whether the updater has alread respawned itself as an administator. This is used to prevent infinite loops.</summary>
         private readonly bool _rerun;
+
+        /// <summary>Indicates whether the updater shall restart the "0install central" GUI after the update.</summary>
+        private readonly bool _restartCentral;
         #endregion
 
         #region Constructor
@@ -47,10 +50,12 @@ namespace ZeroInstall.Updater.WinForms
         /// </summary>
         /// <param name="updateProcess">The update process to execute and track.</param>
         /// <param name="rerun">Indicates whether the updater has alread respawned itself as an administator. This is used to prevent infinite loops.</param>
-        public MainForm(UpdateProcess updateProcess, bool rerun)
+        /// <param name="restartCentral">Indicates whether the updater shall restart the "0install central" GUI after the update.</param>
+        public MainForm(UpdateProcess updateProcess, bool rerun, bool restartCentral)
         {
             _updateProcess = updateProcess;
             _rerun = rerun;
+            _restartCentral = restartCentral;
 
             InitializeComponent();
         }
@@ -153,7 +158,7 @@ namespace ZeroInstall.Updater.WinForms
                 }
             }
 
-            if (!_rerun) RestoreGui();
+            if (_restartCentral && !_rerun) _updateProcess.RestartCentral();
             Thread.Sleep(2000);
             Close();
         }
@@ -182,19 +187,6 @@ namespace ZeroInstall.Updater.WinForms
             }
             catch (Win32Exception)
             {}
-        }
-
-        /// <summary>
-        /// Restores Zero Install's main GUI.
-        /// </summary>
-        private void RestoreGui()
-        {
-            var startInfo = new ProcessStartInfo(Path.Combine(_updateProcess.Target, "ZeroInstall.exe"))
-            {
-                ErrorDialog = true,
-                ErrorDialogParentHandle = Handle
-            };
-            Process.Start(startInfo);
         }
         #endregion
     }

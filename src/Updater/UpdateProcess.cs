@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -340,6 +341,23 @@ namespace ZeroInstall.Updater
             // Start the service
             var controller = new ServiceController("0store-service");
             controller.Start();
+        }
+        #endregion
+
+        #region Restart central
+        /// <summary>
+        /// Restarts the "0install central" GUI.
+        /// </summary>
+        public void RestartCentral()
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo(Path.Combine(Target, "0install-win.exe"), "central") {ErrorDialog = true});
+            }
+            catch (IOException)
+            {}
+            catch (Win32Exception)
+            {}
         }
         #endregion
     }

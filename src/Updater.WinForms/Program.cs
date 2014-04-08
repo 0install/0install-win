@@ -44,14 +44,16 @@ namespace ZeroInstall.Updater.WinForms
             if (args == null) args = new string[0];
             if (args.Length < 3 || args.Length > 4)
             {
-                Msg.Inform(null, string.Format(Resources.WrongNoArguments, "0update-win SOURCE-PATH NEW-VERSION TARGET-PATH"), MsgSeverity.Error);
+                Msg.Inform(null, string.Format(Resources.WrongNoArguments, "0update-win SOURCE-PATH NEW-VERSION TARGET-PATH [--rerun|--restart-central]"), MsgSeverity.Error);
                 return;
             }
+            bool rerun = args.Contains("--rerun");
+            bool restartCentral = args.Contains("--restart-central");
 
             try
             {
                 var updateProcess = new UpdateProcess(args[0], args[1], args[2]);
-                Application.Run(new MainForm(updateProcess, args.Contains("--rerun")));
+                Application.Run(new MainForm(updateProcess, rerun, restartCentral));
             }
                 #region Error handling
             catch (IOException ex)

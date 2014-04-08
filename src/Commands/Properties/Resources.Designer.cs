@@ -1265,6 +1265,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restart the &apos;0install central&apos; GUI after the update..
+        /// </summary>
+        public static string OptionRestartCentral {
+            get {
+                return ResourceManager.GetString("OptionRestartCentral", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Options:.
         /// </summary>
         public static string Options {
