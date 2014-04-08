@@ -23,11 +23,6 @@ http://james.newtonking.com/json
 MIT license: http://opensource.org/licenses/mit-license
 NuGet package: Newtonsoft.Json
 
-XML-RPC.NET
-http://www.xml-rpc.net/
-MIT license: http://opensource.org/licenses/mit-license
-NuGet package: xmlrpcnet
-
 Task Scheduler Managed Wrapper
 http://taskscheduler.codeplex.com/
 MIT license: http://opensource.org/licenses/mit-license
