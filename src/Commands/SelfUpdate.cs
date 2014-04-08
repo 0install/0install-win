@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Common.Info;
 using Common.Storage;
 using Common.Utils;
@@ -83,7 +82,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (File.Exists(Path.Combine(Locations.PortableBase, "_no_self_update_check"))) throw new NotSupportedException(Resources.NoSelfUpdateDisabled);
             if (StoreUtils.PathInAStore(Locations.InstallBase)) throw new NotSupportedException(Resources.NoSelfUpdateStore);
 
             Handler.ShowProgressUI();

@@ -36,9 +36,9 @@ namespace ZeroInstall.Central
     public static class SelfUpdateUtils
     {
         /// <summary>
-        /// <see langword="true"/> if self-updating is enabled.
+        /// <see langword="true"/> if automatic check for updates is enabled.
         /// </summary>
-        public static bool IsEnabled
+        public static bool AutoCheckEnabled
         {
             get
             {

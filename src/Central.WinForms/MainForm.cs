@@ -130,7 +130,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            if (SelfUpdateUtils.IsEnabled) selfUpdateWorker.RunWorkerAsync();
+            if (SelfUpdateUtils.AutoCheckEnabled) selfUpdateWorker.RunWorkerAsync();
 
             UpdateAppListAsync();
             _tileManagement.LoadCachedCatalog();
