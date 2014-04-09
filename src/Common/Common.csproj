@@ -39,7 +39,7 @@
     <Optimize>true</Optimize>
     <OutputPath>..\..\build\Backend\Release\</OutputPath>
     <DocumentationFile>..\..\build\Backend\Release\Common.xml</DocumentationFile>
-    <DefineConstants>TRACE;FS_SECURITY</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
