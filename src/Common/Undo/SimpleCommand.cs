@@ -21,9 +21,9 @@
  */
 
 using System;
-using Common.Properties;
+using NanoByte.Common.Properties;
 
-namespace Common.Undo
+namespace NanoByte.Common.Undo
 {
     /// <summary>
     /// An undo command that automatically tracks when <see cref="Execute"/> and <see cref="Undo"/> can be called.

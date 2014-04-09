@@ -26,7 +26,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 
-namespace Common.Collections
+namespace NanoByte.Common.Collections
 {
     /// <summary>
     /// A collection of <see cref="LocalizableString"/>s with language-search methods.

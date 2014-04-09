@@ -25,9 +25,9 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Xml.Serialization;
-using Common.Utils;
+using NanoByte.Common.Utils;
 
-namespace Common.Info
+namespace NanoByte.Common.Info
 {
     /// <summary>
     /// Wraps information about an application in a serializer-friendly format.

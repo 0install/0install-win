@@ -22,7 +22,7 @@
 
 using System;
 
-namespace Common.Undo
+namespace NanoByte.Common.Undo
 {
     /// <summary>
     /// Executes <see cref="IUndoCommand"/>s without any additional handling.

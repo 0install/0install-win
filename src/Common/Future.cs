@@ -22,9 +22,9 @@
 
 using System;
 using System.Threading;
-using Common.Utils;
+using NanoByte.Common.Utils;
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// Implicitly represents the result of an asynchronous operation.

@@ -23,7 +23,7 @@
 using System;
 using System.IO;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Moves the content of a directory to a new location preserving the original file modification times.

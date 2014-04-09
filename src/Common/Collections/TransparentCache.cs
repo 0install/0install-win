@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Common.Collections
+namespace NanoByte.Common.Collections
 {
     /// <summary>
     /// Transparently caches retrieval requests, passed through to a callback on first request.

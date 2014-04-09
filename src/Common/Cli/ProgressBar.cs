@@ -24,11 +24,11 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using Common.Properties;
-using Common.Tasks;
-using Common.Utils;
+using NanoByte.Common.Properties;
+using NanoByte.Common.Tasks;
+using NanoByte.Common.Utils;
 
-namespace Common.Cli
+namespace NanoByte.Common.Cli
 {
     /// <summary>
     /// A progress bar rendered on the <see cref="Console"/>.

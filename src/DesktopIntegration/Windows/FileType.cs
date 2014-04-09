@@ -22,10 +22,10 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using Common.Collections;
-using Common.Tasks;
-using Common.Utils;
 using Microsoft.Win32;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Tasks;
+using NanoByte.Common.Utils;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.Windows

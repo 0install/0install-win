@@ -1,4 +1,6 @@
-﻿namespace ZeroInstall.Central.WinForms.Wizards
+﻿using NanoByte.Common.Controls;
+
+namespace ZeroInstall.Central.WinForms.Wizards
 {
     partial class ServerPage
     {
@@ -34,7 +36,7 @@
             this.labelTitle = new System.Windows.Forms.Label();
             this.buttonCustomServer = new System.Windows.Forms.Button();
             this.buttonOfficalServer = new System.Windows.Forms.Button();
-            this.textBoxCustomServer = new Common.Controls.UriTextBox();
+            this.textBoxCustomServer = new UriTextBox();
             this.serverCheckWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
@@ -103,7 +105,7 @@
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Button buttonCustomServer;
         private System.Windows.Forms.Button buttonOfficalServer;
-        private Common.Controls.UriTextBox textBoxCustomServer;
+        private UriTextBox textBoxCustomServer;
         private System.ComponentModel.BackgroundWorker serverCheckWorker;
     }
 }

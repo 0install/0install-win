@@ -23,10 +23,10 @@
 using System;
 using System.Globalization;
 using System.Windows.Forms;
-using Common.Properties;
+using NanoByte.Common.Properties;
 using TaskDialog;
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// Provides easier access to typical <see cref="MessageBox"/> configurations and automatically logs error messages.

@@ -21,9 +21,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using Common;
-using Common.Controls;
-using Common.Utils;
+using NanoByte.Common;
+using NanoByte.Common.Controls;
+using NanoByte.Common.Utils;
 using ZeroInstall.Updater.Properties;
 
 namespace ZeroInstall.Updater.WinForms

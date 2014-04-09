@@ -16,7 +16,7 @@
  */
 
 using System;
-using Common.Utils;
+using NanoByte.Common.Utils;
 
 namespace ZeroInstall.Store.Trust
 {

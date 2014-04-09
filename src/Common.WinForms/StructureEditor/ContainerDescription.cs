@@ -22,9 +22,9 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Common.Collections;
+using NanoByte.Common.Collections;
 
-namespace Common.StructureEditor
+namespace NanoByte.Common.StructureEditor
 {
     /// <summary>
     /// Describes an object that contains properties and/or lists. Provides information about how to edit this content.

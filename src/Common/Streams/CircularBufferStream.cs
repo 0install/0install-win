@@ -25,7 +25,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 
-namespace Common.Streams
+namespace NanoByte.Common.Streams
 {
     /// <summary>
     /// A circular buffer represented as a stream that one producer can write to and one consumer can read from simultaneously.

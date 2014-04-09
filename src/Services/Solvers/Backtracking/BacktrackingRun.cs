@@ -17,8 +17,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Common.Collections;
-using Common.Tasks;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;

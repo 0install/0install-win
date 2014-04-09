@@ -17,8 +17,8 @@
 
 using System;
 using System.Windows.Forms;
-using Common;
-using Common.Controls;
+using NanoByte.Common;
+using NanoByte.Common.Controls;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Model;
 

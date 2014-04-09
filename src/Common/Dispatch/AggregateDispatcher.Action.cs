@@ -25,7 +25,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Common.Dispatch
+namespace NanoByte.Common.Dispatch
 {
     /// <summary>
     /// Calls different action delegates based on the runtime types of objects.

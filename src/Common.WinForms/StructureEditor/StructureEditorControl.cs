@@ -25,13 +25,13 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Forms;
-using Common.Controls;
-using Common.Dispatch;
-using Common.Properties;
-using Common.Undo;
-using Common.Utils;
+using NanoByte.Common.Controls;
+using NanoByte.Common.Dispatch;
+using NanoByte.Common.Properties;
+using NanoByte.Common.Undo;
+using NanoByte.Common.Utils;
 
-namespace Common.StructureEditor
+namespace NanoByte.Common.StructureEditor
 {
     /// <summary>
     /// A universal editor for hierarchical structures with undo support.

@@ -24,7 +24,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Reports progress updates using events. Automatically handles thread- and IPC-marshaling.

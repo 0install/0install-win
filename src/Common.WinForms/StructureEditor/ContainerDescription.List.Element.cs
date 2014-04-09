@@ -25,12 +25,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using Common.Controls;
-using Common.Storage;
-using Common.Undo;
-using Common.Utils;
+using NanoByte.Common.Controls;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Undo;
+using NanoByte.Common.Utils;
 
-namespace Common.StructureEditor
+namespace NanoByte.Common.StructureEditor
 {
     public partial class ContainerDescription<TContainer>
     {

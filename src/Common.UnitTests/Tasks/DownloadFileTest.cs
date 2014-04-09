@@ -24,11 +24,11 @@ using System;
 using System.IO;
 using System.Net;
 using System.Threading;
-using Common.Storage;
-using Common.Streams;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
 using NUnit.Framework;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Contains test methods for <see cref="DownloadFile"/>.

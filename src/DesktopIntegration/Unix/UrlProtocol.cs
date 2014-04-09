@@ -18,7 +18,7 @@
 using System;
 using System.IO;
 using System.Net;
-using Common.Tasks;
+using NanoByte.Common.Tasks;
 
 namespace ZeroInstall.DesktopIntegration.Unix
 {

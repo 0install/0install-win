@@ -23,7 +23,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace Common.Undo
+namespace NanoByte.Common.Undo
 {
     /// <summary>
     /// Contains test methods for <see cref="ReplaceInList{T}"/>.

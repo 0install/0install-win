@@ -23,7 +23,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Uses <see cref="TaskRunDialog"/> to inform the user about the progress of tasks.

@@ -16,7 +16,7 @@
  */
 
 using System.Text;
-using Common.Utils;
+using NanoByte.Common.Utils;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Services

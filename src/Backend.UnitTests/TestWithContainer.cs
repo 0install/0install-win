@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common;
-using Common.Storage;
-using Common.Tasks;
 using Moq;
+using NanoByte.Common;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.Services;
 using ZeroInstall.Store;

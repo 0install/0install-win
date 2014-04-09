@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using Common.Utils;
+using NanoByte.Common.Utils;
 
 namespace ZeroInstall.Store.Model
 {

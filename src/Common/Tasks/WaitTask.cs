@@ -23,7 +23,7 @@
 using System;
 using System.Threading;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Waits for a <see cref="WaitHandle"/> to become available.

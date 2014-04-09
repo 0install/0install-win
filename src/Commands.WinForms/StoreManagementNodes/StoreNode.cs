@@ -21,8 +21,8 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using Common;
-using Common.Tasks;
+using NanoByte.Common;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.Implementations;
 

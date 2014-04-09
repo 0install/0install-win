@@ -17,9 +17,9 @@
 
 using System;
 using System.IO;
-using Common.Tasks;
 using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Tar;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations.Archives

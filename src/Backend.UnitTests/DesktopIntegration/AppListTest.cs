@@ -16,7 +16,7 @@
  */
 
 using System.Collections.Generic;
-using Common.Storage;
+using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Store.Model;

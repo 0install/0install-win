@@ -23,7 +23,7 @@
 using System;
 using System.Threading;
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// Provides a wrapper around <see cref="Mutex"/> that automatically acquires on creating and releases on <see cref="Dispose"/>

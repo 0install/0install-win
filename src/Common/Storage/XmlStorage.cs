@@ -28,17 +28,16 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using Common.Properties;
-using Common.Streams;
-using Common.Utils;
 using ICSharpCode.SharpZipLib.Zip;
-
+using NanoByte.Common.Properties;
 #if SLIMDX
 using System.Drawing;
 using Common.Collections;
 #endif
+using NanoByte.Common.Streams;
+using NanoByte.Common.Utils;
 
-namespace Common.Storage
+namespace NanoByte.Common.Storage
 {
     /// <summary>
     /// Provides easy serialization to XML files (optionally wrapped in ZIP archives).

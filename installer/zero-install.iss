@@ -85,16 +85,20 @@ Source: ..\bundled\Solver\*; DestDir: {app}\Solver; Flags: ignoreversion recurse
 [InstallDelete]
 ;Deletes obsolete files
 Name: {app}\C5.*; Type: files
+Name: {app}\Common.dll; Type: files
+Name: {app}\de\Common.resources.dll; Type: files
+Name: {app}\Common.WinForms.dll; Type: files
+Name: {app}\de\Common.WinForms.resources.dll; Type: files
 Name: {app}\ZeroInstall.Backend.*; Type: files  
-Name: {app}\de\ZeroInstall.Backend.dll; Type: files  
+Name: {app}\de\ZeroInstall.Backend.resources.dll; Type: files  
 Name: {app}\ZeroInstall.Fetchers.*; Type: files
-Name: {app}\de\ZeroInstall.Fetchers.dll; Type: files  
+Name: {app}\de\ZeroInstall.Fetchers.resources.dll; Type: files  
 Name: {app}\ZeroInstall.Solvers.*; Type: files
-Name: {app}\de\ZeroInstall.Solvers.dll; Type: files  
+Name: {app}\de\ZeroInstall.Solvers.resources.dll; Type: files  
 Name: {app}\ZeroInstall.Injector.*; Type: files
-Name: {app}\de\ZeroInstall.Injector.dll; Type: files  
+Name: {app}\de\ZeroInstall.Injector.resources.dll; Type: files  
 Name: {app}\ZeroInstall.Model.*; Type: files
-Name: {app}\de\ZeroInstall.Model.dll; Type: files
+Name: {app}\de\ZeroInstall.Model.resources.dll; Type: files
 
 [Registry]
 #ifdef PerUser

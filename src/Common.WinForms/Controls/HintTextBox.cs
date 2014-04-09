@@ -24,9 +24,9 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using Common.Properties;
+using NanoByte.Common.Properties;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// A special <see cref="TextBox"/> that displays a <see cref="HintText"/> when <see cref="TextBox.Text"/> is empty and a clear button when it is not.

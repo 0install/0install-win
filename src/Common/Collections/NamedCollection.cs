@@ -24,9 +24,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
-using Common.Properties;
+using NanoByte.Common.Properties;
 
-namespace Common.Collections
+namespace NanoByte.Common.Collections
 {
     /// <summary>
     /// A keyed collection (pseudo-dictionary) of <see cref="INamed{T}"/> objects. Elements are automatically maintained in an alphabetically sorted order. Suitable for XML serialization.

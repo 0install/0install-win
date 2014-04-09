@@ -28,7 +28,7 @@
 using System;
 using System.CodeDom.Compiler;
 
-namespace Common.Collections
+namespace NanoByte.Common.Collections
 {
     [GeneratedCode("Mono BCL", "3.2")] // ignore in code analysis
     internal static class HashPrimeNumbers

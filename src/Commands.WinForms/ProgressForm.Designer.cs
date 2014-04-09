@@ -1,4 +1,6 @@
-﻿namespace ZeroInstall.Commands.WinForms
+﻿using NanoByte.Common.Controls;
+
+namespace ZeroInstall.Commands.WinForms
 {
     partial class ProgressForm
     {
@@ -37,7 +39,7 @@
             this.progressBarWorking = new System.Windows.Forms.ProgressBar();
             this.selectionsControl = new ZeroInstall.Commands.WinForms.SelectionsControl();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.trackingControl = new Common.Controls.TaskControl();
+            this.trackingControl = new TaskControl();
             this.buttonModifySelectionsDone = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -157,7 +159,7 @@
         private System.Windows.Forms.Label labelWorking;
         private System.Windows.Forms.ProgressBar progressBarWorking;
         private System.Windows.Forms.ToolTip toolTip;
-        private Common.Controls.TaskControl trackingControl;
+        private TaskControl trackingControl;
         private System.Windows.Forms.Button buttonModifySelectionsDone;
 
     }

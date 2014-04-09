@@ -17,8 +17,8 @@
 
 using System;
 using System.ComponentModel;
-using Common;
-using Common.Utils;
+using NanoByte.Common;
+using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration;
 
 namespace ZeroInstall.Central.WinForms.Wizards

@@ -25,7 +25,7 @@ using System.IO;
 using Mono.Unix;
 using Mono.Unix.Native;
 
-namespace Common.Utils
+namespace NanoByte.Common.Utils
 {
     /// <summary>
     /// Provides helper methods for Unix-specific features of the Mono library.

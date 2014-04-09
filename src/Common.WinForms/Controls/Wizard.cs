@@ -24,9 +24,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using Common.Properties;
+using NanoByte.Common.Properties;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// A base class for creating wizard interfaces. Manages pages as a stack of <see cref="UserControl"/>s.

@@ -25,9 +25,9 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Forms;
-using Common.Controls;
+using NanoByte.Common.Controls;
 
-namespace Common.StructureEditor
+namespace NanoByte.Common.StructureEditor
 {
     public partial class ContainerDescription<TContainer>
     {

@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Common.Collections
+namespace NanoByte.Common.Collections
 {
     /// <summary>
     /// Splits collections into multiple buckets based on predicate matching. The first matching predicate wins.

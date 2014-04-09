@@ -17,8 +17,8 @@
 
 using System.Diagnostics;
 using System.IO;
-using Common.Cli;
-using Common.Storage;
+using NanoByte.Common.Cli;
+using NanoByte.Common.Storage;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Services.Solvers.Python

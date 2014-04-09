@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Defines a provider for progress updates.

@@ -24,7 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace Common.Collections
+namespace NanoByte.Common.Collections
 {
     /// <summary>
     /// This compares two <see cref="CultureInfo"/>s by alphabetically comparing their string representations.

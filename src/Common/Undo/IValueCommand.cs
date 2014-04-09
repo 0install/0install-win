@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-namespace Common.Undo
+namespace NanoByte.Common.Undo
 {
     /// <summary>
     /// A command that exposes the value it will set.

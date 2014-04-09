@@ -23,7 +23,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// Allows the input of a <see cref="TimeSpan"/> using <see cref="NumericUpDown"/> boxes.

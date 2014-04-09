@@ -22,8 +22,8 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
-using Common;
-using Common.Controls;
+using NanoByte.Common;
+using NanoByte.Common.Controls;
 using ZeroInstall.Publish.Properties;
 using Icon = ZeroInstall.Store.Model.Icon;
 

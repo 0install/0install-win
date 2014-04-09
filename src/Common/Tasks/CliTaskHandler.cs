@@ -22,9 +22,9 @@
 
 using System;
 using System.Runtime.CompilerServices;
-using Common.Cli;
+using NanoByte.Common.Cli;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Uses the stderr stream to inform the user about the progress of tasks.

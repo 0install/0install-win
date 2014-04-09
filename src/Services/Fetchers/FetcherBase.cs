@@ -18,9 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Common.Collections;
-using Common.Storage;
-using Common.Tasks;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;

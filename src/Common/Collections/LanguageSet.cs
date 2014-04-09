@@ -28,9 +28,9 @@ using System.Drawing.Design;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using Common.Values.Design;
+using NanoByte.Common.Values.Design;
 
-namespace Common.Collections
+namespace NanoByte.Common.Collections
 {
     /// <summary>
     /// A set of languages that can be serialized as a simple space-separated list of ISO language codes.

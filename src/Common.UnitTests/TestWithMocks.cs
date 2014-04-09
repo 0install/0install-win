@@ -23,7 +23,7 @@
 using Moq;
 using NUnit.Framework;
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// Common base class for test fixtures that use a <see cref="MockRepository"/>.

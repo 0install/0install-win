@@ -28,9 +28,9 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using Common.Collections;
+using NanoByte.Common.Collections;
 
-namespace Common.Utils
+namespace NanoByte.Common.Utils
 {
     /// <summary>
     /// Provides additional or simplified string functions.

@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using Moq;
 using NUnit.Framework.Constraints;
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// Extension methods for <see cref="Moq"/>.

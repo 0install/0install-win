@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Security;
-using Common.Utils;
 using Microsoft.Win32;
+using NanoByte.Common.Utils;
 
 namespace ZeroInstall.Capture
 {

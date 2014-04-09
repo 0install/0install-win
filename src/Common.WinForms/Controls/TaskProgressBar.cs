@@ -23,10 +23,10 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Common.Tasks;
-using Common.Utils;
+using NanoByte.Common.Tasks;
+using NanoByte.Common.Utils;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// A progress bar that takes <see cref="TaskSnapshot"/> inputs.

@@ -1,4 +1,6 @@
-﻿namespace ZeroInstall.Publish.WinForms.Wizards
+﻿using NanoByte.Common.Controls;
+
+namespace ZeroInstall.Publish.WinForms.Wizards
 {
     partial class DownloadRetrievalMethodOnlinePage<T>
     {
@@ -30,7 +32,7 @@
         {
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelQuestion = new System.Windows.Forms.Label();
-            this.textBoxUrl = new Common.Controls.UriTextBox();
+            this.textBoxUrl = new UriTextBox();
             this.buttonNext = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -101,7 +103,7 @@
 
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Label labelQuestion;
-        private Common.Controls.UriTextBox textBoxUrl;
+        private UriTextBox textBoxUrl;
         private System.Windows.Forms.Button buttonNext;
     }
 }

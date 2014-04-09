@@ -22,7 +22,7 @@
 
 using System.Collections.Generic;
 
-namespace Common.Undo
+namespace NanoByte.Common.Undo
 {
     /// <summary>
     /// Replaces an entry in a <see cref="IList{T}"/> with a new one.

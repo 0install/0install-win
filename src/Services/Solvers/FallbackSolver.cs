@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common;
+using NanoByte.Common;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 

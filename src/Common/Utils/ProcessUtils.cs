@@ -25,10 +25,10 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
-using Common.Properties;
-using Common.Storage;
+using NanoByte.Common.Properties;
+using NanoByte.Common.Storage;
 
-namespace Common.Utils
+namespace NanoByte.Common.Utils
 {
     /// <summary>
     /// Provides methods for launching child processes in OS-specific ways.

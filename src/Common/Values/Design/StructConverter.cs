@@ -28,7 +28,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 
-namespace Common.Values.Design
+namespace NanoByte.Common.Values.Design
 {
     /// <summary>
     /// Abstract base-class for easily creating a <see cref="TypeConverter"/> for a struct (value type).

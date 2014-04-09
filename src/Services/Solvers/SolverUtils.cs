@@ -17,7 +17,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Common.Collections;
+using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 

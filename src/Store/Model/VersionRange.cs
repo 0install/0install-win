@@ -18,9 +18,9 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Common.Collections;
-using Common.Utils;
-using Common.Values.Design;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Utils;
+using NanoByte.Common.Values.Design;
 
 namespace ZeroInstall.Store.Model
 {

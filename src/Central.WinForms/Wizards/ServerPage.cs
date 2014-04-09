@@ -20,8 +20,8 @@ using System.ComponentModel;
 using System.Net;
 using System.Net.Cache;
 using System.Windows.Forms;
-using Common;
-using Common.Controls;
+using NanoByte.Common;
+using NanoByte.Common.Controls;
 using ZeroInstall.Central.Properties;
 
 namespace ZeroInstall.Central.WinForms.Wizards

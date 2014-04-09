@@ -18,7 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Common.Collections;
+using NanoByte.Common.Collections;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model.Selection;

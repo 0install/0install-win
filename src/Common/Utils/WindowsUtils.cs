@@ -27,9 +27,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Common.Properties;
+using NanoByte.Common.Properties;
 
-namespace Common.Utils
+namespace NanoByte.Common.Utils
 {
     /// <summary>
     /// Provides helper methods and API calls specific to the Windows platform.

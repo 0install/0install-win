@@ -25,7 +25,7 @@ using System.IO;
 using System.Threading;
 using NUnit.Framework;
 
-namespace Common.Streams
+namespace NanoByte.Common.Streams
 {
     /// <summary>
     /// Contains test methods for <see cref="CircularBufferStream"/>.

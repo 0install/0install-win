@@ -21,10 +21,10 @@
  */
 
 using System.IO;
-using Common.Storage;
+using NanoByte.Common.Storage;
 using NUnit.Framework;
 
-namespace Common.Cli
+namespace NanoByte.Common.Cli
 {
     /// <summary>
     /// Contains test methods for <see cref="ArgumentUtils"/>.

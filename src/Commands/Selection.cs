@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
-using Common.Storage;
+using NanoByte.Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services;

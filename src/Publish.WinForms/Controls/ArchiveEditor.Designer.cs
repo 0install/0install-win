@@ -1,4 +1,6 @@
-﻿namespace ZeroInstall.Publish.WinForms.Controls
+﻿using NanoByte.Common.Controls;
+
+namespace ZeroInstall.Publish.WinForms.Controls
 {
     partial class ArchiveEditor
     {
@@ -31,9 +33,9 @@
             this.labelMimeType = new System.Windows.Forms.Label();
             this.comboBoxMimeType = new System.Windows.Forms.ComboBox();
             this.labelExtract = new System.Windows.Forms.Label();
-            this.textBoxExtract = new Common.Controls.HintTextBox();
+            this.textBoxExtract = new HintTextBox();
             this.labelDestination = new System.Windows.Forms.Label();
-            this.textBoxDestination = new Common.Controls.HintTextBox();
+            this.textBoxDestination = new HintTextBox();
             this.SuspendLayout();
             // 
             // labelMimeType
@@ -125,9 +127,9 @@
         private System.Windows.Forms.Label labelMimeType;
         private System.Windows.Forms.ComboBox comboBoxMimeType;
         private System.Windows.Forms.Label labelExtract;
-        private Common.Controls.HintTextBox textBoxExtract;
+        private HintTextBox textBoxExtract;
         private System.Windows.Forms.Label labelDestination;
-        private Common.Controls.HintTextBox textBoxDestination;
+        private HintTextBox textBoxDestination;
 
     }
 }

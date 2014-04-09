@@ -23,7 +23,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Common.Collections
+namespace NanoByte.Common.Collections
 {
     /// <summary>
     /// An equatable element that can be merged using 3-way merging.

@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Represents different states a (usually Web- or IO-related) task can be in.

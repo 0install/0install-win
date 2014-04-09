@@ -18,8 +18,8 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-using Common.Controls;
-using Common.Tasks;
+using NanoByte.Common.Controls;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.DesktopIntegration;

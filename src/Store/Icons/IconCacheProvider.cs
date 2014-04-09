@@ -18,7 +18,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using Common.Storage;
+using NanoByte.Common.Storage;
 
 namespace ZeroInstall.Store.Icons
 {

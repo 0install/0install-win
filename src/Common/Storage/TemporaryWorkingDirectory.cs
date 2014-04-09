@@ -22,7 +22,7 @@
 
 using System;
 
-namespace Common.Storage
+namespace NanoByte.Common.Storage
 {
     /// <summary>
     /// Like <see cref="TemporaryDirectory"/> but also sets <see cref="Environment.CurrentDirectory"/> to <see cref="TemporaryDirectory.Path"/>.

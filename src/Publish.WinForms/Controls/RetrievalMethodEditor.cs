@@ -20,13 +20,13 @@ using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
-using Common;
-using Common.Controls;
-using Common.Tasks;
-using Common.Undo;
+using NanoByte.Common;
+using NanoByte.Common.Controls;
+using NanoByte.Common.Tasks;
+using NanoByte.Common.Undo;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Model;
-using ICommandExecutor = Common.Undo.ICommandExecutor;
+using ICommandExecutor = NanoByte.Common.Undo.ICommandExecutor;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {

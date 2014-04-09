@@ -21,9 +21,9 @@
  */
 
 using System;
-using Common.Properties;
+using NanoByte.Common.Properties;
 
-namespace Common.Undo
+namespace NanoByte.Common.Undo
 {
     /// <summary>
     /// An undo command that does something different on the first call to <see cref="Execute"/> than on subsequent redo calls.

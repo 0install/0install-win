@@ -24,10 +24,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Common.Properties;
-using Common.Utils;
+using NanoByte.Common.Properties;
+using NanoByte.Common.Utils;
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// Provides a cross-process object allowing easy dection of application instances (e.g., for use by installers and update tools).

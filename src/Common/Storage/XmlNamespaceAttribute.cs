@@ -24,7 +24,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml;
 
-namespace Common.Storage
+namespace NanoByte.Common.Storage
 {
     /// <summary>
     /// Allows you to specify a <see cref="XmlQualifiedName"/> (namespace short-name) for <see cref="XmlStorage"/> to use.

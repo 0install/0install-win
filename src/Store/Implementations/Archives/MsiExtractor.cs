@@ -19,11 +19,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Common.Storage;
-using Common.Streams;
-using Common.Tasks;
 using Microsoft.Deployment.Compression.Cab;
 using Microsoft.Deployment.WindowsInstaller;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations.Archives

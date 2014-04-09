@@ -23,12 +23,12 @@ using System.Drawing.Design;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Common;
-using Common.Storage;
-using Common.Utils;
-using Common.Values.Design;
 using IniParser;
 using Microsoft.Win32;
+using NanoByte.Common;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Utils;
+using NanoByte.Common.Values.Design;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 

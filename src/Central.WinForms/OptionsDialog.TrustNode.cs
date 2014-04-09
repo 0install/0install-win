@@ -17,7 +17,7 @@
 
 using System;
 using System.ComponentModel;
-using Common;
+using NanoByte.Common;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Central.WinForms

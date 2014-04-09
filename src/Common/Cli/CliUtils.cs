@@ -23,9 +23,9 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Security;
-using Common.Utils;
+using NanoByte.Common.Utils;
 
-namespace Common.Cli
+namespace NanoByte.Common.Cli
 {
     /// <summary>
     /// Provides helper methods for communication with the user via the <see cref="Console"/>.

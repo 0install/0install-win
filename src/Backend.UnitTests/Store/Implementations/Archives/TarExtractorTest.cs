@@ -17,9 +17,9 @@
 
 using System;
 using System.IO;
-using Common.Storage;
-using Common.Streams;
-using Common.Utils;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
+using NanoByte.Common.Utils;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Implementations.Archives

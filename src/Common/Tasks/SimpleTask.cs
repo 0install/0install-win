@@ -24,7 +24,7 @@ using System;
 using System.IO;
 using System.Net;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// A delegate-driven task that cannot be canceled. Only completion is reported, no intermediate progress.

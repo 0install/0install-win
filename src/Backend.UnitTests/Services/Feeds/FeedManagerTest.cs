@@ -18,10 +18,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common;
-using Common.Storage;
-using Common.Streams;
 using Moq;
+using NanoByte.Common;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
 using NUnit.Framework;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;

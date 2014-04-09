@@ -1,4 +1,4 @@
-﻿namespace Common.Controls
+﻿namespace NanoByte.Common.Controls
 {
     partial class TaskControl
     {

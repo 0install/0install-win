@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Web;
-using Common.Utils;
+using NanoByte.Common.Utils;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Model

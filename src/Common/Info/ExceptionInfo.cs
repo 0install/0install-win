@@ -23,7 +23,7 @@
 using System;
 using System.Xml.Serialization;
 
-namespace Common.Info
+namespace NanoByte.Common.Info
 {
     /// <summary>
     /// Wraps information about an exception in a serializer-friendly format.

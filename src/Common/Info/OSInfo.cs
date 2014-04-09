@@ -23,9 +23,9 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using Common.Utils;
+using NanoByte.Common.Utils;
 
-namespace Common.Info
+namespace NanoByte.Common.Info
 {
     /// <summary>
     /// Wraps information about an operating system in a serializer-friendly format.

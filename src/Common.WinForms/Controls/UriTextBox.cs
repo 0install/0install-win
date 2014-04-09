@@ -26,7 +26,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// A <see cref="HintTextBox"/> designed specifically for entering URIs.

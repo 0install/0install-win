@@ -22,7 +22,7 @@
 
 using System;
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// An object that can notify interested parties of changes in properties of interest.

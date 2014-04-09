@@ -22,7 +22,7 @@
 
 using System.Windows.Forms;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// Contains a single property grid for inspecting and manipulating the properties of an arbitrary object.

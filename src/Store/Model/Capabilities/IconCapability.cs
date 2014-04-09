@@ -20,8 +20,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
-using Common.Collections;
-using Common.Utils;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Utils;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Model.Capabilities

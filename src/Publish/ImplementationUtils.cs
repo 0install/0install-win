@@ -18,10 +18,10 @@
 using System;
 using System.IO;
 using System.Net;
-using Common;
-using Common.Tasks;
-using Common.Undo;
-using Common.Utils;
+using NanoByte.Common;
+using NanoByte.Common.Tasks;
+using NanoByte.Common.Undo;
+using NanoByte.Common.Utils;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;

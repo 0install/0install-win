@@ -1,4 +1,6 @@
-﻿namespace ZeroInstall.Publish.WinForms.Wizards
+﻿using NanoByte.Common.Controls;
+
+namespace ZeroInstall.Publish.WinForms.Wizards
 {
     partial class DetailsPage
     {
@@ -30,7 +32,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.labelTitle = new System.Windows.Forms.Label();
-            this.propertyGridCandidate = new Common.Controls.ResettablePropertyGrid();
+            this.propertyGridCandidate = new ResettablePropertyGrid();
             this.buttonNext = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -85,7 +87,7 @@
         #endregion
 
         private System.Windows.Forms.Label labelTitle;
-        private Common.Controls.ResettablePropertyGrid propertyGridCandidate;
+        private ResettablePropertyGrid propertyGridCandidate;
         private System.Windows.Forms.Button buttonNext;
     }
 }

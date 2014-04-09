@@ -17,10 +17,10 @@
 
 using System.Linq;
 using System.Security.Cryptography;
-using Common;
-using Common.Storage;
-using Common.Utils;
 using Gtk;
+using NanoByte.Common;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration;
 
 namespace ZeroInstall.Central.Gtk

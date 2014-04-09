@@ -22,7 +22,7 @@
 
 using NUnit.Framework;
 
-namespace Common.Dispatch
+namespace NanoByte.Common.Dispatch
 {
     /// <summary>
     /// Contains test methods for <see cref="AggregateDispatcher{TBase,TResultElement}"/>.

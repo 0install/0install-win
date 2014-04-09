@@ -22,9 +22,9 @@
 
 using System;
 using System.IO;
-using Common.Utils;
+using NanoByte.Common.Utils;
 
-namespace Common.Storage
+namespace NanoByte.Common.Storage
 {
     /// <summary>
     /// Disposable class to create a temporary directory and delete it again when disposed.

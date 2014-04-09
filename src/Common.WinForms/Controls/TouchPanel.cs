@@ -23,9 +23,9 @@
 using System;
 using System.Security.Permissions;
 using System.Windows.Forms;
-using Common.Utils;
+using NanoByte.Common.Utils;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// Represents a panel that reacts to touch input on Windows 7 or newer.

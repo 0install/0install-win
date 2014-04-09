@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using Common.Utils;
+using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Store.Model;
 

@@ -25,7 +25,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Remoting;
 using System.Threading;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Signals to <see cref="CancellationToken"/>s that they should be canceled.

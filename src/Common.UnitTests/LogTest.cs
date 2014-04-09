@@ -17,7 +17,7 @@
 
 using NUnit.Framework;
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// Contains unit tests for <see cref="Log"/>.

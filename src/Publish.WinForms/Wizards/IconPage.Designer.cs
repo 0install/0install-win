@@ -1,4 +1,6 @@
-﻿namespace ZeroInstall.Publish.WinForms.Wizards
+﻿using NanoByte.Common.Controls;
+
+namespace ZeroInstall.Publish.WinForms.Wizards
 {
     partial class IconPage
     {
@@ -35,8 +37,8 @@
             this.labelStep1 = new System.Windows.Forms.Label();
             this.buttonSaveIco = new System.Windows.Forms.Button();
             this.labelStep2 = new System.Windows.Forms.Label();
-            this.textBoxHrefIco = new Common.Controls.UriTextBox();
-            this.textBoxHrefPng = new Common.Controls.UriTextBox();
+            this.textBoxHrefIco = new UriTextBox();
+            this.textBoxHrefPng = new UriTextBox();
             this.labelStep4 = new System.Windows.Forms.Label();
             this.buttonSavePng = new System.Windows.Forms.Button();
             this.labelStep3 = new System.Windows.Forms.Label();
@@ -227,8 +229,8 @@
         private System.Windows.Forms.Label labelStep1;
         private System.Windows.Forms.Button buttonSaveIco;
         private System.Windows.Forms.Label labelStep2;
-        private Common.Controls.UriTextBox textBoxHrefIco;
-        private Common.Controls.UriTextBox textBoxHrefPng;
+        private UriTextBox textBoxHrefIco;
+        private UriTextBox textBoxHrefPng;
         private System.Windows.Forms.Label labelStep4;
         private System.Windows.Forms.Button buttonSavePng;
         private System.Windows.Forms.Label labelStep3;

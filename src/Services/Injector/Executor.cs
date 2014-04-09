@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using Common;
+using NanoByte.Common;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;

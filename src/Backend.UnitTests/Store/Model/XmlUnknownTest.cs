@@ -16,7 +16,7 @@
  */
 
 using System.Xml.Serialization;
-using Common.Storage;
+using NanoByte.Common.Storage;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model

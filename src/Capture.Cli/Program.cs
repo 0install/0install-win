@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using Common;
+using NanoByte.Common;
 using NDesk.Options;
 using ZeroInstall.Capture.Cli.Properties;
 using SharedResources = ZeroInstall.Capture.Properties.Resources;

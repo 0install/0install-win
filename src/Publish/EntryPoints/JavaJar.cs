@@ -17,7 +17,7 @@
 
 using System;
 using System.IO;
-using Common.Utils;
+using NanoByte.Common.Utils;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.EntryPoints

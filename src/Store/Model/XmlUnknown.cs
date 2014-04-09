@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
-using Common.Collections;
+using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Model
 {

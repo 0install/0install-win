@@ -21,8 +21,8 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows.Forms;
-using Common;
-using Common.Controls;
+using NanoByte.Common;
+using NanoByte.Common.Controls;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands.WinForms.StoreManagementNodes

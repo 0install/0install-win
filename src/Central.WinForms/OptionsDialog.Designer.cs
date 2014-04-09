@@ -1,4 +1,6 @@
-﻿namespace ZeroInstall.Central.WinForms
+﻿using NanoByte.Common.Controls;
+
+namespace ZeroInstall.Central.WinForms
 {
     partial class OptionsDialog
     {
@@ -35,7 +37,7 @@
             this.labelSyncCryptoKey = new System.Windows.Forms.Label();
             this.textBoxSyncPassword = new System.Windows.Forms.TextBox();
             this.labelSyncPassword = new System.Windows.Forms.Label();
-            this.textBoxSyncServer = new Common.Controls.UriTextBox();
+            this.textBoxSyncServer = new UriTextBox();
             this.labelServer = new System.Windows.Forms.Label();
             this.textBoxSyncUsername = new System.Windows.Forms.TextBox();
             this.labelSyncUsername = new System.Windows.Forms.Label();
@@ -409,7 +411,7 @@
         private System.Windows.Forms.TextBox textBoxSyncUsername;
         private System.Windows.Forms.Label labelSyncUsername;
         private System.Windows.Forms.LinkLabel linkSyncAccount;
-        private Common.Controls.UriTextBox textBoxSyncServer;
+        private UriTextBox textBoxSyncServer;
         private System.Windows.Forms.Label labelServer;
         internal System.Windows.Forms.TabControl tabOptions;
         private System.Windows.Forms.TabPage tabPageUpdates;

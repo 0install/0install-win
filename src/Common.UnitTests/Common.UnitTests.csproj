@@ -9,8 +9,8 @@
     <ProjectGuid>{CA9D6092-4365-4385-9700-9570A98EF09D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Common</RootNamespace>
-    <AssemblyName>Common.UnitTests</AssemblyName>
+    <RootNamespace>NanoByte.Common</RootNamespace>
+    <AssemblyName>NanoByte.Common.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
@@ -75,7 +75,9 @@
     <Compile Include="Collections\LocalizableStringCollectionTest.cs" />
     <Compile Include="Collections\MergeTest.cs" />
     <Compile Include="Collections\TransparentCacheTest.cs" />
+    <Compile Include="Collections\XmlDictionaryTest.cs" />
     <Compile Include="Dispatch\AggregateDispatcherTest.cs" />
+    <Compile Include="Dispatch\ModelViewSyncTest.cs" />
     <Compile Include="Dispatch\PerTypeDispatcherTest.cs" />
     <Compile Include="LogTest.cs" />
     <Compile Include="MicroServer.cs" />

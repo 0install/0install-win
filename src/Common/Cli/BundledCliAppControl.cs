@@ -25,10 +25,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Common.Storage;
-using Common.Utils;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Utils;
 
-namespace Common.Cli
+namespace NanoByte.Common.Cli
 {
     /// <summary>
     /// Provides an interface to a bundled external command-line application controlled via arguments and stdin and monitored via stdout and stderr.

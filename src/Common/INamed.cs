@@ -23,7 +23,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// An object that has a unique human-readable name that can be used for identification in lists and sorting and that can be modified.

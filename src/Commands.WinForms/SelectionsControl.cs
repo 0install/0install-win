@@ -18,8 +18,8 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Common.Collections;
-using Common.Controls;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Controls;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Feeds;

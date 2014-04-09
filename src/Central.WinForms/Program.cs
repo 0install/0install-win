@@ -25,12 +25,12 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Windows.Forms;
-using Common;
-using Common.Collections;
-using Common.Controls;
-using Common.Storage;
-using Common.Utils;
 using Microsoft.Win32;
+using NanoByte.Common;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Controls;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store.Implementations;
 

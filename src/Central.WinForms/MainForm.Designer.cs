@@ -1,4 +1,6 @@
-﻿namespace ZeroInstall.Central.WinForms
+﻿using NanoByte.Common.Controls;
+
+namespace ZeroInstall.Central.WinForms
 {
     partial class MainForm
     {
@@ -32,10 +34,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControlApps = new System.Windows.Forms.TabControl();
             this.tabPageAppList = new System.Windows.Forms.TabPage();
-            this.buttonUpdateAll = new Common.Controls.SplitButton();
+            this.buttonUpdateAll = new SplitButton();
             this.menuUpdateAll = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonUpdateAllClean = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonSync = new Common.Controls.SplitButton();
+            this.buttonSync = new SplitButton();
             this.menuSync = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.butonSyncSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSyncTroubleshoot = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,11 +48,11 @@
             this.buttonMoreApps = new System.Windows.Forms.Button();
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
             this.tileListCatalog = new ZeroInstall.Central.WinForms.AppTileList();
-            this.buttonOptions = new Common.Controls.SplitButton();
+            this.buttonOptions = new SplitButton();
             this.menuOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonOptionsAdvanced = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonCacheManagement = new System.Windows.Forms.Button();
-            this.buttonHelp = new Common.Controls.SplitButton();
+            this.buttonHelp = new SplitButton();
             this.menuHelp = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonIntro = new System.Windows.Forms.ToolStripMenuItem();
             this.labelVersion = new System.Windows.Forms.Label();
@@ -321,10 +323,10 @@
         private System.Windows.Forms.TabControl tabControlApps;
         private System.Windows.Forms.TabPage tabPageAppList;
         private System.Windows.Forms.TabPage tabPageCatalog;
-        private Common.Controls.SplitButton buttonHelp;
+        private SplitButton buttonHelp;
         private System.Windows.Forms.Button buttonCacheManagement;
         private System.Windows.Forms.Label labelVersion;
-        private Common.Controls.SplitButton buttonOptions;
+        private SplitButton buttonOptions;
         private System.ComponentModel.BackgroundWorker selfUpdateWorker;
         private AppTileList tileListMyApps;
         private AppTileList tileListCatalog;
@@ -333,12 +335,12 @@
         private System.Windows.Forms.Button buttonRefreshCatalog;
         private System.ComponentModel.BackgroundWorker appListWorker;
         private System.Windows.Forms.Button buttonMoreApps;
-        private Common.Controls.SplitButton buttonSync;
+        private SplitButton buttonSync;
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.TableLayoutPanel rootTable;
         private System.Windows.Forms.Label labelLastCatalogError;
         private System.Windows.Forms.Label labelLoadingCatalog;
-        private Common.Controls.SplitButton buttonUpdateAll;
+        private SplitButton buttonUpdateAll;
         private System.Windows.Forms.ContextMenuStrip menuUpdateAll;
         private System.Windows.Forms.ToolStripMenuItem buttonUpdateAllClean;
         private System.Windows.Forms.ContextMenuStrip menuOptions;

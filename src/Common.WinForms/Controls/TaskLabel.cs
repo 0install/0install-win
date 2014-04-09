@@ -23,11 +23,11 @@
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
-using Common.Properties;
-using Common.Tasks;
-using Common.Utils;
+using NanoByte.Common.Properties;
+using NanoByte.Common.Tasks;
+using NanoByte.Common.Utils;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// A progress label that takes <see cref="TaskSnapshot"/> inputs.

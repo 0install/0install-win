@@ -21,10 +21,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Common;
-using Common.Cli;
-using Common.Storage;
-using Common.Utils;
+using NanoByte.Common;
+using NanoByte.Common.Cli;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Utils;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Trust

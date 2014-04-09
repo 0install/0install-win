@@ -25,9 +25,9 @@ using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Threading;
-using Common.Properties;
+using NanoByte.Common.Properties;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Downloads a file from a specific internet address to a local file (optionally as a background task).

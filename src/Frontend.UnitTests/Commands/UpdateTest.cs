@@ -16,9 +16,9 @@
  */
 
 using System;
-using Common;
-using Common.Storage;
 using Moq;
+using NanoByte.Common;
+using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Solvers;

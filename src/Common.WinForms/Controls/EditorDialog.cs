@@ -24,7 +24,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// Edits arbitrary types of elements using an <see cref="GenericEditorControl{T}"/>.

@@ -27,10 +27,10 @@ using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Principal;
-using Common.Properties;
-using Common.Utils;
+using NanoByte.Common.Properties;
+using NanoByte.Common.Utils;
 
-namespace Common.Storage
+namespace NanoByte.Common.Storage
 {
     /// <summary>
     /// Provides easy access to platform-specific common directories for storing settings and application data.

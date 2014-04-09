@@ -23,9 +23,9 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.ServiceProcess;
 using System.Windows.Forms;
-using Common;
-using Common.Storage;
-using Common.Utils;
+using NanoByte.Common;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Utils;
 using ZeroInstall.Store.Service.Properties;
 
 namespace ZeroInstall.Store.Service

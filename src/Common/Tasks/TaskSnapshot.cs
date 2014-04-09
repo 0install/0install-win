@@ -22,7 +22,7 @@
 
 using System;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Represents a progress snapshot of an <see cref="ITask"/>.

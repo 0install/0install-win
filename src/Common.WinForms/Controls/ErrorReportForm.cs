@@ -28,11 +28,11 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
-using Common.Info;
-using Common.Properties;
-using Common.Storage;
+using NanoByte.Common.Info;
+using NanoByte.Common.Properties;
+using NanoByte.Common.Storage;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// Presents the user with a friendly interface in case of an error, offering to report it to the developers.

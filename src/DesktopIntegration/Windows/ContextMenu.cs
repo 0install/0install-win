@@ -19,8 +19,8 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Net;
-using Common.Tasks;
 using Microsoft.Win32;
+using NanoByte.Common.Tasks;
 
 namespace ZeroInstall.DesktopIntegration.Windows
 {

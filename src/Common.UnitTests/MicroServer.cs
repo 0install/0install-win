@@ -25,9 +25,9 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using Common.Utils;
+using NanoByte.Common.Utils;
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// Provides a minimalistic HTTP webserver that can provide only a single file. Useful for testing download code.

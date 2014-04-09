@@ -23,7 +23,7 @@
 using System;
 using Gtk;
 
-namespace Common.Gtk
+namespace NanoByte.Common.Gtk
 {
     /// <summary>
     /// Provides easier access to typical <see cref="MessageDialog"/> configurations and automatically logs error messages.

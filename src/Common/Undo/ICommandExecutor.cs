@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-namespace Common.Undo
+namespace NanoByte.Common.Undo
 {
     /// <summary>
     /// An object that can execute <see cref="IUndoCommand"/>s.

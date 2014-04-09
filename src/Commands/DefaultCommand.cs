@@ -17,8 +17,8 @@
 
 using System;
 using System.Text;
-using Common.Info;
-using Common.Storage;
+using NanoByte.Common.Info;
+using NanoByte.Common.Storage;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services;
 

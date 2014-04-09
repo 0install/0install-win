@@ -22,7 +22,7 @@
 
 using System;
 
-namespace Common.Values
+namespace NanoByte.Common.Values
 {
     /// <summary>
     /// Contains extension methods for <see cref="Enum"/>s.

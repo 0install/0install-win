@@ -16,7 +16,7 @@
  */
 
 using System;
-using Common.Tasks;
+using NanoByte.Common.Tasks;
 
 namespace ZeroInstall.Store
 {

@@ -22,7 +22,7 @@
 
 using System;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Ignores progress reports.

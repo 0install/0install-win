@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common.Storage;
+using NanoByte.Common.Storage;
 using NDesk.Options;
 using NUnit.Framework;
 using ZeroInstall.Services;

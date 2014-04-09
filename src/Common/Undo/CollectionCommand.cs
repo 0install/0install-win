@@ -22,7 +22,7 @@
 
 using System.Collections.Generic;
 
-namespace Common.Undo
+namespace NanoByte.Common.Undo
 {
     /// <summary>
     /// An undo command that adds or removes an element from a collection.

@@ -19,9 +19,9 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Common;
-using Common.Cli;
-using Common.Controls;
+using NanoByte.Common;
+using NanoByte.Common.Cli;
+using NanoByte.Common.Controls;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish.WinForms

@@ -32,7 +32,7 @@ using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Common.Collections
+namespace NanoByte.Common.Collections
 {
     [GeneratedCode("Mono BCL", "3.2")] // ignore in code analysis
     [Serializable]

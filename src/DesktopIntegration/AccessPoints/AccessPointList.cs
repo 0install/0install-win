@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using Common.Collections;
+using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints

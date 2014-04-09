@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-namespace Common.Undo
+namespace NanoByte.Common.Undo
 {
     /// <summary>
     /// A executable command with an undo function.

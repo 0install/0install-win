@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// A task that performs an operation once for each element of a collection.

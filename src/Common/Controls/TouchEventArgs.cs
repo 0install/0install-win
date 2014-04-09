@@ -23,7 +23,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
 
     #region Enumerations

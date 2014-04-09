@@ -18,9 +18,9 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
-using Common;
-using Common.Tasks;
-using Common.Utils;
+using NanoByte.Common;
+using NanoByte.Common.Tasks;
+using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
 using ZeroInstall.Store;

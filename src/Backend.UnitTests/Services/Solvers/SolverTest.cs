@@ -16,8 +16,8 @@
  */
 
 using System.Collections.Generic;
-using Common.Storage;
 using Moq;
+using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store.Model;

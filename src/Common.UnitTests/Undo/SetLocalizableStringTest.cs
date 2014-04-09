@@ -21,10 +21,10 @@
  */
 
 using System.Globalization;
-using Common.Collections;
+using NanoByte.Common.Collections;
 using NUnit.Framework;
 
-namespace Common.Undo
+namespace NanoByte.Common.Undo
 {
     /// <summary>
     /// Contains test methods for <see cref="SetLocalizableString"/>.

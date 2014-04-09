@@ -18,7 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Common.Storage;
+using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Store.Model.Capabilities;
 

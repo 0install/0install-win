@@ -22,7 +22,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Common.Tasks;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 

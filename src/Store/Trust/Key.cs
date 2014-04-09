@@ -17,7 +17,7 @@
 
 using System;
 using System.Xml.Serialization;
-using Common.Collections;
+using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Trust
 {

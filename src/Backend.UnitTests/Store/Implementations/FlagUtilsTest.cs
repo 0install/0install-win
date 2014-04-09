@@ -17,7 +17,7 @@
 
 using System.IO;
 using System.Linq;
-using Common.Storage;
+using NanoByte.Common.Storage;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Implementations

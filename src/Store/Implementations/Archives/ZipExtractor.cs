@@ -17,11 +17,11 @@
 
 using System;
 using System.IO;
-using Common.Streams;
-using Common.Tasks;
-using Common.Values;
 using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Zip;
+using NanoByte.Common.Streams;
+using NanoByte.Common.Tasks;
+using NanoByte.Common.Values;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations.Archives

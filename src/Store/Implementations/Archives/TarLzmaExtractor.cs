@@ -18,7 +18,7 @@
 using System;
 using System.IO;
 using System.Threading;
-using Common.Streams;
+using NanoByte.Common.Streams;
 using SevenZip.Sdk.Compression.Lzma;
 using ZeroInstall.Store.Properties;
 

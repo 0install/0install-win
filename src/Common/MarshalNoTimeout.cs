@@ -23,7 +23,7 @@
 using System;
 using System.Security.Permissions;
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// Derive from this class to enable remoting without timeouts. Keeps remoting object alive as long as process is running.

@@ -25,9 +25,9 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Xml.Serialization;
-using Common.Utils;
+using NanoByte.Common.Utils;
 
-namespace Common.Values.Design
+namespace NanoByte.Common.Values.Design
 {
     /// <summary>
     /// Type converter for <see cref="Enum"/>s annotated with <see cref="XmlEnumAttribute"/>s.

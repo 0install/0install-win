@@ -23,7 +23,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// An object that can provide its own context menu.

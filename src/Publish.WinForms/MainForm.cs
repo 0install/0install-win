@@ -18,10 +18,10 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
-using Common;
-using Common.Controls;
-using Common.Info;
-using Common.Utils;
+using NanoByte.Common;
+using NanoByte.Common.Controls;
+using NanoByte.Common.Info;
+using NanoByte.Common.Utils;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Trust;
 

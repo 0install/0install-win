@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-namespace Common.Undo
+namespace NanoByte.Common.Undo
 {
     /// <summary>
     /// An undo command that does nothing on the first <see cref="IUndoCommand.Execute"/> call, because the action was already performed beforehand

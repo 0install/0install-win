@@ -18,8 +18,8 @@
 using System;
 using System.IO;
 using System.Linq;
-using Common.Storage;
-using Common.Utils;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Utils;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Implementations.Archives

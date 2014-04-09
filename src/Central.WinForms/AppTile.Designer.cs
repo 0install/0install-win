@@ -1,4 +1,6 @@
-﻿namespace ZeroInstall.Central.WinForms
+﻿using NanoByte.Common.Controls;
+
+namespace ZeroInstall.Central.WinForms
 {
     partial class AppTile
     {
@@ -32,7 +34,7 @@
             this.pictureBoxIcon = new System.Windows.Forms.PictureBox();
             this.labelName = new System.Windows.Forms.Label();
             this.labelSummary = new System.Windows.Forms.Label();
-            this.buttonRun = new Common.Controls.SplitButton();
+            this.buttonRun = new SplitButton();
             this.contextMenuRun = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonSelectCommand = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSelectVersion = new System.Windows.Forms.ToolStripMenuItem();
@@ -214,7 +216,7 @@
         private System.Windows.Forms.PictureBox pictureBoxIcon;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Label labelSummary;
-        internal Common.Controls.SplitButton buttonRun;
+        internal SplitButton buttonRun;
         internal System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.LinkLabel linkLabelDetails;
         private System.ComponentModel.BackgroundWorker iconDownloadWorker;

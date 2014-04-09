@@ -18,7 +18,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using Common.Collections;
+using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Model.Capabilities
 {

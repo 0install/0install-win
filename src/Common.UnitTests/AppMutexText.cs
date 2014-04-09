@@ -21,10 +21,10 @@
  */
 
 using System.IO;
-using Common.Utils;
+using NanoByte.Common.Utils;
 using NUnit.Framework;
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// Contains test methods for <see cref="AppMutex"/>.

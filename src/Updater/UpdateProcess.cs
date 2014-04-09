@@ -26,11 +26,11 @@ using System.Security;
 using System.Security.Cryptography;
 using System.ServiceProcess;
 using System.Threading;
-using Common;
-using Common.Storage;
-using Common.Tasks;
-using Common.Utils;
 using Microsoft.Win32;
+using NanoByte.Common;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
+using NanoByte.Common.Utils;
 using ZeroInstall.Updater.Properties;
 
 namespace ZeroInstall.Updater
@@ -213,11 +213,20 @@ namespace ZeroInstall.Updater
                 var appFiles = new[]
                 {
                     "C5.dll",
-                    "ZeroInstall.Backend.dll", Path.Combine("de", "ZeroInstall.Backend.dll"),
-                    "ZeroInstall.Fetchers.dll", Path.Combine("de", "ZeroInstall.Fetchers.dll"),
-                    "ZeroInstall.Solvers.dll", Path.Combine("de", "ZeroInstall.Solvers.dll"),
-                    "ZeroInstall.Injector.dll", Path.Combine("de", "ZeroInstall.Injector.dll"),
-                    "ZeroInstall.Model.dll", "ZeroInstall.Model.XmlSerializers.dll", Path.Combine("de", "ZeroInstall.Model.dll")
+                    "ZeroInstall.Backend.dll", Path.Combine("de", "ZeroInstall.Backend.resources.dll"),
+                    "ZeroInstall.Fetchers.dll", Path.Combine("de", "ZeroInstall.Fetchers.resources.dll"),
+                    "ZeroInstall.Solvers.dll", Path.Combine("de", "ZeroInstall.Solvers.resources.dll"),
+                    "ZeroInstall.Injector.dll", Path.Combine("de", "ZeroInstall.Injecto.resourcesr.dll"),
+                    "ZeroInstall.Model.dll", "ZeroInstall.Model.XmlSerializers.dll", Path.Combine("de", "ZeroInstall.Model.resources.dll")
+                };
+                filesToDelete.AddRange(appFiles.Select(x => Path.Combine(Target, x)));
+            }
+            if (NewVersion >= new Version("2.5.2"))
+            {
+                var appFiles = new[]
+                {
+                    "Common.dll", Path.Combine("de", "Common.resources.dll"),
+                    "Common.WinForms.dll", Path.Combine("de", "Common.WinForms.resources.dll")
                 };
                 filesToDelete.AddRange(appFiles.Select(x => Path.Combine(Target, x)));
             }

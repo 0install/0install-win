@@ -19,9 +19,9 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Common;
-using Common.Controls;
-using Common.Tasks;
+using NanoByte.Common;
+using NanoByte.Common.Controls;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Publish.EntryPoints;
 
 namespace ZeroInstall.Publish.WinForms.Wizards

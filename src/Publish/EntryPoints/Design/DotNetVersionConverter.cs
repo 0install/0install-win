@@ -16,7 +16,7 @@
  */
 
 using System.ComponentModel;
-using Common.Values.Design;
+using NanoByte.Common.Values.Design;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.EntryPoints.Design

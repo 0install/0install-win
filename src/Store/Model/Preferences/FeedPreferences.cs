@@ -21,10 +21,10 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
-using Common;
-using Common.Collections;
-using Common.Storage;
-using Common.Utils;
+using NanoByte.Common;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Utils;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Model.Preferences

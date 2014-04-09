@@ -17,7 +17,7 @@
 
 using System.ComponentModel;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// Provides an interface to a control that edits a single object and has a reference to the containing object.

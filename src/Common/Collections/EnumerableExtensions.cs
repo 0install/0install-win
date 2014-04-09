@@ -24,9 +24,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Common.Properties;
+using NanoByte.Common.Properties;
 
-namespace Common.Collections
+namespace NanoByte.Common.Collections
 {
     /// <summary>
     /// Provides helper methods for enumerable collections.

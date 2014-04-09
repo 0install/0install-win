@@ -22,7 +22,7 @@
 
 using System.Windows.Forms;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// A base-class for creating fixed-size dialog boxes with an OK and a Cancel button.

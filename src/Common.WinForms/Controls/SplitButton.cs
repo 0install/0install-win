@@ -34,7 +34,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using ContentAlignment = System.Drawing.ContentAlignment;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// A <see cref="Button"/> with an additional drop-down menu.

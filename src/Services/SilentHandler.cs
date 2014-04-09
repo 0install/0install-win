@@ -17,7 +17,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using Common.Tasks;
+using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;

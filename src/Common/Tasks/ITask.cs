@@ -25,7 +25,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Net;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// A task that can report its progess via events.

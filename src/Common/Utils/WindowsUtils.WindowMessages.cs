@@ -26,7 +26,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace Common.Utils
+namespace NanoByte.Common.Utils
 {
     #region Enumerations
     [CLSCompliant(false)]

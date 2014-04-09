@@ -16,8 +16,8 @@
  */
 
 using System;
-using Common;
-using Common.Controls;
+using NanoByte.Common;
+using NanoByte.Common.Controls;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.WinForms.Controls

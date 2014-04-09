@@ -19,9 +19,9 @@ using System;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
-using Common;
-using Common.Tasks;
-using Common.Undo;
+using NanoByte.Common;
+using NanoByte.Common.Tasks;
+using NanoByte.Common.Undo;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.WinForms.Wizards

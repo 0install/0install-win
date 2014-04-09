@@ -23,9 +23,9 @@
 using System;
 using System.Security.Permissions;
 using System.Windows.Forms;
-using Common.Properties;
+using NanoByte.Common.Properties;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// A <see cref="PropertyGrid"/> that provides a "reset value" option in its context menu.

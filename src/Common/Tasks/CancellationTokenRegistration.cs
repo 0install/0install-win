@@ -23,7 +23,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Represents a callback delegate that has been registered with a <see cref="CancellationToken"/>.

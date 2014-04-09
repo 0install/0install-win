@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Xml.Serialization;
-using Common.Tasks;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints

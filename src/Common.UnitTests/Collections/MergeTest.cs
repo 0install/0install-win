@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
-namespace Common.Collections
+namespace NanoByte.Common.Collections
 {
     /// <summary>
     /// Contains test methods for <see cref="Merge"/>.

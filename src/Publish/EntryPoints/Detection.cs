@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using Common.Utils;
+using NanoByte.Common.Utils;
 
 namespace ZeroInstall.Publish.EntryPoints
 {

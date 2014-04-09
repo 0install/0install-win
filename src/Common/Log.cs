@@ -25,10 +25,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using Common.Info;
-using Common.Utils;
+using NanoByte.Common.Info;
+using NanoByte.Common.Utils;
 
-namespace Common
+namespace NanoByte.Common
 {
 
     #region Enumerations

@@ -35,7 +35,7 @@ using System.Security.Permissions;
 
 // HashSet is basically implemented as a reduction of Dictionary<K, V>
 
-namespace Common.Collections
+namespace NanoByte.Common.Collections
 {
     [GeneratedCode("Mono BCL", "3.2")] // ignore in code analysis
     [Serializable]

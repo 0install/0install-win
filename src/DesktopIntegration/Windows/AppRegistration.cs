@@ -21,9 +21,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using Common.Collections;
-using Common.Tasks;
 using Microsoft.Win32;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
 

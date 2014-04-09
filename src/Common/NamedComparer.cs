@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// Compares <see cref="INamed{T}"/> objects based on their <see cref="INamed{T}.Name"/> in a case-insensitive way.

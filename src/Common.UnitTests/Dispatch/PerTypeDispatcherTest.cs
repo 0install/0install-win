@@ -23,7 +23,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace Common.Dispatch
+namespace NanoByte.Common.Dispatch
 {
     /// <summary>
     /// Contains test methods for <see cref="PerTypeDispatcher{TBase,TResult}"/>.

@@ -27,11 +27,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Common.Collections;
-using Common.Properties;
-using Common.Utils;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Properties;
+using NanoByte.Common.Utils;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// Displays a list of <see cref="INamed{T}"/>s objects in a <see cref="TreeView"/> with incremental search.

@@ -19,9 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Common.Collections;
-using Common.Tasks;
-using Common.Utils;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Tasks;
+using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Store.Model;
 

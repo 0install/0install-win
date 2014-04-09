@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ArchiveInvalid" xml:space="preserve">
+    <value>Die Archivdatei ist ungültig oder beschädigt.</value>
+  </data>
   <data name="ArgMustBeGreaterThanZero" xml:space="preserve">
     <value>Das Argument muss größer als Null sein.</value>
+  </data>
+  <data name="ArgMustNotBeNegative" xml:space="preserve">
+    <value>Das Argument darf nicht kleiner als null sein.</value>
+  </data>
+  <data name="AtLeast2Values" xml:space="preserve">
+    <value>Sie müssen mindestens zwei Werte übergeben.</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Zurück</value>
@@ -132,8 +141,14 @@
   <data name="CannotCanonicalizeDacl" xml:space="preserve">
     <value>Die DACL kann nicht in eine kanonische Form überfürht werden, da es dabei zu einem Informationsverlust kommen könnte.</value>
   </data>
+  <data name="ContentArchivesAlreadyLoaded" xml:space="preserve">
+    <value>Die Content Archive wurden bereits geladen.</value>
+  </data>
   <data name="CopyFiles" xml:space="preserve">
     <value>Kopiere Dateien</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Löschen</value>
   </data>
   <data name="DestinationDirExist" xml:space="preserve">
     <value>Das Zielverzeichnis existiert bereits.</value>
@@ -162,14 +177,23 @@
   <data name="InvalidConfigDir" xml:space="preserve">
     <value>Das Konfigurationsverzeichnis '{0}' ist vermutlich ungültig.</value>
   </data>
+  <data name="ItemAlreadyInPool" xml:space="preserve">
+    <value>Dieses Element befindet sich bereits in einem Pool. Es kann maxmimal einem Pool hinzugefügt werden.</value>
+  </data>
   <data name="KeyAlreadyPresent" xml:space="preserve">
     <value>Der Schlüssel befindet sich bereits im Dictionary.</value>
   </data>
   <data name="KeyNotFound" xml:space="preserve">
     <value>Der Schlüssel wurde in der Collection nicht gefunden.</value>
   </data>
+  <data name="LoseChangesAsk" xml:space="preserve">
+    <value>Warnung! Sämtliche Ihrer Änderungen an dieser Datei gehen hierbei verloren. Möchten Sie fortfahren?</value>
+  </data>
   <data name="MaxElementsExceeded" xml:space="preserve">
     <value>Die maximale Anzahl an Elementen in der Collection wurde überschritten.</value>
+  </data>
+  <data name="MinLargerMax" xml:space="preserve">
+    <value>Der Min Wert darf nicht größer als der Max Wert sein.</value>
   </data>
   <data name="MissingDispatchAction" xml:space="preserve">
     <value>Keine Aktion für '{0}' registriert.</value>
@@ -182,6 +206,21 @@
   </data>
   <data name="NoBinaryDataInZip" xml:space="preserve">
     <value>Es wurden keine Binärdaten in der ZIP Datei gefunden.</value>
+  </data>
+  <data name="NoModActive" xml:space="preserve">
+    <value>Derzeit ist kein Mod aktiv.</value>
+  </data>
+  <data name="NotAnImage" xml:space="preserve">
+    <value>Die Datei ist kein gültiges Bild.</value>
+  </data>
+  <data name="NotFoundGameContentDir" xml:space="preserve">
+    <value>Der Spielcontent-Ordner konnte nicht gefunden werden:</value>
+  </data>
+  <data name="NotFoundGameContentFile" xml:space="preserve">
+    <value>Die folgende Spieldaten-Datei konnte nicht gefunden werden:</value>
+  </data>
+  <data name="NotFoundModContentDir" xml:space="preserve">
+    <value>Der Mod-Ordner konnte nicht gefunden werden:</value>
   </data>
   <data name="NoXmlDataInZip" xml:space="preserve">
     <value>Es wurden keine XML Daten in der ZIP Datei gefunden.</value>
@@ -197,6 +236,9 @@
   </data>
   <data name="ResetValue" xml:space="preserve">
     <value>Wert &amp;zurücksetzen</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Zurücksetzen</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Suche</value>
@@ -225,6 +267,9 @@
   <data name="StateMustBeReady" xml:space="preserve">
     <value>Der Zustand muss "Ready" sein.</value>
   </data>
+  <data name="StateReady" xml:space="preserve">
+    <value>Bereit</value>
+  </data>
   <data name="StateWebError" xml:space="preserve">
     <value>Web Fehler</value>
   </data>
@@ -233,6 +278,9 @@
   </data>
   <data name="UnableToCreateMutex" xml:space="preserve">
     <value>Konnte Mutex nicht erstellen.</value>
+  </data>
+  <data name="UnableToDelete" xml:space="preserve">
+    <value>Die Datei konnte nicht gelöscht werden.</value>
   </data>
   <data name="UnableToGenerateErrorReportFile" xml:space="preserve">
     <value>Konnte Fehlerberichtdatei nicht erstellen. Bitte senden Sie die technischen Details per E-Mail.</value>

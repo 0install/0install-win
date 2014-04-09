@@ -24,7 +24,7 @@ using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 using NUnit.Framework;
 
-namespace Common.Storage
+namespace NanoByte.Common.Storage
 {
     /// <summary>
     /// Contains test methods for <see cref="XmlStorage"/>.

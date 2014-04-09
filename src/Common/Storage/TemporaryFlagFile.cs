@@ -23,7 +23,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
-namespace Common.Storage
+namespace NanoByte.Common.Storage
 {
     /// <summary>
     /// A temporary directory with a file that may or may not exist to indicate whether a certain condition is true or false.

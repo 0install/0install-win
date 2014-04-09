@@ -21,10 +21,10 @@
  */
 
 using System.IO;
-using Common.Storage;
+using NanoByte.Common.Storage;
 using NUnit.Framework;
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// Base class for test fixtures that need a temporary base directory.

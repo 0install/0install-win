@@ -18,8 +18,8 @@
 using System;
 using System.IO;
 using System.Threading;
-using Common.Storage;
-using Common.Utils;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Store.Management;
 using ZeroInstall.Store.Model;

@@ -25,7 +25,7 @@ using System.Diagnostics;
 using System.Security.Principal;
 using System.Text;
 
-namespace Common.Utils
+namespace ZeroInstall.Hooking
 {
     static partial class WindowsUtils
     {

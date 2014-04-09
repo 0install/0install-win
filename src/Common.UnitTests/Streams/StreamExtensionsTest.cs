@@ -22,11 +22,11 @@
 
 using System.IO;
 using System.Text;
-using Common.Storage;
-using Common.Utils;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Utils;
 using NUnit.Framework;
 
-namespace Common.Streams
+namespace NanoByte.Common.Streams
 {
     /// <summary>
     /// Contains test methods for <see cref="StreamExtensions"/>.

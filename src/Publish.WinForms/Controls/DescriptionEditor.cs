@@ -17,7 +17,7 @@
 
 using System.Drawing;
 using System.Windows.Forms;
-using Common.Controls;
+using NanoByte.Common.Controls;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.WinForms.Controls

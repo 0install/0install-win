@@ -22,9 +22,9 @@
 
 using System.ComponentModel;
 using System.Windows.Forms;
-using Common.Tasks;
+using NanoByte.Common.Tasks;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// Combines a <see cref="TaskProgressBar"/> and a <see cref="TaskLabel"/>.

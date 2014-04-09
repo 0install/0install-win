@@ -22,7 +22,7 @@
 
 using System;
 
-namespace Common.Collections
+namespace NanoByte.Common.Collections
 {
     /// <summary>
     /// Represents a tuple of comparable elements.

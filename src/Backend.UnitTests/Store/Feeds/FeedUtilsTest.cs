@@ -18,7 +18,7 @@
 using System;
 using System.IO;
 using System.Text;
-using Common;
+using NanoByte.Common;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;

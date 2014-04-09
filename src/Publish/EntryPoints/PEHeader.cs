@@ -19,7 +19,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.InteropServices;
-using Common.Values;
+using NanoByte.Common.Values;
 
 namespace ZeroInstall.Publish.EntryPoints
 {

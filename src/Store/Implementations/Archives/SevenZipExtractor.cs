@@ -18,9 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common.Storage;
-using Common.Tasks;
-using Common.Utils;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
+using NanoByte.Common.Utils;
 using SevenZip;
 using ZeroInstall.Store.Properties;
 

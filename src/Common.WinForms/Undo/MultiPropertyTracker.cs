@@ -23,7 +23,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace Common.Undo
+namespace NanoByte.Common.Undo
 {
     /// <summary>
     /// Tracks values in <see cref="PropertyGrid"/>s in order to be able to generate <see cref="MultiPropertyChangedCommand"/>s after a property was changed.

@@ -23,9 +23,9 @@
 using System;
 using System.IO;
 using System.Text;
-using Common.Tasks;
+using NanoByte.Common.Tasks;
 
-namespace Common.Streams
+namespace NanoByte.Common.Streams
 {
     /// <summary>
     /// Provides extension methods for <see cref="Stream"/>s.

@@ -20,10 +20,10 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using Common.Storage;
 using Microsoft.CSharp;
+using NanoByte.Common.Storage;
 
-namespace Common.Utils
+namespace NanoByte.Common.Utils
 {
     /// <summary>
     /// Provides helper methods for compiling .NET code at runtime.

@@ -22,7 +22,7 @@
 
 using NUnit.Framework;
 
-namespace Common.Collections
+namespace NanoByte.Common.Collections
 {
     /// <summary>
     /// Contains test methods for <see cref="TransparentCache{TKey,TValue}"/>.

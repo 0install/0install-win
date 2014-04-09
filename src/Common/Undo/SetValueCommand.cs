@@ -22,7 +22,7 @@
 
 using System;
 
-namespace Common.Undo
+namespace NanoByte.Common.Undo
 {
     /// <summary>
     /// An undo command that uses a delegates for getting and setting values from a backing model.

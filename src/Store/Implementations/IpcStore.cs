@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting;
-using Common.Tasks;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
 

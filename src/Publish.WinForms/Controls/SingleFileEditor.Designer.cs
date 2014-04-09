@@ -1,4 +1,6 @@
-﻿namespace ZeroInstall.Publish.WinForms.Controls
+﻿using NanoByte.Common.Controls;
+
+namespace ZeroInstall.Publish.WinForms.Controls
 {
     partial class SingleFileEditor
     {
@@ -29,7 +31,7 @@
         private void InitializeComponent()
         {
             this.labelDestination = new System.Windows.Forms.Label();
-            this.textBoxDestination = new Common.Controls.HintTextBox();
+            this.textBoxDestination = new HintTextBox();
             this.SuspendLayout();
             // 
             // labelDestination
@@ -70,7 +72,7 @@
         #endregion
 
         private System.Windows.Forms.Label labelDestination;
-        private Common.Controls.HintTextBox textBoxDestination;
+        private HintTextBox textBoxDestination;
 
     }
 }

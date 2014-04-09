@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Text.RegularExpressions;
-using Common.Collections;
+using NanoByte.Common.Collections;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Model

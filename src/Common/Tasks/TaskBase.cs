@@ -25,9 +25,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using System.Security.Principal;
-using Common.Utils;
+using NanoByte.Common.Utils;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Abstract base class for <see cref="ITask"/> implementations.

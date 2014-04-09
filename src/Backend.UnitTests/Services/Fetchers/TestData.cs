@@ -19,7 +19,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
-using Common.Utils;
+using NanoByte.Common.Utils;
 
 namespace ZeroInstall.Services.Fetchers
 {

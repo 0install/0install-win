@@ -32,6 +32,7 @@
     <DocumentationSources>
       <DocumentationSource sourceFile="..\..\src\Common\Common.csproj" />
       <DocumentationSource sourceFile="..\..\src\Common.WinForms\Common.WinForms.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Common.Gtk\Common.Gtk.csproj" />
       <DocumentationSource sourceFile="..\..\src\DesktopIntegration\DesktopIntegration.csproj" />
       <DocumentationSource sourceFile="..\..\src\Model\Model.csproj" />
       <DocumentationSource sourceFile="..\..\src\Services\Services.csproj" />
@@ -40,22 +41,22 @@
     </DocumentationSources>
     <ProjectSummary>This chapter describes the public and protected aspects of the Zero Install Backend API.</ProjectSummary>
     <NamespaceSummaries>
-      <NamespaceSummaryItem name="Common" isDocumented="True">Contains generic utility classes, interfaces, &lt;see cref="System.Windows.Forms" /&gt; controls, etc. that are applicable to a wide range of different applications. Platform checks are included and calls to WinForms code will be avoided on non-Windows platforms when possible.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Gtk" isDocumented="True">Shared resources and controls for GTK# projects.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.WinForms" isDocumented="True">Shared resources and controls for WinForms projects.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Cli" isDocumented="True">Contains helper methods for interacting with the user via the &lt;see cref="System.Console" /&gt;.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Collections" isDocumented="True">Contains specialized collection types supplementing &lt;see cref="System.Collections.Generic" /&gt;.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Controls" isDocumented="True">Contains &lt;see cref="System.Windows.Forms" /&gt; controls and forms designed to simplify common UI designs.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Dispatch" isDocumented="True">Provides double dispatch functionality.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Info" isDocumented="True">Contains data structures providing diagnostic information about the application, the operating system, etc..</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Storage" isDocumented="True">Contains classes for data storage and serialization (XML and binary).</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Streams" isDocumented="True">Contains filter streams and utility classes with helper functions for stream handling.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.StructureEditor" isDocumented="True">A universal editor for hierarchical structures with undo support.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Tasks" isDocumented="True">Contains classes for tracking the progress of background tasks.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Undo" isDocumented="True">Contains base classes for an Undo-system based on the Command pattern.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Utils" isDocumented="True">Contains utility classes that provide helper functions for strings, files, etc.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Values" isDocumented="True">Contains data structures and helpers for Value Types.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Values.Design" isDocumented="True">Contains &lt;see cref="System.ComponentModel.TypeConverter" /&gt;s. These are used for serialization and to provide a better runtime experience when using &lt;see cref="System.Windows.Forms.PropertyGrid" /&gt;.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common" isDocumented="True">Contains generic utility classes, interfaces, &lt;see cref="System.Windows.Forms" /&gt; controls, etc. that are applicable to a wide range of different applications. Platform checks are included and calls to WinForms code will be avoided on non-Windows platforms when possible.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common.Gtk" isDocumented="True">Shared resources and controls for GTK# projects.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common.WinForms" isDocumented="True">Shared resources and controls for WinForms projects.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common.Cli" isDocumented="True">Contains helper methods for interacting with the user via the &lt;see cref="System.Console" /&gt;.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common.Collections" isDocumented="True">Contains specialized collection types supplementing &lt;see cref="System.Collections.Generic" /&gt;.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common.Controls" isDocumented="True">Contains &lt;see cref="System.Windows.Forms" /&gt; controls and forms designed to simplify common UI designs.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common.Dispatch" isDocumented="True">Provides double dispatch functionality.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common.Info" isDocumented="True">Contains data structures providing diagnostic information about the application, the operating system, etc..</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common.Storage" isDocumented="True">Contains classes for data storage and serialization (XML and binary).</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common.Streams" isDocumented="True">Contains filter streams and utility classes with helper functions for stream handling.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common.StructureEditor" isDocumented="True">A universal editor for hierarchical structures with undo support.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common.Tasks" isDocumented="True">Contains classes for tracking the progress of background tasks.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common.Undo" isDocumented="True">Contains base classes for an Undo-system based on the Command pattern.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common.Utils" isDocumented="True">Contains utility classes that provide helper functions for strings, files, etc.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common.Values" isDocumented="True">Contains data structures and helpers for Value Types.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common.Values.Design" isDocumented="True">Contains &lt;see cref="System.ComponentModel.TypeConverter" /&gt;s. These are used for serialization and to provide a better runtime experience when using &lt;see cref="System.Windows.Forms.PropertyGrid" /&gt;.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall" isDocumented="True">Provides dependency injection for Zero Install's backend modules.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration" isDocumented="True">Provides methods for integrating applications with the desktop environment.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DesktopIntegration.AccessPoints" isDocumented="True">Contains structures for parsing and in-memory representation of access points applied to a system.</NamespaceSummaryItem>

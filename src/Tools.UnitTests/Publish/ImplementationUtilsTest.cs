@@ -16,11 +16,11 @@
  */
 
 using System.Security.Cryptography;
-using Common;
-using Common.Streams;
-using Common.Tasks;
-using Common.Undo;
-using Common.Utils;
+using NanoByte.Common;
+using NanoByte.Common.Streams;
+using NanoByte.Common.Tasks;
+using NanoByte.Common.Undo;
+using NanoByte.Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;

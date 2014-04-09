@@ -1,4 +1,4 @@
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     partial class ErrorReportForm
     {
@@ -48,7 +48,7 @@ namespace Common.Controls
             // pictureBox
             // 
             resources.ApplyResources(this.pictureBox, "pictureBox");
-            this.pictureBox.Image = global::Common.Properties.ImageResources.Warning;
+            this.pictureBox.Image = global::NanoByte.Common.Properties.ImageResources.Warning;
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.TabStop = false;
             // 

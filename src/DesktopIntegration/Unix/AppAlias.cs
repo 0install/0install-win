@@ -18,8 +18,8 @@
 using System;
 using System.IO;
 using System.Net;
-using Common.Storage;
-using Common.Tasks;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.Properties;
 
 namespace ZeroInstall.DesktopIntegration.Unix

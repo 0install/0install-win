@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using Common.Storage;
+using NanoByte.Common.Storage;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store

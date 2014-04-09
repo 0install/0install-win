@@ -23,7 +23,7 @@
 using System;
 using System.Text;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <seealso cref="RtfBuilder.AppendPar"/>
     public enum RtfColor

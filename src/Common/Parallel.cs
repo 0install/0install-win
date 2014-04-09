@@ -35,9 +35,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using Common.Tasks;
+using NanoByte.Common.Tasks;
 
-namespace Common
+namespace NanoByte.Common
 {
   /// <summary>
   /// A lightweight implementation of a small subset of Microsoft's Parallel Extensions for

@@ -21,8 +21,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Common.Controls;
-using Common.Utils;
+using NanoByte.Common.Controls;
+using NanoByte.Common.Utils;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Store.Icons;
 

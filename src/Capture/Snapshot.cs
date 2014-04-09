@@ -20,10 +20,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security;
-using Common;
-using Common.Collections;
-using Common.Utils;
 using Microsoft.Win32;
+using NanoByte.Common;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Utils;
 using ZeroInstall.Capture.Properties;
 using ZeroInstall.DesktopIntegration.Windows;
 

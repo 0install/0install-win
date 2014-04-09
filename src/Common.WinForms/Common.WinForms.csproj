@@ -9,8 +9,8 @@
     <ProjectGuid>{DACD1A8E-7734-458C-92B4-DA1F29940890}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Common</RootNamespace>
-    <AssemblyName>Common.WinForms</AssemblyName>
+    <RootNamespace>NanoByte.Common</RootNamespace>
+    <AssemblyName>NanoByte.Common.WinForms</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
@@ -25,7 +25,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\build\Backend\Debug\</OutputPath>
-    <DocumentationFile>..\..\build\Backend\Debug\Common.WinForms.xml</DocumentationFile>
+    <DocumentationFile>..\..\build\Backend\Debug\NanoByte.Common.WinForms.xml</DocumentationFile>
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -38,7 +38,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\build\Backend\Release\</OutputPath>
-    <DocumentationFile>..\..\build\Backend\Release\Common.WinForms.xml</DocumentationFile>
+    <DocumentationFile>..\..\build\Backend\Release\NanoByte.Common.WinForms.xml</DocumentationFile>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -51,10 +51,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
     <Reference Include="ICSharpCode.TextEditor">
       <HintPath>..\..\lib\ICSharpCode.TextEditor.dll</HintPath>
     </Reference>
@@ -229,6 +225,12 @@
       <DependentUpon>OKCancelDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

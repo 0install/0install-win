@@ -16,7 +16,7 @@
  */
 
 using System;
-using Common;
+using NanoByte.Common;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Model;
 

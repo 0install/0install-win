@@ -18,9 +18,9 @@
 using System;
 using System.IO;
 using System.Text;
-using Common;
-using Common.Streams;
 using Moq;
+using NanoByte.Common;
+using NanoByte.Common.Streams;
 using NUnit.Framework;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;

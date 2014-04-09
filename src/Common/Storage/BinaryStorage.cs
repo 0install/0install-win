@@ -25,11 +25,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using Common.Properties;
-using Common.Utils;
 using ICSharpCode.SharpZipLib.Zip;
+using NanoByte.Common.Properties;
+using NanoByte.Common.Utils;
 
-namespace Common.Storage
+namespace NanoByte.Common.Storage
 {
     /// <summary>
     /// Provides easy serialization to binary files (optionally wrapped in ZIP archives).

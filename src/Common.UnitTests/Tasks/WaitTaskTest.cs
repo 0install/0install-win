@@ -24,7 +24,7 @@ using System;
 using System.Threading;
 using NUnit.Framework;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Contains test methods for <see cref="WaitTask"/>.

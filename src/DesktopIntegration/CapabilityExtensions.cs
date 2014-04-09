@@ -16,7 +16,7 @@
  */
 
 using System;
-using Common.Dispatch;
+using NanoByte.Common.Dispatch;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 
 namespace ZeroInstall.DesktopIntegration

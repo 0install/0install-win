@@ -1,4 +1,6 @@
-﻿namespace ZeroInstall.Publish.WinForms.Controls
+﻿using NanoByte.Common.Controls;
+
+namespace ZeroInstall.Publish.WinForms.Controls
 {
     partial class FeedEditor
     {
@@ -29,12 +31,12 @@
         private void InitializeComponent()
         {
             this.labelName = new System.Windows.Forms.Label();
-            this.textBoxName = new Common.Controls.HintTextBox();
+            this.textBoxName = new HintTextBox();
             this.labelUri = new System.Windows.Forms.Label();
-            this.textBoxUri = new Common.Controls.UriTextBox();
-            this.textBoxSummary = new Common.Controls.LocalizableTextBox();
-            this.textBoxDescription = new Common.Controls.LocalizableTextBox();
-            this.textBoxHomepage = new Common.Controls.UriTextBox();
+            this.textBoxUri = new UriTextBox();
+            this.textBoxSummary = new LocalizableTextBox();
+            this.textBoxDescription = new LocalizableTextBox();
+            this.textBoxHomepage = new UriTextBox();
             this.labelHomepage = new System.Windows.Forms.Label();
             this.checkBoxNeedTerminal = new System.Windows.Forms.CheckBox();
             this.labelMinZeroInstallVersion = new System.Windows.Forms.Label();
@@ -194,12 +196,12 @@
         #endregion
 
         private System.Windows.Forms.Label labelName;
-        private Common.Controls.HintTextBox textBoxName;
+        private HintTextBox textBoxName;
         private System.Windows.Forms.Label labelUri;
-        private Common.Controls.UriTextBox textBoxUri;
-        private Common.Controls.LocalizableTextBox textBoxSummary;
-        private Common.Controls.LocalizableTextBox textBoxDescription;
-        private Common.Controls.UriTextBox textBoxHomepage;
+        private UriTextBox textBoxUri;
+        private LocalizableTextBox textBoxSummary;
+        private LocalizableTextBox textBoxDescription;
+        private UriTextBox textBoxHomepage;
         private System.Windows.Forms.Label labelHomepage;
         private System.Windows.Forms.CheckBox checkBoxNeedTerminal;
         private System.Windows.Forms.Label labelMinZeroInstallVersion;

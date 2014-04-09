@@ -17,10 +17,10 @@
 
 using System;
 using System.IO;
-using Common.Utils;
+using NanoByte.Common.Utils;
 using NUnit.Framework;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Contains test methods for <see cref="CopyDirectory"/>.

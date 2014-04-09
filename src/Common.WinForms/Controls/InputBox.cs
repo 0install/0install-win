@@ -24,7 +24,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// Shows a simple dialog asking the user to input some text.

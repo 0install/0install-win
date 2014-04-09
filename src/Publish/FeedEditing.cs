@@ -17,7 +17,7 @@
 
 using System;
 using System.IO;
-using Common.Undo;
+using NanoByte.Common.Undo;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 

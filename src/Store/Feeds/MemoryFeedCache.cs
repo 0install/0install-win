@@ -18,7 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common.Storage;
+using NanoByte.Common.Storage;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 

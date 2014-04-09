@@ -17,8 +17,8 @@
 
 using System;
 using System.IO;
-using Common;
-using Common.Controls;
+using NanoByte.Common;
+using NanoByte.Common.Controls;
 using ZeroInstall.Commands;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;

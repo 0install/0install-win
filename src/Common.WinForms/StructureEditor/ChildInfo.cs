@@ -21,9 +21,9 @@
  */
 
 using System;
-using Common.Undo;
+using NanoByte.Common.Undo;
 
-namespace Common.StructureEditor
+namespace NanoByte.Common.StructureEditor
 {
     /// <summary>
     /// Information and callbacks for a potential new child node in the structure.

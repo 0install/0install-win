@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common;
-using Common.Storage;
-using Common.StructureEditor;
+using NanoByte.Common;
+using NanoByte.Common.Storage;
+using NanoByte.Common.StructureEditor;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
 

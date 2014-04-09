@@ -18,10 +18,10 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using Common;
-using Common.Cli;
-using Common.Tasks;
-using Common.Utils;
+using NanoByte.Common;
+using NanoByte.Common.Cli;
+using NanoByte.Common.Tasks;
+using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;

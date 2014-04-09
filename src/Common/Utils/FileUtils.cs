@@ -30,10 +30,10 @@ using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Principal;
 using System.Text;
-using Common.Properties;
-using Common.Values;
+using NanoByte.Common.Properties;
+using NanoByte.Common.Values;
 
-namespace Common.Utils
+namespace NanoByte.Common.Utils
 {
     /// <summary>
     /// Provides filesystem-related helper methods.

@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Common.Undo
+namespace NanoByte.Common.Undo
 {
     /// <summary>
     /// Executes <see cref="IUndoCommand"/>s and collects them into a <see cref="CompositeCommand"/> allowing a combined undo later on.

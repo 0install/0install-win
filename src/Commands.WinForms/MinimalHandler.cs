@@ -17,7 +17,7 @@
 
 using System;
 using System.Windows.Forms;
-using Common;
+using NanoByte.Common;
 using ZeroInstall.Services;
 using ZeroInstall.Store;
 

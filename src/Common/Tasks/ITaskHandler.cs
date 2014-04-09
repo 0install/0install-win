@@ -24,7 +24,7 @@ using System;
 using System.IO;
 using System.Net;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Callback methods to inform the user about <see cref="ITask"/>s being run.

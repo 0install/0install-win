@@ -23,7 +23,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// Indicates that the requested operation requires a GUI.

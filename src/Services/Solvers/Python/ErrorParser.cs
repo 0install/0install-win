@@ -19,7 +19,7 @@ using System;
 using System.Diagnostics;
 using System.Text;
 using System.Web;
-using Common;
+using NanoByte.Common;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 

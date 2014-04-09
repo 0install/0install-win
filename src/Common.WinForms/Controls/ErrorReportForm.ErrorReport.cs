@@ -22,9 +22,9 @@
 
 using System.ComponentModel;
 using System.Xml.Serialization;
-using Common.Info;
+using NanoByte.Common.Info;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// Wraps information about an crash in a serializer-friendly format.

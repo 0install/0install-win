@@ -28,9 +28,9 @@ using System.Linq;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using Common.Collections;
+using NanoByte.Common.Collections;
 
-namespace Common.Values.Design
+namespace NanoByte.Common.Values.Design
 {
     /// <summary>
     /// An editor that can be associated with <see cref="LanguageSet"/> properties. Uses a <see cref="CheckedListBox"/>.

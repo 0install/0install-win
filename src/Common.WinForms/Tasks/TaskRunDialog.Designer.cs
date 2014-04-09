@@ -1,6 +1,6 @@
-﻿using Common.Controls;
+﻿using NanoByte.Common.Controls;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     partial class TaskRunDialog
     {

@@ -18,8 +18,8 @@
 using System;
 using System.IO;
 using System.Linq;
-using Common.Tasks;
 using Microsoft.Deployment.Compression.Cab;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations.Archives

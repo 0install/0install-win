@@ -20,7 +20,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
-using Common.Values.Design;
+using NanoByte.Common.Values.Design;
 using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.Store.Model.Design

@@ -17,9 +17,9 @@
 
 using System;
 using System.IO;
-using Common;
-using Common.Storage;
-using Common.Utils;
+using NanoByte.Common;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Utils;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Services.Solvers.Python;

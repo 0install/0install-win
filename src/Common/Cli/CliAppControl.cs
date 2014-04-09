@@ -26,10 +26,10 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using Common.Properties;
-using Common.Utils;
+using NanoByte.Common.Properties;
+using NanoByte.Common.Utils;
 
-namespace Common.Cli
+namespace NanoByte.Common.Cli
 {
     /// <summary>
     /// Provides an interface to an external command-line application controlled via arguments and stdin and monitored via stdout and stderr.

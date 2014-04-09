@@ -25,10 +25,10 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Forms;
-using Common.Utils;
-using ICommandExecutor = Common.Undo.ICommandExecutor;
+using NanoByte.Common.Utils;
+using ICommandExecutor = NanoByte.Common.Undo.ICommandExecutor;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// Common base class for <see cref="IEditorControl{T}"/> implementations.

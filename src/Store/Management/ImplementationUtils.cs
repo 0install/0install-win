@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Common.Tasks;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;

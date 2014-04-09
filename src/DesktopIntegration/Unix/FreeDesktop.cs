@@ -16,7 +16,7 @@
  */
 
 using System;
-using Common.Tasks;
+using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 
 namespace ZeroInstall.DesktopIntegration.Unix

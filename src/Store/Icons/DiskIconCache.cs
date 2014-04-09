@@ -19,8 +19,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Common.Storage;
-using Common.Tasks;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Icons

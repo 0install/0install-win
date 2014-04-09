@@ -21,7 +21,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Xml.Serialization;
-using Common.Collections;
+using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model.Design;
 using ZeroInstall.Store.Properties;
 

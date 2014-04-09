@@ -22,10 +22,10 @@
 
 using System.Drawing;
 using System.Windows.Forms;
-using Common.Undo;
-using Common.Utils;
+using NanoByte.Common.Undo;
+using NanoByte.Common.Utils;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// Edits arbitrary types of elements using a <see cref="PropertyGrid"/>. Provides optional <see cref="Common.Undo"/> support.

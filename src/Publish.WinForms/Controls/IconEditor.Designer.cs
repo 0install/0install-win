@@ -1,4 +1,6 @@
-﻿namespace ZeroInstall.Publish.WinForms.Controls
+﻿using NanoByte.Common.Controls;
+
+namespace ZeroInstall.Publish.WinForms.Controls
 {
     partial class IconEditor
     {
@@ -34,7 +36,7 @@
             this.labelMimeType = new System.Windows.Forms.Label();
             this.buttonPreview = new System.Windows.Forms.Button();
             this.pictureBoxPreview = new System.Windows.Forms.PictureBox();
-            this.textBoxHref = new Common.Controls.UriTextBox();
+            this.textBoxHref = new UriTextBox();
             this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).BeginInit();
             this.SuspendLayout();
@@ -148,7 +150,7 @@
         private System.Windows.Forms.Label labelMimeType;
         private System.Windows.Forms.Button buttonPreview;
         private System.Windows.Forms.PictureBox pictureBoxPreview;
-        private Common.Controls.UriTextBox textBoxHref;
+        private UriTextBox textBoxHref;
         private System.ComponentModel.BackgroundWorker backgroundWorker;
     }
 }

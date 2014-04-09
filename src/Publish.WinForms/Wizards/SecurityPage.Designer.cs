@@ -1,4 +1,6 @@
-﻿namespace ZeroInstall.Publish.WinForms.Wizards
+﻿using NanoByte.Common.Controls;
+
+namespace ZeroInstall.Publish.WinForms.Wizards
 {
     partial class SecurityPage
     {
@@ -31,7 +33,7 @@
             this.labelTitle = new System.Windows.Forms.Label();
             this.buttonSkip = new System.Windows.Forms.Button();
             this.buttonNext = new System.Windows.Forms.Button();
-            this.textBoxUri = new Common.Controls.UriTextBox();
+            this.textBoxUri = new UriTextBox();
             this.labelUri = new System.Windows.Forms.Label();
             this.labelSignature = new System.Windows.Forms.Label();
             this.comboBoxKeys = new System.Windows.Forms.ComboBox();
@@ -156,7 +158,7 @@
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Button buttonSkip;
         private System.Windows.Forms.Button buttonNext;
-        private Common.Controls.UriTextBox textBoxUri;
+        private UriTextBox textBoxUri;
         private System.Windows.Forms.Label labelUri;
         private System.Windows.Forms.Label labelSignature;
         private System.Windows.Forms.ComboBox comboBoxKeys;

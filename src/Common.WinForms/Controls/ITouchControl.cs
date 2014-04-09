@@ -22,7 +22,7 @@
 
 using System;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// A control that can raise touch events.

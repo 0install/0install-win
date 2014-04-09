@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// How severe/important a message is

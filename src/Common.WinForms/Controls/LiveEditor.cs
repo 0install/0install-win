@@ -26,12 +26,12 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using Common.Properties;
-using Common.Utils;
 using ICSharpCode.TextEditor;
 using ICSharpCode.TextEditor.Document;
+using NanoByte.Common.Properties;
+using NanoByte.Common.Utils;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// A text editor that automatically validates changes using an external callback after a short period of no input.

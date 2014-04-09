@@ -17,9 +17,9 @@
 
 using System;
 using System.IO;
-using Common;
-using Common.Storage;
-using Common.Tasks;
+using NanoByte.Common;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Store.Model;

@@ -22,7 +22,7 @@
 
 using System.Windows.Forms;
 
-namespace Common.StructureEditor
+namespace NanoByte.Common.StructureEditor
 {
     public partial class StructureEditorControl<T>
     {

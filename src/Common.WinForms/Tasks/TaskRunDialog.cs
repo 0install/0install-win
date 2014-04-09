@@ -24,9 +24,9 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Windows.Forms;
-using Common.Properties;
+using NanoByte.Common.Properties;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// A dialog with a progress bar that runs and tracks the progress of an <see cref="ITask"/>.

@@ -9,8 +9,8 @@
     <ProjectGuid>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Common</RootNamespace>
-    <AssemblyName>Common</AssemblyName>
+    <RootNamespace>NanoByte.Common</RootNamespace>
+    <AssemblyName>NanoByte.Common</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
@@ -25,7 +25,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\build\Backend\Debug\</OutputPath>
-    <DocumentationFile>..\..\build\Backend\Debug\Common.xml</DocumentationFile>
+    <DocumentationFile>..\..\build\Backend\Debug\NanoByte.Common.xml</DocumentationFile>
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -38,7 +38,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\build\Backend\Release\</OutputPath>
-    <DocumentationFile>..\..\build\Backend\Release\Common.xml</DocumentationFile>
+    <DocumentationFile>..\..\build\Backend\Release\NanoByte.Common.xml</DocumentationFile>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -72,6 +72,10 @@
     <Compile Include="Cli\CliAppControl.cs" />
     <Compile Include="Cli\CliUtils.cs" />
     <Compile Include="Cli\ProgressBar.cs" />
+    <Compile Include="Collections\MonitoredCollection.cs" />
+    <Compile Include="Collections\MultiDictionary.cs" />
+    <Compile Include="Collections\XmlDictionary.cs" />
+    <Compile Include="Collections\XmlDictionaryEntry.cs" />
     <Compile Include="Controls\TouchEventArgs.cs" />
     <Compile Include="Dispatch\AggregateDispatcher.Action.cs" />
     <Compile Include="Dispatch\AggregateDispatcher.Func.cs" />
@@ -88,6 +92,7 @@
     <Compile Include="Collections\LocalizableStringCollection.cs" />
     <Compile Include="Collections\Merge.cs" />
     <Compile Include="Collections\NamedCollection.cs" />
+    <Compile Include="Dispatch\ModelViewSync.cs" />
     <Compile Include="Dispatch\PerTypeDispatcher.Action.cs" />
     <Compile Include="Dispatch\PerTypeDispatcher.Func.cs" />
     <Compile Include="Collections\RBTree.cs" />

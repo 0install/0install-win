@@ -25,9 +25,9 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.Security.Permissions;
 using System.Windows.Forms.Design;
-using Common.Controls;
+using NanoByte.Common.Controls;
 
-namespace Common.Values.Design
+namespace NanoByte.Common.Values.Design
 {
     /// <summary>
     /// An editor that can be associated with <see cref="TimeSpan"/> properties. Uses <see cref="TimeSpanControl"/>.

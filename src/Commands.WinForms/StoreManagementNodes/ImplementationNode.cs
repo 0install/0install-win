@@ -21,7 +21,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Common;
+using NanoByte.Common;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;

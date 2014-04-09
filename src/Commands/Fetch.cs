@@ -17,7 +17,7 @@
 
 using System;
 using System.Linq;
-using Common.Storage;
+using NanoByte.Common.Storage;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Model;

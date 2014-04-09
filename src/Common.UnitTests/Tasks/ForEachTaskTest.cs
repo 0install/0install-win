@@ -25,7 +25,7 @@ using System.IO;
 using System.Net;
 using NUnit.Framework;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Contains test methods for <see cref="ForEachTask{T}"/>.

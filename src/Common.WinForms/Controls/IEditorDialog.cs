@@ -18,7 +18,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// Provides an interface to a dialog that edits a single object.

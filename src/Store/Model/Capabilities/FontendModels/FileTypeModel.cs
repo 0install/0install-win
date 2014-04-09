@@ -16,7 +16,7 @@
  */
 
 using System.Linq;
-using Common.Utils;
+using NanoByte.Common.Utils;
 
 namespace ZeroInstall.Store.Model.Capabilities.FontendModels
 {

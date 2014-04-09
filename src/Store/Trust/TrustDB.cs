@@ -20,9 +20,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
-using Common;
-using Common.Collections;
-using Common.Storage;
+using NanoByte.Common;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Storage;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 

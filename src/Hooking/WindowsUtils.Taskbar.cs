@@ -26,7 +26,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Common.Utils
+namespace ZeroInstall.Hooking
 {
     static partial class WindowsUtils
     {
@@ -286,7 +286,7 @@ namespace Common.Utils
             void GetAt(uint iIndex, ref Guid riid, [Out, MarshalAs(UnmanagedType.Interface)] out object ppvObject);
         }
 
-        [ComImport, GuidAttribute("5632B1A4-E38A-400A-928A-D4CD63230295"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        [ComImport, Guid("5632B1A4-E38A-400A-928A-D4CD63230295"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         private interface IObjectCollection
         {
             // IObjectArray
@@ -303,7 +303,7 @@ namespace Common.Utils
             void Clear();
         }
 
-        [ComImport, Guid("2D3468C1-36A7-43B6-AC24-D3F02FD9607A"), ClassInterfaceAttribute(ClassInterfaceType.None)]
+        [ComImport, Guid("2D3468C1-36A7-43B6-AC24-D3F02FD9607A"), ClassInterface(ClassInterfaceType.None)]
         private class CEnumerableObjectCollection
         {}
 

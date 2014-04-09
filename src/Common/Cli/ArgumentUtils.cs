@@ -24,8 +24,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using NanoByte.Common.Properties;
 
-namespace Common.Cli
+namespace NanoByte.Common.Cli
 {
     /// <summary>
     /// Provides helper methods for for parsing command-line arguments.
@@ -61,7 +62,7 @@ namespace Common.Cli
                 else if (File.Exists(entry)) result.Add(new FileInfo(Path.GetFullPath(entry)));
                 else if (Directory.Exists(entry))
                     result.AddRange(Directory.GetFiles(entry, defaultPattern).Select(file => new FileInfo(file)));
-                else throw new FileNotFoundException(string.Format(Properties.Resources.FileNotFound, entry), entry);
+                else throw new FileNotFoundException(string.Format(Resources.FileNotFound, entry), entry);
             }
 
             return result;

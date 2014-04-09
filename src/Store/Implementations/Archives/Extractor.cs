@@ -19,10 +19,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using Common.Streams;
-using Common.Tasks;
-using Common.Utils;
 using Microsoft.Deployment.Compression;
+using NanoByte.Common.Streams;
+using NanoByte.Common.Tasks;
+using NanoByte.Common.Utils;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations.Archives

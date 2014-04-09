@@ -20,10 +20,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
-using Common.Collections;
-using Common.Undo;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Undo;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// A control for editing a <see cref="LocalizableStringCollection"/>.

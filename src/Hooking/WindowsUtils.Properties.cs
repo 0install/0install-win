@@ -24,7 +24,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Common.Utils
+namespace ZeroInstall.Hooking
 {
     static partial class WindowsUtils
     {

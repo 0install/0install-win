@@ -18,10 +18,10 @@
 using System;
 using System.Globalization;
 using System.IO;
-using Common.Storage;
-using Common.Tasks;
-using Common.Utils;
 using Moq;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
+using NanoByte.Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services;

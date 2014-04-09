@@ -22,9 +22,9 @@
 
 using System;
 using System.Windows.Forms;
-using Common.Utils;
+using NanoByte.Common.Utils;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// A simple dialog displaying selectable multi-line text.

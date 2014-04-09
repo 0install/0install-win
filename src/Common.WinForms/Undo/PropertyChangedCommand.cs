@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 
-namespace Common.Undo
+namespace NanoByte.Common.Undo
 {
     /// <summary>
     /// An undo command that handles a changed property - usually used with a <see cref="PropertyGrid"/>.

@@ -16,11 +16,11 @@
  */
 
 using System.IO;
-using Common;
-using Common.Storage;
-using Common.Streams;
-using Common.Tasks;
-using Common.Undo;
+using NanoByte.Common;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
+using NanoByte.Common.Tasks;
+using NanoByte.Common.Undo;
 using NUnit.Framework;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;

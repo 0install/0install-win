@@ -21,9 +21,9 @@
  */
 
 using System.Collections.Generic;
-using Common.Collections;
+using NanoByte.Common.Collections;
 
-namespace Common.Undo
+namespace NanoByte.Common.Undo
 {
     /// <summary>
     /// An undo command that sets a <see cref="LocalizableString"/> in a <see cref="LocalizableStringCollection"/>.

@@ -18,9 +18,9 @@
 using System;
 using System.IO;
 using System.Net;
-using Common.Info;
-using Common.Storage;
-using Common.Utils;
+using NanoByte.Common.Info;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Utils;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;

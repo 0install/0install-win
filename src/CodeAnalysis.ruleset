@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="Zero Install Rules" Description="Based on Microsoft Extended Design Guideline Rules with some of the less usefull rules removed." ToolsVersion="11.0">
+<RuleSet Name="NanoByte Rules" Description="Based on Microsoft Extended Design Guideline Rules with some of the less usefull rules removed." ToolsVersion="11.0">
   <Include Path="basicdesignguidelinerules.ruleset" Action="Default" />
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
     <Rule Id="CA1000" Action="None" />

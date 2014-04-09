@@ -17,8 +17,8 @@
 
 using System;
 using System.Linq;
-using Common.Storage;
-using Common.Utils;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;

@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
-using Common.Utils;
+using NanoByte.Common.Utils;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 

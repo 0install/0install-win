@@ -17,9 +17,9 @@
 
 using System;
 using System.IO;
-using Common.Collections;
-using Common.Storage;
-using Common.Tasks;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.Publish.EntryPoints;
 using ZeroInstall.Store.Model;

@@ -27,7 +27,7 @@ using System.Runtime.Serialization.Formatters;
 using System.Security;
 using System.Security.Principal;
 using System.ServiceProcess;
-using Common.Storage;
+using NanoByte.Common.Storage;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Service.Properties;
 

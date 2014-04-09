@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// An interface that <see cref="Wizard"/> pages can optionally implement to receive additional event notifications.

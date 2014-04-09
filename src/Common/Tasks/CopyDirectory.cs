@@ -24,10 +24,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Common.Properties;
-using Common.Utils;
+using NanoByte.Common.Properties;
+using NanoByte.Common.Utils;
 
-namespace Common.Tasks
+namespace NanoByte.Common.Tasks
 {
     /// <summary>
     /// Copies the content of a directory to a new location preserving the original file modification times.

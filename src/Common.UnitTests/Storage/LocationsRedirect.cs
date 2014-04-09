@@ -18,7 +18,7 @@
 using System;
 using System.IO;
 
-namespace Common.Storage
+namespace NanoByte.Common.Storage
 {
     /// <summary>
     /// Disposable class to create a temporary directory where all <see cref="Locations"/> queries are temporarily redirected to.

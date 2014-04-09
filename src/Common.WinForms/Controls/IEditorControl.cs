@@ -16,9 +16,9 @@
  */
 
 using System.ComponentModel;
-using Common.Undo;
+using NanoByte.Common.Undo;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// Provides an interface to a control that edits a single object.

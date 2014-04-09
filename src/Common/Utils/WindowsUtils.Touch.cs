@@ -23,10 +23,10 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Common.Controls;
-using Common.Values;
+using NanoByte.Common.Controls;
+using NanoByte.Common.Values;
 
-namespace Common.Utils
+namespace NanoByte.Common.Utils
 {
     /// <summary>
     /// Provides helper methods and API calls specific to the Windows platform.

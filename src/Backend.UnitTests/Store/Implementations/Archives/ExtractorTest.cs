@@ -17,8 +17,8 @@
 
 using System;
 using System.IO;
-using Common.Storage;
 using ICSharpCode.SharpZipLib.Zip;
+using NanoByte.Common.Storage;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Implementations.Archives

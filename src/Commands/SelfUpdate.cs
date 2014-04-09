@@ -17,9 +17,9 @@
 
 using System;
 using System.Collections.Generic;
-using Common.Info;
-using Common.Storage;
-using Common.Utils;
+using NanoByte.Common.Info;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services;

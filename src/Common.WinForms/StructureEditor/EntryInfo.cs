@@ -22,9 +22,9 @@
 
 using System;
 using System.Windows.Forms;
-using Common.Undo;
+using NanoByte.Common.Undo;
 
-namespace Common.StructureEditor
+namespace NanoByte.Common.StructureEditor
 {
     /// <summary>
     /// Information and callbacks for a specific entry in the structure.

@@ -22,9 +22,9 @@
 
 using System;
 using System.IO;
-using Common.Utils;
+using NanoByte.Common.Utils;
 
-namespace Common.Storage
+namespace NanoByte.Common.Storage
 {
     /// <summary>
     /// Provides a temporary path to write to and atomically inserts it at the target location on disposal (if <see cref="Commit"/> was called).

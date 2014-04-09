@@ -23,7 +23,7 @@
 using System;
 using System.Globalization;
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// Wraps delegate-based access to a value as a property.

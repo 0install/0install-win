@@ -22,7 +22,7 @@
 
 using System.Drawing;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// An object that can be highlighted with a specific color in list representations.

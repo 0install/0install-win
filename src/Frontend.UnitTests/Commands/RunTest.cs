@@ -17,8 +17,8 @@
 
 using System;
 using System.Diagnostics;
-using Common.Storage;
 using Moq;
+using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Injector;

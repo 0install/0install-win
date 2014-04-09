@@ -23,9 +23,9 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
-using Common.Controls;
+using NanoByte.Common.Controls;
 
-namespace Common.StructureEditor
+namespace NanoByte.Common.StructureEditor
 {
     /// <summary>
     /// Exposes methods for configuring a list in a <see cref="ContainerDescription{TContainer}"/> in a Fluent API style.

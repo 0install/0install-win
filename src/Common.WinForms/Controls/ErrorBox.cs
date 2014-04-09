@@ -22,9 +22,9 @@
 
 using System;
 using System.Windows.Forms;
-using Common.Utils;
+using NanoByte.Common.Utils;
 
-namespace Common.Controls
+namespace NanoByte.Common.Controls
 {
     /// <summary>
     /// A dialog displaying an error message and details.

@@ -23,7 +23,7 @@
 using System;
 using System.Diagnostics;
 
-namespace Common
+namespace NanoByte.Common
 {
     /// <summary>
     /// Structure that allows you to log timed execution blocks.

@@ -18,11 +18,11 @@
 using System;
 using System.IO;
 using System.Linq;
-using Common;
-using Common.Storage;
-using Common.Streams;
-using Common.Tasks;
 using Moq;
+using NanoByte.Common;
+using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
+using NanoByte.Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
