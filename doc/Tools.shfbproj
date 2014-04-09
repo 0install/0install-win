@@ -14,7 +14,7 @@
     <Name>Tools</Name>
     <RootNamespace>Tools</RootNamespace>
     <!-- SHFB properties -->
-    <OutputPath>..\..\build\Documentation\</OutputPath>
+    <OutputPath>..\build\Documentation\</OutputPath>
     <HtmlHelpName>Tools</HtmlHelpName>
     <HelpTitle>Zero Install Tools Source Documentation</HelpTitle>
     <KeepLogFile>False</KeepLogFile>
@@ -24,20 +24,19 @@
     <SyntaxFilters>CSharp, VisualBasic</SyntaxFilters>
     <HelpFileFormat>HtmlHelp1</HelpFileFormat>
     <PresentationStyle>vs2005</PresentationStyle>
-    <!--<FeedbackEMailAddress>info%400install.de</FeedbackEMailAddress>-->
+    <FeedbackEMailAddress>info%400install.de</FeedbackEMailAddress>
     <RootNamespaceContainer>True</RootNamespaceContainer>
     <RootNamespaceTitle>Class Reference</RootNamespaceTitle>
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <VisibleItems>InheritedMembers, Internals, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\..\src\Publish\Publish.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Publish.Cli\Publish.Cli.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Publish.WinForms\Publish.WinForms.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Capture\Capture.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Capture.Cli\Capture.Cli.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Capture.WinForms\Capture.WinForms.csproj" />
+      <DocumentationSource sourceFile="..\src\Publish\Publish.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Publish.Cli\Publish.Cli.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Publish.WinForms\Publish.WinForms.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Capture\Capture.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Capture.Cli\Capture.Cli.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Capture.WinForms\Capture.WinForms.csproj" configuration="Debug" platform="AnyCPU" />
     </DocumentationSources>
-    <ProjectSummary>This chapter describes the public and protected and internal aspects of the Zero Install Tools implementations.</ProjectSummary>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="ZeroInstall.Publish" isDocumented="True" xmlns="">Shared code for feed publishing tools (feed editors).</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Publish.EntryPoints" isDocumented="True" xmlns="">Automatic detection of application entry points. Helps publishers set up the appropriate &lt;see cref="ZeroInstall.Model.Command" /&gt;s and &lt;see cref="ZeroInstall.Model.Runner" /&gt;s.</NamespaceSummaryItem>
@@ -50,14 +49,6 @@
       <NamespaceSummaryItem name="ZeroInstall.Capture.Cli" isDocumented="True" xmlns="">Command-line tool for system state capturing (build feeds from installation snapshots).</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Capture.WinForms" isDocumented="True" xmlns="">WinForms-based tool for system state capturing (build feeds from installation snapshots).</NamespaceSummaryItem>
     </NamespaceSummaries>
-  </PropertyGroup>
-  <ItemGroup>
-    <ContentLayout Include="Layout.content" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="index.aml" />
-  </ItemGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>

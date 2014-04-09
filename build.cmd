@@ -25,7 +25,7 @@ call "%~dp0installer\build.cmd" %*
 ::Optionally create debug build and documentation
 if "%BUILD_DOC%"=="TRUE" (
   echo.
-  call "%~dp0src\build.cmd" Debug
+  call "%~dp0src\build.cmd" DebugWithGtk
   echo.
   call "%~dp0doc\build.cmd"
 )

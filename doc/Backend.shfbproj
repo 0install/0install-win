@@ -14,9 +14,9 @@
     <Name>Backend</Name>
     <RootNamespace>Backend</RootNamespace>
     <!-- SHFB properties -->
-    <OutputPath>..\..\build\Documentation\Backend\</OutputPath>
+    <OutputPath>..\build\Documentation\Backend\</OutputPath>
     <HtmlHelpName>Backend</HtmlHelpName>
-    <HelpTitle>Zero Install Backend Developer Documentation</HelpTitle>
+    <HelpTitle>Zero Install Backend API Documentation</HelpTitle>
     <KeepLogFile>False</KeepLogFile>
     <NamingMethod>MemberName</NamingMethod>
     <Language>en-US</Language>
@@ -24,26 +24,23 @@
     <SyntaxFilters>CSharp, VisualBasic</SyntaxFilters>
     <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
     <PresentationStyle>vs2005</PresentationStyle>
-    <!--<FeedbackEMailAddress>info%400install.de</FeedbackEMailAddress>-->
+    <FeedbackEMailAddress>info%400install.de</FeedbackEMailAddress>
     <RootNamespaceContainer>True</RootNamespaceContainer>
     <RootNamespaceTitle>Class Reference</RootNamespaceTitle>
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <VisibleItems>InheritedMembers, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\..\src\Common\Common.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Common.WinForms\Common.WinForms.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Common.Gtk\Common.Gtk.csproj" />
-      <DocumentationSource sourceFile="..\..\src\DesktopIntegration\DesktopIntegration.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Model\Model.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Services\Services.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Services.Interfaces\Services.Interfaces.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Store\Store.csproj" />
+      <DocumentationSource sourceFile="..\src\Common\Common.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Common.WinForms\Common.WinForms.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Common.Gtk\Common.Gtk.csproj" configuration="Debug" platform="x86" />
+      <DocumentationSource sourceFile="..\src\DesktopIntegration\DesktopIntegration.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Services\Services.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Services.Interfaces\Services.Interfaces.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Store\Store.csproj" configuration="Debug" platform="AnyCPU" />
     </DocumentationSources>
-    <ProjectSummary>This chapter describes the public and protected aspects of the Zero Install Backend API.</ProjectSummary>
     <NamespaceSummaries>
-      <NamespaceSummaryItem name="NanoByte.Common" isDocumented="True">Contains generic utility classes, interfaces, &lt;see cref="System.Windows.Forms" /&gt; controls, etc. that are applicable to a wide range of different applications. Platform checks are included and calls to WinForms code will be avoided on non-Windows platforms when possible.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="NanoByte.Common.Gtk" isDocumented="True">Shared resources and controls for GTK# projects.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="NanoByte.Common.WinForms" isDocumented="True">Shared resources and controls for WinForms projects.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common" isDocumented="True">Contains generic utility classes, interfaces, controls, etc. that are applicable to a wide range of different applications.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="NanoByte.Common.Gtk" isDocumented="True">Contains generic utility classes, interfaces, controls, etc. for GTK# projects.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="NanoByte.Common.Cli" isDocumented="True">Contains helper methods for interacting with the user via the &lt;see cref="System.Console" /&gt;.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="NanoByte.Common.Collections" isDocumented="True">Contains specialized collection types supplementing &lt;see cref="System.Collections.Generic" /&gt;.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="NanoByte.Common.Controls" isDocumented="True">Contains &lt;see cref="System.Windows.Forms" /&gt; controls and forms designed to simplify common UI designs.</NamespaceSummaryItem>
@@ -83,14 +80,6 @@
       <NamespaceSummaryItem name="ZeroInstall.Store.Implementations.Archives" isDocumented="True">Contains classes for safely extracting different kinds of archives.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Management" isDocumented="True">Contains utility classes for store/cache management tools.</NamespaceSummaryItem>
     </NamespaceSummaries>
-  </PropertyGroup>
-  <ItemGroup>
-    <ContentLayout Include="Layout.content" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="index.aml" />
-  </ItemGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>

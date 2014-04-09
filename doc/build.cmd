@@ -21,14 +21,12 @@ goto err_no_vs
 
 
 :compile
-echo Compiling source documentation...
+echo Building source documentation...
 if exist "%~dp0..\build\Documentation" rd /s /q "%~dp0..\build\Documentation"
-
-msbuild "%~dp0Backend\Backend.shfbproj" /p:Configuration=Debug /v:q /nologo
-move "%~dp0..\build\Documentation\Backend\Backend.chm" "%~dp0..\build\Documentation\Backend.chm"
-msbuild "%~dp0Frontend\Frontend.shfbproj" /p:Configuration=Debug /v:q /nologo
-msbuild "%~dp0Tools\Tools.shfbproj" /p:Configuration=Debug /v:q /nologo
-
+FOR %%A IN ("%~dp0*.shfbproj") DO (
+  msbuild "%%A" /p:Configuration=Debug /v:q /nologo
+  if errorlevel 1 pause
+)
 goto end
 
 

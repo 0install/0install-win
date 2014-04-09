@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using ZeroInstall.Services;
 
 namespace ZeroInstall.Commands.Gtk
@@ -24,9 +23,6 @@ namespace ZeroInstall.Commands.Gtk
     /// Uses <see cref="Gtk"/> to inform the user about the progress of tasks and ask the user questions.
     /// </summary>
     /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
-    public sealed class GuiHandler : SilentHandler, IDisposable
-    {
-        public void Dispose()
-        {}
-    }
+    public sealed class GuiHandler : SilentHandler
+    {}
 }

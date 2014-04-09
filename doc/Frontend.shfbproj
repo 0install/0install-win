@@ -14,7 +14,7 @@
     <Name>Frontend</Name>
     <RootNamespace>Frontend</RootNamespace>
     <!-- SHFB properties -->
-    <OutputPath>..\..\build\Documentation\</OutputPath>
+    <OutputPath>..\build\Documentation\</OutputPath>
     <HtmlHelpName>Frontend</HtmlHelpName>
     <HelpTitle>Zero Install Frontend Source Documentation</HelpTitle>
     <KeepLogFile>False</KeepLogFile>
@@ -24,23 +24,22 @@
     <SyntaxFilters>CSharp, VisualBasic</SyntaxFilters>
     <HelpFileFormat>HtmlHelp1</HelpFileFormat>
     <PresentationStyle>vs2005</PresentationStyle>
-    <!--<FeedbackEMailAddress>info%400install.de</FeedbackEMailAddress>-->
+    <FeedbackEMailAddress>info%400install.de</FeedbackEMailAddress>
     <RootNamespaceContainer>True</RootNamespaceContainer>
     <RootNamespaceTitle>Class Reference</RootNamespaceTitle>
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <VisibleItems>InheritedMembers, Internals, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\..\src\Alias.Cli\Alias.Cli.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Central\Central.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Central.WinForms\Central.WinForms.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Commands\Commands.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Commands.Cli\Commands.Cli.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Commands.WinForms\Commands.WinForms.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Launcher.Cli\Launcher.Cli.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Store.Service\Store.Service.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Store.Management.Cli\Store.Management.Cli.csproj" />
+      <DocumentationSource sourceFile="..\src\Alias.Cli\Alias.Cli.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Central\Central.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Central.WinForms\Central.WinForms.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Commands\Commands.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Commands.Cli\Commands.Cli.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Commands.WinForms\Commands.WinForms.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Launcher.Cli\Launcher.Cli.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Store.Service\Store.Service.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Store.Management.Cli\Store.Management.Cli.csproj" configuration="Debug" platform="AnyCPU" />
     </DocumentationSources>
-    <ProjectSummary>This chapter describes the public and protected and internal aspects of the Zero Install Frontend implementations.</ProjectSummary>
     <NamespaceSummaries>
 	  <NamespaceSummaryItem name="ZeroInstall.Alias.Cli" isDocumented="True" xmlns="">A shortcut for '0install add-alias'.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Central" isDocumented="True">Contains helper code for applications that wish to provide a general-purpose Zero Install GUI.</NamespaceSummaryItem>
@@ -56,14 +55,6 @@
       <NamespaceSummaryItem name="ZeroInstall.Management.Cli" isDocumented="True" xmlns="">A shortcut for '0install store manage'.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Service" isDocumented="True" xmlns="">Windows service for managing a Zero Install implementation cache shared between all users</NamespaceSummaryItem>
     </NamespaceSummaries>
-  </PropertyGroup>
-  <ItemGroup>
-    <ContentLayout Include="Layout.content" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="index.aml" />
-  </ItemGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
