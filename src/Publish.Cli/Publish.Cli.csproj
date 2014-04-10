@@ -52,6 +52,9 @@
     <Reference Include="LinqBridge">
       <HintPath>..\packages\LinqBridge.1.3.0\lib\net20\LinqBridge.dll</HintPath>
     </Reference>
+    <Reference Include="NanoByte.Common">
+      <HintPath>..\packages\NanoByte.Common.1.0.0\lib\net20\NanoByte.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="NDesk.Options">
       <HintPath>..\..\lib\NDesk.Options.dll</HintPath>
@@ -88,10 +91,6 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Publish\Publish.csproj">
       <Project>{841CD750-F9D0-4A2D-98C7-7A340C781F41}</Project>
       <Name>Publish</Name>

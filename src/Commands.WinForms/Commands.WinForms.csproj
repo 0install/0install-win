@@ -52,6 +52,12 @@
     <Reference Include="LinqBridge">
       <HintPath>..\packages\LinqBridge.1.3.0\lib\net20\LinqBridge.dll</HintPath>
     </Reference>
+    <Reference Include="NanoByte.Common">
+      <HintPath>..\packages\NanoByte.Common.1.0.0\lib\net20\NanoByte.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="NanoByte.Common.WinForms">
+      <HintPath>..\packages\NanoByte.Common.WinForms.1.0.0\lib\net20\NanoByte.Common.WinForms.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -173,14 +179,6 @@
     <ProjectReference Include="..\Commands\Commands.csproj">
       <Project>{606C7FB6-2C58-11E0-8161-7159DFD72085}</Project>
       <Name>Commands</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common.WinForms\Common.WinForms.csproj">
-      <Project>{DACD1A8E-7734-458C-92B4-DA1F29940890}</Project>
-      <Name>Common.WinForms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
-      <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\DesktopIntegration\DesktopIntegration.csproj">
       <Project>{F48937E1-3763-465F-9F12-6CBBBFF61784}</Project>

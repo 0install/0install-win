@@ -53,6 +53,12 @@
       <HintPath>..\packages\LinqBridge.1.3.0\lib\net20\LinqBridge.dll</HintPath>
       <Aliases>LinqBridge</Aliases>
     </Reference>
+    <Reference Include="NanoByte.Common">
+      <HintPath>..\packages\NanoByte.Common.1.0.0\lib\net20\NanoByte.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="NanoByte.Common.Gtk">
+      <HintPath>..\packages\NanoByte.Common.Gtk.1.0.0\lib\net40\NanoByte.Common.Gtk.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="Mono.Posix" />
@@ -108,14 +114,6 @@
     <ProjectReference Include="..\Commands.Gtk\Commands.Gtk.csproj">
       <Project>{DD118018-2B93-11E0-8896-FBD0DFD72085}</Project>
       <Name>Commands.Gtk</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common.Gtk\Common.Gtk.csproj">
-      <Project>{D602F86B-EF33-4DB3-8FD5-18DFBB98C306}</Project>
-      <Name>Common.Gtk</Name>
     </ProjectReference>
     <ProjectReference Include="..\DesktopIntegration\DesktopIntegration.csproj">
       <Project>{F48937E1-3763-465F-9F12-6CBBBFF61784}</Project>
