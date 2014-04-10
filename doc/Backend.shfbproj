@@ -15,7 +15,7 @@
     <RootNamespace>Backend</RootNamespace>
     <!-- SHFB properties -->
     <OutputPath>..\build\Documentation\Backend\</OutputPath>
-    <HtmlHelpName>Backend</HtmlHelpName>
+    <HtmlHelpName>0install-api</HtmlHelpName>
     <HelpTitle>Zero Install Backend API Documentation</HelpTitle>
     <KeepLogFile>False</KeepLogFile>
     <NamingMethod>MemberName</NamingMethod>

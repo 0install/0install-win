@@ -14,15 +14,15 @@
     <Name>Frontend</Name>
     <RootNamespace>Frontend</RootNamespace>
     <!-- SHFB properties -->
-    <OutputPath>..\build\Documentation\</OutputPath>
-    <HtmlHelpName>Frontend</HtmlHelpName>
-    <HelpTitle>Zero Install Frontend Source Documentation</HelpTitle>
+    <OutputPath>..\build\Documentation\Frontend\</OutputPath>
+    <HtmlHelpName>0install-frontend-api</HtmlHelpName>
+    <HelpTitle>Zero Install Frontend API Documentation</HelpTitle>
     <KeepLogFile>False</KeepLogFile>
     <NamingMethod>MemberName</NamingMethod>
     <Language>en-US</Language>
     <FrameworkVersion>2.0.50727</FrameworkVersion>
     <SyntaxFilters>CSharp, VisualBasic</SyntaxFilters>
-    <HelpFileFormat>HtmlHelp1</HelpFileFormat>
+    <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
     <PresentationStyle>vs2005</PresentationStyle>
     <FeedbackEMailAddress>info%400install.de</FeedbackEMailAddress>
     <RootNamespaceContainer>True</RootNamespaceContainer>
@@ -52,7 +52,7 @@
 	  <NamespaceSummaryItem name="ZeroInstall.Commands.WinForms" isDocumented="True" xmlns="">A WinForms-based GUI for Zero Install, for installing and launching applications, managing caches, etc.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Commands.WinForms.StoreManagementNodes" isDocumented="True" xmlns="">Tree view nodes for the store management interface.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Launcher.Cli" isDocumented="True" xmlns="">A shortcut for '0install run'.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Management.Cli" isDocumented="True" xmlns="">A shortcut for '0install store manage'.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Store.Management.Cli" isDocumented="True" xmlns="">A shortcut for '0install store manage'.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Service" isDocumented="True" xmlns="">Windows service for managing a Zero Install implementation cache shared between all users</NamespaceSummaryItem>
     </NamespaceSummaries>
   </PropertyGroup>

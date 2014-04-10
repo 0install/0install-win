@@ -14,15 +14,15 @@
     <Name>Tools</Name>
     <RootNamespace>Tools</RootNamespace>
     <!-- SHFB properties -->
-    <OutputPath>..\build\Documentation\</OutputPath>
-    <HtmlHelpName>Tools</HtmlHelpName>
-    <HelpTitle>Zero Install Tools Source Documentation</HelpTitle>
+    <OutputPath>..\build\Documentation\Tools\</OutputPath>
+    <HtmlHelpName>0install-tools-api</HtmlHelpName>
+    <HelpTitle>Zero Install Publishing Tools API Documentation</HelpTitle>
     <KeepLogFile>False</KeepLogFile>
     <NamingMethod>MemberName</NamingMethod>
     <Language>en-US</Language>
     <FrameworkVersion>2.0.50727</FrameworkVersion>
     <SyntaxFilters>CSharp, VisualBasic</SyntaxFilters>
-    <HelpFileFormat>HtmlHelp1</HelpFileFormat>
+    <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
     <PresentationStyle>vs2005</PresentationStyle>
     <FeedbackEMailAddress>info%400install.de</FeedbackEMailAddress>
     <RootNamespaceContainer>True</RootNamespaceContainer>
