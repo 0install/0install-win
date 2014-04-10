@@ -21,10 +21,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
 using NanoByte.Common.Collections;
-using NanoByte.Common.Storage;
 using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
 

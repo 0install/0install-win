@@ -19,7 +19,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace NanoByte.Common.Storage
+namespace ZeroInstall.Store
 {
     /// <summary>
     /// Provides easy serialization to JSON files.
