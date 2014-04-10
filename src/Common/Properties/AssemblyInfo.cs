@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 // Assembly info
 [assembly: AssemblyTitle("Common functions")]
-[assembly: AssemblyDescription("Generic utility classes, interfaces, WinForms controls, etc. that are applicable to a wide range of different applications.")]
+[assembly: AssemblyDescription("Generic utility classes, interfaces, controls, etc. that are applicable to a wide range of different applications.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: NeutralResourcesLanguage("en")]
 

@@ -8,6 +8,8 @@
 // "In Project Suppression File".
 // You do not need to add suppressions to this file manually.
 
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "UnhandledException", Scope = "member", Target = "Common.Controls.ErrorReportForm.#SetupMonitoring(System.Uri)")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "CurrentDomain", Scope = "member", Target = "Common.Controls.ErrorReportForm.#SetupMonitoring(System.Uri)")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "AppDomain", Scope = "member", Target = "Common.Controls.ErrorReportForm.#SetupMonitoring(System.Uri)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "UnhandledException", Scope = "member", Target = "NanoByte.Common.Controls.ErrorReportForm.#SetupMonitoring(System.Uri)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "CurrentDomain", Scope = "member", Target = "NanoByte.Common.Controls.ErrorReportForm.#SetupMonitoring(System.Uri)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "AppDomain", Scope = "member", Target = "NanoByte.Common.Controls.ErrorReportForm.#SetupMonitoring(System.Uri)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "CurrentDomain", Scope = "member", Target = "NanoByte.Common.Controls.ErrorReportForm.#SetupMonitoring(System.Uri)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "UnhandledException", Scope = "member", Target = "NanoByte.Common.Controls.ErrorReportForm.#SetupMonitoring(System.Uri)")]

@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace NanoByte.Common.Values
 {
@@ -32,6 +33,7 @@ namespace NanoByte.Common.Values
         /// <summary>
         /// Checks whether a flag is set.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag"), SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "flag")]
         public static bool HasFlag(this Enum enumRef, Enum flag)
         {
             long enumValue = Convert.ToInt64(enumRef);
@@ -42,6 +44,7 @@ namespace NanoByte.Common.Values
         /// <summary>
         /// Checks whether a flag is set.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag"), SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "flag")]
         [CLSCompliant(false)]
         public static bool HasFlag(this ushort enumRef, ushort flag)
         {

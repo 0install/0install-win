@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace NanoByte.Common
 {
@@ -38,6 +39,7 @@ namespace NanoByte.Common
         /// <summary>
         /// Occurs when a property changed that requires visual representations to rebuilt from scratch.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
         event Action<TSender> ChangedRebuild;
     }
 }

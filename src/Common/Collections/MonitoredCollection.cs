@@ -40,6 +40,7 @@ namespace NanoByte.Common.Collections
         /// <summary>
         /// Occurs whenever something in the collection changes.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
         [Description("Occurs whenever something in the collection changes.")]
         public event Action Changed;
 

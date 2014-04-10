@@ -56,6 +56,7 @@ namespace NanoByte.Common.Collections
         /// </summary>
         public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<T>> enumeration)
         {
+            // ReSharper disable once PossibleMultipleEnumeration
             return enumeration.SelectMany(x => x);
         }
 
@@ -414,6 +415,11 @@ namespace NanoByte.Common.Collections
             where TSourceKey : TTargetKey
             where TSourceValue : TTargetValue
         {
+            #region Sanity checks
+            if (target == null) throw new ArgumentNullException("target");
+            if (source == null) throw new ArgumentNullException("source");
+            #endregion
+
             foreach (var pair in source)
                 target.Add(pair.Key, pair.Value);
         }

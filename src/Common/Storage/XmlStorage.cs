@@ -29,15 +29,19 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using ICSharpCode.SharpZipLib.Zip;
-using NanoByte.Common.Properties;
-#if SLIMDX
-using System.Drawing;
-using Common.Collections;
-#endif
 using NanoByte.Common.Streams;
 using NanoByte.Common.Utils;
+using Resources = NanoByte.Common.Properties.Resources;
 
+#if SLIMDX
+using System.Drawing;
+using SlimDX;
+using NanoByte.Common.Collections;
+
+namespace NanoByte.Common.Storage.SlimDX
+#else
 namespace NanoByte.Common.Storage
+#endif
 {
     /// <summary>
     /// Provides easy serialization to XML files (optionally wrapped in ZIP archives).
@@ -83,16 +87,16 @@ namespace NanoByte.Common.Storage
             #endregion
 
             #region Augement SlimDX types
-            MembersAsAttributes<SlimDX.Color3>(overrides, "Red", "Green", "Blue");
-            MembersAsAttributes<SlimDX.Color4>(overrides, "Alpha", "Red", "Green", "Blue");
-            MembersAsAttributes<SlimDX.Half2>(overrides, "X", "Y");
-            MembersAsAttributes<SlimDX.Half3>(overrides, "X", "Y", "Z");
-            MembersAsAttributes<SlimDX.Half4>(overrides, "X", "Y", "Z", "W");
-            MembersAsAttributes<SlimDX.Vector2>(overrides, "X", "Y");
-            MembersAsAttributes<SlimDX.Vector3>(overrides, "X", "Y", "Z");
-            MembersAsAttributes<SlimDX.Vector4>(overrides, "X", "Y", "Z", "W");
-            MembersAsAttributes<SlimDX.Quaternion>(overrides, "X", "Y", "Z", "W");
-            MembersAsAttributes<SlimDX.Rational>(overrides, "Numerator", "Denominator");
+            MembersAsAttributes<Color3>(overrides, "Red", "Green", "Blue");
+            MembersAsAttributes<Color4>(overrides, "Alpha", "Red", "Green", "Blue");
+            MembersAsAttributes<Half2>(overrides, "X", "Y");
+            MembersAsAttributes<Half3>(overrides, "X", "Y", "Z");
+            MembersAsAttributes<Half4>(overrides, "X", "Y", "Z", "W");
+            MembersAsAttributes<Vector2>(overrides, "X", "Y");
+            MembersAsAttributes<Vector3>(overrides, "X", "Y", "Z");
+            MembersAsAttributes<Vector4>(overrides, "X", "Y", "Z", "W");
+            MembersAsAttributes<Quaternion>(overrides, "X", "Y", "Z", "W");
+            MembersAsAttributes<Rational>(overrides, "Numerator", "Denominator");
             #endregion
 
             var serializer = new XmlSerializer(type, overrides);
