@@ -80,9 +80,6 @@
     <Compile Include="Dispatch\ModelViewSyncTest.cs" />
     <Compile Include="Dispatch\PerTypeDispatcherTest.cs" />
     <Compile Include="LogTest.cs" />
-    <Compile Include="MicroServer.cs" />
-    <Compile Include="MoqExtensions.cs" />
-    <Compile Include="Storage\LocationsRedirect.cs" />
     <Compile Include="Storage\XmlStorageTest.cs" />
     <Compile Include="Streams\CircularBufferStreamTest.cs" />
     <Compile Include="Streams\StreamExtensionsTest.cs" />
@@ -92,8 +89,6 @@
     <Compile Include="Tasks\MoveDirectoryTest.cs" />
     <Compile Include="Tasks\SimpleTaskTest.cs" />
     <Compile Include="Tasks\WaitTaskTest.cs" />
-    <Compile Include="TemporayDirectoryTest.cs" />
-    <Compile Include="TestWithMocks.cs" />
     <Compile Include="Undo\CollectionTest.cs" />
     <Compile Include="Undo\CommandCollectorTest.cs" />
     <Compile Include="Undo\CompositeCommandTest.cs" />

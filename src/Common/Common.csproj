@@ -134,6 +134,7 @@
     <Compile Include="Storage\BinaryStorage.cs" />
     <Compile Include="Storage\EmbeddedFile.cs" />
     <Compile Include="Storage\Locations.cs" />
+    <Compile Include="Storage\LocationsRedirect.cs" />
     <Compile Include="Storage\TemporaryDirectory.cs" />
     <Compile Include="Storage\TemporaryFile.cs" />
     <Compile Include="Storage\TemporaryFlagFile.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Storage\XmlStorage.cs" />
     <Compile Include="Streams\CircularBufferStream.cs" />
     <Compile Include="Streams\DisposeWrapperStream.cs" />
+    <Compile Include="Streams\MicroServer.cs" />
     <Compile Include="Streams\StreamExtensions.cs" />
     <Compile Include="Tasks\CancellationToken.cs" />
     <Compile Include="Tasks\CancellationTokenRegistration.cs" />

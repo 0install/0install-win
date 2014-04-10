@@ -17,7 +17,7 @@
 
 using System.IO;
 using System.Reflection;
-using NanoByte.Common;
+using NanoByte.Common.Storage;
 using NanoByte.Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Store.Implementations;
@@ -27,8 +27,24 @@ namespace ZeroInstall.Publish.EntryPoints
     /// <summary>
     /// Base class for test fixtures that test <see cref="Candidate"/>s.
     /// </summary>
-    public abstract class CandidateTest : TemporayDirectoryTest
+    public abstract class CandidateTest
     {
+        private TemporaryDirectory _temporaryDirectory;
+        protected DirectoryInfo Directory;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _temporaryDirectory = new TemporaryDirectory("unit-tests");
+            Directory = new DirectoryInfo(_temporaryDirectory);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _temporaryDirectory.Dispose();
+        }
+
         /// <summary>
         /// Ensures <see cref="Candidate.Analyze"/> correctly identifies a reference file.
         /// </summary>

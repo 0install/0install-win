@@ -86,6 +86,7 @@
     <Compile Include="DesktopIntegration\AppListTest.cs" />
     <Compile Include="DesktopIntegration\IntegrationManagerTest.cs" />
     <Compile Include="DesktopIntegration\SyncIntegrationManagerTest.cs" />
+    <Compile Include="MoqExtensions.cs" />
     <Compile Include="PackageBuilder.cs" />
     <Compile Include="Services\Feeds\FeedManagerTest.cs" />
     <Compile Include="Services\Feeds\TrustManagerTest.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Store\Trust\TestData.cs" />
     <Compile Include="Store\Trust\TrustDBTest.cs" />
     <Compile Include="TestWithContainer.cs" />
+    <Compile Include="TestWithMocks.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.7z" />

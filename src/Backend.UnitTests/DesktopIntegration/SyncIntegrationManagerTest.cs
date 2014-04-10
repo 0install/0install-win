@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration.AccessPoints;
