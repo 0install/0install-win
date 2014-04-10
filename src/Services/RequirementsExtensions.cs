@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Text;
 using NanoByte.Common.Utils;
 using ZeroInstall.Store.Model;
@@ -31,6 +32,10 @@ namespace ZeroInstall.Services
         /// </summary>
         public static string ToCommandLine(this Requirements requirements)
         {
+            #region Sanity checks
+            if (requirements == null) throw new ArgumentNullException("requirements");
+            #endregion
+
             var builder = new StringBuilder();
 
             if (requirements.Command != null) builder.Append("--command=" + requirements.Command.EscapeArgument() + " ");

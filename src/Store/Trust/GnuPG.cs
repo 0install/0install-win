@@ -210,6 +210,10 @@ namespace ZeroInstall.Store.Trust
         /// <inheritdoc/>
         protected override string HandleStderr(string line)
         {
+            #region Sanity checks
+            if (line == null) throw new ArgumentNullException("line");
+            #endregion
+
             if (line.StartsWith("gpg: Signature made ") ||
                 line.StartsWith("gpg: Good signature from ") ||
                 line.StartsWith("gpg: WARNING: This key is not certified") ||
