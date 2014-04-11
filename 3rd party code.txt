@@ -18,6 +18,21 @@ http://code.google.com/p/linqbridge/
 MIT license: http://opensource.org/licenses/mit-license
 NuGet package: LinqBridge
 
+TaskDialog
+http://www.codeproject.com/KB/vista/TaskDialogWinForms.aspx
+Public domain
+NuGet package: NanoByte.Common
+
+ICSharpCode.SharpZipLib post-0.86.0-GIT-checkout
+http://www.icsharpcode.net/OpenSource/SharpZipLib/
+GNU GPL with GNU Classpath exception: ICSharpCode.SharpZipLib.license.txt
+NuGet package: NanoByte.Common
+
+ICSharpCode.TextEditor
+http://www.icsharpcode.net/OpenSource/SD/
+GNU LGPL: http://www.gnu.org/copyleft/lesser.html
+NuGet package: NanoByte.Common
+
 Json.NET
 http://james.newtonking.com/json
 MIT license: http://opensource.org/licenses/mit-license
@@ -27,11 +42,6 @@ Task Scheduler Managed Wrapper
 http://taskscheduler.codeplex.com/
 MIT license: http://opensource.org/licenses/mit-license
 NuGet package: TaskScheduler
-
-TaskDialog
-http://www.codeproject.com/KB/vista/TaskDialogWinForms.aspx
-Public domain
-Self-compiled managed DLL: TaskDialog.dll
 
 SevenZipSharp
 http://sevenzipsharp.codeplex.com/
@@ -48,18 +58,6 @@ http://ndesk.org/Options
 MIT license: http://opensource.org/licenses/mit-license
 Applied patches: NDesk.Options.*.patch
 Self-compiled managed DLL: NDesk.Options.dll
-
-ICSharpCode.SharpZipLib post-0.86.0-GIT-checkout
-http://www.icsharpcode.net/OpenSource/SharpZipLib/
-GNU GPL with GNU Classpath exception: ICSharpCode.SharpZipLib.license.txt
-Custom patches: http://github.com/bastianeicher/SharpZipLib
-Self-compiled managed DLL: ICSharpCode.SharpZipLib.dll
-
-ICSharpCode.TextEditor
-http://www.icsharpcode.net/OpenSource/SD/
-GNU LGPL: http://www.gnu.org/copyleft/lesser.html
-Applied patches: ICSharpCode.TextEditor.*.patch
-Self-compiled managed DLL: ICSharpCode.TextEditor.dll
 
 ELFSharp 0.0.10
 http://antmicro.com/projects/elfsharp/

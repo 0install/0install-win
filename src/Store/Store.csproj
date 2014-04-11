@@ -50,6 +50,9 @@
     <Reference Include="NanoByte.Common">
       <HintPath>..\packages\NanoByte.Common.1.0.0\lib\net20\NanoByte.Common.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\NanoByte.Common.1.0.0\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net20\Newtonsoft.Json.dll</HintPath>
@@ -62,9 +65,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Remoting" />
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
     <Reference Include="INIFileParser">
       <HintPath>..\..\lib\INIFileParser.dll</HintPath>
     </Reference>
