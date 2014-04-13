@@ -18,20 +18,20 @@ http://code.google.com/p/linqbridge/
 MIT license: http://opensource.org/licenses/mit-license
 NuGet package: LinqBridge
 
-TaskDialog
-http://www.codeproject.com/KB/vista/TaskDialogWinForms.aspx
-Public domain
-NuGet package: NanoByte.Common
-
-ICSharpCode.SharpZipLib post-0.86.0-GIT-checkout
+ICSharpCode.SharpZipLib 0.86-patched
 http://www.icsharpcode.net/OpenSource/SharpZipLib/
-GNU GPL with GNU Classpath exception: ICSharpCode.SharpZipLib.license.txt
-NuGet package: NanoByte.Common
+GNU GPL with GNU Classpath exception
+NuGet package: ICSharpCode.SharpZipLib.Patched
 
 ICSharpCode.TextEditor
 http://www.icsharpcode.net/OpenSource/SD/
 GNU LGPL: http://www.gnu.org/copyleft/lesser.html
-NuGet package: NanoByte.Common
+NuGet package: NanoByte.Common.WinForms
+
+TaskDialog
+http://www.codeproject.com/KB/vista/TaskDialogWinForms.aspx
+Public domain
+NuGet package: NanoByte.Common.WinForms
 
 Json.NET
 http://james.newtonking.com/json
