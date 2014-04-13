@@ -175,11 +175,7 @@ namespace ZeroInstall.DesktopIntegration
                 byte[] appListData;
                 try
                 {
-                    // Download and merge the current AppList from the server (unless the server is to be reset)
-                    appListData = (resetMode == SyncResetMode.Server)
-                        ? new byte[0]
-                        // TODO: Allow cancel
-                        : webClient.DownloadData(appListUri);
+                    appListData = (resetMode == SyncResetMode.Server) ? new byte[0] : webClient.DownloadData(appListUri);
                 }
                     #region Error handling
                 catch (WebException ex)
@@ -211,87 +207,99 @@ namespace ZeroInstall.DesktopIntegration
                 }
                 #endregion
 
-                // TODO: Evaluate using appList = new AppList()
-                if (appListData.Length > 0)
+                HandleDownloadedAppList(resetMode, appListData);
+
+                try
                 {
-                    AppList serverList;
-                    try
-                    {
-                        serverList = XmlStorage.LoadXmlZip<AppList>(new MemoryStream(appListData), _cryptoKey);
-                    }
-                        #region Error handling
-                    catch (ZipException ex)
-                    {
-                        // Wrap exception to add context information
-                        if (ex.Message == "Invalid password") throw new InvalidDataException(Resources.SyncCryptoKeyInvalid);
-                        throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
-                    }
-                    catch (InvalidDataException ex)
-                    {
-                        // Wrap exception to add context information
-                        throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
-                    }
-                    #endregion
-
-                    Handler.CancellationToken.ThrowIfCancellationRequested();
-                    try
-                    {
-                        MergeData(serverList, (resetMode == SyncResetMode.Client), Handler);
-                    }
-                    catch (KeyNotFoundException ex)
-                    {
-                        // Wrap exception since only certain exception types are allowed
-                        throw new InvalidDataException(ex.Message, ex);
-                    }
-                    finally
-                    {
-                        Finish();
-                    }
-
-                    Handler.CancellationToken.ThrowIfCancellationRequested();
+                    UploadAppList(appListUri, webClient, resetMode);
                 }
-
-                // Upload the encrypted AppList back to the server (unless the client was reset)
-                if (resetMode != SyncResetMode.Client)
+                    #region Error handling
+                catch (WebException ex)
                 {
-                    var memoryStream = new MemoryStream();
-                    AppList.SaveXmlZip(memoryStream, _cryptoKey);
-
-                    // Prevent "lost updates" (race conditions) with HTTP ETags
-                    if (resetMode == SyncResetMode.None && (appListUri.Scheme == "http" || appListUri.Scheme == "https"))
+                    if (ex.Status == WebExceptionStatus.ProtocolError)
                     {
-                        if (!string.IsNullOrEmpty(webClient.ResponseHeaders[HttpResponseHeader.ETag]))
-                            webClient.Headers[HttpRequestHeader.IfMatch] = webClient.ResponseHeaders[HttpResponseHeader.ETag];
-                    }
-                    try
-                    {
-                        // TODO: Allow cancel
-                        webClient.UploadData(appListUri, "PUT", memoryStream.ToArray());
-                    }
-                        #region Error handling
-                    catch (WebException ex)
-                    {
-                        if (ex.Status == WebExceptionStatus.ProtocolError)
-                        {
-                            var response = ex.Response as HttpWebResponse;
-                            if (response != null && response.StatusCode == HttpStatusCode.PreconditionFailed)
-                            { // Precondition failure indicates a "lost update" (race condition)
-                                // Wait for a randomized interval before retrying
-                                Thread.Sleep(_random.Next(250, 1500));
-                                Handler.CancellationToken.ThrowIfCancellationRequested();
-                                goto Retry;
-                            }
+                        var response = ex.Response as HttpWebResponse;
+                        if (response != null && response.StatusCode == HttpStatusCode.PreconditionFailed)
+                        { // Precondition failure indicates a "lost update" (race condition)
+                            // Wait for a randomized interval before retrying
+                            Thread.Sleep(_random.Next(250, 1500));
+                            Handler.CancellationToken.ThrowIfCancellationRequested();
+                            goto Retry;
                         }
-
-                        throw;
                     }
-                    #endregion
+
+                    throw;
                 }
+                #endregion
             }
 
             // Save reference point for future syncs
             AppList.SaveXml(AppListPath + AppListLastSyncSuffix);
+
             Handler.CancellationToken.ThrowIfCancellationRequested();
+        }
+        #endregion
+
+        #region Helpers
+        private void HandleDownloadedAppList(SyncResetMode resetMode, byte[] appListData)
+        {
+            if (appListData.Length == 0) return;
+
+            AppList serverList;
+            try
+            {
+                serverList = XmlStorage.LoadXmlZip<AppList>(new MemoryStream(appListData), _cryptoKey);
+            }
+                #region Error handling
+            catch (ZipException ex)
+            {
+                // Wrap exception to add context information
+                if (ex.Message == "Invalid password") throw new InvalidDataException(Resources.SyncCryptoKeyInvalid);
+                throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
+            }
+            catch (InvalidDataException ex)
+            {
+                // Wrap exception to add context information
+                throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
+            }
+            #endregion
+
+            Handler.CancellationToken.ThrowIfCancellationRequested();
+            try
+            {
+                MergeData(serverList, Handler, resetClient: (resetMode == SyncResetMode.Client));
+            }
+            catch (KeyNotFoundException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new InvalidDataException(ex.Message, ex);
+            }
+            finally
+            {
+                Finish();
+            }
+
+            Handler.CancellationToken.ThrowIfCancellationRequested();
+        }
+
+        /// <summary>
+        /// Upload the encrypted AppList back to the server (unless the client was reset)
+        /// </summary>
+        private void UploadAppList(Uri appListUri, WebClientTimeout webClient, SyncResetMode resetMode)
+        {
+            if (resetMode == SyncResetMode.Client) return;
+
+            var memoryStream = new MemoryStream();
+            AppList.SaveXmlZip(memoryStream, _cryptoKey);
+
+            // Prevent "lost updates" (race conditions) with HTTP ETags
+            if (resetMode == SyncResetMode.None && (appListUri.Scheme == "http" || appListUri.Scheme == "https"))
+            {
+                if (!string.IsNullOrEmpty(webClient.ResponseHeaders[HttpResponseHeader.ETag]))
+                    webClient.Headers[HttpRequestHeader.IfMatch] = webClient.ResponseHeaders[HttpResponseHeader.ETag];
+            }
+
+            webClient.UploadData(appListUri, "PUT", memoryStream.ToArray());
         }
         #endregion
 
@@ -300,8 +308,8 @@ namespace ZeroInstall.DesktopIntegration
         /// Merges a new <see cref="IntegrationManagerBase.AppList"/> with the existing data.
         /// </summary>
         /// <param name="remoteAppList">The remote <see cref="AppList"/> to merge in.</param>
-        /// <param name="resetClient">Set to <see langword="true"/> to completly replace the contents of <see cref="IIntegrationManager.AppList"/> with <paramref name="remoteAppList"/> instead of merging the two.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <param name="resetClient">Set to <see langword="true"/> to completly replace the contents of <see cref="IIntegrationManager.AppList"/> with <paramref name="remoteAppList"/> instead of merging the two.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="Store.Model.Capabilities.Capability"/> is invalid.</exception>
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Store.Model.Capabilities.Capability"/>s is invalid.</exception>
@@ -310,7 +318,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
         /// <remarks>Performs a three-way merge using <see cref="_appListLastSync"/> as base.</remarks>
-        private void MergeData(AppList remoteAppList, bool resetClient, ITaskHandler handler)
+        private void MergeData(AppList remoteAppList, ITaskHandler handler, bool resetClient)
         {
             #region Sanity checks
             if (remoteAppList == null) throw new ArgumentNullException("remoteAppList");
