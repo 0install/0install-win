@@ -101,7 +101,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
             {
                 try
                 {
-                    XmlStorage.LoadXmlZip<AppList>(new MemoryStream(webClient.DownloadData(appListUri)), key);
+                    AppList.LoadXmlZip(new MemoryStream(webClient.DownloadData(appListUri)), key);
                 }
                     #region Error handling
                 catch (WebException ex)
@@ -120,11 +120,6 @@ namespace ZeroInstall.Central.WinForms.Wizards
                 {
                     // Wrap exception to add context information
                     if (ex.Message == "Invalid password") throw new InvalidDataException(Resources.SyncCryptoKeyInvalid);
-                    throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
-                }
-                catch (InvalidDataException ex)
-                {
-                    // Wrap exception to add context information
                     throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
                 }
                 #endregion

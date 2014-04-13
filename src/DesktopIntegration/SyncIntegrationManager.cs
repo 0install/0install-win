@@ -248,18 +248,13 @@ namespace ZeroInstall.DesktopIntegration
             AppList serverList;
             try
             {
-                serverList = XmlStorage.LoadXmlZip<AppList>(new MemoryStream(appListData), _cryptoKey);
+                serverList = AppList.LoadXmlZip(new MemoryStream(appListData), _cryptoKey);
             }
                 #region Error handling
             catch (ZipException ex)
             {
                 // Wrap exception to add context information
                 if (ex.Message == "Invalid password") throw new InvalidDataException(Resources.SyncCryptoKeyInvalid);
-                throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
-            }
-            catch (InvalidDataException ex)
-            {
-                // Wrap exception to add context information
                 throw new InvalidDataException(Resources.SyncServerDataDamaged, ex);
             }
             #endregion

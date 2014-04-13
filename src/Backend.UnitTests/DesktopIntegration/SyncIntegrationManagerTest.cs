@@ -17,7 +17,6 @@
 
 using System;
 using System.IO;
-using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
@@ -246,14 +245,16 @@ namespace ZeroInstall.DesktopIntegration
             appListLocal.SaveXml(_appListPath);
             if (appListLast != null) appListLast.SaveXml(_appListPath + SyncIntegrationManager.AppListLastSyncSuffix);
 
-            appListServer.SaveXmlZip(_appListPath + ".zip");
+            using (var stream = File.Create(_appListPath + ".zip"))
+                appListServer.SaveXmlZip(stream);
+
             using (var appListServerFile = File.OpenRead(_appListPath + ".zip"))
             using (var syncServer = new MicroServer("app-list", appListServerFile))
             {
                 using (var integrationManager = new SyncIntegrationManager(_appListPath, new SyncServer {Uri = syncServer.ServerUri}, interfaceId => new Feed(), new SilentTaskHandler()))
                     integrationManager.Sync(resetMode);
 
-                appListServer = XmlStorage.LoadXmlZip<AppList>(syncServer.FileContent);
+                appListServer = AppList.LoadXmlZip(syncServer.FileContent);
             }
 
             appListLocal = XmlStorage.LoadXml<AppList>(_appListPath);

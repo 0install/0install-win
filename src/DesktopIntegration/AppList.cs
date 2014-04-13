@@ -22,8 +22,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using ICSharpCode.SharpZipLib.Zip;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Store.Model;
@@ -160,6 +162,63 @@ namespace ZeroInstall.DesktopIntegration
                 // Machine-wide storage cannot be portable, per-user storage can be portable
                 machineWide ? Locations.GetIntegrationDirPath("0install.net", true, "desktop-integration") : Locations.GetSaveConfigPath("0install.net", false, "desktop-integration"),
                 "app-list.xml");
+        }
+
+        /// <summary>
+        /// Loads a list from an XML file embedded in a ZIP archive.
+        /// </summary>
+        /// <param name="stream">The ZIP archive to load.</param>
+        /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
+        /// <returns>The loaded list.</returns>
+        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
+        public static AppList LoadXmlZip(Stream stream, string password = null)
+        {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            #endregion
+
+            using (var zipFile = new ZipFile(stream) {IsStreamOwner = false, Password = password})
+            {
+                var zipEntry = zipFile.Cast<ZipEntry>().First(x => StringUtils.EqualsIgnoreCase(x.Name, "data.xml"));
+
+                try
+                {
+                    return XmlStorage.LoadXml<AppList>(zipFile.GetInputStream(zipEntry));
+                }
+                catch (InvalidOperationException)
+                {
+                    throw new InvalidDataException(Resources.SyncServerDataDamaged);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Saves the list in an XML file embedded in a ZIP archive.
+        /// </summary>
+        /// <param name="stream">The ZIP archive to be written.</param>
+        /// <param name="password">The password to use for encryption; <see langword="null"/> for no encryption.</param>
+        public void SaveXmlZip(Stream stream, string password = null)
+        {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            #endregion
+
+            if (stream.CanSeek) stream.Position = 0;
+            using (var zipStream = new ZipOutputStream(stream) {IsStreamOwner = false})
+            {
+                if (!string.IsNullOrEmpty(password)) zipStream.Password = password;
+
+                // Write the XML file to the ZIP archive
+                {
+                    var entry = new ZipEntry("data.xml") {DateTime = DateTime.Now};
+                    if (!string.IsNullOrEmpty(password)) entry.AESKeySize = 128;
+                    zipStream.SetLevel(9);
+                    zipStream.PutNextEntry(entry);
+                    this.SaveXml(zipStream);
+                    zipStream.CloseEntry();
+                }
+            }
         }
         #endregion
 
