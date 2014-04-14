@@ -407,9 +407,14 @@ namespace ZeroInstall.Commands.WinForms
             where T : DesktopIntegration.AccessPoints.CommandAccessPoint
         {
             if (!checkBox.Visible) return;
+
             if (checkBox.Checked)
             {
-                if (current.Count == 0) foreach (var entry in getSuggestions()) current.Add(entry);
+                if (current.Count == 0)
+                {
+                    foreach (var entry in getSuggestions())
+                        current.Add(entry);
+                }
             }
             else current.Clear();
         }
@@ -438,18 +443,60 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            // Hide so that the underlying progress tracker is visible
-            Visible = false;
-
             var toAdd = new List<DesktopIntegration.AccessPoints.AccessPoint>();
             var toRemove = new List<DesktopIntegration.AccessPoints.AccessPoint>();
+            CollectChanges(toAdd, toRemove);
+            ApplyChanges(toRemove, toAdd);
+        }
 
+        private void CollectChanges(List<DesktopIntegration.AccessPoints.AccessPoint> toAdd, List<DesktopIntegration.AccessPoints.AccessPoint> toRemove)
+        {
             _appEntry.AutoUpdate = checkBoxAutoUpdate.Checked;
             (checkBoxCapabilities.Checked ? toAdd : toRemove).Add(new DesktopIntegration.AccessPoints.CapabilityRegistration());
 
-            if (buttonAdvancedMode.Visible) _switchToAdvancedMode(); // Must do this to apply changes made in simple view
-            HandleCommandAccessPointChanges(toAdd, toRemove);
-            HandleDefaultAccessPointChanges(toAdd, toRemove);
+            // Apply changes made in "Simple View"
+            if (buttonAdvancedMode.Visible) _switchToAdvancedMode();
+
+            CollectCommandAccessPointChanges(toAdd, toRemove);
+            CollectDefaultAccessPointChanges(toAdd, toRemove);
+        }
+
+        private void CollectCommandAccessPointChanges(ICollection<DesktopIntegration.AccessPoints.AccessPoint> toAdd, ICollection<DesktopIntegration.AccessPoints.AccessPoint> toRemove)
+        {
+            // Build lists with current integration state
+            var currentMenuEntries = new List<DesktopIntegration.AccessPoints.MenuEntry>();
+            var currentDesktopIcons = new List<DesktopIntegration.AccessPoints.DesktopIcon>();
+            var currentAliases = new List<DesktopIntegration.AccessPoints.AppAlias>();
+            if (_appEntry.AccessPoints != null)
+            {
+                new PerTypeDispatcher<DesktopIntegration.AccessPoints.AccessPoint>(true)
+                {
+                    (DesktopIntegration.AccessPoints.MenuEntry menuEntry) => currentMenuEntries.Add(menuEntry),
+                    (DesktopIntegration.AccessPoints.DesktopIcon desktopIcon) => currentDesktopIcons.Add(desktopIcon),
+                    (DesktopIntegration.AccessPoints.AppAlias alias) => currentAliases.Add(alias)
+                }.Dispatch(_appEntry.AccessPoints.Entries);
+            }
+
+            // Determine differences between current and desired state
+            Merge.TwoWay(theirs: _menuEntries, mine: currentMenuEntries, added: toAdd.Add, removed: toRemove.Add);
+            Merge.TwoWay(theirs: _desktopIcons, mine: currentDesktopIcons, added: toAdd.Add, removed: toRemove.Add);
+            Merge.TwoWay(theirs: _aliases, mine: currentAliases, added: toAdd.Add, removed: toRemove.Add);
+        }
+
+        private void CollectDefaultAccessPointChanges(ICollection<DesktopIntegration.AccessPoints.AccessPoint> toAdd, ICollection<DesktopIntegration.AccessPoints.AccessPoint> toRemove)
+        {
+            foreach (var model in _capabilityModels.Where(model => model.Changed))
+            {
+                var accessPoint = model.Capability.ToAcessPoint();
+                if (model.Use) toAdd.Add(accessPoint);
+                else toRemove.Add(accessPoint);
+            }
+        }
+
+        private void ApplyChanges(List<DesktopIntegration.AccessPoints.AccessPoint> toRemove, List<DesktopIntegration.AccessPoints.AccessPoint> toAdd)
+        {
+            // Hide so that the underlying progress tracker is visible
+            Visible = false;
 
             try
             {
@@ -497,48 +544,6 @@ namespace ZeroInstall.Commands.WinForms
 
             DialogResult = DialogResult.OK;
             Close();
-        }
-
-        /// <summary>
-        /// Determines changes to <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>s specified by the user.
-        /// </summary>
-        /// <param name="toAdd">List to add <see cref="DesktopIntegration.AccessPoints.AccessPoint"/>s to be added to.</param>
-        /// <param name="toRemove">List to add <see cref="DesktopIntegration.AccessPoints.AccessPoint"/>s to be removed to.</param>
-        private void HandleCommandAccessPointChanges(ICollection<DesktopIntegration.AccessPoints.AccessPoint> toAdd, ICollection<DesktopIntegration.AccessPoints.AccessPoint> toRemove)
-        {
-            // Build lists with current integration state
-            var currentMenuEntries = new List<DesktopIntegration.AccessPoints.MenuEntry>();
-            var currentDesktopIcons = new List<DesktopIntegration.AccessPoints.DesktopIcon>();
-            var currentAliases = new List<DesktopIntegration.AccessPoints.AppAlias>();
-            if (_appEntry.AccessPoints != null)
-            {
-                new PerTypeDispatcher<DesktopIntegration.AccessPoints.AccessPoint>(true)
-                {
-                    (DesktopIntegration.AccessPoints.MenuEntry menuEntry) => currentMenuEntries.Add(menuEntry),
-                    (DesktopIntegration.AccessPoints.DesktopIcon desktopIcon) => currentDesktopIcons.Add(desktopIcon),
-                    (DesktopIntegration.AccessPoints.AppAlias alias) => currentAliases.Add(alias)
-                }.Dispatch(_appEntry.AccessPoints.Entries);
-            }
-
-            // Determine differences between current and desired state
-            Merge.TwoWay(theirs: _menuEntries, mine: currentMenuEntries, added: toAdd.Add, removed: toRemove.Add);
-            Merge.TwoWay(theirs: _desktopIcons, mine: currentDesktopIcons, added: toAdd.Add, removed: toRemove.Add);
-            Merge.TwoWay(theirs: _aliases, mine: currentAliases, added: toAdd.Add, removed: toRemove.Add);
-        }
-
-        /// <summary>
-        /// Determines changes to <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/>s specified by the user.
-        /// </summary>
-        /// <param name="toAdd">List to add <see cref="DesktopIntegration.AccessPoints.AccessPoint"/>s to be added to.</param>
-        /// <param name="toRemove">List to add <see cref="DesktopIntegration.AccessPoints.AccessPoint"/>s to be removed to.</param>
-        private void HandleDefaultAccessPointChanges(ICollection<DesktopIntegration.AccessPoints.AccessPoint> toAdd, ICollection<DesktopIntegration.AccessPoints.AccessPoint> toRemove)
-        {
-            foreach (var model in _capabilityModels.Where(model => model.Changed))
-            {
-                var accessPoint = model.Capability.ToAcessPoint();
-                if (model.Use) toAdd.Add(accessPoint);
-                else toRemove.Add(accessPoint);
-            }
         }
         #endregion
 
