@@ -60,10 +60,10 @@
       <HintPath>..\packages\TaskScheduler.2.1.0\lib\2\Microsoft.Win32.TaskScheduler.dll</HintPath>
     </Reference>
     <Reference Include="NanoByte.Common">
-      <HintPath>..\packages\NanoByte.Common.1.0.1\lib\net20\NanoByte.Common.dll</HintPath>
+      <HintPath>..\packages\NanoByte.Common.1.0.2\lib\net20\NanoByte.Common.dll</HintPath>
     </Reference>
     <Reference Include="NanoByte.Common.WinForms">
-      <HintPath>..\packages\NanoByte.Common.WinForms.1.0.1\lib\net20\NanoByte.Common.WinForms.dll</HintPath>
+      <HintPath>..\packages\NanoByte.Common.WinForms.1.0.2\lib\net20\NanoByte.Common.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
