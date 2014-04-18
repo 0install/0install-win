@@ -127,7 +127,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             try
             {
-                var task = new SimpleTask(Resources.Working, () => { _candidates = _solveCallback()[_interfaceID].Candidates ?? GenerateDummyCandidates(); });
+                var task = new SimpleTask(Resources.Working, SolveTask);
                 using (var handler = new GuiTaskHandler(this)) handler.RunTask(task);
             }
                 #region Error handling
@@ -148,6 +148,12 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             UpdateDataGridVersions();
+        }
+
+        private void SolveTask()
+        {
+            var selections = _solveCallback();
+            _candidates = selections[_interfaceID].Candidates ?? GenerateDummyCandidates();
         }
 
         /// <summary>
@@ -177,11 +183,12 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
         }
 
-        private static SelectionCandidate GenerateDummyCandidate(string feedID, FeedPreferences feedPreferences, Implementation implementation)
+        private SelectionCandidate GenerateDummyCandidate(string feedID, FeedPreferences feedPreferences, Implementation implementation)
         {
             return new SelectionCandidate(feedID, feedPreferences, implementation,
                 new Requirements
                 {
+                    InterfaceID = _interfaceID,
                     Command = Command.NameRun,
                     Architecture = new Architecture(Architecture.CurrentSystem.OS, Cpu.All)
                 });
