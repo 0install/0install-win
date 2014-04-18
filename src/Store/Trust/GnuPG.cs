@@ -216,6 +216,7 @@ namespace ZeroInstall.Store.Trust
 
             if (line.StartsWith("gpg: Signature made ") ||
                 line.StartsWith("gpg: Good signature from ") ||
+                line.StartsWith("gpg:                 aka") ||
                 line.StartsWith("gpg: WARNING: This key is not certified") ||
                 line.Contains("There is no indication") ||
                 line.StartsWith("Primary key fingerprint: ") ||
@@ -241,7 +242,14 @@ namespace ZeroInstall.Store.Trust
             if (line.StartsWith("gpg: skipped ") && line.EndsWith(": bad passphrase")) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: bad passphrase")) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: file exists")) throw new IOException(Resources.SignatureAldreadyExists);
-            throw new IOException(line);
+            if (line.StartsWith("gpg: signing failed: ") ||
+                line.StartsWith("gpg: error") ||
+                line.StartsWith("gpg: critical"))
+                throw new IOException(line);
+
+            // Unknown GnuPG message
+            Log.Warn(line);
+            return null;
         }
         #endregion
     }
