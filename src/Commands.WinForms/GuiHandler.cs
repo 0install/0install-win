@@ -139,6 +139,8 @@ namespace ZeroInstall.Commands.WinForms
             {
                 ProcessUtils.RunAsync(() =>
                 {
+                    Application.SetUnhandledExceptionMode(UnhandledExceptionMode.ThrowException);
+
                     _form = new ProgressForm(_cancellationTokenSource);
 
                     if (Batch)
