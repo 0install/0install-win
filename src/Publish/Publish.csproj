@@ -59,7 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AssemblyInfo.Tools.cs" />
+    <Compile Include="..\AssemblyInfo.Global.cs" />
     <Compile Include="EntryPoints\Candidate.cs" />
     <Compile Include="EntryPoints\Design\DotNetVersionConverter.cs" />
     <Compile Include="EntryPoints\Design\JavaVersionConverter.cs" />

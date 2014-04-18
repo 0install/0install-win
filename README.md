@@ -14,7 +14,7 @@ Directory structure
   - Installer: Contains the generated installers.
   - Documentation: Contains the generated source code documentation.
 
-`VERSION`, `VERSION_TOOLS` and `VERSION_UPDATER` contain the version numbers used by build scripts.
+`VERSION` and `VERSION_UPDATER` contain the version numbers used by build scripts.
 Keep in sync with the version numbers in `src/AssemblyInfo.*.cs`!
 
 

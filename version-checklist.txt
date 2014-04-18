@@ -2,10 +2,6 @@ Main application:
 /VERSION
 /src/AssemblyInfo.Global.cs
 
-Publish tools:
-/VERSION_TOOLS
-/src/AssemblyInfo.Tools.cs
-
 Updater:
 /VERSION_UPDATER
 /src/AssemblyInfo.Updater.cs
