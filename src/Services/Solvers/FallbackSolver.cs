@@ -16,6 +16,7 @@
  */
 
 using NanoByte.Common;
+using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
@@ -57,7 +58,7 @@ namespace ZeroInstall.Services.Solvers
             }
             catch (SolverException ex)
             {
-                Log.Warn(string.Format("Falling back to secondary solver for {0}. Primary solver failed:", requirements));
+                Log.Warn(string.Format(Resources.SolverFallback, requirements));
                 Log.Warn(ex);
 
                 return _secondarySolver.Solve(requirements);

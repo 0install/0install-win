@@ -211,6 +211,9 @@ New time: {2}</value>
   <data name="SelectionCandidateNoteNotCached" xml:space="preserve">
     <value>Implementation not in cache (currently in off-line mode)</value>
   </data>
+  <data name="SolverFallback" xml:space="preserve">
+    <value>Falling back to secondary solver for {0}. Primary solver reported:</value>
+  </data>
   <data name="SolverProblem" xml:space="preserve">
     <value>The solver encountered an unexpected problem.</value>
   </data>
