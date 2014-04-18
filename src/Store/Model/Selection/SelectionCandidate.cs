@@ -17,7 +17,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq;
 using ZeroInstall.Store.Model.Preferences;
 using ZeroInstall.Store.Properties;
 
