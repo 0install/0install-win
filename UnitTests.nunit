@@ -1,8 +1,0 @@
-﻿<NUnitProject>
-  <Settings activeconfig="Debug" />
-  <Config name="Debug" buildpathtype="Auto">
-    <assembly path="build/Backend/Debug/ZeroInstall.Backend.UnitTests.dll" />
-    <assembly path="build/Frontend/Debug/ZeroInstall.Frontend.UnitTests.dll" />
-    <assembly path="build/Tools/Debug/ZeroInstall.Tools.UnitTests.dll" />
-  </Config>
-</NUnitProject>

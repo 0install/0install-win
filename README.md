@@ -29,9 +29,6 @@ Note: Please read `installer/readme.txt` aswell for information about required t
 
 `cleanup.cmd` will delete any temporary files created by the build process or Visual Studio.
 
-Open `UnitTests.nunit` with the NUnit GUI (http://nunit.org/) to run the unit tests.
-Note: You must perform a Debug build first (using Visual Studio or `src/build.cmd`) before you can run the unit tests.
-
 
 
 Linux
