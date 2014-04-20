@@ -1,4 +1,4 @@
-Main application:
+Main application + Publishing tools:
 /VERSION
 /src/AssemblyInfo.Global.cs
 
