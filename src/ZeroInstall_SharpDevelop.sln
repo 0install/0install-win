@@ -26,7 +26,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Management.Cli", "Fro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Service", "Frontend\Store.Service\Store.Service.csproj", "{7334A4AA-B517-4102-8D4D-9B4B3A94C5FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend.UnitTests", "Frontend\UnitTests\Frontend.UnitTests.csproj", "{0C8BA41E-1DF8-4B99-A867-E1A10660ECF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "Frontend\UnitTests\UnitTests.csproj", "{0C8BA41E-1DF8-4B99-A867-E1A10660ECF6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commands.Gtk", "Frontend\Commands.Gtk\Commands.Gtk.csproj", "{DD118018-2B93-11E0-8896-FBD0DFD72085}"
 EndProject
@@ -48,7 +48,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capture.Cli", "Tools\Captur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capture", "Tools\Capture\Capture.csproj", "{4F383EAB-5002-4B0F-9089-DB22B485EE09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.UnitTests", "Tools\UnitTests\Tools.UnitTests.csproj", "{3A9E9BC7-D028-4AF5-8017-5EC32B668F3A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "Tools\UnitTests\UnitTests.csproj", "{3A9E9BC7-D028-4AF5-8017-5EC32B668F3A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{1C0DE327-172C-4845-BCB2-68872A0CE9FF}"
 	ProjectSection(SolutionItems) = postProject
@@ -62,7 +62,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Interfaces", "Back
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopIntegration", "Backend\DesktopIntegration\DesktopIntegration.csproj", "{F48937E1-3763-465F-9F12-6CBBBFF61784}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.UnitTests", "Backend\UnitTests\Backend.UnitTests.csproj", "{06237727-AEA0-4E42-85C0-C0886F425352}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "Backend\UnitTests\UnitTests.csproj", "{06237727-AEA0-4E42-85C0-C0886F425352}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Updater", "Updater", "{9200230E-6912-480B-83E4-1CD605EA3A2A}"
 	ProjectSection(SolutionItems) = postProject
@@ -76,13 +76,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{E957
 	ProjectSection(SolutionItems) = postProject
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.CSharp", "Samples\CSharp\Sample.CSharp.csproj", "{11FF1A98-908B-4534-8DD1-33570E710B24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp", "Samples\CSharp\CSharp.csproj", "{11FF1A98-908B-4534-8DD1-33570E710B24}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Sample.VBasic", "Samples\VBasic\Sample.VBasic.vbproj", "{55A3CB6D-3FD9-47B1-ABDD-BB6A8D1FBBAA}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VBasic", "Samples\VBasic\VBasic.vbproj", "{55A3CB6D-3FD9-47B1-ABDD-BB6A8D1FBBAA}"
 EndProject
-Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Sample.Boo", "Samples\Boo\Sample.Boo.booproj", "{DC97BA3E-5D06-4FC5-AA04-C0983A338974}"
+Project("{A33008B1-5DAC-44D5-9060-242E3B6E38F2}") = "Boo", "Samples\Boo\Boo.booproj", "{DC97BA3E-5D06-4FC5-AA04-C0983A338974}"
 EndProject
-Project("{FD48973F-F585-4F70-812B-4D0503B36CE9}") = "Sample.IPython", "Samples\IPython\Sample.IPython.pyproj", "{DA7838EF-92E8-4D4E-A9C0-98D774495946}"
+Project("{FD48973F-F585-4F70-812B-4D0503B36CE9}") = "IPython", "Samples\IPython\IPython.pyproj", "{DA7838EF-92E8-4D4E-A9C0-98D774495946}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{25F5FDAB-6FB6-4CBD-B0AC-878E432F5778}"
 	ProjectSection(SolutionItems) = preProject
