@@ -24,8 +24,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\build\Tools\Debug\</OutputPath>
-    <DocumentationFile>..\..\..\build\Tools\Debug\0capture-win.xml</DocumentationFile>
+    <OutputPath>..\..\..\build\Debug\Tools\</OutputPath>
+    <DocumentationFile>..\..\..\build\Debug\Tools\0capture-win.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -37,7 +37,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\build\Tools\Release\</OutputPath>
+    <OutputPath>..\..\..\build\Release\Tools\</OutputPath>
     <DefineConstants>TRACE;ERROR_REPORT</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

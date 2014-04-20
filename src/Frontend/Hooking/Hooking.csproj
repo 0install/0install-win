@@ -22,8 +22,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\build\Frontend\Debug\</OutputPath>
-    <DocumentationFile>..\..\..\build\Frontend\Debug\ZeroInstall.Hooking.xml</DocumentationFile>
+    <OutputPath>..\..\..\build\Debug\Frontend\</OutputPath>
+    <DocumentationFile>..\..\..\build\Debug\Frontend\ZeroInstall.Hooking.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -35,8 +35,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\build\Frontend\Release\</OutputPath>
-    <DocumentationFile>..\..\..\build\Frontend\Release\ZeroInstall.Hooking.xml</DocumentationFile>
+    <OutputPath>..\..\..\build\Release\Frontend\</OutputPath>
+    <DocumentationFile>..\..\..\build\Release\Frontend\ZeroInstall.Hooking.xml</DocumentationFile>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

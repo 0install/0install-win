@@ -24,8 +24,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\build\Updater\Debug\</OutputPath>
-    <DocumentationFile>..\..\..\build\Updater\Debug\0update-win.xml</DocumentationFile>
+    <OutputPath>..\..\..\build\Debug\Updater\</OutputPath>
+    <DocumentationFile>..\..\..\build\Debug\Updater\0update-win.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -37,7 +37,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\build\Updater\Release\</OutputPath>
+    <OutputPath>..\..\..\build\Release\Updater\</OutputPath>
     <DefineConstants>TRACE;ERROR_REPORT</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

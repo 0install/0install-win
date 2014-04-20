@@ -24,8 +24,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\build\Tools\Debug\</OutputPath>
-    <DocumentationFile>..\..\..\build\Tools\Debug\ZeroInstall.Publish.xml</DocumentationFile>
+    <OutputPath>..\..\..\build\Debug\Tools\</OutputPath>
+    <DocumentationFile>..\..\..\build\Debug\Tools\ZeroInstall.Publish.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -38,8 +38,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\build\Tools\Release\</OutputPath>
-    <DocumentationFile>..\..\..\build\Tools\Release\ZeroInstall.Publish.xml</DocumentationFile>
+    <OutputPath>..\..\..\build\Release\Tools\</OutputPath>
+    <DocumentationFile>..\..\..\build\Release\Tools\ZeroInstall.Publish.xml</DocumentationFile>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

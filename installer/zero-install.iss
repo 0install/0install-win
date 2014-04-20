@@ -78,8 +78,8 @@ Name: en; MessagesFile: compiler:Default.isl
 [Files]
 Source: ..\COPYING.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\3rd party code.txt; DestDir: {app}; Flags: ignoreversion
-Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,*.xml; DestDir: {app}; Flags: ignoreversion
-Source: ..\build\Frontend\Release\de\*; DestDir: {app}\de; Flags: ignoreversion
+Source: ..\build\Release\Frontend\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,*.xml; DestDir: {app}; Flags: ignoreversion
+Source: ..\build\Release\Frontend\de\*; DestDir: {app}\de; Flags: ignoreversion
 Source: ..\bundled\GnuPG\*; DestDir: {app}\GnuPG; Flags: ignoreversion recursesubdirs
 Source: ..\bundled\Solver\*; DestDir: {app}\Solver; Flags: ignoreversion recursesubdirs
 

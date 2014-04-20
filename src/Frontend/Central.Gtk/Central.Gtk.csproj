@@ -24,8 +24,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\build\Frontend\Debug\</OutputPath>
-    <DocumentationFile>..\..\..\build\Frontend\Debug\ZeroInstall-gtk.xml</DocumentationFile>
+    <OutputPath>..\..\..\build\Debug\Frontend\</OutputPath>
+    <DocumentationFile>..\..\..\build\Debug\Frontend\ZeroInstall-gtk.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -37,7 +37,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\build\Frontend\Release\</OutputPath>
+    <OutputPath>..\..\..\build\Release\Frontend\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

@@ -24,8 +24,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\build\Backend\Debug\</OutputPath>
-    <DocumentationFile>..\..\..\build\Backend\Debug\ZeroInstall.Services.Interfaces.xml</DocumentationFile>
+    <OutputPath>..\..\..\build\Debug\Backend\</OutputPath>
+    <DocumentationFile>..\..\..\build\Debug\Backend\ZeroInstall.Services.Interfaces.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -37,8 +37,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\build\Backend\Release\</OutputPath>
-    <DocumentationFile>..\..\..\build\Backend\Release\ZeroInstall.Services.Interfaces.xml</DocumentationFile>
+    <OutputPath>..\..\..\build\Release\Backend\</OutputPath>
+    <DocumentationFile>..\..\..\build\Release\Backend\ZeroInstall.Services.Interfaces.xml</DocumentationFile>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

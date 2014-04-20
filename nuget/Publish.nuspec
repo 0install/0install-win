@@ -19,19 +19,19 @@ The Zero Install Publishing Tools (including the Feed Editor) are built upon thi
         </references>
     </metadata>
     <files>
-        <file src="..\build\Tools\Release\ZeroInstall.Capture.dll" target="lib\net20" />
-        <file src="..\build\Tools\Release\ZeroInstall.Capture.xml" target="lib\net20" />
-        <file src="..\build\Tools\Release\ZeroInstall.Publish.dll" target="lib\net20" />
-        <file src="..\build\Tools\Release\ZeroInstall.Publish.xml" target="lib\net20" />
+        <file src="..\build\Release\Tools\ZeroInstall.Capture.dll" target="lib\net20" />
+        <file src="..\build\Release\Tools\ZeroInstall.Capture.xml" target="lib\net20" />
+        <file src="..\build\Release\Tools\ZeroInstall.Publish.dll" target="lib\net20" />
+        <file src="..\build\Release\Tools\ZeroInstall.Publish.xml" target="lib\net20" />
 
         <!-- Satellite assemblies (translations) -->
-        <file src="..\build\Tools\Release\de\ZeroInstall.Capture.resources.dll" target="lib\net20\de" />
-        <file src="..\build\Tools\Release\de\ZeroInstall.Publish.resources.dll" target="lib\net20\de" />
+        <file src="..\build\Release\Tools\de\ZeroInstall.Capture.resources.dll" target="lib\net20\de" />
+        <file src="..\build\Release\Tools\de\ZeroInstall.Publish.resources.dll" target="lib\net20\de" />
 
         <!-- Symbols and source code -->
-        <file src="..\build\Tools\Release\ZeroInstall.Capture.pdb" target="lib\net20" />
+        <file src="..\build\Release\Tools\ZeroInstall.Capture.pdb" target="lib\net20" />
         <file src="..\src\Tools\Capture\**\*.cs" target="src\Tools\Capture" />
-        <file src="..\build\Tools\Release\ZeroInstall.Publish.pdb" target="lib\net20" />
+        <file src="..\build\Release\Tools\ZeroInstall.Publish.pdb" target="lib\net20" />
         <file src="..\src\Tools\Publish\**\*.cs" target="src\Tools\Publish" />
     </files>
 </package>
