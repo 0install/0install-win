@@ -28,12 +28,10 @@ namespace ZeroInstall.Services.Solvers.Python
     /// </summary>
     internal sealed class SolverControlNative : CliAppControl, ISolverControl
     {
-        private readonly IInteractionHandler _handler;
         private readonly ErrorParser _errorParser;
 
         public SolverControlNative(IInteractionHandler handler)
         {
-            _handler = handler;
             _errorParser = new ErrorParser(handler);
         }
 
@@ -64,9 +62,8 @@ namespace ZeroInstall.Services.Solvers.Python
         /// <inheritdoc/>
         public string ExecuteSolver(string arguments)
         {
-            var errorParser = new ErrorParser(_handler);
             var result = Execute(arguments);
-            errorParser.Flush(); // Handle any left-over error messages
+            _errorParser.Flush(); // Handle any left-over error messages
             return result;
         }
 
