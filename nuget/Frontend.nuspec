@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>ZeroInstall.Frontend</id>
+        <version>$version$</version>
+        <authors>Bastian Eicher</authors>
+        <projectUrl>http://0install.de/</projectUrl>
+        <licenseUrl>http://opensource.org/licenses/LGPL</licenseUrl>
+        <iconUrl>https://0install.de/wp-content/uploads/icon.png</iconUrl>
+        <description>This package is only used to provide debugging symbols for Zero Install Frontend executables.
+You can download end-user binaries at http://0install.de/.</description>
+        <summary>Zero Install Frontend executables</summary>
+        <dependencies>
+            <dependency id="ZeroInstall.Services" version="$version$" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="..\build\Frontend\Release\0install.exe" target="lib\net20" />
+        <file src="..\build\Frontend\Release\0install-win.exe" target="lib\net20" />
+        <!--<file src="..\build\Frontend\Release\0install-gtk.exe" target="lib\net20" />-->
+        <file src="..\build\Frontend\Release\0store.exe" target="lib\net20" />
+        <file src="..\build\Frontend\Release\0store-service.exe" target="lib\net20" />
+        <file src="..\build\Frontend\Release\ZeroInstall.exe" target="lib\net20" />
+        <!--<file src="..\build\Frontend\Release\ZeroInstall.Gtk.exe" target="lib\net20" />-->
+
+        <!-- Symbols and source code -->
+        <file src="..\build\Frontend\Release\0install.pdb" target="lib\net20" />
+        <file src="..\src\Commands.Cli\**\*.cs" target="src\Commands.Cli" />
+        <file src="..\build\Frontend\Release\0install-win.pdb" target="lib\net20" />
+        <file src="..\src\Commands.WinForms\**\*.cs" target="src\Commands.WinForms" />
+        <!--<file src="..\build\Frontend\Release\0install-gtk.pdb" target="lib\net20" />
+        <file src="..\src\Commands.Gtk\**\*.cs" target="src\Commands.WinForms" />-->
+        <file src="..\build\Frontend\Release\0store.pdb" target="lib\net20" />
+        <file src="..\src\Store.Management.Cli\**\*.cs" target="src\Store.Management.Cli" />
+        <file src="..\build\Frontend\Release\0store-service.pdb" target="lib\net20" />
+        <file src="..\src\Store.Service\**\*.cs" target="src\Store.Service" />
+        <file src="..\build\Frontend\Release\ZeroInstall.pdb" target="lib\net20" />
+        <file src="..\src\Central.WinForms\**\*.cs" target="src\Central.WinForms" />
+        <!--<file src="..\build\Frontend\Release\ZeroInstall.Gtk.pdb" target="lib\net20" />
+        <file src="..\src\Central.Gtk\**\*.cs" target="src\Central.Gtk" />-->
+    </files>
+</package>
