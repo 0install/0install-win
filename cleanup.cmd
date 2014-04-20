@@ -12,7 +12,27 @@ del "%~dp0src\*.user" > NUL 2>&1
 del "%~dp0src\*.cache" > NUL 2>&1
 
 rem Per-project
-FOR /d %%D IN ("%~dp0src\*") DO (
+FOR /d %%D IN ("%~dp0src\Backend\*") DO (
+  rd /s /q "%%D\obj" > NUL 2>&1
+  del "%%D\*.pidb" > NUL 2>&1
+  del "%%D\*.csproj.user" > NUL 2>&1
+)
+FOR /d %%D IN ("%~dp0src\Frontend\*") DO (
+  rd /s /q "%%D\obj" > NUL 2>&1
+  del "%%D\*.pidb" > NUL 2>&1
+  del "%%D\*.csproj.user" > NUL 2>&1
+)
+FOR /d %%D IN ("%~dp0src\Samples\*") DO (
+  rd /s /q "%%D\obj" > NUL 2>&1
+  del "%%D\*.pidb" > NUL 2>&1
+  del "%%D\*.csproj.user" > NUL 2>&1
+)
+FOR /d %%D IN ("%~dp0src\Tools\*") DO (
+  rd /s /q "%%D\obj" > NUL 2>&1
+  del "%%D\*.pidb" > NUL 2>&1
+  del "%%D\*.csproj.user" > NUL 2>&1
+)
+FOR /d %%D IN ("%~dp0src\Updater\*") DO (
   rd /s /q "%%D\obj" > NUL 2>&1
   del "%%D\*.pidb" > NUL 2>&1
   del "%%D\*.csproj.user" > NUL 2>&1

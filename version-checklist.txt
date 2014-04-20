@@ -4,4 +4,4 @@ Main application + Publishing tools:
 
 Updater:
 /VERSION_UPDATER
-/src/AssemblyInfo.Updater.cs
+/src/Updater/AssemblyInfo.Updater.cs

@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{06237727-AEA0-4E42-85C0-C0886F425352}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZeroInstall</RootNamespace>
+    <AssemblyName>ZeroInstall.Backend.UnitTests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>..\..\sgKey.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\build\Backend\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <CodeAnalysisRuleSet>..\NoAnalysis.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>1685</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\packages\ICSharpCode.SharpZipLib.Patched.0.86.1\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LinqBridge">
+      <HintPath>..\..\packages\LinqBridge.1.3.0\lib\net20\LinqBridge.dll</HintPath>
+      <Aliases>LinqBridge</Aliases>
+    </Reference>
+    <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Moq.Contrib.0.3\lib\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq.Contrib, Version=0.1.3802.36788, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Moq.Contrib.0.3\lib\Moq.Contrib.dll</HintPath>
+    </Reference>
+    <Reference Include="NanoByte.Common">
+      <HintPath>..\..\packages\NanoByte.Common.1.0.2\lib\net20\NanoByte.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{8CAA29B1-94B6-46C2-AF82-E049D35775C5}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesktopIntegration\DesktopIntegration.csproj">
+      <Project>{F48937E1-3763-465F-9F12-6CBBBFF61784}</Project>
+      <Name>DesktopIntegration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services.Interfaces\Services.Interfaces.csproj">
+      <Project>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</Project>
+      <Name>Services.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store\Store.csproj">
+      <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
+      <Name>Store</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DesktopIntegration\AccessPoints\CapabilityRegistrationTest.cs" />
+    <Compile Include="DesktopIntegration\AppListTest.cs" />
+    <Compile Include="DesktopIntegration\IntegrationManagerTest.cs" />
+    <Compile Include="DesktopIntegration\SyncIntegrationManagerTest.cs" />
+    <Compile Include="MoqExtensions.cs" />
+    <Compile Include="PackageBuilder.cs" />
+    <Compile Include="Services\Feeds\FeedManagerTest.cs" />
+    <Compile Include="Services\Feeds\TrustManagerTest.cs" />
+    <Compile Include="Services\Fetchers\FetcherTest.cs" />
+    <Compile Include="Services\Fetchers\RetrievalMethodRankerTest.cs" />
+    <Compile Include="Services\Fetchers\SequentialFetcherTest.cs" />
+    <Compile Include="Services\Fetchers\TestData.cs" />
+    <Compile Include="Services\Injector\ExecutorTest.cs" />
+    <Compile Include="MockHandler.cs" />
+    <Compile Include="Store\Implementations\Archives\CabExtractorTest.cs" />
+    <Compile Include="Store\Implementations\Archives\SevenZipExtractorTest.cs" />
+    <Compile Include="Store\Model\ArchitectureTest.cs" />
+    <Compile Include="Store\Model\ArchiveTest.cs" />
+    <Compile Include="Store\Model\Capabilities\CapabilityListTest.cs" />
+    <Compile Include="Store\Model\CatalogTest.cs" />
+    <Compile Include="Store\Model\CommandTest.cs" />
+    <Compile Include="Store\Model\DependencyTest.cs" />
+    <Compile Include="Store\Model\EnvironmentBindingTest.cs" />
+    <Compile Include="Store\Model\ExecutableInPathTest.cs" />
+    <Compile Include="Store\Model\ExecutableInVarTest.cs" />
+    <Compile Include="Store\Model\FeedElementUtilsTest.cs" />
+    <Compile Include="Store\Model\FeedExtensions.cs" />
+    <Compile Include="Store\Model\FeedReferenceTest.cs" />
+    <Compile Include="Store\Model\FeedTest.cs" />
+    <Compile Include="Store\Model\GenericBindingTest.cs" />
+    <Compile Include="Store\Model\ImplementationTest.cs" />
+    <Compile Include="Store\Model\ImplementationVersionTest.cs" />
+    <Compile Include="Store\Model\ManifestDigestTest.cs" />
+    <Compile Include="Store\Model\ModelUtilsTest.cs" />
+    <Compile Include="Store\Model\OverlayBindingTest.cs" />
+    <Compile Include="Store\Model\PackageImplementationTest.cs" />
+    <Compile Include="Store\Model\Preferences\DiskFeedCacheTest.cs" />
+    <Compile Include="Store\Model\Preferences\FeedPreferencesTest.cs" />
+    <Compile Include="Store\Model\Preferences\InterfacePreferencesTest.cs" />
+    <Compile Include="Store\Model\RequirementsTest.cs" />
+    <Compile Include="Store\Model\RestrictionTest.cs" />
+    <Compile Include="Store\Model\RunnerTest.cs" />
+    <Compile Include="Store\Model\Selection\ImplementationSelectionTest.cs" />
+    <Compile Include="Store\Model\Selection\SelectionCandidateTest.cs" />
+    <Compile Include="Store\Model\Selection\SelectionsTest.cs" />
+    <Compile Include="Store\Model\SingleFileTest.cs" />
+    <Compile Include="Store\Model\VersionRangeTest.cs" />
+    <Compile Include="Store\Model\XmlUnknownTest.cs" />
+    <Compile Include="Services\SelectionsManagerTest.cs" />
+    <Compile Include="Services\Solvers\BacktrackingSolverTest.cs" />
+    <Compile Include="Services\Solvers\SolverTest.cs" />
+    <Compile Include="Services\Solvers\SolverUtilsTest.cs" />
+    <Compile Include="Store\ConfigTest.cs" />
+    <Compile Include="Store\Feeds\FeedUtilsTest.cs" />
+    <Compile Include="Store\Feeds\MemoryFeedCacheTest.cs" />
+    <Compile Include="Store\Icons\DiskIconCacheTest.cs" />
+    <Compile Include="Store\Implementations\Archives\ExtractorTest.cs" />
+    <Compile Include="Store\Implementations\Archives\TarExtractorTest.cs" />
+    <Compile Include="Store\Implementations\Archives\TestData.cs" />
+    <Compile Include="Store\Implementations\Archives\ZipExtractorTest.cs" />
+    <Compile Include="Store\Implementations\CompositeStoreTest.cs" />
+    <Compile Include="Store\Implementations\DirectoryStoreTest.cs" />
+    <Compile Include="Store\Implementations\FlagUtilsTest.cs" />
+    <Compile Include="Store\Implementations\ManifestFormatTest.cs" />
+    <Compile Include="Store\Implementations\ManifestGeneratorTest.cs" />
+    <Compile Include="Store\Implementations\ManifestTest.cs" />
+    <Compile Include="Store\Implementations\RecipeUtilsTest.cs" />
+    <Compile Include="Store\Management\ImplementationUtilsTest.cs" />
+    <Compile Include="Store\Trust\GnuPGTest.cs" />
+    <Compile Include="Store\Trust\TestData.cs" />
+    <Compile Include="Store\Trust\TrustDBTest.cs" />
+    <Compile Include="TestWithContainer.cs" />
+    <Compile Include="TestWithMocks.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchive.7z" />
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchive.cab" />
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchive.gem" />
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar" />
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchiveHardlink.tar" />
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar.bz2" />
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar.gz" />
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar.lzma" />
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchive.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Services\Fetchers\testArchive.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Store\Trust\5B5CB97421BAA5DC.gpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

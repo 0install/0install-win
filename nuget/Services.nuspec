@@ -35,10 +35,10 @@ Zero Install itself is built upon this API. You can use the API to integrate Zer
 
         <!-- Symbols and source code -->
         <file src="..\build\Backend\Release\ZeroInstall.Services.pdb" target="lib\net20" />
-        <file src="..\src\Services\**\*.cs" target="src\Services" />
+        <file src="..\src\Backend\Services\**\*.cs" target="src\Backend\Services" />
         <file src="..\build\Backend\Release\ZeroInstall.Services.Interfaces.pdb" target="lib\net20" />
-        <file src="..\src\Services.Interfaces\**\*.cs" target="src\Services.Interfaces" />
+        <file src="..\src\Backend\Services.Interfaces\**\*.cs" target="src\Backend\Services.Interfaces" />
         <file src="..\build\Backend\Release\ZeroInstall.DesktopIntegration.pdb" target="lib\net20" />
-        <file src="..\src\DesktopIntegration\**\*.cs" target="src\DesktopIntegration" />
+        <file src="..\src\Backend\DesktopIntegration\**\*.cs" target="src\Backend\DesktopIntegration" />
     </files>
 </package>

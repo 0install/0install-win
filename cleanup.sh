@@ -9,9 +9,9 @@ rm -rf build
 rm -f src/*.userprefs src/*.suo src/*.user src/*.cache
 
 #Per-project
-rm -rf src/*/obj
-rm -f src/*/*.pidb
-rm -f src/*/*.csproj.user
+rm -rf src/*/*/obj
+rm -f src/*/*/*.pidb
+rm -f src/*/*/*.csproj.user
 
 #NUnit logs
 rm -f *.VisualState.xml TestResult.xml

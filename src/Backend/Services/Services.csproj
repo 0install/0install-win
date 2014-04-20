@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8CAA29B1-94B6-46C2-AF82-E049D35775C5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZeroInstall.Services</RootNamespace>
+    <AssemblyName>ZeroInstall.Services</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>..\..\sgKey.snk</AssemblyOriginatorKeyFile>
+    <NoWarn>1591</NoWarn>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\build\Backend\Debug\</OutputPath>
+    <DocumentationFile>..\..\..\build\Backend\Debug\ZeroInstall.Services.xml</DocumentationFile>
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>1591;1685</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\build\Backend\Release\</OutputPath>
+    <DocumentationFile>..\..\..\build\Backend\Release\ZeroInstall.Services.xml</DocumentationFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LinqBridge">
+      <HintPath>..\..\packages\LinqBridge.1.3.0\lib\net20\LinqBridge.dll</HintPath>
+    </Reference>
+    <Reference Include="NanoByte.Common">
+      <HintPath>..\..\packages\NanoByte.Common.1.0.2\lib\net20\NanoByte.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="CliHandler.cs" />
+    <Compile Include="Feeds\CatalogManager.cs" />
+    <Compile Include="Feeds\FeedManager.cs" />
+    <Compile Include="Feeds\FeedManagerExtensions.cs" />
+    <Compile Include="Feeds\ReplayAttackException.cs" />
+    <Compile Include="Feeds\TrustManager.cs" />
+    <Compile Include="Fetchers\FetcherBase.cs" />
+    <Compile Include="Fetchers\GlobalSuppressions.cs" />
+    <Compile Include="Fetchers\RetrievalMethodRanker.cs" />
+    <Compile Include="Fetchers\SequentialFetcher.cs" />
+    <Compile Include="ICommandHandler.cs" />
+    <Compile Include="Injector\Executor.Bindings.cs" />
+    <Compile Include="Injector\Executor.CommandLine.cs" />
+    <Compile Include="Injector\Executor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="RequirementsExtensions.cs" />
+    <Compile Include="SelectionsFormatter.cs" />
+    <Compile Include="SelectionsManager.cs" />
+    <Compile Include="ServiceLocator.cs" />
+    <Compile Include="SilentHandler.cs" />
+    <Compile Include="Solvers\BacktrackingSolver.cs" />
+    <Compile Include="Solvers\Backtracking\BacktrackingRun.cs" />
+    <Compile Include="Solvers\FallbackSolver.cs" />
+    <Compile Include="Solvers\PythonSolver.cs" />
+    <Compile Include="Solvers\Python\ErrorParser.cs" />
+    <Compile Include="Solvers\Python\ISolverControl.cs" />
+    <Compile Include="Solvers\Python\SolverControlBundled.cs" />
+    <Compile Include="Solvers\Python\SolverControlNative.cs" />
+    <Compile Include="Solvers\SelectionCandidateComparer.cs" />
+    <Compile Include="Solvers\SolverRun.cs" />
+    <Compile Include="Solvers\SolverUtils.cs" />
+    <None Include="Injector\runenv.cs" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DesktopIntegration\DesktopIntegration.csproj">
+      <Project>{F48937E1-3763-465F-9F12-6CBBBFF61784}</Project>
+      <Name>DesktopIntegration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services.Interfaces\Services.Interfaces.csproj">
+      <Project>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</Project>
+      <Name>Services.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store\Store.csproj">
+      <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
+      <Name>Store</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Injector\runenv.sh.template" />
+    <EmbeddedResource Include="Injector\runenv.clr2.template" />
+    <EmbeddedResource Include="Injector\runenv.clr4.template" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+</Project>

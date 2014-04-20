@@ -30,15 +30,15 @@
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <VisibleItems>InheritedMembers, Internals, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\src\Alias.Cli\Alias.Cli.csproj" configuration="Debug" platform="AnyCPU" />
-      <DocumentationSource sourceFile="..\src\Central\Central.csproj" configuration="Debug" platform="AnyCPU" />
-      <DocumentationSource sourceFile="..\src\Central.WinForms\Central.WinForms.csproj" configuration="Debug" platform="AnyCPU" />
-      <DocumentationSource sourceFile="..\src\Commands\Commands.csproj" configuration="Debug" platform="AnyCPU" />
-      <DocumentationSource sourceFile="..\src\Commands.Cli\Commands.Cli.csproj" configuration="Debug" platform="AnyCPU" />
-      <DocumentationSource sourceFile="..\src\Commands.WinForms\Commands.WinForms.csproj" configuration="Debug" platform="AnyCPU" />
-      <DocumentationSource sourceFile="..\src\Launcher.Cli\Launcher.Cli.csproj" configuration="Debug" platform="AnyCPU" />
-      <DocumentationSource sourceFile="..\src\Store.Service\Store.Service.csproj" configuration="Debug" platform="AnyCPU" />
-      <DocumentationSource sourceFile="..\src\Store.Management.Cli\Store.Management.Cli.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Frontend\Alias.Cli\Alias.Cli.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Frontend\Central\Central.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Frontend\Central.WinForms\Central.WinForms.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Frontend\Commands\Commands.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Frontend\Commands.Cli\Commands.Cli.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Frontend\Commands.WinForms\Commands.WinForms.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Frontend\Launcher.Cli\Launcher.Cli.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Frontend\Store.Service\Store.Service.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Frontend\Store.Management.Cli\Store.Management.Cli.csproj" configuration="Debug" platform="AnyCPU" />
     </DocumentationSources>
     <NamespaceSummaries>
 	  <NamespaceSummaryItem name="ZeroInstall.Alias.Cli" isDocumented="True" xmlns="">A shortcut for '0install add-alias'.</NamespaceSummaryItem>

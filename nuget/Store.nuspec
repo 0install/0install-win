@@ -45,6 +45,6 @@ This API provides a common basis for the packages ZeroInstall.Services and ZeroI
 
         <!-- Symbols and source code -->
         <file src="..\build\Backend\Release\ZeroInstall.Store.pdb" target="lib\net20" />
-        <file src="..\src\Store\**\*.cs" target="src\Store" />
+        <file src="..\src\Backend\Store\**\*.cs" target="src\Backend\Store" />
     </files>
 </package>

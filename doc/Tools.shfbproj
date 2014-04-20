@@ -30,12 +30,12 @@
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <VisibleItems>InheritedMembers, Internals, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\src\Publish\Publish.csproj" configuration="Debug" platform="AnyCPU" />
-      <DocumentationSource sourceFile="..\src\Publish.Cli\Publish.Cli.csproj" configuration="Debug" platform="AnyCPU" />
-      <DocumentationSource sourceFile="..\src\Publish.WinForms\Publish.WinForms.csproj" configuration="Debug" platform="AnyCPU" />
-      <DocumentationSource sourceFile="..\src\Capture\Capture.csproj" configuration="Debug" platform="AnyCPU" />
-      <DocumentationSource sourceFile="..\src\Capture.Cli\Capture.Cli.csproj" configuration="Debug" platform="AnyCPU" />
-      <DocumentationSource sourceFile="..\src\Capture.WinForms\Capture.WinForms.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Tools\Publish\Publish.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Tools\Publish.Cli\Publish.Cli.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Tools\Publish.WinForms\Publish.WinForms.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Tools\Capture\Capture.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Tools\Capture.Cli\Capture.Cli.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Tools\Capture.WinForms\Capture.WinForms.csproj" configuration="Debug" platform="AnyCPU" />
     </DocumentationSources>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="ZeroInstall.Publish" isDocumented="True" xmlns="">Shared code for feed publishing tools (feed editors).</NamespaceSummaryItem>

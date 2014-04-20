@@ -30,10 +30,10 @@
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <VisibleItems>InheritedMembers, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\src\DesktopIntegration\DesktopIntegration.csproj" configuration="Debug" platform="AnyCPU" />
-      <DocumentationSource sourceFile="..\src\Services\Services.csproj" configuration="Debug" platform="AnyCPU" />
-      <DocumentationSource sourceFile="..\src\Services.Interfaces\Services.Interfaces.csproj" configuration="Debug" platform="AnyCPU" />
-      <DocumentationSource sourceFile="..\src\Store\Store.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Backend\DesktopIntegration\DesktopIntegration.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Backend\Services\Services.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Backend\Services.Interfaces\Services.Interfaces.csproj" configuration="Debug" platform="AnyCPU" />
+      <DocumentationSource sourceFile="..\src\Backend\Store\Store.csproj" configuration="Debug" platform="AnyCPU" />
     </DocumentationSources>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="ZeroInstall" isDocumented="True">Provides dependency injection for Zero Install's backend modules.</NamespaceSummaryItem>
