@@ -15,24 +15,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace ZeroInstall.Store.Model.Capabilities.FontendModels
+using System.Linq;
+using NanoByte.Common.Utils;
+using ZeroInstall.Store.Model.Capabilities;
+
+namespace ZeroInstall.DesktopIntegration.ViewModel
 {
     /// <summary>
-    /// Wraps a <see cref="DefaultProgram"/> for data binding.
+    /// Wraps a <see cref="UrlProtocol"/> for data binding.
     /// </summary>
-    public class DefaultProgramModel : IconCapabilityModel
+    public class UrlProtocolModel : IconCapabilityModel
     {
-        private readonly DefaultProgram _defaultProgram;
+        private readonly UrlProtocol _urlProtocol;
 
         /// <summary>
-        /// Returns <see cref="DefaultProgram.Service"/>.
+        /// All <see cref="UrlProtocol.KnownPrefixes"/> concatenated with ", ". If no <see cref="UrlProtocol.KnownPrefixes"/> is available <see cref="Capability.ID"/> will be returned.
         /// </summary>
-        public string Service { get { return _defaultProgram.Service; } }
+        public string KnownPrefixes { get { return _urlProtocol.KnownPrefixes.Count == 0 ? Capability.ID : StringUtils.Join(", ", _urlProtocol.KnownPrefixes.Select(extension => extension.Value)); } }
 
         /// <inheritdoc/>
-        public DefaultProgramModel(DefaultProgram capability, bool used) : base(capability, used)
+        public UrlProtocolModel(UrlProtocol capability, bool used) : base(capability, used)
         {
-            _defaultProgram = capability;
+            _urlProtocol = capability;
         }
     }
 }

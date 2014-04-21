@@ -15,24 +15,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace ZeroInstall.Store.Model.Capabilities.FontendModels
+using System.Linq;
+using NanoByte.Common.Utils;
+using ZeroInstall.Store.Model.Capabilities;
+
+namespace ZeroInstall.DesktopIntegration.ViewModel
 {
     /// <summary>
-    /// Wraps a <see cref="ContextMenu"/> for data binding.
+    /// Wraps a <see cref="FileType"/> for data binding.
     /// </summary>
-    public class ContextMenuModel : CapabilityModel
+    public class FileTypeModel : IconCapabilityModel
     {
-        private readonly ContextMenu _contextMenu;
+        private readonly FileType _fileType;
 
         /// <summary>
-        /// The name of the stored <see cref="ContextMenu.Verb"/>.
+        /// All <see cref="FileType.Extensions" /> concatenated with ", ".
         /// </summary>
-        public string Name { get { return _contextMenu.Verb.Name; } }
+        public string Extensions { get { return StringUtils.Join(", ", _fileType.Extensions.Select(extension => extension.Value)); } }
 
         /// <inheritdoc/>
-        public ContextMenuModel(ContextMenu contextMenu, bool used) : base(contextMenu, used)
+        public FileTypeModel(FileType fileType, bool used) : base(fileType, used)
         {
-            _contextMenu = contextMenu;
+            _fileType = fileType;
         }
     }
 }

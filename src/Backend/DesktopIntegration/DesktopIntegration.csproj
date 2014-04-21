@@ -102,6 +102,13 @@
     <Compile Include="Unix\FileType.cs" />
     <Compile Include="Unix\FreeDesktop.cs" />
     <Compile Include="Unix\UrlProtocol.cs" />
+    <Compile Include="ViewModel\AutoPlayModel.cs" />
+    <Compile Include="ViewModel\CapabilityModel.cs" />
+    <Compile Include="ViewModel\ContextMenuModel.cs" />
+    <Compile Include="ViewModel\DefaultProgramModel.cs" />
+    <Compile Include="ViewModel\FileTypeModel.cs" />
+    <Compile Include="ViewModel\IconCapabilityModel.cs" />
+    <Compile Include="ViewModel\UrlProtocolModel.cs" />
     <Compile Include="Windows\AppRegistration.cs" />
     <EmbeddedResource Include="Windows\stub.template.cs" />
     <Compile Include="Windows\FileType.cs" />

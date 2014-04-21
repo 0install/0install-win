@@ -15,27 +15,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Linq;
-using NanoByte.Common.Utils;
+using ZeroInstall.Store.Model.Capabilities;
 
-namespace ZeroInstall.Store.Model.Capabilities.FontendModels
+namespace ZeroInstall.DesktopIntegration.ViewModel
 {
     /// <summary>
-    /// Wraps a <see cref="AutoPlay"/> for data binding.
+    /// Wraps a <see cref="DefaultProgram"/> for data binding.
     /// </summary>
-    public class AutoPlayModel : IconCapabilityModel
+    public class DefaultProgramModel : IconCapabilityModel
     {
-        private readonly AutoPlay _autoPlay;
+        private readonly DefaultProgram _defaultProgram;
 
         /// <summary>
-        /// All <see cref="AutoPlay.Events"/> concatenated with ", ".
+        /// Returns <see cref="DefaultProgram.Service"/>.
         /// </summary>
-        public string Events { get { return StringUtils.Join(", ", _autoPlay.Events.Select(ev => ev.Name)); } }
+        public string Service { get { return _defaultProgram.Service; } }
 
         /// <inheritdoc/>
-        public AutoPlayModel(AutoPlay capability, bool used) : base(capability, used)
+        public DefaultProgramModel(DefaultProgram capability, bool used) : base(capability, used)
         {
-            _autoPlay = capability;
+            _defaultProgram = capability;
         }
     }
 }

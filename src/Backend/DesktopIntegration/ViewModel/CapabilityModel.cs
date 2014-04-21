@@ -17,8 +17,9 @@
 
 using System;
 using System.ComponentModel;
+using ZeroInstall.Store.Model.Capabilities;
 
-namespace ZeroInstall.Store.Model.Capabilities.FontendModels
+namespace ZeroInstall.DesktopIntegration.ViewModel
 {
     /// <summary>
     /// Wraps a <see cref="DefaultCapability"/> for data binding.

@@ -29,8 +29,8 @@ using NanoByte.Common.Dispatch;
 using NanoByte.Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Store.Model;
-using ZeroInstall.Store.Model.Capabilities.FontendModels;
 
 namespace ZeroInstall.Commands.WinForms
 {

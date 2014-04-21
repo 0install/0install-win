@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2011 Simon E. Silva Lauinger
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,26 +15,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Globalization;
+using ZeroInstall.Store.Model.Capabilities;
 
-namespace ZeroInstall.Store.Model.Capabilities.FontendModels
+namespace ZeroInstall.DesktopIntegration.ViewModel
 {
     /// <summary>
-    /// Wraps an <see cref="IconCapability"/> for data binding.
+    /// Wraps a <see cref="ContextMenu"/> for data binding.
     /// </summary>
-    public class IconCapabilityModel : CapabilityModel
+    public class ContextMenuModel : CapabilityModel
     {
-        private readonly IconCapability _iconCapability;
+        private readonly ContextMenu _contextMenu;
 
         /// <summary>
-        /// Returns the description of the <see cref="IconCapability" /> dependend on <see cref="CultureInfo.CurrentUICulture" />.
+        /// The name of the stored <see cref="ContextMenu.Verb"/>.
         /// </summary>
-        public string Description { get { return _iconCapability.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture); } }
+        public string Name { get { return _contextMenu.Verb.Name; } }
 
         /// <inheritdoc/>
-        protected IconCapabilityModel(IconCapability capability, bool used) : base(capability, used)
+        public ContextMenuModel(ContextMenu contextMenu, bool used) : base(contextMenu, used)
         {
-            _iconCapability = capability;
+            _contextMenu = contextMenu;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2011 Simon E. Silva Lauinger
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,27 +15,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Linq;
-using NanoByte.Common.Utils;
+using System.Globalization;
+using ZeroInstall.Store.Model.Capabilities;
 
-namespace ZeroInstall.Store.Model.Capabilities.FontendModels
+namespace ZeroInstall.DesktopIntegration.ViewModel
 {
     /// <summary>
-    /// Wraps a <see cref="FileType"/> for data binding.
+    /// Wraps an <see cref="IconCapability"/> for data binding.
     /// </summary>
-    public class FileTypeModel : IconCapabilityModel
+    public class IconCapabilityModel : CapabilityModel
     {
-        private readonly FileType _fileType;
+        private readonly IconCapability _iconCapability;
 
         /// <summary>
-        /// All <see cref="FileType.Extensions" /> concatenated with ", ".
+        /// Returns the description of the <see cref="IconCapability" /> dependend on <see cref="CultureInfo.CurrentUICulture" />.
         /// </summary>
-        public string Extensions { get { return StringUtils.Join(", ", _fileType.Extensions.Select(extension => extension.Value)); } }
+        public string Description { get { return _iconCapability.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture); } }
 
         /// <inheritdoc/>
-        public FileTypeModel(FileType fileType, bool used) : base(fileType, used)
+        protected IconCapabilityModel(IconCapability capability, bool used) : base(capability, used)
         {
-            _fileType = fileType;
+            _iconCapability = capability;
         }
     }
 }

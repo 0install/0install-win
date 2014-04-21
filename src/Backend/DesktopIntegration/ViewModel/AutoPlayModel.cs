@@ -17,25 +17,26 @@
 
 using System.Linq;
 using NanoByte.Common.Utils;
+using ZeroInstall.Store.Model.Capabilities;
 
-namespace ZeroInstall.Store.Model.Capabilities.FontendModels
+namespace ZeroInstall.DesktopIntegration.ViewModel
 {
     /// <summary>
-    /// Wraps a <see cref="UrlProtocol"/> for data binding.
+    /// Wraps a <see cref="AutoPlay"/> for data binding.
     /// </summary>
-    public class UrlProtocolModel : IconCapabilityModel
+    public class AutoPlayModel : IconCapabilityModel
     {
-        private readonly UrlProtocol _urlProtocol;
+        private readonly AutoPlay _autoPlay;
 
         /// <summary>
-        /// All <see cref="UrlProtocol.KnownPrefixes"/> concatenated with ", ". If no <see cref="UrlProtocol.KnownPrefixes"/> is available <see cref="Capability.ID"/> will be returned.
+        /// All <see cref="AutoPlay.Events"/> concatenated with ", ".
         /// </summary>
-        public string KnownPrefixes { get { return _urlProtocol.KnownPrefixes.Count == 0 ? Capability.ID : StringUtils.Join(", ", _urlProtocol.KnownPrefixes.Select(extension => extension.Value)); } }
+        public string Events { get { return StringUtils.Join(", ", _autoPlay.Events.Select(ev => ev.Name)); } }
 
         /// <inheritdoc/>
-        public UrlProtocolModel(UrlProtocol capability, bool used) : base(capability, used)
+        public AutoPlayModel(AutoPlay capability, bool used) : base(capability, used)
         {
-            _urlProtocol = capability;
+            _autoPlay = capability;
         }
     }
 }

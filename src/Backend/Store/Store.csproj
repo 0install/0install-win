@@ -143,13 +143,6 @@
     <Compile Include="Model\Capabilities\DefaultProgram.cs" />
     <Compile Include="Model\Capabilities\FileType.cs" />
     <Compile Include="Model\Capabilities\FileTypeExtension.cs" />
-    <Compile Include="Model\Capabilities\FontendModels\AutoPlayModel.cs" />
-    <Compile Include="Model\Capabilities\FontendModels\CapabilityModel.cs" />
-    <Compile Include="Model\Capabilities\FontendModels\ContextMenuModel.cs" />
-    <Compile Include="Model\Capabilities\FontendModels\DefaultProgramModel.cs" />
-    <Compile Include="Model\Capabilities\FontendModels\FileTypeModel.cs" />
-    <Compile Include="Model\Capabilities\FontendModels\IconCapabilityModel.cs" />
-    <Compile Include="Model\Capabilities\FontendModels\UrlProtocolModel.cs" />
     <Compile Include="Model\Capabilities\IconCapability.cs" />
     <Compile Include="Model\Capabilities\InstallCommands.cs" />
     <Compile Include="Model\Capabilities\KnownProtocolPrefix.cs" />
