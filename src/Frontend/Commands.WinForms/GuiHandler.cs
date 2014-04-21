@@ -26,6 +26,7 @@ using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
@@ -311,17 +312,15 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Dialogs
         /// <inheritdoc/>
-        public void ShowIntegrateApp(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
+        public void ShowIntegrateApp(IntegrationState state)
         {
             #region Sanity checks
-            if (integrationManager == null) throw new ArgumentNullException("integrationManager");
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
+            if (state == null) throw new ArgumentNullException("state");
             #endregion
 
             if (_form == null) return;
 
-            var integrationForm = new IntegrateAppForm(integrationManager, appEntry, feed);
+            var integrationForm = new IntegrateAppForm(state);
             integrationForm.VisibleChanged += delegate
             { // The IntegrateAppForm and ProgressForm take turns in being visible
                 if (integrationForm.Visible || (integrationForm.DialogResult == DialogResult.Cancel))

@@ -25,6 +25,7 @@ using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store.Model;
@@ -107,7 +108,7 @@ namespace ZeroInstall.Commands
 
             if (NoSpecifiedIntegrations())
             {
-                Handler.ShowIntegrateApp(integrationManager, appEntry, feed);
+                Handler.ShowIntegrateApp(new IntegrationState(integrationManager, appEntry, feed));
                 return 0;
             }
 

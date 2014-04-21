@@ -25,7 +25,6 @@ using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
-using NanoByte.Common.Dispatch;
 using NanoByte.Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -39,87 +38,115 @@ namespace ZeroInstall.Commands.WinForms
     /// </summary>
     public sealed partial class IntegrateAppForm : OKCancelDialog
     {
-        #region Variables
+        #region Dependencies
         /// <summary>
-        /// The integration manager used to apply selected integration options.
+        /// A View-Model for modifying the current desktop integration state.
         /// </summary>
-        private readonly IIntegrationManager _integrationManager;
+        private readonly IntegrationState _state;
 
-        /// <summary>
-        /// The application being integrated.
-        /// </summary>
-        private readonly AppEntry _appEntry;
-
-        /// <summary>
-        /// The feed providing additional metadata, icons, etc. for the application.
-        /// </summary>
-        private readonly Feed _feed;
-
-        /// <summary>
-        /// List of the <see cref="CapabilityModel"/>s handled by this form.
-        /// </summary>
-        private readonly List<CapabilityModel> _capabilityModels = new List<CapabilityModel>();
-
-        /// <summary>
-        /// A list of <see cref="DesktopIntegration.AccessPoints.MenuEntry"/>s as displayed by the <see cref="dataGridStartMenu"/>.
-        /// </summary>
-        private readonly BindingList<DesktopIntegration.AccessPoints.MenuEntry> _menuEntries = new BindingList<DesktopIntegration.AccessPoints.MenuEntry>();
-
-        /// <summary>
-        /// A list of <see cref="DesktopIntegration.AccessPoints.DesktopIcon"/>s as displayed by the <see cref="dataGridDesktop"/>.
-        /// </summary>
-        private readonly BindingList<DesktopIntegration.AccessPoints.DesktopIcon> _desktopIcons = new BindingList<DesktopIntegration.AccessPoints.DesktopIcon>();
-
-        /// <summary>
-        /// A list of <see cref="DesktopIntegration.AccessPoints.AppAlias"/>es as displayed by the <see cref="dataGridAliases"/>.
-        /// </summary>
-        private readonly BindingList<DesktopIntegration.AccessPoints.AppAlias> _aliases = new BindingList<DesktopIntegration.AccessPoints.AppAlias>();
-
-        private readonly BindingList<FileTypeModel> _fileTypesBinding = new BindingList<FileTypeModel>();
-        private readonly BindingList<UrlProtocolModel> _urlProtocolsBinding = new BindingList<UrlProtocolModel>();
-        private readonly BindingList<AutoPlayModel> _autoPlayBinding = new BindingList<AutoPlayModel>();
-        private readonly BindingList<ContextMenuModel> _contextMenuBinding = new BindingList<ContextMenuModel>();
-        private readonly BindingList<DefaultProgramModel> _defaultProgramBinding = new BindingList<DefaultProgramModel>();
-        #endregion
-
-        #region Startup
         /// <summary>
         /// Creates an instance of the form.
         /// </summary>
-        /// <param name="integrationManager">The integration manager used to apply selected integration options.</param>
-        /// <param name="appEntry">The application being integrated.</param>
-        /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
-        public IntegrateAppForm(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
+        /// <param name="state">A View-Model for modifying the current desktop integration state.</param>
+        public IntegrateAppForm(IntegrationState state)
         {
             #region Sanity checks
-            if (integrationManager == null) throw new ArgumentNullException("integrationManager");
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
+            if (state == null) throw new ArgumentNullException("state");
             #endregion
 
             InitializeComponent();
 
-            _integrationManager = integrationManager;
-            _appEntry = appEntry;
-            _feed = feed;
-
-            Text = string.Format(Resources.Integrate, appEntry.Name);
+            _state = state;
         }
+        #endregion
 
+        #region Startup
         /// <summary>
-        /// Loads the <see cref="Store.Model.Capabilities.Capability"/>s of <see cref="_appEntry"/> into the controls of this form.
+        /// Loads the <see cref="Store.Model.Capabilities.Capability"/>s into the controls of this form.
         /// </summary>
         private void IntegrateAppForm_Load(object sender, EventArgs e)
         {
             WindowsUtils.SetForegroundWindow(this);
 
-            checkBoxAutoUpdate.Checked = _appEntry.AutoUpdate;
-            checkBoxCapabilities.Visible = (_appEntry.CapabilityLists.Count != 0);
-            checkBoxCapabilities.Checked = (_appEntry.AccessPoints == null) || _appEntry.AccessPoints.Entries.OfType<DesktopIntegration.AccessPoints.CapabilityRegistration>().Any();
+            Text = string.Format(Resources.Integrate, _state.AppEntry.Name);
+
+            checkBoxAutoUpdate.Checked = _state.AppEntry.AutoUpdate;
+            checkBoxCapabilities.Visible = (_state.AppEntry.CapabilityLists.Count != 0);
+            checkBoxCapabilities.Checked = (_state.AppEntry.AccessPoints == null) || _state.AppEntry.AccessPoints.Entries.OfType<DesktopIntegration.AccessPoints.CapabilityRegistration>().Any();
 
             SetupCommandAccessPoints();
             SetupDefaultAccessPoints();
             _switchToBasicMode();
+        }
+        #endregion
+
+        #region Event handlers
+        /// <summary>
+        /// Integrates all <see cref="Store.Model.Capabilities.Capability"/>s chosen by the user.
+        /// </summary>
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            if (buttonAdvancedMode.Visible) _switchToAdvancedMode(); // Apply changes made in "Simple View"
+            _state.AppEntry.AutoUpdate = checkBoxAutoUpdate.Checked;
+
+            // Hide so that the underlying progress tracker is visible
+            Visible = false;
+
+            try
+            {
+                _state.ApplyChanges(capabilitiyRegistration: checkBoxCapabilities.Checked);
+            }
+                #region Error handling
+            catch (OperationCanceledException)
+            {
+                Visible = true; // Allow user to fix input
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Visible = true; // Allow user to fix input
+            }
+            catch (WebException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Visible = true; // Allow user to fix input
+            }
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Visible = true; // Allow user to fix input
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Visible = true; // Allow user to fix input
+            }
+            catch (InvalidOperationException ex)
+            {
+                // TODO: More comprehensive conflict handling
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Visible = true; // Allow user to fix input
+            }
+            #endregion
+
+            DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        private void buttonHelpCommandAccessPoint_Click(object sender, EventArgs e)
+        {
+            Msg.Inform(this, Resources.DataGridCommandAccessPointHelp, MsgSeverity.Info);
+        }
+
+        private void buttonHelpDefaultAccessPoint_Click(object sender, EventArgs e)
+        {
+            Msg.Inform(this, Resources.DataGridDefaultAccessPointHelp, MsgSeverity.Info);
+        }
+
+        private void accessPointDataGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            labelLastDataError.Visible = true;
+            labelLastDataError.Text = e.Exception.Message;
         }
         #endregion
 
@@ -132,12 +159,12 @@ namespace ZeroInstall.Commands.WinForms
         /// <remarks>Users create <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>s themselves based on <see cref="EntryPoint"/>s.</remarks>
         private void SetupCommandAccessPoints()
         {
-            SetupCommandAccessPoint(checkBoxStartMenuSimple, labelStartMenuSimple, _menuEntries, () => Suggest.MenuEntries(_feed));
-            SetupCommandAccessPoint(checkBoxDesktopSimple, labelDesktopSimple, _desktopIcons, () => Suggest.DesktopIcons(_feed));
-            SetupCommandAccessPoint(checkBoxAliasesSimple, labelAliasesSimple, _aliases, () => Suggest.Aliases(_feed));
+            SetupCommandAccessPoint(checkBoxStartMenuSimple, labelStartMenuSimple, _state.MenuEntries, () => Suggest.MenuEntries(_state.Feed));
+            SetupCommandAccessPoint(checkBoxDesktopSimple, labelDesktopSimple, _state.DesktopIcons, () => Suggest.DesktopIcons(_state.Feed));
+            SetupCommandAccessPoint(checkBoxAliasesSimple, labelAliasesSimple, _state.Aliases, () => Suggest.Aliases(_state.Feed));
 
             SetupCommandComboBoxes();
-            LoadCommandAccessPoints();
+            _state.LoadCommandAccessPoints();
             ShowCommandAccessPoints();
         }
 
@@ -146,7 +173,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void SetupCommandComboBoxes()
         {
-            var commands = _feed.EntryPoints
+            var commands = _state.Feed.EntryPoints
                 .Select(entryPoint => entryPoint.Command)
                 .Append(Command.NameRun).Distinct()
                 .Cast<object>().ToArray();
@@ -157,36 +184,13 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Reads the <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>s from <see cref="AppEntry.AccessPoints"/> or uses suggestion methods to fill in defaults.
-        /// </summary>
-        private void LoadCommandAccessPoints()
-        {
-            if (_appEntry.AccessPoints == null)
-            { // Fill in default values for first integration
-                foreach (var entry in Suggest.MenuEntries(_feed)) _menuEntries.Add(entry);
-                foreach (var desktopIcon in Suggest.DesktopIcons(_feed)) _desktopIcons.Add(desktopIcon);
-                foreach (var alias in Suggest.Aliases(_feed)) _aliases.Add(alias);
-            }
-            else
-            { // Distribute existing CommandAccessPoints among type-specific binding lists
-                new PerTypeDispatcher<DesktopIntegration.AccessPoints.AccessPoint>(true)
-                {
-                    // Add clones to DataGrids so that user modifications can still be canceled
-                    (DesktopIntegration.AccessPoints.MenuEntry menuEntry) => _menuEntries.Add((DesktopIntegration.AccessPoints.MenuEntry)menuEntry.Clone()),
-                    (DesktopIntegration.AccessPoints.DesktopIcon desktopIcon) => _desktopIcons.Add((DesktopIntegration.AccessPoints.DesktopIcon)desktopIcon.Clone()),
-                    (DesktopIntegration.AccessPoints.AppAlias appAlias) => _aliases.Add((DesktopIntegration.AccessPoints.AppAlias)appAlias.Clone()),
-                }.Dispatch(_appEntry.AccessPoints.Entries);
-            }
-        }
-
-        /// <summary>
         /// Apply data to DataGrids in bulk for better performance
         /// </summary>
         private void ShowCommandAccessPoints()
         {
-            dataGridStartMenu.DataSource = _menuEntries;
-            dataGridDesktop.DataSource = _desktopIcons;
-            dataGridAliases.DataSource = _aliases;
+            dataGridStartMenu.DataSource = _state.MenuEntries;
+            dataGridDesktop.DataSource = _state.DesktopIcons;
+            dataGridAliases.DataSource = _state.Aliases;
         }
 
         /// <summary>
@@ -201,7 +205,7 @@ namespace ZeroInstall.Commands.WinForms
             where T : DesktopIntegration.AccessPoints.CommandAccessPoint
         {
             _switchToBasicMode += () => SetCommandAccessPointCheckBox(checkBoxSimple, labelSimple, accessPoints, getSuggestions);
-            _switchToAdvancedMode += () => ApplyCommandAccessPointCheckBox(checkBoxSimple, accessPoints, getSuggestions);
+            _switchToAdvancedMode += () => SetCommandAccessPointCheckBox(checkBoxSimple, accessPoints, getSuggestions);
         }
         #endregion
 
@@ -212,17 +216,17 @@ namespace ZeroInstall.Commands.WinForms
         /// <remarks>Users enable or disable predefined <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/>s based on <see cref="Store.Model.Capabilities.DefaultCapability"/>s.</remarks>
         private void SetupDefaultAccessPoints()
         {
-            SetupDefaultAccessPoint(checkBoxFileTypesSimple, labelFileTypesSimple, checkBoxFileTypesAll, _fileTypesBinding);
-            SetupDefaultAccessPoint(checkBoxUrlProtocolsSimple, labelUrlProtocolsSimple, checkBoxUrlProtocolsAll, _urlProtocolsBinding);
-            SetupDefaultAccessPoint(checkBoxAutoPlaySimple, labelAutoPlaySimple, checkBoxAutoPlayAll, _autoPlayBinding);
-            SetupDefaultAccessPoint(checkBoxContextMenuSimple, labelContextMenuSimple, checkBoxContextMenuAll, _contextMenuBinding);
-            SetupDefaultAccessPoint(checkBoxDefaultProgramsSimple, labelDefaultProgramsSimple, checkBoxDefaultProgramsAll, _defaultProgramBinding);
+            SetupDefaultAccessPoint(checkBoxFileTypesSimple, labelFileTypesSimple, checkBoxFileTypesAll, _state.FileTypes);
+            SetupDefaultAccessPoint(checkBoxUrlProtocolsSimple, labelUrlProtocolsSimple, checkBoxUrlProtocolsAll, _state.UrlProtocols);
+            SetupDefaultAccessPoint(checkBoxAutoPlaySimple, labelAutoPlaySimple, checkBoxAutoPlayAll, _state.AutoPlay);
+            SetupDefaultAccessPoint(checkBoxContextMenuSimple, labelContextMenuSimple, checkBoxContextMenuAll, _state.ContextMenu);
+            SetupDefaultAccessPoint(checkBoxDefaultProgramsSimple, labelDefaultProgramsSimple, checkBoxDefaultProgramsAll, _state.DefaultProgram);
 
             // File type associations cannot be set programmatically on Windows 8, so hide the option
             _switchToBasicMode += () => { if (WindowsUtils.IsWindows8) labelFileTypesSimple.Visible = checkBoxFileTypesSimple.Visible = false; };
 
-            LoadDefaultAccessPoints();
-            DisplayDefaultAccessPoints();
+            _state.LoadDefaultAccessPoints();
+            SetDefaultAccessPoints();
         }
 
         /// <summary>
@@ -237,12 +241,12 @@ namespace ZeroInstall.Commands.WinForms
             where T : CapabilityModel
         {
             bool suppressEvent = false;
-            checkBoxSelectAll.CheckedChanged += delegate { if (!suppressEvent) CapabilityModelSetAll(model, checkBoxSelectAll.Checked); };
+            checkBoxSelectAll.CheckedChanged += delegate { if (!suppressEvent) model.SetAllUse(checkBoxSelectAll.Checked); };
 
             _switchToBasicMode += () => SetDefaultAccessPointCheckBox(checkBoxSimple, labelSimple, model);
             _switchToAdvancedMode += () =>
             {
-                ApplyDefaultAccessPointCheckBox(checkBoxSimple, model);
+                SetDefaultAccessPointCheckBox(checkBoxSimple, model);
 
                 suppressEvent = true;
                 checkBoxSelectAll.Checked = model.All(element => element.Use);
@@ -251,102 +255,22 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Reads the <see cref="Store.Model.Capabilities.DefaultCapability"/>s from <see cref="Feed.CapabilityLists"/> and creates a coressponding model for turning <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> on and off.
+        /// Set data in DataGrids in bulk for better performance (remove empty tabs).
         /// </summary>
-        private void LoadDefaultAccessPoints()
+        private void SetDefaultAccessPoints()
         {
-            foreach (var capabilityList in _appEntry.CapabilityLists.Where(x => x.Architecture.IsCompatible()))
-            {
-                var dispatcher = new PerTypeDispatcher<Store.Model.Capabilities.Capability>(true)
-                {
-                    (Store.Model.Capabilities.FileType fileType) =>
-                    {
-                        var model = new FileTypeModel(fileType, IsCapabillityUsed<DesktopIntegration.AccessPoints.FileType>(fileType));
-                        _fileTypesBinding.Add(model);
-                        _capabilityModels.Add(model);
-                    },
-                    (Store.Model.Capabilities.UrlProtocol urlProtocol) =>
-                    {
-                        var model = new UrlProtocolModel(urlProtocol, IsCapabillityUsed<DesktopIntegration.AccessPoints.UrlProtocol>(urlProtocol));
-                        _urlProtocolsBinding.Add(model);
-                        _capabilityModels.Add(model);
-                    },
-                    (Store.Model.Capabilities.AutoPlay autoPlay) =>
-                    {
-                        var model = new AutoPlayModel(autoPlay, IsCapabillityUsed<DesktopIntegration.AccessPoints.AutoPlay>(autoPlay));
-                        _autoPlayBinding.Add(model);
-                        _capabilityModels.Add(model);
-                    },
-                    (Store.Model.Capabilities.ContextMenu contextMenu) =>
-                    {
-                        var model = new ContextMenuModel(contextMenu, IsCapabillityUsed<DesktopIntegration.AccessPoints.ContextMenu>(contextMenu));
-                        _contextMenuBinding.Add(model);
-                        _capabilityModels.Add(model);
-                    }
-                };
-                if (_integrationManager.MachineWide)
-                {
-                    dispatcher.Add((Store.Model.Capabilities.DefaultProgram defaultProgram) =>
-                    {
-                        var model = new DefaultProgramModel(defaultProgram, IsCapabillityUsed<DesktopIntegration.AccessPoints.DefaultProgram>(defaultProgram));
-                        _defaultProgramBinding.Add(model);
-                        _capabilityModels.Add(model);
-                    });
-                }
-
-                dispatcher.Dispatch(capabilityList.Entries);
-            }
-        }
-
-        /// <summary>
-        /// Apply data to DataGrids in bulk for better performance (remove empty tabs).
-        /// </summary>
-        private void DisplayDefaultAccessPoints()
-        {
-            if (_fileTypesBinding.Any()) dataGridFileTypes.DataSource = _fileTypesBinding;
+            if (_state.FileTypes.Any()) dataGridFileTypes.DataSource = _state.FileTypes;
             else tabControl.TabPages.Remove(tabPageFileTypes);
-            if (_urlProtocolsBinding.Any()) dataGridUrlProtocols.DataSource = _urlProtocolsBinding;
+            if (_state.UrlProtocols.Any()) dataGridUrlProtocols.DataSource = _state.UrlProtocols;
             else tabControl.TabPages.Remove(tabPageUrlProtocols);
-            if (_autoPlayBinding.Any()) dataGridAutoPlay.DataSource = _autoPlayBinding;
+            if (_state.AutoPlay.Any()) dataGridAutoPlay.DataSource = _state.AutoPlay;
             else tabControl.TabPages.Remove(tabPageAutoPlay);
-            if (_contextMenuBinding.Any()) dataGridContextMenu.DataSource = _contextMenuBinding;
+            if (_state.ContextMenu.Any()) dataGridContextMenu.DataSource = _state.ContextMenu;
             else tabControl.TabPages.Remove(tabPageContextMenu);
-            if (_defaultProgramBinding.Any()) dataGridDefaultPrograms.DataSource = _defaultProgramBinding;
+            if (_state.DefaultProgram.Any()) dataGridDefaultPrograms.DataSource = _state.DefaultProgram;
             else tabControl.TabPages.Remove(tabPageDefaultPrograms);
         }
         #endregion
-
-        #region Helpers
-        /// <summary>
-        /// Checks whether a <see cref="Store.Model.Capabilities.DefaultCapability"/> is already used by the user.
-        /// </summary>
-        /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
-        /// <param name="toCheck">The <see cref="Store.Model.Capabilities.Capability"/> to check for usage.</param>
-        /// <returns><see langword="true"/>, if <paramref name="toCheck"/> is already in usage.</returns>
-        private bool IsCapabillityUsed<T>(Store.Model.Capabilities.DefaultCapability toCheck)
-            where T : DesktopIntegration.AccessPoints.DefaultAccessPoint
-        {
-            if (_appEntry.AccessPoints == null) return false;
-
-            return _appEntry.AccessPoints.Entries.OfType<T>().Any(accessPoint => accessPoint.Capability == toCheck.ID);
-        }
-
-        /// <summary>
-        /// Sets all <see cref="CapabilityModel.Use"/> values within a list/model to a specific value.
-        /// </summary>
-        /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
-        /// <param name="model">A model represeting the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
-        /// <param name="value">The value to set.</param>
-        private static void CapabilityModelSetAll<T>(BindingList<T> model, bool value)
-            where T : CapabilityModel
-        {
-            foreach (var element in model.Except(element => element.Capability.ExplicitOnly))
-                element.Use = value;
-            model.ResetBindings();
-        }
-        #endregion
-
-        //--------------------//
 
         #region Basic mode
         /// <summary>
@@ -409,13 +333,13 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <summary>
-        /// Applies the state of a <see cref="CheckBox"/> for simple <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> configuration.
+        /// Sets the state of a <see cref="CheckBox"/> for simple <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> configuration.
         /// </summary>
         /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to read.</param>
         /// <param name="current">The currently applied <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/>.</param>
         /// <param name="getSuggestions">Retrieves a list of default <see cref="DesktopIntegration.AccessPoints.CommandAccessPoint"/> suggested by the system.</param>
-        private static void ApplyCommandAccessPointCheckBox<T>(CheckBox checkBox, ICollection<T> current, Func<IEnumerable<T>> getSuggestions)
+        private static void SetCommandAccessPointCheckBox<T>(CheckBox checkBox, ICollection<T> current, Func<IEnumerable<T>> getSuggestions)
             where T : DesktopIntegration.AccessPoints.CommandAccessPoint
         {
             if (!checkBox.Visible) return;
@@ -437,143 +361,15 @@ namespace ZeroInstall.Commands.WinForms
         /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
         /// <param name="checkBox">The <see cref="CheckBox"/> to read.</param>
         /// <param name="model">A model represeting the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
-        private static void ApplyDefaultAccessPointCheckBox<T>(CheckBox checkBox, BindingList<T> model)
+        private static void SetDefaultAccessPointCheckBox<T>(CheckBox checkBox, BindingList<T> model)
             where T : CapabilityModel
         {
             if (!checkBox.Visible) return;
             if (checkBox.Checked)
             {
-                if (!model.Any(element => element.Use)) CapabilityModelSetAll(model, true);
+                if (!model.Any(element => element.Use)) model.SetAllUse(true);
             }
-            else CapabilityModelSetAll(model, false);
-        }
-        #endregion
-
-        #region Apply
-        /// <summary>
-        /// Integrates all <see cref="Store.Model.Capabilities.Capability"/>s chosen by the user.
-        /// </summary>
-        private void buttonOK_Click(object sender, EventArgs e)
-        {
-            var toAdd = new List<DesktopIntegration.AccessPoints.AccessPoint>();
-            var toRemove = new List<DesktopIntegration.AccessPoints.AccessPoint>();
-            CollectChanges(toAdd, toRemove);
-            ApplyChanges(toRemove, toAdd);
-        }
-
-        private void CollectChanges(List<DesktopIntegration.AccessPoints.AccessPoint> toAdd, List<DesktopIntegration.AccessPoints.AccessPoint> toRemove)
-        {
-            _appEntry.AutoUpdate = checkBoxAutoUpdate.Checked;
-            (checkBoxCapabilities.Checked ? toAdd : toRemove).Add(new DesktopIntegration.AccessPoints.CapabilityRegistration());
-
-            // Apply changes made in "Simple View"
-            if (buttonAdvancedMode.Visible) _switchToAdvancedMode();
-
-            CollectCommandAccessPointChanges(toAdd, toRemove);
-            CollectDefaultAccessPointChanges(toAdd, toRemove);
-        }
-
-        private void CollectCommandAccessPointChanges(ICollection<DesktopIntegration.AccessPoints.AccessPoint> toAdd, ICollection<DesktopIntegration.AccessPoints.AccessPoint> toRemove)
-        {
-            // Build lists with current integration state
-            var currentMenuEntries = new List<DesktopIntegration.AccessPoints.MenuEntry>();
-            var currentDesktopIcons = new List<DesktopIntegration.AccessPoints.DesktopIcon>();
-            var currentAliases = new List<DesktopIntegration.AccessPoints.AppAlias>();
-            if (_appEntry.AccessPoints != null)
-            {
-                new PerTypeDispatcher<DesktopIntegration.AccessPoints.AccessPoint>(true)
-                {
-                    (DesktopIntegration.AccessPoints.MenuEntry menuEntry) => currentMenuEntries.Add(menuEntry),
-                    (DesktopIntegration.AccessPoints.DesktopIcon desktopIcon) => currentDesktopIcons.Add(desktopIcon),
-                    (DesktopIntegration.AccessPoints.AppAlias alias) => currentAliases.Add(alias)
-                }.Dispatch(_appEntry.AccessPoints.Entries);
-            }
-
-            // Determine differences between current and desired state
-            Merge.TwoWay(theirs: _menuEntries, mine: currentMenuEntries, added: toAdd.Add, removed: toRemove.Add);
-            Merge.TwoWay(theirs: _desktopIcons, mine: currentDesktopIcons, added: toAdd.Add, removed: toRemove.Add);
-            Merge.TwoWay(theirs: _aliases, mine: currentAliases, added: toAdd.Add, removed: toRemove.Add);
-        }
-
-        private void CollectDefaultAccessPointChanges(ICollection<DesktopIntegration.AccessPoints.AccessPoint> toAdd, ICollection<DesktopIntegration.AccessPoints.AccessPoint> toRemove)
-        {
-            foreach (var model in _capabilityModels.Where(model => model.Changed))
-            {
-                var accessPoint = model.Capability.ToAcessPoint();
-                if (model.Use) toAdd.Add(accessPoint);
-                else toRemove.Add(accessPoint);
-            }
-        }
-
-        private void ApplyChanges(List<DesktopIntegration.AccessPoints.AccessPoint> toRemove, List<DesktopIntegration.AccessPoints.AccessPoint> toAdd)
-        {
-            // Hide so that the underlying progress tracker is visible
-            Visible = false;
-
-            try
-            {
-                if (toRemove.Any()) _integrationManager.RemoveAccessPoints(_appEntry, toRemove);
-                if (toAdd.Any()) _integrationManager.AddAccessPoints(_appEntry, _feed, toAdd);
-            }
-                #region Error handling
-            catch (OperationCanceledException)
-            {
-                Visible = true; // Allow user to fix input
-                return;
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Visible = true; // Allow user to fix input
-                return;
-            }
-            catch (WebException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Visible = true; // Allow user to fix input
-                return;
-            }
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Visible = true; // Allow user to fix input
-                return;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Visible = true; // Allow user to fix input
-                return;
-            }
-            catch (InvalidOperationException ex)
-            {
-                // TODO: More comprehensive conflict handling
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Visible = true; // Allow user to fix input
-                return;
-            }
-            #endregion
-
-            DialogResult = DialogResult.OK;
-            Close();
-        }
-        #endregion
-
-        #region Misc events
-        private void buttonHelpCommandAccessPoint_Click(object sender, EventArgs e)
-        {
-            Msg.Inform(this, Resources.DataGridCommandAccessPointHelp, MsgSeverity.Info);
-        }
-
-        private void buttonHelpDefaultAccessPoint_Click(object sender, EventArgs e)
-        {
-            Msg.Inform(this, Resources.DataGridDefaultAccessPointHelp, MsgSeverity.Info);
-        }
-
-        private void accessPointDataGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            labelLastDataError.Visible = true;
-            labelLastDataError.Text = e.Exception.Message;
+            else model.SetAllUse(false);
         }
         #endregion
     }

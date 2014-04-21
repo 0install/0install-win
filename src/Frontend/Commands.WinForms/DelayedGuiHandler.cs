@@ -21,12 +21,11 @@ using System.Threading;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
-using ZeroInstall.DesktopIntegration;
+using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
-using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Commands.WinForms
@@ -221,15 +220,13 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <inheritdoc/>
-        public void ShowIntegrateApp(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
+        public void ShowIntegrateApp(IntegrationState state)
         {
             #region Sanity checks
-            if (integrationManager == null) throw new ArgumentNullException("integrationManager");
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (feed == null) throw new ArgumentNullException("feed");
+            if (state == null) throw new ArgumentNullException("state");
             #endregion
 
-            InitTarget().ShowIntegrateApp(integrationManager, appEntry, feed);
+            InitTarget().ShowIntegrateApp(state);
         }
 
         /// <inheritdoc/>

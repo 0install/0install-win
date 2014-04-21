@@ -18,11 +18,10 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using NanoByte.Common.Tasks;
-using ZeroInstall.DesktopIntegration;
+using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
-using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Services
@@ -87,7 +86,7 @@ namespace ZeroInstall.Services
         }
 
         /// <inheritdoc/>
-        public void ShowIntegrateApp(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
+        public void ShowIntegrateApp(IntegrationState state)
         {
             // No UI, so nothing to do
         }

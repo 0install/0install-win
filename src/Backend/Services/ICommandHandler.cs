@@ -16,11 +16,10 @@
  */
 
 using System;
-using ZeroInstall.DesktopIntegration;
+using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
-using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Services
@@ -65,14 +64,12 @@ namespace ZeroInstall.Services
         /// <summary>
         /// Displays application integration options to the user.
         /// </summary>
-        /// <param name="integrationManager">The integration manager used to apply selected integration options.</param>
-        /// <param name="appEntry">The application being integrated.</param>
-        /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
+        /// <param name="state">A View-Model for modifying the current desktop integration state.</param>
         /// <remarks>
         ///   <para>Only call this between <see cref="IInteractionHandler.ShowProgressUI"/> and <see cref="IInteractionHandler.CloseProgressUI"/>.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
         /// </remarks>
-        void ShowIntegrateApp(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed);
+        void ShowIntegrateApp(IntegrationState state);
 
         /// <summary>
         /// Displays the configuration settings to the user.

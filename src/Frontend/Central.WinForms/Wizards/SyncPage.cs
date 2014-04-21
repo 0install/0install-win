@@ -23,12 +23,12 @@ using NanoByte.Common.Tasks;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
-using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Central.WinForms.Wizards
@@ -152,7 +152,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
             throw new NotImplementedException();
         }
 
-        public void ShowIntegrateApp(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
+        public void ShowIntegrateApp(IntegrationState state)
         {
             throw new NotImplementedException();
         }

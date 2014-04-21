@@ -22,12 +22,11 @@ using NanoByte.Common;
 using NanoByte.Common.Cli;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
-using ZeroInstall.DesktopIntegration;
+using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
-using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Services
@@ -135,7 +134,7 @@ namespace ZeroInstall.Services
 
         #region Dialogs
         /// <inheritdoc/>
-        public virtual void ShowIntegrateApp(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
+        public virtual void ShowIntegrateApp(IntegrationState state)
         {
             throw new NeedGuiException(Resources.IntegrateAppUseGui);
         }
