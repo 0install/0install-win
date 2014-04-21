@@ -138,6 +138,7 @@ namespace ZeroInstall.Commands.WinForms
 
             SetupCommandComboBoxes();
             LoadCommandAccessPoints();
+            ShowCommandAccessPoints();
         }
 
         /// <summary>
@@ -176,8 +177,13 @@ namespace ZeroInstall.Commands.WinForms
                     (DesktopIntegration.AccessPoints.AppAlias appAlias) => _aliases.Add((DesktopIntegration.AccessPoints.AppAlias)appAlias.Clone()),
                 }.Dispatch(_appEntry.AccessPoints.Entries);
             }
+        }
 
-            // Apply data to DataGrids in bulk for better performance
+        /// <summary>
+        /// Apply data to DataGrids in bulk for better performance
+        /// </summary>
+        private void ShowCommandAccessPoints()
+        {
             dataGridStartMenu.DataSource = _menuEntries;
             dataGridDesktop.DataSource = _desktopIcons;
             dataGridAliases.DataSource = _aliases;
@@ -216,6 +222,7 @@ namespace ZeroInstall.Commands.WinForms
             _switchToBasicMode += () => { if (WindowsUtils.IsWindows8) labelFileTypesSimple.Visible = checkBoxFileTypesSimple.Visible = false; };
 
             LoadDefaultAccessPoints();
+            DisplayDefaultAccessPoints();
         }
 
         /// <summary>
@@ -289,8 +296,13 @@ namespace ZeroInstall.Commands.WinForms
 
                 dispatcher.Dispatch(capabilityList.Entries);
             }
+        }
 
-            // Apply data to DataGrids in bulk for better performance (remove empty tabs)
+        /// <summary>
+        /// Apply data to DataGrids in bulk for better performance (remove empty tabs).
+        /// </summary>
+        private void DisplayDefaultAccessPoints()
+        {
             if (_fileTypesBinding.Any()) dataGridFileTypes.DataSource = _fileTypesBinding;
             else tabControl.TabPages.Remove(tabPageFileTypes);
             if (_urlProtocolsBinding.Any()) dataGridUrlProtocols.DataSource = _urlProtocolsBinding;
