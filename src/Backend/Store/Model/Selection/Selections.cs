@@ -126,7 +126,7 @@ namespace ZeroInstall.Store.Model.Selection
                     #region Error handling
                 catch (InvalidOperationException)
                 {
-                    throw new KeyNotFoundException(string.Format(Resources.ImplementationNotInSelection, InterfaceID));
+                    throw new KeyNotFoundException(string.Format(Resources.ImplementationNotInSelection, interfaceID));
                 }
                 #endregion
             }
