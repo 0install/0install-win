@@ -89,10 +89,10 @@ namespace ZeroInstall.Services.Solvers.Backtracking
         private bool TryToUseExistingCandidate(Requirements requirements, IEnumerable<SelectionCandidate> suitableCandidates, ImplementationSelection selection)
         {
             if (!suitableCandidates.Contains(selection)) return false;
+            if (selection.ContainsCommand(requirements.Command)) return true;
 
-            if (!selection.ContainsCommand(requirements.Command))
-                selection.AddCommand(requirements.Command, from: GetOriginalImplementation(selection));
-            return true;
+            var command = selection.AddCommand(requirements.Command, from: GetOriginalImplementation(selection));
+            return (command != null) && TryToSolveCommand(command);
         }
 
         private bool TryToSelectCandidate(IEnumerable<SelectionCandidate> candidates, Requirements requirements, IList<SelectionCandidate> allCandidates)

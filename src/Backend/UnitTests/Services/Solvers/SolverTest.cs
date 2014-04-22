@@ -112,13 +112,19 @@ namespace ZeroInstall.Services.Solvers
                     {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/helper.xml'><executable-in-path name='helperA' command='commandA'/><executable-in-path name='helperB' command='commandB'/></requires></implementation>"},
                     {
                         "http://test/helper.xml",
-                        "<implementation version='1.0' id='helper1'><command name='commandA' path='helperA' /><command name='commandB' path='helperB' /><command name='commandC' path='helperC' /></implementation>"
-                    }
+                        "<implementation version='1.0' id='helper1'>" +
+                        "  <command name='commandA' path='helperA' />" +
+                        "  <command name='commandB' path='helperB'><runner interface='http://test/runner.xml' /></command>" +
+                        "  <command name='commandC' path='helperC' />" +
+                        "</implementation>"
+                    },
+                    {"http://test/runner.xml", "<implementation version='1.0' id='runner1'><command name='run' path='test-runner' /></implementation>"}
                 },
                 requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
                 expectedSelections:
                     "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/helper.xml'><executable-in-path name='helperA' command='commandA'/><executable-in-path name='helperB' command='commandB'/></requires></selection>" +
-                    "<selection interface='http://test/helper.xml' version='1.0' id='helper1'><command name='commandA' path='helperA' /><command name='commandB' path='helperB' /></selection>");
+                    "<selection interface='http://test/helper.xml' version='1.0' id='helper1'><command name='commandA' path='helperA' /><command name='commandB' path='helperB'><runner interface='http://test/runner.xml' /></command></selection>" +
+                    "<selection interface='http://test/runner.xml' version='1.0' id='runner1'><command name='run' path='test-runner' /></selection>");
         }
 
         [Test]

@@ -87,10 +87,12 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="selection">The <see cref="ImplementationSelection"/> to add the <see cref="Command"/> to.</param>
         /// <param name="commandName">The <see cref="Command.Name"/> to look for.</param>
         /// <param name="from">The <see cref="Implementation"/> to get the <see cref="Command"/> from.</param>
-        public static void AddCommand(this ImplementationSelection selection, string commandName, Implementation from)
+        /// <returns>The <see cref="Command"/> that was found; <see langword="null"/> if none.</returns>
+        public static Command AddCommand(this ImplementationSelection selection, string commandName, Implementation from)
         {
             var command = from[commandName];
             if (command != null) selection.Commands.Add(command.Clone());
+            return command;
         }
 
         /// <summary>
