@@ -15,7 +15,7 @@ NuGet package: Moq.Contrib
 
 LinqBridge
 http://code.google.com/p/linqbridge/
-MIT license: http://opensource.org/licenses/mit-license
+MIT license: http://opensource.org/licenses/MIT
 NuGet package: LinqBridge
 
 ICSharpCode.SharpZipLib 0.86-patched
@@ -25,7 +25,7 @@ NuGet package: ICSharpCode.SharpZipLib.Patched
 
 ICSharpCode.TextEditor
 http://www.icsharpcode.net/OpenSource/SD/
-GNU LGPL: http://www.gnu.org/copyleft/lesser.html
+GNU LGPL 2.1: http://opensource.org/licenses/LGPL-2.1
 NuGet package: NanoByte.Common.WinForms
 
 TaskDialog
@@ -35,27 +35,27 @@ NuGet package: NanoByte.Common.WinForms
 
 Json.NET
 http://james.newtonking.com/json
-MIT license: http://opensource.org/licenses/mit-license
+MIT license: http://opensource.org/licenses/MIT
 NuGet package: Newtonsoft.Json
 
 Task Scheduler Managed Wrapper
 http://taskscheduler.codeplex.com/
-MIT license: http://opensource.org/licenses/mit-license
+MIT license: http://opensource.org/licenses/MIT
 NuGet package: TaskScheduler
 
 SevenZipSharp
 http://sevenzipsharp.codeplex.com/
-GNU LGPL: http://www.gnu.org/copyleft/lesser.html
+GNU LGPL 2.1: http://opensource.org/licenses/LGPL-2.1
 NuGet package: SevenZipSharp
 
 7-Zip Extra files
 http://www.7-zip.org/
-GNU LGPL: http://www.gnu.org/copyleft/lesser.html
+GNU LGPL 2.1: http://opensource.org/licenses/LGPL-2.1
 Pre-compiled native DLLs: 7zxa.dll, 7zxa-x64.dll
 
 NDesk.Options post-0.2.1-GIT-checkout
 http://ndesk.org/Options
-MIT license: http://opensource.org/licenses/mit-license
+MIT license: http://opensource.org/licenses/MIT
 Applied patches: NDesk.Options.*.patch
 Self-compiled managed DLL: NDesk.Options.dll
 
@@ -66,7 +66,7 @@ Self-compiled managed DLL: ELFSharp.dll
 
 INI File Parser v1.7
 http://code.google.com/p/ini-parser/
-MIT license: http://opensource.org/licenses/mit-license
+MIT license: http://opensource.org/licenses/MIT
 Pre-compiled managed DLL: INIFileParser.dll
 
 WiX Toolset 3.8
@@ -76,7 +76,7 @@ Pre-compiled managed DLLs: Microsoft.Deployment.*.dll
 
 EasyHook 2.6
 http://easyhook.codeplex.com/
-GNU LGPL: http://www.gnu.org/copyleft/lesser.html
+GNU LGPL 2.1: http://opensource.org/licenses/LGPL-2.1
 Pre-compiled managed DLL: EasyHook.dll
 Pre-compiled unmanaged DLLs: EasyHook32.dll, EasyHook64.dll
 

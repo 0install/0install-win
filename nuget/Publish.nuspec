@@ -5,7 +5,7 @@
         <version>$version$</version>
         <authors>Bastian Eicher</authors>
         <projectUrl>http://0install.de/</projectUrl>
-        <licenseUrl>http://opensource.org/licenses/LGPL</licenseUrl>
+        <licenseUrl>http://opensource.org/licenses/LGPL-3.0</licenseUrl>
         <iconUrl>https://0install.de/wp-content/uploads/icon.png</iconUrl>
         <description>The Zero Install Publishing API provides methods for creating and modifying feed files.
 The Zero Install Publishing Tools (including the Feed Editor) are built upon this API. You can use the API to automate complex feed creation/update tasks.</description>
