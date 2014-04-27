@@ -25,7 +25,6 @@ using NanoByte.Common.Controls;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using ZeroInstall.Commands.WinForms.Properties;
-using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services;
 using ZeroInstall.Store;

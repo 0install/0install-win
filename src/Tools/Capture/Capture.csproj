@@ -94,7 +94,7 @@
       <Name>Publish</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Backend\Store\Store.csproj">
-      <Project>{bd330a44-dabf-43e9-83b4-0750f8f1db9d}</Project>
+      <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
       <Name>Store</Name>
     </ProjectReference>
   </ItemGroup>
