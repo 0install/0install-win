@@ -154,7 +154,7 @@ namespace ZeroInstall.Commands
         #region Subcommands
         private StoreErrorLevel Add()
         {
-            if (AdditionalArgs.Count < 3) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))");
+            if (AdditionalArgs.Count < 3) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))", "");
 
             Handler.ShowProgressUI();
 
@@ -169,7 +169,7 @@ namespace ZeroInstall.Commands
                 }
                 else if (Directory.Exists(path))
                 { // A single directory
-                    if (AdditionalArgs.Count > 3) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))");
+                    if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))", "");
                     Store.AddDirectory(Path.GetFullPath(path), manifestDigest, Handler);
                     return StoreErrorLevel.OK;
                 }
@@ -194,8 +194,8 @@ namespace ZeroInstall.Commands
 
         private StoreErrorLevel Copy()
         {
-            if (AdditionalArgs.Count < 2) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + "copy DIRECTORY [CACHE]");
-            if (AdditionalArgs.Count > 3) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + "copy DIRECTORY [CACHE]");
+            if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "copy DIRECTORY [CACHE]", "");
+            if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "copy DIRECTORY [CACHE]", "");
 
             Handler.ShowProgressUI();
 
@@ -216,8 +216,8 @@ namespace ZeroInstall.Commands
 
         private void Find()
         {
-            if (AdditionalArgs.Count < 2) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + "find DIGEST");
-            if (AdditionalArgs.Count > 2) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + "find DIGEST");
+            if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "find DIGEST", "");
+            if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "find DIGEST", "");
 
             string path = Store.GetPath(new ManifestDigest(AdditionalArgs[1]));
             if (path == null) throw new ImplementationNotFoundException(new ManifestDigest(AdditionalArgs[1]));
@@ -226,7 +226,7 @@ namespace ZeroInstall.Commands
 
         private void List()
         {
-            if (AdditionalArgs.Count > 2) throw new ArgumentException(Resources.TooManyArguments + Environment.NewLine + "list");
+            if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "list", "");
 
             Handler.Output(Resources.CachedInterfaces, StringUtils.Join(Environment.NewLine, Store.ListAll().Select(Store.GetPath)));
         }
@@ -248,7 +248,7 @@ namespace ZeroInstall.Commands
 
         private void Remove()
         {
-            if (AdditionalArgs.Count < 2) throw new ArgumentException(Resources.MissingArguments + Environment.NewLine + "remove DIGEST+");
+            if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "remove DIGEST+", "");
 
             Handler.ShowProgressUI();
 
