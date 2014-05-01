@@ -115,14 +115,14 @@ namespace ZeroInstall.Store.Model
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }
 
         /// <summary>
-        /// The URL of a web-page describing this interface in more detail.
+        /// The main website of the application.
         /// </summary>
         [XmlIgnore, Browsable(false)]
         public Uri Homepage { get; set; }
 
         /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="Homepage"/>
-        [DisplayName(@"Homepage"), Category("Interface"), Description("The URL of a web-page describing this interface in more detail.")]
+        [DisplayName(@"Homepage"), Category("Interface"), Description("The main website of the application.")]
         [XmlElement("homepage"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string HomepageString { get { return Homepage != null ? Homepage.ToString() : null; } set { Homepage = (string.IsNullOrEmpty(value) ? null : new Uri(value)); } }
 
@@ -138,7 +138,7 @@ namespace ZeroInstall.Store.Model
         private readonly List<Category> _categories = new List<Category>();
 
         /// <summary>
-        /// Zero or more classifications for the interface.
+        /// A list of well-known categories the applications fits into.
         /// </summary>
         [Browsable(false)]
         [XmlElement("category")]

@@ -38,7 +38,7 @@ namespace ZeroInstall.Store.Management
         /// <param name="digest">The digest to search for.</param>
         /// <param name="feed">Returns the <see cref="Feed"/> a match was found in; <see langword="null"/> if no match found.</param>
         /// <returns>The matching <see cref="Store.Model.Implementation"/>; <see langword="null"/> if no match found.</returns>
-        public static Model.Implementation GetImplementation(this IEnumerable<Feed> feeds, ManifestDigest digest, out Feed feed)
+        public static Implementation GetImplementation(this IEnumerable<Feed> feeds, ManifestDigest digest, out Feed feed)
         {
             #region Sanity checks
             if (feeds == null) throw new ArgumentNullException("feeds");
@@ -46,7 +46,7 @@ namespace ZeroInstall.Store.Management
 
             foreach (var curFeed in feeds)
             {
-                var impl = curFeed.Elements.OfType<Model.Implementation>().FirstOrDefault(implementation => implementation.ManifestDigest.PartialEquals(digest));
+                var impl = curFeed.Elements.OfType<Implementation>().FirstOrDefault(implementation => implementation.ManifestDigest.PartialEquals(digest));
                 if (impl != null)
                 {
                     feed = curFeed;

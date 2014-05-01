@@ -94,7 +94,6 @@ namespace ZeroInstall.Commands.WinForms
                 _store.Flush();
                 _feedCache.Flush();
                 var listBuilder = new NodeListBuilder(this, _store, _feedCache);
-
                 using (var handler = new GuiTaskHandler(this)) handler.RunTask(listBuilder);
 
                 _treeView.Nodes = listBuilder.Nodes;
@@ -158,6 +157,7 @@ namespace ZeroInstall.Commands.WinForms
                 Process.Start(new ProcessStartInfo(Path.Combine(Locations.InstallBase, "0install-win.exe"), "store manage") {Verb = "runas"});
                 Close();
             }
+                #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
@@ -166,6 +166,7 @@ namespace ZeroInstall.Commands.WinForms
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }
+            #endregion
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
