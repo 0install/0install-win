@@ -89,37 +89,38 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         internal void RefreshList()
         {
-            try
-            {
-                _store.Flush();
-                _feedCache.Flush();
-                var listBuilder = new NodeListBuilder(this, _store, _feedCache);
-                using (var handler = new GuiTaskHandler(this)) handler.RunTask(listBuilder);
+            buttonRefresh.Enabled = false;
+            refreshListWorker.RunWorkerAsync();
+        }
 
-                _treeView.Nodes = listBuilder.Nodes;
-                _treeView.SelectedEntry = null;
-                textTotalSize.Text = listBuilder.TotalSize.FormatBytes(CultureInfo.CurrentCulture);
-                buttonVerify.Enabled = buttonRemove.Enabled = false;
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Close();
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Close();
-            }
-            catch (InvalidDataException ex)
+        private void refreshListWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            _store.Flush();
+            _feedCache.Flush();
+
+            var listBuilder = new NodeListBuilder(this, _store, _feedCache);
+            listBuilder.Run();
+            e.Result = listBuilder;
+        }
+
+        private void refreshListWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            #region Error handling
+            var ex = e.Error;
+            if (ex is IOException || ex is UnauthorizedAccessException || ex is InvalidDataException)
             {
                 Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
                 Close();
             }
+            else if (ex != null) ex.Rethrow();
             #endregion
 
+            var listBuilder = (NodeListBuilder)e.Result;
+            _treeView.Nodes = listBuilder.Nodes;
+            textTotalSize.Text = listBuilder.TotalSize.FormatBytes(CultureInfo.CurrentCulture);
+
             OnCheckedEntriesChanged(null, EventArgs.Empty);
+            buttonRefresh.Enabled = true;
         }
         #endregion
 
