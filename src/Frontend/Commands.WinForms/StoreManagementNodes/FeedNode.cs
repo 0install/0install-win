@@ -18,9 +18,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using NanoByte.Common;
+using NanoByte.Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
@@ -47,6 +50,24 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// </summary>
         [Description("The URI indentifying this feed.")]
         public Uri Uri { get { return _feed.Uri; } }
+
+        /// <summary>
+        /// The main website of the application.
+        /// </summary>
+        [Description("The main website of the application.")]
+        public Uri Homepage { get { return _feed.Homepage; }}
+
+        /// <summary>
+        /// A short one-line description of the application.
+        /// </summary>
+        [Description("A short one-line description of the application.")]
+        public string Summary { get { return _feed.GetBestSummary(CultureInfo.CurrentUICulture); } }
+
+        /// <summary>
+        /// A comma-separated list of categories the applications fits into.
+        /// </summary>
+        [Description("A comma-separated list of categories the applications fits into.")]
+        public string Categories { get { return StringUtils.Join(",", _feed.Categories.Select(x => x.Name)); } }
         #endregion
 
         #region Constructor
