@@ -21,6 +21,7 @@ using System.IO;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Management;
@@ -36,23 +37,23 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         #region Dependencies
         private readonly IStore _store;
         private readonly IFeedCache _feedCache;
-        private readonly StoreManageForm _parent;
+        private readonly IInteractionHandler _handler;
 
         /// <summary>
         /// Creates a new list builder
         /// </summary>
-        /// <param name="parent">The window using this builder. Used for callbacks.</param>
         /// <param name="store">Used to list <see cref="Implementation"/>s</param>
         /// <param name="feedCache">Used to load <see cref="Feed"/>s.</param>
-        public NodeListBuilder(StoreManageForm parent, IStore store, IFeedCache feedCache)
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
+        public NodeListBuilder(IStore store, IFeedCache feedCache, IInteractionHandler handler)
         {
             #region Sanity checks
-            if (parent == null) throw new ArgumentNullException("parent");
             if (store == null) throw new ArgumentNullException("store");
             if (feedCache == null) throw new ArgumentNullException("feedCache");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            _parent = parent;
+            _handler = handler;
             _store = store;
             _feedCache = feedCache;
         }
@@ -93,7 +94,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 
         private void Add(Feed feed)
         {
-            Add(new FeedNode(_parent, _feedCache, feed));
+            Add(new FeedNode(feed, _feedCache, _handler));
         }
 
         private void Add(ManifestDigest digest)
@@ -104,8 +105,8 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
                 var implementation = _feeds.GetImplementation(digest, out feed);
 
                 ImplementationNode implementationNode;
-                if (feed == null) implementationNode = new OrphanedImplementationNode(_parent, _store, digest);
-                else implementationNode = new OwnedImplementationNode(_parent, _store, digest, new FeedNode(_parent, _feedCache, feed), implementation);
+                if (feed == null) implementationNode = new OrphanedImplementationNode(digest, _store, _handler);
+                else implementationNode = new OwnedImplementationNode(digest, implementation, new FeedNode(feed, _feedCache, _handler), _store, _handler);
 
                 TotalSize += implementationNode.Size;
                 Add(implementationNode);
@@ -128,7 +129,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 
         private void Add(string path)
         {
-            Add(new TempDirectoryNode(_parent, _store, path));
+            Add(new TempDirectoryNode(path, _store, _handler));
         }
 
         private void Add(Node entry)

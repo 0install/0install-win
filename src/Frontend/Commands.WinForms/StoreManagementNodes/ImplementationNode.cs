@@ -59,14 +59,14 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <summary>
         /// Creates a new implementation node.
         /// </summary>
-        /// <param name="parent">The window containing this node. Used for callbacks.</param>
-        /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
         /// <param name="digest">The digest identifying the implementation.</param>
+        /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
         /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        protected ImplementationNode(StoreManageForm parent, IStore store, ManifestDigest digest)
-            : base(parent, store)
+        protected ImplementationNode(ManifestDigest digest, IStore store, IInteractionHandler handler)
+            : base(store, handler)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");
@@ -108,13 +108,9 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 
         #region Verify
         /// <inheritdoc/>
-        public override void Verify(IInteractionHandler handler)
+        public override void Verify()
         {
-            #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
-            Store.Verify(_digest, handler);
+            Store.Verify(_digest, Handler);
         }
         #endregion
 
@@ -128,21 +124,22 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
                 {
                     try
                     {
-                        Verify(Parent);
-                        Parent.RefreshList();
+                        Verify();
                     }
                         #region Error handling
                     catch (OperationCanceledException)
                     {}
                     catch (IOException ex)
                     {
-                        Msg.Inform(Parent, ex.Message, MsgSeverity.Warn);
+                        Msg.Inform(null, ex.Message, MsgSeverity.Warn);
                     }
                     catch (UnauthorizedAccessException ex)
                     {
-                        Msg.Inform(Parent, ex.Message, MsgSeverity.Warn);
+                        Msg.Inform(null, ex.Message, MsgSeverity.Warn);
                     }
                     #endregion
+
+                    Handler.CloseProgressUI();
                 }));
             return contextMenu;
         }

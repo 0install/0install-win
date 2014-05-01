@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 
@@ -37,14 +38,14 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <summary>
         /// Creates a new orphaned implementation node.
         /// </summary>
-        /// <param name="parent">The window containing this node. Used for callbacks.</param>
-        /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
         /// <param name="digest">The digest identifying the implementation.</param>
+        /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
         /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        public OrphanedImplementationNode(StoreManageForm parent, IStore store, ManifestDigest digest)
-            : base(parent, store, digest)
+        public OrphanedImplementationNode(ManifestDigest digest, IStore store, IInteractionHandler handler)
+            : base(digest, store, handler)
         {}
         #endregion
     }

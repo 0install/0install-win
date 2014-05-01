@@ -23,6 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using NanoByte.Common;
+using NanoByte.Common.Controls;
 using NanoByte.Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store;
@@ -34,7 +35,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
     /// <summary>
     /// Models information about a <see cref="Feed"/> in the <see cref="IFeedCache"/> for display in a GUI.
     /// </summary>
-    public sealed class FeedNode : Node
+    public sealed class FeedNode : Node, IContextMenu
     {
         #region Variables
         private readonly IFeedCache _cache;
@@ -74,10 +75,11 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <summary>
         /// Creates a new feed node.
         /// </summary>
-        /// <param name="parent">The window containing this node. Used for callbacks.</param>
-        /// <param name="cache">The <see cref="IFeedCache"/> the <see cref="Feed"/> is located in.</param>
         /// <param name="feed">The <see cref="Feed"/> to be represented by this node.</param>
-        public FeedNode(StoreManageForm parent, IFeedCache cache, Feed feed) : base(parent)
+        /// <param name="cache">The <see cref="IFeedCache"/> the <see cref="Feed"/> is located in.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
+        public FeedNode(Feed feed, IFeedCache cache, IInteractionHandler handler)
+            : base(handler)
         {
             #region Sanity checks
             if (cache == null) throw new ArgumentNullException("cache");
@@ -108,19 +110,19 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <summary>
         /// Does nothing.
         /// </summary>
-        public override void Verify(IInteractionHandler handler)
+        public override void Verify()
         {}
         #endregion
 
         #region Context menu
         /// <inheritdoc/>
-        public override ContextMenu GetContextMenu()
+        public ContextMenu GetContextMenu()
         {
             return new ContextMenu(new[]
             {
                 new MenuItem(Resources.Remove, delegate
                 {
-                    if (Msg.YesNo(Parent, Resources.DeleteEntry, MsgSeverity.Warn))
+                    if (Handler.AskQuestion(Resources.DeleteEntry))
                     {
                         try
                         {
@@ -129,19 +131,19 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
                             #region Error handling
                         catch (KeyNotFoundException ex)
                         {
-                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
                         }
                         catch (IOException ex)
                         {
-                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
                         }
                         catch (UnauthorizedAccessException ex)
                         {
-                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
                         }
                         #endregion
 
-                        Parent.RefreshList();
+                        Handler.CloseProgressUI();
                     }
                 })
             });

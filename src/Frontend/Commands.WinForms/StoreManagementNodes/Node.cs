@@ -20,9 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Windows.Forms;
 using NanoByte.Common;
-using NanoByte.Common.Controls;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
@@ -31,13 +29,13 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
     /// Models information about elements in a cache for display in a GUI.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for INamed sorting")]
-    public abstract class Node : INamed<Node>, IContextMenu
+    public abstract class Node : INamed<Node>
     {
         #region Variables
         /// <summary>
-        /// The window containing this node. Used for callbacks.
+        /// A callback object used when the the user needs to be asked questions or informed about IO tasks.
         /// </summary>
-        protected readonly StoreManageForm Parent;
+        protected readonly IInteractionHandler Handler;
         #endregion
 
         #region Properties
@@ -56,14 +54,14 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <summary>
         /// Creates a new store node.
         /// </summary>
-        /// <param name="parent">The window containing this node. Used for callbacks.</param>
-        protected Node(StoreManageForm parent)
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
+        protected Node(IInteractionHandler handler)
         {
             #region Sanity checks
-            if (parent == null) throw new ArgumentNullException("parent");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            Parent = parent;
+            Handler = handler;
         }
         #endregion
 
@@ -83,11 +81,10 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <summary>
         /// Verify this element is valid.
         /// </summary>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if the entry's directory could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the entry's directory is not permitted.</exception>
-        public abstract void Verify(IInteractionHandler handler);
+        public abstract void Verify();
         #endregion
 
         #region Comparison
@@ -100,11 +97,6 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 
             return string.Compare(Name, other.Name, StringComparison.OrdinalIgnoreCase);
         }
-        #endregion
-
-        #region Context menu
-        /// <inheritdoc/>
-        public abstract ContextMenu GetContextMenu();
         #endregion
     }
 }

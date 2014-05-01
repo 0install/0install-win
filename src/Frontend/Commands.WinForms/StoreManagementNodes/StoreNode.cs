@@ -22,8 +22,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using NanoByte.Common;
+using NanoByte.Common.Controls;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
@@ -31,7 +33,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
     /// <summary>
     /// Models information about elements in a cache for display in a GUI.
     /// </summary>
-    public abstract class StoreNode : Node
+    public abstract class StoreNode : Node, IContextMenu
     {
         #region Variables
         /// <summary>
@@ -52,14 +54,10 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <summary>
         /// Creates a new store node.
         /// </summary>
-        /// <param name="parent">The window containing this node. Used for callbacks.</param>
         /// <param name="store">The store containing the element.</param>
-        protected StoreNode(StoreManageForm parent, IStore store) : base(parent)
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
+        protected StoreNode(IStore store, IInteractionHandler handler) : base(handler)
         {
-            #region Sanity checks
-            if (parent == null) throw new ArgumentNullException("parent");
-            #endregion
-
             Store = store;
         }
         #endregion
@@ -68,35 +66,35 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 
         #region Context menu
         /// <inheritdoc/>
-        public override ContextMenu GetContextMenu()
+        public virtual ContextMenu GetContextMenu()
         {
             return new ContextMenu(new[]
             {
                 new MenuItem(Resources.OpenInFileManager, delegate { if (Path != null) Process.Start(Path); }),
                 new MenuItem(Resources.Remove, delegate
                 {
-                    if (Msg.YesNo(Parent, Resources.DeleteEntry, MsgSeverity.Warn))
+                    if (Handler.AskQuestion(Resources.DeleteEntry))
                     {
                         try
                         {
-                            Parent.RunTask(new SimpleTask(Resources.DeletingImplementations, Delete));
+                            Handler.RunTask(new SimpleTask(Resources.DeletingImplementations, Delete));
                         }
                             #region Error handling
                         catch (KeyNotFoundException ex)
                         {
-                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
                         }
                         catch (IOException ex)
                         {
-                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
                         }
                         catch (UnauthorizedAccessException ex)
                         {
-                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
                         }
                         #endregion
 
-                        Parent.RefreshList();
+                        Handler.CloseProgressUI();
                     }
                 })
             });

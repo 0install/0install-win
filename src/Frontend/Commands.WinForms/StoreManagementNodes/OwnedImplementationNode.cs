@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 
@@ -60,16 +61,16 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <summary>
         /// Creates a new owned implementation node.
         /// </summary>
-        /// <param name="parent">The window containing this node. Used for callbacks.</param>
-        /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
         /// <param name="digest">The digest identifying the implementation.</param>
-        /// <param name="iface">The node of the interface owning the implementation.</param>
         /// <param name="implementation">Information about the implementation from a <see cref="Feed"/> file.</param>
+        /// <param name="iface">The node of the interface owning the implementation.</param>
+        /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
         /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        public OwnedImplementationNode(StoreManageForm parent, IStore store, ManifestDigest digest, FeedNode iface, Implementation implementation)
-            : base(parent, store, digest)
+        public OwnedImplementationNode(ManifestDigest digest, Implementation implementation, FeedNode iface, IStore store, IInteractionHandler handler)
+            : base(digest, store, handler)
         {
             _iface = iface;
             _implementation = implementation;

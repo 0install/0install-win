@@ -87,7 +87,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Fills the <see cref="_treeView"/> with entries.
         /// </summary>
-        internal void RefreshList()
+        private void RefreshList()
         {
             buttonRefresh.Enabled = false;
             refreshListWorker.RunWorkerAsync();
@@ -98,7 +98,7 @@ namespace ZeroInstall.Commands.WinForms
             _store.Flush();
             _feedCache.Flush();
 
-            var listBuilder = new NodeListBuilder(this, _store, _feedCache);
+            var listBuilder = new NodeListBuilder(_store, _feedCache, this);
             listBuilder.Run();
             e.Result = listBuilder;
         }
@@ -204,7 +204,7 @@ namespace ZeroInstall.Commands.WinForms
             try
             {
                 foreach (Node entry in _treeView.CheckedEntries)
-                    entry.Verify(this);
+                    entry.Verify();
             }
                 #region Error handling
             catch (OperationCanceledException)
@@ -254,7 +254,9 @@ namespace ZeroInstall.Commands.WinForms
         {}
 
         public void CloseProgressUI()
-        {}
+        {
+            RefreshList();
+        }
 
         /// <inheritdoc/>
         public void RunTask(ITask task)
