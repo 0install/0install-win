@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.ComponentModel;
 using NanoByte.Common.Collections;
 
@@ -34,6 +35,10 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         public static void SetAllUse<T>(this BindingList<T> model, bool value)
             where T : CapabilityModel
         {
+            #region Sanity checks
+            if (model == null) throw new ArgumentNullException("model");
+            #endregion
+
             foreach (var element in model.Except(element => element.Capability.ExplicitOnly))
                 element.Use = value;
             model.ResetBindings();
