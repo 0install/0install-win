@@ -22,7 +22,6 @@ using System.Linq;
 using System.Net;
 using System.Xml;
 using NanoByte.Common;
-using NanoByte.Common.Controls;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;

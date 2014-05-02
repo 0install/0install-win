@@ -74,7 +74,7 @@ namespace ZeroInstall.Commands.WinForms
             // ReSharper disable once DoNotCallOverridableMethodsInConstructor
             if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
 
-            Shown += delegate { WindowsUtils.SetForegroundWindow(this); };
+            Shown += delegate { this.SetForegroundWindow(); };
         }
         #endregion
 

@@ -239,7 +239,7 @@ namespace ZeroInstall.Store
 
                 // Remove the old value and only set the new one if it isn't the default value
                 global.RemoveKey(key);
-                if (!Equals(property.Value.DefaultValue, property.Value.Value))
+                if (!property.Value.IsDefaultValue)
                     global.AddKey(key, property.Value.NeedsEncoding ? property.Value.Value.Base64Utf8Encode() : property.Value.Value);
             }
         }

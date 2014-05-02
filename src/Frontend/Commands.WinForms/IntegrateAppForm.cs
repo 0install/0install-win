@@ -66,7 +66,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void IntegrateAppForm_Load(object sender, EventArgs e)
         {
-            WindowsUtils.SetForegroundWindow(this);
+            this.SetForegroundWindow();
 
             Text = string.Format(Resources.Integrate, _state.AppEntry.Name);
 

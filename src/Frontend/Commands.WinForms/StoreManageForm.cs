@@ -66,7 +66,7 @@ namespace ZeroInstall.Commands.WinForms
             _feedCache = feedCache;
 
             InitializeComponent();
-            WindowsUtils.AddShieldIcon(buttonRunAsAdmin);
+            buttonRunAsAdmin.AddShieldIcon();
 
             if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
             if (WindowsUtils.IsAdministrator) Text += @" (Administrator)";
