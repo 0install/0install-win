@@ -16,7 +16,6 @@
  */
 
 using Moq;
-using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NUnit.Framework;

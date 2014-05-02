@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="Config.Storage.cs" />
     <Compile Include="Feeds\DiskFeedCache.cs" />
     <Compile Include="Feeds\FeedCacheFactory.cs" />
     <Compile Include="Feeds\FeedUtils.cs" />
