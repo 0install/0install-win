@@ -15,28 +15,21 @@ You can download end-user binaries at http://0install.de/.</description>
         </dependencies>
     </metadata>
     <files>
-        <file src="..\build\Release\Frontend\0install.exe" target="lib\net20" />
-        <file src="..\build\Release\Frontend\0install-win.exe" target="lib\net20" />
-        <!--<file src="..\build\Release\Frontend\0install-gtk.exe" target="lib\net20" />-->
-        <file src="..\build\Release\Frontend\0store.exe" target="lib\net20" />
-        <file src="..\build\Release\Frontend\0store-service.exe" target="lib\net20" />
+        <file src="..\build\Release\Frontend\ZeroInstall.Commands.*" target="lib\net20" />
+        <file src="..\build\Release\Frontend\ZeroInstall.Central.*" target="lib\net20" />
+        <file src="..\build\Release\Frontend\ZeroInstall.Hooking.*" target="lib\net20" />
+        <file src="..\build\Release\Frontend\0install.*" target="lib\net20" />
+        <file src="..\build\Release\Frontend\0install-win.*" target="lib\net20" />
+        <file src="..\build\Release\Frontend\0store.*" target="lib\net20" />
+        <file src="..\build\Release\Frontend\0store-service.*" target="lib\net20" />
+        <file src="..\build\Release\Frontend\0alias.*" target="lib\net20" />
         <file src="..\build\Release\Frontend\ZeroInstall.exe" target="lib\net20" />
-        <!--<file src="..\build\Release\Frontend\ZeroInstall.Gtk.exe" target="lib\net20" />-->
-
-        <!-- Symbols and source code -->
-        <file src="..\build\Release\Frontend\0install.pdb" target="lib\net20" />
-        <file src="..\src\Frontend\Commands.Cli\**\*.cs" target="src\Frontend\Commands.Cli" />
-        <file src="..\build\Release\Frontend\0install-win.pdb" target="lib\net20" />
-        <file src="..\src\Frontend\Commands.WinForms\**\*.cs" target="src\Frontend\Commands.WinForms" />
-        <!--<file src="..\build\Release\Frontend\0install-gtk.pdb" target="lib\net20" />
-        <file src="..\src\Frontend\Commands.Gtk\**\*.cs" target="src\Frontend\Commands.WinForms" />-->
-        <file src="..\build\Release\Frontend\0store.pdb" target="lib\net20" />
-        <file src="..\src\Frontend\Store.Management.Cli\**\*.cs" target="src\Frontend\Store.Management.Cli" />
-        <file src="..\build\Release\Frontend\0store-service.pdb" target="lib\net20" />
-        <file src="..\src\Frontend\Store.Service\**\*.cs" target="src\Frontend\Store.Service" />
         <file src="..\build\Release\Frontend\ZeroInstall.pdb" target="lib\net20" />
-        <file src="..\src\Frontend\Central.WinForms\**\*.cs" target="src\Frontend\Central.WinForms" />
-        <!--<file src="..\build\Release\Frontend\ZeroInstall.Gtk.pdb" target="lib\net20" />
-        <file src="..\src\Frontend\Central.Gtk\**\*.cs" target="src\Frontend\Central.Gtk" />-->
+
+        <!-- Bundled dependencies -->
+        <file src="..\lib\EasyHook*.*" target="lib\net20" />
+
+        <!-- Source code -->
+        <file src="..\src\Frontend\**\*.cs" target="src" />
     </files>
 </package>

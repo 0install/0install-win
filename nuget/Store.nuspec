@@ -21,30 +21,20 @@ This API provides a common basis for the packages ZeroInstall.Services and ZeroI
         </references>
     </metadata>
     <files>
-        <file src="..\build\Release\Backend\ZeroInstall.Store.dll" target="lib\net20" />
-        <file src="..\build\Release\Backend\ZeroInstall.Store.xml" target="lib\net20" />
-        <file src="..\build\Release\Backend\ZeroInstall.Store.XmlSerializers.dll" target="lib\net20" />
+        <file src="..\build\Release\Backend\ZeroInstall.Store.*" target="lib\net20" />
 
         <!-- Satellite assemblies (translations) -->
         <file src="..\build\Release\Backend\de\ZeroInstall.Store.resources.dll" target="lib\net20\de" />
 
         <!-- Bundled dependencies -->
-        <file src="..\build\Release\Backend\INIFileParser.dll" target="lib\net20" />
-        <file src="..\build\Release\Backend\INIFileParser.xml" target="lib\net20" />
-        <file src="..\build\Release\Backend\Microsoft.Deployment.Compression.Cab.dll" target="lib\net20" />
-        <file src="..\build\Release\Backend\Microsoft.Deployment.Compression.Cab.xml" target="lib\net20" />
-        <file src="..\build\Release\Backend\Microsoft.Deployment.Compression.dll" target="lib\net20" />
-        <file src="..\build\Release\Backend\Microsoft.Deployment.Compression.xml" target="lib\net20" />
-        <file src="..\build\Release\Backend\Microsoft.Deployment.WindowsInstaller.dll" target="lib\net20" />
-        <file src="..\build\Release\Backend\Microsoft.Deployment.WindowsInstaller.xml" target="lib\net20" />
+        <file src="..\lib\INIFileParser.*" target="lib\net20" />
+        <file src="..\lib\Microsoft.Deployment.*" target="lib\net20" />
 
         <!-- Bundled native dependencies -->
-        <file src="..\build\Release\Backend\7zxa.dll" target="content" />
-        <file src="..\build\Release\Backend\7zxa-x64.dll" target="content" />
+        <file src="..\lib\7zxa*.dll" target="content" />
         <file src="install.ps1" target="tools" /> <!-- CopyToOutputDirectory -->
 
-        <!-- Symbols and source code -->
-        <file src="..\build\Release\Backend\ZeroInstall.Store.pdb" target="lib\net20" />
-        <file src="..\src\Backend\Store\**\*.cs" target="src\Backend\Store" />
+        <!-- Source code -->
+        <file src="..\src\Backend\Store\**\*.cs" target="src" />
     </files>
 </package>
