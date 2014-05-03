@@ -7,6 +7,7 @@ rm -rf build
 
 #Solution-wide
 rm -f src/*.userprefs src/*.suo src/*.user src/*.cache
+rm -rf src/obj
 
 #Per-project
 rm -rf src/*/*/obj
