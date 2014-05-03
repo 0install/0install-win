@@ -100,7 +100,7 @@ namespace ZeroInstall.Store
         [Test]
         public void TestRetainUnknownProperties()
         {
-            string testIniData = "[global]" + Environment.NewLine + "test = test" + Environment.NewLine + Environment.NewLine;
+            string testIniData = "[global]" + Environment.NewLine + "test = test" + Environment.NewLine;
 
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {

@@ -21,6 +21,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using IniParser;
+using IniParser.Exceptions;
+using IniParser.Model;
 using Microsoft.Win32;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Utils;
@@ -104,9 +106,9 @@ namespace ZeroInstall.Store
             if (WindowsUtils.IsWindowsNT)
             {
                 using (var registryKey = Registry.LocalMachine.OpenSubKey(RegistryPolicyPath, writable: false))
-                    if (registryKey != null) config.ReadFromRegistryKey(registryKey);
+                    if (registryKey != null) config.ReadFromRegistry(registryKey);
                 using (var registryKey = Registry.CurrentUser.OpenSubKey(RegistryPolicyPath, writable: false))
-                    if (registryKey != null) config.ReadFromRegistryKey(registryKey);
+                    if (registryKey != null) config.ReadFromRegistry(registryKey);
             }
 
             return config;
@@ -143,6 +145,9 @@ namespace ZeroInstall.Store
         #endregion
 
         #region Serialization
+        private const string GlobalSection = "global";
+        private const string Base64Suffix = "_base64";
+
         /// <summary>Stores the original INI data so that unknown values are preserved on re<see cref="Save()"/>ing.</summary>
         [NonSerialized]
         private IniData _iniData;
@@ -165,13 +170,12 @@ namespace ZeroInstall.Store
             }
             #endregion
 
-            if (!_iniData.Sections.ContainsSection("global")) return;
-
-            var global = _iniData["global"];
+            if (!_iniData.Sections.ContainsSection(GlobalSection)) return;
+            var global = _iniData[GlobalSection];
             foreach (var property in _metaData)
             {
                 string key = property.Key;
-                if (property.Value.NeedsEncoding) key += "_base64";
+                if (property.Value.NeedsEncoding) key += Base64Suffix;
 
                 if (global.ContainsKey(key))
                 {
@@ -188,24 +192,12 @@ namespace ZeroInstall.Store
                     #endregion
                 }
             }
-
-            // Migrate passwords/keys that are not base64-encoded yet
-            if (global.ContainsKey("sync_server_pw"))
-            {
-                SyncServerPassword = global["sync_server_pw"];
-                global.RemoveKey("sync_server_pw");
-            }
-            if (global.ContainsKey("sync_crypto_key"))
-            {
-                SyncCryptoKey = global["sync_crypto_key"];
-                global.RemoveKey("sync_crypto_key");
-            }
         }
 
         /// <summary>
         /// Reads data from a Windows registry key and transfers it to properties using <see cref="_metaData"/>.
         /// </summary>
-        private void ReadFromRegistryKey(RegistryKey registryKey)
+        private void ReadFromRegistry(RegistryKey registryKey)
         {
             foreach (var property in _metaData)
             {
@@ -237,13 +229,13 @@ namespace ZeroInstall.Store
             if (_iniData == null) _iniData = new IniData();
             _iniData.Sections.RemoveSection("__global__section__"); // Throw away section-less data
 
-            if (!_iniData.Sections.ContainsSection("global")) _iniData.Sections.AddSection("global");
-            var global = _iniData["global"];
+            if (!_iniData.Sections.ContainsSection(GlobalSection)) _iniData.Sections.AddSection(GlobalSection);
+            var global = _iniData[GlobalSection];
 
             foreach (var property in _metaData)
             {
                 string key = property.Key;
-                if (property.Value.NeedsEncoding) key += "_base64";
+                if (property.Value.NeedsEncoding) key += GlobalSection;
 
                 // Remove the old value and only set the new one if it isn't the default value
                 global.RemoveKey(key);

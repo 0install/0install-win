@@ -53,6 +53,11 @@ http://www.7-zip.org/
 GNU LGPL 2.1: http://opensource.org/licenses/LGPL-2.1
 Pre-compiled native DLLs: 7zxa.dll, 7zxa-x64.dll
 
+INI File Parser 2.0.4
+http://github.com/rickyah/ini-parser
+MIT license: http://opensource.org/licenses/MIT
+Pre-compiled managed DLL: INIFileParser.dll
+
 NDesk.Options post-0.2.1-GIT-checkout
 http://ndesk.org/Options
 MIT license: http://opensource.org/licenses/MIT
@@ -63,11 +68,6 @@ ELFSharp 0.0.10
 http://antmicro.com/projects/elfsharp/
 X11 license: ELFSharp.license.txt
 Self-compiled managed DLL: ELFSharp.dll
-
-INI File Parser v1.7
-http://code.google.com/p/ini-parser/
-MIT license: http://opensource.org/licenses/MIT
-Pre-compiled managed DLL: INIFileParser.dll
 
 WiX Toolset 3.8
 http://wixtoolset.org/
