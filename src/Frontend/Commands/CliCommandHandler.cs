@@ -19,34 +19,22 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using NanoByte.Common;
-using NanoByte.Common.Cli;
-using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
-using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model.Selection;
 
-namespace ZeroInstall.Services
+namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Uses the stderr stream to inform the user about the progress of tasks and ask the user questions.
-    /// Provides hooks for specializition in derived implementations.
+    /// Uses the stdin/stderr streams to allow users to interact with <see cref="FrontendCommand"/>s.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Diamond inheritance structure leads to false positive.")]
-    public class CliHandler : CliTaskHandler, ICommandHandler
+    public sealed class CliCommandHandler : CliServiceHandler, ICommandHandler
     {
-        /// <inheritdoc/>
-        public bool Batch { get; set; }
-
-        /// <summary>
-        /// Does nothing.
-        /// </summary>
-        public void SetGuiHints(Func<string> actionTitle, int delay)
-        {}
-
         #region UI control
         /// <inheritdoc/>
         public void ShowProgressUI()
@@ -78,63 +66,31 @@ namespace ZeroInstall.Services
         {
             // Console UI only, so nothing to do
         }
-        #endregion
 
-        #region Question
-        /// <inheritdoc/>
-        public bool AskQuestion(string question, string batchInformation = null)
-        {
-            if (Batch)
-            {
-                if (!string.IsNullOrEmpty(batchInformation)) Log.Warn(batchInformation);
-                return false;
-            }
-
-            Log.Info(question);
-
-            // Loop until the user has made a valid choice
-            while (true)
-            {
-                string input = CliUtils.ReadString("[Y/N]");
-                if (input == null) throw new OperationCanceledException();
-                switch (input.ToLower())
-                {
-                    case "y":
-                    case "yes":
-                        return true;
-                    case "n":
-                    case "no":
-                        return false;
-                }
-            }
-        }
+        /// <summary>
+        /// Does nothing.
+        /// </summary>
+        public void SetGuiHints(Func<string> actionTitle, int delay)
+        {}
         #endregion
 
         #region Selections UI
         /// <inheritdoc/>
-        public virtual void ShowSelections(Selections selections, IFeedCache feedCache)
+        public void ShowSelections(Selections selections, IFeedCache feedCache)
         {
             // Stub to be overriden
         }
 
         /// <inheritdoc/>
-        public virtual void ModifySelections(Func<Selections> solveCallback)
+        public void ModifySelections(Func<Selections> solveCallback)
         {
             throw new NeedGuiException(Resources.NoModifySelectionsInCli + (WindowsUtils.IsWindows ? "\n" + Resources.Try0installWin : ""));
         }
         #endregion
 
-        #region Messages
-        /// <inheritdoc/>
-        public void Output(string title, string information)
-        {
-            Console.WriteLine(information);
-        }
-        #endregion
-
         #region Dialogs
         /// <inheritdoc/>
-        public virtual void ShowIntegrateApp(IntegrationState state)
+        public void ShowIntegrateApp(IntegrationState state)
         {
             throw new NeedGuiException(Resources.IntegrateAppUseGui);
         }

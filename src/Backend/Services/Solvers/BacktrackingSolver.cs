@@ -37,7 +37,7 @@ namespace ZeroInstall.Services.Solvers
         private readonly Config _config;
         private readonly IFeedManager _feedManager;
         private readonly IStore _store;
-        private readonly IInteractionHandler _handler;
+        private readonly IServiceHandler _handler;
 
         /// <summary>
         /// Creates a new simple solver.
@@ -46,7 +46,7 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="store">Used to check which <see cref="Implementation"/>s are already cached.</param>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public BacktrackingSolver(Config config, IFeedManager feedManager, IStore store, IInteractionHandler handler)
+        public BacktrackingSolver(Config config, IFeedManager feedManager, IStore store, IServiceHandler handler)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");

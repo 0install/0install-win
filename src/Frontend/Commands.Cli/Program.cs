@@ -27,7 +27,6 @@ using NanoByte.Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Services;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Implementations;
@@ -65,7 +64,7 @@ namespace ZeroInstall.Commands.Cli
         /// </summary>
         public static int Run(string[] args)
         {
-            ICommandHandler handler = new CliHandler();
+            var handler = new CliCommandHandler();
             FrontendCommand command;
             try
             {

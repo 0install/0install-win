@@ -24,7 +24,6 @@ using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;

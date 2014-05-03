@@ -21,6 +21,7 @@ using System.Threading;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Utils;
 using NUnit.Framework;
+using ZeroInstall.Services;
 using ZeroInstall.Store.Management;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
@@ -33,14 +34,14 @@ namespace ZeroInstall.Store.Implementations
     [TestFixture]
     public class DirectoryStoreTest
     {
-        private MockHandler _handler;
+        private MockServiceHandler _handler;
         private TemporaryDirectory _tempDir;
         private DirectoryStore _store;
 
         [SetUp]
         public void SetUp()
         {
-            _handler = new MockHandler();
+            _handler = new MockServiceHandler();
             _tempDir = new TemporaryDirectory("0install-unit-tests");
             _store = new DirectoryStore(_tempDir);
         }

@@ -233,7 +233,7 @@ namespace ZeroInstall.Store.Implementations
 
         #region Verify
         /// <inheritdoc/>
-        public void Verify(ManifestDigest manifestDigest, IInteractionHandler handler)
+        public void Verify(ManifestDigest manifestDigest, IServiceHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");

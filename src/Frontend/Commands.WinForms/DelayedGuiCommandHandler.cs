@@ -22,7 +22,6 @@ using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration.ViewModel;
-using ZeroInstall.Services;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
@@ -31,14 +30,14 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall.Commands.WinForms
 {
     /// <summary>
-    /// Wraps a <see cref="GuiHandler"/> and displays it only after a certain delay (or immediately when it is required).
+    /// Wraps a <see cref="GuiCommandHandler"/> and displays it only after a certain delay (or immediately when it is required).
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Disposal is handled sufficiently by GC in this case")]
-    public sealed class DelayedGuiHandler : MarshalNoTimeout, ICommandHandler
+    public sealed class DelayedGuiCommandHandler : MarshalNoTimeout, ICommandHandler
     {
         #region Variables
         /// <summary>The actual GUI to show with a delay.</summary>
-        private volatile GuiHandler _target;
+        private volatile GuiCommandHandler _target;
 
         /// <summary>The number of milliseconds by which to delay the initial display of the GUI.</summary>
         private int _delay;
@@ -50,7 +49,7 @@ namespace ZeroInstall.Commands.WinForms
         private readonly AutoResetEvent _uiDone = new AutoResetEvent(false);
 
         /// <summary>Queues defered actions to be executed as soon as the <see cref="_target"/> is created.</summary>
-        private Action<GuiHandler> _onTargetCreate;
+        private Action<GuiCommandHandler> _onTargetCreate;
         #endregion
 
         #region Properties
@@ -76,7 +75,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Initializes the <see cref="_target"/> if it is missing (thread-safe) and returns it.
         /// </summary>
-        private GuiHandler InitTarget()
+        private GuiCommandHandler InitTarget()
         {
             // Thread-safe "private" singleton
             lock (_targetLock)
@@ -85,7 +84,7 @@ namespace ZeroInstall.Commands.WinForms
                 _uiDone.Set();
 
                 // Create target but keep it hidden until all defered actions are complete (ensures correct order)
-                var newTarget = new GuiHandler(_cancellationTokenSource);
+                var newTarget = new GuiCommandHandler(_cancellationTokenSource);
                 if (_onTargetCreate != null) _onTargetCreate(newTarget);
                 return _target = newTarget;
             }
@@ -94,7 +93,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Applies an action to the <see cref="_target"/> as soon as it is created
         /// </summary>
-        private void ApplyToTarget(Action<GuiHandler> action)
+        private void ApplyToTarget(Action<GuiCommandHandler> action)
         {
             // Thread-safe "private" singleton
             lock (_targetLock)

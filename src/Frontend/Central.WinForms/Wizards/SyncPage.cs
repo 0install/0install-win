@@ -23,20 +23,16 @@ using NanoByte.Common.Tasks;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Feeds;
-using ZeroInstall.Store.Implementations;
-using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Central.WinForms.Wizards
 {
     /// <summary>
     /// Base class for <see cref="Wizard"/> pages that need a <see cref="SyncApps"/>.
     /// </summary>
-    internal partial class SyncPage : UserControl, ICommandHandler
+    internal partial class SyncPage : UserControl, IServiceHandler
     {
         protected readonly bool MachineWide;
 
@@ -89,7 +85,17 @@ namespace ZeroInstall.Central.WinForms.Wizards
         }
         #endregion
 
-        #region ICommandHandler
+        protected void ShowProgressUI()
+        {
+            Invoke(new Action(() => labelWorking.Visible = true));
+        }
+
+        protected void CloseProgressUI()
+        {
+            Invoke(new Action(() => labelWorking.Visible = false));
+        }
+
+        #region IServiceHandler
         private readonly CancellationToken _cancellationToken = new CancellationToken();
 
         /// <summary>
@@ -113,56 +119,12 @@ namespace ZeroInstall.Central.WinForms.Wizards
         /// </summary>
         public bool Batch { get { return true; } set { } }
 
-        /// <summary>
-        /// Does nothing.
-        /// </summary>
-        public void SetGuiHints(Func<string> actionTitle, int delay)
-        {}
-
-        public void ShowProgressUI()
-        {
-            Invoke(new Action(() => labelWorking.Visible = true));
-        }
-
-        public void DisableProgressUI()
-        {}
-
-        public void CloseProgressUI()
-        {
-            Invoke(new Action(() => labelWorking.Visible = false));
-        }
-
         public bool AskQuestion(string question, string batchInformation = null)
         {
             throw new NotImplementedException();
         }
 
-        public void ShowSelections(Selections selections, IFeedCache feedCache)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ModifySelections(Func<Selections> solveCallback)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Output(string title, string information)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ShowIntegrateApp(IntegrationState state)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool ShowConfig(Config config)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ManageStore(IStore store, IFeedCache feedCache)
         {
             throw new NotImplementedException();
         }

@@ -16,24 +16,34 @@
  */
 
 using System;
+using System.Windows.Forms;
+using NanoByte.Common;
+using ZeroInstall.Store;
 
-namespace ZeroInstall.Store
+namespace ZeroInstall.Commands.WinForms
 {
     /// <summary>
-    /// Contains extension methods for <see cref="IInteractionHandler"/>s.
+    /// Like <see cref="SilentServiceHandler"/> but with <see cref="Msg"/> for <see cref="IServiceHandler.AskQuestion"/>.
     /// </summary>
-    public static class HandlerExtensions
+    public class MinimalServiceHandler : SilentServiceHandler
     {
-        /// <summary>
-        /// Calls <see cref="IInteractionHandler.Output"/> only when <see cref="IInteractionHandler.Batch"/> is <see langword="false"/>.
-        /// </summary>
-        public static void OutputLow(this IInteractionHandler handler, string title, string message)
-        {
-            #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
+        private readonly Control _owner;
 
-            if (!handler.Batch) handler.Output(title, message);
+        /// <summary>
+        /// Creates a new minimal handler.
+        /// </summary>
+        /// <param name="owner">The parent window owning the handler.</param>
+        public MinimalServiceHandler(Control owner)
+        {
+            _owner = owner;
+        }
+
+        /// <inheritdoc/>
+        public override bool AskQuestion(string question, string batchInformation = null)
+        {
+            bool result = false;
+            _owner.Invoke(new Action(() => result = Msg.YesNo(_owner, question, MsgSeverity.Info)));
+            return result;
         }
     }
 }

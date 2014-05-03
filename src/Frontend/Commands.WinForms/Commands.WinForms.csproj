@@ -70,9 +70,9 @@
     <Compile Include="ConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DelayedGuiHandler.cs" />
+    <Compile Include="DelayedGuiCommandHandler.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="GuiHandler.cs" />
+    <Compile Include="GuiCommandHandler.cs" />
     <Compile Include="IntegrateAppForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,7 +85,7 @@
     <Compile Include="InterfaceDialog.Designer.cs">
       <DependentUpon>InterfaceDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="MinimalHandler.cs" />
+    <Compile Include="MinimalServiceHandler.cs" />
     <Compile Include="ProgressForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -41,7 +41,7 @@ namespace ZeroInstall.Commands
 
         private static FrontendCommand CreateCommand(string name)
         {
-            var handler = new MockHandler();
+            var handler = new MockCommandHandler();
             try
             {
                 return CommandFactory.CreateAndParse(new[] {name, "--verbose"}, handler);

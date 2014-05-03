@@ -15,14 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using ZeroInstall.Services;
+using System;
 
-namespace ZeroInstall.Commands.Gtk
+namespace ZeroInstall.Store
 {
     /// <summary>
-    /// Uses <see cref="Gtk"/> to inform the user about the progress of tasks and ask the user questions.
+    /// Contains extension methods for <see cref="IServiceHandler"/>s.
     /// </summary>
-    /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
-    public sealed class GuiHandler : SilentHandler
-    {}
+    public static class ServiceHandlerExtensions
+    {
+        /// <summary>
+        /// Calls <see cref="IServiceHandler.Output"/> only when <see cref="IServiceHandler.Batch"/> is <see langword="false"/>.
+        /// </summary>
+        public static void OutputLow(this IServiceHandler handler, string title, string message)
+        {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            if (!handler.Batch) handler.Output(title, message);
+        }
+    }
 }

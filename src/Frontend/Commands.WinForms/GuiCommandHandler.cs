@@ -26,7 +26,6 @@ using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
-using ZeroInstall.Services;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
@@ -36,10 +35,10 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall.Commands.WinForms
 {
     /// <summary>
-    /// Uses <see cref="System.Windows.Forms"/> to inform the user about the progress of tasks and ask the user questions.
+    /// Uses <see cref="System.Windows.Forms"/> to allow users to interact with <see cref="FrontendCommand"/>s.
     /// </summary>
     /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
-    public sealed class GuiHandler : MarshalNoTimeout, ICommandHandler
+    public sealed class GuiCommandHandler : MarshalNoTimeout, ICommandHandler
     {
         #region Properties
         private readonly CancellationTokenSource _cancellationTokenSource;
@@ -70,7 +69,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Creates a new GUI handler with an external <see cref="CancellationTokenSource"/>.
         /// </summary>
-        public GuiHandler(CancellationTokenSource cancellationTokenSource)
+        public GuiCommandHandler(CancellationTokenSource cancellationTokenSource)
         {
             _cancellationTokenSource = cancellationTokenSource;
         }
@@ -78,7 +77,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Creates a new GUI handler with its own <see cref="CancellationTokenSource"/>.
         /// </summary>
-        public GuiHandler() : this(new CancellationTokenSource())
+        public GuiCommandHandler() : this(new CancellationTokenSource())
         {}
         #endregion
 

@@ -35,7 +35,7 @@ namespace ZeroInstall
 
         protected AutoMockContainer Container { get; private set; }
         protected Config Config { get; private set; }
-        protected MockHandler MockHandler { get; private set; }
+        protected MockServiceHandler MockHandler { get; private set; }
 
         /// <summary>
         /// The object to be tested.
@@ -48,17 +48,19 @@ namespace ZeroInstall
             base.SetUp();
 
             Container = new AutoMockContainer(MockRepository);
-
-            MockHandler = new MockHandler();
-            Container.Register<ICommandHandler>(MockHandler);
-            Container.Register<IInteractionHandler>(MockHandler);
+            MockHandler = CreateMockHandler();
+            Container.Register<IServiceHandler>(MockHandler);
             Container.Register<ITaskHandler>(MockHandler);
-
             Container.Register(Config = new Config());
 
             Target = Container.Create<TTarget>();
 
             _redirect = new LocationsRedirect("0install-unit-tests");
+        }
+
+        protected virtual MockServiceHandler CreateMockHandler()
+        {
+            return new MockServiceHandler();
         }
 
         [TearDown]

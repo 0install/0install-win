@@ -56,7 +56,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// </summary>
         /// <param name="store">The store containing the element.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
-        protected StoreNode(IStore store, IInteractionHandler handler) : base(handler)
+        protected StoreNode(IStore store, IServiceHandler handler) : base(handler)
         {
             Store = store;
         }
@@ -94,7 +94,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
                         }
                         #endregion
 
-                        Handler.CloseProgressUI();
+                        Handler.Batch = true;
                     }
                 })
             });

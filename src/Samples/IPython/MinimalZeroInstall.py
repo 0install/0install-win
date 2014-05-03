@@ -2,12 +2,13 @@
 #clr.AddReferenceToFile("ZeroInstall.Services.dll", "ZeroInstall.Store.dll")
 
 import sys
+from ZeroInstall.Services import ServiceLocator
+from ZeroInstall.Store import CliServiceHandler
 from ZeroInstall.Store.Model import Requirements
-from ZeroInstall.Services import ServiceLocator, CliHandler
 
 requirements = Requirements(InterfaceID = sys.argv[1])
 
-services = ServiceLocator(CliHandler())
+services = ServiceLocator(CliServiceHandler())
 selections = services.Solver.Solve(requirements)
 missing = services.SelectionsManager.GetUncachedImplementations(selections)
 services.Fetcher.Fetch(missing)

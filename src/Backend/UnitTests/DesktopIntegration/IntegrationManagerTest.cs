@@ -20,6 +20,7 @@ using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.Services;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
 using FileType = ZeroInstall.Store.Model.Capabilities.FileType;
@@ -40,7 +41,7 @@ namespace ZeroInstall.DesktopIntegration
         {
             _appListFile = new TemporaryFile("0install-unit-tests");
             new AppList().SaveXml(_appListFile);
-            _integrationManager = new IntegrationManager(_appListFile, new MockHandler());
+            _integrationManager = new IntegrationManager(_appListFile, new MockServiceHandler());
         }
 
         [TearDown]

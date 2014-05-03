@@ -169,9 +169,6 @@ Möchten Sie diesem Key zum Signieren von Feeds von '{3}' vertrauen?
   <data name="IllegalCharInBindingName" xml:space="preserve">
     <value>Ungültiges Zeichen im {0} Binding Namen.</value>
   </data>
-  <data name="IntegrateAppUseGui" xml:space="preserve">
-    <value>Bitte verwenden Sie die GUI Version von Zero Install oder geben Sie explizite Integrationsoptionen mit Befehlszeilenargumenten an.</value>
-  </data>
   <data name="MissingBindingName" xml:space="preserve">
     <value>Fehlender Name in {0} Binding.</value>
   </data>
@@ -186,9 +183,6 @@ Möchten Sie diesem Key zum Signieren von Feeds von '{3}' vertrauen?
   </data>
   <data name="NoManifestDigest" xml:space="preserve">
     <value>Es wurde kein Manifest Digest für die Implementierung '{0}' gefunden.</value>
-  </data>
-  <data name="NoModifySelectionsInCli" xml:space="preserve">
-    <value>Der grafische Policy-Editor ist im Befehlszeilenmodus nicht verfügbar.</value>
   </data>
   <data name="NoRetrievalMethod" xml:space="preserve">
     <value>Es wurden keine funktionsfähigen Downloadmethoden für die Implementierung '{0}' gefunden.</value>
@@ -216,9 +210,6 @@ Neue Zeit: {2}</value>
   </data>
   <data name="SolverProblem" xml:space="preserve">
     <value>Der Solver ist auf ein unerwartetes Problem gestoßen.</value>
-  </data>
-  <data name="Try0installWin" xml:space="preserve">
-    <value>Probieren Sie den Befehl '0install-win' anstelle von '0install'.</value>
   </data>
   <data name="TryingFeedMirror" xml:space="preserve">
     <value>Probiere Feed Mirror Server</value>

@@ -20,6 +20,7 @@ using System.IO;
 using Moq;
 using NanoByte.Common;
 using NUnit.Framework;
+using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
 
@@ -39,7 +40,7 @@ namespace ZeroInstall.Store.Implementations
         private static readonly IEnumerable<ArchiveFileInfo> _archives = new[] {_archive1, _archive2};
         #endregion
 
-        private MockHandler _handler;
+        private MockServiceHandler _handler;
         private Mock<IStore> _mockStore1, _mockStore2;
         private CompositeStore _testStore;
 
@@ -48,7 +49,7 @@ namespace ZeroInstall.Store.Implementations
         {
             base.SetUp();
 
-            _handler = new MockHandler();
+            _handler = new MockServiceHandler();
 
             // Prepare mock objects that will be injected with methods in the tests
             _mockStore1 = MockRepository.Create<IStore>();

@@ -15,34 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using System.Diagnostics.CodeAnalysis;
-using NanoByte.Common.Tasks;
+extern alias LinqBridge;
 using ZeroInstall.DesktopIntegration.ViewModel;
+using ZeroInstall.Services;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model.Selection;
 
-namespace ZeroInstall.Services
+namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Ignores progress reports and silently answer all questions with "No".
+    /// A minimalistic <see cref="ICommandHandler"/> that allows you to pre-record answers and retrieve output.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Diamond inheritance structure leads to false positive.")]
-    public class SilentHandler : SilentTaskHandler, ICommandHandler
+    public class MockCommandHandler : MockServiceHandler, ICommandHandler
     {
-        /// <summary>
-        /// Always returns <see langword="true"/>.
-        /// </summary>
-        public virtual bool Batch { get { return true; } set { } }
-
-        /// <summary>
-        /// Does nothing.
-        /// </summary>
-        public void SetGuiHints(Func<string> actionTitle, int delay)
-        {}
-
         /// <inheritdoc/>
         public void ShowProgressUI()
         {
@@ -61,26 +48,14 @@ namespace ZeroInstall.Services
             // No UI, so nothing to do
         }
 
-        /// <inheritdoc/>
-        public virtual bool AskQuestion(string question, string batchInformation = null)
-        {
-            return false;
-        }
+        /// <summary>
+        /// Does nothing.
+        /// </summary>
+        public void SetGuiHints(LinqBridge::System.Func<string> actionTitle, int delay)
+        {}
 
         /// <inheritdoc/>
-        public virtual void ShowSelections(Selections selections, IFeedCache feedCache)
-        {
-            // No UI, so nothing to do
-        }
-
-        /// <inheritdoc/>
-        public void ModifySelections(Func<Selections> solveCallback)
-        {
-            // No UI, so nothing to do
-        }
-
-        /// <inheritdoc/>
-        public virtual void Output(string title, string information)
+        public void ModifySelections(LinqBridge::System.Func<Selections> solveCallback)
         {
             // No UI, so nothing to do
         }
@@ -102,6 +77,19 @@ namespace ZeroInstall.Services
         public void ManageStore(IStore store, IFeedCache feedCache)
         {
             // No UI, so nothing to do
+        }
+
+        /// <summary>
+        /// Last <see cref="Selections"/> passed to <see cref="ShowSelections"/>.
+        /// </summary>
+        public Selections LastSelections { get; private set; }
+
+        /// <summary>
+        /// Fakes showing <see cref="Selections"/> to the user.
+        /// </summary>
+        public void ShowSelections(Selections selections, IFeedCache feedCache)
+        {
+            LastSelections = selections;
         }
     }
 }

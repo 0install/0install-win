@@ -35,7 +35,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <summary>
         /// A callback object used when the the user needs to be asked questions or informed about IO tasks.
         /// </summary>
-        protected readonly IInteractionHandler Handler;
+        protected readonly IServiceHandler Handler;
         #endregion
 
         #region Properties
@@ -55,7 +55,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// Creates a new store node.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
-        protected Node(IInteractionHandler handler)
+        protected Node(IServiceHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");

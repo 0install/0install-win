@@ -407,6 +407,9 @@ Ein &lt;feed-for&gt; Tag zeigt Feed-Kompatibilität an.</value>
   <data name="Integrate" xml:space="preserve">
     <value>Integriere {0}</value>
   </data>
+  <data name="IntegrateAppUseGui" xml:space="preserve">
+    <value>Bitte verwenden Sie die GUI Version von Zero Install oder geben Sie explizite Integrationsoptionen mit Befehlszeilenargumenten an.</value>
+  </data>
   <data name="LicenseInfo" xml:space="preserve">
     <value>Für dieses Programm gibt es ABSOLUT KEINE GARANTIEN, soweit dies gesetzlich zulässig ist.
 Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien dieses Programmes weitergeben.</value>
@@ -431,6 +434,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   </data>
   <data name="NoLongerUsed" xml:space="preserve">
     <value>Nicht mehr verwendet: </value>
+  </data>
+  <data name="NoModifySelectionsInCli" xml:space="preserve">
+    <value>Der grafische Policy-Editor ist im Befehlszeilenmodus nicht verfügbar.</value>
   </data>
   <data name="NoRunWithEmptyCommand" xml:space="preserve">
     <value>Beim Ausführen einer Implementierung darf der Command nicht leer sein.</value>
@@ -624,6 +630,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="TooManyArguments" xml:space="preserve">
     <value>Zu viele Argumente oder unbekannte Optionen.</value>
+  </data>
+  <data name="Try0installWin" xml:space="preserve">
+    <value>Probieren Sie den Befehl '0install-win' anstelle von '0install'.</value>
   </data>
   <data name="TryHelp" xml:space="preserve">
     <value>Probieren Sie {0} --help</value>

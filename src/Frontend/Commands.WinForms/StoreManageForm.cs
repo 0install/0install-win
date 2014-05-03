@@ -39,7 +39,7 @@ namespace ZeroInstall.Commands.WinForms
     /// <summary>
     /// Displays the content of caches (<see cref="IFeedCache"/> and <see cref="IStore"/>) in a combined tree view.
     /// </summary>
-    public sealed partial class StoreManageForm : Form, IInteractionHandler
+    public sealed partial class StoreManageForm : Form, IServiceHandler
     {
         #region Variables
         private readonly IStore _store;
@@ -233,30 +233,19 @@ namespace ZeroInstall.Commands.WinForms
         }
         #endregion
 
-        #region IInteractionHandler
+        #region IServiceHandler
         /// <inheritdoc/>
         public CancellationToken CancellationToken { get { return default(CancellationToken); } }
 
         /// <summary>
         /// Always returns <see langword="false"/>.
         /// </summary>
-        public bool Batch { get { return false; } set { } }
+        public bool Batch { get { return false; } set { RefreshList(); } }
 
         /// <summary>
         /// Always returns 1. This ensures that information hidden by the GUI is at least retrievable from the log files.
         /// </summary>
         public int Verbosity { get { return 1; } set { } }
-
-        public void ShowProgressUI()
-        {}
-
-        public void DisableProgressUI()
-        {}
-
-        public void CloseProgressUI()
-        {
-            RefreshList();
-        }
 
         /// <inheritdoc/>
         public void RunTask(ITask task)

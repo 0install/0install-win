@@ -169,9 +169,6 @@ Do you want to trust this key to sign feeds from '{3}'?
   <data name="IllegalCharInBindingName" xml:space="preserve">
     <value>Illegal character in {0} binding name.</value>
   </data>
-  <data name="IntegrateAppUseGui" xml:space="preserve">
-    <value>Please use the GUI version of Zero Install or specify explicit integration options using command-line arguments.</value>
-  </data>
   <data name="MissingBindingName" xml:space="preserve">
     <value>Missing name in {0} binding.</value>
   </data>
@@ -186,9 +183,6 @@ Do you want to trust this key to sign feeds from '{3}'?
   </data>
   <data name="NoManifestDigest" xml:space="preserve">
     <value>No manifest digest for implementation '{0}' found.</value>
-  </data>
-  <data name="NoModifySelectionsInCli" xml:space="preserve">
-    <value>The graphical policy editor is not available in command-line mode.</value>
   </data>
   <data name="NoRetrievalMethod" xml:space="preserve">
     <value>No working retrieval method found for implementation '{0}' found.</value>
@@ -216,9 +210,6 @@ New time: {2}</value>
   </data>
   <data name="SolverProblem" xml:space="preserve">
     <value>The solver encountered an unexpected problem.</value>
-  </data>
-  <data name="Try0installWin" xml:space="preserve">
-    <value>Try using the command '0install-win' instead of '0install'.</value>
   </data>
   <data name="TryingFeedMirror" xml:space="preserve">
     <value>Trying feed mirror server</value>

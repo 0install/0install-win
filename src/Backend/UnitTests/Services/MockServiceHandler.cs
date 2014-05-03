@@ -15,16 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using ZeroInstall.Services;
-using ZeroInstall.Store.Feeds;
-using ZeroInstall.Store.Model.Selection;
+using ZeroInstall.Store;
 
-namespace ZeroInstall
+namespace ZeroInstall.Services
 {
     /// <summary>
-    /// A minimalistic <see cref="ICommandHandler"/> that allows you to pre-record answers and retrieve output.
+    /// A minimalistic <see cref="IServiceHandler"/> that allows you to pre-record answers and retrieve output.
     /// </summary>
-    public class MockHandler : SilentHandler
+    public class MockServiceHandler : SilentServiceHandler
     {
         /// <summary>
         /// Do not show progress reports, questions or messages (except for non-intrusive background messages like tray icons) unless a critical error occurs.
@@ -37,7 +35,7 @@ namespace ZeroInstall
         public bool AnswerQuestionWith { get; set; }
 
         /// <summary>
-        /// Last <see cref="Selections"/> passed to <see cref="ShowSelections"/>.
+        /// Last question passed to <see cref="AskQuestion"/>.
         /// </summary>
         public string LastQuestion { get; private set; }
 
@@ -62,19 +60,6 @@ namespace ZeroInstall
         public override void Output(string title, string information)
         {
             LastOutput = information;
-        }
-
-        /// <summary>
-        /// Last <see cref="Selections"/> passed to <see cref="ShowSelections"/>.
-        /// </summary>
-        public Selections LastSelections { get; private set; }
-
-        /// <summary>
-        /// Fakes showing <see cref="Selections"/> to the user.
-        /// </summary>
-        public override void ShowSelections(Selections selections, IFeedCache feedCache)
-        {
-            LastSelections = selections;
         }
     }
 }

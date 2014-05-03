@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="CliServiceHandler.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Config.Storage.cs" />
     <Compile Include="Feeds\DiskFeedCache.cs" />
@@ -86,11 +87,10 @@
     <Compile Include="Feeds\IFeedCache.cs" />
     <Compile Include="Feeds\MemoryFeedCache.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="HandlerExtensions.cs" />
     <Compile Include="Icons\DiskIconCache.cs" />
     <Compile Include="Icons\IconCacheProvider.cs" />
     <Compile Include="Icons\IIconCache.cs" />
-    <Compile Include="IInteractionHandler.cs" />
+    <Compile Include="IServiceHandler.cs" />
     <Compile Include="Implementations\Archives\ArchiveFileInfo.cs" />
     <Compile Include="Implementations\Archives\CabExtractor.cs" />
     <Compile Include="Implementations\Archives\Extractor.cs" />
@@ -227,6 +227,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="ServiceHandlerExtensions.cs" />
+    <Compile Include="SilentServiceHandler.cs" />
     <Compile Include="Trust\Domain.cs" />
     <Compile Include="Trust\GnuPG.cs" />
     <Compile Include="Trust\IOpenPgp.cs" />

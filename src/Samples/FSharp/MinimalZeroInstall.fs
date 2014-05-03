@@ -1,7 +1,8 @@
 ﻿open ZeroInstall.Services
+open ZeroInstall.Store
 open ZeroInstall.Store.Model
 
-let locator = new ServiceLocator(new CliHandler())
+let locator = new ServiceLocator(new CliServiceHandler())
 let solve = locator.Solver.Solve
 let uncached = locator.SelectionsManager.GetUncachedImplementations
 let fetch = locator.Fetcher.Fetch

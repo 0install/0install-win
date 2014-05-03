@@ -90,7 +90,7 @@
     <Compile Include="Services\Fetchers\SequentialFetcherTest.cs" />
     <Compile Include="Services\Fetchers\TestData.cs" />
     <Compile Include="Services\Injector\ExecutorTest.cs" />
-    <Compile Include="MockHandler.cs" />
+    <Compile Include="Services\MockServiceHandler.cs" />
     <Compile Include="Store\Implementations\Archives\CabExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\SevenZipExtractorTest.cs" />
     <Compile Include="Store\Model\ArchitectureTest.cs" />

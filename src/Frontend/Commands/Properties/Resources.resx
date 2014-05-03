@@ -407,6 +407,9 @@ A &lt;feed-for&gt; tag indicates feed compatibility.</value>
   <data name="Integrate" xml:space="preserve">
     <value>Integrate {0}</value>
   </data>
+  <data name="IntegrateAppUseGui" xml:space="preserve">
+    <value>Please use the GUI version of Zero Install or specify explicit integration options using command-line arguments.</value>
+  </data>
   <data name="LicenseInfo" xml:space="preserve">
     <value>This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
 You may redistribute copies of this program under the terms of the GNU Lesser General Public License.</value>
@@ -431,6 +434,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   </data>
   <data name="NoLongerUsed" xml:space="preserve">
     <value>No longer used: </value>
+  </data>
+  <data name="NoModifySelectionsInCli" xml:space="preserve">
+    <value>The graphical policy editor is not available in command-line mode.</value>
   </data>
   <data name="NoRunWithEmptyCommand" xml:space="preserve">
     <value>When running an implementation the command may not be empty.</value>
@@ -624,6 +630,9 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   </data>
   <data name="TooManyArguments" xml:space="preserve">
     <value>Too many arguments or unknown options.</value>
+  </data>
+  <data name="Try0installWin" xml:space="preserve">
+    <value>Try using the command '0install-win' instead of '0install'.</value>
   </data>
   <data name="TryHelp" xml:space="preserve">
     <value>Try {0} --help</value>

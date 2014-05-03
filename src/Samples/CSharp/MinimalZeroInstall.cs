@@ -1,4 +1,5 @@
 ﻿using ZeroInstall.Services;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 class MinimalZeroInstall : ServiceLocator
@@ -8,7 +9,7 @@ class MinimalZeroInstall : ServiceLocator
         new MinimalZeroInstall().Run(new Requirements {InterfaceID = args[0]});
     }
 
-    private MinimalZeroInstall() : base(new CliHandler())
+    private MinimalZeroInstall() : base(new CliServiceHandler())
     {}
 
     private void Run(Requirements requirements)

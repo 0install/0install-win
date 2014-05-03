@@ -15,36 +15,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using System.Windows.Forms;
-using NanoByte.Common;
-using ZeroInstall.Services;
-using ZeroInstall.Store;
+using System.Diagnostics.CodeAnalysis;
+using NanoByte.Common.Tasks;
 
-namespace ZeroInstall.Commands.WinForms
+namespace ZeroInstall.Store
 {
     /// <summary>
-    /// Like <see cref="SilentHandler"/> but with <see cref="Msg"/> for <see cref="IInteractionHandler.AskQuestion"/>.
+    /// Ignores progress reports and silently answer all questions with "No".
     /// </summary>
-    public class MinimalHandler : SilentHandler
+    [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Diamond inheritance structure leads to false positive.")]
+    public class SilentServiceHandler : SilentTaskHandler, IServiceHandler
     {
-        private readonly Control _owner;
-
         /// <summary>
-        /// Creates a new minimal handler.
+        /// Always returns <see langword="true"/>.
         /// </summary>
-        /// <param name="owner">The parent window owning the handler.</param>
-        public MinimalHandler(Control owner)
+        public virtual bool Batch { get { return true; } set { } }
+
+        /// <inheritdoc/>
+        public virtual bool AskQuestion(string question, string batchInformation = null)
         {
-            _owner = owner;
+            return false;
         }
 
         /// <inheritdoc/>
-        public override bool AskQuestion(string question, string batchInformation = null)
+        public virtual void Output(string title, string information)
         {
-            bool result = false;
-            _owner.Invoke(new Action(() => result = Msg.YesNo(_owner, question, MsgSeverity.Info)));
-            return result;
+            // No UI, so nothing to do
         }
     }
 }

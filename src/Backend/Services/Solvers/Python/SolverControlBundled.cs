@@ -31,7 +31,7 @@ namespace ZeroInstall.Services.Solvers.Python
     {
         private readonly ErrorParser _errorParser;
 
-        public SolverControlBundled(IInteractionHandler handler)
+        public SolverControlBundled(IServiceHandler handler)
         {
             _errorParser = new ErrorParser(handler);
         }

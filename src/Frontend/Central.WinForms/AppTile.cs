@@ -50,7 +50,7 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>Apply operations machine-wide instead of just for the current user.</summary>
         private readonly bool _machineWide;
 
-        private static readonly IInteractionHandler _handler = new SilentHandler();
+        private static readonly IServiceHandler _handler = new SilentServiceHandler();
 
         /// <summary>The icon cache used to retrieve icons specified in <see cref="Feed"/>; may be <see langword="null"/>.</summary>
         private readonly IIconCache _iconCache;

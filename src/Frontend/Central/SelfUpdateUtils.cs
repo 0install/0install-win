@@ -63,7 +63,7 @@ namespace ZeroInstall.Central
         /// <exception cref="InvalidDataException">Thrown if a configuration file is damaged.</exception>
         public static ImplementationVersion Check()
         {
-            var locator = new ServiceLocator(new SilentHandler()) {FeedManager = {Refresh = true}};
+            var locator = new ServiceLocator(new SilentServiceHandler()) {FeedManager = {Refresh = true}};
             if (locator.Config.NetworkUse == NetworkLevel.Offline) return null;
 
             // Run solver

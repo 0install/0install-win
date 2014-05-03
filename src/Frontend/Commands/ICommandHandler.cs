@@ -16,26 +16,44 @@
  */
 
 using System;
+using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model.Selection;
 
-namespace ZeroInstall.Services
+namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Callback methods to inform the user about tasks being run, ask the user questions and display custom UI elements.
+    /// Callback methods to allow users to interact with <see cref="FrontendCommand"/>s.
     /// </summary>
     /// <remarks>The methods may be called from a background thread. Implementations apply appropriate thread-synchronization to update UI elements.</remarks>
-    public interface ICommandHandler : IInteractionHandler
+    public interface ICommandHandler : IServiceHandler
     {
+        /// <summary>
+        /// Prepares any UI elements necessary to track the progress of <see cref="ITask"/>s.
+        /// </summary>
+        void ShowProgressUI();
+
+        /// <summary>
+        /// Disables any UI element created by <see cref="ShowProgressUI"/> but still leaves it visible.
+        /// </summary>
+        /// <remarks>Calling this method multiple times or without calling <see cref="ShowProgressUI"/> first is safe and has no effect.</remarks>
+        void DisableProgressUI();
+
+        /// <summary>
+        /// Closes any UI element created by <see cref="ShowProgressUI"/>.
+        /// </summary>
+        /// <remarks>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</remarks>
+        void CloseProgressUI();
+
         /// <summary>
         /// Provides information for a potential GUI backing this handler.
         /// </summary>
         /// <param name="actionTitle">A delegate that returns a short title describing what the command being executed does.</param>
         /// <param name="delay">The number of milliseconds by which to delay the initial display of the GUI.</param>
-        /// <remarks>Should be called before <see cref="IInteractionHandler.ShowProgressUI"/>.</remarks>
+        /// <remarks>Should be called before <see cref="ShowProgressUI"/>.</remarks>
         void SetGuiHints(Func<string> actionTitle, int delay);
 
         /// <summary>
@@ -45,7 +63,7 @@ namespace ZeroInstall.Services
         /// <param name="selections">The <see cref="Selections"/> as provided by the solver.</param>
         /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
         /// <remarks>
-        ///   <para>Only call this between <see cref="IInteractionHandler.ShowProgressUI"/> and <see cref="IInteractionHandler.CloseProgressUI"/>.</para>
+        ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
         /// </remarks>
         void ShowSelections(Selections selections, IFeedCache feedCache);
@@ -56,7 +74,7 @@ namespace ZeroInstall.Services
         /// </summary>
         /// <param name="solveCallback">Called after interface preferences have been changed and the solver needs to be rerun.</param>
         /// <remarks>
-        ///   <para>Only call this between <see cref="ShowSelections"/> and <see cref="IInteractionHandler.CloseProgressUI"/>.</para>
+        ///   <para>Only call this between <see cref="ShowSelections"/> and <see cref="CloseProgressUI"/>.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
         /// </remarks>
         void ModifySelections(Func<Selections> solveCallback);
@@ -66,7 +84,7 @@ namespace ZeroInstall.Services
         /// </summary>
         /// <param name="state">A View-Model for modifying the current desktop integration state.</param>
         /// <remarks>
-        ///   <para>Only call this between <see cref="IInteractionHandler.ShowProgressUI"/> and <see cref="IInteractionHandler.CloseProgressUI"/>.</para>
+        ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
         /// </remarks>
         void ShowIntegrateApp(IntegrationState state);

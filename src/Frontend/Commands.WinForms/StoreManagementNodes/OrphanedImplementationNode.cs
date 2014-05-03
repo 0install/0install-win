@@ -44,7 +44,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        public OrphanedImplementationNode(ManifestDigest digest, IStore store, IInteractionHandler handler)
+        public OrphanedImplementationNode(ManifestDigest digest, IStore store, IServiceHandler handler)
             : base(digest, store, handler)
         {}
         #endregion

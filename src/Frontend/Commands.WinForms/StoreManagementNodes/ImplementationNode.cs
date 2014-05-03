@@ -65,7 +65,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        protected ImplementationNode(ManifestDigest digest, IStore store, IInteractionHandler handler)
+        protected ImplementationNode(ManifestDigest digest, IStore store, IServiceHandler handler)
             : base(store, handler)
         {
             #region Sanity checks
@@ -139,7 +139,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
                     }
                     #endregion
 
-                    Handler.CloseProgressUI();
+                    Handler.Batch = true;
                 }));
             return contextMenu;
         }

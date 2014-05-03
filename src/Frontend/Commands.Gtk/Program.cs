@@ -79,7 +79,7 @@ namespace ZeroInstall.Commands.Gtk
         {
             Log.Info("Zero Install Command GTK GUI started with: " + args.JoinEscapeArguments());
 
-            using (var handler = new GuiHandler())
+            using (var handler = new GuiCommandHandler())
             {
                 FrontendCommand command;
                 try

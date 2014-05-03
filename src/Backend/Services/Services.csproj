@@ -56,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
-    <Compile Include="CliHandler.cs" />
     <Compile Include="Feeds\CatalogManager.cs" />
     <Compile Include="Feeds\FeedManager.cs" />
     <Compile Include="Feeds\FeedManagerExtensions.cs" />
@@ -66,7 +65,6 @@
     <Compile Include="Fetchers\GlobalSuppressions.cs" />
     <Compile Include="Fetchers\RetrievalMethodRanker.cs" />
     <Compile Include="Fetchers\SequentialFetcher.cs" />
-    <Compile Include="ICommandHandler.cs" />
     <Compile Include="Injector\Executor.Bindings.cs" />
     <Compile Include="Injector\Executor.CommandLine.cs" />
     <Compile Include="Injector\Executor.cs" />
@@ -80,7 +78,6 @@
     <Compile Include="SelectionsFormatter.cs" />
     <Compile Include="SelectionsManager.cs" />
     <Compile Include="ServiceLocator.cs" />
-    <Compile Include="SilentHandler.cs" />
     <Compile Include="Solvers\BacktrackingSolver.cs" />
     <Compile Include="Solvers\Backtracking\BacktrackingRun.cs" />
     <Compile Include="Solvers\FallbackSolver.cs" />

@@ -22,6 +22,7 @@ using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using NUnit.Framework;
+using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
 
@@ -202,7 +203,7 @@ namespace ZeroInstall.Store.Implementations
             {
                 File.WriteAllText(tempFile, "data");
 
-                new SingleFile {Destination = "file"}.Apply(tempFile.Path, workingDir, new MockHandler());
+                new SingleFile {Destination = "file"}.Apply(tempFile.Path, workingDir, new MockServiceHandler());
 
                 Assert.IsTrue(File.Exists(tempFile), "Files passed in as string paths should be copied");
                 Assert.IsTrue(File.Exists(Path.Combine(workingDir, "file")));
@@ -217,7 +218,7 @@ namespace ZeroInstall.Store.Implementations
             {
                 File.WriteAllText(tempFile, "data");
 
-                new SingleFile {Destination = "file"}.Apply(tempFile, workingDir, new MockHandler());
+                new SingleFile {Destination = "file"}.Apply(tempFile, workingDir, new MockServiceHandler());
 
                 Assert.IsFalse(File.Exists(tempFile), "Files passed in as temp objects should be moved");
                 Assert.IsTrue(File.Exists(Path.Combine(workingDir, "file")));

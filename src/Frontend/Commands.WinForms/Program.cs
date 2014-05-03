@@ -88,7 +88,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             Log.Info("Zero Install Command WinForms GUI started with: " + args.JoinEscapeArguments());
 
-            using (var handler = new DelayedGuiHandler())
+            using (var handler = new DelayedGuiCommandHandler())
             {
                 FrontendCommand command;
                 try

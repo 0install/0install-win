@@ -192,7 +192,7 @@ namespace ZeroInstall.Store.Service
         /// <summary>
         /// Does nothing. Should be handled by an administrator directly instead of using the service.
         /// </summary>
-        public override void Verify(ManifestDigest manifestDigest, IInteractionHandler handler)
+        public override void Verify(ManifestDigest manifestDigest, IServiceHandler handler)
         {}
 
         /// <summary>

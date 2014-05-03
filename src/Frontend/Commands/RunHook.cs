@@ -44,7 +44,7 @@ namespace ZeroInstall.Commands
     internal sealed class RunHook : IDisposable
     {
         #region Variables
-        private readonly IInteractionHandler _handler;
+        private readonly IServiceHandler _handler;
 
         private readonly InterfaceFeed _target;
 
@@ -68,7 +68,7 @@ namespace ZeroInstall.Commands
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the main implementation is not cached (possibly because it is installed natively).</exception>
-        public RunHook(Selections selections, IExecutor executor, IFeedManager feedManager, IInteractionHandler handler)
+        public RunHook(Selections selections, IExecutor executor, IFeedManager feedManager, IServiceHandler handler)
         {
             string interfaceID = selections.InterfaceID;
             _target = new InterfaceFeed(interfaceID, feedManager.GetFeed(interfaceID));

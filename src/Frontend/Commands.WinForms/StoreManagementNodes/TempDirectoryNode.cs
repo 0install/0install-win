@@ -50,7 +50,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        public TempDirectoryNode(string path, IStore store, IInteractionHandler handler) : base(store, handler)
+        public TempDirectoryNode(string path, IStore store, IServiceHandler handler) : base(store, handler)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");

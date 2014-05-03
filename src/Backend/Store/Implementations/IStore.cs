@@ -138,6 +138,6 @@ namespace ZeroInstall.Store.Implementations
         /// <exception cref="IOException">Thrown if the entry's directory could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the entry's directory is not permitted.</exception>
         /// <remarks>If the store does not support verification this method call may be silently ignored.</remarks>
-        void Verify(ManifestDigest manifestDigest, IInteractionHandler handler);
+        void Verify(ManifestDigest manifestDigest, IServiceHandler handler);
     }
 }

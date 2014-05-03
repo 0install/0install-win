@@ -78,7 +78,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <param name="feed">The <see cref="Feed"/> to be represented by this node.</param>
         /// <param name="cache">The <see cref="IFeedCache"/> the <see cref="Feed"/> is located in.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
-        public FeedNode(Feed feed, IFeedCache cache, IInteractionHandler handler)
+        public FeedNode(Feed feed, IFeedCache cache, IServiceHandler handler)
             : base(handler)
         {
             #region Sanity checks
@@ -143,7 +143,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
                         }
                         #endregion
 
-                        Handler.CloseProgressUI();
+                        Handler.Batch = true;
                     }
                 })
             });

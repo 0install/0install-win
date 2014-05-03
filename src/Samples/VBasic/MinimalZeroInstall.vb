@@ -1,4 +1,5 @@
 ﻿Imports ZeroInstall.Services
+Imports ZeroInstall.Store
 Imports ZeroInstall.Store.Model
 
 Module MinimalZeroInstall
@@ -7,7 +8,7 @@ Module MinimalZeroInstall
     End Sub
 
     Private Sub Run(requirements As Requirements)
-        Dim services = New ServiceLocator(New CliHandler())
+        Dim services = New ServiceLocator(New CliServiceHandler())
         With services
             Dim selections = .Solver.Solve(requirements)
             Dim missing = .SelectionsManager.GetUncachedImplementations(selections)

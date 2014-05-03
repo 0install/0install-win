@@ -47,6 +47,30 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public abstract class FrontendCommand : ServiceLocator
     {
+        #region Dependencies
+        /// <summary>
+        /// A callback object used when the the user needs to be asked questions or informed about download and IO tasks.
+        /// </summary>
+        // Type covariance: ServiceLocator -> FrontendCommand, IServiceHandler -> ICommandHandler
+        public new ICommandHandler Handler { get; private set; }
+
+        /// <summary>
+        /// Creates a new command.
+        /// </summary>
+        protected FrontendCommand(ICommandHandler handler)
+            : base(handler)
+        {
+            Handler = handler;
+
+            Options.Add("?|h|help", () => Resources.OptionHelp, _ =>
+            {
+                Handler.Output(Resources.CommandLineArguments, HelpText);
+                throw new OperationCanceledException(); // Don't handle any of the other arguments
+            });
+            Options.Add("v|verbose", () => Resources.OptionVerbose, _ => Handler.Verbosity++);
+        }
+        #endregion
+
         #region Metadata
         /// <summary>
         /// The name of this command as used in command-line arguments in lower-case.
@@ -86,7 +110,7 @@ namespace ZeroInstall.Commands
         public virtual string ActionTitle { get { return null; } }
 
         /// <summary>
-        /// The number of milliseconds by which to delay the initial display of the <see cref="IInteractionHandler"/> GUI.
+        /// The number of milliseconds by which to delay the initial display of the <see cref="IServiceHandler"/> GUI.
         /// </summary>
         public virtual int GuiDelay { get { return 0; } }
 
@@ -113,19 +137,6 @@ namespace ZeroInstall.Commands
 
         /// <summary>The command-line argument parser used to evaluate user input.</summary>
         protected readonly OptionSet Options = new OptionSet();
-
-        /// <summary>
-        /// Creates a new command.
-        /// </summary>
-        protected FrontendCommand(ICommandHandler handler) : base(handler)
-        {
-            Options.Add("?|h|help", () => Resources.OptionHelp, _ =>
-            {
-                Handler.Output(Resources.CommandLineArguments, HelpText);
-                throw new OperationCanceledException(); // Don't handle any of the other arguments
-            });
-            Options.Add("v|verbose", () => Resources.OptionVerbose, _ => Handler.Verbosity++);
-        }
         #endregion
 
         #region State
