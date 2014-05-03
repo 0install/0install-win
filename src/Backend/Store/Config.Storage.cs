@@ -125,7 +125,7 @@ namespace ZeroInstall.Store
             TransferToIni();
 
             using (var atomic = new AtomicWrite(path))
-            using (var writer = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(false)))
+            using (var writer = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
             {
                 new StreamIniDataParser().WriteData(writer, _iniData);
                 atomic.Commit();
@@ -237,10 +237,8 @@ namespace ZeroInstall.Store
                 string key = property.Key;
                 if (property.Value.NeedsEncoding) key += GlobalSection;
 
-                // Remove the old value and only set the new one if it isn't the default value
-                global.RemoveKey(key);
-                if (!property.Value.IsDefaultValue)
-                    global.AddKey(key, property.Value.NeedsEncoding ? property.Value.Value.Base64Utf8Encode() : property.Value.Value);
+                if (property.Value.IsDefaultValue) global.RemoveKey(key);
+                else global[key] = property.Value.NeedsEncoding ? property.Value.Value.Base64Utf8Encode() : property.Value.Value;
             }
         }
         #endregion

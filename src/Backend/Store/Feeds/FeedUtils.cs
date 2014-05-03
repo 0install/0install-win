@@ -84,7 +84,7 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// The encoding used when looking for signature blocks in feed files.
         /// </summary>
-        public static readonly Encoding Encoding = new UTF8Encoding(false);
+        public static readonly Encoding Encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
 
         /// <summary>
         /// <see cref="SignatureBlockStart"/> encoded with <see cref="Encoding"/>.</summary>

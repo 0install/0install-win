@@ -119,7 +119,7 @@ namespace ZeroInstall.Store.Implementations
             // Convert path to rooted Unix-style
             string unixPath = "/" + relativePath.Replace(Path.DirectorySeparatorChar, '/');
 
-            using (var flagFile = new StreamWriter(file, true, new UTF8Encoding(false)) {NewLine = "\n"}) // Append
+            using (var flagFile = new StreamWriter(file, true, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)) {NewLine = "\n"}) // Append
                 flagFile.WriteLine(unixPath);
         }
 
@@ -146,7 +146,7 @@ namespace ZeroInstall.Store.Implementations
 
             // Write to temporary file first before replacing
             using (var atomic = new AtomicWrite(file))
-            using (var newFlagFile = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(false)) {NewLine = "\n"})
+            using (var newFlagFile = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)) {NewLine = "\n"})
             using (StreamReader oldFlagFile = File.OpenText(file))
             {
                 // Each line in the file signals a flagged file
@@ -187,7 +187,7 @@ namespace ZeroInstall.Store.Implementations
 
             // Write to temporary file first before replacing
             using (var atomic = new AtomicWrite(file))
-            using (var newFlagFile = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(false)) {NewLine = "\n"})
+            using (var newFlagFile = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)) {NewLine = "\n"})
             using (StreamReader oldFlagFile = File.OpenText(file))
             {
                 // Each line in the file signals a flagged file

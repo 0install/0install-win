@@ -166,7 +166,7 @@ namespace ZeroInstall.Central.WinForms
         {
             using (var atomic = new AtomicWrite(path))
             {
-                using (var configFile = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(false)) {NewLine = "\n"})
+                using (var configFile = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)) {NewLine = "\n"})
                 {
                     foreach (var element in elements)
                         configFile.WriteLine(element.ToString());
