@@ -45,7 +45,7 @@ namespace ZeroInstall.Store.Implementations
                 new PackageBuilder().AddFolder("subdir")
                     .AddFile("file", "AAA", new DateTime(2000, 1, 1))
                     .WritePackageInto(packageDir);
-                return Manifest.Generate(packageDir, ManifestFormat.Sha1New, new MockServiceHandler());
+                return Manifest.Generate(packageDir, ManifestFormat.Sha1New, new MockTaskHandler());
             }
         }
         #endregion
@@ -99,20 +99,20 @@ namespace ZeroInstall.Store.Implementations
                     .WritePackageInto(packageDir);
 
                 Assert.AreEqual(
-                    Manifest.CreateDotFile(packageDir, ManifestFormat.Sha1, new MockServiceHandler()),
-                    Manifest.Generate(packageDir, ManifestFormat.Sha1, new MockServiceHandler()).CalculateDigest(),
+                    Manifest.CreateDotFile(packageDir, ManifestFormat.Sha1, new MockTaskHandler()),
+                    Manifest.Generate(packageDir, ManifestFormat.Sha1, new MockTaskHandler()).CalculateDigest(),
                     "sha1 dot file and digest should match");
                 Assert.AreEqual(
-                    Manifest.CreateDotFile(packageDir, ManifestFormat.Sha1New, new MockServiceHandler()),
-                    Manifest.Generate(packageDir, ManifestFormat.Sha1New, new MockServiceHandler()).CalculateDigest(),
+                    Manifest.CreateDotFile(packageDir, ManifestFormat.Sha1New, new MockTaskHandler()),
+                    Manifest.Generate(packageDir, ManifestFormat.Sha1New, new MockTaskHandler()).CalculateDigest(),
                     "sha1new dot file and digest should match");
                 Assert.AreEqual(
-                    Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, new MockServiceHandler()),
-                    Manifest.Generate(packageDir, ManifestFormat.Sha256, new MockServiceHandler()).CalculateDigest(),
+                    Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, new MockTaskHandler()),
+                    Manifest.Generate(packageDir, ManifestFormat.Sha256, new MockTaskHandler()).CalculateDigest(),
                     "sha256 dot file and digest should match");
                 Assert.AreEqual(
-                    Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256New, new MockServiceHandler()),
-                    Manifest.Generate(packageDir, ManifestFormat.Sha256New, new MockServiceHandler()).CalculateDigest(),
+                    Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256New, new MockTaskHandler()),
+                    Manifest.Generate(packageDir, ManifestFormat.Sha256New, new MockTaskHandler()).CalculateDigest(),
                     "sha256new dot file and digest should match");
             }
         }
@@ -126,13 +126,13 @@ namespace ZeroInstall.Store.Implementations
                     .AddFile("file", "AAA", new DateTime(2000, 1, 1))
                     .WritePackageInto(packageDir);
 
-                ManifestDigest digest1 = Manifest.CreateDigest(packageDir, new MockServiceHandler());
+                ManifestDigest digest1 = Manifest.CreateDigest(packageDir, new MockTaskHandler());
                 Assert.IsNullOrEmpty(digest1.Sha1); // sha1 is deprecated
                 Assert.IsNotNullOrEmpty(digest1.Sha1New);
                 Assert.IsNotNullOrEmpty(digest1.Sha256);
                 Assert.IsNotNullOrEmpty(digest1.Sha256New);
 
-                ManifestDigest digest2 = Manifest.CreateDigest(packageDir, new MockServiceHandler());
+                ManifestDigest digest2 = Manifest.CreateDigest(packageDir, new MockTaskHandler());
                 Assert.AreEqual(digest1, digest2);
             }
         }
@@ -146,7 +146,7 @@ namespace ZeroInstall.Store.Implementations
                     .AddFile("file", "AAA", new DateTime(2000, 1, 1))
                     .WritePackageInto(packageDir);
 
-                var manifest = Manifest.Generate(packageDir, ManifestFormat.Sha1New, new MockServiceHandler());
+                var manifest = Manifest.Generate(packageDir, ManifestFormat.Sha1New, new MockTaskHandler());
                 Assert.AreEqual("D /subdir\nF 606ec6e9bd8a8ff2ad14e5fade3f264471e82251 946684800 3 file\n", manifest.ToString().Replace(Environment.NewLine, "\n"));
             }
         }
@@ -161,7 +161,7 @@ namespace ZeroInstall.Store.Implementations
                 string manifestPath = Path.Combine(package, ".manifest");
 
                 File.WriteAllText(exePath, "");
-                Manifest.CreateDotFile(package, ManifestFormat.Sha256, new MockServiceHandler());
+                Manifest.CreateDotFile(package, ManifestFormat.Sha256, new MockTaskHandler());
 
                 using (var manifest = File.OpenText(manifestPath))
                 {
@@ -182,7 +182,7 @@ namespace ZeroInstall.Store.Implementations
 
                 File.WriteAllText(exePath, "");
                 File.WriteAllText(xbitPath, @"/test.exe");
-                Manifest.CreateDotFile(package, ManifestFormat.Sha256, new MockServiceHandler());
+                Manifest.CreateDotFile(package, ManifestFormat.Sha256, new MockTaskHandler());
 
                 using (var manifest = File.OpenText(manifestPath))
                 {
@@ -203,7 +203,7 @@ namespace ZeroInstall.Store.Implementations
 
                 File.WriteAllText(exePath, "");
                 File.WriteAllText(xbitPath, @"/test");
-                Manifest.CreateDotFile(package, ManifestFormat.Sha256, new MockServiceHandler());
+                Manifest.CreateDotFile(package, ManifestFormat.Sha256, new MockTaskHandler());
 
                 using (var manifest = File.OpenText(manifestPath))
                 {
@@ -218,7 +218,7 @@ namespace ZeroInstall.Store.Implementations
         {
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
-                Manifest.CreateDotFile(package, ManifestFormat.Sha256, new MockServiceHandler());
+                Manifest.CreateDotFile(package, ManifestFormat.Sha256, new MockTaskHandler());
                 using (var manifestFile = File.OpenRead(Path.Combine(package, ".manifest")))
                     Assert.AreEqual(0, manifestFile.Length, "Empty package directory should make an empty manifest");
             }
@@ -237,7 +237,7 @@ namespace ZeroInstall.Store.Implementations
                 string manifestPath = Path.Combine(package, ".manifest");
                 File.WriteAllText(innerExePath, @"xxxxxxx");
                 File.WriteAllText(xbitPath, @"/inner/inner.exe");
-                Manifest.CreateDotFile(package, ManifestFormat.Sha256, new MockServiceHandler());
+                Manifest.CreateDotFile(package, ManifestFormat.Sha256, new MockTaskHandler());
                 using (var manifestFile = File.OpenText(manifestPath))
                 {
                     string currentLine = manifestFile.ReadLine();
@@ -261,7 +261,7 @@ namespace ZeroInstall.Store.Implementations
                 string manifestPath = Path.Combine(package, ".manifest");
                 File.WriteAllText(innerExePath, @"xxxxxxx");
                 File.WriteAllText(xbitPath, @"/inner/inner.exe");
-                Manifest.CreateDotFile(package, ManifestFormat.Sha1, new MockServiceHandler());
+                Manifest.CreateDotFile(package, ManifestFormat.Sha1, new MockTaskHandler());
                 using (var manifestFile = File.OpenText(manifestPath))
                 {
                     string currentLine = manifestFile.ReadLine();
@@ -283,7 +283,7 @@ namespace ZeroInstall.Store.Implementations
             {
                 Directory.CreateDirectory(Path.Combine(package, "target"));
                 FileUtils.CreateSymlink(Path.Combine(package, "source"), "target");
-                var manifest = Manifest.Generate(package, ManifestFormat.Sha256New, new MockServiceHandler());
+                var manifest = Manifest.Generate(package, ManifestFormat.Sha256New, new MockTaskHandler());
 
                 Assert.IsTrue(manifest[0] is ManifestSymlink, "Unexpected manifest:\n" + manifest);
                 Assert.AreEqual("source", ((ManifestSymlink)manifest[0]).SymlinkName, "Unexpected manifest:\n" + manifest);

@@ -33,7 +33,6 @@ using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.Solvers;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
@@ -51,7 +50,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// A callback object used when the the user needs to be asked questions or informed about download and IO tasks.
         /// </summary>
-        // Type covariance: ServiceLocator -> FrontendCommand, IServiceHandler -> ICommandHandler
+        // Type covariance: ServiceLocator -> FrontendCommand, ITaskHandler -> ICommandHandler
         public new ICommandHandler Handler { get; private set; }
 
         /// <summary>
@@ -110,7 +109,7 @@ namespace ZeroInstall.Commands
         public virtual string ActionTitle { get { return null; } }
 
         /// <summary>
-        /// The number of milliseconds by which to delay the initial display of the <see cref="IServiceHandler"/> GUI.
+        /// The number of milliseconds by which to delay the initial display of the <see cref="ICommandHandler"/> GUI.
         /// </summary>
         public virtual int GuiDelay { get { return 0; } }
 

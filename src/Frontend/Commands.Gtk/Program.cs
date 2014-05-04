@@ -23,7 +23,6 @@ using System.Security.Cryptography;
 using System.Text;
 using Gtk;
 using NanoByte.Common;
-using NanoByte.Common.Gtk;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Utils;
 using NDesk.Options;
@@ -222,7 +221,7 @@ namespace ZeroInstall.Commands.Gtk
                 {
                     handler.CloseProgressUI();
                     Log.Error(ex);
-                    Msg.Inform(null, ex.Message.GetLeftPartAtFirstOccurrence(Environment.NewLine), MsgSeverity.Error);
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return 1;
                 }
                 catch (CommandException ex)

@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using ZeroInstall.Store;
+using NanoByte.Common.Tasks;
 
 namespace ZeroInstall.Services
 {
     /// <summary>
-    /// A minimalistic <see cref="IServiceHandler"/> that allows you to pre-record answers and retrieve output.
+    /// A minimalistic <see cref="ITaskHandler"/> that allows you to pre-record answers and retrieve output.
     /// </summary>
-    public class MockServiceHandler : SilentServiceHandler
+    public class MockTaskHandler : SilentTaskHandler
     {
         /// <summary>
         /// Do not show progress reports, questions or messages (except for non-intrusive background messages like tray icons) unless a critical error occurs.

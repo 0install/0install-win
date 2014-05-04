@@ -36,7 +36,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         #region Dependencies
         private readonly IStore _store;
         private readonly IFeedCache _feedCache;
-        private readonly IServiceHandler _handler;
+        private readonly ITaskHandler _handler;
 
         /// <summary>
         /// Creates a new list builder
@@ -44,7 +44,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <param name="store">Used to list <see cref="Implementation"/>s</param>
         /// <param name="feedCache">Used to load <see cref="Feed"/>s.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
-        public NodeListBuilder(IStore store, IFeedCache feedCache, IServiceHandler handler)
+        public NodeListBuilder(IStore store, IFeedCache feedCache, ITaskHandler handler)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");

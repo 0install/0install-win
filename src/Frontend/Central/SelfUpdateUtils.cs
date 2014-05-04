@@ -20,6 +20,7 @@ using System.IO;
 using System.Net;
 using NanoByte.Common.Info;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Solvers;
@@ -63,7 +64,7 @@ namespace ZeroInstall.Central
         /// <exception cref="InvalidDataException">Thrown if a configuration file is damaged.</exception>
         public static ImplementationVersion Check()
         {
-            var locator = new ServiceLocator(new SilentServiceHandler()) {FeedManager = {Refresh = true}};
+            var locator = new ServiceLocator(new SilentTaskHandler()) {FeedManager = {Refresh = true}};
             if (locator.Config.NetworkUse == NetworkLevel.Offline) return null;
 
             // Run solver

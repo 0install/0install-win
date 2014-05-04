@@ -23,10 +23,7 @@ using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
-using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
-using CancellationToken = NanoByte.Common.Tasks.CancellationToken;
-using CancellationTokenSource = NanoByte.Common.Tasks.CancellationTokenSource;
 
 namespace ZeroInstall.Commands.Gtk
 {
@@ -34,19 +31,11 @@ namespace ZeroInstall.Commands.Gtk
     /// Uses <see cref="Gtk"/> to allow users to interact with <see cref="FrontendCommand"/>s.
     /// </summary>
     /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
-    public sealed class GuiCommandHandler : ICommandHandler
+    public sealed class GuiCommandHandler : GuiTaskHandler, ICommandHandler
     {
         #region Properties
-        private readonly CancellationTokenSource _cancellationTokenSource;
-
         /// <inheritdoc/>
-        public CancellationToken CancellationToken { get { return _cancellationTokenSource.Token; } }
-
-        /// <inheritdoc/>
-        public int Verbosity { get; set; }
-
-        /// <inheritdoc/>
-        public bool Batch { get; set; }
+        public override int Verbosity { get; set; }
 
         private string _actionTitle;
 
@@ -61,60 +50,7 @@ namespace ZeroInstall.Commands.Gtk
         }
         #endregion
 
-        #region Constructor
-        /// <summary>
-        /// Creates a new GUI handler with an external <see cref="CancellationTokenSource"/>.
-        /// </summary>
-        public GuiCommandHandler(CancellationTokenSource cancellationTokenSource)
-        {
-            _cancellationTokenSource = cancellationTokenSource;
-        }
-
-        /// <summary>
-        /// Creates a new GUI handler with its own <see cref="CancellationTokenSource"/>.
-        /// </summary>
-        public GuiCommandHandler()
-            : this(new CancellationTokenSource())
-        {}
-        #endregion
-
-        #region Dispose
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            // TODO: Implement
-        }
-        #endregion
-
         //--------------------//
-
-        #region Task tracking
-        /// <summary>Synchronization object used to prevent multiple concurrent generic <see cref="ITask"/>s.</summary>
-        private readonly object _genericTaskLock = new object();
-
-        /// <inheritdoc/>
-        public void RunTask(ITask task)
-        {
-            #region Sanity checks
-            if (task == null) throw new ArgumentNullException("task");
-            #endregion
-
-            IProgress<TaskSnapshot> progress = null;
-            if (task.Tag is ManifestDigest)
-            {
-                // TODO: Implement
-            }
-            else
-            {
-                lock (_genericTaskLock) // Prevent multiple concurrent generic tasks
-                {
-                    // TODO: Implement
-                }
-            }
-
-            task.Run(CancellationToken, progress);
-        }
-        #endregion
 
         #region UI control
         /// <inheritdoc/>
@@ -133,19 +69,6 @@ namespace ZeroInstall.Commands.Gtk
         public void CloseProgressUI()
         {
             // TODO: Implement
-        }
-        #endregion
-
-        #region Question
-        /// <inheritdoc/>
-        public bool AskQuestion(string question, string batchInformation = null)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(question)) throw new ArgumentNullException("question");
-            #endregion
-
-            // TODO: Implement
-            return false;
         }
         #endregion
 
@@ -174,15 +97,6 @@ namespace ZeroInstall.Commands.Gtk
             // TODO: Implement
 
             _modifySelectionsWaitHandle.WaitOne();
-        }
-        #endregion
-
-        #region Messages
-        /// <inheritdoc/>
-        public void Output(string title, string information)
-        {
-            DisableProgressUI();
-            // TODO: Implement
         }
         #endregion
 

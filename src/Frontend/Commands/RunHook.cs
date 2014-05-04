@@ -24,13 +24,13 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using EasyHook;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.Windows;
 using ZeroInstall.Hooking;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Injector;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
@@ -44,7 +44,7 @@ namespace ZeroInstall.Commands
     internal sealed class RunHook : IDisposable
     {
         #region Variables
-        private readonly IServiceHandler _handler;
+        private readonly ITaskHandler _handler;
 
         private readonly InterfaceFeed _target;
 
@@ -68,7 +68,7 @@ namespace ZeroInstall.Commands
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the main implementation is not cached (possibly because it is installed natively).</exception>
-        public RunHook(Selections selections, IExecutor executor, IFeedManager feedManager, IServiceHandler handler)
+        public RunHook(Selections selections, IExecutor executor, IFeedManager feedManager, ITaskHandler handler)
         {
             string interfaceID = selections.InterfaceID;
             _target = new InterfaceFeed(interfaceID, feedManager.GetFeed(interfaceID));

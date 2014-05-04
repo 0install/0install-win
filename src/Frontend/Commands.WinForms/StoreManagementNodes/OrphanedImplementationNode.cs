@@ -17,8 +17,8 @@
 
 using System;
 using System.IO;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 
@@ -44,7 +44,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        public OrphanedImplementationNode(ManifestDigest digest, IStore store, IServiceHandler handler)
+        public OrphanedImplementationNode(ManifestDigest digest, IStore store, ITaskHandler handler)
             : base(digest, store, handler)
         {}
         #endregion

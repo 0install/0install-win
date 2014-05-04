@@ -19,11 +19,10 @@ using System;
 using System.Collections.Generic;
 using NanoByte.Common.Info;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Services;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 

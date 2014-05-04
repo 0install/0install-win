@@ -18,14 +18,13 @@
 using System;
 using System.Linq;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
-using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands
 {

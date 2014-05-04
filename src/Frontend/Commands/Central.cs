@@ -18,7 +18,6 @@
 using System;
 using NanoByte.Common.Utils;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Services;
 
 namespace ZeroInstall.Commands
 {

@@ -1,5 +1,5 @@
-﻿using ZeroInstall.Services;
-using ZeroInstall.Store;
+﻿using NanoByte.Common.Tasks;
+using ZeroInstall.Services;
 using ZeroInstall.Store.Model;
 
 class MinimalZeroInstall : ServiceLocator
@@ -9,7 +9,7 @@ class MinimalZeroInstall : ServiceLocator
         new MinimalZeroInstall().Run(new Requirements {InterfaceID = args[0]});
     }
 
-    private MinimalZeroInstall() : base(new CliServiceHandler())
+    private MinimalZeroInstall() : base(new CliTaskHandler())
     {}
 
     private void Run(Requirements requirements)

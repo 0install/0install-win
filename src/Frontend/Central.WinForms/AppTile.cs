@@ -23,11 +23,10 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 using NanoByte.Common;
+using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Services;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Icons;
 using ZeroInstall.Store.Model;
 using Icon = ZeroInstall.Store.Model.Icon;
@@ -50,7 +49,7 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>Apply operations machine-wide instead of just for the current user.</summary>
         private readonly bool _machineWide;
 
-        private static readonly IServiceHandler _handler = new SilentServiceHandler();
+        private static readonly ITaskHandler _handler = new SilentTaskHandler();
 
         /// <summary>The icon cache used to retrieve icons specified in <see cref="Feed"/>; may be <see langword="null"/>.</summary>
         private readonly IIconCache _iconCache;

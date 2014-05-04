@@ -29,7 +29,7 @@ namespace ZeroInstall.Commands
     /// Callback methods to allow users to interact with <see cref="FrontendCommand"/>s.
     /// </summary>
     /// <remarks>The methods may be called from a background thread. Implementations apply appropriate thread-synchronization to update UI elements.</remarks>
-    public interface ICommandHandler : IServiceHandler
+    public interface ICommandHandler : ITaskHandler
     {
         /// <summary>
         /// Prepares any UI elements necessary to track the progress of <see cref="ITask"/>s.

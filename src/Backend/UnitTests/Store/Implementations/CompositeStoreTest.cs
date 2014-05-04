@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Implementations
         private static readonly IEnumerable<ArchiveFileInfo> _archives = new[] {_archive1, _archive2};
         #endregion
 
-        private MockServiceHandler _handler;
+        private MockTaskHandler _handler;
         private Mock<IStore> _mockStore1, _mockStore2;
         private CompositeStore _testStore;
 
@@ -49,7 +49,7 @@ namespace ZeroInstall.Store.Implementations
         {
             base.SetUp();
 
-            _handler = new MockServiceHandler();
+            _handler = new MockTaskHandler();
 
             // Prepare mock objects that will be injected with methods in the tests
             _mockStore1 = MockRepository.Create<IStore>();

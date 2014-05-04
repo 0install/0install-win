@@ -32,7 +32,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
     /// <summary>
     /// Base class for <see cref="Wizard"/> pages that need a <see cref="SyncApps"/>.
     /// </summary>
-    internal partial class SyncPage : UserControl, IServiceHandler
+    internal partial class SyncPage : UserControl, ITaskHandler
     {
         protected readonly bool MachineWide;
 
@@ -95,7 +95,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
             Invoke(new Action(() => labelWorking.Visible = false));
         }
 
-        #region IServiceHandler
+        #region ITaskHandler
         private readonly CancellationToken _cancellationToken = new CancellationToken();
 
         /// <summary>

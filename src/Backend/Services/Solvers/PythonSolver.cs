@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Properties;
@@ -38,7 +39,7 @@ namespace ZeroInstall.Services.Solvers
         #region Dependencies
         private readonly Config _config;
         private readonly IFeedManager _feedManager;
-        private readonly IServiceHandler _handler;
+        private readonly ITaskHandler _handler;
 
         /// <summary>
         /// Creates a new Python solver.
@@ -46,7 +47,7 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public PythonSolver(Config config, IFeedManager feedManager, IServiceHandler handler)
+        public PythonSolver(Config config, IFeedManager feedManager, ITaskHandler handler)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");

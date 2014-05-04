@@ -35,7 +35,7 @@ namespace ZeroInstall
 
         protected AutoMockContainer Container { get; private set; }
         protected Config Config { get; private set; }
-        protected MockServiceHandler MockHandler { get; private set; }
+        protected MockTaskHandler MockHandler { get; private set; }
 
         /// <summary>
         /// The object to be tested.
@@ -49,7 +49,6 @@ namespace ZeroInstall
 
             Container = new AutoMockContainer(MockRepository);
             MockHandler = CreateMockHandler();
-            Container.Register<IServiceHandler>(MockHandler);
             Container.Register<ITaskHandler>(MockHandler);
             Container.Register(Config = new Config());
 
@@ -58,9 +57,9 @@ namespace ZeroInstall
             _redirect = new LocationsRedirect("0install-unit-tests");
         }
 
-        protected virtual MockServiceHandler CreateMockHandler()
+        protected virtual MockTaskHandler CreateMockHandler()
         {
-            return new MockServiceHandler();
+            return new MockTaskHandler();
         }
 
         [TearDown]

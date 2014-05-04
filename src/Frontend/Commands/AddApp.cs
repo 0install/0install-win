@@ -16,10 +16,9 @@
  */
 
 using System;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Services;
-using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands
 {

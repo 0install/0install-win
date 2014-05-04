@@ -19,7 +19,6 @@ using System;
 using System.IO;
 using System.Text;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Services;
 using ZeroInstall.Store.Model.Preferences;
 
 namespace ZeroInstall.Commands

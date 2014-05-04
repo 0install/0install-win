@@ -34,14 +34,14 @@ namespace ZeroInstall.Store.Implementations
     [TestFixture]
     public class DirectoryStoreTest
     {
-        private MockServiceHandler _handler;
+        private MockTaskHandler _handler;
         private TemporaryDirectory _tempDir;
         private DirectoryStore _store;
 
         [SetUp]
         public void SetUp()
         {
-            _handler = new MockServiceHandler();
+            _handler = new MockTaskHandler();
             _tempDir = new TemporaryDirectory("0install-unit-tests");
             _store = new DirectoryStore(_tempDir);
         }

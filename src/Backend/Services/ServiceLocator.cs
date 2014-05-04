@@ -16,6 +16,7 @@
  */
 
 using System;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Injector;
@@ -55,7 +56,7 @@ namespace ZeroInstall.Services
         /// Creates a new service locator.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public ServiceLocator(IServiceHandler handler)
+        public ServiceLocator(ITaskHandler handler)
         {
             Handler = handler;
         }
@@ -64,7 +65,7 @@ namespace ZeroInstall.Services
         /// <summary>
         /// A callback object used when the the user needs to be asked questions or informed about download and IO tasks.
         /// </summary>
-        public IServiceHandler Handler { get; private set; }
+        public ITaskHandler Handler { get; private set; }
 
         /// <summary>
         /// User settings controlling network behaviour, solving, etc.

@@ -25,7 +25,6 @@ using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
@@ -56,7 +55,8 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// </summary>
         /// <param name="store">The store containing the element.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
-        protected StoreNode(IStore store, IServiceHandler handler) : base(handler)
+        protected StoreNode(IStore store, ITaskHandler handler)
+            : base(handler)
         {
             Store = store;
         }

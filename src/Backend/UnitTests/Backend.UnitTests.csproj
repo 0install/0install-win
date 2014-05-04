@@ -38,7 +38,7 @@
       <Aliases>LinqBridge</Aliases>
     </Reference>
     <Reference Include="NanoByte.Common">
-      <HintPath>..\..\packages\NanoByte.Common.1.0.3\lib\net20\NanoByte.Common.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.1.0.4\lib\net20\NanoByte.Common.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
@@ -85,7 +85,7 @@
     <Compile Include="Services\Fetchers\SequentialFetcherTest.cs" />
     <Compile Include="Services\Fetchers\TestData.cs" />
     <Compile Include="Services\Injector\ExecutorTest.cs" />
-    <Compile Include="Services\MockServiceHandler.cs" />
+    <Compile Include="Services\MockTaskHandler.cs" />
     <Compile Include="Store\Implementations\Archives\CabExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\SevenZipExtractorTest.cs" />
     <Compile Include="Store\Model\ArchitectureTest.cs" />

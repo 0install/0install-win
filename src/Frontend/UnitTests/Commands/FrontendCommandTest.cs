@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Linq;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration;
@@ -56,10 +57,10 @@ namespace ZeroInstall.Commands
             Target.Executor = Container.Resolve<IExecutor>();
         }
 
-        // Type covariance: TestWithContainer -> FrontendCommandTest, MockServiceHandler -> MockCommandHandler
+        // Type covariance: TestWithContainer -> FrontendCommandTest, MockTaskHandler -> MockCommandHandler
         protected new MockCommandHandler MockHandler { get; private set; }
 
-        protected override MockServiceHandler CreateMockHandler()
+        protected override MockTaskHandler CreateMockHandler()
         {
             MockHandler = new MockCommandHandler();
             Container.Register<ICommandHandler>(MockHandler);
@@ -69,7 +70,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Verifies that calling <see cref="FrontendCommand.Parse"/> and <see cref="FrontendCommand.Execute"/> causes a specific reuslt.
         /// </summary>
-        /// <param name="expectedOutput">The expected string for a <see cref="IServiceHandler.Output"/> call; <see langword="null"/> if none.</param>
+        /// <param name="expectedOutput">The expected string for a <see cref="ITaskHandler.Output"/> call; <see langword="null"/> if none.</param>
         /// <param name="expectedExitStatus">The expected exit status code returned by <see cref="FrontendCommand.Execute"/>.</param>
         /// <param name="args">The arguments to pass to <see cref="FrontendCommand.Parse"/>.</param>
         protected void RunAndAssert(string expectedOutput, int expectedExitStatus, params string[] args)

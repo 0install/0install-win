@@ -24,9 +24,9 @@ using System.Linq;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
+using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
 
@@ -78,7 +78,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <param name="feed">The <see cref="Feed"/> to be represented by this node.</param>
         /// <param name="cache">The <see cref="IFeedCache"/> the <see cref="Feed"/> is located in.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
-        public FeedNode(Feed feed, IFeedCache cache, IServiceHandler handler)
+        public FeedNode(Feed feed, IFeedCache cache, ITaskHandler handler)
             : base(handler)
         {
             #region Sanity checks

@@ -1,5 +1,5 @@
-﻿Imports ZeroInstall.Services
-Imports ZeroInstall.Store
+﻿Imports NanoByte.Common.Tasks
+Imports ZeroInstall.Services
 Imports ZeroInstall.Store.Model
 
 Module MinimalZeroInstall
@@ -8,7 +8,7 @@ Module MinimalZeroInstall
     End Sub
 
     Private Sub Run(requirements As Requirements)
-        Dim services = New ServiceLocator(New CliServiceHandler())
+        Dim services = New ServiceLocator(New CliTaskHandler())
         With services
             Dim selections = .Solver.Solve(requirements)
             Dim missing = .SelectionsManager.GetUncachedImplementations(selections)

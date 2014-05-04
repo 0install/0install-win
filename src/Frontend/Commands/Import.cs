@@ -20,7 +20,6 @@ using System.IO;
 using NanoByte.Common.Cli;
 using NanoByte.Common.Storage;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Services;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands

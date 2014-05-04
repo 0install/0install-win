@@ -22,7 +22,6 @@ using System.Text.RegularExpressions;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Services;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 

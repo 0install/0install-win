@@ -19,7 +19,7 @@ using System.Diagnostics;
 using System.IO;
 using NanoByte.Common.Cli;
 using NanoByte.Common.Storage;
-using ZeroInstall.Store;
+using NanoByte.Common.Tasks;
 
 namespace ZeroInstall.Services.Solvers.Python
 {
@@ -30,7 +30,7 @@ namespace ZeroInstall.Services.Solvers.Python
     {
         private readonly ErrorParser _errorParser;
 
-        public SolverControlNative(IServiceHandler handler)
+        public SolverControlNative(ITaskHandler handler)
         {
             _errorParser = new ErrorParser(handler);
         }

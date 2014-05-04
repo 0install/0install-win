@@ -30,7 +30,6 @@ using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Commands.WinForms.StoreManagementNodes;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 
@@ -39,7 +38,7 @@ namespace ZeroInstall.Commands.WinForms
     /// <summary>
     /// Displays the content of caches (<see cref="IFeedCache"/> and <see cref="IStore"/>) in a combined tree view.
     /// </summary>
-    public sealed partial class StoreManageForm : Form, IServiceHandler
+    public sealed partial class StoreManageForm : Form, ITaskHandler
     {
         #region Variables
         private readonly IStore _store;
@@ -235,7 +234,7 @@ namespace ZeroInstall.Commands.WinForms
         }
         #endregion
 
-        #region IServiceHandler
+        #region ITaskHandler
         /// <inheritdoc/>
         public CancellationToken CancellationToken { get { return default(CancellationToken); } }
 

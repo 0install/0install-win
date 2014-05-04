@@ -41,7 +41,7 @@ namespace ZeroInstall.DesktopIntegration
         {
             _appListFile = new TemporaryFile("0install-unit-tests");
             new AppList().SaveXml(_appListFile);
-            _integrationManager = new IntegrationManager(_appListFile, new MockServiceHandler());
+            _integrationManager = new IntegrationManager(_appListFile, new MockTaskHandler());
         }
 
         [TearDown]

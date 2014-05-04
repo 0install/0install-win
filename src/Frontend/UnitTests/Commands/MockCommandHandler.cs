@@ -28,7 +28,7 @@ namespace ZeroInstall.Commands
     /// <summary>
     /// A minimalistic <see cref="ICommandHandler"/> that allows you to pre-record answers and retrieve output.
     /// </summary>
-    public class MockCommandHandler : MockServiceHandler, ICommandHandler
+    public class MockCommandHandler : MockTaskHandler, ICommandHandler
     {
         /// <inheritdoc/>
         public void ShowProgressUI()

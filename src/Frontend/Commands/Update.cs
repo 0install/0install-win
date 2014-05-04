@@ -19,10 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Services;
 using ZeroInstall.Services.Solvers;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 

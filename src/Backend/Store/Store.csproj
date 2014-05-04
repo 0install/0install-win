@@ -49,7 +49,7 @@
       <HintPath>..\..\packages\LinqBridge.1.3.0\lib\net20\LinqBridge.dll</HintPath>
     </Reference>
     <Reference Include="NanoByte.Common">
-      <HintPath>..\..\packages\NanoByte.Common.1.0.3\lib\net20\NanoByte.Common.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.1.0.4\lib\net20\NanoByte.Common.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.3\lib\net20\Newtonsoft.Json.dll</HintPath>
@@ -76,7 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
-    <Compile Include="CliServiceHandler.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Config.Storage.cs" />
     <Compile Include="Feeds\DiskFeedCache.cs" />
@@ -88,7 +87,6 @@
     <Compile Include="Icons\DiskIconCache.cs" />
     <Compile Include="Icons\IconCacheProvider.cs" />
     <Compile Include="Icons\IIconCache.cs" />
-    <Compile Include="IServiceHandler.cs" />
     <Compile Include="ImplementationUtils.cs" />
     <Compile Include="Implementations\Archives\ArchiveFileInfo.cs" />
     <Compile Include="Implementations\Archives\CabExtractor.cs" />
@@ -225,8 +223,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="ServiceHandlerExtensions.cs" />
-    <Compile Include="SilentServiceHandler.cs" />
     <Compile Include="Trust\Domain.cs" />
     <Compile Include="Trust\GnuPG.cs" />
     <Compile Include="Trust\IOpenPgp.cs" />

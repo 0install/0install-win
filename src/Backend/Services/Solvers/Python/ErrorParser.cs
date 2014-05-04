@@ -20,8 +20,8 @@ using System.Diagnostics;
 using System.Text;
 using System.Web;
 using NanoByte.Common;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Properties;
-using ZeroInstall.Store;
 
 namespace ZeroInstall.Services.Solvers.Python
 {
@@ -43,7 +43,7 @@ namespace ZeroInstall.Services.Solvers.Python
         #endregion
 
         #region Variables
-        private readonly IServiceHandler _handler;
+        private readonly ITaskHandler _handler;
 
         private StringBuilder _cache;
         private ErrorMode _currentErrorMode;
@@ -54,7 +54,7 @@ namespace ZeroInstall.Services.Solvers.Python
         /// Creates a new error parser.
         /// </summary>
         /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
-        public ErrorParser(IServiceHandler handler)
+        public ErrorParser(ITaskHandler handler)
         {
             _handler = handler;
         }

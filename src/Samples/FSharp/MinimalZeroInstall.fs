@@ -1,8 +1,8 @@
-﻿open ZeroInstall.Services
-open ZeroInstall.Store
+﻿open NanoByte.Common.Tasks
+open ZeroInstall.Services
 open ZeroInstall.Store.Model
 
-let locator = new ServiceLocator(new CliServiceHandler())
+let locator = new ServiceLocator(new CliTaskHandler())
 let solve = locator.Solver.Solve
 let uncached = locator.SelectionsManager.GetUncachedImplementations
 let fetch = locator.Fetcher.Fetch

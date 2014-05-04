@@ -507,7 +507,7 @@ namespace ZeroInstall.Store.Implementations
         #region Verify
         /// <inheritdoc/>
         [SuppressMessage("Microsoft.Usage", "CA2208:InstantiateArgumentExceptionsCorrectly")]
-        public virtual void Verify(ManifestDigest manifestDigest, IServiceHandler handler)
+        public virtual void Verify(ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");

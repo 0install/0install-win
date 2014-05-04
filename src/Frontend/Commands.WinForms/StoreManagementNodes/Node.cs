@@ -21,7 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using NanoByte.Common;
-using ZeroInstall.Store;
+using NanoByte.Common.Tasks;
 
 namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 {
@@ -35,7 +35,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <summary>
         /// A callback object used when the the user needs to be asked questions or informed about IO tasks.
         /// </summary>
-        protected readonly IServiceHandler Handler;
+        protected readonly ITaskHandler Handler;
         #endregion
 
         #region Properties
@@ -55,7 +55,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// Creates a new store node.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
-        protected Node(IServiceHandler handler)
+        protected Node(ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
