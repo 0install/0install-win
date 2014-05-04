@@ -46,6 +46,7 @@ namespace ZeroInstall.Central.Gtk
         private static int Main(string[] args)
         {
             WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
+            Application.Init();
 
             // Encode installation path into mutex name to allow instance detection during updates
             string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());
@@ -69,7 +70,6 @@ namespace ZeroInstall.Central.Gtk
             bool machineWide = args.Any(arg => arg == "-m" || arg == "--machine");
             if (machineWide && WindowsUtils.IsWindowsNT && !WindowsUtils.IsAdministrator) return ProcessUtils.RunAssemblyAsAdmin("ZeroInstall", args.JoinEscapeArguments());
 
-            Application.Init();
             var window = new MainWindow();
             window.DeleteEvent += delegate { Application.Quit(); };
             window.Show();
