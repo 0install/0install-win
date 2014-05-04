@@ -4,8 +4,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>12.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DD118018-2B93-11E0-8896-FBD0DFD72085}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -86,12 +84,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
-    <Compile Include="GuiCommandHandler.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="gtk-gui\generated.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MainWindow.cs" />
     <Compile Include="gtk-gui\ZeroInstall.Commands.Gtk.MainWindow.cs" />
+    <Compile Include="GuiCommandHandler.cs" />
+    <Compile Include="MainWindow.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
