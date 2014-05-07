@@ -21,6 +21,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
@@ -28,7 +29,7 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Updates all applications in the application list.
+    /// Updates all applications in the <see cref="AppList"/>.
     /// </summary>
     [CLSCompliant(false)]
     public sealed class UpdateApps : IntegrationCommand

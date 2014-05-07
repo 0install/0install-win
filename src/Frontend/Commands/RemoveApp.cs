@@ -25,7 +25,7 @@ using ZeroInstall.Store;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Remove an application from the application list and undoes any desktop environment integration.
+    /// Remove an application from the <see cref="AppList"/> and undoes any desktop environment integration.
     /// </summary>
     [CLSCompliant(false)]
     public sealed class RemoveApp : AppCommand

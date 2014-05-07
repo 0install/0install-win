@@ -33,7 +33,7 @@ using ZeroInstall.Store.Model;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Add an application to the application list (if missing) and integrate it into the desktop environment.
+    /// Add an application to the <see cref="AppList"/> (if missing) and integrate it into the desktop environment.
     /// </summary>
     [CLSCompliant(false)]
     public sealed class IntegrateApp : AppCommand

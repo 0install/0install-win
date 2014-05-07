@@ -25,7 +25,7 @@ using ZeroInstall.Services;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Removes all applications from the application list and undoes any desktop environment integration.
+    /// Removes all applications from the <see cref="AppList"/> and undoes any desktop environment integration.
     /// </summary>
     [CLSCompliant(false)]
     public sealed class RemoveAllApps : IntegrationCommand

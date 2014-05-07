@@ -25,7 +25,7 @@ using ZeroInstall.Store;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// View or change <see cref="Config"/>.
+    /// Synchronize the <see cref="AppList"/> with the server.
     /// </summary>
     [CLSCompliant(false)]
     public sealed class SyncApps : IntegrationCommand

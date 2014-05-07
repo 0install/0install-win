@@ -24,7 +24,7 @@ using ZeroInstall.Store;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Add an application to the application list.
+    /// Add an application to the <see cref="AppList"/>.
     /// </summary>
     [CLSCompliant(false)]
     public sealed class AddApp : AppCommand
