@@ -85,9 +85,7 @@
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
     <Compile Include="gtk-gui\generated.cs" />
-    <Compile Include="gtk-gui\ZeroInstall.Commands.Gtk.MainWindow.cs" />
     <Compile Include="GuiCommandHandler.cs" />
-    <Compile Include="MainWindow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
