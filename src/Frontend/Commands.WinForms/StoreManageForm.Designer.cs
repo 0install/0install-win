@@ -44,6 +44,7 @@
             this.buttonVerify = new System.Windows.Forms.Button();
             this.buttonRunAsAdmin = new System.Windows.Forms.Button();
             this.refreshListWorker = new System.ComponentModel.BackgroundWorker();
+            this.labelLoading = new System.Windows.Forms.Label();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.tableLayoutPanelSize.SuspendLayout();
@@ -154,6 +155,11 @@
             this.refreshListWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.refreshListWorker_DoWork);
             this.refreshListWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.refreshListWorker_RunWorkerCompleted);
             // 
+            // labelLoading
+            // 
+            resources.ApplyResources(this.labelLoading, "labelLoading");
+            this.labelLoading.Name = "labelLoading";
+            // 
             // StoreManageForm
             // 
             resources.ApplyResources(this, "$this");
@@ -165,12 +171,14 @@
             this.Controls.Add(this.buttonRemove);
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.buttonClose);
+            this.Controls.Add(this.labelLoading);
             this.Name = "StoreManageForm";
             this.splitContainer.Panel2.ResumeLayout(false);
             this.splitContainer.ResumeLayout(false);
             this.tableLayoutPanelSize.ResumeLayout(false);
             this.tableLayoutPanelSize.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -191,6 +199,7 @@
         private System.Windows.Forms.Button buttonVerify;
         private System.Windows.Forms.Button buttonRunAsAdmin;
         private System.ComponentModel.BackgroundWorker refreshListWorker;
+        private System.Windows.Forms.Label labelLoading;
 
     }
 }

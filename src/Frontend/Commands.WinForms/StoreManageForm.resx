@@ -184,7 +184,7 @@
     <value>117, 41</value>
   </data>
   <data name="textTotalSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 13</value>
+    <value>123, 13</value>
   </data>
   <data name="textTotalSize.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -211,7 +211,7 @@
     <value>117, 3</value>
   </data>
   <data name="textCurrentSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 13</value>
+    <value>123, 13</value>
   </data>
   <data name="textCurrentSize.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -238,7 +238,7 @@
     <value>117, 22</value>
   </data>
   <data name="textCheckedSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 13</value>
+    <value>123, 13</value>
   </data>
   <data name="textCheckedSize.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -331,7 +331,7 @@
     <value>3</value>
   </data>
   <data name="tableLayoutPanelSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 58</value>
+    <value>243, 58</value>
   </data>
   <data name="tableLayoutPanelSize.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -358,7 +358,7 @@
     <value>0, 0</value>
   </data>
   <data name="propertyGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 354</value>
+    <value>243, 354</value>
   </data>
   <data name="propertyGrid.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -388,10 +388,10 @@
     <value>1</value>
   </data>
   <data name="splitContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>472, 421</value>
+    <value>490, 421</value>
   </data>
   <data name="splitContainer.SplitterDistance" type="System.Int32, mscorlib">
-    <value>235</value>
+    <value>243</value>
   </data>
   <data name="splitContainer.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -412,7 +412,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>409, 439</value>
+    <value>427, 439</value>
   </data>
   <data name="buttonClose.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -439,7 +439,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonRefresh.Location" type="System.Drawing.Point, System.Drawing">
-    <value>328, 439</value>
+    <value>346, 439</value>
   </data>
   <data name="buttonRefresh.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -526,7 +526,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonRunAsAdmin.Location" type="System.Drawing.Point, System.Drawing">
-    <value>224, 439</value>
+    <value>242, 439</value>
   </data>
   <data name="buttonRunAsAdmin.Size" type="System.Drawing.Size, System.Drawing">
     <value>98, 23</value>
@@ -555,6 +555,39 @@
   <metadata name="refreshListWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="labelLoading.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="labelLoading.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelLoading.Location" type="System.Drawing.Point, System.Drawing">
+    <value>170, 444</value>
+  </data>
+  <data name="labelLoading.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 13</value>
+  </data>
+  <data name="labelLoading.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="labelLoading.Text" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="labelLoading.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;labelLoading.Name" xml:space="preserve">
+    <value>labelLoading</value>
+  </data>
+  <data name="&gt;&gt;labelLoading.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelLoading.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelLoading.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -562,7 +595,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>496, 474</value>
+    <value>514, 474</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

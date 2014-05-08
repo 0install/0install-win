@@ -90,6 +90,7 @@ namespace ZeroInstall.Commands.WinForms
         private void RefreshList()
         {
             buttonRefresh.Enabled = false;
+            labelLoading.Visible = true;
             refreshListWorker.RunWorkerAsync();
         }
 
@@ -120,6 +121,7 @@ namespace ZeroInstall.Commands.WinForms
             textTotalSize.Text = listBuilder.TotalSize.FormatBytes(CultureInfo.CurrentCulture);
 
             OnCheckedEntriesChanged(null, EventArgs.Empty);
+            labelLoading.Visible = false;
             buttonRefresh.Enabled = true;
         }
         #endregion
