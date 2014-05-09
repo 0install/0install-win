@@ -14,7 +14,7 @@ This API provides a common basis for the packages ZeroInstall.Services and ZeroI
             <dependency id="NanoByte.Common" version="[1.0.3]" />
             <dependency id="ICSharpCode.SharpZipLib.Patched" version="0.86.1" />
             <dependency id="SevenZipSharp" version="0.64" />
-            <dependency id="Newtonsoft.Json" version="6.0.2" />
+            <dependency id="Newtonsoft.Json" version="6.0.3" />
         </dependencies>
         <references>
             <reference file="ZeroInstall.Store.dll" />
