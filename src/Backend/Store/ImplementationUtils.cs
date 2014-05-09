@@ -24,7 +24,7 @@ using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Store.Management
+namespace ZeroInstall.Store
 {
     /// <summary>
     /// Provides utiltity methods for managing <see cref="Store.Model.Implementation"/>s.

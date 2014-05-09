@@ -89,6 +89,7 @@
     <Compile Include="Icons\IconCacheProvider.cs" />
     <Compile Include="Icons\IIconCache.cs" />
     <Compile Include="IServiceHandler.cs" />
+    <Compile Include="ImplementationUtils.cs" />
     <Compile Include="Implementations\Archives\ArchiveFileInfo.cs" />
     <Compile Include="Implementations\Archives\CabExtractor.cs" />
     <Compile Include="Implementations\Archives\Extractor.cs" />
@@ -123,7 +124,6 @@
     <Compile Include="Implementations\StoreFactory.cs" />
     <Compile Include="Implementations\StoreUtils.cs" />
     <Compile Include="JsonStorage.cs" />
-    <Compile Include="Management\ImplementationUtils.cs" />
     <Compile Include="Model\Architecture.cs" />
     <Compile Include="Model\Archive.cs" />
     <Compile Include="Model\Arg.cs" />

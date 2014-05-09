@@ -30,7 +30,6 @@ using ZeroInstall.Services;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
-using ZeroInstall.Store.Management;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands

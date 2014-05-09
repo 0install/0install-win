@@ -52,15 +52,14 @@
       <NamespaceSummaryItem name="ZeroInstall.Store" isDocumented="True">Manages persisting data in the file system.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Feeds" isDocumented="True">Contains classes for managing the feed cache.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Icons" isDocumented="True">Contains classes for managing the icon cache.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Store.Implementations" isDocumented="True">Contains classes for managing the implementation stores/caches and manifest generation.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Store.Implementations.Archives" isDocumented="True">Contains classes for safely extracting different kinds of archives.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Model" isDocumented="True">Contains structures for parsing and in-memory representation of Zero Install feeds. The XML representation is defined here: http://0install.net/interface-spec.html</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Model.Capabilities" isDocumented="True">Extends the feed format with structures for describing application capabilities.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Model.Design" isDocumented="True">Contains &lt;see cref="System.ComponentModel.TypeConverter" /&gt;s for value types defined in this assembly. These are used to provide a better runtime experience when using this types with a &lt;see cref="System.Windows.Forms.PropertyGrid" /&gt;.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Model.Preferences" isDocumented="True">Contains structures for user-specified preferences and overrides for interfaces, feeds and implementations.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Model.Selection" isDocumented="True">Contains structures for representing Solver results. The XML representation is defined here: http://0install.net/selections-spec.html</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Trust" isDocumented="True">Contains classes for managing GnuPG signatures.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Store.Implementations" isDocumented="True">Contains classes for managing the implementation stores/caches and manifest generation.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Store.Implementations.Archives" isDocumented="True">Contains classes for safely extracting different kinds of archives.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Store.Management" isDocumented="True">Contains utility classes for store/cache management tools.</NamespaceSummaryItem>
     </NamespaceSummaries>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
