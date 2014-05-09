@@ -117,42 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;buttonUpdateAll.Name" xml:space="preserve">
-    <value>buttonUpdateAll</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdateAll.Type" xml:space="preserve">
-    <value>Common.Controls.SplitButton, Common.WinForms, Version=2.3.9.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdateAll.Parent" xml:space="preserve">
-    <value>tabPageAppList</value>
-  </data>
-  <data name="&gt;&gt;buttonUpdateAll.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;buttonSync.Name" xml:space="preserve">
-    <value>buttonSync</value>
-  </data>
-  <data name="&gt;&gt;buttonSync.Type" xml:space="preserve">
-    <value>Common.Controls.SplitButton, Common.WinForms, Version=2.3.9.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
-  </data>
-  <data name="&gt;&gt;buttonSync.Parent" xml:space="preserve">
-    <value>tabPageAppList</value>
-  </data>
-  <data name="&gt;&gt;buttonSync.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;tileListMyApps.Name" xml:space="preserve">
-    <value>tileListMyApps</value>
-  </data>
-  <data name="&gt;&gt;tileListMyApps.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=2.3.9.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
-  </data>
-  <data name="&gt;&gt;tileListMyApps.Parent" xml:space="preserve">
-    <value>tabPageAppList</value>
-  </data>
-  <data name="&gt;&gt;tileListMyApps.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="tabPageAppList.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -569,12 +533,6 @@
   </data>
   <data name="&gt;&gt;buttonOptions.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="buttonOptionsAdvanced.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 22</value>
-  </data>
-  <data name="buttonOptionsAdvanced.Text" xml:space="preserve">
-    <value>&amp;Advanced</value>
   </data>
   <data name="buttonCacheManagement.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1202,12 +1160,6 @@
     <value>buttonSyncTroubleshoot</value>
   </data>
   <data name="&gt;&gt;buttonSyncTroubleshoot.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonOptionsAdvanced.Name" xml:space="preserve">
-    <value>buttonOptionsAdvanced</value>
-  </data>
-  <data name="&gt;&gt;buttonOptionsAdvanced.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonIntro.Name" xml:space="preserve">

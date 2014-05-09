@@ -356,6 +356,9 @@ Dies ist ähnlich wie '0install download --refresh', mit dem Zusatz, dass Inform
   <data name="DownloadDamaged" xml:space="preserve">
     <value>Eine heruntergeladene Datei ist beschädigt oder ungültig.</value>
   </data>
+  <data name="EnterCatalogUrl" xml:space="preserve">
+    <value>Bitte geben Sie dir URL oder den lokalen Dateipfad des hinzuzufügenden Feedkatalogs ein:</value>
+  </data>
   <data name="EnterFeedUrl" xml:space="preserve">
     <value>Bitte geben Sie die URL der neuen Quelle von Implementierungen für dieses Interface an:</value>
   </data>
@@ -497,6 +500,10 @@ Traysymbol im grafischen Modus verwenden.</value>
     <value>Anstelle der Ausführung des Standardkommandos, verwenden Sie {COMMAND}. Mögliche Kommandos sind im Programminterface spezifiziert.
 Auf leer ("") setzen um den Command bei der Auswahl zu ignorieren.</value>
   </data>
+  <data name="OptionConfigTab" xml:space="preserve">
+    <value>Wechsle auf eine bestimmte Registerkarte im Konfigurations-GUI. Mögliche {TAB}s sind 'updates', 'storage', 'catalog', 'trust', 'sync' und 'advanced'.
+Hat keine Wirkung im Text-Modus.</value>
+  </data>
   <data name="OptionCpu" xml:space="preserve">
     <value>Zwingt den Solver auf eine bestimmte {CPU} abzuzielen.</value>
   </data>
@@ -595,6 +602,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="Remove" xml:space="preserve">
     <value>Entfernen</value>
   </data>
+  <data name="RemoveCheckedKeys" xml:space="preserve">
+    <value>Möchten Sie die {0} angehakten Keys aus der Liste entfernen?</value>
+  </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Möchten Sie die {0} ausgewählten Einträge aus der Liste entfernen?</value>
   </data>
@@ -606,6 +616,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="RemovingOutdated" xml:space="preserve">
     <value>Entferne veraltete Dateien</value>
+  </data>
+  <data name="ResetList" xml:space="preserve">
+    <value>Möchten Sie die Liste auf ihren ursprünglichen Zustand zurücksetzen?</value>
   </data>
   <data name="ResolvedUsingCatalog" xml:space="preserve">
     <value>'{0}' nach '{1}', unter der verwendung eines Katalogs, aufgelöst</value>
@@ -624,6 +637,10 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="SupportedValues" xml:space="preserve">
     <value>Unterstützte Werte: {0}</value>
+  </data>
+  <data name="SyncCryptoKeyDescription" xml:space="preserve">
+    <value>Der Crypto-Schlüssel wird verwendet, um Ihre Daten lokal zu verschlüsseln, bevor sie an den Server übermittelt werden.
+Halten Sie diesen Schlüssel geheim und verwenden Sie etwas anderes für Ihr Passwort. Auf diese Weise kann niemand auf Ihre Daten zugreifen, selbst wenn der Server kompromittiert werden würde.</value>
   </data>
   <data name="TooManyArguments" xml:space="preserve">
     <value>Zu viele Argumente oder unbekannte Optionen.</value>

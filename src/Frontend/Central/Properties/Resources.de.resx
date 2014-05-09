@@ -130,9 +130,6 @@ Dabei werden auch alle Desktopintegrationen für die Anwendung entfernt.</value>
   <data name="Continue" xml:space="preserve">
     <value>Fortsetzen</value>
   </data>
-  <data name="EnterCatalogUrl" xml:space="preserve">
-    <value>Bitte geben Sie dir URL oder den lokalen Dateipfad des hinzuzufügenden Feedkatalogs ein:</value>
-  </data>
   <data name="EnterInterfaceUrl" xml:space="preserve">
     <value>Bitte geben Sie die URL eines Zero Install Interface hier ein:</value>
   </data>
@@ -185,29 +182,14 @@ fügen Sie sie zu "Meine Anwendungen" hinzu.</value>
   <data name="ModifyButtonTooltip" xml:space="preserve">
     <value>Integration ändern</value>
   </data>
-  <data name="OptionsAdvancedWarn" xml:space="preserve">
-    <value>Wenn Sie diese Einstellungen ändern, könnte das Zero Install daran hindern korrekt zu funktionieren. Sind Sie sicher, dass Sie fortsetzen möchten?</value>
-  </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portabler Modus</value>
-  </data>
-  <data name="ProblemLoadingOptions" xml:space="preserve">
-    <value>Es gab ein Problem beim Laden der Einstellungen.</value>
-  </data>
-  <data name="ProblemSavingOptions" xml:space="preserve">
-    <value>Es gab ein Problem beim Speichern der Einstellungen.</value>
   </data>
   <data name="RemoveButtonTooltip" xml:space="preserve">
     <value>Aus "Meine Anwendungen" entfernen</value>
   </data>
-  <data name="RemoveCheckedKeys" xml:space="preserve">
-    <value>Möchten Sie die {0} angehakten Keys aus der Liste entfernen?</value>
-  </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Möchten Sie die {0} ausgewählten Einträge aus der Liste entfernen?</value>
-  </data>
-  <data name="ResetList" xml:space="preserve">
-    <value>Möchten Sie die Liste auf ihren ursprünglichen Zustand zurücksetzen?</value>
   </data>
   <data name="RunButtonText" xml:space="preserve">
     <value>Start</value>
@@ -254,10 +236,6 @@ Update installieren</value>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
     <value>Der Benutzername und/oder das Passwort sind nicht korrekt.</value>
-  </data>
-  <data name="SyncCryptoKeyDescription" xml:space="preserve">
-    <value>Der Crypto-Schlüssel wird verwendet, um Ihre Daten lokal zu verschlüsseln, bevor sie an den Server übermittelt werden.
-Halten Sie diesen Schlüssel geheim und verwenden Sie etwas anderes für Ihr Passwort. Auf diese Weise kann niemand auf Ihre Daten zugreifen, selbst wenn der Server kompromittiert werden würde.</value>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
     <value>Der Crypto-Schlüssel ist nicht korrekt.</value>

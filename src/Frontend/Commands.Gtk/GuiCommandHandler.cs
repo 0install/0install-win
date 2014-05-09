@@ -112,7 +112,7 @@ namespace ZeroInstall.Commands.Gtk
         }
 
         /// <inheritdoc/>
-        public bool ShowConfig(Config config)
+        public bool ShowConfig(Config config, ConfigTab configTab)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");

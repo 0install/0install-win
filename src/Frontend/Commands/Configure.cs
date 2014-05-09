@@ -41,7 +41,13 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         public Configure(ICommandHandler handler) : base(handler)
-        {}
+        {
+            Options.Add("tab=", () => Resources.OptionConfigTab, (ConfigTab tab) => _configTab = tab);
+        }
+        #endregion
+
+        #region State
+        private ConfigTab _configTab;
         #endregion
 
         /// <inheritdoc/>
@@ -51,7 +57,7 @@ namespace ZeroInstall.Commands
             {
                 case 0:
                     // Only save if the user confirmed the changes
-                    if (Handler.ShowConfig(Config)) Config.Save();
+                    if (Handler.ShowConfig(Config, _configTab)) Config.Save();
                     return 0;
 
                 case 1:

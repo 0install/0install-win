@@ -65,9 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
-    <Compile Include="ConfigForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="DelayedGuiCommandHandler.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GuiCommandHandler.cs" />
@@ -84,6 +81,12 @@
       <DependentUpon>InterfaceDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="MinimalTaskHandler.cs" />
+    <Compile Include="ConfigDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigDialog.Designer.cs">
+      <DependentUpon>ConfigDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProgressForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +132,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InterfaceDialog.resx">
       <DependentUpon>InterfaceDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigDialog.de.resx">
+      <DependentUpon>ConfigDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigDialog.resx">
+      <DependentUpon>ConfigDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ProgressForm.resx">

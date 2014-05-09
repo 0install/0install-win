@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
@@ -271,6 +272,32 @@ namespace ZeroInstall.Commands.WinForms
             }
         }
 
+        #region Browser
+        /// <summary>
+        /// Opens a URL in the system's default browser.
+        /// </summary>
+        /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
+        /// <param name="url">The URL to open.</param>
+        internal static void OpenInBrowser(IWin32Window owner, string url)
+        {
+            try
+            {
+                Process.Start(url);
+            }
+                #region Error handling
+            catch (FileNotFoundException ex)
+            {
+                Msg.Inform(owner, ex.Message, MsgSeverity.Error);
+            }
+            catch (Win32Exception ex)
+            {
+                Msg.Inform(owner, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
+        }
+        #endregion
+
+        #region Taskbar
         /// <summary>
         /// Configures the Windows 7 taskbar for a specific window.
         /// </summary>
@@ -291,5 +318,6 @@ namespace ZeroInstall.Commands.WinForms
             string exePath = Path.Combine(Locations.InstallBase, ExeName + ".exe");
             WindowsUtils.SetWindowAppID(form.Handle, appUserModelID, exePath.EscapeArgument() + " " + arguments, exePath, name);
         }
+        #endregion
     }
 }

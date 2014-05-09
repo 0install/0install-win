@@ -93,8 +93,9 @@ namespace ZeroInstall.Commands
         /// Displays the configuration settings to the user.
         /// </summary>
         /// <param name="config">The configuration to show.</param>
+        /// <param name="configTab">Switch to a specific tab in the configuration GUI. Has no effect in text-mode.</param>
         /// <returns><see langword="true"/> if the user modified any settings; <see langword="false"/> otherwise.</returns>
-        bool ShowConfig(Config config);
+        bool ShowConfig(Config config, ConfigTab configTab);
 
         /// <summary>
         /// Displays a user interface for managing <see cref="IStore"/>s.

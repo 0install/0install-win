@@ -76,8 +76,8 @@ namespace ZeroInstall.Central.WinForms
             Program.ConfigureTaskbar(this, Text);
             WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[]
             {
-                new WindowsUtils.ShellLink(buttonSync.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), SyncApps.Name),
-                new WindowsUtils.ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), StoreMan.Name + " manage")
+                new WindowsUtils.ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), StoreMan.Name + " manage"),
+                new WindowsUtils.ShellLink(buttonOptions.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), Configure.Name)
             });
         }
 
@@ -349,15 +349,6 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonOptions_Click(object sender, EventArgs e)
         {
-            using (var dialog = new OptionsDialog())
-                dialog.ShowDialog(this);
-            LoadCatalogAsync();
-        }
-
-        private void buttonOptionsAdvanced_Click(object sender, EventArgs e)
-        {
-            if (!Msg.YesNo(this, Resources.OptionsAdvancedWarn, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
-
             Program.RunCommand(Configure.Name);
         }
 

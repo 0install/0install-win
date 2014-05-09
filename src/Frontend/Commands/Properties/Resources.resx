@@ -356,6 +356,9 @@ This is similar to '0install download --refresh', except that it prints informat
   <data name="DownloadDamaged" xml:space="preserve">
     <value>A downloaded file is damaged or invalid.</value>
   </data>
+  <data name="EnterCatalogUrl" xml:space="preserve">
+    <value>Please enter the URL or local file path of the feed catalog to add:</value>
+  </data>
   <data name="EnterFeedUrl" xml:space="preserve">
     <value>Please enter the URL of the new source of implementations for this interface:</value>
   </data>
@@ -497,6 +500,10 @@ Use a tray icon when in GUI mode.</value>
     <value>Instead of executing the default command, use {COMMAND} instead. Possible command names are defined in the program's interface.
 Set to empty ("") to ignore the command during selection.</value>
   </data>
+  <data name="OptionConfigTab" xml:space="preserve">
+    <value>Switch to a specific tab in the configuration GUI. Possible {TAB}s are 'updates', 'storage', 'catalog', 'trust', 'sync' and 'advanced'.
+Has no effect in text-mode.</value>
+  </data>
   <data name="OptionCpu" xml:space="preserve">
     <value>Forces the solver to target a specific {CPU}.</value>
   </data>
@@ -595,6 +602,9 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="RemoveCheckedKeys" xml:space="preserve">
+    <value>Do you want to remove the {0} checked keys from the list?</value>
+  </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Do you want to remove the {0} selected entries from the list?</value>
   </data>
@@ -606,6 +616,9 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   </data>
   <data name="RemovingOutdated" xml:space="preserve">
     <value>Removing outdated implementations</value>
+  </data>
+  <data name="ResetList" xml:space="preserve">
+    <value>Do you want to reset the list to its original state?</value>
   </data>
   <data name="ResolvedUsingCatalog" xml:space="preserve">
     <value>Resolved '{0}' to '{1}' using a catalog.</value>
@@ -624,6 +637,10 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   </data>
   <data name="SupportedValues" xml:space="preserve">
     <value>Supported values: {0}</value>
+  </data>
+  <data name="SyncCryptoKeyDescription" xml:space="preserve">
+    <value>The crypto key is used to encrypt your data locally before transmitting it to the server.
+Keep this key secret and use something different for your password. This way nobody can access your data, even if the server were to be compromised.</value>
   </data>
   <data name="TooManyArguments" xml:space="preserve">
     <value>Too many arguments or unknown options.</value>

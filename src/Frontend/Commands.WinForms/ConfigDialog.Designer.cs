@@ -1,8 +1,8 @@
 ﻿using NanoByte.Common.Controls;
 
-namespace ZeroInstall.Central.WinForms
+namespace ZeroInstall.Commands.WinForms
 {
-    partial class OptionsDialog
+    partial class ConfigDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -30,14 +30,15 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsDialog));
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigDialog));
             this.linkSyncAccount = new System.Windows.Forms.LinkLabel();
             this.buttonSyncCryptoKey = new System.Windows.Forms.Button();
             this.textBoxSyncCryptoKey = new System.Windows.Forms.TextBox();
             this.labelSyncCryptoKey = new System.Windows.Forms.Label();
             this.textBoxSyncPassword = new System.Windows.Forms.TextBox();
             this.labelSyncPassword = new System.Windows.Forms.Label();
-            this.textBoxSyncServer = new UriTextBox();
+            this.textBoxSyncServer = new NanoByte.Common.Controls.UriTextBox();
             this.labelServer = new System.Windows.Forms.Label();
             this.textBoxSyncUsername = new System.Windows.Forms.TextBox();
             this.labelSyncUsername = new System.Windows.Forms.Label();
@@ -67,8 +68,11 @@ namespace ZeroInstall.Central.WinForms
             this.panelTrustedKeys = new System.Windows.Forms.Panel();
             this.buttonRemoveTrustedKey = new System.Windows.Forms.Button();
             this.tabPageSync = new System.Windows.Forms.TabPage();
+            this.tabPageAdvanced = new System.Windows.Forms.TabPage();
+            this.buttonAdvancedShow = new System.Windows.Forms.Button();
+            this.labelAdvancedWarning = new System.Windows.Forms.Label();
+            this.propertyGridAdvanced = new NanoByte.Common.Controls.ResettablePropertyGrid();
             this.implDirBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.buttonApply = new System.Windows.Forms.Button();
             this.tabOptions.SuspendLayout();
             this.tabPageUpdates.SuspendLayout();
             this.groupNetworkUse.SuspendLayout();
@@ -79,12 +83,13 @@ namespace ZeroInstall.Central.WinForms
             this.tabPageTrust.SuspendLayout();
             this.groupTrustedKeys.SuspendLayout();
             this.tabPageSync.SuspendLayout();
+            this.tabPageAdvanced.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
             resources.ApplyResources(this.buttonOK, "buttonOK");
-            this.buttonOK.Click += new System.EventHandler(this.buttonApplyOK_Click);
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // buttonCancel
             // 
@@ -109,6 +114,7 @@ namespace ZeroInstall.Central.WinForms
             resources.ApplyResources(this.textBoxSyncCryptoKey, "textBoxSyncCryptoKey");
             this.textBoxSyncCryptoKey.Name = "textBoxSyncCryptoKey";
             this.textBoxSyncCryptoKey.UseSystemPasswordChar = true;
+            this.textBoxSyncCryptoKey.TextChanged += new System.EventHandler(this.textBoxSyncCryptoKey_TextChanged);
             // 
             // labelSyncCryptoKey
             // 
@@ -120,6 +126,7 @@ namespace ZeroInstall.Central.WinForms
             resources.ApplyResources(this.textBoxSyncPassword, "textBoxSyncPassword");
             this.textBoxSyncPassword.Name = "textBoxSyncPassword";
             this.textBoxSyncPassword.UseSystemPasswordChar = true;
+            this.textBoxSyncPassword.TextChanged += new System.EventHandler(this.textBoxSyncPassword_TextChanged);
             // 
             // labelSyncPassword
             // 
@@ -128,9 +135,9 @@ namespace ZeroInstall.Central.WinForms
             // 
             // textBoxSyncServer
             // 
-            this.textBoxSyncServer.AllowDrop = true;
             resources.ApplyResources(this.textBoxSyncServer, "textBoxSyncServer");
             this.textBoxSyncServer.Name = "textBoxSyncServer";
+            this.textBoxSyncServer.TextChanged += new System.EventHandler(this.textBoxSyncServer_TextChanged);
             // 
             // labelServer
             // 
@@ -141,6 +148,7 @@ namespace ZeroInstall.Central.WinForms
             // 
             resources.ApplyResources(this.textBoxSyncUsername, "textBoxSyncUsername");
             this.textBoxSyncUsername.Name = "textBoxSyncUsername";
+            this.textBoxSyncUsername.TextChanged += new System.EventHandler(this.textBoxSyncUsername_TextChanged);
             // 
             // labelSyncUsername
             // 
@@ -155,6 +163,7 @@ namespace ZeroInstall.Central.WinForms
             this.tabOptions.Controls.Add(this.tabPageCatalog);
             this.tabOptions.Controls.Add(this.tabPageTrust);
             this.tabOptions.Controls.Add(this.tabPageSync);
+            this.tabOptions.Controls.Add(this.tabPageAdvanced);
             this.tabOptions.Name = "tabOptions";
             this.tabOptions.SelectedIndex = 0;
             // 
@@ -171,6 +180,7 @@ namespace ZeroInstall.Central.WinForms
             resources.ApplyResources(this.checkBoxHelpWithTesting, "checkBoxHelpWithTesting");
             this.checkBoxHelpWithTesting.Name = "checkBoxHelpWithTesting";
             this.checkBoxHelpWithTesting.UseVisualStyleBackColor = true;
+            this.checkBoxHelpWithTesting.CheckedChanged += new System.EventHandler(this.checkBoxHelpWithTesting_CheckedChanged);
             // 
             // groupNetworkUse
             // 
@@ -187,6 +197,7 @@ namespace ZeroInstall.Central.WinForms
             this.radioNetworkUseOffline.Name = "radioNetworkUseOffline";
             this.radioNetworkUseOffline.TabStop = true;
             this.radioNetworkUseOffline.UseVisualStyleBackColor = true;
+            this.radioNetworkUseOffline.CheckedChanged += new System.EventHandler(this.radioNetworkUse_CheckedChanged);
             // 
             // radioNetworkUseMinimal
             // 
@@ -194,6 +205,7 @@ namespace ZeroInstall.Central.WinForms
             this.radioNetworkUseMinimal.Name = "radioNetworkUseMinimal";
             this.radioNetworkUseMinimal.TabStop = true;
             this.radioNetworkUseMinimal.UseVisualStyleBackColor = true;
+            this.radioNetworkUseMinimal.CheckedChanged += new System.EventHandler(this.radioNetworkUse_CheckedChanged);
             // 
             // radioNetworkUseFull
             // 
@@ -201,6 +213,7 @@ namespace ZeroInstall.Central.WinForms
             this.radioNetworkUseFull.Name = "radioNetworkUseFull";
             this.radioNetworkUseFull.TabStop = true;
             this.radioNetworkUseFull.UseVisualStyleBackColor = true;
+            this.radioNetworkUseFull.CheckedChanged += new System.EventHandler(this.radioNetworkUse_CheckedChanged);
             // 
             // tabPageStorage
             // 
@@ -242,7 +255,6 @@ namespace ZeroInstall.Central.WinForms
             // 
             // listBoxImplDirs
             // 
-            this.listBoxImplDirs.AllowDrop = true;
             resources.ApplyResources(this.listBoxImplDirs, "listBoxImplDirs");
             this.listBoxImplDirs.DisplayMember = "Source";
             this.listBoxImplDirs.FormattingEnabled = true;
@@ -299,7 +311,6 @@ namespace ZeroInstall.Central.WinForms
             // 
             // listBoxCatalogSources
             // 
-            this.listBoxCatalogSources.AllowDrop = true;
             resources.ApplyResources(this.listBoxCatalogSources, "listBoxCatalogSources");
             this.listBoxCatalogSources.DisplayMember = "Source";
             this.listBoxCatalogSources.FormattingEnabled = true;
@@ -321,6 +332,7 @@ namespace ZeroInstall.Central.WinForms
             resources.ApplyResources(this.checkBoxAutoApproveKeys, "checkBoxAutoApproveKeys");
             this.checkBoxAutoApproveKeys.Name = "checkBoxAutoApproveKeys";
             this.checkBoxAutoApproveKeys.UseVisualStyleBackColor = true;
+            this.checkBoxAutoApproveKeys.CheckedChanged += new System.EventHandler(this.checkBoxAutoApproveKeys_CheckedChanged);
             // 
             // groupTrustedKeys
             // 
@@ -358,31 +370,51 @@ namespace ZeroInstall.Central.WinForms
             this.tabPageSync.Name = "tabPageSync";
             this.tabPageSync.UseVisualStyleBackColor = true;
             // 
+            // tabPageAdvanced
+            // 
+            this.tabPageAdvanced.Controls.Add(this.buttonAdvancedShow);
+            this.tabPageAdvanced.Controls.Add(this.labelAdvancedWarning);
+            this.tabPageAdvanced.Controls.Add(this.propertyGridAdvanced);
+            resources.ApplyResources(this.tabPageAdvanced, "tabPageAdvanced");
+            this.tabPageAdvanced.Name = "tabPageAdvanced";
+            this.tabPageAdvanced.UseVisualStyleBackColor = true;
+            // 
+            // buttonAdvancedShow
+            // 
+            resources.ApplyResources(this.buttonAdvancedShow, "buttonAdvancedShow");
+            this.buttonAdvancedShow.Name = "buttonAdvancedShow";
+            this.buttonAdvancedShow.UseVisualStyleBackColor = true;
+            this.buttonAdvancedShow.Click += new System.EventHandler(this.buttonAdvancedShow_Click);
+            // 
+            // labelAdvancedWarning
+            // 
+            resources.ApplyResources(this.labelAdvancedWarning, "labelAdvancedWarning");
+            this.labelAdvancedWarning.Name = "labelAdvancedWarning";
+            // 
+            // propertyGridAdvanced
+            // 
+            resources.ApplyResources(this.propertyGridAdvanced, "propertyGridAdvanced");
+            this.propertyGridAdvanced.Name = "propertyGridAdvanced";
+            this.propertyGridAdvanced.ToolbarVisible = false;
+            this.propertyGridAdvanced.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGridAdvanced_PropertyValueChanged);
+            // 
             // implDirBrowserDialog
             // 
             resources.ApplyResources(this.implDirBrowserDialog, "implDirBrowserDialog");
             this.implDirBrowserDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
-            // buttonApply
-            // 
-            resources.ApplyResources(this.buttonApply, "buttonApply");
-            this.buttonApply.Name = "buttonApply";
-            this.buttonApply.UseVisualStyleBackColor = true;
-            this.buttonApply.Click += new System.EventHandler(this.buttonApplyOK_Click);
-            // 
-            // OptionsDialog
+            // ConfigDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonApply);
             this.Controls.Add(this.tabOptions);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
-            this.Name = "OptionsDialog";
-            this.Load += new System.EventHandler(this.OptionsDialog_Load);
+            this.MinimizeBox = true;
+            this.Name = "ConfigDialog";
+            this.ShowInTaskbar = true;
             this.Controls.SetChildIndex(this.tabOptions, 0);
             this.Controls.SetChildIndex(this.buttonOK, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
-            this.Controls.SetChildIndex(this.buttonApply, 0);
             this.tabOptions.ResumeLayout(false);
             this.tabPageUpdates.ResumeLayout(false);
             this.tabPageUpdates.PerformLayout();
@@ -397,6 +429,7 @@ namespace ZeroInstall.Central.WinForms
             this.groupTrustedKeys.ResumeLayout(false);
             this.tabPageSync.ResumeLayout(false);
             this.tabPageSync.PerformLayout();
+            this.tabPageAdvanced.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -414,11 +447,11 @@ namespace ZeroInstall.Central.WinForms
         private UriTextBox textBoxSyncServer;
         private System.Windows.Forms.Label labelServer;
         internal System.Windows.Forms.TabControl tabOptions;
-        private System.Windows.Forms.TabPage tabPageUpdates;
-        private System.Windows.Forms.TabPage tabPageStorage;
+        internal System.Windows.Forms.TabPage tabPageUpdates;
+        internal System.Windows.Forms.TabPage tabPageStorage;
         internal System.Windows.Forms.TabPage tabPageCatalog;
-        private System.Windows.Forms.TabPage tabPageTrust;
-        private System.Windows.Forms.TabPage tabPageSync;
+        internal System.Windows.Forms.TabPage tabPageTrust;
+        internal System.Windows.Forms.TabPage tabPageSync;
         private System.Windows.Forms.GroupBox groupNetworkUse;
         private System.Windows.Forms.RadioButton radioNetworkUseOffline;
         private System.Windows.Forms.RadioButton radioNetworkUseMinimal;
@@ -432,7 +465,6 @@ namespace ZeroInstall.Central.WinForms
         private System.Windows.Forms.Button buttonAddImplDir;
         private System.Windows.Forms.Button buttonRemoveTrustedKey;
         private System.Windows.Forms.FolderBrowserDialog implDirBrowserDialog;
-        private System.Windows.Forms.Button buttonApply;
         private System.Windows.Forms.Panel panelTrustedKeys;
         private System.Windows.Forms.Button buttonGoToImplDir;
         private System.Windows.Forms.GroupBox groupCatalogSources;
@@ -441,5 +473,9 @@ namespace ZeroInstall.Central.WinForms
         private System.Windows.Forms.Button buttonAddCatalogSource;
         private System.Windows.Forms.ListBox listBoxCatalogSources;
         private System.Windows.Forms.Button buttonResetCatalogSources;
+        internal System.Windows.Forms.TabPage tabPageAdvanced;
+        private NanoByte.Common.Controls.ResettablePropertyGrid propertyGridAdvanced;
+        private System.Windows.Forms.Label labelAdvancedWarning;
+        private System.Windows.Forms.Button buttonAdvancedShow;
     }
 }

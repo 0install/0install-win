@@ -744,6 +744,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter the URL or local file path of the feed catalog to add:.
+        /// </summary>
+        public static string EnterCatalogUrl {
+            get {
+                return ResourceManager.GetString("EnterCatalogUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the URL of the new source of implementations for this interface:.
         /// </summary>
         public static string EnterFeedUrl {
@@ -1155,6 +1164,16 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Switch to a specific tab in the configuration GUI. Possible {TAB}s are &apos;updates&apos;, &apos;storage&apos;, &apos;catalog&apos;, &apos;trust&apos;, &apos;sync&apos; and &apos;advanced&apos;.
+        ///Has no effect in text-mode..
+        /// </summary>
+        public static string OptionConfigTab {
+            get {
+                return ResourceManager.GetString("OptionConfigTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forces the solver to target a specific {CPU}..
         /// </summary>
         public static string OptionCpu {
@@ -1433,6 +1452,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to remove the {0} checked keys from the list?.
+        /// </summary>
+        public static string RemoveCheckedKeys {
+            get {
+                return ResourceManager.GetString("RemoveCheckedKeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to remove the {0} selected entries from the list?.
         /// </summary>
         public static string RemoveSelectedEntries {
@@ -1465,6 +1493,15 @@ namespace ZeroInstall.Commands.Properties {
         public static string RemovingOutdated {
             get {
                 return ResourceManager.GetString("RemovingOutdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to reset the list to its original state?.
+        /// </summary>
+        public static string ResetList {
+            get {
+                return ResourceManager.GetString("ResetList", resourceCulture);
             }
         }
         
@@ -1519,6 +1556,16 @@ namespace ZeroInstall.Commands.Properties {
         public static string SupportedValues {
             get {
                 return ResourceManager.GetString("SupportedValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The crypto key is used to encrypt your data locally before transmitting it to the server.
+        ///Keep this key secret and use something different for your password. This way nobody can access your data, even if the server were to be compromised..
+        /// </summary>
+        public static string SyncCryptoKeyDescription {
+            get {
+                return ResourceManager.GetString("SyncCryptoKeyDescription", resourceCulture);
             }
         }
         

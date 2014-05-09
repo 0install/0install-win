@@ -130,9 +130,6 @@ This will also remove any desktop integration applied for this application.</val
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
   </data>
-  <data name="EnterCatalogUrl" xml:space="preserve">
-    <value>Please enter the URL or local file path of the feed catalog to add:</value>
-  </data>
   <data name="EnterInterfaceUrl" xml:space="preserve">
     <value>Please enter the URL of a Zero Install interface here:</value>
   </data>
@@ -186,29 +183,14 @@ in the start menu or on the desktop.</value>
   <data name="ModifyButtonTooltip" xml:space="preserve">
     <value>Modify integration</value>
   </data>
-  <data name="OptionsAdvancedWarn" xml:space="preserve">
-    <value>Changing these options may prevent Zero Install from working correctly. Are you sure you want to continue?</value>
-  </data>
   <data name="PortableMode" xml:space="preserve">
     <value>Portable mode</value>
-  </data>
-  <data name="ProblemLoadingOptions" xml:space="preserve">
-    <value>There was a problem loading the options.</value>
-  </data>
-  <data name="ProblemSavingOptions" xml:space="preserve">
-    <value>There was a problem saving the options.</value>
   </data>
   <data name="RemoveButtonTooltip" xml:space="preserve">
     <value>Remove from "my applications"</value>
   </data>
-  <data name="RemoveCheckedKeys" xml:space="preserve">
-    <value>Do you want to remove the {0} checked keys from the list?</value>
-  </data>
   <data name="RemoveSelectedEntries" xml:space="preserve">
     <value>Do you want to remove the {0} selected entries from the list?</value>
-  </data>
-  <data name="ResetList" xml:space="preserve">
-    <value>Do you want to reset the list to its original state?</value>
   </data>
   <data name="RunButtonText" xml:space="preserve">
     <value>Run</value>
@@ -255,10 +237,6 @@ Install update</value>
   </data>
   <data name="SyncCredentialsInvalid" xml:space="preserve">
     <value>The username and/or password you entered are incorrect.</value>
-  </data>
-  <data name="SyncCryptoKeyDescription" xml:space="preserve">
-    <value>The crypto key is used to encrypt your data locally before transmitting it to the server.
-Keep this key secret and use something different for your password. This way nobody can access your data, even if the server were to be compromised.</value>
   </data>
   <data name="SyncCryptoKeyInvalid" xml:space="preserve">
     <value>The Crypto key you entered is incorrect.</value>

@@ -45,12 +45,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonCatalog_Click(object sender, EventArgs e)
         {
-            Visible = false;
-            using (var dialog = new OptionsDialog())
-            {
-                dialog.tabOptions.SelectTab(dialog.tabPageCatalog);
-                dialog.ShowDialog(this);
-            }
+            Program.RunCommand(Configure.Name, "--tab=catalog");
             Close();
         }
 

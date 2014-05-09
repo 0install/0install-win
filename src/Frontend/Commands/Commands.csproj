@@ -64,6 +64,7 @@
     <Compile Include="AppCommand.cs" />
     <Compile Include="Central.cs" />
     <Compile Include="CliCommandHandler.cs" />
+    <Compile Include="ConfigTab.cs" />
     <Compile Include="Fetch.cs" />
     <Compile Include="FrontendCommand.cs" />
     <Compile Include="CommandFactory.cs" />

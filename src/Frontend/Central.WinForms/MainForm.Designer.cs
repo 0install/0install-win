@@ -1,6 +1,4 @@
-﻿using NanoByte.Common.Controls;
-
-namespace ZeroInstall.Central.WinForms
+﻿namespace ZeroInstall.Central.WinForms
 {
     partial class MainForm
     {
@@ -34,10 +32,10 @@ namespace ZeroInstall.Central.WinForms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControlApps = new System.Windows.Forms.TabControl();
             this.tabPageAppList = new System.Windows.Forms.TabPage();
-            this.buttonUpdateAll = new SplitButton();
+            this.buttonUpdateAll = new NanoByte.Common.Controls.SplitButton();
             this.menuUpdateAll = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonUpdateAllClean = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonSync = new SplitButton();
+            this.buttonSync = new NanoByte.Common.Controls.SplitButton();
             this.menuSync = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.butonSyncSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSyncTroubleshoot = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,11 +46,9 @@ namespace ZeroInstall.Central.WinForms
             this.buttonMoreApps = new System.Windows.Forms.Button();
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
             this.tileListCatalog = new ZeroInstall.Central.WinForms.AppTileList();
-            this.buttonOptions = new SplitButton();
-            this.menuOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.buttonOptionsAdvanced = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonOptions = new NanoByte.Common.Controls.SplitButton();
             this.buttonCacheManagement = new System.Windows.Forms.Button();
-            this.buttonHelp = new SplitButton();
+            this.buttonHelp = new NanoByte.Common.Controls.SplitButton();
             this.menuHelp = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonIntro = new System.Windows.Forms.ToolStripMenuItem();
             this.labelVersion = new System.Windows.Forms.Label();
@@ -67,7 +63,6 @@ namespace ZeroInstall.Central.WinForms
             this.menuUpdateAll.SuspendLayout();
             this.menuSync.SuspendLayout();
             this.tabPageCatalog.SuspendLayout();
-            this.menuOptions.SuspendLayout();
             this.menuHelp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.panelBottom.SuspendLayout();
@@ -195,25 +190,9 @@ namespace ZeroInstall.Central.WinForms
             // buttonOptions
             // 
             resources.ApplyResources(this.buttonOptions, "buttonOptions");
-            this.buttonOptions.ContextMenuStrip = this.menuOptions;
             this.buttonOptions.Name = "buttonOptions";
-            this.buttonOptions.ShowSplit = true;
-            this.buttonOptions.SplitMenuStrip = this.menuOptions;
             this.buttonOptions.UseVisualStyleBackColor = true;
             this.buttonOptions.Click += new System.EventHandler(this.buttonOptions_Click);
-            // 
-            // menuOptions
-            // 
-            this.menuOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.buttonOptionsAdvanced});
-            this.menuOptions.Name = "menuOptions";
-            resources.ApplyResources(this.menuOptions, "menuOptions");
-            // 
-            // buttonOptionsAdvanced
-            // 
-            this.buttonOptionsAdvanced.Name = "buttonOptionsAdvanced";
-            resources.ApplyResources(this.buttonOptionsAdvanced, "buttonOptionsAdvanced");
-            this.buttonOptionsAdvanced.Click += new System.EventHandler(this.buttonOptionsAdvanced_Click);
             // 
             // buttonCacheManagement
             // 
@@ -308,7 +287,6 @@ namespace ZeroInstall.Central.WinForms
             this.menuSync.ResumeLayout(false);
             this.tabPageCatalog.ResumeLayout(false);
             this.tabPageCatalog.PerformLayout();
-            this.menuOptions.ResumeLayout(false);
             this.menuHelp.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.panelBottom.ResumeLayout(false);
@@ -323,10 +301,10 @@ namespace ZeroInstall.Central.WinForms
         private System.Windows.Forms.TabControl tabControlApps;
         private System.Windows.Forms.TabPage tabPageAppList;
         private System.Windows.Forms.TabPage tabPageCatalog;
-        private SplitButton buttonHelp;
+        private NanoByte.Common.Controls.SplitButton buttonHelp;
         private System.Windows.Forms.Button buttonCacheManagement;
         private System.Windows.Forms.Label labelVersion;
-        private SplitButton buttonOptions;
+        private System.Windows.Forms.Button buttonOptions;
         private System.ComponentModel.BackgroundWorker selfUpdateWorker;
         private AppTileList tileListMyApps;
         private AppTileList tileListCatalog;
@@ -335,17 +313,15 @@ namespace ZeroInstall.Central.WinForms
         private System.Windows.Forms.Button buttonRefreshCatalog;
         private System.ComponentModel.BackgroundWorker appListWorker;
         private System.Windows.Forms.Button buttonMoreApps;
-        private SplitButton buttonSync;
+        private NanoByte.Common.Controls.SplitButton buttonSync;
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.TableLayoutPanel rootTable;
         private System.Windows.Forms.Label labelLastCatalogError;
         private System.Windows.Forms.Label labelLoadingCatalog;
-        private SplitButton buttonUpdateAll;
+        private NanoByte.Common.Controls.SplitButton buttonUpdateAll;
         private System.Windows.Forms.ContextMenuStrip menuUpdateAll;
         private System.Windows.Forms.ToolStripMenuItem buttonUpdateAllClean;
-        private System.Windows.Forms.ContextMenuStrip menuOptions;
         private System.Windows.Forms.ContextMenuStrip menuHelp;
-        private System.Windows.Forms.ToolStripMenuItem buttonOptionsAdvanced;
         private System.Windows.Forms.ToolStripMenuItem buttonIntro;
         private System.Windows.Forms.ContextMenuStrip menuSync;
         private System.Windows.Forms.ToolStripMenuItem butonSyncSetup;

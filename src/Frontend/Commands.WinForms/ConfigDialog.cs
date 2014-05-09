@@ -24,67 +24,44 @@ using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Storage;
-using ZeroInstall.Central.Properties;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
 using ZeroInstall.Store.ViewModel;
 
-namespace ZeroInstall.Central.WinForms
+namespace ZeroInstall.Commands.WinForms
 {
-    public partial class OptionsDialog : OKCancelDialog
+    public sealed partial class ConfigDialog : OKCancelDialog
     {
-        #region Variables
+        #region Startup
         // Don't use WinForms designer for this, since it doesn't understand generics
         // ReSharper disable once InconsistentNaming
         private readonly FilteredTreeView<TrustNode> treeViewTrustedKeys = new FilteredTreeView<TrustNode> {Separator = '\\', CheckBoxes = true, Dock = DockStyle.Fill};
-        #endregion
 
-        #region Startup
-        public OptionsDialog()
+        public ConfigDialog(Config config)
         {
             InitializeComponent();
+
+            if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
+            HandleCreated += delegate { Program.ConfigureTaskbar(this, Text, subCommand: ".Config", arguments: Configure.Name); };
+
+            _config = config;
+            ConfigToControls();
+            LoadAdditionalConfig();
 
             panelTrustedKeys.Controls.Add(treeViewTrustedKeys);
             treeViewTrustedKeys.CheckedEntriesChanged += treeViewTrustedKeys_CheckedEntriesChanged;
         }
-
-        private void OptionsDialog_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                LoadConfig();
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
-                Close();
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
-                Close();
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
-                Close();
-            }
-            #endregion
-        }
         #endregion
 
-        #region Data access
-        private readonly string _implementationDirsConfigPath = Locations.GetSaveConfigPath("0install.net", true, "injector", "implementation-dirs");
-        private readonly string _catalogSourcesConfigPath = Locations.GetSaveConfigPath("0install.net", true, "catalog-sources");
+        #region Config
+        private readonly Config _config;
 
-        private void LoadConfig()
+        private void ConfigToControls()
         {
-            // Fill fields with data from config
-            var config = Config.Load();
-            switch (config.NetworkUse)
+            switch (_config.NetworkUse)
             {
                 case NetworkLevel.Full:
                     radioNetworkUseFull.Checked = true;
@@ -96,13 +73,78 @@ namespace ZeroInstall.Central.WinForms
                     radioNetworkUseOffline.Checked = true;
                     break;
             }
-            checkBoxHelpWithTesting.Checked = config.HelpWithTesting;
-            checkBoxAutoApproveKeys.Checked = config.AutoApproveKeys;
-            textBoxSyncServer.Uri = config.SyncServer;
-            textBoxSyncUsername.Text = config.SyncServerUsername;
-            textBoxSyncPassword.Text = config.SyncServerPassword;
-            textBoxSyncCryptoKey.Text = config.SyncCryptoKey;
+            checkBoxHelpWithTesting.Checked = _config.HelpWithTesting;
+            checkBoxAutoApproveKeys.Checked = _config.AutoApproveKeys;
 
+            textBoxSyncServer.Uri = _config.SyncServer;
+            textBoxSyncUsername.Text = _config.SyncServerUsername;
+            textBoxSyncPassword.Text = _config.SyncServerPassword;
+            textBoxSyncCryptoKey.Text = _config.SyncCryptoKey;
+
+            propertyGridAdvanced.SelectedObject = _config;
+        }
+
+        private void radioNetworkUse_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioNetworkUseFull.Checked) _config.NetworkUse = NetworkLevel.Full;
+            else if (radioNetworkUseMinimal.Checked) _config.NetworkUse = NetworkLevel.Minimal;
+            else if (radioNetworkUseOffline.Checked) _config.NetworkUse = NetworkLevel.Offline;
+            propertyGridAdvanced.Refresh();
+        }
+
+        private void checkBoxHelpWithTesting_CheckedChanged(object sender, EventArgs e)
+        {
+            _config.HelpWithTesting = checkBoxHelpWithTesting.Checked;
+            propertyGridAdvanced.Refresh();
+        }
+
+        private void checkBoxAutoApproveKeys_CheckedChanged(object sender, EventArgs e)
+        {
+            _config.AutoApproveKeys = checkBoxAutoApproveKeys.Checked;
+            propertyGridAdvanced.Refresh();
+        }
+
+        private void textBoxSyncServer_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxSyncServer.IsValid) _config.SyncServer = textBoxSyncServer.Uri;
+            propertyGridAdvanced.Refresh();
+        }
+
+        private void textBoxSyncUsername_TextChanged(object sender, EventArgs e)
+        {
+            _config.SyncServerUsername = textBoxSyncUsername.Text;
+            propertyGridAdvanced.Refresh();
+        }
+
+        private void textBoxSyncPassword_TextChanged(object sender, EventArgs e)
+        {
+            _config.SyncServerPassword = textBoxSyncPassword.Text;
+            propertyGridAdvanced.Refresh();
+        }
+
+        private void textBoxSyncCryptoKey_TextChanged(object sender, EventArgs e)
+        {
+            _config.SyncCryptoKey = textBoxSyncCryptoKey.Text;
+            propertyGridAdvanced.Refresh();
+        }
+
+        private void propertyGridAdvanced_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            ConfigToControls();
+        }
+        #endregion
+
+        #region Additional config
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            SaveAdditionalConfig();
+        }
+
+        private readonly string _implementationDirsConfigPath = Locations.GetSaveConfigPath("0install.net", true, "injector", "implementation-dirs");
+        private readonly string _catalogSourcesConfigPath = Locations.GetSaveConfigPath("0install.net", true, "catalog-sources");
+
+        private void LoadAdditionalConfig()
+        {
             // List all implementation directories in use
             listBoxImplDirs.Items.Clear();
             var userConfig = File.Exists(_implementationDirsConfigPath) ? File.ReadAllLines(_implementationDirsConfigPath, Encoding.UTF8) : new string[0];
@@ -122,21 +164,8 @@ namespace ZeroInstall.Central.WinForms
             treeViewTrustedKeys.Nodes = TrustDB.LoadSafe().ToNodes();
         }
 
-        private void SaveConfig()
+        private void SaveAdditionalConfig()
         {
-            // Write data from fields back to config
-            var config = Config.Load();
-            if (radioNetworkUseFull.Checked) config.NetworkUse = NetworkLevel.Full;
-            if (radioNetworkUseMinimal.Checked) config.NetworkUse = NetworkLevel.Minimal;
-            if (radioNetworkUseOffline.Checked) config.NetworkUse = NetworkLevel.Offline;
-            config.AutoApproveKeys = checkBoxAutoApproveKeys.Checked;
-            config.HelpWithTesting = checkBoxHelpWithTesting.Checked;
-            config.SyncServer = (textBoxSyncServer.IsValid && !string.IsNullOrEmpty(textBoxSyncServer.Text)) ? textBoxSyncServer.Uri : new Uri(Config.DefaultSyncServer);
-            config.SyncServerUsername = textBoxSyncUsername.Text;
-            config.SyncServerPassword = textBoxSyncPassword.Text;
-            config.SyncCryptoKey = textBoxSyncCryptoKey.Text;
-            config.Save();
-
             // Write list of user implementation directories
             WriteConfigFile(_implementationDirsConfigPath, listBoxImplDirs.Items.OfType<DirectoryStore>());
 
@@ -146,9 +175,7 @@ namespace ZeroInstall.Central.WinForms
             // Write list of trusted keys
             treeViewTrustedKeys.Nodes.ToTrustDB().Save();
         }
-        #endregion
 
-        #region Helpers
         /// <summary>
         /// Writes a set of elements to a plain-text config file.
         /// </summary>
@@ -168,7 +195,7 @@ namespace ZeroInstall.Central.WinForms
 
         //--------------------//
 
-        #region Storage buttons
+        #region Storage
         private void listBoxImplDirs_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Enable go to button if there is exactly one object selected
@@ -223,7 +250,7 @@ namespace ZeroInstall.Central.WinForms
         }
         #endregion
 
-        #region Catalog buttons
+        #region Catalog
         private void listBoxCatalogSources_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Enable go to button if there is exactly one object selected
@@ -264,7 +291,7 @@ namespace ZeroInstall.Central.WinForms
         }
         #endregion
 
-        #region Trust buttons
+        #region Trust
         private void treeViewTrustedKeys_CheckedEntriesChanged(object sender, EventArgs e)
         {
             // Enable remove button when there are checked elements
@@ -283,30 +310,12 @@ namespace ZeroInstall.Central.WinForms
         }
         #endregion
 
-        #region Sync buttons
+        #region Sync
         private void linkSyncAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            try
-            {
-                string syncServer = textBoxSyncServer.Text;
-                if (!syncServer.EndsWith("/")) syncServer += "/"; // Ensure the server URI references a directory
-                Program.OpenInBrowser(this, syncServer + "account");
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message, MsgSeverity.Error);
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(this, Resources.ProblemLoadingOptions + "\n" + ex.Message +
-                                 (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
-            }
-            #endregion
+            string syncServer = textBoxSyncServer.Text;
+            if (!syncServer.EndsWith("/")) syncServer += "/"; // Ensure the server URI references a directory
+            Program.OpenInBrowser(this, syncServer + "account");
         }
 
         private void buttonSyncCryptoKey_Click(object sender, EventArgs e)
@@ -315,27 +324,11 @@ namespace ZeroInstall.Central.WinForms
         }
         #endregion
 
-        #region Global buttons
-        private void buttonApplyOK_Click(object sender, EventArgs e)
+        #region Advanced
+        private void buttonAdvancedShow_Click(object sender, EventArgs e)
         {
-            try
-            {
-                SaveConfig();
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(this, Resources.ProblemSavingOptions + "\n" + ex.Message, MsgSeverity.Error);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, Resources.ProblemSavingOptions + "\n" + ex.Message, MsgSeverity.Error);
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(this, Resources.ProblemSavingOptions + "\n" + ex.Message, MsgSeverity.Error);
-            }
-            #endregion
+            labelAdvancedWarning.Visible = buttonAdvancedShow.Visible = false;
+            propertyGridAdvanced.Visible = true;
         }
         #endregion
     }

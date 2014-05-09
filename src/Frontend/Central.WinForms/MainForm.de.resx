@@ -124,32 +124,14 @@
     <value>Katalog</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="menuUpdateAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>228, 26</value>
-  </data>
   <data name="buttonUpdateAll.Text" xml:space="preserve">
     <value>Alle &amp;aktualisieren</value>
-  </data>
-  <data name="buttonUpdateAllClean.Size" type="System.Drawing.Size, System.Drawing">
-    <value>227, 22</value>
   </data>
   <data name="buttonUpdateAllClean.Text" xml:space="preserve">
     <value>Aktualisieren und aufräumen</value>
   </data>
-  <data name="menuSync.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 48</value>
-  </data>
-  <data name="butonSyncSetup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 22</value>
-  </data>
-  <data name="buttonSyncTroubleshoot.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 22</value>
-  </data>
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
     <value>&amp;Problembehebung</value>
-  </data>
-  <data name="labelLoadingCatalog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 16</value>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">
     <value>Lade Katalog vom Server...</value>
@@ -160,23 +142,11 @@
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
     <value>Liste &amp;aktualisieren</value>
   </data>
-  <data name="menuOptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 26</value>
-  </data>
   <data name="buttonOptions.Text" xml:space="preserve">
     <value>&amp;Optionen</value>
   </data>
-  <data name="buttonOptionsAdvanced.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 22</value>
-  </data>
-  <data name="buttonOptionsAdvanced.Text" xml:space="preserve">
-    <value>&amp;Erweitert</value>
-  </data>
   <data name="buttonCacheManagement.Text" xml:space="preserve">
     <value>&amp;Cache Verwaltung</value>
-  </data>
-  <data name="buttonIntro.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
   </data>
   <data name="buttonHelp.Text" xml:space="preserve">
     <value>&amp;Hilfe</value>
