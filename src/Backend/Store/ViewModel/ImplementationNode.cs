@@ -20,53 +20,30 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
-using NanoByte.Common;
 using NanoByte.Common.Tasks;
-using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 
-namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
+namespace ZeroInstall.Store.ViewModel
 {
     /// <summary>
-    /// Models information about an implementation in an <see cref="IStore"/> for display in a GUI.
+    /// Models information about an implementation in an <see cref="IStore"/> for display in a UI.
     /// </summary>
     public abstract class ImplementationNode : StoreNode
     {
-        #region Variables
+        #region Dependencies
         private readonly ManifestDigest _digest;
-        #endregion
 
-        #region Properities
-        /// <inheritdoc/>
-        public override string Path { get { return Store.GetPath(_digest); } }
-
-        /// <summary>
-        /// The digest identifying the implementation in the store.
-        /// </summary>
-        [Description("The digest identifying the implementation in the store.")]
-        public string Digest { get { return _digest.AvailableDigests.FirstOrDefault(); } }
-
-        /// <summary>
-        /// The total size of the implementation in bytes.
-        /// </summary>
-        [Browsable(false)]
-        public long Size { get; private set; }
-        #endregion
-
-        #region Constructor
         /// <summary>
         /// Creates a new implementation node.
         /// </summary>
         /// <param name="digest">The digest identifying the implementation.</param>
         /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
-        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
         /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        protected ImplementationNode(ManifestDigest digest, IStore store, ITaskHandler handler)
-            : base(store, handler)
+        protected ImplementationNode(ManifestDigest digest, IStore store)
+            : base(store)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");
@@ -82,9 +59,21 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         }
         #endregion
 
-        //--------------------//
+        /// <inheritdoc/>
+        public override string Path { get { return Store.GetPath(_digest); } }
 
-        #region Delete
+        /// <summary>
+        /// The digest identifying the implementation in the store.
+        /// </summary>
+        [Description("The digest identifying the implementation in the store.")]
+        public string Digest { get { return _digest.AvailableDigests.FirstOrDefault(); } }
+
+        /// <summary>
+        /// The total size of the implementation in bytes.
+        /// </summary>
+        [Browsable(false)]
+        public long Size { get; private set; }
+
         /// <summary>
         /// Deletes this implementation from the <see cref="IStore"/> it is located in.
         /// </summary>
@@ -104,45 +93,17 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
             }
             #endregion
         }
-        #endregion
 
-        #region Verify
-        /// <inheritdoc/>
-        public override void Verify()
+        /// <summary>
+        /// Verify this implementation is undamaged.
+        /// </summary>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="IOException">Thrown if the entry's directory could not be processed.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the entry's directory is not permitted.</exception>
+        public void Verify(ITaskHandler handler)
         {
-            Store.Verify(_digest, Handler);
+            Store.Verify(_digest, handler);
         }
-        #endregion
-
-        #region Context menu
-        /// <inheritdoc/>
-        public override ContextMenu GetContextMenu()
-        {
-            var contextMenu = base.GetContextMenu();
-            contextMenu.MenuItems.Add(
-                new MenuItem(Resources.Verify, delegate
-                {
-                    try
-                    {
-                        Verify();
-                    }
-                        #region Error handling
-                    catch (OperationCanceledException)
-                    {}
-                    catch (IOException ex)
-                    {
-                        Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                    }
-                    #endregion
-
-                    Handler.Batch = true;
-                }));
-            return contextMenu;
-        }
-        #endregion
     }
 }

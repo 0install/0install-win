@@ -60,6 +60,7 @@
       <NamespaceSummaryItem name="ZeroInstall.Store.Model.Preferences" isDocumented="True">Contains structures for user-specified preferences and overrides for interfaces, feeds and implementations.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Model.Selection" isDocumented="True">Contains structures for representing Solver results. The XML representation is defined here: http://0install.net/selections-spec.html</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Trust" isDocumented="True">Contains classes for managing GnuPG signatures.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Store.ViewModel" isDocumented="True" xmlns="">Models information about configuration and cache elements for display in a UI.</NamespaceSummaryItem>
     </NamespaceSummaries>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

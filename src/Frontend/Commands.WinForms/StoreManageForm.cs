@@ -24,14 +24,15 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Commands.WinForms.StoreManagementNodes;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.ViewModel;
 
 namespace ZeroInstall.Commands.WinForms
 {
@@ -45,7 +46,7 @@ namespace ZeroInstall.Commands.WinForms
         private readonly IFeedCache _feedCache;
 
         // Don't use WinForms designer for this, since it doesn't understand generics
-        private readonly FilteredTreeView<Node> _treeView = new FilteredTreeView<Node> {Separator = '#', CheckBoxes = true, Dock = DockStyle.Fill};
+        private readonly FilteredTreeView<StoreManageNode> _treeView = new FilteredTreeView<StoreManageNode> {Separator = '\\', CheckBoxes = true, Dock = DockStyle.Fill};
         #endregion
 
         #region Constructor
@@ -70,9 +71,9 @@ namespace ZeroInstall.Commands.WinForms
             if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
             if (WindowsUtils.IsAdministrator) Text += @" (Administrator)";
             else if (WindowsUtils.IsWindowsNT) buttonRunAsAdmin.Visible = true;
+            HandleCreated += delegate { Program.ConfigureTaskbar(this, Text, subCommand: ".Store.Manage", arguments: StoreMan.Name + " manage"); };
 
             Shown += delegate { RefreshList(); };
-            HandleCreated += delegate { Program.ConfigureTaskbar(this, Text); };
 
             _treeView.SelectedEntryChanged += OnSelectedEntryChanged;
             _treeView.CheckedEntriesChanged += OnCheckedEntriesChanged;
@@ -86,7 +87,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Fills the <see cref="_treeView"/> with entries.
         /// </summary>
-        private void RefreshList()
+        internal void RefreshList()
         {
             buttonRefresh.Enabled = false;
             labelLoading.Visible = true;
@@ -98,7 +99,7 @@ namespace ZeroInstall.Commands.WinForms
             _store.Flush();
             _feedCache.Flush();
 
-            var listBuilder = new NodeListBuilder(_store, _feedCache, this);
+            var listBuilder = new CacheNodeBuilder(_store, _feedCache);
             listBuilder.Run();
             e.Result = listBuilder;
         }
@@ -115,9 +116,9 @@ namespace ZeroInstall.Commands.WinForms
             else if (ex != null) ex.Rethrow();
             #endregion
 
-            var listBuilder = (NodeListBuilder)e.Result;
-            _treeView.Nodes = listBuilder.Nodes;
-            textTotalSize.Text = listBuilder.TotalSize.FormatBytes(CultureInfo.CurrentCulture);
+            var nodeListBuilder = (CacheNodeBuilder)e.Result;
+            _treeView.Nodes = new NamedCollection<StoreManageNode>(nodeListBuilder.Nodes.Select(x => new StoreManageNode(x, this)));
+            textTotalSize.Text = nodeListBuilder.TotalSize.FormatBytes(CultureInfo.CurrentCulture);
 
             OnCheckedEntriesChanged(null, EventArgs.Empty);
             labelLoading.Visible = false;
@@ -128,10 +129,11 @@ namespace ZeroInstall.Commands.WinForms
         #region Event handlers
         private void OnSelectedEntryChanged(object sender, EventArgs e)
         {
-            propertyGrid.SelectedObject = _treeView.SelectedEntry;
+            var node = _treeView.SelectedEntry.BackingNode;
+            propertyGrid.SelectedObject = node;
 
             // Update current entry size
-            var implementationEntry = _treeView.SelectedEntry as ImplementationNode;
+            var implementationEntry = node as ImplementationNode;
             textCurrentSize.Text = (implementationEntry != null) ? implementationEntry.Size.FormatBytes(CultureInfo.CurrentCulture) : "-";
         }
 
@@ -147,7 +149,8 @@ namespace ZeroInstall.Commands.WinForms
                 buttonVerify.Enabled = buttonRemove.Enabled = true;
 
                 // Update selected entries size
-                long totalSize = _treeView.CheckedEntries.OfType<ImplementationNode>().Sum(implementationEntry => implementationEntry.Size);
+                var nodes = _treeView.CheckedEntries.Select(x => x.BackingNode);
+                long totalSize = nodes.OfType<ImplementationNode>().Sum(x => x.Size);
                 textCheckedSize.Text = totalSize.FormatBytes(CultureInfo.CurrentCulture);
             }
         }
@@ -177,7 +180,7 @@ namespace ZeroInstall.Commands.WinForms
             {
                 try
                 {
-                    RunTask(new ForEachTask<Node>(Resources.DeletingEntries, _treeView.CheckedEntries, entry => entry.Delete()));
+                    RunTask(new ForEachTask<CacheNode>(Resources.DeletingEntries, _treeView.CheckedEntries.Select(x => x.BackingNode), entry => entry.Delete()));
                 }
                     #region Error handling
                 catch (OperationCanceledException)
@@ -204,8 +207,8 @@ namespace ZeroInstall.Commands.WinForms
         {
             try
             {
-                foreach (Node entry in _treeView.CheckedEntries)
-                    entry.Verify();
+                foreach (var entry in _treeView.CheckedEntries.Select(x => x.BackingNode).OfType<ImplementationNode>())
+                    entry.Verify(this);
             }
                 #region Error handling
             catch (OperationCanceledException)
@@ -241,7 +244,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Always returns <see langword="false"/>.
         /// </summary>
-        public bool Batch { get { return false; } set { RefreshList(); } }
+        public bool Batch { get { return false; } set { } }
 
         /// <summary>
         /// Always returns 1. This ensures that information hidden by the GUI is at least retrievable from the log files.

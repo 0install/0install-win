@@ -233,6 +233,17 @@
     <Compile Include="Trust\SignatureException.cs" />
     <Compile Include="Trust\TrustDB.cs" />
     <Compile Include="Trust\WrongPassphraseException.cs" />
+    <Compile Include="ViewModel\CacheNode.cs" />
+    <Compile Include="ViewModel\CacheNodeBuilder.cs" />
+    <Compile Include="ViewModel\FeedNode.cs" />
+    <Compile Include="ViewModel\ImplementationNode.cs" />
+    <Compile Include="ViewModel\Node.cs" />
+    <Compile Include="ViewModel\OrphanedImplementationNode.cs" />
+    <Compile Include="ViewModel\OwnedImplementationNode.cs" />
+    <Compile Include="ViewModel\StoreNode.cs" />
+    <Compile Include="ViewModel\TempDirectoryNode.cs" />
+    <Compile Include="ViewModel\TrustNode.cs" />
+    <Compile Include="ViewModel\TrustNodeManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -270,6 +281,7 @@
     <None Include="Trust\trust.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="ViewModel\ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\..\..\lib\7zxa-x64.dll">

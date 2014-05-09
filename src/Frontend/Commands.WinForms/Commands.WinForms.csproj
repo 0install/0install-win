@@ -109,14 +109,7 @@
     <Compile Include="StoreManageForm.Designer.cs">
       <DependentUpon>StoreManageForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="StoreManagementNodes\FeedNode.cs" />
-    <Compile Include="StoreManagementNodes\ImplementationNode.cs" />
-    <Compile Include="StoreManagementNodes\Node.cs" />
-    <Compile Include="StoreManagementNodes\NodeListBuilder.cs" />
-    <Compile Include="StoreManagementNodes\OrphanedImplementationNode.cs" />
-    <Compile Include="StoreManagementNodes\OwnedImplementationNode.cs" />
-    <Compile Include="StoreManagementNodes\StoreNode.cs" />
-    <Compile Include="StoreManagementNodes\TempDirectoryNode.cs" />
+    <Compile Include="StoreManageNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
@@ -168,7 +161,6 @@
     <None Include="packages.config" />
     <None Include="Properties\App.config" />
     <None Include="Properties\app.manifest" />
-    <None Include="StoreManagementNodes\ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Backend\Services\Services.csproj">

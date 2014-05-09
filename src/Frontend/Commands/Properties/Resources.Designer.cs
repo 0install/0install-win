@@ -1523,15 +1523,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Temporary directories.
-        /// </summary>
-        public static string TemporaryDirectories {
-            get {
-                return ResourceManager.GetString("TemporaryDirectories", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Too many arguments or unknown options..
         /// </summary>
         public static string TooManyArguments {
@@ -1591,15 +1582,6 @@ namespace ZeroInstall.Commands.Properties {
         public static string UnknownCommand {
             get {
                 return ResourceManager.GetString("UnknownCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unknown interface.
-        /// </summary>
-        public static string UnknownInterface {
-            get {
-                return ResourceManager.GetString("UnknownInterface", resourceCulture);
             }
         }
         

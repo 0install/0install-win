@@ -17,36 +17,32 @@
 
 using System;
 using System.IO;
-using NanoByte.Common.Tasks;
-using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
+namespace ZeroInstall.Store.ViewModel
 {
     /// <summary>
-    /// Models information about an implementation in an <see cref="IStore"/> without a known owning interface for display in a GUI.
+    /// Models information about an implementation in an <see cref="IStore"/> without a known owning interface for display in a UI.
     /// </summary>
     public sealed class OrphanedImplementationNode : ImplementationNode
     {
-        #region Properties
-        /// <inheritdoc/>
-        public override string Name { get { return Resources.UnknownInterface + "#" + Digest + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
-        #endregion
-
-        #region Constructor
+        #region Dependencies
         /// <summary>
         /// Creates a new orphaned implementation node.
         /// </summary>
         /// <param name="digest">The digest identifying the implementation.</param>
         /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
-        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
         /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        public OrphanedImplementationNode(ManifestDigest digest, IStore store, ITaskHandler handler)
-            : base(digest, store, handler)
+        public OrphanedImplementationNode(ManifestDigest digest, IStore store)
+            : base(digest, store)
         {}
         #endregion
+
+        /// <inheritdoc/>
+        public override string Name { get { return Resources.UnknownInterface + System.IO.Path.DirectorySeparatorChar + Digest + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
     }
 }

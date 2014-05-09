@@ -21,28 +21,38 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
-using NanoByte.Common;
-using NanoByte.Common.Controls;
-using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
-using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
 
-namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
+namespace ZeroInstall.Store.ViewModel
 {
     /// <summary>
-    /// Models information about a <see cref="Feed"/> in the <see cref="IFeedCache"/> for display in a GUI.
+    /// Models information about a <see cref="Feed"/> in the <see cref="IFeedCache"/> for display in a UI.
     /// </summary>
-    public sealed class FeedNode : Node, IContextMenu
+    public sealed class FeedNode : CacheNode
     {
-        #region Variables
+        #region Dependencies
         private readonly IFeedCache _cache;
         private readonly Feed _feed;
+
+        /// <summary>
+        /// Creates a new feed node.
+        /// </summary>
+        /// <param name="feed">The <see cref="Feed"/> to be represented by this node.</param>
+        /// <param name="cache">The <see cref="IFeedCache"/> the <see cref="Feed"/> is located in.</param>
+        public FeedNode(Feed feed, IFeedCache cache)
+        {
+            #region Sanity checks
+            if (cache == null) throw new ArgumentNullException("cache");
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
+            _cache = cache;
+            _feed = feed;
+        }
         #endregion
 
-        #region Properties
         /// <inheritdoc/>
         public override string Name { get { return _feed.Name + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
 
@@ -56,7 +66,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// The main website of the application.
         /// </summary>
         [Description("The main website of the application.")]
-        public Uri Homepage { get { return _feed.Homepage; }}
+        public Uri Homepage { get { return _feed.Homepage; } }
 
         /// <summary>
         /// A short one-line description of the application.
@@ -69,31 +79,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// </summary>
         [Description("A comma-separated list of categories the applications fits into.")]
         public string Categories { get { return StringUtils.Join(",", _feed.Categories.Select(x => x.Name)); } }
-        #endregion
 
-        #region Constructor
-        /// <summary>
-        /// Creates a new feed node.
-        /// </summary>
-        /// <param name="feed">The <see cref="Feed"/> to be represented by this node.</param>
-        /// <param name="cache">The <see cref="IFeedCache"/> the <see cref="Feed"/> is located in.</param>
-        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
-        public FeedNode(Feed feed, IFeedCache cache, ITaskHandler handler)
-            : base(handler)
-        {
-            #region Sanity checks
-            if (cache == null) throw new ArgumentNullException("cache");
-            if (feed == null) throw new ArgumentNullException("feed");
-            #endregion
-
-            _cache = cache;
-            _feed = feed;
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Delete
         /// <summary>
         /// Deletes this <see cref="Feed"/> from the <see cref="IFeedCache"/> it is located in.
         /// </summary>
@@ -104,50 +90,5 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         {
             _cache.Remove(_feed.UriString);
         }
-        #endregion
-
-        #region Verify
-        /// <summary>
-        /// Does nothing.
-        /// </summary>
-        public override void Verify()
-        {}
-        #endregion
-
-        #region Context menu
-        /// <inheritdoc/>
-        public ContextMenu GetContextMenu()
-        {
-            return new ContextMenu(new[]
-            {
-                new MenuItem(Resources.Remove, delegate
-                {
-                    if (Handler.AskQuestion(Resources.DeleteEntry))
-                    {
-                        try
-                        {
-                            Delete();
-                        }
-                            #region Error handling
-                        catch (KeyNotFoundException ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                        }
-                        catch (IOException ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                        }
-                        catch (UnauthorizedAccessException ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                        }
-                        #endregion
-
-                        Handler.Batch = true;
-                    }
-                })
-            });
-        }
-        #endregion
     }
 }

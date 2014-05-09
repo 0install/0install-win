@@ -625,9 +625,6 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   <data name="SupportedValues" xml:space="preserve">
     <value>Supported values: {0}</value>
   </data>
-  <data name="TemporaryDirectories" xml:space="preserve">
-    <value>Temporary directories</value>
-  </data>
   <data name="TooManyArguments" xml:space="preserve">
     <value>Too many arguments or unknown options.</value>
   </data>
@@ -648,9 +645,6 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   </data>
   <data name="UnknownCommand" xml:space="preserve">
     <value>Unknown command '{0}'.</value>
-  </data>
-  <data name="UnknownInterface" xml:space="preserve">
-    <value>Unknown interface</value>
   </data>
   <data name="UnknownMode" xml:space="preserve">
     <value>Unknown operation mode.</value>

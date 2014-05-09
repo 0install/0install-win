@@ -625,9 +625,6 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="SupportedValues" xml:space="preserve">
     <value>Unterstützte Werte: {0}</value>
   </data>
-  <data name="TemporaryDirectories" xml:space="preserve">
-    <value>Temporäre Verzeichnisse</value>
-  </data>
   <data name="TooManyArguments" xml:space="preserve">
     <value>Zu viele Argumente oder unbekannte Optionen.</value>
   </data>
@@ -648,9 +645,6 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="UnknownCommand" xml:space="preserve">
     <value>Unbekannter Befehl '{0}'.</value>
-  </data>
-  <data name="UnknownInterface" xml:space="preserve">
-    <value>Unbekanntes Interface</value>
   </data>
   <data name="UnknownMode" xml:space="preserve">
     <value>Unbekannter Betriebsmodus.</value>

@@ -18,40 +18,30 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
-using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.Implementations;
+using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
+namespace ZeroInstall.Store.ViewModel
 {
     /// <summary>
-    /// Models information about a temporary directory in an <see cref="IStore"/> for display in a GUI.
+    /// Models information about a temporary directory in an <see cref="IStore"/> for display in a UI.
     /// </summary>
     public sealed class TempDirectoryNode : StoreNode
     {
-        #region Properties
-        /// <inheritdoc/>
-        public override string Name { get { return Resources.TemporaryDirectories + "#" + System.IO.Path.GetFileName(_path) + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
-
+        #region Dependencies
         private readonly string _path;
 
-        /// <inheritdoc/>
-        public override string Path { get { return _path; } }
-        #endregion
-
-        #region Constructor
         /// <summary>
         /// Creates a new temporary directory node.
         /// </summary>
         /// <param name="path">The path of the directory in the store.</param>
         /// <param name="store">The <see cref="IStore"/> the directory is located in.</param>
-        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
         /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        public TempDirectoryNode(string path, IStore store, ITaskHandler handler)
-            : base(store, handler)
+        public TempDirectoryNode(string path, IStore store)
+            : base(store)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");
@@ -61,9 +51,12 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         }
         #endregion
 
-        //--------------------//
+        /// <inheritdoc/>
+        public override string Name { get { return Resources.TemporaryDirectories + '\\' + System.IO.Path.GetFileName(_path) + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
 
-        #region Delete
+        /// <inheritdoc/>
+        public override string Path { get { return _path; } }
+
         /// <summary>
         /// Deletes this temporary directory from the <see cref="IStore"/> it is located in.
         /// </summary>
@@ -98,14 +91,5 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
             }
             #endregion
         }
-        #endregion
-
-        #region Verify
-        /// <summary>
-        /// Does nothing.
-        /// </summary>
-        public override void Verify()
-        {}
-        #endregion
     }
 }

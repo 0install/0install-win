@@ -18,25 +18,40 @@
 using System;
 using System.ComponentModel;
 using System.IO;
-using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 
-namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
+namespace ZeroInstall.Store.ViewModel
 {
     /// <summary>
-    /// Models information about an implementation in an <see cref="IStore"/> with a known owning interface for display in a GUI.
+    /// Models information about an implementation in an <see cref="IStore"/> with a known owning interface for display in a UI.
     /// </summary>
     public sealed class OwnedImplementationNode : ImplementationNode
     {
-        #region Variables
+        #region Dependencies
         private readonly FeedNode _iface;
         private readonly Implementation _implementation;
+
+        /// <summary>
+        /// Creates a new owned implementation node.
+        /// </summary>
+        /// <param name="digest">The digest identifying the implementation.</param>
+        /// <param name="implementation">Information about the implementation from a <see cref="Feed"/> file.</param>
+        /// <param name="iface">The node of the interface owning the implementation.</param>
+        /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
+        /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
+        /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
+        public OwnedImplementationNode(ManifestDigest digest, Implementation implementation, FeedNode iface, IStore store)
+            : base(digest, store)
+        {
+            _iface = iface;
+            _implementation = implementation;
+        }
         #endregion
 
-        #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return _iface.Name + "#" + Version + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
+        public override string Name { get { return _iface.Name + '\\' + Version + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
 
         /// <summary>
         /// The version number of the implementation.
@@ -55,26 +70,5 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// </summary>
         [Description("A unique identifier for the implementation. Used when storing implementation-specific user preferences.")]
         public string ID { get { return _implementation.ID; } }
-        #endregion
-
-        #region Constructor
-        /// <summary>
-        /// Creates a new owned implementation node.
-        /// </summary>
-        /// <param name="digest">The digest identifying the implementation.</param>
-        /// <param name="implementation">Information about the implementation from a <see cref="Feed"/> file.</param>
-        /// <param name="iface">The node of the interface owning the implementation.</param>
-        /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
-        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
-        /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
-        /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        public OwnedImplementationNode(ManifestDigest digest, Implementation implementation, FeedNode iface, IStore store, ITaskHandler handler)
-            : base(digest, store, handler)
-        {
-            _iface = iface;
-            _implementation = implementation;
-        }
-        #endregion
     }
 }

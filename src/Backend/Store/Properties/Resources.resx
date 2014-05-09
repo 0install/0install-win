@@ -335,6 +335,9 @@ You can delete the file '{1}' to fix the problem. Other settings may also be los
   <data name="StoreServiceCommunicationProblem" xml:space="preserve">
     <value>Unable to establish connection with StoreService.</value>
   </data>
+  <data name="TemporaryDirectories" xml:space="preserve">
+    <value>Temporary directories</value>
+  </data>
   <data name="UnableToAddImplementationToStore" xml:space="preserve">
     <value>Unable to add implementation to a store.</value>
   </data>
@@ -349,6 +352,9 @@ You can delete the file '{1}' to fix the problem. Other settings may also be los
   </data>
   <data name="UnknownCpu" xml:space="preserve">
     <value>Unknown CPU.</value>
+  </data>
+  <data name="UnknownInterface" xml:space="preserve">
+    <value>Unknown interface</value>
   </data>
   <data name="UnknownModifier" xml:space="preserve">
     <value>Unknown modifier.</value>

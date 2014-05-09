@@ -21,38 +21,33 @@ using System.IO;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Tasks;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 
-namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
+namespace ZeroInstall.Store.ViewModel
 {
     /// <summary>
-    /// Builds a list of <see cref="Node"/>s for <see cref="Feed"/>s and <see cref="Implementation"/>s.
+    /// Builds a list of <see cref="CacheNode"/>s for <see cref="Feed"/>s and <see cref="Implementation"/>s.
     /// </summary>
-    public sealed class NodeListBuilder : TaskBase
+    public sealed class CacheNodeBuilder : TaskBase
     {
         #region Dependencies
         private readonly IStore _store;
         private readonly IFeedCache _feedCache;
-        private readonly ITaskHandler _handler;
 
         /// <summary>
         /// Creates a new list builder
         /// </summary>
         /// <param name="store">Used to list <see cref="Implementation"/>s</param>
         /// <param name="feedCache">Used to load <see cref="Feed"/>s.</param>
-        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
-        public NodeListBuilder(IStore store, IFeedCache feedCache, ITaskHandler handler)
+        public CacheNodeBuilder(IStore store, IFeedCache feedCache)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");
             if (feedCache == null) throw new ArgumentNullException("feedCache");
-            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            _handler = handler;
             _store = store;
             _feedCache = feedCache;
         }
@@ -68,7 +63,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <summary>
         /// All generated nodes.
         /// </summary>
-        public NamedCollection<Node> Nodes { get; private set; }
+        public NamedCollection<CacheNode> Nodes { get; private set; }
 
         /// <summary>
         /// The total size of all <see cref="Implementation"/>s in bytes.
@@ -81,7 +76,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
         /// <inheritdoc/>
         protected override void Execute()
         {
-            Nodes = new NamedCollection<Node>();
+            Nodes = new NamedCollection<CacheNode>();
             _feeds = _feedCache.GetAll();
 
             foreach (var feed in _feeds) Add(feed);
@@ -93,7 +88,7 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
 
         private void Add(Feed feed)
         {
-            Add(new FeedNode(feed, _feedCache, _handler));
+            Add(new FeedNode(feed, _feedCache));
         }
 
         private void Add(ManifestDigest digest)
@@ -104,8 +99,8 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
                 var implementation = _feeds.GetImplementation(digest, out feed);
 
                 ImplementationNode implementationNode;
-                if (feed == null) implementationNode = new OrphanedImplementationNode(digest, _store, _handler);
-                else implementationNode = new OwnedImplementationNode(digest, implementation, new FeedNode(feed, _feedCache, _handler), _store, _handler);
+                if (feed == null) implementationNode = new OrphanedImplementationNode(digest, _store);
+                else implementationNode = new OwnedImplementationNode(digest, implementation, new FeedNode(feed, _feedCache), _store);
 
                 TotalSize += implementationNode.Size;
                 Add(implementationNode);
@@ -113,27 +108,30 @@ namespace ZeroInstall.Commands.WinForms.StoreManagementNodes
                 #region Error handling
             catch (FormatException ex)
             {
-                Msg.Inform(null, string.Format("Problem processing the manifest file for '{0}'.\n" + ex.Message, digest), MsgSeverity.Error);
+                Log.Error(string.Format("Problem processing the manifest file for '{0}'.", digest));
+                Log.Error(ex);
             }
             catch (IOException ex)
             {
-                Msg.Inform(null, string.Format("Problem processing '{0}'.\n" + ex.Message, digest), MsgSeverity.Error);
+                Log.Error(string.Format("Problem processing '{0}'.", digest));
+                Log.Error(ex);
             }
             catch (UnauthorizedAccessException ex)
             {
-                Msg.Inform(null, string.Format("Problem processing '{0}'.\n" + ex.Message, digest), MsgSeverity.Error);
+                Log.Error(string.Format("Problem processing '{0}'.", digest));
+                Log.Error(ex);
             }
             #endregion
         }
 
         private void Add(string path)
         {
-            Add(new TempDirectoryNode(path, _store, _handler));
+            Add(new TempDirectoryNode(path, _store));
         }
 
-        private void Add(Node entry)
+        private void Add(CacheNode entry)
         {
-            // Avoid name collisions with suffix
+            // Avoid name collisions by incrementing suffix
             while (Nodes.Contains(entry.Name)) entry.SuffixCounter++;
 
             Nodes.Add(entry);

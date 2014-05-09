@@ -22,7 +22,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using NanoByte.Common;
-using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Storage;
 using ZeroInstall.Central.Properties;
@@ -30,6 +29,7 @@ using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
+using ZeroInstall.Store.ViewModel;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -38,7 +38,7 @@ namespace ZeroInstall.Central.WinForms
         #region Variables
         // Don't use WinForms designer for this, since it doesn't understand generics
         // ReSharper disable once InconsistentNaming
-        private readonly FilteredTreeView<TrustNode> treeViewTrustedKeys = new FilteredTreeView<TrustNode> {Separator = '#', CheckBoxes = true, Dock = DockStyle.Fill};
+        private readonly FilteredTreeView<TrustNode> treeViewTrustedKeys = new FilteredTreeView<TrustNode> {Separator = '\\', CheckBoxes = true, Dock = DockStyle.Fill};
         #endregion
 
         #region Startup
@@ -119,14 +119,7 @@ namespace ZeroInstall.Central.WinForms
             listBoxCatalogSources.Items.AddRange(CatalogManager.GetCatalogSources());
 
             // Read list of trusted keys
-            var trustDB = TrustDB.LoadSafe();
-            var trustNodes = new NamedCollection<TrustNode>();
-            foreach (var key in trustDB.Keys)
-            {
-                foreach (var domain in key.Domains)
-                    trustNodes.Add(new TrustNode(key.Fingerprint, domain));
-            }
-            treeViewTrustedKeys.Nodes = trustNodes;
+            treeViewTrustedKeys.Nodes = TrustDB.LoadSafe().ToNodes();
         }
 
         private void SaveConfig()
@@ -151,10 +144,7 @@ namespace ZeroInstall.Central.WinForms
             WriteConfigFile(_catalogSourcesConfigPath, listBoxCatalogSources.Items.OfType<string>());
 
             // Write list of trusted keys
-            var trustDB = new TrustDB();
-            foreach (var trustNode in treeViewTrustedKeys.Nodes)
-                trustDB.TrustKey(trustNode.Fingerprint, trustNode.Domain);
-            trustDB.Save();
+            treeViewTrustedKeys.Nodes.ToTrustDB().Save();
         }
         #endregion
 

@@ -335,6 +335,9 @@ Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen wom
   <data name="StoreServiceCommunicationProblem" xml:space="preserve">
     <value>Es konnte keine Verbindung zum StoreService hergestellt werden.</value>
   </data>
+  <data name="TemporaryDirectories" xml:space="preserve">
+    <value>Temporäre Verzeichnisse</value>
+  </data>
   <data name="UnableToAddImplementationToStore" xml:space="preserve">
     <value>Die Implementierung konnte keinem Store hinzugefügt werden.</value>
   </data>
@@ -349,6 +352,9 @@ Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen wom
   </data>
   <data name="UnknownCpu" xml:space="preserve">
     <value>Unbekannte CPU.</value>
+  </data>
+  <data name="UnknownInterface" xml:space="preserve">
+    <value>Unbekanntes Interface</value>
   </data>
   <data name="UnknownModifier" xml:space="preserve">
     <value>Unbekannter Modifizierer.</value>
