@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Management.Cli", "Fro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Service", "Frontend\Store.Service\Store.Service.csproj", "{7334A4AA-B517-4102-8D4D-9B4B3A94C5FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "Frontend\UnitTests\UnitTests.csproj", "{0C8BA41E-1DF8-4B99-A867-E1A10660ECF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "Frontend\UnitTests\Frontend.UnitTests.csproj", "{0C8BA41E-1DF8-4B99-A867-E1A10660ECF6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{55783758-0BFF-436F-B3F8-854DA1B7E17D}"
 EndProject
@@ -35,7 +35,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capture.Cli", "Tools\Captur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capture", "Tools\Capture\Capture.csproj", "{4F383EAB-5002-4B0F-9089-DB22B485EE09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "Tools\UnitTests\UnitTests.csproj", "{3A9E9BC7-D028-4AF5-8017-5EC32B668F3A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "Tools\UnitTests\Tools.UnitTests.csproj", "{3A9E9BC7-D028-4AF5-8017-5EC32B668F3A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{1C0DE327-172C-4845-BCB2-68872A0CE9FF}"
 EndProject
@@ -47,7 +47,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Interfaces", "Back
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopIntegration", "Backend\DesktopIntegration\DesktopIntegration.csproj", "{F48937E1-3763-465F-9F12-6CBBBFF61784}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "Backend\UnitTests\UnitTests.csproj", "{06237727-AEA0-4E42-85C0-C0886F425352}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "Backend\UnitTests\Backend.UnitTests.csproj", "{06237727-AEA0-4E42-85C0-C0886F425352}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Updater", "Updater", "{9200230E-6912-480B-83E4-1CD605EA3A2A}"
 EndProject

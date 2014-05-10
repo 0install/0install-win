@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3A9E9BC7-D028-4AF5-8017-5EC32B668F3A}</ProjectGuid>
+    <ProjectGuid>{0C8BA41E-1DF8-4B99-A867-E1A10660ECF6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeroInstall</RootNamespace>
-    <AssemblyName>ZeroInstall.Tools.UnitTests</AssemblyName>
+    <AssemblyName>ZeroInstall.Frontend.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
@@ -22,7 +22,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\build\Debug\Tools\</OutputPath>
+    <OutputPath>..\..\..\build\Debug\Frontend\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -43,6 +43,9 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
+    <Reference Include="NDesk.Options">
+      <HintPath>..\..\..\lib\NDesk.Options.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\packages\Moq.Contrib.0.3\lib\Moq.dll</HintPath>
     </Reference>
@@ -51,17 +54,41 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Backend\UnitTests\UnitTests.csproj">
+    <ProjectReference Include="..\..\Backend\Services\Services.csproj">
+      <Project>{8CAA29B1-94B6-46C2-AF82-E049D35775C5}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Backend\UnitTests\Backend.UnitTests.csproj">
       <Project>{06237727-AEA0-4E42-85C0-C0886F425352}</Project>
-      <Name>UnitTests</Name>
+      <Name>Backend.UnitTests</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Capture\Capture.csproj">
-      <Project>{4F383EAB-5002-4B0F-9089-DB22B485EE09}</Project>
-      <Name>Capture</Name>
+    <ProjectReference Include="..\Central\Central.csproj">
+      <Project>{47DF9A89-30C2-40B8-8DAC-363E4A4BD6B5}</Project>
+      <Name>Central</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Publish\Publish.csproj">
-      <Project>{841CD750-F9D0-4A2D-98C7-7A340C781F41}</Project>
-      <Name>Publish</Name>
+    <ProjectReference Include="..\Commands.Cli\Commands.Cli.csproj">
+      <Project>{F52544A4-EC24-11DF-8FA3-0F04E0D72085}</Project>
+      <Name>Commands.Cli</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Commands\Commands.csproj">
+      <Project>{606C7FB6-2C58-11E0-8161-7159DFD72085}</Project>
+      <Name>Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Backend\DesktopIntegration\DesktopIntegration.csproj">
+      <Project>{F48937E1-3763-465F-9F12-6CBBBFF61784}</Project>
+      <Name>DesktopIntegration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Backend\Services.Interfaces\Services.Interfaces.csproj">
+      <Project>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</Project>
+      <Name>Services.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store.Management.Cli\Store.Management.Cli.csproj">
+      <Project>{05E49C84-D6AB-418A-9978-8200CB76DD39}</Project>
+      <Name>Store.Management.Cli</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store.Service\Store.Service.csproj">
+      <Project>{7334A4AA-B517-4102-8D4D-9B4B3A94C5FA}</Project>
+      <Name>Store.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Backend\Store\Store.csproj">
       <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
@@ -69,45 +96,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Capture\CommandMapperTest.cs" />
-    <Compile Include="Publish\EntryPoints\CandidateTest.cs" />
-    <Compile Include="Publish\EntryPoints\DetectionTest.cs" />
-    <Compile Include="Publish\EntryPoints\DotNetExeTest.cs" />
-    <Compile Include="Publish\EntryPoints\PosixBinaryTest.cs" />
-    <Compile Include="Publish\EntryPoints\PosixScriptTest.cs" />
-    <Compile Include="Publish\EntryPoints\PythonScriptTest.cs" />
-    <Compile Include="Publish\EntryPoints\WindowsExeTest.cs" />
-    <Compile Include="Publish\FeedBuilderTest.cs" />
-    <Compile Include="Publish\RetrievalMethodUtilsTest.cs" />
-    <Compile Include="Publish\FeedUtilsTest.cs" />
-    <Compile Include="Publish\ImplementationUtilsTest.cs" />
+    <Folder Include="Central\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Publish\EntryPoints\batch.cmd" />
-    <EmbeddedResource Include="Publish\EntryPoints\python" />
-    <EmbeddedResource Include="Publish\EntryPoints\elf32" />
-    <EmbeddedResource Include="Publish\EntryPoints\elf64" />
-    <EmbeddedResource Include="Publish\EntryPoints\sh" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Publish\EntryPoints\python.py" />
-    <EmbeddedResource Include="Publish\EntryPoints\python.pyw" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Publish\EntryPoints\dotnet.exe" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Publish\EntryPoints\dotnet64.exe" />
-    <EmbeddedResource Include="Publish\EntryPoints\dotnet_terminal.exe" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Publish\EntryPoints\windows32_terminal.exe" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Publish\EntryPoints\windows32.exe" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Publish\EntryPoints\windows64.exe" />
+    <Compile Include="Commands\CommandFactoryTest.cs" />
+    <Compile Include="Commands\FrontendCommandTest.cs" />
+    <Compile Include="Commands\DownloadTest.cs" />
+    <Compile Include="Commands\ListTest.cs" />
+    <Compile Include="Commands\MockCommandHandler.cs" />
+    <Compile Include="Commands\RunTest.cs" />
+    <Compile Include="Commands\SelectionTest.cs" />
+    <Compile Include="Commands\SelectionTestBase.cs" />
+    <Compile Include="Commands\StoreManTest.cs" />
+    <Compile Include="Commands\UpdateTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
