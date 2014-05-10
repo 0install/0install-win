@@ -3,7 +3,7 @@
   <Class Name="ZeroInstall.Publish.EntryPoints.WindowsExe" Collapsed="true">
     <Position X="12" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <HashCode>AAAgAAAAAAIAAAEAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
       <FileName>EntryPoints\WindowsExe.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -83,7 +83,7 @@
       <Method Name="Parse" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAgAAAAIAAAAAAAAAAABAAAAAAAAIBAAAAQAAAAAAA=</HashCode>
+      <HashCode>AAAgAAAAAAAAAAAAhAAABgCAAAAAAIBAACAAAAAAAAA=</HashCode>
       <FileName>EntryPoints\DotNetExe.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -97,18 +97,18 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAIgAAAEgAAABAQAAARAAIAAAAAAAACAAAA=</HashCode>
+      <HashCode>IACAAAAAAAIAAAAEgAAABAQAAARAAIAAAAAAAACAAAA=</HashCode>
       <FileName>EntryPoints\Candidate.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Publish.EntryPoints.Java">
-    <Position X="1" Y="3.75" Width="1.5" />
+    <Position X="0.75" Y="3.75" Width="2" />
     <Members>
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAIAAAAAAAgAAAAAAAAAAAAIAAAAAQAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAhAAAAgAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>EntryPoints\Java.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -151,7 +151,7 @@
       <Property Name="InterpreterInterface" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>FAAAAAAAAAIAAAAAgAAABAAAAAAAgIAAAAAAAAAAAAA=</HashCode>
+      <HashCode>FAAAAAEAAAIAAAAAgAAABAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>EntryPoints\InterpretedScript.cs</FileName>
     </TypeIdentifier>
   </Class>

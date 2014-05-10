@@ -16,33 +16,15 @@
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="Summaries" Type="Common.Collections.LocalizableString" FixedFromPoint="true">
-      <Path>
-        <Point X="5.25" Y="4.612" />
-        <Point X="5.625" Y="4.612" />
-        <Point X="5.625" Y="4.899" />
-        <Point X="6.75" Y="4.899" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.185" Y="0.037" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <AssociationLine Name="Descriptions" Type="Common.Collections.LocalizableString">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.329" Y="0.06" />
-      </MemberNameLabel>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>ANAoEIAQBDAgQHkMnABQgARAAIQBEMCASAgAAAAIABI=</HashCode>
-      <FileName>Feed.cs</FileName>
+      <HashCode>ANAoEIAQBDAgQHkMnABQgIRAAIQBEMCASAgAAAAIABI=</HashCode>
+      <FileName>Model\Feed.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Summaries" />
-      <Property Name="Descriptions" />
+      <Property Name="Icons" />
       <Property Name="Feeds" />
       <Property Name="FeedFor" />
       <Property Name="Elements" />
-      <Property Name="Icons" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -58,7 +40,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAACAAAAAAMgAAAACAAAAAAAIAAAAAAAAAAABA=</HashCode>
-      <FileName>InterfaceReference.cs</FileName>
+      <FileName>Model\InterfaceReference.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -73,15 +55,15 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAMgAAAAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
-      <FileName>FeedReference.cs</FileName>
+      <FileName>Model\FeedReference.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Store.Model.Element" Collapsed="true">
     <Position X="6.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAggAAIIAACACImABAKABQAADAEIEASECABBAACBA=</HashCode>
-      <FileName>Element.cs</FileName>
+      <HashCode>IAAAggAAIIAACACImABAKABQAADAEIEAyECABBBACBA=</HashCode>
+      <FileName>Model\Element.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -89,7 +71,7 @@
     <Position X="7.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAkAACAAAAAQAAAIAAAAABAAAAABA=</HashCode>
-      <FileName>Implementation.cs</FileName>
+      <FileName>Model\Implementation.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -97,7 +79,7 @@
     <Position X="7.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAgAAEkABAAAAAACAAAIAAAAAAAAAAAAE=</HashCode>
-      <FileName>ImplementationBase.cs</FileName>
+      <FileName>Model\ImplementationBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Model.Group" Collapsed="true">
@@ -114,16 +96,11 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAAEkAAQAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
-      <FileName>Group.cs</FileName>
+      <FileName>Model\Group.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Elements" />
     </ShowAsCollectionAssociation>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Common.Collections.LocalizableString" Collapsed="true">
-    <Position X="6.75" Y="4.75" Width="1.5" />
-    <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Store.Model.Icon">
@@ -132,8 +109,8 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQMgAMAAAAAQAAAAKAAAAAAAAAAABA=</HashCode>
-      <FileName>Icon.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAQMgAEAAAAAAAACAKBAAAgAAAAAABA=</HashCode>
+      <FileName>Model\Icon.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>

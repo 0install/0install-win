@@ -4,7 +4,7 @@
     <Position X="3.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
-      <FileName>Binding.cs</FileName>
+      <FileName>Model\Binding.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -23,8 +23,8 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>ABAAAAAAAAAAAAAEgAAAAABIAAAEAIAAAEAAAAAAABE=</HashCode>
-      <FileName>Dependency.cs</FileName>
+      <HashCode>ABAAAAAAAAAAAAAEgAAAAABIAAAEAIAAAEAAAIAAABE=</HashCode>
+      <FileName>Model\Dependency.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Bindings" />
@@ -41,7 +41,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAEAAAIAAAAAEgAAAIAQAAAAAAJAAAAAgAAAAABA=</HashCode>
-      <FileName>EnvironmentBinding.cs</FileName>
+      <FileName>Model\EnvironmentBinding.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Mode" />
@@ -62,7 +62,7 @@
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAEgAABAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
-      <FileName>OverlayBinding.cs</FileName>
+      <FileName>Model\OverlayBinding.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -89,8 +89,8 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>IAAAggAAIIAACACImABAKABQAADAEIEASECABBAACBA=</HashCode>
-      <FileName>Element.cs</FileName>
+      <HashCode>IAAAggAAIIAACACImABAKABQAADAEIEAyECABBBACBA=</HashCode>
+      <FileName>Model\Element.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Dependencies" />
@@ -113,12 +113,12 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAIAMgAAAAAIAAAAAAIAAAAAAAAQAABQ=</HashCode>
-      <FileName>Constraint.cs</FileName>
+      <FileName>Model\Constraint.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Store.Model.Command">
-    <Position X="1" Y="2.25" Width="1.5" />
+    <Position X="1" Y="1.75" Width="1.5" />
     <Members>
       <Field Name="_arguments" Hidden="true" />
       <Field Name="_bindings" Hidden="true" />
@@ -136,8 +136,8 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAIKMgAAACARAAABAAIAAYECEQACAABA=</HashCode>
-      <FileName>Command.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAIKMkAAACARAAABAAIAAYECEQACAABA=</HashCode>
+      <FileName>Model\Command.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Runner" />
@@ -152,7 +152,7 @@
     <Position X="3.5" Y="3.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEgAAABAAAAAAAAIABYAAAAAAAABA=</HashCode>
-      <FileName>Runner.cs</FileName>
+      <FileName>Model\Runner.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -166,8 +166,8 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAEAgAAAAAAAABQMgABAAAAAAAAAAJEAAAAAAAAAABA=</HashCode>
-      <FileName>Restriction.cs</FileName>
+      <HashCode>AAEAgAAAAAAAAAQMkABAAAAAAAAAAJEAAAAAAAAAABA=</HashCode>
+      <FileName>Model\Restriction.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Constraints" />
@@ -178,7 +178,7 @@
     <Position X="7.25" Y="6.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAAAACA=</HashCode>
-      <FileName>EnvironmentBinding.cs</FileName>
+      <FileName>Model\EnvironmentBinding.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
