@@ -62,7 +62,7 @@ namespace ZeroInstall.Store
         /// <summary>
         /// Always prefer the newest versions, even if they have not been marked as <see cref="Store.Model.Stability.Stable"/> yet.
         /// </summary>
-        [DefaultValue(false), Category("Policy"), DisplayName(@"Help with testing"), Description("Always prefer the newest versions, even if they havent been marked as stable yet.")]
+        [DefaultValue(false), Category("Policy"), DisplayName(@"Help with testing"), Description("Always prefer the newest versions, even if they have not been marked as stable yet.")]
         public bool HelpWithTesting { get; set; }
 
         private NetworkLevel _networkLevel = NetworkLevel.Full;

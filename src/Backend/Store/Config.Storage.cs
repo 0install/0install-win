@@ -235,7 +235,7 @@ namespace ZeroInstall.Store
             foreach (var property in _metaData)
             {
                 string key = property.Key;
-                if (property.Value.NeedsEncoding) key += GlobalSection;
+                if (property.Value.NeedsEncoding) key += Base64Suffix;
 
                 if (property.Value.IsDefaultValue) global.RemoveKey(key);
                 else global[key] = property.Value.NeedsEncoding ? property.Value.Value.Base64Utf8Encode() : property.Value.Value;
