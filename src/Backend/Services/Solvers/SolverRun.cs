@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
@@ -147,7 +148,7 @@ namespace ZeroInstall.Services.Solvers
             var feedPreferences = FeedPreferences.LoadForSafe(feedID);
 
             if (UnixUtils.IsUnix && feed.Elements.OfType<PackageImplementation>().Any())
-                throw new SolverException("Linux native package managers not supported yet!");
+                Log.Warn("Linux native package managers not supported yet!");
             // TODO: Windows <package-implementation>s
 
             foreach (var candidate in feed.Elements.OfType<Implementation>().Select(implementation => new SelectionCandidate(feedID, feedPreferences, implementation, requirements)))

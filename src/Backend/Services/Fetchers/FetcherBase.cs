@@ -103,9 +103,9 @@ namespace ZeroInstall.Services.Fetchers
 
                 // More efficient special-case handling for Archive-only handling
                 if (recipe.Steps.All(step => step is Archive))
-                    ApplyArchives(downloadedFiles, recipe.Steps.Cast<Archive>(), manifestDigest);
+                    ApplyArchives(recipe.Steps.Cast<Archive>(), downloadedFiles, manifestDigest);
                 else
-                    ApplyRecipe(downloadedFiles, recipe, manifestDigest);
+                    ApplyRecipe(recipe, downloadedFiles, manifestDigest);
             }
             finally
             {
@@ -130,11 +130,11 @@ namespace ZeroInstall.Services.Fetchers
             #endregion
         }
 
-        private void ApplyArchives(IList<TemporaryFile> files, IEnumerable<Archive> archives, ManifestDigest manifestDigest)
+        private void ApplyArchives(IEnumerable<Archive> archives, IList<TemporaryFile> files, ManifestDigest manifestDigest)
         {
             var archiveFileInfos = archives.Select((archive, i) => new ArchiveFileInfo
             {
-                Path = (string)files[i],
+                Path = files[i].Path,
                 SubDir = archive.Extract,
                 Destination = archive.Destination,
                 MimeType = archive.MimeType,
@@ -144,7 +144,7 @@ namespace ZeroInstall.Services.Fetchers
             Store.AddArchives(archiveFileInfos.ToList(), manifestDigest, Handler);
         }
 
-        private void ApplyRecipe(IEnumerable<TemporaryFile> files, Recipe recipe, ManifestDigest manifestDigest)
+        private void ApplyRecipe(Recipe recipe, IEnumerable<TemporaryFile> files, ManifestDigest manifestDigest)
         {
             using (var recipeDir = recipe.Apply(files, Handler, manifestDigest))
                 Store.AddDirectory(recipeDir, manifestDigest, Handler);

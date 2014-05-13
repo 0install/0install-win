@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// The implementation this selection candidate references.
         /// </summary>
         [Browsable(false)]
-        public Implementation Implementation { get; private set; }
+        public ImplementationBase Implementation { get; private set; }
 
         /// <summary>
         /// The file name or URL of the feed listing the implementation.
@@ -107,7 +107,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// <param name="feedPreferences">The <see cref="FeedPreferences"/> for <see cref="FeedID"/>.</param>
         /// <param name="implementation">The implementation this selection candidate references.</param>
         /// <param name="requirements">A set of requirements/restrictions the <paramref name="implementation"/> needs to fullfill for <see cref="IsSuitable"/> to be <see langword="true"/>.</param>
-        public SelectionCandidate(string feedID, FeedPreferences feedPreferences, Implementation implementation, Requirements requirements)
+        public SelectionCandidate(string feedID, FeedPreferences feedPreferences, ImplementationBase implementation, Requirements requirements)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
