@@ -53,8 +53,8 @@ namespace ZeroInstall.DesktopIntegration.Unix
                 throw new IOException(string.Format(Resources.NameInvalidChars, aliasName));
 
             // TODO: Find directory in search PATH
-            string stubDirPath = Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "aliases");
-            string stubFilePath = Path.Combine(stubDirPath, aliasName);
+            //string stubDirPath = Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "aliases");
+            //string stubFilePath = Path.Combine(stubDirPath, aliasName);
 
             // TODO: Write file
         }

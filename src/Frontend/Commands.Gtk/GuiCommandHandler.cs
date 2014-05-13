@@ -37,8 +37,6 @@ namespace ZeroInstall.Commands.Gtk
         /// <inheritdoc/>
         public override int Verbosity { get; set; }
 
-        private string _actionTitle;
-
         /// <inheritdoc/>
         public void SetGuiHints(LinqBridge::System.Func<string> actionTitle, int delay)
         {
@@ -46,7 +44,7 @@ namespace ZeroInstall.Commands.Gtk
             if (actionTitle == null) throw new ArgumentNullException("actionTitle");
             #endregion
 
-            _actionTitle = actionTitle();
+            // TODO: Implement
         }
         #endregion
 
