@@ -20,7 +20,6 @@ using System.Linq;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Properties;
-using ZeroInstall.Services.Solvers.Backtracking;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -72,7 +71,7 @@ namespace ZeroInstall.Services.Solvers
             #endregion
 
             var solverRuns = requirements.GetEffective()
-                .Select(effectiveRequirements => new BacktrackingRun(effectiveRequirements, _handler.CancellationToken, _config, _feedManager, _store));
+                .Select(effectiveRequirements => new BacktrackingSolverRun(effectiveRequirements, _handler.CancellationToken, _config, _feedManager, _store));
             try
             {
                 return solverRuns.First(run => run.TryToSolve()).Selections;

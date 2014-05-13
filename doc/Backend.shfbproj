@@ -47,8 +47,6 @@
       <NamespaceSummaryItem name="ZeroInstall.Services.Fetchers" isDocumented="True">Download and extract implementations.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Services.Injector" isDocumented="True">Contains code for launching implementations and injecting the selected dependencies.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Services.Solvers" isDocumented="True">Solves requirements by selecting a specific combination of Implementations from Feeds.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Services.Solvers.Backtracking" isDocumented="True">Contains internal helper classes for the &lt;see cref="ZeroInstall.Services.Solvers.BacktrackingSolver" /&gt;.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Services.Solvers.Python" isDocumented="True">Contains internal helper classes for the &lt;see cref="ZeroInstall.Services.Solvers.PythonSolver" /&gt;.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store" isDocumented="True">Manages persisting data in the file system.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Feeds" isDocumented="True">Contains classes for managing the feed cache.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Icons" isDocumented="True">Contains classes for managing the icon cache.</NamespaceSummaryItem>

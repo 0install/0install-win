@@ -23,7 +23,6 @@ using NanoByte.Common.Collections;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using ZeroInstall.Services.Feeds;
-using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -35,7 +34,7 @@ namespace ZeroInstall.Services.Solvers
     /// <summary>
     /// Shared logic for keeping state during a single <see cref="ISolver.Solve"/> run.
     /// </summary>
-    internal abstract class SolverRun
+    public abstract class SolverRun
     {
         #region Depdendencies
         protected CancellationToken CancellationToken;
@@ -151,20 +150,10 @@ namespace ZeroInstall.Services.Solvers
                 Log.Warn("Linux native package managers not supported yet!");
             // TODO: Windows <package-implementation>s
 
-            foreach (var candidate in feed.Elements.OfType<Implementation>().Select(implementation => new SelectionCandidate(feedID, feedPreferences, implementation, requirements)))
-            {
-                if (candidate.IsSuitable && NotSuitableBecauseOffline(candidate))
-                {
-                    candidate.IsSuitable = false;
-                    candidate.Notes = Resources.SelectionCandidateNoteNotCached;
-                }
-                yield return candidate;
-            }
-        }
-
-        private bool NotSuitableBecauseOffline(SelectionCandidate candidate)
-        {
-            return _config.NetworkUse == NetworkLevel.Offline && !_store.Contains(candidate.Implementation.ManifestDigest);
+            return
+                from implementation in feed.Elements.OfType<Implementation>()
+                let offlineUncached = (_config.NetworkUse == NetworkLevel.Offline && !_store.Contains(implementation.ManifestDigest))
+                select new SelectionCandidate(feedID, feedPreferences, implementation, requirements, offlineUncached);
         }
         #endregion
     }

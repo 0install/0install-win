@@ -56,12 +56,9 @@
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
     <Compile Include="Feeds\CatalogManager.cs" />
     <Compile Include="Feeds\FeedManager.cs" />
-    <Compile Include="Feeds\FeedManagerExtensions.cs" />
     <Compile Include="Feeds\ReplayAttackException.cs" />
     <Compile Include="Feeds\TrustManager.cs" />
     <Compile Include="Fetchers\FetcherBase.cs" />
-    <Compile Include="Fetchers\GlobalSuppressions.cs" />
-    <Compile Include="Fetchers\RetrievalMethodRanker.cs" />
     <Compile Include="Fetchers\SequentialFetcher.cs" />
     <Compile Include="Injector\Executor.Bindings.cs" />
     <Compile Include="Injector\Executor.CommandLine.cs" />
@@ -77,16 +74,13 @@
     <Compile Include="SelectionsManager.cs" />
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Solvers\BacktrackingSolver.cs" />
-    <Compile Include="Solvers\Backtracking\BacktrackingRun.cs" />
+    <Compile Include="Solvers\BacktrackingSolverRun.cs" />
     <Compile Include="Solvers\FallbackSolver.cs" />
     <Compile Include="Solvers\PythonSolver.cs" />
     <Compile Include="Solvers\Python\ErrorParser.cs" />
     <Compile Include="Solvers\Python\ISolverControl.cs" />
     <Compile Include="Solvers\Python\SolverControlBundled.cs" />
     <Compile Include="Solvers\Python\SolverControlNative.cs" />
-    <Compile Include="Solvers\SelectionCandidateComparer.cs" />
-    <Compile Include="Solvers\SolverRun.cs" />
-    <Compile Include="Solvers\SolverUtils.cs" />
     <None Include="Injector\runenv.cs" />
     <None Include="packages.config" />
   </ItemGroup>

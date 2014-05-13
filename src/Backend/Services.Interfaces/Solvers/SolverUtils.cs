@@ -26,7 +26,7 @@ namespace ZeroInstall.Services.Solvers
     /// <summary>
     /// Helper functions for <see cref="ISolver"/> implementations.
     /// </summary>
-    internal static class SolverUtils
+    public static class SolverUtils
     {
         /// <summary>
         /// Returns a list of <see cref="Requirements"/> that substitute blanks with appropriate default values.

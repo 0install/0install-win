@@ -202,9 +202,6 @@ Feed ID: {0}
 Alte Zeit: {1}
 Neue Zeit: {2}</value>
   </data>
-  <data name="SelectionCandidateNoteNotCached" xml:space="preserve">
-    <value>Implementierung nicht im Cache (derzeit im Off-Line Modus)</value>
-  </data>
   <data name="SolverFallback" xml:space="preserve">
     <value>Falle für {0} auf sekundären Solver zurück. Primärer Solver meldet:</value>
   </data>

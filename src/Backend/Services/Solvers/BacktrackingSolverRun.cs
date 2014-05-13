@@ -25,15 +25,15 @@ using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
-namespace ZeroInstall.Services.Solvers.Backtracking
+namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
     /// Holds state during a single <see cref="BacktrackingSolver.Solve"/> run.
     /// </summary>
-    internal sealed class BacktrackingRun : SolverRun
+    internal sealed class BacktrackingSolverRun : SolverRun
     {
         /// <inheritdoc/>
-        public BacktrackingRun(Requirements requirements, CancellationToken cancellationToken, Config config, IFeedManager feedManager, IStore store) : base(requirements, cancellationToken, config, feedManager, store)
+        public BacktrackingSolverRun(Requirements requirements, CancellationToken cancellationToken, Config config, IFeedManager feedManager, IStore store) : base(requirements, cancellationToken, config, feedManager, store)
         {}
 
         /// <inheritdoc/>

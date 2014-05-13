@@ -320,6 +320,9 @@ Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen wom
   <data name="SelectionCandidateNoteInsecure" xml:space="preserve">
     <value>Unsichere Implementierung</value>
   </data>
+  <data name="SelectionCandidateNoteNotCached" xml:space="preserve">
+    <value>Implementierung nicht im Cache (derzeit im Off-Line Modus)</value>
+  </data>
   <data name="SelectionCandidateNoteSource" xml:space="preserve">
     <value>Nicht ausführbare Quellcode Implementierung</value>
   </data>

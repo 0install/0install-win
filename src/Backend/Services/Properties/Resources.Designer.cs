@@ -302,15 +302,6 @@ namespace ZeroInstall.Services.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Implementation not in cache (currently in off-line mode).
-        /// </summary>
-        internal static string SelectionCandidateNoteNotCached {
-            get {
-                return ResourceManager.GetString("SelectionCandidateNoteNotCached", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Falling back to secondary solver for {0}. Primary solver reported:.
         /// </summary>
         internal static string SolverFallback {

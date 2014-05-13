@@ -107,7 +107,8 @@ namespace ZeroInstall.Store.Model.Selection
         /// <param name="feedPreferences">The <see cref="FeedPreferences"/> for <see cref="FeedID"/>.</param>
         /// <param name="implementation">The implementation this selection candidate references.</param>
         /// <param name="requirements">A set of requirements/restrictions the <paramref name="implementation"/> needs to fullfill for <see cref="IsSuitable"/> to be <see langword="true"/>.</param>
-        public SelectionCandidate(string feedID, FeedPreferences feedPreferences, ImplementationBase implementation, Requirements requirements)
+        /// <param name="offlineUncached">Mark this candidate as unsuitable because it is uncached and <see cref="Config.NetworkUse"/> is set to <see cref="NetworkLevel.Offline"/>.</param>
+        public SelectionCandidate(string feedID, FeedPreferences feedPreferences, ImplementationBase implementation, Requirements requirements, bool offlineUncached = false)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
@@ -122,15 +123,10 @@ namespace ZeroInstall.Store.Model.Selection
 
             _implementationPreferences = feedPreferences[implementation.ID];
 
-            CheckSuitabilty(requirements);
+            CheckSuitabilty(requirements, offlineUncached);
         }
-        #endregion
 
-        #region Suitability
-        /// <summary>
-        /// Determines whether <see cref="Implementation"/> <see cref="IsSuitable"/> for the <paramref name="requirements"/>.
-        /// </summary>
-        private void CheckSuitabilty(Requirements requirements)
+        private void CheckSuitabilty(Requirements requirements, bool offlineUncached)
         {
             if (Implementation.Architecture.Cpu == Cpu.Source && requirements.Architecture.Cpu != Cpu.Source)
                 Notes = Resources.SelectionCandidateNoteSource;
@@ -146,6 +142,8 @@ namespace ZeroInstall.Store.Model.Selection
                 Notes = Resources.SelectionCandidateNoteInsecure;
             else if (!Implementation.ContainsCommand(requirements.Command))
                 Notes = string.Format(Resources.SelectionCandidateNoteCommand, requirements.Command);
+            else if (offlineUncached)
+                Notes = Resources.SelectionCandidateNoteNotCached;
             else IsSuitable = true;
         }
 

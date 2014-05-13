@@ -320,6 +320,9 @@ You can delete the file '{1}' to fix the problem. Other settings may also be los
   <data name="SelectionCandidateNoteInsecure" xml:space="preserve">
     <value>Insecure implementation</value>
   </data>
+  <data name="SelectionCandidateNoteNotCached" xml:space="preserve">
+    <value>Implementation not in cache (currently in off-line mode)</value>
+  </data>
   <data name="SelectionCandidateNoteSource" xml:space="preserve">
     <value>Non-executable source implementation</value>
   </data>
