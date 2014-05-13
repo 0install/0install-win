@@ -43,8 +43,6 @@ The external solver (required) is not included in the repository. To get it run 
 `test.sh` will run the unit tests using the NUnit console runner.
 Note: You must perform a Debug build first (using MonoDevelop or `src/build.sh`) before you can run the unit tests.
 
-**Important:** Activate *Compile projects using MSBuild/XBuild* in the MonoDevelop/Xamarin Studio preferences!
-
 
 
 Environment variables
