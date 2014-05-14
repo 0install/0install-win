@@ -131,28 +131,8 @@ namespace ZeroInstall.Commands.WinForms
                 }
                 #endregion
 
-                #region Collect log entries for error messages
                 var errorLog = new RtfBuilder();
-                Log.NewEntry += delegate(LogSeverity severity, string message)
-                {
-                    switch (severity)
-                    {
-                        case LogSeverity.Info:
-                            errorLog.AppendPar(message, RtfColor.Blue);
-                            break;
-                        case LogSeverity.Warn:
-                            errorLog.AppendPar(message, RtfColor.Orange);
-                            break;
-                        case LogSeverity.Error:
-                            errorLog.AppendPar(message, RtfColor.Red);
-                            break;
-                        default:
-                            errorLog.AppendPar(message, RtfColor.Black);
-                            break;
-                    }
-                };
-                #endregion
-
+                Log.NewEntry += errorLog.AppendLogEntry;
                 try
                 {
                     return command.Execute();
@@ -265,6 +245,8 @@ namespace ZeroInstall.Commands.WinForms
 
                 finally
                 {
+                    Log.NewEntry -= errorLog.AppendLogEntry;
+
                     // Always close GUI in the end
                     handler.CloseProgressUI();
                 }
