@@ -26,9 +26,6 @@ You can download end-user binaries at http://0install.de/.</description>
         <file src="..\build\Release\Frontend\ZeroInstall.exe" target="lib\net20" />
         <file src="..\build\Release\Frontend\ZeroInstall.pdb" target="lib\net20" />
 
-        <!-- Bundled dependencies -->
-        <file src="..\lib\EasyHook*.*" target="lib\net20" />
-
         <!-- Source code -->
         <file src="..\src\Frontend\**\*.cs" target="src" />
     </files>
