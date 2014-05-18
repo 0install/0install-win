@@ -21,7 +21,6 @@ using System.Linq;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
@@ -34,7 +33,7 @@ namespace ZeroInstall.Services.Fetchers
     public abstract class FetcherBase : IFetcher
     {
         #region Dependencies
-        protected readonly IStore Store;
+        private readonly IStore _store;
         protected readonly ITaskHandler Handler;
 
         /// <summary>
@@ -49,45 +48,63 @@ namespace ZeroInstall.Services.Fetchers
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            Store = store;
+            _store = store;
             Handler = handler;
         }
         #endregion
 
-        //--------------------//
-
         /// <inheritdoc/>
         public abstract void Fetch(IEnumerable<Implementation> implementations);
 
-        protected void FetchImplementation(Implementation implementation)
+        /// <summary>
+        /// Determines whether an <see cref="Implementation"/> is already cached.
+        /// </summary>
+        protected bool IsCached(Implementation implementation)
+        {
+            _store.Flush();
+            return _store.Contains(implementation.ManifestDigest);
+        }
+
+        /// <summary>
+        /// Executes the best possible <see cref="RetrievalMethod"/> for an <see cref="Implementation"/>.
+        /// </summary>
+        /// <param name="implementation">The implementation to be retrieved.</param>
+        /// <remarks>Make sure <see cref="Implementation.RetrievalMethods"/> is not empty before calling this!</remarks>
+        protected void Retrieve(Implementation implementation)
         {
             #region Sanity checks
             if (implementation == null) throw new ArgumentNullException("implementation");
             #endregion
 
-            if (!implementation.ManifestDigest.AvailableDigests.Any()) throw new NotSupportedException(string.Format(Resources.NoManifestDigest, implementation.ID));
-            if (implementation.RetrievalMethods.Count == 0) throw new NotSupportedException(string.Format(Resources.NoRetrievalMethod, implementation.ID));
-
-            // Try retrieveal methods sorted by preference until one works
             implementation.RetrievalMethods
                 .OrderBy(x => x, RetrievalMethodRanker.Instance)
-                .Try(retrievalMethod => Download(retrievalMethod, implementation.ManifestDigest));
+                .Try(retrievalMethod => Retrieve(retrievalMethod, implementation.ManifestDigest));
         }
 
-        private void Download(RetrievalMethod retrievalMethod, ManifestDigest manifestDigest)
+        /// <summary>
+        /// Executes a specific <see cref="RetrievalMethod"/>.
+        /// </summary>
+        /// <param name="retrievalMethod">The retrieval method to execute.</param>
+        /// <param name="manifestDigest">The digest the result of the retrieval method should produce.</param>
+        private void Retrieve(RetrievalMethod retrievalMethod, ManifestDigest manifestDigest)
         {
+            // Treat everything as a Recipe for easier handling
+            var recipe = retrievalMethod as Recipe ?? new Recipe {Steps = {(IRecipeStep)retrievalMethod}};
+
             try
             {
-                // Treat everything as a Recipe for easier handling
-                Download(
-                    retrievalMethod as Recipe ?? new Recipe {Steps = {(IRecipeStep)retrievalMethod}},
-                    manifestDigest);
+                Cook(recipe, manifestDigest);
             }
             catch (ImplementationAlreadyInStoreException)
             {}
         }
 
-        private void Download(Recipe recipe, ManifestDigest manifestDigest)
+        /// <summary>
+        /// Executes a <see cref="Recipe"/>.
+        /// </summary>
+        /// <param name="recipe">The recipe to execute.</param>
+        /// <param name="manifestDigest">The digest the result of the recipe should produce.</param>
+        private void Cook(Recipe recipe, ManifestDigest manifestDigest)
         {
             Handler.CancellationToken.ThrowIfCancellationRequested();
 
@@ -99,11 +116,11 @@ namespace ZeroInstall.Services.Fetchers
             {
                 // ReSharper disable once LoopCanBeConvertedToQuery
                 foreach (var downloadStep in recipe.Steps.OfType<DownloadRetrievalMethod>())
-                    downloadedFiles.Add(DownloadFile(downloadStep, manifestDigest));
+                    downloadedFiles.Add(Download(downloadStep, tag: manifestDigest));
 
-                // More efficient special-case handling for Archive-only handling
+                // More efficient special-case handling for Archive-only cases
                 if (recipe.Steps.All(step => step is Archive))
-                    ApplyArchives(recipe.Steps.Cast<Archive>(), downloadedFiles, manifestDigest);
+                    ApplyArchives(recipe.Steps.Cast<Archive>().ToList(), downloadedFiles, manifestDigest);
                 else
                     ApplyRecipe(recipe, downloadedFiles, manifestDigest);
             }
@@ -113,12 +130,18 @@ namespace ZeroInstall.Services.Fetchers
             }
         }
 
-        private TemporaryFile DownloadFile(DownloadRetrievalMethod retrievalMethod, ManifestDigest manifestDigest)
+        /// <summary>
+        /// Downloads a <see cref="DownloadRetrievalMethod"/> to a temporary file.
+        /// </summary>
+        /// <param name="retrievalMethod">The file to download.</param>
+        /// <param name="tag">The <see cref="ITask.Tag"/> to set for the download process.</param>
+        /// <returns>The downloaded temporary file.</returns>
+        protected virtual TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, object tag = null)
         {
             var tempFile = new TemporaryFile("0install-fetcher");
             try
             {
-                Handler.RunTask(new DownloadFile(retrievalMethod.Href, tempFile, retrievalMethod.DownloadSize) {Tag = manifestDigest});
+                Handler.RunTask(new DownloadFile(retrievalMethod.Href, tempFile, retrievalMethod.DownloadSize) {Tag = tag});
                 return tempFile;
             }
                 #region Error handling
@@ -130,24 +153,40 @@ namespace ZeroInstall.Services.Fetchers
             #endregion
         }
 
-        private void ApplyArchives(IEnumerable<Archive> archives, IList<TemporaryFile> files, ManifestDigest manifestDigest)
+        /// <summary>
+        /// Extracts <see cref="Archive"/>s to the <see cref="_store"/>.
+        /// </summary>
+        /// <param name="archives">The archives to extract over each other in order.</param>
+        /// <param name="files">The downloaded archive files, indexes matching those in <paramref name="archives"/>.</param>
+        /// <param name="manifestDigest">The digest the extracted archives should produce.</param>
+        private void ApplyArchives(IList<Archive> archives, IList<TemporaryFile> files, ManifestDigest manifestDigest)
         {
-            var archiveFileInfos = archives.Select((archive, i) => new ArchiveFileInfo
+            var archiveFileInfos = new ArchiveFileInfo[archives.Count];
+            for (int i = 0; i < archiveFileInfos.Length; i++)
             {
-                Path = files[i].Path,
-                SubDir = archive.Extract,
-                Destination = archive.Destination,
-                MimeType = archive.MimeType,
-                StartOffset = archive.StartOffset
-            });
+                archiveFileInfos[i] = new ArchiveFileInfo
+                {
+                    Path = files[i].Path,
+                    SubDir = archives[i].Extract,
+                    Destination = archives[i].Destination,
+                    MimeType = archives[i].MimeType,
+                    StartOffset = archives[i].StartOffset
+                };
+            }
 
-            Store.AddArchives(archiveFileInfos.ToList(), manifestDigest, Handler);
+            _store.AddArchives(archiveFileInfos, manifestDigest, Handler);
         }
 
+        /// <summary>
+        /// Applies a <see cref="Recipe"/> and sends the result to the <see cref="_store"/>.
+        /// </summary>
+        /// <param name="recipe">The recipe to apply.</param>
+        /// <param name="files">The files downloaded for the <paramref name="recipe"/> steps, order matching the <see cref="DownloadRetrievalMethod"/> steps in <see cref="Recipe.Steps"/>.</param>
+        /// <param name="manifestDigest">The digest the result of the recipe should produce.</param>
         private void ApplyRecipe(Recipe recipe, IEnumerable<TemporaryFile> files, ManifestDigest manifestDigest)
         {
             using (var recipeDir = recipe.Apply(files, Handler, manifestDigest))
-                Store.AddDirectory(recipeDir, manifestDigest, Handler);
+                _store.AddDirectory(recipeDir, manifestDigest, Handler);
         }
     }
 }

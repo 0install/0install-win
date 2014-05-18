@@ -185,7 +185,7 @@ Möchten Sie diesem Key zum Signieren von Feeds von '{3}' vertrauen?
     <value>Es wurde kein Manifest Digest für die Implementierung '{0}' gefunden.</value>
   </data>
   <data name="NoRetrievalMethod" xml:space="preserve">
-    <value>Es wurden keine funktionsfähigen Downloadmethoden für die Implementierung '{0}' gefunden.</value>
+    <value>Es wurden keine Downloadmethoden für die Implementierung '{0}' gefunden.</value>
   </data>
   <data name="NoSelectedVersion" xml:space="preserve">
     <value>Keine ausgewählte Version</value>

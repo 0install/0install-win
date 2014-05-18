@@ -185,7 +185,7 @@ Do you want to trust this key to sign feeds from '{3}'?
     <value>No manifest digest for implementation '{0}' found.</value>
   </data>
   <data name="NoRetrievalMethod" xml:space="preserve">
-    <value>No working retrieval method found for implementation '{0}' found.</value>
+    <value>No retrieval method found for implementation '{0}' found.</value>
   </data>
   <data name="NoSelectedVersion" xml:space="preserve">
     <value>No selected version</value>
