@@ -59,6 +59,33 @@ namespace ZeroInstall.Services.Solvers
         }
 
         [Test]
+        public void OptionalDependency()
+        {
+            // satisfiable
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' importance='recommended' /></implementation>"},
+                    {"http://test/lib.xml", "<implementation version='1.0' id='lib1' />"}
+                },
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' importance='recommended' /></selection>" +
+                    "<selection interface='http://test/lib.xml' version='1.0' id='lib1' />");
+
+            // not satisfiable
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' importance='recommended' /></implementation>"},
+                    {"http://test/lib.xml", ""}
+                },
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' importance='recommended' /></selection>");
+        }
+
+        [Test]
         public void CyclicDependency()
         {
             RunAndAssert(

@@ -110,8 +110,16 @@ namespace ZeroInstall.Services.Solvers
 
         private bool TryToSolveDependencies(IEnumerable<Dependency> dependencies)
         {
-            var dependencyRequirements = dependencies.SelectMany(dependency => dependency.ToRequirements(TopLevelRequirements));
-            return dependencyRequirements.All(TryToSolve);
+            var essentialDependencies = new List<Dependency>();
+            var recommendedDependencies = new List<Dependency>();
+            foreach (var dependency in dependencies)
+            {
+                if (dependency.Importance == Importance.Essential) essentialDependencies.Add(dependency);
+                else if (dependency.Importance == Importance.Recommended) recommendedDependencies.Add(dependency);
+            }
+
+            foreach (var requirements in recommendedDependencies.SelectMany(dependency => dependency.ToRequirements(TopLevelRequirements))) TryToSolve(requirements);
+            return essentialDependencies.SelectMany(dependency => dependency.ToRequirements(TopLevelRequirements)).All(TryToSolve);
         }
 
         private bool TryToSolveCommand(Command command)
