@@ -58,7 +58,6 @@
     <Compile Include="Feeds\FeedManager.cs" />
     <Compile Include="Feeds\ReplayAttackException.cs" />
     <Compile Include="Feeds\TrustManager.cs" />
-    <Compile Include="Fetchers\FetcherBase.cs" />
     <Compile Include="Fetchers\SequentialFetcher.cs" />
     <Compile Include="Injector\Executor.Bindings.cs" />
     <Compile Include="Injector\Executor.CommandLine.cs" />
