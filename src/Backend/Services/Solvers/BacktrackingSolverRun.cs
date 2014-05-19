@@ -18,6 +18,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NanoByte.Common.Collections;
+using NanoByte.Common.Dispatch;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
@@ -112,11 +113,10 @@ namespace ZeroInstall.Services.Solvers
         {
             var essentialDependencies = new List<Dependency>();
             var recommendedDependencies = new List<Dependency>();
-            foreach (var dependency in dependencies)
-            {
-                if (dependency.Importance == Importance.Essential) essentialDependencies.Add(dependency);
-                else if (dependency.Importance == Importance.Recommended) recommendedDependencies.Add(dependency);
-            }
+            dependencies.Bucketize(x => x.Importance)
+                .Add(Importance.Essential, essentialDependencies)
+                .Add(Importance.Recommended, recommendedDependencies)
+                .Run();
 
             foreach (var requirements in recommendedDependencies.SelectMany(dependency => dependency.ToRequirements(TopLevelRequirements))) TryToSolve(requirements);
             return essentialDependencies.SelectMany(dependency => dependency.ToRequirements(TopLevelRequirements)).All(TryToSolve);
