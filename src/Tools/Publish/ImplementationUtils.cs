@@ -130,7 +130,7 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <param name="keepDownloads"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
-        private static void UpdateDigest(this ImplementationBase implementation, string path, ITaskHandler handler, ICommandExecutor executor, bool keepDownloads = false)
+        private static void UpdateDigest(this Implementation implementation, string path, ITaskHandler handler, ICommandExecutor executor, bool keepDownloads = false)
         {
             var digest = GenerateDigest(path, handler, keepDownloads);
 

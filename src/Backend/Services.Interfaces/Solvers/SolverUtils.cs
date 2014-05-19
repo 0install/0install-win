@@ -88,7 +88,7 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="commandName">The <see cref="Command.Name"/> to look for.</param>
         /// <param name="from">The <see cref="Implementation"/> to get the <see cref="Command"/> from.</param>
         /// <returns>The <see cref="Command"/> that was found; <see langword="null"/> if none.</returns>
-        public static Command AddCommand(this ImplementationSelection selection, string commandName, ImplementationBase from)
+        public static Command AddCommand(this ImplementationSelection selection, string commandName, Implementation from)
         {
             var command = from[commandName];
             if (command != null) selection.Commands.Add(command.Clone());
@@ -164,7 +164,7 @@ namespace ZeroInstall.Services.Solvers
         /// <summary>
         /// Checks wether a set of selection candidates contains an implementation with a specific ID.
         /// </summary>
-        public static bool Contains(this IEnumerable<SelectionCandidate> candidates, ImplementationBase implementation)
+        public static bool Contains(this IEnumerable<SelectionCandidate> candidates, ImplementationSelection implementation)
         {
             return candidates.Select(x => x.Implementation.ID).Contains(implementation.ID);
         }

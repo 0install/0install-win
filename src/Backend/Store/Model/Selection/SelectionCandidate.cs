@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// The implementation this selection candidate references.
         /// </summary>
         [Browsable(false)]
-        public ImplementationBase Implementation { get; private set; }
+        public Implementation Implementation { get; private set; }
 
         /// <summary>
         /// The file name or URL of the feed listing the implementation.
@@ -108,7 +108,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// <param name="implementation">The implementation this selection candidate references.</param>
         /// <param name="requirements">A set of requirements/restrictions the <paramref name="implementation"/> needs to fullfill for <see cref="IsSuitable"/> to be <see langword="true"/>.</param>
         /// <param name="offlineUncached">Mark this candidate as unsuitable because it is uncached and <see cref="Config.NetworkUse"/> is set to <see cref="NetworkLevel.Offline"/>.</param>
-        public SelectionCandidate(string feedID, FeedPreferences feedPreferences, ImplementationBase implementation, Requirements requirements, bool offlineUncached = false)
+        public SelectionCandidate(string feedID, FeedPreferences feedPreferences, Implementation implementation, Requirements requirements, bool offlineUncached = false)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");

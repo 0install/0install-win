@@ -49,6 +49,6 @@ namespace ZeroInstall.Services.Injector
         /// <param name="implementation">The <see cref="ImplementationBase"/> to be located.</param>
         /// <returns>A fully qualified path pointing to the implementation's location on the local disk.</returns>
         /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
-        string GetImplementationPath(ImplementationBase implementation);
+        string GetImplementationPath(ImplementationSelection implementation);
     }
 }

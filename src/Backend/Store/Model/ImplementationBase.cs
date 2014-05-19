@@ -20,12 +20,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using NanoByte.Common.Utils;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
     /// Information for identifying an implementation of a <see cref="Feed"/>.
-    /// Common base for <see cref="Implementation"/> and <see cref="PackageImplementation"/>.
+    /// Common base for <see cref="Implementation"/> and <see cref="ImplementationSelection"/>.
     /// </summary>
     [XmlType("implementation-base", Namespace = Feed.XmlNamespace)]
     public abstract class ImplementationBase : Element

@@ -119,7 +119,7 @@ namespace ZeroInstall.Services.Injector
 
         #region Path
         /// <inheritdoc/>
-        public string GetImplementationPath(ImplementationBase implementation)
+        public string GetImplementationPath(ImplementationSelection implementation)
         {
             #region Sanity checks
             if (implementation == null) throw new ArgumentNullException("implementation");
