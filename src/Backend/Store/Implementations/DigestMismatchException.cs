@@ -19,7 +19,7 @@ using System;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
-using NanoByte.Common.Collections;
+using NanoByte.Common.Dispatch;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 

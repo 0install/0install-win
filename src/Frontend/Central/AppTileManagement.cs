@@ -21,7 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using NanoByte.Common;
-using NanoByte.Common.Collections;
+using NanoByte.Common.Dispatch;
 using NanoByte.Common.Storage;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.DesktopIntegration;
