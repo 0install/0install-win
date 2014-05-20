@@ -15,8 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.ComponentModel;
 using System.Linq;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 
@@ -43,11 +45,10 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
             { // Distribute existing CommandAccessPoints among type-specific binding lists
                 new PerTypeDispatcher<AccessPoint>(true)
                 {
-                    // Add clones to DataGrids so that user modifications can still be canceled
-                    (MenuEntry menuEntry) => MenuEntries.Add((MenuEntry)menuEntry.Clone()),
-                    (DesktopIcon desktopIcon) => DesktopIcons.Add((DesktopIcon)desktopIcon.Clone()),
-                    (AppAlias appAlias) => Aliases.Add((AppAlias)appAlias.Clone()),
-                }.Dispatch(AppEntry.AccessPoints.Entries);
+                    (Action<MenuEntry>)MenuEntries.Add,
+                    (Action<DesktopIcon>)DesktopIcons.Add,
+                    (Action<AppAlias>)Aliases.Add,
+                }.Dispatch(AppEntry.AccessPoints.Entries.CloneElements()); // Use clones so that user modifications can still be canceled
             }
         }
 

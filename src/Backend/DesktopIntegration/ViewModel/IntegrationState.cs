@@ -87,9 +87,9 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
             {
                 new PerTypeDispatcher<AccessPoints.AccessPoint>(true)
                 {
-                    (AccessPoints.MenuEntry menuEntry) => currentMenuEntries.Add(menuEntry),
-                    (AccessPoints.DesktopIcon desktopIcon) => currentDesktopIcons.Add(desktopIcon),
-                    (AccessPoints.AppAlias alias) => currentAliases.Add(alias)
+                    (Action<AccessPoints.MenuEntry>)currentMenuEntries.Add,
+                    (Action<AccessPoints.DesktopIcon>)currentDesktopIcons.Add,
+                    (Action<AccessPoints.AppAlias>)currentAliases.Add
                 }.Dispatch(AppEntry.AccessPoints.Entries);
             }
 
