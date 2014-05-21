@@ -44,7 +44,7 @@ del "%~dp0*.VisualState.xml" > NUL 2>&1
 del "%~dp0TestResult.xml" > NUL 2>&1
 
 rem JetBrains caches
-rd /s /q "%~dp0src\_ReSharper.ZeroInstall_VS2012" > NUL 2>&1
-rd /s /q "%~dp0src\_TeamCity.ZeroInstall_VS2012" > NUL 2>&1
-rd /s /q "%~dp0src\_dotTrace.ZeroInstall_VS2012" > NUL 2>&1
-rd /s /q "%~dp0src\_dotMemory.ZeroInstall_VS2012" > NUL 2>&1
+rd /s /q "%~dp0src\_ReSharper.ZeroInstall" > NUL 2>&1
+rd /s /q "%~dp0src\_TeamCity.ZeroInstall" > NUL 2>&1
+rd /s /q "%~dp0src\_dotTrace.ZeroInstall" > NUL 2>&1
+rd /s /q "%~dp0src\_dotMemory.ZeroInstall" > NUL 2>&1

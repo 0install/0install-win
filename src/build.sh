@@ -6,6 +6,6 @@ cd `dirname $0`
 export MONO_IOMAP=all
 
 #Restore NuGet packages
-mono --runtime=v4.0 .nuget/NuGet.exe restore ZeroInstall_MonoDevelop.sln
+mono --runtime=v4.0 .nuget/NuGet.exe restore ZeroInstall_Mono.sln
 
-xbuild ZeroInstall_MonoDevelop.sln /nologo /v:q
+xbuild ZeroInstall_Mono.sln /nologo /v:q

@@ -3,25 +3,22 @@
 cd /d "%~dp0"
 
 rem Project settings
-set ProgSLN=ZeroInstall
+set ProgSLN=ZeroInstall.sln
 
 rem Determine VS version
 if defined VS120COMNTOOLS (
   ::Visual Studio 2013
   call "%VS120COMNTOOLS%vsvars32.bat"
-  set ProgSLN=%ProgSLN%_VS2012.sln
   goto compile
 )
 if defined VS110COMNTOOLS (
   ::Visual Studio 2012
   call "%VS110COMNTOOLS%vsvars32.bat"
-  set ProgSLN=%ProgSLN%_VS2012.sln
   goto compile
 )
 if defined VS100COMNTOOLS (
   ::Visual Studio 2010
   call "%VS100COMNTOOLS%vsvars32.bat"
-  set ProgSLN=%ProgSLN%_VS2010.sln
   goto compile
 )
 goto err_no_vs
