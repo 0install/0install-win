@@ -83,6 +83,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <CodeAnalysisDictionary Include="..\..\CodeAnalysisDictionary.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\Backend\DesktopIntegration\DesktopIntegration.csproj">
       <Project>{F48937E1-3763-465F-9F12-6CBBBFF61784}</Project>
       <Name>DesktopIntegration</Name>

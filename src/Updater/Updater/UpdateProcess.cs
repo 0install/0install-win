@@ -243,7 +243,7 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// Indicates whether the <see cref="Target"/> was installed with Inno Setup.
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Registry exceptions are passed through.")]
+        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Registry exceptions are passed through")]
         public bool IsInnoSetup
         {
             get

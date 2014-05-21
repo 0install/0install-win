@@ -65,7 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDictionary Include="CodeAnalysisDictionary.xml" />
+    <CodeAnalysisDictionary Include="..\..\CodeAnalysisDictionary.xml" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

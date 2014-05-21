@@ -17,7 +17,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -48,7 +47,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
         #endregion
 
         #region Preview
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "png"), SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "vnd")]
         private void buttonPreview_Click(object sender, EventArgs e)
         {
             if (!textBoxHref.IsValid || textBoxHref.Uri == null) return;

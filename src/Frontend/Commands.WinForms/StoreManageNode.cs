@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows.Forms;
 using NanoByte.Common;
@@ -31,6 +32,7 @@ namespace ZeroInstall.Commands.WinForms
     /// <summary>
     /// Wraps a <see cref="CacheNode"/> to add a context menu.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for string sorting in UI lists")]
     public sealed class StoreManageNode : INamed<StoreManageNode>, IContextMenu
     {
         #region Dependencies

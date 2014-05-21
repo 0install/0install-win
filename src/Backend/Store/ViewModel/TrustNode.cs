@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using NanoByte.Common;
 using ZeroInstall.Store.Trust;
 
@@ -25,6 +26,7 @@ namespace ZeroInstall.Store.ViewModel
     /// <summary>
     /// Represents a <see cref="Key"/>-<see cref="Domain"/> pair in a <see cref="TrustDB"/> for display in a UI.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for string sorting in UI lists")]
     public class TrustNode : Node, INamed<TrustNode>
     {
         /// <summary>

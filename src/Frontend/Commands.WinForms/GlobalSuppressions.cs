@@ -9,4 +9,3 @@
 // You do not need to add suppressions to this file manually.
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2232:MarkWindowsFormsEntryPointsWithStaThread", Justification = "GUI is created on a different thread")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "WinForms", Scope = "member", Target = "ZeroInstall.Commands.WinForms.Program.#Run(System.String[])")]

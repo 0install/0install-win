@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Collections.Generic;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Trust;
@@ -31,6 +32,10 @@ namespace ZeroInstall.Store.ViewModel
         /// </summary>
         public static NamedCollection<TrustNode> ToNodes(this TrustDB trustDB)
         {
+            #region Sanity checks
+            if (trustDB == null) throw new ArgumentNullException("trustDB");
+            #endregion
+
             var nodes = new NamedCollection<TrustNode>();
             foreach (var key in trustDB.Keys)
             {
@@ -45,6 +50,10 @@ namespace ZeroInstall.Store.ViewModel
         /// </summary>
         public static TrustDB ToTrustDB(this IEnumerable<TrustNode> nodes)
         {
+            #region Sanity checks
+            if (nodes == null) throw new ArgumentNullException("nodes");
+            #endregion
+
             var trustDB = new TrustDB();
             foreach (var node in nodes)
                 trustDB.TrustKey(node.Fingerprint, node.Domain);

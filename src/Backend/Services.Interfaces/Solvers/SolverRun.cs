@@ -46,13 +46,14 @@ namespace ZeroInstall.Services.Solvers
         /// Creates a new solver run.
         /// </summary>
         /// <param name="requirements">The top-level requirements the solver should try to meet.</param>
-        /// <param name="cancellationToken"></param>
+        /// <param name="cancellationToken">Used to signal when the user wishes to cancel the solver run.</param>
         /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="store">Used to check which <see cref="Implementation"/>s are already cached.</param>
         protected SolverRun(Requirements requirements, CancellationToken cancellationToken, Config config, IFeedManager feedManager, IStore store)
         {
             #region Sanity checks
+            if (requirements == null) throw new ArgumentNullException("requirements");
             if (config == null) throw new ArgumentNullException("config");
             if (feedManager == null) throw new ArgumentNullException("feedManager");
             if (store == null) throw new ArgumentNullException("store");
@@ -86,6 +87,10 @@ namespace ZeroInstall.Services.Solvers
         /// </summary>
         protected Implementation GetOriginalImplementation(ImplementationSelection implemenationSelection)
         {
+            #region Sanity checks
+            if (implemenationSelection == null) throw new ArgumentNullException("implemenationSelection");
+            #endregion
+
             return _feeds[implemenationSelection.FromFeed ?? implemenationSelection.InterfaceID][implemenationSelection.ID];
         }
         #endregion

@@ -116,7 +116,6 @@
     <Compile Include="Controls\SummaryEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -262,7 +261,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDictionary Include="CodeAnalysisDictionary.xml" />
+    <CodeAnalysisDictionary Include="..\..\CodeAnalysisDictionary.xml" />
     <Content Include="Icon.ico" />
     <None Include="Resources\NewWizardButton.png" />
     <None Include="Resources\RedoButton.png" />

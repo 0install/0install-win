@@ -160,7 +160,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; may be <see langword="null"/>.</param>
         /// <exception cref="IOException">Thrown if a path specified in <paramref name="step"/> is illegal.</exception>
-        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "tag", Justification = "Number of method parameters must match overloaded method to ensure proper type-based compiler selection.")]
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "tag", Justification = "Number of method parameters must match overloaded method to ensure proper type-based compiler selection")]
         public static void Apply(this SingleFile step, TemporaryFile downloadedFile, TemporaryDirectory workingDir, ITaskHandler handler, object tag = null)
         {
             #region Sanity checks

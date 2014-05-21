@@ -96,7 +96,7 @@ namespace ZeroInstall.Store.Implementations
         /// Creates a temporary directory within <see cref="DirectoryPath"/>.
         /// </summary>
         /// <returns>The path to the new temporary directory.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Returns a new value on each call.")]
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Returns a new value on each call")]
         protected virtual string GetTempDir()
         {
             string path = Path.Combine(DirectoryPath, Path.GetRandomFileName());

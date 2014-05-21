@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
@@ -59,8 +60,13 @@ namespace ZeroInstall.Services.Fetchers
         /// <summary>
         /// Determines whether an <see cref="Implementation"/> is already cached.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "This method only operates on original Implementations (not Selections).")]
         protected bool IsCached(Implementation implementation)
         {
+            #region Sanity checks
+            if (implementation == null) throw new ArgumentNullException("implementation");
+            #endregion
+
             _store.Flush();
             return _store.Contains(implementation.ManifestDigest);
         }
@@ -138,6 +144,10 @@ namespace ZeroInstall.Services.Fetchers
         /// <returns>The downloaded temporary file.</returns>
         protected virtual TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, object tag = null)
         {
+            #region Sanity checks
+            if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
+            #endregion
+
             var tempFile = new TemporaryFile("0install-fetcher");
             try
             {

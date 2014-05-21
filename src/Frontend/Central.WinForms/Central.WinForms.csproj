@@ -215,6 +215,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <CodeAnalysisDictionary Include="..\..\CodeAnalysisDictionary.xml" />
     <Content Include="Icon.ico" />
     <None Include="packages.config" />
     <None Include="Resources\ArrowDown.png" />

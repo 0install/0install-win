@@ -15,7 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model;
@@ -36,6 +38,10 @@ namespace ZeroInstall.Services.Solvers
         /// <returns>1 or more alternative <see cref="Requirements"/> ordered from most to least optimal.</returns>
         public static IEnumerable<Requirements> GetEffective(this Requirements requirements)
         {
+            #region Sanity checks
+            if (requirements == null) throw new ArgumentNullException("requirements");
+            #endregion
+
             var effectiveRequirements = requirements.Clone();
             effectiveRequirements.Command = requirements.Command ?? (requirements.Architecture.Cpu == Cpu.Source ? Command.NameCompile : Command.NameRun);
             effectiveRequirements.Architecture = new Architecture(
@@ -60,6 +66,12 @@ namespace ZeroInstall.Services.Solvers
         /// <returns></returns>
         public static ImplementationSelection ToSelection(this SelectionCandidate candidate, IEnumerable<SelectionCandidate> allCandidates, Requirements requirements)
         {
+            #region Sanity checks
+            if (candidate == null) throw new ArgumentNullException("candidate");
+            if (allCandidates == null) throw new ArgumentNullException("allCandidates");
+            if (requirements == null) throw new ArgumentNullException("requirements");
+            #endregion
+
             var implementation = candidate.Implementation;
             var selection = new ImplementationSelection(allCandidates)
             {
@@ -88,8 +100,14 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="commandName">The <see cref="Command.Name"/> to look for.</param>
         /// <param name="from">The <see cref="Implementation"/> to get the <see cref="Command"/> from.</param>
         /// <returns>The <see cref="Command"/> that was found; <see langword="null"/> if none.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "This method explicitly transfers information from an Implementation to an ImplementationSelection.")]
         public static Command AddCommand(this ImplementationSelection selection, string commandName, Implementation from)
         {
+            #region Sanity checks
+            if (selection == null) throw new ArgumentNullException("selection");
+            if (from == null) throw new ArgumentNullException("from");
+            #endregion
+
             var command = from[commandName];
             if (command != null) selection.Commands.Add(command.Clone());
             return command;
@@ -140,6 +158,11 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="topLevelRequirements">The top-level requirements specifying <see cref="Architecture"/> and custom restrictions.</param>
         public static Requirements ToRequirements(this Runner runner, Requirements topLevelRequirements)
         {
+            #region Sanity checks
+            if (runner == null) throw new ArgumentNullException("runner");
+            if (topLevelRequirements == null) throw new ArgumentNullException("topLevelRequirements");
+            #endregion
+
             var requirements = new Requirements
             {
                 InterfaceID = runner.Interface,
@@ -164,8 +187,14 @@ namespace ZeroInstall.Services.Solvers
         /// <summary>
         /// Checks wether a set of selection candidates contains an implementation with a specific ID.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "This method only operate on Selections.")]
         public static bool Contains(this IEnumerable<SelectionCandidate> candidates, ImplementationSelection implementation)
         {
+            #region Sanity checks
+            if (candidates == null) throw new ArgumentNullException("candidates");
+            if (implementation == null) throw new ArgumentNullException("implementation");
+            #endregion
+
             return candidates.Select(x => x.Implementation.ID).Contains(implementation.ID);
         }
     }

@@ -108,11 +108,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <CodeAnalysisDictionary Include="..\..\CodeAnalysisDictionary.xml" />
     <EmbeddedResource Include="Injector\runenv.sh.template" />
     <EmbeddedResource Include="Injector\runenv.clr2.template" />
     <EmbeddedResource Include="Injector\runenv.clr4.template" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">
   </Target>

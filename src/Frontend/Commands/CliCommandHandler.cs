@@ -33,7 +33,7 @@ namespace ZeroInstall.Commands
     /// <summary>
     /// Uses the stdin/stderr streams to allow users to interact with <see cref="FrontendCommand"/>s.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Diamond inheritance structure leads to false positive.")]
+    [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Diamond inheritance structure leads to false positive")]
     public sealed class CliCommandHandler : CliTaskHandler, ICommandHandler
     {
         #region UI control

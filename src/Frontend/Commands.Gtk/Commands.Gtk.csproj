@@ -95,6 +95,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <CodeAnalysisDictionary Include="..\..\CodeAnalysisDictionary.xml" />
     <Content Include="Icon.ico" />
     <Content Include="Icon.png" />
     <Content Include="DesktopIcon.png" />
