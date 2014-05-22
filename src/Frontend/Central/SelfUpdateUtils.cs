@@ -64,12 +64,12 @@ namespace ZeroInstall.Central
         /// <exception cref="InvalidDataException">Thrown if a configuration file is damaged.</exception>
         public static ImplementationVersion Check()
         {
-            var locator = new ServiceLocator(new SilentTaskHandler()) {FeedManager = {Refresh = true}};
-            if (locator.Config.NetworkUse == NetworkLevel.Offline) return null;
+            var services = new ServiceLocator(new SilentTaskHandler()) {FeedManager = {Refresh = true}};
+            if (services.Config.NetworkUse == NetworkLevel.Offline) return null;
 
             // Run solver
-            var requirements = new Requirements {InterfaceID = locator.Config.SelfUpdateUri.ToString(), Command = "update"};
-            var selections = locator.Solver.Solve(requirements);
+            var requirements = new Requirements {InterfaceID = services.Config.SelfUpdateUri.ToString(), Command = "update"};
+            var selections = services.Solver.Solve(requirements);
 
             // Report version of current update if it is newer than the already installed version
             var currentVersion = new ImplementationVersion(AppInfo.Current.Version);

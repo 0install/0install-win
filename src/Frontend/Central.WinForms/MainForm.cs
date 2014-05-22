@@ -122,9 +122,9 @@ namespace ZeroInstall.Central.WinForms
         private void SetupTileManagement()
         {
             tileListMyApps.IconCache = tileListCatalog.IconCache = IconCacheProvider.GetInstance();
-            var locator = new ServiceLocator(new MinimalTaskHandler(this)) {Config = {NetworkUse = NetworkLevel.Minimal}};
+            var services = new ServiceLocator(new MinimalTaskHandler(this)) {Config = {NetworkUse = NetworkLevel.Minimal}};
             _tileManagement = new AppTileManagement(
-                locator.FeedManager, locator.CatalogManager,
+                services.FeedManager, services.CatalogManager,
                 tileListMyApps, tileListCatalog, _machineWide);
         }
 

@@ -55,8 +55,8 @@ namespace ZeroInstall.Central.WinForms.Wizards
         /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
         protected SyncIntegrationManager CreateSync(bool machineWide)
         {
-            var locator = new ServiceLocator(this);
-            return new SyncIntegrationManager(locator.Config.ToSyncServer(), locator.Config.SyncCryptoKey, locator.FeedManager.GetFeedFresh, locator.Handler, machineWide);
+            var services = new ServiceLocator(this);
+            return new SyncIntegrationManager(services.Config.ToSyncServer(), services.Config.SyncCryptoKey, services.FeedManager.GetFeedFresh, services.Handler, machineWide);
         }
 
         /// <summary>
@@ -67,8 +67,8 @@ namespace ZeroInstall.Central.WinForms.Wizards
         /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
         protected SyncIntegrationManager CreateSync(string cryptoKey, bool machineWide)
         {
-            var locator = new ServiceLocator(this);
-            return new SyncIntegrationManager(locator.Config.ToSyncServer(), cryptoKey, locator.FeedManager.GetFeedFresh, locator.Handler, machineWide);
+            var services = new ServiceLocator(this);
+            return new SyncIntegrationManager(services.Config.ToSyncServer(), cryptoKey, services.FeedManager.GetFeedFresh, services.Handler, machineWide);
         }
 
         /// <summary>
@@ -80,8 +80,8 @@ namespace ZeroInstall.Central.WinForms.Wizards
         /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
         protected SyncIntegrationManager CreateSync(SyncServer server, string cryptoKey, bool machineWide)
         {
-            var locator = new ServiceLocator(this);
-            return new SyncIntegrationManager(server, cryptoKey, locator.FeedManager.GetFeedFresh, locator.Handler, machineWide);
+            var services = new ServiceLocator(this);
+            return new SyncIntegrationManager(server, cryptoKey, services.FeedManager.GetFeedFresh, services.Handler, machineWide);
         }
         #endregion
 
