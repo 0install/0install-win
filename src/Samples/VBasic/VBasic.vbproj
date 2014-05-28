@@ -4,8 +4,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>12.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{55A3CB6D-3FD9-47B1-ABDD-BB6A8D1FBBAA}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <StartupObject>Sample.VBasic.MinimalZeroInstall</StartupObject>
@@ -20,11 +18,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>..\..\..\build\Debug\Samples\</OutputPath>
     <CodeAnalysisRuleSet>..\..\NoAnalysis.ruleset</CodeAnalysisRuleSet>
+    <AdditionalParameters>
+    </AdditionalParameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,12 +32,8 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>..\..\..\build\Release\Samples\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <OptionExplicit>On</OptionExplicit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <OptionCompare>Binary</OptionCompare>
+    <AdditionalParameters>
+    </AdditionalParameters>
   </PropertyGroup>
   <PropertyGroup>
     <OptionStrict>On</OptionStrict>
@@ -67,15 +62,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Backend\Services\Services.csproj">
-      <Project>{8caa29b1-94b6-46c2-af82-e049d35775c5}</Project>
+      <Project>{8CAA29B1-94B6-46C2-AF82-E049D35775C5}</Project>
       <Name>Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Backend\Services.Interfaces\Services.Interfaces.csproj">
-      <Project>{33df4c92-ac4a-4a36-89a2-db334be3d229}</Project>
+      <Project>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</Project>
       <Name>Services.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Backend\Store\Store.csproj">
-      <Project>{bd330a44-dabf-43e9-83b4-0750f8f1db9d}</Project>
+      <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
       <Name>Store</Name>
     </ProjectReference>
   </ItemGroup>
