@@ -100,32 +100,38 @@ namespace ZeroInstall.Commands.WinForms
             catch (OperationCanceledException)
             {
                 Visible = true; // Allow user to fix input
+                return;
             }
             catch (InvalidDataException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
                 Visible = true; // Allow user to fix input
+                return;
             }
             catch (WebException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
                 Visible = true; // Allow user to fix input
+                return;
             }
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
                 Visible = true; // Allow user to fix input
+                return;
             }
             catch (UnauthorizedAccessException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
                 Visible = true; // Allow user to fix input
+                return;
             }
             catch (InvalidOperationException ex)
             {
                 // TODO: More comprehensive conflict handling
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
                 Visible = true; // Allow user to fix input
+                return;
             }
             #endregion
 

@@ -318,22 +318,23 @@ namespace ZeroInstall.Commands.WinForms
 
             if (_form == null) return;
 
-            var integrationForm = new IntegrateAppForm(state);
-            integrationForm.VisibleChanged += delegate
-            { // The IntegrateAppForm and ProgressForm take turns in being visible
-                if (integrationForm.Visible || (integrationForm.DialogResult == DialogResult.Cancel))
+            _form.Invoke(new Action(() =>
+            {
+                var integrationForm = new IntegrateAppForm(state);
+
+                // The IntegrateAppForm and ProgressForm take turns in being visible
+                integrationForm.VisibleChanged += delegate
                 {
-                    _form.Invoke(new Action(() =>
+                    if (integrationForm.Visible || (integrationForm.DialogResult == DialogResult.Cancel))
                     {
                         _form.Visible = false;
                         _form.HideTrayIcon();
-                    }));
-                }
-                else _form.Invoke(new Action(_form.Show));
-            };
+                    }
+                    else _form.Show();
+                };
 
-            // Run GUI on a separate thread to enable STA
-            ProcessUtils.RunAsync(() => integrationForm.ShowDialog(), "GuiHandler.IntegrateAppUI").Join();
+                integrationForm.ShowDialog();
+            }));
         }
 
         /// <inheritdoc/>
