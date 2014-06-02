@@ -347,17 +347,23 @@ namespace ZeroInstall.Commands.WinForms
             {
                 switch (configTab)
                 {
-                    case ConfigTab.Updates: dialog.tabOptions.SelectTab(dialog.tabPageUpdates);
+                    case ConfigTab.Updates:
+                        dialog.tabOptions.SelectTab(dialog.tabPageUpdates);
                         break;
-                    case ConfigTab.Storage: dialog.tabOptions.SelectTab(dialog.tabPageStorage);
+                    case ConfigTab.Storage:
+                        dialog.tabOptions.SelectTab(dialog.tabPageStorage);
                         break;
-                    case ConfigTab.Catalog: dialog.tabOptions.SelectTab(dialog.tabPageCatalog);
+                    case ConfigTab.Catalog:
+                        dialog.tabOptions.SelectTab(dialog.tabPageCatalog);
                         break;
-                    case ConfigTab.Trust: dialog.tabOptions.SelectTab(dialog.tabPageTrust);
+                    case ConfigTab.Trust:
+                        dialog.tabOptions.SelectTab(dialog.tabPageTrust);
                         break;
-                    case ConfigTab.Sync: dialog.tabOptions.SelectTab(dialog.tabPageSync);
+                    case ConfigTab.Sync:
+                        dialog.tabOptions.SelectTab(dialog.tabPageSync);
                         break;
-                    case ConfigTab.Advanced: dialog.tabOptions.SelectTab(dialog.tabPageAdvanced);
+                    case ConfigTab.Advanced:
+                        dialog.tabOptions.SelectTab(dialog.tabPageAdvanced);
                         break;
                 }
 
