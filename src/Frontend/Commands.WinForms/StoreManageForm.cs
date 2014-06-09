@@ -129,7 +129,7 @@ namespace ZeroInstall.Commands.WinForms
         #region Event handlers
         private void OnSelectedEntryChanged(object sender, EventArgs e)
         {
-            var node = _treeView.SelectedEntry.BackingNode;
+            var node = (_treeView.SelectedEntry == null) ? null : _treeView.SelectedEntry.BackingNode;
             propertyGrid.SelectedObject = node;
 
             // Update current entry size
