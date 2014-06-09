@@ -1,5 +1,5 @@
 ﻿#import clr
-#clr.AddReferenceToFile("ZeroInstall.Services.dll", "ZeroInstall.Store.dll")
+#clr.AddReferenceToFile("NanoByte.Common.dll", "ZeroInstall.Services.dll", "ZeroInstall.Store.dll")
 
 import sys
 from NanoByte.Common.Tasks import CliTaskHandler
