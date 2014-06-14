@@ -5,7 +5,11 @@ cd `dirname $0`
 #Handle Windows-style paths in project files
 export MONO_IOMAP=all
 
-#Restore NuGet packages
-mono --runtime=v4.0 .nuget/NuGet.exe restore ZeroInstall_Mono.sln
+#Project settings
+SOLUTION_FILE=ZeroInstall_Mono.sln
 
-xbuild ZeroInstall_Mono.sln /nologo /v:q
+echo Restoring NuGet packages...
+mono --runtime=v4.0 .nuget/NuGet.exe restore $SOLUTION_FILE
+
+echo Compiling solution...
+xbuild $SOLUTION_FILE /nologo /v:q
