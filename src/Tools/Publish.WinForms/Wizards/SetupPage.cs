@@ -23,6 +23,8 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 {
     internal partial class SetupPage : UserControl
     {
+        public event Action Exit;
+
         public SetupPage()
         {
             InitializeComponent();
@@ -31,6 +33,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private void buttonLaunch_Click(object sender, EventArgs e)
         {
             ProcessUtils.LaunchAssembly("0capture-win");
+            Exit();
         }
     }
 }

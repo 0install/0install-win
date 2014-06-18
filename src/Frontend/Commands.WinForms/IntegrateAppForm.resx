@@ -885,13 +885,13 @@
   <data name="dataGridContextMenu.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <metadata name="dataGridContextMenuColumnDefault.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="dataGridContextMenuColumnEnabled.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="dataGridContextMenuColumnDefault.HeaderText" xml:space="preserve">
-    <value>Default</value>
+  <data name="dataGridContextMenuColumnEnabled.HeaderText" xml:space="preserve">
+    <value>Enabled</value>
   </data>
-  <data name="dataGridContextMenuColumnDefault.Width" type="System.Int32, mscorlib">
+  <data name="dataGridContextMenuColumnEnabled.Width" type="System.Int32, mscorlib">
     <value>66</value>
   </data>
   <metadata name="dataGridContextMenuColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -2965,10 +2965,10 @@
   <data name="&gt;&gt;dataGridAutoPlayColumnEvents.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;dataGridContextMenuColumnDefault.Name" xml:space="preserve">
-    <value>dataGridContextMenuColumnDefault</value>
+  <data name="&gt;&gt;dataGridContextMenuColumnEnabled.Name" xml:space="preserve">
+    <value>dataGridContextMenuColumnEnabled</value>
   </data>
-  <data name="&gt;&gt;dataGridContextMenuColumnDefault.Type" xml:space="preserve">
+  <data name="&gt;&gt;dataGridContextMenuColumnEnabled.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridContextMenuColumnName.Name" xml:space="preserve">

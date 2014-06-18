@@ -120,6 +120,8 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                 _signedFeed = _feedBuilder.Build();
                 Close();
             };
+
+            setupPage.Exit += Close;
             #endregion
 
             PushPage(sourcePage);

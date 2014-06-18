@@ -71,7 +71,7 @@
             this.buttonHelpContextMenu = new System.Windows.Forms.Button();
             this.checkBoxContextMenuAll = new System.Windows.Forms.CheckBox();
             this.dataGridContextMenu = new System.Windows.Forms.DataGridView();
-            this.dataGridContextMenuColumnDefault = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridContextMenuColumnEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridContextMenuColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageDefaultPrograms = new System.Windows.Forms.TabPage();
             this.buttonHelpDefaultPrograms = new System.Windows.Forms.Button();
@@ -505,20 +505,20 @@
             resources.ApplyResources(this.dataGridContextMenu, "dataGridContextMenu");
             this.dataGridContextMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridContextMenu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridContextMenuColumnDefault,
+            this.dataGridContextMenuColumnEnabled,
             this.dataGridContextMenuColumnName});
             this.dataGridContextMenu.Name = "dataGridContextMenu";
             this.dataGridContextMenu.RowHeadersVisible = false;
             // 
-            // dataGridContextMenuColumnDefault
+            // dataGridContextMenuColumnEnabled
             // 
-            this.dataGridContextMenuColumnDefault.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.dataGridContextMenuColumnDefault.DataPropertyName = "Use";
-            this.dataGridContextMenuColumnDefault.Frozen = true;
-            resources.ApplyResources(this.dataGridContextMenuColumnDefault, "dataGridContextMenuColumnDefault");
-            this.dataGridContextMenuColumnDefault.Name = "dataGridContextMenuColumnDefault";
-            this.dataGridContextMenuColumnDefault.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridContextMenuColumnDefault.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridContextMenuColumnEnabled.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dataGridContextMenuColumnEnabled.DataPropertyName = "Use";
+            this.dataGridContextMenuColumnEnabled.Frozen = true;
+            resources.ApplyResources(this.dataGridContextMenuColumnEnabled, "dataGridContextMenuColumnEnabled");
+            this.dataGridContextMenuColumnEnabled.Name = "dataGridContextMenuColumnEnabled";
+            this.dataGridContextMenuColumnEnabled.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridContextMenuColumnEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // dataGridContextMenuColumnName
             // 
@@ -824,7 +824,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridAutoPlayColumnDefault;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridAutoPlayColumnDescription;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridAutoPlayColumnEvents;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridContextMenuColumnDefault;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridContextMenuColumnEnabled;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridContextMenuColumnName;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridDefaultProgramsColumnDefault;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridDefaultProgramsColumnDescription;

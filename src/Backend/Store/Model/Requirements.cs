@@ -145,11 +145,11 @@ namespace ZeroInstall.Store.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the requirements in the form "InterfaceID (CommandName)". Not safe for parsing!
+        /// Returns the requirements in the form "InterfaceID (Command)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} ({1})", InterfaceID, Command);
+            return string.IsNullOrEmpty(Command) ? InterfaceID : InterfaceID + " (" + Command + ")";
         }
         #endregion
 

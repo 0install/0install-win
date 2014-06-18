@@ -117,7 +117,9 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             var nodeListBuilder = (CacheNodeBuilder)e.Result;
-            _treeView.Nodes = new NamedCollection<StoreManageNode>(nodeListBuilder.Nodes.Select(x => new StoreManageNode(x, this)));
+            var nodes = nodeListBuilder.Nodes.Select(x => new StoreManageNode(x, this));
+
+            _treeView.Nodes = new NamedCollection<StoreManageNode>(nodes);
             textTotalSize.Text = nodeListBuilder.TotalSize.FormatBytes(CultureInfo.CurrentCulture);
 
             OnCheckedEntriesChanged(null, EventArgs.Empty);
