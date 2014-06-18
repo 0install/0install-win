@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     [Description("An application's ability to handle one or more AutoPlay events.")]
     [Serializable]
     [XmlRoot("auto-play", Namespace = CapabilityList.XmlNamespace), XmlType("auto-play", Namespace = CapabilityList.XmlNamespace)]
-    public sealed class AutoPlay : IconCapability, IEquatable<AutoPlay>
+    public sealed class AutoPlay : IconCapability, ISingleVerb, IEquatable<AutoPlay>
     {
         #region Properties
         /// <inheritdoc/>
@@ -53,7 +53,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <summary>
         /// The command to execute when the handler gets called.
         /// </summary>
-        [Description("The command to execute when the handler gets called.")]
+        [Browsable(false)]
         [XmlElement("verb")]
         public Verb Verb { get; set; }
 
@@ -122,7 +122,7 @@ namespace ZeroInstall.Store.Model.Capabilities
                 result = (result * 397) ^ (Provider ?? "").GetHashCode();
                 result = (result * 397) ^ (Provider ?? "").GetHashCode();
                 result = (result * 397) ^ (ProgID ?? "").GetHashCode();
-                result = (result * 397) ^ Verb.GetHashCode();
+                if (Verb != null) result = (result * 397) ^ Verb.GetHashCode();
                 result = (result * 397) ^ Events.GetSequencedHashCode();
                 return result;
             }

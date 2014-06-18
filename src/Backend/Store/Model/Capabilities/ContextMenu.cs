@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     [Description("An entry in the file manager's context menu for all file types.")]
     [Serializable]
     [XmlRoot("context-menu", Namespace = CapabilityList.XmlNamespace), XmlType("context-menu", Namespace = CapabilityList.XmlNamespace)]
-    public sealed class ContextMenu : DefaultCapability, IEquatable<ContextMenu>
+    public sealed class ContextMenu : DefaultCapability, ISingleVerb, IEquatable<ContextMenu>
     {
         #region Properties
         /// <inheritdoc/>
@@ -46,7 +46,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <summary>
         /// The command to execute when the context menu entry is clicked.
         /// </summary>
-        [Description("The command to execute when the context menu entry is clicked.")]
+        [Browsable(false)]
         [XmlElement("verb")]
         public Verb Verb { get; set; }
 
@@ -103,7 +103,7 @@ namespace ZeroInstall.Store.Model.Capabilities
             {
                 int result = base.GetHashCode();
                 result = (result * 397) ^ AllObjects.GetHashCode();
-                result = (result * 397) ^ Verb.GetHashCode();
+                if (Verb != null) result = (result * 397) ^ Verb.GetHashCode();
                 return result;
             }
         }

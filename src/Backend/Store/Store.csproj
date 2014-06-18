@@ -140,6 +140,7 @@
     <Compile Include="Model\Capabilities\FileTypeExtension.cs" />
     <Compile Include="Model\Capabilities\IconCapability.cs" />
     <Compile Include="Model\Capabilities\InstallCommands.cs" />
+    <Compile Include="Model\Capabilities\ISingleVerb.cs" />
     <Compile Include="Model\Capabilities\KnownProtocolPrefix.cs" />
     <Compile Include="Model\Capabilities\UrlProtocol.cs" />
     <Compile Include="Model\Capabilities\Verb.cs" />

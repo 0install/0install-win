@@ -99,7 +99,10 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 .AddElement<DefaultProgram, DescriptionEditor<DefaultProgram>>("default-program")
                 .AddElement<FileType, DescriptionEditor<FileType>>("file-type")
                 .AddElement<UrlProtocol, DescriptionEditor<UrlProtocol>>("url-protocol");
-            Describe<AutoPlay>().AddPlainList("event", x => x.Events);
+            Describe<AutoPlay>()
+                .AddPlainList("event", x => x.Events);
+            Describe<ISingleVerb>()
+                .AddProperty<Verb, DescriptionEditor<Verb>>("verb", x => new PropertyPointer<Verb>(() => x.Verb, value => x.Verb = value));
             Describe<FileType>().AddPlainList("extension", x => x.Extensions);
             Describe<UrlProtocol>().AddPlainList("known-prefix", x => x.KnownPrefixes);
             Describe<VerbCapability>().AddPlainList<Verb, DescriptionEditor<Verb>>("verb", x => x.Verbs);

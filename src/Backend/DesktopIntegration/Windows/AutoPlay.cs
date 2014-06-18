@@ -82,6 +82,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             if (string.IsNullOrEmpty(autoPlay.ID)) throw new InvalidDataException("Missing ID");
             if (string.IsNullOrEmpty(autoPlay.ProgID)) throw new InvalidDataException("Missing ProgID");
+            if (autoPlay.Verb == null) throw new InvalidDataException("Missing verb");
             if (string.IsNullOrEmpty(autoPlay.Verb.Name)) throw new InvalidDataException("Missing verb name");
             if (string.IsNullOrEmpty(autoPlay.Provider)) throw new InvalidDataException("Missing provider");
 

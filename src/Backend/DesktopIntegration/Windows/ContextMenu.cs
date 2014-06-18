@@ -66,6 +66,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
+            if (contextMenu.Verb == null) throw new InvalidDataException("Missing verb");
             if (string.IsNullOrEmpty(contextMenu.Verb.Name)) throw new InvalidDataException("Missing verb name");
 
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
@@ -96,6 +97,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (contextMenu == null) throw new ArgumentNullException("contextMenu");
             #endregion
 
+            if (contextMenu.Verb == null) throw new InvalidDataException("Missing verb");
             if (string.IsNullOrEmpty(contextMenu.Verb.Name)) throw new InvalidDataException("Missing verb name");
 
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
