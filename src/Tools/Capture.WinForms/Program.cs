@@ -34,7 +34,6 @@ namespace ZeroInstall.Capture.WinForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.ThrowException);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
             Application.Run(new MainForm());
