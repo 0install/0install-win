@@ -1048,7 +1048,7 @@
     </xsd:complexContent>
   </xsd:complexType>
 
-  <!-- Enumerations-->
+  <!-- Enumerations -->
   <xsd:simpleType name="importance">
     <xsd:restriction base="xsd:string">
       <xsd:enumeration value="essential">

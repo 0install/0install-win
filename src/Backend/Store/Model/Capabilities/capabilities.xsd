@@ -388,10 +388,10 @@
             </xsd:annotation>
           </xsd:element>
         </xsd:choice>
-        <xsd:attribute name="all-objects" type="xsd:boolean">
+        <xsd:attribute name="target" type="caps:context-menu-target" default="files">
           <xsd:annotation>
             <xsd:documentation>
-              Set to true if this context menu entry is applicable to all filesystem entries and not just files.
+              Controls which file system object types this context menu entry is displayed for.
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
@@ -408,6 +408,26 @@
       <xsd:extension base="caps:capability" />
     </xsd:complexContent>
   </xsd:complexType>
+
+  <!-- Enumerations -->
+  <xsd:simpleType name="context-menu-target">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="files">
+        <xsd:annotation>
+          <xsd:documentation>
+            The context menu entry is displayed for all files.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="directories">
+        <xsd:annotation>
+          <xsd:documentation>
+            The context menu entry is displayed for all directories.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
 
   <!-- Localizable string -->
   <xsd:complexType name="localizable-string" mixed="true">

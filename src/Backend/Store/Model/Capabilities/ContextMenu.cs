@@ -23,6 +23,23 @@ using System.Xml.Serialization;
 
 namespace ZeroInstall.Store.Model.Capabilities
 {
+
+    #region Enumerations
+    /// <summary>
+    /// Describes how important a dependency is (i.e. whether ignoring it is an option).
+    /// </summary>
+    public enum ContextMenuTarget
+    {
+        /// <summary>The context menu entry is displayed for all files.</summary>
+        [XmlEnum("files")]
+        Files,
+
+        /// <summary>The context menu entry is displayed for all directories.</summary>
+        [XmlEnum("directories")]
+        Directories,
+    }
+    #endregion
+
     /// <summary>
     /// An entry in the file manager's context menu for all file types.
     /// </summary>
@@ -37,11 +54,11 @@ namespace ZeroInstall.Store.Model.Capabilities
         public override bool WindowsMachineWideOnly { get { return false; } }
 
         /// <summary>
-        /// Set to <see langword="true"/> if this context menu entry is applicable to all filesystem entries and not just files.
+        /// Controls which file system object types this context menu entry is displayed for.
         /// </summary>
-        [Description("Set to true if this context menu entry is applicable to all filesystem entries and not just files.")]
-        [XmlAttribute("all-objects"), DefaultValue(false)]
-        public bool AllObjects { get; set; }
+        [Description("Controls which file system object types this context menu entry is displayed for.")]
+        [XmlAttribute("target"), DefaultValue(typeof(ContextMenuTarget), "Files")]
+        public ContextMenuTarget Target { get; set; }
 
         /// <summary>
         /// The command to execute when the context menu entry is clicked.
@@ -75,7 +92,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <inheritdoc/>
         public override Capability Clone()
         {
-            return new ContextMenu {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly, AllObjects = AllObjects, Verb = Verb.Clone()};
+            return new ContextMenu {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly, Target = Target, Verb = Verb.Clone()};
         }
         #endregion
 
@@ -85,7 +102,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         {
             if (other == null) return false;
             return base.Equals(other) &&
-                   other.AllObjects == AllObjects && Equals(other.Verb, Verb);
+                   other.Target == Target && Equals(other.Verb, Verb);
         }
 
         /// <inheritdoc/>
@@ -102,7 +119,7 @@ namespace ZeroInstall.Store.Model.Capabilities
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ AllObjects.GetHashCode();
+                result = (result * 397) ^ Target.GetHashCode();
                 if (Verb != null) result = (result * 397) ^ Verb.GetHashCode();
                 return result;
             }

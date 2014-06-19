@@ -69,14 +69,14 @@ namespace ZeroInstall.Capture
         /// <summary>A list of (COM-based) property sheets for all file types.</summary>
         public string[] FilesPropertySheets;
 
-        /// <summary>A list of simple context menu entries for all filesystem objects (files and directories).</summary>
-        public string[] AllContextMenuSimple;
+        /// <summary>A list of simple context menu entries for all directories.</summary>
+        public string[] DirectoriesContextMenuSimple;
 
-        /// <summary>A list of extended (COM-based) context menu entries for all filesystem objects (files and directories).</summary>
-        public string[] AllContextMenuExtended;
+        /// <summary>A list of extended (COM-based) context menu entries for all directories.</summary>
+        public string[] DirectoriesContextMenuExtended;
 
-        /// <summary>A list of (COM-based) property sheets for all file-system entries.</summary>
-        public string[] AllPropertySheets;
+        /// <summary>A list of (COM-based) property sheets for all directories.</summary>
+        public string[] DirectoriesPropertySheets;
 
         /// <summary>A list of program installation directories.</summary>
         public string[] ProgramsDirs;
@@ -140,9 +140,9 @@ namespace ZeroInstall.Capture
             snapshot.FilesContextMenuExtended = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + "\\" + ContextMenu.RegKeyContextMenuExtendedPostfix);
             snapshot.FilesPropertySheets = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + "\\" + ContextMenu.RegKeyPropertySheetsPostfix);
 
-            snapshot.AllContextMenuSimple = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + "\\" + ContextMenu.RegKeyContextMenuSimplePostfix);
-            snapshot.AllContextMenuExtended = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + "\\" + ContextMenu.RegKeyContextMenuExtendedPostfix);
-            snapshot.AllPropertySheets = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAllPrefix + "\\" + ContextMenu.RegKeyPropertySheetsPostfix);
+            snapshot.DirectoriesContextMenuSimple = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesDirectoriesPrefix + "\\" + ContextMenu.RegKeyContextMenuSimplePostfix);
+            snapshot.DirectoriesContextMenuExtended = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesDirectoriesPrefix + "\\" + ContextMenu.RegKeyContextMenuExtendedPostfix);
+            snapshot.DirectoriesPropertySheets = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesDirectoriesPrefix + "\\" + ContextMenu.RegKeyPropertySheetsPostfix);
         }
 
         /// <summary>
@@ -288,9 +288,9 @@ namespace ZeroInstall.Capture
                 FilesContextMenuSimple = newSnapshot.FilesContextMenuSimple.GetAddedElements(oldSnapshot.FilesContextMenuSimple),
                 FilesContextMenuExtended = newSnapshot.FilesContextMenuExtended.GetAddedElements(oldSnapshot.FilesContextMenuExtended),
                 FilesPropertySheets = newSnapshot.FilesPropertySheets.GetAddedElements(oldSnapshot.FilesPropertySheets),
-                AllContextMenuSimple = newSnapshot.AllContextMenuSimple.GetAddedElements(oldSnapshot.AllContextMenuSimple),
-                AllContextMenuExtended = newSnapshot.AllContextMenuExtended.GetAddedElements(oldSnapshot.AllContextMenuExtended),
-                AllPropertySheets = newSnapshot.AllPropertySheets.GetAddedElements(oldSnapshot.AllPropertySheets),
+                DirectoriesContextMenuSimple = newSnapshot.DirectoriesContextMenuSimple.GetAddedElements(oldSnapshot.DirectoriesContextMenuSimple),
+                DirectoriesContextMenuExtended = newSnapshot.DirectoriesContextMenuExtended.GetAddedElements(oldSnapshot.DirectoriesContextMenuExtended),
+                DirectoriesPropertySheets = newSnapshot.DirectoriesPropertySheets.GetAddedElements(oldSnapshot.DirectoriesPropertySheets),
                 ProgramsDirs = newSnapshot.ProgramsDirs.GetAddedElements(oldSnapshot.ProgramsDirs, StringComparer.OrdinalIgnoreCase)
             };
         }

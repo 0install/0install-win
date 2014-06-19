@@ -33,8 +33,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <summary>The HKCU registry key prefix for registering things for all files.</summary>
         public const string RegKeyClassesFilesPrefix = "*";
 
-        /// <summary>The HKCU registry key prefix for registering things for all filesytem objects (files and directories).</summary>
-        public const string RegKeyClassesAllPrefix = "AllFilesystemObjects";
+        /// <summary>The HKCU registry key prefix for registering things for all directories.</summary>
+        public const string RegKeyClassesDirectoriesPrefix = "Directory";
 
         /// <summary>The registry key postfix for registering simple context menu entries.</summary>
         public const string RegKeyContextMenuSimplePostfix = @"shell";
@@ -44,6 +44,18 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         /// <summary>The registry key postfix for registering (COM-based) property sheets.</summary>
         public const string RegKeyPropertySheetsPostfix = @"shellex\PropertySheetHandlers";
+
+        private static string GetPrefix(Store.Model.Capabilities.ContextMenuTarget target)
+        {
+            switch (target)
+            {
+                case Store.Model.Capabilities.ContextMenuTarget.Files:
+                    return RegKeyClassesFilesPrefix;
+                case Store.Model.Capabilities.ContextMenuTarget.Directories:
+                default:
+                    return RegKeyClassesDirectoriesPrefix;
+            }
+        }
         #endregion
 
         #region Apply
@@ -70,7 +82,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(contextMenu.Verb.Name)) throw new InvalidDataException("Missing verb name");
 
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
-            using (var verbKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + (contextMenu.AllObjects ? RegKeyClassesAllPrefix : RegKeyClassesFilesPrefix) + @"\shell\" + contextMenu.Verb.Name))
+            using (var verbKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + GetPrefix(contextMenu.Target) + @"\shell\" + contextMenu.Verb.Name))
             {
                 string description = contextMenu.Verb.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture);
                 if (description != null) verbKey.SetValue("", description);
@@ -103,7 +115,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
             try
             {
-                hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + (contextMenu.AllObjects ? RegKeyClassesAllPrefix : RegKeyClassesFilesPrefix) + @"\shell\" + contextMenu.Verb.Name);
+                hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + GetPrefix(contextMenu.Target) + @"\shell\" + contextMenu.Verb.Name);
             }
             catch (ArgumentException)
             {} // Ignore missing registry keys

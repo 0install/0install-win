@@ -50,20 +50,20 @@ namespace ZeroInstall.Capture
                     capabilities.Entries.Add(new ContextMenu
                     {
                         ID = "files-" + entry,
-                        AllObjects = false,
+                        Target = ContextMenuTarget.Files,
                         Verb = GetVerb(progIDKey, commandMapper, entry)
                     });
                 }
             }
 
-            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesAllPrefix))
+            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesDirectoriesPrefix))
             {
-                foreach (string entry in snapshotDiff.AllContextMenuSimple)
+                foreach (string entry in snapshotDiff.DirectoriesContextMenuSimple)
                 {
                     capabilities.Entries.Add(new ContextMenu
                     {
                         ID = "all-" + entry,
-                        AllObjects = true,
+                        Target = ContextMenuTarget.Directories,
                         Verb = GetVerb(progIDKey, commandMapper, entry)
                     });
                 }
