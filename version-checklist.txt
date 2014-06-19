@@ -1,7 +1,0 @@
-Main application + Publishing tools:
-/VERSION
-/src/AssemblyInfo.Global.cs
-
-Updater:
-/VERSION_UPDATER
-/src/Updater/AssemblyInfo.Updater.cs

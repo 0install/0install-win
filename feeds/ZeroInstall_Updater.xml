@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://zero-install.sourceforge.net/2004/injector/interface http://0install.de/schema/injector/interface/interface.xsd http://0install.de/schema/desktop-integration/capabilities http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd" uri="http://0install.de/feeds/ZeroInstall_Updater.xml" xmlns="http://zero-install.sourceforge.net/2004/injector/interface">
+	<name>Zero Install Updater</name>
+	<summary>installs Zero Install updates</summary>
+	<feed-for interface="http://0install.de/feeds/ZeroInstall_Updater.xml" />
+	<group arch="Windows-*" license="LGPL v3 (GNU Lesser General Public License)" main="0update-win.exe">
+		<implementation version="999" stability="testing" id="local-release" local-path="../build/Release/Updater" />
+		<implementation version="999-post" stability="developer" id="local-debug" local-path="../build/Debug/Updater" />
+	</group>
+</interface>

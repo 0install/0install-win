@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://zero-install.sourceforge.net/2004/injector/interface http://0install.de/schema/injector/interface/interface.xsd http://0install.de/schema/desktop-integration/capabilities http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd" xmlns="http://zero-install.sourceforge.net/2004/injector/interface">
+	<name>Zero Install Publishing Tools</name>
+	<summary>helps you create and update Zero Install feeds</summary>
+	<feed-for interface="http://0install.de/feeds/ZeroInstall_Tools.xml" />
+	<group license="LGPL v3 (GNU Lesser General Public License)">
+		<requires interface="http://repo.roscidus.com/security/gnupg">
+			<environment name="PATH" insert="." />
+		</requires>
+		<command name="run" path="0publish-win.exe">
+			<runner interface="http://0install.de/feeds/cli/cli.xml" />
+		</command>
+		<command name="0capture-win" path="0capture-win.exe">
+			<runner interface="http://0install.de/feeds/cli/cli.xml" />
+		</command>
+		<command name="0publish" path="0publish.exe">
+			<runner interface="http://0install.de/feeds/cli/cli.xml" />
+		</command>
+		<command name="0capture" path="0capture.exe">
+			<runner interface="http://0install.de/feeds/cli/cli.xml" />
+		</command>
+		<implementation version="999" stability="testing" id="local-release" local-path="../build/Release/Tools" />
+		<implementation version="999-post" stability="developer" id="local-debug" local-path="../build/Debug/Tools" />
+	</group>
+</interface>
