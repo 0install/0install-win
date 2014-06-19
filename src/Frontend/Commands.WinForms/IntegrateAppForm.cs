@@ -72,7 +72,7 @@ namespace ZeroInstall.Commands.WinForms
 
             checkBoxAutoUpdate.Checked = _state.AppEntry.AutoUpdate;
             checkBoxCapabilities.Visible = (_state.AppEntry.CapabilityLists.Count != 0);
-            checkBoxCapabilities.Checked = (_state.AppEntry.AccessPoints == null) || _state.AppEntry.AccessPoints.Entries.OfType<DesktopIntegration.AccessPoints.CapabilityRegistration>().Any();
+            checkBoxCapabilities.Checked = _state.CapabilitiyRegistration;
 
             SetupCommandAccessPoints();
             SetupDefaultAccessPoints();
@@ -87,6 +87,7 @@ namespace ZeroInstall.Commands.WinForms
         private void buttonOK_Click(object sender, EventArgs e)
         {
             if (buttonAdvancedMode.Visible) _switchToAdvancedMode(); // Apply changes made in "Simple View"
+            _state.CapabilitiyRegistration = checkBoxCapabilities.Checked;
             _state.AppEntry.AutoUpdate = checkBoxAutoUpdate.Checked;
 
             // Hide so that the underlying progress tracker is visible
@@ -94,7 +95,7 @@ namespace ZeroInstall.Commands.WinForms
 
             try
             {
-                _state.ApplyChanges(capabilitiyRegistration: checkBoxCapabilities.Checked);
+                _state.ApplyChanges();
             }
                 #region Error handling
             catch (OperationCanceledException)

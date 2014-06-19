@@ -24,6 +24,11 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
 {
     partial class IntegrationState
     {
+        /// <summary>
+        /// Controls whether <see cref="AccessPoints.CapabilityRegistration"/> is used.
+        /// </summary>
+        public bool CapabilitiyRegistration { get; set; }
+
         public readonly BindingList<FileTypeModel> FileTypes = new BindingList<FileTypeModel>();
         public readonly BindingList<UrlProtocolModel> UrlProtocols = new BindingList<UrlProtocolModel>();
         public readonly BindingList<AutoPlayModel> AutoPlay = new BindingList<AutoPlayModel>();

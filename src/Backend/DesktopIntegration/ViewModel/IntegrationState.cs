@@ -62,14 +62,16 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
             _integrationManager = integrationManager;
             AppEntry = appEntry;
             Feed = feed;
+
+            CapabilitiyRegistration = (AppEntry.AccessPoints == null) || AppEntry.AccessPoints.Entries.OfType<AccessPoints.CapabilityRegistration>().Any();
         }
         #endregion
 
-        public void ApplyChanges(bool capabilitiyRegistration)
+        public void ApplyChanges()
         {
             var toAdd = new List<AccessPoints.AccessPoint>();
             var toRemove = new List<AccessPoints.AccessPoint>();
-            (capabilitiyRegistration ? toAdd : toRemove).Add(new AccessPoints.CapabilityRegistration());
+            (CapabilitiyRegistration ? toAdd : toRemove).Add(new AccessPoints.CapabilityRegistration());
             CollectCommandAccessPointChanges(toAdd, toRemove);
             CollectDefaultAccessPointChanges(toAdd, toRemove);
 
