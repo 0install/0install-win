@@ -62,10 +62,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="selections">The <see cref="Selections"/> as provided by the solver.</param>
         /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
-        /// <remarks>
-        ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
-        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
-        /// </remarks>
+        /// <remarks>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</remarks>
         void ShowSelections(Selections selections, IFeedCache feedCache);
 
         /// <summary>
@@ -73,20 +70,14 @@ namespace ZeroInstall.Commands
         /// Returns once the user is satisfied with her choice. Will be ignored by non-GUI intefaces.
         /// </summary>
         /// <param name="solveCallback">Called after interface preferences have been changed and the solver needs to be rerun.</param>
-        /// <remarks>
-        ///   <para>Only call this between <see cref="ShowSelections"/> and <see cref="CloseProgressUI"/>.</para>
-        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
-        /// </remarks>
+        /// <remarks>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</remarks>
         void ModifySelections(Func<Selections> solveCallback);
 
         /// <summary>
         /// Displays application integration options to the user.
         /// </summary>
         /// <param name="state">A View-Model for modifying the current desktop integration state.</param>
-        /// <remarks>
-        ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
-        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</para>
-        /// </remarks>
+        /// <remarks>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</remarks>
         void ShowIntegrateApp(IntegrationState state);
 
         /// <summary>
@@ -94,8 +85,9 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="config">The configuration to show.</param>
         /// <param name="configTab">Switch to a specific tab in the configuration GUI. Has no effect in text-mode.</param>
-        /// <returns><see langword="true"/> if the user modified any settings; <see langword="false"/> otherwise.</returns>
-        bool ShowConfig(Config config, ConfigTab configTab);
+        /// <exception cref="OperationCanceledException">Thrown if the user does not want any changes to be applied.</exception>
+        /// <remarks>The caller is responsible for saving any changes.</remarks>
+        void ShowConfig(Config config, ConfigTab configTab);
 
         /// <summary>
         /// Displays a user interface for managing <see cref="IStore"/>s.

@@ -67,10 +67,9 @@ namespace ZeroInstall.Commands
         }
 
         /// <inheritdoc/>
-        public bool ShowConfig(Config config, ConfigTab configTab)
+        public void ShowConfig(Config config, ConfigTab configTab)
         {
             // No UI, so nothing to do
-            return false;
         }
 
         /// <inheritdoc/>

@@ -338,7 +338,7 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <inheritdoc/>
-        public bool ShowConfig(Config config, ConfigTab configTab)
+        public void ShowConfig(Config config, ConfigTab configTab)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
@@ -368,7 +368,7 @@ namespace ZeroInstall.Commands.WinForms
                         break;
                 }
 
-                return (dialog.ShowDialog() == DialogResult.OK);
+                if (dialog.ShowDialog() != DialogResult.OK) throw new OperationCanceledException();
             }
         }
 

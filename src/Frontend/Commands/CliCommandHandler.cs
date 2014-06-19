@@ -97,14 +97,13 @@ namespace ZeroInstall.Commands
         }
 
         /// <inheritdoc/>
-        public bool ShowConfig(Config config, ConfigTab configTab)
+        public void ShowConfig(Config config, ConfigTab configTab)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
             #endregion
 
             Console.Write(config.ToString());
-            return false;
         }
 
         /// <inheritdoc/>

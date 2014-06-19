@@ -229,13 +229,13 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <inheritdoc/>
-        public bool ShowConfig(Config config, ConfigTab configTab)
+        public void ShowConfig(Config config, ConfigTab configTab)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
             #endregion
 
-            return InitTarget().ShowConfig(config, configTab);
+            InitTarget().ShowConfig(config, configTab);
         }
 
         /// <inheritdoc/>
