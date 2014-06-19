@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
@@ -107,7 +108,26 @@ namespace ZeroInstall.Commands
 
             if (NoSpecifiedIntegrations())
             {
-                Handler.ShowIntegrateApp(new IntegrationState(integrationManager, appEntry, feed));
+                var state = new IntegrationState(integrationManager, appEntry, feed);
+                Retry:
+                Handler.ShowIntegrateApp(state);
+                try
+                {
+                    state.ApplyChanges();
+                }
+                    #region Error handling
+                catch (InvalidOperationException ex)
+                {
+                    if (Handler.AskQuestion(Resources.IntegrateAppInvalidRetry + "\n" + ex.Message, batchInformation: ex.Message))
+                        goto Retry;
+                }
+                catch (InvalidDataException ex)
+                {
+                    if (Handler.AskQuestion(Resources.IntegrateAppInvalidRetry + "\n" + ex.Message, batchInformation: ex.Message))
+                        goto Retry;
+                }
+                #endregion
+
                 return 0;
             }
 

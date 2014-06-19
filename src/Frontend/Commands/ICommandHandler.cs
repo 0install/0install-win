@@ -77,7 +77,11 @@ namespace ZeroInstall.Commands
         /// Displays application integration options to the user.
         /// </summary>
         /// <param name="state">A View-Model for modifying the current desktop integration state.</param>
-        /// <remarks>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</remarks>
+        /// <exception cref="OperationCanceledException">Thrown if the user does not want any changes to be applied.</exception>
+        /// <remarks>
+        ///   <para>The caller is responsible for saving any changes.</para>
+        ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
+        /// </remarks>
         void ShowIntegrateApp(IntegrationState state);
 
         /// <summary>

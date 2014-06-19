@@ -318,23 +318,20 @@ namespace ZeroInstall.Commands.WinForms
 
             if (_form == null) return;
 
+            bool apply = false;
             _form.Invoke(new Action(() =>
             {
                 var integrationForm = new IntegrateAppForm(state);
 
-                // The IntegrateAppForm and ProgressForm take turns in being visible
-                integrationForm.VisibleChanged += delegate
-                {
-                    if (integrationForm.Visible || (integrationForm.DialogResult == DialogResult.Cancel))
-                    {
-                        _form.Visible = false;
-                        _form.HideTrayIcon();
-                    }
-                    else _form.Show();
-                };
+                _form.Visible = false;
+                _form.HideTrayIcon();
 
-                integrationForm.ShowDialog();
+                apply = (integrationForm.ShowDialog() == DialogResult.OK);
+
+                _form.Show();
             }));
+
+            if (!apply) throw new OperationCanceledException();
         }
 
         /// <inheritdoc/>

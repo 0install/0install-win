@@ -18,9 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
@@ -89,55 +87,6 @@ namespace ZeroInstall.Commands.WinForms
             if (buttonAdvancedMode.Visible) _switchToAdvancedMode(); // Apply changes made in "Simple View"
             _state.CapabilitiyRegistration = checkBoxCapabilities.Checked;
             _state.AppEntry.AutoUpdate = checkBoxAutoUpdate.Checked;
-
-            // Hide so that the underlying progress tracker is visible
-            Visible = false;
-
-            try
-            {
-                _state.ApplyChanges();
-            }
-                #region Error handling
-            catch (OperationCanceledException)
-            {
-                Visible = true; // Allow user to fix input
-                return;
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Visible = true; // Allow user to fix input
-                return;
-            }
-            catch (WebException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Visible = true; // Allow user to fix input
-                return;
-            }
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Visible = true; // Allow user to fix input
-                return;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Visible = true; // Allow user to fix input
-                return;
-            }
-            catch (InvalidOperationException ex)
-            {
-                // TODO: More comprehensive conflict handling
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Visible = true; // Allow user to fix input
-                return;
-            }
-            #endregion
-
-            DialogResult = DialogResult.OK;
-            Close();
         }
 
         private void buttonHelpCommandAccessPoint_Click(object sender, EventArgs e)

@@ -126,7 +126,6 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.None;
             resources.ApplyResources(this.buttonOK, "buttonOK");
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
