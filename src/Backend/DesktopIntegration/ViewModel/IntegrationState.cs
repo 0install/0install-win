@@ -20,18 +20,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using NanoByte.Common.Collections;
-using NanoByte.Common.Dispatch;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.ViewModel
 {
     /// <summary>
-    /// A View-Model for modifying the current desktop integration state.
+    /// A View-Model for modifying desktop integration. Provides data-binding lists and applies modifications in bulk.
     /// </summary>
     public partial class IntegrationState
     {
-        #region Dependencies
         /// <summary>
         /// The integration manager used to apply selected integration options.
         /// </summary>
@@ -66,8 +63,10 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
             Feed = feed;
 
             CapabilitiyRegistration = (AppEntry.AccessPoints == null) || AppEntry.AccessPoints.Entries.OfType<AccessPoints.CapabilityRegistration>().Any();
+
+            LoadCommandAccessPoints();
+            LoadDefaultAccessPoints();
         }
-        #endregion
 
         /// <summary>
         /// Applies any changes made to the View-Model to the underlying system.
@@ -88,38 +87,6 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
 
             if (toRemove.Any()) _integrationManager.RemoveAccessPoints(AppEntry, toRemove);
             if (toAdd.Any()) _integrationManager.AddAccessPoints(AppEntry, Feed, toAdd);
-        }
-
-        private void CollectCommandAccessPointChanges(ICollection<AccessPoints.AccessPoint> toAdd, ICollection<AccessPoints.AccessPoint> toRemove)
-        {
-            // Build lists with current integration state
-            var currentMenuEntries = new List<AccessPoints.MenuEntry>();
-            var currentDesktopIcons = new List<AccessPoints.DesktopIcon>();
-            var currentAliases = new List<AccessPoints.AppAlias>();
-            if (AppEntry.AccessPoints != null)
-            {
-                new PerTypeDispatcher<AccessPoints.AccessPoint>(true)
-                {
-                    (Action<AccessPoints.MenuEntry>)currentMenuEntries.Add,
-                    (Action<AccessPoints.DesktopIcon>)currentDesktopIcons.Add,
-                    (Action<AccessPoints.AppAlias>)currentAliases.Add
-                }.Dispatch(AppEntry.AccessPoints.Entries);
-            }
-
-            // Determine differences between current and desired state
-            Merge.TwoWay(theirs: MenuEntries, mine: currentMenuEntries, added: toAdd.Add, removed: toRemove.Add);
-            Merge.TwoWay(theirs: DesktopIcons, mine: currentDesktopIcons, added: toAdd.Add, removed: toRemove.Add);
-            Merge.TwoWay(theirs: Aliases, mine: currentAliases, added: toAdd.Add, removed: toRemove.Add);
-        }
-
-        private void CollectDefaultAccessPointChanges(ICollection<AccessPoints.AccessPoint> toAdd, ICollection<AccessPoints.AccessPoint> toRemove)
-        {
-            foreach (var model in _capabilityModels.Where(model => model.Changed))
-            {
-                var accessPoint = model.Capability.ToAcessPoint();
-                if (model.Use) toAdd.Add(accessPoint);
-                else toRemove.Add(accessPoint);
-            }
         }
     }
 }

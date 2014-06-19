@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Globalization;
 using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.ViewModel
@@ -29,7 +30,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         /// <summary>
         /// The name of the stored <see cref="ContextMenu.Verb"/>.
         /// </summary>
-        public string Name { get { return _contextMenu.Verb.Name; } }
+        public string Name { get { return _contextMenu.Verb.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture); } }
 
         /// <inheritdoc/>
         public ContextMenuModel(ContextMenu contextMenu, bool used) : base(contextMenu, used)

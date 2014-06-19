@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using NanoByte.Common.Collections;
@@ -33,7 +34,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         /// <summary>
         /// Reads the <see cref="CommandAccessPoint"/>s from <see cref="DesktopIntegration.AppEntry.AccessPoints"/> or uses suggestion methods to fill in defaults.
         /// </summary>
-        public void LoadCommandAccessPoints()
+        private void LoadCommandAccessPoints()
         {
             if (AppEntry.AccessPoints == null)
             { // Fill in default values for first integration
@@ -52,52 +53,39 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
             }
         }
 
-        /// <summary>
-        /// Reads the <see cref="Store.Model.Capabilities.DefaultCapability"/>s from <see cref="Store.Model.Feed.CapabilityLists"/> and creates a coressponding model for turning <see cref="DefaultAccessPoint"/> on and off.
-        /// </summary>
-        public void LoadDefaultAccessPoints()
+        private void CollectCommandAccessPointChanges(ICollection<AccessPoint> toAdd, ICollection<AccessPoint> toRemove)
         {
-            foreach (var capabilityList in AppEntry.CapabilityLists.Where(x => x.Architecture.IsCompatible()))
+            // Build lists with current integration state
+            var currentMenuEntries = new List<MenuEntry>();
+            var currentDesktopIcons = new List<DesktopIcon>();
+            var currentAliases = new List<AppAlias>();
+            if (AppEntry.AccessPoints != null)
             {
-                var dispatcher = new PerTypeDispatcher<Store.Model.Capabilities.Capability>(true)
+                new PerTypeDispatcher<AccessPoint>(true)
                 {
-                    (Store.Model.Capabilities.FileType fileType) =>
-                    {
-                        var model = new FileTypeModel(fileType, IsCapabillityUsed<FileType>(fileType));
-                        FileTypes.Add(model);
-                        _capabilityModels.Add(model);
-                    },
-                    (Store.Model.Capabilities.UrlProtocol urlProtocol) =>
-                    {
-                        var model = new UrlProtocolModel(urlProtocol, IsCapabillityUsed<UrlProtocol>(urlProtocol));
-                        UrlProtocols.Add(model);
-                        _capabilityModels.Add(model);
-                    },
-                    (Store.Model.Capabilities.AutoPlay autoPlay) =>
-                    {
-                        var model = new AutoPlayModel(autoPlay, IsCapabillityUsed<AutoPlay>(autoPlay));
-                        AutoPlay.Add(model);
-                        _capabilityModels.Add(model);
-                    },
-                    (Store.Model.Capabilities.ContextMenu contextMenu) =>
-                    {
-                        var model = new ContextMenuModel(contextMenu, IsCapabillityUsed<ContextMenu>(contextMenu));
-                        ContextMenu.Add(model);
-                        _capabilityModels.Add(model);
-                    }
-                };
-                if (_integrationManager.MachineWide)
-                {
-                    dispatcher.Add((Store.Model.Capabilities.DefaultProgram defaultProgram) =>
-                    {
-                        var model = new DefaultProgramModel(defaultProgram, IsCapabillityUsed<DefaultProgram>(defaultProgram));
-                        DefaultProgram.Add(model);
-                        _capabilityModels.Add(model);
-                    });
-                }
-
-                dispatcher.Dispatch(capabilityList.Entries);
+                    (Action<MenuEntry>)currentMenuEntries.Add,
+                    (Action<DesktopIcon>)currentDesktopIcons.Add,
+                    (Action<AppAlias>)currentAliases.Add
+                }.Dispatch(AppEntry.AccessPoints.Entries);
             }
+
+            // Handle WinForms DataGrid bug creating phantom entries
+            PurgeEmpty(MenuEntries);
+            PurgeEmpty(DesktopIcons);
+            PurgeEmpty(Aliases);
+
+            // Determine differences between current and desired state
+            Merge.TwoWay(theirs: MenuEntries, mine: currentMenuEntries, added: toAdd.Add, removed: toRemove.Add);
+            Merge.TwoWay(theirs: DesktopIcons, mine: currentDesktopIcons, added: toAdd.Add, removed: toRemove.Add);
+            Merge.TwoWay(theirs: Aliases, mine: currentAliases, added: toAdd.Add, removed: toRemove.Add);
+        }
+
+        private static void PurgeEmpty<T>(ICollection<T> list)
+            where T : IEquatable<T>, new()
+        {
+            var emptyReference = new T();
+            foreach (var entry in list.Where(x => x.Equals(emptyReference)).ToList())
+                list.Remove(entry);
         }
     }
 }

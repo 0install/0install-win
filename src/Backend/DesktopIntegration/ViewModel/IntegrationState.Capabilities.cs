@@ -18,6 +18,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using NanoByte.Common.Dispatch;
 using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.ViewModel
@@ -41,6 +42,54 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         private readonly List<CapabilityModel> _capabilityModels = new List<CapabilityModel>();
 
         /// <summary>
+        /// Reads the <see cref="DefaultCapability"/>s from <see cref="Store.Model.Feed.CapabilityLists"/> and creates a coressponding model for turning <see cref="AccessPoints.DefaultAccessPoint"/> on and off.
+        /// </summary>
+        private void LoadDefaultAccessPoints()
+        {
+            foreach (var capabilityList in AppEntry.CapabilityLists.Where(x => x.Architecture.IsCompatible()))
+            {
+                var dispatcher = new PerTypeDispatcher<Capability>(true)
+                {
+                    (FileType fileType) =>
+                    {
+                        var model = new FileTypeModel(fileType, IsCapabillityUsed<AccessPoints.FileType>(fileType));
+                        FileTypes.Add(model);
+                        _capabilityModels.Add(model);
+                    },
+                    (UrlProtocol urlProtocol) =>
+                    {
+                        var model = new UrlProtocolModel(urlProtocol, IsCapabillityUsed<AccessPoints.UrlProtocol>(urlProtocol));
+                        UrlProtocols.Add(model);
+                        _capabilityModels.Add(model);
+                    },
+                    (AutoPlay autoPlay) =>
+                    {
+                        var model = new AutoPlayModel(autoPlay, IsCapabillityUsed<AccessPoints.AutoPlay>(autoPlay));
+                        AutoPlay.Add(model);
+                        _capabilityModels.Add(model);
+                    },
+                    (ContextMenu contextMenu) =>
+                    {
+                        var model = new ContextMenuModel(contextMenu, IsCapabillityUsed<AccessPoints.ContextMenu>(contextMenu));
+                        ContextMenu.Add(model);
+                        _capabilityModels.Add(model);
+                    }
+                };
+                if (_integrationManager.MachineWide)
+                {
+                    dispatcher.Add((DefaultProgram defaultProgram) =>
+                    {
+                        var model = new DefaultProgramModel(defaultProgram, IsCapabillityUsed<AccessPoints.DefaultProgram>(defaultProgram));
+                        DefaultProgram.Add(model);
+                        _capabilityModels.Add(model);
+                    });
+                }
+
+                dispatcher.Dispatch(capabilityList.Entries);
+            }
+        }
+
+        /// <summary>
         /// Checks whether a <see cref="DefaultCapability"/> is already used by the user.
         /// </summary>
         /// <typeparam name="T">The specific kind of <see cref="AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
@@ -52,6 +101,16 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
             if (AppEntry.AccessPoints == null) return false;
 
             return AppEntry.AccessPoints.Entries.OfType<T>().Any(accessPoint => accessPoint.Capability == toCheck.ID);
+        }
+
+        private void CollectDefaultAccessPointChanges(ICollection<AccessPoints.AccessPoint> toAdd, ICollection<AccessPoints.AccessPoint> toRemove)
+        {
+            foreach (var model in _capabilityModels.Where(model => model.Changed))
+            {
+                var accessPoint = model.Capability.ToAcessPoint();
+                if (model.Use) toAdd.Add(accessPoint);
+                else toRemove.Add(accessPoint);
+            }
         }
     }
 }

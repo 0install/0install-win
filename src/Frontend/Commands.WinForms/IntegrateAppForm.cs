@@ -120,7 +120,6 @@ namespace ZeroInstall.Commands.WinForms
             SetupCommandAccessPoint(checkBoxAliasesSimple, labelAliasesSimple, _state.Aliases, () => Suggest.Aliases(_state.Feed));
 
             SetupCommandComboBoxes();
-            _state.LoadCommandAccessPoints();
             ShowCommandAccessPoints();
         }
 
@@ -181,7 +180,6 @@ namespace ZeroInstall.Commands.WinForms
             // File type associations cannot be set programmatically on Windows 8, so hide the option
             _switchToBasicMode += () => { if (WindowsUtils.IsWindows8) labelFileTypesSimple.Visible = checkBoxFileTypesSimple.Visible = false; };
 
-            _state.LoadDefaultAccessPoints();
             SetDefaultAccessPoints();
         }
 
