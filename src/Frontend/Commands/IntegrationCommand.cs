@@ -111,7 +111,7 @@ namespace ZeroInstall.Commands
 
             if (Handler.AskQuestion(
                 string.Format(Resources.FeedReplacedAsk, feed.Name, interfaceID, feed.ReplacedBy.Target),
-                string.Format(Resources.FeedReplaced, interfaceID, feed.ReplacedBy.Target)))
+                batchInformation: string.Format(Resources.FeedReplaced, interfaceID, feed.ReplacedBy.Target)))
             {
                 interfaceID = feed.ReplacedBy.Target.ToString();
                 feed = FeedManager.GetFeedFresh(interfaceID);

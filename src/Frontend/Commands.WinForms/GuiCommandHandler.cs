@@ -218,7 +218,7 @@ namespace ZeroInstall.Commands.WinForms
                 if (Batch && !string.IsNullOrEmpty(batchInformation)) _form.ShowTrayIcon(batchInformation, ToolTipIcon.Warning);
                 else
                 {
-                    switch (Msg.YesNoCancel(_form, question, MsgSeverity.Info))
+                    switch (Msg.YesNoCancel(_form, question, MsgSeverity.Warn))
                     {
                         case DialogResult.Yes:
                             result = true;
@@ -226,6 +226,7 @@ namespace ZeroInstall.Commands.WinForms
                         case DialogResult.No:
                             result = false;
                             break;
+                        case DialogResult.Cancel:
                         default:
                             throw new OperationCanceledException();
                     }

@@ -118,12 +118,16 @@ namespace ZeroInstall.Commands
                     #region Error handling
                 catch (InvalidOperationException ex)
                 {
-                    if (Handler.AskQuestion(Resources.IntegrateAppInvalidRetry + "\n" + ex.Message, batchInformation: ex.Message))
+                    if (Handler.AskQuestion(
+                        Resources.IntegrateAppInvalidRetry + Environment.NewLine + ex.Message,
+                        batchInformation: ex.Message))
                         goto Retry;
                 }
                 catch (InvalidDataException ex)
                 {
-                    if (Handler.AskQuestion(Resources.IntegrateAppInvalidRetry + "\n" + ex.Message, batchInformation: ex.Message))
+                    if (Handler.AskQuestion(
+                        Resources.IntegrateAppInvalidRetry + Environment.NewLine + ex.Message,
+                        batchInformation: ex.Message))
                         goto Retry;
                 }
                 #endregion
@@ -204,7 +208,9 @@ namespace ZeroInstall.Commands
             if (!appEntry.CapabilityLists.UnsequencedEquals(feed.CapabilityLists))
             {
                 string changedMessage = string.Format(Resources.CapabilitiesChanged, appEntry.Name);
-                if (Handler.AskQuestion(changedMessage + " " + Resources.AskUpdateCapabilities, changedMessage))
+                if (Handler.AskQuestion(
+                    changedMessage + " " + Resources.AskUpdateCapabilities,
+                    batchInformation: changedMessage))
                     integrationManager.UpdateApp(appEntry, feed);
             }
             return appEntry;
