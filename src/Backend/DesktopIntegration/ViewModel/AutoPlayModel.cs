@@ -31,7 +31,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         /// <summary>
         /// All <see cref="AutoPlay.Events"/> concatenated with ", ".
         /// </summary>
-        public string Events { get { return StringUtils.Join(", ", _autoPlay.Events.Select(ev => ev.Name)); } }
+        public string Events { get { return StringUtils.Join(", ", _autoPlay.Events.Select(x => x.Name)); } }
 
         /// <inheritdoc/>
         public AutoPlayModel(AutoPlay capability, bool used) : base(capability, used)

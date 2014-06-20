@@ -30,7 +30,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         /// <summary>
         /// The name of the stored <see cref="ContextMenu.Verb"/>.
         /// </summary>
-        public string Name { get { return _contextMenu.Verb.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture); } }
+        public string Name { get { return _contextMenu.Verb.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture) ?? _contextMenu.Verb.Name; } }
 
         /// <inheritdoc/>
         public ContextMenuModel(ContextMenu contextMenu, bool used) : base(contextMenu, used)
