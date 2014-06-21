@@ -51,7 +51,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             try
             {
-                _database = new Database(path);
+                _database = new Database(path, DatabaseOpenMode.ReadOnly);
                 ReadDirectories();
                 ReadFiles();
                 ReadCabinets();
@@ -65,6 +65,21 @@ namespace ZeroInstall.Store.Implementations.Archives
                 throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
             }
             #endregion
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            try
+            {
+                if (disposing)
+                {
+                    _database.Dispose();
+                }
+            }
+            finally
+            {
+                base.Dispose(disposing);
+            }
         }
         #endregion
 
@@ -85,15 +100,17 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         private void ReadDirectories()
         {
-            var directoryView = _database.OpenView("SELECT Directory, DefaultDir, Directory_Parent FROM Directory");
-            directoryView.Execute();
-            foreach (var row in directoryView)
+            using (var directoryView = _database.OpenView("SELECT Directory, DefaultDir, Directory_Parent FROM Directory"))
             {
-                _directories.Add(row["Directory"].ToString(), new MsiDirectory
+                directoryView.Execute();
+                foreach (var row in directoryView)
                 {
-                    Name = row["DefaultDir"].ToString().Split(':').Last().Split('|').Last(),
-                    ParentID = row["Directory_Parent"].ToString()
-                });
+                    _directories.Add(row["Directory"].ToString(), new MsiDirectory
+                    {
+                        Name = row["DefaultDir"].ToString().Split(':').Last().Split('|').Last(),
+                        ParentID = row["Directory_Parent"].ToString()
+                    });
+                }
             }
 
             foreach (var directory in _directories.Values)
@@ -144,16 +161,18 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         private void ReadFiles()
         {
-            var fileView = _database.OpenView("SELECT File, FileName, FileSize, Directory_ FROM File, Component WHERE Component_ = Component");
-            fileView.Execute();
-            foreach (var row in fileView)
+            using (var fileView = _database.OpenView("SELECT File, FileName, FileSize, Directory_ FROM File, Component WHERE Component_ = Component"))
             {
-                _files.Add(row["File"].ToString(), new MsiFile
+                fileView.Execute();
+                foreach (var row in fileView)
                 {
-                    Name = row["FileName"].ToString().Split(':').Last().Split('|').Last(),
-                    Size = (int)row["FileSize"],
-                    DirectoryId = row["Directory_"].ToString()
-                });
+                    _files.Add(row["File"].ToString(), new MsiFile
+                    {
+                        Name = row["FileName"].ToString().Split(':').Last().Split('|').Last(),
+                        Size = (int)row["FileSize"],
+                        DirectoryId = row["Directory_"].ToString()
+                    });
+                }
             }
 
             foreach (var file in _files.Values)
@@ -164,18 +183,6 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             file.FullPath = _directories[file.DirectoryId].FullPath + "/" + file.Name;
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            try
-            {
-                if (disposing) _database.Close();
-            }
-            finally
-            {
-                base.Dispose(disposing);
-            }
-        }
         #endregion
 
         #region Cabinets
@@ -183,13 +190,15 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         private void ReadCabinets()
         {
-            var mediaView = _database.OpenView("SELECT Cabinet FROM Media");
-            mediaView.Execute();
-            _cabinets = mediaView
-                .Select(row => row["Cabinet"].ToString())
-                .Where(name => name.StartsWith("#"))
-                .Select(name => name.Substring(1))
-                .ToList();
+            using (var mediaView = _database.OpenView("SELECT Cabinet FROM Media"))
+            {
+                mediaView.Execute();
+                _cabinets = mediaView
+                    .Select(row => row["Cabinet"].ToString())
+                    .Where(name => name.StartsWith("#"))
+                    .Select(name => name.Substring(1))
+                    .ToList();
+            }
         }
         #endregion
 
@@ -203,14 +212,17 @@ namespace ZeroInstall.Store.Implementations.Archives
                 // ReSharper disable once LoopCanBePartlyConvertedToQuery
                 foreach (string cabinet in _cabinets)
                 {
-                    var streamsView = _database.OpenView("SELECT Data FROM _Streams WHERE Name = '{0}'", cabinet);
-                    streamsView.Execute();
+                    using (var streamsView = _database.OpenView("SELECT Data FROM _Streams WHERE Name = '{0}'", cabinet))
+                    {
+                        streamsView.Execute();
+                        using (var record = streamsView.Fetch())
+                        {
+                            if (record == null) throw new IOException(Resources.ArchiveInvalid + "\n" + string.Format("Cabinet stream '{0}' missing", cabinet));
 
-                    var record = streamsView.Fetch();
-                    if (record == null) throw new IOException(Resources.ArchiveInvalid + "\n" + string.Format("Cabinet stream '{0}' missing", cabinet));
-
-                    using (var stream = record.GetStream("Data"))
-                        ExtractCab(stream);
+                            using (var stream = record.GetStream("Data"))
+                                ExtractCab(stream);
+                        }
+                    }
                 }
             }
                 #region Error handling

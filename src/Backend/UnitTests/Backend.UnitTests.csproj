@@ -97,6 +97,7 @@
     <Compile Include="Store\Icons\DiskIconCacheTest.cs" />
     <Compile Include="Store\Implementations\Archives\CabExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\ExtractorTest.cs" />
+    <Compile Include="Store\Implementations\Archives\MsiExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\SevenZipExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\TarExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\TestData.cs" />
@@ -151,6 +152,7 @@
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.7z" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.cab" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.gem" />
+    <EmbeddedResource Include="Store\Implementations\Archives\testArchive.msi" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchiveHardlink.tar" />
     <EmbeddedResource Include="Store\Implementations\Archives\testArchive.tar.bz2" />
