@@ -34,9 +34,17 @@ namespace ZeroInstall.Store.Model.Capabilities
         [XmlEnum("files")]
         Files,
 
+        /// <summary>The context menu entry is displayed for executable files.</summary>
+        [XmlEnum("executable-files")]
+        ExecutableFiles,
+
         /// <summary>The context menu entry is displayed for all directories.</summary>
         [XmlEnum("directories")]
         Directories,
+
+        /// <summary>The context menu entry is displayed for all filesystem objects (files and directories).</summary>
+        [XmlEnum("all")]
+        All
     }
     #endregion
 

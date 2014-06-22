@@ -43,9 +43,9 @@ namespace ZeroInstall.Capture
             if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
-            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesFilesPrefix))
+            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesPrefixFiles))
             {
-                foreach (string entry in snapshotDiff.FilesContextMenuSimple)
+                foreach (string entry in snapshotDiff.ContextMenuFiles)
                 {
                     capabilities.Entries.Add(new ContextMenu
                     {
@@ -56,9 +56,35 @@ namespace ZeroInstall.Capture
                 }
             }
 
-            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesDirectoriesPrefix))
+            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesPrefixExecutableFiles[0]))
             {
-                foreach (string entry in snapshotDiff.DirectoriesContextMenuSimple)
+                foreach (string entry in snapshotDiff.ContextMenuExecutableFiles)
+                {
+                    capabilities.Entries.Add(new ContextMenu
+                    {
+                        ID = "executable-files-" + entry,
+                        Target = ContextMenuTarget.ExecutableFiles,
+                        Verb = GetVerb(progIDKey, commandMapper, entry)
+                    });
+                }
+            }
+
+            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesPrefixDirectories))
+            {
+                foreach (string entry in snapshotDiff.ContextMenuDirectories)
+                {
+                    capabilities.Entries.Add(new ContextMenu
+                    {
+                        ID = "directories-" + entry,
+                        Target = ContextMenuTarget.Directories,
+                        Verb = GetVerb(progIDKey, commandMapper, entry)
+                    });
+                }
+            }
+
+            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesPrefixAll))
+            {
+                foreach (string entry in snapshotDiff.ContextMenuAll)
                 {
                     capabilities.Entries.Add(new ContextMenu
                     {
@@ -68,8 +94,6 @@ namespace ZeroInstall.Capture
                     });
                 }
             }
-
-            // TODO: Collect from snapshotDiff.AllContextMenuExtended and snapshotDiff.FilesContextMenuExtended
         }
     }
 }

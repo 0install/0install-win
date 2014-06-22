@@ -60,23 +60,17 @@ namespace ZeroInstall.Capture
         /// <summary>A list of applications registered as candidates for default programs.</summary>
         public string[] RegisteredApplications;
 
-        /// <summary>A list of simple context menu entries for all file types.</summary>
-        public string[] FilesContextMenuSimple;
+        /// <summary>A list of context menu entries for all files.</summary>
+        public string[] ContextMenuFiles;
 
-        /// <summary>A list of extended (COM-based) context menu entries for all file types.</summary>
-        public string[] FilesContextMenuExtended;
+        /// <summary>A list of context menu entries for executable files.</summary>
+        public string[] ContextMenuExecutableFiles;
 
-        /// <summary>A list of (COM-based) property sheets for all file types.</summary>
-        public string[] FilesPropertySheets;
+        /// <summary>A list of context menu entries for all directories.</summary>
+        public string[] ContextMenuDirectories;
 
-        /// <summary>A list of simple context menu entries for all directories.</summary>
-        public string[] DirectoriesContextMenuSimple;
-
-        /// <summary>A list of extended (COM-based) context menu entries for all directories.</summary>
-        public string[] DirectoriesContextMenuExtended;
-
-        /// <summary>A list of (COM-based) property sheets for all directories.</summary>
-        public string[] DirectoriesPropertySheets;
+        /// <summary>A list of context menu entries for all filesystem objects (files and directories).</summary>
+        public string[] ContextMenuAll;
 
         /// <summary>A list of program installation directories.</summary>
         public string[] ProgramsDirs;
@@ -136,13 +130,10 @@ namespace ZeroInstall.Capture
             snapshot.ClassIDs = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ComServer.RegKeyClassesIDs);
             snapshot.RegisteredApplications = RegUtils.GetValueNames(Registry.LocalMachine, AppRegistration.RegKeyMachineRegisteredApplications);
 
-            snapshot.FilesContextMenuSimple = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + "\\" + ContextMenu.RegKeyContextMenuSimplePostfix);
-            snapshot.FilesContextMenuExtended = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + "\\" + ContextMenu.RegKeyContextMenuExtendedPostfix);
-            snapshot.FilesPropertySheets = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFilesPrefix + "\\" + ContextMenu.RegKeyPropertySheetsPostfix);
-
-            snapshot.DirectoriesContextMenuSimple = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesDirectoriesPrefix + "\\" + ContextMenu.RegKeyContextMenuSimplePostfix);
-            snapshot.DirectoriesContextMenuExtended = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesDirectoriesPrefix + "\\" + ContextMenu.RegKeyContextMenuExtendedPostfix);
-            snapshot.DirectoriesPropertySheets = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesDirectoriesPrefix + "\\" + ContextMenu.RegKeyPropertySheetsPostfix);
+            snapshot.ContextMenuFiles = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesPrefixFiles + "\\" + ContextMenu.RegKeyPostfix);
+            snapshot.ContextMenuExecutableFiles = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesPrefixExecutableFiles+ "\\" + ContextMenu.RegKeyPostfix);
+            snapshot.ContextMenuDirectories = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesPrefixDirectories + "\\" + ContextMenu.RegKeyPostfix);
+            snapshot.ContextMenuAll = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesPrefixAll + "\\" + ContextMenu.RegKeyPostfix);
         }
 
         /// <summary>
@@ -285,12 +276,8 @@ namespace ZeroInstall.Capture
                 ProgIDs = newSnapshot.ProgIDs.GetAddedElements(oldSnapshot.ProgIDs, StringComparer.OrdinalIgnoreCase),
                 ClassIDs = newSnapshot.ClassIDs.GetAddedElements(oldSnapshot.ClassIDs, StringComparer.OrdinalIgnoreCase),
                 RegisteredApplications = newSnapshot.RegisteredApplications.GetAddedElements(oldSnapshot.RegisteredApplications),
-                FilesContextMenuSimple = newSnapshot.FilesContextMenuSimple.GetAddedElements(oldSnapshot.FilesContextMenuSimple),
-                FilesContextMenuExtended = newSnapshot.FilesContextMenuExtended.GetAddedElements(oldSnapshot.FilesContextMenuExtended),
-                FilesPropertySheets = newSnapshot.FilesPropertySheets.GetAddedElements(oldSnapshot.FilesPropertySheets),
-                DirectoriesContextMenuSimple = newSnapshot.DirectoriesContextMenuSimple.GetAddedElements(oldSnapshot.DirectoriesContextMenuSimple),
-                DirectoriesContextMenuExtended = newSnapshot.DirectoriesContextMenuExtended.GetAddedElements(oldSnapshot.DirectoriesContextMenuExtended),
-                DirectoriesPropertySheets = newSnapshot.DirectoriesPropertySheets.GetAddedElements(oldSnapshot.DirectoriesPropertySheets),
+                ContextMenuFiles = newSnapshot.ContextMenuFiles.GetAddedElements(oldSnapshot.ContextMenuFiles),
+                ContextMenuDirectories = newSnapshot.ContextMenuDirectories.GetAddedElements(oldSnapshot.ContextMenuDirectories),
                 ProgramsDirs = newSnapshot.ProgramsDirs.GetAddedElements(oldSnapshot.ProgramsDirs, StringComparer.OrdinalIgnoreCase)
             };
         }

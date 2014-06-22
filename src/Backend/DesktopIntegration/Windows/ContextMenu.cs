@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -31,29 +32,36 @@ namespace ZeroInstall.DesktopIntegration.Windows
     {
         #region Constants
         /// <summary>The HKCU registry key prefix for registering things for all files.</summary>
-        public const string RegKeyClassesFilesPrefix = "*";
+        public const string RegKeyClassesPrefixFiles = "*";
+
+        /// <summary>The HKCU registry key prefixes for registering things for different kinds of executable files.</summary>
+        public static readonly string[] RegKeyClassesPrefixExecutableFiles = {"exefile", "batfile", "cmdfile"};
 
         /// <summary>The HKCU registry key prefix for registering things for all directories.</summary>
-        public const string RegKeyClassesDirectoriesPrefix = "Directory";
+        public const string RegKeyClassesPrefixDirectories = "Directory";
+
+        /// <summary>The HKCU registry key prefix for registering things for all filesystem objects (files and directories).</summary>
+        public const string RegKeyClassesPrefixAll = "AllFilesystemObjects";
 
         /// <summary>The registry key postfix for registering simple context menu entries.</summary>
-        public const string RegKeyContextMenuSimplePostfix = @"shell";
+        public const string RegKeyPostfix = @"shell";
 
-        /// <summary>The registry key postfix for registering extended (COM-based) context menu entries.</summary>
-        public const string RegKeyContextMenuExtendedPostfix = @"shellex\ContextMenuHandlers";
-
-        /// <summary>The registry key postfix for registering (COM-based) property sheets.</summary>
-        public const string RegKeyPropertySheetsPostfix = @"shellex\PropertySheetHandlers";
-
-        private static string GetPrefix(Store.Model.Capabilities.ContextMenuTarget target)
+        /// <summary>
+        /// Gets the registry prefixes relevant for the specified context menu <paramref name="target"/>.
+        /// </summary>
+        private static IEnumerable<string> GetPrefixes(Store.Model.Capabilities.ContextMenuTarget target)
         {
             switch (target)
             {
                 case Store.Model.Capabilities.ContextMenuTarget.Files:
-                    return RegKeyClassesFilesPrefix;
-                case Store.Model.Capabilities.ContextMenuTarget.Directories:
                 default:
-                    return RegKeyClassesDirectoriesPrefix;
+                    return new[] {RegKeyClassesPrefixFiles};
+                case Store.Model.Capabilities.ContextMenuTarget.ExecutableFiles:
+                    return RegKeyClassesPrefixExecutableFiles;
+                case Store.Model.Capabilities.ContextMenuTarget.Directories:
+                    return new[] {RegKeyClassesPrefixDirectories};
+                case Store.Model.Capabilities.ContextMenuTarget.All:
+                    return new[] {RegKeyClassesPrefixAll};
             }
         }
         #endregion
@@ -82,14 +90,17 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(contextMenu.Verb.Name)) throw new InvalidDataException("Missing verb name");
 
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
-            using (var verbKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + GetPrefix(contextMenu.Target) + @"\shell\" + contextMenu.Verb.Name))
+            foreach (string prefix in GetPrefixes(contextMenu.Target))
             {
-                string description = contextMenu.Verb.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture);
-                if (description != null) verbKey.SetValue("", description);
-                if (contextMenu.Verb.Extended) verbKey.SetValue(FileType.RegValueExtended, "");
+                using (var verbKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + prefix + @"\shell\" + contextMenu.Verb.Name))
+                {
+                    string description = contextMenu.Verb.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture);
+                    if (description != null) verbKey.SetValue("", description);
+                    if (contextMenu.Verb.Extended) verbKey.SetValue(FileType.RegValueExtended, "");
 
-                using (var commandKey = verbKey.CreateSubKey("command"))
-                    commandKey.SetValue("", FileType.GetLaunchCommandLine(target, contextMenu.Verb, machineWide, handler));
+                    using (var commandKey = verbKey.CreateSubKey("command"))
+                        commandKey.SetValue("", FileType.GetLaunchCommandLine(target, contextMenu.Verb, machineWide, handler));
+                }
             }
         }
         #endregion
@@ -115,7 +126,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
             try
             {
-                hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + GetPrefix(contextMenu.Target) + @"\shell\" + contextMenu.Verb.Name);
+                foreach (string prefix in GetPrefixes(contextMenu.Target))
+                    hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + prefix + @"\shell\" + contextMenu.Verb.Name);
             }
             catch (ArgumentException)
             {} // Ignore missing registry keys

@@ -419,10 +419,24 @@
           </xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
+      <xsd:enumeration value="executable-files">
+        <xsd:annotation>
+          <xsd:documentation>
+            The context menu entry is displayed for executable files.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
       <xsd:enumeration value="directories">
         <xsd:annotation>
           <xsd:documentation>
             The context menu entry is displayed for all directories.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="all">
+        <xsd:annotation>
+          <xsd:documentation>
+            The context menu entry is displayed for all filesystem objects (files and directories).
           </xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
