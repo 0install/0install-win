@@ -71,7 +71,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             #endregion
 
             stream.Close();
-            File.SetLastWriteTimeUtc(CombinePath(GetRelativePath(path)), lastWriteTime);
+            File.SetLastWriteTimeUtc(CombinePath(GetRelativePath(path)), DateTime.SpecifyKind(lastWriteTime, DateTimeKind.Utc));
 
             UnitsProcessed += _bytesStaged;
         }

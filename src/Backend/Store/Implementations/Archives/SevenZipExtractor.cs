@@ -143,7 +143,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 {
                     using (var stream = OpenFileWriteStream(relativePath))
                         extractor.ExtractFile(entry.Index, stream);
-                    File.SetLastWriteTimeUtc(CombinePath(relativePath), new DateTime(entry.LastWriteTime.Ticks, DateTimeKind.Utc));
+                    File.SetLastWriteTimeUtc(CombinePath(relativePath), DateTime.SpecifyKind(entry.LastWriteTime, DateTimeKind.Utc));
 
                     UnitsProcessed += (long)entry.Size;
                 }

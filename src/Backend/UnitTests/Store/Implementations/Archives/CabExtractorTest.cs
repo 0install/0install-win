@@ -39,12 +39,12 @@ namespace ZeroInstall.Store.Implementations.Archives
 
                 string filePath = Path.Combine(sandbox, "file");
                 Assert.IsTrue(File.Exists(filePath), "Should extract file 'file'");
-                Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc(filePath), "Correct last write time should be set");
+                Assert.AreEqual(new DateTime(2000, 1, 1, 13, 0, 0), File.GetLastWriteTimeUtc(filePath), "Correct last write time should be set");
                 Assert.AreEqual("abc", File.ReadAllText(filePath));
 
                 filePath = Path.Combine(sandbox, Path.Combine("folder1", "file"));
                 Assert.IsTrue(File.Exists(filePath), "Should extract file 'dir/file'");
-                Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc(filePath), "Correct last write time should be set");
+                Assert.AreEqual(new DateTime(2000, 1, 1, 13, 0, 0), File.GetLastWriteTimeUtc(filePath), "Correct last write time should be set");
                 Assert.AreEqual("def", File.ReadAllText(filePath));
             }
         }
@@ -62,7 +62,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
                 string filePath = Path.Combine(sandbox, "file");
                 Assert.IsTrue(File.Exists(filePath), "Should extract file 'dir/file'");
-                Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc(filePath), "Correct last write time should be set");
+                Assert.AreEqual(new DateTime(2000, 1, 1, 13, 0, 0), File.GetLastWriteTimeUtc(filePath), "Correct last write time should be set");
                 Assert.AreEqual("def", File.ReadAllText(filePath));
             }
         }

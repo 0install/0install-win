@@ -270,7 +270,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             using (var fileStream = OpenFileWriteStream(relativePath, executable: executable))
                 if (fileSize != 0) StreamToFile(stream, fileStream);
 
-            File.SetLastWriteTimeUtc(CombinePath(relativePath), lastWriteTime);
+            File.SetLastWriteTimeUtc(CombinePath(relativePath), DateTime.SpecifyKind(lastWriteTime, DateTimeKind.Utc));
         }
 
         /// <summary>
