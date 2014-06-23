@@ -72,7 +72,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         /// Applies any changes made to the View-Model to the underlying system.
         /// </summary>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if one or more of the new <see cref="AccessPoints.AccessPoint"/>s would cause a conflict with the existing <see cref="AccessPoints.AccessPoint"/>s in <see cref="IIntegrationManager.AppList"/>.</exception>
+        /// <exception cref="ConflictException">Thrown if one or more of the new <see cref="AccessPoints.AccessPoint"/>s would cause a conflict with the existing <see cref="AccessPoints.AccessPoint"/>s in <see cref="IIntegrationManager.AppList"/>.</exception>
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoints.AccessPoint"/>s or <see cref="Store.Model.Capabilities.Capability"/>s is invalid.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>

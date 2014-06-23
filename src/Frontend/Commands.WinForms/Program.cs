@@ -241,6 +241,13 @@ namespace ZeroInstall.Commands.WinForms
                     ErrorBox.Show(ex.Message, errorLog);
                     return 1;
                 }
+                catch (ConflictException ex)
+                {
+                    handler.CloseProgressUI();
+                    Log.Error(ex);
+                    ErrorBox.Show(ex.Message, errorLog);
+                    return 1;
+                }
                     #endregion
 
                 finally

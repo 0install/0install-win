@@ -15,42 +15,81 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
     /// Stores information about an <see cref="AccessPoint"/> conflict.
     /// </summary>
-    public struct ConflictData
+    public struct ConflictData : IEquatable<ConflictData>
     {
-        /// <summary>
-        /// The application containing the <see cref="AccessPoint"/>.
-        /// </summary>
-        public readonly AppEntry AppEntry;
-
         /// <summary>
         /// The <see cref="AccessPoints.AccessPoint"/> causing the conflict.
         /// </summary>
         public readonly AccessPoint AccessPoint;
 
         /// <summary>
+        /// The application containing the <see cref="AccessPoint"/>.
+        /// </summary>
+        public readonly AppEntry AppEntry;
+
+        /// <summary>
         /// Creates a new conflict data element.
         /// </summary>
-        /// <param name="appEntry">The application containing the <paramref name="accessPoint"/>.</param>
         /// <param name="accessPoint">The <see cref="AccessPoints.AccessPoint"/> causing the conflict.</param>
-        public ConflictData(AppEntry appEntry, AccessPoint accessPoint)
+        /// <param name="appEntry">The application containing the <paramref name="accessPoint"/>.</param>
+        public ConflictData(AccessPoint accessPoint, AppEntry appEntry)
         {
             AppEntry = appEntry;
             AccessPoint = accessPoint;
         }
 
         /// <summary>
-        /// Returns the entry in the form "AppEntry, AccessPoint". Not safe for parsing!
+        /// Returns the entry in the form "AccessPoint in AppEntry". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0}, {1}", AppEntry, AccessPoint);
+            return string.Format("{0} in {1}", AccessPoint, AppEntry);
         }
+
+        #region Equality
+        /// <inheritdoc/>
+        public bool Equals(ConflictData other)
+        {
+            if (AppEntry == null || other.AppEntry == null || AccessPoint == null) return false;
+
+            return
+                AccessPoint.Equals(other.AccessPoint) &&
+                ModelUtils.IDEquals(AppEntry.InterfaceID, other.AppEntry.InterfaceID);
+        }
+
+        /// <inheritdoc/>
+        public static bool operator ==(ConflictData left, ConflictData right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <inheritdoc/>
+        public static bool operator !=(ConflictData left, ConflictData right)
+        {
+            return !left.Equals(right);
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is ConflictData && Equals((ConflictData)obj);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return (AccessPoint == null) ? 0 : AccessPoint.GetHashCode();
+        }
+        #endregion
     }
 }

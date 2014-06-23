@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration
@@ -271,7 +270,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="accessPoints">The access points to apply.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="Store.Model.Capabilities.Capability"/> is invalid.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="accessPoints"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="IIntegrationManager.AppList"/>.</exception>
+        /// <exception cref="ConflictException">Thrown if one or more of the <paramref name="accessPoints"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="IIntegrationManager.AppList"/>.</exception>
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Store.Model.Capabilities.Capability"/>s is invalid.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
@@ -295,7 +294,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="appEntry">The application entry to repair.</param>
         /// <param name="feed">The feed providing additional metadata, capabilities, etc. for the application.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if <paramref name="appEntry"/> conflicts with the rest of the <see cref="AppList"/>.</exception>
+        /// <exception cref="ConflictException">Thrown if <paramref name="appEntry"/> conflicts with the rest of the <see cref="AppList"/>.</exception>
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Store.Model.Capabilities.Capability"/>s is invalid.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
@@ -306,39 +305,6 @@ namespace ZeroInstall.DesktopIntegration
         /// To be called after integration operations have been completed to inform the desktop environment and save the <see cref="DesktopIntegration.AppList"/>.
         /// </summary>
         protected abstract void Finish();
-        #endregion
-
-        #region Helpers
-        /// <summary>
-        /// Checks new <see cref="AccessPoint"/>s for conflicts with existing ones.
-        /// </summary>
-        /// <param name="appEntry">The <see cref="AppEntry"/> the <paramref name="accessPoints"/> will be added to.</param>
-        /// <param name="accessPoints">The access point to check for conflicts.</param>
-        /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="Store.Model.Capabilities.Capability"/> is invalid.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="accessPoints"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
-        protected void CheckForConflicts(AppEntry appEntry, IEnumerable<AccessPoint> accessPoints)
-        {
-            #region Sanity checks
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
-            #endregion
-
-            var conflictIDs = AppList.GetConflictIDs();
-            foreach (var accessPoint in accessPoints)
-            {
-                // Check for conflicts with existing access points
-                foreach (string conflictID in accessPoint.GetConflictIDs(appEntry))
-                {
-                    ConflictData conflictData;
-                    if (conflictIDs.TryGetValue(conflictID, out conflictData))
-                    {
-                        // Ignore conflicts that are actually just re-applications of existing access points
-                        if (!ModelUtils.IDEquals(appEntry.InterfaceID, conflictData.AppEntry.InterfaceID) || !accessPoint.Equals(conflictData.AccessPoint))
-                            throw new InvalidOperationException(string.Format(Resources.AccessPointConflict, conflictData.AccessPoint, conflictData.AppEntry, accessPoint, appEntry));
-                    }
-                }
-            }
-        }
         #endregion
     }
 }

@@ -231,6 +231,13 @@ namespace ZeroInstall.Commands.Gtk
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return 1;
                 }
+                catch (ConflictException ex)
+                {
+                    handler.CloseProgressUI();
+                    Log.Error(ex);
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    return 1;
+                }
                     #endregion
 
                 finally

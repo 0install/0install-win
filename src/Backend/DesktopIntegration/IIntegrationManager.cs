@@ -94,7 +94,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
         /// <param name="accessPoints">The access points to apply.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if one or more of the <paramref name="accessPoints"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="IIntegrationManager.AppList"/>.</exception>
+        /// <exception cref="ConflictException">Thrown if one or more of the <paramref name="accessPoints"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="IIntegrationManager.AppList"/>.</exception>
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Store.Model.Capabilities.Capability"/>s is invalid.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
@@ -116,7 +116,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the <see cref="IIntegrationManager.AppList"/> has inner conflicts.</exception>
+        /// <exception cref="ConflictException">Thrown if the <see cref="IIntegrationManager.AppList"/> has inner conflicts.</exception>
         /// <exception cref="InvalidDataException">Thrown if one of the <see cref="AccessPoint"/>s or <see cref="Store.Model.Capabilities.Capability"/>s is invalid.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>

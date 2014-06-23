@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -26,7 +25,6 @@ using ICSharpCode.SharpZipLib.Zip;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Utils;
-using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Store.Model;
 
@@ -126,28 +124,6 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             return Entries.FirstOrDefault(entry => ModelUtils.IDEquals(entry.InterfaceID, interfaceID));
-        }
-        #endregion
-
-        #region Conflict IDs
-        /// <summary>
-        /// Returns a list of all conflict IDs and the <see cref="AccessPoint"/>s belong to.
-        /// </summary>
-        /// <seealso cref="AccessPoint.GetConflictIDs"/>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs some potentially slow computations")]
-        public IDictionary<string, ConflictData> GetConflictIDs()
-        {
-            var conflictIDs = new Dictionary<string, ConflictData>();
-            foreach (var appEntry in Entries)
-            {
-                if (appEntry.AccessPoints == null) continue;
-                foreach (var accessPoint in appEntry.AccessPoints.Entries)
-                {
-                    foreach (string conflictID in accessPoint.GetConflictIDs(appEntry).Except(conflictIDs.ContainsKey))
-                        conflictIDs.Add(conflictID, new ConflictData(appEntry, accessPoint));
-                }
-            }
-            return conflictIDs;
         }
         #endregion
 

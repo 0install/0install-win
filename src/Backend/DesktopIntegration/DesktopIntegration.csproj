@@ -61,6 +61,8 @@
     <Compile Include="CapabilityExtensions.cs" />
     <Compile Include="CategoryIntegrationManager.cs" />
     <Compile Include="ConflictData.cs" />
+    <Compile Include="ConflictDataUtils.cs" />
+    <Compile Include="ConflictException.cs" />
     <Compile Include="ICategoryIntegrationManager.cs" />
     <Compile Include="IIntegrationManager.cs" />
     <Compile Include="IntegrationManagerBase.cs" />

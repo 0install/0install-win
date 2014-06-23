@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="DesktopIntegration\AccessPoints\CapabilityRegistrationTest.cs" />
     <Compile Include="DesktopIntegration\AppListTest.cs" />
+    <Compile Include="DesktopIntegration\ConflictDataUtilsTest.cs" />
     <Compile Include="DesktopIntegration\IntegrationManagerTest.cs" />
     <Compile Include="DesktopIntegration\SyncIntegrationManagerTest.cs" />
     <Compile Include="MoqExtensions.cs" />

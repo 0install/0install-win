@@ -142,17 +142,7 @@ namespace ZeroInstall.Commands
 
                 // Apply the new alias
                 var alias = new AppAlias {Name = aliasName, Command = command};
-                try
-                {
-                    integrationManager.AddAccessPoints(appEntry, FeedManager.GetFeedFresh(interfaceID), new AccessPoint[] {alias});
-                }
-                    #region Error handling
-                catch (InvalidOperationException ex)
-                {
-                    // Wrap exception since only certain exception types are allowed
-                    throw new NotSupportedException(ex.Message, ex);
-                }
-                #endregion
+                integrationManager.AddAccessPoints(appEntry, FeedManager.GetFeedFresh(interfaceID), new AccessPoint[] {alias});
 
                 Handler.OutputLow(
                     Resources.DesktopIntegration,

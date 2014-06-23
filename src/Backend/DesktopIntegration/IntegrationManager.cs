@@ -252,7 +252,7 @@ namespace ZeroInstall.DesktopIntegration
             if (appEntry.AccessPoints == null) appEntry.AccessPoints = new AccessPointList();
 
             // ReSharper disable PossibleMultipleEnumeration
-            CheckForConflicts(appEntry, accessPoints);
+            AppList.CheckForConflicts(accessPoints, appEntry);
 
             accessPoints.ApplyWithRollback(
                 accessPoint => accessPoint.Apply(appEntry, feed, Handler, MachineWide),

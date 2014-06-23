@@ -116,7 +116,7 @@ namespace ZeroInstall.Commands
                     state.ApplyChanges();
                 }
                     #region Error handling
-                catch (InvalidOperationException ex)
+                catch (ConflictException ex)
                 {
                     if (Handler.AskQuestion(
                         Resources.IntegrateAppInvalidRetry + Environment.NewLine + ex.Message,
@@ -172,21 +172,11 @@ namespace ZeroInstall.Commands
             if (_removeCategories.Any())
                 integrationManager.RemoveAccessPointCategories(appEntry, _removeCategories.ToArray());
 
-            try
-            {
-                if (_addCategories.Any())
-                    integrationManager.AddAccessPointCategories(appEntry, feed, _addCategories.ToArray());
+            if (_addCategories.Any())
+                integrationManager.AddAccessPointCategories(appEntry, feed, _addCategories.ToArray());
 
-                foreach (string path in _importLists)
-                    integrationManager.AddAccessPoints(appEntry, feed, XmlStorage.LoadXml<AccessPointList>(path).Entries);
-            }
-                #region Error handling
-            catch (InvalidOperationException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new NotSupportedException(ex.Message, ex);
-            }
-            #endregion
+            foreach (string path in _importLists)
+                integrationManager.AddAccessPoints(appEntry, feed, XmlStorage.LoadXml<AccessPointList>(path).Entries);
         }
 
         /// <summary>

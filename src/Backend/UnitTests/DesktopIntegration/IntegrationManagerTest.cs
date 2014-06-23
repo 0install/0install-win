@@ -108,7 +108,7 @@ namespace ZeroInstall.DesktopIntegration
                 applyFlag2.Set = false;
 
                 var appEntry2 = _integrationManager.AddApp("http://0install.de/feeds/test/test2.xml", feed2);
-                Assert.Throws<InvalidOperationException>(() => _integrationManager.AddAccessPoints(appEntry2, feed2, accessPoints2), "Should prevent access point conflicts");
+                Assert.Throws<ConflictException>(() => _integrationManager.AddAccessPoints(appEntry2, feed2, accessPoints2), "Should prevent access point conflicts");
                 Assert.IsFalse(applyFlag2.Set, "Should prevent access point conflicts");
             }
         }

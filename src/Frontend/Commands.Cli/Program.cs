@@ -199,6 +199,11 @@ namespace ZeroInstall.Commands.Cli
                 Log.Error(ex);
                 return 1;
             }
+            catch (ConflictException ex)
+            {
+                Log.Error(ex);
+                return 1;
+            }
                 #endregion
 
             finally
