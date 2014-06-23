@@ -35,6 +35,7 @@ using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Selection;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Commands
@@ -226,7 +227,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="DigestMismatchException">Thrown if an <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         /// <exception cref="SolverException">Thrown if the <see cref="ISolver"/> was unable to solve all dependencies.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
-        /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
+        /// <exception cref="ExecutorException">Thrown if the <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
         /// <exception cref="Win32Exception">Thrown if an executable could not be launched.</exception>
         /// <exception cref="BadImageFormatException">Thrown if an executable could not be launched.</exception>
         /// <remarks>When inheriting this method is usually replaced.</remarks>

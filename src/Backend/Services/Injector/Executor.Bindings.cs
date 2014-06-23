@@ -77,7 +77,7 @@ namespace ZeroInstall.Services.Injector
         /// </summary>
         /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Implementation"/> is not cached yet.</exception>
-        /// <exception cref="CommandException">Thrown if a <see cref="Command"/> contained invalid data.</exception>
+        /// <exception cref="ExecutorException">Thrown if a <see cref="Command"/> contained invalid data.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
@@ -103,7 +103,7 @@ namespace ZeroInstall.Services.Injector
         /// <param name="startInfo">The process launch environment to apply the <see cref="Binding"/>s to.</param>
         /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Implementation"/> is not cached yet.</exception>
-        /// <exception cref="CommandException">Thrown if a <see cref="Command"/> contained invalid data.</exception>
+        /// <exception cref="ExecutorException">Thrown if a <see cref="Command"/> contained invalid data.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
@@ -127,7 +127,7 @@ namespace ZeroInstall.Services.Injector
         /// <param name="implementation">The implementation to be made available via the <see cref="Binding"/>s.</param>
         /// <param name="startInfo">The process launch environment to apply the <see cref="Binding"/>s to.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
-        /// <exception cref="CommandException">Thrown if a <see cref="Command"/> contained invalid data.</exception>
+        /// <exception cref="ExecutorException">Thrown if a <see cref="Command"/> contained invalid data.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
@@ -155,17 +155,17 @@ namespace ZeroInstall.Services.Injector
         /// <param name="binding">The binding to apply.</param>
         /// <param name="implementation">The implementation to be made available.</param>
         /// <param name="startInfo">The process launch environment to apply the binding to.</param>
-        /// <exception cref="CommandException">Thrown if <see cref="EnvironmentBinding.Name"/> or other data is invalid.</exception>
+        /// <exception cref="ExecutorException">Thrown if <see cref="EnvironmentBinding.Name"/> or other data is invalid.</exception>
         private void ApplyEnvironmentBinding(EnvironmentBinding binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
-            if (string.IsNullOrEmpty(binding.Name)) throw new CommandException(string.Format(Resources.MissingBindingName, @"<environment>"));
+            if (string.IsNullOrEmpty(binding.Name)) throw new ExecutorException(string.Format(Resources.MissingBindingName, @"<environment>"));
 
             var environmentVariables = startInfo.EnvironmentVariables;
 
             string newValue;
             if (binding.Value != null && binding.Insert != null)
             { // Conflict
-                throw new CommandException(Resources.EnvironmentBindingValueInvalid);
+                throw new ExecutorException(Resources.EnvironmentBindingValueInvalid);
             }
             else if (binding.Value != null)
             { // Static value
@@ -218,15 +218,15 @@ namespace ZeroInstall.Services.Injector
         /// <param name="startInfo">The process launch environment to use to make the run-environment executable available.</param>
         /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Store.Model.Implementation"/>s is not cached yet.</exception>
-        /// <exception cref="CommandException">Thrown if <see cref="ExecutableInVar.Name"/> is invalid.</exception>
+        /// <exception cref="ExecutorException">Thrown if <see cref="ExecutableInVar.Name"/> is invalid.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
         private void ApplyExecutableInVar(ExecutableInVar binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
-            if (string.IsNullOrEmpty(binding.Name)) throw new CommandException(string.Format(Resources.MissingBindingName, @"<executable-in-var>"));
+            if (string.IsNullOrEmpty(binding.Name)) throw new ExecutorException(string.Format(Resources.MissingBindingName, @"<executable-in-var>"));
             if (Path.GetInvalidFileNameChars().Any(invalidChar => binding.Name.Contains(invalidChar.ToString(CultureInfo.InvariantCulture))))
-                throw new CommandException(string.Format(Resources.IllegalCharInBindingName, @"<executable-in-var>"));
+                throw new ExecutorException(string.Format(Resources.IllegalCharInBindingName, @"<executable-in-var>"));
 
             string exePath = DeployRunEnvExecutable(binding.Name);
 
@@ -245,15 +245,15 @@ namespace ZeroInstall.Services.Injector
         /// <param name="startInfo">The process launch environment to use to make the run-environment executable available.</param>
         /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Store.Model.Implementation"/>s is not cached yet.</exception>
-        /// <exception cref="CommandException">Thrown if <see cref="ExecutableInPath.Name"/> is invalid.</exception>
+        /// <exception cref="ExecutorException">Thrown if <see cref="ExecutableInPath.Name"/> is invalid.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
         private void ApplyExecutableInPath(ExecutableInPath binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
-            if (string.IsNullOrEmpty(binding.Name)) throw new CommandException(string.Format(Resources.MissingBindingName, @"<executable-in-path>"));
+            if (string.IsNullOrEmpty(binding.Name)) throw new ExecutorException(string.Format(Resources.MissingBindingName, @"<executable-in-path>"));
             if (Path.GetInvalidFileNameChars().Any(invalidChar => binding.Name.Contains(invalidChar.ToString(CultureInfo.InvariantCulture))))
-                throw new CommandException(string.Format(Resources.IllegalCharInBindingName, @"<executable-in-path>"));
+                throw new ExecutorException(string.Format(Resources.IllegalCharInBindingName, @"<executable-in-path>"));
 
             string exePath = DeployRunEnvExecutable(binding.Name);
 
@@ -386,15 +386,15 @@ namespace ZeroInstall.Services.Injector
         /// <param name="implementation">The implementation to be made available via the <see cref="WorkingDir"/> change.</param>
         /// <param name="startInfo">The process launch environment to apply the <see cref="WorkingDir"/> change to.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
-        /// <exception cref="CommandException">Thrown if the <paramref name="workingDir"/> has an invalid path or another working directory has already been set.</exception>
+        /// <exception cref="ExecutorException">Thrown if the <paramref name="workingDir"/> has an invalid path or another working directory has already been set.</exception>
         /// <remarks>This method can only be called successfully once per <see cref="BuildStartInfoWithBindings()"/>.</remarks>
         private void ApplyWorkingDir(WorkingDir workingDir, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
             string source = FileUtils.UnifySlashes(workingDir.Source) ?? "";
-            if (Path.IsPathRooted(source) || source.Contains(".." + Path.DirectorySeparatorChar)) throw new CommandException(Resources.WorkingDirInvalidPath);
+            if (Path.IsPathRooted(source) || source.Contains(".." + Path.DirectorySeparatorChar)) throw new ExecutorException(Resources.WorkingDirInvalidPath);
 
             // Only allow working directory to be changed once
-            if (!string.IsNullOrEmpty(startInfo.WorkingDirectory)) throw new CommandException(Resources.Working);
+            if (!string.IsNullOrEmpty(startInfo.WorkingDirectory)) throw new ExecutorException(Resources.Working);
 
             startInfo.WorkingDirectory = Path.Combine(GetImplementationPath(implementation), source);
         }

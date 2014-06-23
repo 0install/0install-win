@@ -138,6 +138,16 @@ namespace ZeroInstall.Commands.Cli
                 Log.Error(ex.Message + "\n" + string.Format(Resources.TryHelp, "0install"));
                 return 1;
             }
+            catch (Win32Exception ex)
+            {
+                Log.Error(ex);
+                return 1;
+            }
+            catch (BadImageFormatException ex)
+            {
+                Log.Error(ex);
+                return 1;
+            }
             catch (WebException ex)
             {
                 Log.Error(ex);
@@ -184,17 +194,7 @@ namespace ZeroInstall.Commands.Cli
                 Log.Error(ex);
                 return 1;
             }
-            catch (CommandException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            catch (Win32Exception ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            catch (BadImageFormatException ex)
+            catch (ExecutorException ex)
             {
                 Log.Error(ex);
                 return 1;

@@ -37,7 +37,7 @@ namespace ZeroInstall.Services.Injector
         /// <returns>The newly created <see cref="Process"/>.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Store.Model.Implementation"/>s is not cached yet.</exception>
-        /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
+        /// <exception cref="ExecutorException">Thrown if the <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched or if a problem occurred while creating a hard link.</exception>

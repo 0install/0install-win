@@ -27,7 +27,6 @@ using NanoByte.Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -136,6 +135,16 @@ namespace ZeroInstall.Alias.Cli
                 Log.Error(ex.Message + "\n" + string.Format(Resources.TryHelp, "0alias"));
                 return 1;
             }
+            catch (Win32Exception ex)
+            {
+                Log.Error(ex);
+                return 1;
+            }
+            catch (BadImageFormatException ex)
+            {
+                Log.Error(ex);
+                return 1;
+            }
             catch (WebException ex)
             {
                 Log.Error(ex);
@@ -177,21 +186,6 @@ namespace ZeroInstall.Alias.Cli
                 return 1;
             }
             catch (SolverException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            catch (CommandException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            catch (Win32Exception ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            catch (BadImageFormatException ex)
             {
                 Log.Error(ex);
                 return 1;

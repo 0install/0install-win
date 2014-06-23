@@ -86,7 +86,7 @@ namespace ZeroInstall.Services.Injector
         /// <param name="startInfo">The process launch environment to apply additional <see cref="Binding"/> to.</param>
         /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Implementation"/> is not cached yet.</exception>
-        /// <exception cref="CommandException">Thrown if a <see cref="Command"/> contained invalid data.</exception>
+        /// <exception cref="ExecutorException">Thrown if a <see cref="Command"/> contained invalid data.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
@@ -97,7 +97,7 @@ namespace ZeroInstall.Services.Injector
             if (startInfo == null) throw new ArgumentNullException("startInfo");
             #endregion
 
-            if (string.IsNullOrEmpty(commandName)) throw new CommandException(string.Format(Resources.CommandNotSpecified, implementation.InterfaceID));
+            if (string.IsNullOrEmpty(commandName)) throw new ExecutorException(string.Format(Resources.CommandNotSpecified, implementation.InterfaceID));
             Command command = implementation[commandName];
 
             // Apply bindings implementations use to find themselves and their dependencies
@@ -196,7 +196,7 @@ namespace ZeroInstall.Services.Injector
         /// <param name="commandLine">The command-line to split.</param>
         private static CommandLineSplit SplitCommandLine(IList<string> commandLine)
         {
-            if (commandLine.Count == 0) throw new CommandException(Resources.CommandLineEmpty);
+            if (commandLine.Count == 0) throw new ExecutorException(Resources.CommandLineEmpty);
 
             // Split into file name...
             string fileName = commandLine[0];

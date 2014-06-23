@@ -17,38 +17,38 @@
 
 using System;
 using System.Runtime.Serialization;
-using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Services.Injector
 {
     /// <summary>
-    /// Indicates <see cref="IExecutor"/> had a problem locating or processing a <see cref="Command"/>.
+    /// Indicates the <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.
     /// </summary>
     [Serializable]
-    public sealed class CommandException : Exception
+    public sealed class ExecutorException : Exception
     {
         /// <summary>
         /// Creates a new missing main exception.
         /// </summary>
-        public CommandException()
+        public ExecutorException()
         {}
 
         /// <summary>
         /// Creates a new missing main exception.
         /// </summary>
-        public CommandException(string message) : base(message)
+        public ExecutorException(string message) : base(message)
         {}
 
         /// <summary>
         /// Creates a new missing main exception.
         /// </summary>
-        public CommandException(string message, Exception innerException) : base(message, innerException)
+        public ExecutorException(string message, Exception innerException) : base(message, innerException)
         {}
 
         /// <summary>
         /// Deserializes an exception.
         /// </summary>
-        private CommandException(SerializationInfo info, StreamingContext context) : base(info, context)
+        private ExecutorException(SerializationInfo info, StreamingContext context) : base(info, context)
         {}
     }
 }

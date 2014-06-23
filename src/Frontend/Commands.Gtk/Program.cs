@@ -224,7 +224,7 @@ namespace ZeroInstall.Commands.Gtk
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return 1;
                 }
-                catch (CommandException ex)
+                catch (ExecutorException ex)
                 {
                     handler.CloseProgressUI();
                     Log.Error(ex);

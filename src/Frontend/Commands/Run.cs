@@ -30,6 +30,7 @@ using ZeroInstall.Services.Injector;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Commands
 {
@@ -138,7 +139,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <returns>The exit code of the process or 0 if waiting is disabled.</returns>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Implementation"/>s is not cached yet.</exception>
-        /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
+        /// <exception cref="ExecutorException">Thrown if the <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
         /// <exception cref="Win32Exception">Thrown if an executable could not be launched.</exception>
         [SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "Explicit test for empty but non-null strings is intended")]
         protected int LaunchImplementation()

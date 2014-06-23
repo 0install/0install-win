@@ -91,7 +91,7 @@ namespace ZeroInstall.Services.Injector
             var storeMock = new Mock<IStore>(MockBehavior.Loose);
             storeMock.Setup(x => x.GetPath(It.IsAny<ManifestDigest>())).Returns("test path");
             var executor = new Executor(storeMock.Object);
-            Assert.Throws<CommandException>(() => executor.GetStartInfo(selections), "Invalid Selections should be rejected");
+            Assert.Throws<ExecutorException>(() => executor.GetStartInfo(selections), "Invalid Selections should be rejected");
         }
 
         private static IStore GetMockStore(Selections selections)

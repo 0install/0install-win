@@ -234,7 +234,7 @@ namespace ZeroInstall.Commands.WinForms
                     ErrorBox.Show(ex.Message.GetLeftPartAtFirstOccurrence(Environment.NewLine), errorLog);
                     return 1;
                 }
-                catch (CommandException ex)
+                catch (ExecutorException ex)
                 {
                     handler.CloseProgressUI();
                     Log.Error(ex);
