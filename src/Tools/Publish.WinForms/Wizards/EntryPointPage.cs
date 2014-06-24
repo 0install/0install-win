@@ -23,6 +23,7 @@ using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Publish.EntryPoints;
+using ZeroInstall.Publish.Properties;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
@@ -71,19 +72,19 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             }
             catch (IOException ex)
             {
-                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
                 throw new OperationCanceledException();
             }
             catch (UnauthorizedAccessException ex)
             {
-                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
                 throw new OperationCanceledException();
             }
             #endregion
 
-            if (candidates.Length == 0)
+            if (candidates == null || candidates.Length == 0)
             {
-                Msg.Inform(null, "No candidates", MsgSeverity.Warn);
+                Msg.Inform(this, Resources.NoEntryPointsFound, MsgSeverity.Warn);
                 throw new OperationCanceledException();
             }
 

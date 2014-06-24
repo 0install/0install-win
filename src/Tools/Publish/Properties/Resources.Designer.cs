@@ -254,6 +254,15 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No entry points (EXEs, JARs, Python scripts, etc.) were found. Please go back and make sure you selected the correct archive and extract directory..
+        /// </summary>
+        public static string NoEntryPointsFound {
+            get {
+                return ResourceManager.GetString("NoEntryPointsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please click:.
         /// </summary>
         public static string PleaseClick {

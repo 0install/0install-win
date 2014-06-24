@@ -33,7 +33,7 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class UpdateApps : IntegrationCommand
     {
-        #region State
+        #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "update-all";
 

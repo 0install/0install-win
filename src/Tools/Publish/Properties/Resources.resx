@@ -184,6 +184,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="NewKey" xml:space="preserve">
     <value>New key...</value>
   </data>
+  <data name="NoEntryPointsFound" xml:space="preserve">
+    <value>No entry points (EXEs, JARs, Python scripts, etc.) were found. Please go back and make sure you selected the correct archive and extract directory.</value>
+  </data>
   <data name="PleaseClick" xml:space="preserve">
     <value>Please click:</value>
   </data>

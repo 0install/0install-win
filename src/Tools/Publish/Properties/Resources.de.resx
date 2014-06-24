@@ -184,6 +184,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="NewKey" xml:space="preserve">
     <value>Neuer Schlüssel...</value>
   </data>
+  <data name="NoEntryPointsFound" xml:space="preserve">
+    <value>Es wurden keine Einstiegspunkte (EXEs, JARs, Python Skripts, etc.) gefunden. Bitte gehen Sie zurück und überprüfen Sie, ob Sie das korrekte Archiv und das korrekte Unterverzeichnis ausgewählt haben.</value>
+  </data>
   <data name="PleaseClick" xml:space="preserve">
     <value>Bitte klicken Sie:</value>
   </data>
