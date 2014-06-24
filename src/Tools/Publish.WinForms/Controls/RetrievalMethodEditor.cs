@@ -182,8 +182,13 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <returns>The newly generated digest.</returns>
         private ManifestDigest GenerateDigest(ITaskHandler handler, ICommandExecutor executor)
         {
+            ManifestDigest digest;
             using (var tempDir = Target.DownloadAndApply(handler, executor))
-                return ImplementationUtils.GenerateDigest(tempDir, handler);
+                digest = ImplementationUtils.GenerateDigest(tempDir, handler);
+
+            if (digest.PartialEquals(ManifestDigest.Empty))
+                Msg.Inform(this, Resources.EmptyImplementation, MsgSeverity.Warn);
+            return digest;
         }
 
         /// <summary>

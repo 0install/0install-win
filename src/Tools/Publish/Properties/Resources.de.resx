@@ -154,7 +154,7 @@ Ungespeicherte Änderungen verwerfen</value>
     <value>Das Bild wird zur Vorschau heruntergeladen...</value>
   </data>
   <data name="EmptyImplementation" xml:space="preserve">
-    <value>Leere Implementierung: {0}</value>
+    <value>Ein Manifest Digest wurde für ein leeres Verzeichnis berechnet. Überprüfen Sie, ob Sie den korrekten "extract" Wert für das Archiv angegeben haben, falls dies nicht beabsichtigt war.</value>
   </data>
   <data name="FeedNotValid" xml:space="preserve">
     <value>Der Feed hat nicht das richtige Format</value>

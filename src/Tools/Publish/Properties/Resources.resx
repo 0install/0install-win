@@ -154,7 +154,7 @@ Discard unsaved changes</value>
     <value>Downloading image for preview...</value>
   </data>
   <data name="EmptyImplementation" xml:space="preserve">
-    <value>Empty implementation: {0}</value>
+    <value>A manifest digest was calculated for an empty directory. Check that you have set the correct "extract" value for the archive if this was not intended.</value>
   </data>
   <data name="FeedNotValid" xml:space="preserve">
     <value>The feed does not have the correct format.</value>

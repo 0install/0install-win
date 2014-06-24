@@ -160,7 +160,8 @@ namespace ZeroInstall.Publish
                 {}
             }
 
-            if (digest.Sha1New == ManifestDigest.Empty.Sha1New) Log.Warn(string.Format(Resources.EmptyImplementation, path));
+            if (digest.PartialEquals(ManifestDigest.Empty))
+                Log.Warn(Resources.EmptyImplementation);
             return digest;
         }
         #endregion

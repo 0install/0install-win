@@ -69,28 +69,37 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             try
             {
                 _feedBuilder.ImplementationDirectory = path;
-                Next();
             }
                 #region Error handling
             catch (OperationCanceledException)
-            {}
+            {
+                return;
+            }
             catch (ArgumentException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                return;
             }
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                return;
             }
             catch (UnauthorizedAccessException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                return;
             }
             catch (WebException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                return;
             }
-            #endregion
+                #endregion
+
+            if (_feedBuilder.ManifestDigest.PartialEquals(ManifestDigest.Empty))
+                Msg.Inform(this, Resources.EmptyImplementation, MsgSeverity.Warn);
+            else Next();
         }
     }
 }
