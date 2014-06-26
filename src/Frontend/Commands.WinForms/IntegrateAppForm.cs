@@ -130,7 +130,8 @@ namespace ZeroInstall.Commands.WinForms
         {
             var commands = _state.Feed.EntryPoints
                 .Select(entryPoint => entryPoint.Command)
-                .Append(Command.NameRun).Distinct()
+                .Append(Command.NameRun)
+                .WhereNotNull().Distinct()
                 .Cast<object>().ToArray();
 
             dataGridStartMenuColumnCommand.Items.AddRange(commands);
