@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Store.Model;
@@ -56,7 +57,7 @@ namespace ZeroInstall.DesktopIntegration
             else
             { // Multiple entry points
                 return
-                    from entryPoint in feed.EntryPoints
+                    (from entryPoint in feed.EntryPoints
                     where !string.IsNullOrEmpty(entryPoint.Command) && !entryPoint.NeedsTerminal
                     select new MenuEntry
                     {
@@ -70,7 +71,7 @@ namespace ZeroInstall.DesktopIntegration
                         // Group all entry points in a single folder
                         Category = (category == null) ? feed.Name : category.ToString() + Path.DirectorySeparatorChar + feed.Name,
                         Command = entryPoint.Command
-                    };
+                    }).Distinct(x => x.Name);
             }
         }
 
@@ -109,13 +110,13 @@ namespace ZeroInstall.DesktopIntegration
             else
             { // Multiple entry points
                 return
-                    from entryPoint in feed.EntryPoints
+                    (from entryPoint in feed.EntryPoints
                     where !string.IsNullOrEmpty(entryPoint.Command) && (entryPoint.NeedsTerminal || feed.NeedsTerminal)
                     select new AppAlias
                     {
                         Name = entryPoint.BinaryName ?? entryPoint.Command,
                         Command = entryPoint.Command
-                    };
+                    }).Distinct(x => x.Name);
             }
         }
     }
