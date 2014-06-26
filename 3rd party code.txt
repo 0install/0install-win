@@ -58,10 +58,9 @@ http://github.com/rickyah/ini-parser
 MIT license: http://opensource.org/licenses/MIT
 Pre-compiled managed DLL: INIFileParser.dll
 
-NDesk.Options post-0.2.1-GIT-checkout
-http://ndesk.org/Options
+NDesk.Options post-0.2.1-GIT-checkout (patched)
+http://ndesk.org/Options + https://github.com/nano-byte/NDesk.Options
 MIT license: http://opensource.org/licenses/MIT
-Applied patches: NDesk.Options.*.patch
 Self-compiled managed DLL: NDesk.Options.dll
 
 ELFSharp 0.0.10
