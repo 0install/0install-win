@@ -1,7 +1,11 @@
-build/
-bundled/Solver/
-*.VisualState.xml
-TestResult.xml
+/build/
+/bundled/Solver/
+/src/packages/*/
+/src/_ReSharper.*/
+/src/_TeamCity.*/
+/src/_dotTrace.*/
+/src/_dotMemory.*/
+obj/
 *.bak
 *.cache
 *.pidb
@@ -10,9 +14,3 @@ TestResult.xml
 *.userprefs
 *.DotSettings
 *.resources
-obj/
-src/_ReSharper.*/
-src/_TeamCity.*/
-src/_dotTrace.*/
-src/_dotMemory.*/
-src/packages/*/
