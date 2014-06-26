@@ -16,13 +16,14 @@
  */
 
 using System.ComponentModel;
+using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.Store.Model.Design
 {
     /// <summary>
-    /// Suggests canonical <see cref="Command.Name"/>s.
+    /// Suggests canonical <see cref="Verb.Name"/>s.
     /// </summary>
-    internal class CommandNameConverter : StringConverter
+    internal class VerbNameConverter : StringConverter
     {
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
         {
@@ -36,7 +37,7 @@ namespace ZeroInstall.Store.Model.Design
 
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(new[] {Command.NameRun, Command.NameCompile, Command.NameTest});
+            return new StandardValuesCollection(new[] {Verb.NameOpen, Verb.NameOpenNew, Verb.NameOpenAs, Verb.NameEdit, Verb.NamePlay, Verb.NamePrint, Verb.NamePreview});
         }
     }
 }

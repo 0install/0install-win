@@ -52,30 +52,31 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <summary>
         /// Canonical <see cref="Name"/> for opening a file in editing mode.
         /// </summary>
-        public const string NameOpenEdit = "edit";
+        public const string NameEdit = "edit";
 
         /// <summary>
         /// Canonical <see cref="Name"/> for opening a media file and starting playback immediately.
         /// </summary>
-        public const string NameOpenPlay = "play";
+        public const string NamePlay = "play";
 
         /// <summary>
         /// Canonical <see cref="Name"/> for printing a file while displaying as little as necessary to complete the task.
         /// </summary>
-        public const string NameOpenPrint = "print";
+        public const string NamePrint = "print";
 
         /// <summary>
         /// Canonical <see cref="Name"/> for displaying a quick, simple response that allows the user to rapidly preview and dismiss items.
         /// </summary>
-        public const string NameOpenPreview = "Preview";
+        public const string NamePreview = "Preview";
         #endregion
 
         #region Properties
         /// <summary>
-        /// The name of the action to perform. Use canonical names whenever possible.
+        /// The name of the verb. Use canonical names to get automatic localization; specify <see cref="Descriptions"/> otherwise.
         /// </summary>
-        [Description("The name of the action. Use canonical names whenever possible.")]
+        [Description("The name of the verb. Use canonical names to get automatic localization; specify Descriptions otherwise.")]
         [XmlAttribute("name")]
+        [TypeConverter(typeof(VerbNameConverter))]
         public string Name { get; set; }
 
         /// <summary>

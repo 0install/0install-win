@@ -154,7 +154,7 @@
     <xsd:attribute name="name" type="xsd:string" use="required">
       <xsd:annotation>
         <xsd:documentation>
-          The name of the action to perform. Use canonical names whenever possible.
+          The name of the verb. Use canonical names to get automatic localization; specify &lt;description&gt; otherwise.
         </xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
