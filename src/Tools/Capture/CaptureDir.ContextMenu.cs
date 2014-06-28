@@ -43,7 +43,7 @@ namespace ZeroInstall.Capture
             if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
-            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesPrefixFiles))
+            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesFiles))
             {
                 foreach (string entry in snapshotDiff.ContextMenuFiles)
                 {
@@ -56,7 +56,7 @@ namespace ZeroInstall.Capture
                 }
             }
 
-            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesPrefixExecutableFiles[0]))
+            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesExecutableFiles[0]))
             {
                 foreach (string entry in snapshotDiff.ContextMenuExecutableFiles)
                 {
@@ -69,7 +69,7 @@ namespace ZeroInstall.Capture
                 }
             }
 
-            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesPrefixDirectories))
+            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesDirectories))
             {
                 foreach (string entry in snapshotDiff.ContextMenuDirectories)
                 {
@@ -82,7 +82,7 @@ namespace ZeroInstall.Capture
                 }
             }
 
-            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesPrefixAll))
+            using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesAll))
             {
                 foreach (string entry in snapshotDiff.ContextMenuAll)
                 {
