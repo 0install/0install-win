@@ -64,7 +64,7 @@ namespace ZeroInstall.Services.Fetchers
         {
             if (!implementation.ManifestDigest.AvailableDigests.Any()) throw new NotSupportedException(string.Format(Resources.NoManifestDigest, implementation.ID));
 
-            // Use mutex to detect concurrent download of same implementation in other processes
+            // Use mutex to detect in-progress download of same implementation in other processes
             using (var mutex = new Mutex(false, "0install-fetcher-" + implementation.ManifestDigest.AvailableDigests.First()))
             {
                 try
@@ -72,7 +72,7 @@ namespace ZeroInstall.Services.Fetchers
                     while (!mutex.WaitOne(100, exitContext: false)) // NOTE: Might be blocked more than once
                     {
                         // Wait for mutex to be released
-                        Handler.RunTask(new WaitTask(Resources.DownloadInAnotherWindow, mutex) {Tag = implementation.ManifestDigest});
+                        Handler.RunTask(new WaitTask(Resources.WaitingForDownload, mutex) {Tag = implementation.ManifestDigest});
                     }
                 }
                     #region Error handling

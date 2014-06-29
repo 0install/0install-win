@@ -133,9 +133,6 @@ Möchten Sie diesem Key zum Signieren von Feeds von '{3}' vertrauen?
   <data name="CommandNotSpecified" xml:space="preserve">
     <value>Command für '{0}' nicht angegeben.</value>
   </data>
-  <data name="DownloadInAnotherWindow" xml:space="preserve">
-    <value>Download läuft bereits in einem anderen Fenster</value>
-  </data>
   <data name="EnvironmentBindingValueInvalid" xml:space="preserve">
     <value>&lt;environment&gt; Bindings müssen entweder ein 'value' oder ein 'insert' Attribut enthalten.</value>
   </data>
@@ -228,6 +225,9 @@ Neue Zeit: {2}</value>
   </data>
   <data name="UntrustedKeys" xml:space="preserve">
     <value>Der Feed ist mit nicht-vertrauten Keys signiert!</value>
+  </data>
+  <data name="WaitingForDownload" xml:space="preserve">
+    <value>Warte auf Download-Abschluss</value>
   </data>
   <data name="Working" xml:space="preserve">
     <value>Das Arbeitsverzeichnis wurde bereits von einem vorangehenden Command geändert.</value>

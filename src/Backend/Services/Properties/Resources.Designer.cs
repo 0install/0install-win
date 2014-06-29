@@ -101,15 +101,6 @@ namespace ZeroInstall.Services.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download already running in another window.
-        /// </summary>
-        internal static string DownloadInAnotherWindow {
-            get {
-                return ResourceManager.GetString("DownloadInAnotherWindow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;environment&gt; bindings must contain either a &apos;value&apos; or an &apos;insert&apos; attribute..
         /// </summary>
         internal static string EnvironmentBindingValueInvalid {
@@ -379,6 +370,15 @@ namespace ZeroInstall.Services.Properties {
         internal static string UntrustedKeys {
             get {
                 return ResourceManager.GetString("UntrustedKeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waiting for download to complete.
+        /// </summary>
+        internal static string WaitingForDownload {
+            get {
+                return ResourceManager.GetString("WaitingForDownload", resourceCulture);
             }
         }
         

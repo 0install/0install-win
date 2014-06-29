@@ -133,9 +133,6 @@ Do you want to trust this key to sign feeds from '{3}'?
   <data name="CommandNotSpecified" xml:space="preserve">
     <value>Command for '{0}' not specified.</value>
   </data>
-  <data name="DownloadInAnotherWindow" xml:space="preserve">
-    <value>Download already running in another window</value>
-  </data>
   <data name="EnvironmentBindingValueInvalid" xml:space="preserve">
     <value>&lt;environment&gt; bindings must contain either a 'value' or an 'insert' attribute.</value>
   </data>
@@ -228,6 +225,9 @@ New time: {2}</value>
   </data>
   <data name="UntrustedKeys" xml:space="preserve">
     <value>The feed is signed with untrusted keys!</value>
+  </data>
+  <data name="WaitingForDownload" xml:space="preserve">
+    <value>Waiting for download to complete</value>
   </data>
   <data name="Working" xml:space="preserve">
     <value>The working directory has already been changed by a previous command.</value>
