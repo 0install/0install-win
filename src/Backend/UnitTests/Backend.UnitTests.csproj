@@ -39,7 +39,7 @@
       <Aliases>LinqBridge</Aliases>
     </Reference>
     <Reference Include="NanoByte.Common">
-      <HintPath>..\..\packages\NanoByte.Common.1.0.5\lib\net20\NanoByte.Common.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.1.0.6\lib\net20\NanoByte.Common.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>

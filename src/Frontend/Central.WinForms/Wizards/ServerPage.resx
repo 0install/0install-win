@@ -154,7 +154,7 @@
     <value>Server URI</value>
   </data>
   <data name="&gt;&gt;textBoxCustomServer.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.UriTextBox, NanoByte.Common.WinForms, Version=1.0.5.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.UriTextBox, NanoByte.Common.WinForms, Version=1.0.6.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;buttonOfficalServer.Name" xml:space="preserve">
     <value>buttonOfficalServer</value>

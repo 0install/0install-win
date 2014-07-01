@@ -60,7 +60,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <inheritdoc/>
         protected override void Execute()
         {
-            Status = TaskStatus.Data;
+            State = TaskState.Data;
 
             try
             {
@@ -75,7 +75,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
             #endregion
 
-            Status = TaskStatus.Complete;
+            State = TaskState.Complete;
         }
     }
 }

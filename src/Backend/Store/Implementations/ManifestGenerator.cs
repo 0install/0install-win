@@ -49,7 +49,7 @@ namespace ZeroInstall.Store.Implementations
         public ManifestFormat Format { get; private set; }
 
         /// <summary>
-        /// If <see cref="TaskBase.Status"/> is <see cref="TaskStatus.Complete"/> this property contains the generated <see cref="Manifest"/>; otherwise it's <see langword="null"/>.
+        /// If <see cref="TaskBase.State"/> is <see cref="TaskState.Complete"/> this property contains the generated <see cref="Manifest"/>; otherwise it's <see langword="null"/>.
         /// </summary>
         public Manifest Result { get; private set; }
         #endregion
@@ -78,14 +78,14 @@ namespace ZeroInstall.Store.Implementations
         /// <inheritdoc/>
         protected override void Execute()
         {
-            Status = TaskStatus.Header;
+            State = TaskState.Header;
             var entries = Format.GetSortedDirectoryEntries(TargetDir);
             UnitsTotal = entries.OfType<FileInfo>().Sum(file => file.Length);
 
-            Status = TaskStatus.Data;
+            State = TaskState.Data;
             Result = new Manifest(Format, GetNodes(entries));
 
-            Status = TaskStatus.Complete;
+            State = TaskState.Complete;
         }
 
         /// <summary>

@@ -61,7 +61,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <inheritdoc/>
         protected override void Execute()
         {
-            Status = TaskStatus.Header;
+            State = TaskState.Header;
 
             try
             {
@@ -71,7 +71,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 {
                     UnitsTotal = extractor.UnpackedSize;
 
-                    Status = TaskStatus.Data;
+                    State = TaskState.Data;
                     if (!Directory.Exists(EffectiveTargetDir)) Directory.CreateDirectory(EffectiveTargetDir);
                     if (extractor.IsSolid || string.IsNullOrEmpty(SubDir)) ExtractComplete(extractor);
                     else ExtractIndividual(extractor);
@@ -100,7 +100,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             }
             #endregion
 
-            Status = TaskStatus.Complete;
+            State = TaskState.Complete;
         }
 
         /// <summary>
