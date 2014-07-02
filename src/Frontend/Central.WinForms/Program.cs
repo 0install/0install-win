@@ -83,7 +83,7 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         private static void UpdateRegistry()
         {
-            if (Locations.IsPortable || !WindowsUtils.IsWindows || !StoreUtils.PathInAStore(Locations.InstallBase)) return;
+            if (!WindowsUtils.IsWindows || Locations.IsPortable || StoreUtils.PathInAStore(Locations.InstallBase)) return;
 
             try
             {
