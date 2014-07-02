@@ -5,8 +5,6 @@ var
 	oldpath:	String;
 	newpath:	String;
 	pathArr:	TArrayOfString;
-	aExecFile:	String;
-	aExecArr:	TArrayOfString;
 	i:			Integer;
 begin
 	pathdir := ExpandConstant('{app}');

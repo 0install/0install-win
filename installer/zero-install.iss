@@ -3,6 +3,7 @@
   #define Version "0.1"
 #endif
 
+;Automatic dependency download and installation
 #include "scripts\fileversion.iss"
 #include "scripts\winversion.iss"
 #include "scripts\products.iss"
@@ -34,16 +35,15 @@ de.StoreService=Store Dienst installieren (Anwendungsdateien zwischen Benutzern 
   OutputBaseFilename=zero-install-per-user
   AppName=Zero Install (per-user)
   AppID=Zero Install (per-user)
-  UninstallDisplayName=Zero Install (per-user)
-  ;DefaultDirName={userpf}\Zero Install
   DefaultDirName={userappdata}\Programs\Zero Install
+  UninstallDisplayName=Zero Install (per-user)
 #else
   PrivilegesRequired=admin
   OutputBaseFilename=zero-install
   AppName=Zero Install
   AppID=Zero Install
-  UninstallDisplayName=Zero Install
   DefaultDirName={pf}\Zero Install
+  UninstallDisplayName=Zero Install
 #endif
 OutputDir=..\build\Installer
 
@@ -60,14 +60,14 @@ VersionInfoTextVersion=Zero Install for Windows v{#Version} Setup
 VersionInfoVersion={#Version}
 VersionInfoCompany=0install.de
 DefaultGroupName=Zero Install
-DisableWelcomePage=true
-DisableProgramGroupPage=true
 ArchitecturesInstallIn64BitMode=x64 ia64
 ChangesEnvironment=yes
-UninstallDisplayIcon={app}\ZeroInstall.exe
 SetupIconFile=Setup.ico
+UninstallDisplayIcon={app}\ZeroInstall.exe
 WizardImageFile=WizModernImage.bmp
 WizardSmallImageFile=WizModernSmallImage.bmp
+DisableWelcomePage=true
+DisableProgramGroupPage=true
 Compression=lzma/ultra
 SolidCompression=true
 
