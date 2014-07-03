@@ -50,8 +50,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
             Describe<IBindingContainer>()
                 .AddList(x => x.Bindings)
                 .AddElement<GenericBinding>("binding")
-                .AddElement<EnvironmentBinding>("environment-binding")
-                .AddElement<OverlayBinding>("overlay-binding")
+                .AddElement<EnvironmentBinding>("environment")
+                .AddElement<OverlayBinding>("overlay")
                 .AddElement<ExecutableInVar>("executable-in-var")
                 .AddElement<ExecutableInPath>("executable-in-path");
 
