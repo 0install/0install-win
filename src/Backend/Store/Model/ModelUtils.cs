@@ -51,9 +51,7 @@ namespace ZeroInstall.Store.Model
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="value"/> is an invalid interface ID.</exception>
         public static void ValidateInterfaceID(string value)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
-            #endregion
+            if (string.IsNullOrEmpty(value)) throw new InvalidInterfaceIDException(new ArgumentNullException("value").Message);
 
             // Valid local paths are always ok
             try
