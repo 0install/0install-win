@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.Model.Capabilities
                 Entries =
                 {
                     new AppRegistration {ID = "myapp", CapabilityRegPath = @"SOFTWARE\MyApp\Capabilities", X64 = true},
-                    new AutoPlay {ID = "autoplay", Descriptions = {"Do somthing"}, Icons = {testIcon}, Provider = "MyApp", ProgID = "MyApp.Burn", Verb = testVerb, Events = {new AutoPlayEvent {Name = AutoPlayEvent.NameBurnCD}}},
+                    new AutoPlay {ID = "autoplay", Descriptions = {"Do somthing"}, Icons = {testIcon}, Provider = "MyApp", Verb = testVerb, Events = {new AutoPlayEvent {Name = AutoPlayEvent.NameBurnCD}}},
                     new ComServer {ID = "com-server"},
                     new ContextMenu {ID = "context-menu", Verb = testVerb},
                     new DefaultProgram {ID = "default-program", Descriptions = {"My mail client"}, Icons = {testIcon}, Verbs = {testVerb}, Service = "Mail", InstallCommands = new InstallCommands {ShowIcons = "helper.exe --show", HideIcons = "helper.exe --hide", Reinstall = "helper.exe --reinstall.exe"}},

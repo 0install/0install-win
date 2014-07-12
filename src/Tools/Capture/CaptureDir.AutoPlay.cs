@@ -88,7 +88,6 @@ namespace ZeroInstall.Capture
                         ID = handler,
                         Provider = handlerKey.GetValue(DesktopIntegration.Windows.AutoPlay.RegValueProvider, "").ToString(),
                         Descriptions = {handlerKey.GetValue(DesktopIntegration.Windows.AutoPlay.RegValueDescription, "").ToString()},
-                        ProgID = progID,
                         Verb = GetVerb(progIDKey, commandMapper, verbName)
                     };
 

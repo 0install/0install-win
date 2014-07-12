@@ -44,13 +44,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         public string Provider { get; set; }
 
         /// <summary>
-        /// The programmatic identifier used to store the <see cref="Verb"/>.
-        /// </summary>
-        [Description("The programmatic identifier used to store the verb.")]
-        [XmlAttribute("prog-id")]
-        public string ProgID { get; set; }
-
-        /// <summary>
         /// The command to execute when the handler gets called.
         /// </summary>
         [Browsable(false)]
@@ -68,7 +61,7 @@ namespace ZeroInstall.Store.Model.Capabilities
 
         /// <inheritdoc/>
         [XmlIgnore]
-        public override IEnumerable<string> ConflictIDs { get { return new[] {"autoplay:" + ID, "progid:" + ProgID}; } }
+        public override IEnumerable<string> ConflictIDs { get { return new[] {"autoplay:" + ID}; } }
         #endregion
 
         //--------------------//
@@ -87,7 +80,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <inheritdoc/>
         public override Capability Clone()
         {
-            var capability = new AutoPlay {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly, Provider = Provider, ProgID = ProgID, Verb = Verb.Clone()};
+            var capability = new AutoPlay {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, ExplicitOnly = ExplicitOnly, Provider = Provider, Verb = Verb.Clone()};
             capability.Icons.AddRange(Icons);
             capability.Descriptions.AddRange(Descriptions.CloneElements());
             capability.Events.AddRange(Events);
@@ -101,7 +94,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         {
             if (other == null) return false;
             return base.Equals(other) &&
-                   other.Provider == Provider && other.ProgID == ProgID && Equals(other.Verb, Verb) &&
+                   other.Provider == Provider && Equals(other.Verb, Verb) &&
                    Events.SequencedEquals(other.Events);
         }
 
@@ -121,7 +114,6 @@ namespace ZeroInstall.Store.Model.Capabilities
                 int result = base.GetHashCode();
                 result = (result * 397) ^ (Provider ?? "").GetHashCode();
                 result = (result * 397) ^ (Provider ?? "").GetHashCode();
-                result = (result * 397) ^ (ProgID ?? "").GetHashCode();
                 if (Verb != null) result = (result * 397) ^ Verb.GetHashCode();
                 result = (result * 397) ^ Events.GetSequencedHashCode();
                 return result;

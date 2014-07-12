@@ -81,14 +81,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
             #endregion
 
             if (string.IsNullOrEmpty(autoPlay.ID)) throw new InvalidDataException("Missing ID");
-            if (string.IsNullOrEmpty(autoPlay.ProgID)) throw new InvalidDataException("Missing ProgID");
             if (autoPlay.Verb == null) throw new InvalidDataException("Missing verb");
             if (string.IsNullOrEmpty(autoPlay.Verb.Name)) throw new InvalidDataException("Missing verb name");
             if (string.IsNullOrEmpty(autoPlay.Provider)) throw new InvalidDataException("Missing provider");
 
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
 
-            using (var commandKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + autoPlay.ProgID + @"\shell\" + autoPlay.Verb.Name + @"\command"))
+            using (var commandKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + ".AutoPlay" + autoPlay.ID + @"\shell\" + autoPlay.Verb.Name + @"\command"))
                 commandKey.SetValue("", FileType.GetLaunchCommandLine(target, autoPlay.Verb, machineWide, handler));
 
             using (var handlerKey = hive.CreateSubKey(RegKeyHandlers + @"\" + FileType.RegKeyPrefix + autoPlay.ID))
@@ -96,7 +95,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 // Add flag to remember whether created for capability or access point
                 handlerKey.SetValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, "");
 
-                handlerKey.SetValue(RegValueProgID, FileType.RegKeyPrefix + autoPlay.ProgID);
+                handlerKey.SetValue(RegValueProgID, FileType.RegKeyPrefix + ".AutoPlay" + autoPlay.ID);
                 handlerKey.SetValue(RegValueVerb, autoPlay.Verb.Name);
                 handlerKey.SetValue(RegValueProvider, autoPlay.Provider);
                 handlerKey.SetValue(RegValueDescription, autoPlay.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture) ?? autoPlay.Verb.Name);
@@ -145,7 +144,6 @@ namespace ZeroInstall.DesktopIntegration.Windows
             #endregion
 
             if (string.IsNullOrEmpty(autoPlay.ID)) throw new InvalidDataException("Missing ID");
-            if (string.IsNullOrEmpty(autoPlay.ProgID)) throw new InvalidDataException("Missing ProgID");
 
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
 
@@ -178,7 +176,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     }
 
                     hive.DeleteSubKey(RegKeyHandlers + @"\" + FileType.RegKeyPrefix + autoPlay.ID, throwOnMissingSubKey: false);
-                    hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + autoPlay.ProgID);
+                    hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + ".AutoPlay" + autoPlay.ID);
                 }
             }
             catch (ArgumentException)
