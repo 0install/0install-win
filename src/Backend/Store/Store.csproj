@@ -123,6 +123,7 @@
     <Compile Include="Implementations\StoreUtils.cs" />
     <Compile Include="JsonStorage.cs" />
     <Compile Include="Model\Architecture.cs" />
+    <Compile Include="Model\ArchitectureExtensions.cs" />
     <Compile Include="Model\Archive.cs" />
     <Compile Include="Model\Arg.cs" />
     <Compile Include="Model\ArgBase.cs" />

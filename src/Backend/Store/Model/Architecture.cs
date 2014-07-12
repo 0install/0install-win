@@ -259,64 +259,6 @@ namespace ZeroInstall.Store.Model
 
         //--------------------//
 
-        #region Compatibility
-        /// <summary>
-        /// Determines whether this implementation architecture (the current instance) can run on a <paramref name="system"/> architecture.
-        /// </summary>
-        /// <seealso cref="CurrentSystem"/>
-        public bool IsCompatible(Architecture system)
-        {
-            return AreCompatible(OS, system.OS) && AreCompatible(Cpu, system.Cpu);
-        }
-
-        /// <summary>
-        /// Determines whether this implementation architecture (the current instance) can run on the <see cref="CurrentSystem"/> architecture.
-        /// </summary>
-        /// <seealso cref="CurrentSystem"/>
-        public bool IsCompatible()
-        {
-            return IsCompatible(CurrentSystem);
-        }
-
-        /// <summary>
-        /// Determines whether an <paramref name="implementation"/> OS is compatible with a <paramref name="system"/> OS.
-        /// </summary>
-        private static bool AreCompatible(OS implementation, OS system)
-        {
-            if (implementation == OS.Unknown || system == OS.Unknown) return false;
-
-            // Exact OS match or platform-neutral implementation
-            if (implementation == system || implementation == OS.All || system == OS.All) return true;
-
-            // Compatible supersets
-            if (implementation == OS.Windows && system == OS.Cygwin) return true;
-            if (implementation == OS.Darwin && system == OS.MacOSX) return true;
-            if (implementation == OS.Posix && system <= OS.Posix) return true;
-
-            // No match
-            return false;
-        }
-
-        /// <summary>
-        /// Determines whether an <paramref name="implementation"/> CPU is compatible with a <paramref name="system"/> CPU.
-        /// </summary>
-        private static bool AreCompatible(Cpu implementation, Cpu system)
-        {
-            if (implementation == Cpu.Unknown || system == Cpu.Unknown) return false;
-
-            // Exact CPU match or platform-neutral implementation
-            if (implementation == system || implementation == Cpu.All || system == Cpu.All) return true;
-
-            // Compatible supersets
-            if (implementation >= Cpu.I386 && implementation <= Cpu.I686 && system >= implementation && system <= Cpu.I686) return true;
-
-            // No match
-            return false;
-        }
-        #endregion
-
-        //--------------------//
-
         #region Conversion
         /// <summary>
         /// Returns the architecture in the form "os-cpu". Safe for parsing.
