@@ -57,6 +57,42 @@ namespace ZeroInstall.DesktopIntegration
         }
 
         /// <summary>
+        /// Returns all <see cref="ConflictData"/>s for a set of new <see cref="AccessPoint"/> candidates.
+        /// </summary>
+        /// <param name="accessPoints">The set of <see cref="AccessPoint"/>s candidates to build the list for.</param>
+        /// <param name="appEntry">The <see cref="AppEntry"/> the <paramref name="accessPoints"/> are intended for.</param>
+        /// <returns>A dictionary of <see cref="AccessPoint.GetConflictIDs"/> mapping to the according <see cref="ConflictData"/>.</returns>
+        /// <exception cref="ConflictException">Thrown if there are preexisting conflicts within the list.</exception>
+        /// <seealso cref="AccessPoint.GetConflictIDs"/>
+        public static IDictionary<string, ConflictData> GetConflictData(this IEnumerable<AccessPoint> accessPoints, AppEntry appEntry)
+        {
+            #region Sanity checks
+            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
+            if (appEntry == null) throw new ArgumentNullException("appEntry");
+            #endregion
+
+            var newConflictIDs = new Dictionary<string, ConflictData>();
+            foreach (var accessPoint in accessPoints)
+            {
+                foreach (string conflictID in accessPoint.GetConflictIDs(appEntry))
+                {
+                    var conflictData = new ConflictData(accessPoint, appEntry);
+                    try
+                    {
+                        newConflictIDs.Add(conflictID, conflictData);
+                    }
+                        #region Error handling
+                    catch (ArgumentException)
+                    {
+                        throw new ConflictException(existingEntry: conflictData, newEntry: newConflictIDs[conflictID]);
+                    }
+                    #endregion
+                }
+            }
+            return newConflictIDs;
+        }
+
+        /// <summary>
         /// Returns all <see cref="ConflictData"/>s for a set of existing <see cref="AppEntry"/>s.
         /// </summary>
         /// <param name="appEntries">The <see cref="AppEntry"/>s to build the list for.</param>
@@ -92,42 +128,6 @@ namespace ZeroInstall.DesktopIntegration
                 }
             }
             return conflictIDs;
-        }
-
-        /// <summary>
-        /// Returns all <see cref="ConflictData"/>s for a set of new <see cref="AccessPoint"/> candidates.
-        /// </summary>
-        /// <param name="accessPoints">The set of <see cref="AccessPoint"/>s candidates to build the list for.</param>
-        /// <param name="appEntry">The <see cref="AppEntry"/> the <paramref name="accessPoints"/> are intended for.</param>
-        /// <returns>A dictionary of <see cref="AccessPoint.GetConflictIDs"/> mapping to the according <see cref="ConflictData"/>.</returns>
-        /// <exception cref="ConflictException">Thrown if there are preexisting conflicts within the list.</exception>
-        /// <seealso cref="AccessPoint.GetConflictIDs"/>
-        public static IDictionary<string, ConflictData> GetConflictData(this IEnumerable<AccessPoint> accessPoints, AppEntry appEntry)
-        {
-            #region Sanity checks
-            if (accessPoints == null) throw new ArgumentNullException("accessPoints");
-            if (appEntry == null) throw new ArgumentNullException("appEntry");
-            #endregion
-
-            var newConflictIDs = new Dictionary<string, ConflictData>();
-            foreach (var accessPoint in accessPoints)
-            {
-                foreach (string conflictID in accessPoint.GetConflictIDs(appEntry))
-                {
-                    var conflictData = new ConflictData(accessPoint, appEntry);
-                    try
-                    {
-                        newConflictIDs.Add(conflictID, conflictData);
-                    }
-                        #region Error handling
-                    catch (ArgumentException)
-                    {
-                        throw new ConflictException(existingEntry: newConflictIDs[conflictID], newEntry: conflictData);
-                    }
-                    #endregion
-                }
-            }
-            return newConflictIDs;
         }
     }
 }

@@ -74,6 +74,30 @@ namespace ZeroInstall.DesktopIntegration
         }
 
         [Test]
+        public void AccessPointCandidates()
+        {
+            var accessPoints = new AccessPoint[] {new MockAccessPoint {ID = "a"}, new MockAccessPoint {ID = "b"}};
+            var appEntry = new AppEntry {Name = "App"};
+
+            CollectionAssert.AreEqual(
+                expected: new[]
+                {
+                    new KeyValuePair<string, ConflictData>("mock:a", new ConflictData(accessPoints[0], appEntry)),
+                    new KeyValuePair<string, ConflictData>("mock:b", new ConflictData(accessPoints[1], appEntry))
+                },
+                actual: accessPoints.GetConflictData(appEntry));
+        }
+
+        [Test]
+        public void AccessPointCandidatesInternalConflict()
+        {
+            var accessPoints = new AccessPoint[] {new MockAccessPoint {ID = "a"}, new MockAccessPoint {ID = "a"}};
+            var appEntry = new AppEntry {Name = "App"};
+
+            Assert.Throws<ConflictException>(() => accessPoints.GetConflictData(appEntry));
+        }
+
+        [Test]
         public void ExistingAppEntries()
         {
             var appList = new[]
@@ -101,30 +125,6 @@ namespace ZeroInstall.DesktopIntegration
             };
 
             Assert.Throws<ConflictException>(() => appList.GetConflictData());
-        }
-
-        [Test]
-        public void AccessPointCandidates()
-        {
-            var accessPoints = new AccessPoint[] {new MockAccessPoint {ID = "a"}, new MockAccessPoint {ID = "b"}};
-            var appEntry = new AppEntry {Name = "App"};
-
-            CollectionAssert.AreEqual(
-                expected: new[]
-                {
-                    new KeyValuePair<string, ConflictData>("mock:a", new ConflictData(accessPoints[0], appEntry)),
-                    new KeyValuePair<string, ConflictData>("mock:b", new ConflictData(accessPoints[1], appEntry))
-                },
-                actual: accessPoints.GetConflictData(appEntry));
-        }
-
-        [Test]
-        public void AccessPointCandidatesInternalConflict()
-        {
-            var accessPoints = new AccessPoint[] {new MockAccessPoint {ID = "a"}, new MockAccessPoint {ID = "a"}};
-            var appEntry = new AppEntry {Name = "App"};
-
-            Assert.Throws<ConflictException>(() => accessPoints.GetConflictData(appEntry));
         }
     }
 }
