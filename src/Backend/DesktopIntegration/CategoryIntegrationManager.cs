@@ -24,6 +24,7 @@ using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -80,9 +81,7 @@ namespace ZeroInstall.DesktopIntegration
             {
                 // Add AccessPoints for all suitable Capabilities
                 accessPointsToAdd.AddRange((
-                    from capabilityList in appEntry.CapabilityLists
-                    where capabilityList.Architecture.IsCompatible()
-                    from capability in capabilityList.Entries.OfType<Store.Model.Capabilities.DefaultCapability>()
+                    from capability in appEntry.CapabilityLists.CompatibleCapabilities().OfType<DefaultCapability>()
                     where !capability.WindowsMachineWideOnly || MachineWide || !WindowsUtils.IsWindows
                     where !capability.ExplicitOnly
                     select capability.ToAcessPoint()));
@@ -167,9 +166,7 @@ namespace ZeroInstall.DesktopIntegration
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            foreach (var defaultProgram in appEntry.CapabilityLists.
-                Where(capabilityList => capabilityList.Architecture.IsCompatible()).
-                SelectMany(capabilityList => capabilityList.Entries.OfType<Store.Model.Capabilities.DefaultProgram>()))
+            foreach (var defaultProgram in appEntry.CapabilityLists.CompatibleCapabilities().OfType<Store.Model.Capabilities.DefaultProgram>())
                 Windows.DefaultProgram.ToggleIconsVisible(defaultProgram, iconsVisible);
         }
         #endregion

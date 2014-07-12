@@ -133,6 +133,7 @@
     <Compile Include="Model\Capabilities\AutoPlayEvent.cs" />
     <Compile Include="Model\Capabilities\Capability.cs" />
     <Compile Include="Model\Capabilities\CapabilityList.cs" />
+    <Compile Include="Model\Capabilities\CapabilityListExtensions.cs" />
     <Compile Include="Model\Capabilities\ComServer.cs" />
     <Compile Include="Model\Capabilities\ContextMenu.cs" />
     <Compile Include="Model\Capabilities\DefaultCapability.cs" />

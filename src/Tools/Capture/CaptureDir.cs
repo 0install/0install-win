@@ -117,7 +117,7 @@ namespace ZeroInstall.Capture
             var commands = GetCommands(installationDir, mainExe);
 
             string appName = null, appDescription = null;
-            var capabilities = new CapabilityList {Architecture = new Architecture(OS.Windows, Cpu.All)};
+            var capabilities = new CapabilityList {OS = OS.Windows};
             try
             {
                 var commandMapper = new CommandMapper(installationDir, commands);

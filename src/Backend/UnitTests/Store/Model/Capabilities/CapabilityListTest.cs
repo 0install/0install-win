@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Model.Capabilities
             var testVerb = new Verb {Name = Verb.NameOpen, Descriptions = {"Verb description"}, Command = Command.NameRun, Arguments = "--open"};
             return new CapabilityList
             {
-                Architecture = Architecture.CurrentSystem,
+                OS = Architecture.CurrentSystem.OS,
                 Entries =
                 {
                     new AppRegistration {ID = "myapp", CapabilityRegPath = @"SOFTWARE\MyApp\Capabilities", X64 = true},

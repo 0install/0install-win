@@ -33,6 +33,7 @@ using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Capabilities;
 using ZeroInstall.Store.Model.Selection;
 using EntryPoint = ZeroInstall.Hooking.EntryPoint;
 
@@ -123,9 +124,7 @@ namespace ZeroInstall.Commands
             }
 
             // Redirect Windows SPAD commands to Zero Install
-            foreach (var defaultProgram in _target.Feed.CapabilityLists
-                .Where(capabilityList => capabilityList.Architecture.IsCompatible())
-                .SelectMany(capabilityList => capabilityList.Entries.OfType<Store.Model.Capabilities.DefaultProgram>()))
+            foreach (var defaultProgram in _target.Feed.CapabilityLists.CompatibleCapabilities().OfType<Store.Model.Capabilities.DefaultProgram>())
             {
                 if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.Reinstall))
                     filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.Reinstall, defaultProgram.InstallCommands.ReinstallArgs, "--machine --batch --add=defaults " + _target.InterfaceID.EscapeArgument()));

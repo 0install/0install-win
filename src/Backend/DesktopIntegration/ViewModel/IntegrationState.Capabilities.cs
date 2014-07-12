@@ -47,47 +47,44 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         /// </summary>
         private void LoadDefaultAccessPoints()
         {
-            foreach (var capabilityList in AppEntry.CapabilityLists.Where(x => x.Architecture.IsCompatible()))
+            var dispatcher = new PerTypeDispatcher<Capability>(true)
             {
-                var dispatcher = new PerTypeDispatcher<Capability>(true)
+                (FileType fileType) =>
                 {
-                    (FileType fileType) =>
-                    {
-                        var model = new FileTypeModel(fileType, IsCapabillityUsed<AccessPoints.FileType>(fileType));
-                        FileTypes.Add(model);
-                        _capabilityModels.Add(model);
-                    },
-                    (UrlProtocol urlProtocol) =>
-                    {
-                        var model = new UrlProtocolModel(urlProtocol, IsCapabillityUsed<AccessPoints.UrlProtocol>(urlProtocol));
-                        UrlProtocols.Add(model);
-                        _capabilityModels.Add(model);
-                    },
-                    (AutoPlay autoPlay) =>
-                    {
-                        var model = new AutoPlayModel(autoPlay, IsCapabillityUsed<AccessPoints.AutoPlay>(autoPlay));
-                        AutoPlay.Add(model);
-                        _capabilityModels.Add(model);
-                    },
-                    (ContextMenu contextMenu) =>
-                    {
-                        var model = new ContextMenuModel(contextMenu, IsCapabillityUsed<AccessPoints.ContextMenu>(contextMenu));
-                        ContextMenu.Add(model);
-                        _capabilityModels.Add(model);
-                    }
-                };
-                if (_integrationManager.MachineWide)
+                    var model = new FileTypeModel(fileType, IsCapabillityUsed<AccessPoints.FileType>(fileType));
+                    FileTypes.Add(model);
+                    _capabilityModels.Add(model);
+                },
+                (UrlProtocol urlProtocol) =>
                 {
-                    dispatcher.Add((DefaultProgram defaultProgram) =>
-                    {
-                        var model = new DefaultProgramModel(defaultProgram, IsCapabillityUsed<AccessPoints.DefaultProgram>(defaultProgram));
-                        DefaultProgram.Add(model);
-                        _capabilityModels.Add(model);
-                    });
+                    var model = new UrlProtocolModel(urlProtocol, IsCapabillityUsed<AccessPoints.UrlProtocol>(urlProtocol));
+                    UrlProtocols.Add(model);
+                    _capabilityModels.Add(model);
+                },
+                (AutoPlay autoPlay) =>
+                {
+                    var model = new AutoPlayModel(autoPlay, IsCapabillityUsed<AccessPoints.AutoPlay>(autoPlay));
+                    AutoPlay.Add(model);
+                    _capabilityModels.Add(model);
+                },
+                (ContextMenu contextMenu) =>
+                {
+                    var model = new ContextMenuModel(contextMenu, IsCapabillityUsed<AccessPoints.ContextMenu>(contextMenu));
+                    ContextMenu.Add(model);
+                    _capabilityModels.Add(model);
                 }
-
-                dispatcher.Dispatch(capabilityList.Entries);
+            };
+            if (_integrationManager.MachineWide)
+            {
+                dispatcher.Add((DefaultProgram defaultProgram) =>
+                {
+                    var model = new DefaultProgramModel(defaultProgram, IsCapabillityUsed<AccessPoints.DefaultProgram>(defaultProgram));
+                    DefaultProgram.Add(model);
+                    _capabilityModels.Add(model);
+                });
             }
+
+            dispatcher.Dispatch(AppEntry.CapabilityLists.CompatibleCapabilities());
         }
 
         /// <summary>

@@ -637,6 +637,13 @@
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <xsd:attribute name="os" type="feed:os" default="*">
+          <xsd:annotation>
+            <xsd:documentation>
+              Determines for which operating system this dependency is required.
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

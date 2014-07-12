@@ -26,10 +26,10 @@
       <xsd:element name="default-program" type="caps:default-program" />
       <xsd:element name="url-protocol" type="caps:url-protocol" />
     </xsd:choice>
-    <xsd:attribute name="arch" type="xsd:string">
+    <xsd:attribute name="os" type="xsd:string">
       <xsd:annotation>
         <xsd:documentation>
-          Determines for which operating systems the capabilities are applicable.
+          Determines for which operating system the capabilities are applicable.
         </xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>

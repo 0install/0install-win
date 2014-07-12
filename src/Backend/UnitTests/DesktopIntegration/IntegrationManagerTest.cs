@@ -141,7 +141,7 @@ namespace ZeroInstall.DesktopIntegration
         {
             var capabilitiyList = new CapabilityList
             {
-                Architecture = Architecture.CurrentSystem,
+                OS = Architecture.CurrentSystem.OS,
                 Entries = {new FileType {ID = "my_ext1"}, new FileType {ID = "my_ext2"}}
             };
             var feed = new Feed {Name = "Test 1", CapabilityLists = {capabilitiyList}};

@@ -45,17 +45,11 @@ namespace ZeroInstall.Store.Model.Capabilities
 
         #region Properties
         /// <summary>
-        /// Determines for which operating systems the <see cref="Capability"/>s are applicable.
+        /// Determines for which operating system the <see cref="Capability"/>s are applicable.
         /// </summary>
-        [Description("Determines for which operating systems the capabilities are applicable.")]
-        [XmlIgnore]
-        public Architecture Architecture { get; set; }
-
-        /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="Architecture"/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        [XmlAttribute("arch"), DefaultValue("*-*")]
-        public string ArchitectureString { get { return Architecture.ToString(); } set { Architecture = new Architecture(value); } }
+        [Description("Determines for which operating system the capabilities are applicable.")]
+        [XmlAttribute("os"), DefaultValue(typeof(OS), "All")]
+        public OS OS { get; set; }
 
         private readonly List<Capability> _entries = new List<Capability>();
 
@@ -76,7 +70,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <returns>The new copy of the <see cref="CapabilityList"/>.</returns>
         public CapabilityList Clone()
         {
-            var capabilityList = new CapabilityList {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Architecture = Architecture};
+            var capabilityList = new CapabilityList {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, OS = OS};
             capabilityList.Entries.AddRange(Entries.CloneElements());
             return capabilityList;
         }
@@ -89,11 +83,11 @@ namespace ZeroInstall.Store.Model.Capabilities
 
         #region Conversion
         /// <summary>
-        /// Returns the capability list in the form "Architecture". Not safe for parsing!
+        /// Returns the capability list in the form "OS". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return Architecture.ToString();
+            return OS.ToString();
         }
         #endregion
 
@@ -102,7 +96,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         public bool Equals(CapabilityList other)
         {
             if (other == null) return false;
-            return base.Equals(other) && (Architecture == other.Architecture && Entries.SequencedEquals(other.Entries));
+            return base.Equals(other) && (OS == other.OS && Entries.SequencedEquals(other.Entries));
         }
 
         /// <inheritdoc/>
@@ -119,7 +113,7 @@ namespace ZeroInstall.Store.Model.Capabilities
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ Architecture.GetHashCode();
+                result = (result * 397) ^ OS.GetHashCode();
                 result = (result * 397) ^ Entries.GetSequencedHashCode();
                 return result;
             }
