@@ -72,13 +72,6 @@ namespace ZeroInstall.Store.Model
         [TypeConverter(typeof(UseConverter))]
         public string Use { get; set; }
 
-        /// <summary>
-        /// Determines for which operating systems this dependency is required.
-        /// </summary>
-        [Description("Determines for which operating systems this dependency is required.")]
-        [XmlAttribute("os"), DefaultValue(typeof(OS), "All")]
-        public OS OS { get; set; }
-
         private readonly List<Binding> _bindings = new List<Binding>();
 
         /// <summary>
@@ -110,7 +103,7 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="Dependency"/>.</returns>
         public Dependency CloneDependency()
         {
-            var dependency = new Dependency {Interface = Interface, Importance = Importance, Use = Use};
+            var dependency = new Dependency {Interface = Interface, OS = OS, Distribution = Distribution, Versions = Versions, Importance = Importance, Use = Use};
             dependency.Constraints.AddRange(Constraints.CloneElements());
             dependency.Bindings.AddRange(Bindings.CloneElements());
             return dependency;

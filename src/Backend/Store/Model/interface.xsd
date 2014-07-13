@@ -553,11 +553,10 @@
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <xsd:attribute name="version" type="xsd:string" use="optional">
+        <xsd:attribute name="os" type="feed:os" default="*">
           <xsd:annotation>
             <xsd:documentation>
-              A more flexible alternative to &lt;version&gt; tags. A list of ranges, separated by "|", any of which may match.
-              Each range is in the form "START..!END". The range matches versions where START &lt;= VERSION &lt; END. The start or end may be omitted. A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version.
+              Determines for which operating systems this dependency is required.
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
@@ -566,6 +565,14 @@
             <xsd:documentation>
               Specifies that the selected implementation must be from the given distribution (e.g. Debian, RPM).
               The special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a &lt;package-implementation&gt;).
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="version" type="xsd:string" use="optional">
+          <xsd:annotation>
+            <xsd:documentation>
+              A more flexible alternative to &lt;version&gt; tags. A list of ranges, separated by "|", any of which may match.
+              Each range is in the form "START..!END". The range matches versions where START &lt;= VERSION &lt; END. The start or end may be omitted. A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version.
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
@@ -627,13 +634,6 @@
           <xsd:annotation>
             <xsd:documentation>
               This can be used to indicate that this dependency is only needed in some cases.
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <xsd:attribute name="os" type="feed:os" default="*">
-          <xsd:annotation>
-            <xsd:documentation>
-              Determines for which operating systems this dependency is required.
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>

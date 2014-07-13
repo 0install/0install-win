@@ -42,6 +42,13 @@ namespace ZeroInstall.Store.Model
         public string Interface { get; set; }
 
         /// <summary>
+        /// Determines for which operating systems this dependency is required.
+        /// </summary>
+        [Description("Determines for which operating systems this dependency is required.")]
+        [XmlAttribute("os"), DefaultValue(typeof(OS), "All")]
+        public OS OS { get; set; }
+
+        /// <summary>
         /// Specifies that the selected implementation must be from the given distribution (e.g. Debian, RPM).
         /// The special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <see cref="PackageImplementation"/>). 
         /// </summary>
@@ -49,15 +56,6 @@ namespace ZeroInstall.Store.Model
         [XmlAttribute("distribution")]
         [TypeConverter(typeof(DistributionNameConverter))]
         public string Distribution { get; set; }
-
-        private readonly List<Constraint> _constraints = new List<Constraint>();
-
-        /// <summary>
-        /// A list of version <see cref="Constraint"/>s that must be fulfilled.
-        /// </summary>
-        [Browsable(false)]
-        [XmlElement("version")]
-        public List<Constraint> Constraints { get { return _constraints; } }
 
         /// <summary>
         /// A more flexible alternative to <see cref="Constraints"/>.
@@ -71,6 +69,15 @@ namespace ZeroInstall.Store.Model
         /// <seealso cref="Versions"/>
         [XmlAttribute("version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string VersionsString { get { return (Versions == null) ? null : Versions.ToString(); } set { Versions = string.IsNullOrEmpty(value) ? null : new VersionRange(value); } }
+
+        private readonly List<Constraint> _constraints = new List<Constraint>();
+
+        /// <summary>
+        /// A list of version <see cref="Constraint"/>s that must be fulfilled.
+        /// </summary>
+        [Browsable(false)]
+        [XmlElement("version")]
+        public List<Constraint> Constraints { get { return _constraints; } }
         #endregion
 
         //--------------------//
@@ -105,7 +112,7 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="Restriction"/>.</returns>
         public virtual Restriction Clone()
         {
-            var restriction = new Restriction {Interface = Interface, Versions = Versions};
+            var restriction = new Restriction {Interface = Interface, OS = OS, Distribution = Distribution, Versions = Versions};
             restriction.Constraints.AddRange(Constraints.CloneElements());
             return restriction;
         }
@@ -121,7 +128,7 @@ namespace ZeroInstall.Store.Model
         public bool Equals(Restriction other)
         {
             if (other == null) return false;
-            return base.Equals(other) && Interface == other.Interface && Versions == other.Versions && Constraints.SequencedEquals(other.Constraints);
+            return base.Equals(other) && Interface == other.Interface && OS == other.OS && Versions == other.Versions && Constraints.SequencedEquals(other.Constraints);
         }
 
         /// <inheritdoc/>
@@ -139,6 +146,7 @@ namespace ZeroInstall.Store.Model
             {
                 int result = base.GetHashCode();
                 result = (result * 397) ^ (Interface ?? "").GetHashCode();
+                result = (result * 397) ^ OS.GetHashCode();
                 result = (result * 397) ^ Constraints.GetSequencedHashCode();
                 if (Versions != null) result = (result * 397) ^ Versions.GetHashCode();
                 return result;

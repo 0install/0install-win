@@ -35,6 +35,8 @@ namespace ZeroInstall.Store.Model
             {
                 Interface = "",
                 Versions = new VersionRange("1.0..!2.0"),
+                OS = OS.Windows,
+                Distribution = "0install",
                 Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}}
             };
         }
