@@ -100,17 +100,18 @@ namespace ZeroInstall.Services.Solvers
         {
             foreach (var candidate in candidates)
             {
-                AddToSelections(candidate, requirements, allCandidates);
-                if (TryToSolveCommand(candidate.Implementation[requirements.Command]) &&
-                    TryToSolveDependencies(candidate.Implementation.Dependencies))
+                var selection = AddToSelections(candidate, requirements, allCandidates);
+                if (TryToSolveCommand(selection[requirements.Command]) && TryToSolveDependencies(selection))
                     return true;
                 else RemoveFromSelections(candidate);
             }
             return false;
         }
 
-        private bool TryToSolveDependencies(IEnumerable<Dependency> dependencies)
+        private bool TryToSolveDependencies(IDependencyContainer dependencyContainer)
         {
+            var dependencies = dependencyContainer.Dependencies;
+
             var essentialDependencies = new List<Dependency>();
             var recommendedDependencies = new List<Dependency>();
             dependencies.Bucketize(x => x.Importance)
@@ -131,13 +132,15 @@ namespace ZeroInstall.Services.Solvers
             if (command.Runner != null)
                 if (!TryToSolve(command.Runner.ToRequirements(TopLevelRequirements))) return false;
 
-            return TryToSolveDependencies(command.Dependencies);
+            return TryToSolveDependencies(command);
         }
 
-        private void AddToSelections(SelectionCandidate candidate, Requirements requirements, IEnumerable<SelectionCandidate> allCandidates)
+        private ImplementationSelection AddToSelections(SelectionCandidate candidate, Requirements requirements, IEnumerable<SelectionCandidate> allCandidates)
         {
-            Selections.Implementations.Add(candidate.ToSelection(allCandidates, requirements));
             _restrictions.AddRange(candidate.Implementation.Restrictions);
+            var selection = candidate.ToSelection(allCandidates, requirements);
+            Selections.Implementations.Add(selection);
+            return selection;
         }
 
         private void RemoveFromSelections(SelectionCandidate candidate)

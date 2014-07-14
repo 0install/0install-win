@@ -81,6 +81,7 @@ namespace ZeroInstall.Services.Solvers
                 Architecture = implementation.Architecture,
                 Version = implementation.Version,
                 Released = implementation.Released,
+                Stability = candidate.EffectiveStability,
                 License = implementation.License,
                 InterfaceID = requirements.InterfaceID,
             };
@@ -99,7 +100,7 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="selection">The <see cref="ImplementationSelection"/> to add the <see cref="Command"/> to.</param>
         /// <param name="commandName">The <see cref="Command.Name"/> to look for.</param>
         /// <param name="from">The <see cref="Implementation"/> to get the <see cref="Command"/> from.</param>
-        /// <returns>The <see cref="Command"/> that was found; <see langword="null"/> if none.</returns>
+        /// <returns>The <see cref="Command"/> that was added to <paramref name="selection"/>; <see langword="null"/> if none.</returns>
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "This method explicitly transfers information from an Implementation to an ImplementationSelection.")]
         public static Command AddCommand(this ImplementationSelection selection, string commandName, Implementation from)
         {
@@ -109,7 +110,11 @@ namespace ZeroInstall.Services.Solvers
             #endregion
 
             var command = from[commandName];
-            if (command != null) selection.Commands.Add(command.Clone());
+            if (command != null)
+            {
+                command = command.Clone();
+                selection.Commands.Add(command);
+            }
             return command;
         }
 
