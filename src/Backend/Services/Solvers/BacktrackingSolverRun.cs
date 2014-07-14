@@ -92,7 +92,7 @@ namespace ZeroInstall.Services.Solvers
             if (!suitableCandidates.Contains(selection)) return false;
             if (selection.ContainsCommand(requirements.Command)) return true;
 
-            var command = selection.AddCommand(requirements.Command, from: GetOriginalImplementation(selection));
+            var command = selection.AddCommand(requirements, from: GetOriginalImplementation(selection));
             return (command != null) && TryToSolveCommand(command);
         }
 

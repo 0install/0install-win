@@ -89,7 +89,7 @@ namespace ZeroInstall.Services.Solvers
 
             selection.Dependencies.AddRange(implementation.Dependencies.CloneElements());
             selection.Bindings.AddRange(implementation.Bindings.CloneElements());
-            selection.AddCommand(requirements.Command, from: candidate.Implementation);
+            selection.AddCommand(requirements, from: candidate.Implementation);
 
             return selection;
         }
@@ -98,24 +98,29 @@ namespace ZeroInstall.Services.Solvers
         /// Adds a <see cref="Command"/> specified in an <see cref="Implementation"/> to a <see cref="ImplementationSelection"/>.
         /// </summary>
         /// <param name="selection">The <see cref="ImplementationSelection"/> to add the <see cref="Command"/> to.</param>
-        /// <param name="commandName">The <see cref="Command.Name"/> to look for.</param>
+        /// <param name="requirements">The requirements specifying which <see cref="Requirements.Command"/> to extract.</param>
         /// <param name="from">The <see cref="Implementation"/> to get the <see cref="Command"/> from.</param>
         /// <returns>The <see cref="Command"/> that was added to <paramref name="selection"/>; <see langword="null"/> if none.</returns>
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "This method explicitly transfers information from an Implementation to an ImplementationSelection.")]
-        public static Command AddCommand(this ImplementationSelection selection, string commandName, Implementation from)
+        public static Command AddCommand(this ImplementationSelection selection, Requirements requirements, Implementation @from)
         {
             #region Sanity checks
             if (selection == null) throw new ArgumentNullException("selection");
             if (from == null) throw new ArgumentNullException("from");
             #endregion
 
-            var command = from[commandName];
-            if (command != null)
-            {
-                command = command.Clone();
-                selection.Commands.Add(command);
-            }
-            return command;
+            var command = from[requirements.Command];
+            if (command == null) return command;
+
+            var newCommand = new Command {Name = command.Name, Path = command.Path};
+            newCommand.Arguments.AddRange(command.Arguments.CloneElements());
+            newCommand.Bindings.AddRange(command.Bindings.CloneElements());
+            newCommand.Dependencies.AddRange(command.Dependencies.CloneElements());
+            if (command.WorkingDir != null) newCommand.WorkingDir = command.WorkingDir.Clone();
+            if (command.Runner != null) newCommand.Runner = command.Runner.CloneRunner();
+
+            selection.Commands.Add(newCommand);
+            return newCommand;
         }
 
         /// <summary>

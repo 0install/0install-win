@@ -160,9 +160,9 @@ namespace ZeroInstall.Store.Model
             newCommand.Arguments.AddRange(Arguments.CloneElements());
             newCommand.Bindings.AddRange(Bindings.CloneElements());
             if (WorkingDir != null) newCommand.WorkingDir = WorkingDir.Clone();
+            if (Runner != null) newCommand.Runner = Runner.CloneRunner();
             newCommand.Dependencies.AddRange(Dependencies.CloneElements());
             newCommand.Restrictions.AddRange(Restrictions.CloneElements());
-            if (Runner != null) newCommand.Runner = Runner.CloneRunner();
 
             return newCommand;
         }
