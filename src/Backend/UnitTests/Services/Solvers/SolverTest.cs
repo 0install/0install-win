@@ -154,21 +154,6 @@ namespace ZeroInstall.Services.Solvers
         }
 
         [Test]
-        public void ExecutableInDependency()
-        {
-            RunAndAssert(
-                feeds: new Dictionary<string, string>
-                {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/helper.xml'><executable-in-path/></requires></implementation>"},
-                    {"http://test/helper.xml", "<implementation version='1.0' id='helper1'><command name='run' path='test-helper' /></implementation>"}
-                },
-                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
-                expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/helper.xml'><executable-in-path/></requires></selection>" +
-                    "<selection interface='http://test/helper.xml' version='1.0' id='helper1'><command name='run' path='test-helper' /></selection>");
-        }
-
-        [Test]
         public void MultipleCommandDependencies()
         {
             RunAndAssert(
@@ -190,6 +175,21 @@ namespace ZeroInstall.Services.Solvers
                     "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/helper.xml'><executable-in-path name='helperA' command='commandA'/><executable-in-path name='helperB' command='commandB'/></requires></selection>" +
                     "<selection interface='http://test/helper.xml' version='1.0' id='helper1'><command name='commandA' path='helperA' /><command name='commandB' path='helperB'><runner interface='http://test/runner.xml' /></command></selection>" +
                     "<selection interface='http://test/runner.xml' version='1.0' id='runner1'><command name='run' path='test-runner' /></selection>");
+        }
+
+        [Test]
+        public void ExecutableInDependency()
+        {
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/helper.xml'><executable-in-path/></requires></implementation>"},
+                    {"http://test/helper.xml", "<implementation version='1.0' id='helper1'><command name='run' path='test-helper' /></implementation>"}
+                },
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/helper.xml'><executable-in-path/></requires></selection>" +
+                    "<selection interface='http://test/helper.xml' version='1.0' id='helper1'><command name='run' path='test-helper' /></selection>");
         }
 
         [Test]
