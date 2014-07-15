@@ -82,7 +82,7 @@ namespace ZeroInstall.Services.Solvers
                 },
                 requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' importance='recommended' /></selection>");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /></selection>");
         }
 
         [Test]
