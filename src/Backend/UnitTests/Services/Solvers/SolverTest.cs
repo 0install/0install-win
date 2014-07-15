@@ -139,6 +139,21 @@ namespace ZeroInstall.Services.Solvers
         }
 
         [Test]
+        public void DependencyWithBinding()
+        {
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml'><environment name='var1' insert='.' /></requires></implementation>"},
+                    {"http://test/lib.xml", "<implementation version='1.0' id='lib1' />"}
+                },
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml'><environment name='var1' insert='.' /></requires></selection>" +
+                    "<selection interface='http://test/lib.xml' version='1.0' id='lib1' />");
+        }
+
+        [Test]
         public void ExecutableInDependency()
         {
             RunAndAssert(
