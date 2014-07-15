@@ -18,7 +18,6 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using ZeroInstall.Store.Model.Design;
 
 namespace ZeroInstall.Store.Model
 {
@@ -28,7 +27,7 @@ namespace ZeroInstall.Store.Model
     [Description("Zero Install will not know how to run a program using generic bindings itself, but it will include them in any selections documents it creates, which can then be executed by your custom code.")]
     [Serializable]
     [XmlRoot("binding", Namespace = Feed.XmlNamespace), XmlType("binding", Namespace = Feed.XmlNamespace)]
-    public sealed class GenericBinding : Binding, IEquatable<GenericBinding>
+    public sealed class GenericBinding : ExecutableInBinding, IEquatable<GenericBinding>
     {
         #region Properties
         /// <summary>
@@ -37,14 +36,6 @@ namespace ZeroInstall.Store.Model
         [Description("If your binding needs a path within the selected implemention, it is suggested that the path attribute be used for this. Other attributes and child elements should be namespaced to avoid collisions. ")]
         [XmlAttribute("path")]
         public string Path { get; set; }
-
-        /// <summary>
-        /// If set Install will select the given command within the implementation (which may cause additional dependencies and bindings to be selected). Otherwise, no command is selected.
-        /// </summary>
-        [Description("If set Zero Install will select the given command within the implementation (which may cause additional dependencies and bindings to be selected). Otherwise, no command is selected.")]
-        [XmlAttribute("command"), DefaultValue("")]
-        [TypeConverter(typeof(CommandNameConverter))]
-        public string Command { get; set; }
         #endregion
 
         //--------------------//
