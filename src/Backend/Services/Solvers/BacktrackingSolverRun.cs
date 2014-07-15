@@ -103,7 +103,7 @@ namespace ZeroInstall.Services.Solvers
                 var selection = AddToSelections(candidate, requirements, allCandidates);
                 if (TryToSolveCommand(selection[requirements.Command]) && TryToSolveDependencies(selection))
                     return true;
-                else RemoveFromSelections(candidate);
+                else RemoveLastFromSelections();
             }
             return false;
         }
@@ -146,16 +146,16 @@ namespace ZeroInstall.Services.Solvers
 
         private ImplementationSelection AddToSelections(SelectionCandidate candidate, Requirements requirements, IEnumerable<SelectionCandidate> allCandidates)
         {
-            _restrictions.AddRange(candidate.Implementation.Restrictions);
             var selection = candidate.ToSelection(allCandidates, requirements);
             Selections.Implementations.Add(selection);
+            _restrictions.AddRange(selection.Restrictions);
             return selection;
         }
 
-        private void RemoveFromSelections(SelectionCandidate candidate)
+        private void RemoveLastFromSelections()
         {
+            _restrictions.RemoveLast(Selections.Implementations.Last().Restrictions.Count);
             Selections.Implementations.RemoveLast();
-            _restrictions.RemoveLast(candidate.Implementation.Restrictions.Count);
         }
     }
 }

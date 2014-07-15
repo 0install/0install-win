@@ -87,11 +87,23 @@ namespace ZeroInstall.Services.Solvers
             };
             if (candidate.FeedID != requirements.InterfaceID) selection.FromFeed = candidate.FeedID;
 
-            selection.Dependencies.AddRange(implementation.Dependencies.CloneElements());
             selection.Bindings.AddRange(implementation.Bindings.CloneElements());
+            selection.AddDependencies(requirements, from: candidate.Implementation);
             selection.AddCommand(requirements, from: candidate.Implementation);
 
             return selection;
+        }
+
+        /// <summary>
+        /// Transfers <see cref="Dependency"/>s from one <see cref="IDependencyContainer"/> to another.
+        /// </summary>
+        /// <param name="target">The <see cref="IDependencyContainer"/> to add the <see cref="Dependency"/>s to.</param>
+        /// <param name="requirements">The requirements which restrict which <see cref="Dependency"/>s are applicable.</param>
+        /// <param name="from">The <see cref="IDependencyContainer"/> to get the <see cref="Dependency"/>s to.</param>
+        public static void AddDependencies(this IDependencyContainer target, Requirements requirements, IDependencyContainer from)
+        {
+            target.Dependencies.AddRange(from.Dependencies.Where(x => x.OS.IsCompatible(requirements.Architecture)).CloneElements());
+            target.Restrictions.AddRange(from.Restrictions.Where(x => x.OS.IsCompatible(requirements.Architecture)).CloneElements());
         }
 
         /// <summary>
@@ -115,9 +127,9 @@ namespace ZeroInstall.Services.Solvers
             var newCommand = new Command {Name = command.Name, Path = command.Path};
             newCommand.Arguments.AddRange(command.Arguments.CloneElements());
             newCommand.Bindings.AddRange(command.Bindings.CloneElements());
-            newCommand.Dependencies.AddRange(command.Dependencies.CloneElements());
             if (command.WorkingDir != null) newCommand.WorkingDir = command.WorkingDir.Clone();
             if (command.Runner != null) newCommand.Runner = command.Runner.CloneRunner();
+            newCommand.AddDependencies(requirements, from: command);
 
             selection.Commands.Add(newCommand);
             return newCommand;

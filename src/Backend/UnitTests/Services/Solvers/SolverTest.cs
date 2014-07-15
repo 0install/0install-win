@@ -86,6 +86,29 @@ namespace ZeroInstall.Services.Solvers
         }
 
         [Test]
+        public void OSSpecificDependency()
+        {
+            var feeds = new Dictionary<string, string>
+            {
+                {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' os='Windows' /></implementation>"},
+                {"http://test/lib.xml", "<implementation version='1.0' id='lib1' />"}
+            };
+
+            // applicable
+            RunAndAssert(feeds,
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun, Architecture = new Architecture(OS.Windows, Cpu.All)},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' os='Windows' /></selection>" +
+                    "<selection interface='http://test/lib.xml' version='1.0' id='lib1' />");
+
+            // not applicable
+            RunAndAssert(feeds,
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun, Architecture = new Architecture(OS.Linux, Cpu.All)},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /></selection>");
+        }
+
+        [Test]
         public void CyclicDependency()
         {
             RunAndAssert(
@@ -155,6 +178,81 @@ namespace ZeroInstall.Services.Solvers
         }
 
         [Test]
+        public void SimpleRestriction()
+        {
+            // without restriction
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></implementation>"},
+                    {"http://test/liba.xml", "<implementation version='1.0' id='liba1' />"},
+                    {"http://test/libb.xml", "<implementation version='1.0' id='libb1' /><implementation version='2.0' id='libb2' />"}
+                },
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></selection>" +
+                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1' />" +
+                    "<selection interface='http://test/libb.xml' version='2.0' id='libb2' />");
+
+            // with restriction
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></implementation>"},
+                    {"http://test/liba.xml", "<implementation version='1.0' id='liba1'><restricts interface='http://test/libb.xml' version='1.0' /></implementation>"},
+                    {"http://test/libb.xml", "<implementation version='1.0' id='libb1' /><implementation version='2.0' id='libb2' />"}
+                },
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></selection>" +
+                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1'><restricts interface='http://test/libb.xml' version='1.0' /></selection>" +
+                    "<selection interface='http://test/libb.xml' version='1.0' id='libb1' />");
+        }
+
+        [Test]
+        public void OSSpecificRestriction()
+        {
+            var feeds = new Dictionary<string, string>
+            {
+                {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></implementation>"},
+                {"http://test/liba.xml", "<implementation version='1.0' id='liba1'><restricts interface='http://test/libb.xml' version='1.0' os='Windows' /></implementation>"},
+                {"http://test/libb.xml", "<implementation version='1.0' id='libb1' /><implementation version='2.0' id='libb2' />"}
+            };
+
+            // applicable
+            RunAndAssert(feeds,
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun, Architecture = new Architecture(OS.Windows, Cpu.All)},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></selection>" +
+                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1'><restricts interface='http://test/libb.xml' version='1.0' os='Windows' /></selection>" +
+                    "<selection interface='http://test/libb.xml' version='1.0' id='libb1' />");
+
+            // not applicable
+            RunAndAssert(feeds,
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun, Architecture = new Architecture(OS.Linux, Cpu.All)},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></selection>" +
+                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1' />" +
+                    "<selection interface='http://test/libb.xml' version='2.0' id='libb2' />");
+        }
+
+        [Test]
+        public void ExtraRestrictions()
+        {
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /></implementation><implementation version='2.0' id='app2'><command name='run' path='test-app' /></implementation>"}
+                },
+                requirements: new Requirements
+                {
+                    InterfaceID = "http://test/app.xml", Command = Command.NameRun,
+                    ExtraRestrictions = {{"http://test/app.xml", new VersionRange("..!2.0")}}
+                },
+                expectedSelections: "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /></selection>");
+        }
+
+        [Test]
         public void SimpleFeedReference()
         {
             RunAndAssert(
@@ -192,54 +290,6 @@ namespace ZeroInstall.Services.Solvers
                 },
                 requirements: new Requirements {InterfaceID = "http://test/app1.xml", Command = Command.NameRun},
                 expectedSelections: "<selection interface='http://test/app1.xml' from-feed='http://test/app2.xml' version='2.0' id='app2'><command name='run' path='test-app2' /></selection>");
-        }
-
-        [Test]
-        public void Restriction()
-        {
-            // without restriction
-            RunAndAssert(
-                feeds: new Dictionary<string, string>
-                {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></implementation>"},
-                    {"http://test/liba.xml", "<implementation version='1.0' id='liba1' />"},
-                    {"http://test/libb.xml", "<implementation version='1.0' id='libb1' /><implementation version='2.0' id='libb2' />"}
-                },
-                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
-                expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></selection>" +
-                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1' />" +
-                    "<selection interface='http://test/libb.xml' version='2.0' id='libb2' />");
-
-            // with restriction
-            RunAndAssert(
-                feeds: new Dictionary<string, string>
-                {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></implementation>"},
-                    {"http://test/liba.xml", "<implementation version='1.0' id='liba1'><restricts interface='http://test/libb.xml' version='1.0' /></implementation>"},
-                    {"http://test/libb.xml", "<implementation version='1.0' id='libb1' /><implementation version='2.0' id='libb2' />"}
-                },
-                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
-                expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></selection>" +
-                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1' />" +
-                    "<selection interface='http://test/libb.xml' version='1.0' id='libb1' />");
-        }
-
-        [Test]
-        public void ExtraRestrictions()
-        {
-            RunAndAssert(
-                feeds: new Dictionary<string, string>
-                {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /></implementation><implementation version='2.0' id='app2'><command name='run' path='test-app' /></implementation>"}
-                },
-                requirements: new Requirements
-                {
-                    InterfaceID = "http://test/app.xml", Command = Command.NameRun,
-                    ExtraRestrictions = {{"http://test/app.xml", new VersionRange("..!2.0")}}
-                },
-                expectedSelections: "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /></selection>");
         }
 
         [Test]
