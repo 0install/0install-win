@@ -20,6 +20,11 @@ namespace ZeroInstall.Store.Model
     /// <summary>
     /// An object that contains an interface ID string.
     /// </summary>
-    public interface IInterfaceIDBindingContainer : IInterfaceID, IBindingContainer
-    {}
+    public interface IInterfaceID
+    {
+        /// <summary>
+        /// An interface ID (URL or file path).
+        /// </summary>
+        string InterfaceID { get; set; }
+    }
 }

@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Model
     [Description("Restricts the versions of an Implementation that are allowed without creating a dependency on the implementation if its was not already chosen.")]
     [Serializable]
     [XmlRoot("restriction", Namespace = Feed.XmlNamespace), XmlType("restriction", Namespace = Feed.XmlNamespace)]
-    public class Restriction : FeedElement, ICloneable, IEquatable<Restriction>
+    public class Restriction : FeedElement, IInterfaceID, ICloneable, IEquatable<Restriction>
     {
         #region Properties
         /// <summary>
