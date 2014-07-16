@@ -187,6 +187,7 @@
     <Compile Include="Model\IDescriptionContainer.cs" />
     <Compile Include="Model\IElementContainer.cs" />
     <Compile Include="Model\IIconContainer.cs" />
+    <Compile Include="Model\IInterfaceIDBindingContainer.cs" />
     <Compile Include="Model\Implementation.cs" />
     <Compile Include="Model\ImplementationBase.cs" />
     <Compile Include="Model\ImplementationVersion.cs" />

@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Model.Selection
     /// <remarks>This class does not contain information on how to download the implementation in case it is not in cache. That must be obtained from a <see cref="Store.Model.Implementation"/> instance.</remarks>
     /// <seealso cref="Selections.Implementations"/>
     [XmlType("selection", Namespace = Feed.XmlNamespace)]
-    public sealed class ImplementationSelection : ImplementationBase, IEquatable<ImplementationSelection>
+    public sealed class ImplementationSelection : ImplementationBase, IInterfaceIDBindingContainer, IEquatable<ImplementationSelection>
     {
         #region Constants
         /// <summary>

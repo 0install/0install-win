@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Model
     [Description("A reference to an interface that is required as dependency.")]
     [Serializable]
     [XmlRoot("dependency", Namespace = Feed.XmlNamespace), XmlType("depedency", Namespace = Feed.XmlNamespace)]
-    public class Dependency : Restriction, IBindingContainer, IEquatable<Dependency>
+    public class Dependency : Restriction, IInterfaceIDBindingContainer, IEquatable<Dependency>
     {
         #region Constants
         /// <summary>
