@@ -72,7 +72,7 @@ namespace ZeroInstall.Services
 
                 // Recurse into regular dependencies
                 foreach (var dependency in implementation.Dependencies)
-                    PrintNode(selections, builder, handled, store, indent, dependency.Interface);
+                    PrintNode(selections, builder, handled, store, indent, dependency.InterfaceID);
 
                 if (implementation.Commands.Count != 0)
                 {
@@ -80,11 +80,11 @@ namespace ZeroInstall.Services
 
                     // Recurse into command dependencies
                     foreach (var dependency in command.Dependencies)
-                        PrintNode(selections, builder, handled, store, indent, dependency.Interface);
+                        PrintNode(selections, builder, handled, store, indent, dependency.InterfaceID);
 
                     // Recurse into runner dependency
                     if (command.Runner != null)
-                        PrintNode(selections, builder, handled, store, indent, command.Runner.Interface);
+                        PrintNode(selections, builder, handled, store, indent, command.Runner.InterfaceID);
                 }
             }
             catch (KeyNotFoundException)

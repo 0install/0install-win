@@ -35,7 +35,7 @@ namespace ZeroInstall.Store.Model
     {
         #region Properties
         /// <summary>
-        /// The name of the command in the <see cref="Restriction.Interface"/> to use; leave <see langword="null"/> for <see cref="Store.Model.Command.NameRun"/>.
+        /// The name of the command in the <see cref="Restriction.InterfaceID"/> to use; leave <see langword="null"/> for <see cref="Store.Model.Command.NameRun"/>.
         /// </summary>
         [Description("The name of the command in the interface to use; leave empty for 'run'.")]
         [XmlAttribute("command"), DefaultValue("")]
@@ -60,7 +60,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} ({1})", Interface, Command ?? Model.Command.NameRun);
+            return string.Format("{0} ({1})", InterfaceID, Command ?? Model.Command.NameRun);
         }
         #endregion
 
@@ -71,7 +71,7 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="Runner"/>.</returns>
         public Runner CloneRunner()
         {
-            var runner = new Runner {Interface = Interface, Use = Use, Command = Command};
+            var runner = new Runner {InterfaceID = InterfaceID, Use = Use, Command = Command};
             runner.Bindings.AddRange(Bindings.CloneElements());
             runner.Constraints.AddRange(Constraints.CloneElements());
             runner.Arguments.AddRange(Arguments.CloneElements());

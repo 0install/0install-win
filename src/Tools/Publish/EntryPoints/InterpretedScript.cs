@@ -60,7 +60,7 @@ namespace ZeroInstall.Publish.EntryPoints
                 {
                     Name = Command.NameRun,
                     Path = RelativePath,
-                    Runner = new Runner {Interface = InterpreterInterface, Versions = InterpreterVersions}
+                    Runner = new Runner {InterfaceID = InterpreterInterface, Versions = InterpreterVersions}
                 };
             }
         }

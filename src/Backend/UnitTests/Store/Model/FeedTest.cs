@@ -82,7 +82,7 @@ namespace ZeroInstall.Store.Model
                 {
                     new Dependency
                     {
-                        Interface = "http://0install.de/feeds/test/test1.xml",
+                        InterfaceID = "http://0install.de/feeds/test/test1.xml",
                         Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}},
                         Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding(), ExecutableInVarTest.CreateTestBinding(), ExecutableInPathTest.CreateTestBinding()}
                     }
@@ -91,7 +91,7 @@ namespace ZeroInstall.Store.Model
                 {
                     new Restriction
                     {
-                        Interface = "http://0install.de/feeds/test/test2.xml",
+                        InterfaceID = "http://0install.de/feeds/test/test2.xml",
                         Constraints = {new Constraint {Before = new ImplementationVersion("2.0")}}
                     }
                 },
@@ -130,7 +130,7 @@ namespace ZeroInstall.Store.Model
                 {
                     new Dependency
                     {
-                        Interface = "http://0install.de/feeds/test/test2.xml", Importance = Importance.Recommended,
+                        InterfaceID = "http://0install.de/feeds/test/test2.xml", Importance = Importance.Recommended,
                         Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding(), ExecutableInVarTest.CreateTestBinding(), ExecutableInPathTest.CreateTestBinding()}
                     }
                 }

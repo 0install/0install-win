@@ -148,7 +148,7 @@ namespace ZeroInstall.Services.Solvers
             {
                 var requirements = new Requirements
                 {
-                    InterfaceID = dependency.Interface,
+                    InterfaceID = dependency.InterfaceID,
                     Command = "",
                     Architecture = topLevelRequirements.Architecture
                 };
@@ -162,7 +162,7 @@ namespace ZeroInstall.Services.Solvers
                 {
                     var requirements = new Requirements
                     {
-                        InterfaceID = dependency.Interface,
+                        InterfaceID = dependency.InterfaceID,
                         Command = binding.Command ?? Command.NameRun,
                         Architecture = topLevelRequirements.Architecture
                     };
@@ -187,7 +187,7 @@ namespace ZeroInstall.Services.Solvers
 
             var requirements = new Requirements
             {
-                InterfaceID = runner.Interface,
+                InterfaceID = runner.InterfaceID,
                 Command = runner.Command ?? Command.NameRun,
                 Architecture = topLevelRequirements.Architecture
             };
@@ -198,7 +198,7 @@ namespace ZeroInstall.Services.Solvers
 
         private static void CopyVersionRestrictions(this Requirements requirements, Restriction from)
         {
-            if (from.Versions != null) requirements.ExtraRestrictions.Add(from.Interface, from.Versions);
+            if (from.Versions != null) requirements.ExtraRestrictions.Add(from.InterfaceID, from.Versions);
         }
 
         private static void CopyVersionRestrictions(this Requirements requirements, Requirements from)

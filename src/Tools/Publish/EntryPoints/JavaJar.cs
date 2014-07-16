@@ -53,7 +53,7 @@ namespace ZeroInstall.Publish.EntryPoints
                     {
                         Name = Command.NameRun,
                         Bindings = {new EnvironmentBinding {Name = "CLASSPATH", Insert = RelativePath}},
-                        Runner = new Runner {Interface = "http://0install.de/feeds/jar-launcher.xml", Versions = (VersionRange)MinimumRuntimeVersion}
+                        Runner = new Runner {InterfaceID = "http://0install.de/feeds/jar-launcher.xml", Versions = (VersionRange)MinimumRuntimeVersion}
                     };
                 }
                 else
@@ -62,7 +62,7 @@ namespace ZeroInstall.Publish.EntryPoints
                     {
                         Name = Command.NameRun,
                         Path = RelativePath,
-                        Runner = new Runner {Interface = "http://repo.roscidus.com/java/openjdk-jre", Arguments = {"-jar"}, Versions = (VersionRange)MinimumRuntimeVersion}
+                        Runner = new Runner {InterfaceID = "http://repo.roscidus.com/java/openjdk-jre", Arguments = {"-jar"}, Versions = (VersionRange)MinimumRuntimeVersion}
                     };
                 }
             }

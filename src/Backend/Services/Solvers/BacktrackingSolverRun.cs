@@ -75,14 +75,14 @@ namespace ZeroInstall.Services.Solvers
         private bool ConflictsWithExistingRestrictions(SelectionCandidate candidate, string interfaceID)
         {
             return _restrictions.Any(restriction =>
-                restriction.Interface == interfaceID && !restriction.Versions.Match(candidate.Version));
+                restriction.InterfaceID == interfaceID && !restriction.Versions.Match(candidate.Version));
         }
 
         private bool ConflictsWithExistingSelections(SelectionCandidate candidate)
         {
             return candidate.Implementation.Restrictions.Any(restriction =>
             {
-                var implemenation = Selections.GetImplementation(restriction.Interface);
+                var implemenation = Selections.GetImplementation(restriction.InterfaceID);
                 return implemenation != null && !restriction.Versions.Match(implemenation.Version);
             });
         }

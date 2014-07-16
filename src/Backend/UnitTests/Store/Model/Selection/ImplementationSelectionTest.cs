@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.Model.Selection
                 {
                     new Dependency
                     {
-                        Interface = "http://0install.de/feeds/test/test2.xml",
+                        InterfaceID = "http://0install.de/feeds/test/test2.xml",
                         Bindings = {new EnvironmentBinding {Name = "TEST2_PATH_SUB_DEP", Insert = "sub", Default = "default", Mode = EnvironmentMode.Append}}
                     }
                 },
@@ -77,7 +77,7 @@ namespace ZeroInstall.Store.Model.Selection
                 {
                     new Dependency
                     {
-                        Interface = "http://0install.de/feeds/test/test1.xml",
+                        InterfaceID = "http://0install.de/feeds/test/test1.xml",
                         Bindings =
                         {
                             new ExecutableInVar {Name = "exec-in-var", Command = Command.NameTest},

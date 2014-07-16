@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Model
                 Path = "dir 1/executable1", Arguments = {"--executable1"},
                 Runner = new Runner
                 {
-                    Interface = "http://0install.de/feeds/test/test2.xml", Arguments = {"runner argument"}, Bindings = {new EnvironmentBinding {Name = "TEST2_PATH_RUNNER_SELF"}}
+                    InterfaceID = "http://0install.de/feeds/test/test2.xml", Arguments = {"runner argument"}, Bindings = {new EnvironmentBinding {Name = "TEST2_PATH_RUNNER_SELF"}}
                 },
                 Bindings = {new EnvironmentBinding {Name = "TEST1_PATH_COMMAND"}},
                 WorkingDir = new WorkingDir {Source = "bin"}
@@ -55,7 +55,7 @@ namespace ZeroInstall.Store.Model
                 Path = "dir 1/test1", Arguments = {"--test1"},
                 Runner = new Runner
                 {
-                    Interface = "http://0install.de/feeds/test/test2.xml", Arguments = {"runner argument"}
+                    InterfaceID = "http://0install.de/feeds/test/test2.xml", Arguments = {"runner argument"}
                 }
             };
         }
@@ -73,7 +73,7 @@ namespace ZeroInstall.Store.Model
                 {
                     new Dependency
                     {
-                        Interface = "http://0install.de/feeds/test/test1.xml",
+                        InterfaceID = "http://0install.de/feeds/test/test1.xml",
                         Bindings = {new EnvironmentBinding {Name = "TEST1_PATH_COMMAND_DEP"}}
                     }
                 },
@@ -81,7 +81,7 @@ namespace ZeroInstall.Store.Model
                 {
                     new Restriction
                     {
-                        Interface = "http://0install.de/feeds/test/test2.xml",
+                        InterfaceID = "http://0install.de/feeds/test/test2.xml",
                         Constraints = {new Constraint {Before = new ImplementationVersion("2.0")}}
                     }
                 }

@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Model
         {
             return new Dependency
             {
-                Interface = "",
+                InterfaceID = "",
                 Versions = new VersionRange("1.0..!2.0"),
                 OS = OS.Windows,
                 Distribution = "0install",

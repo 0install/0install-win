@@ -90,7 +90,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            string result = Interface;
+            string result = InterfaceID;
             if (!string.IsNullOrEmpty(Use)) result += " (" + Use + ")";
             return result;
         }
@@ -103,7 +103,7 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="Dependency"/>.</returns>
         public Dependency CloneDependency()
         {
-            var dependency = new Dependency {Interface = Interface, OS = OS, Distribution = Distribution, Versions = Versions, Importance = Importance, Use = Use};
+            var dependency = new Dependency {InterfaceID = InterfaceID, OS = OS, Distribution = Distribution, Versions = Versions, Importance = Importance, Use = Use};
             dependency.Constraints.AddRange(Constraints.CloneElements());
             dependency.Bindings.AddRange(Bindings.CloneElements());
             return dependency;

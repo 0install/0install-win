@@ -39,7 +39,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Description("The URI or local path used to identify the interface.")]
         [XmlAttribute("interface")]
-        public string Interface { get; set; }
+        public string InterfaceID { get; set; }
 
         /// <summary>
         /// Determines for which operating systems this dependency is required.
@@ -101,7 +101,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            return Interface;
+            return InterfaceID;
         }
         #endregion
 
@@ -112,7 +112,7 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="Restriction"/>.</returns>
         public virtual Restriction Clone()
         {
-            var restriction = new Restriction {Interface = Interface, OS = OS, Distribution = Distribution, Versions = Versions};
+            var restriction = new Restriction {InterfaceID = InterfaceID, OS = OS, Distribution = Distribution, Versions = Versions};
             restriction.Constraints.AddRange(Constraints.CloneElements());
             return restriction;
         }
@@ -128,7 +128,7 @@ namespace ZeroInstall.Store.Model
         public bool Equals(Restriction other)
         {
             if (other == null) return false;
-            return base.Equals(other) && Interface == other.Interface && OS == other.OS && Versions == other.Versions && Constraints.SequencedEquals(other.Constraints);
+            return base.Equals(other) && InterfaceID == other.InterfaceID && OS == other.OS && Versions == other.Versions && Constraints.SequencedEquals(other.Constraints);
         }
 
         /// <inheritdoc/>
@@ -145,7 +145,7 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Interface ?? "").GetHashCode();
+                result = (result * 397) ^ (InterfaceID ?? "").GetHashCode();
                 result = (result * 397) ^ OS.GetHashCode();
                 result = (result * 397) ^ Constraints.GetSequencedHashCode();
                 if (Versions != null) result = (result * 397) ^ Versions.GetHashCode();

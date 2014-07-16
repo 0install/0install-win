@@ -110,12 +110,12 @@ namespace ZeroInstall.Services.Injector
         private void ApplyDependencyBindings(IDependencyContainer dependencyContainer, ProcessStartInfo startInfo)
         {
             foreach (var dependency in dependencyContainer.Dependencies.Where(IsEssentialOrSelected))
-                ApplyBindings(dependency, Selections[dependency.Interface], startInfo);
+                ApplyBindings(dependency, Selections[dependency.InterfaceID], startInfo);
         }
 
         private bool IsEssentialOrSelected(Dependency dependency)
         {
-            return dependency.Importance == Importance.Essential || Selections.ContainsImplementation(dependency.Interface);
+            return dependency.Importance == Importance.Essential || Selections.ContainsImplementation(dependency.InterfaceID);
         }
         #endregion
 

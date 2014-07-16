@@ -110,7 +110,7 @@ namespace ZeroInstall.Services.Injector
             if (runner == null) commandLine = new List<ArgBase>();
             else
             {
-                commandLine = GetCommandLine(Selections[runner.Interface], runner.Command ?? Command.NameRun, startInfo);
+                commandLine = GetCommandLine(Selections[runner.InterfaceID], runner.Command ?? Command.NameRun, startInfo);
                 commandLine.AddRange(runner.Arguments);
             }
 
