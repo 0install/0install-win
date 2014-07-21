@@ -178,7 +178,7 @@ namespace ZeroInstall.Services.Solvers
         }
 
         [Test]
-        public void ExecutableInDependency()
+        public void ExecutableBindingInDependency()
         {
             RunAndAssert(
                 feeds: new Dictionary<string, string>
@@ -190,6 +190,36 @@ namespace ZeroInstall.Services.Solvers
                 expectedSelections:
                     "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/helper.xml'><executable-in-path/></requires></selection>" +
                     "<selection interface='http://test/helper.xml' version='1.0' id='helper1'><command name='run' path='test-helper' /></selection>");
+        }
+
+        [Test]
+        public void ExecutableBindingInImplementationTriggeringAdditionalRequirements()
+        {
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><command name='helper' path='helper-app'><requires interface='http://test/helper.xml' /></command><executable-in-path command='helper'/></implementation>"},
+                    {"http://test/helper.xml", "<implementation version='1.0' id='helper1'/>"}
+                },
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><command name='helper' path='helper-app'><requires interface='http://test/helper.xml' /></command><executable-in-path command='helper'/></selection>" +
+                    "<selection interface='http://test/helper.xml' version='1.0' id='helper1' />");
+        }
+
+        [Test]
+        public void ExecutableBindingInDependencyTriggeringAdditionalRequirements()
+        {
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/helper.xml'><executable-in-path command='helper'/></requires></implementation>"},
+                    {"http://test/helper.xml", "<implementation version='1.0' id='helper1'><command name='helper' path='helper-app' /></implementation>"}
+                },
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/helper.xml'><executable-in-path command='helper'/></requires></selection>" +
+                    "<selection interface='http://test/helper.xml' version='1.0' id='helper1'><command name='helper' path='helper-app' /></selection>");
         }
 
         [Test]

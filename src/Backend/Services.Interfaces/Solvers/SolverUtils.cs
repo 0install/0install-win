@@ -140,37 +140,17 @@ namespace ZeroInstall.Services.Solvers
         /// </summary>
         /// <param name="dependency">The dependency to solve.</param>
         /// <param name="topLevelRequirements">The top-level requirements specifying <see cref="Architecture"/> and custom restrictions.</param>
-        public static IEnumerable<Requirements> ToRequirements(this Dependency dependency, Requirements topLevelRequirements)
+        public static Requirements ToRequirements(this Dependency dependency, Requirements topLevelRequirements)
         {
-            var executableBindings = dependency.Bindings.OfType<ExecutableInBinding>().ToList();
-
-            if (executableBindings.Count == 0)
+            var requirements = new Requirements
             {
-                var requirements = new Requirements
-                {
-                    InterfaceID = dependency.InterfaceID,
-                    Command = "",
-                    Architecture = topLevelRequirements.Architecture
-                };
-                requirements.CopyVersionRestrictions(from: dependency);
-                requirements.CopyVersionRestrictions(from: topLevelRequirements);
-                yield return requirements;
-            }
-            else
-            {
-                foreach (var binding in executableBindings)
-                {
-                    var requirements = new Requirements
-                    {
-                        InterfaceID = dependency.InterfaceID,
-                        Command = binding.Command ?? Command.NameRun,
-                        Architecture = topLevelRequirements.Architecture
-                    };
-                    requirements.CopyVersionRestrictions(from: dependency);
-                    requirements.CopyVersionRestrictions(from: topLevelRequirements);
-                    yield return requirements;
-                }
-            }
+                InterfaceID = dependency.InterfaceID,
+                Command = "",
+                Architecture = topLevelRequirements.Architecture
+            };
+            requirements.CopyVersionRestrictions(from: dependency);
+            requirements.CopyVersionRestrictions(from: topLevelRequirements);
+            return requirements;
         }
 
         /// <summary>
@@ -204,6 +184,17 @@ namespace ZeroInstall.Services.Solvers
         private static void CopyVersionRestrictions(this Requirements requirements, Requirements from)
         {
             requirements.ExtraRestrictions.AddRange(from.ExtraRestrictions);
+        }
+
+        /// <summary>
+        /// Creates <see cref="Requirements"/> for all <see cref="ExecutableInBinding"/>s and the specific <see cref="Command"/>s they reference.
+        /// </summary>
+        /// <param name="bindingContainer">The binding container that may contain <see cref="ExecutableInBinding"/>s.</param>
+        /// <param name="interfaceID">The interface ID the bindings refer to. For <see cref="Element"/>s and <see cref="Command"/>s this is the URI of the containing feed. For <see cref="Dependency"/>s it is the URI of the target feed.</param>
+        public static IEnumerable<Requirements> ToBindingRequirements(this IBindingContainer bindingContainer, string interfaceID)
+        {
+            return bindingContainer.Bindings.OfType<ExecutableInBinding>()
+                .Select(x => new Requirements {InterfaceID = interfaceID, Command = x.Command ?? Command.NameRun});
         }
 
         /// <summary>

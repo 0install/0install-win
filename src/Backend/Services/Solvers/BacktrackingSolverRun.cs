@@ -93,7 +93,8 @@ namespace ZeroInstall.Services.Solvers
             if (selection.ContainsCommand(requirements.Command)) return true;
 
             var command = selection.AddCommand(requirements, from: GetOriginalImplementation(selection));
-            return (command != null) && TryToSolveCommand(command);
+            if (command == null) return true;
+            return TryToSolveCommand(command, requirements);
         }
 
         private bool TryToSelectCandidate(IEnumerable<SelectionCandidate> candidates, Requirements requirements, IList<SelectionCandidate> allCandidates)
@@ -101,11 +102,19 @@ namespace ZeroInstall.Services.Solvers
             foreach (var candidate in candidates)
             {
                 var selection = AddToSelections(candidate, requirements, allCandidates);
-                if (TryToSolveCommand(selection[requirements.Command]) && TryToSolveDependencies(selection))
+
+                var command = selection[requirements.Command];
+                if (command == null) return true;
+                if (TryToSolveCommand(command, requirements) && TryToSolveBindingRequirements(selection) && TryToSolveDependencies(selection))
                     return true;
                 else RemoveLastFromSelections();
             }
             return false;
+        }
+
+        private bool TryToSolveBindingRequirements(IInterfaceIDBindingContainer selection)
+        {
+            return selection.ToBindingRequirements(selection.InterfaceID).All(TryToSolve);
         }
 
         private bool TryToSolveDependencies(IDependencyContainer dependencyContainer)
@@ -121,27 +130,26 @@ namespace ZeroInstall.Services.Solvers
 
             foreach (var dependency in recommendedDependencies)
             {
-                var requirements = dependency.ToRequirements(TopLevelRequirements);
-                if (!requirements.Any(TryToSolve)) dependencies.Remove(dependency);
+                if (!TryToSolve(dependency.ToRequirements(TopLevelRequirements)) || !TryToSolveBindingRequirements(dependency))
+                    dependencies.Remove(dependency);
             }
 
-            bool result = essentialDependencies
-                .SelectMany(dependency => dependency.ToRequirements(TopLevelRequirements))
-                .All(TryToSolve);
-
-            return result;
+            foreach (var dependency in essentialDependencies)
+            {
+                if (!TryToSolve(dependency.ToRequirements(TopLevelRequirements)) || !TryToSolveBindingRequirements(dependency))
+                    return false;
+            }
+            return true;
         }
 
-        private bool TryToSolveCommand(Command command)
+        private bool TryToSolveCommand(Command command, Requirements requirements)
         {
-            if (command == null) return true;
-
             if (command.Bindings.OfType<ExecutableInBinding>().Any()) throw new SolverException("<executable-in-*> not supported in <command>");
 
             if (command.Runner != null)
                 if (!TryToSolve(command.Runner.ToRequirements(TopLevelRequirements))) return false;
 
-            return TryToSolveDependencies(command);
+            return command.ToBindingRequirements(requirements.InterfaceID).All(TryToSolve) && TryToSolveDependencies(command);
         }
 
         private ImplementationSelection AddToSelections(SelectionCandidate candidate, Requirements requirements, IEnumerable<SelectionCandidate> allCandidates)
