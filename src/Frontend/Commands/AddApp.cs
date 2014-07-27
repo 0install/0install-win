@@ -16,7 +16,6 @@
  */
 
 using System;
-using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 
@@ -57,14 +56,7 @@ namespace ZeroInstall.Commands
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
-            try
-            {
-                CreateAppEntry(integrationManager, ref interfaceID);
-            }
-            catch (InvalidOperationException ex)
-            {
-                Handler.OutputLow(Resources.DesktopIntegration, ex.Message);
-            }
+            CreateAppEntry(integrationManager, ref interfaceID);
             return 0;
         }
     }

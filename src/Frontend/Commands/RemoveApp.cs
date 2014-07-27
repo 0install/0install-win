@@ -17,7 +17,7 @@
 
 using System;
 using System.Collections.Generic;
-using NanoByte.Common.Tasks;
+using System.IO;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 
@@ -63,11 +63,13 @@ namespace ZeroInstall.Commands
             {
                 integrationManager.RemoveApp(integrationManager.AppList[interfaceID]);
             }
+                #region Sanity checks
             catch (KeyNotFoundException ex)
             {
-                Handler.OutputLow(Resources.AppList, ex.Message);
-                return 0;
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(ex.Message, ex);
             }
+            #endregion
 
             return 0;
         }
