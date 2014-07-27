@@ -70,18 +70,14 @@ namespace ZeroInstall.Services.Solvers
             if (string.IsNullOrEmpty(requirements.InterfaceID)) throw new ArgumentException(Resources.MissingInterfaceID, "requirements");
             #endregion
 
-            var solverRuns = requirements.GetEffective()
-                .Select(effectiveRequirements => new BacktrackingSolverRun(effectiveRequirements, _handler.CancellationToken, _config, _feedManager, _store));
-            try
-            {
-                return solverRuns.First(run => run.TryToSolve()).Selections;
-            }
-                #region Error handling
-            catch (InvalidOperationException)
-            {
-                throw new SolverException("No solution found");
-            }
-            #endregion
+            var effectiveRequirements = requirements.GetEffective();
+            var solverRuns = effectiveRequirements.Select(x => new BacktrackingSolverRun(x, _handler.CancellationToken, _config, _feedManager, _store));
+
+            var successfullSolverRun = solverRuns.FirstOrDefault(x => x.TryToSolve());
+            if (successfullSolverRun == null) throw new SolverException("No solution found");
+
+            successfullSolverRun.Selections.PurgeRestrictions();
+            return successfullSolverRun.Selections;
         }
     }
 }

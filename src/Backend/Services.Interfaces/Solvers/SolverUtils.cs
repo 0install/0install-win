@@ -227,5 +227,19 @@ namespace ZeroInstall.Services.Solvers
 
             return candidates.Select(x => x.Implementation.ID).Contains(implementation.ID);
         }
+
+        /// <summary>
+        /// Removes all <see cref="Restriction"/>s from <see cref="Selections"/>.
+        /// </summary>
+        public static void PurgeRestrictions(this Selections selections)
+        {
+            foreach (var implementation in selections.Implementations)
+            {
+                implementation.Restrictions.Clear();
+
+                foreach (var command in implementation.Commands)
+                    command.Restrictions.Clear();
+            }
+        }
     }
 }

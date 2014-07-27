@@ -250,7 +250,7 @@ namespace ZeroInstall.Services.Solvers
                 requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
                 expectedSelections:
                     "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></selection>" +
-                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1'><restricts interface='http://test/libb.xml' version='1.0' /></selection>" +
+                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1' />" +
                     "<selection interface='http://test/libb.xml' version='1.0' id='libb1' />");
         }
 
@@ -269,7 +269,7 @@ namespace ZeroInstall.Services.Solvers
                 requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun, Architecture = new Architecture(OS.Windows, Cpu.All)},
                 expectedSelections:
                     "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></selection>" +
-                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1'><restricts interface='http://test/libb.xml' version='1.0' os='Windows' /></selection>" +
+                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1' />" +
                     "<selection interface='http://test/libb.xml' version='1.0' id='libb1' />");
 
             // not applicable
