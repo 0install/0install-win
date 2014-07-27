@@ -102,6 +102,12 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="from">The <see cref="IDependencyContainer"/> to get the <see cref="Dependency"/>s to.</param>
         public static void AddDependencies(this IDependencyContainer target, Requirements requirements, IDependencyContainer from)
         {
+            #region Sanity checks
+            if (target == null) throw new ArgumentNullException("target");
+            if (requirements == null) throw new ArgumentNullException("requirements");
+            if (from == null) throw new ArgumentNullException("from");
+            #endregion
+
             target.Dependencies.AddRange(from.Dependencies.Where(x => x.OS.IsCompatible(requirements.Architecture)).CloneElements());
             target.Restrictions.AddRange(from.Restrictions.Where(x => x.OS.IsCompatible(requirements.Architecture)).CloneElements());
         }
@@ -118,6 +124,7 @@ namespace ZeroInstall.Services.Solvers
         {
             #region Sanity checks
             if (selection == null) throw new ArgumentNullException("selection");
+            if (requirements == null) throw new ArgumentNullException("requirements");
             if (from == null) throw new ArgumentNullException("from");
             #endregion
 
@@ -140,8 +147,13 @@ namespace ZeroInstall.Services.Solvers
         /// </summary>
         /// <param name="dependency">The dependency to solve.</param>
         /// <param name="topLevelRequirements">The top-level requirements specifying <see cref="Architecture"/> and custom restrictions.</param>
-        public static Requirements ToRequirements(this Dependency dependency, Requirements topLevelRequirements)
+        public static Requirements ToRequirements(this Restriction dependency, Requirements topLevelRequirements)
         {
+            #region Sanity checks
+            if (dependency == null) throw new ArgumentNullException("dependency");
+            if (topLevelRequirements == null) throw new ArgumentNullException("topLevelRequirements");
+            #endregion
+
             var requirements = new Requirements
             {
                 InterfaceID = dependency.InterfaceID,
@@ -193,6 +205,11 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="interfaceID">The interface ID the bindings refer to. For <see cref="Element"/>s and <see cref="Command"/>s this is the URI of the containing feed. For <see cref="Dependency"/>s it is the URI of the target feed.</param>
         public static IEnumerable<Requirements> ToBindingRequirements(this IBindingContainer bindingContainer, string interfaceID)
         {
+            #region Sanity checks
+            if (bindingContainer == null) throw new ArgumentNullException("bindingContainer");
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            #endregion
+
             return bindingContainer.Bindings.OfType<ExecutableInBinding>()
                 .Select(x => new Requirements {InterfaceID = interfaceID, Command = x.Command ?? Command.NameRun});
         }
