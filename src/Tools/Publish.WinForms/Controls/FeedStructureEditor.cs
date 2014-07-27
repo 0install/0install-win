@@ -44,8 +44,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 .AddPlainList("capabilities", x => x.CapabilityLists);
 
             Describe<IDependencyContainer>()
-                .AddPlainList("dependency", x => x.Dependencies)
-                .AddPlainList("restriction", x => x.Restrictions);
+                .AddPlainList("requires", x => x.Dependencies)
+                .AddPlainList("restricts", x => x.Restrictions);
 
             Describe<IBindingContainer>()
                 .AddList(x => x.Bindings)
