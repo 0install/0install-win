@@ -119,14 +119,14 @@ namespace ZeroInstall.Commands
                 catch (ConflictException ex)
                 {
                     if (Handler.AskQuestion(
-                        Resources.IntegrateAppInvalidRetry + Environment.NewLine + ex.Message,
+                        Resources.IntegrateAppInvalid + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + Resources.IntegrateAppRetry,
                         batchInformation: ex.Message))
                         goto Retry;
                 }
                 catch (InvalidDataException ex)
                 {
                     if (Handler.AskQuestion(
-                        Resources.IntegrateAppInvalidRetry + Environment.NewLine + ex.Message,
+                        Resources.IntegrateAppInvalid + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + Resources.IntegrateAppRetry,
                         batchInformation: ex.Message))
                         goto Retry;
                 }

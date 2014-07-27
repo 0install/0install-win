@@ -16,8 +16,11 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
+using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 
@@ -29,41 +32,59 @@ namespace ZeroInstall.DesktopIntegration
     [Serializable]
     public sealed class ConflictException : Exception
     {
-        #region Properties
         /// <summary>
-        /// The existing entry that is preventing <see cref="NewEntry"/> from being applied.
+        /// The entries that are in conflict with each other.
         /// </summary>
-        public ConflictData ExistingEntry { get; private set; }
+        public IEnumerable<ConflictData> Entries { get; private set; }
 
         /// <summary>
-        /// The new entry that is in conflict with <see cref="ExistingEntry"/>.
-        /// </summary>
-        public ConflictData NewEntry { get; private set; }
-        #endregion
-
-        #region Constructor
-        /// <summary>
-        /// Creates a new desktop integration conflict exception.
+        /// Creates an exception indicating a new desktop integration conflict.
         /// </summary>
         /// <param name="existingEntry">The existing entry that is preventing <paramref name="newEntry"/> from being applied.</param>
         /// <param name="newEntry">The new entry that is in conflict with <paramref name="existingEntry"/>.</param>
-        public ConflictException(ConflictData existingEntry, ConflictData newEntry)
-            : base(GetMessage(existingEntry, newEntry))
+        public static ConflictException NewConflict(ConflictData existingEntry, ConflictData newEntry)
         {
-            ExistingEntry = existingEntry;
-            NewEntry = newEntry;
+            #region Sanity checks
+            if (existingEntry == null) throw new ArgumentNullException("existingEntry");
+            if (newEntry == null) throw new ArgumentNullException("newEntry");
+            #endregion
+
+            string message = string.Format(Resources.AccessPointNewConflict, existingEntry, newEntry);
+            return new ConflictException(message) {Entries = new[] {existingEntry, newEntry}};
         }
 
-        private static string GetMessage(ConflictData existingEntry, ConflictData newEntry)
+        /// <summary>
+        /// Creates an exception indicating an inner desktop integration conflict.
+        /// </summary>
+        /// <param name="entries">The entries that are in conflict with each other.</param>
+        public static ConflictException InnerConflict(params ConflictData[] entries)
         {
-            return string.Format(Resources.AccessPointConflict,
-                existingEntry.AccessPoint, existingEntry.AppEntry,
-                newEntry.AccessPoint, newEntry.AppEntry);
+            #region Sanity checks
+            if (entries == null) throw new ArgumentNullException("entries");
+            #endregion
+
+            string message = string.Format(Resources.AccessPointInnerConflict, entries[0].AppEntry) + Environment.NewLine +
+                StringUtils.Join(Environment.NewLine, entries.Select(x => x.AccessPoint.ToString()));
+            return new ConflictException(message) {Entries = entries};
+        }
+
+        /// <summary>
+        /// Creates an exception indicating an existing desktop integration conflict.
+        /// </summary>
+        /// <param name="entries">The entries that are in conflict with each other.</param>
+        public static ConflictException ExistingConflict(params ConflictData[] entries)
+        {
+            #region Sanity checks
+            if (entries == null) throw new ArgumentNullException("entries");
+            #endregion
+
+            string message = Resources.AccessPointExistingConflict + Environment.NewLine +
+                StringUtils.Join(Environment.NewLine, entries.Select(x => x.ToString()));
+            return new ConflictException(message) {Entries = entries};
         }
 
         /// <inheritdoc/>
-        public ConflictException()
-            : base("Unknown conflict")
+        public ConflictException() : base("Unknown conflict")
         {}
 
         /// <inheritdoc/>
@@ -79,7 +100,6 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         private ConflictException(SerializationInfo info, StreamingContext context) : base(info, context)
         {}
-        #endregion
 
         #region Serialization
         /// <inheritdoc/>

@@ -410,8 +410,11 @@ Ein &lt;feed-for&gt; Tag zeigt Feed-Kompatibilität an.</value>
   <data name="Integrate" xml:space="preserve">
     <value>Integriere {0}</value>
   </data>
-  <data name="IntegrateAppInvalidRetry" xml:space="preserve">
-    <value>Ihre Desktopintegrations-Auswahl kann nicht angewendet werden. Möchten Sie die Auswahl ändern und es erneut versuchen?</value>
+  <data name="IntegrateAppInvalid" xml:space="preserve">
+    <value>Ihre Desktopintegrations-Auswahl kann nicht angewendet werden.</value>
+  </data>
+  <data name="IntegrateAppRetry" xml:space="preserve">
+    <value>Möchten Sie die Auswahl ändern und es erneut versuchen?</value>
   </data>
   <data name="IntegrateAppUseGui" xml:space="preserve">
     <value>Bitte verwenden Sie die GUI Version von Zero Install oder geben Sie explizite Integrationsoptionen mit Befehlszeilenargumenten an.</value>

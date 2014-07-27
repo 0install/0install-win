@@ -900,11 +900,20 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your desktop integration selections can not be applied. Do you want to change your selection and try again?.
+        ///   Looks up a localized string similar to Your desktop integration selections can not be applied..
         /// </summary>
-        public static string IntegrateAppInvalidRetry {
+        public static string IntegrateAppInvalid {
             get {
-                return ResourceManager.GetString("IntegrateAppInvalidRetry", resourceCulture);
+                return ResourceManager.GetString("IntegrateAppInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to change your selection and try again?.
+        /// </summary>
+        public static string IntegrateAppRetry {
+            get {
+                return ResourceManager.GetString("IntegrateAppRetry", resourceCulture);
             }
         }
         

@@ -410,8 +410,11 @@ A &lt;feed-for&gt; tag indicates feed compatibility.</value>
   <data name="Integrate" xml:space="preserve">
     <value>Integrate {0}</value>
   </data>
-  <data name="IntegrateAppInvalidRetry" xml:space="preserve">
-    <value>Your desktop integration selections can not be applied. Do you want to change your selection and try again?</value>
+  <data name="IntegrateAppInvalid" xml:space="preserve">
+    <value>Your desktop integration selections can not be applied.</value>
+  </data>
+  <data name="IntegrateAppRetry" xml:space="preserve">
+    <value>Do you want to change your selection and try again?</value>
   </data>
   <data name="IntegrateAppUseGui" xml:space="preserve">
     <value>Please use the GUI version of Zero Install or specify explicit integration options using command-line arguments.</value>

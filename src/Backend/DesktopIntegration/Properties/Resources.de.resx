@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccessPointConflict" xml:space="preserve">
-    <value>Der Access Point '{0}' für die Anwendung '{1}' steht im Konflikt mit dem neuen Access Point '{2}' für die Anwendung '{3}'.</value>
+  <data name="AccessPointExistingConflict" xml:space="preserve">
+    <value>Die folgenden bereits existierenden Access Points stehen untereinander im Konflikt:</value>
+  </data>
+  <data name="AccessPointNewConflict" xml:space="preserve">
+    <value>Der bereits existierende Access Point {0} steht im Konflikt mit dem neuen Access Point {1}.</value>
+  </data>
+  <data name="AccessPointInnerConflict" xml:space="preserve">
+    <value>Die folgenden Access Points für die Anwendung {0} stehen untereinander im Konflikt:</value>
   </data>
   <data name="AppAlreadyInList" xml:space="preserve">
     <value>Die Anwendung '{0}' ist bereits in der Anwendungsliste.</value>
