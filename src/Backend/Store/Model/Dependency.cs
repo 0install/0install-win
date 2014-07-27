@@ -72,13 +72,6 @@ namespace ZeroInstall.Store.Model
         [TypeConverter(typeof(UseConverter))]
         public string Use { get; set; }
 
-        /// <summary>
-        /// Determines for which operating system this dependency is required.
-        /// </summary>
-        [Description("Determines for which operating system this dependency is required.")]
-        [XmlAttribute("os"), DefaultValue(typeof(OS), "All")]
-        public OS OS { get; set; }
-
         private readonly List<Binding> _bindings = new List<Binding>();
 
         /// <summary>
