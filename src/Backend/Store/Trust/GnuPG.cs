@@ -114,7 +114,7 @@ namespace ZeroInstall.Store.Trust
             #endregion
 
             string arguments = "--batch --no-secmem-warning --armor --export";
-            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user " + keySpecifier.EscapeArgument();
+            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " " + keySpecifier.EscapeArgument();
 
             return Execute(arguments);
         }
