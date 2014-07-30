@@ -124,6 +124,23 @@ namespace ZeroInstall.Services.Solvers
         }
 
         [Test]
+        public void TransitiveDependency()
+        {
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><requires interface='http://test/libA.xml' /><command name='run' path='test-app' /></implementation>"},
+                    {"http://test/libA.xml", "<implementation version='1.0' id='libA1'><requires interface='http://test/libB.xml' /></implementation>"},
+                    {"http://test/libB.xml", "<implementation version='1.0' id='libB1' />"}
+                },
+                requirements: new Requirements {InterfaceID = "http://test/app.xml", Command = Command.NameRun},
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><requires interface='http://test/libA.xml' /><command name='run' path='test-app' /></selection>" +
+                    "<selection interface='http://test/libA.xml' version='1.0' id='libA1'><requires interface='http://test/libB.xml' /></selection>" +
+                    "<selection interface='http://test/libB.xml' version='1.0' id='libB1' />");
+        }
+
+        [Test]
         public void RunnerDependency()
         {
             RunAndAssert(

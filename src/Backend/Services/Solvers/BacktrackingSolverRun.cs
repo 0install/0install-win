@@ -93,7 +93,6 @@ namespace ZeroInstall.Services.Solvers
             if (selection.ContainsCommand(requirements.Command)) return true;
 
             var command = selection.AddCommand(requirements, from: GetOriginalImplementation(selection));
-            if (command == null) return true;
             return TryToSolveCommand(command, requirements);
         }
 
@@ -104,9 +103,7 @@ namespace ZeroInstall.Services.Solvers
                 var selection = AddToSelections(candidate, requirements, allCandidates);
 
                 var command = selection[requirements.Command];
-                if (command == null) return true;
-                if (TryToSolveCommand(command, requirements) && TryToSolveBindingRequirements(selection) && TryToSolveDependencies(selection))
-                    return true;
+                if (TryToSolveDependencies(selection) && TryToSolveCommand(command, requirements) && TryToSolveBindingRequirements(selection)) return true;
                 else RemoveLastFromSelections();
             }
             return false;
@@ -144,6 +141,8 @@ namespace ZeroInstall.Services.Solvers
 
         private bool TryToSolveCommand(Command command, Requirements requirements)
         {
+            if (command == null) return true;
+
             if (command.Bindings.OfType<ExecutableInBinding>().Any()) throw new SolverException("<executable-in-*> not supported in <command>");
 
             if (command.Runner != null)
