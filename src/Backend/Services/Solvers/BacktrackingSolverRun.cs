@@ -125,18 +125,16 @@ namespace ZeroInstall.Services.Solvers
                 .Add(Importance.Recommended, recommendedDependencies)
                 .Run();
 
-            foreach (var dependency in recommendedDependencies)
-            {
-                if (!TryToSolve(dependency.ToRequirements(TopLevelRequirements)) || !TryToSolveBindingRequirements(dependency))
-                    dependencies.Remove(dependency);
-            }
-
             foreach (var dependency in essentialDependencies)
-            {
-                if (!TryToSolve(dependency.ToRequirements(TopLevelRequirements)) || !TryToSolveBindingRequirements(dependency))
-                    return false;
-            }
+                if (!TryToSolveDependency(dependency)) return false;
+            foreach (var dependency in recommendedDependencies)
+                if (!TryToSolveDependency(dependency)) dependencies.Remove(dependency);
             return true;
+        }
+
+        private bool TryToSolveDependency(Dependency dependency)
+        {
+            return TryToSolve(dependency.ToRequirements(TopLevelRequirements)) && TryToSolveBindingRequirements(dependency);
         }
 
         private bool TryToSolveCommand(Command command, Requirements requirements)
