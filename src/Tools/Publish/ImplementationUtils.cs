@@ -74,6 +74,11 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <param name="keepDownloads"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the operation.</exception>
+        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
+        /// <exception cref="IOException">Thrown if there is a problem access a temporary file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a temporary file is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">Thrown if an existing digest does not match the newly calculated one.</exception>
         public static void AddMissing(this Implementation implementation, ITaskHandler handler, ICommandExecutor executor, bool keepDownloads = false)
         {
             #region Sanity checks
@@ -130,6 +135,10 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <param name="keepDownloads"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the operation.</exception>
+        /// <exception cref="IOException">Thrown if there is a problem access a temporary file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a temporary file is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">Thrown if an existing digest does not match the newly calculated one.</exception>
         private static void UpdateDigest(this Implementation implementation, string path, ITaskHandler handler, ICommandExecutor executor, bool keepDownloads = false)
         {
             var digest = GenerateDigest(path, handler, keepDownloads);
@@ -147,6 +156,9 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="keepDownloads"><see langword="true"/> to store the directory as an implementation in the default <see cref="IStore"/>.</param>
         /// <returns>The newly generated digest.</returns>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the operation.</exception>
+        /// <exception cref="IOException">Thrown if there is a problem access a temporary file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a temporary file is not permitted.</exception>
         public static ManifestDigest GenerateDigest(string path, ITaskHandler handler, bool keepDownloads = false)
         {
             var digest = Manifest.CreateDigest(path, handler);

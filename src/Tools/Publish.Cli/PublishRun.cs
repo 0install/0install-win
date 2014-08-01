@@ -29,6 +29,7 @@ using NanoByte.Common.Tasks;
 using NanoByte.Common.Undo;
 using NDesk.Options;
 using ZeroInstall.Publish.Cli.Properties;
+using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 using SharedResources = ZeroInstall.Publish.Properties.Resources;
@@ -183,6 +184,7 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="FileNotFoundException">Thrown if a feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file or the catalog file is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">Thrown if an existing digest does not match the newly calculated one.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if an OpenPGP key could not be found.</exception>
         /// <exception cref="NotSupportedException">Thrown if a MIME type doesn't belong to a known and supported archive type.</exception>
         public ErrorLevel Execute()
@@ -326,6 +328,7 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">Thrown if there is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a temporary file is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">Thrown if an existing digest does not match the newly calculated one.</exception>
         private void HandleModify(FeedEditing feedEditing)
         {
             if (_addMissing)

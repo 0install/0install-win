@@ -21,6 +21,7 @@ using System.IO;
 using System.Net;
 using NanoByte.Common;
 using NDesk.Options;
+using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
 using SharedResources = ZeroInstall.Publish.Properties.Resources;
 
@@ -122,6 +123,11 @@ namespace ZeroInstall.Publish.Cli
                 return (int)ErrorLevel.IOError;
             }
             catch (UnauthorizedAccessException ex)
+            {
+                Log.Error(ex);
+                return (int)ErrorLevel.IOError;
+            }
+            catch (DigestMismatchException ex)
             {
                 Log.Error(ex);
                 return (int)ErrorLevel.IOError;
