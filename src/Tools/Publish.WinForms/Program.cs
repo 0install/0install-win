@@ -22,6 +22,7 @@ using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Cli;
 using NanoByte.Common.Controls;
+using NanoByte.Common.Utils;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish.WinForms
@@ -40,6 +41,7 @@ namespace ZeroInstall.Publish.WinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
+            NetUtils.ApplyProxy();
 
             var openPgp = OpenPgpFactory.CreateDefault();
 

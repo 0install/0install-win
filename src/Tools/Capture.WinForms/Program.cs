@@ -18,6 +18,7 @@
 using System;
 using System.Windows.Forms;
 using NanoByte.Common.Controls;
+using NanoByte.Common.Utils;
 
 namespace ZeroInstall.Capture.WinForms
 {
@@ -36,6 +37,7 @@ namespace ZeroInstall.Capture.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
+            NetUtils.ApplyProxy();
             Application.Run(new MainForm());
         }
     }

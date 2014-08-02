@@ -21,6 +21,7 @@ using System.Linq;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
+using NanoByte.Common.Utils;
 using ZeroInstall.Updater.Properties;
 
 namespace ZeroInstall.Updater.WinForms
@@ -39,6 +40,7 @@ namespace ZeroInstall.Updater.WinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
+            NetUtils.ApplyProxy();
 
             if (args == null) args = new string[0];
             if (args.Length < 3 || args.Length > 4)

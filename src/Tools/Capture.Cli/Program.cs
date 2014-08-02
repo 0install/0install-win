@@ -21,6 +21,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using NanoByte.Common;
+using NanoByte.Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Capture.Cli.Properties;
 using SharedResources = ZeroInstall.Capture.Properties.Resources;
@@ -65,6 +66,8 @@ namespace ZeroInstall.Capture.Cli
         /// </summary>
         private static int Main(string[] args)
         {
+            NetUtils.ApplyProxy();
+
             // Automatically show help for missing args
             if (args == null) args = new string[0];
             if (args.Length == 0) args = new[] {"--help"};

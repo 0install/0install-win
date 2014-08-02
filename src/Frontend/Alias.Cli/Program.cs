@@ -55,6 +55,7 @@ namespace ZeroInstall.Alias.Cli
             AppMutex.Create("Zero Install");
 #endif
 
+            NetUtils.ApplyProxy();
             return Run(args);
         }
 

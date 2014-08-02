@@ -54,6 +54,7 @@ namespace ZeroInstall.Store.Management.Cli
             AppMutex.Create("Zero Install");
 #endif
 
+            NetUtils.ApplyProxy();
             return Run(args);
         }
 

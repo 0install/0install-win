@@ -55,6 +55,7 @@ namespace ZeroInstall.Commands.Cli
             AppMutex.Create("Zero Install");
 #endif
 
+            NetUtils.ApplyProxy();
             NetUtils.TrustCertificates(SyncIntegrationManager.DefaultServerPublicKey);
             return Run(args);
         }

@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using NanoByte.Common;
+using NanoByte.Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
@@ -61,6 +62,8 @@ namespace ZeroInstall.Publish.Cli
         /// </summary>
         private static int Main(string[] args)
         {
+            NetUtils.ApplyProxy();
+
             // Automatically show help for missing args
             if (args == null) args = new string[0];
             if (args.Length == 0) args = new[] {"--help"};

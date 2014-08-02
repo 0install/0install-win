@@ -74,6 +74,7 @@ namespace ZeroInstall.Central.WinForms
             ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
 
             UpdateRegistry();
+            NetUtils.ApplyProxy();
             NetUtils.TrustCertificates(SyncIntegrationManager.DefaultServerPublicKey);
             return Run(args);
         }
