@@ -139,7 +139,7 @@
     <value>Deleting implementation {0}</value>
   </data>
   <data name="DigestMismatch" xml:space="preserve">
-    <value>An implementation's manifest hash doesn't match the expected value.</value>
+    <value>An implementation's manifest hash does not match the expected value.</value>
   </data>
   <data name="DigestMismatchActualDigest" xml:space="preserve">
     <value>Actual value: {0}</value>

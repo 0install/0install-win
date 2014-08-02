@@ -73,19 +73,19 @@ namespace ZeroInstall.Store.Implementations
         private static string GetMessage(string expectedDigest, string actualDigest, Manifest expectedManifest, Manifest actualManifest)
         {
             var builder = new StringBuilder(Resources.DigestMismatch);
-            if (!string.IsNullOrEmpty(expectedDigest)) builder.AppendLine(string.Format(Resources.DigestMismatchExpectedDigest, expectedDigest));
-            if (!string.IsNullOrEmpty(actualDigest)) builder.AppendLine(string.Format(Resources.DigestMismatchActualDigest, actualDigest));
+            if (!string.IsNullOrEmpty(expectedDigest)) builder.Append(Environment.NewLine + string.Format(Resources.DigestMismatchExpectedDigest, expectedDigest));
+            if (!string.IsNullOrEmpty(actualDigest)) builder.Append(Environment.NewLine + string.Format(Resources.DigestMismatchActualDigest, actualDigest));
 
             if (expectedManifest != null && actualManifest != null)
             { // Diff
                 Merge.TwoWay(expectedManifest, actualManifest,
-                    added: node => builder.AppendLine("unexpected: " + node),
-                    removed: node => builder.AppendLine("missing: " + node));
+                    added: node => builder.Append(Environment.NewLine + "unexpected: " + node),
+                    removed: node => builder.Append(Environment.NewLine + "missing: " + node));
             }
             else
             {
-                if (expectedManifest != null) builder.AppendLine(string.Format(Resources.DigestMismatchExpectedManifest, expectedManifest));
-                if (actualManifest != null) builder.AppendLine(string.Format(Resources.DigestMismatchActualManifest, actualManifest));
+                if (expectedManifest != null) builder.Append(Environment.NewLine + string.Format(Resources.DigestMismatchExpectedManifest, expectedManifest));
+                if (actualManifest != null) builder.Append(Environment.NewLine + string.Format(Resources.DigestMismatchActualManifest, actualManifest));
             }
             return builder.ToString();
         }

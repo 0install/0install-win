@@ -124,7 +124,7 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An implementation&apos;s manifest hash doesn&apos;t match the expected value..
+        ///   Looks up a localized string similar to An implementation&apos;s manifest hash does not match the expected value..
         /// </summary>
         internal static string DigestMismatch {
             get {
