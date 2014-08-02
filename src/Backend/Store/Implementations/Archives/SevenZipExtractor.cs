@@ -58,6 +58,11 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
         #endregion
 
+        private bool _unitsByte;
+
+        /// <inheritdoc/>
+        protected override bool UnitsByte { get { return _unitsByte; } }
+
         /// <inheritdoc/>
         protected override void Execute()
         {
@@ -69,8 +74,6 @@ namespace ZeroInstall.Store.Implementations.Archives
                 SevenZipBase.SetLibraryPath(Path.Combine(Locations.InstallBase, WindowsUtils.Is64BitProcess ? "7zxa-x64.dll" : "7zxa.dll"));
                 using (var extractor = new SevenZip.SevenZipExtractor(_stream))
                 {
-                    UnitsTotal = extractor.UnpackedSize;
-
                     State = TaskState.Data;
                     if (!Directory.Exists(EffectiveTargetDir)) Directory.CreateDirectory(EffectiveTargetDir);
                     if (extractor.IsSolid || string.IsNullOrEmpty(SubDir)) ExtractComplete(extractor);
@@ -108,7 +111,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         private void ExtractComplete(SevenZip.SevenZipExtractor extractor)
         {
-            extractor.Extracting += (sender, e) => { UnitsProcessed = UnitsTotal * e.PercentDone / 100; };
+            _unitsByte = false;
+            UnitsTotal = 100;
+            extractor.Extracting += (sender, e) => { UnitsProcessed = e.PercentDone; };
 
             CancellationToken.ThrowIfCancellationRequested();
             if (string.IsNullOrEmpty(SubDir)) extractor.ExtractArchive(EffectiveTargetDir);
@@ -133,6 +138,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         private void ExtractIndividual(SevenZip.SevenZipExtractor extractor)
         {
+            _unitsByte = true;
+            UnitsTotal = extractor.UnpackedSize;
+
             foreach (var entry in extractor.ArchiveFileData)
             {
                 string relativePath = GetRelativePath(entry.FileName.Replace('\\', '/'));
