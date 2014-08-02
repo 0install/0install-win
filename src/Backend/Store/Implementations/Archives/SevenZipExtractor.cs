@@ -123,7 +123,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 string tempSubDir = Path.Combine(tempDir, subDir);
                 if (!FileUtils.IsBreakoutPath(subDir) && Directory.Exists(tempSubDir))
                     new MoveDirectory(tempSubDir, EffectiveTargetDir, overwrite: true).Run(CancellationToken);
-                else Directory.Delete(tempDir, recursive: true);
+                Directory.Delete(tempDir, recursive: true);
             }
             CancellationToken.ThrowIfCancellationRequested();
         }

@@ -64,6 +64,8 @@ namespace ZeroInstall.Store.Implementations.Archives
                 Assert.IsTrue(File.Exists(filePath), "Should extract file 'dir/file'");
                 Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc(filePath), "Correct last write time should be set");
                 Assert.AreEqual("def", File.ReadAllText(filePath));
+
+                CollectionAssert.IsEmpty(Directory.GetDirectories(sandbox));
             }
         }
 
