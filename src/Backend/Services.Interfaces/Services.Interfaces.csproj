@@ -64,7 +64,6 @@
     <Compile Include="Solvers\ISolver.cs" />
     <Compile Include="Solvers\SelectionCandidateComparer.cs" />
     <Compile Include="Solvers\SolverException.cs" />
-    <Compile Include="Solvers\SolverRun.cs" />
     <Compile Include="Solvers\SolverUtils.cs" />
   </ItemGroup>
   <ItemGroup>
