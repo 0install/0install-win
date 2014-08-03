@@ -20,9 +20,11 @@ using System.Collections.Generic;
 using System.Linq;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
+using NanoByte.Common.Info;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using ZeroInstall.Services.Feeds;
+using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -139,6 +141,8 @@ namespace ZeroInstall.Services.Solvers
             if (dictionary.ContainsKey(feedID)) return;
 
             var feed = _feeds[feedID];
+            if (feed.MinInjectorVersion != null && new ImplementationVersion(AppInfo.Current.Version) < feed.MinInjectorVersion)
+                throw new SolverException(string.Format(Resources.SolverTooOld, feedID, feed.MinInjectorVersion, AppInfo.Current.Version));
             dictionary.Add(feedID, feed);
 
             foreach (var reference in feed.Feeds

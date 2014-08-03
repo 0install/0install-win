@@ -311,6 +311,15 @@ namespace ZeroInstall.Services.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The solver version is too old. The feed &apos;{0}&apos; requires at least version {1} but the installed version is {2}. Try updating Zero Install..
+        /// </summary>
+        internal static string SolverTooOld {
+            get {
+                return ResourceManager.GetString("SolverTooOld", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Trying feed mirror server.
         /// </summary>
         internal static string TryingFeedMirror {
