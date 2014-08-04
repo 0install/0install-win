@@ -53,8 +53,6 @@ namespace ZeroInstall.Services.Injector
         }
         #endregion
 
-        //--------------------//
-
         /// <inheritdoc/>
         public Selections Selections { get; private set; }
 
@@ -64,7 +62,6 @@ namespace ZeroInstall.Services.Injector
         /// <inheritdoc/>
         public string Wrapper { get; set; }
 
-        #region Start process
         /// <inheritdoc/>
         public Process Start(Selections selections, params string[] arguments)
         {
@@ -115,9 +112,7 @@ namespace ZeroInstall.Services.Injector
             ApplyCommandLine(commandLine, startInfo);
             return startInfo;
         }
-        #endregion
 
-        #region Path
         /// <inheritdoc/>
         public string GetImplementationPath(ImplementationSelection implementation)
         {
@@ -133,6 +128,5 @@ namespace ZeroInstall.Services.Injector
             }
             else return implementation.LocalPath;
         }
-        #endregion
     }
 }

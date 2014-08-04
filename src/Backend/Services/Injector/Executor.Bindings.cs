@@ -36,42 +36,6 @@ namespace ZeroInstall.Services.Injector
 {
     partial class Executor
     {
-        #region Structs
-        /// <summary>
-        /// Represents a run-environment executable configuration pending to be applied via environment variables.
-        /// </summary>
-        private struct RunEnvPending
-        {
-            /// <summary>
-            /// The executable's file name without any file ending.
-            /// </summary>
-            public readonly string ExeName;
-
-            /// <summary>
-            /// The command-line the executable should run.
-            /// </summary>
-            public readonly List<ArgBase> CommandLine;
-
-            /// <param name="name">The executable's file name without any file ending.</param>
-            /// <param name="commandLine">The command-line the executable should run.</param>
-            public RunEnvPending(string name, List<ArgBase> commandLine)
-            {
-                ExeName = name;
-                CommandLine = commandLine;
-            }
-        }
-        #endregion
-
-        #region Variables
-        /// <summary>
-        /// A list of run-environment executables pending to be configured.
-        /// </summary>
-        private readonly List<RunEnvPending> _runEnvPendings = new List<RunEnvPending>();
-        #endregion
-
-        //--------------------//
-
-        #region Start info
         /// <summary>
         /// Accumulates bindings in a process environment.
         /// </summary>
@@ -93,33 +57,7 @@ namespace ZeroInstall.Services.Injector
 
             return startInfo;
         }
-        #endregion
 
-        #region Dependency
-        /// <summary>
-        /// Applies <see cref="Binding"/>s to make a set of <see cref="Dependency"/>s available.
-        /// </summary>
-        /// <param name="dependencyContainer">The list of <see cref="Dependency"/>s to follow.</param>
-        /// <param name="startInfo">The process launch environment to apply the <see cref="Binding"/>s to.</param>
-        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Implementation"/> is not cached yet.</exception>
-        /// <exception cref="ExecutorException">Thrown if a <see cref="Command"/> contained invalid data.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
-        /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
-        private void ApplyDependencyBindings(IDependencyContainer dependencyContainer, ProcessStartInfo startInfo)
-        {
-            foreach (var dependency in dependencyContainer.Dependencies.Where(IsEssentialOrSelected))
-                ApplyBindings(dependency, Selections[dependency.InterfaceID], startInfo);
-        }
-
-        private bool IsEssentialOrSelected(Dependency dependency)
-        {
-            return dependency.Importance == Importance.Essential || Selections.ContainsImplementation(dependency.InterfaceID);
-        }
-        #endregion
-
-        #region Container
         /// <summary>
         /// Applies all <see cref="Binding"/>s listed in a specific <see cref="IBindingContainer"/>.
         /// </summary>
@@ -146,9 +84,26 @@ namespace ZeroInstall.Services.Injector
                 (ExecutableInPath executableInPath) => ApplyExecutableInPath(executableInPath, implementation, startInfo)
             }.Dispatch(bindingContainer.Bindings);
         }
-        #endregion
 
-        #region Environment
+        /// <summary>
+        /// Applies <see cref="Binding"/>s to make a set of <see cref="Dependency"/>s available.
+        /// </summary>
+        /// <param name="dependencyContainer">The list of <see cref="Dependency"/>s to follow.</param>
+        /// <param name="startInfo">The process launch environment to apply the <see cref="Binding"/>s to.</param>
+        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Implementation"/> is not cached yet.</exception>
+        /// <exception cref="ExecutorException">Thrown if a <see cref="Command"/> contained invalid data.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
+        /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
+        private void ApplyDependencyBindings(IDependencyContainer dependencyContainer, ProcessStartInfo startInfo)
+        {
+            foreach (var dependency in dependencyContainer.Dependencies
+                .Where(x => x.Importance == Importance.Essential || Selections.ContainsImplementation(x.InterfaceID)))
+                ApplyBindings(dependency, Selections[dependency.InterfaceID], startInfo);
+        }
+
+        #region EnvironmentBinding
         /// <summary>
         /// Applies an <see cref="EnvironmentBinding"/> by modifying environment variables.
         /// </summary>
@@ -209,7 +164,36 @@ namespace ZeroInstall.Services.Injector
         }
         #endregion
 
-        #region Executable
+        #region ExecutableBinding
+        /// <summary>
+        /// Represents a run-environment executable configuration pending to be applied via environment variables.
+        /// </summary>
+        private struct RunEnvPending
+        {
+            /// <summary>
+            /// The executable's file name without any file ending.
+            /// </summary>
+            public readonly string ExeName;
+
+            /// <summary>
+            /// The command-line the executable should run.
+            /// </summary>
+            public readonly List<ArgBase> CommandLine;
+
+            /// <param name="name">The executable's file name without any file ending.</param>
+            /// <param name="commandLine">The command-line the executable should run.</param>
+            public RunEnvPending(string name, List<ArgBase> commandLine)
+            {
+                ExeName = name;
+                CommandLine = commandLine;
+            }
+        }
+
+        /// <summary>
+        /// A list of run-environment executables pending to be configured.
+        /// </summary>
+        private readonly List<RunEnvPending> _runEnvPendings = new List<RunEnvPending>();
+
         /// <summary>
         /// Applies an <see cref="ExecutableInVar"/> binding by creating a run-environment executable.
         /// </summary>
@@ -378,7 +362,7 @@ namespace ZeroInstall.Services.Injector
         }
         #endregion
 
-        #region Working dir
+        #region WorkingDir
         /// <summary>
         /// Applies a <see cref="WorkingDir"/> change to the <see cref="ProcessStartInfo"/>.
         /// </summary>

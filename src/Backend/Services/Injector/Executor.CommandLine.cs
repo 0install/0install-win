@@ -34,7 +34,6 @@ namespace ZeroInstall.Services.Injector
 {
     partial class Executor
     {
-        #region Structs
         /// <summary>
         /// Represents a command-line split into a path and arguments part.
         /// </summary>
@@ -50,9 +49,7 @@ namespace ZeroInstall.Services.Injector
                 Arguments = arguments;
             }
         }
-        #endregion
 
-        #region Main
         /// <summary>
         /// Returns the main (first) implementation of the selection.
         /// Replaces the <see cref="Command"/> of the main implementation with the binary specified in <see cref="Main"/> if set.
@@ -75,9 +72,7 @@ namespace ZeroInstall.Services.Injector
 
             return mainImplementation;
         }
-        #endregion
 
-        #region Get command-line
         /// <summary>
         /// Determines the command-line needed to execute an <see cref="ImplementationSelection"/>. Recursivley handles <see cref="Runner"/>s.
         /// </summary>
@@ -145,9 +140,7 @@ namespace ZeroInstall.Services.Injector
         {
             commandLine.AddRange(Array.ConvertAll(arguments, arg => new Arg {Value = arg}));
         }
-        #endregion
 
-        #region Apply command-line
         /// <summary>
         /// Split and apply main command-line
         /// </summary>
@@ -208,6 +201,5 @@ namespace ZeroInstall.Services.Injector
 
             return new CommandLineSplit(fileName, arguments.JoinEscapeArguments());
         }
-        #endregion
     }
 }
