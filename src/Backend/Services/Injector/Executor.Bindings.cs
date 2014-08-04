@@ -24,6 +24,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
@@ -55,9 +56,12 @@ namespace ZeroInstall.Services.Injector
                 ApplyBindings(implementation, implementation, startInfo);
                 ApplyDependencyBindings(implementation, startInfo);
             }
+            _appliedBindingContainers.Clear();
 
             return startInfo;
         }
+
+        private readonly HashSet<IBindingContainer> _appliedBindingContainers = new HashSet<IBindingContainer>();
 
         /// <summary>
         /// Applies all <see cref="Binding"/>s listed in a specific <see cref="IBindingContainer"/>.
@@ -72,6 +76,9 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
         private void ApplyBindings(IBindingContainer bindingContainer, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
+            // Do not apply bindings more than once
+            if (!_appliedBindingContainers.Add(bindingContainer)) return;
+
             if (bindingContainer.Bindings.Count == 0) return;
 
             // Don't use bindings for PackageImplementations

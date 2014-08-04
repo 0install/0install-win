@@ -111,7 +111,7 @@ namespace ZeroInstall.Services.Injector
             Assert.AreEqual("test2", startInfo.EnvironmentVariables["TEST2_VALUE"], "Should directly set value");
             Assert.AreEqual("default" + Path.PathSeparator + Path.Combine(Test2Path, "sub"), startInfo.EnvironmentVariables["TEST2_PATH_SUB_DEP"], "Should append implementation sub-path");
             Assert.AreEqual(Test1Path, startInfo.EnvironmentVariables["TEST1_PATH_COMMAND"], "Should set implementation path");
-            Assert.AreEqual(Test1Path + Path.PathSeparator + Test1Path + Path.PathSeparator + Test1Path, startInfo.EnvironmentVariables["TEST1_PATH_COMMAND_DEP"], "Should set implementation path for command dependency for each reference");
+            Assert.AreEqual(Test1Path + Path.PathSeparator + Test1Path, startInfo.EnvironmentVariables["TEST1_PATH_COMMAND_DEP"], "Should set implementation path for command dependency for each reference");
             Assert.AreEqual(Path.Combine(Test1Path, "bin"), startInfo.WorkingDirectory, "Should set implementation path");
 
             string execFile = Path.Combine(Test2Path, FileUtils.UnifySlashes(selections.Implementations[2].Commands[0].Path));
