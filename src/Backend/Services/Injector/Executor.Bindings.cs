@@ -23,6 +23,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using NanoByte.Common;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
@@ -215,7 +216,8 @@ namespace ZeroInstall.Services.Injector
             string exePath = DeployRunEnvExecutable(binding.Name);
 
             // Point variable directly to executable
-            startInfo.EnvironmentVariables.Add(binding.Name, exePath);
+            if (startInfo.EnvironmentVariables.ContainsKey(binding.Name)) Log.Warn("Overwriting existing environment variable with <executable-in-var>: " + binding.Name);
+            startInfo.EnvironmentVariables[binding.Name] = exePath;
 
             // Tell the executable what command-line to run
             _runEnvPendings.Add(new RunEnvPending(binding.Name, GetCommandLine(implementation, binding.Command ?? Command.NameRun, startInfo)));
