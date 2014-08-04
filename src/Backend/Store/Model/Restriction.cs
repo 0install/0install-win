@@ -87,9 +87,10 @@ namespace ZeroInstall.Store.Model
         /// Handles legacy elements (converts <see cref="Constraints"/> to <see cref="Versions"/>).
         /// </summary>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
-        public void Normalize()
+        public virtual void Normalize()
         {
-            Versions = Constraints.Aggregate(Versions ?? new VersionRange(), (current, constraint) => current.Intersect(constraint));
+            if (Constraints.Count != 0)
+                Versions = Constraints.Aggregate(Versions ?? new VersionRange(), (current, constraint) => current.Intersect(constraint));
         }
         #endregion
 

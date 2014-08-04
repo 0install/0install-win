@@ -133,6 +133,7 @@ namespace ZeroInstall.Store.Model
             _bindings.RemoveAll(FilterMismatch);
             if (FilterMismatch(WorkingDir)) WorkingDir = null;
 
+            foreach (var dependency in Dependencies) dependency.Normalize();
             foreach (var restriction in Restrictions) restriction.Normalize();
         }
         #endregion

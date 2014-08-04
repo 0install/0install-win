@@ -84,6 +84,19 @@ namespace ZeroInstall.Store.Model
 
         //--------------------//
 
+        #region Normalize
+        /// <inheritdoc/>
+        public override void Normalize()
+        {
+            base.Normalize();
+
+            // Apply if-0install-version filter
+            _bindings.RemoveAll(FilterMismatch);
+        }
+        #endregion
+
+        //--------------------//
+
         #region Conversion
         /// <summary>
         /// Returns the dependency in the form "Interface (Use)". Not safe for parsing!
