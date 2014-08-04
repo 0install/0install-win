@@ -69,7 +69,7 @@ namespace ZeroInstall.DesktopIntegration
                                    // ... or the application's name and the command
                                    : feed.Name.RemoveAll(Path.GetInvalidFileNameChars()) + " " + entryPoint.Command),
                         // Group all entry points in a single folder
-                        Category = (category == null) ? feed.Name : category.ToString() + Path.DirectorySeparatorChar + feed.Name,
+                        Category = (category == null) ? feed.Name : category.ToString() + "/" + feed.Name,
                         Command = entryPoint.Command
                     }).Distinct(x => x.Name);
             }

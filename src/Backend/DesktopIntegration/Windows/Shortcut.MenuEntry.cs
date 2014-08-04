@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using Microsoft.Win32;
 using NanoByte.Common.Tasks;
+using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 
@@ -72,13 +73,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string menuDir = machineWide
                 ? Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Programs", "").ToString()
                 : Environment.GetFolderPath(Environment.SpecialFolder.Programs);
-            return (String.IsNullOrEmpty(category) ? menuDir : Path.Combine(menuDir, category));
+            return (string.IsNullOrEmpty(category) ? menuDir : Path.Combine(menuDir, FileUtils.UnifySlashes(category)));
         }
 
         private static string GetStartMenuPath(string category, string name, bool machineWide)
         {
-            if (String.IsNullOrEmpty(name) || name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
-                throw new IOException(String.Format(Resources.NameInvalidChars, name));
+            if (string.IsNullOrEmpty(name) || name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
+                throw new IOException(string.Format(Resources.NameInvalidChars, name));
 
             return Path.Combine(GetStartMenuCategoryPath(category, machineWide), name + ".lnk");
         }
