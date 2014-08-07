@@ -86,14 +86,23 @@ namespace ZeroInstall.Central.WinForms
         {
             if (!WindowsUtils.IsWindows || Locations.IsPortable || StoreUtils.PathInAStore(Locations.InstallBase)) return;
 
+            const string hklmKey = @"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install";
+            const string hklmWowKey = @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Zero Install";
+            const string hkcuKey = @"HKEY_CURRENT_USER\SOFTWARE\Zero Install";
+            const string value = "InstallLocation";
+
             try
             {
                 if (WindowsUtils.IsAdministrator)
                 {
-                    Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
-                    if (WindowsUtils.Is64BitProcess) Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
+                    Registry.SetValue(hklmKey, value, Locations.InstallBase, RegistryValueKind.String);
+                    if (WindowsUtils.Is64BitProcess) Registry.SetValue(hklmWowKey, value, Locations.InstallBase, RegistryValueKind.String);
                 }
-                else Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\Zero Install", "InstallLocation", Locations.InstallBase, RegistryValueKind.String);
+
+                // Only set HKCU value if there is an existing incorrect value
+                if ((Registry.GetValue(hklmKey, value, Locations.InstallBase).ToString() != Locations.InstallBase) ||
+                    (Registry.GetValue(hkcuKey, value, Locations.InstallBase).ToString() != Locations.InstallBase))
+                    Registry.SetValue(hkcuKey, value, Locations.InstallBase, RegistryValueKind.String);
             }
                 #region Error handling
             catch (SecurityException)
