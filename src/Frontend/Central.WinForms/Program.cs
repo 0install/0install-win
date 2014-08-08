@@ -71,7 +71,7 @@ namespace ZeroInstall.Central.WinForms
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
+            ErrorReportForm.SetupMonitoring(new Uri("https://0install.de/error-report/"));
 
             UpdateRegistry();
             NetUtils.ApplyProxy();

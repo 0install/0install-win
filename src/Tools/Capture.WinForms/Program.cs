@@ -35,7 +35,7 @@ namespace ZeroInstall.Capture.WinForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            ErrorReportForm.SetupMonitoring(new Uri("http://0install.de/error-report/"));
+            ErrorReportForm.SetupMonitoring(new Uri("https://0install.de/error-report/"));
 
             NetUtils.ApplyProxy();
             Application.Run(new MainForm());

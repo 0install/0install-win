@@ -154,7 +154,7 @@ namespace ZeroInstall.Updater.WinForms
                 }
                 else
                 { // Unexpected error
-                    ErrorReportForm.Report(e.Error, new Uri("http://0install.de/error-report/"));
+                    ErrorReportForm.Report(e.Error, new Uri("https://0install.de/error-report/"));
                 }
             }
 
