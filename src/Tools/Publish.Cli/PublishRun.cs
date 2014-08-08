@@ -140,6 +140,7 @@ namespace ZeroInstall.Publish.Cli
                         throw new OperationCanceledException(); // Don't handle any of the other arguments
                     }
                 },
+
                 // Mode selection
                 {
                     "catalog=", () => Resources.OptionCatalog, delegate(string catalogFile)
@@ -149,9 +150,11 @@ namespace ZeroInstall.Publish.Cli
                         _catalogFile = catalogFile;
                     }
                 },
-                // Modiciations
+
+                // Modifications
                 {"add-missing", () => Resources.OptionAddMissing, unused => _addMissing = true},
                 {"keep-downloads", () => Resources.OptionsKeepDownloads, unused => _keepDownloads = true},
+
                 // Signatures
                 {"x|xmlsign", () => Resources.OptionXmlSign, unused => _xmlSign = true},
                 {"u|unsign", () => Resources.OptionUnsign, unused => _unsign = true},
