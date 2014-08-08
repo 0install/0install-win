@@ -52,11 +52,11 @@ namespace ZeroInstall.Services.Solvers
 
             var allCandidates = GetSortedCandidates(requirements);
             var suitableCandidates = FilterSuitableCandidates(allCandidates, requirements.InterfaceID);
-
             var existingSelection = Selections.GetImplementation(requirements.InterfaceID);
-            return (existingSelection == null)
-                ? TryToSelectCandidate(suitableCandidates, requirements, allCandidates)
-                : TryToUseExistingCandidate(requirements, suitableCandidates, existingSelection);
+
+            if (existingSelection == null) return TryToSelectCandidate(suitableCandidates, requirements, allCandidates);
+            else if (TryToUseExistingCandidate(requirements, suitableCandidates, existingSelection)) return true;
+            else throw new SolverException("Dependency graph too complex");
         }
 
         /// <summary>
