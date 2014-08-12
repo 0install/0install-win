@@ -18,7 +18,6 @@
 using System.Windows.Forms;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Tasks;
-using ZeroInstall.Publish.EntryPoints;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
@@ -68,16 +67,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             downloadPage.SingleFile += () => PushPage(detailsPage);
             downloadPage.Installer += () => PushPage(installerPage);
             entryPointPage.Next += () => PushPage(detailsPage);
-            detailsPage.Next += () =>
-            {
-                var windowsExe = _feedBuilder.Candidate as WindowsExe;
-                if (windowsExe == null) PushPage(securityPage);
-                else
-                {
-                    iconPage.SetIcon(windowsExe.ExtractIcon());
-                    PushPage(iconPage);
-                }
-            };
+            detailsPage.Next += () => PushPage(iconPage);
             iconPage.Next += () => PushPage(securityPage);
             securityPage.Next += () => PushPage(donePage);
             donePage.Finish += () =>

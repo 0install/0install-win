@@ -22,11 +22,12 @@ using System.IO;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
+using ZeroInstall.Publish.EntryPoints;
 using ZeroInstall.Publish.Properties;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
-    internal partial class IconPage : UserControl
+    internal partial class IconPage : UserControl, IWizardPage
     {
         public event Action Next;
 
@@ -38,22 +39,20 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             InitializeComponent();
         }
 
+        #region Export icon from EXE
         private Icon _icon;
 
-        public void SetIcon(Icon icon)
+        public void OnPageShow()
         {
-            _icon = icon;
-            pictureBoxIcon.Image = icon.ToBitmap();
-        }
-
-        private void textBoxHref_TextChanged(object sender, EventArgs e)
-        {
-            buttonNext.Enabled = IsValid(textBoxHrefIco) && IsValid(textBoxHrefPng);
-        }
-
-        private static bool IsValid(UriTextBox uriTextBox)
-        {
-            return !string.IsNullOrEmpty(uriTextBox.Text) && uriTextBox.IsValid;
+            var windowsExe = _feedBuilder.Candidate as WindowsExe;
+            if (windowsExe == null)
+                pictureBoxIcon.Visible = buttonSaveIco.Enabled = buttonSavePng.Enabled = false;
+            else
+            {
+                _icon = windowsExe.ExtractIcon();
+                pictureBoxIcon.Image = _icon.ToBitmap();
+                pictureBoxIcon.Visible = buttonSaveIco.Enabled = buttonSavePng.Enabled = true;
+            }
         }
 
         private void buttonSaveIco_Click(object sender, EventArgs e)
@@ -75,6 +74,17 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                 if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
                     _icon.ToBitmap().Save(saveFileDialog.FileName, ImageFormat.Png);
             }
+        }
+        #endregion
+
+        private void textBoxHref_TextChanged(object sender, EventArgs e)
+        {
+            buttonNext.Enabled = IsValid(textBoxHrefIco) && IsValid(textBoxHrefPng);
+        }
+
+        private static bool IsValid(UriTextBox uriTextBox)
+        {
+            return !string.IsNullOrEmpty(uriTextBox.Text) && uriTextBox.IsValid;
         }
 
         private void buttonSkip_Click(object sender, EventArgs e)

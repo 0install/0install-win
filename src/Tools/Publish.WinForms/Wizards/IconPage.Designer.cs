@@ -37,8 +37,8 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             this.labelStep1 = new System.Windows.Forms.Label();
             this.buttonSaveIco = new System.Windows.Forms.Button();
             this.labelStep2 = new System.Windows.Forms.Label();
-            this.textBoxHrefIco = new UriTextBox();
-            this.textBoxHrefPng = new UriTextBox();
+            this.textBoxHrefIco = new NanoByte.Common.Controls.UriTextBox();
+            this.textBoxHrefPng = new NanoByte.Common.Controls.UriTextBox();
             this.labelStep4 = new System.Windows.Forms.Label();
             this.buttonSavePng = new System.Windows.Forms.Button();
             this.labelStep3 = new System.Windows.Forms.Label();
@@ -90,8 +90,8 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             this.labelInfo.Name = "labelInfo";
             this.labelInfo.Size = new System.Drawing.Size(400, 44);
             this.labelInfo.TabIndex = 1;
-            this.labelInfo.Text = "Icons need to be extracted from the EXE and uploaded separately as both an ICO an" +
-    "d a PNG for Zero Install.";
+            this.labelInfo.Text = "Icons need to be extracted from the application and uploaded separately as both a" +
+    "n ICO and a PNG.";
             // 
             // labelStep1
             // 
@@ -110,7 +110,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             this.buttonSaveIco.Name = "buttonSaveIco";
             this.buttonSaveIco.Size = new System.Drawing.Size(137, 28);
             this.buttonSaveIco.TabIndex = 3;
-            this.buttonSaveIco.Text = "Save as &ICO file";
+            this.buttonSaveIco.Text = "Extract as &ICO file";
             this.buttonSaveIco.UseVisualStyleBackColor = true;
             this.buttonSaveIco.Click += new System.EventHandler(this.buttonSaveIco_Click);
             // 
@@ -169,7 +169,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             this.buttonSavePng.Name = "buttonSavePng";
             this.buttonSavePng.Size = new System.Drawing.Size(137, 28);
             this.buttonSavePng.TabIndex = 7;
-            this.buttonSavePng.Text = "Save as &PNG file";
+            this.buttonSavePng.Text = "Extract as &PNG file";
             this.buttonSavePng.UseVisualStyleBackColor = true;
             this.buttonSavePng.Click += new System.EventHandler(this.buttonSavePng_Click);
             // 

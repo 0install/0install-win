@@ -26,7 +26,7 @@ namespace ZeroInstall.Publish.EntryPoints
     /// <summary>
     /// A native PE (Portable Executable) for Windows.
     /// </summary>
-    public class WindowsExe : NativeExecutable
+    public class WindowsExe : NativeExecutable, IIconContainer
     {
         /// <inheritdoc/>
         internal override bool Analyze(DirectoryInfo baseDirectory, FileInfo file)
@@ -89,9 +89,7 @@ namespace ZeroInstall.Publish.EntryPoints
             }
         }
 
-        /// <summary>
-        /// Extracts the primary icon of the EXE. 
-        /// </summary>
+        /// <inheritdoc/>
         public System.Drawing.Icon ExtractIcon()
         {
             return System.Drawing.Icon.ExtractAssociatedIcon(Path.Combine(BaseDirectory.FullName, RelativePath));

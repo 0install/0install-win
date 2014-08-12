@@ -63,6 +63,7 @@
     <Compile Include="EntryPoints\Design\JavaVersionConverter.cs" />
     <Compile Include="EntryPoints\Detection.cs" />
     <Compile Include="EntryPoints\DotNetExe.cs" />
+    <Compile Include="EntryPoints\IIconContainer.cs" />
     <Compile Include="EntryPoints\InterpretedScript.cs" />
     <Compile Include="EntryPoints\Java.cs" />
     <Compile Include="EntryPoints\JavaClass.cs" />
