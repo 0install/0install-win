@@ -233,6 +233,10 @@ namespace ZeroInstall.Services.Solvers
         /// </summary>
         public static void PurgeRestrictions(this Selections selections)
         {
+            #region Sanity checks
+            if (selections == null) throw new ArgumentNullException("selections");
+            #endregion
+
             foreach (var implementation in selections.Implementations)
             {
                 implementation.Restrictions.Clear();
