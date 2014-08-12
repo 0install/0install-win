@@ -15,15 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
-using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Publish.EntryPoints;
-using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
@@ -57,51 +52,21 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             InitializeComponent();
             _feedBuilder = new FeedBuilder(new GuiTaskHandler(this));
 
-            #region Pages
-            var sourcePage = new SourcePage();
-
-            var archivePage = new DownloadRetrievalMethodPage("Archive");
-            var archiveOnlinePage = new DownloadRetrievalMethodOnlinePage<Archive>("Archive", _feedBuilder);
-            var archiveLocalPage = new DownloadRetrievalMethodLocalPage<Archive>("Archive", _feedBuilder);
+            // Pages
+            var downloadPage = new DownloadPage(_feedBuilder);
             var archiveExtractPage = new ArchiveExtractPage(_feedBuilder);
-
-            var singleFilePage = new DownloadRetrievalMethodPage("Single Executable");
-            var singleFileOnlinePage = new DownloadRetrievalMethodOnlinePage<SingleFile>("Single Executable", _feedBuilder);
-            var singleFileLocalPage = new DownloadRetrievalMethodLocalPage<SingleFile>("Single Executable", _feedBuilder);
-
-            var setupPage = new SetupPage();
-
+            var installerPage = new InstallerPage();
             var entryPointPage = new EntryPointPage(_feedBuilder);
             var detailsPage = new DetailsPage(_feedBuilder);
             var iconPage = new IconPage(_feedBuilder);
             var securityPage = new SecurityPage(_feedBuilder, openPgp);
             var donePage = new DonePage();
-            #endregion
 
-            #region Flows
-            sourcePage.Archive += () => PushPage(archivePage);
-            sourcePage.SingleFile += () => PushPage(singleFilePage);
-            sourcePage.Setup += () => PushPage(setupPage);
-
-            archivePage.Online += () => PushPage(archiveOnlinePage);
-            archivePage.Local += () => PushPage(archiveLocalPage);
-            archiveOnlinePage.Next += () => PushPage(archiveExtractPage);
-            archiveLocalPage.Next += () => PushPage(archiveExtractPage);
+            // Flows
+            downloadPage.Archive += () => PushPage(archiveExtractPage);
             archiveExtractPage.Next += () => PushPage(entryPointPage);
-
-            singleFilePage.Online += () => PushPage(singleFileOnlinePage);
-            singleFilePage.Local += () => PushPage(singleFileLocalPage);
-
-            Action fileSelected = () =>
-            {
-                _feedBuilder.ImplementationDirectory = _feedBuilder.TemporaryDirectory;
-                _feedBuilder.Candidate = Detection.ListCandidates(new DirectoryInfo(_feedBuilder.ImplementationDirectory)).FirstOrDefault();
-                if (_feedBuilder.Candidate == null) Msg.Inform(this, Resources.UnknownExecutableType, MsgSeverity.Warn);
-                else PushPage(detailsPage);
-            };
-            singleFileOnlinePage.Next += fileSelected;
-            singleFileLocalPage.Next += fileSelected;
-
+            downloadPage.SingleFile += () => PushPage(detailsPage);
+            downloadPage.Installer += () => PushPage(installerPage);
             entryPointPage.Next += () => PushPage(detailsPage);
             detailsPage.Next += () =>
             {
@@ -120,11 +85,9 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                 _signedFeed = _feedBuilder.Build();
                 Close();
             };
+            installerPage.Exit += Close;
 
-            setupPage.Exit += Close;
-            #endregion
-
-            PushPage(sourcePage);
+            PushPage(downloadPage);
         }
     }
 }

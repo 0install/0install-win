@@ -21,11 +21,11 @@ using NanoByte.Common.Utils;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
-    internal partial class SetupPage : UserControl
+    internal partial class InstallerPage : UserControl
     {
         public event Action Exit;
 
-        public SetupPage()
+        public InstallerPage()
         {
             InitializeComponent();
         }

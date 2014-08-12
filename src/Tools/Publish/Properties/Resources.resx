@@ -126,6 +126,9 @@
   <data name="AskForPassphrase" xml:space="preserve">
     <value>Please enter the GnuPG passphrase for {0}:</value>
   </data>
+  <data name="AskInstallerEXE" xml:space="preserve">
+    <value>Is this an installer EXE?</value>
+  </data>
   <data name="AskSkipIcon" xml:space="preserve">
     <value>Without uploading the icons Zero Install will only be able to display a generic placeholder icon in the catalog as well as for any desktop integration shortcuts. Are you sure you want to skip this?</value>
   </data>
@@ -154,7 +157,7 @@ Discard unsaved changes</value>
     <value>Downloading image for preview...</value>
   </data>
   <data name="EmptyImplementation" xml:space="preserve">
-    <value>A manifest digest was calculated for an empty directory. Check that you have set the correct "extract" value for the archive if this was not intended.</value>
+    <value>A manifest digest was calculated for an empty directory. Check that you have set the correct "extract" value for the archive.</value>
   </data>
   <data name="FeedNotValid" xml:space="preserve">
     <value>The feed does not have the correct format.</value>
@@ -185,7 +188,11 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
     <value>New key...</value>
   </data>
   <data name="NoEntryPointsFound" xml:space="preserve">
-    <value>No entry points (EXEs, JARs, Python scripts, etc.) were found. Please go back and make sure you selected the correct archive and extract directory.</value>
+    <value>No entry points (EXEs, JARs, Python scripts, etc.) were found. Please make sure you selected the correct archive and extract directory.</value>
+  </data>
+  <data name="NoSingleExecutable" xml:space="preserve">
+    <value>No, the application itself
+consists only of one EXE</value>
   </data>
   <data name="PleaseClick" xml:space="preserve">
     <value>Please click:</value>
@@ -203,13 +210,13 @@ Save changes</value>
   <data name="SizeMissing" xml:space="preserve">
     <value>File size not determined yet.</value>
   </data>
-  <data name="UnknownExecutableType" xml:space="preserve">
-    <value>Unknown executable type!</value>
-  </data>
   <data name="UnknownRetrievalMethodType" xml:space="preserve">
     <value>Unknown retrieval method type.</value>
   </data>
   <data name="WrongMimeType" xml:space="preserve">
     <value>Wrong MIME type! Should be {0}.</value>
+  </data>
+  <data name="YesInstallerExe" xml:space="preserve">
+    <value>Yes, installer EXE</value>
   </data>
 </root>

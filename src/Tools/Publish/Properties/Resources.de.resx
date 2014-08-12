@@ -126,6 +126,9 @@
   <data name="AskForPassphrase" xml:space="preserve">
     <value>Bitte geben Sie die GnuPG Passphrase für {0} ein:</value>
   </data>
+  <data name="AskInstallerEXE" xml:space="preserve">
+    <value>Ist dies eine Installations EXE?</value>
+  </data>
   <data name="AskSkipIcon" xml:space="preserve">
     <value>Wenn Sie die Icons nicht hochladen wird Zero Install nur ein generisches Platzhalter-Symbol im Katalog wie auch bei Desktopintergations-Verknüpfungen verwenden können. Sind Sie sicher, dass Sie dies überspringen möchten?</value>
   </data>
@@ -154,7 +157,7 @@ Ungespeicherte Änderungen verwerfen</value>
     <value>Das Bild wird zur Vorschau heruntergeladen...</value>
   </data>
   <data name="EmptyImplementation" xml:space="preserve">
-    <value>Ein Manifest Digest wurde für ein leeres Verzeichnis berechnet. Überprüfen Sie, ob Sie den korrekten "extract" Wert für das Archiv angegeben haben, falls dies nicht beabsichtigt war.</value>
+    <value>Ein Manifest Digest wurde für ein leeres Verzeichnis berechnet. Überprüfen Sie, ob Sie den korrekten "extract" Wert für das Archiv angegeben haben.</value>
   </data>
   <data name="FeedNotValid" xml:space="preserve">
     <value>Der Feed hat nicht das richtige Format</value>
@@ -185,7 +188,11 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
     <value>Neuer Schlüssel...</value>
   </data>
   <data name="NoEntryPointsFound" xml:space="preserve">
-    <value>Es wurden keine Einstiegspunkte (EXEs, JARs, Python Skripts, etc.) gefunden. Bitte gehen Sie zurück und überprüfen Sie, ob Sie das korrekte Archiv und das korrekte Unterverzeichnis ausgewählt haben.</value>
+    <value>Es wurden keine Einstiegspunkte (EXEs, JARs, Python Skripts, etc.) gefunden. Bitte überprüfen Sie, ob Sie das korrekte Archiv und das korrekte Unterverzeichnis ausgewählt haben.</value>
+  </data>
+  <data name="NoSingleExecutable" xml:space="preserve">
+    <value>Nein, die Anwendung selbst
+besteht aus nur einer EXE</value>
   </data>
   <data name="PleaseClick" xml:space="preserve">
     <value>Bitte klicken Sie:</value>
@@ -203,13 +210,13 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="SizeMissing" xml:space="preserve">
     <value>Dateigröße noch nicht bestimmt.</value>
   </data>
-  <data name="UnknownExecutableType" xml:space="preserve">
-    <value>Keine bekannte Art von ausführbarer Datei!</value>
-  </data>
   <data name="UnknownRetrievalMethodType" xml:space="preserve">
     <value>Unbekannter Typ von Retrieval Method.</value>
   </data>
   <data name="WrongMimeType" xml:space="preserve">
     <value>Falscher MIME Typ! Sollte {0} sein.</value>
+  </data>
+  <data name="YesInstallerExe" xml:space="preserve">
+    <value>Ja, Installations EXE</value>
   </data>
 </root>

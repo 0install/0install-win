@@ -88,6 +88,15 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is this an installer EXE?.
+        /// </summary>
+        public static string AskInstallerEXE {
+            get {
+                return ResourceManager.GetString("AskInstallerEXE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Without uploading the icons Zero Install will only be able to display a generic placeholder icon in the catalog as well as for any desktop integration shortcuts. Are you sure you want to skip this?.
         /// </summary>
         public static string AskSkipIcon {
@@ -163,7 +172,7 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A manifest digest was calculated for an empty directory. Check that you have set the correct &quot;extract&quot; value for the archive if this was not intended..
+        ///   Looks up a localized string similar to A manifest digest was calculated for an empty directory. Check that you have set the correct &quot;extract&quot; value for the archive..
         /// </summary>
         public static string EmptyImplementation {
             get {
@@ -254,11 +263,21 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No entry points (EXEs, JARs, Python scripts, etc.) were found. Please go back and make sure you selected the correct archive and extract directory..
+        ///   Looks up a localized string similar to No entry points (EXEs, JARs, Python scripts, etc.) were found. Please make sure you selected the correct archive and extract directory..
         /// </summary>
         public static string NoEntryPointsFound {
             get {
                 return ResourceManager.GetString("NoEntryPointsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No, the application itself
+        ///consists only of one EXE.
+        /// </summary>
+        public static string NoSingleExecutable {
+            get {
+                return ResourceManager.GetString("NoSingleExecutable", resourceCulture);
             }
         }
         
@@ -309,15 +328,6 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unknown executable type!.
-        /// </summary>
-        public static string UnknownExecutableType {
-            get {
-                return ResourceManager.GetString("UnknownExecutableType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Unknown retrieval method type..
         /// </summary>
         public static string UnknownRetrievalMethodType {
@@ -332,6 +342,15 @@ namespace ZeroInstall.Publish.Properties {
         public static string WrongMimeType {
             get {
                 return ResourceManager.GetString("WrongMimeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes, installer EXE.
+        /// </summary>
+        public static string YesInstallerExe {
+            get {
+                return ResourceManager.GetString("YesInstallerExe", resourceCulture);
             }
         }
     }

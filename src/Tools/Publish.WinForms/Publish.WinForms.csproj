@@ -159,23 +159,11 @@
     <Compile Include="Wizards\DonePage.Designer.cs">
       <DependentUpon>DonePage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wizards\DownloadRetrievalMethodLocalPage.cs">
+    <Compile Include="Wizards\DownloadPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Wizards\DownloadRetrievalMethodLocalPage.Designer.cs">
-      <DependentUpon>DownloadRetrievalMethodLocalPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wizards\DownloadRetrievalMethodOnlinePage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Wizards\DownloadRetrievalMethodOnlinePage.Designer.cs">
-      <DependentUpon>DownloadRetrievalMethodOnlinePage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wizards\DownloadRetrievalMethodPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Wizards\DownloadRetrievalMethodPage.Designer.cs">
-      <DependentUpon>DownloadRetrievalMethodPage.cs</DependentUpon>
+    <Compile Include="Wizards\DownloadPage.Designer.cs">
+      <DependentUpon>DownloadPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Wizards\EntryPointPage.cs">
       <SubType>UserControl</SubType>
@@ -189,6 +177,12 @@
     <Compile Include="Wizards\IconPage.Designer.cs">
       <DependentUpon>IconPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Wizards\InstallerPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\InstallerPage.Designer.cs">
+      <DependentUpon>InstallerPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Wizards\NewFeedWizard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -200,18 +194,6 @@
     </Compile>
     <Compile Include="Wizards\SecurityPage.Designer.cs">
       <DependentUpon>SecurityPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wizards\SetupPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Wizards\SetupPage.Designer.cs">
-      <DependentUpon>SetupPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wizards\SourcePage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Wizards\SourcePage.Designer.cs">
-      <DependentUpon>SourcePage.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -235,14 +217,8 @@
     <EmbeddedResource Include="Wizards\DonePage.resx">
       <DependentUpon>DonePage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\DownloadRetrievalMethodLocalPage.resx">
-      <DependentUpon>DownloadRetrievalMethodLocalPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\DownloadRetrievalMethodOnlinePage.resx">
-      <DependentUpon>DownloadRetrievalMethodOnlinePage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\DownloadRetrievalMethodPage.resx">
-      <DependentUpon>DownloadRetrievalMethodPage.cs</DependentUpon>
+    <EmbeddedResource Include="Wizards\DownloadPage.resx">
+      <DependentUpon>DownloadPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\EntryPointPage.resx">
       <DependentUpon>EntryPointPage.cs</DependentUpon>
@@ -250,14 +226,11 @@
     <EmbeddedResource Include="Wizards\IconPage.resx">
       <DependentUpon>IconPage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\InstallerPage.resx">
+      <DependentUpon>InstallerPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Wizards\SecurityPage.resx">
       <DependentUpon>SecurityPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\SetupPage.resx">
-      <DependentUpon>SetupPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\SourcePage.resx">
-      <DependentUpon>SourcePage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
