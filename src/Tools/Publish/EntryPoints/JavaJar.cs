@@ -28,13 +28,9 @@ namespace ZeroInstall.Publish.EntryPoints
     public sealed class JavaJar : Java
     {
         /// <inheritdoc/>
-        internal override bool Analyze(FileInfo file)
+        internal override bool Analyze(DirectoryInfo baseDirectory, FileInfo file)
         {
-            #region Sanity checks
-            if (file == null) throw new ArgumentNullException("file");
-            #endregion
-
-            if (!base.Analyze(file)) return false;
+            if (!base.Analyze(baseDirectory, file)) return false;
             if (!StringUtils.EqualsIgnoreCase(file.Extension, ".jar")) return false;
 
             // TODO: Parse JAR metadata

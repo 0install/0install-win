@@ -38,8 +38,10 @@ namespace ZeroInstall.Publish.EntryPoints
         [Test]
         public void NotExecutable()
         {
-            var candidate = new PythonScript {BaseDirectory = Directory};
-            Assert.IsFalse(candidate.Analyze(Deploy(Reference, xbit: false)));
+            var candidate = new PythonScript();
+            Assert.IsFalse(candidate.Analyze(
+                baseDirectory: Directory,
+                file: Deploy(Reference, xbit: false)));
         }
 
         [Test]

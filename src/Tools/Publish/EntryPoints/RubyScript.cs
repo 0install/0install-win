@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.IO;
 using NanoByte.Common.Utils;
 
@@ -27,13 +26,9 @@ namespace ZeroInstall.Publish.EntryPoints
     public sealed class RubyScript : InterpretedScript
     {
         /// <inheritdoc/>
-        internal override bool Analyze(FileInfo file)
+        internal override bool Analyze(DirectoryInfo baseDirectory, FileInfo file)
         {
-            #region Sanity checks
-            if (file == null) throw new ArgumentNullException("file");
-            #endregion
-
-            if (!base.Analyze(file)) return false;
+            if (!base.Analyze(baseDirectory, file)) return false;
             return
                 StringUtils.EqualsIgnoreCase(file.Extension, ".rb") ||
                 HasShebang(file, "ruby");

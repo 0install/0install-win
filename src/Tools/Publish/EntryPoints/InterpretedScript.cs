@@ -30,9 +30,9 @@ namespace ZeroInstall.Publish.EntryPoints
     public abstract class InterpretedScript : Candidate
     {
         /// <inheritdoc/>
-        internal override bool Analyze(FileInfo file)
+        internal override bool Analyze(DirectoryInfo baseDirectory, FileInfo file)
         {
-            if (!base.Analyze(file)) return false;
+            if (!base.Analyze(baseDirectory, file)) return false;
 
             Name = file.Name.Substring(0, file.Name.Length - file.Extension.Length);
             NeedsTerminal = true;

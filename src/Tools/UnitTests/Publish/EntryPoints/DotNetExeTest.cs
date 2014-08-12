@@ -75,8 +75,10 @@ namespace ZeroInstall.Publish.EntryPoints
         [Test]
         public void NotDotNet()
         {
-            var candidate = new DotNetExe {BaseDirectory = Directory};
-            Assert.IsFalse(candidate.Analyze(Deploy(WindowsExeTest.Reference32, xbit: false)));
+            var candidate = new DotNetExe();
+            Assert.IsFalse(candidate.Analyze(
+                baseDirectory: Directory,
+                file: Deploy(WindowsExeTest.Reference32, xbit: false)));
         }
     }
 }

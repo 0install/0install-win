@@ -34,17 +34,20 @@ namespace ZeroInstall.Publish.EntryPoints
         /// <summary>
         /// Analyzes a file to determine whether it matches this candidate type and extracts meta data.
         /// </summary>
-        /// <param name="file"></param>
+        /// <param name="baseDirectory">The base directory containing the entire application.</param>
+        /// <param name="file">The file to be analyzed. Must be located within the <paramref name="baseDirectory"/> or a subdirectory.</param>
         /// <returns>
         /// <see langword="true"/> if <paramref name="file"/> matches this candidate type. The object will then contain all available metadata.
         /// <see langword="false"/> if <paramref name="file"/>does not match this candidate type. The object will then be in an inconsistent state. Do not reuse!
         /// </returns>
-        internal virtual bool Analyze(FileInfo file)
+        internal virtual bool Analyze(DirectoryInfo baseDirectory, FileInfo file)
         {
             #region Sanity checks
+            if (baseDirectory == null) throw new ArgumentNullException("baseDirectory");
             if (file == null) throw new ArgumentNullException("file");
             #endregion
 
+            BaseDirectory = baseDirectory;
             RelativePath = file.RelativeTo(BaseDirectory);
             return true;
         }
@@ -71,7 +74,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// The base directory containing the entire application.
         /// </summary>
         [Browsable(false)]
-        public DirectoryInfo BaseDirectory { get; internal set; }
+        protected DirectoryInfo BaseDirectory { get; private set; }
 
         /// <summary>
         /// The path of this entry point relative to <see cref="BaseDirectory"/> using Unix-style directory separators.

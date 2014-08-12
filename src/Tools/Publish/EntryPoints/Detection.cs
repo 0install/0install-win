@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using NanoByte.Common.Utils;
@@ -29,65 +28,36 @@ namespace ZeroInstall.Publish.EntryPoints
     /// </summary>
     public static class Detection
     {
-        #region Candidate types
-        private static readonly List<Func<Candidate>> _newCandidates = new List<Func<Candidate>>();
+        private static readonly List<Func<Candidate>> _candidateCreators = new List<Func<Candidate>>
+        {
+            () => new JavaClass(),
+            () => new JavaJar(),
+            () => new DotNetExe(),
+            () => new WindowsExe(),
+            () => new WindowsBatch(),
+            () => new PowerShellScript(),
+            () => new PythonScript(),
+            () => new PhpScript(),
+            () => new PerlScript(),
+            () => new RubyScript(),
+            () => new PosixScript(),
+            () => new MacOSApp(),
+            () => new PosixBinary()
+        };
 
         /// <summary>
-        /// Instantiates a set of new <see cref="Candidate"/>s, one instance for each <see cref="Register{T}"/>ed type.
+        /// Returns a list of entry point <see cref="Candidate"/>s in a directory.
         /// </summary>
-        /// <param name="baseDirectory">The <see cref="Candidate.BaseDirectory"/> to set for all <see cref="Candidate"/>s.</param>
-        private static IEnumerable<Candidate> NewCandidates(DirectoryInfo baseDirectory)
-        {
-            return _newCandidates.Select(newCandidate =>
-            {
-                var candidate = newCandidate();
-                candidate.BaseDirectory = baseDirectory;
-                return candidate;
-            });
-        }
-
-        /// <summary>
-        /// Registers <typeparamref name="T"/> as a <see cref="Candidate"/> subtype.
-        /// </summary>
-        private static void Register<T>() where T : Candidate, new()
-        {
-            _newCandidates.Add(() => new T());
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
-        static Detection()
-        {
-            Register<JavaClass>();
-            Register<JavaJar>();
-            Register<DotNetExe>();
-            Register<WindowsExe>();
-            Register<WindowsBatch>();
-            Register<PowerShellScript>();
-            Register<PythonScript>();
-            Register<PhpScript>();
-            Register<PerlScript>();
-            Register<RubyScript>();
-            Register<PosixScript>();
-            Register<MacOSApp>();
-            Register<PosixBinary>();
-        }
-        #endregion
-
+        /// <param name="baseDirectory">The base directory to scan for entry points.</param>
         public static IEnumerable<Candidate> ListCandidates(DirectoryInfo baseDirectory)
         {
-            var files = new List<FileInfo>();
-            baseDirectory.Walk(fileAction: files.Add);
-
-            // Find the first (if any) matching Candidate type for each file
-            return files.SelectMany(file => NewCandidates(baseDirectory).Where(file.Matches).Take(1));
-        }
-
-        /// <summary>
-        /// Calls <see cref="Candidate.Analyze"/> for the <paramref name="file"/>.
-        /// </summary>
-        private static bool Matches(this FileInfo file, Candidate candidate)
-        {
-            return candidate.Analyze(file);
+            var candidates = new List<Candidate>();
+            baseDirectory.Walk(fileAction: file =>
+            {
+                var candidate = _candidateCreators.Select(x => x()).FirstOrDefault(x => x.Analyze(baseDirectory, file));
+                if (candidate != null) candidates.Add(candidate);
+            });
+            return candidates;
         }
     }
 }

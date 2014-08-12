@@ -26,12 +26,9 @@ namespace ZeroInstall.Publish.EntryPoints
     public sealed class PhpScript : InterpretedScript
     {
         /// <inheritdoc/>
-        internal override bool Analyze(FileInfo file)
+        internal override bool Analyze(DirectoryInfo baseDirectory, FileInfo file)
         {
-            #region Sanity checks
-            if (file == null) throw new ArgumentNullException("file");
-            #endregion
-
+            if (!base.Analyze(baseDirectory, file)) return false;
             return
                 file.Extension.StartsWith(".php", StringComparison.OrdinalIgnoreCase) ||
                 HasShebang(file, "php");

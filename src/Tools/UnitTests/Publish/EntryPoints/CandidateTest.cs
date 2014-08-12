@@ -52,8 +52,10 @@ namespace ZeroInstall.Publish.EntryPoints
         /// <param name="executable">Set to <see langword="true"/> to mark the file as Unix executable.</param>
         protected void TestAnalyze<T>(T reference, bool executable = false) where T : Candidate, new()
         {
-            var candidate = new T {BaseDirectory = Directory};
-            Assert.IsTrue(candidate.Analyze(Deploy(reference, executable)));
+            var candidate = new T();
+            Assert.IsTrue(candidate.Analyze(
+                baseDirectory: Directory,
+                file: Deploy(reference, executable)));
             Assert.AreEqual(reference, candidate);
         }
 

@@ -44,15 +44,19 @@ namespace ZeroInstall.Publish.EntryPoints
         [Test]
         public void NotExecutable()
         {
-            var candidate = new PosixBinary {BaseDirectory = Directory};
-            Assert.IsFalse(candidate.Analyze(Deploy(Reference32, xbit: false)));
+            var candidate = new PosixBinary();
+            Assert.IsFalse(candidate.Analyze(
+                baseDirectory: Directory,
+                file: Deploy(Reference32, xbit: false)));
         }
 
         [Test]
         public void NotElf()
         {
-            var candidate = new PosixBinary {BaseDirectory = Directory};
-            Assert.IsFalse(candidate.Analyze(Deploy(PosixScriptTest.Reference, xbit: true)));
+            var candidate = new PosixBinary();
+            Assert.IsFalse(candidate.Analyze(
+                baseDirectory: Directory,
+                file: Deploy(PosixScriptTest.Reference, xbit: true)));
         }
     }
 }

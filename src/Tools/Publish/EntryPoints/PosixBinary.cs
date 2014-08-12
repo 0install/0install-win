@@ -29,13 +29,9 @@ namespace ZeroInstall.Publish.EntryPoints
     public sealed class PosixBinary : PosixExecutable
     {
         /// <inheritdoc/>
-        internal override bool Analyze(FileInfo file)
+        internal override bool Analyze(DirectoryInfo baseDirectory, FileInfo file)
         {
-            #region Sanity checks
-            if (file == null) throw new ArgumentNullException("file");
-            #endregion
-
-            if (!base.Analyze(file)) return false;
+            if (!base.Analyze(baseDirectory, file)) return false;
 
             IELF elfData;
             if (!ELFReader.TryLoad(file.FullName, out elfData)) return false;
