@@ -21,7 +21,6 @@ using System.Net;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
-using NanoByte.Common.Undo;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
@@ -64,7 +63,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             try
             {
                 var retrievalMethod = new T {Href = textBoxUrl.Uri};
-                var temporaryDirectory = retrievalMethod.LocalApply(textBoxPath.Text, new GuiTaskHandler(this), new SimpleCommandExecutor());
+                var temporaryDirectory = retrievalMethod.LocalApply(textBoxPath.Text, new GuiTaskHandler(this));
 
                 _feedBuilder.RetrievalMethod = retrievalMethod;
                 _feedBuilder.TemporaryDirectory = temporaryDirectory;

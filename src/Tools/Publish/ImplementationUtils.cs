@@ -53,7 +53,7 @@ namespace ZeroInstall.Publish
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var implementationDir = retrievalMethod.DownloadAndApply(handler, new SimpleCommandExecutor());
+            var implementationDir = retrievalMethod.DownloadAndApply(handler);
             try
             {
                 var digest = GenerateDigest(implementationDir, handler, keepDownloads);
@@ -79,12 +79,14 @@ namespace ZeroInstall.Publish
         /// <exception cref="IOException">Thrown if there is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a temporary file is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if an existing digest does not match the newly calculated one.</exception>
-        public static void AddMissing(this Implementation implementation, ITaskHandler handler, ICommandExecutor executor, bool keepDownloads = false)
+        public static void AddMissing(this Implementation implementation, ITaskHandler handler, ICommandExecutor executor = null, bool keepDownloads = false)
         {
             #region Sanity checks
             if (implementation == null) throw new ArgumentNullException("implementation");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
+
+            if (executor == null) executor = new SimpleCommandExecutor();
 
             ConvertSha256ToSha256New(implementation, executor);
 

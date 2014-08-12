@@ -16,7 +16,6 @@
  */
 
 using System.IO;
-using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
@@ -46,7 +45,7 @@ namespace ZeroInstall.Publish
             using (var microServer = new MicroServer("archive.zip", originalStream))
             {
                 var archive = new Archive {Href = microServer.FileUri};
-                archive.DownloadAndApply(new SilentTaskHandler(), new SimpleCommandExecutor()).Dispose();
+                archive.DownloadAndApply(new SilentTaskHandler()).Dispose();
 
                 Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
                 Assert.AreEqual(originalStream.Length, archive.Size);
@@ -63,7 +62,7 @@ namespace ZeroInstall.Publish
             using (var microServer = new MicroServer(SingleFileName, originalStream))
             {
                 var file = new SingleFile {Href = microServer.FileUri, Destination = SingleFileName};
-                file.DownloadAndApply(new SilentTaskHandler(), new SimpleCommandExecutor()).Dispose();
+                file.DownloadAndApply(new SilentTaskHandler()).Dispose();
 
                 Assert.AreEqual(originalStream.Length, file.Size);
             }
@@ -80,7 +79,7 @@ namespace ZeroInstall.Publish
             {
                 var archive = new Archive {Href = microServer.FileUri};
                 var recipe = new Recipe {Steps = {archive}};
-                recipe.DownloadAndApply(new SilentTaskHandler(), new SimpleCommandExecutor()).Dispose();
+                recipe.DownloadAndApply(new SilentTaskHandler()).Dispose();
 
                 Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
                 Assert.AreEqual(originalStream.Length, archive.Size);
@@ -100,7 +99,7 @@ namespace ZeroInstall.Publish
                     memoryStream.WriteTo(tempFile);
 
                 var archive = new Archive();
-                using (var extractedDir = archive.LocalApply(tempFile, new SilentTaskHandler(), new SimpleCommandExecutor()))
+                using (var extractedDir = archive.LocalApply(tempFile, new SilentTaskHandler()))
                     Assert.IsTrue(File.Exists(Path.Combine(extractedDir, "symlink")));
 
                 Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
@@ -122,7 +121,7 @@ namespace ZeroInstall.Publish
                 File.WriteAllText(tempFile, @"abc");
 
                 var file = new SingleFile();
-                using (var extractedDir = file.LocalApply(tempFile, new SilentTaskHandler(), new SimpleCommandExecutor()))
+                using (var extractedDir = file.LocalApply(tempFile, new SilentTaskHandler()))
                     Assert.IsTrue(File.Exists(Path.Combine(extractedDir, "file")));
 
                 Assert.AreEqual("file", file.Destination);

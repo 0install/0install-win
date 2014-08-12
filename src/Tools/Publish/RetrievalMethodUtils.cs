@@ -48,8 +48,13 @@ namespace ZeroInstall.Publish
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">Thrown if there is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a temporary file is not permitted.</exception>
-        public static TemporaryDirectory DownloadAndApply(this RetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor)
+        public static TemporaryDirectory DownloadAndApply(this RetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor = null)
         {
+            #region Sanity checks
+            if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             var download = retrievalMethod as DownloadRetrievalMethod;
             if (download != null) return download.DownloadAndApply(handler, executor);
 
@@ -66,7 +71,7 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A temporary directory containing the extracted content.</returns>
-        public static TemporaryDirectory DownloadAndApply(this DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor)
+        public static TemporaryDirectory DownloadAndApply(this DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor = null)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
@@ -109,7 +114,7 @@ namespace ZeroInstall.Publish
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">Thrown if there is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a temporary file is not permitted.</exception>
-        public static TemporaryDirectory DownloadAndApply(this Recipe recipe, ITaskHandler handler, ICommandExecutor executor)
+        public static TemporaryDirectory DownloadAndApply(this Recipe recipe, ITaskHandler handler, ICommandExecutor executor = null)
         {
             #region Sanity checks
             if (recipe == null) throw new ArgumentNullException("recipe");
@@ -145,14 +150,14 @@ namespace ZeroInstall.Publish
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">Thrown if there is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a temporary file is not permitted.</exception>
-        public static TemporaryFile Download(this DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor)
+        public static TemporaryFile Download(this DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor = null)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
             if (handler == null) throw new ArgumentNullException("handler");
-            if (executor == null) throw new ArgumentNullException("executor");
             #endregion
 
+            if (executor == null) executor = new SimpleCommandExecutor();
             if (retrievalMethod.Href == null) throw new ArgumentException(Resources.HrefMissing, "retrievalMethod");
             new PerTypeDispatcher<DownloadRetrievalMethod>(false)
             {
@@ -204,14 +209,15 @@ namespace ZeroInstall.Publish
         /// <exception cref="OperationCanceledException">Thrown if the user canceled the operation.</exception>
         /// <exception cref="IOException">Thrown if there is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a temporary file is not permitted.</exception>
-        public static TemporaryDirectory LocalApply(this DownloadRetrievalMethod retrievalMethod, string localPath, ITaskHandler handler, ICommandExecutor executor)
+        public static TemporaryDirectory LocalApply(this DownloadRetrievalMethod retrievalMethod, string localPath, ITaskHandler handler, ICommandExecutor executor = null)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
             if (string.IsNullOrEmpty(localPath)) throw new ArgumentNullException("localPath");
-            if (executor == null) throw new ArgumentNullException("executor");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
+
+            if (executor == null) executor = new SimpleCommandExecutor();
 
             // Set local file size
             long newSize = new FileInfo(localPath).Length;
