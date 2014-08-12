@@ -30,7 +30,6 @@ namespace ZeroInstall.Publish.EntryPoints
     /// </summary>
     public abstract class Candidate
     {
-        #region Analyze
         /// <summary>
         /// Analyzes a file to determine whether it matches this candidate type and extracts meta data.
         /// </summary>
@@ -51,9 +50,7 @@ namespace ZeroInstall.Publish.EntryPoints
             RelativePath = file.RelativeTo(BaseDirectory);
             return true;
         }
-        #endregion
 
-        #region Helpers
         /// <summary>
         /// Determines whether a file is executable.
         /// </summary>
@@ -67,9 +64,7 @@ namespace ZeroInstall.Publish.EntryPoints
                 FileUtils.IsExecutable(path) ||
                 FlagUtils.GetExternalFlags(".xbit", BaseDirectory.FullName).Contains(path);
         }
-        #endregion
 
-        #region Properties
         /// <summary>
         /// The base directory containing the entire application.
         /// </summary>
@@ -116,11 +111,13 @@ namespace ZeroInstall.Publish.EntryPoints
         public Architecture Architecture { get; internal set; }
 
         /// <summary>
-        /// A <see cref="Command"/> to launch this entry point.
+        /// Creates a <see cref="Command"/> to launch this entry point.
         /// </summary>
         [Browsable(false)]
-        public abstract Command Command { get; }
-        #endregion
+        public abstract Command CreateCommand();
+
+        /// <summary>The <see cref="Command.Name"/> used by <see cref="CreateCommand"/>.</summary>
+        protected string CommandName { get { return (Path.GetFileNameWithoutExtension(RelativePath) ?? "unknown").Replace(" ", "-"); } }
 
         public override string ToString()
         {

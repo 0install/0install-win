@@ -25,16 +25,13 @@ namespace ZeroInstall.Publish.EntryPoints
     public abstract class NativeExecutable : Candidate
     {
         /// <inheritdoc/>
-        public override Command Command
+        public override Command CreateCommand()
         {
-            get
+            return new Command
             {
-                return new Command
-                {
-                    Name = Command.NameRun,
-                    Path = RelativePath
-                };
-            }
+                Name = CommandName,
+                Path = RelativePath
+            };
         }
     }
 }

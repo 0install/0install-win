@@ -35,7 +35,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         public void OnPageShow()
         {
-            propertyGridCandidate.SelectedObject = _feedBuilder.Candidate;
+            propertyGridCandidate.SelectedObject = _feedBuilder.MainCandidate;
             buttonNext.Enabled = ValidateInput();
         }
 
@@ -51,7 +51,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private bool ValidateInput()
         {
-            return !string.IsNullOrEmpty(_feedBuilder.Candidate.Name) && !string.IsNullOrEmpty(_feedBuilder.Candidate.Summary) && _feedBuilder.Candidate.Version != null;
+            return !string.IsNullOrEmpty(_feedBuilder.MainCandidate.Name) && !string.IsNullOrEmpty(_feedBuilder.MainCandidate.Summary) && _feedBuilder.MainCandidate.Version != null;
         }
     }
 }

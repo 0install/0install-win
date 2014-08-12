@@ -115,6 +115,15 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Searching for executable files.
+        /// </summary>
+        public static string DetectingCandidates {
+            get {
+                return ResourceManager.GetString("DetectingCandidates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keep
         ///The implementation was supposed to stay the same.
         /// </summary>

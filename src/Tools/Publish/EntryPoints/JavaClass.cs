@@ -38,17 +38,14 @@ namespace ZeroInstall.Publish.EntryPoints
         }
 
         /// <inheritdoc/>
-        public override Command Command
+        public override Command CreateCommand()
         {
-            get
+            return new Command
             {
-                return new Command
-                {
-                    Name = Command.NameRun,
-                    Path = RelativePath,
-                    Runner = new Runner {InterfaceID = "http://repo.roscidus.com/java/openjdk-jre", Versions = (VersionRange)MinimumRuntimeVersion}
-                };
-            }
+                Name = CommandName,
+                Path = RelativePath,
+                Runner = new Runner {InterfaceID = "http://repo.roscidus.com/java/openjdk-jre", Versions = (VersionRange)MinimumRuntimeVersion}
+            };
         }
     }
 }

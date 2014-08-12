@@ -45,7 +45,7 @@ namespace ZeroInstall.Publish
                     new Icon {MimeType = Icon.MimeTypePng, Href = new Uri("http://0install.de/test.png")},
                     new Icon {MimeType = Icon.MimeTypeIco, Href = new Uri("http://0install.de/test.ico")}
                 },
-                Candidate = new WindowsExe
+                MainCandidate = new WindowsExe
                 {
                     RelativePath = "test",
                     Name = "TestApp",
@@ -60,25 +60,20 @@ namespace ZeroInstall.Publish
             {
                 var signedFeed = builder.Build();
 
-                Assert.AreEqual(builder.Candidate.Name, signedFeed.Feed.Name);
+                Assert.AreEqual(builder.MainCandidate.Name, signedFeed.Feed.Name);
                 Assert.AreEqual(builder.Uri, signedFeed.Feed.Uri);
-                CollectionAssert.AreEqual(new LocalizableStringCollection {builder.Candidate.Summary}, signedFeed.Feed.Summaries);
-                Assert.AreEqual(builder.Candidate.NeedsTerminal, signedFeed.Feed.NeedsTerminal);
+                CollectionAssert.AreEqual(new LocalizableStringCollection {builder.MainCandidate.Summary}, signedFeed.Feed.Summaries);
+                Assert.AreEqual(builder.MainCandidate.NeedsTerminal, signedFeed.Feed.NeedsTerminal);
                 CollectionAssert.AreEqual(new[]
                 {
-                    new Group
+                    new Implementation
                     {
-                        Architecture = builder.Candidate.Architecture,
-                        Commands = {builder.Candidate.Command}, Elements =
-                        {
-                            new Implementation
-                            {
-                                ID = "sha1new=" + ManifestDigest.Empty.Sha1New,
-                                ManifestDigest = ManifestDigest.Empty,
-                                Version = builder.Candidate.Version,
-                                RetrievalMethods = {builder.RetrievalMethod}
-                            }
-                        }
+                        ID = "sha1new=" + ManifestDigest.Empty.Sha1New,
+                        ManifestDigest = ManifestDigest.Empty,
+                        Version = builder.MainCandidate.Version,
+                        Architecture = builder.MainCandidate.Architecture,
+                        Commands = {new Command {Name = Command.NameRun, Path = "test"}},
+                        RetrievalMethods = {builder.RetrievalMethod}
                     }
                 }, signedFeed.Feed.Elements);
                 CollectionAssert.AreEqual(builder.Icons, signedFeed.Feed.Icons);
@@ -87,7 +82,7 @@ namespace ZeroInstall.Publish
                     new EntryPoint
                     {
                         Command = Command.NameRun,
-                        Names = {builder.Candidate.Name},
+                        Names = {builder.MainCandidate.Name},
                         BinaryName = "test"
                     }
                 }, signedFeed.Feed.EntryPoints);

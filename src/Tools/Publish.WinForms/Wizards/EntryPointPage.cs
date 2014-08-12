@@ -16,14 +16,10 @@
  */
 
 using System;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using NanoByte.Common;
 using NanoByte.Common.Controls;
-using NanoByte.Common.Tasks;
 using ZeroInstall.Publish.EntryPoints;
-using ZeroInstall.Publish.Properties;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
@@ -41,60 +37,15 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         public void OnPageShow()
         {
-            try
-            {
-                comboBoxEntryPoint.Items.Clear();
-                // ReSharper disable once CoVariantArrayConversion
-                comboBoxEntryPoint.Items.AddRange(GetCandidates(_feedBuilder.ImplementationDirectory));
-                comboBoxEntryPoint.SelectedIndex = 0;
-
-                buttonNext.Enabled = true;
-            }
-            catch (OperationCanceledException)
-            {
-                buttonNext.Enabled = false;
-            }
-        }
-
-        private Candidate[] GetCandidates(string workingDirectory)
-        {
-            Candidate[] candidates = null;
-            try
-            {
-                var task = new SimpleTask("Searching for executable files", () =>
-                    candidates = Detection.ListCandidates(new DirectoryInfo(workingDirectory)).ToArray());
-                using (var handler = new GuiTaskHandler(this)) handler.RunTask(task);
-            }
-                #region Error handling
-            catch (ArgumentException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-            }
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-                throw new OperationCanceledException();
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-                throw new OperationCanceledException();
-            }
-            #endregion
-
-            if (candidates == null || candidates.Length == 0)
-            {
-                Msg.Inform(this, Resources.NoEntryPointsFound, MsgSeverity.Warn);
-                throw new OperationCanceledException();
-            }
-
-            return candidates;
+            comboBoxEntryPoint.Items.Clear();
+            comboBoxEntryPoint.Items.AddRange(_feedBuilder.Candidates.Cast<object>().ToArray());
+            comboBoxEntryPoint.SelectedItem = _feedBuilder.MainCandidate;
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            _feedBuilder.Candidate = comboBoxEntryPoint.SelectedItem as Candidate;
-            if (_feedBuilder.Candidate != null) Next();
+            _feedBuilder.MainCandidate = comboBoxEntryPoint.SelectedItem as Candidate;
+            if (_feedBuilder.MainCandidate != null) Next();
         }
     }
 }

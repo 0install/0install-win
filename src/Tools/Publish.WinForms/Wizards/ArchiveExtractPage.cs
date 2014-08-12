@@ -47,12 +47,14 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
             comboBoxExtract.BeginUpdate();
             comboBoxExtract.Items.Clear();
-
             var baseDirectory = new DirectoryInfo(_feedBuilder.TemporaryDirectory);
             baseDirectory.Walk(
                 dir => comboBoxExtract.Items.Add(dir.RelativeTo(baseDirectory).Replace(Path.DirectorySeparatorChar, '/')));
-
             comboBoxExtract.EndUpdate();
+
+            // Auto-detect single top-level directory
+            if (baseDirectory.GetFiles().Length == 0 && baseDirectory.GetDirectories().Length == 1)
+                comboBoxExtract.SelectedIndex = 1;
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
@@ -95,10 +97,41 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                 Msg.Inform(this, ex.Message, MsgSeverity.Warn);
                 return;
             }
-                #endregion
+            #endregion
 
             if (_feedBuilder.ManifestDigest.PartialEquals(ManifestDigest.Empty))
+            {
                 Msg.Inform(this, Resources.EmptyImplementation, MsgSeverity.Warn);
+                return;
+            }
+
+            try
+            {
+                _feedBuilder.DetectCandidates();
+            }
+                #region Error handling
+            catch (OperationCanceledException)
+            {
+                return;
+            }
+            catch (ArgumentException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                return;
+            }
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                return;
+            }
+            #endregion
+
+            if (_feedBuilder.MainCandidate == null) Msg.Inform(this, Resources.NoEntryPointsFound, MsgSeverity.Warn);
             else Next();
         }
     }

@@ -44,7 +44,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         public void OnPageShow()
         {
-            var windowsExe = _feedBuilder.Candidate as WindowsExe;
+            var windowsExe = _feedBuilder.MainCandidate as WindowsExe;
             if (windowsExe == null)
                 pictureBoxIcon.Visible = buttonSaveIco.Enabled = buttonSavePng.Enabled = false;
             else

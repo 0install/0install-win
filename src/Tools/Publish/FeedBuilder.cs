@@ -19,9 +19,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Publish.EntryPoints;
+using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
@@ -59,10 +61,18 @@ namespace ZeroInstall.Publish
         /// </summary>
         public ICollection<Icon> Icons { get { return _icons; } }
 
+        private readonly List<Candidate> _candidates = new List<Candidate>();
+
         /// <summary>
-        /// Provides meta-data and startup instructions for the application.
+        /// Auto-detected candidates for entry points.
         /// </summary>
-        public Candidate Candidate { get; set; }
+        public IEnumerable<Candidate> Candidates { get { return _candidates; } }
+
+        /// <summary>
+        /// The main entry point. Provides meta-data and startup instructions for the application.
+        /// Should be one of the auto-detected <see cref="Candidates"/>.
+        /// </summary>
+        public Candidate MainCandidate { get; set; }
 
         /// <summary>
         /// A retrieval method for the single <see cref="Implementation"/> in the <see cref="Feed"/>.
@@ -102,6 +112,20 @@ namespace ZeroInstall.Publish
         }
 
         /// <summary>
+        /// Used for <see cref="ImplementationBase.ManifestDigest"/>.
+        /// </summary>
+        public ManifestDigest ManifestDigest { get; private set; }
+
+        /// <summary>
+        /// Used for <see cref="SignedFeed.SecretKey"/>.
+        /// </summary>
+        public OpenPgpSecretKey SecretKey { get; set; }
+        #endregion
+
+        //--------------------//
+
+        #region Digest
+        /// <summary>
         /// Calculates the <see cref="ManifestDigest"/> of a specific directory.
         /// </summary>
         private ManifestDigest CalculateDigest(string path)
@@ -118,19 +142,20 @@ namespace ZeroInstall.Publish
 
             return digest;
         }
-
-        /// <summary>
-        /// Used for <see cref="ImplementationBase.ManifestDigest"/>.
-        /// </summary>
-        public ManifestDigest ManifestDigest { get; private set; }
-
-        /// <summary>
-        /// Used for <see cref="SignedFeed.SecretKey"/>.
-        /// </summary>
-        public OpenPgpSecretKey SecretKey { get; set; }
         #endregion
 
-        //--------------------//
+        #region Candidates
+        /// <summary>
+        /// Automatically detects <see cref="Candidate"/>s in the <see cref="ImplementationDirectory"/>.
+        /// </summary>
+        public void DetectCandidates()
+        {
+            _candidates.Clear();
+            _handler.RunTask(new SimpleTask(Resources.DetectingCandidates,
+                () => _candidates.AddRange(Detection.ListCandidates(new DirectoryInfo(ImplementationDirectory)))));
+            MainCandidate = _candidates.FirstOrDefault();
+        }
+        #endregion
 
         #region Build
         /// <summary>
@@ -138,41 +163,50 @@ namespace ZeroInstall.Publish
         /// </summary>
         public SignedFeed Build()
         {
+            var implementation =
+                new Implementation
+                {
+                    ID = "sha1new=" + ManifestDigest.Sha1New,
+                    ManifestDigest = ManifestDigest,
+                    Version = MainCandidate.Version,
+                    Architecture = MainCandidate.Architecture,
+                    Commands = {MainCandidate.CreateCommand()},
+                    RetrievalMethods = {RetrievalMethod}
+                };
             var feed = new Feed
             {
-                Name = Candidate.Name,
+                Name = MainCandidate.Name,
                 Uri = Uri,
-                Summaries = {Candidate.Summary},
-                NeedsTerminal = Candidate.NeedsTerminal,
-                Elements =
-                {
-                    new Group
-                    {
-                        Architecture = Candidate.Architecture,
-                        Commands = {Candidate.Command},
-                        Elements =
-                        {
-                            new Implementation
-                            {
-                                ID = "sha1new=" + ManifestDigest.Sha1New,
-                                ManifestDigest = ManifestDigest,
-                                Version = Candidate.Version,
-                                RetrievalMethods = {RetrievalMethod}
-                            }
-                        }
-                    }
-                },
+                Summaries = {MainCandidate.Summary},
+                NeedsTerminal = MainCandidate.NeedsTerminal,
+                Elements = {implementation},
                 EntryPoints =
                 {
                     new EntryPoint
                     {
                         Command = Command.NameRun,
-                        Names = {Candidate.Name},
-                        BinaryName = Path.GetFileNameWithoutExtension(Candidate.RelativePath)
+                        Names = {MainCandidate.Name},
+                        BinaryName = Path.GetFileNameWithoutExtension(MainCandidate.RelativePath)
                     }
                 }
             };
             feed.Icons.AddRange(_icons);
+
+            foreach (var candidate in _candidates.Except(MainCandidate)
+                .Distinct(x => x.CreateCommand().Name))
+            {
+                var command = candidate.CreateCommand();
+                implementation.Commands.Add(command);
+                feed.EntryPoints.Add(new EntryPoint
+                {
+                    Command = command.Name,
+                    Names = {candidate.Name},
+                    Summaries = {candidate.Summary},
+                    BinaryName = Path.GetFileNameWithoutExtension(candidate.RelativePath),
+                    NeedsTerminal = candidate.NeedsTerminal
+                });
+            }
+            implementation.Commands[0].Name = Command.NameRun;
 
             return new SignedFeed(feed, SecretKey);
         }

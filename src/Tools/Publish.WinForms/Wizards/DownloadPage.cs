@@ -17,13 +17,11 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
-using ZeroInstall.Publish.EntryPoints;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Model;
 
@@ -123,8 +121,8 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         {
             Retrieve<SingleFile>();
             _feedBuilder.ImplementationDirectory = _feedBuilder.TemporaryDirectory;
-            _feedBuilder.Candidate = Detection.ListCandidates(new DirectoryInfo(_feedBuilder.ImplementationDirectory)).SingleOrDefault();
-            if (_feedBuilder.Candidate == null) Msg.Inform(this, Resources.NoEntryPointsFound, MsgSeverity.Warn);
+            _feedBuilder.DetectCandidates();
+            if (_feedBuilder.MainCandidate == null) Msg.Inform(this, Resources.NoEntryPointsFound, MsgSeverity.Warn);
             else SingleFile();
         }
 

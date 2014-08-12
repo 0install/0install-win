@@ -55,7 +55,7 @@
             this.labelQuestion.Name = "labelQuestion";
             this.labelQuestion.Size = new System.Drawing.Size(400, 22);
             this.labelQuestion.TabIndex = 5;
-            this.labelQuestion.Text = "Which file starts the application?";
+            this.labelQuestion.Text = "Which file starts the main application?";
             // 
             // buttonNext
             // 

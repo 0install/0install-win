@@ -39,29 +39,21 @@ namespace ZeroInstall.Publish.EntryPoints
         }
 
         /// <inheritdoc/>
-        public override Command Command
+        public override Command CreateCommand()
         {
-            get
-            {
-                if (ExternalDependencies)
+            return ExternalDependencies
+                ? new Command
                 {
-                    return new Command
-                    {
-                        Name = Command.NameRun,
-                        Bindings = {new EnvironmentBinding {Name = "CLASSPATH", Insert = RelativePath}},
-                        Runner = new Runner {InterfaceID = "http://0install.de/feeds/jar-launcher.xml", Versions = (VersionRange)MinimumRuntimeVersion}
-                    };
+                    Name = CommandName,
+                    Bindings = {new EnvironmentBinding {Name = "CLASSPATH", Insert = RelativePath}},
+                    Runner = new Runner {InterfaceID = "http://0install.de/feeds/jar-launcher.xml", Versions = (VersionRange)MinimumRuntimeVersion}
                 }
-                else
+                : new Command
                 {
-                    return new Command
-                    {
-                        Name = Command.NameRun,
-                        Path = RelativePath,
-                        Runner = new Runner {InterfaceID = "http://repo.roscidus.com/java/openjdk-jre", Arguments = {"-jar"}, Versions = (VersionRange)MinimumRuntimeVersion}
-                    };
-                }
-            }
+                    Name = CommandName,
+                    Path = RelativePath,
+                    Runner = new Runner {InterfaceID = "http://repo.roscidus.com/java/openjdk-jre", Arguments = {"-jar"}, Versions = (VersionRange)MinimumRuntimeVersion}
+                };
         }
     }
 }

@@ -52,17 +52,14 @@ namespace ZeroInstall.Publish.EntryPoints
         public VersionRange InterpreterVersions { get; set; }
 
         /// <inheritdoc/>
-        public override Command Command
+        public override Command CreateCommand()
         {
-            get
+            return new Command
             {
-                return new Command
-                {
-                    Name = Command.NameRun,
-                    Path = RelativePath,
-                    Runner = new Runner {InterfaceID = InterpreterInterface, Versions = InterpreterVersions}
-                };
-            }
+                Name = CommandName,
+                Path = RelativePath,
+                Runner = new Runner {InterfaceID = InterpreterInterface, Versions = InterpreterVersions}
+            };
         }
 
         #region Helpers

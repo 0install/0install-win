@@ -71,17 +71,14 @@ namespace ZeroInstall.Publish.EntryPoints
         public bool ExternalDependencies { get; set; }
 
         /// <inheritdoc/>
-        public override Command Command
+        public override Command CreateCommand()
         {
-            get
+            return new Command
             {
-                return new Command
-                {
-                    Name = Command.NameRun,
-                    Path = RelativePath,
-                    Runner = new Runner {InterfaceID = GetInterfaceID(), Versions = (VersionRange)MinimumRuntimeVersion}
-                };
-            }
+                Name = CommandName,
+                Path = RelativePath,
+                Runner = new Runner {InterfaceID = GetInterfaceID(), Versions = (VersionRange)MinimumRuntimeVersion}
+            };
         }
 
         private string GetInterfaceID()

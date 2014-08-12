@@ -135,6 +135,9 @@
   <data name="AskSkipSecurity" xml:space="preserve">
     <value>Without these settings your feed will only work locally and not online. Are you sure you want to skip this?</value>
   </data>
+  <data name="DetectingCandidates" xml:space="preserve">
+    <value>Searching for executable files</value>
+  </data>
   <data name="DigestKeep" xml:space="preserve">
     <value>Keep
 The implementation was supposed to stay the same</value>
