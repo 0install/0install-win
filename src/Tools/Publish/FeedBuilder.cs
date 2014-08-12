@@ -35,19 +35,6 @@ namespace ZeroInstall.Publish
     /// </summary>
     public class FeedBuilder : IDisposable
     {
-        #region Dependencies
-        private readonly ITaskHandler _handler;
-
-        /// <summary>
-        /// Creates a new feed builder.
-        /// </summary>
-        /// <param name="handler">A callback object used when the the user needs to be informed about IO tasks.</param>
-        public FeedBuilder(ITaskHandler handler)
-        {
-            _handler = handler;
-        }
-        #endregion
-
         #region Properties
         /// <summary>
         /// Used for <see cref="Feed.Uri"/>.
@@ -82,7 +69,7 @@ namespace ZeroInstall.Publish
         private TemporaryDirectory _temporaryDirectory;
 
         /// <summary>
-        /// A temporary directory (usually used as the <see cref="ImplementationDirectory"/>). Not used by the <see cref="FeedBuilder"/> itself.
+        /// A temporary directory to prepare files for <see cref="SetImplementationDirectory"/>. Not used by the <see cref="FeedBuilder"/> itself.
         /// </summary>
         /// <remarks>Setting a new value will automatically <see cref="IDisposable.Dispose"/> the previous one.</remarks>
         public TemporaryDirectory TemporaryDirectory
@@ -92,22 +79,6 @@ namespace ZeroInstall.Publish
             {
                 if (_temporaryDirectory != null) _temporaryDirectory.Dispose();
                 _temporaryDirectory = value;
-            }
-        }
-
-        private string _workingDirectory;
-
-        /// <summary>
-        /// The final implementation directory as it would be created by the <see cref="RetrievalMethod"/>.
-        /// </summary>
-        /// <remarks>Setting this value causes a new <see cref="ManifestDigest"/> to be calculated.</remarks>
-        public string ImplementationDirectory
-        {
-            get { return _workingDirectory; }
-            set
-            {
-                _workingDirectory = value;
-                ManifestDigest = CalculateDigest(value);
             }
         }
 
@@ -124,35 +95,36 @@ namespace ZeroInstall.Publish
 
         //--------------------//
 
-        #region Digest
+        #region Implementation directory
         /// <summary>
-        /// Calculates the <see cref="ManifestDigest"/> of a specific directory.
+        /// Sets the final implementation directory as it would be created by the <see cref="RetrievalMethod"/>.
+        /// Calculates the <see cref="ManifestDigest"/> and auto-detects <see cref="Candidates"/>.
         /// </summary>
-        private ManifestDigest CalculateDigest(string path)
+        /// <param name="implementationDirectory">The implementation directory. Should be a subdirectory of <see cref="TemporaryDirectory"/>.</param>
+        /// <param name="handler">A callback object used when the the user needs to be informed about IO tasks.</param>
+        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="IOException">Thrown if there was a problem generating the manifest or detectng the executables.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to temporary files was not permitted.</exception>
+        public void SetImplementationDirectory(string implementationDirectory, ITaskHandler handler)
         {
-            var digest = new ManifestDigest();
+            #region Sanity checks
+            if (string.IsNullOrEmpty(implementationDirectory)) throw new ArgumentNullException("implementationDirectory");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
 
+            var newDigest = new ManifestDigest();
             // Generate manifest for each available format...
-            foreach (var generator in ManifestFormat.Recommended.Select(format => new ManifestGenerator(path, format)))
+            foreach (var generator in ManifestFormat.Recommended.Select(format => new ManifestGenerator(implementationDirectory, format)))
             {
                 // ... and add the resulting digest to the return value
-                _handler.RunTask(generator);
-                ManifestDigest.ParseID(generator.Result.CalculateDigest(), ref digest);
+                handler.RunTask(generator);
+                ManifestDigest.ParseID(generator.Result.CalculateDigest(), ref newDigest);
             }
+            ManifestDigest = newDigest;
 
-            return digest;
-        }
-        #endregion
-
-        #region Candidates
-        /// <summary>
-        /// Automatically detects <see cref="Candidate"/>s in the <see cref="ImplementationDirectory"/>.
-        /// </summary>
-        public void DetectCandidates()
-        {
             _candidates.Clear();
-            _handler.RunTask(new SimpleTask(Resources.DetectingCandidates,
-                () => _candidates.AddRange(Detection.ListCandidates(new DirectoryInfo(ImplementationDirectory)))));
+            handler.RunTask(new SimpleTask(Resources.DetectingCandidates,
+                () => _candidates.AddRange(Detection.ListCandidates(new DirectoryInfo(implementationDirectory)))));
             MainCandidate = _candidates.FirstOrDefault();
         }
         #endregion
@@ -163,6 +135,10 @@ namespace ZeroInstall.Publish
         /// </summary>
         public SignedFeed Build()
         {
+            #region Sanity checks
+            if (MainCandidate == null) throw new InvalidOperationException("MainCandidate is not set.");
+            #endregion
+
             var implementation =
                 new Implementation
                 {

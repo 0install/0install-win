@@ -17,7 +17,6 @@
 
 using System.Windows.Forms;
 using NanoByte.Common.Controls;
-using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
@@ -49,7 +48,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private NewFeedWizard(IOpenPgp openPgp)
         {
             InitializeComponent();
-            _feedBuilder = new FeedBuilder(new GuiTaskHandler(this));
+            _feedBuilder = new FeedBuilder();
 
             // Pages
             var downloadPage = new DownloadPage(_feedBuilder);

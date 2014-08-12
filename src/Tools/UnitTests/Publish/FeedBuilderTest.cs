@@ -37,7 +37,7 @@ namespace ZeroInstall.Publish
         public void TestBuild()
         {
             using (var implementationDir = new TemporaryDirectory("0install-unit-tests"))
-            using (var builder = new FeedBuilder(new SilentTaskHandler())
+            using (var builder = new FeedBuilder
             {
                 Uri = new Uri("http://0install.de/feeds/test/test1.xml"),
                 Icons =
@@ -45,48 +45,54 @@ namespace ZeroInstall.Publish
                     new Icon {MimeType = Icon.MimeTypePng, Href = new Uri("http://0install.de/test.png")},
                     new Icon {MimeType = Icon.MimeTypeIco, Href = new Uri("http://0install.de/test.ico")}
                 },
-                MainCandidate = new WindowsExe
+                RetrievalMethod = new Archive(),
+                SecretKey = new OpenPgpSecretKey("fingerprint", "key", "user", new DateTime(2000, 1, 1), OpenPgpAlgorithm.Rsa, 1024)
+            })
+            {
+                builder.SetImplementationDirectory(implementationDir, new SilentTaskHandler());
+                builder.MainCandidate = new WindowsExe
                 {
                     RelativePath = "test",
                     Name = "TestApp",
                     Summary = "a test app",
                     Version = new ImplementationVersion("1.0"),
                     Architecture = new Architecture(OS.Windows, Cpu.All)
-                },
-                RetrievalMethod = new Archive(),
-                ImplementationDirectory = implementationDir,
-                SecretKey = new OpenPgpSecretKey("fingerprint", "key", "user", new DateTime(2000, 1, 1), OpenPgpAlgorithm.Rsa, 1024)
-            })
-            {
+                };
                 var signedFeed = builder.Build();
 
-                Assert.AreEqual(builder.MainCandidate.Name, signedFeed.Feed.Name);
-                Assert.AreEqual(builder.Uri, signedFeed.Feed.Uri);
-                CollectionAssert.AreEqual(new LocalizableStringCollection {builder.MainCandidate.Summary}, signedFeed.Feed.Summaries);
-                Assert.AreEqual(builder.MainCandidate.NeedsTerminal, signedFeed.Feed.NeedsTerminal);
-                CollectionAssert.AreEqual(new[]
-                {
-                    new Implementation
+                Assert.AreEqual(expected: builder.MainCandidate.Name, actual: signedFeed.Feed.Name);
+                Assert.AreEqual(expected: builder.Uri, actual: signedFeed.Feed.Uri);
+                CollectionAssert.AreEqual(
+                    expected: new LocalizableStringCollection {builder.MainCandidate.Summary},
+                    actual: signedFeed.Feed.Summaries);
+                Assert.AreEqual(expected: builder.MainCandidate.NeedsTerminal, actual: signedFeed.Feed.NeedsTerminal);
+                CollectionAssert.AreEqual(
+                    expected: new[]
                     {
-                        ID = "sha1new=" + ManifestDigest.Empty.Sha1New,
-                        ManifestDigest = ManifestDigest.Empty,
-                        Version = builder.MainCandidate.Version,
-                        Architecture = builder.MainCandidate.Architecture,
-                        Commands = {new Command {Name = Command.NameRun, Path = "test"}},
-                        RetrievalMethods = {builder.RetrievalMethod}
-                    }
-                }, signedFeed.Feed.Elements);
-                CollectionAssert.AreEqual(builder.Icons, signedFeed.Feed.Icons);
-                CollectionAssert.AreEqual(new[]
-                {
-                    new EntryPoint
+                        new Implementation
+                        {
+                            ID = "sha1new=" + ManifestDigest.Empty.Sha1New,
+                            ManifestDigest = ManifestDigest.Empty,
+                            Version = builder.MainCandidate.Version,
+                            Architecture = builder.MainCandidate.Architecture,
+                            Commands = {new Command {Name = Command.NameRun, Path = "test"}},
+                            RetrievalMethods = {builder.RetrievalMethod}
+                        }
+                    },
+                    actual: signedFeed.Feed.Elements);
+                CollectionAssert.AreEqual(expected: builder.Icons, actual: signedFeed.Feed.Icons);
+                CollectionAssert.AreEqual(
+                    expected: new[]
                     {
-                        Command = Command.NameRun,
-                        Names = {builder.MainCandidate.Name},
-                        BinaryName = "test"
-                    }
-                }, signedFeed.Feed.EntryPoints);
-                Assert.AreEqual(builder.SecretKey, signedFeed.SecretKey);
+                        new EntryPoint
+                        {
+                            Command = Command.NameRun,
+                            Names = {builder.MainCandidate.Name},
+                            BinaryName = "test"
+                        }
+                    },
+                    actual: signedFeed.Feed.EntryPoints);
+                Assert.AreEqual(expected: builder.SecretKey, actual: signedFeed.SecretKey);
             }
         }
 
@@ -95,7 +101,7 @@ namespace ZeroInstall.Publish
         {
             var tempDir1 = new TemporaryDirectory("0install-unit-tests");
             var tempDir2 = new TemporaryDirectory("0install-unit-tests");
-            var builder = new FeedBuilder(new SilentTaskHandler()) {TemporaryDirectory = tempDir1};
+            var builder = new FeedBuilder {TemporaryDirectory = tempDir1};
 
             Assert.IsTrue(Directory.Exists(tempDir1), "Directory should exist");
             builder.TemporaryDirectory = tempDir2;

@@ -17,10 +17,10 @@
 
 using System;
 using System.IO;
-using System.Net;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
+using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Model;
@@ -59,6 +59,8 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
+            var handler = new GuiTaskHandler(this);
+
             if (FileUtils.IsBreakoutPath(comboBoxExtract.Text))
             {
                 Msg.Inform(this, Resources.ArchiveBreakoutPath, MsgSeverity.Error);
@@ -70,7 +72,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
             try
             {
-                _feedBuilder.ImplementationDirectory = path;
+                _feedBuilder.SetImplementationDirectory(path, handler);
             }
                 #region Error handling
             catch (OperationCanceledException)
@@ -88,11 +90,6 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                 return;
             }
             catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-                return;
-            }
-            catch (WebException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Warn);
                 return;
@@ -104,35 +101,13 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                 Msg.Inform(this, Resources.EmptyImplementation, MsgSeverity.Warn);
                 return;
             }
+            if (_feedBuilder.MainCandidate == null)
+            {
+                Msg.Inform(this, Resources.NoEntryPointsFound, MsgSeverity.Warn);
+                return;
+            }
 
-            try
-            {
-                _feedBuilder.DetectCandidates();
-            }
-                #region Error handling
-            catch (OperationCanceledException)
-            {
-                return;
-            }
-            catch (ArgumentException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-                return;
-            }
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-                return;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-                return;
-            }
-            #endregion
-
-            if (_feedBuilder.MainCandidate == null) Msg.Inform(this, Resources.NoEntryPointsFound, MsgSeverity.Warn);
-            else Next();
+            Next();
         }
     }
 }
