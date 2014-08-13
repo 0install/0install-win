@@ -11,7 +11,6 @@ namespace ZeroInstall.Capture
     /// </summary>
     internal static class RegUtils
     {
-        #region Registry
         /// <summary>
         /// Retrieves the names of all values within a specific subkey of a registry root.
         /// </summary>
@@ -57,19 +56,25 @@ namespace ZeroInstall.Capture
         /// <exception cref="SecurityException">Thrown if access to the registry was not permitted.</exception>
         public static RegistryKey OpenHklmKey(string keyPath, out bool x64)
         {
-            RegistryKey result;
-            x64 = false;
-            // TODO: Use Is64BitOperatingSystem and native APIs
             if (WindowsUtils.Is64BitProcess)
             {
-                result = Registry.LocalMachine.OpenSubKey(@"WOW6432Node\" + keyPath);
-                if (result == null) result = Registry.LocalMachine.OpenSubKey(keyPath);
-                else x64 = true;
+                var result = Registry.LocalMachine.OpenSubKey(keyPath);
+                if (result != null)
+                {
+                    x64 = true;
+                    return result;
+                }
+                else
+                {
+                    x64 = false;
+                    return Registry.LocalMachine.OpenSubKey(@"WOW6432Node\" + keyPath);
+                }
             }
-            else result = Registry.LocalMachine.OpenSubKey(keyPath);
-
-            return result;
+            else
+            {
+                x64 = false;
+                return Registry.LocalMachine.OpenSubKey(keyPath);
+            }
         }
-        #endregion
     }
 }
