@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://zero-install.sourceforge.net/2004/injector/interface http://0install.de/schema/injector/interface/interface.xsd http://0install.de/schema/desktop-integration/capabilities http://0install.de/schema/desktop-integration/capabilities/capabilities.xsd" xmlns="http://zero-install.sourceforge.net/2004/injector/interface">
+	<name>Zero Install Publishing Tools</name>
+	<summary xml:lang="en">helps you create and update Zero Install feeds</summary>
+	<summary xml:lang="de">hilft Ihnen beim Erstellen und Aktualisieren von Zero Install Feeds</summary>
+	<description xml:lang="en">Zero Install uses feeds, XML files on the internet, to describe applications and how to download them. The Zero Install Publishing Tools allow you to create your own feeds. It consists of two main components:
+the Feed Editor (split with screen graphical and XML view)
+and the New Feed Wizard (walks you through the entire feed creation process, automatically extracts metadata when possible)</description>
+	<description xml:lang="de">Zero Install verwendet Feeds, XML Dateien im Internet, um Anwendungen sowie deren Download zu beschreiben. Die Zero Install Publishing Tools ermöglichen es Ihnen, Ihre eigenen Feeds zu erstellen. Sie bestehen aus zwei Hauptkomponenten:
+Der Feed Editor (Split Screen mit grafischer und XML Ansicht)
+und der New Feed Wizard (leitet Sie durch den kompletten Feed-Erstellungsprozess, extrahiert automatisch Metadaten wenn möglich)</description>
+	<homepage>http://0install.de/about/tools/</homepage>
+	<icon href="http://0install.de/feeds/images/ZeroInstall.png" type="image/png" />
+	<icon href="http://0install.de/feeds/images/ZeroInstall.ico" type="image/vnd.microsoft.icon" />
+	<feed-for interface="http://0install.de/feeds/ZeroInstall_Tools.xml" />
+	<group license="LGPL v3 (GNU Lesser General Public License)">
+		<requires interface="http://repo.roscidus.com/security/gnupg">
+			<environment name="PATH" insert="." />
+		</requires>
+		<command name="run" path="0publish-win.exe">
+			<runner interface="http://0install.de/feeds/cli/cli.xml" />
+		</command>
+		<command name="0capture-win" path="0capture-win.exe">
+			<runner interface="http://0install.de/feeds/cli/cli.xml" />
+		</command>
+		<command name="0publish" path="0publish.exe">
+			<runner interface="http://0install.de/feeds/cli/cli.xml" />
+		</command>
+		<command name="0capture" path="0capture.exe">
+			<runner interface="http://0install.de/feeds/cli/cli.xml" />
+		</command>
+		<implementation version="2.6.5-post-1" stability="testing" id="local-release" local-path="build/Release/Tools" />
+		<implementation version="2.6.5-post-2" stability="developer" id="local-debug" local-path="build/Debug/Tools" />
+	</group>
+</interface>
