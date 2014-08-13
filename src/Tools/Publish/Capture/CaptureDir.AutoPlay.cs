@@ -26,7 +26,7 @@ using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
 
-namespace ZeroInstall.Capture
+namespace ZeroInstall.Publish.Capture
 {
     public partial class CaptureDir
     {

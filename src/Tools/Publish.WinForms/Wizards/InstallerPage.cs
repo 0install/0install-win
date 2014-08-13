@@ -17,23 +17,14 @@
 
 using System;
 using System.Windows.Forms;
-using NanoByte.Common;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
     internal partial class InstallerPage : UserControl
     {
-        public event Action Exit;
-
         public InstallerPage()
         {
             InitializeComponent();
-        }
-
-        private void buttonLaunch_Click(object sender, EventArgs e)
-        {
-            ProcessUtils.LaunchAssembly("0capture-win");
-            Exit();
         }
     }
 }

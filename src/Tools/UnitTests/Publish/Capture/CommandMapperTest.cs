@@ -19,7 +19,7 @@ using System.IO;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 
-namespace ZeroInstall.Capture
+namespace ZeroInstall.Publish.Capture
 {
     /// <summary>
     /// Contains test methods for <see cref="CommandMapper"/>.

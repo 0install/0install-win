@@ -135,6 +135,9 @@
   <data name="AskSkipSecurity" xml:space="preserve">
     <value>Without completing these settings your feed will only work locally and not online. Are you sure you want to continue?</value>
   </data>
+  <data name="CaptureDirInitialized" xml:space="preserve">
+    <value>Capture directory initialized.</value>
+  </data>
   <data name="DetectingCandidates" xml:space="preserve">
     <value>Searching for executable files</value>
   </data>
@@ -151,6 +154,9 @@ The implementation was supposed to stay the same</value>
   <data name="DigestReplace" xml:space="preserve">
     <value>Replace
 I changed the implementation on purpose</value>
+  </data>
+  <data name="DirectoryNotEmpty" xml:space="preserve">
+    <value>The directory '{0}' is not empty.</value>
   </data>
   <data name="DiscardChanges" xml:space="preserve">
     <value>Discard
@@ -180,6 +186,16 @@ Discard unsaved changes</value>
   <data name="ImageFormatNotSupported" xml:space="preserve">
     <value>The image format is not supported by Zero Install.</value>
   </data>
+  <data name="InstallationDirDetected" xml:space="preserve">
+    <value>Detected '{0}' as installation directory.</value>
+  </data>
+  <data name="InstallDataCollected" xml:space="preserve">
+    <value>Installation data collected.
+Please edit the newly created 'feed.xml' to fit your needs.</value>
+  </data>
+  <data name="InvalidCapabilitiesRegistryPath" xml:space="preserve">
+    <value>Invalid capabilities registry path: {0}</value>
+  </data>
   <data name="LicenseInfo" xml:space="preserve">
     <value>This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
 You may redistribute copies of this program under the terms of the GNU Lesser General Public License.</value>
@@ -190,18 +206,45 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="ManifestDigestMissing" xml:space="preserve">
     <value>Manifest digest not calculated yet.</value>
   </data>
+  <data name="MissingProgramFiles32Bit" xml:space="preserve">
+    <value>No 32-bit %ProgramFiles% directory found.</value>
+  </data>
+  <data name="MultipleDefaultProgramsDetected" xml:space="preserve">
+    <value>Multiple new default programs were detected in the registry. Handling them all, but the last one may take precedence in  some cases.</value>
+  </data>
+  <data name="MultipleInstallationDirsDetected" xml:space="preserve">
+    <value>Multiple installation directories were detected. Choosing first by default.</value>
+  </data>
+  <data name="MultipleRegisteredAppsDetected" xml:space="preserve">
+    <value>Multiple new application registrations were detected in the registry. Choosing first by default.</value>
+  </data>
   <data name="NewKey" xml:space="preserve">
     <value>New key...</value>
   </data>
   <data name="NoEntryPointsFound" xml:space="preserve">
     <value>No entry points (EXEs, JARs, Python scripts, etc.) were found. Please make sure you selected the correct archive and extract directory.</value>
   </data>
+  <data name="NoInstallationDirDetected" xml:space="preserve">
+    <value>No installation directory was detected.</value>
+  </data>
   <data name="NoSingleExecutable" xml:space="preserve">
     <value>No, the application itself
 consists only of one EXE</value>
   </data>
+  <data name="NotCaptureDirectory" xml:space="preserve">
+    <value>The directory '{0}' is not a capture directory.</value>
+  </data>
+  <data name="OnlyAvailableOnWindows" xml:space="preserve">
+    <value>This method is currently only available on Windows.</value>
+  </data>
   <data name="PleaseClick" xml:space="preserve">
     <value>Please click:</value>
+  </data>
+  <data name="PostInstallSnapshotCreated" xml:space="preserve">
+    <value>Post-installation snapshot created.</value>
+  </data>
+  <data name="PreInstallSnapshotCreated" xml:space="preserve">
+    <value>Pre-installation snapshot created.</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Save

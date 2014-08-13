@@ -18,49 +18,33 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security;
 using JetBrains.Annotations;
-using Microsoft.Win32;
-using NanoByte.Common;
-using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
 
-namespace ZeroInstall.Capture
+namespace ZeroInstall.Publish.Capture
 {
     public partial class CaptureDir
     {
         /// <summary>
-        /// Collects data about well-known URL protocol handlers indicated by a snapshot diff.
+        /// Collects data about registered COM servers.
         /// </summary>
-        /// <param name="protocolAssocs">A list of protocol associations for well-known protocols (e.g. HTTP, FTP, ...).</param>
+        /// <param name="classIDs">A list of COM class IDs.</param>
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
-        private static void CollectProtocolAssocs([NotNull, ItemNotNull] IEnumerable<ComparableTuple<string>> protocolAssocs, [NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities)
+        private static void CollectComServers([NotNull] IEnumerable<string> classIDs, [NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
-            if (protocolAssocs == null) throw new ArgumentNullException("protocolAssocs");
+            if (classIDs == null) throw new ArgumentNullException("classIDs");
             if (capabilities == null) throw new ArgumentNullException("capabilities");
             if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
-            foreach (string protocol in protocolAssocs.Select(protocolAssoc => protocolAssoc.Key))
-            {
-                using (var protocolKey = Registry.ClassesRoot.OpenSubKey(protocol))
-                {
-                    if (protocolKey == null) throw new IOException(protocol + " not found");
-                    capabilities.Entries.Add(new UrlProtocol
-                    {
-                        ID = protocol,
-                        Descriptions = {RegistryUtils.GetString(@"HKEY_CLASSES_ROOT\" + protocol, valueName: null, defaultValue: protocol)},
-                        Verbs = {GetVerb(protocolKey, commandMapper, "open")}
-                    });
-                }
-            }
+            // TODO: Implement
         }
     }
 }

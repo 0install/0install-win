@@ -24,10 +24,10 @@ using Microsoft.Win32;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
-using ZeroInstall.Capture.Properties;
 using ZeroInstall.DesktopIntegration.Windows;
+using ZeroInstall.Publish.Properties;
 
-namespace ZeroInstall.Capture
+namespace ZeroInstall.Publish.Capture
 {
     /// <summary>
     /// Represents the systems state at a point in time. This is used to determine changes.

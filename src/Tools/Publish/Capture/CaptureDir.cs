@@ -23,11 +23,11 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using ZeroInstall.Capture.Properties;
+using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
 
-namespace ZeroInstall.Capture
+namespace ZeroInstall.Publish.Capture
 {
     /// <summary>
     /// Represents a file system directory storing information from a capturing session.

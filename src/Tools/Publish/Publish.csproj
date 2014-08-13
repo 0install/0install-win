@@ -58,6 +58,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="Capture\CaptureDir.AppRegistration.cs" />
+    <Compile Include="Capture\CaptureDir.AutoPlay.cs" />
+    <Compile Include="Capture\CaptureDir.Commands.cs" />
+    <Compile Include="Capture\CaptureDir.ComServer.cs" />
+    <Compile Include="Capture\CaptureDir.ContextMenu.cs" />
+    <Compile Include="Capture\CaptureDir.cs" />
+    <Compile Include="Capture\CaptureDir.DefaultProgram.cs" />
+    <Compile Include="Capture\CaptureDir.FileType.cs" />
+    <Compile Include="Capture\CaptureDir.UrlProtocol.cs" />
+    <Compile Include="Capture\CommandMapper.cs" />
+    <Compile Include="Capture\RegUtils.cs" />
+    <Compile Include="Capture\Snapshot.cs" />
     <Compile Include="EntryPoints\Candidate.cs" />
     <Compile Include="EntryPoints\Design\DotNetVersionConverter.cs" />
     <Compile Include="EntryPoints\Design\JavaVersionConverter.cs" />
@@ -106,6 +118,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Backend\DesktopIntegration\DesktopIntegration.csproj">
+      <Project>{f48937e1-3763-465f-9f12-6cbbbff61784}</Project>
+      <Name>DesktopIntegration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Backend\Store\Store.csproj">
       <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
       <Name>Store</Name>

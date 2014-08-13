@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using Microsoft.Win32;
 
-namespace ZeroInstall.Capture
+namespace ZeroInstall.Publish.Capture
 {
     /// <summary>
     /// Provides convenience helper methods for registry access.

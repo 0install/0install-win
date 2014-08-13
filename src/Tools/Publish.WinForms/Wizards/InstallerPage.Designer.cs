@@ -30,7 +30,6 @@
         {
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelQuestion = new System.Windows.Forms.Label();
-            this.buttonLaunch = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelTitle
@@ -54,24 +53,12 @@
             this.labelQuestion.Name = "labelQuestion";
             this.labelQuestion.Size = new System.Drawing.Size(400, 30);
             this.labelQuestion.TabIndex = 1;
-            this.labelQuestion.Text = "Please use the Zero Install Capture tool.";
-            // 
-            // buttonLaunch
-            // 
-            this.buttonLaunch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonLaunch.Location = new System.Drawing.Point(39, 124);
-            this.buttonLaunch.Name = "buttonLaunch";
-            this.buttonLaunch.Size = new System.Drawing.Size(120, 35);
-            this.buttonLaunch.TabIndex = 2;
-            this.buttonLaunch.Text = "&Launch";
-            this.buttonLaunch.UseVisualStyleBackColor = true;
-            this.buttonLaunch.Click += new System.EventHandler(this.buttonLaunch_Click);
+            this.labelQuestion.Text = "TODO";
             // 
             // InstallerPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonLaunch);
             this.Controls.Add(this.labelQuestion);
             this.Controls.Add(this.labelTitle);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -85,6 +72,5 @@
 
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Label labelQuestion;
-        private System.Windows.Forms.Button buttonLaunch;
     }
 }

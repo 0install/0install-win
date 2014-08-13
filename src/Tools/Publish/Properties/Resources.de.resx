@@ -135,6 +135,9 @@
   <data name="AskSkipSecurity" xml:space="preserve">
     <value>Ohne diese Einstellung zu vervollständigen wird Ihr Feed nur lokal und nicht online funktionieren. Sind Sie sicher, dass Sie fortfahren möchten?</value>
   </data>
+  <data name="CaptureDirInitialized" xml:space="preserve">
+    <value>Capture Verzeichnis initialisiert.</value>
+  </data>
   <data name="DetectingCandidates" xml:space="preserve">
     <value>Suche nach ausführbaren Dateien</value>
   </data>
@@ -151,6 +154,9 @@ Die Implementierung sollte gleich bleiben</value>
   <data name="DigestReplace" xml:space="preserve">
     <value>Ersetzen
 Ich habe die Implementierung absichtlich verändert</value>
+  </data>
+  <data name="DirectoryNotEmpty" xml:space="preserve">
+    <value>Das Verzeichnis '{0}' ist nicht leer.</value>
   </data>
   <data name="DiscardChanges" xml:space="preserve">
     <value>Verwerfen
@@ -180,6 +186,16 @@ Ungespeicherte Änderungen verwerfen</value>
   <data name="ImageFormatNotSupported" xml:space="preserve">
     <value>Das Bildformat wird von Zero Install nicht unterstützt.</value>
   </data>
+  <data name="InstallationDirDetected" xml:space="preserve">
+    <value>'{0}' als Installationsverzeichnis erkannt.</value>
+  </data>
+  <data name="InstallDataCollected" xml:space="preserve">
+    <value>Installationsdaten erfasst.
+Bitte bearbeiten Sie die neu angelegte 'feed.xml' Ihren Anforderungen entsprechend.</value>
+  </data>
+  <data name="InvalidCapabilitiesRegistryPath" xml:space="preserve">
+    <value>Ungültiger Capabilities Registrierungspfad: {0}</value>
+  </data>
   <data name="LicenseInfo" xml:space="preserve">
     <value>Für dieses Programm gibt es ABSOLUT KEINE GARANTIEN, soweit dies gesetzlich zulässig ist.
 Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien dieses Programmes weitergeben.</value>
@@ -190,18 +206,45 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="ManifestDigestMissing" xml:space="preserve">
     <value>Manifest Digest noch nicht berechnet.</value>
   </data>
+  <data name="MissingProgramFiles32Bit" xml:space="preserve">
+    <value>Kein 32-bit %ProgramFiles% Verzeichnis gefunden.</value>
+  </data>
+  <data name="MultipleDefaultProgramsDetected" xml:space="preserve">
+    <value>Es wurden mehrere neue Default-Programme in der Registrierung entdeckt. Es werden alle verarbeitet, das letzte kann jedoch in manchen Fällen Vorrang erhalten.</value>
+  </data>
+  <data name="MultipleInstallationDirsDetected" xml:space="preserve">
+    <value>Es wurde mehrere Installationsverzeichnisse erkannt. Wähle erstes als Standard aus.</value>
+  </data>
+  <data name="MultipleRegisteredAppsDetected" xml:space="preserve">
+    <value>Es wurden mehrere neue Anwendungsregistrierungen in der Registrierung entdeckt. Wähle erste als Standard aus.</value>
+  </data>
   <data name="NewKey" xml:space="preserve">
     <value>Neuer Schlüssel...</value>
   </data>
   <data name="NoEntryPointsFound" xml:space="preserve">
     <value>Es wurden keine Einstiegspunkte (EXEs, JARs, Python Skripts, etc.) gefunden. Bitte überprüfen Sie, ob Sie das korrekte Archiv und das korrekte Unterverzeichnis ausgewählt haben.</value>
   </data>
+  <data name="NoInstallationDirDetected" xml:space="preserve">
+    <value>Es wurde kein Installationsverzeichnis erkannt.</value>
+  </data>
   <data name="NoSingleExecutable" xml:space="preserve">
     <value>Nein, die Anwendung selbst
 besteht aus nur einer EXE</value>
   </data>
+  <data name="NotCaptureDirectory" xml:space="preserve">
+    <value>Das Verzeichnis '{0}' ist kein Capture-Verzeichnis.</value>
+  </data>
+  <data name="OnlyAvailableOnWindows" xml:space="preserve">
+    <value>Diese Methode steht derzeit nur unter Windows zur Verfügung.</value>
+  </data>
   <data name="PleaseClick" xml:space="preserve">
     <value>Bitte klicken Sie:</value>
+  </data>
+  <data name="PostInstallSnapshotCreated" xml:space="preserve">
+    <value>Post-Installation Schnappschuss erstellt.</value>
+  </data>
+  <data name="PreInstallSnapshotCreated" xml:space="preserve">
+    <value>Prä-Installation Schnappschuss erstellt.</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Speichern

@@ -56,10 +56,6 @@
       <Project>{06237727-AEA0-4E42-85C0-C0886F425352}</Project>
       <Name>Backend.UnitTests</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Capture\Capture.csproj">
-      <Project>{4F383EAB-5002-4B0F-9089-DB22B485EE09}</Project>
-      <Name>Capture</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Publish\Publish.csproj">
       <Project>{841CD750-F9D0-4A2D-98C7-7A340C781F41}</Project>
       <Name>Publish</Name>
@@ -70,7 +66,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Capture\CommandMapperTest.cs" />
+    <Compile Include="Publish\Capture\CommandMapperTest.cs" />
     <Compile Include="Publish\EntryPoints\CandidateTest.cs" />
     <Compile Include="Publish\EntryPoints\DetectionTest.cs" />
     <Compile Include="Publish\EntryPoints\DotNetExeTest.cs" />

@@ -23,7 +23,7 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Store.Model;
 
-namespace ZeroInstall.Capture
+namespace ZeroInstall.Publish.Capture
 {
     /// <summary>
     /// Maps command-lines to the best matching <see cref="Command"/>.

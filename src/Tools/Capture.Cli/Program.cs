@@ -25,7 +25,8 @@ using NanoByte.Common;
 using NanoByte.Common.Net;
 using NDesk.Options;
 using ZeroInstall.Capture.Cli.Properties;
-using SharedResources = ZeroInstall.Capture.Properties.Resources;
+using ZeroInstall.Publish.Capture;
+using SharedResources = ZeroInstall.Publish.Properties.Resources;
 
 namespace ZeroInstall.Capture.Cli
 {

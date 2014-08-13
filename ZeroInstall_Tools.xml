@@ -20,9 +20,6 @@ und der New Feed Wizard (leitet Sie durch den kompletten Feed-Erstellungsprozess
 		<command name="run" path="0publish-win.exe">
 			<runner interface="http://0install.de/feeds/cli/cli.xml" />
 		</command>
-		<command name="0capture-win" path="0capture-win.exe">
-			<runner interface="http://0install.de/feeds/cli/cli.xml" />
-		</command>
 		<command name="0publish" path="0publish.exe">
 			<runner interface="http://0install.de/feeds/cli/cli.xml" />
 		</command>

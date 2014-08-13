@@ -90,9 +90,9 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Capture\Capture.csproj">
-      <Project>{4F383EAB-5002-4B0F-9089-DB22B485EE09}</Project>
-      <Name>Capture</Name>
+    <ProjectReference Include="..\Publish\Publish.csproj">
+      <Project>{841cd750-f9d0-4a2d-98c7-7a340c781f41}</Project>
+      <Name>Publish</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
