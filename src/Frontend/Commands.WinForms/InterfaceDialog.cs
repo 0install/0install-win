@@ -169,6 +169,8 @@ namespace ZeroInstall.Commands.WinForms
 
         private IEnumerable<SelectionCandidate> GenerateDummyCandidates(string feedID)
         {
+            if (feedID.StartsWith(ImplementationSelection.DistributionFeedPrefix)) return Enumerable.Empty<SelectionCandidate>();
+
             try
             {
                 var feed = _feedCache.GetFeed(feedID);

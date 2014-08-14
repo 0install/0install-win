@@ -91,7 +91,7 @@ namespace ZeroInstall.Services
             if (implementationSelections == null) throw new ArgumentNullException("implementationSelections");
             #endregion
 
-            return implementationSelections.Select(impl => _feedCache.GetFeed(impl.FromFeed ?? impl.InterfaceID)[impl.ID].CloneImplementation());
+            return implementationSelections.Select(x => _feedCache.GetFeed(x.FromFeed ?? x.InterfaceID)[x.ID].CloneImplementation());
         }
 
         /// <summary>
