@@ -103,7 +103,7 @@ namespace ZeroInstall.Commands
                 requirements => implementations.AddRange(Solver.Solve(requirements).Implementations)));
 
             // Deduplicate selections
-            return implementations.Distinct(new ManifestDigestPartialEqualityComparer<ImplementationSelection>());
+            return implementations.Distinct(ManifestDigestPartialEqualityComparer<ImplementationSelection>.Instance);
         }
 
         private void DownloadUncachedImplementations(IEnumerable<ImplementationSelection> selectedImplementations)
@@ -134,7 +134,7 @@ namespace ZeroInstall.Commands
 
         private void Clean(IEnumerable<ManifestDigest> digestsToKeep)
         {
-            var toDelete = Store.ListAll().Except(digestsToKeep, new ManifestDigestPartialEqualityComparer()).ToList();
+            var toDelete = Store.ListAll().Except(digestsToKeep, ManifestDigestPartialEqualityComparer.Instance).ToList();
             Handler.RunTask(new ForEachTask<ManifestDigest>(Resources.RemovingOutdated, toDelete, Store.Remove));
         }
         #endregion
