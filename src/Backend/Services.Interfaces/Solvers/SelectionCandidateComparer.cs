@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using NanoByte.Common.Collections;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -30,27 +31,27 @@ namespace ZeroInstall.Services.Solvers
     public class SelectionCandidateComparer : IComparer<SelectionCandidate>
     {
         private readonly NetworkLevel _networkUse;
+        private readonly TransparentCache<ManifestDigest, bool> _isCached;
         private readonly Stability _stabilityPolicy;
-        private readonly IStore _store;
 
         /// <summary>
         /// Creates a new <see cref="SelectionCandidate"/> ranker.
         /// </summary>
         /// <param name="config">Used to retrieve global configuration.</param>
+        /// <param name="isCached">Used to determine which implementations are already cached in the <see cref="IStore"/>.</param>
         /// <param name="stabilityPolicy">Implementations at this stability level or higher are preferred. Lower levels are used only if there is no other choice. Must not be <see cref="Stability.Unset"/>!</param>
-        /// <param name="store">Used to determine which implementations are already cached.</param>
-        public SelectionCandidateComparer(Config config, Stability stabilityPolicy, IStore store)
+        public SelectionCandidateComparer(Config config, TransparentCache<ManifestDigest, bool> isCached, Stability stabilityPolicy)
         {
             #region Sanity check
             if (config == null) throw new ArgumentNullException("config");
-            if (store == null) throw new ArgumentNullException("store");
+            if (isCached == null) throw new ArgumentNullException("isCached");
             #endregion
 
             _networkUse = config.NetworkUse;
+            _isCached = isCached;
             _stabilityPolicy = (stabilityPolicy == Stability.Unset)
                 ? (config.HelpWithTesting ? Stability.Testing : Stability.Stable)
                 : stabilityPolicy;
-            _store = store;
         }
 
         /// <inheritdoc/>
@@ -72,8 +73,8 @@ namespace ZeroInstall.Services.Solvers
             // Cached implementations come next if we have limited network access
             if (_networkUse != NetworkLevel.Full)
             {
-                bool xCached = _store.Contains(x.Implementation.ManifestDigest);
-                bool yCached = _store.Contains(x.Implementation.ManifestDigest);
+                bool xCached = _isCached[x.Implementation.ManifestDigest];
+                bool yCached = _isCached[x.Implementation.ManifestDigest];
                 if (xCached && !yCached) return -1;
                 if (!xCached && yCached) return 1;
             }
@@ -97,8 +98,8 @@ namespace ZeroInstall.Services.Solvers
             // Slightly prefer cached versions
             if (_networkUse == NetworkLevel.Full)
             {
-                bool xCached = _store.Contains(x.Implementation.ManifestDigest);
-                bool yCached = _store.Contains(x.Implementation.ManifestDigest);
+                bool xCached = _isCached[x.Implementation.ManifestDigest];
+                bool yCached = _isCached[x.Implementation.ManifestDigest];
                 if (xCached && !yCached) return -1;
                 if (!xCached && yCached) return 1;
             }

@@ -42,7 +42,6 @@ namespace ZeroInstall.Services.Solvers
         protected CancellationToken CancellationToken;
         protected readonly Requirements TopLevelRequirements;
         private readonly Config _config;
-        private readonly IStore _store;
 
         /// <summary>
         /// Creates a new solver run.
@@ -63,13 +62,15 @@ namespace ZeroInstall.Services.Solvers
 
             CancellationToken = cancellationToken;
             _config = config;
-            _store = store;
 
             TopLevelRequirements = requirements;
             Selections.InterfaceID = requirements.InterfaceID;
             Selections.Command = requirements.Command;
 
-            _comparer = new TransparentCache<string, SelectionCandidateComparer>(id => new SelectionCandidateComparer(config, _interfacePreferences[id].StabilityPolicy, store));
+            var implementations = store.ListAll();
+            _isCached = new TransparentCache<ManifestDigest, bool>(x => implementations.Contains(x, ManifestDigestPartialEqualityComparer.Instance));
+
+            _comparer = new TransparentCache<string, SelectionCandidateComparer>(id => new SelectionCandidateComparer(config, _isCached, _interfacePreferences[id].StabilityPolicy));
             _feeds = new TransparentCache<string, Feed>(feedManager.GetFeed);
         }
         #endregion
@@ -83,6 +84,9 @@ namespace ZeroInstall.Services.Solvers
 
         /// <summary>Maps feed IDs to <see cref="Feed"/>s. Transparent caching ensures individual feeds do not change during solver run.</summary>
         private readonly TransparentCache<string, Feed> _feeds;
+
+        /// <summary>Indicates which implementations (identified by <see cref="ManifestDigest"/>) are already cached in the <see cref="IStore"/>.</summary>
+        private readonly TransparentCache<ManifestDigest, bool> _isCached;
 
         /// <summary>
         /// Retrieves the original <see cref="Implementation"/> an <see cref="ImplementationSelection"/> was based ofF.
@@ -161,7 +165,7 @@ namespace ZeroInstall.Services.Solvers
 
             return
                 from implementation in feed.Elements.OfType<Implementation>()
-                let offlineUncached = (_config.NetworkUse == NetworkLevel.Offline && !_store.Contains(implementation.ManifestDigest))
+                let offlineUncached = (_config.NetworkUse == NetworkLevel.Offline && !_isCached[implementation.ManifestDigest])
                 select new SelectionCandidate(feedID, feedPreferences, implementation, requirements, offlineUncached);
         }
         #endregion

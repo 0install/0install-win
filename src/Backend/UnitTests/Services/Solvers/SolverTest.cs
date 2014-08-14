@@ -20,6 +20,7 @@ using Moq;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Services.Feeds;
+using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Preferences;
 using ZeroInstall.Store.Model.Selection;
@@ -397,6 +398,9 @@ namespace ZeroInstall.Services.Solvers
         #region Helpers
         protected void RunAndAssert(IEnumerable<KeyValuePair<string, string>> feeds, Requirements requirements, string expectedSelections)
         {
+            var storeMock = Container.GetMock<IStore>();
+            storeMock.Setup(x => x.ListAll()).Returns(new ManifestDigest[0]);
+
             var feedManagerMock = Container.GetMock<IFeedManager>();
             var parsedFeeds = ParseFeeds(feeds);
             feedManagerMock.Setup(x => x.GetFeed(It.IsAny<string>())).Returns((string feedID) => parsedFeeds[feedID]);
