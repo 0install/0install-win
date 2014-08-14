@@ -20,7 +20,6 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Security.Cryptography;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Utils;
@@ -47,7 +46,7 @@ namespace ZeroInstall.Launcher.Cli
         private static int Main(string[] args)
         {
             // Encode installation path into mutex name to allow instance detection during updates
-            string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());
+            string mutexName = "mutex-" + Locations.InstallBase.GetHashCode();
             if (AppMutex.Probe(mutexName + "-update")) return 99;
             AppMutex.Create(mutexName);
 

@@ -116,24 +116,30 @@ namespace ZeroInstall.Updater
         public void MutexAquire()
         {
             // Installation paths are encoded into mutex names to allow instance detection
-            // Support old versions that used SHA256 for mutex names (unnecessarily complex since not security-relevant)
-            string targetMutexOld = "mutex-" + Target.Hash(SHA256.Create());
-            string targetMutexNew = "mutex-" + Target.Hash(MD5.Create());
+            // Support old versions that used SHA256 or MD5 for mutex names (unnecessarily complex since not security-relevant)
+            string targetMutexOld1 = "mutex-" + Target.Hash(SHA256.Create());
+            string targetMutexOld2 = "mutex-" + Target.Hash(MD5.Create());
+            string targetMutex = "mutex-" + Target.GetHashCode();
 
             // Wait for existing instances to terminate
-            while (AppMutex.Probe(targetMutexOld))
+            while (AppMutex.Probe(targetMutexOld1))
                 Thread.Sleep(1000);
-            while (AppMutex.Probe(targetMutexNew))
+            while (AppMutex.Probe(targetMutexOld2))
+                Thread.Sleep(1000);
+            while (AppMutex.Probe(targetMutex))
                 Thread.Sleep(1000);
 
             // Prevent new instances from starting
-            AppMutex.Create(targetMutexOld + "-update", out _blockingMutexOld);
-            AppMutex.Create(targetMutexNew + "-update", out _blockingMutexNew);
+            AppMutex.Create(targetMutexOld1 + "-update", out _blockingMutexOld);
+            AppMutex.Create(targetMutexOld2 + "-update", out _blockingMutexOld);
+            AppMutex.Create(targetMutex + "-update", out _blockingMutexNew);
 
             // Detect any new instances that started in the short time between detecting existing ones and blocking new ones
-            while (AppMutex.Probe(targetMutexOld))
+            while (AppMutex.Probe(targetMutexOld1))
                 Thread.Sleep(1000);
-            while (AppMutex.Probe(targetMutexNew))
+            while (AppMutex.Probe(targetMutexOld2))
+                Thread.Sleep(1000);
+            while (AppMutex.Probe(targetMutex))
                 Thread.Sleep(1000);
         }
 

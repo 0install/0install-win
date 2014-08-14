@@ -16,7 +16,6 @@
  */
 
 using System.Linq;
-using System.Security.Cryptography;
 using Gtk;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
@@ -38,7 +37,7 @@ namespace ZeroInstall.Central.Gtk
         /// <summary>
         /// The application user model ID used by the Windows 7 taskbar. Encodes <see cref="Locations.InstallBase"/> and the name of this sub-app.
         /// </summary>
-        public static readonly string AppUserModelID = "ZeroInstall." + Locations.InstallBase.Hash(MD5.Create()) + ".Central";
+        public static readonly string AppUserModelID = "ZeroInstall." + Locations.InstallBase.GetHashCode() + ".Central";
 
         /// <summary>
         /// The main entry point for the application.
@@ -49,7 +48,7 @@ namespace ZeroInstall.Central.Gtk
             Application.Init();
 
             // Encode installation path into mutex name to allow instance detection during updates
-            string mutexName = "mutex-" + Locations.InstallBase.Hash(MD5.Create());
+            string mutexName = "mutex-" + Locations.InstallBase.GetHashCode();
             if (AppMutex.Probe(mutexName + "-update")) return 99;
             AppMutex.Create(mutexName);
 
