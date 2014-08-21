@@ -64,7 +64,7 @@ namespace ZeroInstall.Store.Feeds
         /// Adds a new <see cref="Feed"/> to the cache. Only do this after the feed source has been verified and trusted and replay attacks filtered!
         /// </summary>
         /// <param name="feedID">The canonical ID used to identify the feed.</param>
-        /// <param name="data">The data of the feed to be added.</param>
+        /// <param name="data">The content of the feed file as a byte array.</param>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while writing the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>

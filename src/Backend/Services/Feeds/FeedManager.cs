@@ -209,14 +209,12 @@ namespace ZeroInstall.Services.Feeds
         {
             SetLastCheckAttempt(url.ToString());
 
-            // TODO: Add tracking and better cancellation support
-            _handler.CancellationToken.ThrowIfCancellationRequested();
-            using (var webClient = new WebClientTimeout())
+            using (var feedFile = new TemporaryFile("0install-feed"))
             {
                 try
                 {
-                    ImportFeed(url, webClient.DownloadData(url));
-                    _handler.CancellationToken.ThrowIfCancellationRequested();
+                    _handler.RunTask(new DownloadFile(url, feedFile));
+                    ImportFeed(feedFile, url);
                 }
                 catch (WebException ex)
                 {
@@ -235,7 +233,6 @@ namespace ZeroInstall.Services.Feeds
                     }
                 }
             }
-            _handler.CancellationToken.ThrowIfCancellationRequested();
         }
 
         /// <summary>
@@ -250,32 +247,33 @@ namespace ZeroInstall.Services.Feeds
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
         private void DownloadMirror(Uri url)
         {
-            _handler.CancellationToken.ThrowIfCancellationRequested();
-
             var mirrorUrl = new Uri(_config.FeedMirror, string.Format(
                 "feeds/{0}/{1}/{2}/latest.xml",
                 url.Scheme,
                 url.Host,
                 string.Concat(url.Segments).TrimStart('/').Replace("/", "%23")));
 
-            using (var webClient = new WebClientTimeout())
-                ImportFeed(url, webClient.DownloadData(mirrorUrl), mirrorUrl);
-
-            _handler.CancellationToken.ThrowIfCancellationRequested();
+            using (var feedFile = new TemporaryFile("0install-feed"))
+            {
+                _handler.RunTask(new DownloadFile(mirrorUrl, feedFile));
+                ImportFeed(feedFile, url, mirrorUrl);
+            }
         }
         #endregion
 
         #region Import feed
         /// <inheritdoc/>
-        public void ImportFeed(Uri uri, byte[] data, Uri mirrorUri = null)
+        public void ImportFeed(string path, Uri uri, Uri mirrorUrl = null)
         {
             #region Sanity checks
             if (uri == null) throw new ArgumentNullException("uri");
-            if (data == null) throw new ArgumentNullException("data");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            var newSignature = _trustManager.CheckTrust(uri, data, mirrorUri);
-            DetectAttacks(uri, data, newSignature);
+            var data = File.ReadAllBytes(path);
+
+            var newSignature = _trustManager.CheckTrust(data, uri, mirrorUrl);
+            DetectAttacks(data, uri, newSignature);
 
             // Add to cache and remember time
             _feedCache.Add(uri.ToString(), data);
@@ -288,12 +286,12 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// Detects attacks such as feed substitution or replay attacks.
         /// </summary>
+        /// <param name="data">The content of the feed file as a byte array.</param>
         /// <param name="uri">The URI the feed originally came from.</param>
-        /// <param name="data">The data of the feed.</param>
         /// <param name="signature">The first trusted signature for the feed.</param>
         /// <exception cref="InvalidInterfaceIDException">Thrown if feed substitution or another interface URI-related problem was detected.</exception>
         /// <exception cref="ReplayAttackException">Thrown if a replay attack was detected.</exception>
-        private void DetectAttacks(Uri uri, byte[] data, ValidSignature signature)
+        private void DetectAttacks(byte[] data, Uri uri, ValidSignature signature)
         {
             // Detect feed substitution 
             var feed = XmlStorage.LoadXml<Feed>(new MemoryStream(data));

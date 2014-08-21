@@ -156,7 +156,7 @@ namespace ZeroInstall.Services.Feeds
         private Catalog DownloadCatalog(Uri url)
         {
             var data = new WebClientTimeout().DownloadData(url);
-            _trustManager.CheckTrust(url, data);
+            _trustManager.CheckTrust(data, url);
             return XmlStorage.LoadXml<Catalog>(new MemoryStream(data));
         }
         #endregion

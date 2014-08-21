@@ -73,10 +73,7 @@ namespace ZeroInstall.Commands
             var feed = XmlStorage.LoadXml<Feed>(path);
             if (feed.Uri == null) throw new InvalidDataException(Resources.ImportNoSource);
 
-            FeedManager.ImportFeed(
-                uri: feed.Uri,
-                mirrorUri: new Uri(path),
-                data: File.ReadAllBytes(path));
+            FeedManager.ImportFeed(path, feed.Uri, mirrorUrl: new Uri(path));
         }
         #endregion
     }

@@ -22,6 +22,7 @@ using System.Linq;
 using System.Net;
 using System.Xml;
 using NanoByte.Common;
+using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
@@ -67,7 +68,7 @@ namespace ZeroInstall.Services.Feeds
 
         /// <inheritdoc/>
         [SuppressMessage("Microsoft.Usage", "CA2234:PassSystemUriObjectsInsteadOfStrings")]
-        public ValidSignature CheckTrust(Uri uri, byte[] data, Uri mirrorUri = null)
+        public ValidSignature CheckTrust(byte[] data, Uri uri, Uri mirrorUrl = null)
         {
             #region Sanity checks
             if (uri == null) throw new ArgumentNullException("uri");
@@ -90,7 +91,7 @@ namespace ZeroInstall.Services.Feeds
 
             foreach (var signature in signatures.OfType<MissingKeySignature>())
             {
-                DownloadMissingKey(uri, mirrorUri, signature);
+                DownloadMissingKey(uri, mirrorUrl, signature);
                 goto KeyImported;
             }
 
@@ -125,9 +126,9 @@ namespace ZeroInstall.Services.Feeds
                 batchInformation: Resources.UntrustedKeys);
         }
 
-        private void DownloadMissingKey(Uri uri, Uri mirrorUri, MissingKeySignature signature)
+        private void DownloadMissingKey(Uri uri, Uri mirrorUrl, MissingKeySignature signature)
         {
-            var keyUri = new Uri(mirrorUri ?? uri, signature.KeyID + ".gpg");
+            var keyUri = new Uri(mirrorUrl ?? uri, signature.KeyID + ".gpg");
             byte[] keyData;
             if (keyUri.IsFile)
             { // Load key file from local file
@@ -137,10 +138,11 @@ namespace ZeroInstall.Services.Feeds
             { // Load key file from server
                 try
                 {
-                    // TODO: Add tracking and better cancellation support
-                    _handler.CancellationToken.ThrowIfCancellationRequested();
-                    using (var webClient = new WebClientTimeout())
-                        keyData = webClient.DownloadData(keyUri);
+                    using (var keyFile = new TemporaryFile("0install-key"))
+                    {
+                        _handler.RunTask(new DownloadFile(keyUri, keyFile));
+                        keyData = File.ReadAllBytes(keyFile);
+                    }
                 }
                     #region Error handling
                 catch (WebException ex)
@@ -150,7 +152,6 @@ namespace ZeroInstall.Services.Feeds
                 }
                 #endregion
             }
-            _handler.CancellationToken.ThrowIfCancellationRequested();
             _openPgp.ImportKey(keyData);
         }
 
@@ -170,7 +171,6 @@ namespace ZeroInstall.Services.Feeds
 
             try
             {
-                // TODO: Add better cancellation support
                 var keyInfoUri = new Uri(_config.KeyInfoServer, "key/" + fingerprint);
                 var xmlReader = XmlReader.Create(keyInfoUri.ToString());
                 _handler.CancellationToken.ThrowIfCancellationRequested();

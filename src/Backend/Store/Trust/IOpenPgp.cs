@@ -78,8 +78,8 @@ namespace ZeroInstall.Store.Trust
         /// <summary>
         /// Validates data signed by one or more keys.
         /// </summary>
-        /// <param name="data">The data that is signed.</param>
-        /// <param name="signature">The signature data.</param>
+        /// <param name="data">The data that is signed as a byte array.</param>
+        /// <param name="signature">The signature data as a byte array.</param>
         /// <returns>A list of signatures found, both valid and invalid.</returns>
         /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
         IEnumerable<OpenPgpSignature> Verify(byte[] data, byte[] signature);

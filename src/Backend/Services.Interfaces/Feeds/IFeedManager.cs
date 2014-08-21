@@ -58,14 +58,14 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// Imports a remote <see cref="Feed"/> into the <see cref="IFeedCache"/> after verifying its signature.
         /// </summary>
+        /// <param name="path">The path of a local copy of the feed.</param>
         /// <param name="uri">The URI the feed originally came from.</param>
-        /// <param name="data">The data of the feed.</param>
-        /// <param name="mirrorUri">The URI or local file path the feed was actually loaded from; <see langword="null"/> if it is identical to <paramref name="uri"/>.</param>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="data"/> list the same URI as <paramref name="uri"/>.</exception>
+        /// <param name="mirrorUrl">The URL or local file path the file was fetched from; <see langword="null"/> if it is identical to <paramref name="uri"/>.</param>
+        /// <exception cref="InvalidInterfaceIDException">Thrown if the feed does not list the same URI as <paramref name="uri"/>.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if access to the feed file or the cache is not permitted.</exception>
         /// <exception cref="SignatureException">Thrown if the signature data of the feed file could not be handled or if no signatures were trusted.</exception>
-        void ImportFeed(Uri uri, byte[] data, Uri mirrorUri = null);
+        void ImportFeed(string path, Uri uri, Uri mirrorUrl = null);
 
         /// <summary>
         /// Calls <see cref="IFeedCache.Flush"/> on the underlying <see cref="IFeedCache"/>.

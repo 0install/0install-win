@@ -140,7 +140,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Generates the digest of a implementation file as used within the manifest file.
         /// </summary>
-        /// <param name="data">The content of the implementation file.</param>
+        /// <param name="data">The content of the implementation file as a byte array.</param>
         /// <returns>A string representation of the digest.</returns>
         public string DigestContent(byte[] data)
         {
