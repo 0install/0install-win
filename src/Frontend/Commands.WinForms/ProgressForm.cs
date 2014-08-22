@@ -96,7 +96,7 @@ namespace ZeroInstall.Commands.WinForms
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
             #endregion
 
-            //labelSolving.Visible = progressBarSolving.Visible = false;
+            trackingControl.Visible = false;
             _selectionsShown = selectionsControl.Visible = true;
             selectionsControl.SetSelections(selections, feedCache);
         }
@@ -180,7 +180,7 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             // Hide other stuff
-            trackingControl.Visible = false;
+            trackingControl.Hide();
 
             if (_selectionsShown)
             {
@@ -189,6 +189,18 @@ namespace ZeroInstall.Commands.WinForms
                 return new Progress<TaskSnapshot>(control.Report);
             }
             else return SetupProgress(taskName);
+        }
+
+        /// <summary>
+        /// Restores the UI activated by <see cref="ShowSelections"/> and hidden by <see cref="SetupProgress(string)"/> after an <see cref="ITask.Run"/> completes.
+        /// </summary>
+        public void RestoreSelections()
+        {
+            if (_selectionsShown)
+            {
+                trackingControl.Visible = false;
+                selectionsControl.Visible = true;
+            }
         }
         #endregion
 

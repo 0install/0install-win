@@ -119,6 +119,15 @@ namespace ZeroInstall.Services.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Running external solver.
+        /// </summary>
+        internal static string ExternalSolverRunning {
+            get {
+                return ResourceManager.GetString("ExternalSolverRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error while downloading feed &apos;{0}&apos;..
         /// </summary>
         internal static string FeedDownloadError {

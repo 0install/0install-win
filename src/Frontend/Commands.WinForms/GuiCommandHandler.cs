@@ -94,9 +94,6 @@ namespace ZeroInstall.Commands.WinForms
         //--------------------//
 
         #region Task tracking
-        /// <summary>Synchronization object used to prevent multiple concurrent generic <see cref="ITask"/>s.</summary>
-        private readonly object _genericTaskLock = new object();
-
         /// <inheritdoc/>
         public void RunTask(ITask task)
         {
@@ -112,14 +109,13 @@ namespace ZeroInstall.Commands.WinForms
             }
             else
             {
-                lock (_genericTaskLock) // Prevent multiple concurrent generic tasks
-                {
-                    // Handle events coming from a non-UI thread
-                    _form.Invoke(new Action(() => progress = _form.SetupProgress(task.Name)));
-                }
+                // Handle events coming from a non-UI thread
+                _form.Invoke(new Action(() => progress = _form.SetupProgress(task.Name)));
             }
 
             task.Run(CancellationToken, progress);
+
+            _form.Invoke(new Action(() => _form.RestoreSelections()));
         }
         #endregion
 

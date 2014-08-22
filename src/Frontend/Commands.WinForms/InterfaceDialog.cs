@@ -127,8 +127,8 @@ namespace ZeroInstall.Commands.WinForms
         {
             try
             {
-                var task = new SimpleTask(Resources.Working, SolveTask);
-                using (var handler = new GuiTaskHandler(this)) handler.RunTask(task);
+                var selections = _solveCallback();
+                _candidates = selections[_interfaceID].Candidates ?? GenerateDummyCandidates();
             }
                 #region Error handling
             catch (OperationCanceledException)
@@ -148,12 +148,6 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             UpdateDataGridVersions();
-        }
-
-        private void SolveTask()
-        {
-            var selections = _solveCallback();
-            _candidates = selections[_interfaceID].Candidates ?? GenerateDummyCandidates();
         }
 
         /// <summary>
@@ -285,6 +279,11 @@ namespace ZeroInstall.Commands.WinForms
                 return;
             }
             catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (InvalidDataException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
                 return;

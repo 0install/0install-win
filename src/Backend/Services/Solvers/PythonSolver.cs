@@ -74,7 +74,9 @@ namespace ZeroInstall.Services.Solvers
             if (WindowsUtils.IsWindows) control = new SolverControlBundled(_handler); // Use bundled Python on Windows
             else control = new SolverControlNative(_handler); // Use native Python everywhere else
             string arguments = GetSolverArguments(requirements);
-            string result = control.ExecuteSolver(arguments);
+
+            string result = null;
+            _handler.RunTask(new SimpleTask(Resources.ExternalSolverRunning, () => { result = control.ExecuteSolver(arguments); }));
 
             // Flush in-memory cache in case external solver updated something on-disk
             _feedManager.Flush();
