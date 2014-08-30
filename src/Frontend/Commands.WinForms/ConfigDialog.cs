@@ -300,11 +300,12 @@ namespace ZeroInstall.Commands.WinForms
 
         private void buttonRemoveTrustedKey_Click(object sender, EventArgs e)
         {
+            // Copy to prevent enumerator from becoming invalid due to removals
             var checkedNodes = treeViewTrustedKeys.CheckedEntries.ToList();
 
             if (Msg.YesNo(this, string.Format(Resources.RemoveCheckedKeys, checkedNodes.Count), MsgSeverity.Warn))
             {
-                foreach (var node in checkedNodes.ToList())
+                foreach (var node in checkedNodes)
                     treeViewTrustedKeys.Nodes.Remove(node);
             }
         }

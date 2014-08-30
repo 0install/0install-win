@@ -41,10 +41,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Create(string path, InterfaceFeed target, string command, ITaskHandler handler, bool machineWide = false)
         {
             #region Sanity checks
-            if (String.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            if (String.IsNullOrEmpty(command)) command = Command.NameRun;
+            if (string.IsNullOrEmpty(command)) command = Command.NameRun;
 
 #if !__MonoCS__
             if (File.Exists(path)) File.Delete(path);
