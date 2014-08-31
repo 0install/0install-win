@@ -31,36 +31,22 @@ namespace ZeroInstall.Store.Implementations
     public partial class IpcStore : IStore
     {
         #region List all
-        /// <inheritdoc/>
+        /// <summary>
+        /// Always returns empty list. Use a non-IPC <see cref="IStore"/> for this method instead.
+        /// </summary>
+        /// <remarks>Using the store service for this is unnecessary since it only requires read access to the file system.</remarks>
         public IEnumerable<ManifestDigest> ListAll()
         {
-            try
-            {
-                return GetServiceProxy().ListAll();
-            }
-                #region Error handling
-            catch (RemotingException)
-            {
-                // Ignore remoting errors in case service is offline
-                return Enumerable.Empty<ManifestDigest>();
-            }
-            #endregion
+            return Enumerable.Empty<ManifestDigest>();
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Always returns empty list. Use a non-IPC <see cref="IStore"/> for this method instead.
+        /// </summary>
+        /// <remarks>Using the store service for this is unnecessary since it only requires read access to the file system.</remarks>
         public IEnumerable<string> ListAllTemp()
         {
-            try
-            {
-                return GetServiceProxy().ListAllTemp();
-            }
-                #region Error handling
-            catch (RemotingException)
-            {
-                // Ignore remoting errors in case service is offline
-                return Enumerable.Empty<string>();
-            }
-            #endregion
+            return Enumerable.Empty<string>();
         }
         #endregion
 
