@@ -98,8 +98,11 @@ namespace ZeroInstall.Publish
                 // Write to temporary file first
                 Feed.SaveXml(atomic.WritePath);
 
-                FeedUtils.AddStylesheet(atomic.WritePath);
-                if (SecretKey != null) FeedUtils.SignFeed(atomic.WritePath, SecretKey, passphrase, OpenPgpFactory.CreateDefault());
+                if (SecretKey != null)
+                {
+                    FeedUtils.AddStylesheet(atomic.WritePath);
+                    FeedUtils.SignFeed(atomic.WritePath, SecretKey, passphrase, OpenPgpFactory.CreateDefault());
+                }
 
                 atomic.Commit();
             }
