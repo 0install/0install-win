@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
-    <Compile Include="DelayedGuiCommandHandler.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GuiCommandHandler.cs" />
     <Compile Include="IntegrateAppForm.cs">
