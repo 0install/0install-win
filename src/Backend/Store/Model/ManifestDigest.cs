@@ -85,10 +85,12 @@ namespace ZeroInstall.Store.Model
         {
             get
             {
-                if (!string.IsNullOrEmpty(Sha256New)) yield return "sha256new_" + Sha256New;
-                if (!string.IsNullOrEmpty(Sha256)) yield return "sha256=" + Sha256;
-                if (!string.IsNullOrEmpty(Sha1New)) yield return "sha1new=" + Sha1New;
-                if (!string.IsNullOrEmpty(Sha1)) yield return "sha1=" + Sha1;
+                var result = new List<string>(4);
+                if (!string.IsNullOrEmpty(Sha256New)) result.Add("sha256new_" + Sha256New);
+                if (!string.IsNullOrEmpty(Sha256)) result.Add("sha256=" + Sha256);
+                if (!string.IsNullOrEmpty(Sha1New)) result.Add("sha1new=" + Sha1New);
+                if (!string.IsNullOrEmpty(Sha1)) result.Add("sha1=" + Sha1);
+                return result;
             }
         }
 
