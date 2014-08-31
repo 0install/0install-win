@@ -11,6 +11,7 @@ rm -rf src/obj
 
 #Per-project
 rm -rf src/*/*/obj
+rm -rf src/*/*/test-results
 rm -f src/*/*/*.pidb
 rm -f src/*/*/*.csproj.user
 

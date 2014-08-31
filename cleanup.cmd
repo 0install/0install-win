@@ -15,26 +15,31 @@ rd /s /q "src\obj" > NUL 2>&1
 rem Per-project
 FOR /d %%D IN ("%~dp0src\Backend\*") DO (
   rd /s /q "%%D\obj" > NUL 2>&1
+  rd /s /q "%%D\test-results" > NUL 2>&1
   del "%%D\*.pidb" > NUL 2>&1
   del "%%D\*.csproj.user" > NUL 2>&1
 )
 FOR /d %%D IN ("%~dp0src\Frontend\*") DO (
   rd /s /q "%%D\obj" > NUL 2>&1
+  rd /s /q "%%D\test-results" > NUL 2>&1
   del "%%D\*.pidb" > NUL 2>&1
   del "%%D\*.csproj.user" > NUL 2>&1
 )
 FOR /d %%D IN ("%~dp0src\Samples\*") DO (
   rd /s /q "%%D\obj" > NUL 2>&1
+  rd /s /q "%%D\test-results" > NUL 2>&1
   del "%%D\*.pidb" > NUL 2>&1
   del "%%D\*.csproj.user" > NUL 2>&1
 )
 FOR /d %%D IN ("%~dp0src\Tools\*") DO (
   rd /s /q "%%D\obj" > NUL 2>&1
+  rd /s /q "%%D\test-results" > NUL 2>&1
   del "%%D\*.pidb" > NUL 2>&1
   del "%%D\*.csproj.user" > NUL 2>&1
 )
 FOR /d %%D IN ("%~dp0src\Updater\*") DO (
   rd /s /q "%%D\obj" > NUL 2>&1
+  rd /s /q "%%D\test-results" > NUL 2>&1
   del "%%D\*.pidb" > NUL 2>&1
   del "%%D\*.csproj.user" > NUL 2>&1
 )
