@@ -77,8 +77,6 @@ namespace ZeroInstall.Commands
             }
             #endregion
 
-            ShowSelections();
-
             DownloadUncachedImplementations();
 
             ShowOutput();

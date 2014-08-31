@@ -135,6 +135,7 @@ namespace ZeroInstall.Commands
         {
             Solve();
             if (FeedManager.Stale) RefreshSolve();
+
             ShowSelections();
 
             Handler.CancellationToken.ThrowIfCancellationRequested();

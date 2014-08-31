@@ -59,7 +59,6 @@ namespace ZeroInstall.Commands
         {
             Solve();
             if (FeedManager.Stale || UncachedImplementations.Count != 0) RefreshSolve();
-            ShowSelections();
 
             DownloadUncachedImplementations();
 
@@ -92,21 +91,23 @@ namespace ZeroInstall.Commands
         /// <remarks>Makes sure <see cref="ISolver"/> ran with up-to-date feeds before downloading any implementations.</remarks>
         protected void DownloadUncachedImplementations()
         {
-            // Do not waste time on Fetcher subsystem if nothing is missing from cache
-            if (UncachedImplementations.Count == 0) return;
+            if (ShowModifySelections || UncachedImplementations.Count != 0) ShowSelections();
 
-            try
+            if (UncachedImplementations.Count != 0)
             {
-                Fetcher.Fetch(UncachedImplementations);
+                try
+                {
+                    Fetcher.Fetch(UncachedImplementations);
+                }
+                    #region Error handling
+                catch
+                {
+                    // Suppress any left-over errors if the user canceled anyway
+                    Handler.CancellationToken.ThrowIfCancellationRequested();
+                    throw;
+                }
+                #endregion
             }
-                #region Error handling
-            catch
-            {
-                // Suppress any left-over errors if the user canceled anyway
-                Handler.CancellationToken.ThrowIfCancellationRequested();
-                throw;
-            }
-            #endregion
         }
 
         private int ShowOutput()
