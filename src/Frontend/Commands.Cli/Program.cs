@@ -55,7 +55,7 @@ namespace ZeroInstall.Commands.Cli
 #endif
 
             NetUtils.ApplyProxy();
-            NetUtils.TrustCertificates(SyncIntegrationManager.DefaultServerPublicKey);
+            if (!WindowsUtils.IsWindows7) NetUtils.TrustCertificates(SyncIntegrationManager.DefaultServerPublicKey);
             return Run(args);
         }
 

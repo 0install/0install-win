@@ -76,7 +76,7 @@ namespace ZeroInstall.Commands.WinForms
             ErrorReportForm.SetupMonitoring(new Uri("https://0install.de/error-report/"));
 
             NetUtils.ApplyProxy();
-            NetUtils.TrustCertificates(SyncIntegrationManager.DefaultServerPublicKey);
+            if (!WindowsUtils.IsWindows7) NetUtils.TrustCertificates(SyncIntegrationManager.DefaultServerPublicKey);
             return Run(args);
         }
 

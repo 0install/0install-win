@@ -74,7 +74,7 @@ namespace ZeroInstall.Central.WinForms
 
             UpdateRegistry();
             NetUtils.ApplyProxy();
-            NetUtils.TrustCertificates(SyncIntegrationManager.DefaultServerPublicKey);
+            if (!WindowsUtils.IsWindows7) NetUtils.TrustCertificates(SyncIntegrationManager.DefaultServerPublicKey);
             return Run(args);
         }
 
