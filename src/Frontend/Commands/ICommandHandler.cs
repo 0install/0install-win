@@ -49,14 +49,6 @@ namespace ZeroInstall.Commands
         void CloseProgressUI();
 
         /// <summary>
-        /// Provides information for a potential GUI backing this handler.
-        /// </summary>
-        /// <param name="actionTitle">A delegate that returns a short title describing what the command being executed does.</param>
-        /// <param name="delay">The number of milliseconds by which to delay the initial display of the GUI.</param>
-        /// <remarks>Should be called before <see cref="ShowProgressUI"/>.</remarks>
-        void SetGuiHints(Func<string> actionTitle, int delay);
-
-        /// <summary>
         /// Shows the user the <see cref="Selections"/> made by the solver.
         /// Returns immediately. Will be ignored by non-GUI intefaces.
         /// </summary>

@@ -45,9 +45,6 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS]"; } }
 
         /// <inheritdoc/>
-        public override string ActionTitle { get { return Resources.ActionSelfUpdate; } }
-
-        /// <inheritdoc/>
         public SelfUpdate(ICommandHandler handler) : base(handler)
         {
             NoWait = true;

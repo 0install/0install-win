@@ -68,9 +68,6 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 1; } }
 
         /// <inheritdoc/>
-        public override string ActionTitle { get { return Resources.ActionSelection; } }
-
-        /// <inheritdoc/>
         public Selection(ICommandHandler handler) : base(handler)
         {
             Options.Add("batch", () => Resources.OptionBatch, _ => Handler.Batch = true);

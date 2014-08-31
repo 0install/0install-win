@@ -54,9 +54,6 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 3; } }
 
         /// <inheritdoc/>
-        public override string ActionTitle { get { return Resources.ActionAppCommand; } }
-
-        /// <inheritdoc/>
         public AddAlias(ICommandHandler handler) : base(handler)
         {
             Options.Add("resolve", () => Resources.OptionAliasResolve, _ => _resolve = true);

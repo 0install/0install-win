@@ -42,9 +42,6 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 0; } }
 
         /// <inheritdoc/>
-        public override string ActionTitle { get { return Resources.ActionSync; } }
-
-        /// <inheritdoc/>
         public SyncApps(ICommandHandler handler) : base(handler)
         {
             Options.Add("reset=", () => Resources.OptionSyncReset, (SyncResetMode mode) => _syncResetMode = mode);

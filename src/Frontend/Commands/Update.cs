@@ -41,9 +41,6 @@ namespace ZeroInstall.Commands
         protected override string Description { get { return Resources.DescriptionUpdate; } }
 
         /// <inheritdoc/>
-        public override string ActionTitle { get { return Resources.ActionUpdate; } }
-
-        /// <inheritdoc/>
         public Update(ICommandHandler handler) : base(handler)
         {
             //Options.Remove("o|offline");

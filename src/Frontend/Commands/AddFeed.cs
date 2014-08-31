@@ -37,9 +37,6 @@ namespace ZeroInstall.Commands
         protected override string Description { get { return Resources.DescriptionAddFeed; } }
 
         /// <inheritdoc/>
-        public override string ActionTitle { get { return Resources.ActionAddFeed; } }
-
-        /// <inheritdoc/>
         public AddFeed(ICommandHandler handler) : base(handler)
         {}
         #endregion

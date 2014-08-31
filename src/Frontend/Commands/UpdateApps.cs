@@ -50,9 +50,6 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 0; } }
 
         /// <inheritdoc/>
-        public override string ActionTitle { get { return Resources.ActionUpdateApps; } }
-
-        /// <inheritdoc/>
         public UpdateApps(ICommandHandler handler) : base(handler)
         {
             Options.Add("c|clean", () => Resources.OptionClean, _ => _clean = true);

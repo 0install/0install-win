@@ -105,16 +105,6 @@ namespace ZeroInstall.Commands
         protected virtual int AdditionalArgsMax { get { return int.MaxValue; } }
 
         /// <summary>
-        /// A short title describing what this command does or <see langword="null"/>.
-        /// </summary>
-        public virtual string ActionTitle { get { return null; } }
-
-        /// <summary>
-        /// The number of milliseconds by which to delay the initial display of the <see cref="ICommandHandler"/> GUI.
-        /// </summary>
-        public virtual int GuiDelay { get { return 0; } }
-
-        /// <summary>
         /// The help text describing the available command-line options and their effects.
         /// </summary>
         protected string HelpText

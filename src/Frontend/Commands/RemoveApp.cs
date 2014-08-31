@@ -46,9 +46,6 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS] (PET-NAME|INTERFACE)"; } }
 
         /// <inheritdoc/>
-        public override int GuiDelay { get { return 1000; } }
-
-        /// <inheritdoc/>
         public RemoveApp(ICommandHandler handler) : base(handler)
         {}
         #endregion

@@ -35,11 +35,9 @@ namespace ZeroInstall.Commands.WinForms
             this.buttonCancel = new System.Windows.Forms.Button();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonHide = new System.Windows.Forms.Button();
-            this.labelWorking = new System.Windows.Forms.Label();
-            this.progressBarWorking = new System.Windows.Forms.ProgressBar();
             this.selectionsControl = new ZeroInstall.Commands.WinForms.SelectionsControl();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.trackingControl = new TaskControl();
+            this.trackingControl = new NanoByte.Common.Controls.TaskControl();
             this.buttonModifySelectionsDone = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -71,26 +69,6 @@ namespace ZeroInstall.Commands.WinForms
             this.toolTip.SetToolTip(this.buttonHide, "Hides the window and continues running the process as a tray icon");
             this.buttonHide.UseVisualStyleBackColor = true;
             this.buttonHide.Click += new System.EventHandler(this.buttonHide_Click);
-            // 
-            // labelWorking
-            // 
-            this.labelWorking.AutoSize = true;
-            this.labelWorking.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWorking.Location = new System.Drawing.Point(8, 18);
-            this.labelWorking.Name = "labelWorking";
-            this.labelWorking.Size = new System.Drawing.Size(70, 20);
-            this.labelWorking.TabIndex = 0;
-            this.labelWorking.Text = "(Solving)";
-            // 
-            // progressBarWorking
-            // 
-            this.progressBarWorking.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarWorking.Location = new System.Drawing.Point(12, 41);
-            this.progressBarWorking.Name = "progressBarWorking";
-            this.progressBarWorking.Size = new System.Drawing.Size(435, 23);
-            this.progressBarWorking.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBarWorking.TabIndex = 4;
             // 
             // selectionsControl
             // 
@@ -137,8 +115,6 @@ namespace ZeroInstall.Commands.WinForms
             this.Controls.Add(this.buttonHide);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.selectionsControl);
-            this.Controls.Add(this.progressBarWorking);
-            this.Controls.Add(this.labelWorking);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(375, 150);
@@ -147,7 +123,6 @@ namespace ZeroInstall.Commands.WinForms
             this.Text = "Zero Install";
             this.Closing += new System.ComponentModel.CancelEventHandler(this.ProgressForm_Closing);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
         #endregion
@@ -156,8 +131,6 @@ namespace ZeroInstall.Commands.WinForms
         private System.Windows.Forms.Button buttonHide;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private SelectionsControl selectionsControl;
-        private System.Windows.Forms.Label labelWorking;
-        private System.Windows.Forms.ProgressBar progressBarWorking;
         private System.Windows.Forms.ToolTip toolTip;
         private TaskControl trackingControl;
         private System.Windows.Forms.Button buttonModifySelectionsDone;

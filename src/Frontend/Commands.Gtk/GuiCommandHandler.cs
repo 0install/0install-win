@@ -36,16 +36,6 @@ namespace ZeroInstall.Commands.Gtk
         #region Properties
         /// <inheritdoc/>
         public override int Verbosity { get; set; }
-
-        /// <inheritdoc/>
-        public void SetGuiHints(LinqBridge::System.Func<string> actionTitle, int delay)
-        {
-            #region Sanity checks
-            if (actionTitle == null) throw new ArgumentNullException("actionTitle");
-            #endregion
-
-            // TODO: Implement
-        }
         #endregion
 
         //--------------------//

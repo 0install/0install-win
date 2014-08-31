@@ -40,9 +40,6 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>Signaled when the user wishes to cancel the current process.</summary>
         private readonly CancellationTokenSource _cancellationTokenSource;
 
-        /// <summary>A short title describing what the command being executed does.</summary>
-        private readonly string _actionTitle;
-
         /// <summary>A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/> after <see cref="ModifySelections"/>.</summary>
         private EventWaitHandle _modifySelectionsWaitHandle;
 
@@ -55,8 +52,7 @@ namespace ZeroInstall.Commands.WinForms
         /// Creates a new progress tracking form.
         /// </summary>
         /// <param name="cancellationTokenSource">Used to signal when the user wishes to cancel the current process.</param>
-        /// <param name="actionTitle">A short title describing what the command being executed does; may be <see langword="null"/>.</param>
-        public ProgressForm(CancellationTokenSource cancellationTokenSource, string actionTitle = null)
+        public ProgressForm(CancellationTokenSource cancellationTokenSource)
         {
             #region Sanity checks
             if (cancellationTokenSource == null) throw new ArgumentNullException("cancellationTokenSource");
@@ -66,7 +62,6 @@ namespace ZeroInstall.Commands.WinForms
 
             InitializeComponent();
 
-            labelWorking.Text = _actionTitle = (actionTitle ?? Resources.Working);
             buttonModifySelectionsDone.Text = Resources.Done;
             buttonHide.Text = Resources.Hide;
             buttonCancel.Text = Resources.Cancel;
@@ -159,7 +154,6 @@ namespace ZeroInstall.Commands.WinForms
             trackingControl.Visible = true;
 
             // Hide other stuff
-            labelWorking.Visible = progressBarWorking.Visible = false;
             if (_selectionsShown) selectionsControl.Hide();
 
             trackingControl.TaskName = taskName;
@@ -212,7 +206,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="messageType">The type icon to display next to the balloon message.</param>
         /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
-        public void ShowTrayIcon(string information, ToolTipIcon messageType)
+        public void ShowTrayIcon(string information = null, ToolTipIcon messageType = ToolTipIcon.None)
         {
             #region Sanity checks
             if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
@@ -245,7 +239,7 @@ namespace ZeroInstall.Commands.WinForms
 
         private void buttonHide_Click(object sender, EventArgs e)
         {
-            ShowTrayIcon(_actionTitle, ToolTipIcon.None);
+            ShowTrayIcon();
             Visible = false;
         }
         #endregion

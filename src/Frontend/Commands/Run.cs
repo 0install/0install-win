@@ -54,12 +54,6 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return int.MaxValue; } }
 
         /// <inheritdoc/>
-        public override string ActionTitle { get { return Resources.ActionRun; } }
-
-        /// <inheritdoc/>
-        public override int GuiDelay { get { return FeedManager.Refresh ? 0 : 1500; } }
-
-        /// <inheritdoc/>
         public Run(ICommandHandler handler) : base(handler)
         {
             //Options.Remove("xml");

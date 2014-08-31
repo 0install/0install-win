@@ -42,9 +42,6 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "(DIRECTORY | ARCHIVE [SUBDIR])"; } }
 
         /// <inheritdoc/>
-        public override string ActionTitle { get { return Resources.ActionDigest; } }
-
-        /// <inheritdoc/>
         protected override int AdditionalArgsMin { get { return 1; } }
 
         /// <inheritdoc/>

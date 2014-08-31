@@ -117,42 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActionAddFeed" xml:space="preserve">
-    <value>Füge zusätzlichen Feedzuordnung hinzu</value>
-  </data>
-  <data name="ActionAppCommand" xml:space="preserve">
-    <value>Verwalte Desktopintegration</value>
-  </data>
-  <data name="ActionDigest" xml:space="preserve">
-    <value>Berechne Digest</value>
-  </data>
-  <data name="ActionDownload" xml:space="preserve">
-    <value>Lade Anwendung runter</value>
-  </data>
-  <data name="ActionRemoveFeed" xml:space="preserve">
-    <value>Entferne zusätzliche Feedzuordnung</value>
-  </data>
-  <data name="ActionRepairApps" xml:space="preserve">
-    <value>Repariere Desktopintegration</value>
-  </data>
-  <data name="ActionRun" xml:space="preserve">
-    <value>Bereite Anwendungsstart vor</value>
-  </data>
-  <data name="ActionSelection" xml:space="preserve">
-    <value>Wähle Implementierungen aus</value>
-  </data>
-  <data name="ActionSelfUpdate" xml:space="preserve">
-    <value>Aktualisiere Zero Install</value>
-  </data>
-  <data name="ActionSync" xml:space="preserve">
-    <value>Synchronisiere</value>
-  </data>
-  <data name="ActionUpdate" xml:space="preserve">
-    <value>Suche nach Updates</value>
-  </data>
-  <data name="ActionUpdateApps" xml:space="preserve">
-    <value>Aktualisiere Anwendungen</value>
-  </data>
   <data name="AliasCreated" xml:space="preserve">
     <value>Ein Alias namens '{0}' für '{1}' wurde angelegt.</value>
   </data>

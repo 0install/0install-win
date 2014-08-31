@@ -67,12 +67,6 @@ namespace ZeroInstall.Commands
         {
             // Console UI only, so nothing to do
         }
-
-        /// <summary>
-        /// Does nothing.
-        /// </summary>
-        public void SetGuiHints(Func<string> actionTitle, int delay)
-        {}
         #endregion
 
         #region Selections UI

@@ -40,12 +40,6 @@ namespace ZeroInstall.Commands
         protected override string Description { get { return Resources.DescriptionDownload; } }
 
         /// <inheritdoc/>
-        public override string ActionTitle { get { return Resources.ActionDownload; } }
-
-        /// <inheritdoc/>
-        public override int GuiDelay { get { return Handler.Batch ? 1000 : 0; } }
-
-        /// <inheritdoc/>
         public Download(ICommandHandler handler) : base(handler)
         {
             Options.Add("show", () => Resources.OptionShow, _ => _show = true);

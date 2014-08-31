@@ -45,9 +45,6 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 0; } }
 
         /// <inheritdoc/>
-        public override string ActionTitle { get { return Resources.ActionRepairApps; } }
-
-        /// <inheritdoc/>
         public RepairApps(ICommandHandler handler) : base(handler)
         {}
         #endregion

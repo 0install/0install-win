@@ -51,18 +51,6 @@ namespace ZeroInstall.Commands.WinForms
 
         /// <inheritdoc/>
         public bool Batch { get; set; }
-
-        private string _actionTitle;
-
-        /// <inheritdoc/>
-        public void SetGuiHints(Func<string> actionTitle, int delay)
-        {
-            #region Sanity checks
-            if (actionTitle == null) throw new ArgumentNullException("actionTitle");
-            #endregion
-
-            _actionTitle = actionTitle();
-        }
         #endregion
 
         #region Constructor
@@ -142,7 +130,7 @@ namespace ZeroInstall.Commands.WinForms
                         // ReSharper disable once UnusedVariable
                         var handle = _form.Handle;
 
-                        _form.ShowTrayIcon(_actionTitle, ToolTipIcon.None);
+                        _form.ShowTrayIcon();
                     }
                     else _form.Show();
 

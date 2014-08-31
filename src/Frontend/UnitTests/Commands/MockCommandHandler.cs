@@ -48,12 +48,6 @@ namespace ZeroInstall.Commands
             // No UI, so nothing to do
         }
 
-        /// <summary>
-        /// Does nothing.
-        /// </summary>
-        public void SetGuiHints(LinqBridge::System.Func<string> actionTitle, int delay)
-        {}
-
         /// <inheritdoc/>
         public void ModifySelections(LinqBridge::System.Func<Selections> solveCallback)
         {

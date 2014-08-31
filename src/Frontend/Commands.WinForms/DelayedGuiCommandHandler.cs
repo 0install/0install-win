@@ -39,9 +39,6 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>The actual GUI to show with a delay.</summary>
         private volatile GuiCommandHandler _target;
 
-        /// <summary>The number of milliseconds by which to delay the initial display of the GUI.</summary>
-        private int _delay;
-
         /// <summary>Synchronization object used to prevent concurrent access to <see cref="_target"/>.</summary>
         private readonly object _targetLock = new object();
 
@@ -110,15 +107,11 @@ namespace ZeroInstall.Commands.WinForms
         {
             _onTargetCreate += target => target.ShowProgressUI();
 
-            if (_delay == 0) InitTarget();
-            else
+            ProcessUtils.RunAsync(() =>
             {
-                ProcessUtils.RunAsync(() =>
-                {
-                    // Wait for delay to initialize target, unless some interrupt event cause the UI to be created ahead of time
-                    if (!_uiDone.WaitOne(_delay, exitContext: false)) InitTarget();
-                }, "DelayedGuiHandler.InitTarget");
-            }
+                // Wait for delay to initialize target, unless some interrupt event cause the UI to be created ahead of time
+                if (!_uiDone.WaitOne(1000, exitContext: false)) InitTarget();
+            }, "DelayedGuiHandler.InitTarget");
         }
 
         /// <inheritdoc/>
@@ -156,13 +149,6 @@ namespace ZeroInstall.Commands.WinForms
                 _batch = value;
                 ApplyToTarget(target => target.Batch = value);
             }
-        }
-
-        /// <inheritdoc/>
-        public void SetGuiHints(Func<string> actionTitle, int delay)
-        {
-            _delay = delay;
-            ApplyToTarget(target => target.SetGuiHints(actionTitle, delay));
         }
 
         /// <inheritdoc/>

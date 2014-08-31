@@ -18,7 +18,6 @@
 using System;
 using System.Linq;
 using NanoByte.Common.Storage;
-using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands
@@ -41,9 +40,6 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         protected override int AdditionalArgsMax { get { return 0; } }
-
-        /// <inheritdoc/>
-        public override string ActionTitle { get { return Resources.ActionDownload; } }
 
         /// <inheritdoc/>
         public Fetch(ICommandHandler handler) : base(handler)

@@ -16,7 +16,6 @@
  */
 
 using System;
-using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 
 namespace ZeroInstall.Commands
@@ -28,9 +27,6 @@ namespace ZeroInstall.Commands
     public abstract class AppCommand : IntegrationCommand
     {
         #region Metadata
-        /// <inheritdoc/>
-        public override string ActionTitle { get { return Resources.ActionAppCommand; } }
-
         /// <inheritdoc/>
         protected override int AdditionalArgsMin { get { return 1; } }
 
