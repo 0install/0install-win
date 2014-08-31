@@ -49,8 +49,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Handler.ShowProgressUI();
-
             var feedFragment = XmlStorage.FromXmlString<Feed>(Console.ReadLine());
             Fetcher.Fetch(feedFragment.Elements.OfType<Implementation>());
 

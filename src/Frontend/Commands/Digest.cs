@@ -80,8 +80,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Handler.ShowProgressUI();
-
             var manifest = GenerateManifest(
                 AdditionalArgs[0],
                 (AdditionalArgs.Count == 2) ? AdditionalArgs[1] : null);

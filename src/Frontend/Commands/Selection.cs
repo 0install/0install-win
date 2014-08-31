@@ -133,8 +133,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Handler.ShowProgressUI();
-
             Solve();
             if (FeedManager.Stale) RefreshSolve();
             ShowSelections();

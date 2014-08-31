@@ -128,8 +128,6 @@ namespace ZeroInstall.Commands
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
         private int CreateAlias(string aliasName, string interfaceID, string command = null)
         {
-            Handler.ShowProgressUI();
-
             using (var integrationManager = new IntegrationManager(Handler, MachineWide))
             {
                 // Check this before modifying the environment

@@ -57,8 +57,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Handler.ShowProgressUI();
-
             Solve();
             if (FeedManager.Stale || UncachedImplementations.Count != 0) RefreshSolve();
             ShowSelections();

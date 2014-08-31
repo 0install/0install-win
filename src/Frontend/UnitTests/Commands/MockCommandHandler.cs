@@ -31,19 +31,13 @@ namespace ZeroInstall.Commands
     public class MockCommandHandler : MockTaskHandler, ICommandHandler
     {
         /// <inheritdoc/>
-        public void ShowProgressUI()
+        public void DisableUI()
         {
             // No UI, so nothing to do
         }
 
         /// <inheritdoc/>
-        public void DisableProgressUI()
-        {
-            // No UI, so nothing to do
-        }
-
-        /// <inheritdoc/>
-        public void CloseProgressUI()
+        public void CloseUI()
         {
             // No UI, so nothing to do
         }

@@ -154,8 +154,6 @@ namespace ZeroInstall.Commands
         {
             if (AdditionalArgs.Count < 3) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))", "");
 
-            Handler.ShowProgressUI();
-
             var manifestDigest = new ManifestDigest(AdditionalArgs[1]);
             string path = AdditionalArgs[2];
             try
@@ -182,8 +180,6 @@ namespace ZeroInstall.Commands
 
         private StoreErrorLevel Audit()
         {
-            Handler.ShowProgressUI();
-
             var store = GetStore();
             foreach (var manifestDigest in store.ListAll())
                 store.Verify(manifestDigest, Handler);
@@ -194,8 +190,6 @@ namespace ZeroInstall.Commands
         {
             if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "copy DIRECTORY [CACHE]", "");
             if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "copy DIRECTORY [CACHE]", "");
-
-            Handler.ShowProgressUI();
 
             var store = (AdditionalArgs.Count == 3) ? new DirectoryStore(AdditionalArgs[2]) : Store;
 
@@ -231,15 +225,12 @@ namespace ZeroInstall.Commands
 
         private void Optimise()
         {
-            Handler.ShowProgressUI();
-
             long savedBytes = GetStore().Optimise(Handler);
             Handler.OutputLow(Resources.OptimiseComplete, string.Format(Resources.StorageReclaimed, savedBytes.FormatBytes(CultureInfo.CurrentCulture)));
         }
 
         private void Purge()
         {
-            Handler.ShowProgressUI();
             if (Handler.Batch || Handler.AskQuestion(Resources.ConfirmPurge)) GetStore().Purge(Handler);
             else throw new OperationCanceledException();
         }
@@ -248,16 +239,12 @@ namespace ZeroInstall.Commands
         {
             if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "remove DIGEST+", "");
 
-            Handler.ShowProgressUI();
-
             var digests = AdditionalArgs.Skip(1).Select(x => new ManifestDigest(x));
             Handler.RunTask(new ForEachTask<ManifestDigest>(Resources.RemovingImplementations, digests, Store.Remove));
         }
 
         private StoreErrorLevel Verify()
         {
-            Handler.ShowProgressUI();
-
             try
             {
                 foreach (string arg in AdditionalArgs.Skip(1))

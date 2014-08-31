@@ -189,7 +189,7 @@ namespace ZeroInstall.Store.Management.Cli
             finally
             {
                 // Always close GUI in the end
-                handler.CloseProgressUI();
+                handler.CloseUI();
             }
         }
     }

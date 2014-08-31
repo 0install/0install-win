@@ -59,8 +59,6 @@ namespace ZeroInstall.Commands
         {
             if (SelectionsDocument) throw new NotSupportedException(Resources.NoSelectionsDocumentUpdate);
 
-            Handler.ShowProgressUI();
-
             try
             {
                 OldSolve();

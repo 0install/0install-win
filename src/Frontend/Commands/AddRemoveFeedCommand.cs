@@ -57,8 +57,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Handler.ShowProgressUI();
-
             string feedID;
             var interfaces = GetInterfaces(out feedID);
             if (!interfaces.Any())

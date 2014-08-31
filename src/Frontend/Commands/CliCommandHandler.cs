@@ -36,9 +36,10 @@ namespace ZeroInstall.Commands
     [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Diamond inheritance structure leads to false positive")]
     public sealed class CliCommandHandler : CliTaskHandler, ICommandHandler
     {
-        #region UI control
-        /// <inheritdoc/>
-        public void ShowProgressUI()
+        /// <summary>
+        /// Sets up Ctrl+C capturing.
+        /// </summary>
+        public CliCommandHandler()
         {
             // Handle Ctrl+C
             try
@@ -57,19 +58,17 @@ namespace ZeroInstall.Commands
         }
 
         /// <inheritdoc/>
-        public void DisableProgressUI()
+        public void DisableUI()
         {
             // Console UI only, so nothing to do
         }
 
         /// <inheritdoc/>
-        public void CloseProgressUI()
+        public void CloseUI()
         {
             // Console UI only, so nothing to do
         }
-        #endregion
 
-        #region Selections UI
         /// <inheritdoc/>
         public void ShowSelections(Selections selections, IFeedCache feedCache)
         {
@@ -81,9 +80,7 @@ namespace ZeroInstall.Commands
         {
             throw new NeedGuiException(Resources.NoModifySelectionsInCli + (WindowsUtils.IsWindows ? "\n" + Resources.Try0installWin : ""));
         }
-        #endregion
 
-        #region Dialogs
         /// <inheritdoc/>
         public void ShowIntegrateApp(IntegrationState state)
         {
@@ -105,6 +102,5 @@ namespace ZeroInstall.Commands
         {
             throw new NeedGuiException();
         }
-        #endregion
     }
 }

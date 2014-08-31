@@ -165,7 +165,7 @@ namespace ZeroInstall.Commands.Cli
             }
             catch (UnauthorizedAccessException ex)
             {
-                handler.CloseProgressUI();
+                handler.CloseUI();
                 Log.Error(ex);
                 return 1;
             }
@@ -209,7 +209,7 @@ namespace ZeroInstall.Commands.Cli
             finally
             {
                 // Always close GUI in the end
-                handler.CloseProgressUI();
+                handler.CloseUI();
             }
         }
     }

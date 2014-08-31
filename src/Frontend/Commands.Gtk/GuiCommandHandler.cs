@@ -42,19 +42,13 @@ namespace ZeroInstall.Commands.Gtk
 
         #region UI control
         /// <inheritdoc/>
-        public void ShowProgressUI()
-        {
-            // TODO: Implement spawning GUI thread
-        }
-
-        /// <inheritdoc/>
-        public void DisableProgressUI()
+        public void DisableUI()
         {
             // TODO: Implement stopping GUI thread
         }
 
         /// <inheritdoc/>
-        public void CloseProgressUI()
+        public void CloseUI()
         {
             // TODO: Implement
         }

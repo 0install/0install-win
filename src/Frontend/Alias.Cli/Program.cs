@@ -195,7 +195,7 @@ namespace ZeroInstall.Alias.Cli
             finally
             {
                 // Always close GUI in the end
-                handler.CloseProgressUI();
+                handler.CloseUI();
             }
         }
     }

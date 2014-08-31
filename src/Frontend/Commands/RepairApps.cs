@@ -52,8 +52,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Handler.ShowProgressUI();
-
             using (var integrationManager = new IntegrationManager(Handler, MachineWide))
                 integrationManager.Repair(FeedManager.GetFeedFresh);
 

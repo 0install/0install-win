@@ -54,8 +54,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Handler.ShowProgressUI();
-
             foreach (var file in ArgumentUtils.GetFiles(AdditionalArgs, "*.xml"))
                 ImportFile(file.FullName);
 

@@ -63,8 +63,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Handler.ShowProgressUI();
-
             var selectedImplementations = SolveAll(GetTargets()).ToList();
             DownloadUncachedImplementations(selectedImplementations);
 

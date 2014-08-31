@@ -32,21 +32,14 @@ namespace ZeroInstall.Commands
     public interface ICommandHandler : ITaskHandler
     {
         /// <summary>
-        /// Prepares any UI elements necessary to track the progress of <see cref="ITask"/>s.
+        /// Disables any persistent UI elements that were created but still leaves them visible.
         /// </summary>
-        void ShowProgressUI();
+        void DisableUI();
 
         /// <summary>
-        /// Disables any UI element created by <see cref="ShowProgressUI"/> but still leaves it visible.
+        /// Closes any persistent UI elements that were created.
         /// </summary>
-        /// <remarks>Calling this method multiple times or without calling <see cref="ShowProgressUI"/> first is safe and has no effect.</remarks>
-        void DisableProgressUI();
-
-        /// <summary>
-        /// Closes any UI element created by <see cref="ShowProgressUI"/>.
-        /// </summary>
-        /// <remarks>This may be called from a background thread. Thread-synchronization for UI elements is handled automatically.</remarks>
-        void CloseProgressUI();
+        void CloseUI();
 
         /// <summary>
         /// Shows the user the <see cref="Selections"/> made by the solver.
@@ -54,7 +47,6 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="selections">The <see cref="Selections"/> as provided by the solver.</param>
         /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
-        /// <remarks>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</remarks>
         void ShowSelections(Selections selections, IFeedCache feedCache);
 
         /// <summary>
@@ -62,7 +54,6 @@ namespace ZeroInstall.Commands
         /// Returns once the user is satisfied with her choice. Will be ignored by non-GUI intefaces.
         /// </summary>
         /// <param name="solveCallback">Called after interface preferences have been changed and the solver needs to be rerun.</param>
-        /// <remarks>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</remarks>
         void ModifySelections(Func<Selections> solveCallback);
 
         /// <summary>
@@ -70,10 +61,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="state">A View-Model for modifying the current desktop integration state.</param>
         /// <exception cref="OperationCanceledException">Thrown if the user does not want any changes to be applied.</exception>
-        /// <remarks>
-        ///   <para>The caller is responsible for saving any changes.</para>
-        ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
-        /// </remarks>
+        /// <remarks>The caller is responsible for saving any changes.</remarks>
         void ShowIntegrateApp(IntegrationState state);
 
         /// <summary>

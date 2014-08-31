@@ -144,7 +144,7 @@ namespace ZeroInstall.Commands.WinForms
                 }
                 catch (NotAdminException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.CloseUI();
 
                     if (WindowsUtils.IsWindowsNT) return ProcessUtils.RunAssemblyAsAdmin("0install-win", args.JoinEscapeArguments());
                     else
@@ -155,95 +155,95 @@ namespace ZeroInstall.Commands.WinForms
                 }
                 catch (OptionException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.CloseUI();
                     Msg.Inform(null, ex.Message + "\n" + string.Format(Resources.TryHelp, ExeName), MsgSeverity.Error);
                     return 1;
                 }
                 catch (Win32Exception ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.CloseUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return 1;
                 }
                 catch (BadImageFormatException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.CloseUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return 1;
                 }
                 catch (WebException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.CloseUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                     return 1;
                 }
                 catch (NotSupportedException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.CloseUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                     return 1;
                 }
                 catch (IOException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.CloseUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                     return 1;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.CloseUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                     return 1;
                 }
                 catch (InvalidDataException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.CloseUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                     return 1;
                 }
                 catch (SignatureException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.CloseUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                     return 1;
                 }
                 catch (InvalidInterfaceIDException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.CloseUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                     return 1;
                 }
                 catch (DigestMismatchException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.CloseUI();
                     Log.Error(ex);
                     ErrorBox.Show(Resources.DownloadDamaged, errorLog);
                     return 1;
                 }
                 catch (SolverException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.CloseUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message.GetLeftPartAtFirstOccurrence(Environment.NewLine), errorLog);
                     return 1;
                 }
                 catch (ExecutorException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.CloseUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                     return 1;
                 }
                 catch (ConflictException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.CloseUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, errorLog);
                     return 1;
@@ -255,7 +255,7 @@ namespace ZeroInstall.Commands.WinForms
                     Log.NewEntry -= errorLog.AppendLogEntry;
 
                     // Always close GUI in the end
-                    handler.CloseProgressUI();
+                    handler.CloseUI();
                 }
             }
         }

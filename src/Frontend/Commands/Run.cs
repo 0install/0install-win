@@ -82,8 +82,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Handler.ShowProgressUI();
-
             Solve();
             if (UncachedImplementations.Count != 0) RefreshSolve();
             ShowSelections();
@@ -141,7 +139,7 @@ namespace ZeroInstall.Commands
             if (Requirements.Command == "") throw new OptionException(Resources.NoRunWithEmptyCommand, "--command");
 
             // Prevent the user from pressing any buttons once the child process is being launched
-            Handler.DisableProgressUI();
+            Handler.DisableUI();
 
             using (var runHook = CreateRunHook())
             {
@@ -162,7 +160,7 @@ namespace ZeroInstall.Commands
                 }
                 #endregion
 
-                Handler.CloseProgressUI();
+                Handler.CloseUI();
 
                 try
                 {

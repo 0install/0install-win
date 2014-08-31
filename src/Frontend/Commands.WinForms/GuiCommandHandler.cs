@@ -89,6 +89,8 @@ namespace ZeroInstall.Commands.WinForms
             if (task == null) throw new ArgumentNullException("task");
             #endregion
 
+            ShowUI();
+
             IProgress<TaskSnapshot> progress = null;
             if (task.Tag is ManifestDigest)
             {
@@ -108,77 +110,88 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region UI control
+        private readonly object _uiLock = new object();
+
         private ProgressForm _form;
 
         /// <inheritdoc/>
         [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "handle", Justification = "Need to retrieve value from Form.Handle to force window handle creation")]
-        public void ShowProgressUI()
+        private void ShowUI()
         {
-            // Can only show GUI once
-            if (_form != null) return;
-
-            // Start GUI thread
-            using (var guiReady = new ManualResetEvent(false))
+            lock (_uiLock)
             {
-                ProcessUtils.RunAsync(() =>
-                {
-                    _form = new ProgressForm(_cancellationTokenSource);
+                // Can only show GUI once
+                if (_form != null) return;
 
-                    if (Batch)
+                // Start GUI thread
+                using (var guiReady = new ManualResetEvent(false))
+                {
+                    ProcessUtils.RunAsync(() =>
                     {
-                        // Force creation of handle for invisible form
-                        // ReSharper disable once UnusedVariable
-                        var handle = _form.Handle;
+                        _form = new ProgressForm(_cancellationTokenSource);
 
-                        _form.ShowTrayIcon();
-                    }
-                    else _form.Show();
+                        if (Batch)
+                        {
+                            // Force creation of handle for invisible form
+                            // ReSharper disable once UnusedVariable
+                            var handle = _form.Handle;
 
-                    // Signal that the GUI handles have been created
-                    // ReSharper disable once AccessToDisposedClosure
-                    guiReady.Set();
+                            _form.ShowTrayIcon();
+                        }
+                        else _form.Show();
 
-                    Application.Run();
-                }, "GuiHandler.ProgressUI");
-                guiReady.WaitOne(); // Wait until the GUI handles have been created
+                        // Signal that the GUI handles have been created
+                        // ReSharper disable once AccessToDisposedClosure
+                        guiReady.Set();
+
+                        Application.Run();
+                    }, "GuiHandler.ProgressUI");
+                    guiReady.WaitOne(); // Wait until the GUI handles have been created
+                }
             }
         }
 
         /// <inheritdoc/>
-        public void DisableProgressUI()
+        public void DisableUI()
         {
-            if (_form == null) return;
+            lock (_uiLock)
+            {
+                if (_form == null) return;
 
-            _form.Invoke(new Action(() => _form.Enabled = false));
+                _form.Invoke(new Action(() => _form.Enabled = false));
+            }
         }
 
         /// <inheritdoc/>
-        public void CloseProgressUI()
+        public void CloseUI()
         {
-            if (_form == null) return;
-
-            try
+            lock (_uiLock)
             {
-                var form = _form;
-                _form = null;
-                form.Invoke(new Action(() =>
+                if (_form == null) return;
+
+                try
                 {
-                    form.HideTrayIcon();
-                    Application.ExitThread();
-                    form.Dispose();
-                }));
+                    var form = _form;
+                    _form = null;
+                    form.Invoke(new Action(() =>
+                    {
+                        form.HideTrayIcon();
+                        Application.ExitThread();
+                        form.Dispose();
+                    }));
+                }
+                    #region Error handling
+                catch (InvalidOperationException)
+                {
+                    // Don't worry if the form was disposed in the meantime
+                }
+                catch (RemotingException ex)
+                {
+                    // Remoting exceptions on clean-up are not critical
+                    Log.Warn(ex);
+                }
+                #endregion
             }
-                #region Error handling
-            catch (InvalidOperationException)
-            {
-                // Don't worry if the form was disposed in the meantime
-            }
-            catch (RemotingException ex)
-            {
-                // Remoting exceptions on clean-up are not critical
-                Log.Warn(ex);
-            }
-            #endregion
         }
         #endregion
 
@@ -190,7 +203,7 @@ namespace ZeroInstall.Commands.WinForms
             if (string.IsNullOrEmpty(question)) throw new ArgumentNullException("question");
             #endregion
 
-            if (_form == null) return false;
+            ShowUI();
 
             // Handle events coming from a non-UI thread, block caller until user has answered
             bool result = false;
@@ -227,7 +240,7 @@ namespace ZeroInstall.Commands.WinForms
             if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
-            if (_form == null) return;
+            ShowUI();
 
             try
             {
@@ -249,7 +262,7 @@ namespace ZeroInstall.Commands.WinForms
             if (solveCallback == null) throw new ArgumentNullException("solveCallback");
             #endregion
 
-            if (_form == null) return;
+            ShowUI();
 
             // Show "modify selections" screen and then asynchronously wait until its done
             _form.Invoke(new Action(() =>
@@ -269,7 +282,8 @@ namespace ZeroInstall.Commands.WinForms
         /// <inheritdoc/>
         public void Output(string title, string information)
         {
-            DisableProgressUI();
+            DisableUI();
+
             if (Batch) ShowBalloonMessage(title, information);
             else OutputBox.Show(title, information);
         }
@@ -281,7 +295,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="information">The balloon message text.</param>
         private void ShowBalloonMessage(string title, string information)
         {
-            if (_form == null) return;
+            ShowUI();
 
             // Remove existing tray icon to give new balloon priority
             _form.Invoke(new Action(() => _form.HideTrayIcon()));
@@ -299,7 +313,7 @@ namespace ZeroInstall.Commands.WinForms
             if (state == null) throw new ArgumentNullException("state");
             #endregion
 
-            if (_form == null) return;
+            ShowUI();
 
             bool apply = false;
             _form.Invoke(new Action(() =>

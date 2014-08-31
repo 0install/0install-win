@@ -41,7 +41,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Handler.ShowProgressUI();
             string interfaceID = GetCanonicalID(AdditionalArgs[0]);
             using (var integrationManager = new CategoryIntegrationManager(Handler, MachineWide))
                 return ExecuteHelper(integrationManager, interfaceID);

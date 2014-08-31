@@ -86,8 +86,6 @@ namespace ZeroInstall.Commands
         {
             if (StoreUtils.PathInAStore(Locations.InstallBase)) throw new NotSupportedException(Resources.NoSelfUpdateStore);
 
-            Handler.ShowProgressUI();
-
             Solve();
             ShowSelections();
 

@@ -201,7 +201,7 @@ namespace ZeroInstall.Launcher.Cli
             finally
             {
                 // Always close GUI in the end
-                handler.CloseProgressUI();
+                handler.CloseUI();
             }
         }
     }
