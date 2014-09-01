@@ -120,14 +120,17 @@
   <data name="AccessPointExistingConflict" xml:space="preserve">
     <value>The following existing access points are in conflict with each other:</value>
   </data>
-  <data name="AccessPointNewConflict" xml:space="preserve">
-    <value>The existing access point {0} is in conflict with the new access point {1}.</value>
-  </data>
   <data name="AccessPointInnerConflict" xml:space="preserve">
     <value>The following access points for the application {0} are in conflict with each other:</value>
   </data>
+  <data name="AccessPointNewConflict" xml:space="preserve">
+    <value>The existing access point {0} is in conflict with the new access point {1}.</value>
+  </data>
   <data name="AppAlreadyInList" xml:space="preserve">
     <value>The application '{0}' is already in the application list.</value>
+  </data>
+  <data name="ApplyingChanges" xml:space="preserve">
+    <value>Applying changes</value>
   </data>
   <data name="AppNotInList" xml:space="preserve">
     <value>Unable to find application '{0}' in the application list.</value>
@@ -154,9 +157,15 @@
     <value>The crypto key you entered for Sync is incorrect. Please check your Synchronization Options.
 You can change the crypto key used on the server by running the troubleshooting wizard (right-click on the "Sync" Button to get there) or by executing '0install sync --reset=server'.</value>
   </data>
+  <data name="SyncDownloading" xml:space="preserve">
+    <value>Downloading sync data</value>
+  </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>The data currently stored on the Sync server is damaged.
 You can replace the data stored on the server by running the troubleshooting wizard (right-click on the "Sync" Button to get there) or by executing '0install sync --reset=server'.</value>
+  </data>
+  <data name="SyncUploading" xml:space="preserve">
+    <value>Uploading sync data</value>
   </data>
   <data name="UnableToFindTypeID" xml:space="preserve">
     <value>Unable to find {0} with the ID '{1}'.</value>

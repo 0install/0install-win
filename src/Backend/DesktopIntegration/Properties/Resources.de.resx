@@ -120,14 +120,17 @@
   <data name="AccessPointExistingConflict" xml:space="preserve">
     <value>Die folgenden bereits existierenden Access Points stehen untereinander im Konflikt:</value>
   </data>
-  <data name="AccessPointNewConflict" xml:space="preserve">
-    <value>Der bereits existierende Access Point {0} steht im Konflikt mit dem neuen Access Point {1}.</value>
-  </data>
   <data name="AccessPointInnerConflict" xml:space="preserve">
     <value>Die folgenden Access Points für die Anwendung {0} stehen untereinander im Konflikt:</value>
   </data>
+  <data name="AccessPointNewConflict" xml:space="preserve">
+    <value>Der bereits existierende Access Point {0} steht im Konflikt mit dem neuen Access Point {1}.</value>
+  </data>
   <data name="AppAlreadyInList" xml:space="preserve">
     <value>Die Anwendung '{0}' ist bereits in der Anwendungsliste.</value>
+  </data>
+  <data name="ApplyingChanges" xml:space="preserve">
+    <value>Wende Änderungen an</value>
   </data>
   <data name="AppNotInList" xml:space="preserve">
     <value>Konnte Anwendung '{0}' nicht in der Anwendungsliste finden.</value>
@@ -154,9 +157,15 @@
     <value>Der Crypto-Schlüssel für Sync ist nicht korrekt. Bitte überprüfen Sie Ihre Synchronisations-Optionen.
 Sie können den Crypto-Schlüssel der auf dem Server verwendet wird verändern, indem Sie den Problembehebungs-Assistenten (Rechtsklick auf den "Sync" Button um dorthin zu gelangen) oder '0install sync --reset=server' ausführen.</value>
   </data>
+  <data name="SyncDownloading" xml:space="preserve">
+    <value>Lade Sync-Daten heruntern</value>
+  </data>
   <data name="SyncServerDataDamaged" xml:space="preserve">
     <value>Die Daten die derzeit auf dem Sync-Server gespeichert sind, sind beschädigt.
 Sie können die Daten die auf dem Server gespeichert sind ersetzen, indem Sie den Problembehebungs-Assistenten (Rechtsklick auf den "Sync" Button um dorthin zu gelangen) oder '0install sync --reset=server' ausführen.</value>
+  </data>
+  <data name="SyncUploading" xml:space="preserve">
+    <value>Lade Sync-Daten hoch</value>
   </data>
   <data name="UnableToFindTypeID" xml:space="preserve">
     <value>Konnte kein {0} mit der ID '{1}' finden.</value>

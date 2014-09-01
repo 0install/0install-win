@@ -50,37 +50,28 @@ namespace ZeroInstall.Commands
 
         #region State
         private SyncResetMode _syncResetMode = SyncResetMode.None;
-        private SyncIntegrationManager _syncManager;
         #endregion
 
         /// <inheritdoc/>
         public override int Execute()
         {
-            using (_syncManager = new SyncIntegrationManager(Config.ToSyncServer(), Config.SyncCryptoKey, FeedManager.GetFeedFresh, Handler, MachineWide))
-                Sync();
+            using (var syncManager = new SyncIntegrationManager(Config.ToSyncServer(), Config.SyncCryptoKey, FeedManager.GetFeedFresh, Handler, MachineWide))
+            {
+                try
+                {
+                    syncManager.Sync(_syncResetMode);
+                }
+                    #region Error handling
+                catch
+                {
+                    // Suppress any left-over errors if the user canceled anyway
+                    Handler.CancellationToken.ThrowIfCancellationRequested();
+                    throw;
+                }
+            }
+            #endregion
 
             return 0;
         }
-
-        #region Helpers
-        /// <summary>
-        /// Performs the synchronization.
-        /// </summary>
-        private void Sync()
-        {
-            try
-            {
-                _syncManager.Sync(_syncResetMode);
-            }
-                #region Error handling
-            catch
-            {
-                // Suppress any left-over errors if the user canceled anyway
-                Handler.CancellationToken.ThrowIfCancellationRequested();
-                throw;
-            }
-            #endregion
-        }
-        #endregion
     }
 }

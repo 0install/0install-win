@@ -97,6 +97,15 @@ namespace ZeroInstall.DesktopIntegration.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Applying changes.
+        /// </summary>
+        internal static string ApplyingChanges {
+            get {
+                return ResourceManager.GetString("ApplyingChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to find application &apos;{0}&apos; in the application list..
         /// </summary>
         internal static string AppNotInList {
@@ -170,12 +179,30 @@ namespace ZeroInstall.DesktopIntegration.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Downloading sync data.
+        /// </summary>
+        internal static string SyncDownloading {
+            get {
+                return ResourceManager.GetString("SyncDownloading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The data currently stored on the Sync server is damaged.
         ///You can replace the data stored on the server by running the troubleshooting wizard (right-click on the &quot;Sync&quot; Button to get there) or by executing &apos;0install sync --reset=server&apos;..
         /// </summary>
         internal static string SyncServerDataDamaged {
             get {
                 return ResourceManager.GetString("SyncServerDataDamaged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploading sync data.
+        /// </summary>
+        internal static string SyncUploading {
+            get {
+                return ResourceManager.GetString("SyncUploading", resourceCulture);
             }
         }
         

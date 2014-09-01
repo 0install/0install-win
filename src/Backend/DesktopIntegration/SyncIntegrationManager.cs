@@ -176,7 +176,7 @@ namespace ZeroInstall.DesktopIntegration
                 byte[] appListData;
                 try
                 {
-                    appListData = (resetMode == SyncResetMode.Server) ? new byte[0] : webClient.DownloadData(appListUri);
+                    appListData = DownloadAppList(appListUri, webClient, resetMode);
                 }
                     #region Error handling
                 catch (WebException ex)
@@ -242,6 +242,15 @@ namespace ZeroInstall.DesktopIntegration
         #endregion
 
         #region Helpers
+        private byte[] DownloadAppList(Uri appListUri, WebClientTimeout webClient, SyncResetMode resetMode)
+        {
+            if (resetMode == SyncResetMode.Server) return new byte[0];
+
+            byte[] data = null;
+            Handler.RunTask(new SimpleTask(Resources.SyncDownloading, () => { data = webClient.DownloadData(appListUri); }));
+            return data;
+        }
+
         private void HandleDownloadedAppList(SyncResetMode resetMode, byte[] appListData)
         {
             if (appListData.Length == 0) return;
@@ -295,7 +304,7 @@ namespace ZeroInstall.DesktopIntegration
                     webClient.Headers[HttpRequestHeader.IfMatch] = webClient.ResponseHeaders[HttpResponseHeader.ETag];
             }
 
-            webClient.UploadData(appListUri, "PUT", memoryStream.ToArray());
+            Handler.RunTask(new SimpleTask(Resources.SyncUploading, () => webClient.UploadData(appListUri, "PUT", memoryStream.ToArray())));
         }
         #endregion
 
@@ -340,9 +349,11 @@ namespace ZeroInstall.DesktopIntegration
                     added: toAdd, removed: toRemove);
             }
 
-            // Apply changes with rollback protection
-            toRemove.ApplyWithRollback(RemoveAppInternal, AddAppHelper);
-            toAdd.ApplyWithRollback(AddAppHelper, RemoveAppInternal);
+            Handler.RunTask(new SimpleTask(Resources.ApplyingChanges, () =>
+            {
+                toRemove.ApplyWithRollback(RemoveAppInternal, AddAppHelper);
+                toAdd.ApplyWithRollback(AddAppHelper, RemoveAppInternal);
+            }));
         }
 
         /// <summary>
