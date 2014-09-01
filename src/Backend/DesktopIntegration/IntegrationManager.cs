@@ -52,9 +52,6 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>The storage location of the <see cref="AppList"/> file.</summary>
         protected readonly string AppListPath;
 
-        /// <summary>A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</summary>
-        protected readonly ITaskHandler Handler;
-
         /// <summary>Prevents multiple processes from performing desktop integration operations simultaneously.</summary>
         private readonly Mutex _mutex;
 
@@ -72,11 +69,10 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public IntegrationManager(string appListPath, ITaskHandler handler, bool machineWide = false)
+        public IntegrationManager(string appListPath, ITaskHandler handler, bool machineWide = false) : base(handler)
         {
             MachineWide = machineWide;
             AppListPath = appListPath;
-            Handler = handler;
 
             if (File.Exists(AppListPath)) AppList = XmlStorage.LoadXml<AppList>(AppListPath);
             else
@@ -94,7 +90,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="IOException">Thrown if a problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public IntegrationManager(ITaskHandler handler, bool machineWide = false)
+        public IntegrationManager(ITaskHandler handler, bool machineWide = false) : base(handler)
         {
             // Prevent multiple concurrent desktop integration operations
             _mutex = new Mutex(false, machineWide ? @"Global\" + MutexName : MutexName);
@@ -106,7 +102,6 @@ namespace ZeroInstall.DesktopIntegration
 
             MachineWide = machineWide;
             AppListPath = AppList.GetDefaultPath(machineWide);
-            Handler = handler;
 
             if (File.Exists(AppListPath)) AppList = XmlStorage.LoadXml<AppList>(AppListPath);
             else

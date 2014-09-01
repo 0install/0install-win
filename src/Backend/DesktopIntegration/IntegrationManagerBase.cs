@@ -29,6 +29,20 @@ namespace ZeroInstall.DesktopIntegration
     /// </summary>
     public abstract class IntegrationManagerBase : IIntegrationManager
     {
+        #region Dependencies
+        /// <summary>A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</summary>
+        protected readonly ITaskHandler Handler;
+
+        /// <summary>
+        /// Creates an integration manager base.
+        /// </summary>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        protected IntegrationManagerBase(ITaskHandler handler)
+        {
+            Handler = handler;
+        }
+        #endregion
+
         #region Properties
         /// <summary>
         /// Stores a list of applications and their desktop integrations. Only use for read-access externally! Use this class' methods for any modifications.
