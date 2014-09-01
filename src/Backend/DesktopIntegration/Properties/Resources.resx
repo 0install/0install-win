@@ -141,6 +141,9 @@
   <data name="ProblemLoading" xml:space="preserve">
     <value>There was a problem loading '{0}'.</value>
   </data>
+  <data name="RepairingIntegration" xml:space="preserve">
+    <value>Repairing desktop integration</value>
+  </data>
   <data name="ShortcutNameInvalidChars" xml:space="preserve">
     <value>The shortcut name '{0}' contains invalid characters.</value>
   </data>

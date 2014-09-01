@@ -141,6 +141,9 @@
   <data name="ProblemLoading" xml:space="preserve">
     <value>Es gab ein Problem beim Laden von '{0}'.</value>
   </data>
+  <data name="RepairingIntegration" xml:space="preserve">
+    <value>Repariere Desktopintegration</value>
+  </data>
   <data name="ShortcutNameInvalidChars" xml:space="preserve">
     <value>Der Verknüpfungsname '{0}' enthält ungültige Zeichen.</value>
   </data>

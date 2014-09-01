@@ -133,6 +133,15 @@ namespace ZeroInstall.DesktopIntegration.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Repairing desktop integration.
+        /// </summary>
+        internal static string RepairingIntegration {
+            get {
+                return ResourceManager.GetString("RepairingIntegration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The shortcut name &apos;{0}&apos; contains invalid characters..
         /// </summary>
         internal static string ShortcutNameInvalidChars {

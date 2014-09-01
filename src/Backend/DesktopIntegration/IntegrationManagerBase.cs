@@ -19,7 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration
@@ -211,8 +213,7 @@ namespace ZeroInstall.DesktopIntegration
 
             try
             {
-                foreach (var appEntry in AppList.Entries)
-                    RepairAppInternal(appEntry, feedRetriever(appEntry.InterfaceID));
+                Handler.RunTask(new ForEachTask<AppEntry>(Resources.RepairingIntegration, AppList.Entries, x => RepairAppInternal(x, feedRetriever(x.InterfaceID))));
             }
             catch (KeyNotFoundException ex)
             {
