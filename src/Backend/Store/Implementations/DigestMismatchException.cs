@@ -78,7 +78,7 @@ namespace ZeroInstall.Store.Implementations
 
             if (expectedManifest != null && actualManifest != null)
             { // Diff
-                Merge.TwoWay(expectedManifest, actualManifest,
+                Merge.TwoWay(actualManifest, expectedManifest,
                     added: node => builder.Append(Environment.NewLine + "unexpected: " + node),
                     removed: node => builder.Append(Environment.NewLine + "missing: " + node));
             }
