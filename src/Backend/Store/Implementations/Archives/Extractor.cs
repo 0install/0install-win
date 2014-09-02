@@ -65,6 +65,11 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         #region Constructor
         /// <summary>
+        /// Indicates whether <see cref="TargetDir"/> is located on a filesystem with support for Unixoid features such as executable bits.
+        /// </summary>
+        private readonly bool _isUnixFS;
+
+        /// <summary>
         /// Prepares to extract an archive contained in a stream.
         /// </summary>
         /// <param name="target">The path to the directory to extract into.</param>
@@ -75,6 +80,9 @@ namespace ZeroInstall.Store.Implementations.Archives
             #endregion
 
             TargetDir = target;
+
+            if (Directory.Exists(target)) Directory.CreateDirectory(target);
+            _isUnixFS = FileUtils.IsUnifxFS(target);
         }
         #endregion
 
@@ -319,7 +327,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             string sourceDirectory = Path.GetDirectoryName(sourceAbsolute);
             if (sourceDirectory != null && !Directory.Exists(sourceDirectory)) Directory.CreateDirectory(sourceDirectory);
 
-            if (UnixUtils.IsUnix) FileUtils.CreateSymlink(sourceAbsolute, target);
+            if (_isUnixFS) FileUtils.CreateSymlink(sourceAbsolute, target);
                 // NOTE: NTFS symbolic links require admin privileges; do not use them here
                 //else if (WindowsUtils.IsWindowsNT) {...}
             else
@@ -432,7 +440,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             #endregion
 
-            if (UnixUtils.IsUnix) FileUtils.SetExecutable(Path.Combine(EffectiveTargetDir, relativePath), true);
+            if (_isUnixFS) FileUtils.SetExecutable(Path.Combine(EffectiveTargetDir, relativePath), true);
             else
             {
                 // Non-Unixoid OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
@@ -451,7 +459,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             #endregion
 
-            if (UnixUtils.IsUnix) FileUtils.SetExecutable(Path.Combine(EffectiveTargetDir, relativePath), false);
+            if (_isUnixFS) FileUtils.SetExecutable(Path.Combine(EffectiveTargetDir, relativePath), false);
             else
             {
                 // Non-Unixoid OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
