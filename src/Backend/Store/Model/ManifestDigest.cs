@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Model
     [Serializable]
     [TypeConverter(typeof(ManifestDigestConverter))]
     [XmlType("manifest-digest", Namespace = Feed.XmlNamespace)]
-    public struct ManifestDigest : IEquatable<ManifestDigest>, IComparable<ManifestDigest>
+    public struct ManifestDigest : IEquatable<ManifestDigest>
     {
         #region Constants
         /// <summary>
@@ -269,21 +269,6 @@ namespace ZeroInstall.Store.Model
                 result = (result * 397) ^ (Sha256New != null ? Sha256New.GetHashCode() : 0);
                 return result;
             }
-        }
-        #endregion
-
-        #region Comparison
-        int IComparable<ManifestDigest>.CompareTo(ManifestDigest other)
-        {
-            if (Equals(other)) return 0;
-
-            // Sort based on the best digest algorithm available
-            int distance = string.CompareOrdinal(AvailableDigests.FirstOrDefault(), other.AvailableDigests.FirstOrDefault());
-
-            // Only return 0 for true equality
-            if (distance == 0) distance = 1;
-
-            return distance;
         }
         #endregion
     }

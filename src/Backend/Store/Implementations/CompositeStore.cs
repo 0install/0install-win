@@ -69,14 +69,14 @@ namespace ZeroInstall.Store.Implementations
         public IEnumerable<ManifestDigest> ListAll()
         {
             // Merge the lists from all contained stores, eliminating duplicates
-            return new SortedSet<ManifestDigest>(_stores.SelectMany(x => x.ListAllSafe()));
+            return new HashSet<ManifestDigest>(_stores.SelectMany(x => x.ListAllSafe()));
         }
 
         /// <inheritdoc/>
         public IEnumerable<string> ListAllTemp()
         {
             // Merge the lists from all contained stores, eliminating duplicates
-            return new SortedSet<string>(_stores.SelectMany(x => x.ListAllTempSafe()), StringComparer.Ordinal);
+            return new HashSet<string>(_stores.SelectMany(x => x.ListAllTempSafe()), StringComparer.Ordinal);
         }
         #endregion
 

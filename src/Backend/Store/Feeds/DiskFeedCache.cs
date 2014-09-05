@@ -96,16 +96,11 @@ namespace ZeroInstall.Store.Feeds
             if (!Directory.Exists(DirectoryPath)) return Enumerable.Empty<string>();
 
             // Find all files whose names begin with an URL protocol
-            string[] files = Directory.GetFiles(DirectoryPath, "http*");
-
-            var result = new List<string>(files.Length);
-
-            // Take the file name itself and use URL encoding to get the original URL
-            result.AddRange(files.Select(file => ModelUtils.Unescape(Path.GetFileName(file) ?? "")).Where(ModelUtils.IsValidUri));
-
-            // Return as a C-sorted list
-            result.Sort(StringComparer.Ordinal);
-            return result;
+            return Directory.GetFiles(DirectoryPath, "http*")
+                // Take the file name itself and use URL encoding to get the original URL
+                .Select(path => ModelUtils.Unescape(Path.GetFileName(path) ?? ""))
+                // Filter out temporary/junk files
+                .Where(ModelUtils.IsValidUri).ToList();
         }
         #endregion
 

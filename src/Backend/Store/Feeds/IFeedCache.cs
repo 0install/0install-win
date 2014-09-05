@@ -30,7 +30,7 @@ namespace ZeroInstall.Store.Feeds
         /// Returns a list of all <see cref="Feed"/>s stored in this cache.
         /// </summary>
         /// <returns>
-        /// A list of feed URIs (e.g. "http://somedomain.net/interface.xml") in C-sorted order (ordinal comparison, increasing).
+        /// A list of feed URIs (e.g. "http://somedomain.net/interface.xml").
         /// Usually these can also be considered interface IDs.
         /// </returns>
         /// <exception cref="IOException">Thrown if a problem occured while reading from the cache.</exception>

@@ -34,14 +34,14 @@ namespace ZeroInstall.Store.Implementations
         /// Returns a list of all implementations currently in the store.
         /// </summary>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
-        /// <returns>A list of implementations formated as "algorithm=digest" (e.g. "sha256=123abc") in C-sorted order (ordinal comparison, increasing).</returns>
+        /// <returns>A list of implementations formated as "algorithm=digest" (e.g. "sha256=123abc").</returns>
         IEnumerable<ManifestDigest> ListAll();
 
         /// <summary>
         /// Returns a list of temporary directories currently in the store.
         /// </summary>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
-        /// <returns>A list of fully qualified paths in C-sorted order (ordinal comparison, increasing).</returns>
+        /// <returns>A list of fully qualified paths.</returns>
         IEnumerable<string> ListAllTemp();
 
         /// <summary>

@@ -25,7 +25,7 @@ namespace ZeroInstall.Store.Icons
         /// <summary>
         /// Returns a list of all icons stored in this cache.
         /// </summary>
-        /// <returns>A list of icon URIs in C-sorted order (ordinal comparison, increasing).</returns>
+        /// <returns>A list of icon URIs.</returns>
         /// <exception cref="IOException">Thrown if a problem occured while reading from the cache.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
         IEnumerable<string> ListAll();

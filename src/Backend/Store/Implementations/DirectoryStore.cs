@@ -230,7 +230,7 @@ namespace ZeroInstall.Store.Implementations
             if (!Directory.Exists(DirectoryPath)) return Enumerable.Empty<ManifestDigest>();
 
             var result = new List<ManifestDigest>();
-            foreach (string path in FileUtils.GetDirectories(DirectoryPath))
+            foreach (string path in Directory.GetDirectories(DirectoryPath))
             {
                 try
                 {
@@ -248,7 +248,7 @@ namespace ZeroInstall.Store.Implementations
             if (!Directory.Exists(DirectoryPath)) return Enumerable.Empty<string>();
 
             var result = new List<string>();
-            foreach (string path in FileUtils.GetDirectories(DirectoryPath))
+            foreach (string path in Directory.GetDirectories(DirectoryPath))
             {
                 try
                 {
