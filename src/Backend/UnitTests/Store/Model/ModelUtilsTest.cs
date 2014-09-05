@@ -6,13 +6,13 @@ using NUnit.Framework;
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
-    /// Contains test methods for <see cref="Store.ModelUtils"/>.
+    /// Contains test methods for <see cref="ModelUtils"/>.
     /// </summary>
     [TestFixture]
     public class ModelUtilsTest
     {
         /// <summary>
-        /// Ensures <see cref="Store.ModelUtils.IsValidUri(System.Uri)"/> correctly identify invalid feed URIs.
+        /// Ensures <see cref="ModelUtils.IsValidUri(System.Uri)"/> correctly identify invalid feed URIs.
         /// </summary>
         [Test]
         public void TestIsValidUri()
@@ -42,7 +42,7 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
-        /// Ensures <see cref="Store.ModelUtils.ValidateInterfaceID"/> correctly identify invalid interface IDs.
+        /// Ensures <see cref="ModelUtils.ValidateInterfaceID"/> correctly identify invalid interface IDs.
         /// </summary>
         [Test]
         public void TestValidateInterfaceID()

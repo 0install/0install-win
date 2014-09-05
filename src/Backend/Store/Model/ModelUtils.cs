@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
-using System.Web;
+using System.Text;
 using NanoByte.Common.Utils;
 using ZeroInstall.Store.Properties;
 
@@ -72,9 +73,9 @@ namespace ZeroInstall.Store.Model
         }
         #endregion
 
-        #region URI escaping
+        #region URL escaping
         /// <summary>
-        /// Escapes a value using URI encoding.
+        /// Escapes a value using URL encoding.
         /// </summary>
         public static string Escape(string value)
         {
@@ -82,7 +83,72 @@ namespace ZeroInstall.Store.Model
             if (value == null) throw new ArgumentNullException("value");
             #endregion
 
-            return HttpUtility.UrlEncode(value);
+            var builder = new StringBuilder();
+            for (int i = 0; i < value.Length; i++)
+            {
+                switch (value[i])
+                {
+                    case '-':
+                    case '_':
+                    case '.':
+                        builder.Append(value[i]);
+                        break;
+
+                    default:
+                        if (char.IsLetterOrDigit(value[i]))
+                            builder.Append(value[i]);
+                        else
+                        {
+                            builder.Append('%');
+                            builder.Append(((int)value[i]).ToString("x"));
+                        }
+                        break;
+                }
+            }
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// Escapes a value using URL encoding except for slashes (encoded as #) and colons (left as-is on POSIX systems).
+        /// </summary>
+        public static string PrettyEscape(string value)
+        {
+            #region Sanity checks
+            if (value == null) throw new ArgumentNullException("value");
+            #endregion
+
+            var builder = new StringBuilder();
+            for (int i = 0; i < value.Length; i++)
+            {
+                switch (value[i])
+                {
+                    case '/':
+                        builder.Append('#');
+                        break;
+
+                    case ':':
+                        if (UnixUtils.IsUnix) builder.Append(':');
+                        else builder.Append("%3a");
+                        break;
+
+                    case '-':
+                    case '_':
+                    case '.':
+                        builder.Append(value[i]);
+                        break;
+
+                    default:
+                        if (char.IsLetterOrDigit(value[i]))
+                            builder.Append(value[i]);
+                        else
+                        {
+                            builder.Append('%');
+                            builder.Append(((int)value[i]).ToString("x"));
+                        }
+                        break;
+                }
+            }
+            return builder.ToString();
         }
 
         /// <summary>
@@ -94,27 +160,25 @@ namespace ZeroInstall.Store.Model
             if (escaped == null) throw new ArgumentNullException("escaped");
             #endregion
 
-            return HttpUtility.UrlDecode(escaped);
-        }
+            var builder = new StringBuilder();
+            for (int i = 0; i < escaped.Length; i++)
+            {
+                switch (escaped[i])
+                {
+                    case '%':
+                        if (escaped.Length > i + 2)
+                        {
+                            builder.Append((char)int.Parse(escaped.Substring(i + 1, 2), NumberStyles.HexNumber));
+                            i += 2;
+                        }
+                        break;
 
-        /// <summary>
-        /// Escapes a value using URI encoding except for slashes (encoded as #) and colons (left as-is on POSIX systems).
-        /// </summary>
-        public static string PrettyEscape(string value)
-        {
-            #region Sanity checks
-            if (value == null) throw new ArgumentNullException("value");
-            #endregion
-
-            string result = Escape(value);
-
-            // Encode slash as #
-            result = result.Replace("%2f", "#");
-
-            // Do not encode : on Unixoid systems
-            if (UnixUtils.IsUnix) result = result.Replace("%3a", ":");
-
-            return result;
+                    default:
+                        builder.Append(escaped[i]);
+                        break;
+                }
+            }
+            return builder.ToString();
         }
 
         /// <summary>
@@ -126,11 +190,29 @@ namespace ZeroInstall.Store.Model
             if (escaped == null) throw new ArgumentNullException("escaped");
             #endregion
 
-            // Do not encode : on Unixoid systems
-            if (UnixUtils.IsUnix) escaped = escaped.Replace(":", "%3a");
+            var builder = new StringBuilder();
+            for (int i = 0; i < escaped.Length; i++)
+            {
+                switch (escaped[i])
+                {
+                    case '#':
+                        builder.Append('/');
+                        break;
 
-            // Decode # as slash
-            return Unescape(escaped.Replace("#", "%2f"));
+                    case '%':
+                        if (escaped.Length > i + 2)
+                        {
+                            builder.Append((char)int.Parse(escaped.Substring(i + 1, 2), NumberStyles.HexNumber));
+                            i += 2;
+                        }
+                        break;
+
+                    default:
+                        builder.Append(escaped[i]);
+                        break;
+                }
+            }
+            return builder.ToString();
         }
         #endregion
 
