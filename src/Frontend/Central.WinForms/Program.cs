@@ -99,8 +99,8 @@ namespace ZeroInstall.Central.WinForms
                 }
 
                 // Only set HKCU value if there is an existing incorrect value
-                if ((Registry.GetValue(hklmKey, value, Locations.InstallBase).ToString() != Locations.InstallBase) ||
-                    (Registry.GetValue(hkcuKey, value, Locations.InstallBase).ToString() != Locations.InstallBase))
+                if (((Registry.GetValue(hklmKey, value, Locations.InstallBase) ?? "").ToString() != Locations.InstallBase) ||
+                    ((Registry.GetValue(hkcuKey, value, Locations.InstallBase) ?? "").ToString() != Locations.InstallBase))
                     Registry.SetValue(hkcuKey, value, Locations.InstallBase, RegistryValueKind.String);
             }
                 #region Error handling
