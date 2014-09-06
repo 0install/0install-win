@@ -10,7 +10,7 @@
 	<icon href="http://0install.de/feeds/images/ZeroInstall.ico" type="image/vnd.microsoft.icon" />
 	<feed-for interface="http://0install.de/feeds/ZeroInstall_Updater.xml" />
 	<group arch="Windows-*" license="LGPL v3 (GNU Lesser General Public License)" main="0update-win.exe">
-		<implementation version="1.3.2-post-1" stability="testing" id="local-release" local-path="build/Release/Updater" />
-		<implementation version="1.3.2-post-2" stability="developer" id="local-debug" local-path="build/Debug/Updater" />
+		<implementation version="1.3.3-post-1" stability="testing" id="local-release" local-path="build/Release/Updater" />
+		<implementation version="1.3.3-post-2" stability="developer" id="local-debug" local-path="build/Debug/Updater" />
 	</group>
 </interface>
