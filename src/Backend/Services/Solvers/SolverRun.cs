@@ -69,6 +69,7 @@ namespace ZeroInstall.Services.Solvers
 
             var implementations = store.ListAll();
             _isCached = new TransparentCache<ManifestDigest, bool>(x => implementations.Contains(x, ManifestDigestPartialEqualityComparer.Instance));
+            //_isCached = new TransparentCache<ManifestDigest, bool>(store.Contains);
 
             _comparer = new TransparentCache<string, SelectionCandidateComparer>(id => new SelectionCandidateComparer(config, _isCached, _interfacePreferences[id].StabilityPolicy));
             _feeds = new TransparentCache<string, Feed>(feedManager.GetFeed);
