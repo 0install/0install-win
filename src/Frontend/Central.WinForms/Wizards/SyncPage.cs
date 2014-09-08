@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Tasks;
@@ -48,17 +47,6 @@ namespace ZeroInstall.Central.WinForms.Wizards
         }
 
         #region Create sync
-        /// <summary>
-        /// Creates a new <see cref="SyncIntegrationManager"/> using the default configuration.
-        /// </summary>
-        /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        /// <returns>A new <see cref="SyncIntegrationManager"/> instance.</returns>
-        protected SyncIntegrationManager CreateSync(bool machineWide)
-        {
-            var services = new ServiceLocator(this);
-            return new SyncIntegrationManager(services.Config.ToSyncServer(), services.Config.SyncCryptoKey, services.FeedManager.GetFeedFresh, services.Handler, machineWide);
-        }
-
         /// <summary>
         /// Creates a new <see cref="SyncIntegrationManager"/> using a custom crypto key.
         /// </summary>
@@ -103,10 +91,10 @@ namespace ZeroInstall.Central.WinForms.Wizards
         /// </summary>
         public CancellationToken CancellationToken { get { return _cancellationToken; } }
 
-        [MethodImpl(MethodImplOptions.Synchronized)] // Prevent multiple concurrent tasks
+        /// <inheritdoc/>
         public void RunTask(ITask task)
         {
-            using (var handler = new GuiTaskHandler(this)) handler.RunTask(task);
+            Invoke(new Action(() => { using (var handler = new GuiTaskHandler(this)) handler.RunTask(task); }));
         }
 
         /// <summary>
