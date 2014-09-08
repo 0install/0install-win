@@ -191,12 +191,16 @@ namespace ZeroInstall.Store.Trust
         #endregion
 
         #region Execute
-        // NOTE: Run only one gpg instance at a time to prevent file system race confitions
+        private static readonly object _gpgLock = new object();
+
         /// <inheritdoc/>
-        [MethodImpl(MethodImplOptions.Synchronized)]
         protected override string Execute(string arguments, Action<StreamWriter> inputCallback = null)
         {
-            return base.Execute(arguments, inputCallback);
+            // Run only one gpg instance at a time to prevent file system race conditions
+            lock (_gpgLock)
+            {
+                return base.Execute(arguments, inputCallback);
+            }
         }
 
         /// <inheritdoc/>
