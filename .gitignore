@@ -5,6 +5,7 @@
 /src/_TeamCity.*/
 /src/_dotTrace.*/
 /src/_dotMemory.*/
+/src/_dotCover.*/
 obj/
 test-results/
 *.bak
