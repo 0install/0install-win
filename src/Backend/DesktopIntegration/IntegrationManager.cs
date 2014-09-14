@@ -92,15 +92,9 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public IntegrationManager(ITaskHandler handler, bool machineWide = false) : base(handler)
         {
-            // Prevent multiple concurrent desktop integration operations
-            _mutex = new Mutex(false, machineWide ? @"Global\" + MutexName : MutexName);
-            if (!_mutex.WaitOne(1000, exitContext: false))
-            {
-                _mutex = null; // Don't try to release mutex if it wasn't acquired
-                throw new UnauthorizedAccessException(Resources.IntegrationMutex);
-            }
-
             MachineWide = machineWide;
+            _mutex = AquireMutex();
+
             AppListPath = AppList.GetDefaultPath(machineWide);
 
             if (File.Exists(AppListPath)) AppList = XmlStorage.LoadXml<AppList>(AppListPath);
@@ -108,6 +102,36 @@ namespace ZeroInstall.DesktopIntegration
             {
                 AppList = new AppList();
                 AppList.SaveXml(AppListPath);
+            }
+        }
+
+        /// <summary>
+        /// Prevents multiple concurrent desktop integration operations.
+        /// </summary>
+        private Mutex AquireMutex()
+        {
+            var mutex = new Mutex(initiallyOwned: false, name: MachineWide ? @"Global\" + MutexName : MutexName);
+
+            try
+            {
+                switch (WaitHandle.WaitAny(new[] {mutex, Handler.CancellationToken.WaitHandle}, millisecondsTimeout: Handler.Batch ? 30000 : 1000, exitContext: false))
+                {
+                    case 0:
+                        return mutex;
+
+                    case 1:
+                        throw new OperationCanceledException();
+
+                    default:
+                    case WaitHandle.WaitTimeout:
+                        throw new UnauthorizedAccessException(Resources.IntegrationMutex);
+                }
+            }
+            catch (AbandonedMutexException ex)
+            {
+                // Abandoned mutexes also get owned, but indicate something may have gone wrong elsewhere
+                Log.Warn(ex.Message);
+                return mutex;
             }
         }
         #endregion
