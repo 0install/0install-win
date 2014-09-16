@@ -58,6 +58,9 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Constructor
+        /// <summary>Indicates whether <see cref="TargetDir"/> is located on a filesystem with support for Unixoid features such as executable bits.</summary>
+        private readonly bool _isUnixFS;
+
         /// <summary>
         /// Prepares to generate a manifest for a directory in the filesystem.
         /// </summary>
@@ -72,6 +75,8 @@ namespace ZeroInstall.Store.Implementations
 
             TargetDir = path.TrimEnd(Path.DirectorySeparatorChar);
             Format = format;
+
+            _isUnixFS = FileUtils.IsUnixFS(TargetDir);
         }
         #endregion
 
@@ -133,33 +138,49 @@ namespace ZeroInstall.Store.Implementations
         /// <exception cref="NotSupportedException">The <paramref name="file"/> has illegal properties (e.g. is a device file, has line breaks in the filename, etc.).</exception>
         /// <exception cref="IOException">There was an error reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the file.</exception>
-        private static ManifestNode GetFileNode(FileInfo file, ManifestFormat format, ICollection<string> externalXbits, ICollection<string> externalSymlinks)
+        private ManifestNode GetFileNode(FileInfo file, ManifestFormat format, ICollection<string> externalXbits, ICollection<string> externalSymlinks)
         {
-            // Real symlinks
-            string symlinkContents;
-            if (FileUtils.IsSymlink(file.FullName, out symlinkContents))
+            if (_isUnixFS)
             {
-                var symlinkData = Encoding.UTF8.GetBytes(symlinkContents);
-                return new ManifestSymlink(format.DigestContent(symlinkData), symlinkData.Length, file.Name);
-            }
-
-            // Invalid file type
-            if (!FileUtils.IsRegularFile(file.FullName))
-                throw new NotSupportedException(string.Format(Resources.IllegalFileType, file.FullName));
-
-            using (var stream = File.OpenRead(file.FullName))
-            {
-                // External symlinks
-                if (externalSymlinks.Contains(file.FullName))
-                    return new ManifestSymlink(format.DigestContent(stream), file.Length, file.Name);
+                // Symlink
+                string symlinkContents;
+                if (FileUtils.IsSymlink(file.FullName, out symlinkContents))
+                {
+                    var symlinkData = Encoding.UTF8.GetBytes(symlinkContents);
+                    return new ManifestSymlink(format.DigestContent(symlinkData), symlinkData.Length, file.Name);
+                }
 
                 // Executable file
-                if (externalXbits.Contains(file.FullName) || FileUtils.IsExecutable(file.FullName))
-                    return new ManifestExecutableFile(format.DigestContent(stream), file.LastWriteTimeUtc.ToUnixTime(), file.Length, file.Name);
+                if (FileUtils.IsExecutable(file.FullName))
+                {
+                    using (var stream = File.OpenRead(file.FullName))
+                        return new ManifestExecutableFile(format.DigestContent(stream), file.LastWriteTimeUtc.ToUnixTime(), file.Length, file.Name);
+                }
 
-                // Normal file
-                return new ManifestNormalFile(format.DigestContent(stream), file.LastWriteTimeUtc.ToUnixTime(), file.Length, file.Name);
+                // Invalid file type
+                if (!FileUtils.IsRegularFile(file.FullName))
+                    throw new NotSupportedException(string.Format(Resources.IllegalFileType, file.FullName));
             }
+            else
+            {
+                // External symlink
+                if (externalSymlinks.Contains(file.FullName))
+                {
+                    using (var stream = File.OpenRead(file.FullName))
+                        return new ManifestSymlink(format.DigestContent(stream), file.Length, file.Name);
+                }
+
+                // External executable file
+                if (externalXbits.Contains(file.FullName))
+                {
+                    using (var stream = File.OpenRead(file.FullName))
+                        return new ManifestExecutableFile(format.DigestContent(stream), file.LastWriteTimeUtc.ToUnixTime(), file.Length, file.Name);
+                }
+            }
+
+            // Normal file
+            using (var stream = File.OpenRead(file.FullName))
+                return new ManifestNormalFile(format.DigestContent(stream), file.LastWriteTimeUtc.ToUnixTime(), file.Length, file.Name);
         }
 
         /// <summary>
@@ -171,11 +192,11 @@ namespace ZeroInstall.Store.Implementations
         /// <returns>The node for the list.</returns>
         /// <exception cref="IOException">There was an error reading the directory.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the directory.</exception>
-        private static ManifestNode GetDirectoryNode(DirectoryInfo directory, ManifestFormat format, string rootPath)
+        private ManifestNode GetDirectoryNode(DirectoryInfo directory, ManifestFormat format, string rootPath)
         {
             // Directory symlinks
             string symlinkContents;
-            if (FileUtils.IsSymlink(directory.FullName, out symlinkContents))
+            if (_isUnixFS && FileUtils.IsSymlink(directory.FullName, out symlinkContents))
             {
                 var symlinkData = Encoding.UTF8.GetBytes(symlinkContents);
                 return new ManifestSymlink(format.DigestContent(symlinkData), symlinkData.Length, directory.Name);
