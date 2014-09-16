@@ -70,7 +70,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            stream.Close();
+            stream.Dispose();
             File.SetLastWriteTimeUtc(CombinePath(GetRelativePath(path)), DateTime.SpecifyKind(lastWriteTime, DateTimeKind.Utc));
 
             UnitsProcessed += _bytesStaged;

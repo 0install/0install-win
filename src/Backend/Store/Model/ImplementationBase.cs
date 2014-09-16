@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Xml.Serialization;
 using NanoByte.Common.Utils;
 using ZeroInstall.Store.Model.Selection;
@@ -119,7 +120,7 @@ namespace ZeroInstall.Store.Model
             if (!string.IsNullOrEmpty(ID)) parts.Add(ID);
             if (Architecture != default(Architecture)) parts.Add(Architecture.ToString());
             if (Version != null) parts.Add(Version.ToString());
-            if (Released != default(DateTime)) parts.Add(Released.ToShortDateString());
+            if (Released != default(DateTime)) parts.Add(Released.ToString("d", CultureInfo.InvariantCulture));
             if (Stability != default(Stability)) parts.Add(Stability.ToString());
             if (!string.IsNullOrEmpty(License)) parts.Add(License);
             if (!string.IsNullOrEmpty(Main)) parts.Add(Main);

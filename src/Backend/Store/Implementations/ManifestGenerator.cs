@@ -72,9 +72,6 @@ namespace ZeroInstall.Store.Implementations
         }
         #endregion
 
-        //--------------------//
-
-        #region Thread code
         /// <inheritdoc/>
         protected override void Execute()
         {
@@ -185,6 +182,5 @@ namespace ZeroInstall.Store.Implementations
             string trimmedName = directory.FullName.Substring(rootPath.Length).Replace(Path.DirectorySeparatorChar, '/');
             return new ManifestDirectory(directory.LastWriteTime.ToUnixTime(), trimmedName);
         }
-        #endregion
     }
 }

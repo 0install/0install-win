@@ -182,7 +182,7 @@ namespace ZeroInstall.Services.Feeds
 
                 goodVote = xmlReader.MoveToAttribute("vote") && (xmlReader.Value == "good");
                 xmlReader.MoveToContent();
-                return xmlReader.ReadString();
+                return xmlReader.ReadElementContentAsString();
             }
                 #region Error handling
             catch (XmlException ex)
