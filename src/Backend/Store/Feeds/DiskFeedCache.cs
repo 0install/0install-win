@@ -132,7 +132,7 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// Determines the file path used to store a feed with a particular ID.
         /// </summary>
-        /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedID"/> was not found in the cache.</exception>
+        /// <exception cref="KeyNotFoundException">The requested <paramref name="feedID"/> was not found in the cache.</exception>
         private string GetPath(string feedID)
         {
             if (ModelUtils.IsValidUri(feedID))

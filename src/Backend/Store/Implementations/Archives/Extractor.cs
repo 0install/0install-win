@@ -92,7 +92,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         /// <param name="mimeType">The MIME type of archive format of the stream.</param>
         /// <returns>The newly created <see cref="Extractor"/>.</returns>
-        /// <exception cref="NotSupportedException">Thrown if the <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
+        /// <exception cref="NotSupportedException">The <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
         public static void VerifySupport(string mimeType)
         {
             #region Sanity checks
@@ -127,8 +127,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="target">The path to the directory to extract into.</param>
         /// <param name="mimeType">The MIME type of archive format of the stream.</param>
         /// <returns>The newly created <see cref="Extractor"/>.</returns>
-        /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
-        /// <exception cref="NotSupportedException">Thrown if the <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
+        /// <exception cref="IOException">The archive is damaged.</exception>
+        /// <exception cref="NotSupportedException">The <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
         public static Extractor FromStream(Stream stream, string target, string mimeType)
         {
             #region Sanity checks
@@ -183,8 +183,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="mimeType">The MIME type of archive format of the stream. Leave <see langword="null"/> to guess based on file name.</param>
         /// <param name="startOffset"></param>
         /// <returns>The newly created <see cref="Extractor"/>.</returns>
-        /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
-        /// <exception cref="NotSupportedException">Thrown if the <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
+        /// <exception cref="IOException">The archive is damaged.</exception>
+        /// <exception cref="NotSupportedException">The <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
         public static Extractor FromFile(string path, string target, string mimeType = null, long startOffset = 0)
         {
             if (string.IsNullOrEmpty(mimeType)) mimeType = Model.Archive.GuessMimeType(path);
@@ -391,7 +391,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         /// <param name="relativePath">A path relative to the archive's root.</param>
         /// <returns>The combined path as an absolute path.</returns>
-        /// <exception cref="IOException">Thrown if <paramref name="relativePath"/> is invalid (e.g. is absolute, points outside the archive's root, contains invalid characters).</exception>
+        /// <exception cref="IOException"><paramref name="relativePath"/> is invalid (e.g. is absolute, points outside the archive's root, contains invalid characters).</exception>
         protected string CombinePath(string relativePath)
         {
             #region Sanity checks

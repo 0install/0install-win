@@ -32,9 +32,9 @@ namespace ZeroInstall.Capture
         /// <param name="classIDs">A list of COM class IDs.</param>
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
         private static void CollectComServers(IEnumerable<string> classIDs, CommandMapper commandMapper, CapabilityList capabilities)
         {
             #region Sanity checks

@@ -30,9 +30,9 @@ namespace ZeroInstall.Central.WinForms.Wizards
     /// <remarks>Modifies the default <see cref="Config"/>.</remarks>
     public partial class SyncTroubleshootWizard : Wizard
     {
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the config data.</exception>
+        /// <exception cref="IOException">A problem occurs while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
+        /// <exception cref="InvalidDataException">A problem occurs while deserializing the config data.</exception>
         public SyncTroubleshootWizard(bool machineWide)
         {
             InitializeComponent();

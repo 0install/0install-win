@@ -40,9 +40,9 @@ namespace ZeroInstall.Publish
         /// Adds the XSL stylesheet to a feed.
         /// </summary>
         /// <param name="path">The feed file to add the stylesheet to.</param>
-        /// <exception cref="FileNotFoundException">Thrown if the feed file to add the stylesheet reference to could not be found.</exception>
-        /// <exception cref="IOException">Thrown if the feed file to add the stylesheet reference to could not be read or written.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
+        /// <exception cref="FileNotFoundException">The feed file to add the stylesheet reference to could not be found.</exception>
+        /// <exception cref="IOException">The feed file to add the stylesheet reference to could not be read or written.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read or write access to the feed file is not permitted.</exception>
         public static void AddStylesheet(string path)
         {
             #region Sanity checks
@@ -78,10 +78,10 @@ namespace ZeroInstall.Publish
         /// <param name="secretKey">The secret key to use for signing the file.</param>
         /// <param name="passphrase">The passphrase to use to unlock the key.</param>
         /// <param name="openPgp">The OpenPGP-compatible system used to create signatures.</param>
-        /// <exception cref="FileNotFoundException">Thrown if the file could not be found.</exception>
-        /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the file could not be read or written.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the file is not permitted.</exception>
-        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
+        /// <exception cref="FileNotFoundException">The file could not be found.</exception>
+        /// <exception cref="IOException">The OpenPGP implementation could not be launched or the file could not be read or written.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read or write access to the file is not permitted.</exception>
+        /// <exception cref="WrongPassphraseException">Passphrase was incorrect.</exception>
         /// <remarks>
         /// The file is not parsed before signing; invalid XML files are signed as well.
         /// The existing file must end with a line break.
@@ -131,9 +131,9 @@ namespace ZeroInstall.Publish
         /// <param name="path">The feed or catalog file to check for signatures.</param>
         /// <param name="openPgp">The OpenPGP-compatible system used to validate the signatures.</param>
         /// <returns>The key used to sign the file; <see langword="null"/> if the file was not signed.</returns>
-        /// <exception cref="FileNotFoundException">Thrown if the file file could not be found.</exception>
-        /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the file could not be read.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
+        /// <exception cref="FileNotFoundException">The file file could not be found.</exception>
+        /// <exception cref="IOException">The OpenPGP implementation could not be launched or the file could not be read.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
         public static OpenPgpSecretKey GetKey(string path, IOpenPgp openPgp)
         {
             #region Sanity checks

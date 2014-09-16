@@ -65,7 +65,7 @@ namespace ZeroInstall.Commands
         /// Import a feed from a local file, as if it had been downloaded from the network.
         /// </summary>
         /// <param name="path">The local path of the feed file to import.</param>
-        /// <exception cref="InvalidDataException">Thrown if the feed specifies no <see cref="Feed.Uri"/>.</exception>
+        /// <exception cref="InvalidDataException">The feed specifies no <see cref="Feed.Uri"/>.</exception>
         private void ImportFile(string path)
         {
             var feed = XmlStorage.LoadXml<Feed>(path);

@@ -32,8 +32,8 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="appList">The <see cref="AppList"/> containing the existing <see cref="AccessPoint"/>s.</param>
         /// <param name="accessPoints">The set of <see cref="AccessPoint"/>s candidates to check.</param>
         /// <param name="appEntry">The <see cref="AppEntry"/> the <paramref name="accessPoints"/> are intended for.</param>
-        /// <exception cref="KeyNotFoundException">Thrown if an <see cref="AccessPoint"/> reference to a <see cref="Store.Model.Capabilities.Capability"/> is invalid.</exception>
-        /// <exception cref="ConflictException">Thrown if one or more of the <paramref name="accessPoints"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
+        /// <exception cref="KeyNotFoundException">An <see cref="AccessPoint"/> reference to a <see cref="Store.Model.Capabilities.Capability"/> is invalid.</exception>
+        /// <exception cref="ConflictException">One or more of the <paramref name="accessPoints"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="AppList"/>.</exception>
         public static void CheckForConflicts(this AppList appList, IEnumerable<AccessPoint> accessPoints, AppEntry appEntry)
         {
             #region Sanity checks
@@ -62,7 +62,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="accessPoints">The set of <see cref="AccessPoint"/>s candidates to build the list for.</param>
         /// <param name="appEntry">The <see cref="AppEntry"/> the <paramref name="accessPoints"/> are intended for.</param>
         /// <returns>A dictionary of <see cref="AccessPoint.GetConflictIDs"/> mapping to the according <see cref="ConflictData"/>.</returns>
-        /// <exception cref="ConflictException">Thrown if there are inner conflicts within <paramref name="accessPoints"/>.</exception>
+        /// <exception cref="ConflictException">There are inner conflicts within <paramref name="accessPoints"/>.</exception>
         /// <seealso cref="AccessPoint.GetConflictIDs"/>
         public static IDictionary<string, ConflictData> GetConflictData(this IEnumerable<AccessPoint> accessPoints, AppEntry appEntry)
         {
@@ -97,7 +97,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="appEntries">The <see cref="AppEntry"/>s to build the list for.</param>
         /// <returns>A dictionary of <see cref="AccessPoint.GetConflictIDs"/> mapping to the according <see cref="ConflictData"/>.</returns>
-        /// <exception cref="ConflictException">Thrown if there are preexisting conflicts within <paramref name="appEntries"/>.</exception>
+        /// <exception cref="ConflictException">There are preexisting conflicts within <paramref name="appEntries"/>.</exception>
         /// <seealso cref="AccessPoint.GetConflictIDs"/>
         public static IDictionary<string, ConflictData> GetConflictData(this IEnumerable<AppEntry> appEntries)
         {

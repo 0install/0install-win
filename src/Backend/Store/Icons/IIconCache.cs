@@ -26,8 +26,8 @@ namespace ZeroInstall.Store.Icons
         /// Returns a list of all icons stored in this cache.
         /// </summary>
         /// <returns>A list of icon URIs.</returns>
-        /// <exception cref="IOException">Thrown if a problem occured while reading from the cache.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
+        /// <exception cref="IOException">A problem occured while reading from the cache.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the cache is not permitted.</exception>
         IEnumerable<string> ListAll();
 
         /// <summary>
@@ -36,18 +36,18 @@ namespace ZeroInstall.Store.Icons
         /// <param name="iconUrl">The location of the icon. Must be an HTTP(S) URL.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about icon downloading.</param>
         /// <returns>The parsed icon object. Do not modify this object! It may be a reference to an in-memory cache entry.</returns>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while adding the icon to the cache.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while downloading the icon.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the cache is not permitted.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="IOException">A problem occured while adding the icon to the cache.</exception>
+        /// <exception cref="WebException">A problem occured while downloading the icon.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read or write access to the cache is not permitted.</exception>
         string GetIcon(Uri iconUrl, ITaskHandler handler);
 
         /// <summary>
         /// Removes a specific icon from this cache.
         /// </summary>
         /// <param name="iconUrl">The location of the icon. Must be an HTTP(S) URL.</param>
-        /// <exception cref="IOException">Thrown if the icon could not be deleted.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
+        /// <exception cref="IOException">The icon could not be deleted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the cache is not permitted.</exception>
         void Remove(Uri iconUrl);
     }
 }

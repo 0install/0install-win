@@ -110,8 +110,8 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="secretKey">The private key to use for signing the files.</param>
         /// <param name="passphrase">The passphrase to use to unlock the key.</param>
-        /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched or the feed file could not be read or written.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
+        /// <exception cref="IOException">The OpenPGP implementation could not be launched or the feed file could not be read or written.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read or write access to the feed file is not permitted.</exception>
         private void SignFiles(OpenPgpSecretKey secretKey, string passphrase)
         {
             var task = new ForEachTask<FileInfo>("Signing feeds", _files, file =>

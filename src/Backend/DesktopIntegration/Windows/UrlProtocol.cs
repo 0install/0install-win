@@ -47,11 +47,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="machineWide">Register the URL protocol machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="accessPoint">Indicates that the handler shall become the default handler for the protocol.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="urlProtocol"/> is invalid.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">The data in <paramref name="urlProtocol"/> is invalid.</exception>
         public static void Register(InterfaceFeed target, Store.Model.Capabilities.UrlProtocol urlProtocol, bool machineWide, ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
@@ -109,9 +109,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="urlProtocol">The URL protocol to remove.</param>
         /// <param name="machineWide">Unregister the URL protocol machine-wide instead of just for the current user.</param>
         /// <param name="accessPoint">Indicates that the handler was the default handler for the protocol.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="urlProtocol"/> is invalid.</exception>
+        /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">The data in <paramref name="urlProtocol"/> is invalid.</exception>
         public static void Unregister(Store.Model.Capabilities.UrlProtocol urlProtocol, bool machineWide, bool accessPoint = false)
         {
             #region Sanity checks

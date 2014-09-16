@@ -39,7 +39,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
-        /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
+        /// <exception cref="IOException">The archive is damaged.</exception>
         internal SevenZipExtractor(Stream stream, string target)
             : base(target)
         {

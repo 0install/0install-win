@@ -38,10 +38,10 @@ namespace ZeroInstall.DesktopIntegration.Unix
         /// <param name="aliasName">The name of the alias to be created.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Create the alias machine-wide instead of just for the current user.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem is not permitted.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
+        /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the filesystem is not permitted.</exception>
         public static void Create(InterfaceFeed target, string command, string aliasName, ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
@@ -65,8 +65,8 @@ namespace ZeroInstall.DesktopIntegration.Unix
         /// </summary>
         /// <param name="aliasName">The name of the alias to be removed.</param>
         /// <param name="machineWide">The alias was created machine-wide instead of just for the current user.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem is not permitted.</exception>
+        /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the filesystem is not permitted.</exception>
         public static void Remove(string aliasName, bool machineWide)
         {
             #region Sanity checks

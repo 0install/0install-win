@@ -69,11 +69,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="verbCapabilities">The capabilities that the application is to be registered with.</param>
         /// <param name="machineWide">Apply the registration machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="appRegistration"/> or <paramref name="verbCapabilities"/> is invalid.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">The data in <paramref name="appRegistration"/> or <paramref name="verbCapabilities"/> is invalid.</exception>
         public static void Register(InterfaceFeed target, Store.Model.Capabilities.AppRegistration appRegistration, IEnumerable<VerbCapability> verbCapabilities, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
@@ -133,9 +133,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="appRegistration">The registration information to be removed.</param>
         /// <param name="machineWide">Apply the registration machine-wide instead of just for the current user.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="appRegistration"/>.</exception>
+        /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">The data in <paramref name="appRegistration"/>.</exception>
         public static void Unregister(Store.Model.Capabilities.AppRegistration appRegistration, bool machineWide)
         {
             #region Sanity checks

@@ -92,8 +92,8 @@ namespace ZeroInstall.Store.Service
         /// <summary>
         /// Creates the store to provide to clients as a service.
         /// </summary>
-        /// <exception cref="IOException">Thrown if a cache directory could not be created or if the underlying filesystem can not store file-changed times accurate to the second.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating a cache directory is not permitted.</exception>
+        /// <exception cref="IOException">A cache directory could not be created or if the underlying filesystem can not store file-changed times accurate to the second.</exception>
+        /// <exception cref="UnauthorizedAccessException">Creating a cache directory is not permitted.</exception>
         private MarshalByRefObject CreateStore()
         {
             string path = StoreFactory.GetImplementationDirs(excludeUserProfile: true).Last();

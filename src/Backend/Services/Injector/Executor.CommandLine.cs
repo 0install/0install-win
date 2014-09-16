@@ -79,12 +79,12 @@ namespace ZeroInstall.Services.Injector
         /// <param name="implementation">The implementation to launch.</param>
         /// <param name="commandName">The name of the <see cref="Command"/> within the <paramref name="implementation"/> to launch.</param>
         /// <param name="startInfo">The process launch environment to apply additional <see cref="Binding"/> to.</param>
-        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Implementation"/> is not cached yet.</exception>
-        /// <exception cref="ExecutorException">Thrown if a <see cref="Command"/> contained invalid data.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
-        /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
+        /// <exception cref="KeyNotFoundException"><see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
+        /// <exception cref="ImplementationNotFoundException">An <see cref="Implementation"/> is not cached yet.</exception>
+        /// <exception cref="ExecutorException">A <see cref="Command"/> contained invalid data.</exception>
+        /// <exception cref="IOException">A problem occurred while writing a file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
+        /// <exception cref="Win32Exception">A problem occurred while creating a hard link.</exception>
         private List<ArgBase> GetCommandLine(ImplementationSelection implementation, string commandName, ProcessStartInfo startInfo)
         {
             #region Sanity checks

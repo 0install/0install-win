@@ -35,9 +35,9 @@ namespace ZeroInstall.Capture
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
         private static void CollectAutoPlays(Snapshot snapshotDiff, CommandMapper commandMapper, CapabilityList capabilities)
         {
             #region Sanity checks
@@ -62,9 +62,9 @@ namespace ZeroInstall.Capture
         /// <param name="hive">The registry hive to search in (usually HKCU or HKLM).</param>
         /// <param name="autoPlayAssocs">A list of associations of an AutoPlay events with an AutoPlay handlers</param>
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
         private static Capability GetAutoPlay(string handler, RegistryKey hive, IEnumerable<ComparableTuple<string>> autoPlayAssocs, CommandMapper commandMapper)
         {
             #region Sanity checks

@@ -90,7 +90,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="interfaceID">The <see cref="AppEntry.InterfaceID"/> to look for.</param>
         /// <returns>The first matching <see cref="AppEntry"/>.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if no entry matching the interface ID was found.</exception>
+        /// <exception cref="KeyNotFoundException">No entry matching the interface ID was found.</exception>
         public AppEntry this[string interfaceID]
         {
             get
@@ -146,8 +146,8 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="stream">The ZIP archive to load.</param>
         /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
         /// <returns>The loaded list.</returns>
-        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing the XML data.</exception>
+        /// <exception cref="ZipException">A problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
+        /// <exception cref="InvalidDataException">A problem occurred while deserializing the XML data.</exception>
         public static AppList LoadXmlZip(Stream stream, string password = null)
         {
             #region Sanity checks

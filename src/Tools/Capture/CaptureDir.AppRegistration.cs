@@ -38,9 +38,9 @@ namespace ZeroInstall.Capture
         /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <param name="appName">Is set to the name of the application as displayed to the user; unchanged if the name was not found.</param>
         /// <param name="appDescription">Is set to a user-friendly description of the application; unchanged if the name was not found.</param>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
         private static AppRegistration GetAppRegistration(Snapshot snapshotDiff, CommandMapper commandMapper, CapabilityList capabilities, ref string appName, ref string appDescription)
         {
             #region Sanity checks
@@ -93,9 +93,9 @@ namespace ZeroInstall.Capture
         /// <param name="capsKey">A registry key containing capability information for a registered application.</param>
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
         private static void CollectProtocolAssocsEx(RegistryKey capsKey, CommandMapper commandMapper, CapabilityList capabilities)
         {
             #region Sanity checks
@@ -137,9 +137,9 @@ namespace ZeroInstall.Capture
         /// </summary>
         /// <param name="capsKey">A registry key containing capability information for a registered application.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
         private static void CollectFileAssocsEx(RegistryKey capsKey, CapabilityList capabilities)
         {
             #region Sanity checks

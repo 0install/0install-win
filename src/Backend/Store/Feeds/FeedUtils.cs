@@ -96,8 +96,8 @@ namespace ZeroInstall.Store.Feeds
         /// <param name="openPgp">The OpenPGP-compatible system used to validate the signatures.</param>
         /// <param name="feedData">The feed data containing an embedded signature.</param>
         /// <returns>A list of signatures found, both valid and invalid.</returns>
-        /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
-        /// <exception cref="SignatureException">Thrown if the signature data could not be handled.</exception>
+        /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
+        /// <exception cref="SignatureException">The signature data could not be handled.</exception>
         public static IEnumerable<OpenPgpSignature> GetSignatures(IOpenPgp openPgp, byte[] feedData)
         {
             #region Sanity checks
@@ -146,7 +146,7 @@ namespace ZeroInstall.Store.Feeds
         /// <param name="feedData">The feed data containing a signature block.</param>
         /// <param name="signatureStartIndex">The index of the first byte of the signature block.</param>
         /// <returns>The isolated feed.</returns>
-        /// <exception cref="SignatureException">Thrown if the signature block does not start on a new line.</exception>
+        /// <exception cref="SignatureException">The signature block does not start on a new line.</exception>
         private static byte[] IsolateFeed(byte[] feedData, int signatureStartIndex)
         {
             if (signatureStartIndex <= 0 || feedData[signatureStartIndex - 1] != Encoding.GetBytes("\n")[0])
@@ -163,7 +163,7 @@ namespace ZeroInstall.Store.Feeds
         /// <param name="feedData">The feed data containing a signature block.</param>
         /// <param name="signatureStartIndex">The index of the first byte of the signature block.</param>
         /// <returns>The decoded signature data.</returns>
-        /// <exception cref="SignatureException">Thrown if the signature contains invalid characters.</exception>
+        /// <exception cref="SignatureException">The signature contains invalid characters.</exception>
         private static byte[] IsolateAndDecodeSignature(byte[] feedData, int signatureStartIndex)
         {
             // Isolate and decode signature string

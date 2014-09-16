@@ -36,7 +36,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="modifiedTime">The time this file was last modified in the number of seconds since the epoch.</param>
         /// <param name="size">The size of the file in bytes.</param>
         /// <param name="fileName">The name of the file without the containing directory.</param>
-        /// <exception cref="NotSupportedException">Thrown if <paramref name="fileName"/> contains a newline character.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="fileName"/> contains a newline character.</exception>
         public ManifestNormalFile(string hash, long modifiedTime, long size, string fileName) : base(hash, modifiedTime, size, fileName)
         {}
         #endregion
@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="line">The string representation to parse.</param>
         /// <returns>The newly created node.</returns>
-        /// <exception cref="FormatException">Thrown if the <paramref name="line"/> format is incorrect.</exception>
+        /// <exception cref="FormatException">The <paramref name="line"/> format is incorrect.</exception>
         internal static ManifestNormalFile FromString(string line)
         {
             const int numberOfParts = 5;

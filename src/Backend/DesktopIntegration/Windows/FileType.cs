@@ -94,11 +94,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="machineWide">Register the file type machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="accessPoint">Indicates that the file associations shall become default handlers for their respective types.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="fileType"/> is invalid.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">The data in <paramref name="fileType"/> is invalid.</exception>
         public static void Register(InterfaceFeed target, Store.Model.Capabilities.FileType fileType, bool machineWide, ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
@@ -179,9 +179,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="fileType">The file type to remove.</param>
         /// <param name="machineWide">Unregister the file type machine-wide instead of just for the current user.</param>
         /// <param name="accessPoint">Indicates that the file associations were default handlers for their respective types.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="fileType"/> is invalid.</exception>
+        /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">The data in <paramref name="fileType"/> is invalid.</exception>
         public static void Unregister(Store.Model.Capabilities.FileType fileType, bool machineWide, bool accessPoint = false)
         {
             #region Sanity checks
@@ -264,11 +264,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="capability">The capability to register.</param>
         /// <param name="machineWide">Assume <paramref name="registryKey"/> is effective machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="capability"/> is invalid.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">The data in <paramref name="capability"/> is invalid.</exception>
         internal static void RegisterVerbCapability(RegistryKey registryKey, InterfaceFeed target, Store.Model.Capabilities.VerbCapability capability, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks

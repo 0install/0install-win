@@ -64,7 +64,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Provides a proxy object for accessing the <see cref="IStore"/> in the store service.
         /// </summary>
-        /// <exception cref="RemotingException">Thrown if there is a problem connecting with the store service.</exception>
+        /// <exception cref="RemotingException">There is a problem connecting with the store service.</exception>
         /// <remarks>Always returns the same instance. Opens named pipes on first call. Connection is only established on demand.</remarks>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "May throw exceptions")]
         private static IStore GetServiceProxy()

@@ -34,9 +34,9 @@ namespace ZeroInstall.Capture
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
         private static void CollectFileTypes(Snapshot snapshotDiff, CommandMapper commandMapper, CapabilityList capabilities)
         {
             #region Sanity checks
@@ -58,9 +58,9 @@ namespace ZeroInstall.Capture
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <returns>Data about the file type or <see paramref="null"/> if no file type for this <paramref name="progID"/> was detected.</returns>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
         private static VerbCapability GetFileType(string progID, Snapshot snapshotDiff, CommandMapper commandMapper)
         {
             #region Sanity checks

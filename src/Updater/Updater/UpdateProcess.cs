@@ -69,8 +69,8 @@ namespace ZeroInstall.Updater
         /// <param name="source">The directory containing the new/updated version.</param>
         /// <param name="newVersion">The version number of the new/updated version.</param>
         /// <param name="target">The directory containing the old version to be updated.</param>
-        /// <exception cref="IOException">Thrown if there was a problem accessing one of the directories.</exception>
-        /// <exception cref="NotSupportedException">Thrown if one of the directory paths or the version number is invalid.</exception>
+        /// <exception cref="IOException">There was a problem accessing one of the directories.</exception>
+        /// <exception cref="NotSupportedException">One of the directory paths or the version number is invalid.</exception>
         public UpdateProcess(string source, string newVersion, string target)
         {
             #region Sanity checks
@@ -158,7 +158,7 @@ namespace ZeroInstall.Updater
         /// Stops the Zero Install Store Service if it is running.
         /// </summary>
         /// <returns><see langword="true"/> if the service was running; <see langword="false"/> otherwise.</returns>
-        /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
+        /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
         public bool StopService()
         {
             // Do not touch the service in portable mode
@@ -182,7 +182,7 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// Copies the content of <see cref="Source"/> to <see cref="Target"/>.
         /// </summary>
-        /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
+        /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
         public void CopyFiles()
         {
             try
@@ -203,7 +203,7 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// Deletes obsolete files from <see cref="Target"/>.
         /// </summary>
-        /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
+        /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
         public void DeleteFiles()
         {
             var filesToDelete = new List<string>();
@@ -308,7 +308,7 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// Update the registry entries.
         /// </summary>
-        /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
+        /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
         public void UpdateRegistry()
         {
             try
@@ -334,7 +334,7 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// Fixes NTFS ACLs (permissions) for shared directories.
         /// </summary>
-        /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
+        /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
         public void FixPermissions()
         {
             // Changing ACLs in the "All Users" AppData folder fails on Windows XP
@@ -353,7 +353,7 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// Starts the Zero Install Store Service.
         /// </summary>
-        /// <exception cref="UnauthorizedAccessException">Thrown if administrator rights are missing.</exception>
+        /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
         /// <remarks>Must call this after <see cref="MutexRelease"/>.</remarks>
         public void StartService()
         {

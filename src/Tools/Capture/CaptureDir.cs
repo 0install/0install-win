@@ -75,8 +75,8 @@ namespace ZeroInstall.Capture
         /// <summary>
         /// Captures the current system state as a snapshot of the system state before the target application was installed.
         /// </summary>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry or file system.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to the registry or the file system was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry or file system.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to the registry or the file system was not permitted.</exception>
         public void TakeSnapshotPre()
         {
             SnapshotPre = Snapshot.Take();
@@ -86,8 +86,8 @@ namespace ZeroInstall.Capture
         /// <summary>
         /// Captures the current system state as a snapshot of the system state after the target application was installed.
         /// </summary>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry or file system.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to the registry or the file system was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry or file system.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to the registry or the file system was not permitted.</exception>
         public void TakeSnapshotPost()
         {
             SnapshotPost = Snapshot.Take();
@@ -102,8 +102,8 @@ namespace ZeroInstall.Capture
         /// <param name="installationDir">The fully qualified path to the installation directory; leave <see langword="null"/> for auto-detection.</param>
         /// <param name="mainExe">The relative path to the main EXE; leave <see langword="null"/> for auto-detection.</param>
         /// <param name="getFiles">Indicates whether to collect installation files in addition to registry data.</param>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry or file system.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to the registry or file system was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry or file system.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to the registry or file system was not permitted.</exception>
         public void Collect(string installationDir, string mainExe, bool getFiles)
         {
             #region Sanity checks
@@ -221,8 +221,8 @@ namespace ZeroInstall.Capture
         /// </summary>
         /// <param name="path">The directory to store the data from a capture session.</param>
         /// <returns>An object for accessing the newly created capture directory.</returns>
-        /// <exception cref="IOException">Thrown if the directory already exists and is not empty or if the directory could not be created.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
+        /// <exception cref="IOException">The directory already exists and is not empty or if the directory could not be created.</exception>
+        /// <exception cref="UnauthorizedAccessException">Creating a directory is not permitted.</exception>
         public static CaptureDir Create(string path)
         {
             #region Sanity checks
@@ -265,9 +265,9 @@ namespace ZeroInstall.Capture
         /// </summary>
         /// <param name="path">The directory containing the data from a capture session.</param>
         /// <returns>An object for accessing the capture directory.</returns>
-        /// <exception cref="IOException">Thrown if the directory already exists and is not empty or if the directory could not be created.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing snapshot data.</exception>
+        /// <exception cref="IOException">The directory already exists and is not empty or if the directory could not be created.</exception>
+        /// <exception cref="UnauthorizedAccessException">Creating a directory is not permitted.</exception>
+        /// <exception cref="InvalidDataException">A problem occurs while deserializing snapshot data.</exception>
         public static CaptureDir Open(string path)
         {
             #region Sanity checks

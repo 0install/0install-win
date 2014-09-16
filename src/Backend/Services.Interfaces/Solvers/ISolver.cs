@@ -36,13 +36,13 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="requirements"/> is incomplete.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
-        /// <exception cref="SignatureException">Thrown if the signature data of a remote feed file could not be verified.</exception>
-        /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
+        /// <exception cref="ArgumentException"><paramref name="requirements"/> is incomplete.</exception>
+        /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
+        /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
+        /// <exception cref="SignatureException">The signature data of a remote feed file could not be verified.</exception>
+        /// <exception cref="SolverException">The dependencies could not be solved.</exception>
         Selections Solve(Requirements requirements);
     }
 }

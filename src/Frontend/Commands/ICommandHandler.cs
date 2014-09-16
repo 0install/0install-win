@@ -60,7 +60,7 @@ namespace ZeroInstall.Commands
         /// Displays application integration options to the user.
         /// </summary>
         /// <param name="state">A View-Model for modifying the current desktop integration state.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user does not want any changes to be applied.</exception>
+        /// <exception cref="OperationCanceledException">The user does not want any changes to be applied.</exception>
         /// <remarks>The caller is responsible for saving any changes.</remarks>
         void ShowIntegrateApp(IntegrationState state);
 
@@ -69,7 +69,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="config">The configuration to show.</param>
         /// <param name="configTab">Switch to a specific tab in the configuration GUI. Has no effect in text-mode.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user does not want any changes to be applied.</exception>
+        /// <exception cref="OperationCanceledException">The user does not want any changes to be applied.</exception>
         /// <remarks>The caller is responsible for saving any changes.</remarks>
         void ShowConfig(Config config, ConfigTab configTab);
 

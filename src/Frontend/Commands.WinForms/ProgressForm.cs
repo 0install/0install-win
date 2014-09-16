@@ -82,7 +82,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="selections">The <see cref="Selections"/> as provided by the <see cref="ISolver"/>.</param>
         /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
+        /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
         public void ShowSelections(Selections selections, IFeedCache feedCache)
         {
@@ -102,7 +102,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
         /// <param name="waitHandle">A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/>.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
+        /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
         public void ModifySelections(Func<Selections> solveCallback, EventWaitHandle waitHandle)
         {
@@ -204,7 +204,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="information">The balloon message text.</param>
         /// <param name="messageType">The type icon to display next to the balloon message.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
+        /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
         public void ShowTrayIcon(string information = null, ToolTipIcon messageType = ToolTipIcon.None)
         {
@@ -219,7 +219,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Hides the tray icon.
         /// </summary>
-        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
+        /// <exception cref="InvalidOperationException">The value is set from a thread other than the UI thread.</exception>
         /// <remarks>This method must not be called from a background thread.</remarks>
         public void HideTrayIcon()
         {

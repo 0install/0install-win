@@ -57,10 +57,10 @@ namespace ZeroInstall.Services
         /// </summary>
         /// <param name="selections">The selections to search for <see cref="ImplementationSelection"/>s that are missing.</param>
         /// <remarks>Feed files may be downloaded, no implementations are downloaded.</remarks>
-        /// <exception cref="KeyNotFoundException">Thrown if a <see cref="Feed"/> or <see cref="Implementation"/> is missing.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the feed file could not be parsed.</exception>
+        /// <exception cref="KeyNotFoundException">A <see cref="Feed"/> or <see cref="Implementation"/> is missing.</exception>
+        /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the cache is not permitted.</exception>
+        /// <exception cref="InvalidDataException">The feed file could not be parsed.</exception>
         public IEnumerable<ImplementationSelection> GetUncachedImplementationSelections(Selections selections)
         {
             #region Sanity checks

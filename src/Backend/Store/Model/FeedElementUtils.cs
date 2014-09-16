@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Model
         /// <param name="path">The potentially relative path; will remain untouched if absolute.</param>
         /// <param name="sourcePath">The file containing the reference.</param>
         /// <returns>An absolute path.</returns>
-        /// <exception cref="IOException">Thrown if <paramref name="sourcePath"/> is not a local file path.</exception>
+        /// <exception cref="IOException"><paramref name="sourcePath"/> is not a local file path.</exception>
         public static string GetAbsolutePath(string path, string sourcePath)
         {
             #region Sanity checks
@@ -55,7 +55,7 @@ namespace ZeroInstall.Store.Model
         /// <param name="href">The potentially relative HREF; will remain untouched if absolute.</param>
         /// <param name="sourcePath">The file containing the reference.</param>
         /// <returns>An absolute HREF.</returns>
-        /// <exception cref="IOException">Thrown if <paramref name="sourcePath"/> is not a local file path.</exception>
+        /// <exception cref="IOException"><paramref name="sourcePath"/> is not a local file path.</exception>
         public static Uri GetAbsoluteHref(Uri href, string sourcePath)
         {
             #region Sanity checks

@@ -57,7 +57,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="modifiedTime">The time this file was last modified in the number of seconds since the epoch.</param>
         /// <param name="size">The size of the file in bytes.</param>
         /// <param name="fileName">The name of the file without the containing directory.</param>
-        /// <exception cref="NotSupportedException">Thrown if <paramref name="fileName"/> contains a newline character.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="fileName"/> contains a newline character.</exception>
         protected ManifestFileBase(string digest, long modifiedTime, long size, string fileName)
         {
             #region Sanity checks

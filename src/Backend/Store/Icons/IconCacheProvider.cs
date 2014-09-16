@@ -34,8 +34,8 @@ namespace ZeroInstall.Store.Icons
         /// <summary>
         /// Creates an <see cref="IIconCache"/> instance that uses the default cache location in the user profile.
         /// </summary>
-        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
+        /// <exception cref="IOException">A problem occurred while creating a directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">Creating a directory is not permitted.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "May throw exceptions")]
         public static IIconCache GetInstance()
         {

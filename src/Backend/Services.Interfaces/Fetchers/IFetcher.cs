@@ -34,12 +34,12 @@ namespace ZeroInstall.Services.Fetchers
         /// Downloads a set of <see cref="Implementation"/>s to the <see cref="Store"/> and returns once this process is complete.
         /// </summary>
         /// <param name="implementations">The <see cref="Store.Model.Implementation"/>s to be downloaded.</param>
-        /// <exception cref="OperationCanceledException">Thrown if a download or IO task was canceled from another thread.</exception>
-        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
-        /// <exception cref="NotSupportedException">Thrown if a file format, protocal, etc. is unknown or not supported.</exception>
-        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="IStore"/> is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">Thrown an <see cref="Store.Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="OperationCanceledException">A download or IO task was canceled from another thread.</exception>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
+        /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
+        /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to <see cref="IStore"/> is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">An <see cref="Store.Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         void Fetch(IEnumerable<Implementation> implementations);
     }
 }

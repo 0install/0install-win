@@ -36,7 +36,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
-        /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
+        /// <exception cref="IOException">The archive is damaged.</exception>
         internal TarLzmaExtractor(Stream stream, string target)
             : base(GetDecompressionStream(stream), target)
         {
@@ -49,7 +49,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         /// <param name="stream">The underlying <see cref="Stream"/> providing the compressed data.</param>
         /// <param name="bufferSize">The maximum number of uncompressed bytes to buffer. 32k (the step size of <see cref="SevenZip"/>) is a sensible minimum.</param>
-        /// <exception cref="IOException">Thrown if the <paramref name="stream"/> doesn't start with a valid 5-bit LZMA header.</exception>
+        /// <exception cref="IOException">The <paramref name="stream"/> doesn't start with a valid 5-bit LZMA header.</exception>
         /// <remarks>
         /// This method internally uses multi-threading and a <see cref="CircularBufferStream"/>.
         /// The <paramref name="stream"/> may be closed with a delay.

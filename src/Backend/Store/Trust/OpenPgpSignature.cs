@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         /// <param name="line">The console line containing the signature information.</param>
         /// <returns>The parsed signature representation; <see langword="null"/> if <paramref name="line"/> did not contain any signature information.</returns>
-        /// <exception cref="FormatException">Thrown if <paramref name="line"/> contains incorrectly formatted signature information.</exception>
+        /// <exception cref="FormatException"><paramref name="line"/> contains incorrectly formatted signature information.</exception>
         internal static OpenPgpSignature Parse(string line)
         {
             #region Sanity checks

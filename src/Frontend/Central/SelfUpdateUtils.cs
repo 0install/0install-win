@@ -55,13 +55,13 @@ namespace ZeroInstall.Central
         /// Checks if updates for Zero Install itself are available.
         /// </summary>
         /// <returns>The version number of the newest available update; <see langword="null"/> if no update is available.</returns>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
-        /// <exception cref="SignatureException">Thrown if the signature data of a remote feed file could not be verified.</exception>
-        /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a configuration file is damaged.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
+        /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
+        /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
+        /// <exception cref="SignatureException">The signature data of a remote feed file could not be verified.</exception>
+        /// <exception cref="SolverException">The dependencies could not be solved.</exception>
+        /// <exception cref="InvalidDataException">A configuration file is damaged.</exception>
         public static ImplementationVersion Check()
         {
             var services = new ServiceLocator(new SilentTaskHandler()) {FeedManager = {Refresh = true}};
@@ -80,7 +80,7 @@ namespace ZeroInstall.Central
         /// <summary>
         /// Starts the self-update process.
         /// </summary>
-        /// <exception cref="NotSupportedException">Thrown when called on a non-Windows NT-based operating system.</exception>
+        /// <exception cref="NotSupportedException">Called on a non-Windows NT-based operating system.</exception>
         public static void Run()
         {
             if (WindowsUtils.IsWindowsNT) ProcessUtils.LaunchAssembly("0install-win", "self-update --restart-central");

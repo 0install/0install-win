@@ -38,9 +38,9 @@ namespace ZeroInstall.Store.ViewModel
         /// <summary>
         /// Deletes this element from the cache it is stored in.
         /// </summary>
-        /// <exception cref="KeyNotFoundException">Thrown if no matching element could be found in the cache.</exception>
-        /// <exception cref="IOException">Thrown if the element could not be deleted.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
+        /// <exception cref="KeyNotFoundException">No matching element could be found in the cache.</exception>
+        /// <exception cref="IOException">The element could not be deleted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the cache is not permitted.</exception>
         public abstract void Delete();
 
         #region Comparison

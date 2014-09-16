@@ -34,9 +34,9 @@ namespace ZeroInstall.Store.ViewModel
         /// </summary>
         /// <param name="digest">The digest identifying the implementation.</param>
         /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
-        /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
-        /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
+        /// <exception cref="FormatException">The manifest file is not valid.</exception>
+        /// <exception cref="IOException">The manifest file could not be read.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
         public OrphanedImplementationNode(ManifestDigest digest, IStore store)
             : base(digest, store)
         {}

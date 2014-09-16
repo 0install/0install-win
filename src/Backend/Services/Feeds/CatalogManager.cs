@@ -107,9 +107,9 @@ namespace ZeroInstall.Services.Feeds
         /// Downloads and merges all <see cref="Catalog"/>s specified by the configuration files.
         /// </summary>
         /// <returns>A merged <see cref="Catalog"/> view.</returns>
-        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
-        /// <exception cref="SignatureException">Thrown if the signature data of a remote catalog file could not be verified.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
+        /// <exception cref="SignatureException">The signature data of a remote catalog file could not be verified.</exception>
+        /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs network IO and has side-effects")]
         public Catalog GetOnline()
         {
@@ -150,9 +150,9 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         /// <param name="url">The URL to download the catalog file from.</param>
         /// <returns>The parsed <see cref="Catalog"/>.</returns>
-        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
-        /// <exception cref="SignatureException">Thrown if the signature data of a remote catalog file could not be verified.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
+        /// <exception cref="SignatureException">The signature data of a remote catalog file could not be verified.</exception>
+        /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
         private Catalog DownloadCatalog(Uri url)
         {
             var data = new WebClientTimeout().DownloadData(url);
@@ -165,8 +165,8 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// Returns a list of catalog sources as defined by configuration files.
         /// </summary>
-        /// <exception cref="IOException">Thrown if there was a problem accessing a configuration file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to a configuration file was not permitted.</exception>
+        /// <exception cref="IOException">There was a problem accessing a configuration file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to a configuration file was not permitted.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reads data from a config file with no caching")]
         public static string[] GetCatalogSources()
         {

@@ -97,7 +97,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Returns the best entry of <see cref="AvailableDigests"/>.
         /// </summary>
-        /// <exception cref="NotSupportedException">Thrown if <see cref="AvailableDigests"/> is empty.</exception>
+        /// <exception cref="NotSupportedException"><see cref="AvailableDigests"/> is empty.</exception>
         public string Best
         {
             get
@@ -125,7 +125,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a new manifest digest structure by parsing an ID string.
         /// </summary>
         /// <param name="id">The ID string to parse. Digest values start with their format name followed by an equals sign and the actual hash.</param>
-        /// <exception cref="NotSupportedException">Thrown if <paramref name="id"/> is not a valid manifest digest.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="id"/> is not a valid manifest digest.</exception>
         public ManifestDigest(string id) : this()
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");

@@ -135,7 +135,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <param name="uri">The <see cref="Feed.Uri"/> to look for.</param>
         /// <returns>The identified <see cref="Feed"/>.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if no <see cref="Feed"/> matching <paramref name="uri"/> was found in <see cref="Feeds"/>.</exception>
+        /// <exception cref="KeyNotFoundException">No <see cref="Feed"/> matching <paramref name="uri"/> was found in <see cref="Feeds"/>.</exception>
         public Feed this[Uri uri]
         {
             get

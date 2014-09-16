@@ -84,8 +84,8 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="integrationManager">Manages desktop integration operations.</param>
         /// <param name="interfaceID">The interface ID to create an <see cref="AppEntry"/> for. Will be updated if <see cref="Feed.ReplacedBy"/> is set and accepted by the user.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the application is already in the list.</exception>
-        /// <exception cref="SolverException">Thrown if the <see cref="ISolver"/> could not ensure <paramref name="interfaceID"/> specifies a runnable application.</exception>
+        /// <exception cref="InvalidOperationException">The application is already in the list.</exception>
+        /// <exception cref="SolverException">The <see cref="ISolver"/> could not ensure <paramref name="interfaceID"/> specifies a runnable application.</exception>
         protected AppEntry CreateAppEntry(IIntegrationManager integrationManager, ref string interfaceID)
         {
             #region Sanity checks

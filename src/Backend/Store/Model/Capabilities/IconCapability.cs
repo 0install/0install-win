@@ -59,7 +59,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// </summary>
         /// <param name="mimeType">The <see cref="Icon.MimeType"/> to try to find. Will only return exact matches.</param>
         /// <returns>The first matching icon that was found.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if no matching icon was found.</exception>
+        /// <exception cref="KeyNotFoundException">No matching icon was found.</exception>
         public Icon GetIcon(string mimeType)
         {
             #region Sanity checks

@@ -282,7 +282,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <param name="name">The <see cref="Command.Name"/> to look for; <see cref="string.Empty"/> for none.</param>
         /// <returns>The first matching command; <see langword="null"/> if <paramref name="name"/> is <see cref="string.Empty"/>.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if no matching <see cref="Command"/> was found.</exception>
+        /// <exception cref="KeyNotFoundException">No matching <see cref="Command"/> was found.</exception>
         /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will not be considered.</remarks>
         public Command this[string name]
         {

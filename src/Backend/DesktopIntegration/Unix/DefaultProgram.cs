@@ -36,11 +36,11 @@ namespace ZeroInstall.DesktopIntegration.Unix
         /// <param name="machineWide">Apply the registration machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="accessPoint">Indicates that the program should be set as the current default for the service it provides.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="defaultProgram"/> is invalid.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
+        /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the filesystem is not permitted.</exception>
+        /// <exception cref="InvalidDataException">The data in <paramref name="defaultProgram"/> is invalid.</exception>
         public static void Register(InterfaceFeed target, Store.Model.Capabilities.DefaultProgram defaultProgram, bool machineWide, ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
@@ -62,9 +62,9 @@ namespace ZeroInstall.DesktopIntegration.Unix
         /// <param name="defaultProgram">The default program information to be removed.</param>
         /// <param name="machineWide">Apply the registration machine-wide instead of just for the current user.</param>
         /// <param name="accessPoint">Indicates that the program was set as the current default for the service it provides.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="defaultProgram"/> is invalid.</exception>
+        /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the filesystem is not permitted.</exception>
+        /// <exception cref="InvalidDataException">The data in <paramref name="defaultProgram"/> is invalid.</exception>
         public static void Unregister(Store.Model.Capabilities.DefaultProgram defaultProgram, bool machineWide, bool accessPoint = false)
         {
             #region Sanity checks

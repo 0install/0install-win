@@ -80,9 +80,9 @@ namespace ZeroInstall.Store.Model.Preferences
         /// </summary>
         /// <param name="interfaceID">The interface to load the preferences for.</param>
         /// <returns>The loaded <see cref="InterfacePreferences"/>.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="IOException">A problem occurs while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
+        /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
         public static InterfacePreferences LoadFor(string interfaceID)
         {
             #region Sanity checks
@@ -140,8 +140,8 @@ namespace ZeroInstall.Store.Model.Preferences
         /// Saves these <see cref="InterfacePreferences"/> for a specific interface.
         /// </summary>
         /// <param name="interfaceID">The interface to save the preferences for.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
+        /// <exception cref="IOException">A problem occurs while writing the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
         public void SaveFor(string interfaceID)
         {
             var path = Locations.GetSaveConfigPath("0install.net", true, "injector", "interfaces", ModelUtils.PrettyEscape(interfaceID));

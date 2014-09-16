@@ -49,7 +49,7 @@ namespace ZeroInstall.Store.Model
         /// Ensures that an interface ID is valid.
         /// </summary>
         /// <param name="value">The interface ID to check for validity.</param>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="value"/> is an invalid interface ID.</exception>
+        /// <exception cref="InvalidInterfaceIDException"><paramref name="value"/> is an invalid interface ID.</exception>
         public static void ValidateInterfaceID(string value)
         {
             if (string.IsNullOrEmpty(value)) throw new InvalidInterfaceIDException(new ArgumentNullException("value").Message);

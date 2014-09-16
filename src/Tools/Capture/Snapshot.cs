@@ -83,9 +83,9 @@ namespace ZeroInstall.Capture
         /// Takes a snapshot of the current system state.
         /// </summary>
         /// <returns>The newly created snapshot.</returns>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry or file system.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry or file system was not permitted.</exception>
-        /// <exception cref="PlatformNotSupportedException">Thrown if this method is called while running on a platform for which capturing is not supported.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry or file system.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the registry or file system was not permitted.</exception>
+        /// <exception cref="PlatformNotSupportedException">This method is called while running on a platform for which capturing is not supported.</exception>
         public static Snapshot Take()
         {
             if (!WindowsUtils.IsWindows) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
@@ -115,9 +115,9 @@ namespace ZeroInstall.Capture
         /// Stores information about the current state of the registry in a snapshot.
         /// </summary>
         /// <param name="snapshot">The snapshot to store the data in.</param>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
         private static void TakeRegistry(Snapshot snapshot)
         {
             snapshot.ServiceAssocs = GetServiceAssocs();
@@ -139,9 +139,9 @@ namespace ZeroInstall.Capture
         /// <summary>
         /// Retrieves a list of service associations from the registry.
         /// </summary>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
         private static ComparableTuple<string>[] GetServiceAssocs()
         {
             using (var clientsKey = Registry.LocalMachine.OpenSubKey(DefaultProgram.RegKeyMachineClients))
@@ -203,9 +203,9 @@ namespace ZeroInstall.Capture
         /// Retrieves a list of AutoPlay associations from the registry.
         /// </summary>
         /// <param name="hive">The registry hive to search in (usually HKCU or HKLM).</param>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
         private static ComparableTuple<string>[] GetAutoPlayAssocs(RegistryKey hive)
         {
             using (var eventsKey = hive.OpenSubKey(AutoPlay.RegKeyAssocs))
@@ -227,8 +227,8 @@ namespace ZeroInstall.Capture
         /// Stores information about the current state of the file system in a snapshot.
         /// </summary>
         /// <param name="snapshot">The snapshot to store the data in.</param>
-        /// <exception cref="IOException">Thrown if there was an error accessing the file system.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file system was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the file system.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the file system was not permitted.</exception>
         private static void TakeFileSystem(Snapshot snapshot)
         {
             // Locate installation directories

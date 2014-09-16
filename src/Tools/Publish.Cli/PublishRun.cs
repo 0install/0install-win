@@ -107,8 +107,8 @@ namespace ZeroInstall.Publish.Cli
         /// Parses command-line arguments.
         /// </summary>
         /// <param name="args">The command-line arguments to be parsed.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user asked to see help information, version information, etc..</exception>
-        /// <exception cref="OptionException">Thrown if <paramref name="args"/> contains unknown options.</exception>
+        /// <exception cref="OperationCanceledException">The user asked to see help information, version information, etc..</exception>
+        /// <exception cref="OptionException"><paramref name="args"/> contains unknown options.</exception>
         public PublishRun(IEnumerable<string> args)
         {
             #region Sanity checks
@@ -181,16 +181,16 @@ namespace ZeroInstall.Publish.Cli
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
         /// <returns>The error code to end the process with.</returns>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the operation.</exception>
-        /// <exception cref="OptionException">Thrown if the specified feed file paths were invalid.</exception>
-        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a feed file is damaged.</exception>
-        /// <exception cref="FileNotFoundException">Thrown if a feed file could not be found.</exception>
-        /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file or the catalog file is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if an existing digest does not match the newly calculated one.</exception>
-        /// <exception cref="KeyNotFoundException">Thrown if an OpenPGP key could not be found.</exception>
-        /// <exception cref="NotSupportedException">Thrown if a MIME type doesn't belong to a known and supported archive type.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="OptionException">The specified feed file paths were invalid.</exception>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
+        /// <exception cref="InvalidDataException">A feed file is damaged.</exception>
+        /// <exception cref="FileNotFoundException">A feed file could not be found.</exception>
+        /// <exception cref="IOException">A file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read or write access to a feed file or the catalog file is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">An existing digest does not match the newly calculated one.</exception>
+        /// <exception cref="KeyNotFoundException">An OpenPGP key could not be found.</exception>
+        /// <exception cref="NotSupportedException">A MIME type doesn't belong to a known and supported archive type.</exception>
         public ErrorLevel Execute()
         {
             switch (_mode)
@@ -236,9 +236,9 @@ namespace ZeroInstall.Publish.Cli
         /// <summary>
         /// Saves a feed.
         /// </summary>
-        /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file is not permitted.</exception>
-        /// <exception cref="KeyNotFoundException">Thrown if an OpenPGP key could not be found.</exception>
+        /// <exception cref="IOException">A file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read or write access to a feed file is not permitted.</exception>
+        /// <exception cref="KeyNotFoundException">An OpenPGP key could not be found.</exception>
         private void SaveFeed(FeedEditing feedEditing)
         {
             if (_unsign)
@@ -291,9 +291,9 @@ namespace ZeroInstall.Publish.Cli
         /// Saves a catalog.
         /// </summary>
         /// <param name="catalog">The catalog to save.</param>
-        /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the catalog file could not be written.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a catalog file is not permitted.</exception>
-        /// <exception cref="KeyNotFoundException">Thrown if an OpenPGP key could not be found.</exception>
+        /// <exception cref="IOException">A file could not be read or written or if the GnuPG could not be launched or the catalog file could not be written.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read or write access to a catalog file is not permitted.</exception>
+        /// <exception cref="KeyNotFoundException">An OpenPGP key could not be found.</exception>
         private void SaveCatalog(Catalog catalog)
         {
             if (_xmlSign)
@@ -328,11 +328,11 @@ namespace ZeroInstall.Publish.Cli
         /// Applies user-selected modifications to a feed.
         /// </summary>
         /// <param name="feedEditing">The feed to modify.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the operation.</exception>
-        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
-        /// <exception cref="IOException">Thrown if there is a problem access a temporary file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a temporary file is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if an existing digest does not match the newly calculated one.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
+        /// <exception cref="IOException">There is a problem access a temporary file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">An existing digest does not match the newly calculated one.</exception>
         private void HandleModify(FeedEditing feedEditing)
         {
             if (_addMissing)

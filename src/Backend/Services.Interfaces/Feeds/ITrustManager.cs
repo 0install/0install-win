@@ -31,7 +31,7 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="data">The data of the file.</param>
         /// <param name="uri">The URI the feed or catalog file originally came from.</param>
         /// <param name="mirrorUrl">The URL or local file path the file was fetched from; <see langword="null"/> if it is identical to <paramref name="uri"/>.</param>
-        /// <exception cref="SignatureException">Thrown if no trusted signature was found.</exception>
+        /// <exception cref="SignatureException">No trusted signature was found.</exception>
         ValidSignature CheckTrust(byte[] data, Uri uri, Uri mirrorUrl = null);
     }
 }

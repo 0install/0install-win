@@ -128,9 +128,9 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         /// <param name="path">The file to load from.</param>
         /// <returns>The loaded <see cref="TrustDB"/>.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="IOException">A problem occurs while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
+        /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
         public static TrustDB Load(string path)
         {
             return XmlStorage.LoadXml<TrustDB>(path);
@@ -140,9 +140,9 @@ namespace ZeroInstall.Store.Trust
         /// Loads the <see cref="TrustDB"/> from its default location.
         /// </summary>
         /// <returns>The loaded <see cref="TrustDB"/>.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="IOException">A problem occurs while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
+        /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
         public static TrustDB Load()
         {
             return Load(Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml"));
@@ -188,8 +188,8 @@ namespace ZeroInstall.Store.Trust
         /// <summary>
         /// Saves the this <see cref="TrustDB"/> to an XML file.
         /// </summary>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
+        /// <exception cref="IOException">A problem occurs while writing the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
         public void Save()
         {
             this.SaveXml(Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml"));

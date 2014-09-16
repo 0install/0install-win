@@ -39,8 +39,8 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="name">The name of the flag type to search for (<code>.xbit</code> or <code>.symlink</code>).</param>
         /// <param name="target">The target directory to start the search from (will go upwards through directory levels one-by-one, thus may deliver "too many" results).</param>
         /// <returns>A list of fully qualified paths of files that are named in an external flag file.</returns>
-        /// <exception cref="IOException">Thrown if there was an error reading the flag file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to read the flag file.</exception>
+        /// <exception cref="IOException">There was an error reading the flag file.</exception>
+        /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the flag file.</exception>
         /// <remarks>The flag file is searched for instead of specifiying it directly to allow handling of special cases like creating manifests of subdirectories of extracted archives.</remarks>
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags")]
         public static ICollection<string> GetExternalFlags(string name, string target)
@@ -105,8 +105,8 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="file">The path to the flag file, ending with the type in the type of flag to store (<code>.xbit</code> or <code>.symlink</code>).</param>
         /// <param name="relativePath">The path of the file to set the flag for relative to <paramref name="file"/>.</param>
-        /// <exception cref="IOException">Thrown if there was an error writing the flag file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to write the flag file.</exception>
+        /// <exception cref="IOException">There was an error writing the flag file.</exception>
+        /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
         public static void SetExternalFlag(string file, string relativePath)
         {
@@ -128,8 +128,8 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="file">The path to the flag file, ending with the type in the type of flag to store (<code>.xbit</code> or <code>.symlink</code>).</param>
         /// <param name="relativePath">The path of the file or directory to remove the flag for relative to <paramref name="file"/>.</param>
-        /// <exception cref="IOException">Thrown if there was an error writing the flag file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to write the flag file.</exception>
+        /// <exception cref="IOException">There was an error writing the flag file.</exception>
+        /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
         public static void RemoveExternalFlag(string file, string relativePath)
         {
@@ -169,8 +169,8 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="file">The path to the flag file.</param>
         /// <param name="prefix">The directory prefix without leading or trailing slashes.</param>
-        /// <exception cref="IOException">Thrown if there was an error writing the flag file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to write the flag file.</exception>
+        /// <exception cref="IOException">There was an error writing the flag file.</exception>
+        /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags")]
         public static void PrefixExternalFlags(string file, string prefix)
         {

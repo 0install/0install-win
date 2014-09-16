@@ -93,7 +93,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <param name="url">To an <see cref="Image"/>.</param>
         /// <returns>The downloaded <see cref="Image"/>.</returns>
         /// <exception cref="WebException">The image file could not be downloaded.</exception>
-        /// <exception cref="InvalidDataException">The downloaded data is not a valid image files</exception>
+        /// <exception cref="InvalidDataException">The downloaded data is not a valid image files.</exception>
         private static Image GetImageFromUrl(Uri url)
         {
             try

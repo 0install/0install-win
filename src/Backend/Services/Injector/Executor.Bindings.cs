@@ -41,12 +41,12 @@ namespace ZeroInstall.Services.Injector
         /// <summary>
         /// Accumulates bindings in a process environment.
         /// </summary>
-        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Implementation"/> is not cached yet.</exception>
-        /// <exception cref="ExecutorException">Thrown if a <see cref="Command"/> contained invalid data.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
-        /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
+        /// <exception cref="KeyNotFoundException"><see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
+        /// <exception cref="ImplementationNotFoundException">An <see cref="Implementation"/> is not cached yet.</exception>
+        /// <exception cref="ExecutorException">A <see cref="Command"/> contained invalid data.</exception>
+        /// <exception cref="IOException">A problem occurred while writing a file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
+        /// <exception cref="Win32Exception">A problem occurred while creating a hard link.</exception>
         private ProcessStartInfo BuildStartInfoWithBindings()
         {
             var startInfo = new ProcessStartInfo {ErrorDialog = false, UseShellExecute = false};
@@ -69,11 +69,11 @@ namespace ZeroInstall.Services.Injector
         /// <param name="bindingContainer">The list of <see cref="Binding"/>s to be performed.</param>
         /// <param name="implementation">The implementation to be made available via the <see cref="Binding"/>s.</param>
         /// <param name="startInfo">The process launch environment to apply the <see cref="Binding"/>s to.</param>
-        /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
-        /// <exception cref="ExecutorException">Thrown if a <see cref="Command"/> contained invalid data.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
-        /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
+        /// <exception cref="ImplementationNotFoundException">The <paramref name="implementation"/> is not cached yet.</exception>
+        /// <exception cref="ExecutorException">A <see cref="Command"/> contained invalid data.</exception>
+        /// <exception cref="IOException">A problem occurred while writing a file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
+        /// <exception cref="Win32Exception">A problem occurred while creating a hard link.</exception>
         private void ApplyBindings(IBindingContainer bindingContainer, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
             // Do not apply bindings more than once
@@ -98,12 +98,12 @@ namespace ZeroInstall.Services.Injector
         /// </summary>
         /// <param name="dependencyContainer">The list of <see cref="Dependency"/>s to follow.</param>
         /// <param name="startInfo">The process launch environment to apply the <see cref="Binding"/>s to.</param>
-        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Implementation"/> is not cached yet.</exception>
-        /// <exception cref="ExecutorException">Thrown if a <see cref="Command"/> contained invalid data.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
-        /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
+        /// <exception cref="KeyNotFoundException"><see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
+        /// <exception cref="ImplementationNotFoundException">An <see cref="Implementation"/> is not cached yet.</exception>
+        /// <exception cref="ExecutorException">A <see cref="Command"/> contained invalid data.</exception>
+        /// <exception cref="IOException">A problem occurred while writing a file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
+        /// <exception cref="Win32Exception">A problem occurred while creating a hard link.</exception>
         private void ApplyDependencyBindings(IDependencyContainer dependencyContainer, ProcessStartInfo startInfo)
         {
             foreach (var dependency in dependencyContainer.Dependencies
@@ -118,7 +118,7 @@ namespace ZeroInstall.Services.Injector
         /// <param name="binding">The binding to apply.</param>
         /// <param name="implementation">The implementation to be made available.</param>
         /// <param name="startInfo">The process launch environment to apply the binding to.</param>
-        /// <exception cref="ExecutorException">Thrown if <see cref="EnvironmentBinding.Name"/> or other data is invalid.</exception>
+        /// <exception cref="ExecutorException"><see cref="EnvironmentBinding.Name"/> or other data is invalid.</exception>
         private void ApplyEnvironmentBinding(EnvironmentBinding binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
             if (string.IsNullOrEmpty(binding.Name)) throw new ExecutorException(string.Format(Resources.MissingBindingName, @"<environment>"));
@@ -208,12 +208,12 @@ namespace ZeroInstall.Services.Injector
         /// <param name="binding">The binding to apply.</param>
         /// <param name="implementation">The implementation to be made available.</param>
         /// <param name="startInfo">The process launch environment to use to make the run-environment executable available.</param>
-        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Store.Model.Implementation"/>s is not cached yet.</exception>
-        /// <exception cref="ExecutorException">Thrown if <see cref="ExecutableInVar.Name"/> is invalid.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
+        /// <exception cref="KeyNotFoundException"><see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
+        /// <exception cref="ImplementationNotFoundException">One of the <see cref="Store.Model.Implementation"/>s is not cached yet.</exception>
+        /// <exception cref="ExecutorException"><see cref="ExecutableInVar.Name"/> is invalid.</exception>
+        /// <exception cref="IOException">A problem occurred while writing the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
+        /// <exception cref="Win32Exception">A problem occurred while creating a hard link.</exception>
         private void ApplyExecutableInVar(ExecutableInVar binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
             if (string.IsNullOrEmpty(binding.Name)) throw new ExecutorException(string.Format(Resources.MissingBindingName, @"<executable-in-var>"));
@@ -236,12 +236,12 @@ namespace ZeroInstall.Services.Injector
         /// <param name="binding">The binding to apply.</param>
         /// <param name="implementation">The implementation to be made available.</param>
         /// <param name="startInfo">The process launch environment to use to make the run-environment executable available.</param>
-        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Store.Model.Implementation"/>s is not cached yet.</exception>
-        /// <exception cref="ExecutorException">Thrown if <see cref="ExecutableInPath.Name"/> is invalid.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
+        /// <exception cref="KeyNotFoundException"><see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
+        /// <exception cref="ImplementationNotFoundException">One of the <see cref="Store.Model.Implementation"/>s is not cached yet.</exception>
+        /// <exception cref="ExecutorException"><see cref="ExecutableInPath.Name"/> is invalid.</exception>
+        /// <exception cref="IOException">A problem occurred while writing the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
+        /// <exception cref="Win32Exception">A problem occurred while creating a hard link.</exception>
         private void ApplyExecutableInPath(ExecutableInPath binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
             if (string.IsNullOrEmpty(binding.Name)) throw new ExecutorException(string.Format(Resources.MissingBindingName, @"<executable-in-path>"));
@@ -262,9 +262,9 @@ namespace ZeroInstall.Services.Injector
         /// </summary>
         /// <param name="name">The executable name to deploy under (without file extensions).</param>
         /// <returns>The fully qualified path of the deployed run-environment executable.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        /// <exception cref="Win32Exception">Thrown if a problem occurred while creating a hard link.</exception>
+        /// <exception cref="IOException">A problem occurred while writing the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
+        /// <exception cref="Win32Exception">A problem occurred while creating a hard link.</exception>
         /// <remarks>A run-environment executable executes a command-line specified in an environment variable based on its own name.</remarks>
         private static string DeployRunEnvExecutable(string name)
         {
@@ -336,8 +336,8 @@ namespace ZeroInstall.Services.Injector
         /// </summary>
         /// <param name="resourceName">The name of the embedded resource.</param>
         /// <param name="filePath">The file to write the data to.</param>
-        /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
+        /// <exception cref="IOException">A problem occurred while writing the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
         private static void WriteOutEmbeddedResource(string resourceName, string filePath)
         {
             var assembly = Assembly.GetAssembly(typeof(Executor));
@@ -378,8 +378,8 @@ namespace ZeroInstall.Services.Injector
         /// <param name="workingDir">The <see cref="WorkingDir"/> to apply.</param>
         /// <param name="implementation">The implementation to be made available via the <see cref="WorkingDir"/> change.</param>
         /// <param name="startInfo">The process launch environment to apply the <see cref="WorkingDir"/> change to.</param>
-        /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
-        /// <exception cref="ExecutorException">Thrown if the <paramref name="workingDir"/> has an invalid path or another working directory has already been set.</exception>
+        /// <exception cref="ImplementationNotFoundException">The <paramref name="implementation"/> is not cached yet.</exception>
+        /// <exception cref="ExecutorException">The <paramref name="workingDir"/> has an invalid path or another working directory has already been set.</exception>
         /// <remarks>This method can only be called successfully once per <see cref="BuildStartInfoWithBindings()"/>.</remarks>
         private void ApplyWorkingDir(WorkingDir workingDir, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {

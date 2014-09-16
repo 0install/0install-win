@@ -48,10 +48,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
         /// <returns>The path to the generated stub EXE.</returns>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
-        /// <exception cref="InvalidOperationException">Thrown if write access to the filesystem is not permitted.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
+        /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="InvalidOperationException">Write access to the filesystem is not permitted.</exception>
         public static string GetRunStub(this InterfaceFeed target, bool machineWide, ITaskHandler handler, string command = null)
         {
             #region Sanity checks
@@ -80,11 +80,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="needsTerminal"><see langword="true"/> to build a CLI stub, <see langword="false"/> to build a GUI stub.</param>
         /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if there was a compilation error while generating the stub EXE.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem is not permitted.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="InvalidOperationException">There was a compilation error while generating the stub EXE.</exception>
+        /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
+        /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the filesystem is not permitted.</exception>
         private static void CreateOrUpdateRunStub(this InterfaceFeed target, string path, ITaskHandler handler, bool needsTerminal, string command)
         {
             if (File.Exists(path))
@@ -130,11 +130,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="needsTerminal"><see langword="true"/> to build a CLI stub, <see langword="false"/> to build a GUI stub.</param>
         /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if there was a compilation error while generating the stub EXE.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem is not permitted.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="InvalidOperationException">There was a compilation error while generating the stub EXE.</exception>
+        /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
+        /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the filesystem is not permitted.</exception>
         internal static void BuildRunStub(this InterfaceFeed target, string path, ITaskHandler handler, bool needsTerminal, string command)
         {
             #region Sanity checks

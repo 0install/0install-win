@@ -38,7 +38,7 @@ namespace ZeroInstall.Store
         /// </summary>
         /// <param name="key">The key of the option to retrieve.</param>
         /// <returns>The string representation of the the option.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if <paramref name="key"/> is invalid.</exception>
+        /// <exception cref="KeyNotFoundException"><paramref name="key"/> is invalid.</exception>
         public string GetOption(string key)
         {
             return _metaData[key].Value;
@@ -49,8 +49,8 @@ namespace ZeroInstall.Store
         /// </summary>
         /// <param name="key">The key of the option to set.</param>
         /// <param name="value">A string representation of the option.</param>
-        /// <exception cref="KeyNotFoundException">Thrown if <paramref name="key"/> is invalid.</exception>
-        /// <exception cref="FormatException">Thrown if <paramref name="value"/> is invalid.</exception>
+        /// <exception cref="KeyNotFoundException"><paramref name="key"/> is invalid.</exception>
+        /// <exception cref="FormatException"><paramref name="value"/> is invalid.</exception>
         public void SetOption(string key, string value)
         {
             _metaData[key].Value = value;
@@ -60,7 +60,7 @@ namespace ZeroInstall.Store
         /// Resets an option identified by a key to its default value.
         /// </summary>
         /// <param name="key">The key of the option to reset.</param>
-        /// <exception cref="KeyNotFoundException">Thrown if <paramref name="key"/> is invalid.</exception>
+        /// <exception cref="KeyNotFoundException"><paramref name="key"/> is invalid.</exception>
         public void ResetOption(string key)
         {
             var property = _metaData[key];
@@ -75,9 +75,9 @@ namespace ZeroInstall.Store
         /// Loads the settings from a single INI file.
         /// </summary>
         /// <returns>The loaded <see cref="Config"/>.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the config data.</exception>
+        /// <exception cref="IOException">A problem occurs while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
+        /// <exception cref="InvalidDataException">A problem occurs while deserializing the config data.</exception>
         public static Config Load(string path)
         {
             var config = new Config();
@@ -89,9 +89,9 @@ namespace ZeroInstall.Store
         /// Aggregates the settings from all applicable INI files listed by <see cref="Locations.GetLoadConfigPaths"/>.
         /// </summary>
         /// <returns>The loaded <see cref="Config"/>.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the config data.</exception>
+        /// <exception cref="IOException">A problem occurs while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
+        /// <exception cref="InvalidDataException">A problem occurs while deserializing the config data.</exception>
         public static Config Load()
         {
             // Locate all applicable config files
@@ -118,8 +118,8 @@ namespace ZeroInstall.Store
         /// Saves the settings to an INI file.
         /// </summary>
         /// <remarks>This method performs an atomic write operation when possible.</remarks>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
+        /// <exception cref="IOException">A problem occurs while writing the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
         public void Save(string path)
         {
             TransferToIni();
@@ -136,8 +136,8 @@ namespace ZeroInstall.Store
         /// Saves the settings to an INI file in the default location in the user profile.
         /// </summary>
         /// <remarks>This method performs an atomic write operation when possible.</remarks>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
+        /// <exception cref="IOException">A problem occurs while writing the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
         public void Save()
         {
             Save(Locations.GetSaveConfigPath("0install.net", true, "injector", "global"));

@@ -51,8 +51,8 @@ namespace ZeroInstall.Store.Service
         /// <param name="path">A fully qualified directory path. The directory will be created if it doesn't exist yet.</param>
         /// <param name="serviceIdentity">The identity the service was launched with.</param>
         /// <param name="eventLog">Writes messages to the Windows Event Log.</param>
-        /// <exception cref="IOException">Thrown if the directory <paramref name="path"/> could not be created or if the underlying filesystem can not store file-changed times accurate to the second.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating the directory <paramref name="path"/> is not permitted.</exception>
+        /// <exception cref="IOException">The directory <paramref name="path"/> could not be created or if the underlying filesystem can not store file-changed times accurate to the second.</exception>
+        /// <exception cref="UnauthorizedAccessException">Creating the directory <paramref name="path"/> is not permitted.</exception>
         public SecureStore(string path, WindowsIdentity serviceIdentity, EventLog eventLog) : base(path)
         {
             #region Sanity checks

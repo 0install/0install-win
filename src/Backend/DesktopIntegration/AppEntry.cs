@@ -125,7 +125,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <typeparam name="T">The capability type to match.</typeparam>
         /// <param name="id">The <see cref="Capability.ID"/> to match.</param>
         /// <returns>The first matching <see cref="Capability"/> or <see langword="null"/> if none was found.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if no capability matching <paramref name="id"/> and <typeparamref name="T"/> was found.</exception>
+        /// <exception cref="KeyNotFoundException">No capability matching <paramref name="id"/> and <typeparamref name="T"/> was found.</exception>
         public T GetCapability<T>(string id) where T : Capability
         {
             try

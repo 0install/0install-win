@@ -37,9 +37,9 @@ namespace ZeroInstall.Store.ViewModel
         /// </summary>
         /// <param name="path">The path of the directory in the store.</param>
         /// <param name="store">The <see cref="IStore"/> the directory is located in.</param>
-        /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
-        /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
+        /// <exception cref="FormatException">The manifest file is not valid.</exception>
+        /// <exception cref="IOException">The manifest file could not be read.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
         public TempDirectoryNode(string path, IStore store)
             : base(store)
         {
@@ -60,9 +60,9 @@ namespace ZeroInstall.Store.ViewModel
         /// <summary>
         /// Deletes this temporary directory from the <see cref="IStore"/> it is located in.
         /// </summary>
-        /// <exception cref="DirectoryNotFoundException">Thrown if the directory could be found in the store.</exception>
-        /// <exception cref="IOException">Thrown if the directory could not be deleted.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
+        /// <exception cref="DirectoryNotFoundException">The directory could be found in the store.</exception>
+        /// <exception cref="IOException">The directory could not be deleted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the store is not permitted.</exception>
         public override void Delete()
         {
             try

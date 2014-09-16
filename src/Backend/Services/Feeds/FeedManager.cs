@@ -127,8 +127,8 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         /// <param name="feedID">The ID used to identify the feed. Must be an absolute local path.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
+        /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
         private Feed LoadLocal(string feedID)
         {
             if (File.Exists(feedID))
@@ -156,10 +156,10 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         /// <param name="feedID">The ID used to identify the feed. Must be an HTTP(S) URL.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
-        /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedID"/> was not found in the cache.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
+        /// <exception cref="InvalidInterfaceIDException"><paramref name="feedID"/> is an invalid interface ID.</exception>
+        /// <exception cref="KeyNotFoundException">The requested <paramref name="feedID"/> was not found in the cache.</exception>
+        /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
         private Feed LoadCached(string feedID)
         {
             try
@@ -198,12 +198,12 @@ namespace ZeroInstall.Services.Feeds
         /// Downloads a <see cref="Feed"/> into the <see cref="_feedCache"/> validating its signatures.
         /// </summary>
         /// <param name="url">The URL of download the feed from.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="url"/> is an invalid interface ID.</exception>
-        /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="url"/> was not found in the cache.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
+        /// <exception cref="InvalidInterfaceIDException"><paramref name="url"/> is an invalid interface ID.</exception>
+        /// <exception cref="KeyNotFoundException">The requested <paramref name="url"/> was not found in the cache.</exception>
+        /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
+        /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
         [SuppressMessage("Microsoft.Usage", "CA2200:RethrowToPreserveStackDetails", Justification = "Rethrow the outer instead of the inner exception")]
         private void Download(Uri url)
         {
@@ -239,12 +239,12 @@ namespace ZeroInstall.Services.Feeds
         /// Downloads a <see cref="Feed"/> from the <see cref="Config.FeedMirror"/>.
         /// </summary>
         /// <param name="url">The URL of download the feed from.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="url"/> is an invalid interface ID.</exception>
-        /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="url"/> was not found in the cache.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to the cache is not permitted.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
+        /// <exception cref="InvalidInterfaceIDException"><paramref name="url"/> is an invalid interface ID.</exception>
+        /// <exception cref="KeyNotFoundException">The requested <paramref name="url"/> was not found in the cache.</exception>
+        /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
+        /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
         private void DownloadMirror(Uri url)
         {
             var mirrorUrl = new Uri(_config.FeedMirror, string.Format(
@@ -289,8 +289,8 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="data">The content of the feed file as a byte array.</param>
         /// <param name="uri">The URI the feed originally came from.</param>
         /// <param name="signature">The first trusted signature for the feed.</param>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if feed substitution or another interface URI-related problem was detected.</exception>
-        /// <exception cref="ReplayAttackException">Thrown if a replay attack was detected.</exception>
+        /// <exception cref="InvalidInterfaceIDException">feed substitution or another interface URI-related problem was detected.</exception>
+        /// <exception cref="ReplayAttackException">A replay attack was detected.</exception>
         private void DetectAttacks(byte[] data, Uri uri, ValidSignature signature)
         {
             // Detect feed substitution 

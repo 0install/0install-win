@@ -106,8 +106,8 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="path">The path of the file to write.</param>
         /// <returns>The manifest digest.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
+        /// <exception cref="IOException">A problem occurs while writing the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
@@ -155,7 +155,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="stream">The stream to load from.</param>
         /// <param name="format">The format of the file and the format of the created <see cref="Manifest"/>. Comprises the digest method used and the file's format.</param>
         /// <returns>A set of <see cref="ManifestNode"/>s containing the parsed content of the file.</returns>
-        /// <exception cref="FormatException">Thrown if the file specified is not a valid manifest file.</exception>
+        /// <exception cref="FormatException">The file specified is not a valid manifest file.</exception>
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
@@ -189,9 +189,9 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="path">The path of the file to load.</param>
         /// <param name="format">The format of the file and the format of the created <see cref="Manifest"/>. Comprises the digest method used and the file's format.</param>
         /// <returns>A set of <see cref="ManifestNode"/>s containing the parsed content of the file.</returns>
-        /// <exception cref="FormatException">Thrown if the file specified is not a valid manifest file.</exception>
-        /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
+        /// <exception cref="FormatException">The file specified is not a valid manifest file.</exception>
+        /// <exception cref="IOException">The manifest file could not be read.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
@@ -216,7 +216,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="tag">An object used to associate a <see cref="ITask"/> with a specific process; may be <see langword="null"/>.</param>
         /// <returns>A manifest for the directory.</returns>
-        /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
+        /// <exception cref="IOException">The directory could not be processed.</exception>
         public static Manifest Generate(string path, ManifestFormat format, ITaskHandler handler, object tag = null)
         {
             #region Sanity checks
@@ -237,7 +237,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="format">The format of the manifest (which file details are listed, which digest method is used, etc.).</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <returns>The manifest digest.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
+        /// <exception cref="IOException">A problem occurs while writing the file.</exception>
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
@@ -257,7 +257,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <returns>The combined manifest digest structure.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
+        /// <exception cref="IOException">A problem occurs while writing the file.</exception>
         public static ManifestDigest CreateDigest(string path, ITaskHandler handler)
         {
             var digest = new ManifestDigest();

@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         /// <param name="path">The path of the Windows Installer MSI package to be extracted.</param>
         /// <param name="target">The path to the directory to extract into.</param>
-        /// <exception cref="IOException">Thrown if the package is damaged.</exception>
+        /// <exception cref="IOException">The package is damaged.</exception>
         internal MsiExtractor(string path, string target)
             : base(target)
         {

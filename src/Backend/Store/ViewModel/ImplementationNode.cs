@@ -39,9 +39,9 @@ namespace ZeroInstall.Store.ViewModel
         /// </summary>
         /// <param name="digest">The digest identifying the implementation.</param>
         /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
-        /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
-        /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
+        /// <exception cref="FormatException">The manifest file is not valid.</exception>
+        /// <exception cref="IOException">The manifest file could not be read.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
         protected ImplementationNode(ManifestDigest digest, IStore store)
             : base(store)
         {
@@ -77,9 +77,9 @@ namespace ZeroInstall.Store.ViewModel
         /// <summary>
         /// Deletes this implementation from the <see cref="IStore"/> it is located in.
         /// </summary>
-        /// <exception cref="KeyNotFoundException">Thrown if no matching implementation could be found in the <see cref="IStore"/>.</exception>
-        /// <exception cref="IOException">Thrown if the implementation could not be deleted.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
+        /// <exception cref="KeyNotFoundException">No matching implementation could be found in the <see cref="IStore"/>.</exception>
+        /// <exception cref="IOException">The implementation could not be deleted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the store is not permitted.</exception>
         public override void Delete()
         {
             try
@@ -98,9 +98,9 @@ namespace ZeroInstall.Store.ViewModel
         /// Verify this implementation is undamaged.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="IOException">Thrown if the entry's directory could not be processed.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the entry's directory is not permitted.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="IOException">The entry's directory could not be processed.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the entry's directory is not permitted.</exception>
         public void Verify(ITaskHandler handler)
         {
             Store.Verify(_digest, handler);

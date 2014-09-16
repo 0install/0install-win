@@ -33,8 +33,8 @@ namespace ZeroInstall.Store.Feeds
         /// A list of feed URIs (e.g. "http://somedomain.net/interface.xml").
         /// Usually these can also be considered interface IDs.
         /// </returns>
-        /// <exception cref="IOException">Thrown if a problem occured while reading from the cache.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
+        /// <exception cref="IOException">A problem occured while reading from the cache.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the cache is not permitted.</exception>
         IEnumerable<string> ListAll();
 
         /// <summary>
@@ -42,11 +42,11 @@ namespace ZeroInstall.Store.Feeds
         /// </summary>
         /// <param name="feedID">The canonical ID used to identify the feed.</param>
         /// <returns>The parsed <see cref="Feed"/> object. Do not modify this object! It may be a reference to an in-memory cache entry.</returns>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
-        /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedID"/> was not found in the cache.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the feed file could not be parsed.</exception>
+        /// <exception cref="InvalidInterfaceIDException"><paramref name="feedID"/> is an invalid interface ID.</exception>
+        /// <exception cref="KeyNotFoundException">The requested <paramref name="feedID"/> was not found in the cache.</exception>
+        /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the cache is not permitted.</exception>
+        /// <exception cref="InvalidDataException">The feed file could not be parsed.</exception>
         Feed GetFeed(string feedID);
 
         /// <summary>
@@ -54,10 +54,10 @@ namespace ZeroInstall.Store.Feeds
         /// </summary>
         /// <param name="feedID">The canonical ID used to identify the feed.</param>
         /// <returns>A list of signatures found, both valid and invalid.</returns>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
-        /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedID"/> was not found in the cache.</exception>
-        /// <exception cref="IOException">Thrown if the OpenPGP implementation could not be launched.</exception>
-        /// <exception cref="SignatureException">Thrown if the signature data could not be handled.</exception>
+        /// <exception cref="InvalidInterfaceIDException"><paramref name="feedID"/> is an invalid interface ID.</exception>
+        /// <exception cref="KeyNotFoundException">The requested <paramref name="feedID"/> was not found in the cache.</exception>
+        /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
+        /// <exception cref="SignatureException">The signature data could not be handled.</exception>
         IEnumerable<OpenPgpSignature> GetSignatures(string feedID);
 
         /// <summary>
@@ -65,20 +65,20 @@ namespace ZeroInstall.Store.Feeds
         /// </summary>
         /// <param name="feedID">The canonical ID used to identify the feed.</param>
         /// <param name="data">The content of the feed file as a byte array.</param>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while writing the feed file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the feed file could not be parsed.</exception>
+        /// <exception cref="InvalidInterfaceIDException"><paramref name="feedID"/> is an invalid interface ID.</exception>
+        /// <exception cref="IOException">A problem occured while writing the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the cache is not permitted.</exception>
+        /// <exception cref="InvalidDataException">The feed file could not be parsed.</exception>
         void Add(string feedID, byte[] data);
 
         /// <summary>
         /// Removes a specific <see cref="Feed"/> from this cache. No exception is thrown if the specified <see cref="Feed"/> is not in the cache.
         /// </summary>
         /// <param name="feedID">The canonical ID used to identify the feed.</param>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
-        /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedID"/> was not found in the cache.</exception>
-        /// <exception cref="IOException">Thrown if the feed could not be deleted.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
+        /// <exception cref="InvalidInterfaceIDException"><paramref name="feedID"/> is an invalid interface ID.</exception>
+        /// <exception cref="KeyNotFoundException">The requested <paramref name="feedID"/> was not found in the cache.</exception>
+        /// <exception cref="IOException">The feed could not be deleted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the cache is not permitted.</exception>
         void Remove(string feedID);
 
         /// <summary>

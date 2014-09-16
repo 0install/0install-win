@@ -55,7 +55,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a new implementation version from a a string.
         /// </summary>
         /// <param name="value">The string containing the version information.</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="value"/> is not a valid version string.</exception>
+        /// <exception cref="ArgumentException"><paramref name="value"/> is not a valid version string.</exception>
         public ImplementationVersion(string value)
         {
             #region Sanity checks

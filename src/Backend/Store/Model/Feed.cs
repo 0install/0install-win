@@ -278,7 +278,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <param name="id">The <see cref="ImplementationBase.ID"/> to look for.</param>
         /// <returns>The identified <see cref="Implementation"/>.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if no <see cref="Implementation"/> matching <paramref name="id"/> was found in <see cref="Elements"/>.</exception>
+        /// <exception cref="KeyNotFoundException">No <see cref="Implementation"/> matching <paramref name="id"/> was found in <see cref="Elements"/>.</exception>
         /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
         public Implementation this[string id]
         {

@@ -51,9 +51,9 @@ namespace ZeroInstall.Capture
         /// <param name="keyPath">The path to the key below HKEY_LOCAL_MACHINE.</param>
         /// <param name="x64">Indicates whether a 64-bit key was opened.</param>
         /// <returns>The opened registry key or <see langword="null"/> if it could not found.</returns>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if access to the registry was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Access to the registry was not permitted.</exception>
         public static RegistryKey OpenHklmKey(string keyPath, out bool x64)
         {
             if (WindowsUtils.Is64BitProcess)

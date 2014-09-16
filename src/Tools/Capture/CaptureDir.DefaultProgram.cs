@@ -36,9 +36,9 @@ namespace ZeroInstall.Capture
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <param name="appName">Is set to the name of the application as displayed to the user; unchanged if the name was not found.</param>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
         private static void CollectDefaultPrograms(Snapshot snapshotDiff, CommandMapper commandMapper, CapabilityList capabilities, ref string appName)
         {
             #region Sanity checks
@@ -81,9 +81,9 @@ namespace ZeroInstall.Capture
         /// </summary>
         /// <param name="clientKey">The registry key containing the application's registration data.</param>
         /// <param name="installationDir">The fully qualified path to the installation directory.</param>
-        /// <exception cref="IOException">Thrown if there was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Thrown if read access to the registry was not permitted.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
+        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
         private static InstallCommands GetInstallCommands(RegistryKey clientKey, string installationDir)
         {
             #region Sanity checks

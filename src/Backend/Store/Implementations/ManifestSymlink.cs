@@ -52,7 +52,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="hash">The hash of the link target path.</param>
         /// <param name="size">The length of the link target path.</param>
         /// <param name="symlinkName">The name of the symlink without the containing directory.</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="symlinkName"/> contains a newline character.</exception>
+        /// <exception cref="ArgumentException"><paramref name="symlinkName"/> contains a newline character.</exception>
         internal ManifestSymlink(string hash, long size, string symlinkName)
         {
             #region Sanity checks
@@ -71,7 +71,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="line">The string representation to parse.</param>
         /// <returns>The newly created node.</returns>
-        /// <exception cref="FormatException">Thrown if the <paramref name="line"/> format is incorrect.</exception>
+        /// <exception cref="FormatException">The <paramref name="line"/> format is incorrect.</exception>
         internal static ManifestSymlink FromString(string line)
         {
             const int numberOfParts = 4;

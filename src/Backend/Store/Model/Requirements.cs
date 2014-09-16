@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// The URI or local path (must be absolute) to the interface to solve the dependencies for.
         /// </summary>
-        /// <exception cref="InvalidInterfaceIDException">Thrown when trying to set an invalid interface ID.</exception>
+        /// <exception cref="InvalidInterfaceIDException">Trying to set an invalid interface ID.</exception>
         [Description("The URI or local path (must be absolute) to the interface to solve the dependencies for.")]
         [JsonProperty("interface")]
         public string InterfaceID

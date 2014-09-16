@@ -102,9 +102,9 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="implementationDirectory">The implementation directory. Should be a subdirectory of <see cref="TemporaryDirectory"/>.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about IO tasks.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="IOException">Thrown if there was a problem generating the manifest or detectng the executables.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to temporary files was not permitted.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="IOException">There was a problem generating the manifest or detectng the executables.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to temporary files was not permitted.</exception>
         public void SetImplementationDirectory(string implementationDirectory, ITaskHandler handler)
         {
             #region Sanity checks

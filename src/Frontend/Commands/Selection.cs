@@ -164,10 +164,10 @@ namespace ZeroInstall.Commands
         /// Runs <see cref="ISolver.Solve"/> (unless <see cref="SelectionsDocument"/> is <see langword="true"/>) and stores the result in <see cref="Selections"/>.
         /// </summary>
         /// <returns>The same result as stored in <see cref="Selections"/>.</returns>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
-        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
-        /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
-        /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
+        /// <exception cref="IOException">An external application or file required by the solver could not be accessed.</exception>
+        /// <exception cref="SolverException">The dependencies could not be solved.</exception>
         protected virtual void Solve()
         {
             // TODO: Handle named apps

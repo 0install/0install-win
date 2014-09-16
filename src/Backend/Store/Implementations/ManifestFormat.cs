@@ -66,7 +66,7 @@ namespace ZeroInstall.Store.Implementations
         /// Selects the correct <see cref="ManifestFormat"/> based on the digest prefix.
         /// </summary>
         /// <param name="id">The digest id to extract the prefix from or only the prefix.</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="id"/> is no known algorithm prefix.</exception>
+        /// <exception cref="ArgumentException"><paramref name="id"/> is no known algorithm prefix.</exception>
         public static ManifestFormat FromPrefix(string id)
         {
             #region Sanity checks
@@ -117,8 +117,8 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
         /// <returns>An array of filesystem entries.</returns>
-        /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
+        /// <exception cref="IOException">The directory could not be processed.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the directory is not permitted.</exception>
         public abstract FileSystemInfo[] GetSortedDirectoryEntries(string path);
         #endregion
 

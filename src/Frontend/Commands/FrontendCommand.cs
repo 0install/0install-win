@@ -181,11 +181,11 @@ namespace ZeroInstall.Commands
         /// Parses command-line arguments and stores the result in the command.
         /// </summary>
         /// <param name="args">The command-line arguments to be parsed.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user asked to see help information, version information, etc..</exception>
-        /// <exception cref="OptionException">Thrown if <paramref name="args"/> contains unknown options.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if more privileges are required.</exception>
-        /// <exception cref="InvalidInterfaceIDException">Thrown when trying to set an invalid interface ID.</exception>
+        /// <exception cref="OperationCanceledException">The user asked to see help information, version information, etc..</exception>
+        /// <exception cref="OptionException"><paramref name="args"/> contains unknown options.</exception>
+        /// <exception cref="IOException">A problem occurred while creating a directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">more privileges are required.</exception>
+        /// <exception cref="InvalidInterfaceIDException">Trying to set an invalid interface ID.</exception>
         public virtual void Parse(IEnumerable<string> args)
         {
             // ReSharper disable PossibleMultipleEnumeration
@@ -205,21 +205,21 @@ namespace ZeroInstall.Commands
         /// Executes the commands specified by the command-line arguments. Must call <see cref="Parse"/> first!
         /// </summary>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the process.</exception>
-        /// <exception cref="OptionException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
-        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
-        /// <exception cref="NotSupportedException">Thrown if a file format, protocal, etc. is unknown or not supported.</exception>
-        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if an operation failed due to insufficient rights.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurred while deserializing an XML file.</exception>
-        /// <exception cref="SignatureException">Thrown if the signature data could not be handled for some reason.</exception>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if no interface ID was specified while one was needed.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if an <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
-        /// <exception cref="SolverException">Thrown if the <see cref="ISolver"/> was unable to solve all dependencies.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
-        /// <exception cref="ExecutorException">Thrown if the <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
-        /// <exception cref="Win32Exception">Thrown if an executable could not be launched.</exception>
-        /// <exception cref="BadImageFormatException">Thrown if an executable could not be launched.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
+        /// <exception cref="OptionException">The number of arguments passed in on the command-line is incorrect.</exception>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
+        /// <exception cref="NotSupportedException">A file format, protocal, etc. is unknown or not supported.</exception>
+        /// <exception cref="IOException">A downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
+        /// <exception cref="UnauthorizedAccessException">An operation failed due to insufficient rights.</exception>
+        /// <exception cref="InvalidDataException">A problem occurred while deserializing an XML file.</exception>
+        /// <exception cref="SignatureException">The signature data could not be handled for some reason.</exception>
+        /// <exception cref="InvalidInterfaceIDException">No interface ID was specified while one was needed.</exception>
+        /// <exception cref="DigestMismatchException">An <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="SolverException">The <see cref="ISolver"/> was unable to solve all dependencies.</exception>
+        /// <exception cref="ImplementationNotFoundException">One of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
+        /// <exception cref="ExecutorException">The <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
+        /// <exception cref="Win32Exception">An executable could not be launched.</exception>
+        /// <exception cref="BadImageFormatException">An executable could not be launched.</exception>
         /// <remarks>When inheriting this method is usually replaced.</remarks>
         public abstract int Execute();
 
@@ -228,8 +228,8 @@ namespace ZeroInstall.Commands
         /// Converts an interface or feed ID to its canonical representation.
         /// </summary>
         /// <remarks>Aliases prefixed by "alias:" are resolved to the IDs they represent and relative local paths are converted to absolute paths. Everything else stays unchanged.</remarks>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if the <paramref name="id"/> is invalid.</exception>
-        /// <exception cref="IOException">Thrown if there was a problem checking a local file path.</exception>
+        /// <exception cref="InvalidInterfaceIDException">The <paramref name="id"/> is invalid.</exception>
+        /// <exception cref="IOException">There was a problem checking a local file path.</exception>
         public string GetCanonicalID(string id)
         {
             #region Sanity checks

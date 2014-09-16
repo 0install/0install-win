@@ -81,9 +81,9 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="path">The file to load from.</param>
         /// <returns>A <see cref="FeedEditing"/> containing the loaded <see cref="Feed"/>.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="IOException">A problem occurs while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
+        /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
         public static FeedEditing Load(string path)
         {
             return new FeedEditing(SignedFeed.Load(path), path);
@@ -94,9 +94,9 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <remarks>Writing and signing the feed file are performed as an atomic operation (i.e. if signing fails an existing file remains unchanged).</remarks>
         /// <param name="path">The file to save in.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
+        /// <exception cref="IOException">A problem occurs while writing the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
+        /// <exception cref="WrongPassphraseException">Passphrase was incorrect.</exception>
         public void Save(string path)
         {
             SignedFeed.Save(path, Passphrase);

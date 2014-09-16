@@ -40,11 +40,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="comServer">The COM server to be registered.</param>
         /// <param name="machineWide">Register the COM server machine-wide instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        /// <exception cref="OperationCanceledException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
-        /// <exception cref="WebException">Thrown if a problem occured while downloading additional data (such as icons).</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="comServer"/> is invalid.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">The data in <paramref name="comServer"/> is invalid.</exception>
         public static void Register(InterfaceFeed target, Store.Model.Capabilities.ComServer comServer, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
@@ -64,9 +64,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="comServer">The COM server to be unregistered.</param>
         /// <param name="machineWide">Unregister the COM server machine-wide instead of just for the current user.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing to the filesystem or registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the filesystem or registry is not permitted.</exception>
-        /// <exception cref="InvalidDataException">Thrown if the data in <paramref name="comServer"/> is invalid.</exception>
+        /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
+        /// <exception cref="InvalidDataException">The data in <paramref name="comServer"/> is invalid.</exception>
         public static void Unregister(Store.Model.Capabilities.ComServer comServer, bool machineWide)
         {
             #region Sanity checks

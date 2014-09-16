@@ -72,7 +72,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a new version range from a a string.
         /// </summary>
         /// <param name="value">The string containing the version information.</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="value"/> is not a valid version range string.</exception>
+        /// <exception cref="ArgumentException"><paramref name="value"/> is not a valid version range string.</exception>
         public VersionRange(string value)
         {
             #region Sanity checks

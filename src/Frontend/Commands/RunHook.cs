@@ -68,7 +68,7 @@ namespace ZeroInstall.Commands
         /// <param name="executor">The executor used to launch the new process.</param>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        /// <exception cref="ImplementationNotFoundException">Thrown if the main implementation is not cached (possibly because it is installed natively).</exception>
+        /// <exception cref="ImplementationNotFoundException">The main implementation is not cached (possibly because it is installed natively).</exception>
         public RunHook(Selections selections, IExecutor executor, IFeedManager feedManager, ITaskHandler handler)
         {
             string interfaceID = selections.InterfaceID;

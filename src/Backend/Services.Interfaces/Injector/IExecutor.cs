@@ -35,12 +35,12 @@ namespace ZeroInstall.Services.Injector
         /// <param name="selections">The specific <see cref="ImplementationSelection"/>s chosen by the solver.</param>
         /// <param name="arguments">Arguments to be passed to the launched programs.</param>
         /// <returns>The newly created <see cref="Process"/>.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if <see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Store.Model.Implementation"/>s is not cached yet.</exception>
-        /// <exception cref="ExecutorException">Thrown if the <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurred while writing a file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to a file is not permitted.</exception>
-        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched or if a problem occurred while creating a hard link.</exception>
+        /// <exception cref="KeyNotFoundException"><see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
+        /// <exception cref="ImplementationNotFoundException">One of the <see cref="Store.Model.Implementation"/>s is not cached yet.</exception>
+        /// <exception cref="ExecutorException">The <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
+        /// <exception cref="IOException">A problem occurred while writing a file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
+        /// <exception cref="Win32Exception">The main executable could not be launched or if a problem occurred while creating a hard link.</exception>
         Process Start(Selections selections, params string[] arguments);
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace ZeroInstall.Services.Injector
         /// </summary>
         /// <param name="implementation">The <see cref="ImplementationBase"/> to be located.</param>
         /// <returns>A fully qualified path pointing to the implementation's location on the local disk.</returns>
-        /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
+        /// <exception cref="ImplementationNotFoundException">The <paramref name="implementation"/> is not cached yet.</exception>
         string GetImplementationPath(ImplementationSelection implementation);
     }
 }

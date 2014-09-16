@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="modifiedTime">The time this directory was last modified in the number of seconds since the epoch.</param>
         /// <param name="fullPath">The complete path of this directory relative to the tree root as a Unix-Path beginning with a slash.</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="fullPath"/> contains a newline character.</exception>
+        /// <exception cref="ArgumentException"><paramref name="fullPath"/> contains a newline character.</exception>
         public ManifestDirectory(long modifiedTime, string fullPath)
         {
             #region Sanity checks
@@ -73,7 +73,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="line">The string representation to parse.</param>
         /// <returns>The newly created node.</returns>
-        /// <exception cref="FormatException">Thrown if the <paramref name="line"/> format is incorrect.</exception>
+        /// <exception cref="FormatException">The <paramref name="line"/> format is incorrect.</exception>
         internal static ManifestDirectory FromString(string line)
         {
             const int numberOfParts = 2;
@@ -88,7 +88,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="line">The string representation to parse.</param>
         /// <returns>The newly created node.</returns>
-        /// <exception cref="FormatException">Thrown if the <paramref name="line"/> format is incorrect.</exception>
+        /// <exception cref="FormatException">The <paramref name="line"/> format is incorrect.</exception>
         internal static ManifestDirectory FromStringOld(string line)
         {
             const int numberOfParts = 3;

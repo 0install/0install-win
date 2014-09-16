@@ -35,8 +35,8 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Creates an <see cref="IStore"/> instance that uses the default cache locations.
         /// </summary>
-        /// <exception cref="IOException">Thrown if there was a problem accessing a configuration file or one of the stores.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to a configuration file or one of the stores was not permitted.</exception>
+        /// <exception cref="IOException">There was a problem accessing a configuration file or one of the stores.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to a configuration file or one of the stores was not permitted.</exception>
         public static IStore CreateDefault()
         {
             return new CompositeStore(GetStores());
@@ -45,8 +45,8 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Returns a list of <see cref="IStore"/>s representing all local cache directories.
         /// </summary>
-        /// <exception cref="IOException">Thrown if a directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory was not permitted.</exception>
+        /// <exception cref="IOException">A directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
+        /// <exception cref="UnauthorizedAccessException">Creating a directory was not permitted.</exception>
         private static IEnumerable<IStore> GetStores()
         {
             var stores = new List<IStore>();
@@ -82,8 +82,8 @@ namespace ZeroInstall.Store.Implementations
         /// Returns a list of paths for implementation directories / stores as defined by configuration files including the default locations.
         /// </summary>
         /// <param name="excludeUserProfile"><see langword="true"/> to exclude the default location in the user profile (e.g. for system services).</param>
-        /// <exception cref="IOException">Thrown if there was a problem accessing a configuration file or one of the stores.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if access to a configuration file was not permitted.</exception>
+        /// <exception cref="IOException">There was a problem accessing a configuration file or one of the stores.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to a configuration file was not permitted.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reads data from a config file with no caching")]
         public static IEnumerable<string> GetImplementationDirs(bool excludeUserProfile = false)
         {

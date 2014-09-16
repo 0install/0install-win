@@ -32,7 +32,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Parses a string into a <see cref="VersionRange"/> part.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="value"/> is not a valid version range string.</exception>
+        /// <exception cref="ArgumentException"><paramref name="value"/> is not a valid version range string.</exception>
         public static VersionRangePart FromString(string value)
         {
             if (value.Contains(".."))

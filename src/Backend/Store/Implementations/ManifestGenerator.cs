@@ -130,9 +130,9 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="externalXbits">A list of fully qualified paths of files that are named in the <code>.xbit</code> file.</param>
         /// <param name="externalSymlinks">A list of fully qualified paths of files that are named in the <code>.symlink</code> file.</param>
         /// <returns>The node for the list.</returns>
-        /// <exception cref="NotSupportedException">Thrown if the <paramref name="file"/> has illegal properties (e.g. is a device file, has line breaks in the filename, etc.).</exception>
-        /// <exception cref="IOException">Thrown if there was an error reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to read the file.</exception>
+        /// <exception cref="NotSupportedException">The <paramref name="file"/> has illegal properties (e.g. is a device file, has line breaks in the filename, etc.).</exception>
+        /// <exception cref="IOException">There was an error reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the file.</exception>
         private static ManifestNode GetFileNode(FileInfo file, ManifestFormat format, ICollection<string> externalXbits, ICollection<string> externalSymlinks)
         {
             // Real symlinks
@@ -169,8 +169,8 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="format">The manifest format containing digest rules.</param>
         /// <param name="rootPath">The fully qualified path of the root directory the manifest is being generated for.</param>
         /// <returns>The node for the list.</returns>
-        /// <exception cref="IOException">Thrown if there was an error reading the directory.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to read the directory.</exception>
+        /// <exception cref="IOException">There was an error reading the directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the directory.</exception>
         private static ManifestNode GetDirectoryNode(DirectoryInfo directory, ManifestFormat format, string rootPath)
         {
             // Directory symlinks
