@@ -374,10 +374,10 @@ namespace ZeroInstall.Store.Implementations
 
         #region Remove
         /// <inheritdoc/>
-        public virtual void Remove(ManifestDigest manifestDigest)
+        public virtual bool Remove(ManifestDigest manifestDigest)
         {
             string path = GetPath(manifestDigest);
-            if (path == null) throw new ImplementationNotFoundException(manifestDigest);
+            if (path == null) return false;
 
             try
             {
@@ -395,6 +395,8 @@ namespace ZeroInstall.Store.Implementations
             Directory.Move(path, tempDir);
 
             Directory.Delete(tempDir, recursive: true);
+
+            return true;
         }
         #endregion
 

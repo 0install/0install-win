@@ -240,7 +240,11 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "remove DIGEST+", "");
 
             var digests = AdditionalArgs.Skip(1).Select(x => new ManifestDigest(x));
-            Handler.RunTask(new ForEachTask<ManifestDigest>(Resources.RemovingImplementations, digests, Store.Remove));
+            Handler.RunTask(new ForEachTask<ManifestDigest>(Resources.RemovingImplementations, digests, digest =>
+            {
+                if (!Store.Remove(digest))
+                    throw new ImplementationNotFoundException(digest);
+            }));
         }
 
         private StoreErrorLevel Verify()

@@ -110,10 +110,10 @@ namespace ZeroInstall.Store.Implementations
         /// Removes a specific implementation from the cache.
         /// </summary>
         /// <param name="manifestDigest">The digest of the implementation to be removed.</param>
-        /// <exception cref="ImplementationNotFoundException">Thrown if no implementation matching <paramref name="manifestDigest"/> could be found in the store.</exception>
+        /// <returns><see langword="true"/> if the implementation was successfully removed; <see langword="false"/> if no implementation matching <paramref name="manifestDigest"/> could be found in the store.</returns>
         /// <exception cref="IOException">Thrown if the implementation could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
-        void Remove(ManifestDigest manifestDigest);
+        bool Remove(ManifestDigest manifestDigest);
 
         /// <summary>
         /// Reads in all the manifest files in the store and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one and replaces it with a hard-link to the other.

@@ -130,16 +130,16 @@ namespace ZeroInstall.Store.Implementations
 
         #region Remove
         /// <inheritdoc/>
-        public void Remove(ManifestDigest manifestDigest)
+        public bool Remove(ManifestDigest manifestDigest)
         {
             try
             {
-                GetServiceProxy().Remove(manifestDigest);
+                return GetServiceProxy().Remove(manifestDigest);
             }
                 #region Error handling
-            catch (RemotingException ex)
+            catch (RemotingException)
             {
-                throw new ImplementationNotFoundException(ex.Message, ex);
+                return false;
             }
             #endregion
         }

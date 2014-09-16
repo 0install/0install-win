@@ -204,17 +204,17 @@ namespace ZeroInstall.Store.Implementations
 
         #region Remove
         /// <inheritdoc/>
-        public void Remove(ManifestDigest manifestDigest)
+        public bool Remove(ManifestDigest manifestDigest)
         {
             Flush();
 
-            // Remove from every store that contains the implementation
+            // Remove from _every_ store that contains the implementation
             bool removed = false;
-            // ReSharper disable LoopCanBeConvertedToQuery
+            // ReSharper disable once LoopCanBeConvertedToQuery
             foreach (var store in _stores.Reverse())
-                removed |= store.RemoveSafe(manifestDigest);
-            // ReSharper restore LoopCanBeConvertedToQuery
-            if (!removed) throw new ImplementationNotFoundException(manifestDigest);
+                removed |= store.Remove(manifestDigest);
+
+            return removed;
         }
         #endregion
 

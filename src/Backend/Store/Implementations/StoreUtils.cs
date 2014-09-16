@@ -103,22 +103,5 @@ namespace ZeroInstall.Store.Implementations
             }
             #endregion
         }
-
-        /// <summary>
-        /// Wrapper for <see cref="IStore.Remove"/>, handling exceptions.
-        /// </summary>
-        public static bool RemoveSafe(this IStore store, ManifestDigest manifestDigest)
-        {
-            #region Sanity checks
-            if (store == null) throw new ArgumentNullException("store");
-            #endregion
-
-            if (store.Contains(manifestDigest))
-            {
-                store.Remove(manifestDigest);
-                return true;
-            }
-            return false;
-        }
     }
 }

@@ -207,30 +207,27 @@ namespace ZeroInstall.Store.Implementations
 
         #region Remove
         [Test]
-        public void TestRemoveBoth()
+        public void TestRemoveTwo()
         {
-            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(true);
-            _mockStore1.Setup(x => x.Remove(_digest1));
-            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true);
-            _mockStore2.Setup(x => x.Remove(_digest1));
-            _testStore.Remove(_digest1);
+            _mockStore1.Setup(x => x.Remove(_digest1)).Returns(true);
+            _mockStore2.Setup(x => x.Remove(_digest1)).Returns(true);
+            Assert.IsTrue(_testStore.Remove(_digest1));
         }
 
         [Test]
-        public void TestRemoveSecond()
+        public void TestRemoveOne()
         {
-            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
-            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(true);
-            _mockStore2.Setup(x => x.Remove(_digest1));
-            _testStore.Remove(_digest1);
+            _mockStore1.Setup(x => x.Remove(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Remove(_digest1)).Returns(true);
+            Assert.IsTrue(_testStore.Remove(_digest1));
         }
 
         [Test]
-        public void TestRemoveFail()
+        public void TestRemoveNone()
         {
-            _mockStore1.Setup(x => x.Contains(_digest1)).Returns(false);
-            _mockStore2.Setup(x => x.Contains(_digest1)).Returns(false);
-            Assert.Throws<ImplementationNotFoundException>(() => _testStore.Remove(_digest1), "Should report if none of the stores contained the implementation");
+            _mockStore1.Setup(x => x.Remove(_digest1)).Returns(false);
+            _mockStore2.Setup(x => x.Remove(_digest1)).Returns(false);
+            Assert.IsFalse(_testStore.Remove(_digest1));
         }
         #endregion
 

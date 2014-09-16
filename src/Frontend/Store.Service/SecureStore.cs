@@ -161,16 +161,18 @@ namespace ZeroInstall.Store.Service
 
         #region Remove
         /// <inheritdoc/>
-        public override void Remove(ManifestDigest manifestDigest)
+        public override bool Remove(ManifestDigest manifestDigest)
         {
+            if (!Contains(manifestDigest)) return false;
             if (!WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminToRemove);
 
             var callingIdentity = WindowsIdentity.GetCurrent();
             using (_serviceIdentity.Impersonate()) // Use system rights instead of calling user
             {
+                bool removed;
                 try
                 {
-                    base.Remove(manifestDigest);
+                    removed = base.Remove(manifestDigest);
                 }
                     #region Error handling
                 catch (Exception ex)
@@ -180,7 +182,8 @@ namespace ZeroInstall.Store.Service
                 }
                 #endregion
 
-                _eventLog.WriteEntry(string.Format(Resources.SuccessfullyRemovedImplementation, callingIdentity.Name, manifestDigest, DirectoryPath));
+                if (removed) _eventLog.WriteEntry(string.Format(Resources.SuccessfullyRemovedImplementation, callingIdentity.Name, manifestDigest, DirectoryPath));
+                return removed;
             }
         }
         #endregion
