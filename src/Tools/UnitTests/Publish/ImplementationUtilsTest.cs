@@ -15,11 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Security.Cryptography;
+using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using NUnit.Framework;
+using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
@@ -161,6 +164,26 @@ namespace ZeroInstall.Publish
             {
                 var implementation = new Implementation {ManifestDigest = new ManifestDigest(sha1New: "invalid"), RetrievalMethods = {new Archive {Href = microServer.FileUri}}};
                 Assert.Throws<DigestMismatchException>(() => implementation.AddMissing(new SilentTaskHandler()));
+            }
+        }
+
+        [Test]
+        public void TestGenerateDigest()
+        {
+            using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
+            {
+                new PackageBuilder().AddFolder("subdir")
+                    .AddFile("file", "AAA", new DateTime(2000, 1, 1))
+                    .WritePackageInto(packageDir);
+
+                ManifestDigest digest1 = ImplementationUtils.GenerateDigest(packageDir, new MockTaskHandler());
+                Assert.IsNullOrEmpty(digest1.Sha1); // sha1 is deprecated
+                Assert.IsNotNullOrEmpty(digest1.Sha1New);
+                Assert.IsNotNullOrEmpty(digest1.Sha256);
+                Assert.IsNotNullOrEmpty(digest1.Sha256New);
+
+                ManifestDigest digest2 = ImplementationUtils.GenerateDigest(packageDir, new MockTaskHandler());
+                Assert.AreEqual(digest1, digest2);
             }
         }
     }

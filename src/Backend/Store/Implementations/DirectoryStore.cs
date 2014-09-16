@@ -201,7 +201,9 @@ namespace ZeroInstall.Store.Implementations
             string expectedDigestValue = expectedDigest.Best;
             var format = ManifestFormat.FromPrefix(expectedDigestValue);
 
-            var actualManifest = Manifest.Generate(directory, format, handler, expectedDigest);
+            var generator = new ManifestGenerator(directory, format) {Tag = expectedDigest};
+            handler.RunTask(generator);
+            var actualManifest = generator.Result;
             string actualDigestValue = actualManifest.CalculateDigest();
 
             string manifestFilePath = Path.Combine(directory, ".manifest");

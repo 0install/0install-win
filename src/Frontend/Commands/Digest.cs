@@ -95,7 +95,9 @@ namespace ZeroInstall.Commands
             {
                 if (!string.IsNullOrEmpty(subdir)) throw new OptionException(Resources.TooManyArguments, "");
 
-                return Manifest.Generate(path, _algorithm, Handler);
+                var generator = new ManifestGenerator(path, _algorithm);
+                Handler.RunTask(generator);
+                return generator.Result;
             }
             else if (File.Exists(path))
             {
@@ -107,7 +109,9 @@ namespace ZeroInstall.Commands
                         Handler.RunTask(extractor);
                     }
 
-                    return Manifest.Generate(tempDir, _algorithm, Handler);
+                    var generator = new ManifestGenerator(tempDir, _algorithm);
+                    Handler.RunTask(generator);
+                    return generator.Result;
                 }
             }
             else throw new FileNotFoundException(string.Format(Resources.FileOrDirNotFound, path));

@@ -163,7 +163,20 @@ namespace ZeroInstall.Publish
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
         public static ManifestDigest GenerateDigest(string path, ITaskHandler handler, bool keepDownloads = false)
         {
-            var digest = Manifest.CreateDigest(path, handler);
+            var digest = new ManifestDigest();
+
+            // Generate manifest for each available format...
+            foreach (var format in ManifestFormat.Recommended)
+                // ... and add the resulting digest to the return value
+            {
+                var generator = new ManifestGenerator(path, format);
+                handler.RunTask(generator);
+                ManifestDigest.ParseID(generator.Result.CalculateDigest(), ref digest);
+            }
+
+            if (digest.PartialEquals(ManifestDigest.Empty))
+                Log.Warn(Resources.EmptyImplementation);
+
             if (keepDownloads)
             {
                 try
@@ -174,8 +187,6 @@ namespace ZeroInstall.Publish
                 {}
             }
 
-            if (digest.PartialEquals(ManifestDigest.Empty))
-                Log.Warn(Resources.EmptyImplementation);
             return digest;
         }
         #endregion

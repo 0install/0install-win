@@ -22,7 +22,6 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Services;
-using ZeroInstall.Store.Management;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
 
@@ -90,7 +89,7 @@ namespace ZeroInstall.Store.Implementations
         {
             string path = Path.Combine(_tempDir, id);
             builder.WritePackageInto(path);
-            Manifest.CreateDotFile(path, ManifestFormat.FromPrefix(id), _handler);
+            ManifestTest.CreateDotFile(path, ManifestFormat.FromPrefix(id), _handler);
             FileUtils.EnableWriteProtection(path);
             return path;
         }
@@ -170,7 +169,7 @@ namespace ZeroInstall.Store.Implementations
         {
             using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, _handler));
+                var digest = new ManifestDigest(ManifestTest.CreateDotFile(packageDir, ManifestFormat.Sha256, _handler));
                 _store.AddDirectory(packageDir, digest, _handler);
 
                 Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
@@ -185,7 +184,7 @@ namespace ZeroInstall.Store.Implementations
 
             using (var packageDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, _handler));
+                var digest = new ManifestDigest(ManifestTest.CreateDotFile(packageDir, ManifestFormat.Sha256, _handler));
                 _store.AddDirectory(packageDir, digest, _handler);
 
                 Assert.IsTrue(_store.Contains(digest), "After adding, Store must contain the added package");
@@ -246,7 +245,7 @@ namespace ZeroInstall.Store.Implementations
                 new PackageBuilder().AddFolder("subdir")
                     .AddFile("file", "AAA", new DateTime(2000, 1, 1))
                     .WritePackageInto(packageDir);
-                var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha1New, _handler));
+                var digest = new ManifestDigest(ManifestTest.CreateDotFile(packageDir, ManifestFormat.Sha1New, _handler));
                 _store.AddDirectory(packageDir, digest, _handler);
 
                 _store.Verify(digest, _handler);
@@ -278,7 +277,7 @@ namespace ZeroInstall.Store.Implementations
                     .AddFile("file", "AAA", new DateTime(2000, 1, 1))
                     .WritePackageInto(packageDir);
 
-                var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, _handler));
+                var digest = new ManifestDigest(ManifestTest.CreateDotFile(packageDir, ManifestFormat.Sha256, _handler));
 
                 Exception exception = null;
                 var threads = new Thread[100];
