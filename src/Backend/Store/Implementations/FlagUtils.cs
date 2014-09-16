@@ -215,5 +215,35 @@ namespace ZeroInstall.Store.Implementations
             }
         }
         #endregion
+
+        #region Convert
+        /// <summary>
+        /// Converts all flag files in a directory into real filesystem attributes (executable bits and symlinks).
+        /// </summary>
+        /// <param name="path">The path to the directory to convert.</param>
+        public static void ConvertToFS([NotNull] string path)
+        {
+            string xbitFile = Path.Combine(path, XbitFile);
+            if (File.Exists(xbitFile))
+            {
+                foreach (string file in GetFiles(XbitFile, path))
+                    FileUtils.SetExecutable(file, executable: true);
+
+                File.Delete(xbitFile);
+            }
+
+            string symlinkFile = Path.Combine(path, SymlinkFile);
+            if (File.Exists(xbitFile))
+            {
+                foreach (string file in GetFiles(SymlinkFile, path))
+                {
+                    string linkDestination = File.ReadAllText(file);
+                    File.Delete(file);
+                    FileUtils.CreateSymlink(file, linkDestination);
+                }
+                File.Delete(symlinkFile);
+            }
+        }
+        #endregion
     }
 }
