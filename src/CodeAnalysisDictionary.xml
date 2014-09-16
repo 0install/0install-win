@@ -6,6 +6,7 @@
       <Word>ZeroInstallTools</Word>
       <Word>GnuPG</Word>
       <Word>WinForms</Word>
+      <Word>MainCandidate</Word>
       <Word>filesystem</Word>
       <Word>optimise</Word>
       <Word>hardlinks</Word>
@@ -28,6 +29,7 @@
       <Acronym>ZeroInstallTools</Acronym>
       <Acronym>GnuPG</Acronym>
       <Acronym>WinForms</Acronym>
+      <Acronym>MainCandidate</Acronym>
     </CasingExceptions>
   </Acronyms>
 </Dictionary>
