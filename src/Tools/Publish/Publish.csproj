@@ -112,8 +112,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="interface.css" />
-    <EmbeddedResource Include="interface.xsl" />
+    <EmbeddedResource Include="feed.css" />
+    <EmbeddedResource Include="feed.xsl" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CodeAnalysisDictionary.xml" />

@@ -120,6 +120,6 @@
   <data name="labelInfo.Text" xml:space="preserve">
     <value>The wizard is done! We will now open the feed in the editor so you can look everything over, make any changes you like and save the feed as a file afterwards.
 
-When uploading the feed make sure you also include these files: interface.xsl, interface.css, *.gpg</value>
+When uploading the feed make sure you also include these files: feed.xsl, feed.css, *.gpg</value>
   </data>
 </root>

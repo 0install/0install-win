@@ -16,7 +16,7 @@ http://creativecommons.org/licenses/by-sa/2.5/
 				<title>
 					<xsl:value-of select="zi:name"/>
 				</title>
-				<link rel="stylesheet" type="text/css" href='interface.css'/>
+				<link rel="stylesheet" type="text/css" href='feed.css'/>
 			</head>
 			<body>
 				<div class="site">

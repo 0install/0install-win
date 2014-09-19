@@ -247,6 +247,7 @@ namespace ZeroInstall.Publish.WinForms
                 catch (ArgumentException ex)
                 {
                     Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                    throw new OperationCanceledException();
                 }
                 catch (IOException ex)
                 {

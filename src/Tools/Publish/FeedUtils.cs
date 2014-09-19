@@ -49,16 +49,16 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            XmlStorage.AddStylesheet(path, "interface.xsl");
+            XmlStorage.AddStylesheet(path, "feed.xsl");
 
             string directory = Path.GetDirectoryName(Path.GetFullPath(path));
             if (directory == null) return;
 
             // Write the default XSL with its accompanying CSS file unless there is already an XSL in place
-            if (!File.Exists(Path.Combine(directory, "interface.xsl")))
+            if (!File.Exists(Path.Combine(directory, "feed.xsl")))
             {
-                File.WriteAllText(Path.Combine(directory, "interface.xsl"), GetEmbeddedResource("interface.xsl"));
-                File.WriteAllText(Path.Combine(directory, "interface.css"), GetEmbeddedResource("interface.css"));
+                File.WriteAllText(Path.Combine(directory, "feed.xsl"), GetEmbeddedResource("feed.xsl"));
+                File.WriteAllText(Path.Combine(directory, "feed.css"), GetEmbeddedResource("feed.css"));
             }
         }
 
