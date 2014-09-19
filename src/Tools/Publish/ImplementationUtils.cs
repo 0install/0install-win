@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using NanoByte.Common;
@@ -103,9 +104,14 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(implementation.ID)) implementation.ID = "sha1new=" + implementation.ManifestDigest.Sha1New;
         }
 
+        [SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "We are explicitly looking for empty strings as opposed to null strings.")]
         private static bool IsManifestDigestMissing(this Implementation implementation)
         {
-            return implementation.ManifestDigest == default(ManifestDigest);
+            return implementation.ManifestDigest == default(ManifestDigest) ||
+                // Empty strings are used in 0template to indicate that the user wishes this value to be calculated
+                implementation.ManifestDigest.Sha1New == "" ||
+                implementation.ManifestDigest.Sha256 == "" ||
+                implementation.ManifestDigest.Sha256New == "";
         }
 
         private static bool IsDownloadSizeMissing(this RetrievalMethod retrievalMethod)
@@ -163,6 +169,11 @@ namespace ZeroInstall.Publish
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
         public static ManifestDigest GenerateDigest(string path, ITaskHandler handler, bool keepDownloads = false)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             var digest = new ManifestDigest();
 
             // Generate manifest for each available format...
