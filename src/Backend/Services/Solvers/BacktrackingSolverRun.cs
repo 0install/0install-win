@@ -15,14 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Tasks;
-using ZeroInstall.Services.Feeds;
-using ZeroInstall.Store;
-using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
@@ -31,26 +29,59 @@ namespace ZeroInstall.Services.Solvers
     /// <summary>
     /// Holds state during a single <see cref="BacktrackingSolver.Solve"/> run.
     /// </summary>
-    internal sealed class BacktrackingSolverRun : SolverRun
+    internal sealed class BacktrackingSolverRun
     {
-        /// <inheritdoc/>
-        public BacktrackingSolverRun(Requirements requirements, CancellationToken cancellationToken, Config config, IFeedManager feedManager, IStore store) : base(requirements, cancellationToken, config, feedManager, store)
-        {}
+        #region Depdendencies
+        private CancellationToken _cancellationToken;
+        private readonly SelectionCandidateProvider _candidateProvider;
 
-        /// <inheritdoc/>
-        public override bool TryToSolve()
+        /// <summary>
+        /// Creates a new backtracking solver run.
+        /// </summary>
+        /// <param name="requirements">The top-level requirements the solver should try to meet.</param>
+        /// <param name="cancellationToken">Used to signal when the user wishes to cancel the solver run.</param>
+        /// <param name="candidateProvider">Generates <see cref="SelectionCandidate"/>s for the solver to choose among.</param>
+        public BacktrackingSolverRun(Requirements requirements, CancellationToken cancellationToken, SelectionCandidateProvider candidateProvider)
         {
-            return TryToSolve(TopLevelRequirements);
+            #region Sanity checks
+            if (requirements == null) throw new ArgumentNullException("requirements");
+            #endregion
+
+            _cancellationToken = cancellationToken;
+            _candidateProvider = candidateProvider;
+
+            _topLevelRequirements = requirements;
+            Selections.InterfaceID = requirements.InterfaceID;
+            Selections.Command = requirements.Command;
+        }
+        #endregion
+
+        private readonly Requirements _topLevelRequirements;
+
+        private readonly Selections _selections = new Selections();
+
+        /// <summary>
+        /// The implementations selected by the solver run.
+        /// </summary>
+        public Selections Selections { get { return _selections; } }
+
+        /// <summary>
+        /// Try to satisfy the <see cref="_topLevelRequirements"/>. If successful the result can be retrieved from <see cref="Selections"/>.
+        /// </summary>
+        /// <returns><see langword="true"/> if a solution was found; <see langword="false"/> otherwise.</returns>
+        public bool TryToSolve()
+        {
+            return TryToSolve(_topLevelRequirements);
         }
 
         /// <summary>
-        /// Try to satisfy a set of <paramref name="requirements"/>, respecting any existing <see cref="SolverRun.Selections"/>.
+        /// Try to satisfy a set of <paramref name="requirements"/>, respecting any existing <see cref="Selections"/>.
         /// </summary>
         private bool TryToSolve(Requirements requirements)
         {
-            CancellationToken.ThrowIfCancellationRequested();
+            _cancellationToken.ThrowIfCancellationRequested();
 
-            var allCandidates = GetSortedCandidates(requirements);
+            var allCandidates = _candidateProvider.GetSortedCandidates(requirements);
             var suitableCandidates = FilterSuitableCandidates(allCandidates, requirements.InterfaceID);
             var existingSelection = Selections.GetImplementation(requirements.InterfaceID);
 
@@ -92,7 +123,7 @@ namespace ZeroInstall.Services.Solvers
             if (!suitableCandidates.Contains(selection)) return false;
             if (selection.ContainsCommand(requirements.Command)) return true;
 
-            var command = selection.AddCommand(requirements, from: GetOriginalImplementation(selection));
+            var command = selection.AddCommand(requirements, from: _candidateProvider.LookupOriginalImplementation(selection));
             return TryToSolveCommand(command, requirements);
         }
 
@@ -134,7 +165,7 @@ namespace ZeroInstall.Services.Solvers
 
         private bool TryToSolveDependency(Dependency dependency)
         {
-            return TryToSolve(dependency.ToRequirements(TopLevelRequirements)) && TryToSolveBindingRequirements(dependency);
+            return TryToSolve(dependency.ToRequirements(_topLevelRequirements)) && TryToSolveBindingRequirements(dependency);
         }
 
         private bool TryToSolveCommand(Command command, Requirements requirements)
@@ -144,7 +175,7 @@ namespace ZeroInstall.Services.Solvers
             if (command.Bindings.OfType<ExecutableInBinding>().Any()) throw new SolverException("<executable-in-*> not supported in <command>");
 
             if (command.Runner != null)
-                if (!TryToSolve(command.Runner.ToRequirements(TopLevelRequirements))) return false;
+                if (!TryToSolve(command.Runner.ToRequirements(_topLevelRequirements))) return false;
 
             return command.ToBindingRequirements(requirements.InterfaceID).All(TryToSolve) && TryToSolveDependencies(command);
         }

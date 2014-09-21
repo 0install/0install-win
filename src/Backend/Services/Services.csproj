@@ -80,7 +80,6 @@
     <Compile Include="Solvers\Python\ISolverControl.cs" />
     <Compile Include="Solvers\Python\SolverControlBundled.cs" />
     <Compile Include="Solvers\Python\SolverControlNative.cs" />
-    <Compile Include="Solvers\SolverRun.cs" />
     <None Include="Injector\runenv.cs" />
     <None Include="packages.config" />
   </ItemGroup>

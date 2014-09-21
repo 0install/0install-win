@@ -208,9 +208,6 @@ New time: {2}</value>
   <data name="SolverProblem" xml:space="preserve">
     <value>The solver encountered an unexpected problem.</value>
   </data>
-  <data name="SolverTooOld" xml:space="preserve">
-    <value>The solver version is too old. The feed '{0}' requires at least version {1} but the installed version is {2}. Try updating Zero Install.</value>
-  </data>
   <data name="TryingFeedMirror" xml:space="preserve">
     <value>Trying feed mirror server</value>
   </data>

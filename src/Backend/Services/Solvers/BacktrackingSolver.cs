@@ -71,7 +71,8 @@ namespace ZeroInstall.Services.Solvers
             #endregion
 
             var effectiveRequirements = requirements.GetEffective();
-            var solverRuns = effectiveRequirements.Select(x => new BacktrackingSolverRun(x, _handler.CancellationToken, _config, _feedManager, _store));
+            var candidateProvider = new SelectionCandidateProvider(_config, _feedManager, _store);
+            var solverRuns = effectiveRequirements.Select(x => new BacktrackingSolverRun(x, _handler.CancellationToken, candidateProvider));
 
             var successfullSolverRun = solverRuns.FirstOrDefault(x => x.TryToSolve());
             if (successfullSolverRun == null) throw new SolverException("No solution found");

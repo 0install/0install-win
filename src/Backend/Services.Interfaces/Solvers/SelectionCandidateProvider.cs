@@ -21,10 +21,8 @@ using System.Linq;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Info;
-using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using ZeroInstall.Services.Feeds;
-using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -34,38 +32,29 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
-    /// Shared logic for keeping state during a single <see cref="ISolver.Solve"/> run.
+    /// Generates <see cref="SelectionCandidate"/>s for <see cref="ISolver"/>s to choose among.
     /// </summary>
-    public abstract class SolverRun
+    /// <remarks>Caches loaded <see cref="Feed"/>s, preferences, etc..</remarks>
+    public class SelectionCandidateProvider
     {
         #region Depdendencies
-        protected CancellationToken CancellationToken;
-        protected readonly Requirements TopLevelRequirements;
         private readonly Config _config;
 
         /// <summary>
-        /// Creates a new solver run.
+        /// Creates a new <see cref="SelectionCandidate"/> provider.
         /// </summary>
-        /// <param name="requirements">The top-level requirements the solver should try to meet.</param>
-        /// <param name="cancellationToken">Used to signal when the user wishes to cancel the solver run.</param>
         /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="store">Used to check which <see cref="Implementation"/>s are already cached.</param>
-        protected SolverRun(Requirements requirements, CancellationToken cancellationToken, Config config, IFeedManager feedManager, IStore store)
+        public SelectionCandidateProvider(Config config, IFeedManager feedManager, IStore store)
         {
             #region Sanity checks
-            if (requirements == null) throw new ArgumentNullException("requirements");
             if (config == null) throw new ArgumentNullException("config");
             if (feedManager == null) throw new ArgumentNullException("feedManager");
             if (store == null) throw new ArgumentNullException("store");
             #endregion
 
-            CancellationToken = cancellationToken;
             _config = config;
-
-            TopLevelRequirements = requirements;
-            Selections.InterfaceID = requirements.InterfaceID;
-            Selections.Command = requirements.Command;
 
             var implementations = store.ListAll();
             _isCached = new TransparentCache<ManifestDigest, bool>(x => implementations.Contains(x, ManifestDigestPartialEqualityComparer.Instance));
@@ -88,36 +77,8 @@ namespace ZeroInstall.Services.Solvers
 
         /// <summary>Indicates which implementations (identified by <see cref="ManifestDigest"/>) are already cached in the <see cref="IStore"/>.</summary>
         private readonly TransparentCache<ManifestDigest, bool> _isCached;
-
-        /// <summary>
-        /// Retrieves the original <see cref="Implementation"/> an <see cref="ImplementationSelection"/> was based ofF.
-        /// </summary>
-        protected Implementation GetOriginalImplementation(ImplementationSelection implemenationSelection)
-        {
-            #region Sanity checks
-            if (implemenationSelection == null) throw new ArgumentNullException("implemenationSelection");
-            #endregion
-
-            return _feeds[implemenationSelection.FromFeed ?? implemenationSelection.InterfaceID][implemenationSelection.ID];
-        }
         #endregion
 
-        #region Properties
-        private readonly Selections _selections = new Selections();
-
-        /// <summary>
-        /// The implementations selected by the solver run.
-        /// </summary>
-        public Selections Selections { get { return _selections; } }
-        #endregion
-
-        /// <summary>
-        /// Try to satisfy the <see cref="TopLevelRequirements"/>. If successful the result can be retrieved from <see cref="Selections"/>.
-        /// </summary>
-        /// <returns><see langword="true"/> if a solution was found; <see langword="false"/> otherwise.</returns>
-        public abstract bool TryToSolve();
-
-        #region Candidates
         /// <summary>
         /// Gets all <see cref="SelectionCandidate"/>s for a specific set of <see cref="Requirements"/> sorted from best to worst.
         /// </summary>
@@ -147,9 +108,12 @@ namespace ZeroInstall.Services.Solvers
 
             var feed = _feeds[feedID];
             if (feed.MinInjectorVersion != null && new ImplementationVersion(AppInfo.Current.Version) < feed.MinInjectorVersion)
-                throw new SolverException(string.Format(Resources.SolverTooOld, feedID, feed.MinInjectorVersion, AppInfo.Current.Version));
-            dictionary.Add(feedID, feed);
+            {
+                Log.Warn("The solver version is too old. The feed '{0}' requires at least version {1} but the installed version is {2}. Try updating Zero Install.");
+                return;
+            }
 
+            dictionary.Add(feedID, feed);
             foreach (var reference in feed.Feeds
                 .Where(reference => reference.Architecture.IsCompatible(requirements.Architecture) &&
                                     reference.Languages.ContainsAny(requirements.Languages)))
@@ -169,6 +133,17 @@ namespace ZeroInstall.Services.Solvers
                 let offlineUncached = (_config.NetworkUse == NetworkLevel.Offline && !_isCached[implementation.ManifestDigest])
                 select new SelectionCandidate(feedID, feedPreferences, implementation, requirements, offlineUncached);
         }
-        #endregion
+
+        /// <summary>
+        /// Retrieves the original <see cref="Implementation"/> an <see cref="ImplementationSelection"/> was based ofF.
+        /// </summary>
+        public Implementation LookupOriginalImplementation(ImplementationSelection implemenationSelection)
+        {
+            #region Sanity checks
+            if (implemenationSelection == null) throw new ArgumentNullException("implemenationSelection");
+            #endregion
+
+            return _feeds[implemenationSelection.FromFeed ?? implemenationSelection.InterfaceID][implemenationSelection.ID];
+        }
     }
 }

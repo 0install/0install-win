@@ -63,6 +63,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Solvers\ISolver.cs" />
     <Compile Include="Solvers\SelectionCandidateComparer.cs" />
+    <Compile Include="Solvers\SelectionCandidateProvider.cs" />
     <Compile Include="Solvers\SolverException.cs" />
     <Compile Include="Solvers\SolverUtils.cs" />
   </ItemGroup>
