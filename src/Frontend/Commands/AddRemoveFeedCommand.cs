@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Utils;
 using ZeroInstall.Commands.Properties;
@@ -102,7 +103,7 @@ namespace ZeroInstall.Commands
             { // Determine interfaces from feed content (<feed-for> tags)
                 feedID = GetCanonicalID(AdditionalArgs[0]);
                 var feed = FeedManager.GetFeedFresh(feedID);
-                return feed.FeedFor.Select(reference => reference.Target.ToString());
+                return feed.FeedFor.Select(reference => reference.Target).WhereNotNull().Select(x => x.ToString());
             }
         }
         #endregion
