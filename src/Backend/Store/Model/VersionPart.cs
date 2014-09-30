@@ -44,7 +44,7 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     /// <remarks>This class is immutable and thread-safe.</remarks>
     [Serializable]
-    internal class VersionPart : IEquatable<VersionPart>, IComparable<VersionPart>
+    internal struct VersionPart : IEquatable<VersionPart>, IComparable<VersionPart>
     {
         #region Singleton fields
         /// <summary>
@@ -71,7 +71,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a new dotted-list from a a string.
         /// </summary>
         /// <param name="value">The string containing the dotted-list.</param>
-        public VersionPart(string value)
+        public VersionPart(string value) : this()
         {
             // Detect and trim version modifiers
             if (value.StartsWith("pre"))
@@ -123,7 +123,7 @@ namespace ZeroInstall.Store.Model
             }
 
             // Combine both parts without any separator
-            if (DottedList != null) result += DottedList;
+            result += DottedList.ToString();
 
             return result;
         }
@@ -132,24 +132,30 @@ namespace ZeroInstall.Store.Model
         #region Equality
         public bool Equals(VersionPart other)
         {
-            if (other == null) return false;
-            return other.Modifier == Modifier && Equals(other.DottedList, DottedList);
+            return Modifier == other.Modifier && DottedList == other.DottedList;
         }
 
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(VersionPart) && Equals((VersionPart)obj);
+            return obj is VersionPart && Equals((VersionPart)obj);
+        }
+
+        public static bool operator ==(VersionPart left, VersionPart right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(VersionPart left, VersionPart right)
+        {
+            return !left.Equals(right);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                int result = (int)Modifier * 397;
-                if (DottedList != null) result = (result * 397) ^ DottedList.GetHashCode();
-                return result;
+                return ((int)Modifier * 397) ^ DottedList.GetHashCode();
             }
         }
         #endregion
@@ -157,16 +163,10 @@ namespace ZeroInstall.Store.Model
         #region Comparison
         public int CompareTo(VersionPart other)
         {
-            #region Sanity checks
-            if (other == null) throw new ArgumentNullException("other");
-            #endregion
-
             var modifierComparison = ((int)Modifier).CompareTo((int)other.Modifier);
             if (modifierComparison != 0) return modifierComparison;
 
-            var leftDottedList = DottedList ?? VersionDottedList.Default;
-            var rightDottedList = other.DottedList ?? VersionDottedList.Default;
-            return leftDottedList.CompareTo(rightDottedList);
+            return DottedList.CompareTo(other.DottedList);
         }
         #endregion
     }

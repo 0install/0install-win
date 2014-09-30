@@ -142,7 +142,7 @@ namespace ZeroInstall.Store.Model
         {
             if (ReferenceEquals(null, other)) return false;
 
-            return _firstPart.Equals(other._firstPart) && _additionalParts.SequencedEquals(other._additionalParts);
+            return _firstPart == other._firstPart && _additionalParts.SequencedEquals(other._additionalParts);
         }
 
         /// <inheritdoc/>

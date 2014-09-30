@@ -17,15 +17,8 @@ namespace ZeroInstall.Store.Model
     /// </remarks>
     /// <remarks>This class is immutable and thread-safe.</remarks>
     [Serializable]
-    internal sealed class VersionDottedList : IEquatable<VersionDottedList>, IComparable<VersionDottedList>
+    internal struct VersionDottedList : IEquatable<VersionDottedList>, IComparable<VersionDottedList>
     {
-        #region Singleton fields
-        /// <summary>
-        /// A version number with the value 0.
-        /// </summary>
-        public static readonly VersionDottedList Default = new VersionDottedList("0");
-        #endregion
-
         #region Variables
         /// <summary>The individual decimals.</summary>
         private readonly long[] _decimals;
@@ -61,6 +54,8 @@ namespace ZeroInstall.Store.Model
         /// <inheritdoc/>
         public override string ToString()
         {
+            if (_decimals == null) return "";
+
             var output = new StringBuilder();
             for (int i = 0; i < _decimals.Length; i++)
             {
@@ -75,26 +70,33 @@ namespace ZeroInstall.Store.Model
         #endregion
 
         #region Equality
-        /// <inheritdoc/>
         public bool Equals(VersionDottedList other)
         {
-            if (other == null) return false;
+            if (_decimals == null || other._decimals == null)
+                return (_decimals == other._decimals);
 
             return _decimals.SequencedEquals(other._decimals);
         }
 
-        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
             return obj is VersionDottedList && Equals((VersionDottedList)obj);
         }
 
-        /// <inheritdoc/>
+        public static bool operator ==(VersionDottedList left, VersionDottedList right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(VersionDottedList left, VersionDottedList right)
+        {
+            return !left.Equals(right);
+        }
+
         public override int GetHashCode()
         {
-            return _decimals.GetSequencedHashCode();
+            return (_decimals != null ? _decimals.GetSequencedHashCode() : 0);
         }
         #endregion
 
@@ -102,15 +104,14 @@ namespace ZeroInstall.Store.Model
         /// <inheritdoc/>
         public int CompareTo(VersionDottedList other)
         {
-            #region Sanity checks
-            if (other == null) throw new ArgumentNullException("other");
-            #endregion
+            var leftArray = _decimals ?? new long[0];
+            var rightArray = other._decimals ?? new long[0];
 
-            int upperBound = Math.Max(_decimals.Length, other._decimals.Length);
+            int upperBound = Math.Max(leftArray.Length, rightArray.Length);
             for (var i = 0; i < upperBound; ++i)
             {
-                long left = i >= _decimals.Length ? -1 : _decimals[i];
-                long right = i >= other._decimals.Length ? -1 : other._decimals[i];
+                long left = i >= leftArray.Length ? -1 : leftArray[i];
+                long right = i >= rightArray.Length ? -1 : rightArray[i];
                 int comparisonResult = left.CompareTo(right);
                 if (comparisonResult != 0) return left.CompareTo(right);
             }
