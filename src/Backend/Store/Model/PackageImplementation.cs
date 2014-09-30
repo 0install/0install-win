@@ -111,7 +111,11 @@ namespace ZeroInstall.Store.Model
             {
                 // Serialize list as string split by spaces
                 var output = new StringBuilder();
-                foreach (var distribution in _distributions) output.Append(distribution.Replace(' ', '_') + ' ');
+                foreach (var distribution in _distributions)
+                {
+                    output.Append(distribution.Replace(' ', '_'));
+                    output.Append(' ');
+                }
 
                 // Return without trailing space
                 return output.ToString().TrimEnd();

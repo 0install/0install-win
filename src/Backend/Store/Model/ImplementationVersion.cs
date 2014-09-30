@@ -120,11 +120,17 @@ namespace ZeroInstall.Store.Model
         public override string ToString()
         {
             var output = new StringBuilder();
-            output.Append(_firstPart);
+            output.Append(_firstPart.ToString());
 
             // Separate additional parts with hyphens
             if (_additionalParts != null)
-                foreach (var part in _additionalParts) output.Append("-" + part);
+            {
+                foreach (var part in _additionalParts)
+                {
+                    output.Append('-');
+                    output.Append(part.ToString());
+                }
+            }
 
             return output.ToString();
         }

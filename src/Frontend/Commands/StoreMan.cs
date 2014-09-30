@@ -82,7 +82,12 @@ namespace ZeroInstall.Commands
 
                 var builder = new StringBuilder();
                 for (int i = 0; i < subcommands.GetLength(0); i++)
-                    builder.Append(Environment.NewLine + "0install store " + subcommands[i, 0] + Environment.NewLine + subcommands[i, 1] + Environment.NewLine);
+                {
+                    builder.AppendLine();
+                    builder.Append("0install store ");
+                    builder.AppendLine(subcommands[i, 0]);
+                    builder.AppendLine(subcommands[i, 1]);
+                }
 
                 return builder.ToString();
             }
