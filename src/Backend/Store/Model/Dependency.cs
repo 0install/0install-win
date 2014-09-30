@@ -153,7 +153,7 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ Importance.GetHashCode();
+                result = (result * 397) ^ (int)Importance;
                 result = (result * 397) ^ (Use ?? "").GetHashCode();
                 result = (result * 397) ^ Bindings.GetSequencedHashCode();
                 return result;

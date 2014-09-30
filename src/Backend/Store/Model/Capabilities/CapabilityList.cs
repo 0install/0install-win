@@ -113,7 +113,7 @@ namespace ZeroInstall.Store.Model.Capabilities
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ OS.GetHashCode();
+                result = (result * 397) ^ (int)OS;
                 result = (result * 397) ^ Entries.GetSequencedHashCode();
                 return result;
             }

@@ -103,7 +103,7 @@ namespace ZeroInstall.Store.Model.Preferences
             {
                 int result = base.GetHashCode();
                 result = (result * 397) ^ (ID ?? "").GetHashCode();
-                result = (result * 397) ^ UserStability.GetHashCode();
+                result = (result * 397) ^ (int)UserStability;
                 return result;
             }
         }

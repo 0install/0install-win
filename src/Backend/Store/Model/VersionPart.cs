@@ -133,7 +133,7 @@ namespace ZeroInstall.Store.Model
         public bool Equals(VersionPart other)
         {
             if (other == null) return false;
-            return Equals(other.Modifier, Modifier) && Equals(other.DottedList, DottedList);
+            return other.Modifier == Modifier && Equals(other.DottedList, DottedList);
         }
 
         public override bool Equals(object obj)
@@ -147,7 +147,7 @@ namespace ZeroInstall.Store.Model
         {
             unchecked
             {
-                int result = Modifier.GetHashCode() * 397;
+                int result = (int)Modifier * 397;
                 if (DottedList != null) result = (result * 397) ^ DottedList.GetHashCode();
                 return result;
             }
@@ -161,7 +161,7 @@ namespace ZeroInstall.Store.Model
             if (other == null) throw new ArgumentNullException("other");
             #endregion
 
-            var modifierComparison = Modifier.CompareTo(other.Modifier);
+            var modifierComparison = ((int)Modifier).CompareTo((int)other.Modifier);
             if (modifierComparison != 0) return modifierComparison;
 
             var leftDottedList = DottedList ?? VersionDottedList.Default;

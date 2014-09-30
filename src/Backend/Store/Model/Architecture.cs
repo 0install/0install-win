@@ -300,7 +300,7 @@ namespace ZeroInstall.Store.Model
         {
             unchecked
             {
-                return (OS.GetHashCode() * 397) ^ Cpu.GetHashCode();
+                return ((int)OS * 397) ^ (int)Cpu;
             }
         }
         #endregion

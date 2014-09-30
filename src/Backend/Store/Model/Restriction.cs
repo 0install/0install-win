@@ -147,7 +147,7 @@ namespace ZeroInstall.Store.Model
             {
                 int result = base.GetHashCode();
                 result = (result * 397) ^ (InterfaceID ?? "").GetHashCode();
-                result = (result * 397) ^ OS.GetHashCode();
+                result = (result * 397) ^ (int)OS;
                 result = (result * 397) ^ Constraints.GetSequencedHashCode();
                 if (Versions != null) result = (result * 397) ^ Versions.GetHashCode();
                 return result;
