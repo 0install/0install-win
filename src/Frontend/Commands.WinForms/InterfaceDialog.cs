@@ -270,8 +270,12 @@ namespace ZeroInstall.Commands.WinForms
             Feed feed = null;
             try
             {
-                var task = new SimpleTask(Resources.CheckingFeed, () => feed = XmlStorage.FromXmlString<Feed>(new WebClient().DownloadString(feedID)));
-                using (var handler = new GuiTaskHandler(this)) handler.RunTask(task);
+                using (var handler = new GuiTaskHandler(this))
+                using (var webClient = new WebClientTimeout())
+                {
+                    handler.RunTask(new SimpleTask(Resources.CheckingFeed,
+                        () => feed = XmlStorage.FromXmlString<Feed>(webClient.DownloadString(feedID))));
+                }
             }
                 #region Error handling
             catch (OperationCanceledException)

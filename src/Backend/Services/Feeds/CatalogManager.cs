@@ -155,7 +155,9 @@ namespace ZeroInstall.Services.Feeds
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
         private Catalog DownloadCatalog(Uri url)
         {
-            var data = new WebClientTimeout().DownloadData(url);
+            byte[] data;
+            using (var webClient = new WebClientTimeout())
+                data = webClient.DownloadData(url);
             _trustManager.CheckTrust(data, url);
             return XmlStorage.LoadXml<Catalog>(new MemoryStream(data));
         }
