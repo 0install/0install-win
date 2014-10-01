@@ -49,7 +49,7 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
-        /// Ensures the <see cref="Version"/> constructor correctly converts .NET versions.
+        /// Ensures the constructor correctly parses <see cref="string"/>s and <see cref="Version"/>s.
         /// </summary>
         [Test]
         public void TestVersionConstructor()
@@ -57,6 +57,21 @@ namespace ZeroInstall.Store.Model
             Assert.AreEqual(new ImplementationVersion("1.2"), new ImplementationVersion(new Version(1, 2)));
             Assert.AreEqual(new ImplementationVersion("1.2.3"), new ImplementationVersion(new Version(1, 2, 3)));
             Assert.AreEqual(new ImplementationVersion("1.2.3.4"), new ImplementationVersion(new Version(1, 2, 3, 4)));
+        }
+
+        /// <summary>
+        /// Ensures the <see cref="Version"/> constructor correctly handles template variables.
+        /// </summary>
+        [Test]
+        public void TestTemplateVariable()
+        {
+            var version = new ImplementationVersion("1-pre{var}");
+            Assert.IsTrue(version.ContainsTemplateVariables);
+            Assert.AreEqual("1-pre{var}", version.ToString());
+
+            version = new ImplementationVersion("{var}");
+            Assert.IsTrue(version.ContainsTemplateVariables);
+            Assert.AreEqual("{var}", version.ToString());
         }
 
         /// <summary>

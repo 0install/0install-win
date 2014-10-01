@@ -114,10 +114,30 @@ namespace ZeroInstall.Store.Model
         [XmlIgnore]
         public virtual DateTime Released { get; set; }
 
-        /// <summary>Used for XML serialization.</summary>
+        /// <summary>
+        /// Used to store the unparsed release date string (instead of <see cref="Released"/>) if it <see cref="ModelUtils.ContainsTemplateVariables"/>.
+        /// </summary>
+        protected string ReleasedVerbatim;
+
+        /// <summary>
+        /// The string form of <see cref="Released"/>. Only use this if the string <see cref="ModelUtils.ContainsTemplateVariables"/>.
+        /// </summary>
         /// <seealso cref="Released"/>
-        [XmlAttribute("released"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public virtual string ReleasedString { get { return (Released == default(DateTime) ? null : Released.ToString(ReleaseDateFormat)); } set { Released = DateTime.ParseExact(value, ReleaseDateFormat, CultureInfo.InvariantCulture); } }
+        [Category("Release"), Description("The string form of Released. Only use this if the string contains template variables.")]
+        [XmlAttribute("released")]
+        public virtual string ReleasedString
+        {
+            get
+            {
+                if (ReleasedVerbatim != null) return ReleasedVerbatim;
+                else return (Released == default(DateTime) ? null : Released.ToString(ReleaseDateFormat));
+            }
+            set
+            {
+                if (ModelUtils.ContainsTemplateVariables(value)) ReleasedVerbatim = value;
+                else Released = DateTime.ParseExact(value, ReleaseDateFormat, CultureInfo.InvariantCulture);
+            }
+        }
 
         private Stability _stability = Stability.Unset;
 
@@ -350,6 +370,7 @@ namespace ZeroInstall.Store.Model
             to.Version = from.Version;
             to.VersionModifier = from.VersionModifier;
             to.Released = from.Released;
+            to.ReleasedVerbatim = from.ReleasedVerbatim;
             to.Stability = from.Stability;
             to.License = from.License;
             to.Main = from.Main;
@@ -368,7 +389,7 @@ namespace ZeroInstall.Store.Model
         {
             if (other == null) return false;
             return base.Equals(other) &&
-                   other.Version == Version && other.VersionModifier == VersionModifier && other.Released == Released && other.License == License && other.Main == Main && other.SelfTest == SelfTest && other.DocDir == DocDir &&
+                   other.Version == Version && other.VersionModifier == VersionModifier && other.Released == Released && other.ReleasedVerbatim == ReleasedVerbatim && other.License == License && other.Main == Main && other.SelfTest == SelfTest && other.DocDir == DocDir &&
                    Commands.SequencedEquals(other.Commands) && Dependencies.SequencedEquals(other.Dependencies) && Restrictions.SequencedEquals(other.Restrictions) && Bindings.SequencedEquals(other.Bindings);
         }
 
@@ -381,6 +402,7 @@ namespace ZeroInstall.Store.Model
                 result = (result * 397) ^ (Version != null ? Version.GetHashCode() : 0);
                 result = (result * 397) ^ (VersionModifier != null ? VersionModifier.GetHashCode() : 0);
                 result = (result * 397) ^ Released.GetHashCode();
+                if (ReleasedVerbatim != null) result = (result * 397) ^ ReleasedVerbatim.GetHashCode();
                 result = (result * 397) ^ (License ?? "").GetHashCode();
                 result = (result * 397) ^ (Main ?? "").GetHashCode();
                 result = (result * 397) ^ (SelfTest ?? "").GetHashCode();

@@ -106,5 +106,16 @@ namespace ZeroInstall.Store.Model
                 // Colon is preserved on POSIX systems but not on other OSes
                 ModelUtils.PrettyUnescape(UnixUtils.IsUnix ? "http:##0install.de#feeds#test#test1.xml" : "http%3a##0install.de#feeds#test#test1.xml"));
         }
+
+        [Test]
+        public void TestContainsTemplateVariables()
+        {
+            Assert.IsFalse(ModelUtils.ContainsTemplateVariables(""));
+            Assert.IsFalse(ModelUtils.ContainsTemplateVariables("x"));
+            Assert.IsFalse(ModelUtils.ContainsTemplateVariables("}{"));
+            Assert.IsTrue(ModelUtils.ContainsTemplateVariables("{}"));
+            Assert.IsTrue(ModelUtils.ContainsTemplateVariables("{var}"));
+            Assert.IsTrue(ModelUtils.ContainsTemplateVariables("x{var}x"));
+        }
     }
 }

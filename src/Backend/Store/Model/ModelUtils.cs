@@ -244,5 +244,21 @@ namespace ZeroInstall.Store.Model
             return (uri == null) ? null : new Uri(uri.OriginalString, UriKind.Absolute);
         }
         #endregion
+
+        #region Templates
+        /// <summary>
+        /// Determines whether a string contains a template variable (a substring enclosed in curly brackets, e.g {var}).
+        /// </summary>
+        public static bool ContainsTemplateVariables(string value)
+        {
+            #region Sanity checks
+            if (value == null) throw new ArgumentNullException("value");
+            #endregion
+
+            int openingBracket = value.IndexOf('{');
+            if (openingBracket == -1) return false;
+            return (value.IndexOf('}', openingBracket) != -1);
+        }
+        #endregion
     }
 }

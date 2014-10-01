@@ -119,6 +119,7 @@ namespace ZeroInstall.Store.Model
             if (Architecture != default(Architecture)) parts.Add(Architecture.ToString());
             if (Version != null) parts.Add(Version.ToString());
             if (Released != default(DateTime)) parts.Add(Released.ToString("d", CultureInfo.InvariantCulture));
+            if (ReleasedVerbatim != null) parts.Add(ReleasedVerbatim);
             if (Stability != default(Stability)) parts.Add(Stability.ToString());
             if (!string.IsNullOrEmpty(License)) parts.Add(License);
             if (!string.IsNullOrEmpty(Main)) parts.Add(Main);

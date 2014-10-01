@@ -36,6 +36,7 @@ namespace ZeroInstall.Store.Model
     ///   DottedList := (Integer ("." Integer)*)
     ///   Modifier := "pre" | "rc" | "post"
     ///   </code>
+    ///   If the string <see cref="ModelUtils.ContainsTemplateVariables"/> the entire string is stored verbatimed and not parsed.
     /// </para>
     /// </remarks>
     [Serializable]
@@ -48,6 +49,17 @@ namespace ZeroInstall.Store.Model
 
         /// <summary>All additional parts of the version number.</summary>
         private readonly VersionPart[] _additionalParts;
+
+        /// <summary>Used to store the unparsed input string (instead of <see cref="_firstPart"/> and <see cref="_additionalParts"/>) if it <see cref="ModelUtils.ContainsTemplateVariables"/>.</summary>
+        private readonly string _verbatimString;
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Indicates whether this version number contains a template variable (a substring enclosed in curly brackets, e.g {var}) .
+        /// </summary>
+        /// <remarks>This must be <see langword="false"/> in regular feeds; <see langword="true"/> is only valid for templates.</remarks>
+        public bool ContainsTemplateVariables { get { return _verbatimString != null; } }
         #endregion
 
         #region Constructor
@@ -61,6 +73,13 @@ namespace ZeroInstall.Store.Model
             #region Sanity checks
             if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
             #endregion
+
+            if (ModelUtils.ContainsTemplateVariables(value))
+            {
+                _verbatimString = value;
+                _additionalParts = new VersionPart[0];
+                return;
+            }
 
             string[] parts = value.Split('-');
 
@@ -119,6 +138,8 @@ namespace ZeroInstall.Store.Model
         /// </summary>        
         public override string ToString()
         {
+            if (_verbatimString != null) return _verbatimString;
+
             var output = new StringBuilder();
             output.Append(_firstPart.ToString());
 
