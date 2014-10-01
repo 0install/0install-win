@@ -165,6 +165,9 @@ Ungespeicherte Änderungen verwerfen</value>
   <data name="FeedNotValid" xml:space="preserve">
     <value>Der Feed hat nicht das richtige Format</value>
   </data>
+  <data name="FileDialogFilter" xml:space="preserve">
+    <value>Feed Dateien (*.xml)|*.xml|Vorlagen Dateien (*.xml.template)|*.xml.template|Alle Dateien|*</value>
+  </data>
   <data name="FileNotFound" xml:space="preserve">
     <value>Die Datei '{0}' konnte nicht gefunden werden.</value>
   </data>

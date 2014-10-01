@@ -165,6 +165,9 @@ Discard unsaved changes</value>
   <data name="FeedNotValid" xml:space="preserve">
     <value>The feed does not have the correct format.</value>
   </data>
+  <data name="FileDialogFilter" xml:space="preserve">
+    <value>Feed files (*.xml)|*.xml|Template files (*.xml.template)|*.xml.template|All files|*</value>
+  </data>
   <data name="FileNotFound" xml:space="preserve">
     <value>The file '{0}' could not be found.</value>
   </data>

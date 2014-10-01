@@ -199,6 +199,15 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Feed files (*.xml)|*.xml|Template files (*.xml.template)|*.xml.template|All files|*.
+        /// </summary>
+        public static string FileDialogFilter {
+            get {
+                return ResourceManager.GetString("FileDialogFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file &apos;{0}&apos; could not be found..
         /// </summary>
         public static string FileNotFound {

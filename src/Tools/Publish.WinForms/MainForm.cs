@@ -183,7 +183,7 @@ namespace ZeroInstall.Publish.WinForms
         #region Storage
         internal static FeedEditing OpenFeed(IWin32Window owner)
         {
-            using (var openFileDialog = new OpenFileDialog {Filter = "XML files|*.xml|All files|*"})
+            using (var openFileDialog = new OpenFileDialog {Filter = Resources.FileDialogFilter})
             {
                 if (openFileDialog.ShowDialog(owner) != DialogResult.OK) throw new OperationCanceledException();
                 try
@@ -218,7 +218,7 @@ namespace ZeroInstall.Publish.WinForms
 
         private void SaveFeedAs()
         {
-            using (var saveFileDialog = new SaveFileDialog {Filter = "XML files|*.xml|All files|*"})
+            using (var saveFileDialog = new SaveFileDialog {Filter = Resources.FileDialogFilter})
             {
                 if (saveFileDialog.ShowDialog(this) != DialogResult.OK) throw new OperationCanceledException();
                 SaveFeed(saveFileDialog.FileName);
