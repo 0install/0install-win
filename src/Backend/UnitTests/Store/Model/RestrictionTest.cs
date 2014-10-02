@@ -63,10 +63,43 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
-        /// Ensures <see cref="Restriction.Normalize"/> deduces correct <see cref="Restriction.Versions"/> values from <see cref="Restriction.Constraints"/>.
+        /// Ensures <see cref="Restriction.Normalize"/> correctly converts <see cref="Constraint.NotBefore"/> to <see cref="Restriction.Versions"/>.
         /// </summary>
         [Test]
-        public void TestNormalize()
+        public void TestNormalizeNotBefore()
+        {
+            var restriction = new Restriction {Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0")}}};
+            restriction.Normalize();
+            Assert.AreEqual(new VersionRange("1.0.."), restriction.Versions);
+        }
+
+        /// <summary>
+        /// Ensures <see cref="Restriction.Normalize"/> correctly converts <see cref="Constraint.Before"/> to <see cref="Restriction.Versions"/>.
+        /// </summary>
+        [Test]
+        public void TestNormalizeBefore()
+        {
+            var restriction = new Restriction {Constraints = {new Constraint {Before = new ImplementationVersion("2.0")}}};
+            restriction.Normalize();
+            Assert.AreEqual(new VersionRange("..!2.0"), restriction.Versions);
+        }
+
+        /// <summary>
+        /// Ensures <see cref="Restriction.Normalize"/> correctly converts <see cref="Constraint.NotBefore"/> and <see cref="Constraint.Before"/> to <see cref="Restriction.Versions"/>.
+        /// </summary>
+        [Test]
+        public void TestNormalizeRange()
+        {
+            var restriction = new Restriction {Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}}};
+            restriction.Normalize();
+            Assert.AreEqual(new VersionRange("1.0..!2.0"), restriction.Versions);
+        }
+
+        /// <summary>
+        /// Ensures <see cref="Restriction.Normalize"/> deduces correct <see cref="Restriction.Versions"/> values from overlapping <see cref="Restriction.Constraints"/>.
+        /// </summary>
+        [Test]
+        public void TestNormalizeOverlap()
         {
             var restriction = new Restriction
             {

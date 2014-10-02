@@ -90,7 +90,10 @@ namespace ZeroInstall.Store.Model
         public virtual void Normalize()
         {
             if (Constraints.Count != 0)
+            {
                 Versions = Constraints.Aggregate(Versions ?? new VersionRange(), (current, constraint) => current.Intersect(constraint));
+                Constraints.Clear();
+            }
         }
         #endregion
 

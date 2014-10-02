@@ -71,7 +71,7 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="Runner"/>.</returns>
         public Runner CloneRunner()
         {
-            var runner = new Runner {InterfaceID = InterfaceID, Use = Use, Command = Command};
+            var runner = new Runner {InterfaceID = InterfaceID, Use = Use, Command = Command, Versions = Versions};
             runner.Bindings.AddRange(Bindings.CloneElements());
             runner.Constraints.AddRange(Constraints.CloneElements());
             runner.Arguments.AddRange(Arguments.CloneElements());

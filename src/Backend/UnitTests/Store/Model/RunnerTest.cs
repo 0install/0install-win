@@ -29,12 +29,12 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Creates a fictive test <see cref="Runner"/>.
         /// </summary>
-        internal static Runner CreateTestRunner()
+        private static Runner CreateTestRunner()
         {
             return new Runner
             {
                 InterfaceID = "http://0install.de/feeds/test/test1.xml", Command = "run2", Bindings = {EnvironmentBindingTest.CreateTestBinding()},
-                Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}},
+                Versions = new VersionRange("1.0..!2.0"),
                 Arguments = {"--arg"}
             };
         }
