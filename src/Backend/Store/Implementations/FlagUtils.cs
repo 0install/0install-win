@@ -19,9 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Text;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Utils;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations
@@ -117,7 +117,7 @@ namespace ZeroInstall.Store.Implementations
             // Convert path to rooted Unix-style
             string unixPath = "/" + relativePath.Replace(Path.DirectorySeparatorChar, '/');
 
-            using (var flagFile = new StreamWriter(file, append: true, encoding: new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)) {NewLine = "\n"})
+            using (var flagFile = new StreamWriter(file, append: true, encoding: FeedUtils.Encoding) {NewLine = "\n"})
                 flagFile.WriteLine(unixPath);
         }
 
@@ -142,7 +142,7 @@ namespace ZeroInstall.Store.Implementations
             string unixPath = "/" + relativePath.Replace(Path.DirectorySeparatorChar, '/');
 
             using (var atomic = new AtomicWrite(file))
-            using (var newFlagFile = new StreamWriter(atomic.WritePath, append: false, encoding: new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)) {NewLine = "\n"})
+            using (var newFlagFile = new StreamWriter(atomic.WritePath, append: false, encoding: FeedUtils.Encoding) {NewLine = "\n"})
             using (var oldFlagFile = File.OpenText(file))
             {
                 // Each line in the file signals a flagged file
@@ -185,7 +185,7 @@ namespace ZeroInstall.Store.Implementations
             destination = "/" + destination.Replace(Path.DirectorySeparatorChar, '/');
 
             using (var atomic = new AtomicWrite(file))
-            using (var newFlagFile = new StreamWriter(atomic.WritePath, append: false, encoding: new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)) { NewLine = "\n" })
+            using (var newFlagFile = new StreamWriter(atomic.WritePath, append: false, encoding: FeedUtils.Encoding) {NewLine = "\n"})
             using (var oldFlagFile = File.OpenText(file))
             {
                 // Each line in the file signals a flagged file

@@ -27,6 +27,7 @@ using NanoByte.Common.Storage;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
 using ZeroInstall.Store.ViewModel;
@@ -183,7 +184,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             using (var atomic = new AtomicWrite(path))
             {
-                using (var configFile = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)) {NewLine = "\n"})
+                using (var configFile = new StreamWriter(atomic.WritePath, append: false, encoding: FeedUtils.Encoding) {NewLine = "\n"})
                 {
                     foreach (var element in elements)
                         configFile.WriteLine(element.ToString());

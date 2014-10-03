@@ -26,6 +26,7 @@ using IniParser.Model;
 using Microsoft.Win32;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Utils;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store
@@ -125,7 +126,7 @@ namespace ZeroInstall.Store
             TransferToIni();
 
             using (var atomic = new AtomicWrite(path))
-            using (var writer = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)))
+            using (var writer = new StreamWriter(atomic.WritePath, append: false, encoding: FeedUtils.Encoding))
             {
                 new StreamIniDataParser().WriteData(writer, _iniData);
                 atomic.Commit();

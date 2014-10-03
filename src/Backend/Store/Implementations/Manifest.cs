@@ -22,6 +22,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations
@@ -138,7 +139,7 @@ namespace ZeroInstall.Store.Implementations
             #endregion
 
             // Use UTF-8 without BOM and Unix-stlye line breaks to ensure correct digest values
-            var writer = new StreamWriter(stream, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)) {NewLine = "\n"};
+            var writer = new StreamWriter(stream, encoding: FeedUtils.Encoding) {NewLine = "\n"};
 
             // Write one line for each node
             foreach (ManifestNode node in _nodes)

@@ -106,7 +106,7 @@ namespace ZeroInstall.Publish
             File.Delete(signatureFile);
 
             // Add the Base64 encoded signature to the end of the file
-            using (var writer = new StreamWriter(path, true, Store.Feeds.FeedUtils.Encoding) {NewLine = "\n"})
+            using (var writer = new StreamWriter(path, append: true, encoding: Store.Feeds.FeedUtils.Encoding) {NewLine = "\n"})
             {
                 writer.Write(Store.Feeds.FeedUtils.SignatureBlockStart);
                 writer.WriteLine(base64Signature);
