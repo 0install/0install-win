@@ -112,6 +112,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="catalog.css" />
+    <EmbeddedResource Include="catalog.xsl" />
     <EmbeddedResource Include="feed.css" />
     <EmbeddedResource Include="feed.xsl" />
   </ItemGroup>

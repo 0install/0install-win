@@ -20,9 +20,6 @@ http://creativecommons.org/licenses/by-sa/2.5/
 			</head>
 			<body>
 				<div class="site">
-					<!--<div class="title"> 
-						<a href="http://0install.net/">0install.net</a>
-					</div>-->
 					<div class="main">
 						<div class="content">
 							<div class="post inner">

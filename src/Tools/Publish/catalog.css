@@ -1,0 +1,62 @@
+h1 { text-align: center; border-bottom: 2px solid #d0d0ff; padding-bottom: .5em; }
+div.main { padding: 1em; background: white; -moz-border-radius: 1em 1em 1em 1em; max-width: 60em;	margin-left: auto; margin-right: auto; margin-top: 1em; margin-bottom: 1em; }
+dt { font-weight: bold; text-transform:capitalize; }
+dd { padding-bottom: 1em; }
+dl.group { margin: 0.5em; padding: 0.5em; border: 1px dashed #888;}
+dl.impl { padding: 0.2em 1em 0.2em 1em; margin: 0.5em; border: 1px solid black; background: white;}
+pre { background: #ddd; color: black; padding: 0.2cm; }
+table { width: 100% }
+
+span.count {
+	color: #888;
+	padding-left: 1em;
+}
+
+td.image {
+	text-align: center;
+	vertical-align: top;
+}
+
+.summary {
+	margin: 0;
+	padding: 0 0 1em 0;
+	font-style: italic;
+	color: #666;
+}
+
+tr.d0 td {
+	background: #eee;
+}
+
+td.keyinfo {
+	width: 10em;
+	vertical-align: top;
+}
+
+td.keyinfo a {
+	font-family: sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+td.keyinfo span.summary {
+	font-size: smaller;
+	font-style: italic;
+	color: #333;
+}
+
+td.teaser {
+	vertical-align: top;
+	color: #666;
+}
+
+td.teaser:hover {
+	color: #000;
+}
+
+td.teaser a {
+	display: block;
+	text-align: right;
+	float: right;
+	color: #66f;
+}

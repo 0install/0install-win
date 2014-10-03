@@ -109,7 +109,9 @@ namespace ZeroInstall.Publish
                 FeedUtils.SignFeed(stream, SecretKey, passphrase, openPgp);
                 stream.WriteTo(path);
             }
-            FeedUtils.DeployPublicKey(Path.GetDirectoryName(path), SecretKey, openPgp);
+            string directory = Path.GetDirectoryName(path);
+            FeedUtils.DeployPublicKey(directory, SecretKey, openPgp);
+            FeedUtils.DeployStylesheet(directory, "catalog");
         }
         #endregion
     }

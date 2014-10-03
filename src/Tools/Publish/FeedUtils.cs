@@ -35,24 +35,25 @@ namespace ZeroInstall.Publish
     public static class FeedUtils
     {
         /// <summary>
-        /// Writes the default XSL stylesheet with its accompanying CSS file unless there is already an XSL in place.
+        /// Writes an XSL stylesheet with its accompanying CSS file unless there is already an XSL in place.
         /// </summary>
         /// <param name="path">The directory to write the stylesheet files to.</param>
+        /// <param name="name">The name of the stylesheet to deploy. Must be "feed" or "catalog".</param>
         /// <exception cref="IOException">Failed to write the sytelsheet files.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the directory is not permitted.</exception>
-        public static void DeployStylesheet(string path)
+        public static void DeployStylesheet(string path, string name)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            if (!File.Exists(Path.Combine(path, "feed.xsl")))
+            if (!File.Exists(Path.Combine(path, name + ".xsl")))
             {
                 var assembly = Assembly.GetAssembly(typeof(FeedUtils));
-                using (var stream = assembly.GetManifestResourceStream(typeof(FeedUtils), "feed.xsl"))
-                    stream.WriteTo(Path.Combine(path, "feed.xsl"));
-                using (var stream = assembly.GetManifestResourceStream(typeof(FeedUtils), "feed.css"))
-                    stream.WriteTo(Path.Combine(path, "feed.css"));
+                using (var stream = assembly.GetManifestResourceStream(typeof(FeedUtils), name + ".xsl"))
+                    stream.WriteTo(Path.Combine(path, name + ".xsl"));
+                using (var stream = assembly.GetManifestResourceStream(typeof(FeedUtils), name + ".css"))
+                    stream.WriteTo(Path.Combine(path, name + ".css"));
             }
         }
 
