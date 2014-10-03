@@ -182,10 +182,9 @@ namespace ZeroInstall.Store.Implementations
             FileUtils.Replace(downloadedFile, destinationPath);
             File.SetLastWriteTimeUtc(destinationPath, FileUtils.FromUnixTime(0));
 
-            // Update in flag files aswell
-            string xbitFile = Path.Combine(workingDir, ".xbit");
-            if (FlagUtils.GetExternalFlags(".xbit", workingDir).Contains(destinationPath))
-                FlagUtils.RemoveExternalFlag(xbitFile, destination);
+            // Update in flag files as well
+            FlagUtils.Remove(Path.Combine(workingDir, ".xbit"), destination);
+            FlagUtils.Remove(Path.Combine(workingDir, ".symlink"), destination);
         }
 
         /// <summary>
@@ -207,14 +206,13 @@ namespace ZeroInstall.Store.Implementations
             if (FileUtils.IsBreakoutPath(path)) throw new IOException(string.Format(Resources.RecipeInvalidPath, path));
             #endregion
 
-            // Delete the element
             string absolutePath = Path.Combine(workingDir, path);
-            if (File.Exists(absolutePath)) File.Delete(absolutePath);
-            else if (Directory.Exists(absolutePath)) Directory.Delete(absolutePath, recursive: true);
+            if (Directory.Exists(absolutePath)) Directory.Delete(absolutePath, recursive: true);
+            else File.Delete(absolutePath);
 
-            // Remove from flag files aswell
-            FlagUtils.RemoveExternalFlag(Path.Combine(workingDir, ".xbit"), path);
-            FlagUtils.RemoveExternalFlag(Path.Combine(workingDir, ".symlink"), path);
+            // Update in flag files as well
+            FlagUtils.Remove(Path.Combine(workingDir, ".xbit"), path);
+            FlagUtils.Remove(Path.Combine(workingDir, ".symlink"), path);
         }
 
         /// <summary>
@@ -239,26 +237,17 @@ namespace ZeroInstall.Store.Implementations
             if (FileUtils.IsBreakoutPath(destination)) throw new IOException(string.Format(Resources.RecipeInvalidPath, destination));
             #endregion
 
-            // Rename the element
             string sourcePath = Path.Combine(workingDir, source);
             string destinationPath = Path.Combine(workingDir, destination);
             string parentDir = Path.GetDirectoryName(destinationPath);
             if (!string.IsNullOrEmpty(parentDir) && !Directory.Exists(parentDir)) Directory.CreateDirectory(parentDir);
-            File.Move(sourcePath, destinationPath);
 
-            // Update in flag files aswell
-            string xbitFile = Path.Combine(workingDir, ".xbit");
-            if (FlagUtils.GetExternalFlags(".xbit", workingDir).Contains(sourcePath))
-            {
-                FlagUtils.RemoveExternalFlag(xbitFile, source);
-                FlagUtils.SetExternalFlag(xbitFile, destination);
-            }
-            string symlinkFile = Path.Combine(workingDir, ".symlink");
-            if (FlagUtils.GetExternalFlags(".symlink", workingDir).Contains(sourcePath))
-            {
-                FlagUtils.RemoveExternalFlag(symlinkFile, source);
-                FlagUtils.SetExternalFlag(symlinkFile, destination);
-            }
+            if (Directory.Exists(sourcePath)) Directory.Move(sourcePath, destinationPath);
+            else File.Move(sourcePath, destinationPath);
+
+            // Update in flag files as well
+            FlagUtils.Rename(Path.Combine(workingDir, ".xbit"), source, destination);
+            FlagUtils.Rename(Path.Combine(workingDir, ".symlink"), source, destination);
         }
     }
 }

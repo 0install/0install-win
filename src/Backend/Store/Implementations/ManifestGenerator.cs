@@ -92,8 +92,8 @@ namespace ZeroInstall.Store.Implementations
         /// <returns>The nodes for the elements.</returns>
         private IEnumerable<ManifestNode> GetNodes(IEnumerable<FileSystemInfo> entries)
         {
-            var externalXbits = FlagUtils.GetExternalFlags(".xbit", TargetDir);
-            var externalSymlinks = FlagUtils.GetExternalFlags(".symlink", TargetDir);
+            var externalXbits = FlagUtils.GetFiles(".xbit", TargetDir);
+            var externalSymlinks = FlagUtils.GetFiles(".symlink", TargetDir);
 
             // Iterate through the directory listing to build a list of manifets entries
             var nodes = new List<ManifestNode>();

@@ -302,7 +302,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (alreadyExists)
             {
                 string flagRelativePath = string.IsNullOrEmpty(Destination) ? relativePath : Path.Combine(Destination, relativePath);
-                FlagUtils.RemoveExternalFlag(Path.Combine(TargetDir, ".symlink"), flagRelativePath);
+                FlagUtils.Remove(Path.Combine(TargetDir, ".symlink"), flagRelativePath);
             }
 
             if (executable) SetExecutableBit(relativePath);
@@ -337,7 +337,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
                 // Non-Unixoid OSes (e.g. Windows) can't store the symlink flag directly in the filesystem; remember in a text-file instead
                 string flagRelativePath = string.IsNullOrEmpty(Destination) ? source : Path.Combine(Destination, source);
-                FlagUtils.SetExternalFlag(Path.Combine(TargetDir, ".symlink"), flagRelativePath);
+                FlagUtils.Set(Path.Combine(TargetDir, ".symlink"), flagRelativePath);
             }
         }
 
@@ -445,7 +445,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             {
                 // Non-Unixoid OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
                 string flagRelativePath = string.IsNullOrEmpty(Destination) ? relativePath : Path.Combine(Destination, relativePath);
-                FlagUtils.SetExternalFlag(Path.Combine(TargetDir, ".xbit"), flagRelativePath);
+                FlagUtils.Set(Path.Combine(TargetDir, ".xbit"), flagRelativePath);
             }
         }
 
@@ -464,7 +464,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             {
                 // Non-Unixoid OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
                 string flagRelativePath = string.IsNullOrEmpty(Destination) ? relativePath : Path.Combine(Destination, relativePath);
-                FlagUtils.RemoveExternalFlag(Path.Combine(TargetDir, ".xbit"), flagRelativePath);
+                FlagUtils.Remove(Path.Combine(TargetDir, ".xbit"), flagRelativePath);
             }
         }
         #endregion

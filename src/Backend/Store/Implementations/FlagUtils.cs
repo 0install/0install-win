@@ -42,15 +42,14 @@ namespace ZeroInstall.Store.Implementations
         /// <exception cref="IOException">There was an error reading the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the flag file.</exception>
         /// <remarks>The flag file is searched for instead of specifiying it directly to allow handling of special cases like creating manifests of subdirectories of extracted archives.</remarks>
-        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags")]
-        public static ICollection<string> GetExternalFlags(string name, string target)
+        public static ICollection<string> GetFiles(string name, string target)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            string flagDir = FindFlagDir(name, target);
+            string flagDir = FindRootDir(name, target);
             if (flagDir == null) return new string[0];
 
             var externalFlags = new List<string>();
@@ -77,7 +76,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="flagName">The name of the flag type to search for (<code>.xbit</code> or <code>.symlink</code>).</param>
         /// <param name="target">The target directory to start the search from.</param>
         /// <returns>The full path to the closest flag file that was found; <see langword="null"/> if none was found.</returns>
-        private static string FindFlagDir(string flagName, string target)
+        private static string FindRootDir(string flagName, string target)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(flagName)) throw new ArgumentNullException("flagName");
@@ -104,11 +103,10 @@ namespace ZeroInstall.Store.Implementations
         /// Sets a flag for a file in an external flag file.
         /// </summary>
         /// <param name="file">The path to the flag file, ending with the type in the type of flag to store (<code>.xbit</code> or <code>.symlink</code>).</param>
-        /// <param name="relativePath">The path of the file to set the flag for relative to <paramref name="file"/>.</param>
+        /// <param name="relativePath">The path of the file to set relative to <paramref name="file"/>.</param>
         /// <exception cref="IOException">There was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
-        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
-        public static void SetExternalFlag(string file, string relativePath)
+        public static void Set(string file, string relativePath)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(file)) throw new ArgumentNullException("file");
@@ -119,7 +117,7 @@ namespace ZeroInstall.Store.Implementations
             // Convert path to rooted Unix-style
             string unixPath = "/" + relativePath.Replace(Path.DirectorySeparatorChar, '/');
 
-            using (var flagFile = new StreamWriter(file, true, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)) {NewLine = "\n"}) // Append
+            using (var flagFile = new StreamWriter(file, append: true, encoding: new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)) {NewLine = "\n"})
                 flagFile.WriteLine(unixPath);
         }
 
@@ -127,11 +125,10 @@ namespace ZeroInstall.Store.Implementations
         /// Removes one or more flags for a file or directory in an external flag file.
         /// </summary>
         /// <param name="file">The path to the flag file, ending with the type in the type of flag to store (<code>.xbit</code> or <code>.symlink</code>).</param>
-        /// <param name="relativePath">The path of the file or directory to remove the flag for relative to <paramref name="file"/>.</param>
+        /// <param name="relativePath">The path of the file or directory to remove relative to <paramref name="file"/>.</param>
         /// <exception cref="IOException">There was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
-        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
-        public static void RemoveExternalFlag(string file, string relativePath)
+        public static void Remove(string file, string relativePath)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(file)) throw new ArgumentNullException("file");
@@ -144,10 +141,9 @@ namespace ZeroInstall.Store.Implementations
             // Convert path to rooted Unix-style
             string unixPath = "/" + relativePath.Replace(Path.DirectorySeparatorChar, '/');
 
-            // Write to temporary file first before replacing
             using (var atomic = new AtomicWrite(file))
-            using (var newFlagFile = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)) {NewLine = "\n"})
-            using (StreamReader oldFlagFile = File.OpenText(file))
+            using (var newFlagFile = new StreamWriter(atomic.WritePath, append: false, encoding: new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)) {NewLine = "\n"})
+            using (var oldFlagFile = File.OpenText(file))
             {
                 // Each line in the file signals a flagged file
                 while (!oldFlagFile.EndOfStream)
@@ -168,34 +164,40 @@ namespace ZeroInstall.Store.Implementations
         /// Adds a directory prefix to all entries in an external flag file.
         /// </summary>
         /// <param name="file">The path to the flag file.</param>
-        /// <param name="prefix">The directory prefix without leading or trailing slashes.</param>
+        /// <param name="source">The old path of the renamed file or directory relative to <paramref name="file"/>.</param>
+        /// <param name="destination">The new path of the renamed file or directory relative to <paramref name="file"/>.</param>
         /// <exception cref="IOException">There was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
-        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags")]
-        public static void PrefixExternalFlags(string file, string prefix)
+        public static void Rename(string file, string source, string destination)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(file)) throw new ArgumentNullException("file");
-            if (string.IsNullOrEmpty(prefix)) throw new ArgumentNullException("prefix");
-            if (Path.IsPathRooted(prefix)) throw new ArgumentException(Resources.PathNotRelative, "prefix");
+            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
+            if (Path.IsPathRooted(source)) throw new ArgumentException(Resources.PathNotRelative, "source");
+            if (string.IsNullOrEmpty(destination)) throw new ArgumentNullException("destination");
+            if (Path.IsPathRooted(destination)) throw new ArgumentException(Resources.PathNotRelative, "destination");
             #endregion
 
             if (!File.Exists(file)) return;
 
-            // Convert prefix to rooted Unix-style
-            prefix = "/" + prefix.Replace(Path.DirectorySeparatorChar, '/');
+            // Convert paths to rooted Unix-style
+            source = "/" + source.Replace(Path.DirectorySeparatorChar, '/');
+            destination = "/" + destination.Replace(Path.DirectorySeparatorChar, '/');
 
-            // Write to temporary file first before replacing
             using (var atomic = new AtomicWrite(file))
-            using (var newFlagFile = new StreamWriter(atomic.WritePath, false, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)) {NewLine = "\n"})
-            using (StreamReader oldFlagFile = File.OpenText(file))
+            using (var newFlagFile = new StreamWriter(atomic.WritePath, append: false, encoding: new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)) { NewLine = "\n" })
+            using (var oldFlagFile = File.OpenText(file))
             {
                 // Each line in the file signals a flagged file
                 while (!oldFlagFile.EndOfStream)
                 {
                     string line = oldFlagFile.ReadLine();
                     if (line != null && line.StartsWith("/"))
-                        newFlagFile.WriteLine(prefix + line); // Add prefix
+                    {
+                        if (line == source || line.StartsWith(source + "/"))
+                            newFlagFile.WriteLine(destination + line.Substring(source.Length));
+                        else newFlagFile.WriteLine(line);
+                    }
                 }
                 atomic.Commit();
             }
