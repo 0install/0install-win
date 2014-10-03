@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
@@ -93,15 +94,22 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            using (var atomic = new AtomicWrite(path))
+            if (SecretKey == null)
             {
-                // Write to temporary file first
-                Catalog.SaveXml(atomic.WritePath, stylesheet: "catalog.xsl");
-
-                if (SecretKey != null) FeedUtils.SignFeed(atomic.WritePath, SecretKey, passphrase, OpenPgpFactory.CreateDefault());
-
-                atomic.Commit();
+                Catalog.SaveXml(path);
+                return;
             }
+
+            var openPgp = OpenPgpFactory.CreateDefault();
+            using (var stream = new MemoryStream())
+            {
+                Catalog.SaveXml(stream, stylesheet: "catalog.xsl");
+                stream.Position = 0;
+
+                FeedUtils.SignFeed(stream, SecretKey, passphrase, openPgp);
+                stream.WriteTo(path);
+            }
+            FeedUtils.DeployPublicKey(Path.GetDirectoryName(path), SecretKey, openPgp);
         }
         #endregion
     }

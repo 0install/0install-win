@@ -52,7 +52,7 @@ namespace ZeroInstall.Store.Trust
         /// Returns the public key for specific keypair.
         /// </summary>
         /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair.</param>
-        /// <returns>The public key in the ASCII Armored format.</returns>
+        /// <returns>The public key in ASCII Armored format.</returns>
         /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
         string GetPublicKey(string keySpecifier);
 
@@ -64,16 +64,15 @@ namespace ZeroInstall.Store.Trust
         Process GenerateKey();
 
         /// <summary>
-        /// Creates a detached signature for a file using a specific secret key.
+        /// Creates a detached signature for a stream using a specific secret key.
         /// </summary>
-        /// <param name="path">The file to sign.</param>
+        /// <param name="stream">The data to sign.</param>
         /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair.</param>
         /// <param name="passphrase">The passphrase to use to unlock the secret key.</param>
-        /// <exception cref="FileNotFoundException">The file to be signed could not be found.</exception>
+        /// <returns>The signature in ASCII Armored format.</returns>
         /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
         /// <exception cref="WrongPassphraseException">Passphrase was incorrect.</exception>
-        /// <remarks>The detached signature is stored in a file named <paramref name="path"/> with ".sig" appended.</remarks>
-        void DetachSign(string path, string keySpecifier, string passphrase);
+        string DetachSign(Stream stream, string keySpecifier, string passphrase);
 
         /// <summary>
         /// Validates data signed by one or more keys.

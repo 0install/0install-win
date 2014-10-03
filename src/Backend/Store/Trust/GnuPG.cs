@@ -20,10 +20,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using NanoByte.Common;
 using NanoByte.Common.Cli;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Trust
@@ -127,21 +127,28 @@ namespace ZeroInstall.Store.Trust
 
         #region Sign
         /// <inheritdoc/>
-        public void DetachSign(string path, string keySpecifier, string passphrase)
+        public string DetachSign(Stream stream, string keySpecifier, string passphrase)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToSignNotFound, path);
+            if (stream == null) throw new ArgumentNullException("stream");
             if (string.IsNullOrEmpty(keySpecifier)) throw new ArgumentNullException("keySpecifier");
             #endregion
 
             string arguments = "--batch --no-secmem-warning --passphrase-fd 0";
-            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user " + keySpecifier.EscapeArgument();
-            arguments += " --detach-sign " + path.EscapeArgument();
+            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --default-key " + keySpecifier.EscapeArgument();
+            arguments += " --detach-sign --armor --output - -";
 
             if (string.IsNullOrEmpty(passphrase)) passphrase = "\n";
-            Execute(arguments,
-                inputCallback: writer => writer.WriteLine(passphrase));
+            string output = Execute(arguments, inputCallback: writer =>
+            {
+                writer.WriteLine(passphrase);
+                stream.CopyTo(writer.BaseStream);
+                writer.Close();
+            });
+
+            return output
+                .GetRightPartAtFirstOccurrence(Environment.NewLine + Environment.NewLine)
+                .GetLeftPartAtLastOccurrence(Environment.NewLine + "-----END PGP SIGNATURE-----");
         }
         #endregion
 

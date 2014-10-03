@@ -180,9 +180,6 @@
   <data name="FileMissingDest" xml:space="preserve">
     <value>A &lt;file&gt; tag is missing a destination attribute.</value>
   </data>
-  <data name="FileToSignNotFound" xml:space="preserve">
-    <value>The file to be signed could not be found.</value>
-  </data>
   <data name="FindingDuplicateFiles" xml:space="preserve">
     <value>Finding duplicate files in '{0}'</value>
   </data>

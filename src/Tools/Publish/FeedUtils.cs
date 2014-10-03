@@ -22,7 +22,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using NanoByte.Common;
-using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Model;
@@ -35,11 +34,10 @@ namespace ZeroInstall.Publish
     /// </summary>
     public static class FeedUtils
     {
-        #region Stylesheet
         /// <summary>
-        /// Deploys the files used by the default feed stylesheet to a directory.
+        /// Writes the default XSL stylesheet with its accompanying CSS file unless there is already an XSL in place.
         /// </summary>
-        /// <param name="path">The directory to deploy the stylesheet files to.</param>
+        /// <param name="path">The directory to write the stylesheet files to.</param>
         /// <exception cref="IOException">Failed to write the sytelsheet files.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the directory is not permitted.</exception>
         public static void DeployStylesheet(string path)
@@ -48,40 +46,58 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            // Write the default XSL with its accompanying CSS file unless there is already an XSL in place
             if (!File.Exists(Path.Combine(path, "feed.xsl")))
             {
-                File.WriteAllText(Path.Combine(path, "feed.xsl"), GetEmbeddedResource("feed.xsl"));
-                File.WriteAllText(Path.Combine(path, "feed.css"), GetEmbeddedResource("feed.css"));
+                var assembly = Assembly.GetAssembly(typeof(FeedUtils));
+                using (var stream = assembly.GetManifestResourceStream(typeof(FeedUtils), "feed.xsl"))
+                    stream.WriteTo(Path.Combine(path, "feed.xsl"));
+                using (var stream = assembly.GetManifestResourceStream(typeof(FeedUtils), "feed.css"))
+                    stream.WriteTo(Path.Combine(path, "feed.css"));
             }
         }
 
-        private static string GetEmbeddedResource(string name)
-        {
-            var assembly = Assembly.GetAssembly(typeof(FeedUtils));
-            using (var stream = assembly.GetManifestResourceStream(typeof(FeedUtils), name))
-                return stream.ReadToString();
-        }
-        #endregion
-
-        #region Sign
         /// <summary>
-        /// Adds a Base64 signature to a feed or catalog file and exports the appropriate public key file in the same directory.
+        /// Adds a Base64 signature to a feed or catalog stream.
         /// </summary>
-        /// <param name="path">The feed or catalog file to sign.</param>
+        /// <param name="stream">The feed or catalog to sign.</param>
         /// <param name="secretKey">The secret key to use for signing the file.</param>
         /// <param name="passphrase">The passphrase to use to unlock the key.</param>
         /// <param name="openPgp">The OpenPGP-compatible system used to create signatures.</param>
-        /// <exception cref="FileNotFoundException">The file could not be found.</exception>
         /// <exception cref="IOException">The OpenPGP implementation could not be launched or the file could not be read or written.</exception>
-        /// <exception cref="UnauthorizedAccessException">Read or write access to the file is not permitted.</exception>
         /// <exception cref="WrongPassphraseException">Passphrase was incorrect.</exception>
         /// <remarks>
         /// The file is not parsed before signing; invalid XML files are signed as well.
         /// The existing file must end with a line break.
         /// Old signatures are not removed.
         /// </remarks>
-        public static void SignFeed(string path, OpenPgpSecretKey secretKey, string passphrase, IOpenPgp openPgp)
+        public static void SignFeed(Stream stream, OpenPgpSecretKey secretKey, string passphrase, IOpenPgp openPgp)
+        {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            if (secretKey == null) throw new ArgumentNullException("secretKey");
+            if (openPgp == null) throw new ArgumentNullException("openPgp");
+            #endregion
+
+            // Calculate the signature in-memory
+            string signature = openPgp.DetachSign(stream, secretKey.Fingerprint, passphrase);
+
+            // Add the signature to the end of the file
+            var writer = new StreamWriter(stream, encoding: Store.Feeds.FeedUtils.Encoding) {NewLine = "\n"};
+            writer.Write(Store.Feeds.FeedUtils.SignatureBlockStart);
+            writer.WriteLine(signature);
+            writer.Write(Store.Feeds.FeedUtils.SignatureBlockEnd);
+            writer.Flush();
+        }
+
+        /// <summary>
+        /// Exports an OpenPGP public key to a key file.
+        /// </summary>
+        /// <param name="path">The directory to write the key file to.</param>
+        /// <param name="secretKey">The secret key to get the public kyey for.</param>
+        /// <param name="openPgp">The OpenPGP-compatible system used to create signatures.</param>
+        /// <exception cref="IOException">The OpenPGP implementation could not be launched or the file could not be read or written.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the directory is not permitted.</exception>
+        public static void DeployPublicKey(string path, OpenPgpSecretKey secretKey, IOpenPgp openPgp)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -89,33 +105,10 @@ namespace ZeroInstall.Publish
             if (openPgp == null) throw new ArgumentNullException("openPgp");
             #endregion
 
-            // Delete any pre-exisiting signature file
-            string signatureFile = path + ".sig";
-            if (File.Exists(signatureFile)) File.Delete(signatureFile);
-
-            // Create a new signature file, parse it as Base64 and then delete it again
-            openPgp.DetachSign(path, secretKey.Fingerprint, passphrase);
-            string base64Signature = Convert.ToBase64String(File.ReadAllBytes(signatureFile));
-            File.Delete(signatureFile);
-
-            // Add the Base64 encoded signature to the end of the file
-            using (var writer = new StreamWriter(path, append: true, encoding: Store.Feeds.FeedUtils.Encoding) {NewLine = "\n"})
-            {
-                writer.Write(Store.Feeds.FeedUtils.SignatureBlockStart);
-                writer.WriteLine(base64Signature);
-                writer.Write(Store.Feeds.FeedUtils.SignatureBlockEnd);
-            }
-
-            // Export the user's public key
-            string feedDir = Path.GetDirectoryName(Path.GetFullPath(path));
-            if (feedDir != null)
-            {
-                using (var atomic = new AtomicWrite(Path.Combine(feedDir, secretKey.KeyID + ".gpg")))
-                {
-                    File.WriteAllText(atomic.WritePath, openPgp.GetPublicKey(secretKey.Fingerprint), Encoding.ASCII);
-                    atomic.Commit();
-                }
-            }
+            File.WriteAllText(
+                path: Path.Combine(path, secretKey.KeyID + ".gpg"),
+                contents: openPgp.GetPublicKey(secretKey.Fingerprint),
+                encoding: Encoding.ASCII);
         }
 
         /// <summary>
@@ -155,6 +148,5 @@ namespace ZeroInstall.Publish
 
             return null;
         }
-        #endregion
     }
 }

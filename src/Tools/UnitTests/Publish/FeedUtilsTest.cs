@@ -17,8 +17,9 @@
 
 using System;
 using System.IO;
-using NanoByte.Common;
+using Moq;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
@@ -37,28 +38,41 @@ namespace ZeroInstall.Publish
         [Test]
         public void TestSignFeed()
         {
-            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
+            using (var stream = new MemoryStream())
             {
-                string tempFile = tempDir + Path.DirectorySeparatorChar + "feed.xml";
-
                 var feed = FeedTest.CreateTestFeed();
                 var secretKey = new OpenPgpSecretKey("fingerprint", "key", null, new DateTime(2000, 1, 1), OpenPgpAlgorithm.Rsa, 128);
                 var openPgpMock = MockRepository.Create<IOpenPgp>();
                 const string passphrase = "passphrase123";
-                const string publicKey = "public";
-                var signature = new byte[] {1, 2, 3};
+                const string signature = "iQEcB";
 
-                openPgpMock.Setup(x => x.DetachSign(tempFile, secretKey.Fingerprint, passphrase))
-                    .Callback(() => File.WriteAllBytes(tempFile + ".sig", signature));
-                openPgpMock.Setup(x => x.GetPublicKey(secretKey.Fingerprint)).Returns(publicKey);
-                feed.SaveXml(tempFile);
-                FeedUtils.SignFeed(tempFile, secretKey, passphrase, openPgpMock.Object);
+                openPgpMock.Setup(x => x.DetachSign(It.IsAny<Stream>(), secretKey.Fingerprint, passphrase))
+                    .Returns(signature);
+                feed.SaveXml(stream);
+                FeedUtils.SignFeed(stream, secretKey, passphrase, openPgpMock.Object);
 
-                string signedFeed = File.ReadAllText(tempFile);
+                string signedFeed = stream.ReadToString();
                 string expectedFeed = feed.ToXmlString() + Store.Feeds.FeedUtils.SignatureBlockStart +
-                                      Convert.ToBase64String(signature) + "\n" + Store.Feeds.FeedUtils.SignatureBlockEnd;
+                                      signature + "\n" + Store.Feeds.FeedUtils.SignatureBlockEnd;
                 Assert.AreEqual(expectedFeed, signedFeed,
                     "Feed should remain unchanged except for appended XML signatre");
+            }
+        }
+
+        /// <summary>
+        /// Ensures <see cref="FeedUtils.DeployPublicKey"/> produces key files properly.
+        /// </summary>
+        [Test]
+        public void TestDeployPublicKey()
+        {
+            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
+            {
+                var secretKey = new OpenPgpSecretKey("fingerprint", "key", null, new DateTime(2000, 1, 1), OpenPgpAlgorithm.Rsa, 128);
+                const string publicKey = "public";
+                var openPgpMock = MockRepository.Create<IOpenPgp>();
+
+                openPgpMock.Setup(x => x.GetPublicKey(secretKey.Fingerprint)).Returns(publicKey);
+                FeedUtils.DeployPublicKey(tempDir.Path, secretKey, openPgpMock.Object);
 
                 Assert.AreEqual(publicKey, File.ReadAllText(tempDir + Path.DirectorySeparatorChar + secretKey.KeyID + ".gpg"),
                     "Public key should be written to parallel file in directory");
