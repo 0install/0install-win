@@ -23,7 +23,6 @@ using System.Linq;
 using System.Text;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
-using NanoByte.Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store;

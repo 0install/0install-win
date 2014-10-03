@@ -28,9 +28,9 @@ using System.ServiceProcess;
 using System.Threading;
 using Microsoft.Win32;
 using NanoByte.Common;
+using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using NanoByte.Common.Utils;
 using ZeroInstall.Updater.Properties;
 
 namespace ZeroInstall.Updater

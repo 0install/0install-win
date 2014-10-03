@@ -20,9 +20,9 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using Microsoft.Win32;
+using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using NanoByte.Common.Utils;
 using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows

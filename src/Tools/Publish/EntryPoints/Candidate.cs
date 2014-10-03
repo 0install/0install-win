@@ -18,7 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Storage;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 

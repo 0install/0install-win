@@ -22,7 +22,7 @@ using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Cli;
 using NanoByte.Common.Controls;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Net;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish.WinForms

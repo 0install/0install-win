@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Services;
 

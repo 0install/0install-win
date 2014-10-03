@@ -17,7 +17,7 @@
 
 using System;
 using System.Windows.Forms;
-using NanoByte.Common.Utils;
+using NanoByte.Common;
 
 namespace ZeroInstall.Central.WinForms.Wizards
 {

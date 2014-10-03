@@ -20,8 +20,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 using NanoByte.Common.Dispatch;
+using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
-using NanoByte.Common.Utils;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
 

@@ -20,9 +20,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using Microsoft.Deployment.Compression;
+using NanoByte.Common.Native;
+using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
-using NanoByte.Common.Utils;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations.Archives
@@ -82,7 +83,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             TargetDir = target;
 
             if (Directory.Exists(target)) Directory.CreateDirectory(target);
-            _isUnixFS = FileUtils.IsUnifxFS(target);
+            _isUnixFS = FileUtils.IsUnixFS(target);
         }
         #endregion
 

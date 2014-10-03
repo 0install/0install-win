@@ -18,8 +18,9 @@
 using System.Linq;
 using Gtk;
 using NanoByte.Common;
+using NanoByte.Common.Native;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
-using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration;
 
 namespace ZeroInstall.Central.Gtk

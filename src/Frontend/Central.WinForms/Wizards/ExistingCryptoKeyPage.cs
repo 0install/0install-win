@@ -23,6 +23,7 @@ using System.Net.Cache;
 using System.Windows.Forms;
 using ICSharpCode.SharpZipLib.Zip;
 using NanoByte.Common;
+using NanoByte.Common.Net;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;

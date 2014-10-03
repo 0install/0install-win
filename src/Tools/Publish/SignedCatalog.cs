@@ -96,9 +96,8 @@ namespace ZeroInstall.Publish
             using (var atomic = new AtomicWrite(path))
             {
                 // Write to temporary file first
-                Catalog.SaveXml(atomic.WritePath);
+                Catalog.SaveXml(atomic.WritePath, stylesheet: "catalog.xsl");
 
-                XmlStorage.AddStylesheet(atomic.WritePath, "catalog.xsl");
                 if (SecretKey != null) FeedUtils.SignFeed(atomic.WritePath, SecretKey, passphrase, OpenPgpFactory.CreateDefault());
 
                 atomic.Commit();

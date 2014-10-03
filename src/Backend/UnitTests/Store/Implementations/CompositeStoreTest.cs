@@ -18,7 +18,6 @@
 using System.Collections.Generic;
 using System.IO;
 using Moq;
-using NanoByte.Common;
 using NUnit.Framework;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations.Archives;

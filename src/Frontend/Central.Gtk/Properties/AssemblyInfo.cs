@@ -2,7 +2,6 @@
 using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
-using System.Security.Permissions;
 
 // Assembly info
 [assembly: AssemblyTitle("Zero Install Central GTK# GUI")]

@@ -37,28 +37,22 @@ namespace ZeroInstall.Publish
     {
         #region Stylesheet
         /// <summary>
-        /// Adds the XSL stylesheet to a feed.
+        /// Deploys the files used by the default feed stylesheet to a directory.
         /// </summary>
-        /// <param name="path">The feed file to add the stylesheet to.</param>
-        /// <exception cref="FileNotFoundException">The feed file to add the stylesheet reference to could not be found.</exception>
-        /// <exception cref="IOException">The feed file to add the stylesheet reference to could not be read or written.</exception>
-        /// <exception cref="UnauthorizedAccessException">Read or write access to the feed file is not permitted.</exception>
-        public static void AddStylesheet(string path)
+        /// <param name="path">The directory to deploy the stylesheet files to.</param>
+        /// <exception cref="IOException">Failed to write the sytelsheet files.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to the directory is not permitted.</exception>
+        public static void DeployStylesheet(string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            XmlStorage.AddStylesheet(path, "feed.xsl");
-
-            string directory = Path.GetDirectoryName(Path.GetFullPath(path));
-            if (directory == null) return;
-
             // Write the default XSL with its accompanying CSS file unless there is already an XSL in place
-            if (!File.Exists(Path.Combine(directory, "feed.xsl")))
+            if (!File.Exists(Path.Combine(path, "feed.xsl")))
             {
-                File.WriteAllText(Path.Combine(directory, "feed.xsl"), GetEmbeddedResource("feed.xsl"));
-                File.WriteAllText(Path.Combine(directory, "feed.css"), GetEmbeddedResource("feed.css"));
+                File.WriteAllText(Path.Combine(path, "feed.xsl"), GetEmbeddedResource("feed.xsl"));
+                File.WriteAllText(Path.Combine(path, "feed.css"), GetEmbeddedResource("feed.css"));
             }
         }
 
@@ -91,7 +85,6 @@ namespace ZeroInstall.Publish
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (!File.Exists(path)) throw new FileNotFoundException(string.Format(Resources.FileNotFound, path), path);
             if (secretKey == null) throw new ArgumentNullException("secretKey");
             if (openPgp == null) throw new ArgumentNullException("openPgp");
             #endregion

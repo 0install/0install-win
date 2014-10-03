@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NanoByte.Common;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Native;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services.Feeds;

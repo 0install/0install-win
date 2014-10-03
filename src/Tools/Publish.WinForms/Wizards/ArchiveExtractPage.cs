@@ -20,8 +20,8 @@ using System.IO;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
+using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using NanoByte.Common.Utils;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Model;
 

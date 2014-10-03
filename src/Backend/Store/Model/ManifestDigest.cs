@@ -22,7 +22,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
-using NanoByte.Common.Utils;
+using NanoByte.Common;
 using ZeroInstall.Store.Model.Design;
 using ZeroInstall.Store.Properties;
 

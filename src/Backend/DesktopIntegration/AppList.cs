@@ -22,9 +22,9 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using ICSharpCode.SharpZipLib.Zip;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
-using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Store.Model;
 

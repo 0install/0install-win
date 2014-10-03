@@ -24,8 +24,9 @@ using IniParser;
 using IniParser.Exceptions;
 using IniParser.Model;
 using Microsoft.Win32;
+using NanoByte.Common;
+using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
-using NanoByte.Common.Utils;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Properties;
 

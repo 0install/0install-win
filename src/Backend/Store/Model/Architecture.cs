@@ -18,7 +18,8 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Native;
+using NanoByte.Common.Values;
 using NanoByte.Common.Values.Design;
 using ZeroInstall.Store.Model.Design;
 using ZeroInstall.Store.Properties;

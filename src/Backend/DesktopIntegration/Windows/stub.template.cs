@@ -1,6 +1,5 @@
 // Embedded source template used by StubBuilder class
 
-using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;

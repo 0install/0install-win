@@ -17,7 +17,6 @@
 
 using System;
 using Moq;
-using NanoByte.Common;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;

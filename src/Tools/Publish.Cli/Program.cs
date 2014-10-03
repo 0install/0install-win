@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using NanoByte.Common;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Net;
 using NDesk.Options;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;

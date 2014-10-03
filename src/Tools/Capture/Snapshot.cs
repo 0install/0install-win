@@ -23,7 +23,7 @@ using System.Security;
 using Microsoft.Win32;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Native;
 using ZeroInstall.Capture.Properties;
 using ZeroInstall.DesktopIntegration.Windows;
 

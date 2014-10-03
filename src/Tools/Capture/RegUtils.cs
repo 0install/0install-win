@@ -2,7 +2,7 @@
 using System.IO;
 using System.Security;
 using Microsoft.Win32;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Native;
 
 namespace ZeroInstall.Capture
 {

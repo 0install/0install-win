@@ -22,7 +22,6 @@ using System.Net;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Undo;
-using NanoByte.Common.Utils;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;

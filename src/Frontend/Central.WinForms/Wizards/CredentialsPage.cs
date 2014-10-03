@@ -21,6 +21,7 @@ using System.Net;
 using System.Net.Cache;
 using System.Windows.Forms;
 using NanoByte.Common;
+using NanoByte.Common.Net;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.DesktopIntegration;
 

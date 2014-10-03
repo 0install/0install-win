@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Native;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Model

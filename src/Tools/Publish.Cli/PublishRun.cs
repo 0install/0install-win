@@ -27,7 +27,6 @@ using NanoByte.Common.Info;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Undo;
-using NanoByte.Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Publish.Cli.Properties;
 using ZeroInstall.Store.Implementations;

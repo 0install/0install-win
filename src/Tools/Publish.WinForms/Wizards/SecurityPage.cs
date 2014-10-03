@@ -19,7 +19,6 @@ using System;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
-using NanoByte.Common.Utils;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Trust;
 

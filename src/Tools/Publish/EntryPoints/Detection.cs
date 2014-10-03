@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Storage;
 
 namespace ZeroInstall.Publish.EntryPoints
 {

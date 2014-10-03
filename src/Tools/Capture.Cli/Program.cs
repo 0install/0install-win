@@ -21,7 +21,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using NanoByte.Common;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Net;
 using NDesk.Options;
 using ZeroInstall.Capture.Cli.Properties;
 using SharedResources = ZeroInstall.Capture.Properties.Resources;

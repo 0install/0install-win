@@ -17,10 +17,10 @@
 
 using System.IO;
 using System.Linq;
+using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
-using NanoByte.Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Implementations.Archives;

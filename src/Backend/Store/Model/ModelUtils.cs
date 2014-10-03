@@ -2,7 +2,8 @@
 using System.Globalization;
 using System.IO;
 using System.Text;
-using NanoByte.Common.Utils;
+using NanoByte.Common;
+using NanoByte.Common.Native;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Model

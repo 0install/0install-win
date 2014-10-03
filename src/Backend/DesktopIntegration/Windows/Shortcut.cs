@@ -18,9 +18,9 @@
 using System;
 using System.Globalization;
 using System.IO;
+using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using NanoByte.Common.Utils;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.Windows

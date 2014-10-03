@@ -23,9 +23,9 @@ using System.Globalization;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
-using NanoByte.Common.Utils;
 using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.Store.Model

@@ -16,7 +16,7 @@
  */
 
 using System.Linq;
-using NanoByte.Common.Utils;
+using NanoByte.Common;
 using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.ViewModel

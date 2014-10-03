@@ -23,7 +23,7 @@ using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Native;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.ViewModel;

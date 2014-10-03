@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using NanoByte.Common.Collections;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Values;
 using Newtonsoft.Json;
 using ZeroInstall.Store.Model.Design;
 

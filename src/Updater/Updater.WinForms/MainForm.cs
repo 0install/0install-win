@@ -23,7 +23,7 @@ using System.Threading;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Native;
 using ZeroInstall.Updater.Properties;
 
 namespace ZeroInstall.Updater.WinForms
@@ -64,7 +64,7 @@ namespace ZeroInstall.Updater.WinForms
         #region Startup
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            WindowsUtils.SetProgressState(Handle, WindowsUtils.TaskbarProgressBarState.Indeterminate);
+            WindowsTaskbar.SetProgressState(Handle, WindowsTaskbar.ProgressBarState.Indeterminate);
 
             backgroundWorker.RunWorkerAsync();
         }

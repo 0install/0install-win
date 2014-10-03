@@ -17,7 +17,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Storage;
 
 namespace ZeroInstall.Store.Trust
 {

@@ -22,7 +22,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using NanoByte.Common;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Native;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services;

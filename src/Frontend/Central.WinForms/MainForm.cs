@@ -25,8 +25,8 @@ using System.Net;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Info;
+using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
-using NanoByte.Common.Utils;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.WinForms;
@@ -74,10 +74,10 @@ namespace ZeroInstall.Central.WinForms
         private void MainForm_HandleCreated(object sender, EventArgs e)
         {
             Program.ConfigureTaskbar(this, Text);
-            WindowsUtils.AddTaskLinks(Program.AppUserModelID, new[]
+            WindowsTaskbar.AddTaskLinks(Program.AppUserModelID, new[]
             {
-                new WindowsUtils.ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), StoreMan.Name + " manage"),
-                new WindowsUtils.ShellLink(buttonOptions.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), Configure.Name)
+                new WindowsTaskbar.ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), StoreMan.Name + " manage"),
+                new WindowsTaskbar.ShellLink(buttonOptions.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), Configure.Name)
             });
         }
 

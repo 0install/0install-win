@@ -93,18 +93,16 @@ namespace ZeroInstall.Publish
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            using (var atomic = new AtomicWrite(path))
+            if (SecretKey == null) Feed.SaveXml(path);
+            else
             {
-                // Write to temporary file first
-                Feed.SaveXml(atomic.WritePath);
-
-                if (SecretKey != null)
+                using (var atomic = new AtomicWrite(path))
                 {
-                    FeedUtils.AddStylesheet(atomic.WritePath);
+                    Feed.SaveXml(atomic.WritePath, stylesheet: "feed.xsl");
                     FeedUtils.SignFeed(atomic.WritePath, SecretKey, passphrase, OpenPgpFactory.CreateDefault());
+                    atomic.Commit();
                 }
-
-                atomic.Commit();
+                FeedUtils.DeployStylesheet(Path.GetDirectoryName(path));
             }
         }
         #endregion

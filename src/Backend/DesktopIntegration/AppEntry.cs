@@ -22,7 +22,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Storage;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 using ZeroInstall.Store;

@@ -16,7 +16,7 @@
  */
 
 using System.IO;
-using NanoByte.Common.Utils;
+using NanoByte.Common;
 
 namespace ZeroInstall.Publish.EntryPoints
 {

@@ -24,6 +24,7 @@ using System.Net;
 using System.Text;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Model;

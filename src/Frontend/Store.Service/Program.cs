@@ -23,8 +23,8 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Windows.Forms;
 using NanoByte.Common;
+using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
-using NanoByte.Common.Utils;
 using ZeroInstall.Store.Service.Properties;
 
 namespace ZeroInstall.Store.Service

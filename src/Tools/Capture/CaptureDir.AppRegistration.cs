@@ -21,7 +21,6 @@ using System.Linq;
 using System.Security;
 using Microsoft.Win32;
 using NanoByte.Common;
-using NanoByte.Common.Utils;
 using ZeroInstall.Capture.Properties;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;

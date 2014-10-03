@@ -19,7 +19,7 @@ using System;
 using System.IO;
 using Microsoft.Deployment.Compression;
 using Microsoft.Deployment.Compression.Cab;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Native;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations.Archives

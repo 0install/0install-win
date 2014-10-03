@@ -28,8 +28,9 @@ using Microsoft.Win32;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
+using NanoByte.Common.Native;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
-using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store.Implementations;
 
@@ -204,7 +205,7 @@ namespace ZeroInstall.Central.WinForms
             string appUserModelID = AppUserModelID;
             if (!string.IsNullOrEmpty(subCommand)) appUserModelID += "." + subCommand;
             string exePath = Path.Combine(Locations.InstallBase, ExeName + ".exe");
-            WindowsUtils.SetWindowAppID(form.Handle, appUserModelID, exePath.EscapeArgument() + " " + arguments, exePath, name);
+            WindowsTaskbar.SetWindowAppID(form.Handle, appUserModelID, exePath.EscapeArgument() + " " + arguments, exePath, name);
         }
         #endregion
     }

@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using NanoByte.Common.Storage;
-using NanoByte.Common.Utils;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Properties;
 

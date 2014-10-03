@@ -17,10 +17,10 @@
 
 using System;
 using System.Collections.Generic;
+using NanoByte.Common;
 using NanoByte.Common.Info;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using NanoByte.Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.Implementations;

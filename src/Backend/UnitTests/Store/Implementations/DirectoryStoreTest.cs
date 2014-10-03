@@ -19,7 +19,6 @@ using System;
 using System.IO;
 using System.Threading;
 using NanoByte.Common.Storage;
-using NanoByte.Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Services;
 using ZeroInstall.Store.Model;

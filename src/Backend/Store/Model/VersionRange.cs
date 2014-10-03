@@ -18,8 +18,8 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
-using NanoByte.Common.Utils;
 using NanoByte.Common.Values.Design;
 
 namespace ZeroInstall.Store.Model

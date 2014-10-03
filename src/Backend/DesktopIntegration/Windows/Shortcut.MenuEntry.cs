@@ -18,8 +18,8 @@
 using System;
 using System.IO;
 using Microsoft.Win32;
+using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using NanoByte.Common.Utils;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
 

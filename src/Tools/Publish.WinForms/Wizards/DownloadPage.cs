@@ -21,7 +21,6 @@ using System.Net;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
-using NanoByte.Common.Utils;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Model;
 

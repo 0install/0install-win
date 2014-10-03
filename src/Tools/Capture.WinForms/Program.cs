@@ -18,7 +18,7 @@
 using System;
 using System.Windows.Forms;
 using NanoByte.Common.Controls;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Net;
 
 namespace ZeroInstall.Capture.WinForms
 {

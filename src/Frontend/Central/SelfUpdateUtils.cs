@@ -18,10 +18,11 @@
 using System;
 using System.IO;
 using System.Net;
+using NanoByte.Common;
 using NanoByte.Common.Info;
+using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using NanoByte.Common.Utils;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;

@@ -17,8 +17,8 @@
 
 using System;
 using System.IO;
+using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
-using NanoByte.Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 

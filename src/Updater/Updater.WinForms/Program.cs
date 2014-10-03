@@ -21,7 +21,7 @@ using System.Linq;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
-using NanoByte.Common.Utils;
+using NanoByte.Common.Net;
 using ZeroInstall.Updater.Properties;
 
 namespace ZeroInstall.Updater.WinForms

@@ -18,10 +18,10 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
-using NanoByte.Common.Utils;
 using NUnit.Framework;
 using ZeroInstall.Services;
 

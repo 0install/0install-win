@@ -18,7 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using NanoByte.Common.Utils;
+using NanoByte.Common;
 using ZeroInstall.Store.Model.Design;
 
 namespace ZeroInstall.Store.Model

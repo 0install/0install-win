@@ -19,9 +19,9 @@ using System;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
+using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using NanoByte.Common.Utils;
 using ZeroInstall.Store.Icons;
 using ZeroInstall.Store.Model;
 

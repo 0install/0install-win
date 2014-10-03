@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Xml.Serialization;
-using NanoByte.Common.Utils;
+using NanoByte.Common;
 using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Store.Model

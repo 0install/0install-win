@@ -21,7 +21,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using NanoByte.Common.Utils;
+using NanoByte.Common;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
 
