@@ -147,9 +147,9 @@ namespace ZeroInstall.Store.Service
                 {
                     throw;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    _eventLog.WriteEntry(string.Format(Resources.FailedToAddImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), DirectoryPath) + Environment.NewLine + ex.Message, EventLogEntryType.Error);
+                    _eventLog.WriteEntry(string.Format(Resources.FailedToAddImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), DirectoryPath), EventLogEntryType.Warning);
                     throw;
                 }
                 #endregion
@@ -175,9 +175,9 @@ namespace ZeroInstall.Store.Service
                     removed = base.Remove(manifestDigest);
                 }
                     #region Error handling
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    _eventLog.WriteEntry(string.Format(Resources.FailedToRemoveImplementation, callingIdentity.Name, manifestDigest, DirectoryPath) + Environment.NewLine + ex.Message, EventLogEntryType.Error);
+                    _eventLog.WriteEntry(string.Format(Resources.FailedToRemoveImplementation, callingIdentity.Name, manifestDigest, DirectoryPath), EventLogEntryType.Warning);
                     throw;
                 }
                 #endregion
