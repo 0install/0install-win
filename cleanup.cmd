@@ -56,3 +56,4 @@ rd /s /q "%~dp0src\_ReSharper.ZeroInstall" > NUL 2>&1
 rd /s /q "%~dp0src\_TeamCity.ZeroInstall" > NUL 2>&1
 rd /s /q "%~dp0src\_dotTrace.ZeroInstall" > NUL 2>&1
 rd /s /q "%~dp0src\_dotMemory.ZeroInstall" > NUL 2>&1
+rd /s /q "%~dp0src\_dotCover.ZeroInstall" > NUL 2>&1
