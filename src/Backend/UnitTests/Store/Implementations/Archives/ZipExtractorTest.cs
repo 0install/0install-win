@@ -76,10 +76,10 @@ namespace ZeroInstall.Store.Implementations.Archives
                 extractor.Run();
 
             Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "subdir1/regular")), "Should extract file 'regular'");
-            Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc(Path.Combine(_sandbox, "subdir1/regular")), "Correct last write time for file 'regular' should be set");
+            Assert.AreEqual(new DateTime(2000, 1, 1, 13, 0, 0), File.GetLastWriteTimeUtc(Path.Combine(_sandbox, "subdir1/regular")), "Correct last write time for file 'regular' should be set");
 
             Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "subdir2/executable")), "Should extract file 'executable'");
-            Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc(Path.Combine(_sandbox, "subdir2/executable")), "Correct last write time for file 'executable' should be set");
+            Assert.AreEqual(new DateTime(2000, 1, 1, 13, 0, 0), File.GetLastWriteTimeUtc(Path.Combine(_sandbox, "subdir2/executable")), "Correct last write time for file 'executable' should be set");
         }
 
         [Test]

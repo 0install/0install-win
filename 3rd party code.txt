@@ -18,7 +18,7 @@ http://code.google.com/p/linqbridge/
 MIT license: http://opensource.org/licenses/MIT
 NuGet package: LinqBridge
 
-ICSharpCode.SharpZipLib 0.86.2 (patched)
+ICSharpCode.SharpZipLib (patched)
 http://www.icsharpcode.net/OpenSource/SharpZipLib/ + https://github.com/nano-byte/SharpZipLib
 GNU GPL with GNU Classpath exception
 NuGet package: ICSharpCode.SharpZipLib.Patched

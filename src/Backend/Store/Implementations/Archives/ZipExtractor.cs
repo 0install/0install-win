@@ -97,13 +97,12 @@ namespace ZeroInstall.Store.Implementations.Archives
 
                     string relativePath = GetRelativePath(centralEntry.Name);
                     if (string.IsNullOrEmpty(relativePath)) continue;
-                    DateTime modTime = GetEntryDateTime(centralEntry, localEntry);
 
-                    if (centralEntry.IsDirectory) CreateDirectory(relativePath, modTime);
+                    if (centralEntry.IsDirectory) CreateDirectory(relativePath, localEntry.DateTime);
                     else if (centralEntry.IsFile)
                     {
                         if (IsSymlink(centralEntry)) CreateSymlink(relativePath, _zipStream.ReadToString());
-                        else WriteFile(relativePath, centralEntry.Size, modTime, _zipStream, IsExecutable(centralEntry));
+                        else WriteFile(relativePath, centralEntry.Size, localEntry.DateTime, _zipStream, IsExecutable(centralEntry));
                     }
 
                     UnitsProcessed += centralEntry.CompressedSize;
@@ -133,47 +132,11 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
 
         /// <summary>
-        /// Determines the "last changed" time of an entry, using extended Unix data if possible.
-        /// </summary>
-        /// <param name="centralEntry">The entry data from the central directory.</param>
-        /// <param name="localEntry">The entry data from the local header.</param>
-        private static DateTime GetEntryDateTime(ZipEntry centralEntry, ZipEntry localEntry)
-        {
-            if (centralEntry.HostSystem == (int)HostSystemID.Unix)
-            {
-                var unixData = new ExtendedUnixData();
-                var extraData = new ZipExtraData(centralEntry.ExtraData);
-                if (extraData.Find(unixData.TagID))
-                {
-                    // Parse Unix data
-                    var entryData = extraData.GetEntryData();
-                    unixData.SetData(entryData, 0, entryData.Length);
-                    return unixData.CreateTime;
-                }
-            }
-            //else if (centralEntry.HostSystem == (int)HostSystemID.WindowsNT)
-            //{
-            //    var ntData = new NTTaggedData();
-            //    var extraData = new ZipExtraData(centralEntry.ExtraData);
-            //    if (extraData.Find(ntData.TagID))
-            //    {
-            //        // Parse Unix data
-            //        var entryData = extraData.GetEntryData();
-            //        ntData.SetData(entryData, 0, entryData.Length);
-            //        return ntData.LastModificationTime;
-            //    }
-            //}
-
-            // Fall back to simple DOS time
-            return localEntry.DateTime;
-        }
-
-        /// <summary>
         /// Determines whether a <see cref="ZipEntry"/> was created on a Unix-system with the symlink flag set.
         /// </summary>
         private static bool IsSymlink(ZipEntry entry)
         {
-            if (entry.HostSystem != (int)HostSystemID.Unix) return false;
+            if (entry.HostSystem != HostSystemID.Unix) return false;
 
             const int symlinkFlag = (1 << 13) << 16;
             return entry.ExternalFileAttributes.HasFlag(symlinkFlag);
@@ -184,7 +147,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         private static bool IsExecutable(ZipEntry entry)
         {
-            if (entry.HostSystem != (int)HostSystemID.Unix) return false;
+            if (entry.HostSystem != HostSystemID.Unix) return false;
 
             const int executeFlags = (1 + 8 + 64) << 16; // Octal: 111
             return (entry.ExternalFileAttributes & executeFlags) > 0; // Check if anybody is allowed to execute
