@@ -15,6 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.IO;
+using System.Linq;
+using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NUnit.Framework;
 
@@ -29,8 +33,25 @@ namespace ZeroInstall.Store.Trust
         [Test]
         public void TestImportExport()
         {
-            Target.ImportKey(TestData.GetResource("5B5CB97421BAA5DC.gpg").ReadToArray());
-            Assert.IsTrue(Target.GetPublicKey("5B5CB97421BAA5DC").StartsWith("-----BEGIN PGP PUBLIC KEY BLOCK-----"));
+            const string testKeyID = "5B5CB97421BAA5DC";
+            Target.ImportKey(TestData.GetResource(testKeyID + ".gpg").ReadToArray());
+            Assert.IsTrue(Target.GetPublicKey(testKeyID).StartsWith("-----BEGIN PGP PUBLIC KEY BLOCK-----"));
+        }
+
+        [Test]
+        public void TestDetachSignAndVerify()
+        {
+            const string testKeyID = "E91FE1CBFCCF315543F6CB13DEED44B49BE24661";
+            var data = new byte[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+            var stream = new MemoryStream(data);
+
+            TestData.GetResource("pubring.gpg").WriteTo(Locations.GetSaveConfigPath("0install.net", true, "gnupg", "pubring.gpg"));
+            TestData.GetResource("secring.gpg").WriteTo(Locations.GetSaveConfigPath("0install.net", true, "gnupg", "secring.gpg"));
+
+            var signatureData = Convert.FromBase64String(Target.DetachSign(stream, "test@0install.de", null));
+            var signatures = Target.Verify(data, signatureData);
+
+            Assert.AreEqual(testKeyID, ((ValidSignature)signatures.Single()).Fingerprint);
         }
     }
 }

@@ -173,6 +173,8 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="Store\Trust\secring.gpg" />
+    <EmbeddedResource Include="Store\Trust\pubring.gpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

@@ -135,20 +135,20 @@ namespace ZeroInstall.Store.Trust
             #endregion
 
             string arguments = "--batch --no-secmem-warning --passphrase-fd 0";
-            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --default-key " + keySpecifier.EscapeArgument();
+            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user " + keySpecifier.EscapeArgument();
             arguments += " --detach-sign --armor --output - -";
 
-            if (string.IsNullOrEmpty(passphrase)) passphrase = "\n";
             string output = Execute(arguments, inputCallback: writer =>
             {
-                writer.WriteLine(passphrase);
+                writer.WriteLine(passphrase ?? "");
                 stream.CopyTo(writer.BaseStream);
                 writer.Close();
             });
 
             return output
                 .GetRightPartAtFirstOccurrence(Environment.NewLine + Environment.NewLine)
-                .GetLeftPartAtLastOccurrence(Environment.NewLine + "-----END PGP SIGNATURE-----");
+                .GetLeftPartAtLastOccurrence(Environment.NewLine + "=")
+                .Replace(Environment.NewLine, "\n");
         }
         #endregion
 

@@ -69,7 +69,7 @@ namespace ZeroInstall.Store.Trust
         /// <param name="stream">The data to sign.</param>
         /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair.</param>
         /// <param name="passphrase">The passphrase to use to unlock the secret key.</param>
-        /// <returns>The signature in ASCII Armored format.</returns>
+        /// <returns>The signature as a Base64 encoded string.</returns>
         /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
         /// <exception cref="WrongPassphraseException">Passphrase was incorrect.</exception>
         string DetachSign(Stream stream, string keySpecifier, string passphrase);
