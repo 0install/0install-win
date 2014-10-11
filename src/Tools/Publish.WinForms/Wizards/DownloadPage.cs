@@ -82,7 +82,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                     switch (Msg.YesNoCancel(this, Resources.AskInstallerEXE, MsgSeverity.Info, Resources.YesInstallerExe, Resources.NoSingleExecutable))
                     {
                         case DialogResult.Yes:
-                            Installer();
+                            OnInstaller();
                             break;
                         case DialogResult.No:
                             OnSingleFile();
@@ -120,7 +120,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         {
             var handler = new GuiTaskHandler(this);
 
-            Retrieve<SingleFile>();
+            Retrieve(new SingleFile {Href = textBoxUrl.Uri});
             _feedBuilder.SetImplementationDirectory(_feedBuilder.TemporaryDirectory, handler);
             if (_feedBuilder.MainCandidate == null) Msg.Inform(this, Resources.NoEntryPointsFound, MsgSeverity.Warn);
             else SingleFile();
@@ -128,13 +128,35 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private void OnArchive()
         {
-            Retrieve<Archive>();
+            Retrieve(new Archive {Href = textBoxUrl.Uri});
             Archive();
         }
 
-        private void Retrieve<T>() where T : DownloadRetrievalMethod, new()
+        private void OnInstaller()
         {
-            var retrievalMethod = new T {Href = textBoxUrl.Uri};
+            try
+            {
+                // Try to handle self-extracting ZIP archives as normal archives
+                Retrieve(new Archive {Href = textBoxUrl.Uri, MimeType = Store.Model.Archive.MimeTypeZip});
+                Archive();
+            }
+            catch (IOException)
+            {
+                try
+                {
+                    // 7zip's extraction logic can detect a number of other self-extracting formats
+                    Retrieve(new Archive {Href = textBoxUrl.Uri, MimeType = Store.Model.Archive.MimeType7Z});
+                    Archive();
+                }
+                catch (IOException)
+                {
+                    Installer();
+                }
+            }
+        }
+
+        private void Retrieve(DownloadRetrievalMethod retrievalMethod)
+        {
             var temporaryDirectory = checkLocalCopy.Checked
                 ? retrievalMethod.LocalApply(textBoxLocalPath.Text, new GuiTaskHandler(this))
                 : retrievalMethod.DownloadAndApply(new GuiTaskHandler(this));
