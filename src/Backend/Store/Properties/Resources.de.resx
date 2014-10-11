@@ -201,6 +201,9 @@
   <data name="ImplementationDamagedBatchInformation" xml:space="preserve">
     <value>Führen Sie '0install store remove {0}' aus, um sie zu entfernen. Eine neue Kopie wird automatisch heruntergeladen, wenn sie wieder benötigt wird.</value>
   </data>
+  <data name="ImplementationMissingID" xml:space="preserve">
+    <value>'{0}' in {1} hat keine ID.</value>
+  </data>
   <data name="ImplementationNotFound" xml:space="preserve">
     <value>Die Implementierung '{0}' konnte nicht gefunden werden.</value>
   </data>

@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.IO;
 using ZeroInstall.Store.Model.Preferences;
 using ZeroInstall.Store.Properties;
 
@@ -108,6 +109,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// <param name="implementation">The implementation this selection candidate references.</param>
         /// <param name="requirements">A set of requirements/restrictions the <paramref name="implementation"/> needs to fullfill for <see cref="IsSuitable"/> to be <see langword="true"/>.</param>
         /// <param name="offlineUncached">Mark this candidate as unsuitable because it is uncached and <see cref="Config.NetworkUse"/> is set to <see cref="NetworkLevel.Offline"/>.</param>
+        /// <exception cref="InvalidDataException"><paramref name="implementation"/>'s <see cref="ImplementationBase.ID"/> is empty.</exception>
         public SelectionCandidate(string feedID, FeedPreferences feedPreferences, Implementation implementation, Requirements requirements, bool offlineUncached = false)
         {
             #region Sanity checks
@@ -116,6 +118,8 @@ namespace ZeroInstall.Store.Model.Selection
             if (implementation == null) throw new ArgumentNullException("implementation");
             if (requirements == null) throw new ArgumentNullException("requirements");
             #endregion
+
+            if (string.IsNullOrEmpty(implementation.ID)) throw new InvalidDataException(string.Format(Resources.ImplementationMissingID, implementation, feedID));
 
             FeedID = feedID;
             FeedPreferences = feedPreferences;
