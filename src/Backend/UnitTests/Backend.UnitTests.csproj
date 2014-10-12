@@ -120,6 +120,7 @@
     <Compile Include="Store\Model\EnvironmentBindingTest.cs" />
     <Compile Include="Store\Model\ExecutableInPathTest.cs" />
     <Compile Include="Store\Model\ExecutableInVarTest.cs" />
+    <Compile Include="Store\Model\FeedElementTest.cs" />
     <Compile Include="Store\Model\FeedElementUtilsTest.cs" />
     <Compile Include="Store\Model\FeedExtensions.cs" />
     <Compile Include="Store\Model\FeedReferenceTest.cs" />

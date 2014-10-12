@@ -29,14 +29,6 @@ namespace ZeroInstall.Store.Model
     public class FeedElementUtilsTest
     {
         [Test]
-        public void TestFilterMismatch()
-        {
-            Assert.IsFalse(FeedElement.FilterMismatch(new EntryPoint()));
-            Assert.IsFalse(FeedElement.FilterMismatch(new EntryPoint {IfZeroInstallVersion = new VersionRange("0..")}));
-            Assert.IsTrue(FeedElement.FilterMismatch(new EntryPoint {IfZeroInstallVersion = new VersionRange("..!0")}));
-        }
-
-        [Test]
         public void TestGetAbsolutePath()
         {
             string result = FeedElementUtils.GetAbsolutePath("subdir/file", WindowsUtils.IsWindows ? @"C:\local\feed.xml" : "/local/feed.xml");
