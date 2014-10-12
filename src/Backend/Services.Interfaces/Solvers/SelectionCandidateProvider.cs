@@ -122,16 +122,15 @@ namespace ZeroInstall.Services.Solvers
 
         private IEnumerable<SelectionCandidate> GetCandidates(string feedID, Feed feed, Requirements requirements)
         {
-            var feedPreferences = FeedPreferences.LoadForSafe(feedID);
-
             if (UnixUtils.IsUnix && feed.Elements.OfType<PackageImplementation>().Any())
                 Log.Warn("Linux native package managers not supported yet!");
             // TODO: Windows <package-implementation>s
 
+            var feedPreferences = FeedPreferences.LoadForSafe(feedID);
             return
                 from implementation in feed.Elements.OfType<Implementation>()
-                let offlineUncached = (_config.NetworkUse == NetworkLevel.Offline && !_isCached[implementation.ManifestDigest])
-                select new SelectionCandidate(feedID, feedPreferences, implementation, requirements, offlineUncached);
+                select new SelectionCandidate(feedID, feedPreferences, implementation, requirements,
+                    offlineUncached: (_config.NetworkUse == NetworkLevel.Offline) && !_isCached[implementation.ManifestDigest]);
         }
 
         /// <summary>
