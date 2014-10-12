@@ -19,7 +19,7 @@ using System;
 using System.Runtime.Serialization;
 using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Store.Model
+namespace ZeroInstall.Store
 {
     /// <summary>
     /// Indicates an interface ID was not valid. Needs to be an HTTP(S) URI or an absolute path.

@@ -26,6 +26,7 @@ using NanoByte.Common.Storage;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services.Feeds;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 

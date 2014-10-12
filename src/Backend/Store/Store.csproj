@@ -120,6 +120,7 @@
     <Compile Include="Implementations\IpcStore.cs" />
     <Compile Include="Implementations\StoreFactory.cs" />
     <Compile Include="Implementations\StoreUtils.cs" />
+    <Compile Include="InvalidInterfaceIDException.cs" />
     <Compile Include="JsonStorage.cs" />
     <Compile Include="Model\Architecture.cs" />
     <Compile Include="Model\ArchitectureExtensions.cs" />
@@ -193,7 +194,6 @@
     <Compile Include="Model\ImplementationBase.cs" />
     <Compile Include="Model\ImplementationVersion.cs" />
     <Compile Include="Model\InterfaceReference.cs" />
-    <Compile Include="Model\InvalidInterfaceIDException.cs" />
     <Compile Include="Model\IRecipeStep.cs" />
     <Compile Include="Model\ISummaryContainer.cs" />
     <Compile Include="Model\ManifestDigest.cs" />
