@@ -71,8 +71,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="ImplementationNotFoundException">The main implementation is not cached (possibly because it is installed natively).</exception>
         public RunHook(Selections selections, IExecutor executor, IFeedManager feedManager, ITaskHandler handler)
         {
-            string interfaceID = selections.InterfaceID;
-            _target = new InterfaceFeed(interfaceID, feedManager.GetFeed(interfaceID));
+            _target = new InterfaceFeed(selections.InterfaceID, feedManager.GetFeed(selections.MainImplementation.FromFeed));
 
             var mainImplementation = selections.MainImplementation;
             _implementationDir = executor.GetImplementationPath(mainImplementation);
