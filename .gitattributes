@@ -1,3 +1,6 @@
+# Disable linebreak normalization
+*	     text=false
+
 # Visual Studio file types
 *.cs     diff=csharp
 *.sln    merge=union
