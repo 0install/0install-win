@@ -121,19 +121,19 @@ namespace ZeroInstall.Capture
         private static void TakeRegistry(Snapshot snapshot)
         {
             snapshot.ServiceAssocs = GetServiceAssocs();
-            snapshot.AutoPlayHandlersUser = RegUtils.GetSubKeyNames(Registry.CurrentUser, AutoPlay.RegKeyHandlers);
-            snapshot.AutoPlayHandlersMachine = RegUtils.GetSubKeyNames(Registry.LocalMachine, AutoPlay.RegKeyHandlers);
+            snapshot.AutoPlayHandlersUser = RegUtils.GetSubKeyNames(Registry.CurrentUser, AutoPlay.RegKeyHandlers) ?? new string[0];
+            snapshot.AutoPlayHandlersMachine = RegUtils.GetSubKeyNames(Registry.LocalMachine, AutoPlay.RegKeyHandlers) ?? new string[0];
             snapshot.AutoPlayAssocsUser = GetAutoPlayAssocs(Registry.CurrentUser);
             snapshot.AutoPlayAssocsMachine = GetAutoPlayAssocs(Registry.LocalMachine);
             GetFileAssocData(out snapshot.FileAssocs, out snapshot.ProgIDs);
             snapshot.ProtocolAssocs = GetProtocolAssoc();
-            snapshot.ClassIDs = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ComServer.RegKeyClassesIDs);
-            snapshot.RegisteredApplications = RegUtils.GetValueNames(Registry.LocalMachine, AppRegistration.RegKeyMachineRegisteredApplications);
+            snapshot.ClassIDs = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ComServer.RegKeyClassesIDs) ?? new string[0];
+            snapshot.RegisteredApplications = RegUtils.GetValueNames(Registry.LocalMachine, AppRegistration.RegKeyMachineRegisteredApplications) ?? new string[0];
 
-            snapshot.ContextMenuFiles = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFiles + "\\" + ContextMenu.RegKeyPostfix);
-            snapshot.ContextMenuExecutableFiles = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesExecutableFiles+ "\\" + ContextMenu.RegKeyPostfix);
-            snapshot.ContextMenuDirectories = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesDirectories + "\\" + ContextMenu.RegKeyPostfix);
-            snapshot.ContextMenuAll = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAll + "\\" + ContextMenu.RegKeyPostfix);
+            snapshot.ContextMenuFiles = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFiles + "\\" + ContextMenu.RegKeyPostfix) ?? new string[0];
+            snapshot.ContextMenuExecutableFiles = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesExecutableFiles+ "\\" + ContextMenu.RegKeyPostfix) ?? new string[0];
+            snapshot.ContextMenuDirectories = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesDirectories + "\\" + ContextMenu.RegKeyPostfix) ?? new string[0];
+            snapshot.ContextMenuAll = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAll + "\\" + ContextMenu.RegKeyPostfix) ?? new string[0];
         }
 
         /// <summary>
