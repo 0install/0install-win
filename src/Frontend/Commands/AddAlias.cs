@@ -17,6 +17,7 @@
 
 using System;
 using System.Linq;
+using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -137,7 +138,15 @@ namespace ZeroInstall.Commands
 
                 // Apply the new alias
                 var alias = new AppAlias {Name = aliasName, Command = command};
-                integrationManager.AddAccessPoints(appEntry, FeedManager.GetFeedFresh(interfaceID), new AccessPoint[] {alias});
+                try
+                {
+                    integrationManager.AddAccessPoints(appEntry, FeedManager.GetFeedFresh(interfaceID), new AccessPoint[] {alias});
+                }
+                catch (ConflictException ex)
+                {
+                    Log.Warn(ex.Message);
+                    return 1;
+                }
 
                 Handler.OutputLow(
                     Resources.DesktopIntegration,
