@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
@@ -52,9 +53,16 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                 dir => comboBoxExtract.Items.Add(dir.RelativeTo(baseDirectory).Replace(Path.DirectorySeparatorChar, '/')));
             comboBoxExtract.EndUpdate();
 
-            // Auto-detect single top-level directory
-            if (baseDirectory.GetFiles().Length == 0 && baseDirectory.GetDirectories().Length == 1)
-                comboBoxExtract.SelectedIndex = 1;
+            if (HasSolitarySubdir(baseDirectory)) comboBoxExtract.SelectedIndex = 1;
+        }
+
+        private static bool HasSolitarySubdir(DirectoryInfo baseDirectory)
+        {
+            return
+                // Exactly one directory
+                baseDirectory.GetDirectories().Length == 1 &&
+                // No files or only dot files
+                baseDirectory.GetFiles().Select(x => x.Name).All(x => x.StartsWith("."));
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
