@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using NanoByte.Common;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
@@ -54,7 +55,21 @@ namespace ZeroInstall.Store.ViewModel
         #endregion
 
         /// <inheritdoc/>
-        public override string Name { get { return _feed.Name + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
+        public override string Name
+        {
+            get
+            {
+                var builder = new StringBuilder(_feed.Name);
+                if (_feed.FeedFor.Count != 0) builder.Append(" (feed-for)");
+                if (SuffixCounter != 0)
+                {
+                    builder.Append(' ');
+                    builder.Append(SuffixCounter);
+                }
+                return builder.ToString();
+            }
+            set { throw new NotSupportedException(); }
+        }
 
         /// <summary>
         /// The URI indentifying this feed.
