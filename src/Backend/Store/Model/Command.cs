@@ -40,6 +40,11 @@ namespace ZeroInstall.Store.Model
         public const string NameRun = "run";
 
         /// <summary>
+        /// Conventional <see cref="Name"/> for GUI-only versions of applications.
+        /// </summary>
+        public const string NameRunGui = "run-gui";
+
+        /// <summary>
         /// Canonical <see cref="Name"/> coressponding to <see cref="Element.SelfTest"/>.
         /// </summary>
         public const string NameTest = "test";
