@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <remarks>Will default to <see cref="Command"/> when left <see langword="null"/>.</remarks>
         [Description("The canonical name of the binary supplying the command (without file extensions). This is used to suggest suitable alias names.")]
-        [XmlAttribute("binary-name")]
+        [XmlAttribute("binary-name"), DefaultValue("")]
         public string BinaryName { get; set; }
 
         /// <summary>
