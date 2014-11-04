@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using NanoByte.Common.Tasks;
@@ -21,14 +20,6 @@ namespace ZeroInstall.Store.Icons
         ///   <see langword="false"/> if the specified icon is not available in this cache.
         /// </returns>
         bool Contains(Uri iconUrl);
-
-        /// <summary>
-        /// Returns a list of all icons stored in this cache.
-        /// </summary>
-        /// <returns>A list of icon URIs.</returns>
-        /// <exception cref="IOException">A problem occured while reading from the cache.</exception>
-        /// <exception cref="UnauthorizedAccessException">Read access to the cache is not permitted.</exception>
-        IEnumerable<string> ListAll();
 
         /// <summary>
         /// Gets a specific icon from this cache. If the icon is missing it will be downloaded automatically.

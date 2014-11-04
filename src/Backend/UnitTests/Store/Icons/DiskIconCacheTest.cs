@@ -61,15 +61,6 @@ namespace ZeroInstall.Store.Icons
             Assert.IsFalse(_cache.Contains(new Uri("http://0install.de/feeds/test/test3.xml")));
         }
 
-        [Test]
-        public void TestListAll()
-        {
-            var icons = _cache.ListAll();
-            CollectionAssert.AreEqual(
-                new[] {"http://0install.de/feeds/images/test1.png", "http://0install.de/feeds/images/test2.png"},
-                icons);
-        }
-
         /// <summary>
         /// Ensures <see cref="DiskIconCache.GetIcon"/> works correctly for icons that are already in the cache.
         /// </summary>

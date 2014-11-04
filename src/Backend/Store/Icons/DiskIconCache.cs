@@ -16,9 +16,7 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Model;
@@ -30,18 +28,11 @@ namespace ZeroInstall.Store.Icons
     /// </summary>
     public sealed class DiskIconCache : IIconCache
     {
-        #region Variables
-        private readonly object _lock = new object();
-        #endregion
-
-        #region Properties
         /// <summary>
         /// The directory containing the cached <see cref="Icon"/>s.
         /// </summary>
         public string DirectoryPath { get; private set; }
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a new disk-based cache.
         /// </summary>
@@ -54,11 +45,11 @@ namespace ZeroInstall.Store.Icons
 
             DirectoryPath = path;
         }
-        #endregion
 
         //--------------------//
 
-        #region Contains
+        private readonly object _lock = new object();
+
         /// <inheritdoc/>
         public bool Contains(Uri iconUrl)
         {
@@ -70,24 +61,7 @@ namespace ZeroInstall.Store.Icons
 
             return File.Exists(path);
         }
-        #endregion
 
-        #region List all
-        /// <inheritdoc/>
-        public IEnumerable<string> ListAll()
-        {
-            if (!Directory.Exists(DirectoryPath)) return Enumerable.Empty<string>();
-
-            // Find all files whose names begin with an URL protocol
-            return Directory.GetFiles(DirectoryPath, "http*")
-                // Take the file name itself and use URL encoding to get the original URL
-                .Select(path => ModelUtils.Unescape(Path.GetFileName(path) ?? ""))
-                // Filter out temporary/junk files
-                .Where(ModelUtils.IsValidUri).ToList();
-        }
-        #endregion
-
-        #region Get
         /// <inheritdoc/>
         public string GetIcon(Uri iconUrl, ITaskHandler handler)
         {
@@ -114,9 +88,7 @@ namespace ZeroInstall.Store.Icons
 
             return path;
         }
-        #endregion
 
-        #region Remove
         /// <inheritdoc/>
         public void Remove(Uri iconUrl)
         {
@@ -131,6 +103,5 @@ namespace ZeroInstall.Store.Icons
                 File.Delete(path);
             }
         }
-        #endregion
     }
 }
