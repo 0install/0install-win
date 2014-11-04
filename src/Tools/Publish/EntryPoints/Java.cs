@@ -41,6 +41,12 @@ namespace ZeroInstall.Publish.EntryPoints
         [DefaultValue(false)]
         public bool ExternalDependencies { get; set; }
 
+        /// <summary>
+        /// Does this application have a graphical interface an no terminal output? Only enable if you are sure!
+        /// </summary>
+        [Category("Details (Java)"), DisplayName("GUI only"), Description("Does this application have a graphical interface an no terminal output? Only enable if you are sure!")]
+        public bool GuiOnly { get { return !NeedsTerminal; } set { NeedsTerminal = !value; } }
+
         #region Equality
         protected bool Equals(Java other)
         {

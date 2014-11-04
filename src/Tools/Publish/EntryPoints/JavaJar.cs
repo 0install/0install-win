@@ -34,6 +34,7 @@ namespace ZeroInstall.Publish.EntryPoints
 
             // TODO: Parse JAR metadata
             Name = file.Name.Substring(0, file.Name.Length - file.Extension.Length);
+            GuiOnly = false;
             return true;
         }
 
@@ -45,13 +46,24 @@ namespace ZeroInstall.Publish.EntryPoints
                 {
                     Name = CommandName,
                     Bindings = {new EnvironmentBinding {Name = "CLASSPATH", Insert = RelativePath}},
-                    Runner = new Runner {InterfaceID = "http://0install.de/feeds/jar-launcher.xml", Versions = (VersionRange)MinimumRuntimeVersion}
+                    Runner = new Runner
+                    {
+                        InterfaceID = "http://0install.de/feeds/jar-launcher.xml",
+                        Command = NeedsTerminal ? Command.NameRun : Command.NameRunGui,
+                        Versions = (VersionRange)MinimumRuntimeVersion
+                    }
                 }
                 : new Command
                 {
                     Name = CommandName,
                     Path = RelativePath,
-                    Runner = new Runner {InterfaceID = "http://repo.roscidus.com/java/openjdk-jre", Arguments = {"-jar"}, Versions = (VersionRange)MinimumRuntimeVersion}
+                    Runner = new Runner
+                    {
+                        InterfaceID = "http://repo.roscidus.com/java/openjdk-jre",
+                        Command = NeedsTerminal ? Command.NameRun : Command.NameRunGui,
+                        Arguments = {"-jar"},
+                        Versions = (VersionRange)MinimumRuntimeVersion
+                    }
                 };
         }
     }

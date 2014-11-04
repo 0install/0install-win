@@ -33,7 +33,7 @@ namespace ZeroInstall.Publish.EntryPoints
             if (!StringUtils.EqualsIgnoreCase(file.Extension, ".class")) return false;
 
             Name = file.Name.Substring(0, file.Name.Length - file.Extension.Length);
-            NeedsTerminal = true;
+            GuiOnly = false;
             return true;
         }
 
@@ -44,7 +44,12 @@ namespace ZeroInstall.Publish.EntryPoints
             {
                 Name = CommandName,
                 Path = RelativePath,
-                Runner = new Runner {InterfaceID = "http://repo.roscidus.com/java/openjdk-jre", Versions = (VersionRange)MinimumRuntimeVersion}
+                Runner = new Runner
+                {
+                    InterfaceID = "http://repo.roscidus.com/java/openjdk-jre",
+                    Command = NeedsTerminal ? Command.NameRun : Command.NameRunGui,
+                    Versions = (VersionRange)MinimumRuntimeVersion
+                }
             };
         }
     }

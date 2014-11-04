@@ -77,7 +77,12 @@ namespace ZeroInstall.Publish.EntryPoints
             {
                 Name = CommandName,
                 Path = RelativePath,
-                Runner = new Runner {InterfaceID = GetInterfaceID(), Versions = (VersionRange)MinimumRuntimeVersion}
+                Runner = new Runner
+                {
+                    InterfaceID = GetInterfaceID(),
+                    Command = NeedsTerminal ? Command.NameRun : Command.NameRunGui,
+                    Versions = (VersionRange)MinimumRuntimeVersion
+                }
             };
         }
 
@@ -88,31 +93,24 @@ namespace ZeroInstall.Publish.EntryPoints
                 case DotNetRuntimeType.Any:
                 default:
                     return ExternalDependencies
-                        ? GetMonoPathInterfaceID()
+                        ? "http://0install.de/feeds/cli/cli-monopath.xml"
                         : "http://0install.de/feeds/cli/cli.xml";
 
                 case DotNetRuntimeType.MicrosoftOnlyClientProfile:
                     Architecture = new Architecture(OS.Windows, Architecture.Cpu);
                     return ExternalDependencies
-                        ? GetMonoPathInterfaceID()
+                        ? "http://0install.de/feeds/cli/cli-monopath.xml"
                         : "http://0install.de/feeds/cli/netfx-client.xml";
 
                 case DotNetRuntimeType.MicrosoftOnlyFullProfile:
                     Architecture = new Architecture(OS.Windows, Architecture.Cpu);
                     return ExternalDependencies
-                        ? GetMonoPathInterfaceID()
+                        ? "http://0install.de/feeds/cli/cli-monopath.xml"
                         : "http://0install.de/feeds/cli/netf.xml";
 
                 case DotNetRuntimeType.MonoOnly:
                     return "http://0install.de/feeds/cli/mono.xml";
             }
-        }
-
-        private string GetMonoPathInterfaceID()
-        {
-            return NeedsTerminal
-                ? "http://0install.de/feeds/cli/cli-monopath-terminal.xml"
-                : "http://0install.de/feeds/cli/cli-monopath.xml";
         }
 
         #region Equality

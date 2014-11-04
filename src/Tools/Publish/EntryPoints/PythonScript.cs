@@ -15,8 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.ComponentModel;
 using System.IO;
 using NanoByte.Common;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
@@ -25,21 +27,38 @@ namespace ZeroInstall.Publish.EntryPoints
     /// </summary>
     public sealed class PythonScript : InterpretedScript
     {
+        /// <summary>
+        /// Does this application have a graphical interface an no terminal output? Only enable if you are sure!
+        /// </summary>
+        [Category("Details (Python)"), DisplayName("GUI only"), Description("Does this application have a graphical interface an no terminal output? Only enable if you are sure!")]
+        public bool GuiOnly { get { return !NeedsTerminal; } set { NeedsTerminal = !value; } }
+
         /// <inheritdoc/>
         internal override bool Analyze(DirectoryInfo baseDirectory, FileInfo file)
         {
             if (!base.Analyze(baseDirectory, file)) return false;
             if (StringUtils.EqualsIgnoreCase(file.Extension, ".pyw"))
             {
-                NeedsTerminal = false;
+                GuiOnly = true;
                 return true;
             }
-            return
-                StringUtils.EqualsIgnoreCase(file.Extension, ".py") ||
-                HasShebang(file, "python");
+            else if (StringUtils.EqualsIgnoreCase(file.Extension, ".py") || HasShebang(file, "python"))
+            {
+                GuiOnly = false;
+                return true;
+            }
+            return false;
         }
 
         /// <inheritdoc/>
         protected override string InterpreterInterface { get { return "http://repo.roscidus.com/python/python"; } }
+
+        /// <inheritdoc/>
+        public override Command CreateCommand()
+        {
+            var command = base.CreateCommand();
+            command.Runner.Command = NeedsTerminal ? Command.NameRun : Command.NameRunGui;
+            return command;
+        }
     }
 }
