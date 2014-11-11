@@ -302,15 +302,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
             }
 
             // Set specific icon if available, fall back to referencing the icon embedded in the stub EXE
-            string iconPath;
-            try
-            {
-                iconPath = IconProvider.GetIconPath(capability.GetIcon(Icon.MimeTypeIco), handler, machineWide);
-            }
-            catch (KeyNotFoundException)
-            {
-                iconPath = target.GetRunStub(machineWide, handler);
-            }
+            var icon = capability.GetIcon(Icon.MimeTypeIco) ?? target.Feed.GetIcon(Icon.MimeTypeIco);
+            string iconPath = IconProvider.GetIconPath(icon, handler, machineWide);
             using (var iconKey = registryKey.CreateSubKey(RegSubKeyIcon))
                 iconKey.SetValue("", iconPath + ",0");
         }
@@ -322,11 +315,24 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="verb">The verb to get to launch command for.</param>
         /// <param name="machineWide">Store the stub in a machine-wide directory instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
+        /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
+        /// <exception cref="InvalidOperationException">Write access to the filesystem is not permitted.</exception>
         internal static string GetLaunchCommandLine(InterfaceFeed target, Store.Model.Capabilities.Verb verb, bool machineWide, ITaskHandler handler)
         {
-            string launchCommand = "\"" + target.GetRunStub(machineWide, handler, verb.Command) + "\"";
-            if (!string.IsNullOrEmpty(verb.Arguments)) launchCommand += " " + verb.Arguments;
-            return launchCommand;
+            try
+            {
+                string launchCommand = "\"" + target.GetRunStub(machineWide, handler, verb.Command) + "\"";
+                if (!string.IsNullOrEmpty(verb.Arguments)) launchCommand += " " + verb.Arguments;
+                return launchCommand;
+            }
+                #region Error handling
+            catch (InvalidOperationException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(ex.Message, ex);
+            }
+            #endregion
         }
         #endregion
     }

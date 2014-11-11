@@ -368,18 +368,14 @@ namespace ZeroInstall.Store.Model
             #endregion
 
             if (string.IsNullOrEmpty(command)) command = Command.NameRun;
-
             var entryPoint = GetEntryPoint(command);
             if (entryPoint != null)
             {
-                var suitableCommandIcons = entryPoint.Icons.Where(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
-                foreach (var icon in suitableCommandIcons) return icon;
+                var commandIcon = entryPoint.Icons.FirstOrDefault(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
+                if (commandIcon != null) return commandIcon;
             }
 
-            var suitableFeedIcons = Icons.FindAll(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
-            if (suitableFeedIcons.Count != 0) return suitableFeedIcons[0];
-
-            return null;
+            return Icons.FirstOrDefault(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
         }
         #endregion
 

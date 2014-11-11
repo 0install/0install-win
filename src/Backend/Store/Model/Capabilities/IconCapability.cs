@@ -22,7 +22,6 @@ using System.Linq;
 using System.Xml.Serialization;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
-using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Model.Capabilities
 {
@@ -58,18 +57,14 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// Returns the first icon with a specific MIME type.
         /// </summary>
         /// <param name="mimeType">The <see cref="Icon.MimeType"/> to try to find. Will only return exact matches.</param>
-        /// <returns>The first matching icon that was found.</returns>
-        /// <exception cref="KeyNotFoundException">No matching icon was found.</exception>
+        /// <returns>The best matching icon that was found or <see langword="null"/> if no matching icon was found.</returns>
         public Icon GetIcon(string mimeType)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
             #endregion
 
-            var suitableIcons = Icons.FindAll(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
-            if (suitableIcons.Any()) return suitableIcons[0];
-
-            throw new KeyNotFoundException(Resources.NoSuitableIconFound);
+            return Icons.FirstOrDefault(icon => StringUtils.EqualsIgnoreCase(icon.MimeType, mimeType) && icon.Href != null);
         }
         #endregion
 

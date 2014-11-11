@@ -49,6 +49,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
         /// <returns>The path to the generated stub EXE.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="InvalidOperationException">There was a compilation error while generating the stub EXE.</exception>
         /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="InvalidOperationException">Write access to the filesystem is not permitted.</exception>

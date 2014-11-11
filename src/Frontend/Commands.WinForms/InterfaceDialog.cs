@@ -137,6 +137,11 @@ namespace ZeroInstall.Commands.WinForms
             {
                 _candidates = Enumerable.Empty<SelectionCandidate>();
             }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                _candidates = Enumerable.Empty<SelectionCandidate>();
+            }
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);

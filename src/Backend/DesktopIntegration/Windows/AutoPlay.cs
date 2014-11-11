@@ -100,16 +100,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 handlerKey.SetValue(RegValueProvider, autoPlay.Provider);
                 handlerKey.SetValue(RegValueDescription, autoPlay.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture) ?? autoPlay.Verb.Name);
 
-                // Set specific icon if available, fall back to referencing the icon embedded in the stub EXE
-                string iconPath;
-                try
-                {
-                    iconPath = IconProvider.GetIconPath(autoPlay.GetIcon(Icon.MimeTypeIco), handler, machineWide);
-                }
-                catch (KeyNotFoundException)
-                {
-                    iconPath = target.GetRunStub(machineWide, handler);
-                }
+                var icon = autoPlay.GetIcon(Icon.MimeTypeIco) ?? target.Feed.GetIcon(Icon.MimeTypeIco, autoPlay.Verb.Command);
+                string iconPath = IconProvider.GetIconPath(icon, handler, machineWide);
                 handlerKey.SetValue(RegValueIcon, iconPath + ",0");
             }
 
