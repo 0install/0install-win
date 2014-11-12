@@ -45,9 +45,10 @@ namespace ZeroInstall.Publish
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A temporary directory containing the extracted content.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
-        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
+        /// <exception cref="NotSupportedException">A <see cref="Archive.MimeType"/> is not supported.</exception>
         public static TemporaryDirectory DownloadAndApply(this RetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor = null)
         {
             #region Sanity checks
@@ -71,6 +72,11 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A temporary directory containing the extracted content.</returns>
+        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="IOException">There is a problem access a temporary file.</exception>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
+        /// <exception cref="NotSupportedException">A <see cref="Archive.MimeType"/> is not supported.</exception>
         public static TemporaryDirectory DownloadAndApply(this DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor = null)
         {
             #region Sanity checks
@@ -111,9 +117,10 @@ namespace ZeroInstall.Publish
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A temporary directory containing the result of the recipe.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
-        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
+        /// <exception cref="NotSupportedException">A <see cref="Archive.MimeType"/> is not supported.</exception>
         public static TemporaryDirectory DownloadAndApply(this Recipe recipe, ITaskHandler handler, ICommandExecutor executor = null)
         {
             #region Sanity checks
@@ -147,8 +154,8 @@ namespace ZeroInstall.Publish
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A downloaded file.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
-        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
         public static TemporaryFile Download(this DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor = null)
         {

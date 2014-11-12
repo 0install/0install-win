@@ -140,6 +140,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 Msg.Inform(this, ex.Message, MsgSeverity.Warn);
                 return;
             }
+            catch (NotSupportedException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                return;
+            }
                 #endregion
 
             finally

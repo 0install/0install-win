@@ -113,6 +113,10 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Warn);
             }
+            catch (NotSupportedException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+            }
             #endregion
         }
 

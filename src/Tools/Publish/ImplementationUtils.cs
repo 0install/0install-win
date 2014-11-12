@@ -45,7 +45,7 @@ namespace ZeroInstall.Publish
         /// <exception cref="IOException">There was a problem extracting the archive.</exception>
         /// <exception cref="WebException">There was a problem downloading the archive.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to temporary files was not permitted.</exception>
-        /// <exception cref="NotSupportedException">The archive's MIME type could not be determined.</exception>
+        /// <exception cref="NotSupportedException">A <see cref="Archive.MimeType"/> is not supported.</exception>
         public static Implementation Build(RetrievalMethod retrievalMethod, ITaskHandler handler, bool keepDownloads = false)
         {
             #region Sanity checks
