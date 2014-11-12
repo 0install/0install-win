@@ -83,7 +83,7 @@ namespace ZeroInstall.Publish
                 var extractionDir = new TemporaryDirectory("0publish");
                 try
                 {
-                    new PerTypeDispatcher<DownloadRetrievalMethod>(true)
+                    new PerTypeDispatcher<DownloadRetrievalMethod>(ignoreMissing: false)
                     {
                         // ReSharper disable AccessToDisposedClosure
                         (Archive archive) => archive.Apply(downloadedFile, extractionDir, handler),
@@ -159,7 +159,7 @@ namespace ZeroInstall.Publish
 
             if (executor == null) executor = new SimpleCommandExecutor();
             if (retrievalMethod.Href == null) throw new ArgumentException(Resources.HrefMissing, "retrievalMethod");
-            new PerTypeDispatcher<DownloadRetrievalMethod>(false)
+            new PerTypeDispatcher<DownloadRetrievalMethod>(ignoreMissing: false)
             {
                 // ReSharper disable AccessToDisposedClosure
                 (Archive archive) =>
@@ -227,7 +227,7 @@ namespace ZeroInstall.Publish
             var extractionDir = new TemporaryDirectory("0publish");
             try
             {
-                new PerTypeDispatcher<DownloadRetrievalMethod>(true)
+                new PerTypeDispatcher<DownloadRetrievalMethod>(ignoreMissing: true)
                 {
                     // ReSharper disable AccessToDisposedClosure
                     (Archive archive) =>

@@ -46,7 +46,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         /// </summary>
         private void LoadDefaultAccessPoints()
         {
-            var dispatcher = new PerTypeDispatcher<Capability>(true)
+            var dispatcher = new PerTypeDispatcher<Capability>(ignoreMissing: true)
             {
                 (FileType fileType) =>
                 {

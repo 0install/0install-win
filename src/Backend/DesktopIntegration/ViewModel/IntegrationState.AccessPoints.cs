@@ -44,7 +44,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
             }
             else
             { // Distribute existing CommandAccessPoints among type-specific binding lists
-                new PerTypeDispatcher<AccessPoint>(true)
+                new PerTypeDispatcher<AccessPoint>(ignoreMissing: true)
                 {
                     (Action<MenuEntry>)MenuEntries.Add,
                     (Action<DesktopIcon>)DesktopIcons.Add,
@@ -61,7 +61,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
             var currentAliases = new List<AppAlias>();
             if (AppEntry.AccessPoints != null)
             {
-                new PerTypeDispatcher<AccessPoint>(true)
+                new PerTypeDispatcher<AccessPoint>(ignoreMissing: true)
                 {
                     (Action<MenuEntry>)currentMenuEntries.Add,
                     (Action<DesktopIcon>)currentDesktopIcons.Add,

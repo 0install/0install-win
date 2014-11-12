@@ -340,7 +340,7 @@ namespace ZeroInstall.Publish.Cli
 
         private void AddMissing(IEnumerable<Element> elements, ICommandExecutor executor)
         {
-            new PerTypeDispatcher<Element>(true)
+            new PerTypeDispatcher<Element>(ignoreMissing: true)
             {
                 (Implementation implementation) => implementation.AddMissing(_handler, executor, _keepDownloads),
                 (Group group) => AddMissing(group.Elements, executor) // recursion

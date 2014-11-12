@@ -59,7 +59,7 @@ namespace ZeroInstall.Store.Implementations
             {
                 IEnumerator<TemporaryFile> downloadedEnum = downloadedFiles.GetEnumerator();
                 // ReSharper disable AccessToDisposedClosure
-                new PerTypeDispatcher<IRecipeStep>(false)
+                new PerTypeDispatcher<IRecipeStep>(ignoreMissing: false)
                 {
                     (Archive step) =>
                     {

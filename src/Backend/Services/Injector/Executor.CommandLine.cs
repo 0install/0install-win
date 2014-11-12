@@ -163,7 +163,7 @@ namespace ZeroInstall.Services.Injector
         private static IList<string> ExpandCommandLine(IEnumerable<ArgBase> commandLine, StringDictionary environmentVariables)
         {
             var result = new List<string>();
-            new PerTypeDispatcher<ArgBase>(false)
+            new PerTypeDispatcher<ArgBase>(ignoreMissing: false)
             {
                 (Arg arg) => result.Add(StringUtils.ExpandUnixVariables(arg.Value, environmentVariables)),
                 (ForEachArgs forEach) =>

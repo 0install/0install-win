@@ -67,7 +67,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             var capabilities = appEntry.CapabilityLists.CompatibleCapabilities().ToList();
             var target = new InterfaceFeed(appEntry.InterfaceID, feed);
 
-            var dispatcher = new PerTypeDispatcher<Capability>(true);
+            var dispatcher = new PerTypeDispatcher<Capability>(ignoreMissing: true);
             if (WindowsUtils.IsWindows)
             {
                 dispatcher.Add((Store.Model.Capabilities.FileType fileType) => Windows.FileType.Register(target, fileType, machineWide, handler));
@@ -96,7 +96,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var dispatcher = new PerTypeDispatcher<Capability>(true);
+            var dispatcher = new PerTypeDispatcher<Capability>(ignoreMissing: true);
             if (WindowsUtils.IsWindows)
             {
                 dispatcher.Add((Store.Model.Capabilities.FileType fileType) => Windows.FileType.Unregister(fileType, machineWide));
