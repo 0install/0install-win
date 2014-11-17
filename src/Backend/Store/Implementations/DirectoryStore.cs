@@ -470,7 +470,7 @@ namespace ZeroInstall.Store.Implementations
                             if (x.Size == 0) return;
 
                             var key = new DedupKey(x.Size, x.ModifiedTime, manifest.Format, x.Digest);
-                            string path = manifestDigest.Best + currentDirectory + '/' + x.FileName;
+                            string path = manifestDigest.Best + currentDirectory + "/" + x.FileName;
 
                             string existingPath;
                             if (fileHashes.TryGetValue(key, out existingPath))

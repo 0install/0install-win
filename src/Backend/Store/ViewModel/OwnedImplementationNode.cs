@@ -51,7 +51,7 @@ namespace ZeroInstall.Store.ViewModel
         #endregion
 
         /// <inheritdoc/>
-        public override string Name { get { return _iface.Name + '\\' + Version + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
+        public override string Name { get { return _iface.Name + "\\" + Version + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
 
         /// <summary>
         /// The version number of the implementation.

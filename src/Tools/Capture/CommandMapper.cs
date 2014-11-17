@@ -103,7 +103,7 @@ namespace ZeroInstall.Capture
             string path = Path.Combine(installationDir, command.Path.Replace('/', Path.DirectorySeparatorChar));
             string arguments = command.Arguments.Select(arg => arg.ToString()).JoinEscapeArguments();
 
-            string commmandLine = escapePath ? ('"' + path + '"') : path;
+            string commmandLine = escapePath ? ("\"" + path + "\"") : path;
             if (!string.IsNullOrEmpty(arguments)) commmandLine += " " + arguments;
             return new CommandTuple(commmandLine, command);
         }

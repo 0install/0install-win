@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.ViewModel
 
         /// <inheritdoc/>
         [Browsable(false)]
-        public override string Name { get { return Fingerprint + '\\' + Domain.Value; } set { throw new NotSupportedException(); } }
+        public override string Name { get { return Fingerprint + "\\" + Domain.Value; } set { throw new NotSupportedException(); } }
 
         /// <summary>
         /// Creates a new <see cref="Key"/>-<see cref="Domain"/> pair.

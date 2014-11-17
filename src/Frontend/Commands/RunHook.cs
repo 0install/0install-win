@@ -118,7 +118,7 @@ namespace ZeroInstall.Commands
 
                     // Apply filter with normal and with escaped string
                     filterRuleList.AddLast(new RegistryFilterRule(processCommandLine, registryCommandLine));
-                    filterRuleList.AddLast(new RegistryFilterRule('"' + processCommandLine + '"', '"' + registryCommandLine + '"'));
+                    filterRuleList.AddLast(new RegistryFilterRule("\"" + processCommandLine + "\"", "\"" + registryCommandLine + "\""));
                 }
             }
 

@@ -136,7 +136,7 @@ namespace ZeroInstall.Publish.Cli
                 {
                     "V|version", () => Resources.OptionVersion, unused =>
                     {
-                        Console.WriteLine(AppInfo.Current.Name + ' ' + AppInfo.Current.Version + Environment.NewLine + AppInfo.Current.Copyright + Environment.NewLine + SharedResources.LicenseInfo);
+                        Console.WriteLine(AppInfo.Current.Name + @" " + AppInfo.Current.Version + Environment.NewLine + AppInfo.Current.Copyright + Environment.NewLine + SharedResources.LicenseInfo);
                         throw new OperationCanceledException(); // Don't handle any of the other arguments
                     }
                 },
@@ -164,7 +164,7 @@ namespace ZeroInstall.Publish.Cli
             options.Add("h|help|?", () => Resources.OptionHelp, unused =>
             {
                 var usages = new[] {Resources.UsageFeed};
-                Console.WriteLine(Resources.Usage + '\t' + string.Join(Environment.NewLine + '\t', usages) + '\n');
+                Console.WriteLine(Resources.Usage + "\t" + string.Join(Environment.NewLine + "\t", usages) + "\n");
                 Console.WriteLine(Resources.Options);
                 options.WriteOptionDescriptions(Console.Out);
 
