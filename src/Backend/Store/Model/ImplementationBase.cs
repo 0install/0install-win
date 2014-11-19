@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Model
         /// A unique identifier for this implementation. Used when storing implementation-specific user preferences.
         /// </summary>
         [Category("Identity"), Description("A unique identifier for this implementation. Used when storing implementation-specific user preferences.")]
-        [XmlAttribute("id")]
+        [XmlAttribute("id"), DefaultValue("")]
         public string ID { get; set; }
 
         /// <summary>
