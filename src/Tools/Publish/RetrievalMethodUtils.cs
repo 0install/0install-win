@@ -22,6 +22,7 @@ using System.Linq;
 using System.Net;
 using NanoByte.Common;
 using NanoByte.Common.Dispatch;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Undo;
@@ -174,7 +175,7 @@ namespace ZeroInstall.Publish
                     // Guess MIME types now because the file ending is not known later
                     if (string.IsNullOrEmpty(archive.MimeType))
                     {
-                        string mimeType = Archive.GuessMimeType(archive.Href.ToString());
+                        string mimeType = Archive.GuessMimeType(archive.Href.OriginalString);
                         executor.Execute(new SetValueCommand<string>(() => archive.MimeType, value => archive.MimeType = value, mimeType));
                     }
                 },
@@ -183,7 +184,7 @@ namespace ZeroInstall.Publish
                     // Guess file name based on URL
                     if (string.IsNullOrEmpty(file.Destination))
                     {
-                        string destination = file.Href.ToString().GetRightPartAtLastOccurrence('/').StripCharacters(Path.GetInvalidFileNameChars());
+                        string destination = file.Href.OriginalString.GetRightPartAtLastOccurrence('/').StripCharacters(Path.GetInvalidFileNameChars());
                         executor.Execute(new SetValueCommand<string>(() => file.Destination, value => file.Destination = value, destination));
                     }
                 }

@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
+using NanoByte.Common.Net;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Feeds;
 
@@ -99,7 +100,7 @@ namespace ZeroInstall.Services.Feeds
             if (info == null) throw new ArgumentNullException("info");
             #endregion
 
-            info.AddValue("FeedUrl", FeedUrl.ToString());
+            info.AddValue("FeedUrl", FeedUrl.OriginalString);
             info.AddValue("OldTime", OldTime);
             info.AddValue("NewTime", NewTime);
 

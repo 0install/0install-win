@@ -22,6 +22,7 @@ using System.Linq;
 using System.Net;
 using System.Xml;
 using NanoByte.Common;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Properties;
@@ -172,7 +173,7 @@ namespace ZeroInstall.Services.Feeds
             try
             {
                 var keyInfoUri = new Uri(_config.KeyInfoServer, "key/" + fingerprint);
-                var xmlReader = XmlReader.Create(keyInfoUri.ToString());
+                var xmlReader = XmlReader.Create(keyInfoUri.ToStringRfc());
                 _handler.CancellationToken.ThrowIfCancellationRequested();
                 if (!xmlReader.ReadToFollowing("item"))
                 {

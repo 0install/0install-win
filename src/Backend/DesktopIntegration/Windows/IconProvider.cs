@@ -20,6 +20,7 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography;
 using NanoByte.Common;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Icons;
@@ -54,7 +55,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             #endregion
 
             string iconDirPath = Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "icons");
-            string iconFilePath = Path.Combine(iconDirPath, icon.Href.ToString().Hash(SHA256.Create()) + ".ico");
+            string iconFilePath = Path.Combine(iconDirPath, icon.Href.AbsoluteUri.Hash(SHA256.Create()) + ".ico");
 
             // Return an existing icon or get a new one from the cache
             if (!File.Exists(iconFilePath) || (DateTime.UtcNow - File.GetLastWriteTimeUtc(iconFilePath) > _freshness))

@@ -221,7 +221,7 @@ namespace ZeroInstall.Commands
         {
             Container.GetMock<IStore>().Setup(x => x.Optimise(Container.Resolve<ICommandHandler>())).Returns(123);
 
-            RunAndAssert(string.Format(Resources.StorageReclaimed, StringUtils.FormatBytes(123, CultureInfo.CurrentCulture)), (int)StoreErrorLevel.OK,
+            RunAndAssert(string.Format(Resources.StorageReclaimed, FileUtils.FormatBytes(123, CultureInfo.CurrentCulture)), (int)StoreErrorLevel.OK,
                 "optimise");
         }
 

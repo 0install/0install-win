@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using NanoByte.Common.Net;
 using ZeroInstall.Store.Model.Design;
 
 namespace ZeroInstall.Store.Model
@@ -62,7 +63,7 @@ namespace ZeroInstall.Store.Model
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [DisplayName(@"Href"), Description("The URL used to locate the icon.")]
         [XmlAttribute("href"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string HrefString { get { return (Href == null ? null : Href.ToString()); } set { Href = (string.IsNullOrEmpty(value) ? null : new Uri(value)); } }
+        public string HrefString { get { return (Href == null ? null : Href.ToStringRfc()); } set { Href = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.Absolute)); } }
 
         /// <summary>
         /// The MIME type of the icon. This value is case-insensitive.

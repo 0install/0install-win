@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using NanoByte.Common;
-using ZeroInstall.Store.Model;
+using NanoByte.Common.Net;
 
 namespace ZeroInstall.Store
 {
@@ -111,7 +111,7 @@ namespace ZeroInstall.Store
         /// The base URL of a mirror site for keys and feeds.
         /// </summary>
         [DefaultValue(typeof(Uri), DefaultFeedMirror), Category("Sources"), DisplayName(@"Feed mirror"), Description("The base URL of a mirror site for keys and feeds.")]
-        public Uri FeedMirror { get { return _feedMirror; } set { _feedMirror = value.Sanitize(); } }
+        public Uri FeedMirror { get { return _feedMirror; } set { _feedMirror = value.ReparseAsAbsolute(); } }
 
         /// <summary>
         /// The default value for <see cref="KeyInfoServer"/>.
@@ -124,7 +124,7 @@ namespace ZeroInstall.Store
         /// The base URL of a key information server.
         /// </summary>
         [DefaultValue(typeof(Uri), DefaultKeyInfoServer), Category("Sources"), DisplayName(@"Key info server"), Description("The base URL of a key information server.")]
-        public Uri KeyInfoServer { get { return _keyInfoServer; } set { _keyInfoServer = value.Sanitize(); } }
+        public Uri KeyInfoServer { get { return _keyInfoServer; } set { _keyInfoServer = value.ReparseAsAbsolute(); } }
 
         /// <summary>
         /// The default value for <see cref="SelfUpdateUri"/>.
@@ -137,7 +137,7 @@ namespace ZeroInstall.Store
         /// The ID used by the solver to search for updates for Zero Install itself.
         /// </summary>
         [DefaultValue(typeof(Uri), DefaultSelfUpdateUri), Category("Sources"), DisplayName(@"Self-update URI"), Description("The URI used by the solver to search for updates for Zero Install itself.")]
-        public Uri SelfUpdateUri { get { return _selfUpdateUri; } set { _selfUpdateUri = value.Sanitize(); } }
+        public Uri SelfUpdateUri { get { return _selfUpdateUri; } set { _selfUpdateUri = value.ReparseAsAbsolute(); } }
 
         /// <summary>
         /// The default value for <see cref="SyncServer"/>.
@@ -152,7 +152,7 @@ namespace ZeroInstall.Store
         /// <seealso cref="SyncServerUsername"/>
         /// <seealso cref="SyncServerPassword"/>
         [DefaultValue(typeof(Uri), DefaultSyncServer), Category("Sync"), DisplayName(@"Server"), Description("The base URL of the sync server.")]
-        public Uri SyncServer { get { return _syncServer; } set { _syncServer = value.Sanitize(); } }
+        public Uri SyncServer { get { return _syncServer; } set { _syncServer = value.ReparseAsAbsolute(); } }
 
         private string _syncServerUsername = "";
 

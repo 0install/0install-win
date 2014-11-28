@@ -17,6 +17,7 @@
 
 using System;
 using System.Net;
+using NanoByte.Common.Net;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -35,10 +36,7 @@ namespace ZeroInstall.DesktopIntegration
             get { return _uri; }
             set
             {
-                // Ensure the URI references a directory
-                if (value != null && !value.ToString().EndsWith("/")) value = new Uri(value + "/");
-
-                _uri = value;
+                _uri = value.EnsureTrailingSlash();
             }
         }
 

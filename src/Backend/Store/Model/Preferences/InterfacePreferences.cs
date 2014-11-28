@@ -24,6 +24,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Properties;
 
@@ -47,7 +48,7 @@ namespace ZeroInstall.Store.Model.Preferences
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [DisplayName(@"Uri"), Description("The URI of the interface to be configured.")]
         [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public String UriString { get { return (Uri == null ? null : Uri.ToString()); } set { Uri = (string.IsNullOrEmpty(value) ? null : new Uri(value)); } }
+        public String UriString { get { return (Uri == null ? null : Uri.ToStringRfc()); } set { Uri = (string.IsNullOrEmpty(value) ? null : new Uri(value)); } }
 
         private Stability _stabilityPolicy = Stability.Unset;
 

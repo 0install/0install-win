@@ -165,7 +165,7 @@ namespace ZeroInstall.Services.Injector
             var result = new List<string>();
             new PerTypeDispatcher<ArgBase>(ignoreMissing: false)
             {
-                (Arg arg) => result.Add(StringUtils.ExpandUnixVariables(arg.Value, environmentVariables)),
+                (Arg arg) => result.Add(FileUtils.ExpandUnixVariables(arg.Value, environmentVariables)),
                 (ForEachArgs forEach) =>
                 {
                     string valueToSplit = environmentVariables[forEach.ItemFrom];
@@ -176,7 +176,7 @@ namespace ZeroInstall.Services.Injector
                         foreach (string item in items)
                         {
                             environmentVariables["item"] = item;
-                            result.AddRange(forEach.Arguments.Select(arg => StringUtils.ExpandUnixVariables(arg.Value, environmentVariables)));
+                            result.AddRange(forEach.Arguments.Select(arg => FileUtils.ExpandUnixVariables(arg.Value, environmentVariables)));
                         }
                         environmentVariables.Remove("item");
                     }

@@ -72,7 +72,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
 
         private static void CheckServer(Uri syncServer)
         {
-            if (!syncServer.ToString().EndsWith("/")) syncServer = new Uri(syncServer + "/"); // Ensure the server URI references a directory
+            syncServer = syncServer.EnsureTrailingSlash();
 
             var request = WebRequest.Create(syncServer);
             request.Method = "HEAD";

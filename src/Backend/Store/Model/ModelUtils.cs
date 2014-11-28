@@ -236,16 +236,6 @@ namespace ZeroInstall.Store.Model
         }
         #endregion
 
-        #region URI sanitization
-        /// <summary>
-        /// Reparses a URI (generated via conversion) to ensure it is a valid absolute URI.
-        /// </summary>
-        public static Uri Sanitize(this Uri uri)
-        {
-            return (uri == null) ? null : new Uri(uri.OriginalString, UriKind.Absolute);
-        }
-        #endregion
-
         #region Templates
         /// <summary>
         /// Determines whether a string contains a template variable (a substring enclosed in curly brackets, e.g {var}).

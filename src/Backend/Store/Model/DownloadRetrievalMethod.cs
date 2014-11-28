@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using NanoByte.Common.Net;
 
 namespace ZeroInstall.Store.Model
 {
@@ -38,7 +39,7 @@ namespace ZeroInstall.Store.Model
         /// <seealso cref="Href"/>
         [DisplayName(@"Href"), Description("The URL to download the file from. Relative URLs are only allowed in local feed files.")]
         [XmlAttribute("href"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string HrefString { get { return (Href == null ? null : Href.ToString()); } set { Href = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.RelativeOrAbsolute)); } }
+        public string HrefString { get { return (Href == null ? null : Href.ToStringRfc()); } set { Href = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.RelativeOrAbsolute)); } }
 
         /// <summary>
         /// The size of the file in bytes. The file must have the given size or it will be rejected.

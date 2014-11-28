@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using NanoByte.Common;
+using NanoByte.Common.Net;
 using ZeroInstall.Store.Model.Design;
 
 namespace ZeroInstall.Store.Model
@@ -129,7 +130,7 @@ namespace ZeroInstall.Store.Model
             if (!string.IsNullOrEmpty(MimeType) || Href == null) return;
 
             // Guess the MIME type based on the file extension
-            MimeType = GuessMimeType(Href.ToString());
+            MimeType = GuessMimeType(Href.OriginalString);
         }
         #endregion
 

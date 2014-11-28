@@ -25,6 +25,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Model.Capabilities;
 
@@ -91,7 +92,7 @@ namespace ZeroInstall.Store.Model
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [DisplayName(@"Uri"), Category("Feed"), Description("This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).")]
         [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string UriString { get { return (Uri == null ? null : Uri.ToString()); } set { Uri = (string.IsNullOrEmpty(value) ? null : new Uri(value)); } }
+        public string UriString { get { return (Uri == null ? null : Uri.ToStringRfc()); } set { Uri = (string.IsNullOrEmpty(value) ? null : new Uri(value)); } }
 
         /// <summary>
         /// A short name to identify the interface (e.g. "Foo").
@@ -124,7 +125,7 @@ namespace ZeroInstall.Store.Model
         /// <seealso cref="Homepage"/>
         [DisplayName(@"Homepage"), Category("Interface"), Description("The main website of the application.")]
         [XmlElement("homepage"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string HomepageString { get { return Homepage != null ? Homepage.ToString() : null; } set { Homepage = (string.IsNullOrEmpty(value) ? null : new Uri(value)); } }
+        public string HomepageString { get { return Homepage != null ? Homepage.ToStringRfc() : null; } set { Homepage = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.Absolute)); } }
 
         private readonly List<Icon> _icons = new List<Icon>();
 
