@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 
@@ -35,9 +34,9 @@ namespace ZeroInstall.Store.Model.Preferences
         {
             return new InterfacePreferences
             {
-                Uri = new Uri("http://somedomain/someapp.xml"),
+                Uri = new FeedUri("http://somedomain/someapp.xml"),
                 StabilityPolicy = Stability.Testing,
-                Feeds = {new FeedReference {Source = "http://invalid"}}
+                Feeds = {new FeedReference {Source = new FeedUri("http://invalid/")}}
             };
         }
         #endregion

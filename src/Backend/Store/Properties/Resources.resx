@@ -220,8 +220,8 @@ If you are using a FAT-formatted drive please convert it to NTFS.</value>
   <data name="InvalidDigest" xml:space="preserve">
     <value>Digest '{0}' is not in the form 'algorithm=value'.</value>
   </data>
-  <data name="InvalidInterfaceID" xml:space="preserve">
-    <value>The interface '{0}' is not a valid 'http(s):' URI and is not a valid local path either.</value>
+  <data name="InvalidFeedUri" xml:space="preserve">
+    <value>'{0}' is not a valid 'http(s):' URI and is not a valid local path either.</value>
   </data>
   <data name="InvalidLinesInManifest" xml:space="preserve">
     <value>The manifest file contains invalid lines.</value>
@@ -237,9 +237,6 @@ If you are using a FAT-formatted drive please convert it to NTFS.</value>
   </data>
   <data name="MissingPath" xml:space="preserve">
     <value>No path specified.</value>
-  </data>
-  <data name="MissingSlashInUri" xml:space="preserve">
-    <value>Missing '/' after host name in URI '{0}'.</value>
   </data>
   <data name="MustBeDottedList" xml:space="preserve">
     <value>The dot-separated list may only contain decimal numbers.</value>
@@ -296,7 +293,7 @@ You can delete the file '{1}' to fix the problem. Other settings may also be los
   <data name="RecipeInvalidPath" xml:space="preserve">
     <value>A recipe step contains an invalid path (potentially a security risk): {0}</value>
   </data>
-  <data name="RelativePathInNonRemoteFeed" xml:space="preserve">
+  <data name="RelativePathInRemoteFeed" xml:space="preserve">
     <value>The relative path '{0}' was specified in a remote feed. Only local feeds may contain relative paths.</value>
   </data>
   <data name="RelativeUriInRemoteFeed" xml:space="preserve">

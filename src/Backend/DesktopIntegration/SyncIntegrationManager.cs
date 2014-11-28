@@ -29,6 +29,7 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration
@@ -81,7 +82,7 @@ namespace ZeroInstall.DesktopIntegration
         private readonly string _cryptoKey;
 
         /// <summary>Callback method used to retrieve additional <see cref="Feed"/>s on demand.</summary>
-        private readonly Converter<string, Feed> _feedRetriever;
+        private readonly Converter<FeedUri, Feed> _feedRetriever;
 
         /// <summary>The storage location of the <see cref="AppList"/> file.</summary>
         private readonly AppList _appListLastSync;
@@ -99,7 +100,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="IOException">A problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        public SyncIntegrationManager(SyncServer server, string cryptoKey, Converter<string, Feed> feedRetriever, ITaskHandler handler, bool machineWide = false)
+        public SyncIntegrationManager(SyncServer server, string cryptoKey, Converter<FeedUri, Feed> feedRetriever, ITaskHandler handler, bool machineWide = false)
             : base(handler, machineWide)
         {
             #region Sanity checks
@@ -129,7 +130,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="IOException">A problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        public SyncIntegrationManager(string appListPath, SyncServer server, Converter<string, Feed> feedRetriever, ITaskHandler handler, bool machineWide = false)
+        public SyncIntegrationManager(string appListPath, SyncServer server, Converter<FeedUri, Feed> feedRetriever, ITaskHandler handler, bool machineWide = false)
             : base(appListPath, handler, machineWide)
         {
             #region Sanity checks

@@ -21,7 +21,6 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using NUnit.Framework;
-using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Icons
 {
@@ -42,8 +41,8 @@ namespace ZeroInstall.Store.Icons
             _cache = new DiskIconCache(_tempDir);
 
             // Add some dummy icons to the cache
-            File.WriteAllText(Path.Combine(_tempDir, ModelUtils.Escape("http://0install.de/feeds/images/test1.png")), "");
-            File.WriteAllText(Path.Combine(_tempDir, ModelUtils.Escape("http://0install.de/feeds/images/test2.png")), "");
+            File.WriteAllText(Path.Combine(_tempDir, new FeedUri("http://0install.de/feeds/images/test1.png").Escape()), "");
+            File.WriteAllText(Path.Combine(_tempDir, new FeedUri("http://0install.de/feeds/images/test2.png").Escape()), "");
             File.WriteAllText(Path.Combine(_tempDir, "http_invalid"), "");
         }
 
@@ -68,7 +67,7 @@ namespace ZeroInstall.Store.Icons
         public void TestGetIconCached()
         {
             const string icon1 = "http://0install.de/feeds/images/test1.png";
-            Assert.AreEqual(Path.Combine(_tempDir, ModelUtils.Escape(icon1)), _cache.GetIcon(new Uri(icon1), new SilentTaskHandler()));
+            Assert.AreEqual(Path.Combine(_tempDir, new FeedUri(icon1).Escape()), _cache.GetIcon(new Uri(icon1), new SilentTaskHandler()));
         }
 
         /// <summary>
@@ -95,7 +94,7 @@ namespace ZeroInstall.Store.Icons
             using (var server = new MicroServer("empty", new MemoryStream()))
             {
                 // Write a file to the cache directory, mark it as outdated, use an unreachable/invalid URI
-                string prePath = Path.Combine(_tempDir, ModelUtils.Escape(server.FileUri + "-invalid"));
+                string prePath = Path.Combine(_tempDir, new FeedUri(server.FileUri + "-invalid").Escape());
                 File.WriteAllText(prePath, iconData);
                 File.SetLastWriteTimeUtc(prePath, new DateTime(1980, 1, 1));
 

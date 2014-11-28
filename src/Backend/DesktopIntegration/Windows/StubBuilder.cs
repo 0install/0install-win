@@ -29,6 +29,7 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Icons;
 using ZeroInstall.Store.Model;
 
@@ -62,10 +63,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var entryPoint = target.Feed.GetEntryPoint(command ?? Command.NameRun);
             string exeName = (entryPoint != null)
                 ? entryPoint.BinaryName ?? entryPoint.Command
-                : ModelUtils.Escape(target.Feed.Name);
+                : FeedUri.Escape(target.Feed.Name);
             bool needsTerminal = target.Feed.NeedsTerminal || (entryPoint != null && entryPoint.NeedsTerminal);
 
-            string hash = (target.InterfaceID + "#" + command).Hash(SHA256.Create());
+            string hash = (target.InterfaceUri + "#" + command).Hash(SHA256.Create());
             string path = Path.Combine(Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "stubs", hash), exeName + ".exe");
 
             target.CreateOrUpdateRunStub(path, handler, needsTerminal, command);
@@ -186,7 +187,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             // Build command-line
             string args = needsTerminal ? "" : "run --no-wait ";
             if (!string.IsNullOrEmpty(command)) args += "--command=" + command.EscapeArgument() + " ";
-            args += target.InterfaceID.EscapeArgument();
+            args += target.InterfaceUri.AbsoluteUri;
 
             // Load the template code and insert variables
             string code = GetEmbeddedResource("stub.template.cs").Replace("[EXE]", Path.Combine(Locations.InstallBase, needsTerminal ? "0launch.exe" : "0install-win.exe").Replace(@"\", @"\\"));

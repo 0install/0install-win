@@ -49,7 +49,7 @@ namespace ZeroInstall.Commands
             catch (OptionException)
             {
                 // Pass in an additional dummy argument if required
-                return CommandFactory.CreateAndParse(new[] {name, "--verbose", "dummy"}, handler);
+                return CommandFactory.CreateAndParse(new[] {name, "--verbose", "http://dummy/"}, handler);
             }
         }
     }

@@ -159,28 +159,28 @@
   <data name="tabControlApps.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="appList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="tileListMyApps.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="appList.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tileListMyApps.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
-  <data name="appList.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tileListMyApps.Size" type="System.Drawing.Size, System.Drawing">
     <value>335, 168</value>
   </data>
-  <data name="appList.TabIndex" type="System.Int32, mscorlib">
+  <data name="tileListMyApps.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;appList.Name" xml:space="preserve">
-    <value>appList</value>
+  <data name="&gt;&gt;tileListMyApps.Name" xml:space="preserve">
+    <value>tileListMyApps</value>
   </data>
-  <data name="&gt;&gt;appList.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.14.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+  <data name="&gt;&gt;tileListMyApps.Type" xml:space="preserve">
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=2.6.8.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
-  <data name="&gt;&gt;appList.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tileListMyApps.Parent" xml:space="preserve">
     <value>tabPageAppList</value>
   </data>
-  <data name="&gt;&gt;appList.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tileListMyApps.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="tabPageAppList.Location" type="System.Drawing.Point, System.Drawing">
@@ -210,28 +210,28 @@
   <data name="&gt;&gt;tabPageAppList.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="catalogList.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="tileListCatalog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="catalogList.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tileListCatalog.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
-  <data name="catalogList.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tileListCatalog.Size" type="System.Drawing.Size, System.Drawing">
     <value>335, 172</value>
   </data>
-  <data name="catalogList.TabIndex" type="System.Int32, mscorlib">
+  <data name="tileListCatalog.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;catalogList.Name" xml:space="preserve">
-    <value>catalogList</value>
+  <data name="&gt;&gt;tileListCatalog.Name" xml:space="preserve">
+    <value>tileListCatalog</value>
   </data>
-  <data name="&gt;&gt;catalogList.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=1.14.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+  <data name="&gt;&gt;tileListCatalog.Type" xml:space="preserve">
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=2.6.8.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
-  <data name="&gt;&gt;catalogList.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tileListCatalog.Parent" xml:space="preserve">
     <value>tabPageCatalog</value>
   </data>
-  <data name="&gt;&gt;catalogList.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tileListCatalog.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="tabPageCatalog.Location" type="System.Drawing.Point, System.Drawing">

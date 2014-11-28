@@ -26,6 +26,7 @@ using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Icons;
 using ZeroInstall.Store.Model;
 using Icon = ZeroInstall.Store.Model.Icon;
@@ -85,7 +86,7 @@ namespace ZeroInstall.Central.WinForms
         }
 
         /// <inheritdoc/>
-        public string InterfaceID { get; private set; }
+        public FeedUri InterfaceUri { get; private set; }
 
         /// <inheritdoc/>
         public string AppName { get { return labelName.Text; } }
@@ -115,15 +116,15 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Creates a new application tile.
         /// </summary>
-        /// <param name="interfaceID">The interface ID of the application this tile represents.</param>
+        /// <param name="interfaceUri">The interface URI of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
         /// <param name="iconCache">The icon cache used to retrieve icons specified in <see cref="Feed"/>; may be <see langword="null"/>.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        public AppTile(string interfaceID, string appName, AppStatus status, IIconCache iconCache, bool machineWide)
+        public AppTile(FeedUri interfaceUri, string appName, AppStatus status, IIconCache iconCache, bool machineWide)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             if (appName == null) throw new ArgumentNullException("appName");
             #endregion
 
@@ -140,7 +141,7 @@ namespace ZeroInstall.Central.WinForms
             buttonSelectVersion.Text = _selectVersionButton;
             buttonUpdate.Text = _updateButtonText;
 
-            InterfaceID = interfaceID;
+            InterfaceUri = interfaceUri;
             labelName.Text = appName;
             labelSummary.Text = "";
             Status = status;
@@ -215,74 +216,74 @@ namespace ZeroInstall.Central.WinForms
 
         private void linkLabelDetails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (InterfaceID.StartsWith("fake:")) return;
-            Program.OpenInBrowser(this, InterfaceID);
+            if (InterfaceUri.IsFake) return;
+            Program.OpenInBrowser(this, InterfaceUri.OriginalString);
         }
 
         private void buttonRun_Click(object sender, EventArgs e)
         {
-            if (InterfaceID.StartsWith("fake:")) return;
+            if (InterfaceUri.IsFake) return;
             if (Feed != null && Feed.NeedsTerminal) SelectCommand();
-            else Program.RunCommand(Commands.Run.Name, "--no-wait", InterfaceID);
+            else Program.RunCommand(Commands.Run.Name, "--no-wait", InterfaceUri.AbsoluteUri);
         }
 
         private void buttonSelectVersion_Click(object sender, EventArgs e)
         {
-            if (InterfaceID.StartsWith("fake:")) return;
-            Program.RunCommand(Commands.Run.Name, "--no-wait", "--gui", InterfaceID);
+            if (InterfaceUri.IsFake) return;
+            Program.RunCommand(Commands.Run.Name, "--no-wait", "--gui", InterfaceUri.AbsoluteUri);
         }
 
         private void buttonSelectCommmand_Click(object sender, EventArgs e)
         {
-            if (InterfaceID.StartsWith("fake:")) return;
+            if (InterfaceUri.IsFake) return;
             SelectCommand();
         }
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
-            if (InterfaceID.StartsWith("fake:")) return;
-            Program.RunCommand(Commands.Update.Name, InterfaceID);
+            if (InterfaceUri.IsFake) return;
+            Program.RunCommand(Commands.Update.Name, InterfaceUri.AbsoluteUri);
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            if (InterfaceID.StartsWith("fake:")) return;
+            if (InterfaceUri.IsFake) return;
 
             // Disable button while operation is running
             buttonAdd.Enabled = false;
 
-            Program.RunCommand(UpdateButtons, _machineWide, Commands.AddApp.Name, InterfaceID);
+            Program.RunCommand(UpdateButtons, _machineWide, Commands.AddApp.Name, InterfaceUri.AbsoluteUri);
         }
 
         private void buttonIntegrate_Click(object sender, EventArgs e)
         {
-            if (InterfaceID.StartsWith("fake:")) return;
+            if (InterfaceUri.IsFake) return;
 
             // Disable buttons while operation is running
             buttonRemove.Enabled = buttonIntegrate.Enabled = false;
 
-            Program.RunCommand(UpdateButtons, _machineWide, Commands.IntegrateApp.Name, InterfaceID);
+            Program.RunCommand(UpdateButtons, _machineWide, Commands.IntegrateApp.Name, InterfaceUri.AbsoluteUri);
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
-            if (InterfaceID.StartsWith("fake:")) return;
+            if (InterfaceUri.IsFake) return;
 
             if (!Msg.YesNo(this, string.Format(SharedResources.AppRemoveConfirm, AppName), MsgSeverity.Warn)) return;
 
             // Disable buttons while operation is running
             buttonRemove.Enabled = buttonIntegrate.Enabled = false;
 
-            Program.RunCommand(UpdateButtons, _machineWide, Commands.RemoveApp.Name, InterfaceID);
+            Program.RunCommand(UpdateButtons, _machineWide, Commands.RemoveApp.Name, InterfaceUri.AbsoluteUri);
         }
         #endregion
 
         #region Drag and drop handling
         private void MouseDownHandler(object sender, MouseEventArgs e)
         {
-            // Copy the interface ID and make sure it goes into another window
+            // Copy the interface URI and make sure it goes into another window
             MainForm.DisableDragAndDrop = true;
-            DoDragDrop(InterfaceID, DragDropEffects.Copy);
+            DoDragDrop(InterfaceUri, DragDropEffects.Copy);
             MainForm.DisableDragAndDrop = true;
         }
         #endregion
@@ -300,7 +301,7 @@ namespace ZeroInstall.Central.WinForms
                 try
                 {
                     // Cannot use in-process method here because the "args" string needs to be parsed by the operating system
-                    ProcessUtils.LaunchAssembly(Commands.WinForms.Program.ExeName, "run --no-wait --command=" + command.EscapeArgument() + " " + InterfaceID.EscapeArgument() + " " + args);
+                    ProcessUtils.LaunchAssembly(Commands.WinForms.Program.ExeName, "run --no-wait --command=" + command.EscapeArgument() + " " + InterfaceUri.AbsoluteUri + " " + args);
                 }
                     #region Error handling
                 catch (FileNotFoundException ex)

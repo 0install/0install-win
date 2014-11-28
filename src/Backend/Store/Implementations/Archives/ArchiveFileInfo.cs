@@ -17,6 +17,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using NanoByte.Common.Net;
 
 namespace ZeroInstall.Store.Implementations.Archives
 {
@@ -65,7 +66,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             string result = string.Format("ArchiveFileInfo: {0} ({1}, + {2}, {3})", Path, MimeType, StartOffset, SubDir);
             if (!string.IsNullOrEmpty(Destination)) result += " => " + Destination;
-            if (OriginalSource != null) result += ", originally from: " + OriginalSource.ToString();
+            if (OriginalSource != null) result += ", originally from: " + OriginalSource.ToStringRfc();
             return result;
         }
 

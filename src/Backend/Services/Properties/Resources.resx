@@ -151,6 +151,9 @@ Do you want to trust this key to sign feeds from '{3}'?
   <data name="FeedNoTrustedSignatures" xml:space="preserve">
     <value>The feed '{0}' was not signed with any trusted keys.</value>
   </data>
+  <data name="FeedUriLocal" xml:space="preserve">
+    <value>'{0}' is a local file. It should be a HTTP(S) URL.</value>
+  </data>
   <data name="FeedUriMismatch" xml:space="preserve">
     <value>The &lt;interface&gt; uri attribute ('{0}') does not match the URL the feed was downloaded from ('{1}').</value>
   </data>
@@ -172,7 +175,7 @@ Do you want to trust this key to sign feeds from '{3}'?
   <data name="MissingBindingName" xml:space="preserve">
     <value>Missing name in {0} binding.</value>
   </data>
-  <data name="MissingInterfaceID" xml:space="preserve">
+  <data name="MissingInterfaceUri" xml:space="preserve">
     <value>No interface was specified.</value>
   </data>
   <data name="NoImplementationsPassed" xml:space="preserve">
@@ -193,12 +196,12 @@ Do you want to trust this key to sign feeds from '{3}'?
   <data name="NotCached" xml:space="preserve">
     <value>(not cached)</value>
   </data>
-  <data name="NotInterfaceID" xml:space="preserve">
+  <data name="NotInterfaceUri" xml:space="preserve">
     <value>The interface '{0}' doesn't start with 'http:' and doesn't exist as a file '{1}' either.</value>
   </data>
   <data name="ReplayAttack" xml:space="preserve">
     <value>A possible replay attack was detected. The new feed's modification time is before old version.
-Feed ID: {0}
+Feed URI: {0}
 Old time: {1}
 New time: {2}</value>
   </data>

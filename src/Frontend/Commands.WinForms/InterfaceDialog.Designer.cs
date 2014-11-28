@@ -170,7 +170,7 @@
             // dataColumnSource
             // 
             this.dataColumnSource.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataColumnSource.DataPropertyName = "FeedID";
+            this.dataColumnSource.DataPropertyName = "FeedUri";
             resources.ApplyResources(this.dataColumnSource, "dataColumnSource");
             this.dataColumnSource.Name = "dataColumnSource";
             this.dataColumnSource.ReadOnly = true;

@@ -17,6 +17,7 @@
 
 using System;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands
 {
@@ -41,17 +42,17 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            string interfaceID = GetCanonicalID(AdditionalArgs[0]);
+            var interfaceUri = GetCanonicalUri(AdditionalArgs[0]);
             using (var integrationManager = new CategoryIntegrationManager(Handler, MachineWide))
-                return ExecuteHelper(integrationManager, interfaceID);
+                return ExecuteHelper(integrationManager, interfaceUri);
         }
 
         /// <summary>
         /// Template method that performs the actual operation.
         /// </summary>
         /// <param name="integrationManager">Manages desktop integration operations.</param>
-        /// <param name="interfaceID">The interface for the application to perform the operation on.</param>
+        /// <param name="interfaceUri">The interface for the application to perform the operation on.</param>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        protected abstract int ExecuteHelper(ICategoryIntegrationManager integrationManager, string interfaceID);
+        protected abstract int ExecuteHelper(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri);
     }
 }

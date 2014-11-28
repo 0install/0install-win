@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using NanoByte.Common;
 
 namespace ZeroInstall.Store.Model
 {
@@ -35,8 +36,13 @@ namespace ZeroInstall.Store.Model
         /// The URL or local path used to locate the feed.
         /// </summary>
         [Description("The URL or local path used to locate the feed.")]
-        [XmlAttribute("src")]
-        public string Source { get; set; }
+        [XmlIgnore]
+        public FeedUri Source { get; set; }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="Source"/>
+        [XmlAttribute("src"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string SourceString { get { return (Source == null) ? null : Source.ToStringRfc(); } set { Source = (value == null) ? null : new FeedUri(value); } }
         #endregion
 
         //--------------------//
@@ -76,7 +82,7 @@ namespace ZeroInstall.Store.Model
         public bool Equals(FeedReference other)
         {
             if (other == null) return false;
-            return base.Equals(other) && ModelUtils.IDEquals(other.Source, Source);
+            return base.Equals(other) && other.Source == Source;
         }
 
         /// <inheritdoc/>
@@ -93,7 +99,7 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                if (Source != null) result = (result * 397) ^ StringComparer.OrdinalIgnoreCase.GetHashCode(Source);
+                if (Source != null) result = (result * 397) ^ Source.GetHashCode();
                 return result;
             }
         }

@@ -54,9 +54,9 @@ namespace ZeroInstall.Services.Feeds
             using (var feedFile = new TemporaryFile("0install-unit-tests"))
             {
                 // ReSharper disable once AccessToDisposedClosure
-                _feedCacheMock.Setup(x => x.GetFeed(feedFile)).Returns(feed);
+                _feedCacheMock.Setup(x => x.GetFeed(new FeedUri(feedFile))).Returns(feed);
 
-                Assert.AreSame(feed, Target.GetFeed(feedFile));
+                Assert.AreSame(feed, Target.GetFeed(new FeedUri(feedFile)));
                 Assert.IsFalse(Target.Stale);
             }
         }
@@ -64,7 +64,8 @@ namespace ZeroInstall.Services.Feeds
         [Test]
         public void LocalMissing()
         {
-            Assert.Throws<FileNotFoundException>(() => Target.GetFeed("invalid-" + Path.GetRandomFileName()));
+            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
+                Assert.Throws<FileNotFoundException>(() => Target.GetFeed(new FeedUri(Path.Combine(tempDir, "invalid"))));
         }
 
         [Test]
@@ -74,23 +75,23 @@ namespace ZeroInstall.Services.Feeds
             var feedStream = new MemoryStream();
             using (var server = new MicroServer("feed.xml", feedStream))
             {
-                feed.Uri = server.FileUri;
+                feed.Uri = new FeedUri(server.FileUri);
                 feed.SaveXml(feedStream);
                 var data = feedStream.ToArray();
                 feedStream.Position = 0;
 
                 // No previous feed
-                _feedCacheMock.Setup(x => x.Contains(feed.Uri.ToString())).Returns(false);
-                _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>();
+                _feedCacheMock.Setup(x => x.Contains(feed.Uri)).Returns(false);
+                _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Throws<KeyNotFoundException>();
 
-                _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data));
-                _feedCacheMock.Setup(x => x.GetFeed(feed.Uri.ToString())).Returns(feed);
+                _feedCacheMock.Setup(x => x.Add(feed.Uri, data));
+                _feedCacheMock.Setup(x => x.GetFeed(feed.Uri)).Returns(feed);
 
                 // ReSharper disable once AccessToDisposedClosure
                 Container.GetMock<ITrustManager>().Setup(x => x.CheckTrust(data, feed.Uri, null))
                     .Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
 
-                Assert.AreEqual(feed, Target.GetFeed(feed.Uri.ToString()));
+                Assert.AreEqual(feed, Target.GetFeed(feed.Uri));
             }
         }
 
@@ -98,23 +99,23 @@ namespace ZeroInstall.Services.Feeds
         public void DownloadFromMirror()
         {
             var feed = FeedTest.CreateTestFeed();
-            feed.Uri = new Uri("http://invalid/directory/feed.xml");
+            feed.Uri = new FeedUri("http://invalid/directory/feed.xml");
             var data = feed.ToXmlString().ToStream().ToArray();
 
             // No previous feed
-            _feedCacheMock.Setup(x => x.Contains(feed.Uri.ToString())).Returns(false);
-            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>();
+            _feedCacheMock.Setup(x => x.Contains(feed.Uri)).Returns(false);
+            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Throws<KeyNotFoundException>();
 
-            _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data));
-            _feedCacheMock.Setup(x => x.GetFeed(feed.Uri.ToString())).Returns(feed);
+            _feedCacheMock.Setup(x => x.Add(feed.Uri, data));
+            _feedCacheMock.Setup(x => x.GetFeed(feed.Uri)).Returns(feed);
             using (var mirrorServer = new MicroServer("feeds/http/invalid/directory%23feed.xml/latest.xml", new MemoryStream(data)))
             {
                 // ReSharper disable once AccessToDisposedClosure
-                Container.GetMock<ITrustManager>().Setup(x => x.CheckTrust(data, feed.Uri, mirrorServer.FileUri))
+                Container.GetMock<ITrustManager>().Setup(x => x.CheckTrust(data, feed.Uri, new FeedUri(mirrorServer.FileUri)))
                     .Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
 
                 Config.FeedMirror = mirrorServer.ServerUri;
-                Assert.AreEqual(feed, Target.GetFeed(feed.Uri.ToString()));
+                Assert.AreEqual(feed, Target.GetFeed(feed.Uri));
             }
         }
 
@@ -122,11 +123,11 @@ namespace ZeroInstall.Services.Feeds
         public void DetectFreshCached()
         {
             var feed = new Feed();
-            _feedCacheMock.Setup(x => x.Contains("http://test/feed.xml")).Returns(true);
-            _feedCacheMock.Setup(x => x.GetFeed("http://test/feed.xml")).Returns(feed);
-            new FeedPreferences {LastChecked = DateTime.UtcNow}.SaveFor("http://test/feed.xml");
+            _feedCacheMock.Setup(x => x.Contains(FeedTest.Test1Uri)).Returns(true);
+            _feedCacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(feed);
+            new FeedPreferences {LastChecked = DateTime.UtcNow}.SaveFor(FeedTest.Test1Uri);
 
-            Assert.AreSame(feed, Target.GetFeed("http://test/feed.xml"));
+            Assert.AreSame(feed, Target.GetFeed(FeedTest.Test1Uri));
             Assert.IsFalse(Target.Stale);
         }
 
@@ -137,21 +138,21 @@ namespace ZeroInstall.Services.Feeds
             var feedStream = new MemoryStream();
             using (var server = new MicroServer("feed.xml", feedStream))
             {
-                feed.Uri = server.FileUri;
+                feed.Uri = new FeedUri(server.FileUri);
                 feed.SaveXml(feedStream);
                 var data = feedStream.ToArray();
                 feedStream.Position = 0;
 
-                _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data));
-                _feedCacheMock.Setup(x => x.GetFeed(feed.Uri.ToString())).Returns(feed);
-                _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Returns(new[] {new ValidSignature("fingerprint", new DateTime(200, 1, 1))});
+                _feedCacheMock.Setup(x => x.Add(feed.Uri, data));
+                _feedCacheMock.Setup(x => x.GetFeed(feed.Uri)).Returns(feed);
+                _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Returns(new[] {new ValidSignature("fingerprint", new DateTime(200, 1, 1))});
 
                 // ReSharper disable once AccessToDisposedClosure
                 Container.GetMock<ITrustManager>().Setup(x => x.CheckTrust(data, feed.Uri, null))
                     .Returns(new ValidSignature("fingerprint", new DateTime(2000, 1, 1)));
 
                 Target.Refresh = true;
-                Assert.AreEqual(feed, Target.GetFeed(feed.Uri.ToString()));
+                Assert.AreEqual(feed, Target.GetFeed(feed.Uri));
             }
         }
 
@@ -159,11 +160,11 @@ namespace ZeroInstall.Services.Feeds
         public void DetectStaleCached()
         {
             var feed = new Feed();
-            _feedCacheMock.Setup(x => x.Contains("http://test/feed.xml")).Returns(true);
-            _feedCacheMock.Setup(x => x.GetFeed("http://test/feed.xml")).Returns(feed);
-            new FeedPreferences {LastChecked = DateTime.UtcNow - Config.Freshness}.SaveFor("http://test/feed.xml");
+            _feedCacheMock.Setup(x => x.Contains(FeedTest.Test1Uri)).Returns(true);
+            _feedCacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(feed);
+            new FeedPreferences {LastChecked = DateTime.UtcNow - Config.Freshness}.SaveFor(FeedTest.Test1Uri);
 
-            Assert.AreSame(feed, Target.GetFeed("http://test/feed.xml"));
+            Assert.AreSame(feed, Target.GetFeed(FeedTest.Test1Uri));
             Assert.IsTrue(Target.Stale);
         }
 
@@ -174,9 +175,9 @@ namespace ZeroInstall.Services.Feeds
             var data = SignFeed(feed);
 
             // No previous feed
-            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Throws<KeyNotFoundException>();
+            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Throws<KeyNotFoundException>();
 
-            _feedCacheMock.Setup(x => x.Add(feed.Uri.ToString(), data));
+            _feedCacheMock.Setup(x => x.Add(feed.Uri, data));
             using (var feedFile = new TemporaryFile("0install-unit-tests"))
             {
                 File.WriteAllBytes(feedFile, data);
@@ -190,12 +191,12 @@ namespace ZeroInstall.Services.Feeds
             var feed = FeedTest.CreateTestFeed();
             var data = feed.ToXmlString().ToStream().ToArray();
 
-            Container.GetMock<ITrustManager>().Setup(x => x.CheckTrust(data, new Uri("http://invalid/"), null))
+            Container.GetMock<ITrustManager>().Setup(x => x.CheckTrust(data, new FeedUri("http://invalid/"), null))
                 .Returns(new ValidSignature("a", new DateTime(2000, 1, 1)));
             using (var feedFile = new TemporaryFile("0install-unit-tests"))
             {
                 File.WriteAllBytes(feedFile, data);
-                Assert.Throws<InvalidInterfaceIDException>(() => Target.ImportFeed(feedFile, new Uri("http://invalid/")));
+                Assert.Throws<UriFormatException>(() => Target.ImportFeed(feedFile, new FeedUri("http://invalid/")));
             }
         }
 
@@ -206,7 +207,7 @@ namespace ZeroInstall.Services.Feeds
             var data = SignFeed(feed);
 
             // Newer signautre present => replay attack
-            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri.ToString())).Returns(new[] {new ValidSignature("fingerprint", new DateTime(2002, 1, 1))});
+            _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Returns(new[] {new ValidSignature("fingerprint", new DateTime(2002, 1, 1))});
 
             using (var feedFile = new TemporaryFile("0install-unit-tests"))
             {

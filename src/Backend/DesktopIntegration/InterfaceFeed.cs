@@ -15,33 +15,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
-    /// An interface ID combined with <see cref="Feed"/> data aquired from that ID.
+    /// An interface URI combined with <see cref="Feed"/> data aquired from that ID.
     /// </summary>
     public struct InterfaceFeed
     {
         /// <summary>
         /// The URI or local path (must be absolute) to the interface.
         /// </summary>
-        public readonly string InterfaceID;
+        public readonly FeedUri InterfaceUri;
 
         /// <summary>
-        /// The data aquired from <see cref="InterfaceID"/>. <see cref="Store.Model.Feed.Normalize"/> has already been called.
+        /// The data aquired from <see cref="InterfaceUri"/>. <see cref="Store.Model.Feed.Normalize"/> has already been called.
         /// </summary>
         public readonly Feed Feed;
 
         /// <summary>
         /// Creates a new interface-feed reference.
         /// </summary>
-        /// <param name="interfaceID">The URI or local path (must be absolute) to the interface.</param>
-        /// <param name="feed">The data aquired from <paramref name="interfaceID"/>.</param>
-        public InterfaceFeed(string interfaceID, Feed feed)
+        /// <param name="interfaceUri">The URI or local path (must be absolute) to the interface.</param>
+        /// <param name="feed">The data aquired from <paramref name="interfaceUri"/>.</param>
+        public InterfaceFeed(FeedUri interfaceUri, Feed feed)
         {
-            InterfaceID = interfaceID;
+            InterfaceUri = interfaceUri;
             Feed = feed;
         }
     }

@@ -33,9 +33,9 @@
             this.labelSubtitles = new System.Windows.Forms.Label();
             this.tabControlApps = new System.Windows.Forms.TabControl();
             this.tabPageAppList = new System.Windows.Forms.TabPage();
-            this.appList = new ZeroInstall.Central.WinForms.AppTileList();
+            this.tileListMyApps = new ZeroInstall.Central.WinForms.AppTileList();
             this.tabPageCatalog = new System.Windows.Forms.TabPage();
-            this.catalogList = new ZeroInstall.Central.WinForms.AppTileList();
+            this.tileListCatalog = new ZeroInstall.Central.WinForms.AppTileList();
             this.timerActions = new System.Windows.Forms.Timer(this.components);
             this.labelVideo = new System.Windows.Forms.Label();
             this.buttonReplay = new System.Windows.Forms.Button();
@@ -64,27 +64,27 @@
             // 
             // tabPageAppList
             // 
-            this.tabPageAppList.Controls.Add(this.appList);
+            this.tabPageAppList.Controls.Add(this.tileListMyApps);
             resources.ApplyResources(this.tabPageAppList, "tabPageAppList");
             this.tabPageAppList.Name = "tabPageAppList";
             this.tabPageAppList.UseVisualStyleBackColor = true;
             // 
-            // appList
+            // tileListMyApps
             // 
-            resources.ApplyResources(this.appList, "appList");
-            this.appList.Name = "appList";
+            resources.ApplyResources(this.tileListMyApps, "tileListMyApps");
+            this.tileListMyApps.Name = "tileListMyApps";
             // 
             // tabPageCatalog
             // 
-            this.tabPageCatalog.Controls.Add(this.catalogList);
+            this.tabPageCatalog.Controls.Add(this.tileListCatalog);
             resources.ApplyResources(this.tabPageCatalog, "tabPageCatalog");
             this.tabPageCatalog.Name = "tabPageCatalog";
             this.tabPageCatalog.UseVisualStyleBackColor = true;
             // 
-            // catalogList
+            // tileListCatalog
             // 
-            resources.ApplyResources(this.catalogList, "catalogList");
-            this.catalogList.Name = "catalogList";
+            resources.ApplyResources(this.tileListCatalog, "tileListCatalog");
+            this.tileListCatalog.Name = "tileListCatalog";
             // 
             // timerActions
             // 
@@ -154,9 +154,9 @@
         private System.Windows.Forms.Label labelSubtitles;
         private System.Windows.Forms.TabControl tabControlApps;
         private System.Windows.Forms.TabPage tabPageAppList;
-        private AppTileList appList;
+        private AppTileList tileListMyApps;
         private System.Windows.Forms.TabPage tabPageCatalog;
-        private AppTileList catalogList;
+        private AppTileList tileListCatalog;
         private System.Windows.Forms.Timer timerActions;
         private System.Windows.Forms.Label labelVideo;
         private System.Windows.Forms.Button buttonReplay;

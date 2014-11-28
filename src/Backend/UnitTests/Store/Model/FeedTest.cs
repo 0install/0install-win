@@ -31,6 +31,13 @@ namespace ZeroInstall.Store.Model
     public class FeedTest
     {
         #region Helpers
+        public static readonly FeedUri Test1Uri = new FeedUri("http://0install.de/feeds/test/test1.xml");
+        public static readonly FeedUri Test2Uri = new FeedUri("http://0install.de/feeds/test/test2.xml");
+        public static readonly FeedUri Test3Uri = new FeedUri("http://0install.de/feeds/test/test3.xml");
+        public static readonly FeedUri Sub1Uri = new FeedUri("http://0install.de/feeds/test/sub1.xml");
+        public static readonly FeedUri Sub2Uri = new FeedUri("http://0install.de/feeds/test/sub2.xml");
+        public static readonly FeedUri Sub3Uri = new FeedUri("http://0install.de/feeds/test/sub3.xml");
+
         /// <summary>
         /// Creates a fictive test <see cref="Feed"/>.
         /// </summary>
@@ -38,12 +45,12 @@ namespace ZeroInstall.Store.Model
         {
             return new Feed
             {
-                Uri = new Uri("http://0install.de/feeds/test/test1.xml"),
+                Uri = Test1Uri,
                 Name = "MyApp",
                 Categories = {"Category1", "Category2"},
                 Homepage = new Uri("http://0install.de/"),
-                Feeds = {new FeedReference {Source = "hhttp://0install.de/feeds/test/sub1.xml"}},
-                FeedFor = {new InterfaceReference {Target = new Uri("http://0install.de/feeds/test/super1.xml")}},
+                Feeds = {new FeedReference {Source = Sub1Uri}},
+                FeedFor = {new InterfaceReference {Target = new FeedUri("http://0install.de/feeds/test/super1.xml")}},
                 Summaries = {"Default summary", {"de-DE", "German summary"}},
                 Descriptions = {"Default description", {"de-DE", "German description"}},
                 Icons = {new Icon {Href = new Uri("http://0install.de/feeds/images/test.png"), MimeType = Icon.MimeTypePng}, new Icon {Href = new Uri("http://0install.de/feeds/images/test.ico"), MimeType = Icon.MimeTypeIco}},
@@ -82,7 +89,7 @@ namespace ZeroInstall.Store.Model
                 {
                     new Dependency
                     {
-                        InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                        InterfaceUri = Test1Uri,
                         Constraints = {new Constraint {NotBefore = new ImplementationVersion("1.0"), Before = new ImplementationVersion("2.0")}},
                         Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding(), ExecutableInVarTest.CreateTestBinding(), ExecutableInPathTest.CreateTestBinding()}
                     }
@@ -91,7 +98,7 @@ namespace ZeroInstall.Store.Model
                 {
                     new Restriction
                     {
-                        InterfaceID = "http://0install.de/feeds/test/test2.xml",
+                        InterfaceUri = Test2Uri,
                         Constraints = {new Constraint {Before = new ImplementationVersion("2.0")}}
                     }
                 },
@@ -130,7 +137,7 @@ namespace ZeroInstall.Store.Model
                 {
                     new Dependency
                     {
-                        InterfaceID = "http://0install.de/feeds/test/test2.xml", Importance = Importance.Recommended,
+                        InterfaceUri = Test2Uri, Importance = Importance.Recommended,
                         Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding(), ExecutableInVarTest.CreateTestBinding(), ExecutableInPathTest.CreateTestBinding()}
                     }
                 }
@@ -205,7 +212,7 @@ namespace ZeroInstall.Store.Model
         public void TestNormalize()
         {
             var feed = new Feed {Elements = {CreateTestGroup()}};
-            feed.Normalize("http://0install.de/feeds/test/test1.xml");
+            feed.Normalize(Test1Uri);
 
             var implementation = feed.Elements[0];
             Assert.AreEqual(new Architecture(OS.FreeBsd, Cpu.I586), implementation.Architecture);
@@ -250,8 +257,8 @@ namespace ZeroInstall.Store.Model
                 feed.SaveXml(tempFile);
                 var feedReload = XmlStorage.LoadXml<Feed>(tempFile);
 
-                feed.Normalize(tempFile);
-                feedReload.Normalize(tempFile);
+                feed.Normalize(new FeedUri(tempFile));
+                feedReload.Normalize(new FeedUri(tempFile));
                 Assert.AreEqual(feed.GetHashCode(), feedReload.GetHashCode());
             }
         }

@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
@@ -68,107 +69,88 @@ namespace ZeroInstall.Store.Feeds
 
         #region Contains
         /// <inheritdoc/>
-        public bool Contains(string feedID)
+        public bool Contains(FeedUri feedUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
 
-            try
-            {
-                ModelUtils.ValidateInterfaceID(feedID);
-            }
-            catch (InvalidInterfaceIDException)
-            {
-                return false;
-            }
+            // Local files are passed through directly
+            if (feedUri.IsFile) return File.Exists(feedUri.LocalPath);
 
-            return FileUtils.ExistsCaseSensitive(Path.Combine(DirectoryPath, ModelUtils.Escape(feedID))) ||
-                   // Local files are passed through directly
-                   File.Exists(feedID);
+            return FileUtils.ExistsCaseSensitive(Path.Combine(DirectoryPath, feedUri.Escape()));
         }
         #endregion
 
         #region List all
         /// <inheritdoc/>
-        public IEnumerable<string> ListAll()
+        public IEnumerable<FeedUri> ListAll()
         {
-            if (!Directory.Exists(DirectoryPath)) return Enumerable.Empty<string>();
+            if (!Directory.Exists(DirectoryPath)) return Enumerable.Empty<FeedUri>();
 
-            // Find all files whose names begin with an URL protocol
-            return Directory.GetFiles(DirectoryPath, "http*")
-                // Take the file name itself and use URL encoding to get the original URL
-                .Select(path => ModelUtils.Unescape(Path.GetFileName(path) ?? ""))
-                // Filter out temporary/junk files
-                .Where(ModelUtils.IsValidUri).ToList();
+            return Directory.GetFiles(DirectoryPath)
+                .TrySelect<string, FeedUri, UriFormatException>(x => FeedUri.Unescape(Path.GetFileName(x)));
         }
         #endregion
 
         #region Get
         /// <inheritdoc/>
-        public Feed GetFeed(string feedID)
+        public Feed GetFeed(FeedUri feedUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
 
-            ModelUtils.ValidateInterfaceID(feedID);
-            var feed = XmlStorage.LoadXml<Feed>(GetPath(feedID));
-            feed.Normalize(feedID);
+            var feed = XmlStorage.LoadXml<Feed>(GetPath(feedUri));
+            feed.Normalize(feedUri);
             return feed;
         }
 
         /// <inheritdoc/>
-        public IEnumerable<OpenPgpSignature> GetSignatures(string feedID)
+        public IEnumerable<OpenPgpSignature> GetSignatures(FeedUri feedUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
 
-            ModelUtils.ValidateInterfaceID(feedID);
-            return FeedUtils.GetSignatures(_openPgp, File.ReadAllBytes(GetPath(feedID)));
+            return FeedUtils.GetSignatures(_openPgp, File.ReadAllBytes(GetPath(feedUri)));
         }
 
         /// <summary>
         /// Determines the file path used to store a feed with a particular ID.
         /// </summary>
-        /// <exception cref="KeyNotFoundException">The requested <paramref name="feedID"/> was not found in the cache.</exception>
-        private string GetPath(string feedID)
+        /// <exception cref="KeyNotFoundException">The requested <paramref name="feedUri"/> was not found in the cache.</exception>
+        private string GetPath(FeedUri feedUri)
         {
-            if (ModelUtils.IsValidUri(feedID))
+            if (feedUri.IsFile) return feedUri.LocalPath;
             {
-                string fileName = ModelUtils.Escape(feedID);
+                string fileName = feedUri.Escape();
                 string path = Path.Combine(DirectoryPath, fileName);
                 if (FileUtils.ExistsCaseSensitive(path)) return path;
-                else throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
-            }
-            else
-            { // Assume invalid URIs are local paths
-                return feedID;
+                else throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedUri, path));
             }
         }
         #endregion
 
         #region Add
         /// <inheritdoc/>
-        public void Add(string feedID, byte[] data)
+        public void Add(FeedUri feedUri, byte[] data)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             if (data == null) throw new ArgumentNullException("data");
             #endregion
 
-            ModelUtils.ValidateInterfaceID(feedID);
             if (!Directory.Exists(DirectoryPath)) Directory.CreateDirectory(DirectoryPath);
 
             try
             {
-                WriteToFile(data, Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)));
+                WriteToFile(data, Path.Combine(DirectoryPath, feedUri.Escape()));
             }
             catch (PathTooLongException)
             {
-                // Contract too long file paths using a hash of the feed ID
-                WriteToFile(data, Path.Combine(DirectoryPath, feedID.Hash(SHA256.Create())));
+                // Contract too long file paths using a hash of the feed URI
+                WriteToFile(data, Path.Combine(DirectoryPath, feedUri.AbsoluteUri.Hash(SHA256.Create())));
             }
         }
 
@@ -192,14 +174,13 @@ namespace ZeroInstall.Store.Feeds
 
         #region Remove
         /// <inheritdoc/>
-        public void Remove(string feedID)
+        public void Remove(FeedUri feedUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
 
-            ModelUtils.ValidateInterfaceID(feedID);
-            File.Delete(GetPath(feedID));
+            File.Delete(GetPath(feedUri));
         }
         #endregion
 

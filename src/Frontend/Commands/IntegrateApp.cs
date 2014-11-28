@@ -28,6 +28,7 @@ using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services.Feeds;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands
@@ -87,21 +88,21 @@ namespace ZeroInstall.Commands
         #endregion
 
         /// <inheritdoc/>
-        protected override int ExecuteHelper(ICategoryIntegrationManager integrationManager, string interfaceID)
+        protected override int ExecuteHelper(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
             if (RemoveOnly())
             {
-                RemoveOnly(integrationManager, interfaceID);
+                RemoveOnly(integrationManager, interfaceUri);
                 return 0;
             }
 
-            var appEntry = GetAppEntry(integrationManager, ref interfaceID);
-            var feed = FeedManager.GetFeedFresh(interfaceID);
+            var appEntry = GetAppEntry(integrationManager, ref interfaceUri);
+            var feed = FeedManager.GetFeedFresh(interfaceUri);
 
             if (NoSpecifiedIntegrations())
             {
@@ -148,9 +149,9 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Applies the <see cref="_removeCategories"/> specified by the user.
         /// </summary>
-        private void RemoveOnly(ICategoryIntegrationManager integrationManager, string interfaceID)
+        private void RemoveOnly(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri)
         {
-            integrationManager.RemoveAccessPointCategories(integrationManager.AppList[interfaceID], _removeCategories.ToArray());
+            integrationManager.RemoveAccessPointCategories(integrationManager.AppList[interfaceUri], _removeCategories.ToArray());
         }
 
         /// <summary>
@@ -177,21 +178,21 @@ namespace ZeroInstall.Commands
         }
 
         /// <summary>
-        /// Finds an existing <see cref="AppEntry"/> or creates a new one for a specific interface ID and feed.
+        /// Finds an existing <see cref="AppEntry"/> or creates a new one for a specific interface URI and feed.
         /// </summary>
         /// <param name="integrationManager">Manages desktop integration operations.</param>
-        /// <param name="interfaceID">The interface ID to create an <see cref="AppEntry"/> for. Will be updated if <see cref="Feed.ReplacedBy"/> is set and accepted by the user.</param>
-        protected override AppEntry GetAppEntry(IIntegrationManager integrationManager, ref string interfaceID)
+        /// <param name="interfaceUri">The interface URI to create an <see cref="AppEntry"/> for. Will be updated if <see cref="Feed.ReplacedBy"/> is set and accepted by the user.</param>
+        protected override AppEntry GetAppEntry(IIntegrationManager integrationManager, ref FeedUri interfaceUri)
         {
             #region Sanity checks
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             #endregion
 
-            var appEntry = base.GetAppEntry(integrationManager, ref interfaceID);
+            var appEntry = base.GetAppEntry(integrationManager, ref interfaceUri);
 
             // Detect feed changes that may make an AppEntry update necessary
-            var feed = FeedManager.GetFeedFresh(interfaceID);
+            var feed = FeedManager.GetFeedFresh(interfaceUri);
             if (!appEntry.CapabilityLists.UnsequencedEquals(feed.CapabilityLists))
             {
                 string changedMessage = string.Format(Resources.CapabilitiesChanged, appEntry.Name);

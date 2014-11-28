@@ -58,19 +58,19 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            string feedID;
-            var interfaces = GetInterfaces(out feedID);
+            FeedUri feedUri;
+            var interfaces = GetInterfaces(out feedUri);
             if (!interfaces.Any())
             {
-                Handler.Output(Resources.FeedManagement, string.Format(Resources.MissingFeedFor, feedID));
+                Handler.Output(Resources.FeedManagement, string.Format(Resources.MissingFeedFor, feedUri));
                 return 1;
             }
 
-            var modifiedInterfaces = ApplyFeedToInterfaces(feedID, interfaces);
+            var modifiedInterfaces = ApplyFeedToInterfaces(feedUri, interfaces);
 
             Handler.OutputLow(Resources.FeedManagement, (modifiedInterfaces.Count == 0)
                 ? NoneModifiedMessage
-                : string.Format(ModifiedMessage, StringUtils.Join(Environment.NewLine, modifiedInterfaces)));
+                : string.Format(ModifiedMessage, StringUtils.Join(Environment.NewLine, modifiedInterfaces.Select(x => x.ToStringRfc()))));
             return (modifiedInterfaces.Count == 0) ? 0 : 1;
         }
 
@@ -78,7 +78,7 @@ namespace ZeroInstall.Commands
         /// Adds/removes a <see cref="FeedReference"/> to/from one or more <see cref="InterfacePreferences"/>.
         /// </summary>
         /// <returns>The interfaces that were actually affected.</returns>
-        protected abstract ICollection<string> ApplyFeedToInterfaces(string feedID, IEnumerable<string> interfaces);
+        protected abstract ICollection<FeedUri> ApplyFeedToInterfaces(FeedUri feedUri, IEnumerable<FeedUri> interfaces);
 
         /// <summary>Message to be displayed if the command resulted in an action.</summary>
         protected abstract string ModifiedMessage { get; }
@@ -90,20 +90,20 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Determines which <see cref="InterfacePreferences.Feeds"/> are to be updated.
         /// </summary>
-        /// <param name="feedID">Returns the new feed being added/removed.</param>
+        /// <param name="feedUri">Returns the new feed being added/removed.</param>
         /// <returns>A list of interfaces IDs to be updated.</returns>
-        private IEnumerable<string> GetInterfaces(out string feedID)
+        private IEnumerable<FeedUri> GetInterfaces(out FeedUri feedUri)
         {
             if (AdditionalArgs.Count == 2)
             { // Main interface for feed specified explicitly
-                feedID = GetCanonicalID(AdditionalArgs[1]);
-                return new[] {GetCanonicalID(AdditionalArgs[0])};
+                feedUri = GetCanonicalUri(AdditionalArgs[1]);
+                return new[] {GetCanonicalUri(AdditionalArgs[0])};
             }
             else
             { // Determine interfaces from feed content (<feed-for> tags)
-                feedID = GetCanonicalID(AdditionalArgs[0]);
-                var feed = FeedManager.GetFeedFresh(feedID);
-                return feed.FeedFor.Select(reference => reference.Target).WhereNotNull().Select(x => x.ToString());
+                feedUri = GetCanonicalUri(AdditionalArgs[0]);
+                var feed = FeedManager.GetFeedFresh(feedUri);
+                return feed.FeedFor.Select(reference => reference.Target).WhereNotNull().Select(x => new FeedUri(x));
             }
         }
         #endregion

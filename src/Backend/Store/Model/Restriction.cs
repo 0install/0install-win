@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
 using NanoByte.Common.Collections;
@@ -31,15 +32,21 @@ namespace ZeroInstall.Store.Model
     [Description("Restricts the versions of an Implementation that are allowed without creating a dependency on the implementation if its was not already chosen.")]
     [Serializable]
     [XmlRoot("restricts", Namespace = Feed.XmlNamespace), XmlType("restriction", Namespace = Feed.XmlNamespace)]
-    public class Restriction : FeedElement, IInterfaceID, ICloneable, IEquatable<Restriction>
+    public class Restriction : FeedElement, IInterfaceUri, ICloneable, IEquatable<Restriction>
     {
         #region Properties
         /// <summary>
         /// The URI or local path used to identify the interface.
         /// </summary>
         [Description("The URI or local path used to identify the interface.")]
-        [XmlAttribute("interface")]
-        public string InterfaceID { get; set; }
+        [XmlIgnore]
+        public FeedUri InterfaceUri { get; set; }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="InterfaceUri"/>
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
+        [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string InterfaceUriString { get { return (InterfaceUri == null) ? null : InterfaceUri.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
 
         /// <summary>
         /// Determines for which operating systems this dependency is required.
@@ -105,7 +112,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            return InterfaceID;
+            return InterfaceUri.ToString();
         }
         #endregion
 
@@ -116,7 +123,7 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="Restriction"/>.</returns>
         public virtual Restriction Clone()
         {
-            var restriction = new Restriction {InterfaceID = InterfaceID, OS = OS, Distribution = Distribution, Versions = Versions};
+            var restriction = new Restriction {InterfaceUri = InterfaceUri, OS = OS, Distribution = Distribution, Versions = Versions};
             restriction.Constraints.AddRange(Constraints.CloneElements());
             return restriction;
         }
@@ -132,7 +139,7 @@ namespace ZeroInstall.Store.Model
         public bool Equals(Restriction other)
         {
             if (other == null) return false;
-            return base.Equals(other) && InterfaceID == other.InterfaceID && OS == other.OS && Versions == other.Versions && Constraints.SequencedEquals(other.Constraints);
+            return base.Equals(other) && InterfaceUri == other.InterfaceUri && OS == other.OS && Versions == other.Versions && Constraints.SequencedEquals(other.Constraints);
         }
 
         /// <inheritdoc/>
@@ -149,7 +156,7 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (InterfaceID ?? "").GetHashCode();
+                if (InterfaceUri != null) result = (result * 397) ^ InterfaceUri.GetHashCode();
                 result = (result * 397) ^ (int)OS;
                 result = (result * 397) ^ Constraints.GetSequencedHashCode();
                 if (Versions != null) result = (result * 397) ^ Versions.GetHashCode();

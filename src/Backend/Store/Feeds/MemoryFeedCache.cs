@@ -38,7 +38,7 @@ namespace ZeroInstall.Store.Feeds
         private readonly IFeedCache _backingCache;
 
         /// <summary>The in-memory cache for storing parsed <see cref="Feed"/>s.</summary>
-        private readonly Dictionary<string, Feed> _feedDictionary = new Dictionary<string, Feed>();
+        private readonly Dictionary<FeedUri, Feed> _feedDictionary = new Dictionary<FeedUri, Feed>();
         #endregion
 
         #region Constructor
@@ -60,15 +60,15 @@ namespace ZeroInstall.Store.Feeds
 
         #region Contains
         /// <inheritdoc/>
-        public bool Contains(string feedID)
+        public bool Contains(FeedUri feedUri)
         {
-            return _backingCache.Contains(feedID);
+            return _backingCache.Contains(feedUri);
         }
         #endregion
 
         #region List all
         /// <inheritdoc/>
-        public IEnumerable<string> ListAll()
+        public IEnumerable<FeedUri> ListAll()
         {
             return _backingCache.ListAll();
         }
@@ -76,75 +76,72 @@ namespace ZeroInstall.Store.Feeds
 
         #region Get
         /// <inheritdoc/>
-        public Feed GetFeed(string feedID)
+        public Feed GetFeed(FeedUri feedUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            ModelUtils.ValidateInterfaceID(feedID);
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
 
             lock (_feedDictionary)
             {
-                if (!_feedDictionary.ContainsKey(feedID))
+                if (!_feedDictionary.ContainsKey(feedUri))
                 { // Add to memory cache if missing
-                    Feed feed = _backingCache.GetFeed(feedID);
-                    _feedDictionary.Add(feedID, feed);
+                    Feed feed = _backingCache.GetFeed(feedUri);
+                    _feedDictionary.Add(feedUri, feed);
                     return feed;
                 }
 
                 // Get from memory cache
-                return _feedDictionary[feedID];
+                return _feedDictionary[feedUri];
             }
         }
 
         /// <inheritdoc/>
-        public IEnumerable<OpenPgpSignature> GetSignatures(string feedID)
+        public IEnumerable<OpenPgpSignature> GetSignatures(FeedUri feedUri)
         {
-            return _backingCache.GetSignatures(feedID);
+            return _backingCache.GetSignatures(feedUri);
         }
         #endregion
 
         #region Add
         /// <inheritdoc/>
-        public void Add(string feedID, byte[] data)
+        public void Add(FeedUri feedUri, byte[] data)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            ModelUtils.ValidateInterfaceID(feedID);
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             if (data == null) throw new ArgumentNullException("data");
             #endregion
 
             // Add to underlying cache
-            _backingCache.Add(feedID, data);
+            _backingCache.Add(feedUri, data);
 
             // Add to memory cache (replacing existing old versions)
             var feed = XmlStorage.LoadXml<Feed>(new MemoryStream(data));
-            feed.Normalize(feedID);
+            feed.Normalize(feedUri);
             lock (_feedDictionary)
             {
-                _feedDictionary.Remove(feedID);
-                _feedDictionary.Add(feedID, feed);
+                _feedDictionary.Remove(feedUri);
+                _feedDictionary.Add(feedUri, feed);
             }
         }
         #endregion
 
         #region Remove
         /// <inheritdoc/>
-        public void Remove(string feedID)
+        public void Remove(FeedUri feedUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            ModelUtils.ValidateInterfaceID(feedID);
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
 
             lock (_feedDictionary)
             {
                 // Remove from memory cache
-                _feedDictionary.Remove(feedID);
+                _feedDictionary.Remove(feedUri);
             }
 
             // Remove from underlying cache
-            _backingCache.Remove(feedID);
+            _backingCache.Remove(feedUri);
         }
         #endregion
 

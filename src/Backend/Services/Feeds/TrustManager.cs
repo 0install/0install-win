@@ -69,12 +69,14 @@ namespace ZeroInstall.Services.Feeds
 
         /// <inheritdoc/>
         [SuppressMessage("Microsoft.Usage", "CA2234:PassSystemUriObjectsInsteadOfStrings")]
-        public ValidSignature CheckTrust(byte[] data, Uri uri, Uri mirrorUrl = null)
+        public ValidSignature CheckTrust(byte[] data, FeedUri uri, FeedUri mirrorUrl = null)
         {
             #region Sanity checks
             if (uri == null) throw new ArgumentNullException("uri");
             if (data == null) throw new ArgumentNullException("data");
             #endregion
+
+            if (uri.IsFile) throw new UriFormatException(Resources.FeedUriLocal);
 
             var domain = new Domain(uri.Host);
             KeyImported:
@@ -102,7 +104,7 @@ namespace ZeroInstall.Services.Feeds
             throw new SignatureException(string.Format(Resources.FeedNoTrustedSignatures, uri));
         }
 
-        private bool TrustNew(TrustDB trustDB, Uri uri, ValidSignature signature, Domain domain)
+        private bool TrustNew(TrustDB trustDB, FeedUri uri, ValidSignature signature, Domain domain)
         {
             if (AskKeyApproval(uri, signature, domain))
             {
@@ -113,13 +115,13 @@ namespace ZeroInstall.Services.Feeds
             else return false;
         }
 
-        private bool AskKeyApproval(Uri uri, ValidSignature signature, Domain domain)
+        private bool AskKeyApproval(FeedUri uri, ValidSignature signature, Domain domain)
         {
             bool goodVote;
             var keyInformation = GetKeyInformation(signature.Fingerprint, out goodVote) ?? Resources.NoKeyInfoServerData;
 
             // Automatically trust key for _new_ feeds if  voted good by key server
-            if (_config.AutoApproveKeys && goodVote && !_feedCache.Contains(uri.ToString())) return true;
+            if (_config.AutoApproveKeys && goodVote && !_feedCache.Contains(uri)) return true;
 
             // Otherwise ask user
             return _handler.AskQuestion(
@@ -127,7 +129,7 @@ namespace ZeroInstall.Services.Feeds
                 batchInformation: Resources.UntrustedKeys);
         }
 
-        private void DownloadMissingKey(Uri uri, Uri mirrorUrl, MissingKeySignature signature)
+        private void DownloadMissingKey(FeedUri uri, FeedUri mirrorUrl, MissingKeySignature signature)
         {
             var keyUri = new Uri(mirrorUrl ?? uri, signature.KeyID + ".gpg");
             byte[] keyData;
@@ -173,7 +175,7 @@ namespace ZeroInstall.Services.Feeds
             try
             {
                 var keyInfoUri = new Uri(_config.KeyInfoServer, "key/" + fingerprint);
-                var xmlReader = XmlReader.Create(keyInfoUri.ToStringRfc());
+                var xmlReader = XmlReader.Create(keyInfoUri.AbsoluteUri);
                 _handler.CancellationToken.ThrowIfCancellationRequested();
                 if (!xmlReader.ReadToFollowing("item"))
                 {

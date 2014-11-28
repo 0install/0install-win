@@ -19,7 +19,6 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
-using NanoByte.Common.Net;
 
 namespace ZeroInstall.Store.Model
 {
@@ -38,14 +37,14 @@ namespace ZeroInstall.Store.Model
         /// The URI used to locate the interface.
         /// </summary>
         [XmlIgnore, Browsable(false)]
-        public Uri Target { get; set; }
+        public FeedUri Target { get; set; }
 
         /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="Target"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [DisplayName(@"Target"), Description("The URI used to locate the interface.")]
         [XmlAttribute("interface"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string TargetString { get { return (Target == null ? null : Target.ToStringRfc()); } set { Target = (string.IsNullOrEmpty(value) ? null : new Uri(value)); } }
+        public string TargetString { get { return (Target == null ? null : Target.ToStringRfc()); } set { Target = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
         #endregion
 
         //--------------------//

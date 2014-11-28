@@ -63,11 +63,11 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Sets missing default values and handles legacy elements.
         /// </summary>
-        /// <param name="feedID">The feed the data was originally loaded from.</param>
+        /// <param name="feedUri">The feed the data was originally loaded from.</param>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
-        public override void Normalize(string feedID)
+        public override void Normalize(FeedUri feedUri)
         {
-            base.Normalize(feedID);
+            base.Normalize(feedUri);
 
             // Merge the version modifier into the normal version attribute
             if (!string.IsNullOrEmpty(VersionModifier))
@@ -81,9 +81,9 @@ namespace ZeroInstall.Store.Model
 
             // Make local paths absolute
             if (!string.IsNullOrEmpty(LocalPath))
-                LocalPath = FeedElementUtils.GetAbsolutePath(LocalPath, feedID);
+                LocalPath = ModelUtils.GetAbsolutePath(LocalPath, feedUri);
             else if (!string.IsNullOrEmpty(ID) && ID.StartsWith(".")) // Get local path from ID
-                LocalPath = ID = FeedElementUtils.GetAbsolutePath(ID, feedID);
+                LocalPath = ID = ModelUtils.GetAbsolutePath(ID, feedUri);
 
             // Parse manifest digest from ID if missing
             if (!string.IsNullOrEmpty(ID)) _manifestDigest.ParseID(ID);

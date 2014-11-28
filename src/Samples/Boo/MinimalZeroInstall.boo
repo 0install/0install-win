@@ -1,9 +1,10 @@
 ﻿import NanoByte.Common.Tasks
 import ZeroInstall.Services
+import ZeroInstall.Store
 import ZeroInstall.Store.Model
 
 def Main(argv as (string)):
-    requirements = Requirements(InterfaceID:argv[0])
+    requirements = Requirements(InterfaceUri:FeedUri(argv[0]))
 
     services = ServiceLocator(CliTaskHandler())
     selections = services.Solver.Solve(requirements)

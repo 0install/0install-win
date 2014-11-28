@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -27,6 +26,7 @@ using NanoByte.Common.Collections;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using ZeroInstall.Services.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
@@ -102,26 +102,23 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// The default <see cref="Catalog"/> source used if no other is specified.
         /// </summary>
-        public const string DefaultSource = "http://0install.de/catalog/";
+        public static readonly FeedUri DefaultSource = new FeedUri("http://0install.de/catalog/");
 
         /// <summary>
         /// Downloads and merges all <see cref="Catalog"/>s specified by the configuration files.
         /// </summary>
         /// <returns>A merged <see cref="Catalog"/> view.</returns>
-        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
-        /// <exception cref="SignatureException">The signature data of a remote catalog file could not be verified.</exception>
+        /// <exception cref="IOException">A problem occured while reading a local catalog file.</exception>
+        /// <exception cref="WebException">A problem occured while fetching a remote catalog file.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
+        /// <exception cref="SignatureException">The signature data of a remote catalog file could not be verified.</exception>
+        /// <exception cref="UriFormatException">An invalid catalog source is specified in the configuration file.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs network IO and has side-effects")]
         public Catalog GetOnline()
         {
-            var catalogs = GetCatalogSources().Select(delegate(string source)
-            {
-                // Download remote catalogs and open local catalogs
-                Uri catalogUrl;
-                return ModelUtils.TryParseUri(source, out catalogUrl)
-                    ? DownloadCatalog(catalogUrl)
-                    : XmlStorage.LoadXml<Catalog>(source);
-            });
+            var catalogs = GetCatalogSources().Select(source => source.IsFile
+                ? XmlStorage.LoadXml<Catalog>(source.LocalPath)
+                : DownloadCatalog(source));
             var catalog = Catalog.Merge(catalogs);
 
             // Cache the result
@@ -154,7 +151,7 @@ namespace ZeroInstall.Services.Feeds
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="SignatureException">The signature data of a remote catalog file could not be verified.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        private Catalog DownloadCatalog(Uri url)
+        private Catalog DownloadCatalog(FeedUri url)
         {
             byte[] data;
             using (var webClient = new WebClientTimeout())
@@ -170,21 +167,18 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         /// <exception cref="IOException">There was a problem accessing a configuration file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to a configuration file was not permitted.</exception>
+        /// <exception cref="UriFormatException">An invalid catalog source is specified in the configuration file.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reads data from a config file with no caching")]
-        public static string[] GetCatalogSources()
+        public static FeedUri[] GetCatalogSources()
         {
             var path = Locations.GetLoadConfigPaths("0install.net", true, "catalog-sources").FirstOrDefault();
             if (string.IsNullOrEmpty(path)) return new[] {DefaultSource};
 
-            var result = new List<string>();
-            foreach (string line in File.ReadAllLines(path, Encoding.UTF8).Except(string.IsNullOrEmpty).Except(line => line.StartsWith("#")))
-            {
-                Uri catalogUrl;
-                result.Add(ModelUtils.TryParseUri(line, out catalogUrl)
-                    ? catalogUrl.ToString()
-                    : Environment.ExpandEnvironmentVariables(line));
-            }
-            return result.ToArray();
+            return File.ReadAllLines(path, Encoding.UTF8)
+                .Except(string.IsNullOrEmpty)
+                .Except(line => line.StartsWith("#"))
+                .Select(line => new FeedUri(line))
+                .ToArray();
         }
         #endregion
     }

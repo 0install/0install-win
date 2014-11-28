@@ -60,20 +60,20 @@ namespace ZeroInstall.Services.Solvers
             _isCached = new TransparentCache<ManifestDigest, bool>(x => implementations.Contains(x, ManifestDigestPartialEqualityComparer.Instance));
             //_isCached = new TransparentCache<ManifestDigest, bool>(store.Contains);
 
-            _comparer = new TransparentCache<string, SelectionCandidateComparer>(id => new SelectionCandidateComparer(config, _isCached, _interfacePreferences[id].StabilityPolicy));
-            _feeds = new TransparentCache<string, Feed>(feedManager.GetFeed);
+            _comparer = new TransparentCache<FeedUri, SelectionCandidateComparer>(id => new SelectionCandidateComparer(config, _isCached, _interfacePreferences[id].StabilityPolicy));
+            _feeds = new TransparentCache<FeedUri, Feed>(feedManager.GetFeed);
         }
         #endregion
 
         #region Caches
-        /// <summary>Maps interface IDs to <see cref="InterfacePreferences"/>.</summary>
-        private readonly TransparentCache<string, InterfacePreferences> _interfacePreferences = new TransparentCache<string, InterfacePreferences>(InterfacePreferences.LoadForSafe);
+        /// <summary>Maps interface URIs to <see cref="InterfacePreferences"/>.</summary>
+        private readonly TransparentCache<FeedUri, InterfacePreferences> _interfacePreferences = new TransparentCache<FeedUri, InterfacePreferences>(InterfacePreferences.LoadForSafe);
 
-        /// <summary>Maps interface IDs to <see cref="SelectionCandidateComparer"/>s.</summary>
-        private readonly TransparentCache<string, SelectionCandidateComparer> _comparer;
+        /// <summary>Maps interface URIs to <see cref="SelectionCandidateComparer"/>s.</summary>
+        private readonly TransparentCache<FeedUri, SelectionCandidateComparer> _comparer;
 
-        /// <summary>Maps feed IDs to <see cref="Feed"/>s. Transparent caching ensures individual feeds do not change during solver run.</summary>
-        private readonly TransparentCache<string, Feed> _feeds;
+        /// <summary>Maps feed URIs to <see cref="Feed"/>s. Transparent caching ensures individual feeds do not change during solver run.</summary>
+        private readonly TransparentCache<FeedUri, Feed> _feeds;
 
         /// <summary>Indicates which implementations (identified by <see cref="ManifestDigest"/>) are already cached in the <see cref="IStore"/>.</summary>
         private readonly TransparentCache<ManifestDigest, bool> _isCached;
@@ -87,49 +87,49 @@ namespace ZeroInstall.Services.Solvers
             var candidates = GetFeeds(requirements)
                 .SelectMany(x => GetCandidates(x.Key, x.Value, requirements))
                 .ToList();
-            candidates.Sort(_comparer[requirements.InterfaceID]);
+            candidates.Sort(_comparer[requirements.InterfaceUri]);
             return candidates;
         }
 
-        private IDictionary<string, Feed> GetFeeds(Requirements requirements)
+        private IDictionary<FeedUri, Feed> GetFeeds(Requirements requirements)
         {
-            var dictionary = new Dictionary<string, Feed>();
+            var dictionary = new Dictionary<FeedUri, Feed>();
 
-            AddFeed(dictionary, requirements.InterfaceID, requirements);
-            foreach (var reference in _interfacePreferences[requirements.InterfaceID].Feeds)
+            AddFeed(dictionary, requirements.InterfaceUri, requirements);
+            foreach (var reference in _interfacePreferences[requirements.InterfaceUri].Feeds)
                 AddFeed(dictionary, reference.Source, requirements);
 
             return dictionary;
         }
 
-        private void AddFeed(IDictionary<string, Feed> dictionary, string feedID, Requirements requirements)
+        private void AddFeed(IDictionary<FeedUri, Feed> dictionary, FeedUri feedUri, Requirements requirements)
         {
-            if (dictionary.ContainsKey(feedID)) return;
+            if (dictionary.ContainsKey(feedUri)) return;
 
-            var feed = _feeds[feedID];
+            var feed = _feeds[feedUri];
             if (feed.MinInjectorVersion != null && new ImplementationVersion(AppInfo.Current.Version) < feed.MinInjectorVersion)
             {
-                Log.Warn("The solver version is too old. The feed '{0}' requires at least version {1} but the installed version is {2}. Try updating Zero Install.");
+                Log.Warn(string.Format("The solver version is too old. The feed '{0}' requires at least version {1} but the installed version is {2}. Try updating Zero Install.", feedUri, feed.MinInjectorVersion, AppInfo.Current.Version));
                 return;
             }
 
-            dictionary.Add(feedID, feed);
+            dictionary.Add(feedUri, feed);
             foreach (var reference in feed.Feeds
                 .Where(reference => reference.Architecture.IsCompatible(requirements.Architecture) &&
                                     reference.Languages.ContainsAny(requirements.Languages)))
                 AddFeed(dictionary, reference.Source, requirements);
         }
 
-        private IEnumerable<SelectionCandidate> GetCandidates(string feedID, Feed feed, Requirements requirements)
+        private IEnumerable<SelectionCandidate> GetCandidates(FeedUri feedUri, Feed feed, Requirements requirements)
         {
             if (UnixUtils.IsUnix && feed.Elements.OfType<PackageImplementation>().Any())
                 Log.Warn("Linux native package managers not supported yet!");
             // TODO: Windows <package-implementation>s
 
-            var feedPreferences = FeedPreferences.LoadForSafe(feedID);
+            var feedPreferences = FeedPreferences.LoadForSafe(feedUri);
             return
                 from implementation in feed.Elements.OfType<Implementation>()
-                select new SelectionCandidate(feedID, feedPreferences, implementation, requirements,
+                select new SelectionCandidate(feedUri, feedPreferences, implementation, requirements,
                     offlineUncached: (_config.NetworkUse == NetworkLevel.Offline) && !_isCached[implementation.ManifestDigest]);
         }
 
@@ -142,7 +142,7 @@ namespace ZeroInstall.Services.Solvers
             if (implemenationSelection == null) throw new ArgumentNullException("implemenationSelection");
             #endregion
 
-            return _feeds[implemenationSelection.FromFeed ?? implemenationSelection.InterfaceID][implemenationSelection.ID];
+            return _feeds[implemenationSelection.FromFeed ?? implemenationSelection.InterfaceUri][implemenationSelection.ID];
         }
     }
 }

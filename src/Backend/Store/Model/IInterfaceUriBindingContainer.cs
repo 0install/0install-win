@@ -18,8 +18,8 @@
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
-    /// An object that contains an interface ID string.
+    /// An object that contains an interface URI string.
     /// </summary>
-    public interface IInterfaceIDBindingContainer : IInterfaceID, IBindingContainer
+    public interface IInterfaceUriBindingContainer : IInterfaceUri, IBindingContainer
     {}
 }

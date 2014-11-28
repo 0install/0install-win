@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Model
     [Description("A reference to an interface that is required as dependency.")]
     [Serializable]
     [XmlRoot("requires", Namespace = Feed.XmlNamespace), XmlType("depedency", Namespace = Feed.XmlNamespace)]
-    public class Dependency : Restriction, IInterfaceIDBindingContainer, IEquatable<Dependency>
+    public class Dependency : Restriction, IInterfaceUriBindingContainer, IEquatable<Dependency>
     {
         #region Constants
         /// <summary>
@@ -103,7 +103,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            string result = InterfaceID;
+            string result = InterfaceUri.ToString();
             if (!string.IsNullOrEmpty(Use)) result += " (" + Use + ")";
             return result;
         }
@@ -116,7 +116,7 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="Dependency"/>.</returns>
         public Dependency CloneDependency()
         {
-            var dependency = new Dependency {InterfaceID = InterfaceID, OS = OS, Distribution = Distribution, Versions = Versions, Importance = Importance, Use = Use};
+            var dependency = new Dependency {InterfaceUri = InterfaceUri, OS = OS, Distribution = Distribution, Versions = Versions, Importance = Importance, Use = Use};
             dependency.Constraints.AddRange(Constraints.CloneElements());
             dependency.Bindings.AddRange(Bindings.CloneElements());
             return dependency;

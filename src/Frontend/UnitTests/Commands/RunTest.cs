@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Diagnostics;
 using Moq;
 using NanoByte.Common.Storage;
@@ -23,6 +22,7 @@ using NUnit.Framework;
 using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.Solvers;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -43,19 +43,19 @@ namespace ZeroInstall.Commands
             var selections = SelectionsTest.CreateTestSelections();
 
             var testFeed1 = FeedTest.CreateTestFeed();
-            testFeed1.Uri = new Uri("http://0install.de/feeds/test/sub1.xml");
+            testFeed1.Uri = new FeedUri(FeedTest.Sub1Uri);
             testFeed1.Name = "Sub 1";
             var testImplementation1 = testFeed1[selections.Implementations[0].ID];
-            Container.GetMock<IFeedCache>().Setup(x => x.GetFeed("http://0install.de/feeds/test/sub1.xml")).Returns(testFeed1);
+            Container.GetMock<IFeedCache>().Setup(x => x.GetFeed(FeedTest.Sub1Uri)).Returns(testFeed1);
 
             var testImplementation2 = new Implementation {ID = "id2", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0")};
             var testFeed2 = new Feed
             {
-                Uri = new Uri("http://0install.de/feeds/test/sub2.xml"),
+                Uri = new FeedUri(FeedTest.Sub2Uri),
                 Name = "Sub 2",
                 Elements = {testImplementation2}
             };
-            Container.GetMock<IFeedCache>().Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(testFeed2);
+            Container.GetMock<IFeedCache>().Setup(x => x.GetFeed(FeedTest.Sub2Uri)).Returns(testFeed2);
 
             Container.GetMock<ISolver>().Setup(x => x.Solve(requirements)).Returns(selections);
 
@@ -77,19 +77,19 @@ namespace ZeroInstall.Commands
         public override void TestImportSelections()
         {
             var testFeed1 = FeedTest.CreateTestFeed();
-            testFeed1.Uri = new Uri("http://0install.de/feeds/test/sub1.xml");
+            testFeed1.Uri = new FeedUri(FeedTest.Sub1Uri);
             testFeed1.Name = "Sub 1";
-            Container.GetMock<IFeedCache>().Setup(x => x.GetFeed("http://0install.de/feeds/test/sub1.xml")).Returns(testFeed1);
+            Container.GetMock<IFeedCache>().Setup(x => x.GetFeed(FeedTest.Sub1Uri)).Returns(testFeed1);
             var testImplementation1 = (Implementation)testFeed1.Elements[0];
 
             var testImplementation2 = new Implementation {ID = "id2", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0")};
             var testFeed2 = new Feed
             {
-                Uri = new Uri("http://0install.de/feeds/test/sub2.xml"),
+                Uri = new FeedUri(FeedTest.Sub2Uri),
                 Name = "Sub 2",
                 Elements = {testImplementation2}
             };
-            Container.GetMock<IFeedCache>().Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(testFeed2);
+            Container.GetMock<IFeedCache>().Setup(x => x.GetFeed(FeedTest.Sub2Uri)).Returns(testFeed2);
 
             var selections = SelectionsTest.CreateTestSelections();
 

@@ -18,9 +18,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using NanoByte.Common;
 using ZeroInstall.Store.Model.Design;
 
 namespace ZeroInstall.Store.Model.Selection
@@ -31,33 +33,35 @@ namespace ZeroInstall.Store.Model.Selection
     /// <remarks>This class does not contain information on how to download the implementation in case it is not in cache. That must be obtained from a <see cref="Store.Model.Implementation"/> instance.</remarks>
     /// <seealso cref="Selections.Implementations"/>
     [XmlType("selection", Namespace = Feed.XmlNamespace)]
-    public sealed class ImplementationSelection : ImplementationBase, IInterfaceIDBindingContainer, IEquatable<ImplementationSelection>
+    public sealed class ImplementationSelection : ImplementationBase, IInterfaceUriBindingContainer, IEquatable<ImplementationSelection>
     {
-        #region Constants
-        /// <summary>
-        /// This is prepended to <see cref="FromFeed"/> if data is pulled from a native package manager.
-        /// </summary>
-        /// <seealso cref="Package"/>
-        /// <seealso cref="PackageImplementation"/>
-        public const string DistributionFeedPrefix = "distribution:";
-        #endregion
-
         #region Properties
         /// <summary>
         /// The URI or local path of the interface this implementation is for.
         /// </summary>
         [Description("The URI or local path of the interface this implementation is for.")]
-        [XmlAttribute("interface")]
-        public string InterfaceID { get; set; }
+        [XmlIgnore]
+        public FeedUri InterfaceUri { get; set; }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="InterfaceUri"/>
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
+        [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string InterfaceUriString { get { return (InterfaceUri == null) ? null :InterfaceUri.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
 
         /// <summary>
         /// The URL or local path of the feed that contains this implementation.
-        /// <see cref="DistributionFeedPrefix"/> is prepended if data is pulled from a native package manager.
-        /// If <see langword="null"/> or <see cref="string.Empty"/> use <see cref="InterfaceID"/> instead.
+        /// <see cref="FeedUri.FromDistributionPrefix"/> is prepended if data is pulled from a native package manager.
+        /// If <see langword="null"/> or <see cref="string.Empty"/> use <see cref="InterfaceUri"/> instead.
         /// </summary>
-        [Description("The URL or local path of the feed that contains this implementation. \"distribution:\" is prepended if data is pulled from a native package manager. If null or empty use InterfaceID instead.")]
-        [XmlAttribute("from-feed")]
-        public string FromFeed { get; set; }
+        [Description("The URL or local path of the feed that contains this implementation. \"distribution:\" is prepended if data is pulled from a native package manager. If null or empty use InterfaceUri instead.")]
+        [XmlIgnore]
+        public FeedUri FromFeed { get; set; }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="FromFeed"/>
+        [XmlAttribute("from-feed"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string FromFeedString { get { return (FromFeed == null) ? null : FromFeed.ToStringRfc(); } set { FromFeed = (value == null) ? null : new FeedUri(value); } }
 
         /// <summary>
         /// The name of the package in the distribution-specific package manager.
@@ -143,7 +147,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// <inheritdoc/>
         public override string ToString()
         {
-            return base.ToString() + " (" + InterfaceID + ")";
+            return base.ToString() + " (" + InterfaceUri + ")";
         }
         #endregion
 
@@ -154,7 +158,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// <returns>The cloned <see cref="ImplementationSelection"/>.</returns>
         public ImplementationSelection CloneImplementation()
         {
-            var implementation = new ImplementationSelection {InterfaceID = InterfaceID, FromFeed = FromFeed, Package = Package};
+            var implementation = new ImplementationSelection {InterfaceUri = InterfaceUri, FromFeed = FromFeed, Package = Package};
             CloneFromTo(this, implementation);
             return implementation;
         }
@@ -174,7 +178,7 @@ namespace ZeroInstall.Store.Model.Selection
         public bool Equals(ImplementationSelection other)
         {
             if (other == null) return false;
-            return base.Equals(other) && Equals(other.InterfaceID, InterfaceID) && Equals(other.FromFeed, FromFeed) && Equals(other.Package, Package);
+            return base.Equals(other) && Equals(other.InterfaceUri, InterfaceUri) && Equals(other.FromFeed, FromFeed) && Equals(other.Package, Package);
         }
 
         /// <inheritdoc/>
@@ -191,8 +195,8 @@ namespace ZeroInstall.Store.Model.Selection
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (InterfaceID ?? "").GetHashCode();
-                result = (result * 397) ^ (FromFeed ?? "").GetHashCode();
+                if (InterfaceUri != null) result = (result * 397) ^ InterfaceUri.GetHashCode();
+                if (FromFeed != null) result = (result * 397) ^ FromFeed.GetHashCode();
                 result = (result * 397) ^ (Package ?? "").GetHashCode();
                 return result;
             }

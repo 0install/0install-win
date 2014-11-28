@@ -171,7 +171,7 @@ namespace ZeroInstall.Commands.WinForms
             WriteConfigFile(_implementationDirsConfigPath, listBoxImplDirs.Items.OfType<DirectoryStore>());
 
             // Write list of catalog sources
-            WriteConfigFile(_catalogSourcesConfigPath, listBoxCatalogSources.Items.OfType<string>());
+            WriteConfigFile(_catalogSourcesConfigPath, listBoxCatalogSources.Items.OfType<FeedUri>());
 
             // Write list of trusted keys
             treeViewTrustedKeys.Nodes.ToTrustDB().Save();
@@ -278,8 +278,20 @@ namespace ZeroInstall.Commands.WinForms
 
         private void buttonAddCatalogSource_Click(object sender, EventArgs e)
         {
-            string newSource = InputBox.Show(this, groupCatalogSources.Text, Resources.EnterCatalogUrl);
-            if (!string.IsNullOrEmpty(newSource)) listBoxCatalogSources.Items.Add(newSource);
+            string input = InputBox.Show(this, groupCatalogSources.Text, Resources.EnterCatalogUrl);
+            if (!string.IsNullOrEmpty(input)) AddCatalogSource(input);
+        }
+
+        private void AddCatalogSource(string input)
+        {
+            try
+            {
+                listBoxCatalogSources.Items.Add(new FeedUri(input));
+            }
+            catch (UriFormatException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
         }
 
         private void buttonRemoveCatalogSource_Click(object sender, EventArgs e)

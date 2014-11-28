@@ -24,6 +24,7 @@ using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
@@ -137,7 +138,7 @@ namespace ZeroInstall.Services.Injector
         public void TestGetStartInfo()
         {
             var selections = SelectionsTest.CreateTestSelections();
-            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
+            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceUri = new FeedUri("http://0install.de/feeds/test/dummy.xml")}); // Should be ignored by Executor
 
             var executor = new Executor(GetMockStore(selections));
             var startInfo = executor.GetStartInfo(selections, "--custom");
@@ -169,7 +170,7 @@ namespace ZeroInstall.Services.Injector
             if (!WindowsUtils.IsWindows) Assert.Ignore("Wrapper command-line parsing relies on a Win32 API and therefore will not work on non-Windows platforms");
 
             var selections = SelectionsTest.CreateTestSelections();
-            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
+            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceUri = new FeedUri("http://0install.de/feeds/test/dummy.xml")}); // Should be ignored by Executor
 
             var executor = new Executor(GetMockStore(selections)) {Wrapper = "wrapper --wrapper"};
             var startInfo = executor.GetStartInfo(selections, "--custom");
@@ -198,7 +199,7 @@ namespace ZeroInstall.Services.Injector
         public void TestGetStartInfoMainRelative()
         {
             var selections = SelectionsTest.CreateTestSelections();
-            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
+            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceUri = new FeedUri("http://0install.de/feeds/test/dummy.xml")}); // Should be ignored by Executor
 
             var executor = new Executor(GetMockStore(selections)) {Main = "main"};
             var startInfo = executor.GetStartInfo(selections, "--custom");
@@ -227,7 +228,7 @@ namespace ZeroInstall.Services.Injector
         public void TestGetStartInfoMainAbsolute()
         {
             var selections = SelectionsTest.CreateTestSelections();
-            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
+            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceUri = new FeedUri("http://0install.de/feeds/test/dummy.xml")}); // Should be ignored by Executor
 
             var executor = new Executor(GetMockStore(selections)) {Main = "/main"};
             var startInfo = executor.GetStartInfo(selections, "--custom");
@@ -256,7 +257,7 @@ namespace ZeroInstall.Services.Injector
         public void TestGetStartInfoPathlessCommand()
         {
             var selections = SelectionsTest.CreateTestSelections();
-            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
+            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceUri = new FeedUri("http://0install.de/feeds/test/dummy.xml")}); // Should be ignored by Executor
             selections.Implementations[1].Commands[0].Path = null;
 
             var executor = new Executor(GetMockStore(selections));
@@ -284,7 +285,7 @@ namespace ZeroInstall.Services.Injector
         public void TestGetStartInfoForEachArgs()
         {
             var selections = SelectionsTest.CreateTestSelections();
-            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"}); // Should be ignored by Executor
+            selections.Implementations.Insert(0, new ImplementationSelection {InterfaceUri = new FeedUri("http://0install.de/feeds/test/dummy.xml")}); // Should be ignored by Executor
 
             selections.Implementations[1].Commands[0].Arguments.Add(new ForEachArgs
             {

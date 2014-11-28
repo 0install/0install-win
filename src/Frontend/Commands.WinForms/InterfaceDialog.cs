@@ -44,9 +44,9 @@ namespace ZeroInstall.Commands.WinForms
     {
         #region Variables
         /// <summary>The interface to modify the preferences for.</summary>
-        private readonly string _interfaceID;
+        private readonly FeedUri _interfaceUri;
 
-        /// <summary>The feed loaded from <see cref="_interfaceID"/>.</summary>
+        /// <summary>The feed loaded from <see cref="_interfaceUri"/>.</summary>
         private readonly Feed _mainFeed;
 
         /// <summary>The feed cache used to retrieve <see cref="Feed"/>s for additional information about implementations.</summary>
@@ -66,13 +66,13 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Creates a new interface dialog.
         /// </summary>
-        /// <param name="interfaceID">The interface to modify the preferences for.</param>
+        /// <param name="interfaceUri">The interface to modify the preferences for.</param>
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
         /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
-        private InterfaceDialog(string interfaceID, Func<Selections> solveCallback, IFeedCache feedCache)
+        private InterfaceDialog(FeedUri interfaceUri, Func<Selections> solveCallback, IFeedCache feedCache)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
@@ -80,8 +80,8 @@ namespace ZeroInstall.Commands.WinForms
             comboBoxStability.Items.AddRange(new object[] {Resources.UseDefaultSetting, Stability.Stable, Stability.Testing, Stability.Developer});
             dataColumnUserStability.Items.AddRange(new object[] {Stability.Unset, Stability.Preferred, Stability.Packaged, Stability.Stable, Stability.Testing, Stability.Developer});
 
-            _interfaceID = interfaceID;
-            _mainFeed = feedCache.GetFeed(_interfaceID);
+            _interfaceUri = interfaceUri;
+            _mainFeed = feedCache.GetFeed(_interfaceUri);
             _solveCallback = solveCallback;
             _feedCache = feedCache;
         }
@@ -90,7 +90,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             Text = string.Format(Resources.PropertiesFor, _mainFeed.Name);
 
-            _interfacePreferences = InterfacePreferences.LoadForSafe(_interfaceID);
+            _interfacePreferences = InterfacePreferences.LoadForSafe(_interfaceUri);
             if (_interfacePreferences.StabilityPolicy == Stability.Unset) comboBoxStability.SelectedItem = Resources.UseDefaultSetting;
             else comboBoxStability.SelectedItem = _interfacePreferences.StabilityPolicy;
 
@@ -104,17 +104,17 @@ namespace ZeroInstall.Commands.WinForms
         /// Displays a dialog allowing the user to modify <see cref="InterfacePreferences"/> and <see cref="FeedPreferences"/> for an interface.
         /// </summary>
         /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
-        /// <param name="interfaceID">The interface to modify the preferences for.</param>
+        /// <param name="interfaceUri">The interface to modify the preferences for.</param>
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
         /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
-        public static void Show(IWin32Window owner, string interfaceID, Func<Selections> solveCallback, IFeedCache feedCache)
+        public static void Show(IWin32Window owner, FeedUri interfaceUri, Func<Selections> solveCallback, IFeedCache feedCache)
         {
             #region Sanity checks
             if (owner == null) throw new ArgumentNullException("owner");
             if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
-            using (var dialog = new InterfaceDialog(interfaceID, solveCallback, feedCache))
+            using (var dialog = new InterfaceDialog(interfaceUri, solveCallback, feedCache))
                 dialog.ShowDialog(owner);
         }
         #endregion
@@ -130,7 +130,7 @@ namespace ZeroInstall.Commands.WinForms
             try
             {
                 var selections = _solveCallback();
-                _candidates = selections[_interfaceID].Candidates ?? GenerateDummyCandidates();
+                _candidates = selections[_interfaceUri].Candidates ?? GenerateDummyCandidates();
             }
                 #region Error handling
             catch (OperationCanceledException)
@@ -162,21 +162,21 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private IEnumerable<SelectionCandidate> GenerateDummyCandidates()
         {
-            var feedIDs = Enumerable.Concat(
-                listBoxFeeds.Items.OfType<string>(),
+            var feedUris = Enumerable.Concat(
+                listBoxFeeds.Items.OfType<FeedUri>(),
                 listBoxFeeds.Items.OfType<FeedReference>().Select(x => x.Source));
-            return feedIDs.SelectMany(GenerateDummyCandidates).ToList();
+            return feedUris.SelectMany(GenerateDummyCandidates).ToList();
         }
 
-        private IEnumerable<SelectionCandidate> GenerateDummyCandidates(string feedID)
+        private IEnumerable<SelectionCandidate> GenerateDummyCandidates(FeedUri feedUri)
         {
-            if (feedID.StartsWith(ImplementationSelection.DistributionFeedPrefix)) return Enumerable.Empty<SelectionCandidate>();
+            if (feedUri.IsFromDistribution) return Enumerable.Empty<SelectionCandidate>();
 
             try
             {
-                var feed = _feedCache.GetFeed(feedID);
-                var feedPreferences = FeedPreferences.LoadForSafe(feedID);
-                return feed.Elements.OfType<Implementation>().Select(implementation => GenerateDummyCandidate(feedID, feedPreferences, implementation));
+                var feed = _feedCache.GetFeed(feedUri);
+                var feedPreferences = FeedPreferences.LoadForSafe(feedUri);
+                return feed.Elements.OfType<Implementation>().Select(implementation => GenerateDummyCandidate(feedUri, feedPreferences, implementation));
             }
                 #region Error handling
             catch (KeyNotFoundException)
@@ -186,12 +186,12 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
         }
 
-        private SelectionCandidate GenerateDummyCandidate(string feedID, FeedPreferences feedPreferences, Implementation implementation)
+        private SelectionCandidate GenerateDummyCandidate(FeedUri feedUri, FeedPreferences feedPreferences, Implementation implementation)
         {
-            return new SelectionCandidate(feedID, feedPreferences, implementation,
+            return new SelectionCandidate(feedUri, feedPreferences, implementation,
                 new Requirements
                 {
-                    InterfaceID = _interfaceID,
+                    InterfaceUri = _interfaceUri,
                     Command = Command.NameRun,
                     Architecture = new Architecture(Architecture.CurrentSystem.OS, Cpu.All)
                 });
@@ -219,13 +219,13 @@ namespace ZeroInstall.Commands.WinForms
                 else _interfacePreferences.StabilityPolicy = Stability.Unset;
 
                 // Save interface preferences
-                _interfacePreferences.SaveFor(_interfaceID);
+                _interfacePreferences.SaveFor(_interfaceUri);
 
                 // Use one representative candidate for each feed to save preferences
-                foreach (var candidate in _candidates.ToLookup(x => x.FeedID).Select(x => x.First()))
+                foreach (var candidate in _candidates.ToLookup(x => x.FeedUri).Select(x => x.First()))
                 {
                     candidate.FeedPreferences.Normalize();
-                    candidate.FeedPreferences.SaveFor(candidate.FeedID);
+                    candidate.FeedPreferences.SaveFor(candidate.FeedUri);
                 }
             }
                 #region Error handling
@@ -248,7 +248,7 @@ namespace ZeroInstall.Commands.WinForms
         private void LoadFeeds()
         {
             // Main feed
-            listBoxFeeds.Items.Add(_interfaceID); // string, not removable in GUI
+            listBoxFeeds.Items.Add(_interfaceUri); // string, not removable in GUI
 
             // Feeds references from main feed
             foreach (var reference in _mainFeed.Feeds)
@@ -262,61 +262,72 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Adds a feed to the list of custom feeds.
         /// </summary>
-        private void AddCustomFeed(string feedID)
+        private void AddCustomFeed(string input)
         {
+            FeedUri feedUri;
             try
             {
-                ModelUtils.ValidateInterfaceID(feedID);
+                feedUri = new FeedUri(input);
             }
-            catch (InvalidInterfaceIDException ex)
+            catch (UriFormatException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
                 return;
             }
 
-            Feed feed = null;
-            try
+            if (_interfaceUri.IsFile)
             {
-                using (var handler = new GuiTaskHandler(this))
-                using (var webClient = new WebClientTimeout())
+                if (!File.Exists(_interfaceUri.LocalPath))
                 {
-                    handler.RunTask(new SimpleTask(Resources.CheckingFeed,
-                        () => feed = XmlStorage.FromXmlString<Feed>(webClient.DownloadString(feedID))));
+                    Msg.Inform(this, string.Format(Resources.FileOrDirNotFound, _interfaceUri.LocalPath), MsgSeverity.Warn);
+                    return;
                 }
             }
-                #region Error handling
-            catch (OperationCanceledException)
+            else
             {
-                return;
-            }
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (WebException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            #endregion
+                Feed feed = null;
+                try
+                {
+                    using (var handler = new GuiTaskHandler(this))
+                    using (var webClient = new WebClientTimeout())
+                    {
+                        handler.RunTask(new SimpleTask(Resources.CheckingFeed,
+                            () => feed = XmlStorage.FromXmlString<Feed>(webClient.DownloadString(feedUri))));
+                    }
+                }
+                    #region Error handling
+                catch (OperationCanceledException)
+                {
+                    return;
+                }
+                catch (IOException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    return;
+                }
+                catch (InvalidDataException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    return;
+                }
+                catch (WebException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    return;
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    return;
+                }
+                #endregion
 
-            // Ensure a matching <feed-for> is present for online feeds
-            Uri interfaceUri;
-            if (ModelUtils.TryParseUri(_interfaceID, out interfaceUri) && feed.FeedFor.All(entry => entry.Target != interfaceUri))
-                if (!Msg.YesNo(this, Resources.IgnoreMissingFeedFor, MsgSeverity.Warn)) return;
+                // Ensure a matching <feed-for> is present for online feeds
+                if (feed.FeedFor.All(entry => entry.Target != _interfaceUri))
+                    if (!Msg.YesNo(this, Resources.IgnoreMissingFeedFor, MsgSeverity.Warn)) return;
+            }
 
-            var reference = new FeedReference {Source = feedID};
+            var reference = new FeedReference {Source = feedUri};
             if (_interfacePreferences.Feeds.Contains(reference)) return;
             _interfacePreferences.Feeds.Add(reference);
             listBoxFeeds.Items.Add(reference);
@@ -343,10 +354,8 @@ namespace ZeroInstall.Commands.WinForms
 
         private void buttonAddFeed_Click(object sender, EventArgs e)
         {
-            string feedID = InputBox.Show(this, "Feed", Resources.EnterFeedUrl);
-            if (string.IsNullOrEmpty(feedID)) return;
-
-            AddCustomFeed(feedID);
+            string input = InputBox.Show(this, "Feed", Resources.EnterFeedUrl);
+            if (!string.IsNullOrEmpty(input)) AddCustomFeed(input);
         }
 
         private void buttonRemoveFeed_Click(object sender, EventArgs e)

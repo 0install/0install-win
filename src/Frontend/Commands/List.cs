@@ -63,7 +63,7 @@ namespace ZeroInstall.Commands
         private string GetList(string pattern = null)
         {
             var builder = new StringBuilder();
-            var feeds = FeedCache.ListAll();
+            var feeds = FeedCache.ListAll().Select(x => x.ToStringRfc());
             foreach (string entry in feeds.Where(entry => pattern == null || entry.Contains(pattern)))
                 builder.AppendLine(entry);
             return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break

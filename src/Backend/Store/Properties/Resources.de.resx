@@ -220,8 +220,8 @@ Falls Sie ein FAT-formatiertes Laufwerk verwenden, konvertieren Sie es bitte zu 
   <data name="InvalidDigest" xml:space="preserve">
     <value>Der Digest '{0}' hat nicht die Form 'Algorithmus=Wert'.</value>
   </data>
-  <data name="InvalidInterfaceID" xml:space="preserve">
-    <value>Das Interface '{0}' ist keine gültige 'http(s):' URI und ist auch kein absoluter lokaler Pfad.</value>
+  <data name="InvalidFeedUri" xml:space="preserve">
+    <value>'{0}' ist keine gültige 'http(s):' URI und ist auch kein absoluter lokaler Pfad.</value>
   </data>
   <data name="InvalidLinesInManifest" xml:space="preserve">
     <value>Die Manifest-Datei enthält ungültige Zeilen.</value>
@@ -237,9 +237,6 @@ Falls Sie ein FAT-formatiertes Laufwerk verwenden, konvertieren Sie es bitte zu 
   </data>
   <data name="MissingPath" xml:space="preserve">
     <value>Kein Pfad angegeben.</value>
-  </data>
-  <data name="MissingSlashInUri" xml:space="preserve">
-    <value>Fehlendes '/' nach dem Hostnamen in der URI '{0}'.</value>
   </data>
   <data name="MustBeDottedList" xml:space="preserve">
     <value>Die Punkt-getrennten Liste darf nur Dezimalzahlen enthalten.</value>
@@ -296,7 +293,7 @@ Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen wom
   <data name="RecipeInvalidPath" xml:space="preserve">
     <value>Das Recipe enthält einen ungültigen Pfad (möglicherweise ein Sicherheitsrisiko): {0}</value>
   </data>
-  <data name="RelativePathInNonRemoteFeed" xml:space="preserve">
+  <data name="RelativePathInRemoteFeed" xml:space="preserve">
     <value>Der relative Pfad '{0}' wurde in einem Remote-Feed angegeben. Nur lokale Feeds dürfen relative Pfade verwenden.</value>
   </data>
   <data name="RelativeUriInRemoteFeed" xml:space="preserve">

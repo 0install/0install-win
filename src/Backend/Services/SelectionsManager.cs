@@ -73,7 +73,7 @@ namespace ZeroInstall.Services
                 // Don't try to download PackageImplementations
                 string.IsNullOrEmpty(implementation.Package) &&
                 // Don't try to fetch virutal feeds
-                (string.IsNullOrEmpty(implementation.FromFeed) || !implementation.FromFeed.StartsWith(ImplementationSelection.DistributionFeedPrefix)) &&
+                (implementation.FromFeed == null || !implementation.FromFeed.IsFromDistribution) &&
                 // Don't download implementations that are already in the store
                 !_store.Contains(implementation.ManifestDigest) &&
                 // Ignore implementations without an ID
@@ -91,7 +91,7 @@ namespace ZeroInstall.Services
             if (implementationSelections == null) throw new ArgumentNullException("implementationSelections");
             #endregion
 
-            return implementationSelections.Select(x => _feedCache.GetFeed(x.FromFeed ?? x.InterfaceID)[x.ID].CloneImplementation());
+            return implementationSelections.Select(x => _feedCache.GetFeed(x.FromFeed ?? x.InterfaceUri)[x.ID].CloneImplementation());
         }
 
         /// <summary>

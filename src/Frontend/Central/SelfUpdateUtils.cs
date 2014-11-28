@@ -61,6 +61,7 @@ namespace ZeroInstall.Central
         /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
         /// <exception cref="SignatureException">The signature data of a remote feed file could not be verified.</exception>
+        /// <exception cref="UriFormatException"><see cref="Config.SelfUpdateUri"/> is invalid.</exception>
         /// <exception cref="SolverException">The dependencies could not be solved.</exception>
         /// <exception cref="InvalidDataException">A configuration file is damaged.</exception>
         public static ImplementationVersion Check()
@@ -69,7 +70,7 @@ namespace ZeroInstall.Central
             if (services.Config.NetworkUse == NetworkLevel.Offline) return null;
 
             // Run solver
-            var requirements = new Requirements {InterfaceID = services.Config.SelfUpdateUri.ToString(), Command = "update"};
+            var requirements = new Requirements {InterfaceUri = new FeedUri(services.Config.SelfUpdateUri), Command = "update"};
             var selections = services.Solver.Solve(requirements);
 
             // Report version of current update if it is newer than the already installed version

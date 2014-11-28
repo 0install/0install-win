@@ -21,6 +21,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using ZeroInstall.Central.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Central.WinForms
@@ -40,7 +41,7 @@ namespace ZeroInstall.Central.WinForms
             labelVideo.Visible = true;
             tabControlApps.Visible = false;
             tabControlApps.SelectTab(tabPageCatalog);
-            catalogList.TextSearch.Text = "";
+            tileListCatalog.TextSearch.Text = "";
             labelSubtitles.Visible = false;
 
             SetupTiles();
@@ -71,26 +72,40 @@ namespace ZeroInstall.Central.WinForms
         //--------------------//
 
         #region Tiles
+        private static readonly FeedUri _coolApp = new FeedUri(FeedUri.FakePrefix + "http://cool_app/");
+        private static readonly FeedUri _commonApp = new FeedUri(FeedUri.FakePrefix + "http://common_app/");
+        private static readonly FeedUri _otherApp = new FeedUri(FeedUri.FakePrefix + "http://other_app/");
+
         private void SetupTiles()
         {
-            catalogList.Clear();
-            catalogList.QueueNewTile("fake:cool_app", Resources.IntroCoolApp, AppStatus.Candidate).Feed =
+            tileListCatalog.Clear();
+            tileListCatalog.QueueNewTile(_coolApp, Resources.IntroCoolApp, AppStatus.Candidate).Feed =
                 new Feed {Summaries = {Resources.IntroCoolAppSummary}};
-            catalogList.QueueNewTile("fake:common_app", Resources.IntroCommonApp, AppStatus.Candidate).Feed =
+            tileListCatalog.QueueNewTile(_commonApp, Resources.IntroCommonApp, AppStatus.Candidate).Feed =
                 new Feed {Summaries = {Resources.IntroCommonAppSummary}};
-            catalogList.QueueNewTile("fake:other_app", Resources.IntroOtherApp, AppStatus.Candidate).Feed =
+            tileListCatalog.QueueNewTile(_otherApp, Resources.IntroOtherApp, AppStatus.Candidate).Feed =
                 new Feed {Summaries = {Resources.IntroOtherAppSummary}};
-            catalogList.AddQueuedTiles();
+            tileListCatalog.AddQueuedTiles();
 
-            appList.Clear();
-            appList.QueueNewTile("fake:cool_app", Resources.IntroCoolApp, AppStatus.Added).Feed =
+            tileListMyApps.Clear();
+            tileListMyApps.QueueNewTile(_coolApp, Resources.IntroCoolApp, AppStatus.Added).Feed =
                 new Feed {Summaries = {Resources.IntroCoolAppSummary}};
-            appList.AddQueuedTiles();
+            tileListMyApps.AddQueuedTiles();
         }
         #endregion
 
         #region Actions
         private TimedActionQueue _actions;
+
+        private AppTile GetCatalogTile(FeedUri interfaceUri)
+        {
+            return (AppTile)tileListCatalog.GetTile(interfaceUri);
+        }
+
+        private AppTile GetMyAppsTile(FeedUri interfaceUri)
+        {
+            return (AppTile)tileListMyApps.GetTile(interfaceUri);
+        }
 
         private void FillActions()
         {
@@ -105,22 +120,22 @@ namespace ZeroInstall.Central.WinForms
                 {2500, arrowSearch.Show},
                 {500, arrowSearch.Hide},
                 {500, arrowSearch.Show},
-                {1500, () => TypeText(catalogList.TextSearch, "C")},
-                {500, () => TypeText(catalogList.TextSearch, "Co")},
-                {500, () => TypeText(catalogList.TextSearch, "Coo")},
-                {500, () => TypeText(catalogList.TextSearch, "Cool")},
+                {1500, () => TypeText(tileListCatalog.TextSearch, "C")},
+                {500, () => TypeText(tileListCatalog.TextSearch, "Co")},
+                {500, () => TypeText(tileListCatalog.TextSearch, "Coo")},
+                {500, () => TypeText(tileListCatalog.TextSearch, "Cool")},
                 {500, arrowSearch.Hide},
                 {2000, labelSubtitles.Hide},
                 // Run app
                 {1000, () => PrintSubtitles(Resources.IntroSubtitlesRunApp)},
-                {2000, () => FlashRectangle(catalogList.GetTile("fake:cool_app").buttonRun)},
-                {4000, catalogList.GetTile("fake:cool_app").Refresh},
+                {2000, () => FlashRectangle(GetCatalogTile(_coolApp).buttonRun)},
+                {4000, GetCatalogTile(_coolApp).Refresh},
                 {1000, labelSubtitles.Hide},
                 // Add app
                 {2000, () => PrintSubtitles(Resources.IntroSubtitlesAddApp)},
-                {4000, () => FlashRectangle(catalogList.GetTile("fake:cool_app").buttonAdd)},
-                {2000, () => { catalogList.GetTile("fake:cool_app").Status = AppStatus.Added; }},
-                {3000, catalogList.GetTile("fake:cool_app").Refresh},
+                {4000, () => FlashRectangle(GetCatalogTile(_coolApp).buttonAdd)},
+                {2000, () => { GetCatalogTile(_coolApp).Status = AppStatus.Added; }},
+                {3000, GetCatalogTile(_coolApp).Refresh},
                 {1000, labelSubtitles.Hide},
                 // My apps
                 {2000, arrowMyApps.Show},
@@ -132,9 +147,9 @@ namespace ZeroInstall.Central.WinForms
                 {1000, labelSubtitles.Hide},
                 // Integrate app
                 {1000, () => PrintSubtitles(Resources.IntroSubtitlesIntegrateApp)},
-                {5000, () => FlashRectangle(appList.GetTile("fake:cool_app").buttonIntegrate)},
-                {2000, () => { appList.GetTile("fake:cool_app").Status = AppStatus.Integrated; }},
-                {3000, appList.GetTile("fake:cool_app").Refresh},
+                {5000, () => FlashRectangle(GetMyAppsTile(_coolApp).buttonIntegrate)},
+                {2000, () => { GetMyAppsTile(_coolApp).Status = AppStatus.Integrated; }},
+                {3000, GetMyAppsTile(_coolApp).Refresh},
                 {1500, labelSubtitles.Hide},
                 // Thanks
                 {2000, () => PrintSubtitles(Resources.IntroSubtitlesThanks)},

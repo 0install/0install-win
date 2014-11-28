@@ -65,7 +65,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             var capabilities = appEntry.CapabilityLists.CompatibleCapabilities().ToList();
-            var target = new InterfaceFeed(appEntry.InterfaceID, feed);
+            var target = new InterfaceFeed(appEntry.InterfaceUri, feed);
 
             var dispatcher = new PerTypeDispatcher<Capability>(ignoreMissing: true);
             if (WindowsUtils.IsWindows)

@@ -43,9 +43,9 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestMerge()
         {
-            var feed1 = new Feed {Uri = new Uri("http://0install.de/feeds/test/test1.xml")};
-            var feed2 = new Feed {Uri = new Uri("http://0install.de/feeds/test/test2.xml")};
-            var feed3 = new Feed {Uri = new Uri("http://0install.de/feeds/test/test3.xml")};
+            var feed1 = new Feed {Uri = FeedTest.Test1Uri};
+            var feed2 = new Feed {Uri = new FeedUri(FeedTest.Test2Uri)};
+            var feed3 = new Feed {Uri = new FeedUri(FeedTest.Test3Uri)};
             var catalog1 = new Catalog {Feeds = {feed1, feed2}};
             var catalog2 = new Catalog {Feeds = {feed2, feed3}};
 
@@ -63,12 +63,12 @@ namespace ZeroInstall.Store.Model
         {
             var catalog = CreateTestCatalog();
 
-            Assert.AreEqual(FeedTest.CreateTestFeed(), catalog.GetFeed(new Uri("http://0install.de/feeds/test/test1.xml")));
-            Assert.AreEqual(FeedTest.CreateTestFeed(), catalog[new Uri("http://0install.de/feeds/test/test1.xml")]);
+            Assert.AreEqual(FeedTest.CreateTestFeed(), catalog.GetFeed(FeedTest.Test1Uri));
+            Assert.AreEqual(FeedTest.CreateTestFeed(), catalog[FeedTest.Test1Uri]);
 
-            Assert.IsNull(catalog.GetFeed(new Uri("http://invalid")));
+            Assert.IsNull(catalog.GetFeed(new FeedUri("http://invalid/")));
             // ReSharper disable UnusedVariable
-            Assert.Throws<KeyNotFoundException>(() => { var dummy = catalog[new Uri("http://invalid")]; });
+            Assert.Throws<KeyNotFoundException>(() => { var dummy = catalog[new FeedUri("http://invalid/")]; });
             // ReSharper restore UnusedVariable
         }
 

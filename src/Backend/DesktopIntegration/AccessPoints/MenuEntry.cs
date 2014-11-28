@@ -59,7 +59,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var target = new InterfaceFeed(appEntry.InterfaceID, feed);
+            var target = new InterfaceFeed(appEntry.InterfaceUri, feed);
             if (WindowsUtils.IsWindows) Windows.Shortcut.Create(this, target, handler, machineWide);
             else if (UnixUtils.IsUnix) Unix.FreeDesktop.Create(this, target, machineWide, handler);
         }

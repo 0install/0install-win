@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration
@@ -42,13 +43,13 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Creates a new unnamed <see cref="AppEntry"/> and adds it to the <see cref="AppList"/>.
         /// </summary>
-        /// <param name="interfaceID">The interface ID of the application to add.</param>
+        /// <param name="interfaceUri">The interface URI of the application to add.</param>
         /// <param name="feed">The feed providing additional metadata, capabilities, etc. for the application.</param>
         /// <returns>The newly created application entry (already added to <see cref="AppList"/>).</returns>
         /// <exception cref="InvalidOperationException">The application is already in the list.</exception>
         /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
-        AppEntry AddApp(string interfaceID, Feed feed);
+        AppEntry AddApp(FeedUri interfaceUri, Feed feed);
 
         /// <summary>
         /// Creates a new  named <see cref="AppEntry"/> and adds it to the <see cref="AppList"/>.
@@ -121,6 +122,6 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
-        void Repair(Converter<string, Feed> feedRetriever);
+        void Repair(Converter<FeedUri, Feed> feedRetriever);
     }
 }

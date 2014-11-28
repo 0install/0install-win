@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands
 {
@@ -51,14 +52,14 @@ namespace ZeroInstall.Commands
         #endregion
 
         /// <inheritdoc/>
-        protected override int ExecuteHelper(ICategoryIntegrationManager integrationManager, string interfaceID)
+        protected override int ExecuteHelper(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri)
         {
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
 
             try
             {
-                integrationManager.RemoveApp(integrationManager.AppList[interfaceID]);
+                integrationManager.RemoveApp(integrationManager.AppList[interfaceUri]);
             }
                 #region Sanity checks
             catch (KeyNotFoundException ex)

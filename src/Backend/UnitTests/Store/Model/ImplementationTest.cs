@@ -85,15 +85,15 @@ namespace ZeroInstall.Store.Model
         public void TestNormalizeID()
         {
             var implementation = new Implementation {ID = "sha256=123"};
-            implementation.Normalize("http://0install.de/feeds/test/test1.xml");
+            implementation.Normalize(FeedTest.Test1Uri);
             Assert.AreEqual("123", implementation.ManifestDigest.Sha256);
 
             implementation = new Implementation {ID = "sha256=wrong", ManifestDigest = new ManifestDigest(sha256: "correct")};
-            implementation.Normalize("http://0install.de/feeds/test/test1.xml");
+            implementation.Normalize(FeedTest.Test1Uri);
             Assert.AreEqual("correct", implementation.ManifestDigest.Sha256);
 
             implementation = new Implementation {ID = "abc"};
-            implementation.Normalize("http://0install.de/feeds/test/test1.xml");
+            implementation.Normalize(FeedTest.Test1Uri);
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace ZeroInstall.Store.Model
         public void TestNormalizeCommand()
         {
             var implementation = new Implementation {Main = "main", SelfTest = "test"};
-            implementation.Normalize("http://0install.de/feeds/test/test1.xml");
+            implementation.Normalize(FeedTest.Test1Uri);
             Assert.AreEqual("main", implementation[Command.NameRun].Path);
             Assert.AreEqual("test", implementation[Command.NameTest].Path);
         }
@@ -114,8 +114,10 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestNormalizeLocalPath()
         {
+            var localUri = new FeedUri(WindowsUtils.IsWindows ? @"C:\local\feed.xml" : "/local/feed.xml");
+
             var implementation1 = new Implementation {ID = "./subdir"};
-            implementation1.Normalize(WindowsUtils.IsWindows ? @"C:\local\feed.xml" : "/local/feed.xml");
+            implementation1.Normalize(localUri);
             Assert.AreEqual(
                 expected: WindowsUtils.IsWindows ? @"C:\local\.\subdir" : "/local/./subdir",
                 actual: implementation1.ID);
@@ -124,7 +126,7 @@ namespace ZeroInstall.Store.Model
                 actual: implementation1.LocalPath);
 
             var implementation2 = new Implementation {ID = "./wrong", LocalPath = "subdir"};
-            implementation2.Normalize(WindowsUtils.IsWindows ? @"C:\local\feed.xml" : "/local/feed.xml");
+            implementation2.Normalize(localUri);
             Assert.AreEqual(
                 expected: "./wrong",
                 actual: implementation2.ID);
@@ -139,8 +141,8 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestNormalizeRemotePath()
         {
-            Assert.Throws<IOException>(() => new Implementation {ID = "./subdir"}.Normalize("http://0install.de/feeds/test/test1.xml"));
-            Assert.Throws<IOException>(() => new Implementation {LocalPath = "subdir"}.Normalize("http://0install.de/feeds/test/test1.xml"));
+            Assert.Throws<IOException>(() => new Implementation {ID = "./subdir"}.Normalize(FeedTest.Test1Uri));
+            Assert.Throws<IOException>(() => new Implementation {LocalPath = "subdir"}.Normalize(FeedTest.Test1Uri));
         }
 
         /// <summary>

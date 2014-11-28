@@ -19,67 +19,63 @@ namespace ZeroInstall.Store.Feeds
         /// <summary>
         /// Determines whether this cache contains a local copy of a <see cref="Feed"/> identified by a specific URL.
         /// </summary>
-        /// <param name="feedID">The canonical ID used to identify the feed.</param>
+        /// <param name="feedUri">The canonical ID used to identify the feed.</param>
         /// <returns>
         ///   <see langword="true"/> if the specified feed is available in this cache;
         ///   <see langword="false"/> if the specified feed is not available in this cache.
         /// </returns>
-        bool Contains(string feedID);
+        bool Contains(FeedUri feedUri);
 
         /// <summary>
         /// Returns a list of all <see cref="Feed"/>s stored in this cache.
         /// </summary>
         /// <returns>
         /// A list of feed URIs (e.g. "http://somedomain.net/interface.xml").
-        /// Usually these can also be considered interface IDs.
+        /// Usually these can also be considered interface URIs.
         /// </returns>
         /// <exception cref="IOException">A problem occured while reading from the cache.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the cache is not permitted.</exception>
-        IEnumerable<string> ListAll();
+        IEnumerable<FeedUri> ListAll();
 
         /// <summary>
         /// Gets a specific <see cref="Feed"/> from this cache. <see cref="Feed.Normalize"/> is automatically called.
         /// </summary>
-        /// <param name="feedID">The canonical ID used to identify the feed.</param>
+        /// <param name="feedUri">The canonical ID used to identify the feed.</param>
         /// <returns>The parsed <see cref="Feed"/> object. Do not modify this object! It may be a reference to an in-memory cache entry.</returns>
-        /// <exception cref="InvalidInterfaceIDException"><paramref name="feedID"/> is an invalid interface ID.</exception>
-        /// <exception cref="KeyNotFoundException">The requested <paramref name="feedID"/> was not found in the cache.</exception>
+        /// <exception cref="KeyNotFoundException">The requested <paramref name="feedUri"/> was not found in the cache.</exception>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the cache is not permitted.</exception>
         /// <exception cref="InvalidDataException">The feed file could not be parsed.</exception>
-        Feed GetFeed(string feedID);
+        Feed GetFeed(FeedUri feedUri);
 
         /// <summary>
         /// Determines which signatures a <see cref="Feed"/> from this cache is signed with.
         /// </summary>
-        /// <param name="feedID">The canonical ID used to identify the feed.</param>
+        /// <param name="feedUri">The canonical ID used to identify the feed.</param>
         /// <returns>A list of signatures found, both valid and invalid.</returns>
-        /// <exception cref="InvalidInterfaceIDException"><paramref name="feedID"/> is an invalid interface ID.</exception>
-        /// <exception cref="KeyNotFoundException">The requested <paramref name="feedID"/> was not found in the cache.</exception>
+        /// <exception cref="KeyNotFoundException">The requested <paramref name="feedUri"/> was not found in the cache.</exception>
         /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
         /// <exception cref="SignatureException">The signature data could not be handled.</exception>
-        IEnumerable<OpenPgpSignature> GetSignatures(string feedID);
+        IEnumerable<OpenPgpSignature> GetSignatures(FeedUri feedUri);
 
         /// <summary>
         /// Adds a new <see cref="Feed"/> to the cache. Only do this after the feed source has been verified and trusted and replay attacks filtered!
         /// </summary>
-        /// <param name="feedID">The canonical ID used to identify the feed.</param>
+        /// <param name="feedUri">The canonical ID used to identify the feed.</param>
         /// <param name="data">The content of the feed file as a byte array.</param>
-        /// <exception cref="InvalidInterfaceIDException"><paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="IOException">A problem occured while writing the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the cache is not permitted.</exception>
         /// <exception cref="InvalidDataException">The feed file could not be parsed.</exception>
-        void Add(string feedID, byte[] data);
+        void Add(FeedUri feedUri, byte[] data);
 
         /// <summary>
         /// Removes a specific <see cref="Feed"/> from this cache. No exception is thrown if the specified <see cref="Feed"/> is not in the cache.
         /// </summary>
-        /// <param name="feedID">The canonical ID used to identify the feed.</param>
-        /// <exception cref="InvalidInterfaceIDException"><paramref name="feedID"/> is an invalid interface ID.</exception>
-        /// <exception cref="KeyNotFoundException">The requested <paramref name="feedID"/> was not found in the cache.</exception>
+        /// <param name="feedUri">The canonical ID used to identify the feed.</param>
+        /// <exception cref="KeyNotFoundException">The requested <paramref name="feedUri"/> was not found in the cache.</exception>
         /// <exception cref="IOException">The feed could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the cache is not permitted.</exception>
-        void Remove(string feedID);
+        void Remove(FeedUri feedUri);
 
         /// <summary>
         /// Clears any in-memory caches.

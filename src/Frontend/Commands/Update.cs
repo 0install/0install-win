@@ -108,34 +108,34 @@ namespace ZeroInstall.Commands
             var builder = new StringBuilder();
             foreach (var oldImplementation in _oldSelections.Implementations)
             {
-                string interfaceID = oldImplementation.InterfaceID;
+                var interfaceUri = oldImplementation.InterfaceUri;
                 try
                 {
-                    var newImplementation = Selections[interfaceID];
+                    var newImplementation = Selections[interfaceUri];
                     if (oldImplementation.Version != newImplementation.Version)
                     { // Implementation updated
-                        builder.AppendLine(interfaceID + ": " + oldImplementation.Version + " -> " + newImplementation.Version);
+                        builder.AppendLine(interfaceUri + ": " + oldImplementation.Version + " -> " + newImplementation.Version);
                     }
                 }
                 catch (KeyNotFoundException)
                 { // Implementation removed
-                    builder.AppendLine(Resources.NoLongerUsed + interfaceID);
+                    builder.AppendLine(Resources.NoLongerUsed + interfaceUri);
                 }
             }
 
             foreach (var newImplementation in Selections.Implementations)
             {
-                string interfaceID = newImplementation.InterfaceID;
-                if (!_oldSelections.ContainsImplementation(interfaceID))
+                var interfaceUri = newImplementation.InterfaceUri;
+                if (!_oldSelections.ContainsImplementation(interfaceUri))
                 { // Implementation added
-                    builder.AppendLine(interfaceID + ": new -> " + newImplementation.Version);
+                    builder.AppendLine(interfaceUri + ": new -> " + newImplementation.Version);
                 }
             }
 
             // Detect replaced feeds
-            Feed feed = FeedCache.GetFeed(Requirements.InterfaceID);
+            Feed feed = FeedCache.GetFeed(Requirements.InterfaceUri);
             if (feed.ReplacedBy != null)
-                builder.AppendLine(string.Format(Resources.FeedReplaced, Requirements.InterfaceID, feed.ReplacedBy.Target));
+                builder.AppendLine(string.Format(Resources.FeedReplaced, Requirements.InterfaceUri, feed.ReplacedBy.Target));
 
             return (builder.Length == 0)
                 ? ""

@@ -27,6 +27,7 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Undo;
 using ZeroInstall.Publish.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 
@@ -192,7 +193,7 @@ namespace ZeroInstall.Publish
             }.Dispatch(retrievalMethod);
 
             // Download the file
-            var href = FeedElementUtils.GetAbsoluteHref(retrievalMethod.Href, executor.Path);
+            var href = ModelUtils.GetAbsoluteHref(retrievalMethod.Href, string.IsNullOrEmpty(executor.Path) ? null : new FeedUri(executor.Path));
             var downloadedFile = new TemporaryFile("0publish");
             handler.RunTask(new DownloadFile(href, downloadedFile)); // Defer task to handler
 

@@ -16,6 +16,7 @@
  */
 
 using System;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Services.Feeds
@@ -32,6 +33,7 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="uri">The URI the feed or catalog file originally came from.</param>
         /// <param name="mirrorUrl">The URL or local file path the file was fetched from; <see langword="null"/> if it is identical to <paramref name="uri"/>.</param>
         /// <exception cref="SignatureException">No trusted signature was found.</exception>
-        ValidSignature CheckTrust(byte[] data, Uri uri, Uri mirrorUrl = null);
+        /// <exception cref="UriFormatException"><paramref name="uri"/> is a local file.</exception>
+        ValidSignature CheckTrust(byte[] data, FeedUri uri, FeedUri mirrorUrl = null);
     }
 }

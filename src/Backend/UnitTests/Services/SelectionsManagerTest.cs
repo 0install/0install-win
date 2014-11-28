@@ -16,6 +16,7 @@
  */
 
 using NUnit.Framework;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -33,7 +34,7 @@ namespace ZeroInstall.Services
         public void TestGetUncachedImplementationSelections()
         {
             var selections = SelectionsTest.CreateTestSelections();
-            selections.Implementations.Add(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/dummy.xml"});
+            selections.Implementations.Add(new ImplementationSelection {InterfaceUri = new FeedUri("http://0install.de/feeds/test/dummy.xml")});
 
             // Pretend the first implementation isn't cached, the second is and the third isn't
             var storeMock = Container.GetMock<IStore>();
@@ -54,13 +55,13 @@ namespace ZeroInstall.Services
             var impl2 = new Implementation {ID = "test456"};
             var implementationSelections = new[]
             {
-                new ImplementationSelection {ID = impl1.ID, InterfaceID = "http://0install.de/feeds/test/feed1.xml"},
-                new ImplementationSelection {ID = impl2.ID, InterfaceID = "http://0install.de/feeds/test/feed2.xml", FromFeed = "http://0install.de/feeds/test/sub2.xml"}
+                new ImplementationSelection {ID = impl1.ID, InterfaceUri = FeedTest.Test1Uri},
+                new ImplementationSelection {ID = impl2.ID, InterfaceUri = FeedTest.Test2Uri, FromFeed = FeedTest.Sub2Uri}
             };
 
             var cacheMock = Container.GetMock<IFeedCache>();
-            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/feed1.xml")).Returns(new Feed {Elements = {impl1}});
-            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/sub2.xml")).Returns(new Feed {Elements = {impl2}});
+            cacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(new Feed {Elements = {impl1}});
+            cacheMock.Setup(x => x.GetFeed(FeedTest.Sub2Uri)).Returns(new Feed {Elements = {impl2}});
 
             var implementations = Target.GetOriginalImplementations(implementationSelections);
 

@@ -59,7 +59,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string arguments = "run ";
             if (!needsTerminal) arguments += "--no-wait ";
             if (command != Command.NameRun) arguments += "--command=" + command.EscapeArgument() + " ";
-            arguments += target.InterfaceID.EscapeArgument();
+            arguments += target.InterfaceUri.AbsoluteUri;
             shortcut.Arguments = arguments;
 
             // .lnk descriptions may not be longer than 260 characters

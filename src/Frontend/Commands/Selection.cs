@@ -91,7 +91,7 @@ namespace ZeroInstall.Commands
             Options.Add("version=", () => Resources.OptionVersionRange,
                 (VersionRange range) => _version = range);
             Options.Add("version-for==", () => Resources.OptionVersionRangeFor,
-                (string interfaceID, VersionRange range) => _requirements.ExtraRestrictions[interfaceID] = range);
+                (FeedUri interfaceUri, VersionRange range) => _requirements.ExtraRestrictions[interfaceUri] = range);
             Options.Add("s|source", () => Resources.OptionSource,
                 _ => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Cpu.Source));
             Options.Add("os=", () => Resources.OptionOS + "\n" + SupportedValues(Architecture.KnownOS),
@@ -121,13 +121,14 @@ namespace ZeroInstall.Commands
         {
             base.Parse(args);
 
-            _requirements.InterfaceID = GetCanonicalID(AdditionalArgs[0]);
+            _requirements.InterfaceUri = GetCanonicalUri(AdditionalArgs[0]);
             AdditionalArgs.RemoveAt(0);
 
-            if (_version != null) _requirements.ExtraRestrictions[_requirements.InterfaceID] = _version;
-            else if (_before != null || _notBefore != null) _requirements.ExtraRestrictions[_requirements.InterfaceID] = new VersionRange(_notBefore, _before);
+            if (_version != null) _requirements.ExtraRestrictions[_requirements.InterfaceUri] = _version;
+            else if (_before != null || _notBefore != null) _requirements.ExtraRestrictions[_requirements.InterfaceUri] = new VersionRange(_notBefore, _before);
 
-            if (File.Exists(_requirements.InterfaceID)) TryParseSelectionsDocument();
+            if (_requirements.InterfaceUri.IsFile && File.Exists(_requirements.InterfaceUri.LocalPath))
+                TryParseSelectionsDocument();
         }
 
         /// <inheritdoc/>
@@ -144,15 +145,15 @@ namespace ZeroInstall.Commands
 
         #region Helpers
         /// <summary>
-        /// Trys to parse <see cref="Store.Model.Requirements.InterfaceID"/> as a pre-computed <see cref="Store.Model.Selection.Selections"/> document.
+        /// Trys to parse <see cref="Store.Model.Requirements.InterfaceUri"/> as a pre-computed <see cref="Store.Model.Selection.Selections"/> document.
         /// </summary>
         /// <seealso cref="SelectionsDocument"/>
         private void TryParseSelectionsDocument()
         {
             try
             { // Try to parse as selections document
-                Selections = XmlStorage.LoadXml<Selections>(Requirements.InterfaceID);
-                Requirements.InterfaceID = Selections.InterfaceID;
+                Selections = XmlStorage.LoadXml<Selections>(Requirements.InterfaceUri.LocalPath);
+                Requirements.InterfaceUri = Selections.InterfaceUri;
                 SelectionsDocument = true;
             }
             catch (InvalidDataException)

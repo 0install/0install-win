@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using ZeroInstall.Publish.EntryPoints.Design;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
@@ -79,14 +80,14 @@ namespace ZeroInstall.Publish.EntryPoints
                 Path = RelativePath,
                 Runner = new Runner
                 {
-                    InterfaceID = GetInterfaceID(),
+                    InterfaceUri = new FeedUri(GetInterfaceUri()),
                     Command = NeedsTerminal ? Command.NameRun : Command.NameRunGui,
                     Versions = (VersionRange)MinimumRuntimeVersion
                 }
             };
         }
 
-        private string GetInterfaceID()
+        private string GetInterfaceUri()
         {
             switch (RuntimeType)
             {

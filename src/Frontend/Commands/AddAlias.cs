@@ -26,6 +26,7 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Services.Feeds;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands
 {
@@ -81,7 +82,7 @@ namespace ZeroInstall.Commands
                 if (AdditionalArgs.Count < 2 || string.IsNullOrEmpty(AdditionalArgs[1])) throw new OptionException(Resources.MissingArguments, "");
                 return CreateAlias(
                     aliasName: AdditionalArgs[0],
-                    interfaceID: GetCanonicalID(AdditionalArgs[1]),
+                    interfaceUri: GetCanonicalUri(AdditionalArgs[1]),
                     command: (AdditionalArgs.Count >= 3) ? AdditionalArgs[2] : null);
             }
         }
@@ -106,7 +107,7 @@ namespace ZeroInstall.Commands
 
                 if (_resolve)
                 {
-                    string result = appEntry.InterfaceID;
+                    string result = appEntry.InterfaceUri.ToStringRfc();
                     if (!string.IsNullOrEmpty(appAlias.Command)) result += Environment.NewLine + "Command: " + appAlias.Command;
                     Handler.Output(Resources.AppAlias, result);
                 }
@@ -124,23 +125,23 @@ namespace ZeroInstall.Commands
         /// Creates a new alias.
         /// </summary>
         /// <param name="aliasName">The name of the alias to create.</param>
-        /// <param name="interfaceID">The interface ID the alias shall point to.</param>
+        /// <param name="interfaceUri">The interface URI the alias shall point to.</param>
         /// <param name="command">A command within the interface the alias shall point to; may be <see langword="null"/>.</param>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        private int CreateAlias(string aliasName, string interfaceID, string command = null)
+        private int CreateAlias(string aliasName, FeedUri interfaceUri, string command = null)
         {
             using (var integrationManager = new IntegrationManager(Handler, MachineWide))
             {
                 // Check this before modifying the environment
                 bool needsReopenTerminal = NeedsReopenTerminal(integrationManager.MachineWide);
 
-                var appEntry = GetAppEntry(integrationManager, ref interfaceID);
+                var appEntry = GetAppEntry(integrationManager, ref interfaceUri);
 
                 // Apply the new alias
                 var alias = new AppAlias {Name = aliasName, Command = command};
                 try
                 {
-                    integrationManager.AddAccessPoints(appEntry, FeedManager.GetFeedFresh(interfaceID), new AccessPoint[] {alias});
+                    integrationManager.AddAccessPoints(appEntry, FeedManager.GetFeedFresh(interfaceUri), new AccessPoint[] {alias});
                 }
                 catch (ConflictException ex)
                 {

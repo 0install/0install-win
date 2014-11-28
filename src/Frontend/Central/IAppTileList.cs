@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Icons;
 
 namespace ZeroInstall.Central
@@ -36,12 +37,12 @@ namespace ZeroInstall.Central
         /// <summary>
         /// Prepares a new application tile to be added to the list. Will be added in bulk when <see cref="IAppTileList.AddQueuedTiles"/> is called.
         /// </summary>
-        /// <param name="interfaceID">The interface ID of the application this tile represents.</param>
+        /// <param name="interfaceUri">The interface URI of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        /// <exception cref="InvalidOperationException">The list already contains an <see cref="IAppTile"/> with the specified <paramref name="interfaceID"/>.</exception>
-        IAppTile QueueNewTile(string interfaceID, string appName, AppStatus status, bool machineWide);
+        /// <exception cref="InvalidOperationException">The list already contains an <see cref="IAppTile"/> with the specified <paramref name="interfaceUri"/>.</exception>
+        IAppTile QueueNewTile(FeedUri interfaceUri, string appName, AppStatus status, bool machineWide);
 
         /// <summary>
         /// Adds all new tiles queued by <see cref="IAppTileList.QueueNewTile"/> calls.
@@ -51,15 +52,15 @@ namespace ZeroInstall.Central
         /// <summary>
         /// Retrieves a specific application tile from the list.
         /// </summary>
-        /// <param name="interfaceID">The interface ID of the application the tile to retrieve represents.</param>
+        /// <param name="interfaceUri">The interface URI of the application the tile to retrieve represents.</param>
         /// <returns>The requested <see cref="IAppTile"/>; <see langword="null"/> if no matching entry was found.</returns>
-        IAppTile GetTile(string interfaceID);
+        IAppTile GetTile(FeedUri interfaceUri);
 
         /// <summary>
         /// Removes an application tile from the list. Does nothing if no matching tile can be found.
         /// </summary>
-        /// <param name="interfaceID">The interface ID of the application the tile to remove represents.</param>
-        void RemoveTile(string interfaceID);
+        /// <param name="interfaceUri">The interface URI of the application the tile to remove represents.</param>
+        void RemoveTile(FeedUri interfaceUri);
 
         /// <summary>
         /// Removes all application tiles from the list.

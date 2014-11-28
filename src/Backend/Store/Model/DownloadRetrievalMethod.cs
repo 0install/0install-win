@@ -59,11 +59,11 @@ namespace ZeroInstall.Store.Model
 
         #region Normalize
         /// <inheritdoc/>
-        public override void Normalize(string feedID)
+        public override void Normalize(FeedUri feedUri)
         {
-            base.Normalize(feedID);
+            base.Normalize(feedUri);
 
-            if (Href != null) Href = FeedElementUtils.GetAbsoluteHref(Href, feedID);
+            if (Href != null) Href = ModelUtils.GetAbsoluteHref(Href, feedUri);
         }
         #endregion
 

@@ -36,10 +36,10 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonFeed_Click(object sender, EventArgs e)
         {
-            string interfaceID = InputBox.Show(this, "Zero Install", Resources.EnterInterfaceUrl);
-            if (string.IsNullOrEmpty(interfaceID)) return;
+            string interfaceUri = InputBox.Show(this, "Zero Install", Resources.EnterInterfaceUrl);
+            if (string.IsNullOrEmpty(interfaceUri)) return;
 
-            Program.RunCommand(_machineWide, AddApp.Name, interfaceID);
+            Program.RunCommand(_machineWide, AddApp.Name, interfaceUri);
             Close();
         }
 

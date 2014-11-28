@@ -29,26 +29,14 @@ namespace ZeroInstall.Store.Model
     /// <summary>
     /// A set of requirements/restrictions imposed by the user on the <see cref="Implementation"/> selection process. Used as input for the solver.
     /// </summary>
-    public class Requirements : IInterfaceID, ICloneable, IEquatable<Requirements>
+    public class Requirements : IInterfaceUri, ICloneable, IEquatable<Requirements>
     {
         #region Properties
-        private string _interfaceID;
-
         /// <summary>
         /// The URI or local path (must be absolute) to the interface to solve the dependencies for.
         /// </summary>
-        /// <exception cref="InvalidInterfaceIDException">Trying to set an invalid interface ID.</exception>
-        [Description("The URI or local path (must be absolute) to the interface to solve the dependencies for.")]
-        [JsonProperty("interface")]
-        public string InterfaceID
-        {
-            get { return _interfaceID; }
-            set
-            {
-                ModelUtils.ValidateInterfaceID(value);
-                _interfaceID = value;
-            }
-        }
+        [Description("The URI or local path (must be absolute) to the interface to solve the dependencies for."), JsonProperty("interface")]
+        public FeedUri InterfaceUri { get; set; }
 
         /// <summary>
         /// The name of the command in the implementation to execute. Will default to <see cref="Store.Model.Command.NameRun"/> or <see cref="Store.Model.Command.NameCompile"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.
@@ -113,14 +101,14 @@ namespace ZeroInstall.Store.Model
         [JsonProperty("langs", DefaultValueHandling = DefaultValueHandling.Ignore), DefaultValue("")]
         public string LanguagesString { get { return _languages.ToString(); } set { _languages = new LanguageSet(value); } }
 
-        private readonly Dictionary<string, VersionRange> _extraRestrictions = new Dictionary<string, VersionRange>();
+        private readonly Dictionary<FeedUri, VersionRange> _extraRestrictions = new Dictionary<FeedUri, VersionRange>();
 
         /// <summary>
         /// The ranges of versions of specific sub-implementations that can be chosen.
         /// </summary>
         [Description("The ranges of versions of specific sub-implementations that can be chosen.")]
         [JsonProperty("extra_restrictions")]
-        public Dictionary<string, VersionRange> ExtraRestrictions { get { return _extraRestrictions; } }
+        public Dictionary<FeedUri, VersionRange> ExtraRestrictions { get { return _extraRestrictions; } }
         #endregion
 
         //--------------------//
@@ -132,7 +120,7 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="Requirements"/>.</returns>
         public Requirements Clone()
         {
-            var requirements = new Requirements {InterfaceID = InterfaceID, Command = Command, Architecture = Architecture, Languages = new LanguageSet(Languages)};
+            var requirements = new Requirements {InterfaceUri = InterfaceUri, Command = Command, Architecture = Architecture, Languages = new LanguageSet(Languages)};
             requirements.ExtraRestrictions.AddRange(ExtraRestrictions);
             return requirements;
         }
@@ -145,11 +133,11 @@ namespace ZeroInstall.Store.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the requirements in the form "InterfaceID (Command)". Not safe for parsing!
+        /// Returns the requirements in the form "InterfaceUri (Command)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.IsNullOrEmpty(Command) ? InterfaceID : InterfaceID + " (" + Command + ")";
+            return string.IsNullOrEmpty(Command) ? InterfaceUri.ToString() : InterfaceUri.ToString() + " (" + Command + ")";
         }
         #endregion
 
@@ -158,7 +146,7 @@ namespace ZeroInstall.Store.Model
         public bool Equals(Requirements other)
         {
             if (other == null) return false;
-            if (InterfaceID != other.InterfaceID) return false;
+            if (InterfaceUri != other.InterfaceUri) return false;
             if (Command != other.Command) return false;
             if (Architecture != other.Architecture) return false;
             if (!_languages.SequencedEquals(other._languages)) return false;
@@ -179,7 +167,7 @@ namespace ZeroInstall.Store.Model
         {
             unchecked
             {
-                int result = (InterfaceID != null ? InterfaceID.GetHashCode() : 0);
+                int result = (InterfaceUri != null ? InterfaceUri.GetHashCode() : 0);
                 result = (result * 397) ^ (Command != null ? Command.GetHashCode() : 0);
                 result = (result * 397) ^ Architecture.GetHashCode();
                 // ReSharper disable once NonReadonlyFieldInGetHashCode

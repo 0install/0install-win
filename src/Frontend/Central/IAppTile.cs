@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Central
@@ -35,9 +36,9 @@ namespace ZeroInstall.Central
         Feed Feed { get; set; }
 
         /// <summary>
-        /// The interface ID of the application this tile represents.
+        /// The interface URI of the application this tile represents.
         /// </summary>
-        string InterfaceID { get; }
+        FeedUri InterfaceUri { get; }
 
         /// <summary>
         /// The name of the application this tile represents.

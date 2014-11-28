@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
 using NanoByte.Common.Collections;
@@ -42,10 +43,16 @@ namespace ZeroInstall.DesktopIntegration
         /// The URI or local path of the interface defining the application or the pet-name if <see cref="Requirements"/> is set.
         /// </summary>
         [Description("The URI or local path of the interface defining the application or the pet-name if Requirements is set.")]
-        [XmlAttribute("interface")]
-        public string InterfaceID { get; set; }
+        [XmlIgnore]
+        public FeedUri InterfaceUri { get; set; }
 
-        string IMergeable<AppEntry>.MergeID { get { return InterfaceID; } }
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="InterfaceUri"/>
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
+        [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string InterfaceUriString { get { return InterfaceUri.ToStringRfc(); } set { InterfaceUri = string.IsNullOrEmpty(value) ? null : new FeedUri(value); } }
+
+        string IMergeable<AppEntry>.MergeID { get { return InterfaceUri.ToString(); } }
 
         /// <summary>
         /// The name of the application. Usually equal to <see cref="Feed.Name"/>.
@@ -71,9 +78,9 @@ namespace ZeroInstall.DesktopIntegration
         public string Hostname { get; set; }
 
         /// <summary>
-        /// A set of requirements/restrictions imposed by the user on the implementation selection process. May be <see langword="null"/> if <see cref="InterfaceID"/> is not a pet-name.
+        /// A set of requirements/restrictions imposed by the user on the implementation selection process. May be <see langword="null"/> if <see cref="InterfaceUri"/> is not a pet-name.
         /// </summary>
-        [Description("A set of requirements/restrictions imposed by the user on the implementation selection process. May be null if InterfaceID is not a pet-name.")]
+        [Description("A set of requirements/restrictions imposed by the user on the implementation selection process. May be null if InterfaceUri is not a pet-name.")]
         [XmlIgnore]
         public Requirements Requirements { get; set; }
 
@@ -146,11 +153,11 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Conversion
         /// <summary>
-        /// Returns the entry in the form "Name (InterfaceID)". Not safe for parsing!
+        /// Returns the entry in the form "Name (InterfaceUri)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} ({1})", Name, InterfaceID);
+            return string.Format("{0} ({1})", Name, InterfaceUri);
         }
         #endregion
 
@@ -161,7 +168,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <returns>The new copy of the <see cref="AppEntry"/>.</returns>
         public AppEntry Clone()
         {
-            var appList = new AppEntry {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, InterfaceID = InterfaceID};
+            var appList = new AppEntry {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, InterfaceUri = InterfaceUri};
             if (Requirements != null) appList.Requirements = Requirements.Clone();
             if (AccessPoints != null) appList.AccessPoints = AccessPoints.Clone();
             foreach (var list in CapabilityLists) appList.CapabilityLists.Add(list.Clone());
@@ -181,7 +188,7 @@ namespace ZeroInstall.DesktopIntegration
         {
             if (other == null) return false;
             if (!base.Equals(other)) return false;
-            if (!ModelUtils.IDEquals(InterfaceID, other.InterfaceID)) return false;
+            if (InterfaceUri != other.InterfaceUri) return false;
             if (Name != other.Name) return false;
             if (AutoUpdate != other.AutoUpdate) return false;
             if (!Equals(Requirements, other.Requirements)) return false;
@@ -204,8 +211,7 @@ namespace ZeroInstall.DesktopIntegration
             unchecked
             {
                 int result = base.GetHashCode();
-                // Use case-insensitive hashing in case a business logic rule causes case-insensitive comparison of IDs)
-                if (InterfaceID != null) result = (result * 397) ^ StringComparer.OrdinalIgnoreCase.GetHashCode(InterfaceID);
+                if (InterfaceUri != null) result = (result * 397) ^ InterfaceUri.GetHashCode();
                 if (Name != null) result = (result * 397) ^ Name.GetHashCode();
                 result = (result * 397) ^ AutoUpdate.GetHashCode();
                 if (Requirements != null) result = (result * 397) ^ Requirements.GetHashCode();

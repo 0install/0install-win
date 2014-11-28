@@ -24,6 +24,7 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Publish.EntryPoints;
 using ZeroInstall.Publish.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
@@ -39,7 +40,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Used for <see cref="Feed.Uri"/>.
         /// </summary>
-        public Uri Uri { get; set; }
+        public FeedUri Uri { get; set; }
 
         private readonly List<Icon> _icons = new List<Icon>();
 

@@ -22,6 +22,7 @@ using System.Net;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration
@@ -61,14 +62,14 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Interface
         /// <inheritdoc/>
-        public AppEntry AddApp(string interfaceID, Feed feed)
+        public AppEntry AddApp(FeedUri interfaceUri, Feed feed)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            var appEntry = AddAppInternal(interfaceID, feed);
+            var appEntry = AddAppInternal(interfaceUri, feed);
             Finish();
             return appEntry;
         }
@@ -205,7 +206,7 @@ namespace ZeroInstall.DesktopIntegration
         }
 
         /// <inheritdoc/>
-        public void Repair(Converter<string, Feed> feedRetriever)
+        public void Repair(Converter<FeedUri, Feed> feedRetriever)
         {
             #region Sanity checks
             if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
@@ -213,7 +214,7 @@ namespace ZeroInstall.DesktopIntegration
 
             try
             {
-                Handler.RunTask(new ForEachTask<AppEntry>(Resources.RepairingIntegration, AppList.Entries, x => RepairAppInternal(x, feedRetriever(x.InterfaceID))));
+                Handler.RunTask(new ForEachTask<AppEntry>(Resources.RepairingIntegration, AppList.Entries, x => RepairAppInternal(x, feedRetriever(x.InterfaceUri))));
             }
             catch (KeyNotFoundException ex)
             {
@@ -231,13 +232,13 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Creates a new unnamed <see cref="AppEntry"/> and adds it to the <see cref="AppList"/>.
         /// </summary>
-        /// <param name="interfaceID">The interface ID of the application to add.</param>
+        /// <param name="interfaceUri">The interface URI of the application to add.</param>
         /// <param name="feed">The feed providing additional metadata, capabilities, etc. for the application.</param>
         /// <returns>The newly created application entry (already added to <see cref="AppList"/>).</returns>
         /// <exception cref="InvalidOperationException">The application is already in the list.</exception>
         /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
-        protected abstract AppEntry AddAppInternal(string interfaceID, Feed feed);
+        protected abstract AppEntry AddAppInternal(FeedUri interfaceUri, Feed feed);
 
         /// <summary>
         /// Creates a new named <see cref="AppEntry"/> and adds it to the <see cref="AppList"/>.
@@ -256,7 +257,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="prototype">An existing <see cref="AppEntry"/> to use as a prototype.</param>
         /// <param name="feedRetriever">Callback method used to retrieve additional <see cref="Feed"/>s on demand.</param>
-        protected abstract void AddAppInternal(AppEntry prototype, Converter<string, Feed> feedRetriever);
+        protected abstract void AddAppInternal(AppEntry prototype, Converter<FeedUri, Feed> feedRetriever);
 
         /// <summary>
         /// Removes an <see cref="AppEntry"/> from the <see cref="AppList"/> while unapplying any remaining <see cref="AccessPoint"/>s.

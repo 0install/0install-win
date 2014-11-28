@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Preferences;
 
@@ -45,21 +46,21 @@ namespace ZeroInstall.Commands
         /// Removes a <see cref="FeedReference"/> from one or more <see cref="InterfacePreferences"/>.
         /// </summary>
         /// <returns>The interfaces that were actually affected.</returns>
-        protected override ICollection<string> ApplyFeedToInterfaces(string feedID, IEnumerable<string> interfaces)
+        protected override ICollection<FeedUri> ApplyFeedToInterfaces(FeedUri feedUri, IEnumerable<FeedUri> interfaces)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             if (interfaces == null) throw new ArgumentNullException("interfaces");
             #endregion
 
-            var modified = new List<string>();
-            var reference = new FeedReference {Source = feedID};
-            foreach (var interfaceID in interfaces)
+            var modified = new List<FeedUri>();
+            var reference = new FeedReference {Source = feedUri};
+            foreach (var interfaceUri in interfaces)
             {
-                var preferences = InterfacePreferences.LoadFor(interfaceID);
+                var preferences = InterfacePreferences.LoadFor(interfaceUri);
                 if (preferences.Feeds.Remove(reference))
-                    modified.Add(interfaceID);
-                preferences.SaveFor(interfaceID);
+                    modified.Add(interfaceUri);
+                preferences.SaveFor(interfaceUri);
             }
             return modified;
         }

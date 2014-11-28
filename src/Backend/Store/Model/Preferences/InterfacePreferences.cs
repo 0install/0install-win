@@ -24,7 +24,6 @@ using System.Linq;
 using System.Xml.Serialization;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
-using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Properties;
 
@@ -41,14 +40,14 @@ namespace ZeroInstall.Store.Model.Preferences
         /// The URI of the interface to be configured.
         /// </summary>
         [XmlIgnore, Browsable(false)]
-        public Uri Uri { get; set; }
+        public FeedUri Uri { get; set; }
 
         /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="Uri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [DisplayName(@"Uri"), Description("The URI of the interface to be configured.")]
         [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public String UriString { get { return (Uri == null ? null : Uri.ToStringRfc()); } set { Uri = (string.IsNullOrEmpty(value) ? null : new Uri(value)); } }
+        public String UriString { get { return (Uri == null ? null : Uri.ToStringRfc()); } set { Uri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
 
         private Stability _stabilityPolicy = Stability.Unset;
 
@@ -79,18 +78,18 @@ namespace ZeroInstall.Store.Model.Preferences
         /// <summary>
         /// Loads <see cref="InterfacePreferences"/> for a specific interface.
         /// </summary>
-        /// <param name="interfaceID">The interface to load the preferences for.</param>
+        /// <param name="interfaceUri">The interface to load the preferences for.</param>
         /// <returns>The loaded <see cref="InterfacePreferences"/>.</returns>
         /// <exception cref="IOException">A problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        public static InterfacePreferences LoadFor(string interfaceID)
+        public static InterfacePreferences LoadFor(FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             #endregion
 
-            var path = Locations.GetLoadConfigPaths("0install.net", true, "injector", "interfaces", ModelUtils.PrettyEscape(interfaceID)).FirstOrDefault();
+            var path = Locations.GetLoadConfigPaths("0install.net", true, "injector", "interfaces", interfaceUri.PrettyEscape()).FirstOrDefault();
             if (string.IsNullOrEmpty(path)) return new InterfacePreferences();
 
             return XmlStorage.LoadXml<InterfacePreferences>(path);
@@ -99,17 +98,17 @@ namespace ZeroInstall.Store.Model.Preferences
         /// <summary>
         /// Tries to load <see cref="InterfacePreferences"/> for a specific interface. Automatically falls back to defaults on errors.
         /// </summary>
-        /// <param name="interfaceID">The interface to load the preferences for.</param>
+        /// <param name="interfaceUri">The interface to load the preferences for.</param>
         /// <returns>The loaded <see cref="InterfacePreferences"/> or default value if there was a problem.</returns>
-        public static InterfacePreferences LoadForSafe(string interfaceID)
+        public static InterfacePreferences LoadForSafe(FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             #endregion
 
             try
             {
-                return LoadFor(interfaceID);
+                return LoadFor(interfaceUri);
             }
                 #region Error handling
             catch (FileNotFoundException)
@@ -118,19 +117,19 @@ namespace ZeroInstall.Store.Model.Preferences
             }
             catch (IOException ex)
             {
-                Log.Warn(string.Format(Resources.ErrorLoadingInterfacePrefs, interfaceID));
+                Log.Warn(string.Format(Resources.ErrorLoadingInterfacePrefs, interfaceUri));
                 Log.Warn(ex);
                 return new InterfacePreferences();
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Warn(string.Format(Resources.ErrorLoadingInterfacePrefs, interfaceID));
+                Log.Warn(string.Format(Resources.ErrorLoadingInterfacePrefs, interfaceUri));
                 Log.Warn(ex);
                 return new InterfacePreferences();
             }
             catch (InvalidDataException ex)
             {
-                Log.Warn(string.Format(Resources.ErrorLoadingInterfacePrefs, interfaceID));
+                Log.Warn(string.Format(Resources.ErrorLoadingInterfacePrefs, interfaceUri));
                 Log.Warn(ex);
                 return new InterfacePreferences();
             }
@@ -140,12 +139,16 @@ namespace ZeroInstall.Store.Model.Preferences
         /// <summary>
         /// Saves these <see cref="InterfacePreferences"/> for a specific interface.
         /// </summary>
-        /// <param name="interfaceID">The interface to save the preferences for.</param>
+        /// <param name="interfaceUri">The interface to save the preferences for.</param>
         /// <exception cref="IOException">A problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
-        public void SaveFor(string interfaceID)
+        public void SaveFor(FeedUri interfaceUri)
         {
-            var path = Locations.GetSaveConfigPath("0install.net", true, "injector", "interfaces", ModelUtils.PrettyEscape(interfaceID));
+            #region Sanity checks
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
+            #endregion
+
+            var path = Locations.GetSaveConfigPath("0install.net", true, "injector", "interfaces", interfaceUri.PrettyEscape());
             this.SaveXml(path);
         }
         #endregion

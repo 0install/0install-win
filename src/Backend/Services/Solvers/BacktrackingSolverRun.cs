@@ -21,6 +21,7 @@ using System.Linq;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
@@ -51,7 +52,7 @@ namespace ZeroInstall.Services.Solvers
             _candidateProvider = candidateProvider;
 
             _topLevelRequirements = requirements;
-            Selections.InterfaceID = requirements.InterfaceID;
+            Selections.InterfaceUri = requirements.InterfaceUri;
             Selections.Command = requirements.Command;
         }
         #endregion
@@ -82,8 +83,8 @@ namespace ZeroInstall.Services.Solvers
             _cancellationToken.ThrowIfCancellationRequested();
 
             var allCandidates = _candidateProvider.GetSortedCandidates(requirements);
-            var suitableCandidates = FilterSuitableCandidates(allCandidates, requirements.InterfaceID);
-            var existingSelection = Selections.GetImplementation(requirements.InterfaceID);
+            var suitableCandidates = FilterSuitableCandidates(allCandidates, requirements.InterfaceUri);
+            var existingSelection = Selections.GetImplementation(requirements.InterfaceUri);
 
             if (existingSelection == null) return TryToSelectCandidate(suitableCandidates, requirements, allCandidates);
             else if (TryToUseExistingCandidate(requirements, suitableCandidates, existingSelection)) return true;
@@ -95,25 +96,25 @@ namespace ZeroInstall.Services.Solvers
         /// </summary>
         private readonly List<Restriction> _restrictions = new List<Restriction>();
 
-        private IEnumerable<SelectionCandidate> FilterSuitableCandidates(IEnumerable<SelectionCandidate> candidates, string interfaceID)
+        private IEnumerable<SelectionCandidate> FilterSuitableCandidates(IEnumerable<SelectionCandidate> candidates, FeedUri interfaceUri)
         {
             return candidates.Where(candidate =>
                 candidate.IsSuitable &&
-                !ConflictsWithExistingRestrictions(candidate, interfaceID) &&
+                !ConflictsWithExistingRestrictions(candidate, interfaceUri) &&
                 !ConflictsWithExistingSelections(candidate));
         }
 
-        private bool ConflictsWithExistingRestrictions(SelectionCandidate candidate, string interfaceID)
+        private bool ConflictsWithExistingRestrictions(SelectionCandidate candidate, FeedUri interfaceUri)
         {
             return _restrictions.Any(restriction =>
-                restriction.InterfaceID == interfaceID && !restriction.Versions.Match(candidate.Version));
+                restriction.InterfaceUri == interfaceUri && !restriction.Versions.Match(candidate.Version));
         }
 
         private bool ConflictsWithExistingSelections(SelectionCandidate candidate)
         {
             return candidate.Implementation.Restrictions.Any(restriction =>
             {
-                var implemenation = Selections.GetImplementation(restriction.InterfaceID);
+                var implemenation = Selections.GetImplementation(restriction.InterfaceUri);
                 return implemenation != null && !restriction.Versions.Match(implemenation.Version);
             });
         }
@@ -140,9 +141,9 @@ namespace ZeroInstall.Services.Solvers
             return false;
         }
 
-        private bool TryToSolveBindingRequirements(IInterfaceIDBindingContainer selection)
+        private bool TryToSolveBindingRequirements(IInterfaceUriBindingContainer selection)
         {
-            return selection.ToBindingRequirements(selection.InterfaceID).All(TryToSolve);
+            return selection.ToBindingRequirements(selection.InterfaceUri).All(TryToSolve);
         }
 
         private bool TryToSolveDependencies(IDependencyContainer dependencyContainer)
@@ -177,7 +178,7 @@ namespace ZeroInstall.Services.Solvers
             if (command.Runner != null)
                 if (!TryToSolve(command.Runner.ToRequirements(_topLevelRequirements))) return false;
 
-            return command.ToBindingRequirements(requirements.InterfaceID).All(TryToSolve) && TryToSolveDependencies(command);
+            return command.ToBindingRequirements(requirements.InterfaceUri).All(TryToSolve) && TryToSolveDependencies(command);
         }
 
         private ImplementationSelection AddToSelections(SelectionCandidate candidate, Requirements requirements, IEnumerable<SelectionCandidate> allCandidates)

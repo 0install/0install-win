@@ -85,7 +85,7 @@ namespace ZeroInstall.Commands
                 // ... or excluded by a hostname filter
                 where entry.Hostname == null || Regex.IsMatch(Environment.MachineName, entry.Hostname)
                 // Use custom app restrictions if any
-                select entry.Requirements ?? new Requirements {InterfaceID = entry.InterfaceID};
+                select entry.Requirements ?? new Requirements {InterfaceUri = entry.InterfaceUri};
         }
 
         private IEnumerable<ImplementationSelection> SolveAll(IEnumerable<Requirements> targets)

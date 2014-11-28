@@ -185,10 +185,10 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Adds a custom interface to <see cref="tileListCatalog"/>.
         /// </summary>
-        /// <param name="interfaceID">The URI of the interface to be added.</param>
-        private void AddCustomInterface(string interfaceID)
+        /// <param name="interfaceUri">The URI of the interface to be added.</param>
+        private void AddCustomInterface(string interfaceUri)
         {
-            Program.RunCommand(_machineWide, AddApp.Name, interfaceID);
+            Program.RunCommand(_machineWide, AddApp.Name, interfaceUri);
             tabControlApps.SelectTab(tabPageAppList);
         }
 
@@ -397,6 +397,11 @@ namespace ZeroInstall.Central.WinForms
                 Log.Warn(Resources.UnableToSelfUpdate);
                 Log.Warn(ex);
             }
+            catch (UriFormatException ex)
+            {
+                Log.Warn(Resources.UnableToSelfUpdate);
+                Log.Warn(ex);
+            }
             catch (SolverException ex)
             {
                 Log.Warn(Resources.UnableToSelfUpdate);
@@ -455,7 +460,7 @@ namespace ZeroInstall.Central.WinForms
                 if (appListWorker.CancellationPending) return;
 
                 IAppTile tile1 = tile;
-                var feed = _tileManagement.LoadFeedSafe(tile.InterfaceID);
+                var feed = _tileManagement.LoadFeedSafe(tile.InterfaceUri);
                 if (feed != null) BeginInvoke(new Action(() => tile1.Feed = feed));
             }
         }

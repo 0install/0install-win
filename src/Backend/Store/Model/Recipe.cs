@@ -77,17 +77,17 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Call <see cref="RetrievalMethod.Normalize"/> on all contained <see cref="IRecipeStep"/>s.
         /// </summary>
-        /// <param name="feedID">The feed the data was originally loaded from.</param>
+        /// <param name="feedUri">The feed the data was originally loaded from.</param>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
-        public override void Normalize(string feedID)
+        public override void Normalize(FeedUri feedUri)
         {
-            base.Normalize(feedID);
+            base.Normalize(feedUri);
 
             // Apply if-0install-version filter
             _steps.RemoveAll(FilterMismatch);
 
             foreach (var step in _steps)
-                step.Normalize(feedID);
+                step.Normalize(feedUri);
         }
         #endregion
 

@@ -17,6 +17,7 @@
 
 using System.Linq;
 using NUnit.Framework;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Services.Solvers
@@ -33,13 +34,13 @@ namespace ZeroInstall.Services.Solvers
             Assert.AreEqual(
                 expected: new Requirements
                 {
-                    InterfaceID = "http://test/feed.xml",
+                    InterfaceUri = new FeedUri("http://test/feed.xml"),
                     Command = Command.NameRun,
                     Architecture = Architecture.CurrentSystem
                 },
                 actual: new Requirements
                 {
-                    InterfaceID = "http://test/feed.xml"
+                    InterfaceUri = new FeedUri("http://test/feed.xml")
                 }.GetEffective().First());
         }
 
@@ -53,20 +54,20 @@ namespace ZeroInstall.Services.Solvers
                 {
                     new Requirements
                     {
-                        InterfaceID = "http://test/feed.xml",
+                        InterfaceUri = new FeedUri("http://test/feed.xml"),
                         Command = Command.NameRun,
                         Architecture = new Architecture(OS.Linux, Cpu.X64)
                     },
                     new Requirements
                     {
-                        InterfaceID = "http://test/feed.xml",
+                        InterfaceUri = new FeedUri("http://test/feed.xml"),
                         Command = Command.NameRun,
                         Architecture = new Architecture(OS.Linux, Cpu.I686)
                     }
                 },
                 actual: new Requirements
                 {
-                    InterfaceID = "http://test/feed.xml",
+                    InterfaceUri = new FeedUri("http://test/feed.xml"),
                     Command = Command.NameRun,
                     Architecture = new Architecture(OS.Linux, Cpu.X64)
                 }.GetEffective());

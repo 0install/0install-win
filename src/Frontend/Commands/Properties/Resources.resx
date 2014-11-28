@@ -415,7 +415,7 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
     <value>When running an implementation the command may not be empty.</value>
   </data>
   <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
-    <value>Can only update with Feed IDs, not with selections documents.</value>
+    <value>Can only update with Feed URIs, not with selections documents.</value>
   </data>
   <data name="NoSelfUpdateStore" xml:space="preserve">
     <value>This Zero Install instance was launched as an implementation by another Zero Install instance. It therefore cannot update itself.</value>

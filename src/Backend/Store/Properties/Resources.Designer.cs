@@ -368,11 +368,11 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The interface &apos;{0}&apos; is not a valid &apos;http(s):&apos; URI and is not a valid local path either..
+        ///   Looks up a localized string similar to &apos;{0}&apos; is not a valid &apos;http(s):&apos; URI and is not a valid local path either..
         /// </summary>
-        internal static string InvalidInterfaceID {
+        internal static string InvalidFeedUri {
             get {
-                return ResourceManager.GetString("InvalidInterfaceID", resourceCulture);
+                return ResourceManager.GetString("InvalidFeedUri", resourceCulture);
             }
         }
         
@@ -418,15 +418,6 @@ namespace ZeroInstall.Store.Properties {
         internal static string MissingPath {
             get {
                 return ResourceManager.GetString("MissingPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Missing &apos;/&apos; after host name in URI &apos;{0}&apos;..
-        /// </summary>
-        internal static string MissingSlashInUri {
-            get {
-                return ResourceManager.GetString("MissingSlashInUri", resourceCulture);
             }
         }
         
@@ -590,9 +581,9 @@ namespace ZeroInstall.Store.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The relative path &apos;{0}&apos; was specified in a remote feed. Only local feeds may contain relative paths..
         /// </summary>
-        internal static string RelativePathInNonRemoteFeed {
+        internal static string RelativePathInRemoteFeed {
             get {
-                return ResourceManager.GetString("RelativePathInNonRemoteFeed", resourceCulture);
+                return ResourceManager.GetString("RelativePathInRemoteFeed", resourceCulture);
             }
         }
         

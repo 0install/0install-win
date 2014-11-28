@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using NanoByte.Common.Collections;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
@@ -83,9 +84,9 @@ namespace ZeroInstall.Services.Solvers
                 Released = implementation.Released,
                 Stability = candidate.EffectiveStability,
                 License = implementation.License,
-                InterfaceID = requirements.InterfaceID,
+                InterfaceUri = requirements.InterfaceUri,
             };
-            if (candidate.FeedID != requirements.InterfaceID) selection.FromFeed = candidate.FeedID;
+            if (candidate.FeedUri != requirements.InterfaceUri) selection.FromFeed = candidate.FeedUri;
 
             selection.Bindings.AddRange(implementation.Bindings.CloneElements());
             selection.AddDependencies(requirements, from: candidate.Implementation);
@@ -156,7 +157,7 @@ namespace ZeroInstall.Services.Solvers
 
             var requirements = new Requirements
             {
-                InterfaceID = dependency.InterfaceID,
+                InterfaceUri = dependency.InterfaceUri,
                 Command = "",
                 Architecture = topLevelRequirements.Architecture
             };
@@ -179,7 +180,7 @@ namespace ZeroInstall.Services.Solvers
 
             var requirements = new Requirements
             {
-                InterfaceID = runner.InterfaceID,
+                InterfaceUri = runner.InterfaceUri,
                 Command = runner.Command ?? Command.NameRun,
                 Architecture = topLevelRequirements.Architecture
             };
@@ -190,7 +191,7 @@ namespace ZeroInstall.Services.Solvers
 
         private static void CopyVersionRestrictions(this Requirements requirements, Restriction from)
         {
-            if (from.Versions != null) requirements.ExtraRestrictions.Add(from.InterfaceID, from.Versions);
+            if (from.Versions != null) requirements.ExtraRestrictions.Add(from.InterfaceUri, from.Versions);
         }
 
         private static void CopyVersionRestrictions(this Requirements requirements, Requirements from)
@@ -202,16 +203,16 @@ namespace ZeroInstall.Services.Solvers
         /// Creates <see cref="Requirements"/> for all <see cref="ExecutableInBinding"/>s and the specific <see cref="Command"/>s they reference.
         /// </summary>
         /// <param name="bindingContainer">The binding container that may contain <see cref="ExecutableInBinding"/>s.</param>
-        /// <param name="interfaceID">The interface ID the bindings refer to. For <see cref="Element"/>s and <see cref="Command"/>s this is the URI of the containing feed. For <see cref="Dependency"/>s it is the URI of the target feed.</param>
-        public static IEnumerable<Requirements> ToBindingRequirements(this IBindingContainer bindingContainer, string interfaceID)
+        /// <param name="interfaceUri">The interface URI the bindings refer to. For <see cref="Element"/>s and <see cref="Command"/>s this is the URI of the containing feed. For <see cref="Dependency"/>s it is the URI of the target feed.</param>
+        public static IEnumerable<Requirements> ToBindingRequirements(this IBindingContainer bindingContainer, FeedUri interfaceUri)
         {
             #region Sanity checks
             if (bindingContainer == null) throw new ArgumentNullException("bindingContainer");
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             #endregion
 
             return bindingContainer.Bindings.OfType<ExecutableInBinding>()
-                .Select(x => new Requirements {InterfaceID = interfaceID, Command = x.Command ?? Command.NameRun});
+                .Select(x => new Requirements {InterfaceUri = interfaceUri, Command = x.Command ?? Command.NameRun});
         }
 
         /// <summary>

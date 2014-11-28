@@ -121,7 +121,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <param name="uri">The <see cref="Feed.Uri"/> to look for.</param>
         /// <returns><see langword="true"/> if a matching feed was found; <see langword="false"/> otherwise.</returns>
-        public bool ContainsFeed(Uri uri)
+        public bool ContainsFeed(FeedUri uri)
         {
             #region Sanity checks
             if (uri == null) throw new ArgumentNullException("uri");
@@ -136,7 +136,7 @@ namespace ZeroInstall.Store.Model
         /// <param name="uri">The <see cref="Feed.Uri"/> to look for.</param>
         /// <returns>The identified <see cref="Feed"/>.</returns>
         /// <exception cref="KeyNotFoundException">No <see cref="Feed"/> matching <paramref name="uri"/> was found in <see cref="Feeds"/>.</exception>
-        public Feed this[Uri uri]
+        public Feed this[FeedUri uri]
         {
             get
             {
@@ -162,7 +162,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <param name="uri">The <see cref="Feed.Uri"/> to look for.</param>
         /// <returns>The identified <see cref="Feed"/>; <see langword="null"/> if no matching entry was found.</returns>
-        public Feed GetFeed(Uri uri)
+        public Feed GetFeed(FeedUri uri)
         {
             #region Sanity checks
             if (uri == null) throw new ArgumentNullException("uri");

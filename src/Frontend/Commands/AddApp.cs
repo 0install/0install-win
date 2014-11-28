@@ -19,6 +19,7 @@ using System;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands
 {
@@ -47,16 +48,16 @@ namespace ZeroInstall.Commands
         #endregion
 
         /// <inheritdoc/>
-        protected override int ExecuteHelper(ICategoryIntegrationManager integrationManager, string interfaceID)
+        protected override int ExecuteHelper(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
             #endregion
 
             try
             {
-                CreateAppEntry(integrationManager, ref interfaceID);
+                CreateAppEntry(integrationManager, ref interfaceUri);
                 return 0;
             }
             catch (InvalidOperationException ex)

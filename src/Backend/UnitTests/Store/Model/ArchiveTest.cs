@@ -57,7 +57,7 @@ namespace ZeroInstall.Store.Model
         public void TestNormalizeGuessMimeType()
         {
             var archive = new Archive {Href = new Uri("http://0install.de/files/test/test.tar.gz"), Size = 128};
-            archive.Normalize("http://0install.de/feeds/test/");
+            archive.Normalize(new FeedUri("http://0install.de/feeds/test/"));
             Assert.AreEqual(Archive.MimeTypeTarGzip, archive.MimeType, "Normalize() should guess missing MIME type");
         }
 
@@ -65,7 +65,7 @@ namespace ZeroInstall.Store.Model
         public void TestNormalizeLocalPath()
         {
             var archive = new Archive {Href = new Uri("test.zip", UriKind.Relative), MimeType = Archive.MimeTypeZip, Size = 128};
-            archive.Normalize(Path.Combine(WindowsUtils.IsWindows ? @"C:\some\dir" : "/some/dir", "feed.xml"));
+            archive.Normalize(new FeedUri(Path.Combine(WindowsUtils.IsWindows ? @"C:\some\dir" : "/some/dir", "feed.xml")));
             Assert.AreEqual(new Uri(WindowsUtils.IsWindows ? "file:///C:/some/dir/test.zip" : "file:///some/dir/test.zip"), archive.Href, "Normalize() should make relative local paths absolute");
         }
     }

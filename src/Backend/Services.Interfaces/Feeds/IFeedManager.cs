@@ -44,16 +44,16 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// Returns a specific <see cref="Feed"/>. Automatically handles downloading and caching. Updates the <see cref="Stale"/> indicator.
         /// </summary>
-        /// <param name="feedID">The canonical ID used to identify the feed.</param>
+        /// <param name="feedUri">The canonical ID used to identify the feed.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
         /// <remarks><see cref="Feed"/>s are always served from the <see cref="IFeedCache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
         /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
-        /// <exception cref="InvalidInterfaceIDException"><paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
         /// <exception cref="SignatureException">The signature data of a remote feed file could not be verified.</exception>
-        Feed GetFeed(string feedID);
+        /// <exception cref="UriFormatException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="feedUri"/>.</exception>
+        Feed GetFeed(FeedUri feedUri);
 
         /// <summary>
         /// Imports a remote <see cref="Feed"/> into the <see cref="IFeedCache"/> after verifying its signature.
@@ -61,11 +61,11 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="path">The path of a local copy of the feed.</param>
         /// <param name="uri">The URI the feed originally came from.</param>
         /// <param name="mirrorUrl">The URL or local file path the file was fetched from; <see langword="null"/> if it is identical to <paramref name="uri"/>.</param>
-        /// <exception cref="InvalidInterfaceIDException">The feed does not list the same URI as <paramref name="uri"/>.</exception>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the feed file or the cache is not permitted.</exception>
         /// <exception cref="SignatureException">The signature data of the feed file could not be handled or if no signatures were trusted.</exception>
-        void ImportFeed(string path, Uri uri, Uri mirrorUrl = null);
+        /// <exception cref="UriFormatException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="uri"/> or <paramref name="uri"/> is a local file.</exception>
+        void ImportFeed(string path, FeedUri uri, FeedUri mirrorUrl = null);
 
         /// <summary>
         /// Calls <see cref="IFeedCache.Flush"/> on the underlying <see cref="IFeedCache"/>.

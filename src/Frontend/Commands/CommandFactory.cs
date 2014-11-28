@@ -21,8 +21,6 @@ using System.IO;
 using System.Linq;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Store;
-using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -126,7 +124,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="IOException">A problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Creating a directory is not permitted.</exception>
         /// <exception cref="InvalidDataException">A configuration file is damaged.</exception>
-        /// <exception cref="InvalidInterfaceIDException">Trying to set an invalid interface ID.</exception>
+        /// <exception cref="UriFormatException">The URI or local path specified is invalid.</exception>
         public static FrontendCommand CreateAndParse(IEnumerable<string> args, ICommandHandler handler)
         {
             #region Sanity checks

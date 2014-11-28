@@ -1,10 +1,11 @@
 ﻿Imports NanoByte.Common.Tasks
 Imports ZeroInstall.Services
+Imports ZeroInstall.Store
 Imports ZeroInstall.Store.Model
 
 Module MinimalZeroInstall
     Sub Main(ByVal args As String())
-        Run(New Requirements() With {.InterfaceID = args(0)})
+        Run(New Requirements() With {.InterfaceUri = New FeedUri(args(0))})
     End Sub
 
     Private Sub Run(requirements As Requirements)

@@ -107,8 +107,8 @@ namespace ZeroInstall.Services.Injector
         private void ApplyDependencyBindings(IDependencyContainer dependencyContainer, ProcessStartInfo startInfo)
         {
             foreach (var dependency in dependencyContainer.Dependencies
-                .Where(x => x.Importance == Importance.Essential || Selections.ContainsImplementation(x.InterfaceID)))
-                ApplyBindings(dependency, Selections[dependency.InterfaceID], startInfo);
+                .Where(x => x.Importance == Importance.Essential || Selections.ContainsImplementation(x.InterfaceUri)))
+                ApplyBindings(dependency, Selections[dependency.InterfaceUri], startInfo);
         }
 
         #region EnvironmentBinding

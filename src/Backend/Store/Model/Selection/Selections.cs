@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Properties;
 
@@ -30,15 +31,21 @@ namespace ZeroInstall.Store.Model.Selection
     /// Represents a set of <see cref="ImplementationBase"/>s chosen by a solver.
     /// </summary>
     [XmlRoot("selections", Namespace = Feed.XmlNamespace), XmlType("selections", Namespace = Feed.XmlNamespace)]
-    public sealed class Selections : XmlUnknown, IInterfaceID, ICloneable, IEquatable<Selections>
+    public sealed class Selections : XmlUnknown, IInterfaceUri, ICloneable, IEquatable<Selections>
     {
         #region Properties
         /// <summary>
         /// The URI or local path of the interface this selection is based on.
         /// </summary>
         [Description("The URI or local path of the interface this selection is based on.")]
-        [XmlAttribute("interface")]
-        public string InterfaceID { get; set; }
+        [XmlIgnore]
+        public FeedUri InterfaceUri { get; set; }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="InterfaceUri"/>
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
+        [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string InterfaceUriString { get { return (InterfaceUri == null) ? null : InterfaceUri.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
 
         /// <summary>
         /// The name of the <see cref="Command"/> in the interface to be started.
@@ -58,11 +65,11 @@ namespace ZeroInstall.Store.Model.Selection
         public List<ImplementationSelection> Implementations { get { return _implementations; } }
 
         /// <summary>
-        /// The main implementation in the selection (the actual program to launch). Identified by <see cref="InterfaceID"/>.
+        /// The main implementation in the selection (the actual program to launch). Identified by <see cref="InterfaceUri"/>.
         /// </summary>
-        /// <exception cref="KeyNotFoundException">No <see cref="ImplementationSelection"/> matching <see cref="InterfaceID"/> was found in <see cref="Implementations"/>.</exception>
+        /// <exception cref="KeyNotFoundException">No <see cref="ImplementationSelection"/> matching <see cref="InterfaceUri"/> was found in <see cref="Implementations"/>.</exception>
         [XmlIgnore]
-        public ImplementationSelection MainImplementation { get { return this[InterfaceID]; } }
+        public ImplementationSelection MainImplementation { get { return this[InterfaceUri]; } }
         #endregion
 
         #region Constructor
@@ -90,7 +97,7 @@ namespace ZeroInstall.Store.Model.Selection
         public void Normalize()
         {
             foreach (var implementation in Implementations)
-                implementation.Normalize(implementation.FromFeed ?? implementation.InterfaceID);
+                implementation.Normalize(implementation.FromFeed ?? implementation.InterfaceUri);
         }
         #endregion
 
@@ -98,35 +105,35 @@ namespace ZeroInstall.Store.Model.Selection
         /// <summary>
         /// Determines whether an <see cref="ImplementationSelection"/> for a specific interface is listed in the selection.
         /// </summary>
-        /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
+        /// <param name="interfaceUri">The <see cref="ImplementationSelection.InterfaceUri"/> to look for.</param>
         /// <returns><see langword="true"/> if an implementation was found; <see langword="false"/> otherwise.</returns>
-        public bool ContainsImplementation(string interfaceID)
+        public bool ContainsImplementation(FeedUri interfaceUri)
         {
-            return _implementations.Any(implementation => implementation.InterfaceID == interfaceID);
+            return _implementations.Any(implementation => implementation.InterfaceUri == interfaceUri);
         }
 
         /// <summary>
         /// Returns the <see cref="ImplementationSelection"/> for a specific interface.
         /// </summary>
-        /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
+        /// <param name="interfaceUri">The <see cref="ImplementationSelection.InterfaceUri"/> to look for.</param>
         /// <returns>The first matching implementation.</returns>
         /// <exception cref="KeyNotFoundException">No matching implementation was found.</exception>
-        public ImplementationSelection this[string interfaceID]
+        public ImplementationSelection this[FeedUri interfaceUri]
         {
             get
             {
                 #region Sanity checks
-                if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+                if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
                 #endregion
 
                 try
                 {
-                    return _implementations.First(implementation => implementation.InterfaceID == interfaceID);
+                    return _implementations.First(implementation => implementation.InterfaceUri == interfaceUri);
                 }
                     #region Error handling
                 catch (InvalidOperationException)
                 {
-                    throw new KeyNotFoundException(string.Format(Resources.ImplementationNotInSelection, interfaceID));
+                    throw new KeyNotFoundException(string.Format(Resources.ImplementationNotInSelection, interfaceUri));
                 }
                 #endregion
             }
@@ -135,15 +142,15 @@ namespace ZeroInstall.Store.Model.Selection
         /// <summary>
         /// Returns the <see cref="ImplementationSelection"/> for a specific interface. Safe for missing elements.
         /// </summary>
-        /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
+        /// <param name="interfaceUri">The <see cref="ImplementationSelection.InterfaceUri"/> to look for.</param>
         /// <returns>The first matching implementation; <see langword="null"/> if no matching one was found.</returns>
-        public ImplementationSelection GetImplementation(string interfaceID)
+        public ImplementationSelection GetImplementation(FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             #endregion
 
-            return _implementations.FirstOrDefault(implementation => implementation.InterfaceID == interfaceID);
+            return _implementations.FirstOrDefault(implementation => implementation.InterfaceUri == interfaceUri);
         }
         #endregion
 
@@ -156,7 +163,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// <returns>The new copy of the <see cref="Selections"/>.</returns>
         public Selections Clone()
         {
-            var selections = new Selections {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, InterfaceID = InterfaceID, Command = Command};
+            var selections = new Selections {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, InterfaceUri = InterfaceUri, Command = Command};
             selections.Implementations.AddRange(Implementations.CloneElements());
             return selections;
         }
@@ -169,11 +176,11 @@ namespace ZeroInstall.Store.Model.Selection
 
         #region Conversion
         /// <summary>
-        /// Returns the selections in the form "InterfaceID (Command): Implementations". Not safe for parsing!
+        /// Returns the selections in the form "InterfaceUri (Command): Implementations". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} ({1}): {2}", InterfaceID, Command, Implementations);
+            return string.Format("{0} ({1}): {2}", InterfaceUri, Command, Implementations);
         }
         #endregion
 
@@ -183,7 +190,7 @@ namespace ZeroInstall.Store.Model.Selection
         {
             if (other == null) return false;
             if (!base.Equals(other)) return false;
-            if (InterfaceID != other.InterfaceID) return false;
+            if (InterfaceUri != other.InterfaceUri) return false;
             if (Command != other.Command) return false;
             if (!Implementations.SequencedEquals(other.Implementations)) return false;
             return true;
@@ -203,7 +210,7 @@ namespace ZeroInstall.Store.Model.Selection
             unchecked
             {
                 int result = base.GetHashCode();
-                if (InterfaceID != null) result = (result * 397) ^ InterfaceID.GetHashCode();
+                if (InterfaceUri != null) result = (result * 397) ^ InterfaceUri.GetHashCode();
                 if (Command != null) result = (result * 397) ^ Command.GetHashCode();
                 result = (result * 397) ^ Implementations.GetSequencedHashCode();
                 return result;

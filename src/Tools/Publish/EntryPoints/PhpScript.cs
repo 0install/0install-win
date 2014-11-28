@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
@@ -35,6 +36,6 @@ namespace ZeroInstall.Publish.EntryPoints
         }
 
         /// <inheritdoc/>
-        protected override string InterpreterInterface { get { return "http://0install.de/feeds/PHP.xml"; } }
+        protected override FeedUri InterpreterInterface { get { return new FeedUri("http://0install.de/feeds/PHP.xml"); } }
     }
 }

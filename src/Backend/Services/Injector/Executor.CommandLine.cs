@@ -94,7 +94,7 @@ namespace ZeroInstall.Services.Injector
             if (startInfo == null) throw new ArgumentNullException("startInfo");
             #endregion
 
-            if (string.IsNullOrEmpty(commandName)) throw new ExecutorException(string.Format(Resources.CommandNotSpecified, implementation.InterfaceID));
+            if (string.IsNullOrEmpty(commandName)) throw new ExecutorException(string.Format(Resources.CommandNotSpecified, implementation.InterfaceUri));
             Command command = implementation[commandName];
 
             // Apply bindings implementations use to find themselves and their dependencies
@@ -107,7 +107,7 @@ namespace ZeroInstall.Services.Injector
             if (runner == null) commandLine = new List<ArgBase>();
             else
             {
-                commandLine = GetCommandLine(Selections[runner.InterfaceID], runner.Command ?? Command.NameRun, startInfo);
+                commandLine = GetCommandLine(Selections[runner.InterfaceUri], runner.Command ?? Command.NameRun, startInfo);
                 commandLine.AddRange(runner.Arguments);
             }
 

@@ -34,31 +34,18 @@ namespace ZeroInstall.Store.Model
         {
             return new Requirements
             {
-                InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                InterfaceUri = FeedTest.Test1Uri,
                 Command = "command",
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
                 //Languages = {"de-DE", "en-US"},
                 ExtraRestrictions =
                 {
-                    {"http://0install.de/feeds/test/test1.xml", new VersionRange("1.0..!2.0")},
-                    {"http://0install.de/feeds/test/test2.xml", new VersionRange("2.0..!3.0")}
+                    {FeedTest.Test1Uri, new VersionRange("1.0..!2.0")},
+                    {FeedTest.Test2Uri, new VersionRange("2.0..!3.0")}
                 }
             };
         }
         #endregion
-
-        [Test(Description = "Ensures that setting Requirements.InterfaceID produces the correct exceptions.")]
-        public void TestInterfaceID()
-        {
-            var requirements = new Requirements();
-            Assert.Throws<InvalidInterfaceIDException>(() => requirements.InterfaceID = "http://0install.de", "Should not accept URIs without slash after hostname");
-            Assert.Throws<InvalidInterfaceIDException>(() => requirements.InterfaceID = "ftp://0install.de/feeds/test.xml", "Should not accept protocols other than HTTP(S)");
-            Assert.Throws<InvalidInterfaceIDException>(() => requirements.InterfaceID = "test.xml", "Should not accept relative paths");
-
-            Assert.DoesNotThrow(() => requirements.InterfaceID = "http://0install.de/feeds/test/test1.xml", "Should accept HTTP URIs");
-            Assert.DoesNotThrow(() => requirements.InterfaceID = "https://0install.de/feeds/test.xml", "Should accept HTTPS URIs");
-            Assert.DoesNotThrow(() => requirements.InterfaceID = "/feeds/test.xml", "Should absolute paths");
-        }
 
         [Test(Description = "Ensures that the class can be correctly cloned.")]
         public void TestClone()

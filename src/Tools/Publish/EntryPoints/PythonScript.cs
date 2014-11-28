@@ -18,6 +18,7 @@
 using System.ComponentModel;
 using System.IO;
 using NanoByte.Common;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
@@ -51,7 +52,7 @@ namespace ZeroInstall.Publish.EntryPoints
         }
 
         /// <inheritdoc/>
-        protected override string InterpreterInterface { get { return "http://repo.roscidus.com/python/python"; } }
+        protected override FeedUri InterpreterInterface { get { return new FeedUri("http://repo.roscidus.com/python/python"); } }
 
         /// <inheritdoc/>
         public override Command CreateCommand()

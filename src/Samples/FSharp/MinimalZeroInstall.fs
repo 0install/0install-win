@@ -1,5 +1,6 @@
 ﻿open NanoByte.Common.Tasks
 open ZeroInstall.Services
+open ZeroInstall.Store
 open ZeroInstall.Store.Model
 
 let services = new ServiceLocator(new CliTaskHandler())
@@ -15,5 +16,5 @@ let run requirements =
 
 [<EntryPoint>]
 let main args =
-    ignore(run(new Requirements(InterfaceID = args.[0])))
+    ignore(run(new Requirements(InterfaceUri = new FeedUri(args.[0]))))
     0

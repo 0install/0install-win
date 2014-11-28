@@ -33,9 +33,7 @@ using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.Solvers;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
-using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Commands.WinForms
@@ -126,7 +124,7 @@ namespace ZeroInstall.Commands.WinForms
                     Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Warn);
                     return 1;
                 }
-                catch (InvalidInterfaceIDException ex)
+                catch (UriFormatException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Warn);
                     return 1;
@@ -215,7 +213,7 @@ namespace ZeroInstall.Commands.WinForms
                     ErrorBox.Show(ex.Message, errorLog);
                     return 1;
                 }
-                catch (InvalidInterfaceIDException ex)
+                catch (UriFormatException ex)
                 {
                     handler.CloseUI();
                     Log.Error(ex);

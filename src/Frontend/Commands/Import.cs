@@ -20,6 +20,7 @@ using System.IO;
 using NanoByte.Common.Cli;
 using NanoByte.Common.Storage;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands
@@ -69,9 +70,9 @@ namespace ZeroInstall.Commands
         private void ImportFile(string path)
         {
             var feed = XmlStorage.LoadXml<Feed>(path);
-            if (feed.Uri == null) throw new InvalidDataException(Resources.ImportNoSource);
 
-            FeedManager.ImportFeed(path, feed.Uri, mirrorUrl: new Uri(path));
+            if (feed.Uri == null) throw new InvalidDataException(Resources.ImportNoSource);
+            FeedManager.ImportFeed(path, feed.Uri, mirrorUrl: new FeedUri(path));
         }
         #endregion
     }

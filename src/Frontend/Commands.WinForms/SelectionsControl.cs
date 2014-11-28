@@ -22,6 +22,7 @@ using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Solvers;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Preferences;
@@ -94,8 +95,7 @@ namespace ZeroInstall.Commands.WinForms
 
                 // Get feed for each selected implementation
                 var implementation = _selections.Implementations[i];
-                string feedID = implementation.FromFeed ?? implementation.InterfaceID;
-                var feed = _feedCache.GetFeed(feedID.Replace(ImplementationSelection.DistributionFeedPrefix, ""));
+                var feed = _feedCache.GetFeed(implementation.FromFeed ?? implementation.InterfaceUri);
 
                 // Display application name and implementation version
                 tableLayout.Controls.Add(new Label {Text = feed.Name, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft}, 0, i);
@@ -133,13 +133,13 @@ namespace ZeroInstall.Commands.WinForms
         private void CreateLinkLabels()
         {
             for (int i = 0; i < _selections.Implementations.Count; i++)
-                tableLayout.Controls.Add(CreateLinkLabel(_selections.Implementations[i].InterfaceID), 2, i);
+                tableLayout.Controls.Add(CreateLinkLabel(_selections.Implementations[i].InterfaceUri), 2, i);
         }
 
-        private LinkLabel CreateLinkLabel(string interfaceID)
+        private LinkLabel CreateLinkLabel(FeedUri interfaceUri)
         {
             var linkLabel = new LinkLabel {Text = Resources.Change, Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft};
-            linkLabel.LinkClicked += delegate { InterfaceDialog.Show(this, interfaceID, _solveCallback, _feedCache); };
+            linkLabel.LinkClicked += delegate { InterfaceDialog.Show(this, interfaceUri, _solveCallback, _feedCache); };
             return linkLabel;
         }
 

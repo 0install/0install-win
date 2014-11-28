@@ -100,34 +100,34 @@ namespace ZeroInstall.Central
                 theirs: newAppList.Entries, mine: _appList.Entries,
                 added: entry =>
                 {
-                    if (string.IsNullOrEmpty(entry.InterfaceID) || entry.Name == null) return;
+                    if (entry.InterfaceUri == null || entry.Name == null) return;
                     try
                     {
                         var status = (entry.AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated;
-                        var tile = _tileListMyApps.QueueNewTile(entry.InterfaceID, entry.Name, status, _machineWide);
+                        var tile = _tileListMyApps.QueueNewTile(entry.InterfaceUri, entry.Name, status, _machineWide);
                         tiles.Add(tile);
 
                         // Update "added" status of tile in catalog list
-                        var catalogTile = _tileListCatalog.GetTile(entry.InterfaceID);
+                        var catalogTile = _tileListCatalog.GetTile(entry.InterfaceUri);
                         if (catalogTile != null) catalogTile.Status = tile.Status;
                     }
                         #region Error handling
                     catch (KeyNotFoundException)
                     {
-                        Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, entry.InterfaceID));
+                        Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, entry.InterfaceUri));
                     }
                     catch (InvalidOperationException)
                     {
-                        Log.Warn(string.Format(Resources.IgnoringDuplicateAppListEntry, entry.InterfaceID));
+                        Log.Warn(string.Format(Resources.IgnoringDuplicateAppListEntry, entry.InterfaceUri));
                     }
                     #endregion
                 },
                 removed: entry =>
                 {
-                    _tileListMyApps.RemoveTile(entry.InterfaceID);
+                    _tileListMyApps.RemoveTile(entry.InterfaceUri);
 
                     // Update "added" status of tile in catalog list
-                    var catalogTile = _tileListCatalog.GetTile(entry.InterfaceID);
+                    var catalogTile = _tileListCatalog.GetTile(entry.InterfaceUri);
                     if (catalogTile != null) catalogTile.Status = AppStatus.Candidate;
                 });
             _tileListMyApps.AddQueuedTiles();
@@ -176,44 +176,44 @@ namespace ZeroInstall.Central
         /// Calls <see cref="IFeedManager.GetFeed"/>.
         /// </summary>
         /// <returns>The loaded <see cref="Feed"/>; <see langword="null"/> on error.</returns>
-        public Feed LoadFeedSafe(string feedID)
+        public Feed LoadFeedSafe(FeedUri feedUri)
         {
             try
             {
-                return _feedManager.GetFeedFresh(feedID);
+                return _feedManager.GetFeedFresh(feedUri);
             }
                 #region Error handling
             catch (OperationCanceledException)
             {
                 return null;
             }
-            catch (InvalidInterfaceIDException ex)
+            catch (UriFormatException ex)
             {
-                Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, feedID));
+                Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, feedUri));
                 Log.Warn(ex);
                 return null;
             }
             catch (IOException ex)
             {
-                Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, feedID));
+                Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, feedUri));
                 Log.Warn(ex);
                 return null;
             }
             catch (WebException ex)
             {
-                Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, feedID));
+                Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, feedUri));
                 Log.Warn(ex);
                 return null;
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, feedID));
+                Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, feedUri));
                 Log.Warn(ex);
                 return null;
             }
             catch (SignatureException ex)
             {
-                Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, feedID));
+                Log.Warn(string.Format(Resources.UnableToLoadFeedForApp, feedUri));
                 Log.Warn(ex);
                 return null;
             }
@@ -252,7 +252,7 @@ namespace ZeroInstall.Central
             Merge.TwoWay(
                 theirs: newCatalog.Feeds, mine: _catalog.Feeds,
                 added: QueueCatalogTile,
-                removed: feed => _tileListCatalog.RemoveTile(feed.UriString));
+                removed: feed => _tileListCatalog.RemoveTile(feed.Uri));
             _tileListCatalog.AddQueuedTiles();
             _tileListCatalog.ShowCategories();
 
@@ -267,13 +267,12 @@ namespace ZeroInstall.Central
             if (string.IsNullOrEmpty(feed.UriString) || feed.Name == null) return;
             try
             {
-                string interfaceID = feed.UriString;
-                var appEntry = _appList.GetEntry(interfaceID);
+                var appEntry = _appList.GetEntry(feed.Uri);
 
                 var status = (appEntry == null)
                     ? AppStatus.Candidate
                     : ((appEntry.AccessPoints == null) ? AppStatus.Added : AppStatus.Integrated);
-                var tile = _tileListCatalog.QueueNewTile(interfaceID, feed.Name, status, _machineWide);
+                var tile = _tileListCatalog.QueueNewTile(feed.Uri, feed.Name, status, _machineWide);
                 tile.Feed = feed;
             }
                 #region Error handling

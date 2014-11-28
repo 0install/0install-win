@@ -52,12 +52,12 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Flattens the <see cref="Group"/> inheritance structure and sets missing default values in <see cref="Implementation"/>s.
         /// </summary>
-        /// <param name="feedID">The feed the data was originally loaded from.</param>
+        /// <param name="feedUri">The feed the data was originally loaded from.</param>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
-        public override void Normalize(string feedID)
+        public override void Normalize(FeedUri feedUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
 
             // Apply if-0install-version filter
@@ -70,7 +70,7 @@ namespace ZeroInstall.Store.Model
                 element.InheritFrom(this);
 
                 // Flatten structure in sub-groups, set missing default values in implementations
-                element.Normalize(feedID);
+                element.Normalize(feedUri);
 
                 var group = element as Group;
                 if (group != null)

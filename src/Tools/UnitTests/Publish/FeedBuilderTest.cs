@@ -22,6 +22,7 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.Publish.EntryPoints;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
@@ -39,7 +40,7 @@ namespace ZeroInstall.Publish
             using (var implementationDir = new TemporaryDirectory("0install-unit-tests"))
             using (var builder = new FeedBuilder
             {
-                Uri = new Uri("http://0install.de/feeds/test/test1.xml"),
+                Uri = new FeedUri("http://0install.de/feeds/test/test1.xml"),
                 Icons =
                 {
                     new Icon {MimeType = Icon.MimeTypePng, Href = new Uri("http://0install.de/test.png")},

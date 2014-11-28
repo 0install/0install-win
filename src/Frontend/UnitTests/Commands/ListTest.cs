@@ -18,6 +18,7 @@
 using System;
 using NUnit.Framework;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -30,14 +31,14 @@ namespace ZeroInstall.Commands
         [Test(Description = "Ensures calling with no arguments returns all feeds in the cache.")]
         public void TestNoArgs()
         {
-            Container.GetMock<IFeedCache>().Setup(x => x.ListAll()).Returns(new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml"});
+            Container.GetMock<IFeedCache>().Setup(x => x.ListAll()).Returns(new[] {FeedTest.Test1Uri, FeedTest.Test2Uri});
             RunAndAssert("http://0install.de/feeds/test/test1.xml" + Environment.NewLine + "http://0install.de/feeds/test/test2.xml", 0);
         }
 
         [Test(Description = "Ensures calling with a single argument returns a filtered list of feeds in the cache.")]
         public void TestPattern()
         {
-            Container.GetMock<IFeedCache>().Setup(x => x.ListAll()).Returns(new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml"});
+            Container.GetMock<IFeedCache>().Setup(x => x.ListAll()).Returns(new[] {FeedTest.Test1Uri, FeedTest.Test2Uri});
             RunAndAssert("http://0install.de/feeds/test/test2.xml", 0, "test2");
         }
     }

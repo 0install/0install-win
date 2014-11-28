@@ -18,6 +18,7 @@
 using System;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.WinForms.Controls
@@ -32,7 +33,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             InitializeComponent();
 
             RegisterControl(textBoxName, new PropertyPointer<string>(() => Target.Name, value => Target.Name = value));
-            RegisterControl(textBoxUri, new PropertyPointer<Uri>(() => Target.Uri, value => Target.Uri = value));
+            RegisterControl(textBoxUri, new PropertyPointer<Uri>(() => Target.Uri, value => Target.Uri = new FeedUri(value)));
             RegisterControl(textBoxDescription, () => Target.Descriptions);
             RegisterControl(textBoxSummary, () => Target.Summaries);
             RegisterControl(textBoxHomepage, new PropertyPointer<Uri>(() => Target.Homepage, value => Target.Homepage = value));

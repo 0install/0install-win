@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Text;
 using NanoByte.Common.Collections;
 using ZeroInstall.Services.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model.Selection;
 
@@ -42,7 +43,7 @@ namespace ZeroInstall.Services
             #endregion
 
             var builder = new StringBuilder();
-            PrintNode(selections, builder, new HashSet<string>(), store, "", selections.InterfaceID);
+            PrintNode(selections, builder, new HashSet<FeedUri>(), store, "", selections.InterfaceUri);
             return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
         }
 
@@ -51,20 +52,20 @@ namespace ZeroInstall.Services
         /// </summary>
         /// <param name="selections">The selections to be displayed.</param>
         /// <param name="builder">The string builder to write the output to.</param>
-        /// <param name="handled">A list of interface IDs that have already been handled; used to prevent infinite recursion.</param>
+        /// <param name="handled">A list of interface URIs that have already been handled; used to prevent infinite recursion.</param>
         /// <param name="store">A store to search for implementation storage locations.</param>
         /// <param name="indent">An indention prefix for the current recursion level (to create a visual hierachy).</param>
-        /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
-        private static void PrintNode(Selections selections, StringBuilder builder, HashSet<string> handled, IStore store, string indent, string interfaceID)
+        /// <param name="interfaceUri">The <see cref="ImplementationSelection.InterfaceUri"/> to look for.</param>
+        private static void PrintNode(Selections selections, StringBuilder builder, HashSet<FeedUri> handled, IStore store, string indent, FeedUri interfaceUri)
         {
             // Prevent infinite recursion
-            if (handled.Contains(interfaceID)) return;
-            handled.Add(interfaceID);
+            if (handled.Contains(interfaceUri)) return;
+            handled.Add(interfaceUri);
 
-            builder.AppendLine(indent + "- URI: " + interfaceID);
+            builder.AppendLine(indent + "- URI: " + interfaceUri);
             try
             {
-                var implementation = selections[interfaceID];
+                var implementation = selections[interfaceUri];
                 builder.AppendLine(indent + "  Version: " + implementation.Version);
                 builder.AppendLine(indent + "  Path: " + (implementation.LocalPath ?? implementation.GetPath(store) ?? Resources.NotCached));
 
@@ -72,7 +73,7 @@ namespace ZeroInstall.Services
 
                 // Recurse into regular dependencies
                 foreach (var dependency in implementation.Dependencies)
-                    PrintNode(selections, builder, handled, store, indent, dependency.InterfaceID);
+                    PrintNode(selections, builder, handled, store, indent, dependency.InterfaceUri);
 
                 if (implementation.Commands.Count != 0)
                 {
@@ -80,11 +81,11 @@ namespace ZeroInstall.Services
 
                     // Recurse into command dependencies
                     foreach (var dependency in command.Dependencies)
-                        PrintNode(selections, builder, handled, store, indent, dependency.InterfaceID);
+                        PrintNode(selections, builder, handled, store, indent, dependency.InterfaceUri);
 
                     // Recurse into runner dependency
                     if (command.Runner != null)
-                        PrintNode(selections, builder, handled, store, indent, command.Runner.InterfaceID);
+                        PrintNode(selections, builder, handled, store, indent, command.Runner.InterfaceUri);
                 }
             }
             catch (KeyNotFoundException)

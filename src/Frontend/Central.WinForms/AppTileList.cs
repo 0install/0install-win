@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using ZeroInstall.Central.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Icons;
 
 namespace ZeroInstall.Central.WinForms
@@ -45,8 +46,8 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>Contains <see cref="_flowLayout"/> and makes it scrollable.</summary>
         private readonly Panel _scrollPanel;
 
-        /// <summary>Maps interface IDs to <see cref="AppTile"/>s.</summary>
-        private readonly IDictionary<string, AppTile> _tileDictionary = new Dictionary<string, AppTile>();
+        /// <summary>Maps interface URIs to <see cref="AppTile"/>s.</summary>
+        private readonly IDictionary<FeedUri, AppTile> _tileDictionary = new Dictionary<FeedUri, AppTile>();
 
         /// <summary><see langword="true"/> if the last tile used <see cref="TileColorLight"/>; <see langword="false"/> if the last tile used <see cref="TileColorDark"/>.</summary>
         private bool _lastTileLight;
@@ -135,15 +136,15 @@ namespace ZeroInstall.Central.WinForms
 
         #region Access
         /// <inheritdoc/>
-        public IAppTile QueueNewTile(string interfaceID, string appName, AppStatus status, bool machineWide = false)
+        public IAppTile QueueNewTile(FeedUri interfaceUri, string appName, AppStatus status, bool machineWide = false)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             if (appName == null) throw new ArgumentNullException("appName");
-            if (_tileDictionary.ContainsKey(interfaceID)) throw new InvalidOperationException("Duplicate interface ID");
+            if (_tileDictionary.ContainsKey(interfaceUri)) throw new InvalidOperationException("Duplicate interface URI");
             #endregion
 
-            var tile = new AppTile(interfaceID, appName, status, IconCache, machineWide) {Width = _flowLayout.Width};
+            var tile = new AppTile(interfaceUri, appName, status, IconCache, machineWide) {Width = _flowLayout.Width};
 
             if (appName.ContainsIgnoreCase(TextSearch.Text))
             {
@@ -156,7 +157,7 @@ namespace ZeroInstall.Central.WinForms
             else tile.Visible = false;
 
             _appTileQueue.Add(tile);
-            _tileDictionary.Add(interfaceID, tile);
+            _tileDictionary.Add(interfaceUri, tile);
             return tile;
         }
 
@@ -170,31 +171,21 @@ namespace ZeroInstall.Central.WinForms
             _appTileQueue.Clear();
         }
 
-        /// <summary>
-        /// Retrieves a specific application tile from the list.
-        /// </summary>
-        /// <param name="interfaceID">The interface ID of the application the tile to retrieve represents.</param>
-        /// <returns>The requested <see cref="IAppTile"/>; <see langword="null"/> if no matching entry was found.</returns>
-        public AppTile GetTile(string interfaceID)
+        /// <inheritdoc/>
+        public IAppTile GetTile(FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             #endregion
 
-            return _tileDictionary.ContainsKey(interfaceID) ? _tileDictionary[interfaceID] : null;
+            return _tileDictionary.ContainsKey(interfaceUri) ? _tileDictionary[interfaceUri] : null;
         }
 
         /// <inheritdoc/>
-        IAppTile IAppTileList.GetTile(string interfaceID)
+        public void RemoveTile(FeedUri interfaceUri)
         {
-            return GetTile(interfaceID);
-        }
-
-        /// <inheritdoc/>
-        public void RemoveTile(string interfaceID)
-        {
-            if (string.IsNullOrEmpty(interfaceID)) return;
-            RemoveTile(_tileDictionary[interfaceID]);
+            if (interfaceUri == null) return;
+            RemoveTile(_tileDictionary[interfaceUri]);
         }
 
         /// <summary>
@@ -213,7 +204,7 @@ namespace ZeroInstall.Central.WinForms
 
             _flowLayout.Controls.Remove(tile);
             if (tile.Visible) _flowLayout.Height -= tile.Height;
-            _tileDictionary.Remove(tile.InterfaceID);
+            _tileDictionary.Remove(tile.InterfaceUri);
             tile.Dispose();
 
             RecolorTiles();

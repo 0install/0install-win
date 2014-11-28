@@ -75,7 +75,7 @@ namespace ZeroInstall.Commands
             RunAndAssert(expectedOutput, expectedExitStatus, args);
 
             var selections = MockHandler.LastSelections;
-            Assert.AreEqual(expectedSelections.InterfaceID, selections.InterfaceID);
+            Assert.AreEqual(expectedSelections.InterfaceUri, selections.InterfaceUri);
             Assert.AreEqual(expectedSelections.Command, selections.Command);
             CollectionAssert.AreEqual(expectedSelections.Implementations, selections.Implementations);
         }

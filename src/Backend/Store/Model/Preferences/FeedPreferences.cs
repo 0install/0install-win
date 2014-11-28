@@ -98,18 +98,18 @@ namespace ZeroInstall.Store.Model.Preferences
         /// <summary>
         /// Loads <see cref="FeedPreferences"/> for a specific feed.
         /// </summary>
-        /// <param name="feedID">The feed to load the preferences for.</param>
+        /// <param name="feedUri">The feed to load the preferences for.</param>
         /// <returns>The loaded <see cref="FeedPreferences"/>.</returns>
         /// <exception cref="IOException">A problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        public static FeedPreferences LoadFor(string feedID)
+        public static FeedPreferences LoadFor(FeedUri feedUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
 
-            var path = Locations.GetLoadConfigPaths("0install.net", true, "injector", "feeds", ModelUtils.PrettyEscape(feedID)).FirstOrDefault();
+            var path = Locations.GetLoadConfigPaths("0install.net", true, "injector", "feeds", feedUri.PrettyEscape()).FirstOrDefault();
             if (string.IsNullOrEmpty(path)) return new FeedPreferences();
 
             return XmlStorage.LoadXml<FeedPreferences>(path);
@@ -118,17 +118,17 @@ namespace ZeroInstall.Store.Model.Preferences
         /// <summary>
         /// Tries to load <see cref="FeedPreferences"/> for a specific feed. Automatically falls back to defaults on errors.
         /// </summary>
-        /// <param name="feedID">The feed to load the preferences for.</param>
+        /// <param name="feedUri">The feed to load the preferences for.</param>
         /// <returns>The loaded <see cref="FeedPreferences"/> or default value if there was a problem.</returns>
-        public static FeedPreferences LoadForSafe(string feedID)
+        public static FeedPreferences LoadForSafe(FeedUri feedUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
 
             try
             {
-                return LoadFor(feedID);
+                return LoadFor(feedUri);
             }
                 #region Error handling
             catch (FileNotFoundException)
@@ -137,19 +137,19 @@ namespace ZeroInstall.Store.Model.Preferences
             }
             catch (IOException ex)
             {
-                Log.Warn(string.Format(Resources.ErrorLoadingFeedPrefs, feedID));
+                Log.Warn(string.Format(Resources.ErrorLoadingFeedPrefs, feedUri));
                 Log.Warn(ex);
                 return new FeedPreferences();
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Warn(string.Format(Resources.ErrorLoadingFeedPrefs, feedID));
+                Log.Warn(string.Format(Resources.ErrorLoadingFeedPrefs, feedUri));
                 Log.Warn(ex);
                 return new FeedPreferences();
             }
             catch (InvalidDataException ex)
             {
-                Log.Warn(string.Format(Resources.ErrorLoadingFeedPrefs, feedID));
+                Log.Warn(string.Format(Resources.ErrorLoadingFeedPrefs, feedUri));
                 Log.Warn(ex);
                 return new FeedPreferences();
             }
@@ -159,13 +159,17 @@ namespace ZeroInstall.Store.Model.Preferences
         /// <summary>
         /// Saves these <see cref="FeedPreferences"/> for a specific feed.
         /// </summary>
-        /// <param name="feedID">The feed to save the preferences for.</param>
+        /// <param name="feedUri">The feed to save the preferences for.</param>
         /// <exception cref="IOException">A problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
-        public void SaveFor(string feedID)
+        public void SaveFor(FeedUri feedUri)
         {
+            #region Sanity checks
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            #endregion
+
             Normalize();
-            var path = Locations.GetSaveConfigPath("0install.net", true, "injector", "feeds", ModelUtils.PrettyEscape(feedID));
+            var path = Locations.GetSaveConfigPath("0install.net", true, "injector", "feeds", feedUri.PrettyEscape());
             this.SaveXml(path);
         }
         #endregion

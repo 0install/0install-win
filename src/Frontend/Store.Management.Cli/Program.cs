@@ -28,7 +28,6 @@ using NDesk.Options;
 using ZeroInstall.Commands;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.Implementations;
-using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Store.Management.Cli
@@ -96,7 +95,7 @@ namespace ZeroInstall.Store.Management.Cli
                 Log.Error(ex);
                 return 1;
             }
-            catch (InvalidInterfaceIDException ex)
+            catch (UriFormatException ex)
             {
                 Log.Error(ex);
                 return 1;
@@ -180,7 +179,7 @@ namespace ZeroInstall.Store.Management.Cli
                 Log.Error(ex);
                 return 1;
             }
-            catch (InvalidInterfaceIDException ex)
+            catch (UriFormatException ex)
             {
                 Log.Error(ex);
                 return 1;

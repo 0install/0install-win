@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Model
         {
             return new Runner
             {
-                InterfaceID = "http://0install.de/feeds/test/test1.xml", Command = "run2", Bindings = {EnvironmentBindingTest.CreateTestBinding()},
+                InterfaceUri = FeedTest.Test1Uri, Command = "run2", Bindings = {EnvironmentBindingTest.CreateTestBinding()},
                 Versions = new VersionRange("1.0..!2.0"),
                 Arguments = {"--arg"}
             };

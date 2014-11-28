@@ -18,13 +18,13 @@
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
-    /// An object that contains an interface ID string.
+    /// An object that contains an interface URI.
     /// </summary>
-    public interface IInterfaceID
+    public interface IInterfaceUri
     {
         /// <summary>
-        /// An interface ID (URL or file path).
+        /// An interface URI (URL or file path).
         /// </summary>
-        string InterfaceID { get; set; }
+        FeedUri InterfaceUri { get; set; }
     }
 }

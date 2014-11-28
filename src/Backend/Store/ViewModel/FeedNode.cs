@@ -75,7 +75,7 @@ namespace ZeroInstall.Store.ViewModel
         /// The URI indentifying this feed.
         /// </summary>
         [Description("The URI indentifying this feed.")]
-        public Uri Uri { get { return _feed.Uri; } }
+        public FeedUri Uri { get { return _feed.Uri; } }
 
         /// <summary>
         /// The main website of the application.
@@ -103,7 +103,7 @@ namespace ZeroInstall.Store.ViewModel
         /// <exception cref="UnauthorizedAccessException">Write access to the cache is not permitted.</exception>
         public override void Delete()
         {
-            _cache.Remove(_feed.UriString);
+            _cache.Remove(_feed.Uri);
         }
     }
 }

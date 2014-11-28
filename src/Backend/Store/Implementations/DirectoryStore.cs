@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using NanoByte.Common;
 using NanoByte.Common.Dispatch;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Implementations.Archives;
@@ -367,7 +368,7 @@ namespace ZeroInstall.Store.Implementations
                         #region Error handling
                     catch (IOException ex)
                     {
-                        string source = (archiveInfo.OriginalSource == null) ? archiveInfo.Path : archiveInfo.OriginalSource.ToString();
+                        string source = (archiveInfo.OriginalSource == null) ? archiveInfo.Path : archiveInfo.OriginalSource.ToStringRfc();
                         throw new IOException(string.Format(Resources.FailedToExtractArchive, source), ex);
                     }
                     #endregion

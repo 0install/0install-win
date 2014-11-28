@@ -57,7 +57,7 @@ namespace ZeroInstall.Store.Icons
             if (iconUrl == null) throw new ArgumentNullException("iconUrl");
             #endregion
 
-            string path = Path.Combine(DirectoryPath, ModelUtils.Escape(iconUrl.ToString()));
+            string path = Path.Combine(DirectoryPath, new FeedUri(iconUrl).Escape());
 
             return File.Exists(path);
         }
@@ -70,7 +70,7 @@ namespace ZeroInstall.Store.Icons
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            string path = Path.Combine(DirectoryPath, ModelUtils.Escape(iconUrl.ToString()));
+            string path = Path.Combine(DirectoryPath, new FeedUri(iconUrl).Escape());
 
             // Prevent file-exists race conditions
             lock (_lock)
@@ -96,7 +96,7 @@ namespace ZeroInstall.Store.Icons
             if (iconUrl == null) throw new ArgumentNullException("iconUrl");
             #endregion
 
-            string path = Path.Combine(DirectoryPath, ModelUtils.Escape(iconUrl.ToString()));
+            string path = Path.Combine(DirectoryPath, new FeedUri(iconUrl).Escape());
 
             lock (_lock)
             {

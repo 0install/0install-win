@@ -22,6 +22,7 @@ using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration
@@ -63,7 +64,7 @@ namespace ZeroInstall.DesktopIntegration
                     {
                         new AppEntry
                         {
-                            InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                            InterfaceUri = FeedTest.Test1Uri,
                             AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = apApplied, UnapplyFlagPath = apUnapplied}}}
                         }
                     }
@@ -88,7 +89,7 @@ namespace ZeroInstall.DesktopIntegration
                     {
                         new AppEntry
                         {
-                            InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                            InterfaceUri = FeedTest.Test1Uri,
                             AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = apApplied, UnapplyFlagPath = apUnapplied}}}
                         }
                     }
@@ -115,7 +116,7 @@ namespace ZeroInstall.DesktopIntegration
                     {
                         new AppEntry
                         {
-                            InterfaceID = "http://0install.de/feeds/test/test1.xml", AutoUpdate = true, Timestamp = new DateTime(2001, 1, 1),
+                            InterfaceUri = FeedTest.Test1Uri, AutoUpdate = true, Timestamp = new DateTime(2001, 1, 1),
                             AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = apLocalApplied, UnapplyFlagPath = apLocalUnapplied}}}
                         }
                     }
@@ -127,7 +128,7 @@ namespace ZeroInstall.DesktopIntegration
                     {
                         new AppEntry
                         {
-                            InterfaceID = "http://0install.de/feeds/test/test1.xml", AutoUpdate = false, Timestamp = new DateTime(2000, 1, 1),
+                            InterfaceUri = FeedTest.Test1Uri, AutoUpdate = false, Timestamp = new DateTime(2000, 1, 1),
                             AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = apRemoteApplied, UnapplyFlagPath = apRemoteUnapplied}}}
                         }
                     }
@@ -154,7 +155,7 @@ namespace ZeroInstall.DesktopIntegration
                     {
                         new AppEntry
                         {
-                            InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                            InterfaceUri = FeedTest.Test1Uri,
                             AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = apApplied, UnapplyFlagPath = apUnapplied}, new MockAccessPoint()}}
                         }
                     }
@@ -179,7 +180,7 @@ namespace ZeroInstall.DesktopIntegration
                     {
                         new AppEntry
                         {
-                            InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                            InterfaceUri = FeedTest.Test1Uri,
                             AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = apApplied, UnapplyFlagPath = apUnapplied}}}
                         }
                     }
@@ -206,7 +207,7 @@ namespace ZeroInstall.DesktopIntegration
                     {
                         new AppEntry
                         {
-                            InterfaceID = "http://0install.de/feeds/test/test1.xml", AutoUpdate = true, Timestamp = new DateTime(2000, 1, 1),
+                            InterfaceUri = FeedTest.Test1Uri, AutoUpdate = true, Timestamp = new DateTime(2000, 1, 1),
                             AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = apLocalApplied, UnapplyFlagPath = apLocalUnapplied}}}
                         }
                     }
@@ -218,7 +219,7 @@ namespace ZeroInstall.DesktopIntegration
                     {
                         new AppEntry
                         {
-                            InterfaceID = "http://0install.de/feeds/test/test1.xml", AutoUpdate = false, Timestamp = new DateTime(2001, 1, 1),
+                            InterfaceUri = FeedTest.Test1Uri, AutoUpdate = false, Timestamp = new DateTime(2001, 1, 1),
                             AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = apRemoteApplied, UnapplyFlagPath = apRemoteUnapplied}}}
                         }
                     }
@@ -358,22 +359,22 @@ namespace ZeroInstall.DesktopIntegration
         {
             var appEntry1 = new AppEntry
             {
-                InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                InterfaceUri = FeedTest.Test1Uri,
                 AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = ap1Applied, UnapplyFlagPath = ap1Unapplied}}}
             };
             var appEntry2 = new AppEntry
             {
-                InterfaceID = "http://0install.de/feeds/test/test2.xml",
+                InterfaceUri = FeedTest.Test2Uri,
                 AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = ap2Applied, UnapplyFlagPath = ap2Unapplied}}}
             };
             var appEntry3 = new AppEntry
             {
-                InterfaceID = "http://0install.de/feeds/test/test3.xml",
+                InterfaceUri = FeedTest.Test3Uri,
                 AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = ap3Applied, UnapplyFlagPath = ap3Unapplied}}}
             };
             var appEntry4 = new AppEntry
             {
-                InterfaceID = "http://0install.de/feeds/test/test4.xml",
+                InterfaceUri = new FeedUri("http://0install.de/feeds/test/test4.xml"),
                 AccessPoints = new AccessPointList {Entries = {new MockAccessPoint {ApplyFlagPath = ap4Applied, UnapplyFlagPath = ap4Unapplied}}}
             };
             var appListLocal = new AppList {Entries = {appEntry1, appEntry4}};

@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Preferences;
 
@@ -45,24 +46,24 @@ namespace ZeroInstall.Commands
         /// Adds a <see cref="FeedReference"/> to one or more <see cref="InterfacePreferences"/>.
         /// </summary>
         /// <returns>The interfaces that were actually affected.</returns>
-        protected override ICollection<string> ApplyFeedToInterfaces(string feedID, IEnumerable<string> interfaces)
+        protected override ICollection<FeedUri> ApplyFeedToInterfaces(FeedUri feedUri, IEnumerable<FeedUri> interfaces)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             if (interfaces == null) throw new ArgumentNullException("interfaces");
             #endregion
 
-            var modified = new List<string>();
-            foreach (var interfaceID in interfaces)
+            var modified = new List<FeedUri>();
+            foreach (var interfaceUri in interfaces)
             {
-                var preferences = InterfacePreferences.LoadFor(interfaceID);
-                var reference = new FeedReference {Source = feedID};
+                var preferences = InterfacePreferences.LoadFor(interfaceUri);
+                var reference = new FeedReference {Source = feedUri};
                 if (!preferences.Feeds.Contains(reference)) // Prevent duplicate entries
                 {
                     preferences.Feeds.Add(reference);
-                    modified.Add(interfaceID);
+                    modified.Add(interfaceUri);
                 }
-                preferences.SaveFor(interfaceID);
+                preferences.SaveFor(interfaceUri);
             }
             return modified;
         }

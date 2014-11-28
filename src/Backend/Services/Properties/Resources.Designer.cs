@@ -155,6 +155,15 @@ namespace ZeroInstall.Services.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; is a local file. It should be a HTTP(S) URL..
+        /// </summary>
+        internal static string FeedUriLocal {
+            get {
+                return ResourceManager.GetString("FeedUriLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The &lt;interface&gt; uri attribute (&apos;{0}&apos;) does not match the URL the feed was downloaded from (&apos;{1}&apos;)..
         /// </summary>
         internal static string FeedUriMismatch {
@@ -220,9 +229,9 @@ namespace ZeroInstall.Services.Properties {
         /// <summary>
         ///   Looks up a localized string similar to No interface was specified..
         /// </summary>
-        internal static string MissingInterfaceID {
+        internal static string MissingInterfaceUri {
             get {
-                return ResourceManager.GetString("MissingInterfaceID", resourceCulture);
+                return ResourceManager.GetString("MissingInterfaceUri", resourceCulture);
             }
         }
         
@@ -283,15 +292,15 @@ namespace ZeroInstall.Services.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The interface &apos;{0}&apos; doesn&apos;t start with &apos;http:&apos; and doesn&apos;t exist as a file &apos;{1}&apos; either..
         /// </summary>
-        internal static string NotInterfaceID {
+        internal static string NotInterfaceUri {
             get {
-                return ResourceManager.GetString("NotInterfaceID", resourceCulture);
+                return ResourceManager.GetString("NotInterfaceUri", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to A possible replay attack was detected. The new feed&apos;s modification time is before old version.
-        ///Feed ID: {0}
+        ///Feed URI: {0}
         ///Old time: {1}
         ///New time: {2}.
         /// </summary>

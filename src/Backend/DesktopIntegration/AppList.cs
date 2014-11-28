@@ -26,6 +26,7 @@ using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
 using ZeroInstall.DesktopIntegration.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration
@@ -72,58 +73,58 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Access
         /// <summary>
-        /// Checks whether an <see cref="AppEntry"/> for a specific interface ID exists.
+        /// Checks whether an <see cref="AppEntry"/> for a specific interface URI exists.
         /// </summary>
-        /// <param name="interfaceID">The <see cref="AppEntry.InterfaceID"/> to look for.</param>
+        /// <param name="interfaceUri">The <see cref="AppEntry.InterfaceUri"/> to look for.</param>
         /// <returns><see langword="true"/> if a matching entry was found; <see langword="false"/> otherwise.</returns>
-        public bool ContainsEntry(string interfaceID)
+        public bool ContainsEntry(FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             #endregion
 
-            return Entries.Any(entry => ModelUtils.IDEquals(entry.InterfaceID, interfaceID));
+            return Entries.Any(entry => entry.InterfaceUri == interfaceUri);
         }
 
         /// <summary>
-        /// Gets an <see cref="AppEntry"/> for a specific interface ID.
+        /// Gets an <see cref="AppEntry"/> for a specific interface URI.
         /// </summary>
-        /// <param name="interfaceID">The <see cref="AppEntry.InterfaceID"/> to look for.</param>
+        /// <param name="interfaceUri">The <see cref="AppEntry.InterfaceUri"/> to look for.</param>
         /// <returns>The first matching <see cref="AppEntry"/>.</returns>
-        /// <exception cref="KeyNotFoundException">No entry matching the interface ID was found.</exception>
-        public AppEntry this[string interfaceID]
+        /// <exception cref="KeyNotFoundException">No entry matching the interface URI was found.</exception>
+        public AppEntry this[FeedUri interfaceUri]
         {
             get
             {
                 #region Sanity checks
-                if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+                if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
                 #endregion
 
                 try
                 {
-                    return Entries.First(entry => ModelUtils.IDEquals(entry.InterfaceID, interfaceID));
+                    return Entries.First(entry => entry.InterfaceUri == interfaceUri);
                 }
                     #region Error handling
                 catch (InvalidOperationException)
                 {
-                    throw new KeyNotFoundException(string.Format(Resources.AppNotInList, interfaceID));
+                    throw new KeyNotFoundException(string.Format(Resources.AppNotInList, interfaceUri));
                 }
                 #endregion
             }
         }
 
         /// <summary>
-        /// Gets an <see cref="AppEntry"/> for a specific interface ID. Safe for missing elements.
+        /// Gets an <see cref="AppEntry"/> for a specific interface URI. Safe for missing elements.
         /// </summary>
-        /// <param name="interfaceID">The <see cref="AppEntry.InterfaceID"/> to look for.</param>
+        /// <param name="interfaceUri">The <see cref="AppEntry.InterfaceUri"/> to look for.</param>
         /// <returns>The first matching <see cref="AppEntry"/>; <see langword="null"/> if no match was found.</returns>
-        public AppEntry GetEntry(string interfaceID)
+        public AppEntry GetEntry(FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             #endregion
 
-            return Entries.FirstOrDefault(entry => ModelUtils.IDEquals(entry.InterfaceID, interfaceID));
+            return Entries.FirstOrDefault(entry => entry.InterfaceUri == interfaceUri);
         }
         #endregion
 

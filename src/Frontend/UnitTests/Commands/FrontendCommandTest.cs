@@ -81,38 +81,42 @@ namespace ZeroInstall.Commands
         }
 
         [Test]
-        public void TestGetCanonicalID()
+        public void TestGetCanonicalUriRemote()
+        {
+            Assert.AreEqual("http://0install.de/feeds/test/test1.xml", Target.GetCanonicalUri("http://0install.de/feeds/test/test1.xml").ToStringRfc());
+        }
+
+        [Test]
+        public void TestGetCanonicalUriFile()
         {
             // Absolute paths
             if (WindowsUtils.IsWindows)
             {
-                Assert.AreEqual(@"C:\test\file", Target.GetCanonicalID("file:///C:/test/file"));
-                Assert.AreEqual(@"C:\test\file", Target.GetCanonicalID(@"C:\test\file"));
+                Assert.AreEqual("file:///C:/test/file", Target.GetCanonicalUri(@"C:\test\file").ToStringRfc());
+                Assert.AreEqual("file:///C:/test/file", Target.GetCanonicalUri(@"file:///C:\test\file").ToStringRfc());
+                Assert.AreEqual("file:///C:/test/file", Target.GetCanonicalUri("file:///C:/test/file").ToStringRfc());
             }
             if (UnixUtils.IsUnix)
             {
-                Assert.AreEqual("/var/test/file", Target.GetCanonicalID("file:///var/test/file"));
-                Assert.AreEqual("/var/test/file", Target.GetCanonicalID("/var/test/file"));
+                Assert.AreEqual("file:///var/test/file", Target.GetCanonicalUri("/var/test/file").ToStringRfc());
+                Assert.AreEqual("file:///var/test/file", Target.GetCanonicalUri("file:///var/test/file").ToStringRfc());
             }
 
             // Relative paths
             Assert.AreEqual(
-                new[] {Environment.CurrentDirectory, "test", "file"}.Aggregate(Path.Combine),
-                Target.GetCanonicalID("file:test/file"));
+                expected: new[] {Environment.CurrentDirectory, "test", "file"}.Aggregate(Path.Combine),
+                actual: Target.GetCanonicalUri(Path.Combine("test", "file")).ToString());
             Assert.AreEqual(
-                new[] {Environment.CurrentDirectory, "test", "file"}.Aggregate(Path.Combine),
-                Target.GetCanonicalID(Path.Combine("test", "file")));
+                expected: new[] {Environment.CurrentDirectory, "test", "file"}.Aggregate(Path.Combine),
+                actual: Target.GetCanonicalUri("file:test/file").ToString());
 
             // Invalid paths
-            Assert.Throws<InvalidInterfaceIDException>(() => Target.GetCanonicalID("file:/test/file"));
-            if (WindowsUtils.IsWindows) Assert.Throws<InvalidInterfaceIDException>(() => Target.GetCanonicalID(":::"));
-
-            // URIs
-            Assert.AreEqual("http://0install.de/feeds/test/test1.xml", Target.GetCanonicalID("http://0install.de/feeds/test/test1.xml"));
+            Assert.Throws<UriFormatException>(() => Target.GetCanonicalUri("file:/test/file"));
+            if (WindowsUtils.IsWindows) Assert.Throws<UriFormatException>(() => Target.GetCanonicalUri(":::"));
         }
 
         [Test]
-        public void TestGetCanonicalIDAliases()
+        public void TestGetCanonicalUriAliases()
         {
             // Fake an alias
             new AppList
@@ -121,14 +125,14 @@ namespace ZeroInstall.Commands
                 {
                     new AppEntry
                     {
-                        InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                        InterfaceUri = FeedTest.Test1Uri,
                         AccessPoints = new AccessPointList {Entries = {new AppAlias {Name = "test"}}}
                     }
                 }
             }.SaveXml(AppList.GetDefaultPath());
 
-            Assert.AreEqual("http://0install.de/feeds/test/test1.xml", Target.GetCanonicalID("alias:test"));
-            Assert.Throws<InvalidInterfaceIDException>(() => Target.GetCanonicalID("alias:invalid"));
+            Assert.AreEqual(FeedTest.Test1Uri, Target.GetCanonicalUri("alias:test"));
+            Assert.Throws<UriFormatException>(() => Target.GetCanonicalUri("alias:invalid"));
         }
     }
 }

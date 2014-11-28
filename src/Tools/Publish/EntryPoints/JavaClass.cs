@@ -17,6 +17,7 @@
 
 using System.IO;
 using NanoByte.Common;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
@@ -46,7 +47,7 @@ namespace ZeroInstall.Publish.EntryPoints
                 Path = RelativePath,
                 Runner = new Runner
                 {
-                    InterfaceID = "http://repo.roscidus.com/java/openjdk-jre",
+                    InterfaceUri = new FeedUri("http://repo.roscidus.com/java/openjdk-jre"),
                     Command = NeedsTerminal ? Command.NameRun : Command.NameRunGui,
                     Versions = (VersionRange)MinimumRuntimeVersion
                 }

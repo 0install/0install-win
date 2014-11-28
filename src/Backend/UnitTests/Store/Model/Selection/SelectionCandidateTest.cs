@@ -30,37 +30,37 @@ namespace ZeroInstall.Store.Model.Selection
         public void TestIsSuitable()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
-            Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(),
-                implementation, new Requirements {InterfaceID = "http://0install.de/feeds/test/test1.xml", Command = Command.NameRun}).IsSuitable);
+            Assert.IsTrue(new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(),
+                implementation, new Requirements {InterfaceUri = FeedTest.Test1Uri, Command = Command.NameRun}).IsSuitable);
         }
 
         [Test]
         public void TestIsSuitableArchitecture()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
-            Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(),
-                implementation, new Requirements {InterfaceID = "http://0install.de/feeds/test/test1.xml", Command = Command.NameRun, Architecture = implementation.Architecture}).IsSuitable);
-            Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(),
-                implementation, new Requirements {InterfaceID = "http://0install.de/feeds/test/test1.xml", Command = Command.NameRun, Architecture = new Architecture(OS.FreeBsd, Cpu.Ppc)}).IsSuitable);
+            Assert.IsTrue(new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(),
+                implementation, new Requirements {InterfaceUri = FeedTest.Test1Uri, Command = Command.NameRun, Architecture = implementation.Architecture}).IsSuitable);
+            Assert.IsFalse(new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(),
+                implementation, new Requirements {InterfaceUri = FeedTest.Test1Uri, Command = Command.NameRun, Architecture = new Architecture(OS.FreeBsd, Cpu.Ppc)}).IsSuitable);
         }
 
         [Test]
         public void TestIsSuitableVersionMismatch()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
-            Assert.IsTrue(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(), implementation,
+            Assert.IsTrue(new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), implementation,
                 new Requirements
                 {
-                    InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                    InterfaceUri = FeedTest.Test1Uri,
                     Command = Command.NameRun,
-                    ExtraRestrictions = {{"http://0install.de/feeds/test/test1.xml", new VersionRange("..!1.1")}}
+                    ExtraRestrictions = {{FeedTest.Test1Uri, new VersionRange("..!1.1")}}
                 }).IsSuitable);
-            Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml", new FeedPreferences(), implementation,
+            Assert.IsFalse(new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), implementation,
                 new Requirements
                 {
-                    InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                    InterfaceUri = FeedTest.Test1Uri,
                     Command = Command.NameRun,
-                    ExtraRestrictions = {{"http://0install.de/feeds/test/test1.xml", new VersionRange("..!1.0")}}
+                    ExtraRestrictions = {{FeedTest.Test1Uri, new VersionRange("..!1.0")}}
                 }).IsSuitable);
         }
 
@@ -68,12 +68,12 @@ namespace ZeroInstall.Store.Model.Selection
         public void TestIsSuitableBuggyInsecure()
         {
             var implementation = ImplementationTest.CreateTestImplementation();
-            Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml",
+            Assert.IsFalse(new SelectionCandidate(FeedTest.Test1Uri,
                 new FeedPreferences {Implementations = {new ImplementationPreferences {ID = implementation.ID, UserStability = Stability.Buggy}}},
-                implementation, new Requirements {InterfaceID = "http://0install.de/feeds/test/test1.xml", Command = Command.NameRun}).IsSuitable);
-            Assert.IsFalse(new SelectionCandidate("http://0install.de/feeds/test/test1.xml",
+                implementation, new Requirements {InterfaceUri = FeedTest.Test1Uri, Command = Command.NameRun}).IsSuitable);
+            Assert.IsFalse(new SelectionCandidate(FeedTest.Test1Uri,
                 new FeedPreferences {Implementations = {new ImplementationPreferences {ID = implementation.ID, UserStability = Stability.Insecure}}},
-                implementation, new Requirements {InterfaceID = "http://0install.de/feeds/test/test1.xml", Command = Command.NameRun}).IsSuitable);
+                implementation, new Requirements {InterfaceUri = FeedTest.Test1Uri, Command = Command.NameRun}).IsSuitable);
         }
     }
 }

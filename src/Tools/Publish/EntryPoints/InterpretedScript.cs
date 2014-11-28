@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Text;
 using NanoByte.Common.Storage;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
@@ -40,9 +41,9 @@ namespace ZeroInstall.Publish.EntryPoints
         }
 
         /// <summary>
-        /// The interface ID of the interpreter to run the script.
+        /// The interface URI of the interpreter to run the script.
         /// </summary>
-        protected abstract string InterpreterInterface { get; }
+        protected abstract FeedUri InterpreterInterface { get; }
 
         /// <summary>
         /// The range of versions of the script interpreter supported by the application.
@@ -58,7 +59,7 @@ namespace ZeroInstall.Publish.EntryPoints
             {
                 Name = CommandName,
                 Path = RelativePath,
-                Runner = new Runner {InterfaceID = InterpreterInterface, Versions = InterpreterVersions}
+                Runner = new Runner {InterfaceUri = InterpreterInterface, Versions = InterpreterVersions}
             };
         }
 

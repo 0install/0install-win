@@ -21,6 +21,7 @@ using System.Text;
 using Moq;
 using NanoByte.Common.Streams;
 using NUnit.Framework;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Trust;
 
@@ -64,7 +65,7 @@ namespace ZeroInstall.Services.Feeds
             RegisterKey();
             TrustKey();
 
-            Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new Uri("http://localhost/test.xml")));
+            Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")));
         }
 
         [Test]
@@ -72,7 +73,7 @@ namespace ZeroInstall.Services.Feeds
         {
             _openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {new BadSignature(_signature.Fingerprint)});
 
-            Assert.Throws<SignatureException>(() => Target.CheckTrust(_combinedBytes, new Uri("http://localhost/test.xml")));
+            Assert.Throws<SignatureException>(() => Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")));
             Assert.IsFalse(IsKeyTrusted, "Key should not be trusted");
         }
 
@@ -82,7 +83,7 @@ namespace ZeroInstall.Services.Feeds
             _openPgpMock.Setup(x => x.Verify(_feedBytes, _signatureBytes)).Returns(new OpenPgpSignature[] {new BadSignature("xyz"), _signature});
             TrustKey();
 
-            Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new Uri("http://localhost/test.xml")));
+            Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")));
         }
 
         [Test]
@@ -91,7 +92,7 @@ namespace ZeroInstall.Services.Feeds
             RegisterKey();
             MockHandler.AnswerQuestionWith = false;
 
-            Assert.Throws<SignatureException>(() => Target.CheckTrust(_combinedBytes, new Uri("http://localhost/test.xml")));
+            Assert.Throws<SignatureException>(() => Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")));
             Assert.IsFalse(IsKeyTrusted, "Key should not be trusted");
         }
 
@@ -101,7 +102,7 @@ namespace ZeroInstall.Services.Feeds
             RegisterKey();
             MockHandler.AnswerQuestionWith = true;
 
-            Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new Uri("http://localhost/test.xml")));
+            Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")));
             Assert.IsTrue(IsKeyTrusted, "Key should be trusted");
         }
 
@@ -109,13 +110,13 @@ namespace ZeroInstall.Services.Feeds
         public void ExistingKeyAndNoAutoTrust()
         {
             RegisterKey();
-            Container.GetMock<IFeedCache>().Setup(x => x.Contains("http://localhost/test.xml")).Returns(true);
+            Container.GetMock<IFeedCache>().Setup(x => x.Contains(new FeedUri("http://localhost/test.xml"))).Returns(true);
             MockHandler.AnswerQuestionWith = false;
 
             using (var keyInfoServer = new MicroServer("key/" + _signature.Fingerprint, KeyInfoResponse.ToStream()))
             {
                 UseKeyInfoServer(keyInfoServer);
-                Assert.Throws<SignatureException>(() => Target.CheckTrust(_combinedBytes, new Uri("http://localhost/test.xml")));
+                Assert.Throws<SignatureException>(() => Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")));
             }
             Assert.IsFalse(IsKeyTrusted, "Key should not be trusted");
         }
@@ -124,12 +125,12 @@ namespace ZeroInstall.Services.Feeds
         public void ExistingKeyAndAutoTrust()
         {
             RegisterKey();
-            Container.GetMock<IFeedCache>().Setup(x => x.Contains("http://localhost/test.xml")).Returns(false);
+            Container.GetMock<IFeedCache>().Setup(x => x.Contains(new FeedUri("http://localhost/test.xml"))).Returns(false);
 
             using (var keyInfoServer = new MicroServer("key/" + _signature.Fingerprint, KeyInfoResponse.ToStream()))
             {
                 UseKeyInfoServer(keyInfoServer);
-                Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new Uri("http://localhost/test.xml")));
+                Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml")));
             }
             Assert.IsTrue(IsKeyTrusted, "Key should be trusted");
         }
@@ -141,7 +142,7 @@ namespace ZeroInstall.Services.Feeds
             MockHandler.AnswerQuestionWith = false;
 
             using (var server = new MicroServer(_signature.Fingerprint + ".gpg", new MemoryStream(_keyData)))
-                Assert.Throws<SignatureException>(() => Target.CheckTrust(_combinedBytes, new Uri(server.ServerUri, "test.xml")));
+                Assert.Throws<SignatureException>(() => Target.CheckTrust(_combinedBytes, new FeedUri(server.ServerUri + "test.xml")));
             Assert.IsFalse(IsKeyTrusted, "Key should not be trusted");
         }
 
@@ -152,7 +153,7 @@ namespace ZeroInstall.Services.Feeds
             MockHandler.AnswerQuestionWith = true;
 
             using (var server = new MicroServer(_signature.Fingerprint + ".gpg", new MemoryStream(_keyData)))
-                Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new Uri(server.ServerUri, "test.xml")));
+                Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new FeedUri(server.ServerUri + "test.xml")));
             Assert.IsTrue(IsKeyTrusted, "Key should be trusted");
         }
 
@@ -163,7 +164,7 @@ namespace ZeroInstall.Services.Feeds
             MockHandler.AnswerQuestionWith = true;
 
             using (var server = new MicroServer(_signature.Fingerprint + ".gpg", new MemoryStream(_keyData)))
-                Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new Uri("http://localhost/test.xml"), mirrorUrl: new Uri(server.ServerUri, "test.xml")));
+                Assert.AreEqual(_signature, Target.CheckTrust(_combinedBytes, new FeedUri("http://localhost/test.xml"), mirrorUrl: new FeedUri(server.ServerUri.AbsoluteUri + "test.xml")));
             Assert.IsTrue(IsKeyTrusted, "Key should be trusted");
         }
 

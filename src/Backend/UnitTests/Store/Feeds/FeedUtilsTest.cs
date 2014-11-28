@@ -38,13 +38,13 @@ namespace ZeroInstall.Store.Feeds
         {
             var feed1 = FeedTest.CreateTestFeed();
             var feed3 = FeedTest.CreateTestFeed();
-            feed3.Uri = new Uri("http://0install.de/feeds/test/test3.xml");
+            feed3.Uri = new FeedUri(FeedTest.Test3Uri);
 
             var cacheMock = MockRepository.Create<IFeedCache>();
-            cacheMock.Setup(x => x.ListAll()).Returns(new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml", "http://0install.de/feeds/test/test3.xml"});
-            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test1.xml")).Returns(feed1);
-            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test2.xml")).Throws(new IOException("Fake IO exception for testing"));
-            cacheMock.Setup(x => x.GetFeed("http://0install.de/feeds/test/test3.xml")).Returns(feed3);
+            cacheMock.Setup(x => x.ListAll()).Returns(new[] {FeedTest.Test1Uri, FeedTest.Test2Uri, FeedTest.Test3Uri});
+            cacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(feed1);
+            cacheMock.Setup(x => x.GetFeed(FeedTest.Test2Uri)).Throws(new IOException("Fake IO exception for testing"));
+            cacheMock.Setup(x => x.GetFeed(FeedTest.Test3Uri)).Returns(feed3);
 
             CollectionAssert.AreEqual(new[] {feed1, feed3}, cacheMock.Object.GetAll());
         }

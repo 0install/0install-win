@@ -18,6 +18,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -33,11 +34,11 @@ namespace ZeroInstall.DesktopIntegration
             var accessPointA = new MockAccessPoint {ID = "a"};
             var appEntry1 = new AppEntry
             {
-                Name = "App1", InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                Name = "App1", InterfaceUri = FeedTest.Test1Uri,
                 AccessPoints = new AccessPointList {Entries = {accessPointA}}
             };
             var accessPointB = new MockAccessPoint {ID = "b"};
-            var appEntry2 = new AppEntry {Name = "App2", InterfaceID = "http://0install.de/feeds/test/test2.xml"};
+            var appEntry2 = new AppEntry {Name = "App2", InterfaceUri = FeedTest.Test2Uri};
 
             var appList = new AppList {Entries = {appEntry1}};
             appList.CheckForConflicts(new[] {accessPointB}, appEntry2);
@@ -49,7 +50,7 @@ namespace ZeroInstall.DesktopIntegration
             var accessPointA = new MockAccessPoint {ID = "a"};
             var appEntry1 = new AppEntry
             {
-                Name = "App1", InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                Name = "App1", InterfaceUri = FeedTest.Test1Uri,
                 AccessPoints = new AccessPointList {Entries = {accessPointA}}
             };
 
@@ -64,10 +65,10 @@ namespace ZeroInstall.DesktopIntegration
             var appEntry1 = new AppEntry
             {
                 Name = "App1",
-                InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                InterfaceUri = FeedTest.Test1Uri,
                 AccessPoints = new AccessPointList {Entries = {accessPointA}}
             };
-            var appEntry2 = new AppEntry {Name = "App2", InterfaceID = "http://0install.de/feeds/test/test2.xml"};
+            var appEntry2 = new AppEntry {Name = "App2", InterfaceUri = FeedTest.Test2Uri};
 
             var appList = new AppList {Entries = {appEntry1}};
             Assert.Throws<ConflictException>(() => appList.CheckForConflicts(new[] {accessPointA}, appEntry2));

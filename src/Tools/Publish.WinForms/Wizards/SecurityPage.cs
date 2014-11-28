@@ -20,6 +20,7 @@ using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using ZeroInstall.Publish.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
@@ -93,7 +94,15 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private void buttonNext_Click(object sender, EventArgs e)
         {
             _feedBuilder.SecretKey = comboBoxKeys.SelectedItem as OpenPgpSecretKey;
-            _feedBuilder.Uri = textBoxUri.Uri;
+            try
+            {
+                _feedBuilder.Uri = new FeedUri(textBoxUri.Uri);
+            }
+            catch (UriFormatException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                return;
+            }
             Next();
         }
     }

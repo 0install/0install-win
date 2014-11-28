@@ -23,6 +23,7 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 
@@ -73,7 +74,7 @@ namespace ZeroInstall.Commands
         {
             if (Options.Parse(args).Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs.JoinEscapeArguments(), "");
 
-            Requirements.InterfaceID = Config.SelfUpdateUri.ToString();
+            Requirements.InterfaceUri = new FeedUri(Config.SelfUpdateUri);
 
             // Pass in the installation directory to the updater as an argument
             AdditionalArgs.Add(Locations.InstallBase);

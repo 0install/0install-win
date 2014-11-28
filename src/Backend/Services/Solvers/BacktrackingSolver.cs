@@ -67,7 +67,7 @@ namespace ZeroInstall.Services.Solvers
         {
             #region Sanity checks
             if (requirements == null) throw new ArgumentNullException("requirements");
-            if (string.IsNullOrEmpty(requirements.InterfaceID)) throw new ArgumentException(Resources.MissingInterfaceID, "requirements");
+            if (requirements.InterfaceUri == null) throw new ArgumentException(Resources.MissingInterfaceUri, "requirements");
             #endregion
 
             var effectiveRequirements = requirements.GetEffective();

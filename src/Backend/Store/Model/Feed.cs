@@ -85,14 +85,14 @@ namespace ZeroInstall.Store.Model
         /// This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).
         /// </summary>
         [XmlIgnore, Browsable(false)]
-        public Uri Uri { get; set; }
+        public FeedUri Uri { get; set; }
 
         /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="Uri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [DisplayName(@"Uri"), Category("Feed"), Description("This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).")]
         [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string UriString { get { return (Uri == null ? null : Uri.ToStringRfc()); } set { Uri = (string.IsNullOrEmpty(value) ? null : new Uri(value)); } }
+        public string UriString { get { return (Uri == null ? null : Uri.ToStringRfc()); } set { Uri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
 
         /// <summary>
         /// A short name to identify the interface (e.g. "Foo").
@@ -221,12 +221,12 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Flattens the <see cref="Group"/> inheritance structure and sets missing default values in <see cref="Implementation"/>s.
         /// </summary>
-        /// <param name="feedID">The feed the data was originally loaded from.</param>
+        /// <param name="feedUri">The feed the data was originally loaded from.</param>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
-        public void Normalize(string feedID)
+        public void Normalize(FeedUri feedUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
 
             // Apply if-0install-version filter
@@ -242,7 +242,7 @@ namespace ZeroInstall.Store.Model
             foreach (var element in _elements)
             {
                 // Flatten structure in groups, set missing default values in implementations
-                element.Normalize(feedID);
+                element.Normalize(feedUri);
 
                 var group = element as Group;
                 if (group != null)

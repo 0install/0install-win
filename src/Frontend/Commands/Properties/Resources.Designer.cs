@@ -910,7 +910,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Can only update with Feed IDs, not with selections documents..
+        ///   Looks up a localized string similar to Can only update with Feed URIs, not with selections documents..
         /// </summary>
         public static string NoSelectionsDocumentUpdate {
             get {

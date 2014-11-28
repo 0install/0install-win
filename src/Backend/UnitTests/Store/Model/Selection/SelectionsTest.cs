@@ -35,7 +35,7 @@ namespace ZeroInstall.Store.Model.Selection
         {
             return new Selections
             {
-                InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                InterfaceUri = FeedTest.Test1Uri,
                 Command = Command.NameRun,
                 Implementations =
                 {
@@ -54,15 +54,15 @@ namespace ZeroInstall.Store.Model.Selection
         {
             var implementation = CreateTestSelections();
 
-            Assert.AreEqual(implementation.Implementations[0], implementation.GetImplementation("http://0install.de/feeds/test/test1.xml"));
-            Assert.AreEqual(implementation.Implementations[0], implementation["http://0install.de/feeds/test/test1.xml"]);
+            Assert.AreEqual(implementation.Implementations[0], implementation.GetImplementation(FeedTest.Test1Uri));
+            Assert.AreEqual(implementation.Implementations[0], implementation[FeedTest.Test1Uri]);
 
             // ReSharper disable UnusedVariable
-            Assert.Throws<ArgumentNullException>(() => { var dummy = implementation.GetImplementation(""); });
-            Assert.Throws<ArgumentNullException>(() => { var dummy = implementation[""]; });
+            Assert.Throws<ArgumentNullException>(() => { var dummy = implementation.GetImplementation(null); });
+            Assert.Throws<ArgumentNullException>(() => { var dummy = implementation[null]; });
 
-            Assert.IsNull(implementation.GetImplementation("invalid"));
-            Assert.Throws<KeyNotFoundException>(() => { var dummy = implementation["invalid"]; });
+            Assert.IsNull(implementation.GetImplementation(new FeedUri("http://invalid/")));
+            Assert.Throws<KeyNotFoundException>(() => { var dummy = implementation[new FeedUri("http://invalid/")]; });
             // ReSharper restore UnusedVariable
         }
     }

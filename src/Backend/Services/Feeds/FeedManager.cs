@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using NanoByte.Common;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Properties;
@@ -85,39 +86,38 @@ namespace ZeroInstall.Services.Feeds
 
         #region Get feed
         /// <inheritdoc/>
-        public Feed GetFeed(string feedID)
+        public Feed GetFeed(FeedUri feedUri)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
 
-            // Assume invalid URIs are local paths
-            Uri feedUrl;
-            if (!ModelUtils.TryParseUri(feedID, out feedUrl))
-                return LoadLocal(feedID);
-
-            try
+            if (feedUri.IsFile) return LoadLocal(feedUri);
+            else
             {
-                if (Refresh) Download(feedUrl);
-                else if (!_feedCache.Contains(feedID))
+                try
                 {
-                    // Do not download in offline mode
-                    if (_config.NetworkUse == NetworkLevel.Offline)
-                        throw new IOException(string.Format(Resources.FeedNotCachedOffline, feedID));
+                    if (Refresh) Download(feedUri);
+                    else if (!_feedCache.Contains(feedUri))
+                    {
+                        // Do not download in offline mode
+                        if (_config.NetworkUse == NetworkLevel.Offline)
+                            throw new IOException(string.Format(Resources.FeedNotCachedOffline, feedUri));
 
-                    // Try to download missing feed
-                    Download(feedUrl);
+                        // Try to download missing feed
+                        Download(feedUri);
+                    }
+
+                    return LoadCached(feedUri);
                 }
-
-                return LoadCached(feedID);
+                    #region Error handling
+                catch (KeyNotFoundException ex)
+                {
+                    // Wrap exception since only certain exception types are allowed
+                    throw new IOException(ex.Message, ex);
+                }
+                #endregion
             }
-                #region Error handling
-            catch (KeyNotFoundException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new IOException(ex.Message, ex);
-            }
-            #endregion
         }
         #endregion
 
@@ -125,18 +125,18 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// Loads a <see cref="Feed"/> from a local file.
         /// </summary>
-        /// <param name="feedID">The ID used to identify the feed. Must be an absolute local path.</param>
+        /// <param name="feedUri">The ID used to identify the feed. Must be an absolute local path.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
-        private Feed LoadLocal(string feedID)
+        private Feed LoadLocal(FeedUri feedUri)
         {
-            if (File.Exists(feedID))
+            if (File.Exists(feedUri.LocalPath))
             {
                 // Use cache even for local files since there may be in-memory caching
                 try
                 {
-                    return _feedCache.GetFeed(feedID);
+                    return _feedCache.GetFeed(feedUri);
                 }
                     #region Error handling
                 catch (InvalidDataException ex)
@@ -146,7 +146,7 @@ namespace ZeroInstall.Services.Feeds
                 }
                 #endregion
             }
-            throw new FileNotFoundException(string.Format(Resources.FileNotFound, feedID), feedID);
+            throw new FileNotFoundException(string.Format(Resources.FileNotFound, feedUri.LocalPath), feedUri.LocalPath);
         }
         #endregion
 
@@ -154,18 +154,17 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// Loads a <see cref="Feed"/> from the <see cref="_feedCache"/>.
         /// </summary>
-        /// <param name="feedID">The ID used to identify the feed. Must be an HTTP(S) URL.</param>
+        /// <param name="feedUri">The ID used to identify the feed. Must be an HTTP(S) URL.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
-        /// <exception cref="InvalidInterfaceIDException"><paramref name="feedID"/> is an invalid interface ID.</exception>
-        /// <exception cref="KeyNotFoundException">The requested <paramref name="feedID"/> was not found in the cache.</exception>
+        /// <exception cref="KeyNotFoundException">The requested <paramref name="feedUri"/> was not found in the cache.</exception>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
-        private Feed LoadCached(string feedID)
+        private Feed LoadCached(FeedUri feedUri)
         {
             try
             {
-                var feed = _feedCache.GetFeed(feedID);
-                Stale |= IsStale(feedID);
+                var feed = _feedCache.GetFeed(feedUri);
+                Stale |= IsStale(feedUri);
                 return feed;
             }
                 #region Error handling
@@ -182,13 +181,13 @@ namespace ZeroInstall.Services.Feeds
             #endregion
         }
 
-        private bool IsStale(string feedID)
+        private bool IsStale(FeedUri feedUri)
         {
             if (_config.NetworkUse != NetworkLevel.Full) return false;
 
-            var preferences = FeedPreferences.LoadForSafe(feedID);
+            var preferences = FeedPreferences.LoadForSafe(feedUri);
             TimeSpan lastChecked = DateTime.UtcNow - preferences.LastChecked;
-            TimeSpan lastCheckAttempt = DateTime.UtcNow - GetLastCheckAttempt(feedID);
+            TimeSpan lastCheckAttempt = DateTime.UtcNow - GetLastCheckAttempt(feedUri);
             return (lastChecked > _config.Freshness && lastCheckAttempt > _failedCheckDelay);
         }
         #endregion
@@ -199,15 +198,15 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         /// <param name="url">The URL of download the feed from.</param>
         /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
-        /// <exception cref="InvalidInterfaceIDException"><paramref name="url"/> is an invalid interface ID.</exception>
         /// <exception cref="KeyNotFoundException">The requested <paramref name="url"/> was not found in the cache.</exception>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
+        /// <exception cref="UriFormatException"><paramref name="url"/> is an invalid interface URI.</exception>
         [SuppressMessage("Microsoft.Usage", "CA2200:RethrowToPreserveStackDetails", Justification = "Rethrow the outer instead of the inner exception")]
-        private void Download(Uri url)
+        private void Download(FeedUri url)
         {
-            SetLastCheckAttempt(url.ToString());
+            SetLastCheckAttempt(url);
 
             using (var feedFile = new TemporaryFile("0install-feed"))
             {
@@ -240,15 +239,16 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         /// <param name="url">The URL of download the feed from.</param>
         /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
-        /// <exception cref="InvalidInterfaceIDException"><paramref name="url"/> is an invalid interface ID.</exception>
         /// <exception cref="KeyNotFoundException">The requested <paramref name="url"/> was not found in the cache.</exception>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
-        private void DownloadMirror(Uri url)
+        /// <exception cref="UriFormatException"><paramref name="url"/> is an invalid interface URI.</exception>
+        private void DownloadMirror(FeedUri url)
         {
-            var mirrorUrl = new Uri(_config.FeedMirror, string.Format(
-                "feeds/{0}/{1}/{2}/latest.xml",
+            var mirrorUrl = new FeedUri(string.Format(
+                "{0}feeds/{1}/{2}/{3}/latest.xml",
+                _config.FeedMirror.EnsureTrailingSlash().AbsoluteUri,
                 url.Scheme,
                 url.Host,
                 string.Concat(url.Segments).TrimStart('/').Replace("/", "%23")));
@@ -263,12 +263,14 @@ namespace ZeroInstall.Services.Feeds
 
         #region Import feed
         /// <inheritdoc/>
-        public void ImportFeed(string path, Uri uri, Uri mirrorUrl = null)
+        public void ImportFeed(string path, FeedUri uri, FeedUri mirrorUrl = null)
         {
             #region Sanity checks
             if (uri == null) throw new ArgumentNullException("uri");
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
+
+            if (uri.IsFile) throw new UriFormatException(Resources.FeedUriLocal);
 
             var data = File.ReadAllBytes(path);
 
@@ -276,11 +278,11 @@ namespace ZeroInstall.Services.Feeds
             DetectAttacks(data, uri, newSignature);
 
             // Add to cache and remember time
-            _feedCache.Add(uri.ToString(), data);
-            var preferences = FeedPreferences.LoadForSafe(uri.ToString());
+            _feedCache.Add(uri, data);
+            var preferences = FeedPreferences.LoadForSafe(uri);
             preferences.LastChecked = DateTime.UtcNow;
             preferences.Normalize();
-            preferences.SaveFor(uri.ToString());
+            preferences.SaveFor(uri);
         }
 
         /// <summary>
@@ -289,19 +291,19 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="data">The content of the feed file as a byte array.</param>
         /// <param name="uri">The URI the feed originally came from.</param>
         /// <param name="signature">The first trusted signature for the feed.</param>
-        /// <exception cref="InvalidInterfaceIDException">feed substitution or another interface URI-related problem was detected.</exception>
         /// <exception cref="ReplayAttackException">A replay attack was detected.</exception>
-        private void DetectAttacks(byte[] data, Uri uri, ValidSignature signature)
+        /// <exception cref="UriFormatException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="uri"/>.</exception>
+        private void DetectAttacks(byte[] data, FeedUri uri, ValidSignature signature)
         {
             // Detect feed substitution 
             var feed = XmlStorage.LoadXml<Feed>(new MemoryStream(data));
-            if (feed.Uri == null) throw new InvalidInterfaceIDException(string.Format(Resources.FeedUriMissing, uri));
-            if (feed.Uri != uri) throw new InvalidInterfaceIDException(string.Format(Resources.FeedUriMismatch, feed.Uri, uri));
+            if (feed.Uri == null) throw new UriFormatException(string.Format(Resources.FeedUriMissing, uri));
+            if (feed.Uri != uri) throw new UriFormatException(string.Format(Resources.FeedUriMismatch, feed.Uri, uri));
 
             // Detect replay attacks
             try
             {
-                var oldSignature = _feedCache.GetSignatures(uri.ToString()).OfType<ValidSignature>().FirstOrDefault();
+                var oldSignature = _feedCache.GetSignatures(uri).OfType<ValidSignature>().FirstOrDefault();
                 if (oldSignature != null && signature.Timestamp < oldSignature.Timestamp) throw new ReplayAttackException(uri, oldSignature.Timestamp, signature.Timestamp);
             }
             catch (KeyNotFoundException)
@@ -320,12 +322,12 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// Determines the most recent point in time an attempt was made to download a particular feed.
         /// </summary>
-        private static DateTime GetLastCheckAttempt(string feedID)
+        private static DateTime GetLastCheckAttempt(FeedUri feedUri)
         {
             // Determine timestamp file path
             var file = new FileInfo(Path.Combine(
                 Locations.GetCacheDirPath("0install.net", false, "injector", "last-check-attempt"),
-                ModelUtils.PrettyEscape(feedID)));
+                feedUri.PrettyEscape()));
 
             // Check last modification time
             return file.Exists ? file.LastWriteTimeUtc : new DateTime();
@@ -334,12 +336,12 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// Notes the current time as an attempt to download a particular feed.
         /// </summary>
-        private static void SetLastCheckAttempt(string feedID)
+        private static void SetLastCheckAttempt(FeedUri feedUri)
         {
             // Determine timestamp file path
             string path = Path.Combine(
                 Locations.GetCacheDirPath("0install.net", false, "injector", "last-check-attempt"),
-                ModelUtils.PrettyEscape(feedID));
+                feedUri.PrettyEscape());
 
             // Set modification time to now
             File.WriteAllText(path, "");

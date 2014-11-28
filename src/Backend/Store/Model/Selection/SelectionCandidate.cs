@@ -43,10 +43,10 @@ namespace ZeroInstall.Store.Model.Selection
         /// <summary>
         /// The file name or URL of the feed listing the implementation.
         /// </summary>
-        public string FeedID { get; private set; }
+        public FeedUri FeedUri { get; private set; }
 
         /// <summary>
-        /// The <see cref="FeedPreferences"/> for <see cref="FeedID"/>.
+        /// The <see cref="FeedPreferences"/> for <see cref="FeedUri"/>.
         /// </summary>
         [Browsable(false)]
         public FeedPreferences FeedPreferences { get; private set; }
@@ -104,24 +104,24 @@ namespace ZeroInstall.Store.Model.Selection
         /// <summary>
         /// Creates a new selection candidate.
         /// </summary>
-        /// <param name="feedID">The file name or URL of the feed listing the implementation.</param>
-        /// <param name="feedPreferences">The <see cref="FeedPreferences"/> for <see cref="FeedID"/>.</param>
+        /// <param name="feedUri">The file name or URL of the feed listing the implementation.</param>
+        /// <param name="feedPreferences">The <see cref="FeedPreferences"/> for <see cref="FeedUri"/>.</param>
         /// <param name="implementation">The implementation this selection candidate references.</param>
         /// <param name="requirements">A set of requirements/restrictions the <paramref name="implementation"/> needs to fullfill for <see cref="IsSuitable"/> to be <see langword="true"/>.</param>
         /// <param name="offlineUncached">Mark this candidate as unsuitable because it is uncached and <see cref="Config.NetworkUse"/> is set to <see cref="NetworkLevel.Offline"/>.</param>
         /// <exception cref="InvalidDataException"><paramref name="implementation"/>'s <see cref="ImplementationBase.ID"/> is empty.</exception>
-        public SelectionCandidate(string feedID, FeedPreferences feedPreferences, Implementation implementation, Requirements requirements, bool offlineUncached = false)
+        public SelectionCandidate(FeedUri feedUri, FeedPreferences feedPreferences, Implementation implementation, Requirements requirements, bool offlineUncached = false)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
             if (feedPreferences == null) throw new ArgumentNullException("feedPreferences");
             if (implementation == null) throw new ArgumentNullException("implementation");
             if (requirements == null) throw new ArgumentNullException("requirements");
             #endregion
 
-            if (string.IsNullOrEmpty(implementation.ID)) throw new InvalidDataException(string.Format(Resources.ImplementationMissingID, implementation, feedID));
+            if (string.IsNullOrEmpty(implementation.ID)) throw new InvalidDataException(string.Format(Resources.ImplementationMissingID, implementation, feedUri));
 
-            FeedID = feedID;
+            FeedUri = feedUri;
             FeedPreferences = feedPreferences;
             Implementation = implementation;
 
@@ -154,7 +154,7 @@ namespace ZeroInstall.Store.Model.Selection
         private static bool Match(Requirements requirements, ImplementationVersion version)
         {
             VersionRange range;
-            if (!requirements.ExtraRestrictions.TryGetValue(requirements.InterfaceID, out range)) return true;
+            if (!requirements.ExtraRestrictions.TryGetValue(requirements.InterfaceUri, out range)) return true;
             return range.Match(version);
         }
         #endregion

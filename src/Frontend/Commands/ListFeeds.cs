@@ -16,15 +16,15 @@
  */
 
 using System;
-using System.IO;
 using System.Text;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model.Preferences;
 
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// List all known feed IDs for a specific interface.
+    /// List all known feed URIs for a specific interface.
     /// </summary>
     [CLSCompliant(false)]
     public sealed class ListFeeds : FrontendCommand
@@ -53,23 +53,22 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            string interfaceID = AdditionalArgs[0];
-            if (File.Exists(AdditionalArgs[0])) interfaceID = Path.GetFullPath(AdditionalArgs[0]);
+            var interfaceUri = GetCanonicalUri(AdditionalArgs[0]);
 
             Handler.Output(
-                string.Format(Resources.FeedsRegistered, interfaceID),
-                GetRegisteredFeeds(interfaceID));
+                string.Format(Resources.FeedsRegistered, interfaceUri),
+                GetRegisteredFeeds(interfaceUri));
             return 0;
         }
 
         #region Helpers
-        private static string GetRegisteredFeeds(string interfaceID)
+        private static string GetRegisteredFeeds(FeedUri interfaceUri)
         {
-            var preferences = InterfacePreferences.LoadFor(interfaceID);
+            var preferences = InterfacePreferences.LoadFor(interfaceUri);
 
             var builder = new StringBuilder();
             foreach (var feedReference in preferences.Feeds)
-                builder.AppendLine(feedReference.Source);
+                builder.AppendLine(feedReference.Source.ToStringRfc());
             return builder.ToString();
         }
         #endregion

@@ -82,6 +82,7 @@
     <Compile Include="Feeds\FeedUtils.cs" />
     <Compile Include="Feeds\IFeedCache.cs" />
     <Compile Include="Feeds\MemoryFeedCache.cs" />
+    <Compile Include="FeedUri.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Icons\DiskIconCache.cs" />
     <Compile Include="Icons\IconCacheProvider.cs" />
@@ -120,7 +121,6 @@
     <Compile Include="Implementations\IpcStore.cs" />
     <Compile Include="Implementations\StoreFactory.cs" />
     <Compile Include="Implementations\StoreUtils.cs" />
-    <Compile Include="InvalidInterfaceIDException.cs" />
     <Compile Include="JsonStorage.cs" />
     <Compile Include="Model\Architecture.cs" />
     <Compile Include="Model\ArchitectureExtensions.cs" />
@@ -175,7 +175,6 @@
     <Compile Include="Model\ExecutableInVar.cs" />
     <Compile Include="Model\Feed.cs" />
     <Compile Include="Model\FeedElement.cs" />
-    <Compile Include="Model\FeedElementUtils.cs" />
     <Compile Include="Model\FeedReference.cs" />
     <Compile Include="Model\ForEachArgs.cs" />
     <Compile Include="Model\GenericBinding.cs" />
@@ -188,8 +187,8 @@
     <Compile Include="Model\IDescriptionContainer.cs" />
     <Compile Include="Model\IElementContainer.cs" />
     <Compile Include="Model\IIconContainer.cs" />
-    <Compile Include="Model\IInterfaceID.cs" />
-    <Compile Include="Model\IInterfaceIDBindingContainer.cs" />
+    <Compile Include="Model\IInterfaceUri.cs" />
+    <Compile Include="Model\IInterfaceUriBindingContainer.cs" />
     <Compile Include="Model\Implementation.cs" />
     <Compile Include="Model\ImplementationBase.cs" />
     <Compile Include="Model\ImplementationVersion.cs" />

@@ -187,7 +187,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="OptionException"><paramref name="args"/> contains unknown options.</exception>
         /// <exception cref="IOException">A problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">more privileges are required.</exception>
-        /// <exception cref="InvalidInterfaceIDException">Trying to set an invalid interface ID.</exception>
+        /// <exception cref="UriFormatException">The URI or local path specified is invalid.</exception>
         public virtual void Parse(IEnumerable<string> args)
         {
             // ReSharper disable PossibleMultipleEnumeration
@@ -215,7 +215,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="UnauthorizedAccessException">An operation failed due to insufficient rights.</exception>
         /// <exception cref="InvalidDataException">A problem occurred while deserializing an XML file.</exception>
         /// <exception cref="SignatureException">The signature data could not be handled for some reason.</exception>
-        /// <exception cref="InvalidInterfaceIDException">No interface ID was specified while one was needed.</exception>
+        /// <exception cref="UriFormatException">The URI or local path specified is invalid.</exception>
         /// <exception cref="DigestMismatchException">An <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         /// <exception cref="SolverException">The <see cref="ISolver"/> was unable to solve all dependencies.</exception>
         /// <exception cref="ImplementationNotFoundException">One of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
@@ -227,67 +227,56 @@ namespace ZeroInstall.Commands
 
         #region Helpers
         /// <summary>
-        /// Converts an interface or feed ID to its canonical representation.
+        /// Converts an interface or feed URI to its canonical representation.
         /// </summary>
-        /// <remarks>Aliases prefixed by "alias:" are resolved to the IDs they represent and relative local paths are converted to absolute paths. Everything else stays unchanged.</remarks>
-        /// <exception cref="InvalidInterfaceIDException">The <paramref name="id"/> is invalid.</exception>
-        /// <exception cref="IOException">There was a problem checking a local file path.</exception>
-        public string GetCanonicalID(string id)
+        /// <exception cref="UriFormatException"><paramref name="uri"/> is an invalid interface URI.</exception>
+        [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#", Justification = "This method handles a number of non-standard URI types which cannot be represented by the regular Uri class.")]
+        public FeedUri GetCanonicalUri(string uri)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
-            #endregion
+            if (string.IsNullOrEmpty(uri)) throw new UriFormatException();
 
             try
             {
-                if (id.StartsWith("alias:")) return ResolveAliasId(id);
-                else if (id.StartsWith("file:///")) return FileUtils.UnifySlashes(id.Substring(WindowsUtils.IsWindows ? 8 : 7));
-                else if (id.StartsWith("file:/")) throw new ArgumentException(Resources.FilePrefixAbsoluteUsage);
-                else if (id.StartsWith("file:")) return Path.GetFullPath(FileUtils.UnifySlashes(id.Substring(5)));
-                else if (ModelUtils.IsValidUri(id)) return id.GetLeftPartAtFirstOccurrence('#');
-                else
-                { // Assume invalid URIs are...
-                    if (!id.EndsWithIgnoreCase(".xml"))
-                    {
-                        // ... pet names or...
-                        if (AppList.ContainsEntry(id)) return id;
+                if (uri.StartsWith("alias:")) return ResolveAlias(uri.Substring("alias:".Length));
+                else if (uri.StartsWith("file:///")) return new FeedUri(uri);
+                else if (uri.StartsWith("file:/")) throw new ArgumentException(Resources.FilePrefixAbsoluteUsage);
+                else if (uri.StartsWith("file:")) return new FeedUri(Path.GetFullPath(uri.Substring("file:".Length)));
+                else if (uri.StartsWith("http:") || uri.StartsWith("https:")) return new FeedUri(uri);
 
-                        // ... short names...
-                        var feed = CatalogManager.GetCached().FindByShortName(id);
-                        if (feed != null)
-                        {
-                            Log.Info(string.Format(Resources.ResolvedUsingCatalog, id, feed.Uri));
-                            return feed.Uri.ToString();
-                        }
-                    }
+                var result = TryResolveCatalog(uri);
+                if (result != null) return result;
 
-                    // ... local paths
-                    return Path.GetFullPath(id);
-                }
+                if (WindowsUtils.IsWindows) return new FeedUri(Path.GetFullPath(Environment.ExpandEnvironmentVariables(uri)));
+                else return new FeedUri(Path.GetFullPath(uri));
             }
                 #region Error handling
             catch (ArgumentException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                throw new InvalidInterfaceIDException(ex.Message, ex);
+                throw new UriFormatException(ex.Message);
             }
             catch (InvalidOperationException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                throw new InvalidInterfaceIDException(ex.Message, ex);
+                throw new UriFormatException(ex.Message);
             }
             #endregion
         }
 
-        private string ResolveAliasId(string id)
+        private FeedUri ResolveAlias(string aliasName)
         {
-            string aliasName = id.Substring("alias:".Length);
-
             AppEntry appEntry;
             AddAlias.GetAppAlias(AppList, aliasName, out appEntry);
+            if (appEntry == null) throw new UriFormatException(string.Format(Resources.AliasNotFound, aliasName));
+            return appEntry.InterfaceUri;
+        }
 
-            if (appEntry == null) throw new InvalidInterfaceIDException(string.Format(Resources.AliasNotFound, aliasName));
-            return appEntry.InterfaceID;
+        private FeedUri TryResolveCatalog(string shortName)
+        {
+            var feed = CatalogManager.GetCached().FindByShortName(shortName);
+            if (feed == null) return null;
+            Log.Info(string.Format(Resources.ResolvedUsingCatalog, shortName, feed.Uri));
+            return feed.Uri;
         }
 
         /// <summary>

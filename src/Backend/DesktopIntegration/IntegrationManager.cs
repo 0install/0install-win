@@ -28,6 +28,7 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration
@@ -140,18 +141,18 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Apps
         /// <inheritdoc/>
-        protected override AppEntry AddAppInternal(string interfaceID, Feed feed)
+        protected override AppEntry AddAppInternal(FeedUri interfaceUri, Feed feed)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
             // Prevent double entries
-            if (AppList.ContainsEntry(interfaceID)) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, feed.Name));
+            if (AppList.ContainsEntry(interfaceUri)) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, feed.Name));
 
             // Get basic metadata and copy of capabilities from feed
-            var appEntry = new AppEntry {InterfaceID = interfaceID, Name = feed.Name, Timestamp = DateTime.UtcNow};
+            var appEntry = new AppEntry {InterfaceUri = interfaceUri, Name = feed.Name, Timestamp = DateTime.UtcNow};
             appEntry.CapabilityLists.AddRange(feed.CapabilityLists.CloneElements());
 
             AppList.Entries.Add(appEntry);
@@ -168,20 +169,23 @@ namespace ZeroInstall.DesktopIntegration
             if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
+            throw new NotImplementedException();
+            /*
             // Prevent double entries
             if (AppList.ContainsEntry(petName)) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, feed.Name));
 
             // Get basic metadata and copy of capabilities from feed
-            var appEntry = new AppEntry {InterfaceID = petName, Requirements = requirements, Name = feed.Name, Timestamp = DateTime.UtcNow};
+            var appEntry = new AppEntry {InterfaceUri = petName, Requirements = requirements, Name = feed.Name, Timestamp = DateTime.UtcNow};
             appEntry.CapabilityLists.AddRange(feed.CapabilityLists.CloneElements());
 
             AppList.Entries.Add(appEntry);
             WriteAppDir(appEntry);
             return appEntry;
+            */
         }
 
         /// <inheritdoc/>
-        protected override void AddAppInternal(AppEntry prototype, Converter<string, Feed> feedRetriever)
+        protected override void AddAppInternal(AppEntry prototype, Converter<FeedUri, Feed> feedRetriever)
         {
             #region Sanity checks
             if (prototype == null) throw new ArgumentNullException("prototype");
@@ -193,7 +197,7 @@ namespace ZeroInstall.DesktopIntegration
             WriteAppDir(appEntry);
 
             if (appEntry.AccessPoints != null)
-                AddAccessPointsInternal(appEntry, feedRetriever(appEntry.InterfaceID), appEntry.AccessPoints.Clone().Entries);
+                AddAccessPointsInternal(appEntry, feedRetriever(appEntry.InterfaceUri), appEntry.AccessPoints.Clone().Entries);
         }
 
         /// <inheritdoc/>
@@ -244,7 +248,7 @@ namespace ZeroInstall.DesktopIntegration
                     #region Error handling
                 catch (KeyNotFoundException)
                 {
-                    Log.Warn(string.Format("Access point '{0}' no longer compatible with interface '{1}'.", accessPoint, appEntry.InterfaceID));
+                    Log.Warn(string.Format("Access point '{0}' no longer compatible with interface '{1}'.", accessPoint, appEntry.InterfaceUri));
                 }
                 #endregion
             }

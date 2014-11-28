@@ -41,9 +41,8 @@ namespace ZeroInstall.DesktopIntegration
                 {
                     new AppEntry
                     {
-                        InterfaceID = "pet-name",
+                        InterfaceUri = FeedTest.Test1Uri,
                         AutoUpdate = true,
-                        Requirements = new Requirements {InterfaceID = "http://0install.de/feeds/test/test1.xml"},
                         CapabilityLists = {Store.Model.Capabilities.CapabilityListTest.CreateTestCapabilityList()}
                     }
                 }
@@ -61,7 +60,7 @@ namespace ZeroInstall.DesktopIntegration
                 {
                     new AppEntry
                     {
-                        InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                        InterfaceUri = FeedTest.Test1Uri,
                         AutoUpdate = true,
                         CapabilityLists = {Store.Model.Capabilities.CapabilityListTest.CreateTestCapabilityList()},
                         AccessPoints = CreateTestAccessPointList()
@@ -129,8 +128,8 @@ namespace ZeroInstall.DesktopIntegration
         public void TestContainsEntry()
         {
             var appList = CreateTestAppListWithAPs();
-            Assert.IsTrue(appList.ContainsEntry("http://0install.de/feeds/test/test1.xml"));
-            Assert.IsFalse(appList.ContainsEntry("http://0install.de/feeds/test/test2.xml"));
+            Assert.IsTrue(appList.ContainsEntry(FeedTest.Test1Uri));
+            Assert.IsFalse(appList.ContainsEntry(FeedTest.Test2Uri));
         }
 
         [Test]
@@ -138,12 +137,12 @@ namespace ZeroInstall.DesktopIntegration
         {
             var appList = CreateTestAppListWithAPs();
 
-            Assert.AreEqual(appList.Entries[0], appList.GetEntry("http://0install.de/feeds/test/test1.xml"));
-            Assert.AreEqual(appList.Entries[0], appList["http://0install.de/feeds/test/test1.xml"]);
+            Assert.AreEqual(appList.Entries[0], appList.GetEntry(FeedTest.Test1Uri));
+            Assert.AreEqual(appList.Entries[0], appList[FeedTest.Test1Uri]);
 
-            Assert.IsNull(appList.GetEntry("http://0install.de/feeds/test/test2.xml"));
+            Assert.IsNull(appList.GetEntry(FeedTest.Test2Uri));
             // ReSharper disable UnusedVariable
-            Assert.Throws<KeyNotFoundException>(() => { var dummy = appList["http://0install.de/feeds/test/test2.xml"]; });
+            Assert.Throws<KeyNotFoundException>(() => { var dummy = appList[FeedTest.Test2Uri]; });
             // ReSharper restore UnusedVariable
         }
 

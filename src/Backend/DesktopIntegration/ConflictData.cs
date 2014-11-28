@@ -17,7 +17,6 @@
 
 using System;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration
 {
@@ -63,7 +62,7 @@ namespace ZeroInstall.DesktopIntegration
 
             return
                 AccessPoint.Equals(other.AccessPoint) &&
-                ModelUtils.IDEquals(AppEntry.InterfaceID, other.AppEntry.InterfaceID);
+                AppEntry.InterfaceUri == other.AppEntry.InterfaceUri;
         }
 
         /// <inheritdoc/>
@@ -88,7 +87,12 @@ namespace ZeroInstall.DesktopIntegration
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return (AccessPoint == null) ? 0 : AccessPoint.GetHashCode();
+            unchecked
+            {
+                int result = AccessPoint.GetHashCode();
+                if (AppEntry != null && AppEntry.InterfaceUri != null) result = (result * 397) ^ AppEntry.InterfaceUri.GetHashCode();
+                return result;
+            }
         }
         #endregion
     }

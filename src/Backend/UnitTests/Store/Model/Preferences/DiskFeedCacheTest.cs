@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -48,13 +47,13 @@ namespace ZeroInstall.Store.Model.Preferences
 
             // Add some dummy feeds to the cache
             _feed1 = FeedTest.CreateTestFeed();
-            _feed1.Uri = new Uri("http://0install.de/feeds/test/test1.xml");
-            _feed1.SaveXml(Path.Combine(_tempDir, ModelUtils.Escape(_feed1.UriString)));
-            _feed1.Normalize(Path.Combine(_tempDir, ModelUtils.Escape(_feed1.UriString)));
+            _feed1.Uri = FeedTest.Test1Uri;
+            _feed1.SaveXml(Path.Combine(_tempDir, new FeedUri(_feed1.Uri).Escape()));
+            _feed1.Normalize(_feed1.Uri);
             _feed2 = FeedTest.CreateTestFeed();
-            _feed2.Uri = new Uri("http://0install.de/feeds/test/test2.xml");
-            _feed2.SaveXml(Path.Combine(_tempDir, ModelUtils.Escape(_feed2.UriString)));
-            _feed2.Normalize(Path.Combine(_tempDir, ModelUtils.Escape(_feed2.UriString)));
+            _feed2.Uri = new FeedUri(FeedTest.Test2Uri);
+            _feed2.SaveXml(Path.Combine(_tempDir, new FeedUri(_feed2.Uri).Escape()));
+            _feed2.Normalize(_feed2.Uri);
             File.WriteAllText(Path.Combine(_tempDir, "http_invalid"), "");
         }
 
@@ -69,25 +68,25 @@ namespace ZeroInstall.Store.Model.Preferences
         [Test]
         public void TestContains()
         {
-            Assert.IsTrue(_cache.Contains("http://0install.de/feeds/test/test1.xml"));
-            Assert.IsTrue(_cache.Contains("http://0install.de/feeds/test/test2.xml"));
-            Assert.IsFalse(_cache.Contains("http://0install.de/feeds/test/test3.xml"));
+            Assert.IsTrue(_cache.Contains(FeedTest.Test1Uri));
+            Assert.IsTrue(_cache.Contains(FeedTest.Test2Uri));
+            Assert.IsFalse(_cache.Contains(FeedTest.Test3Uri));
 
             using (var localFeed = new TemporaryFile("0install-unit-tests"))
             {
                 _feed1.SaveXml(localFeed);
-                Assert.IsTrue(_cache.Contains(localFeed), "Should detect local feed files without them actually being in the cache");
+                Assert.IsTrue(_cache.Contains(new FeedUri(localFeed)), "Should detect local feed files without them actually being in the cache");
             }
 
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
-                Assert.IsFalse(_cache.Contains(Path.Combine(tempDir, "feed.xml")), "Should not detect phantom local feed files");
+                Assert.IsFalse(_cache.Contains(new FeedUri(Path.Combine(tempDir, "feed.xml"))), "Should not detect phantom local feed files");
         }
 
         [Test]
         public void TestContainsCaseSensitive()
         {
-            Assert.IsTrue(_cache.Contains("http://0install.de/feeds/test/test1.xml"));
-            Assert.IsFalse(_cache.Contains("http://0install.de/feeds/test/Test1.xml"), "Should not be case-sensitive");
+            Assert.IsTrue(_cache.Contains(new FeedUri("http://0install.de/feeds/test/test1.xml")));
+            Assert.IsFalse(_cache.Contains(new FeedUri("http://0install.de/feeds/test/Test1.xml")), "Should not be case-sensitive");
         }
 
         [Test]
@@ -95,28 +94,28 @@ namespace ZeroInstall.Store.Model.Preferences
         {
             var feeds = _cache.ListAll();
             CollectionAssert.AreEqual(
-                new[] {new Uri("http://0install.de/feeds/test/test1.xml"), new Uri("http://0install.de/feeds/test/test2.xml")},
+                new[] {FeedTest.Test1Uri, FeedTest.Test2Uri},
                 feeds);
         }
 
         [Test]
         public void TestGetFeed()
         {
-            var feed = _cache.GetFeed(_feed1.Uri.ToString());
+            var feed = _cache.GetFeed(_feed1.Uri);
             Assert.AreEqual(_feed1, feed);
 
             using (var localFeed = new TemporaryFile("0install-unit-tests"))
             {
                 _feed1.SaveXml(localFeed);
-                Assert.AreEqual(_feed1, _cache.GetFeed(localFeed), "Should provide local feed files without them actually being in the cache");
+                Assert.AreEqual(_feed1, _cache.GetFeed(new FeedUri(localFeed)), "Should provide local feed files without them actually being in the cache");
             }
         }
 
         [Test]
         public void TestGetFeedCaseSensitive()
         {
-            Assert.DoesNotThrow(() => _cache.GetFeed("http://0install.de/feeds/test/test1.xml"));
-            Assert.Throws<KeyNotFoundException>(() => _cache.GetFeed("http://0install.de/feeds/test/Test1.xml"), "Should not be case-sensitive");
+            Assert.DoesNotThrow(() => _cache.GetFeed(new FeedUri("http://0install.de/feeds/test/test1.xml")));
+            Assert.Throws<KeyNotFoundException>(() => _cache.GetFeed(new FeedUri("http://0install.de/feeds/test/Test1.xml")), "Should not be case-sensitive");
         }
 
         [Test]
@@ -124,7 +123,7 @@ namespace ZeroInstall.Store.Model.Preferences
         {
             var result = new OpenPgpSignature[0];
 
-            var signatures = _cache.GetSignatures("http://0install.de/feeds/test/test1.xml");
+            var signatures = _cache.GetSignatures(FeedTest.Test1Uri);
 
             CollectionAssert.AreEqual(signatures, result);
         }
@@ -133,21 +132,21 @@ namespace ZeroInstall.Store.Model.Preferences
         public void TestAdd()
         {
             var feed = FeedTest.CreateTestFeed();
-            feed.Uri = new Uri("http://0install.de/feeds/test/test3.xml");
+            feed.Uri = new FeedUri(FeedTest.Test3Uri);
 
-            _cache.Add(feed.Uri.ToString(), feed.ToArray());
+            _cache.Add(feed.Uri, feed.ToArray());
 
-            feed.Normalize(feed.Uri.ToString());
-            Assert.AreEqual(feed, _cache.GetFeed(feed.Uri.ToString()));
+            feed.Normalize(feed.Uri);
+            Assert.AreEqual(feed, _cache.GetFeed(feed.Uri));
         }
 
         [Test]
         public void TestRemove()
         {
-            Assert.IsTrue(_cache.Contains("http://0install.de/feeds/test/test1.xml"));
-            _cache.Remove("http://0install.de/feeds/test/test1.xml");
-            Assert.IsFalse(_cache.Contains("http://0install.de/feeds/test/test1.xml"));
-            Assert.IsTrue(_cache.Contains("http://0install.de/feeds/test/test2.xml"));
+            Assert.IsTrue(_cache.Contains(FeedTest.Test1Uri));
+            _cache.Remove(FeedTest.Test1Uri);
+            Assert.IsFalse(_cache.Contains(FeedTest.Test1Uri));
+            Assert.IsTrue(_cache.Contains(FeedTest.Test2Uri));
         }
 
         /// <summary>
@@ -164,16 +163,16 @@ namespace ZeroInstall.Store.Model.Preferences
                 longHttpUrlBuilder.Append("x");
 
             var feed = FeedTest.CreateTestFeed();
-            feed.Uri = new Uri("http://0install.de/feeds/test-" + longHttpUrlBuilder);
+            feed.Uri = new FeedUri("http://0install.de/feeds/test-" + longHttpUrlBuilder);
 
-            _cache.Add(feed.Uri.ToString(), feed.ToArray());
+            _cache.Add(feed.Uri, feed.ToArray());
 
-            feed.Normalize(feed.Uri.ToString());
-            Assert.AreEqual(feed, _cache.GetFeed(feed.Uri.ToString()));
+            feed.Normalize(feed.Uri);
+            Assert.AreEqual(feed, _cache.GetFeed(feed.Uri));
 
-            Assert.IsTrue(_cache.Contains(feed.Uri.ToString()));
-            _cache.Remove(feed.Uri.ToString());
-            Assert.IsFalse(_cache.Contains(feed.Uri.ToString()));
+            Assert.IsTrue(_cache.Contains(feed.Uri));
+            _cache.Remove(feed.Uri);
+            Assert.IsFalse(_cache.Contains(feed.Uri));
         }
     }
 }

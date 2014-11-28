@@ -45,11 +45,11 @@ namespace ZeroInstall.Store.Feeds
             #endregion
 
             var feeds = new List<Feed>();
-            foreach (string feedID in cache.ListAll())
+            foreach (var feedUri in cache.ListAll())
             {
                 try
                 {
-                    feeds.Add(cache.GetFeed(feedID));
+                    feeds.Add(cache.GetFeed(feedUri));
                 }
                     #region Error handling
                 catch (IOException ex)
