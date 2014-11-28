@@ -90,6 +90,7 @@
     <Compile Include="Services\MockTaskHandler.cs" />
     <Compile Include="Services\SelectionsManagerTest.cs" />
     <Compile Include="Services\Solvers\BacktrackingSolverTest.cs" />
+    <Compile Include="Services\Solvers\SelectionCandidateProviderTest.cs" />
     <Compile Include="Services\Solvers\SolverTest.cs" />
     <Compile Include="Services\Solvers\SolverUtilsTest.cs" />
     <Compile Include="Store\ConfigTest.cs" />

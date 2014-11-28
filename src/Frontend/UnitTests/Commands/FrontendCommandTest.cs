@@ -18,13 +18,13 @@
 using System;
 using System.IO;
 using System.Linq;
+using Moq;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.Services;
 using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.Solvers;
@@ -43,28 +43,41 @@ namespace ZeroInstall.Commands
     public abstract class FrontendCommandTest<TCommand> : TestWithContainer<TCommand>
         where TCommand : FrontendCommand
     {
+        // Type covariance: TestWithContainer -> FrontendCommandTest, MockTaskHandler -> MockCommandHandler
+        protected new MockCommandHandler MockHandler { get; private set; }
+
+        protected Mock<IFeedCache> FeedCacheMock { get; private set; }
+        protected Mock<IStore> StoreMock { get; private set; }
+        protected Mock<ISolver> SolverMock { get; private set; }
+        protected Mock<IFetcher> FetcherMock { get; private set; }
+        protected Mock<IExecutor> ExecutorMock { get; private set; }
+
+        protected override void Register(AutoMockContainer container)
+        {
+            MockHandler = new MockCommandHandler();
+            container.Register<ICommandHandler>(MockHandler);
+
+            container.Register(new Config());
+
+            FeedCacheMock = container.GetMock<IFeedCache>();
+            StoreMock = container.GetMock<IStore>();
+            SolverMock = container.GetMock<ISolver>();
+            FetcherMock = container.GetMock<IFetcher>();
+            ExecutorMock = container.GetMock<IExecutor>();
+        }
+
         [SetUp]
         public override void SetUp()
         {
             base.SetUp();
 
-            Target.Config = Container.Resolve<Config>();
-            Target.FeedCache = Container.Resolve<IFeedCache>();
-            Target.OpenPgp = Container.Resolve<IOpenPgp>();
-            Target.Store = Container.Resolve<IStore>();
-            Target.Solver = Container.Resolve<ISolver>();
-            Target.Fetcher = Container.Resolve<IFetcher>();
-            Target.Executor = Container.Resolve<IExecutor>();
-        }
-
-        // Type covariance: TestWithContainer -> FrontendCommandTest, MockTaskHandler -> MockCommandHandler
-        protected new MockCommandHandler MockHandler { get; private set; }
-
-        protected override MockTaskHandler CreateMockHandler()
-        {
-            MockHandler = new MockCommandHandler();
-            Container.Register<ICommandHandler>(MockHandler);
-            return MockHandler;
+            Target.Config = Resolve<Config>();
+            Target.FeedCache = FeedCacheMock.Object;
+            Target.OpenPgp = Resolve<IOpenPgp>();
+            Target.Store = StoreMock.Object;
+            Target.Solver = SolverMock.Object;
+            Target.Fetcher = FetcherMock.Object;
+            Target.Executor = ExecutorMock.Object;
         }
 
         /// <summary>

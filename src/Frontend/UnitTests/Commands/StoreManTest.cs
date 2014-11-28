@@ -19,7 +19,6 @@ using System;
 using System.Globalization;
 using System.IO;
 using Moq;
-using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NUnit.Framework;
@@ -43,10 +42,10 @@ namespace ZeroInstall.Commands
             {
                 var digest = new ManifestDigest(sha256New: "abc");
                 string path = tempFile;
-                Container.GetMock<IStore>().Setup(x => x.AddArchives(new[]
+                StoreMock.Setup(x => x.AddArchives(new[]
                 {
                     new ArchiveFileInfo {Path = path}
-                }, digest, Container.Resolve<ITaskHandler>()));
+                }, digest, Resolve<ICommandHandler>()));
 
                 RunAndAssert(null, (int)StoreErrorLevel.OK,
                     "add", "sha256new_" + digest.Sha256New, path);
@@ -61,10 +60,10 @@ namespace ZeroInstall.Commands
                 var digest = new ManifestDigest(sha256New: "abc");
                 string path = Path.Combine(tempDir, "archive");
                 File.WriteAllText(path, "xyz");
-                Container.GetMock<IStore>().Setup(x => x.AddArchives(new[]
+                StoreMock.Setup(x => x.AddArchives(new[]
                 {
                     new ArchiveFileInfo {Path = path}
-                }, digest, Container.Resolve<ITaskHandler>()));
+                }, digest, Resolve<ICommandHandler>()));
 
                 RunAndAssert(null, (int)StoreErrorLevel.OK,
                     "add", "sha256new_" + digest.Sha256New, "archive");
@@ -78,10 +77,10 @@ namespace ZeroInstall.Commands
             {
                 var digest = new ManifestDigest(sha256New: "abc");
                 string path = tempFile;
-                Container.GetMock<IStore>().Setup(x => x.AddArchives(new[]
+                StoreMock.Setup(x => x.AddArchives(new[]
                 {
                     new ArchiveFileInfo {Path = path, SubDir = "extract"}
-                }, digest, Container.Resolve<ICommandHandler>()));
+                }, digest, Resolve<ICommandHandler>()));
 
                 RunAndAssert(null, (int)StoreErrorLevel.OK,
                     "add", "sha256new_" + digest.Sha256New, path, "extract");
@@ -95,10 +94,10 @@ namespace ZeroInstall.Commands
             {
                 var digest = new ManifestDigest(sha256New: "abc");
                 string path = tempFile;
-                Container.GetMock<IStore>().Setup(x => x.AddArchives(new[]
+                StoreMock.Setup(x => x.AddArchives(new[]
                 {
                     new ArchiveFileInfo {Path = path, SubDir = "extract", MimeType = "mime"}
-                }, digest, Container.Resolve<ICommandHandler>()));
+                }, digest, Resolve<ICommandHandler>()));
 
                 RunAndAssert(null, (int)StoreErrorLevel.OK,
                     "add", "sha256new_" + digest.Sha256New, path, "extract", "mime");
@@ -114,11 +113,11 @@ namespace ZeroInstall.Commands
                 var digest = new ManifestDigest(sha256New: "abc");
                 string path1 = tempFile1;
                 string path2 = tempFile2;
-                Container.GetMock<IStore>().Setup(x => x.AddArchives(new[]
+                StoreMock.Setup(x => x.AddArchives(new[]
                 {
                     new ArchiveFileInfo {Path = path1, SubDir = "extract1", MimeType = "mime1"},
                     new ArchiveFileInfo {Path = path2, SubDir = "extract2", MimeType = "mime2"}
-                }, digest, Container.Resolve<ICommandHandler>()));
+                }, digest, Resolve<ICommandHandler>()));
 
                 RunAndAssert(null, (int)StoreErrorLevel.OK,
                     "add", "sha256new_" + digest.Sha256New,
@@ -134,7 +133,7 @@ namespace ZeroInstall.Commands
             {
                 var digest = new ManifestDigest(sha256New: "abc");
                 string path = tempDir;
-                Container.GetMock<IStore>().Setup(x => x.AddDirectory(path, digest, Container.Resolve<ICommandHandler>()));
+                StoreMock.Setup(x => x.AddDirectory(path, digest, Resolve<ICommandHandler>()));
 
                 RunAndAssert(null, (int)StoreErrorLevel.OK,
                     "add", "sha256new_" + digest.Sha256New, path);
@@ -148,7 +147,7 @@ namespace ZeroInstall.Commands
             {
                 var digest = new ManifestDigest(sha256New: "abc");
                 string path = tempDir;
-                Container.GetMock<IStore>().Setup(x => x.AddDirectory(path, digest, Container.Resolve<ICommandHandler>()));
+                StoreMock.Setup(x => x.AddDirectory(path, digest, Resolve<ICommandHandler>()));
 
                 RunAndAssert(null, (int)StoreErrorLevel.OK,
                     "add", "sha256new_" + digest.Sha256New, ".");
@@ -158,7 +157,7 @@ namespace ZeroInstall.Commands
         [Test]
         public void TestAudit()
         {
-            var storeMock = Container.GetMock<IStore>();
+            var storeMock = StoreMock;
             storeMock.Setup(x => x.ListAll()).Returns(new[] {new ManifestDigest("sha256new_123AB")});
             storeMock.Setup(x => x.Verify(new ManifestDigest("sha256new_123AB"), MockHandler));
 
@@ -173,7 +172,7 @@ namespace ZeroInstall.Commands
             {
                 var digest = new ManifestDigest(sha256New: "abc");
                 string path = Path.Combine(tempDir, "sha256new_" + digest.Sha256New);
-                Container.GetMock<IStore>().Setup(x => x.AddDirectory(path, digest, Container.Resolve<ICommandHandler>()));
+                StoreMock.Setup(x => x.AddDirectory(path, digest, Resolve<ICommandHandler>()));
 
                 RunAndAssert(null, (int)StoreErrorLevel.OK,
                     "copy", path);
@@ -187,7 +186,7 @@ namespace ZeroInstall.Commands
             {
                 var digest = new ManifestDigest(sha256New: "abc");
                 string path = Path.Combine(tempDir, "sha256new_" + digest.Sha256New);
-                Container.GetMock<IStore>().Setup(x => x.AddDirectory(path, digest, Container.Resolve<ICommandHandler>()));
+                StoreMock.Setup(x => x.AddDirectory(path, digest, Resolve<ICommandHandler>()));
 
                 RunAndAssert(null, (int)StoreErrorLevel.OK,
                     "copy", "sha256new_" + digest.Sha256New);
@@ -198,7 +197,7 @@ namespace ZeroInstall.Commands
         public void TestFind()
         {
             var digest = new ManifestDigest(sha256New: "abc");
-            Container.GetMock<IStore>().Setup(x => x.GetPath(digest)).Returns("path");
+            StoreMock.Setup(x => x.GetPath(digest)).Returns("path");
 
             RunAndAssert("path", (int)StoreErrorLevel.OK,
                 "find", "sha256new_abc");
@@ -209,8 +208,8 @@ namespace ZeroInstall.Commands
         {
             var digest1 = new ManifestDigest(sha256New: "1");
             var digest2 = new ManifestDigest(sha256New: "2");
-            Container.GetMock<IStore>().Setup(x => x.ListAll()).Returns(new[] {digest1, digest2});
-            Container.GetMock<IStore>().Setup(x => x.GetPath(It.IsAny<ManifestDigest>())).Returns((ManifestDigest x) => x.Sha256New);
+            StoreMock.Setup(x => x.ListAll()).Returns(new[] {digest1, digest2});
+            StoreMock.Setup(x => x.GetPath(It.IsAny<ManifestDigest>())).Returns((ManifestDigest x) => x.Sha256New);
 
             RunAndAssert("1" + Environment.NewLine + "2", (int)StoreErrorLevel.OK,
                 "list");
@@ -219,7 +218,7 @@ namespace ZeroInstall.Commands
         [Test]
         public void TestOptimise()
         {
-            Container.GetMock<IStore>().Setup(x => x.Optimise(Container.Resolve<ICommandHandler>())).Returns(123);
+            StoreMock.Setup(x => x.Optimise(Resolve<ICommandHandler>())).Returns(123);
 
             RunAndAssert(string.Format(Resources.StorageReclaimed, FileUtils.FormatBytes(123, CultureInfo.CurrentCulture)), (int)StoreErrorLevel.OK,
                 "optimise");
@@ -231,9 +230,9 @@ namespace ZeroInstall.Commands
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
             {
                 var digest = new ManifestDigest(sha256New: "abc");
-                Container.GetMock<IStore>().Setup(x => x.ListAll()).Returns(new[] {digest});
-                Container.GetMock<IStore>().Setup(x => x.Remove(digest)).Returns(true);
-                Container.GetMock<IStore>().Setup(x => x.ListAllTemp()).Returns(new[] {tempDir.Path});
+                StoreMock.Setup(x => x.ListAll()).Returns(new[] {digest});
+                StoreMock.Setup(x => x.Remove(digest)).Returns(true);
+                StoreMock.Setup(x => x.ListAllTemp()).Returns(new[] {tempDir.Path});
 
                 MockHandler.AnswerQuestionWith = true;
                 RunAndAssert(null, (int)StoreErrorLevel.OK,
@@ -246,7 +245,7 @@ namespace ZeroInstall.Commands
         public void TestRemove()
         {
             var digest = new ManifestDigest(sha256New: "abc");
-            Container.GetMock<IStore>().Setup(x => x.Remove(digest)).Returns(true);
+            StoreMock.Setup(x => x.Remove(digest)).Returns(true);
 
             RunAndAssert(null, (int)StoreErrorLevel.OK,
                 "remove", "sha256new_abc");
@@ -256,7 +255,7 @@ namespace ZeroInstall.Commands
         public void TestVerifyPass()
         {
             var digest = new ManifestDigest(sha256New: "abc");
-            Container.GetMock<IStore>().Setup(x => x.Verify(digest, Container.Resolve<ICommandHandler>()));
+            StoreMock.Setup(x => x.Verify(digest, Resolve<ICommandHandler>()));
 
             RunAndAssert(null, (int)StoreErrorLevel.OK,
                 "verify", "sha256new_" + digest.Sha256New);
@@ -266,7 +265,7 @@ namespace ZeroInstall.Commands
         public void TestVerifyFail()
         {
             var digest = new ManifestDigest(sha256New: "abc");
-            Container.GetMock<IStore>().Setup(x => x.Verify(digest, Container.Resolve<ICommandHandler>())).Throws<DigestMismatchException>();
+            StoreMock.Setup(x => x.Verify(digest, Resolve<ICommandHandler>())).Throws<DigestMismatchException>();
 
             RunAndAssert(new DigestMismatchException().Message, (int)StoreErrorLevel.DigestMismatch,
                 "verify", "sha256new_" + digest.Sha256New);

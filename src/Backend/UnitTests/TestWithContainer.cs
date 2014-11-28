@@ -32,9 +32,8 @@ namespace ZeroInstall
         where TTarget : class
     {
         private LocationsRedirect _redirect;
+        private AutoMockContainer _container;
 
-        protected AutoMockContainer Container { get; private set; }
-        protected Config Config { get; private set; }
         protected MockTaskHandler MockHandler { get; private set; }
 
         /// <summary>
@@ -42,24 +41,35 @@ namespace ZeroInstall
         /// </summary>
         protected TTarget Target;
 
+        /// <summary>
+        /// Hook that can be used to register objects in the <see cref="AutoMockContainer"/> before the <see cref="Target"/> is constructed.
+        /// </summary>
+        protected virtual void Register(AutoMockContainer container)
+        {
+            container.Register<ITaskHandler>(MockHandler = new MockTaskHandler());
+
+            container.Register(new Config());
+        }
+
         [SetUp]
         public override void SetUp()
         {
             base.SetUp();
 
-            Container = new AutoMockContainer(MockRepository);
-            MockHandler = CreateMockHandler();
-            Container.Register<ITaskHandler>(MockHandler);
-            Container.Register(Config = new Config());
+            _container = new AutoMockContainer(MockRepository);
+            Register(_container);
 
-            Target = Container.Create<TTarget>();
+            Target = _container.Create<TTarget>();
 
             _redirect = new LocationsRedirect("0install-unit-tests");
         }
 
-        protected virtual MockTaskHandler CreateMockHandler()
+        /// <summary>
+        /// Provides an instance of <typeparamref name="T"/> from the underlying <see cref="AutoMockContainer"/>.
+        /// </summary>
+        protected T Resolve<T>() where T : class
         {
-            return new MockTaskHandler();
+            return _container.Resolve<T>();
         }
 
         [TearDown]

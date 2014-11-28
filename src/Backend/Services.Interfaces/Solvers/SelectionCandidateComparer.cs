@@ -62,7 +62,7 @@ namespace ZeroInstall.Services.Solvers
             if (y == null) throw new ArgumentNullException("y");
             #endregion
 
-            if (x == y) return 0;
+            if (ReferenceEquals(x, y)) return 0;
 
             // Preferred implementations come first
             if (x.EffectiveStability == Stability.Preferred && y.EffectiveStability != Stability.Preferred) return -1;

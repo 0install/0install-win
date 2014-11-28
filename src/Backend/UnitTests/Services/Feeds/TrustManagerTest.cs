@@ -47,16 +47,18 @@ namespace ZeroInstall.Services.Feeds
         #endregion
 
         private Mock<IOpenPgp> _openPgpMock;
+        private Mock<IFeedCache> _feedCacheMock;
 
-        [SetUp]
-        public override void SetUp()
+        protected override void Register(AutoMockContainer container)
         {
-            base.SetUp();
+            base.Register(container);
 
-            _openPgpMock = Container.GetMock<IOpenPgp>();
+            _openPgpMock = container.GetMock<IOpenPgp>();
+            _feedCacheMock = container.GetMock<IFeedCache>();
 
-            Config.KeyInfoServer = null;
-            Config.AutoApproveKeys = false;
+            var config = Resolve<Config>();
+            config.KeyInfoServer = null;
+            config.AutoApproveKeys = false;
         }
 
         [Test]
@@ -110,7 +112,7 @@ namespace ZeroInstall.Services.Feeds
         public void ExistingKeyAndNoAutoTrust()
         {
             RegisterKey();
-            Container.GetMock<IFeedCache>().Setup(x => x.Contains(new FeedUri("http://localhost/test.xml"))).Returns(true);
+            _feedCacheMock.Setup(x => x.Contains(new FeedUri("http://localhost/test.xml"))).Returns(true);
             MockHandler.AnswerQuestionWith = false;
 
             using (var keyInfoServer = new MicroServer("key/" + _signature.Fingerprint, KeyInfoResponse.ToStream()))
@@ -125,7 +127,7 @@ namespace ZeroInstall.Services.Feeds
         public void ExistingKeyAndAutoTrust()
         {
             RegisterKey();
-            Container.GetMock<IFeedCache>().Setup(x => x.Contains(new FeedUri("http://localhost/test.xml"))).Returns(false);
+            _feedCacheMock.Setup(x => x.Contains(new FeedUri("http://localhost/test.xml"))).Returns(false);
 
             using (var keyInfoServer = new MicroServer("key/" + _signature.Fingerprint, KeyInfoResponse.ToStream()))
             {
@@ -190,8 +192,9 @@ namespace ZeroInstall.Services.Feeds
 
         private void UseKeyInfoServer(MicroServer keyInfoServer)
         {
-            Config.AutoApproveKeys = true;
-            Config.KeyInfoServer = keyInfoServer.ServerUri;
+            var config = Resolve<Config>();
+            config.AutoApproveKeys = true;
+            config.KeyInfoServer = keyInfoServer.ServerUri;
         }
     }
 }

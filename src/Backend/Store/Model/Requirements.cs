@@ -31,7 +31,6 @@ namespace ZeroInstall.Store.Model
     /// </summary>
     public class Requirements : IInterfaceUri, ICloneable, IEquatable<Requirements>
     {
-        #region Properties
         /// <summary>
         /// The URI or local path (must be absolute) to the interface to solve the dependencies for.
         /// </summary>
@@ -109,7 +108,6 @@ namespace ZeroInstall.Store.Model
         [Description("The ranges of versions of specific sub-implementations that can be chosen.")]
         [JsonProperty("extra_restrictions")]
         public Dictionary<FeedUri, VersionRange> ExtraRestrictions { get { return _extraRestrictions; } }
-        #endregion
 
         //--------------------//
 

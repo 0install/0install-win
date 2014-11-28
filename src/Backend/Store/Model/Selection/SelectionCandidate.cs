@@ -26,7 +26,7 @@ namespace ZeroInstall.Store.Model.Selection
     /// <summary>
     /// Represents an <see cref="Implementation"/> that is available to a solver for selection.
     /// </summary>
-    public class SelectionCandidate
+    public sealed class SelectionCandidate : IEquatable<SelectionCandidate>
     {
         #region Variables
         /// <summary>The preferences controlling how the solver evaluates this candidate.</summary>
@@ -167,7 +167,39 @@ namespace ZeroInstall.Store.Model.Selection
         /// </summary>
         public override string ToString()
         {
-            return "SelectionCandidate: " + Implementation;
+            return "SelectionCandidate: " + Implementation + " from " + FeedUri;
+        }
+        #endregion
+
+        #region Equality
+        /// <inheritdoc/>
+        public bool Equals(SelectionCandidate other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Implementation.Equals(other.Implementation) && FeedUri.Equals(other.FeedUri) && FeedPreferences.Equals(other.FeedPreferences) && IsSuitable == other.IsSuitable && Notes == other.Notes;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj is SelectionCandidate && Equals((SelectionCandidate)obj);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = Implementation.GetHashCode();
+                hashCode = (hashCode * 397) ^ FeedUri.GetHashCode();
+                hashCode = (hashCode * 397) ^ FeedPreferences.GetHashCode();
+                hashCode = (hashCode * 397) ^ IsSuitable.GetHashCode();
+                if (Notes != null) hashCode = (hashCode * 397) ^ Notes.GetHashCode();
+                return hashCode;
+            }
         }
         #endregion
     }

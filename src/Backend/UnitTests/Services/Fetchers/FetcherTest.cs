@@ -38,12 +38,11 @@ namespace ZeroInstall.Services.Fetchers
     {
         private Mock<IStore> _storeMock;
 
-        [SetUp]
-        public override void SetUp()
+        protected override void Register(AutoMockContainer container)
         {
-            base.SetUp();
+            base.Register(container);
 
-            _storeMock = Container.GetMock<IStore>();
+            _storeMock = container.GetMock<IStore>();
             _storeMock.Setup(x => x.Flush());
         }
 
@@ -138,7 +137,7 @@ namespace ZeroInstall.Services.Fetchers
             var testImplementation = new Implementation {ManifestDigest = digest, RetrievalMethods = {GetRetrievalMethod(archives)}};
 
             _storeMock.Setup(x => x.Contains(digest)).Returns(false);
-            _storeMock.Setup(x => x.AddArchives(archiveInfos.IsEqual(), digest, Container.Resolve<ITaskHandler>()));
+            _storeMock.Setup(x => x.AddArchives(archiveInfos.IsEqual(), digest, Resolve<ITaskHandler>()));
 
             Target.Fetch(new[] {testImplementation});
         }
@@ -161,7 +160,7 @@ namespace ZeroInstall.Services.Fetchers
             testImplementation.RetrievalMethods.AddRange(retrievalMethod);
 
             _storeMock.Setup(x => x.Contains(digest)).Returns(false);
-            _storeMock.Setup(x => x.AddDirectory(It.Is<string>(path => directoryCheck(path)), digest, Container.Resolve<ITaskHandler>()));
+            _storeMock.Setup(x => x.AddDirectory(It.Is<string>(path => directoryCheck(path)), digest, Resolve<ITaskHandler>()));
 
             Target.Fetch(new[] {testImplementation});
         }

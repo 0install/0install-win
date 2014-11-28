@@ -23,7 +23,6 @@ using NUnit.Framework;
 using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
@@ -45,21 +44,21 @@ namespace ZeroInstall.Commands
             selectionsNew.Implementations[1].Version = new ImplementationVersion("2.0");
             selectionsNew.Implementations.Add(new ImplementationSelection {InterfaceUri = FeedTest.Sub3Uri, ID = "id3", Version = new ImplementationVersion("0.1")});
 
-            Container.GetMock<ISolver>().SetupSequence(x => x.Solve(requirements)).Returns(selectionsOld).Returns(selectionsNew);
+            SolverMock.SetupSequence(x => x.Solve(requirements)).Returns(selectionsOld).Returns(selectionsNew);
 
             var impl1 = new Implementation {ID = "id1"};
             var impl2 = new Implementation {ID = "id2"};
             var impl3 = new Implementation {ID = "id3"};
-            Container.GetMock<IFeedCache>().Setup(x => x.GetFeed(FeedTest.Sub1Uri)).Returns(new Feed {Uri = new FeedUri(FeedTest.Sub1Uri), Elements = {impl1}});
-            Container.GetMock<IFeedCache>().Setup(x => x.GetFeed(FeedTest.Sub2Uri)).Returns(new Feed {Uri = new FeedUri(FeedTest.Sub2Uri), Elements = {impl2}});
-            Container.GetMock<IFeedCache>().Setup(x => x.GetFeed(FeedTest.Sub3Uri)).Returns(new Feed {Uri = new FeedUri(FeedTest.Sub3Uri), Elements = {impl3}});
+            FeedCacheMock.Setup(x => x.GetFeed(FeedTest.Sub1Uri)).Returns(new Feed {Uri = new FeedUri(FeedTest.Sub1Uri), Elements = {impl1}});
+            FeedCacheMock.Setup(x => x.GetFeed(FeedTest.Sub2Uri)).Returns(new Feed {Uri = new FeedUri(FeedTest.Sub2Uri), Elements = {impl2}});
+            FeedCacheMock.Setup(x => x.GetFeed(FeedTest.Sub3Uri)).Returns(new Feed {Uri = new FeedUri(FeedTest.Sub3Uri), Elements = {impl3}});
 
             // Download uncached implementations
-            Container.GetMock<IStore>().Setup(x => x.Contains(It.IsAny<ManifestDigest>())).Returns(false);
-            Container.GetMock<IFetcher>().Setup(x => x.Fetch(new[] {impl1, impl2, impl3}.IsEquivalent()));
+            StoreMock.Setup(x => x.Contains(It.IsAny<ManifestDigest>())).Returns(false);
+            FetcherMock.Setup(x => x.Fetch(new[] {impl1, impl2, impl3}.IsEquivalent()));
 
             // Check for <replaced-by>
-            Container.GetMock<IFeedCache>().Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(FeedTest.CreateTestFeed());
+            FeedCacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(FeedTest.CreateTestFeed());
 
             RunAndAssert("http://0install.de/feeds/test/test2.xml: 1.0 -> 2.0" + Environment.NewLine + "http://0install.de/feeds/test/sub3.xml: new -> 0.1", 0, selectionsNew,
                 "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0", "--version-for=http://0install.de/feeds/test/test2.xml", "2.0..!3.0");

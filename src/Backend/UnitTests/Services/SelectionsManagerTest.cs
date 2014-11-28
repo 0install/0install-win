@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Moq;
 using NUnit.Framework;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
@@ -30,6 +31,17 @@ namespace ZeroInstall.Services
     [TestFixture]
     public class SelectionsManagerTest : TestWithContainer<SelectionsManager>
     {
+        private Mock<IFeedCache> _feedCacheMock;
+        private Mock<IStore> _storeMock;
+
+        protected override void Register(AutoMockContainer container)
+        {
+            _feedCacheMock = container.GetMock<IFeedCache>();
+            _storeMock = container.GetMock<IStore>();
+
+            base.Register(container);
+        }
+
         [Test]
         public void TestGetUncachedImplementationSelections()
         {
@@ -37,10 +49,9 @@ namespace ZeroInstall.Services
             selections.Implementations.Add(new ImplementationSelection {InterfaceUri = new FeedUri("http://0install.de/feeds/test/dummy.xml")});
 
             // Pretend the first implementation isn't cached, the second is and the third isn't
-            var storeMock = Container.GetMock<IStore>();
-            storeMock.Setup(x => x.Contains(selections.Implementations[0].ManifestDigest)).Returns(false);
-            storeMock.Setup(x => x.Contains(selections.Implementations[1].ManifestDigest)).Returns(true);
-            storeMock.Setup(x => x.Contains(default(ManifestDigest))).Returns(false);
+            _storeMock.Setup(x => x.Contains(selections.Implementations[0].ManifestDigest)).Returns(false);
+            _storeMock.Setup(x => x.Contains(selections.Implementations[1].ManifestDigest)).Returns(true);
+            _storeMock.Setup(x => x.Contains(default(ManifestDigest))).Returns(false);
 
             var implementationSelections = Target.GetUncachedImplementationSelections(selections);
 
@@ -59,9 +70,8 @@ namespace ZeroInstall.Services
                 new ImplementationSelection {ID = impl2.ID, InterfaceUri = FeedTest.Test2Uri, FromFeed = FeedTest.Sub2Uri}
             };
 
-            var cacheMock = Container.GetMock<IFeedCache>();
-            cacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(new Feed {Elements = {impl1}});
-            cacheMock.Setup(x => x.GetFeed(FeedTest.Sub2Uri)).Returns(new Feed {Elements = {impl2}});
+            _feedCacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(new Feed {Elements = {impl1}});
+            _feedCacheMock.Setup(x => x.GetFeed(FeedTest.Sub2Uri)).Returns(new Feed {Elements = {impl2}});
 
             var implementations = Target.GetOriginalImplementations(implementationSelections);
 

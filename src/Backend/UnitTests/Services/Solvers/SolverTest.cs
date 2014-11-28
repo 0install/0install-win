@@ -397,14 +397,23 @@ namespace ZeroInstall.Services.Solvers
         }
 
         #region Helpers
+        private Mock<IFeedManager> _feedManagerMock;
+        private Mock<IStore> _storeMock;
+
+        protected override void Register(AutoMockContainer container)
+        {
+            _feedManagerMock = container.GetMock<IFeedManager>();
+            _storeMock = container.GetMock<IStore>();
+
+            base.Register(container);
+        }
+
         protected void RunAndAssert(IEnumerable<KeyValuePair<string, string>> feeds, Requirements requirements, string expectedSelections)
         {
-            var storeMock = Container.GetMock<IStore>();
-            storeMock.Setup(x => x.ListAll()).Returns(new ManifestDigest[0]);
+            _storeMock.Setup(x => x.ListAll()).Returns(new ManifestDigest[0]);
 
-            var feedManagerMock = Container.GetMock<IFeedManager>();
             var parsedFeeds = ParseFeeds(feeds);
-            feedManagerMock.Setup(x => x.GetFeed(It.IsAny<FeedUri>())).Returns((FeedUri feedUri) => parsedFeeds[feedUri]);
+            _feedManagerMock.Setup(x => x.GetFeed(It.IsAny<FeedUri>())).Returns((FeedUri feedUri) => parsedFeeds[feedUri]);
 
             var expected = ParseExpectedSelections(expectedSelections, requirements);
             var actual = Target.Solve(requirements);
