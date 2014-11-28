@@ -17,8 +17,11 @@
 
 using System.Linq;
 using Moq;
+using NanoByte.Common.Collections;
+using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Services.Feeds;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Preferences;
@@ -102,6 +105,37 @@ namespace ZeroInstall.Services.Solvers
                     new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements)
                 },
                 actual: Target.GetSortedCandidates(requirements));
+        }
+
+        [Test]
+        public void TestSitePackages()
+        {
+            var mainFeed = FeedTest.CreateTestFeed();
+            mainFeed.Feeds.Clear();
+            _feedManagerMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(mainFeed);
+
+            using (new LocationsRedirect("0install-unit-tests"))
+            {
+                var pathComponents = mainFeed.Uri.EscapeComponent()
+                    .Prepend("site-packages")
+                    .Concat(new[] {"xyz", "0install", "feed.xml"});
+                var localUri = new FeedUri(Locations.GetSaveDataPath("0install.net", isFile: true, resource: pathComponents.ToArray()));
+
+                var subFeed = mainFeed.Clone();
+                subFeed.Uri = FeedTest.Sub1Uri;
+                subFeed.Elements[0].Version = new ImplementationVersion("2.0");
+                subFeed.SaveXml(localUri.LocalPath);
+                _feedManagerMock.Setup(x => x.GetFeed(localUri)).Returns(subFeed);
+
+                var requirements = new Requirements {InterfaceUri = FeedTest.Test1Uri, Command = Command.NameRun};
+                CollectionAssert.AreEqual(
+                    expected: new[]
+                    {
+                        new SelectionCandidate(localUri, new FeedPreferences(), (Implementation)subFeed.Elements[0], requirements),
+                        new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements)
+                    },
+                    actual: Target.GetSortedCandidates(requirements));
+            }
         }
 
         [Test]

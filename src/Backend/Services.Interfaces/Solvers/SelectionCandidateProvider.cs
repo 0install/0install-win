@@ -17,11 +17,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Info;
 using NanoByte.Common.Native;
+using NanoByte.Common.Storage;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
@@ -96,10 +98,25 @@ namespace ZeroInstall.Services.Solvers
             var dictionary = new Dictionary<FeedUri, Feed>();
 
             AddFeed(dictionary, requirements.InterfaceUri, requirements);
+
+            foreach (var uri in GetSitePackagePaths(requirements.InterfaceUri))
+                AddFeed(dictionary, uri, requirements);
+
             foreach (var reference in _interfacePreferences[requirements.InterfaceUri].Feeds)
                 AddFeed(dictionary, reference.Source, requirements);
 
             return dictionary;
+        }
+
+        private static IEnumerable<FeedUri> GetSitePackagePaths(FeedUri interfaceUri)
+        {
+            var sitePackageDirs = Locations.GetLoadDataPaths("0install.net", isFile: false, resource: interfaceUri.EscapeComponent().Prepend("site-packages"));
+            var subDirectories = sitePackageDirs.SelectMany(x => new DirectoryInfo(x).GetDirectories());
+            return
+                from dir in subDirectories
+                let path = Path.Combine(dir.FullName, "0install" + Path.DirectorySeparatorChar + "feed.xml")
+                where File.Exists(path)
+                select new FeedUri(path);
         }
 
         private void AddFeed(IDictionary<FeedUri, Feed> dictionary, FeedUri feedUri, Requirements requirements)

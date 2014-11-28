@@ -331,6 +331,30 @@ namespace ZeroInstall.Store
             }
             return builder.ToString();
         }
+
+        /// <summary>
+        /// Convert the identifier to a list of path components.
+        /// e.g. "http://example.com/foo.xml" becomes ["http", "example.com", "foo.xml"], while
+        /// "/root/feed.xml" becomes ["file", "root__feed.xml"].
+        /// The number of components is determined by the scheme (three for http, two for file).
+        /// Uses [underscore_escape] to escape each component.
+        /// </summary>
+        public string[] EscapeComponent()
+        {
+            switch (Scheme)
+            {
+                case "http":
+                case "https":
+                    return new[] {"http", UnderscoreEscape(Host), UnderscoreEscape(LocalPath.Substring(1))};
+
+                case "file":
+                    return new[] {"file", UnderscoreEscape(WindowsUtils.IsWindows ? LocalPath : LocalPath.Substring(1))};
+
+                default:
+                    // Should never reach this
+                    throw new InvalidOperationException();
+            }
+        }
         #endregion
 
         #region Conversion

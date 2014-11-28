@@ -121,5 +121,21 @@ namespace ZeroInstall.Store
                 // Colon is preserved on POSIX systems but not on other OSes
                 FeedUri.PrettyUnescape(UnixUtils.IsUnix ? "http:##0install.de#feeds#test#test1.xml" : "http%3a##0install.de#feeds#test#test1.xml"));
         }
+
+        [Test]
+        public void TestEscapeComponent()
+        {
+            CollectionAssert.AreEqual(
+                expected: new[] {"http", "example.com", "foo__bar.xml"},
+                actual: new FeedUri("http://example.com/foo/bar.xml").EscapeComponent());
+
+            CollectionAssert.AreEqual(
+                expected: new[] {"http", "example.com", ""},
+                actual: new FeedUri("http://example.com/").EscapeComponent());
+
+            CollectionAssert.AreEqual(
+                expected: new[] {"file", WindowsUtils.IsWindows ? "C_3a___feed.xml" : "root__feed.xml"},
+                actual: new FeedUri(WindowsUtils.IsWindows ? @"C:\feed.xml" : "/root/feed.xml").EscapeComponent());
+        }
     }
 }
