@@ -136,6 +136,7 @@ namespace ZeroInstall.Store.Implementations
 
             // Determine the digest method to use
             string expectedDigestValue = expectedDigest.Best;
+            if (string.IsNullOrEmpty(expectedDigestValue)) throw new NotSupportedException(Resources.NoKnownDigestMethod);
 
             // Determine the source and target directories
             string source = Path.Combine(DirectoryPath, tempID);
@@ -199,6 +200,7 @@ namespace ZeroInstall.Store.Implementations
             #endregion
 
             string expectedDigestValue = expectedDigest.Best;
+            if (string.IsNullOrEmpty(expectedDigestValue)) throw new NotSupportedException(Resources.NoKnownDigestMethod);
             var format = ManifestFormat.FromPrefix(expectedDigestValue);
 
             var generator = new ManifestGenerator(directory, format) {Tag = expectedDigest};
@@ -234,12 +236,9 @@ namespace ZeroInstall.Store.Implementations
             var result = new List<ManifestDigest>();
             foreach (string path in Directory.GetDirectories(DirectoryPath))
             {
-                try
-                {
-                    result.Add(new ManifestDigest(Path.GetFileName(path)));
-                }
-                catch (NotSupportedException)
-                {}
+                var digest = new ManifestDigest();
+                digest.ParseID(Path.GetFileName(path));
+                if (digest.Best != null) result.Add(new ManifestDigest(Path.GetFileName(path)));
             }
             return result;
         }

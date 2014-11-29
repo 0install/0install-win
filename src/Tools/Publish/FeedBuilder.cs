@@ -118,7 +118,7 @@ namespace ZeroInstall.Publish
             {
                 // ... and add the resulting digest to the return value
                 handler.RunTask(generator);
-                ManifestDigest.ParseID(generator.Result.CalculateDigest(), ref newDigest);
+                newDigest.ParseID(generator.Result.CalculateDigest());
             }
             ManifestDigest = newDigest;
 

@@ -181,7 +181,7 @@ namespace ZeroInstall.Publish
             {
                 var generator = new ManifestGenerator(path, format);
                 handler.RunTask(generator);
-                ManifestDigest.ParseID(generator.Result.CalculateDigest(), ref digest);
+                digest.ParseID(generator.Result.CalculateDigest());
             }
 
             if (digest.PartialEquals(ManifestDigest.Empty))

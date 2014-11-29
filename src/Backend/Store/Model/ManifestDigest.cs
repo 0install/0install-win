@@ -95,23 +95,10 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
-        /// Returns the best entry of <see cref="AvailableDigests"/>.
+        /// Returns the best entry of <see cref="AvailableDigests"/>; <see langword="null"/> if there are none.
         /// </summary>
-        /// <exception cref="NotSupportedException"><see cref="AvailableDigests"/> is empty.</exception>
-        public string Best
-        {
-            get
-            {
-                try
-                {
-                    return AvailableDigests.First();
-                }
-                catch (InvalidOperationException)
-                {
-                    throw new NotSupportedException(Resources.NoKnownDigestMethod);
-                }
-            }
-        }
+        [Browsable(false)]
+        public string Best { get { return AvailableDigests.FirstOrDefault(); } }
 
         /// <summary>
         /// Contains any unknown hash algorithms specified as pure XML attributes.
@@ -159,21 +146,20 @@ namespace ZeroInstall.Store.Model
 
         #region Parsing
         /// <summary>
-        /// Parses an ID string, checking for digest values. The values will be stored in a <see cref="ManifestDigest"/> if the corresponding digest value hasn't been set already.
+        /// Parses an ID string, checking for digest values. The values will be added to this object if the corresponding digest value hasn't been set already.
         /// </summary>
         /// <param name="id">The ID string to parse. Digest values start with their format name followed by an equals sign and the actual hash.</param>
-        /// <param name="target">The <see cref="ManifestDigest"/> to store the values in.</param>
-        public static void ParseID(string id, ref ManifestDigest target)
+        public void ParseID(string id)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
             #endregion
 
             // Check for known prefixes (and don't overwrite existing values)
-            if (string.IsNullOrEmpty(target.Sha1)) target.Sha1 = GetIfPrefixed(id, "sha1=");
-            if (string.IsNullOrEmpty(target.Sha1New)) target.Sha1New = GetIfPrefixed(id, "sha1new=");
-            if (string.IsNullOrEmpty(target.Sha256)) target.Sha256 = GetIfPrefixed(id, "sha256=");
-            if (string.IsNullOrEmpty(target.Sha256New)) target.Sha256New = GetIfPrefixed(id, "sha256new_");
+            if (string.IsNullOrEmpty(Sha1)) Sha1 = GetIfPrefixed(id, "sha1=");
+            if (string.IsNullOrEmpty(Sha1New)) Sha1New = GetIfPrefixed(id, "sha1new=");
+            if (string.IsNullOrEmpty(Sha256)) Sha256 = GetIfPrefixed(id, "sha256=");
+            if (string.IsNullOrEmpty(Sha256New)) Sha256New = GetIfPrefixed(id, "sha256new_");
         }
 
         private static string GetIfPrefixed(string value, string prefix)

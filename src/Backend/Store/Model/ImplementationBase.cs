@@ -86,7 +86,7 @@ namespace ZeroInstall.Store.Model
                 LocalPath = ID = FeedElementUtils.GetAbsolutePath(ID, feedID);
 
             // Parse manifest digest from ID if missing
-            if (!string.IsNullOrEmpty(ID)) ManifestDigest.ParseID(ID, ref _manifestDigest);
+            if (!string.IsNullOrEmpty(ID)) _manifestDigest.ParseID(ID);
         }
         #endregion
 

@@ -38,7 +38,7 @@ namespace ZeroInstall.Store.Model
 
             // Once a digest value has been set, ID values shall not be able to overwrite it
             var digest = new ManifestDigest("sha1=test");
-            ManifestDigest.ParseID("sha1=test2", ref digest);
+            digest.ParseID("sha1=test2");
             Assert.AreEqual("test", digest.Sha1);
         }
 
