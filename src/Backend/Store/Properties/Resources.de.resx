@@ -171,6 +171,9 @@
   <data name="ExtractionOnlyOnWindows" xml:space="preserve">
     <value>Entpacken dieses Archivtyps wird nur unter Windows unterstützt.</value>
   </data>
+  <data name="FailedToExtractArchive" xml:space="preserve">
+    <value>Entpacken des Archivs von '{0}' fehlgeschlagen.</value>
+  </data>
   <data name="FeedNotInCache" xml:space="preserve">
     <value>'{0}' konnte nicht im Feed Cache gefunden werden. Nach folgender Datei wurde gesucht: {1}</value>
   </data>
@@ -340,9 +343,6 @@ Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen wom
   </data>
   <data name="TemporaryDirectories" xml:space="preserve">
     <value>Temporäre Verzeichnisse</value>
-  </data>
-  <data name="UnableToAddImplementationToStore" xml:space="preserve">
-    <value>Die Implementierung konnte keinem Store hinzugefügt werden.</value>
   </data>
   <data name="UnableToFindSecretKey" xml:space="preserve">
     <value>Es konnte kein geheimer Schlüssel mit dem angegebenen Namen gefunden werden.</value>

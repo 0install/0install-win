@@ -152,8 +152,7 @@ namespace ZeroInstall.Store.Implementations
             }
 
             // If we reach this, the implementation could not be added to any store
-            if (innerException != null) Log.Error(innerException.Message);
-            throw new IOException(Resources.UnableToAddImplementationToStore, innerException);
+            innerException.Rethrow();
         }
         #endregion
 
@@ -197,8 +196,7 @@ namespace ZeroInstall.Store.Implementations
             }
 
             // If we reach this, the implementation couldn't be added to any store
-            if (innerException != null) Log.Error(innerException.Message);
-            throw new IOException(Resources.UnableToAddImplementationToStore, innerException);
+            innerException.Rethrow();
         }
         #endregion
 

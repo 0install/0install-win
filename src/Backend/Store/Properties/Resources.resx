@@ -171,6 +171,9 @@
   <data name="ExtractionOnlyOnWindows" xml:space="preserve">
     <value>Extracting this archive type is only supported on Windows.</value>
   </data>
+  <data name="FailedToExtractArchive" xml:space="preserve">
+    <value>Failed to extract the archive from '{0}'.</value>
+  </data>
   <data name="FeedNotInCache" xml:space="preserve">
     <value>'{0}' could not be located in the feed cache. Looked for file at: {1}</value>
   </data>
@@ -340,9 +343,6 @@ You can delete the file '{1}' to fix the problem. Other settings may also be los
   </data>
   <data name="TemporaryDirectories" xml:space="preserve">
     <value>Temporary directories</value>
-  </data>
-  <data name="UnableToAddImplementationToStore" xml:space="preserve">
-    <value>Unable to add implementation to a store.</value>
   </data>
   <data name="UnableToFindSecretKey" xml:space="preserve">
     <value>Unable to find a secret key with the specified name.</value>

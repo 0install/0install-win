@@ -62,12 +62,12 @@ namespace ZeroInstall.Store.Implementations
                 catch (IOException ex)
                 {
                     // Wrap exception to add context information
-                    throw new IOException(string.Format(Resources.ProblemAccessingStore, path) + "\n" + ex.Message, ex);
+                    throw new IOException(string.Format(Resources.ProblemAccessingStore, path), ex);
                 }
                 catch (UnauthorizedAccessException ex)
                 {
                     // Wrap exception to add context information
-                    throw new UnauthorizedAccessException(string.Format(Resources.ProblemAccessingStore, path) + "\n" + ex.Message, ex);
+                    throw new UnauthorizedAccessException(string.Format(Resources.ProblemAccessingStore, path), ex);
                 }
                 #endregion
             }
@@ -129,7 +129,7 @@ namespace ZeroInstall.Store.Implementations
                     catch (ArgumentException ex)
                     {
                         // Wrap exception to add context information
-                        throw new IOException(string.Format(Resources.ProblemAccessingStoreEx, path, configFile) + "\n" + ex.Message, ex);
+                        throw new IOException(string.Format(Resources.ProblemAccessingStoreEx, path, configFile), ex);
                     }
                     #endregion
 

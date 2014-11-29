@@ -180,7 +180,8 @@ namespace ZeroInstall.Services.Fetchers
                     SubDir = archives[i].Extract,
                     Destination = archives[i].Destination,
                     MimeType = archives[i].MimeType,
-                    StartOffset = archives[i].StartOffset
+                    StartOffset = archives[i].StartOffset,
+                    OriginalSource = archives[i].Href
                 };
             }
 

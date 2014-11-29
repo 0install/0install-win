@@ -354,13 +354,23 @@ namespace ZeroInstall.Store.Implementations
                 // Extract archives "over each other" in order
                 foreach (var archiveInfo in archiveInfos)
                 {
-                    using (var extractor = Extractor.FromFile(archiveInfo.Path, tempDir, archiveInfo.MimeType, archiveInfo.StartOffset))
+                    try
                     {
-                        extractor.SubDir = archiveInfo.SubDir;
-                        extractor.Destination = archiveInfo.Destination;
-                        extractor.Tag = manifestDigest;
-                        handler.RunTask(extractor);
+                        using (var extractor = Extractor.FromFile(archiveInfo.Path, tempDir, archiveInfo.MimeType, archiveInfo.StartOffset))
+                        {
+                            extractor.SubDir = archiveInfo.SubDir;
+                            extractor.Destination = archiveInfo.Destination;
+                            extractor.Tag = manifestDigest;
+                            handler.RunTask(extractor);
+                        }
                     }
+                        #region Error handling
+                    catch (IOException ex)
+                    {
+                        string source = (archiveInfo.OriginalSource == null) ? archiveInfo.Path : archiveInfo.OriginalSource.ToString();
+                        throw new IOException(string.Format(Resources.FailedToExtractArchive, source), ex);
+                    }
+                    #endregion
                 }
 
                 VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);

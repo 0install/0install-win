@@ -85,22 +85,22 @@ namespace ZeroInstall.Store.Implementations.Archives
             catch (SevenZipException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+                throw new IOException(Resources.ArchiveInvalid, ex);
             }
             catch (KeyNotFoundException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+                throw new IOException(Resources.ArchiveInvalid, ex);
             }
             catch (ArgumentException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+                throw new IOException(Resources.ArchiveInvalid, ex);
             }
             catch (NullReferenceException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+                throw new IOException(Resources.ArchiveInvalid, ex);
             }
             #endregion
 

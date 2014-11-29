@@ -148,7 +148,7 @@ namespace ZeroInstall.Services.Feeds
                 catch (WebException ex)
                 {
                     // Wrap exception to add context information
-                    throw new SignatureException(string.Format(Resources.UnableToLoadKeyFile, uri) + "\n" + ex.Message, ex);
+                    throw new SignatureException(string.Format(Resources.UnableToLoadKeyFile, uri), ex);
                 }
                 #endregion
             }

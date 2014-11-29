@@ -57,7 +57,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             catch (BZip2Exception ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+                throw new IOException(Resources.ArchiveInvalid, ex);
             }
             #endregion
         }

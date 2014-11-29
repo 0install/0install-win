@@ -54,7 +54,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             catch (SharpZipBaseException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+                throw new IOException(Resources.ArchiveInvalid, ex);
             }
         }
 
@@ -93,17 +93,17 @@ namespace ZeroInstall.Store.Implementations.Archives
             catch (SharpZipBaseException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+                throw new IOException(Resources.ArchiveInvalid, ex);
             }
             catch (InvalidDataException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+                throw new IOException(Resources.ArchiveInvalid, ex);
             }
             catch (ArgumentOutOfRangeException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                throw new IOException(Resources.ArchiveInvalid + "\n" + ex.Message, ex);
+                throw new IOException(Resources.ArchiveInvalid, ex);
             }
             #endregion
 

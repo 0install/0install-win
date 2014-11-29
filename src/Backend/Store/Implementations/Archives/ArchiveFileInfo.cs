@@ -53,12 +53,19 @@ namespace ZeroInstall.Store.Implementations.Archives
         public long StartOffset { get; set; }
 
         /// <summary>
+        /// The URL the file was originally downloaded from.
+        /// </summary>
+        /// <remarks>This is used to provide additional information in case of an exception.</remarks>
+        public Uri OriginalSource { get; set; }
+
+        /// <summary>
         /// Returns the archive in the form "ArchiveFileInfo: Path (MimeType, + StartOffset, SubDir) => Destination". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
             string result = string.Format("ArchiveFileInfo: {0} ({1}, + {2}, {3})", Path, MimeType, StartOffset, SubDir);
             if (!string.IsNullOrEmpty(Destination)) result += " => " + Destination;
+            if (OriginalSource != null) result += ", originally from: " + OriginalSource.ToString();
             return result;
         }
 
@@ -67,7 +74,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         public bool Equals(ArchiveFileInfo other)
         {
             // NOTE: Exclude Path from comparison to allow easy testing with randomized TemporaryFiles
-            return string.Equals(SubDir, other.SubDir) && string.Equals(Destination, other.Destination) && string.Equals(MimeType, other.MimeType) && StartOffset == other.StartOffset;
+            return string.Equals(SubDir, other.SubDir) && string.Equals(Destination, other.Destination) && string.Equals(MimeType, other.MimeType) && StartOffset == other.StartOffset && OriginalSource == other.OriginalSource;
         }
 
         /// <inheritdoc/>
@@ -88,6 +95,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 hashCode = (hashCode * 397) ^ (Destination != null ? Destination.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (MimeType != null ? MimeType.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ StartOffset.GetHashCode();
+                hashCode = (hashCode * 397) ^ (OriginalSource != null ? OriginalSource.GetHashCode() : 0);
                 return hashCode;
             }
         }

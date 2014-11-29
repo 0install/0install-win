@@ -223,6 +223,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to extract the archive from &apos;{0}&apos;..
+        /// </summary>
+        internal static string FailedToExtractArchive {
+            get {
+                return ResourceManager.GetString("FailedToExtractArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; could not be located in the feed cache. Looked for file at: {1}.
         /// </summary>
         internal static string FeedNotInCache {
@@ -719,15 +728,6 @@ namespace ZeroInstall.Store.Properties {
         internal static string TemporaryDirectories {
             get {
                 return ResourceManager.GetString("TemporaryDirectories", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unable to add implementation to a store..
-        /// </summary>
-        internal static string UnableToAddImplementationToStore {
-            get {
-                return ResourceManager.GetString("UnableToAddImplementationToStore", resourceCulture);
             }
         }
         
