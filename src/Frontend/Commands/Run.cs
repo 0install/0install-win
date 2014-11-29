@@ -98,14 +98,16 @@ namespace ZeroInstall.Commands
         {
             if (Config.NetworkUse == NetworkLevel.Full)
             {
-                // Prefer cached implementations (we download updates in the background later on)
+                // Temporarily change configuration to prefer cached implementations (we download updates in the background later on)
                 Config.NetworkUse = NetworkLevel.Minimal;
+
                 try
                 {
                     base.Solve();
                 }
                 finally
                 {
+                    // Restore original configuration
                     Config.NetworkUse = NetworkLevel.Full;
                 }
             }

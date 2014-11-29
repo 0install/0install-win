@@ -219,7 +219,20 @@ namespace ZeroInstall.Commands
         /// </summary>
         private Selections SolveCallback()
         {
-            Solve();
+            // Temporarily change configuration to make additional Solver calls as non-intrusive as possible
+            bool backupRefresh = FeedManager.Refresh;
+            FeedManager.Refresh = false;
+
+            try
+            {
+                Solve();
+            }
+            finally
+            {
+                // Restore original configuration
+                FeedManager.Refresh = backupRefresh;
+            }
+
             Handler.ShowSelections(Selections, FeedCache);
             return Selections;
         }

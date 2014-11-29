@@ -289,10 +289,13 @@ namespace ZeroInstall.Commands.WinForms
                 try
                 {
                     using (var handler = new GuiTaskHandler(this))
-                    using (var webClient = new WebClientTimeout())
                     {
                         handler.RunTask(new SimpleTask(Resources.CheckingFeed,
-                            () => feed = XmlStorage.FromXmlString<Feed>(webClient.DownloadString(feedUri))));
+                            delegate
+                            {
+                                using (var webClient = new WebClientTimeout())
+                                    feed = XmlStorage.FromXmlString<Feed>(webClient.DownloadString(feedUri));
+                            }));
                     }
                 }
                     #region Error handling

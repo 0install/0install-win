@@ -411,6 +411,7 @@ namespace ZeroInstall.Commands.WinForms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.MinimizeBox = true;
             this.Name = "ConfigDialog";
+            this.ShowIcon = true;
             this.ShowInTaskbar = true;
             this.Controls.SetChildIndex(this.tabOptions, 0);
             this.Controls.SetChildIndex(this.buttonOK, 0);
