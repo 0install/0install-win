@@ -17,7 +17,6 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
@@ -36,27 +35,6 @@ namespace ZeroInstall.Commands
     [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Diamond inheritance structure leads to false positive")]
     public sealed class CliCommandHandler : CliTaskHandler, ICommandHandler
     {
-        /// <summary>
-        /// Sets up Ctrl+C capturing.
-        /// </summary>
-        public CliCommandHandler()
-        {
-            // Handle Ctrl+C
-            try
-            {
-                Console.TreatControlCAsInput = false;
-                Console.CancelKeyPress += delegate(object sender, ConsoleCancelEventArgs e)
-                {
-                    CancellationTokenSource.Cancel();
-                    e.Cancel = true;
-                };
-            }
-            catch (IOException)
-            {
-                // Ignore failures caused by non-standard terminal emulators
-            }
-        }
-
         /// <inheritdoc/>
         public void DisableUI()
         {

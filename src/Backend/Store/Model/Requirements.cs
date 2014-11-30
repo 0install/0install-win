@@ -29,6 +29,7 @@ namespace ZeroInstall.Store.Model
     /// <summary>
     /// A set of requirements/restrictions imposed by the user on the <see cref="Implementation"/> selection process. Used as input for the solver.
     /// </summary>
+    [Serializable]
     public class Requirements : IInterfaceUri, ICloneable, IEquatable<Requirements>
     {
         /// <summary>

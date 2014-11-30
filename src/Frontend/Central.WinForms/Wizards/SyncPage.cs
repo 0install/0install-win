@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Tasks;
@@ -112,7 +113,12 @@ namespace ZeroInstall.Central.WinForms.Wizards
             throw new NotImplementedException();
         }
 
-        public void Output(string title, string information)
+        public void Output(string title, string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Output<T>(string title, IEnumerable<T> data)
         {
             throw new NotImplementedException();
         }

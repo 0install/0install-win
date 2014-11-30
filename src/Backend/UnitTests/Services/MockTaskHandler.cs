@@ -57,9 +57,9 @@ namespace ZeroInstall.Services
         /// <summary>
         /// Fakes showing an information string output to the user.
         /// </summary>
-        public override void Output(string title, string information)
+        public override void Output(string title, string message)
         {
-            LastOutput = information;
+            LastOutput = message;
         }
     }
 }

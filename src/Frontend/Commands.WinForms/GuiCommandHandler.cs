@@ -16,12 +16,13 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Runtime.Remoting;
 using System.Threading;
 using System.Windows.Forms;
 using NanoByte.Common;
-using NanoByte.Common.Controls;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
@@ -37,44 +38,23 @@ namespace ZeroInstall.Commands.WinForms
     /// Uses <see cref="System.Windows.Forms"/> to allow users to interact with <see cref="FrontendCommand"/>s.
     /// </summary>
     /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
-    public sealed class GuiCommandHandler : MarshalNoTimeout, ICommandHandler
+    public sealed class GuiCommandHandler : GuiTaskHandler, ICommandHandler
     {
-        #region Properties
-        private readonly CancellationTokenSource _cancellationTokenSource;
-
-        /// <inheritdoc/>
-        public CancellationToken CancellationToken { get { return _cancellationTokenSource.Token; } }
-
-        /// <inheritdoc/>
-        public int Verbosity { get; set; }
-
-        /// <inheritdoc/>
-        public bool Batch { get; set; }
-        #endregion
-
-        #region Constructor
-        /// <summary>
-        /// Creates a new GUI handler with an external <see cref="CancellationTokenSource"/>.
-        /// </summary>
-        public GuiCommandHandler(CancellationTokenSource cancellationTokenSource)
-        {
-            _cancellationTokenSource = cancellationTokenSource;
-        }
-
-        /// <summary>
-        /// Creates a new GUI handler with its own <see cref="CancellationTokenSource"/>.
-        /// </summary>
-        public GuiCommandHandler() : this(new CancellationTokenSource())
-        {}
-        #endregion
-
         #region Dispose
-        /// <inheritdoc/>
-        public void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            _modifySelectionsWaitHandle.Close();
-            if (_form != null) _form.Dispose();
-            _cancellationTokenSource.Dispose();
+            try
+            {
+                if (disposing)
+                {
+                    _modifySelectionsWaitHandle.Close();
+                    if (_form != null) _form.Dispose();
+                }
+            }
+            finally
+            {
+                base.Dispose(disposing);
+            }
         }
         #endregion
 
@@ -82,7 +62,7 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Task tracking
         /// <inheritdoc/>
-        public void RunTask(ITask task)
+        public override void RunTask(ITask task)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
@@ -127,7 +107,7 @@ namespace ZeroInstall.Commands.WinForms
                 {
                     ProcessUtils.RunAsync(() =>
                     {
-                        _form = new ProgressForm(_cancellationTokenSource);
+                        _form = new ProgressForm(CancellationTokenSource);
 
                         if (Batch)
                         {
@@ -196,7 +176,7 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Question
         /// <inheritdoc/>
-        public bool AskQuestion(string question, string batchInformation = null)
+        public override bool AskQuestion(string question, string batchInformation = null)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(question)) throw new ArgumentNullException("question");
@@ -279,20 +259,20 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Messages
         /// <inheritdoc/>
-        public void Output(string title, string information)
+        public override void Output(string title, string message)
         {
             DisableUI();
 
-            if (Batch) ShowBalloonMessage(title, information);
-            else OutputBox.Show(title, information);
+            if (Batch) ShowBalloonMessage(title, message);
+            else base.Output(title, message);
         }
 
         /// <summary>
         /// Displays a tray icon with balloon message detached from the main GUI (will stick around even after the process ends).
         /// </summary>
         /// <param name="title">The title of the balloon message.</param>
-        /// <param name="information">The balloon message text.</param>
-        private void ShowBalloonMessage(string title, string information)
+        /// <param name="message">The balloon message text.</param>
+        private void ShowBalloonMessage(string title, string message)
         {
             ShowUI();
 
@@ -300,7 +280,20 @@ namespace ZeroInstall.Commands.WinForms
             _form.Invoke(new Action(() => _form.HideTrayIcon()));
 
             var icon = new NotifyIcon {Visible = true, Icon = Resources.TrayIcon};
-            icon.ShowBalloonTip(10000, title, information, ToolTipIcon.Info);
+            icon.ShowBalloonTip(10000, title, message, ToolTipIcon.Info);
+        }
+
+        /// <inheritdoc/>
+        public override void Output<T>(string title, IEnumerable<T> data)
+        {
+            DisableUI();
+
+            if (Batch)
+            {
+                string message = StringUtils.Join(Environment.NewLine, data.Select(x => x.ToString()));
+                ShowBalloonMessage(title, message);
+            }
+            else base.Output(title, data);
         }
         #endregion
 

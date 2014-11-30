@@ -264,9 +264,14 @@ namespace ZeroInstall.Commands.WinForms
             return Msg.YesNo(this, question, MsgSeverity.Warn);
         }
 
-        public void Output(string title, string information)
+        public void Output(string title, string message)
         {
-            Msg.Inform(this, information, MsgSeverity.Info);
+            Msg.Inform(this, message, MsgSeverity.Info);
+        }
+
+        public void Output<T>(string title, IEnumerable<T> data)
+        {
+            OutputGridBox.Show(title, data);
         }
         #endregion
     }
