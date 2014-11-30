@@ -34,9 +34,15 @@ namespace ZeroInstall.Central.WinForms
             _machineWide = machineWide;
         }
 
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            Program.RunCommand(Search.Name);
+            Close();
+        }
+
         private void buttonFeed_Click(object sender, EventArgs e)
         {
-            string interfaceUri = InputBox.Show(this, "Zero Install", Resources.EnterInterfaceUrl);
+            string interfaceUri = InputBox.Show(this, "Zero Install", Resources.EnterFeedUrl);
             if (string.IsNullOrEmpty(interfaceUri)) return;
 
             Program.RunCommand(_machineWide, AddApp.Name, interfaceUri);

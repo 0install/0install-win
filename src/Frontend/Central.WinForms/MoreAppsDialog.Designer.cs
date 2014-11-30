@@ -35,6 +35,7 @@
             this.buttonFeedEditor = new System.Windows.Forms.Button();
             this.buttonCatalog = new System.Windows.Forms.Button();
             this.buttonFeed = new System.Windows.Forms.Button();
+            this.buttonSearch = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelFeeds
@@ -75,11 +76,19 @@
             this.buttonFeed.UseVisualStyleBackColor = true;
             this.buttonFeed.Click += new System.EventHandler(this.buttonFeed_Click);
             // 
+            // buttonSearch
+            // 
+            resources.ApplyResources(this.buttonSearch, "buttonSearch");
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
             // MoreAppsDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonFeedEditor);
             this.Controls.Add(this.buttonCatalog);
@@ -104,5 +113,6 @@
         private System.Windows.Forms.Button buttonFeedEditor;
         private System.Windows.Forms.Button buttonCatalog;
         private System.Windows.Forms.Button buttonFeed;
+        private System.Windows.Forms.Button buttonSearch;
     }
 }

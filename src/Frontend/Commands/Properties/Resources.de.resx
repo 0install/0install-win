@@ -254,6 +254,9 @@ Diese Datei muss eine vertrauenswürdige digitale Signatur besitzen, genauso wie
     <value>Verhält sich ähnlich zu '0install download', mit dem Zusatz, dass das Programm gestartet wird nachdem sichergestellt ist dass es gecacht ist.
 Gibt den Exit-Status 1 zurück wenn der herunterladen Schritt fehlschlägt. Ansonsten wird der Exit-Status des gestarteten Programms zurückgegeben.</value>
   </data>
+  <data name="DescriptionSearch" xml:space="preserve">
+    <value>Sucht nach Feeds die vom Mirror-Server indiziert wurden. Beachten Sie, dass der Standard Mirror-Server alle bekannten Feeds unabhängig von Qualität indiziert. Sie müssen selber entscheiden, ob Sie den Programmen vertrauen, bevor Sie sie starten.</value>
+  </data>
   <data name="DescriptionSelect" xml:space="preserve">
     <value>Wählt eine Version des Programmes aus, welches durch seine URI identifiziert wird, und kompatible Versionen aller seiner Abhängigkeiten hat.
 Gibt den Exit-Status 0 zurück, wenn eine Menge an Versionen ausgewählt wurde und den Status 0, wenn keine konsistente Menge gefunden werden konnte.</value>

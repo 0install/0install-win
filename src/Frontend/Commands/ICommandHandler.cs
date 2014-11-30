@@ -18,6 +18,7 @@
 using System;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.ViewModel;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
@@ -63,6 +64,12 @@ namespace ZeroInstall.Commands
         /// <exception cref="OperationCanceledException">The user does not want any changes to be applied.</exception>
         /// <remarks>The caller is responsible for saving any changes.</remarks>
         void ShowIntegrateApp(IntegrationState state);
+
+        /// <summary>
+        /// Displays the results of a feed search to the user.
+        /// </summary>
+        /// <param name="query">The search query that was performed.</param>
+        void ShowFeedSearch(SearchQuery query);
 
         /// <summary>
         /// Displays the configuration settings to the user.

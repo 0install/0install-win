@@ -22,6 +22,7 @@ using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
@@ -63,6 +64,16 @@ namespace ZeroInstall.Commands
         public void ShowIntegrateApp(IntegrationState state)
         {
             throw new NeedGuiException(Resources.IntegrateAppUseGui);
+        }
+
+        /// <inheritdoc/>
+        public void ShowFeedSearch(SearchQuery query)
+        {
+            #region Sanity checks
+            if (query == null) throw new ArgumentNullException("query");
+            #endregion
+
+            Output(query.ToString(), query.Results);
         }
 
         /// <inheritdoc/>

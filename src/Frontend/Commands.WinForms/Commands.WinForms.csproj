@@ -65,6 +65,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="ConfigDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigDialog.Designer.cs">
+      <DependentUpon>ConfigDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FeedSearchDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FeedSearchDialog.Designer.cs">
+      <DependentUpon>FeedSearchDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GuiCommandHandler.cs" />
     <Compile Include="IntegrateAppForm.cs">
@@ -80,12 +92,6 @@
       <DependentUpon>InterfaceDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="MinimalTaskHandler.cs" />
-    <Compile Include="ConfigDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ConfigDialog.Designer.cs">
-      <DependentUpon>ConfigDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="ProgressForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +124,20 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ConfigDialog.de.resx">
+      <DependentUpon>ConfigDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigDialog.resx">
+      <DependentUpon>ConfigDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FeedSearchDialog.de.resx">
+      <DependentUpon>FeedSearchDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FeedSearchDialog.resx">
+      <DependentUpon>FeedSearchDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IntegrateAppForm.de.resx">
       <DependentUpon>IntegrateAppForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -132,14 +152,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InterfaceDialog.resx">
       <DependentUpon>InterfaceDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ConfigDialog.de.resx">
-      <DependentUpon>ConfigDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ConfigDialog.resx">
-      <DependentUpon>ConfigDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ProgressForm.resx">

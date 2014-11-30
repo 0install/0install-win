@@ -98,11 +98,11 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter the URL of a Zero Install interface here:.
+        ///   Looks up a localized string similar to Please enter the URL of a Zero Install feed here:.
         /// </summary>
-        public static string EnterInterfaceUrl {
+        public static string EnterFeedUrl {
             get {
-                return ResourceManager.GetString("EnterInterfaceUrl", resourceCulture);
+                return ResourceManager.GetString("EnterFeedUrl", resourceCulture);
             }
         }
         

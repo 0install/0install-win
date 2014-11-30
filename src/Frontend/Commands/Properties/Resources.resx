@@ -254,6 +254,9 @@ The file must have a trusted digital signature, as when fetching from the networ
     <value>Behaves similarly to '0install download', except that it also runs the program after ensuring it is in the cache.
 Returns an exit status of 1 if the download step failed. Otherwise, the exit status will be the exit status of the program being run.</value>
   </data>
+  <data name="DescriptionSearch" xml:space="preserve">
+    <value>Searches for feeds indexed by the mirror server. Note that the default mirror server indexes all known feeds, regardless of quality; you must decide whether to trust the programs before running them.</value>
+  </data>
   <data name="DescriptionSelect" xml:space="preserve">
     <value>Select a version of the program identified by URI, and compatible versions of all of its dependencies.
 Returns an exit status of zero if it selected a set of versions, and a status of 1 if it could not find a consistent set.</value>

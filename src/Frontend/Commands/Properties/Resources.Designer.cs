@@ -450,6 +450,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Searches for feeds indexed by the mirror server. Note that the default mirror server indexes all known feeds, regardless of quality; you must decide whether to trust the programs before running them..
+        /// </summary>
+        public static string DescriptionSearch {
+            get {
+                return ResourceManager.GetString("DescriptionSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select a version of the program identified by URI, and compatible versions of all of its dependencies.
         ///Returns an exit status of zero if it selected a set of versions, and a status of 1 if it could not find a consistent set..
         /// </summary>

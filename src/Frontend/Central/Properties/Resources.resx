@@ -130,8 +130,8 @@ This will also remove any desktop integration applied for this application.</val
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
   </data>
-  <data name="EnterInterfaceUrl" xml:space="preserve">
-    <value>Please enter the URL of a Zero Install interface here:</value>
+  <data name="EnterFeedUrl" xml:space="preserve">
+    <value>Please enter the URL of a Zero Install feed here:</value>
   </data>
   <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
     <value>Ignoring duplicate application list entry for '{0}'.</value>

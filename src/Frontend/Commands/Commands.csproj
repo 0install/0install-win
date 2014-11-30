@@ -80,6 +80,7 @@
     <Compile Include="List.cs" />
     <Compile Include="ListFeeds.cs" />
     <Compile Include="RemoveAllApps.cs" />
+    <Compile Include="Search.cs" />
     <Compile Include="StoreMan.cs" />
     <Compile Include="SyncUtils.cs" />
     <Compile Include="UpdateApps.cs" />

@@ -18,6 +18,7 @@
 extern alias LinqBridge;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
@@ -42,6 +43,19 @@ namespace ZeroInstall.Commands
             // No UI, so nothing to do
         }
 
+        /// <summary>
+        /// Last <see cref="Selections"/> passed to <see cref="ShowSelections"/>.
+        /// </summary>
+        public Selections LastSelections { get; private set; }
+
+        /// <summary>
+        /// Fakes showing <see cref="Selections"/> to the user.
+        /// </summary>
+        public void ShowSelections(Selections selections, IFeedCache feedCache)
+        {
+            LastSelections = selections;
+        }
+
         /// <inheritdoc/>
         public void ModifySelections(LinqBridge::System.Func<Selections> solveCallback)
         {
@@ -50,6 +64,11 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         public void ShowIntegrateApp(IntegrationState state)
+        {
+            // No UI, so nothing to do
+        }
+
+        public void ShowFeedSearch(SearchQuery query)
         {
             // No UI, so nothing to do
         }
@@ -64,19 +83,6 @@ namespace ZeroInstall.Commands
         public void ManageStore(IStore store, IFeedCache feedCache)
         {
             // No UI, so nothing to do
-        }
-
-        /// <summary>
-        /// Last <see cref="Selections"/> passed to <see cref="ShowSelections"/>.
-        /// </summary>
-        public Selections LastSelections { get; private set; }
-
-        /// <summary>
-        /// Fakes showing <see cref="Selections"/> to the user.
-        /// </summary>
-        public void ShowSelections(Selections selections, IFeedCache feedCache)
-        {
-            LastSelections = selections;
         }
     }
 }

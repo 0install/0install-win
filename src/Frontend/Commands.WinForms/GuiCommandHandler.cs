@@ -26,6 +26,7 @@ using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
@@ -321,6 +322,17 @@ namespace ZeroInstall.Commands.WinForms
             }));
 
             if (!apply) throw new OperationCanceledException();
+        }
+
+        /// <inheritdoc/>
+        public void ShowFeedSearch(SearchQuery query)
+        {
+            #region Sanity checks
+            if (query == null) throw new ArgumentNullException("query");
+            #endregion
+
+            using (var dialog = new FeedSearchDialog(query))
+                dialog.ShowDialog();
         }
 
         /// <inheritdoc/>
