@@ -52,7 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="Feeds\CatalogManagerExtensions.cs" />
     <Compile Include="Feeds\FeedManagerExtensions.cs" />
+    <Compile Include="Feeds\ICatalogManager.cs" />
     <Compile Include="Feeds\IFeedManager.cs" />
     <Compile Include="Feeds\ITrustManager.cs" />
     <Compile Include="Fetchers\FetcherBase.cs" />

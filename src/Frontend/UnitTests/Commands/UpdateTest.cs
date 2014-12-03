@@ -20,10 +20,7 @@ using Moq;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
-using ZeroInstall.Services.Fetchers;
-using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 

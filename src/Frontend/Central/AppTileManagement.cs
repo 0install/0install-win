@@ -62,7 +62,7 @@ namespace ZeroInstall.Central
 
         #region Dependencies
         private readonly IFeedManager _feedManager;
-        private readonly CatalogManager _catalogManager;
+        private readonly ICatalogManager _catalogManager;
 
         /// <summary>
         /// Creates a new tile manager.
@@ -72,7 +72,7 @@ namespace ZeroInstall.Central
         /// <param name="tileListMyApps">The <see cref="IAppTileList"/> used to represent the "my apps" <see cref="AppList"/>.</param>
         /// <param name="tileListCatalog">The <see cref="IAppTileList"/> used to represent the merged <see cref="Catalog"/>.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        public AppTileManagement(IFeedManager feedManager, CatalogManager catalogManager, IAppTileList tileListMyApps, IAppTileList tileListCatalog, bool machineWide)
+        public AppTileManagement(IFeedManager feedManager, ICatalogManager catalogManager, IAppTileList tileListMyApps, IAppTileList tileListCatalog, bool machineWide)
         {
             _feedManager = feedManager;
             _catalogManager = catalogManager;
@@ -227,7 +227,7 @@ namespace ZeroInstall.Central
         /// </summary>
         public void LoadCachedCatalog()
         {
-            SetCatalog(_catalogManager.GetCached());
+            SetCatalog(_catalogManager.GetCachedSafe() ?? new Catalog());
         }
 
         /// <summary>

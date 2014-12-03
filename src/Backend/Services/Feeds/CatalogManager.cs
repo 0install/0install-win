@@ -35,10 +35,15 @@ namespace ZeroInstall.Services.Feeds
     /// <summary>
     /// Provides access to remote and local <see cref="Catalog"/>s. Handles downloading, signature verification and caching.
     /// </summary>
-    public class CatalogManager
+    public class CatalogManager : ICatalogManager
     {
         #region Constants
         private const string CacheMutexName = "ZeroInstall.Feeds.CatalogManager.Cache";
+
+        /// <summary>
+        /// The default <see cref="Catalog"/> source used if no other is specified.
+        /// </summary>
+        public static readonly FeedUri DefaultSource = new FeedUri("http://0install.de/catalog/");
         #endregion
 
         #region Dependencies
@@ -60,12 +65,8 @@ namespace ZeroInstall.Services.Feeds
 
         private readonly string _cacheFilePath = Path.Combine(Locations.GetCacheDirPath("0install.net", machineWide: false), "catalog.xml");
 
-        #region Cached
-        /// <summary>
-        /// Loads the last result of <see cref="GetOnline"/>.
-        /// </summary>
-        /// <returns>A valid <see cref="Catalog"/>. Returns an empty <see cref="Catalog"/> if the cache could not be loaded.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Uncached file system access")]
+        /// <inheritdoc/>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "File system access")]
         public Catalog GetCached()
         {
             try
@@ -73,46 +74,13 @@ namespace ZeroInstall.Services.Feeds
                 using (new MutexLock(CacheMutexName))
                     return XmlStorage.LoadXml<Catalog>(_cacheFilePath);
             }
-                #region Error handling
             catch (FileNotFoundException)
-            {}
-            catch (IOException ex)
             {
-                Log.Warn(Resources.UnableToLoadCachedCatalog);
-                Log.Warn(ex.Message);
+                return null;
             }
-            catch (UnauthorizedAccessException ex)
-            {
-                Log.Warn(Resources.UnableToLoadCachedCatalog);
-                Log.Warn(ex.Message);
-            }
-            catch (InvalidDataException ex)
-            {
-                Log.Warn(Resources.UnableToLoadCachedCatalog);
-                Log.Warn(ex.Message);
-            }
-            #endregion
-
-            // Transparently handle errors
-            return new Catalog();
         }
-        #endregion
 
-        #region Online
-        /// <summary>
-        /// The default <see cref="Catalog"/> source used if no other is specified.
-        /// </summary>
-        public static readonly FeedUri DefaultSource = new FeedUri("http://0install.de/catalog/");
-
-        /// <summary>
-        /// Downloads and merges all <see cref="Catalog"/>s specified by the configuration files.
-        /// </summary>
-        /// <returns>A merged <see cref="Catalog"/> view.</returns>
-        /// <exception cref="IOException">A problem occured while reading a local catalog file.</exception>
-        /// <exception cref="WebException">A problem occured while fetching a remote catalog file.</exception>
-        /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        /// <exception cref="SignatureException">The signature data of a remote catalog file could not be verified.</exception>
-        /// <exception cref="UriFormatException">An invalid catalog source is specified in the configuration file.</exception>
+        /// <inheritdoc/>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs network IO and has side-effects")]
         public Catalog GetOnline()
         {
@@ -159,9 +127,7 @@ namespace ZeroInstall.Services.Feeds
             _trustManager.CheckTrust(data, url);
             return XmlStorage.LoadXml<Catalog>(new MemoryStream(data));
         }
-        #endregion
 
-        #region Sources
         /// <summary>
         /// Returns a list of catalog sources as defined by configuration files.
         /// </summary>
@@ -180,6 +146,5 @@ namespace ZeroInstall.Services.Feeds
                 .Select(line => new FeedUri(line))
                 .ToArray();
         }
-        #endregion
     }
 }

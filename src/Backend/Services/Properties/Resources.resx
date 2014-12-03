@@ -217,9 +217,6 @@ New time: {2}</value>
   <data name="UnableToCacheCatalog" xml:space="preserve">
     <value>Unable to cache the downloaded application catalog.</value>
   </data>
-  <data name="UnableToLoadCachedCatalog" xml:space="preserve">
-    <value>Unable to load cached application catalog from disk.</value>
-  </data>
   <data name="UnableToLoadKeyFile" xml:space="preserve">
     <value>Unable to download GnuPG key file for '{0}'.</value>
   </data>

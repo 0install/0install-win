@@ -347,15 +347,6 @@ namespace ZeroInstall.Services.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to load cached application catalog from disk..
-        /// </summary>
-        internal static string UnableToLoadCachedCatalog {
-            get {
-                return ResourceManager.GetString("UnableToLoadCachedCatalog", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Unable to download GnuPG key file for &apos;{0}&apos;..
         /// </summary>
         internal static string UnableToLoadKeyFile {

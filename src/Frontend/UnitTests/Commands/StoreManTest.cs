@@ -20,7 +20,6 @@ using System.Globalization;
 using System.IO;
 using Moq;
 using NanoByte.Common.Storage;
-using NanoByte.Common.Tasks;
 using NUnit.Framework;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.Implementations;

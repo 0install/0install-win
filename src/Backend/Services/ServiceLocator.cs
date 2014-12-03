@@ -44,7 +44,7 @@ namespace ZeroInstall.Services
         private IStore _store;
         private ITrustManager _trustManager;
         private IFeedManager _feedManager;
-        private CatalogManager _catalogManager;
+        private ICatalogManager _catalogManager;
         private ISolver _solver;
         private IFetcher _fetcher;
         private IExecutor _executor;
@@ -100,10 +100,10 @@ namespace ZeroInstall.Services
         /// <summary>
         /// Provides access to remote and local <see cref="Catalog"/>s. Handles downloading, signature verification and caching.
         /// </summary>
-        public CatalogManager CatalogManager { get { return Get(ref _catalogManager, () => new CatalogManager(TrustManager)); } set { _catalogManager = value; } }
+        public ICatalogManager CatalogManager { get { return Get(ref _catalogManager, () => new CatalogManager(TrustManager)); } set { _catalogManager = value; } }
 
         /// <summary>
-        /// Chooses a set of <see cref="Implementation"/>s to satisfy the requirements of a program and its user. 
+        /// Chooses a set of <see cref="Implementation"/>s to satisfy the requirements of a program and its user.
         /// </summary>
         public ISolver Solver
         {

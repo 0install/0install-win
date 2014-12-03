@@ -32,6 +32,7 @@ using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
@@ -243,11 +244,13 @@ namespace ZeroInstall.Commands
                 else if (uri.StartsWith("file:")) return new FeedUri(Path.GetFullPath(uri.Substring("file:".Length)));
                 else if (uri.StartsWith("http:") || uri.StartsWith("https:")) return new FeedUri(uri);
 
+                string path = Path.GetFullPath(WindowsUtils.IsWindows ? Environment.ExpandEnvironmentVariables(uri) : uri);
+                if (File.Exists(path)) return new FeedUri(path);
+
                 var result = TryResolveCatalog(uri);
                 if (result != null) return result;
 
-                if (WindowsUtils.IsWindows) return new FeedUri(Path.GetFullPath(Environment.ExpandEnvironmentVariables(uri)));
-                else return new FeedUri(Path.GetFullPath(uri));
+                return new FeedUri(path);
             }
                 #region Error handling
             catch (ArgumentException ex)
@@ -273,8 +276,27 @@ namespace ZeroInstall.Commands
 
         private FeedUri TryResolveCatalog(string shortName)
         {
-            var feed = CatalogManager.GetCached().FindByShortName(shortName);
-            if (feed == null) return null;
+            Catalog catalog = CatalogManager.GetCachedSafe();
+            bool catalogUpdated = false;
+            if (catalog == null)
+            {
+                catalog = CatalogManager.GetOnlineSafe();
+                if (catalog == null) return null;
+                else catalogUpdated = true;
+            }
+
+            var feed = catalog.FindByShortName(shortName);
+            if (feed == null)
+            {
+                if (catalogUpdated) return null;
+
+                catalog = CatalogManager.GetOnlineSafe();
+                if (catalog == null) return null;
+
+                feed = catalog.FindByShortName(shortName);
+                if (feed == null) return null;
+            }
+
             Log.Info(string.Format(Resources.ResolvedUsingCatalog, shortName, feed.Uri));
             return feed.Uri;
         }

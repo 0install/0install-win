@@ -19,7 +19,6 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NDesk.Options;
 using NUnit.Framework;
-using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 

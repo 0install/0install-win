@@ -15,23 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using System.IO;
-using System.Linq;
 using Moq;
-using NanoByte.Common.Native;
-using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NUnit.Framework;
-using ZeroInstall.DesktopIntegration;
-using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
-using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Commands
@@ -47,6 +40,7 @@ namespace ZeroInstall.Commands
         protected new MockCommandHandler MockHandler { get; private set; }
 
         protected Mock<IFeedCache> FeedCacheMock { get; private set; }
+        protected Mock<ICatalogManager> CatalogManagerMock { get; private set; }
         protected Mock<IStore> StoreMock { get; private set; }
         protected Mock<ISolver> SolverMock { get; private set; }
         protected Mock<IFetcher> FetcherMock { get; private set; }
@@ -60,6 +54,7 @@ namespace ZeroInstall.Commands
             container.Register(new Config());
 
             FeedCacheMock = container.GetMock<IFeedCache>();
+            CatalogManagerMock = container.GetMock<ICatalogManager>();
             StoreMock = container.GetMock<IStore>();
             SolverMock = container.GetMock<ISolver>();
             FetcherMock = container.GetMock<IFetcher>();
@@ -73,6 +68,7 @@ namespace ZeroInstall.Commands
 
             Target.Config = Resolve<Config>();
             Target.FeedCache = FeedCacheMock.Object;
+            Target.CatalogManager = CatalogManagerMock.Object;
             Target.OpenPgp = Resolve<IOpenPgp>();
             Target.Store = StoreMock.Object;
             Target.Solver = SolverMock.Object;
@@ -91,61 +87,6 @@ namespace ZeroInstall.Commands
             Target.Parse(args);
             Assert.AreEqual(expectedExitStatus, Target.Execute());
             Assert.AreEqual(expectedOutput, MockHandler.LastOutput);
-        }
-
-        [Test]
-        public void TestGetCanonicalUriRemote()
-        {
-            Assert.AreEqual("http://0install.de/feeds/test/test1.xml", Target.GetCanonicalUri("http://0install.de/feeds/test/test1.xml").ToStringRfc());
-        }
-
-        [Test]
-        public void TestGetCanonicalUriFile()
-        {
-            // Absolute paths
-            if (WindowsUtils.IsWindows)
-            {
-                Assert.AreEqual("file:///C:/test/file", Target.GetCanonicalUri(@"C:\test\file").ToStringRfc());
-                Assert.AreEqual("file:///C:/test/file", Target.GetCanonicalUri(@"file:///C:\test\file").ToStringRfc());
-                Assert.AreEqual("file:///C:/test/file", Target.GetCanonicalUri("file:///C:/test/file").ToStringRfc());
-            }
-            if (UnixUtils.IsUnix)
-            {
-                Assert.AreEqual("file:///var/test/file", Target.GetCanonicalUri("/var/test/file").ToStringRfc());
-                Assert.AreEqual("file:///var/test/file", Target.GetCanonicalUri("file:///var/test/file").ToStringRfc());
-            }
-
-            // Relative paths
-            Assert.AreEqual(
-                expected: new[] {Environment.CurrentDirectory, "test", "file"}.Aggregate(Path.Combine),
-                actual: Target.GetCanonicalUri(Path.Combine("test", "file")).ToString());
-            Assert.AreEqual(
-                expected: new[] {Environment.CurrentDirectory, "test", "file"}.Aggregate(Path.Combine),
-                actual: Target.GetCanonicalUri("file:test/file").ToString());
-
-            // Invalid paths
-            Assert.Throws<UriFormatException>(() => Target.GetCanonicalUri("file:/test/file"));
-            if (WindowsUtils.IsWindows) Assert.Throws<UriFormatException>(() => Target.GetCanonicalUri(":::"));
-        }
-
-        [Test]
-        public void TestGetCanonicalUriAliases()
-        {
-            // Fake an alias
-            new AppList
-            {
-                Entries =
-                {
-                    new AppEntry
-                    {
-                        InterfaceUri = FeedTest.Test1Uri,
-                        AccessPoints = new AccessPointList {Entries = {new AppAlias {Name = "test"}}}
-                    }
-                }
-            }.SaveXml(AppList.GetDefaultPath());
-
-            Assert.AreEqual(FeedTest.Test1Uri, Target.GetCanonicalUri("alias:test"));
-            Assert.Throws<UriFormatException>(() => Target.GetCanonicalUri("alias:invalid"));
         }
     }
 }

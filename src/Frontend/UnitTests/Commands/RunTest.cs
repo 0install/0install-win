@@ -15,15 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using Moq;
+using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
-using ZeroInstall.Services.Fetchers;
-using ZeroInstall.Services.Injector;
-using ZeroInstall.Services.Solvers;
+using ZeroInstall.DesktopIntegration;
+using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
@@ -106,5 +108,82 @@ namespace ZeroInstall.Commands
         [Ignore("Not applicable")]
         public override void TestTooManyArgs()
         {}
+
+        [Test]
+        public void TestGetCanonicalUriRemote()
+        {
+            Assert.AreEqual("http://0install.de/feeds/test/test1.xml", Target.GetCanonicalUri("http://0install.de/feeds/test/test1.xml").ToStringRfc());
+        }
+
+        [Test]
+        public void TestGetCanonicalUriFile()
+        {
+            CatalogManagerMock.Setup(x => x.GetCached()).Returns(new Catalog());
+            CatalogManagerMock.Setup(x => x.GetOnline()).Returns(new Catalog());
+
+            // Absolute paths
+            if (WindowsUtils.IsWindows)
+            {
+                Assert.AreEqual("file:///C:/test/file", Target.GetCanonicalUri(@"C:\test\file").ToStringRfc());
+                Assert.AreEqual("file:///C:/test/file", Target.GetCanonicalUri(@"file:///C:\test\file").ToStringRfc());
+                Assert.AreEqual("file:///C:/test/file", Target.GetCanonicalUri("file:///C:/test/file").ToStringRfc());
+            }
+            if (UnixUtils.IsUnix)
+            {
+                Assert.AreEqual("file:///test/file", Target.GetCanonicalUri("/test/file").ToStringRfc());
+                Assert.AreEqual("file:///test/file", Target.GetCanonicalUri("file:///test/file").ToStringRfc());
+            }
+
+            // Relative paths
+            Assert.AreEqual(
+                expected: new[] {Environment.CurrentDirectory, "test", "file"}.Aggregate(Path.Combine),
+                actual: Target.GetCanonicalUri(Path.Combine("test", "file")).ToString());
+            Assert.AreEqual(
+                expected: new[] {Environment.CurrentDirectory, "test", "file"}.Aggregate(Path.Combine),
+                actual: Target.GetCanonicalUri("file:test/file").ToString());
+
+            // Invalid paths
+            Assert.Throws<UriFormatException>(() => Target.GetCanonicalUri("file:/test/file"));
+            if (WindowsUtils.IsWindows) Assert.Throws<UriFormatException>(() => Target.GetCanonicalUri(":::"));
+        }
+
+        [Test]
+        public void TestGetCanonicalUriAliases()
+        {
+            // Fake an alias
+            new AppList
+            {
+                Entries =
+                {
+                    new AppEntry
+                    {
+                        InterfaceUri = FeedTest.Test1Uri,
+                        AccessPoints = new AccessPointList {Entries = {new AppAlias {Name = "test"}}}
+                    }
+                }
+            }.SaveXml(AppList.GetDefaultPath());
+
+            Assert.AreEqual(FeedTest.Test1Uri, Target.GetCanonicalUri("alias:test"));
+            Assert.Throws<UriFormatException>(() => Target.GetCanonicalUri("alias:invalid"));
+        }
+
+        [Test]
+        public void TestGetCanonicalUriCatalogCached()
+        {
+            CatalogManagerMock.Setup(x => x.GetCached()).Returns(new Catalog {Feeds = {new Feed {Uri = FeedTest.Test1Uri, Name = "MyApp"}}});
+            Assert.AreEqual(
+                expected: FeedTest.Test1Uri,
+                actual: Target.GetCanonicalUri("MyApp"));
+        }
+
+        [Test]
+        public void TestGetCanonicalUriCatalogOnline()
+        {
+            CatalogManagerMock.Setup(x => x.GetCached()).Returns(new Catalog());
+            CatalogManagerMock.Setup(x => x.GetOnline()).Returns(new Catalog {Feeds = {new Feed {Uri = FeedTest.Test1Uri, Name = "MyApp"}}});
+            Assert.AreEqual(
+                expected: FeedTest.Test1Uri,
+                actual: Target.GetCanonicalUri("MyApp"));
+        }
     }
 }
