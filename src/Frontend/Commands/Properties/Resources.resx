@@ -489,6 +489,9 @@ Has no effect in text-mode.</value>
   <data name="OptionHelp" xml:space="preserve">
     <value>Show the built-in help text.</value>
   </data>
+  <data name="OptionNoFetch" xml:space="preserve">
+    <value>Do not download the application itself yet. Will be automatically downloaded on first use instead.</value>
+  </data>
   <data name="OptionMachine" xml:space="preserve">
     <value>Apply the configuration machine-wide (for the entire computer) instead of just for the current user.</value>
   </data>

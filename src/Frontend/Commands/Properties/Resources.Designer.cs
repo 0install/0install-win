@@ -1166,6 +1166,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do not download the application itself yet. Will be automatically downloaded on first use instead..
+        /// </summary>
+        public static string OptionNoFetch {
+            get {
+                return ResourceManager.GetString("OptionNoFetch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Require a version of the main program not earlier than {VERSION}. E.g., if you want to run version 2.0 or later, use --not-before=2.0..
         /// </summary>
         public static string OptionNotBefore {

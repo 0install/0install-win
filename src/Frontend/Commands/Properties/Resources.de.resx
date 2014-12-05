@@ -489,6 +489,9 @@ Hat keine Wirkung im Text-Modus.</value>
   <data name="OptionHelp" xml:space="preserve">
     <value>Zeigt den eingebauten Hilfe-Text an.</value>
   </data>
+  <data name="OptionNoFetch" xml:space="preserve">
+    <value>Lade die Anwendung selbst noch nicht herunter. Wird stattdessen bei der ersten Verwendung automatisch heruntergeladen.</value>
+  </data>
   <data name="OptionMachine" xml:space="preserve">
     <value>Wende die Konfiguration Maschinenweit (auf dem ganzen Computer) anstatt nur für den aktuellen User an.</value>
   </data>
