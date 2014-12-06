@@ -79,7 +79,7 @@ namespace ZeroInstall.Store.Implementations
             Assert.AreSame(ManifestFormat.Sha1, ManifestFormat.FromPrefix("sha1=abc"));
             Assert.AreSame(ManifestFormat.Sha1New, ManifestFormat.FromPrefix("sha1new=abc"));
             Assert.AreSame(ManifestFormat.Sha256, ManifestFormat.FromPrefix("sha256=abc"));
-            Assert.AreSame(ManifestFormat.Sha256New, ManifestFormat.FromPrefix("sha256new=abc"));
+            Assert.AreSame(ManifestFormat.Sha256New, ManifestFormat.FromPrefix("sha256new_abc"));
         }
     }
 }

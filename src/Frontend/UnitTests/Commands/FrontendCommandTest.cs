@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Collections.Generic;
 using Moq;
 using NanoByte.Common.Tasks;
 using NUnit.Framework;
@@ -87,6 +88,19 @@ namespace ZeroInstall.Commands
             Target.Parse(args);
             Assert.AreEqual(expectedExitStatus, Target.Execute());
             Assert.AreEqual(expectedOutput, MockHandler.LastOutput);
+        }
+
+        /// <summary>
+        /// Verifies that calling <see cref="FrontendCommand.Parse"/> and <see cref="FrontendCommand.Execute"/> causes a specific reuslt.
+        /// </summary>
+        /// <param name="expectedOutput">The expected tabular data for a <see cref="ITaskHandler.Output{T}"/> call.</param>
+        /// <param name="expectedExitStatus">The expected exit status code returned by <see cref="FrontendCommand.Execute"/>.</param>
+        /// <param name="args">The arguments to pass to <see cref="FrontendCommand.Parse"/>.</param>
+        protected void RunAndAssert<T>(IEnumerable<T> expectedOutput, int expectedExitStatus, params string[] args)
+        {
+            Target.Parse(args);
+            Assert.AreEqual(expectedExitStatus, Target.Execute());
+            CollectionAssert.AreEqual(expectedOutput, MockHandler.LastOutputObjects);
         }
     }
 }

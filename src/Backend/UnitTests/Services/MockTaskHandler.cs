@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Collections;
+using System.Collections.Generic;
 using NanoByte.Common.Tasks;
 
 namespace ZeroInstall.Services
@@ -60,6 +62,19 @@ namespace ZeroInstall.Services
         public override void Output(string title, string message)
         {
             LastOutput = message;
+        }
+
+        /// <summary>
+        /// Last data objects passed to <see cref="Output{T}"/>.
+        /// </summary>
+        public IEnumerable LastOutputObjects { get; set; }
+
+        /// <summary>
+        /// Fakes showing tabular data to the user.
+        /// </summary>
+        public override void Output<T>(string title, IEnumerable<T> data)
+        {
+            LastOutputObjects = data;
         }
     }
 }

@@ -16,9 +16,8 @@
  */
 
 using System;
-using System.Text;
+using System.Linq;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Model.Preferences;
 
 namespace ZeroInstall.Commands
@@ -54,23 +53,12 @@ namespace ZeroInstall.Commands
         public override int Execute()
         {
             var interfaceUri = GetCanonicalUri(AdditionalArgs[0]);
+            var preferences = InterfacePreferences.LoadFor(interfaceUri);
 
             Handler.Output(
                 string.Format(Resources.FeedsRegistered, interfaceUri),
-                GetRegisteredFeeds(interfaceUri));
+                preferences.Feeds.Select(x => x.Source));
             return 0;
         }
-
-        #region Helpers
-        private static string GetRegisteredFeeds(FeedUri interfaceUri)
-        {
-            var preferences = InterfacePreferences.LoadFor(interfaceUri);
-
-            var builder = new StringBuilder();
-            foreach (var feedReference in preferences.Feeds)
-                builder.AppendLine(feedReference.Source.ToStringRfc());
-            return builder.ToString();
-        }
-        #endregion
     }
 }

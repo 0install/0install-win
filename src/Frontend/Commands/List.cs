@@ -17,7 +17,6 @@
 
 using System;
 using System.Linq;
-using System.Text;
 using ZeroInstall.Commands.Properties;
 
 namespace ZeroInstall.Commands
@@ -50,24 +49,11 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Handler.Output(Resources.FoundFeeds,
-                (AdditionalArgs.Count == 0) ? GetList() : GetList(AdditionalArgs[0]));
+            var feeds = FeedCache.ListAll().Select(x => x.ToStringRfc());
+            if (AdditionalArgs.Count > 0) feeds = feeds.Where(x => x.Contains(AdditionalArgs[0]));
+
+            Handler.Output(Resources.FoundFeeds, feeds);
             return 0;
         }
-
-        #region Helpers
-        /// <summary>
-        /// Build a list of all feed cache entries.
-        /// </summary>
-        /// <param name="pattern">Only return feeds that contain this substring; <see langword="null"/> to return all.</param>
-        private string GetList(string pattern = null)
-        {
-            var builder = new StringBuilder();
-            var feeds = FeedCache.ListAll().Select(x => x.ToStringRfc());
-            foreach (string entry in feeds.Where(entry => pattern == null || entry.Contains(pattern)))
-                builder.AppendLine(entry);
-            return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
-        }
-        #endregion
     }
 }
