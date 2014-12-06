@@ -38,9 +38,10 @@ namespace ZeroInstall.Store.Implementations
     public class DirectoryStore : MarshalNoTimeout, IStore, IEquatable<DirectoryStore>
     {
         #region Properties
-        /// <summary>
-        /// The directory containing the cached <see cref="Store.Model.Implementation"/>s.
-        /// </summary>
+        /// <inheritdoc/>
+        public StoreKind Kind { get; private set; }
+
+        /// <inheritdoc/>
         public string DirectoryPath { get; private set; }
         #endregion
 
@@ -77,15 +78,17 @@ namespace ZeroInstall.Store.Implementations
 
             DirectoryPath = path;
 
-            // Ensure the store is backed by a filesystem that can store file-changed times accurate to the second (otherwise ManifestDigets will break)
             try
             {
+                // Ensure the store is backed by a filesystem that can store file-changed times accurate to the second (otherwise ManifestDigets will break)
                 if (FileUtils.DetermineTimeAccuracy(path) > 0)
                     throw new IOException(Resources.InsufficientFSTimeAccuracy);
+
+                Kind = StoreKind.ReadWrite;
             }
             catch (UnauthorizedAccessException)
             {
-                // Ignore if we cannot verify the timestamp accuracy of read-only stores
+                Kind = StoreKind.ReadOnly;
             }
         }
         #endregion
@@ -570,11 +573,11 @@ namespace ZeroInstall.Store.Implementations
 
         #region Conversion
         /// <summary>
-        /// Returns <see cref="DirectoryPath"/>. Not safe for parsing!
+        /// Returns <see cref="Kind"/> and <see cref="DirectoryPath"/>. Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return DirectoryPath;
+            return Kind + ": " + DirectoryPath;
         }
         #endregion
 

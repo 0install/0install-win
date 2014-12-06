@@ -276,6 +276,9 @@ An additional arguments specifies a custom target cache location.</value>
     <value>Determines the local path of a cached implementation.</value>
   </data>
   <data name="DescriptionStoreList" xml:space="preserve">
+    <value>Displays a list of all implementation stores.</value>
+  </data>
+  <data name="DescriptionStoreListImplementations" xml:space="preserve">
     <value>Displays a list of all cached implementations.</value>
   </data>
   <data name="DescriptionStoreManage" xml:space="preserve">

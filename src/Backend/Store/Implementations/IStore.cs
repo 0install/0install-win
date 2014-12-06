@@ -24,12 +24,41 @@ using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Implementations
 {
+    /// <seealso cref="IStore.Kind"/>
+    public enum StoreKind
+    {
+        /// <summary>
+        /// This store can be written to directly.
+        /// </summary>
+        ReadWrite,
+
+        /// <summary>
+        /// This store cannot be modified.
+        /// </summary>
+        ReadOnly,
+
+        /// <summary>
+        /// This store is managed by a background service.
+        /// </summary>
+        Service
+    }
+
     /// <summary>
     /// Describes an object that allows the storage and retrieval of <see cref="Store.Model.Implementation"/> directories.
     /// </summary>
     /// <remarks>A store caches <see cref="Store.Model.Implementation"/>s identified by their <see cref="ManifestDigest"/>s.</remarks>
     public interface IStore
     {
+        /// <summary>
+        /// Indiciates what kind of access to this store is possible.
+        /// </summary>
+        StoreKind Kind { get; }
+
+        /// <summary>
+        /// The directory containing the cached <see cref="Store.Model.Implementation"/>s. May be <see langword="null"/> for some <see cref="IStore"/> types.
+        /// </summary>
+        string DirectoryPath { get; }
+
         /// <summary>
         /// Returns a list of all implementations currently in the store.
         /// </summary>

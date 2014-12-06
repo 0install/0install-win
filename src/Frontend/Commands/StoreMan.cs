@@ -73,6 +73,7 @@ namespace ZeroInstall.Commands
                     {"copy DIRECTORY [CACHE]", Resources.DescriptionStoreCopy},
                     {"find DIGEST", Resources.DescriptionStoreFind},
                     {"list", Resources.DescriptionStoreList},
+                    {"list-implementations", Resources.DescriptionStoreListImplementations},
                     {"manage", Resources.DescriptionStoreManage},
                     {"optimise [CACHE+]", Resources.DescriptionStoreOptimise},
                     {"purge [CACHE+]", Resources.DescriptionStorePurge},
@@ -124,6 +125,10 @@ namespace ZeroInstall.Commands
 
                 case "list":
                     List();
+                    return (int)StoreErrorLevel.OK;
+
+                case "list-implementations":
+                    ListImplementations();
                     return (int)StoreErrorLevel.OK;
 
                 case "manage":
@@ -225,7 +230,15 @@ namespace ZeroInstall.Commands
         {
             if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "list", "");
 
-            Handler.Output(Resources.CachedInterfaces, StringUtils.Join(Environment.NewLine, Store.ListAll().Select(Store.GetPath)));
+            var composite = Store as CompositeStore;
+            Handler.Output(Resources.CachedInterfaces, (composite == null) ? new[] { Store } : composite.Stores);
+        }
+
+        private void ListImplementations()
+        {
+            if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "list", "");
+
+            Handler.Output(Resources.CachedInterfaces, Store.ListAll());
         }
 
         private void Optimise()

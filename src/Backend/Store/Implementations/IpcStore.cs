@@ -30,6 +30,31 @@ namespace ZeroInstall.Store.Implementations
     /// </summary>
     public partial class IpcStore : IStore
     {
+        #region Properties
+        /// <inheritdoc/>
+        public StoreKind Kind { get { return StoreKind.Service; } }
+
+        /// <inheritdoc/>
+        public string DirectoryPath
+        {
+            get
+            {
+                try
+                {
+                    return GetServiceProxy().DirectoryPath;
+                }
+                    #region Error handling
+                catch (RemotingException)
+                {
+                    return null;
+                }
+                #endregion
+            }
+        }
+        #endregion
+
+        //--------------------//
+
         #region List all
         /// <summary>
         /// Always returns empty list. Use a non-IPC <see cref="IStore"/> for this method instead.
@@ -169,6 +194,18 @@ namespace ZeroInstall.Store.Implementations
                 // Ignore remoting errors in case service is offline
             }
             #endregion
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Conversion
+        /// <summary>
+        /// Returns <see cref="Kind"/> and <see cref="DirectoryPath"/>. Not safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            return Kind + ": " + DirectoryPath;
         }
         #endregion
     }

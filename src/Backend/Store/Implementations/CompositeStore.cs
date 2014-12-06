@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting;
@@ -37,9 +38,19 @@ namespace ZeroInstall.Store.Implementations
     /// </remarks>
     public class CompositeStore : IStore
     {
-        #region Variables
+        #region Properties
         private readonly IStore[] _stores;
-        private readonly TransparentCache<ManifestDigest, bool> _containsCache;
+
+        /// <summary>
+        /// The <see cref="IStore"/>s this store is internally composed of.
+        /// </summary>
+        public IEnumerable<IStore> Stores { get { return new ReadOnlyCollection<IStore>(_stores); } }
+
+        /// <inheritdoc/>
+        public StoreKind Kind { get { return StoreKind.ReadWrite; } }
+
+        /// <inheritdoc/>
+        public string DirectoryPath { get { return null; } }
         #endregion
 
         #region Constructor
@@ -80,6 +91,8 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Contains
+        private readonly TransparentCache<ManifestDigest, bool> _containsCache;
+
         /// <inheritdoc/>
         public bool Contains(ManifestDigest manifestDigest)
         {

@@ -507,11 +507,20 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Displays a list of all cached implementations..
+        ///   Looks up a localized string similar to Displays a list of all implementation stores..
         /// </summary>
         public static string DescriptionStoreList {
             get {
                 return ResourceManager.GetString("DescriptionStoreList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Displays a list of all cached implementations..
+        /// </summary>
+        public static string DescriptionStoreListImplementations {
+            get {
+                return ResourceManager.GetString("DescriptionStoreListImplementations", resourceCulture);
             }
         }
         

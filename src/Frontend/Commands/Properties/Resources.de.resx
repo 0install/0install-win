@@ -276,6 +276,9 @@ Ein zusätzliches Argument spezifiziert ein alternatives Cache-Zielverzeichnis.<
     <value>Bestimmt den lokalen Pfad einer gecachten Implementierung.</value>
   </data>
   <data name="DescriptionStoreList" xml:space="preserve">
+    <value>Zeigt eine Liste aller Implementierungs-Stores.</value>
+  </data>
+  <data name="DescriptionStoreListImplementations" xml:space="preserve">
     <value>Zeigt eine Liste aller gecachten Implementierungen.</value>
   </data>
   <data name="DescriptionStoreManage" xml:space="preserve">

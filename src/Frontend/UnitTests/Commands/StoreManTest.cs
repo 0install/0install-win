@@ -15,10 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Globalization;
 using System.IO;
-using Moq;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Commands.Properties;
@@ -179,7 +177,7 @@ namespace ZeroInstall.Commands
         }
 
         [Test]
-        public void TestCopyyRelativePath()
+        public void TestCopyRelativePath()
         {
             using (var tempDir = new TemporaryWorkingDirectory("0install-unit-tests"))
             {
@@ -205,13 +203,19 @@ namespace ZeroInstall.Commands
         [Test]
         public void TestList()
         {
+            RunAndAssert(new[] {StoreMock.Object}, (int)StoreErrorLevel.OK,
+                "list");
+        }
+
+        [Test]
+        public void TestListImplementations()
+        {
             var digest1 = new ManifestDigest(sha256New: "1");
             var digest2 = new ManifestDigest(sha256New: "2");
             StoreMock.Setup(x => x.ListAll()).Returns(new[] {digest1, digest2});
-            StoreMock.Setup(x => x.GetPath(It.IsAny<ManifestDigest>())).Returns((ManifestDigest x) => x.Sha256New);
 
-            RunAndAssert("1" + Environment.NewLine + "2", (int)StoreErrorLevel.OK,
-                "list");
+            RunAndAssert(new[] {digest1, digest2}, (int)StoreErrorLevel.OK,
+                "list-implementations");
         }
 
         [Test]
