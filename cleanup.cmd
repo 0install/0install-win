@@ -51,9 +51,5 @@ rem NUnit logs
 del "%~dp0*.VisualState.xml" > NUL 2>&1
 del "%~dp0TestResult.xml" > NUL 2>&1
 
-rem JetBrains caches
-rd /s /q "%~dp0src\_ReSharper.ZeroInstall" > NUL 2>&1
-rd /s /q "%~dp0src\_TeamCity.ZeroInstall" > NUL 2>&1
-rd /s /q "%~dp0src\_dotTrace.ZeroInstall" > NUL 2>&1
-rd /s /q "%~dp0src\_dotMemory.ZeroInstall" > NUL 2>&1
-rd /s /q "%~dp0src\_dotCover.ZeroInstall" > NUL 2>&1
+rem ReSharper caches
+for /D %%X in ("%~dp0src\_ReSharper*") do rd /s /q "%%X"

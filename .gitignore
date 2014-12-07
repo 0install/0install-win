@@ -1,11 +1,7 @@
 /build/
 /bundled/Solver/
 /src/packages/*/
-/src/_ReSharper.*/
-/src/_TeamCity.*/
-/src/_dotTrace.*/
-/src/_dotMemory.*/
-/src/_dotCover.*/
+/src/_ReSharper*/
 obj/
 test-results/
 *.bak
