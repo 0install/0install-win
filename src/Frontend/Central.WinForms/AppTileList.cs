@@ -32,7 +32,7 @@ namespace ZeroInstall.Central.WinForms
     /// <summary>
     /// Displays a list of <see cref="AppTile"/>s.
     /// </summary>
-    public sealed class AppTileList : UserControl, IAppTileList
+    public class AppTileList : UserControl, IAppTileList
     {
         #region Variables
         /// <summary>
@@ -246,7 +246,7 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Applies the search filter to the list of tiles. Should be called after the filter was changed.
         /// </summary>
-        private void RefilterTiles()
+        protected virtual void RefilterTiles()
         {
             _scrollPanel.SuspendLayout();
             _flowLayout.SuspendLayout();

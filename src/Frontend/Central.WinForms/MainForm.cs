@@ -344,7 +344,6 @@ namespace ZeroInstall.Central.WinForms
         {
             using (var dialog = new MoreAppsDialog(_machineWide))
                 dialog.ShowDialog(this);
-            LoadCatalogAsync();
         }
 
         private void buttonOptions_Click(object sender, EventArgs e)

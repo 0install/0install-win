@@ -69,7 +69,12 @@ namespace ZeroInstall.Central.WinForms
                 #endregion
 
                 _feed = value;
-                if (value == null) return;
+                if (value == null)
+                {
+                    buttonSelectCommand.Visible = false;
+                    return;
+                }
+                else buttonSelectCommand.Visible = true;
 
                 // Get application summary from feed
                 labelSummary.Text = value.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
@@ -233,7 +238,7 @@ namespace ZeroInstall.Central.WinForms
             Program.RunCommand(Commands.Run.Name, "--no-wait", "--gui", InterfaceUri.AbsoluteUri);
         }
 
-        private void buttonSelectCommmand_Click(object sender, EventArgs e)
+        private void buttonSelectCommand_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
             SelectCommand();
@@ -295,7 +300,7 @@ namespace ZeroInstall.Central.WinForms
         private void SelectCommand()
         {
             string args;
-            string command = SelectCommandDialog.ShowDialog(this, _feed, out args);
+            string command = SelectCommandDialog.ShowDialog(this, Feed, out args);
             if (command != null)
             {
                 try

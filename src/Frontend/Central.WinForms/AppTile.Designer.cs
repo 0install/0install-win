@@ -114,7 +114,8 @@ namespace ZeroInstall.Central.WinForms
             // 
             this.buttonSelectCommand.Name = "buttonSelectCommand";
             this.buttonSelectCommand.Size = new System.Drawing.Size(152, 22);
-            this.buttonSelectCommand.Click += new System.EventHandler(this.buttonSelectCommmand_Click);
+            this.buttonSelectCommand.Visible = false;
+            this.buttonSelectCommand.Click += new System.EventHandler(this.buttonSelectCommand_Click);
             // 
             // buttonSelectVersion
             // 
