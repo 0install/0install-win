@@ -48,7 +48,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
                 {
                     (Action<MenuEntry>)MenuEntries.Add,
                     (Action<DesktopIcon>)DesktopIcons.Add,
-                    (Action<AppAlias>)Aliases.Add,
+                    (Action<AppAlias>)Aliases.Add
                 }.Dispatch(AppEntry.AccessPoints.Entries.CloneElements()); // Use clones so that user modifications can still be canceled
             }
         }

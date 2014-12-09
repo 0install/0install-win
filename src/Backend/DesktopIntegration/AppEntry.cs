@@ -52,7 +52,7 @@ namespace ZeroInstall.DesktopIntegration
         [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string InterfaceUriString { get { return InterfaceUri.ToStringRfc(); } set { InterfaceUri = string.IsNullOrEmpty(value) ? null : new FeedUri(value); } }
 
-        string IMergeable<AppEntry>.MergeID { get { return InterfaceUri.ToString(); } }
+        string IMergeable<AppEntry>.MergeID { get { return InterfaceUri.ToStringRfc(); } }
 
         /// <summary>
         /// The name of the application. Usually equal to <see cref="Feed.Name"/>.

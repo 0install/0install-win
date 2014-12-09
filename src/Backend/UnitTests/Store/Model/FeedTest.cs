@@ -158,7 +158,7 @@ namespace ZeroInstall.Store.Model
                 Elements =
                 {
                     new Implementation {Commands = {new Command {Name = "run", Path = "main1"}}},
-                    new Group {Elements = {new Implementation {Commands = {new Command {Name = "run", Path = "main2"}}}}},
+                    new Group {Elements = {new Implementation {Commands = {new Command {Name = "run", Path = "main2"}}}}}
                 }
             };
         }

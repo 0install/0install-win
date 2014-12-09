@@ -20,9 +20,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model.Design;
 
 namespace ZeroInstall.Store.Model.Selection
@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// <seealso cref="InterfaceUri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string InterfaceUriString { get { return (InterfaceUri == null) ? null :InterfaceUri.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
+        public string InterfaceUriString { get { return (InterfaceUri == null) ? null : InterfaceUri.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
 
         /// <summary>
         /// The URL or local path of the feed that contains this implementation.
@@ -79,36 +79,22 @@ namespace ZeroInstall.Store.Model.Selection
         /// </summary>
         [Browsable(false)]
         [XmlIgnore]
-        public ICollection<string> Distributions { get { return _distributions; } }
+        public List<string> Distributions { get { return _distributions; } }
 
         /// <summary>
         /// A space-separated list of distribution names (e.g. Debian, RPM) where <see cref="Package"/> applies.
         /// </summary>
-        /// <seealso cref="Version"/>
+        /// <seealso cref="Distributions"/>
         [Category("Identity"), DisplayName("Distributions"), Description("A space-separated list of distribution names (e.g. Debian, RPM) where Package applies.")]
         [XmlAttribute("distributions"), DefaultValue("")]
         [TypeConverter(typeof(DistributionNameConverter))]
         public string DistributionsString
         {
-            get
-            {
-                // Serialize list as string split by spaces
-                var output = new StringBuilder();
-                foreach (var distribution in _distributions)
-                {
-                    output.Append(distribution.Replace(' ', '_'));
-                    output.Append(' ');
-                }
-
-                // Return without trailing space
-                return output.ToString().TrimEnd();
-            }
+            get { return StringUtils.Join(" ", _distributions); }
             set
             {
                 _distributions.Clear();
                 if (string.IsNullOrEmpty(value)) return;
-
-                // Replace list by parsing input string split by spaces
                 _distributions.AddRange(value.Split(' '));
             }
         }
@@ -178,7 +164,7 @@ namespace ZeroInstall.Store.Model.Selection
         public bool Equals(ImplementationSelection other)
         {
             if (other == null) return false;
-            return base.Equals(other) && Equals(other.InterfaceUri, InterfaceUri) && Equals(other.FromFeed, FromFeed) && Equals(other.Package, Package);
+            return base.Equals(other) && InterfaceUri == other.InterfaceUri && FromFeed == other.FromFeed && Package == other.Package && Distributions.UnsequencedEquals(other.Distributions);
         }
 
         /// <inheritdoc/>
@@ -197,7 +183,8 @@ namespace ZeroInstall.Store.Model.Selection
                 int result = base.GetHashCode();
                 if (InterfaceUri != null) result = (result * 397) ^ InterfaceUri.GetHashCode();
                 if (FromFeed != null) result = (result * 397) ^ FromFeed.GetHashCode();
-                result = (result * 397) ^ (Package ?? "").GetHashCode();
+                if (Package != null) result = (result * 397) ^ Package.GetHashCode();
+                result = (result * 397) ^ Distributions.GetUnsequencedHashCode();
                 return result;
             }
         }

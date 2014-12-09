@@ -51,7 +51,7 @@ namespace ZeroInstall.Capture.Cli
         Warning = 9,
 
         /// <summary>An IO error occurred.</summary>
-        IOError = 10,
+        IOError = 10
     }
     #endregion
 

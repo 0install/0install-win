@@ -106,16 +106,16 @@ namespace ZeroInstall.Services.Solvers
 
         private bool ConflictsWithExistingRestrictions(SelectionCandidate candidate, FeedUri interfaceUri)
         {
-            return _restrictions.Any(restriction =>
-                restriction.InterfaceUri == interfaceUri && !restriction.Versions.Match(candidate.Version));
+            return _restrictions.Where(x => x.InterfaceUri == interfaceUri)
+                .Any(x => !x.Versions.Match(candidate.Version));
         }
 
         private bool ConflictsWithExistingSelections(SelectionCandidate candidate)
         {
             return candidate.Implementation.Restrictions.Any(restriction =>
             {
-                var implemenation = Selections.GetImplementation(restriction.InterfaceUri);
-                return implemenation != null && !restriction.Versions.Match(implemenation.Version);
+                var existingSelection = Selections.GetImplementation(restriction.InterfaceUri);
+                return existingSelection != null && !restriction.Versions.Match(existingSelection.Version);
             });
         }
 

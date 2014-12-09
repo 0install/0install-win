@@ -61,10 +61,10 @@ namespace ZeroInstall.Store.Model
         public string LanguagesString { get { return _languages.ToString(); } set { _languages = new LanguageSet(value); } }
 
         /// <summary>
-        /// For platform-specific binaries, the platform for which an <see cref="Store.Model.Implementation"/> was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU. 
+        /// For platform-specific binaries, the platform for which an <see cref="Store.Model.Implementation"/> was compiled.
         /// </summary>
-        /// <remarks>The injector knows that certain platforms are backwards-compatible with others, so binaries with arch="Linux-i486"  will still be available on Linux-i686 machines, for example.</remarks>
-        [Category("Release"), Description("For platform-specific binaries, the platform for which an implementation was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU.")]
+        /// <remarks>The injector knows that certain platforms are backwards-compatible with others, so binaries with arch="Linux-i486" will still be available on Linux-i686 machines, for example.</remarks>
+        [Category("Release"), Description("For platform-specific binaries, the platform for which an implementation was compiled, in the form os-cpu.")]
         [XmlIgnore]
         public Architecture Architecture { get; set; }
 

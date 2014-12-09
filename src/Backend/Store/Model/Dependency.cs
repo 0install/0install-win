@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Model
 
         /// <summary>No version of the <see cref="Dependency"/> is also an option, although selecting a version is preferable to not selecting one.</summary>
         [XmlEnum("recommended")]
-        Recommended,
+        Recommended
     }
     #endregion
 
@@ -103,7 +103,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            string result = InterfaceUri.ToString();
+            string result = InterfaceUri.ToStringRfc();
             if (!string.IsNullOrEmpty(Use)) result += " (" + Use + ")";
             return result;
         }
@@ -116,8 +116,9 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="Dependency"/>.</returns>
         public Dependency CloneDependency()
         {
-            var dependency = new Dependency {InterfaceUri = InterfaceUri, OS = OS, Distribution = Distribution, Versions = Versions, Importance = Importance, Use = Use};
+            var dependency = new Dependency {InterfaceUri = InterfaceUri, OS = OS, Versions = Versions, Importance = Importance, Use = Use};
             dependency.Constraints.AddRange(Constraints.CloneElements());
+            dependency.Distributions.AddRange(Distributions);
             dependency.Bindings.AddRange(Bindings.CloneElements());
             return dependency;
         }

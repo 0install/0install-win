@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model.Design;
 
@@ -56,15 +57,6 @@ namespace ZeroInstall.Store.Model
         public OS OS { get; set; }
 
         /// <summary>
-        /// Specifies that the selected implementation must be from the given distribution (e.g. Debian, RPM).
-        /// The special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <see cref="PackageImplementation"/>). 
-        /// </summary>
-        [Description("Specifies that the selected implementation must be from the given distribution (e.g. Debian, RPM).\nThe special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <package-implementation>).")]
-        [XmlAttribute("distribution")]
-        [TypeConverter(typeof(DistributionNameConverter))]
-        public string Distribution { get; set; }
-
-        /// <summary>
         /// A more flexible alternative to <see cref="Constraints"/>.
         /// Each range is in the form "START..!END". The range matches versions where START &lt;= VERSION &lt; END. The start or end may be omitted. A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version.
         /// </summary>
@@ -77,6 +69,7 @@ namespace ZeroInstall.Store.Model
         [XmlAttribute("version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string VersionsString { get { return (Versions == null) ? null : Versions.ToString(); } set { Versions = string.IsNullOrEmpty(value) ? null : new VersionRange(value); } }
 
+        // Order is not important (but is preserved), duplicate entries are not allowed (but not enforced)
         private readonly List<Constraint> _constraints = new List<Constraint>();
 
         /// <summary>
@@ -85,6 +78,36 @@ namespace ZeroInstall.Store.Model
         [Browsable(false)]
         [XmlElement("version")]
         public List<Constraint> Constraints { get { return _constraints; } }
+
+        // Order is not important (but is preserved), duplicate entries are not allowed (but not enforced)
+        private readonly List<string> _distributions = new List<string>();
+
+        /// <summary>
+        /// Specifies that the selected implementation must be from one of the given distributions (e.g. Debian, RPM).
+        /// The special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <see cref="PackageImplementation"/>).
+        /// </summary>
+        [Browsable(false)]
+        [XmlIgnore]
+        public List<string> Distributions { get { return _distributions; } }
+
+        /// <summary>
+        /// Specifies that the selected implementation must be from one of the space-separated distributions (e.g. Debian, RPM).
+        /// The special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <see cref="PackageImplementation"/>).
+        /// </summary>
+        /// <seealso cref="Distributions"/>
+        [DisplayName("Distributions"), Description("Specifies that the selected implementation must be from one of the space-separated distributions (e.g. Debian, RPM).\nThe special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <package-implementation>).")]
+        [XmlAttribute("distribution"), DefaultValue("")]
+        [TypeConverter(typeof(DistributionNameConverter))]
+        public string DistributionsString
+        {
+            get { return StringUtils.Join(" ", _distributions); }
+            set
+            {
+                _distributions.Clear();
+                if (string.IsNullOrEmpty(value)) return;
+                _distributions.AddRange(value.Split(' '));
+            }
+        }
         #endregion
 
         //--------------------//
@@ -112,7 +135,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            return InterfaceUri.ToString();
+            return InterfaceUri.ToStringRfc();
         }
         #endregion
 
@@ -123,8 +146,9 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="Restriction"/>.</returns>
         public virtual Restriction Clone()
         {
-            var restriction = new Restriction {InterfaceUri = InterfaceUri, OS = OS, Distribution = Distribution, Versions = Versions};
+            var restriction = new Restriction {InterfaceUri = InterfaceUri, OS = OS, Versions = Versions};
             restriction.Constraints.AddRange(Constraints.CloneElements());
+            restriction.Distributions.AddRange(Distributions);
             return restriction;
         }
 
@@ -139,7 +163,7 @@ namespace ZeroInstall.Store.Model
         public bool Equals(Restriction other)
         {
             if (other == null) return false;
-            return base.Equals(other) && InterfaceUri == other.InterfaceUri && OS == other.OS && Versions == other.Versions && Constraints.SequencedEquals(other.Constraints);
+            return base.Equals(other) && InterfaceUri == other.InterfaceUri && OS == other.OS && Versions == other.Versions && Constraints.UnsequencedEquals(other.Constraints) && Distributions.UnsequencedEquals(other.Distributions);
         }
 
         /// <inheritdoc/>
@@ -158,8 +182,9 @@ namespace ZeroInstall.Store.Model
                 int result = base.GetHashCode();
                 if (InterfaceUri != null) result = (result * 397) ^ InterfaceUri.GetHashCode();
                 result = (result * 397) ^ (int)OS;
-                result = (result * 397) ^ Constraints.GetSequencedHashCode();
                 if (Versions != null) result = (result * 397) ^ Versions.GetHashCode();
+                result = (result * 397) ^ Constraints.GetUnsequencedHashCode();
+                result = (result * 397) ^ Distributions.GetUnsequencedHashCode();
                 return result;
             }
         }

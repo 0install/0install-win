@@ -22,7 +22,6 @@ using System.Linq;
 using System.Net;
 using NanoByte.Common;
 using NanoByte.Common.Dispatch;
-using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Undo;

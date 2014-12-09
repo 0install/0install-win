@@ -82,7 +82,7 @@ namespace ZeroInstall.Store.Service
             _clientChannel = new IpcClientChannel(
                 new Hashtable
                 {
-                    {"name", IpcStore.IpcPortName + ".Callback"},
+                    {"name", IpcStore.IpcPortName + ".Callback"}
                 },
                 new BinaryClientFormatterSinkProvider());
         }

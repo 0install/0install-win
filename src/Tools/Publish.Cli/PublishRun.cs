@@ -159,7 +159,7 @@ namespace ZeroInstall.Publish.Cli
                 {"x|xmlsign", () => Resources.OptionXmlSign, unused => _xmlSign = true},
                 {"u|unsign", () => Resources.OptionUnsign, unused => _unsign = true},
                 {"k|key=", () => Resources.OptionKey, user => _key = user},
-                {"gpg-passphrase=", () => Resources.OptionGnuPGPassphrase, passphrase => _openPgpPassphrase = passphrase},
+                {"gpg-passphrase=", () => Resources.OptionGnuPGPassphrase, passphrase => _openPgpPassphrase = passphrase}
             };
             options.Add("h|help|?", () => Resources.OptionHelp, unused =>
             {

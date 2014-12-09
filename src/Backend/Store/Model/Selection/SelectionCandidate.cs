@@ -177,7 +177,7 @@ namespace ZeroInstall.Store.Model.Selection
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Implementation.Equals(other.Implementation) && FeedUri.Equals(other.FeedUri) && FeedPreferences.Equals(other.FeedPreferences) && IsSuitable == other.IsSuitable && Notes == other.Notes;
+            return Equals(Implementation, other.Implementation) && FeedUri.Equals(other.FeedUri) && IsSuitable == other.IsSuitable && Notes == other.Notes;
         }
 
         /// <inheritdoc/>
@@ -195,7 +195,6 @@ namespace ZeroInstall.Store.Model.Selection
             {
                 var hashCode = Implementation.GetHashCode();
                 hashCode = (hashCode * 397) ^ FeedUri.GetHashCode();
-                hashCode = (hashCode * 397) ^ FeedPreferences.GetHashCode();
                 hashCode = (hashCode * 397) ^ IsSuitable.GetHashCode();
                 if (Notes != null) hashCode = (hashCode * 397) ^ Notes.GetHashCode();
                 return hashCode;

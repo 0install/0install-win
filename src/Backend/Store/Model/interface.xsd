@@ -397,7 +397,7 @@
         <xsd:attribute name="package" type="xsd:string" use="required">
           <xsd:annotation>
             <xsd:documentation>
-              he name of the package in the distribution-specific package manager.
+              The name of the package in the distribution-specific package manager.
             </xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>

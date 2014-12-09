@@ -389,6 +389,8 @@ namespace ZeroInstall.Store
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
 
+            if (IsFake != other.IsFake || IsFromDistribution != other.IsFromDistribution) return false;
+
             return (WindowsUtils.IsWindows && IsFile && other.IsFile)
                 // File names on Windows are case-insensitive
                 ? StringUtils.EqualsIgnoreCase(LocalPath, other.LocalPath)

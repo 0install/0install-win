@@ -21,7 +21,6 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
-using NanoByte.Common;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Properties;
 

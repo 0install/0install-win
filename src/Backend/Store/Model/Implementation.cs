@@ -30,9 +30,8 @@ namespace ZeroInstall.Store.Model
     [Description("An implementation is a specific version of an application that can be downloaded and executed (e.g. Firefox 3.6 for Windows).")]
     [Serializable]
     [XmlRoot("implementation", Namespace = Feed.XmlNamespace), XmlType("implementation", Namespace = Feed.XmlNamespace)]
-    public sealed class Implementation : ImplementationBase, IEquatable<Implementation>
+    public class Implementation : ImplementationBase, IEquatable<Implementation>
     {
-        #region Properties
         private readonly List<RetrievalMethod> _retrievalMethods = new List<RetrievalMethod>();
 
         /// <summary>
@@ -41,7 +40,6 @@ namespace ZeroInstall.Store.Model
         [Browsable(false)]
         [XmlElement(typeof(Archive)), XmlElement(typeof(SingleFile)), XmlElement(typeof(Recipe))]
         public List<RetrievalMethod> RetrievalMethods { get { return _retrievalMethods; } }
-        #endregion
 
         //--------------------//
 

@@ -135,7 +135,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            return string.IsNullOrEmpty(Command) ? InterfaceUri.ToString() : InterfaceUri.ToString() + " (" + Command + ")";
+            return string.IsNullOrEmpty(Command) ? InterfaceUri.ToStringRfc() : InterfaceUri.ToStringRfc() + " (" + Command + ")";
         }
         #endregion
 
@@ -147,8 +147,8 @@ namespace ZeroInstall.Store.Model
             if (InterfaceUri != other.InterfaceUri) return false;
             if (Command != other.Command) return false;
             if (Architecture != other.Architecture) return false;
-            if (!_languages.SequencedEquals(other._languages)) return false;
-            if (!_extraRestrictions.UnsequencedEquals(other._extraRestrictions)) return false;
+            if (!Languages.SequencedEquals(other.Languages)) return false;
+            if (!ExtraRestrictions.UnsequencedEquals(other.ExtraRestrictions)) return false;
             return true;
         }
 
@@ -169,8 +169,8 @@ namespace ZeroInstall.Store.Model
                 result = (result * 397) ^ (Command != null ? Command.GetHashCode() : 0);
                 result = (result * 397) ^ Architecture.GetHashCode();
                 // ReSharper disable once NonReadonlyFieldInGetHashCode
-                result = (result * 397) ^ _languages.GetSequencedHashCode();
-                result = (result * 397) ^ _extraRestrictions.GetUnsequencedHashCode();
+                result = (result * 397) ^ Languages.GetSequencedHashCode();
+                result = (result * 397) ^ ExtraRestrictions.GetUnsequencedHashCode();
                 return result;
             }
         }

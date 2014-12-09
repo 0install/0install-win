@@ -20,7 +20,6 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography;
 using NanoByte.Common;
-using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Icons;

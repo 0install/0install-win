@@ -72,7 +72,7 @@ namespace ZeroInstall.Store.Model
 
         /// <summary>The supported operating system has not been set yet.</summary>
         [XmlEnum("unknown")]
-        Unknown = 99,
+        Unknown = 99
     }
 
     /// <summary>

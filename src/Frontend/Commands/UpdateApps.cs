@@ -104,7 +104,7 @@ namespace ZeroInstall.Commands
         private void DownloadUncachedImplementations(IEnumerable<ImplementationSelection> selectedImplementations)
         {
             var selections = new Selections(selectedImplementations);
-            var uncachedImplementations = SelectionsManager.GetUncachedImplementationSelections(selections).ToList();
+            var uncachedImplementations = SelectionsManager.GetUncachedSelections(selections).ToList();
 
             // Do not waste time on Fetcher subsystem if nothing is missing from cache
             if (uncachedImplementations.Count == 0) return;
@@ -114,7 +114,7 @@ namespace ZeroInstall.Commands
 
             try
             {
-                var toDownload = SelectionsManager.GetOriginalImplementations(uncachedImplementations);
+                var toDownload = SelectionsManager.GetImplementations(uncachedImplementations);
                 Fetcher.Fetch(toDownload);
             }
                 #region Error handling

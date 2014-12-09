@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
@@ -66,7 +67,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             openFileDialog.ShowDialog(this);
         }
 
-        private void openFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        private void openFileDialog_FileOk(object sender, CancelEventArgs e)
         {
             textBoxLocalPath.Text = openFileDialog.FileName;
         }

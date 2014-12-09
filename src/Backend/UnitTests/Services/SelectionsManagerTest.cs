@@ -43,7 +43,7 @@ namespace ZeroInstall.Services
         }
 
         [Test]
-        public void TestGetUncachedImplementationSelections()
+        public void TestGetUncachedSelections()
         {
             var selections = SelectionsTest.CreateTestSelections();
             selections.Implementations.Add(new ImplementationSelection {InterfaceUri = new FeedUri("http://0install.de/feeds/test/dummy.xml")});
@@ -53,14 +53,14 @@ namespace ZeroInstall.Services
             _storeMock.Setup(x => x.Contains(selections.Implementations[1].ManifestDigest)).Returns(true);
             _storeMock.Setup(x => x.Contains(default(ManifestDigest))).Returns(false);
 
-            var implementationSelections = Target.GetUncachedImplementationSelections(selections);
+            var implementationSelections = Target.GetUncachedSelections(selections);
 
             // Only the first implementation should be listed as uncached
             CollectionAssert.AreEquivalent(new[] {selections.Implementations[0]}, implementationSelections);
         }
 
         [Test]
-        public void TestGetOriginalImplementations()
+        public void TestGetImplementations()
         {
             var impl1 = new Implementation {ID = "test123"};
             var impl2 = new Implementation {ID = "test456"};
@@ -73,7 +73,7 @@ namespace ZeroInstall.Services
             _feedCacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(new Feed {Elements = {impl1}});
             _feedCacheMock.Setup(x => x.GetFeed(FeedTest.Sub2Uri)).Returns(new Feed {Elements = {impl2}});
 
-            var implementations = Target.GetOriginalImplementations(implementationSelections);
+            var implementations = Target.GetImplementations(implementationSelections);
 
             CollectionAssert.AreEquivalent(new[] {impl1, impl2}, implementations);
         }

@@ -18,8 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using System.Xml.Serialization;
+using NanoByte.Common;
+using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model.Design;
 
 namespace ZeroInstall.Store.Model
@@ -92,40 +93,26 @@ namespace ZeroInstall.Store.Model
         private readonly List<string> _distributions = new List<string>();
 
         /// <summary>
-        /// A list of distribution names (e.g. Debian, RPM) where <see cref="Package"/> applies.
+        /// A list of distribution names (e.g. Debian, RPM) where <see cref="Package"/> applies. Applies everywhere if empty.
         /// </summary>
         [Browsable(false)]
         [XmlIgnore]
-        public ICollection<string> Distributions { get { return _distributions; } }
+        public List<string> Distributions { get { return _distributions; } }
 
         /// <summary>
-        /// A space-separated list of distribution names (e.g. Debian, RPM) where <see cref="Package"/> applies.
+        /// A space-separated list of distribution names (e.g. Debian, RPM) where <see cref="Package"/> applies. Applies everywhere if empty.
         /// </summary>
-        /// <seealso cref="Version"/>
-        [Category("Identity"), DisplayName("Distributions"), Description("A space-separated list of distribution names (e.g. Debian, RPM) where Package applies.")]
+        /// <seealso cref="Distributions"/>
+        [Category("Identity"), DisplayName("Distributions"), Description("A space-separated list of distribution names (e.g. Debian, RPM) where Package applies. Applies everywhere if empty.")]
         [XmlAttribute("distributions"), DefaultValue("")]
         [TypeConverter(typeof(DistributionNameConverter))]
         public string DistributionsString
         {
-            get
-            {
-                // Serialize list as string split by spaces
-                var output = new StringBuilder();
-                foreach (var distribution in _distributions)
-                {
-                    output.Append(distribution.Replace(' ', '_'));
-                    output.Append(' ');
-                }
-
-                // Return without trailing space
-                return output.ToString().TrimEnd();
-            }
+            get { return StringUtils.Join(" ", _distributions); }
             set
             {
                 _distributions.Clear();
                 if (string.IsNullOrEmpty(value)) return;
-
-                // Replace list by parsing input string split by spaces
                 _distributions.AddRange(value.Split(' '));
             }
         }
@@ -150,7 +137,8 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="PackageImplementation"/>.</returns>
         public PackageImplementation CloneImplementation()
         {
-            var implementation = new PackageImplementation {Package = Package, DistributionsString = DistributionsString};
+            var implementation = new PackageImplementation {Package = Package};
+            implementation.Distributions.AddRange(Distributions);
             CloneFromTo(this, implementation);
             return implementation;
         }
@@ -170,8 +158,7 @@ namespace ZeroInstall.Store.Model
         public bool Equals(PackageImplementation other)
         {
             if (other == null) return false;
-            return base.Equals(other) &&
-                   (Package == other.Package && DistributionsString == other.DistributionsString);
+            return base.Equals(other) && Package == other.Package && Distributions.UnsequencedEquals(other.Distributions);
         }
 
         /// <inheritdoc/>
@@ -189,8 +176,8 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Package != null ? Package.GetHashCode() : 0);
-                result = (result * 397) ^ (DistributionsString != null ? DistributionsString.GetHashCode() : 0);
+                if (Package != null) result = (result * 397) ^ Package.GetHashCode();
+                result = (result * 397) ^ Distributions.GetUnsequencedHashCode();
                 return result;
             }
         }

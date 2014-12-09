@@ -25,7 +25,7 @@ using ZeroInstall.Store.Trust;
 namespace ZeroInstall.Services.Solvers
 {
     /// <summary>
-    /// Chooses a set of <see cref="Store.Model.Implementation"/>s to satisfy the requirements of a program and its user. 
+    /// Chooses a set of <see cref="Store.Model.Implementation"/>s to satisfy the requirements of a program and its user.
     /// </summary>
     /// <remarks>This is an application of the strategy pattern. Implementations of this interface are immutable and thread-safe.</remarks>
     public interface ISolver

@@ -339,7 +339,7 @@ namespace ZeroInstall.Hooking
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "Must perform COM call during init")]
         static WindowsUtils()
         {
-            if (WindowsUtils.IsWindows7)
+            if (IsWindows7)
             {
                 _taskbarList = (ITaskbarList4)new CTaskbarList();
                 _taskbarList.HrInit();

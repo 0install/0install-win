@@ -25,7 +25,6 @@ using NanoByte.Common.Collections;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
-using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations
 {

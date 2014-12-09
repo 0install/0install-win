@@ -29,7 +29,7 @@ using ZeroInstall.Store.Model;
 namespace ZeroInstall.Services.Fetchers
 {
     /// <summary>
-    /// An abstract base class for <see cref="IFetcher"/> implementations.
+    /// Base class for <see cref="IFetcher"/> implementations using template methods.
     /// </summary>
     public abstract class FetcherBase : IFetcher
     {

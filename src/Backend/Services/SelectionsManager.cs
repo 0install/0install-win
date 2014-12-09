@@ -61,7 +61,7 @@ namespace ZeroInstall.Services
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the cache is not permitted.</exception>
         /// <exception cref="InvalidDataException">The feed file could not be parsed.</exception>
-        public IEnumerable<ImplementationSelection> GetUncachedImplementationSelections(Selections selections)
+        public IEnumerable<ImplementationSelection> GetUncachedSelections(Selections selections)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
@@ -83,19 +83,18 @@ namespace ZeroInstall.Services
         /// <summary>
         /// Retrieves the original <see cref="Implementation"/>s these selections were based on.
         /// </summary>
-        /// <param name="implementationSelections">The implementation selections to base the search of</param>
-        /// <returns></returns>
-        public IEnumerable<Implementation> GetOriginalImplementations(IEnumerable<ImplementationSelection> implementationSelections)
+        /// <param name="selections">The <see cref="ImplementationSelection"/>s to map back to <see cref="Implementation"/>s.</param>
+        public IEnumerable<Implementation> GetImplementations(IEnumerable<ImplementationSelection> selections)
         {
             #region Sanity checks
-            if (implementationSelections == null) throw new ArgumentNullException("implementationSelections");
+            if (selections == null) throw new ArgumentNullException("selections");
             #endregion
 
-            return implementationSelections.Select(x => _feedCache.GetFeed(x.FromFeed ?? x.InterfaceUri)[x.ID].CloneImplementation());
+            return selections.Select(x => _feedCache.GetFeed(x.FromFeed ?? x.InterfaceUri)[x.ID].CloneImplementation());
         }
 
         /// <summary>
-        /// Combines <see cref="GetUncachedImplementationSelections"/> and <see cref="GetOriginalImplementations"/>.
+        /// Combines <see cref="GetUncachedSelections"/> and <see cref="GetImplementations"/>.
         /// </summary>
         /// <param name="selections">The selections to search for <see cref="ImplementationSelection"/>s that are missing.</param>
         public ICollection<Implementation> GetUncachedImplementations(Selections selections)
@@ -104,7 +103,7 @@ namespace ZeroInstall.Services
             if (selections == null) throw new ArgumentNullException("selections");
             #endregion
 
-            return GetOriginalImplementations(GetUncachedImplementationSelections(selections)).ToList();
+            return GetImplementations(GetUncachedSelections(selections)).ToList();
         }
     }
 }

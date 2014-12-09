@@ -84,7 +84,7 @@ namespace ZeroInstall.Services.Solvers
                 Released = implementation.Released,
                 Stability = candidate.EffectiveStability,
                 License = implementation.License,
-                InterfaceUri = requirements.InterfaceUri,
+                InterfaceUri = requirements.InterfaceUri
             };
             if (candidate.FeedUri != requirements.InterfaceUri) selection.FromFeed = candidate.FeedUri;
 
@@ -130,7 +130,7 @@ namespace ZeroInstall.Services.Solvers
             #endregion
 
             var command = from[requirements.Command];
-            if (command == null) return command;
+            if (command == null) return null;
 
             var newCommand = new Command {Name = command.Name, Path = command.Path};
             newCommand.Arguments.AddRange(command.Arguments.CloneElements());
@@ -144,9 +144,9 @@ namespace ZeroInstall.Services.Solvers
         }
 
         /// <summary>
-        /// Creates <see cref="Requirements"/> for solving a <see cref="Dependency"/>.
+        /// Creates <see cref="Requirements"/> for solving a <see cref="Dependency"/> or <see cref="Restriction"/>.
         /// </summary>
-        /// <param name="dependency">The dependency to solve.</param>
+        /// <param name="dependency">The dependency or restriction to solve.</param>
         /// <param name="topLevelRequirements">The top-level requirements specifying <see cref="Architecture"/> and custom restrictions.</param>
         public static Requirements ToRequirements(this Restriction dependency, Requirements topLevelRequirements)
         {

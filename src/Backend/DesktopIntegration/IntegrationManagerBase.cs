@@ -28,7 +28,7 @@ using ZeroInstall.Store.Model;
 namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
-    /// Template methods for implementing <see cref="IIntegrationManager"/>.
+    /// Base class for <see cref="IIntegrationManager"/> implementations using template methods.
     /// </summary>
     public abstract class IntegrationManagerBase : IIntegrationManager
     {

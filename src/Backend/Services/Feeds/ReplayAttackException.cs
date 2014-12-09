@@ -19,7 +19,6 @@ using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
-using NanoByte.Common.Net;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Feeds;
 
