@@ -1,4 +1,5 @@
-﻿#import clr
+﻿#Uncomment this when running with interpreter instead of compiler
+#import clr
 #clr.AddReferenceToFile("NanoByte.Common.dll", "ZeroInstall.Services.dll", "ZeroInstall.Store.dll")
 
 import sys
@@ -7,10 +8,9 @@ from ZeroInstall.Services import ServiceLocator
 from ZeroInstall.Store import FeedUri
 from ZeroInstall.Store.Model import Requirements
 
-requirements = Requirements(InterfaceUri = FeedUri(sys.argv[1]))
-
 services = ServiceLocator(CliTaskHandler())
-selections = services.Solver.Solve(requirements)
+
+selections = services.Solver.Solve(Requirements(sys.argv[1]))
 missing = services.SelectionsManager.GetUncachedImplementations(selections)
 services.Fetcher.Fetch(missing)
 services.Executor.Start(selections)

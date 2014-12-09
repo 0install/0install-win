@@ -52,7 +52,7 @@ namespace ZeroInstall.Services.Solvers
             mainFeed.Feeds.Clear();
             _feedManagerMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(mainFeed);
 
-            var requirements = new Requirements {InterfaceUri = FeedTest.Test1Uri, Command = Command.NameRun};
+            var requirements = new Requirements(FeedTest.Test1Uri, Command.NameRun);
             CollectionAssert.AreEqual(
                 expected: new[]
                 {
@@ -72,7 +72,7 @@ namespace ZeroInstall.Services.Solvers
             subFeed.Elements[0].Version = new ImplementationVersion("2.0");
             _feedManagerMock.Setup(x => x.GetFeed(FeedTest.Sub1Uri)).Returns(subFeed);
 
-            var requirements = new Requirements {InterfaceUri = FeedTest.Test1Uri, Command = Command.NameRun};
+            var requirements = new Requirements(FeedTest.Test1Uri, Command.NameRun);
             CollectionAssert.AreEqual(
                 expected: new[]
                 {
@@ -96,7 +96,7 @@ namespace ZeroInstall.Services.Solvers
             subFeed.Elements[0].Version = new ImplementationVersion("2.0");
             _feedManagerMock.Setup(x => x.GetFeed(FeedTest.Sub1Uri)).Returns(subFeed);
 
-            var requirements = new Requirements {InterfaceUri = FeedTest.Test1Uri, Command = Command.NameRun};
+            var requirements = new Requirements(FeedTest.Test1Uri, Command.NameRun);
             CollectionAssert.AreEqual(
                 expected: new[]
                 {
@@ -126,7 +126,7 @@ namespace ZeroInstall.Services.Solvers
                 subFeed.SaveXml(localUri.LocalPath);
                 _feedManagerMock.Setup(x => x.GetFeed(localUri)).Returns(subFeed);
 
-                var requirements = new Requirements {InterfaceUri = FeedTest.Test1Uri, Command = Command.NameRun};
+                var requirements = new Requirements(FeedTest.Test1Uri, Command.NameRun);
                 CollectionAssert.AreEqual(
                     expected: new[]
                     {
@@ -144,7 +144,7 @@ namespace ZeroInstall.Services.Solvers
             mainFeed.Feeds.Clear();
             _feedManagerMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(mainFeed);
 
-            var requirements = new Requirements {InterfaceUri = FeedTest.Test1Uri, Command = Command.NameRun};
+            var requirements = new Requirements(FeedTest.Test1Uri, Command.NameRun);
             var candidates = Target.GetSortedCandidates(requirements);
             var candidate = candidates.Single().ToSelection(candidates, requirements);
 

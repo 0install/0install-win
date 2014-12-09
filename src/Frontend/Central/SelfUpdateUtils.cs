@@ -70,7 +70,7 @@ namespace ZeroInstall.Central
             if (services.Config.NetworkUse == NetworkLevel.Offline) return null;
 
             // Run solver
-            var requirements = new Requirements {InterfaceUri = new FeedUri(services.Config.SelfUpdateUri), Command = "update"};
+            var requirements = new Requirements(new FeedUri(services.Config.SelfUpdateUri), command: "update");
             var selections = services.Solver.Solve(requirements);
 
             // Report version of current update if it is newer than the already installed version

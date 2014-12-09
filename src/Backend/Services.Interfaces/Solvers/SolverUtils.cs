@@ -155,12 +155,7 @@ namespace ZeroInstall.Services.Solvers
             if (topLevelRequirements == null) throw new ArgumentNullException("topLevelRequirements");
             #endregion
 
-            var requirements = new Requirements
-            {
-                InterfaceUri = dependency.InterfaceUri,
-                Command = "",
-                Architecture = topLevelRequirements.Architecture
-            };
+            var requirements = new Requirements(dependency.InterfaceUri, "", topLevelRequirements.Architecture);
             requirements.CopyVersionRestrictions(from: dependency);
             requirements.CopyVersionRestrictions(from: topLevelRequirements);
             return requirements;
@@ -178,12 +173,7 @@ namespace ZeroInstall.Services.Solvers
             if (topLevelRequirements == null) throw new ArgumentNullException("topLevelRequirements");
             #endregion
 
-            var requirements = new Requirements
-            {
-                InterfaceUri = runner.InterfaceUri,
-                Command = runner.Command ?? Command.NameRun,
-                Architecture = topLevelRequirements.Architecture
-            };
+            var requirements = new Requirements(runner.InterfaceUri, runner.Command ?? Command.NameRun, topLevelRequirements.Architecture);
             requirements.CopyVersionRestrictions(from: runner);
             requirements.CopyVersionRestrictions(from: topLevelRequirements);
             return requirements;
@@ -212,7 +202,7 @@ namespace ZeroInstall.Services.Solvers
             #endregion
 
             return bindingContainer.Bindings.OfType<ExecutableInBinding>()
-                .Select(x => new Requirements {InterfaceUri = interfaceUri, Command = x.Command ?? Command.NameRun});
+                .Select(x => new Requirements(interfaceUri, x.Command ?? Command.NameRun));
         }
 
         /// <summary>

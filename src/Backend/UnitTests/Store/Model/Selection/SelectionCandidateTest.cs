@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Model.Selection
         {
             var implementation = ImplementationTest.CreateTestImplementation();
             Assert.IsTrue(new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(),
-                implementation, new Requirements {InterfaceUri = FeedTest.Test1Uri, Command = Command.NameRun}).IsSuitable);
+                implementation, new Requirements(FeedTest.Test1Uri, Command.NameRun)).IsSuitable);
         }
 
         [Test]
@@ -39,9 +39,9 @@ namespace ZeroInstall.Store.Model.Selection
         {
             var implementation = ImplementationTest.CreateTestImplementation();
             Assert.IsTrue(new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(),
-                implementation, new Requirements {InterfaceUri = FeedTest.Test1Uri, Command = Command.NameRun, Architecture = implementation.Architecture}).IsSuitable);
+                implementation, new Requirements(FeedTest.Test1Uri, Command.NameRun, implementation.Architecture)).IsSuitable);
             Assert.IsFalse(new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(),
-                implementation, new Requirements {InterfaceUri = FeedTest.Test1Uri, Command = Command.NameRun, Architecture = new Architecture(OS.FreeBsd, Cpu.Ppc)}).IsSuitable);
+                implementation, new Requirements(FeedTest.Test1Uri, Command.NameRun, new Architecture(OS.FreeBsd, Cpu.Ppc))).IsSuitable);
         }
 
         [Test]
@@ -49,17 +49,13 @@ namespace ZeroInstall.Store.Model.Selection
         {
             var implementation = ImplementationTest.CreateTestImplementation();
             Assert.IsTrue(new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), implementation,
-                new Requirements
+                new Requirements(FeedTest.Test1Uri, Command.NameRun)
                 {
-                    InterfaceUri = FeedTest.Test1Uri,
-                    Command = Command.NameRun,
                     ExtraRestrictions = {{FeedTest.Test1Uri, new VersionRange("..!1.1")}}
                 }).IsSuitable);
             Assert.IsFalse(new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), implementation,
-                new Requirements
+                new Requirements(FeedTest.Test1Uri, Command.NameRun)
                 {
-                    InterfaceUri = FeedTest.Test1Uri,
-                    Command = Command.NameRun,
                     ExtraRestrictions = {{FeedTest.Test1Uri, new VersionRange("..!1.0")}}
                 }).IsSuitable);
         }
@@ -70,10 +66,10 @@ namespace ZeroInstall.Store.Model.Selection
             var implementation = ImplementationTest.CreateTestImplementation();
             Assert.IsFalse(new SelectionCandidate(FeedTest.Test1Uri,
                 new FeedPreferences {Implementations = {new ImplementationPreferences {ID = implementation.ID, UserStability = Stability.Buggy}}},
-                implementation, new Requirements {InterfaceUri = FeedTest.Test1Uri, Command = Command.NameRun}).IsSuitable);
+                implementation, new Requirements(FeedTest.Test1Uri, Command.NameRun)).IsSuitable);
             Assert.IsFalse(new SelectionCandidate(FeedTest.Test1Uri,
                 new FeedPreferences {Implementations = {new ImplementationPreferences {ID = implementation.ID, UserStability = Stability.Insecure}}},
-                implementation, new Requirements {InterfaceUri = FeedTest.Test1Uri, Command = Command.NameRun}).IsSuitable);
+                implementation, new Requirements(FeedTest.Test1Uri, Command.NameRun)).IsSuitable);
         }
     }
 }

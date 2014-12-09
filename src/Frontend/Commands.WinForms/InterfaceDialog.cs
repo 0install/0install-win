@@ -189,12 +189,7 @@ namespace ZeroInstall.Commands.WinForms
         private SelectionCandidate GenerateDummyCandidate(FeedUri feedUri, FeedPreferences feedPreferences, Implementation implementation)
         {
             return new SelectionCandidate(feedUri, feedPreferences, implementation,
-                new Requirements
-                {
-                    InterfaceUri = _interfaceUri,
-                    Command = Command.NameRun,
-                    Architecture = new Architecture(Architecture.CurrentSystem.OS, Cpu.All)
-                });
+                new Requirements(_interfaceUri, Command.NameRun, new Architecture(Architecture.CurrentSystem.OS, Cpu.All)));
         }
 
         /// <summary>

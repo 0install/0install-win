@@ -32,16 +32,8 @@ namespace ZeroInstall.Services.Solvers
         public void GetEffectiveFillsInDefaultValues()
         {
             Assert.AreEqual(
-                expected: new Requirements
-                {
-                    InterfaceUri = new FeedUri("http://test/feed.xml"),
-                    Command = Command.NameRun,
-                    Architecture = Architecture.CurrentSystem
-                },
-                actual: new Requirements
-                {
-                    InterfaceUri = new FeedUri("http://test/feed.xml")
-                }.GetEffective().First());
+                expected: new Requirements(new FeedUri("http://test/feed.xml"), Command.NameRun, Architecture.CurrentSystem),
+                actual: new Requirements("http://test/feed.xml").GetEffective().First());
         }
 
         [Test]
@@ -52,25 +44,10 @@ namespace ZeroInstall.Services.Solvers
             CollectionAssert.AreEqual(
                 expected: new[]
                 {
-                    new Requirements
-                    {
-                        InterfaceUri = new FeedUri("http://test/feed.xml"),
-                        Command = Command.NameRun,
-                        Architecture = new Architecture(OS.Linux, Cpu.X64)
-                    },
-                    new Requirements
-                    {
-                        InterfaceUri = new FeedUri("http://test/feed.xml"),
-                        Command = Command.NameRun,
-                        Architecture = new Architecture(OS.Linux, Cpu.I686)
-                    }
+                    new Requirements("http://test/feed.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.X64)),
+                    new Requirements("http://test/feed.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.I686))
                 },
-                actual: new Requirements
-                {
-                    InterfaceUri = new FeedUri("http://test/feed.xml"),
-                    Command = Command.NameRun,
-                    Architecture = new Architecture(OS.Linux, Cpu.X64)
-                }.GetEffective());
+                actual: new Requirements("http://test/feed.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.X64)).GetEffective());
         }
     }
 }

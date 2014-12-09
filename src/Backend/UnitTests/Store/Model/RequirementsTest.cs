@@ -32,11 +32,8 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public static Requirements CreateTestRequirements()
         {
-            return new Requirements
+            return new Requirements(FeedTest.Test1Uri, "command", new Architecture(OS.Windows, Cpu.I586))
             {
-                InterfaceUri = FeedTest.Test1Uri,
-                Command = "command",
-                Architecture = new Architecture(OS.Windows, Cpu.I586),
                 //Languages = {"de-DE", "en-US"},
                 ExtraRestrictions =
                 {

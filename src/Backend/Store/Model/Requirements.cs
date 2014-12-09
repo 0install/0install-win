@@ -109,6 +109,49 @@ namespace ZeroInstall.Store.Model
         [JsonProperty("extra_restrictions")]
         public Dictionary<FeedUri, VersionRange> ExtraRestrictions { get { return _extraRestrictions; } }
 
+        #region Constructor
+        /// <summary>
+        /// Cretes an empty requirements object. Use this to fill in values incrementally, e.g. when parsing command-line arguments.
+        /// </summary>
+        public Requirements()
+        {}
+
+        /// <summary>
+        /// Creates a new requirements object.
+        /// </summary>
+        /// <param name="interfaceUri">The URI or local path (must be absolute) to the interface to solve the dependencies for.</param>
+        /// <param name="command">he name of the command in the implementation to execute. Will default to <see cref="Store.Model.Command.NameRun"/> or <see cref="Store.Model.Command.NameCompile"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.</param>
+        /// <param name="architecture">The architecture to find executables for. Find for the current system if left at default value.</param>
+        public Requirements(FeedUri interfaceUri, string command = null, Architecture architecture = default(Architecture))
+        {
+            InterfaceUri = interfaceUri;
+            Command = command;
+            Architecture = architecture;
+        }
+
+        /// <summary>
+        /// Creates a new requirements object.
+        /// </summary>
+        /// <param name="interfaceUri">The URI or local path (must be absolute) to the interface to solve the dependencies for. Must be an HTTP(S) URL or an absolute local path.</param>
+        /// <exception cref="UriFormatException"><paramref name="interfaceUri"/> is not a valid HTTP(S) URL or an absolute local path.</exception>
+        [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#", Justification = "Convenience overload that internally calls the Uri version")]
+        public Requirements(string interfaceUri)
+            : this(new FeedUri(interfaceUri))
+        {}
+
+        /// <summary>
+        /// Creates a new requirements object.
+        /// </summary>
+        /// <param name="interfaceUri">The URI or local path (must be absolute) to the interface to solve the dependencies for. Must be an HTTP(S) URL or an absolute local path.</param>
+        /// <param name="command">he name of the command in the implementation to execute. Will default to <see cref="Store.Model.Command.NameRun"/> or <see cref="Store.Model.Command.NameCompile"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.</param>
+        /// <param name="architecture">The architecture to find executables for. Find for the current system if left at default value.</param>
+        /// <exception cref="UriFormatException"><paramref name="interfaceUri"/> is not a valid HTTP(S) URL or an absolute local path.</exception>
+        [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#", Justification = "Convenience overload that internally calls the Uri version")]
+        public Requirements(string interfaceUri, string command = null, Architecture architecture = default(Architecture))
+            : this(new FeedUri(interfaceUri), command, architecture)
+        {}
+        #endregion
+
         //--------------------//
 
         #region Clone
@@ -118,7 +161,7 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="Requirements"/>.</returns>
         public Requirements Clone()
         {
-            var requirements = new Requirements {InterfaceUri = InterfaceUri, Command = Command, Architecture = Architecture, Languages = new LanguageSet(Languages)};
+            var requirements = new Requirements(InterfaceUri, Command, Architecture) {Languages = new LanguageSet(Languages)};
             requirements.ExtraRestrictions.AddRange(ExtraRestrictions);
             return requirements;
         }
