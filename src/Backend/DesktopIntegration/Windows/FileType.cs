@@ -302,9 +302,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             // Set specific icon if available, fall back to referencing the icon embedded in the stub EXE
             var icon = capability.GetIcon(Icon.MimeTypeIco) ?? target.Feed.GetIcon(Icon.MimeTypeIco);
-            string iconPath = IconProvider.GetIconPath(icon, handler, machineWide);
-            using (var iconKey = registryKey.CreateSubKey(RegSubKeyIcon))
-                iconKey.SetValue("", iconPath + ",0");
+            if (icon != null)
+            {
+                using (var iconKey = registryKey.CreateSubKey(RegSubKeyIcon))
+                    iconKey.SetValue("", IconProvider.GetIconPath(icon, handler, machineWide) + ",0");
+            }
         }
 
         /// <summary>

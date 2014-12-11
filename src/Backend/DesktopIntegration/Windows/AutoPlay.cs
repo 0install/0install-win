@@ -100,8 +100,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 handlerKey.SetValue(RegValueDescription, autoPlay.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture) ?? autoPlay.Verb.Name);
 
                 var icon = autoPlay.GetIcon(Icon.MimeTypeIco) ?? target.Feed.GetIcon(Icon.MimeTypeIco, autoPlay.Verb.Command);
-                string iconPath = IconProvider.GetIconPath(icon, handler, machineWide);
-                handlerKey.SetValue(RegValueIcon, iconPath + ",0");
+                if (icon != null)
+                    handlerKey.SetValue(RegValueIcon, IconProvider.GetIconPath(icon, handler, machineWide) + ",0");
             }
 
             foreach (var autoPlayEvent in autoPlay.Events.Except(x => string.IsNullOrEmpty(x.Name)))
