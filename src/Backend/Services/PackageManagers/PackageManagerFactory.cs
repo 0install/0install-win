@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using NanoByte.Common.Native;
+
 namespace ZeroInstall.Services.PackageManagers
 {
     /// <summary>
@@ -27,7 +29,9 @@ namespace ZeroInstall.Services.PackageManagers
         /// </summary>
         public static IPackageManager Create()
         {
-            return new StubPackageManager();
+            if (WindowsUtils.IsWindows) return new WindowsPackageManager();
+            //else if (UnixUtils.IsUnix) return new PackageKitPackageManager();
+            else return new StubPackageManager();
         }
     }
 }
