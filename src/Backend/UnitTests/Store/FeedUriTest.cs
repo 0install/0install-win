@@ -86,7 +86,7 @@ namespace ZeroInstall.Store
                 expected: WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml",
                 actual: absoluteUri.ToString());
             Assert.AreEqual(
-                expected: WindowsUtils.IsWindows ? "file:///C:/my%20feed.xml" : "file:///root/my%20feed.xml",
+                expected: WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml",
                 actual: absoluteUri.ToStringRfc());
         }
 

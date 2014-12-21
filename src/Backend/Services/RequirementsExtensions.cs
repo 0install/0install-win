@@ -48,8 +48,8 @@ namespace ZeroInstall.Services
             }
             //builder.Append("--languages=" + _languages.ToXmlString().EscapeArgument() + " ");
             foreach (var pair in requirements.ExtraRestrictions)
-                builder.Append("--version-for=" + pair.Key.AbsoluteUri + " " + pair.Value.ToString().EscapeArgument() + " ");
-            builder.Append(requirements.InterfaceUri.AbsoluteUri);
+                builder.Append("--version-for=" + pair.Key.ToStringRfc().EscapeArgument() + " " + pair.Value.ToString().EscapeArgument() + " ");
+            builder.Append(requirements.InterfaceUri.ToStringRfc().EscapeArgument());
 
             return builder.ToString();
         }

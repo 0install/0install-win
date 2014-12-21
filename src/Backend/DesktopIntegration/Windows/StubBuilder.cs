@@ -187,7 +187,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             // Build command-line
             string args = needsTerminal ? "" : "run --no-wait ";
             if (!string.IsNullOrEmpty(command)) args += "--command=" + command.EscapeArgument() + " ";
-            args += target.InterfaceUri.AbsoluteUri;
+            args += target.InterfaceUri.ToStringRfc().EscapeArgument();
 
             // Load the template code and insert variables
             string code = GetEmbeddedResource("stub.template.cs").Replace("[EXE]", Path.Combine(Locations.InstallBase, needsTerminal ? "0launch.exe" : "0install-win.exe").Replace(@"\", @"\\"));

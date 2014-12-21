@@ -124,14 +124,14 @@ namespace ZeroInstall.Commands
             // Absolute paths
             if (WindowsUtils.IsWindows)
             {
-                Assert.AreEqual("file:///C:/test/file", Target.GetCanonicalUri(@"C:\test\file").ToStringRfc());
-                Assert.AreEqual("file:///C:/test/file", Target.GetCanonicalUri(@"file:///C:\test\file").ToStringRfc());
-                Assert.AreEqual("file:///C:/test/file", Target.GetCanonicalUri("file:///C:/test/file").ToStringRfc());
+                Assert.AreEqual(@"C:\test\file", Target.GetCanonicalUri(@"C:\test\file").ToStringRfc());
+                Assert.AreEqual(@"C:\test\file", Target.GetCanonicalUri(@"file:///C:\test\file").ToStringRfc());
+                Assert.AreEqual(@"C:\test\file", Target.GetCanonicalUri("file:///C:/test/file").ToStringRfc());
             }
             if (UnixUtils.IsUnix)
             {
-                Assert.AreEqual("file:///test/file", Target.GetCanonicalUri("/test/file").ToStringRfc());
-                Assert.AreEqual("file:///test/file", Target.GetCanonicalUri("file:///test/file").ToStringRfc());
+                Assert.AreEqual("/test/file", Target.GetCanonicalUri("/test/file").ToStringRfc());
+                Assert.AreEqual("/test/file", Target.GetCanonicalUri("file:///test/file").ToStringRfc());
             }
 
             // Relative paths

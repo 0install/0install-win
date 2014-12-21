@@ -364,10 +364,10 @@ namespace ZeroInstall.Store
         /// </summary>
         public override string ToString()
         {
-            if (IsFake) return FakePrefix + base.ToString();
-            else if (IsFromDistribution) return FromDistributionPrefix + base.ToString();
-            else if (IsFile) return LocalPath;
-            else return base.ToString();
+            string result = IsFile ? LocalPath : base.ToString();
+            if (IsFake) return FakePrefix + result;
+            else if (IsFromDistribution) return FromDistributionPrefix + result;
+            else return result;
         }
 
         /// <summary>
@@ -376,9 +376,10 @@ namespace ZeroInstall.Store
         /// </summary>
         public string ToStringRfc()
         {
-            if (IsFake) return FakePrefix + AbsoluteUri;
-            else if (IsFromDistribution) return FromDistributionPrefix + AbsoluteUri;
-            else return AbsoluteUri;
+            string result = IsFile ? LocalPath : AbsoluteUri;
+            if (IsFake) return FakePrefix + result;
+            else if (IsFromDistribution) return FromDistributionPrefix + result;
+            else return result;
         }
         #endregion
 
