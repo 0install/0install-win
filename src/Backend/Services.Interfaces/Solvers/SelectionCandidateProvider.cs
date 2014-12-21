@@ -99,6 +99,9 @@ namespace ZeroInstall.Services.Solvers
 
             AddFeed(dictionary, requirements.InterfaceUri, requirements);
 
+            foreach (var uri in GetNativeFeedPaths(requirements.InterfaceUri))
+                AddFeed(dictionary, uri, requirements);
+
             foreach (var uri in GetSitePackagePaths(requirements.InterfaceUri))
                 AddFeed(dictionary, uri, requirements);
 
@@ -106,6 +109,12 @@ namespace ZeroInstall.Services.Solvers
                 AddFeed(dictionary, reference.Source, requirements);
 
             return dictionary;
+        }
+
+        private static IEnumerable<FeedUri> GetNativeFeedPaths(FeedUri interfaceUri)
+        {
+            return Locations.GetLoadDataPaths("0install.net", true, "native_feeds", interfaceUri.PrettyEscape())
+                .Select(x => new FeedUri(x));
         }
 
         private static IEnumerable<FeedUri> GetSitePackagePaths(FeedUri interfaceUri)

@@ -107,6 +107,35 @@ namespace ZeroInstall.Services.Solvers
         }
 
         [Test]
+        public void TestNativeFeed()
+        {
+            var mainFeed = FeedTest.CreateTestFeed();
+            mainFeed.Elements.RemoveAt(1);
+            mainFeed.Feeds.Clear();
+            _feedManagerMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(mainFeed);
+
+            using (new LocationsRedirect("0install-unit-tests"))
+            {
+                var localUri = new FeedUri(Locations.GetSaveDataPath("0install.net", true, "native_feeds", mainFeed.Uri.PrettyEscape()));
+
+                var subFeed = mainFeed.Clone();
+                subFeed.Uri = FeedTest.Sub1Uri;
+                subFeed.Elements[0].Version = new ImplementationVersion("2.0");
+                subFeed.SaveXml(localUri.LocalPath);
+                _feedManagerMock.Setup(x => x.GetFeed(localUri)).Returns(subFeed);
+
+                var requirements = new Requirements(FeedTest.Test1Uri, Command.NameRun);
+                CollectionAssert.AreEqual(
+                    expected: new[]
+                    {
+                        new SelectionCandidate(localUri, new FeedPreferences(), (Implementation)subFeed.Elements[0], requirements),
+                        new SelectionCandidate(FeedTest.Test1Uri, new FeedPreferences(), (Implementation)mainFeed.Elements[0], requirements)
+                    },
+                    actual: Target.GetSortedCandidates(requirements));
+            }
+        }
+
+        [Test]
         public void TestSitePackages()
         {
             var mainFeed = FeedTest.CreateTestFeed();
