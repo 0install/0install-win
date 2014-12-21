@@ -110,6 +110,16 @@ namespace ZeroInstall.Store.Model
         [JsonProperty("extra_restrictions")]
         public Dictionary<FeedUri, VersionRange> ExtraRestrictions { get { return _extraRestrictions; } }
 
+        // Order is not important (but is preserved), duplicate entries are not allowed (but not enforced)
+        private readonly List<string> _distributions = new List<string>();
+
+        /// <summary>
+        /// Specifies that the selected implementations must be from one of the given distributions (e.g. Debian, RPM).
+        /// The special value '0install' may be used to require implementations provided by Zero Install (i.e. one not provided by a <see cref="PackageImplementation"/>).
+        /// </summary>
+        [JsonIgnore]
+        public List<string> Distributions { get { return _distributions; } }
+
         #region Constructor
         /// <summary>
         /// Cretes an empty requirements object. Use this to fill in values incrementally, e.g. when parsing command-line arguments.
@@ -164,6 +174,7 @@ namespace ZeroInstall.Store.Model
         {
             var requirements = new Requirements(InterfaceUri, Command, Architecture) {Languages = new LanguageSet(Languages)};
             requirements.ExtraRestrictions.AddRange(ExtraRestrictions);
+            requirements.Distributions.AddRange(Distributions);
             return requirements;
         }
 
@@ -193,6 +204,7 @@ namespace ZeroInstall.Store.Model
             if (Architecture != other.Architecture) return false;
             if (!Languages.SequencedEquals(other.Languages)) return false;
             if (!ExtraRestrictions.UnsequencedEquals(other.ExtraRestrictions)) return false;
+            if (!Distributions.UnsequencedEquals(other.Distributions)) return false;
             return true;
         }
 
@@ -215,6 +227,7 @@ namespace ZeroInstall.Store.Model
                 // ReSharper disable once NonReadonlyFieldInGetHashCode
                 result = (result * 397) ^ Languages.GetSequencedHashCode();
                 result = (result * 397) ^ ExtraRestrictions.GetUnsequencedHashCode();
+                result = (result * 397) ^ Distributions.GetUnsequencedHashCode();
                 return result;
             }
         }

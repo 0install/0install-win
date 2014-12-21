@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -34,21 +35,25 @@ namespace ZeroInstall.Services
         #region Dependencies
         private readonly IFeedCache _feedCache;
         private readonly IStore _store;
+        private readonly IPackageManager _packageManager;
 
         /// <summary>
         /// Creates a new selections manager
         /// </summary>
         /// <param name="feedCache">Used to load <see cref="Feed"/>s containing the original <see cref="Implementation"/>s.</param>
         /// <param name="store">The locations to search for cached <see cref="Implementation"/>s.</param>
-        public SelectionsManager(IFeedCache feedCache, IStore store)
+        /// <param name="packageManager">An external package manager that can install <see cref="PackageImplementation"/>s.</param>
+        public SelectionsManager(IFeedCache feedCache, IStore store, IPackageManager packageManager)
         {
             #region Sanity checks
             if (feedCache == null) throw new ArgumentNullException("feedCache");
             if (store == null) throw new ArgumentNullException("store");
+            if (packageManager == null) throw new ArgumentNullException("packageManager");
             #endregion
 
             _feedCache = feedCache;
             _store = store;
+            _packageManager = packageManager;
         }
         #endregion
 
@@ -67,17 +72,22 @@ namespace ZeroInstall.Services
             if (selections == null) throw new ArgumentNullException("selections");
             #endregion
 
-            return selections.Implementations.Where(implementation =>
-                // Local paths are considered to be always available
-                string.IsNullOrEmpty(implementation.LocalPath) &&
-                // Don't try to download PackageImplementations
-                string.IsNullOrEmpty(implementation.Package) &&
-                // Don't try to fetch virutal feeds
-                (implementation.FromFeed == null || !implementation.FromFeed.IsFromDistribution) &&
-                // Don't download implementations that are already in the store
-                !_store.Contains(implementation.ManifestDigest) &&
-                // Ignore implementations without an ID
-                !string.IsNullOrEmpty(implementation.ID));
+            foreach (ImplementationSelection implementation in selections.Implementations)
+            {
+                // Local paths are considered to be always cached
+                if (!string.IsNullOrEmpty(implementation.LocalPath)) continue;
+
+                if (implementation.ID.StartsWith(ExternalImplementation.PackagePrefix))
+                {
+                    if (!File.Exists(implementation.QuickTestFile) && !_packageManager.Lookup(implementation).IsInstalled)
+                        yield return implementation;
+                }
+                else
+                {
+                    if (!_store.Contains(implementation.ManifestDigest))
+                        yield return implementation;
+                }
+            }
         }
 
         /// <summary>
@@ -90,7 +100,12 @@ namespace ZeroInstall.Services
             if (selections == null) throw new ArgumentNullException("selections");
             #endregion
 
-            return selections.Select(x => _feedCache.GetFeed(x.FromFeed ?? x.InterfaceUri)[x.ID].CloneImplementation());
+            foreach (var selection in selections)
+            {
+                yield return selection.ID.StartsWith(ExternalImplementation.PackagePrefix)
+                    ? _packageManager.Lookup(selection)
+                    : _feedCache.GetFeed(selection.FromFeed ?? selection.InterfaceUri)[selection.ID].CloneImplementation();
+            }
         }
 
         /// <summary>

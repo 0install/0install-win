@@ -22,6 +22,7 @@ using System.Linq;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
@@ -67,6 +68,8 @@ namespace ZeroInstall.Services.Fetchers
             if (implementation == null) throw new ArgumentNullException("implementation");
             #endregion
 
+            if (implementation.ID.StartsWith(ExternalImplementation.PackagePrefix)) return false;
+
             _store.Flush();
             return _store.Contains(implementation.ManifestDigest);
         }
@@ -94,15 +97,32 @@ namespace ZeroInstall.Services.Fetchers
         /// <param name="manifestDigest">The digest the result of the retrieval method should produce.</param>
         private void Retrieve(RetrievalMethod retrievalMethod, ManifestDigest manifestDigest)
         {
-            // Treat everything as a Recipe for easier handling
-            var recipe = retrievalMethod as Recipe ?? new Recipe {Steps = {(IRecipeStep)retrievalMethod}};
+            var externalRetrievalMethod = retrievalMethod as ExternalRetrievalMethod;
+            if (externalRetrievalMethod != null)
+            {
+                RunNative(externalRetrievalMethod);
+                return;
+            }
 
+            // Treat single steps as a Recipes for easier handling
+            var recipe = retrievalMethod as Recipe ?? new Recipe {Steps = {(IRecipeStep)retrievalMethod}};
             try
             {
                 Cook(recipe, manifestDigest);
             }
             catch (ImplementationAlreadyInStoreException)
             {}
+        }
+
+        /// <summary>
+        /// Handles the execution of <see cref="ExternalRetrievalMethod.Install"/>.
+        /// </summary>
+        private void RunNative(ExternalRetrievalMethod externalRetrievalMethod)
+        {
+            if (!string.IsNullOrEmpty(externalRetrievalMethod.ConfirmationQuestion))
+                if (!Handler.AskQuestion(externalRetrievalMethod.ConfirmationQuestion)) throw new OperationCanceledException();
+
+            externalRetrievalMethod.Install();
         }
 
         /// <summary>

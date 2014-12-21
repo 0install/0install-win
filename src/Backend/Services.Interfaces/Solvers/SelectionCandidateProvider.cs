@@ -22,9 +22,9 @@ using System.Linq;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Info;
-using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using ZeroInstall.Services.Feeds;
+using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -41,6 +41,7 @@ namespace ZeroInstall.Services.Solvers
     {
         #region Depdendencies
         private readonly Config _config;
+        private readonly IPackageManager _packageManager;
 
         /// <summary>
         /// Creates a new <see cref="SelectionCandidate"/> provider.
@@ -48,16 +49,19 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="store">Used to check which <see cref="Implementation"/>s are already cached.</param>
-        public SelectionCandidateProvider(Config config, IFeedManager feedManager, IStore store)
+        /// <param name="packageManager">An external package manager that can install <see cref="PackageImplementation"/>s.</param>
+        public SelectionCandidateProvider(Config config, IFeedManager feedManager, IStore store, IPackageManager packageManager)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
             if (feedManager == null) throw new ArgumentNullException("feedManager");
             if (store == null) throw new ArgumentNullException("store");
+            if (packageManager == null) throw new ArgumentNullException("packageManager");
             #endregion
 
             _config = config;
             _isCached = BuildCacheChecker(store);
+            _packageManager = packageManager;
             _comparer = new TransparentCache<FeedUri, SelectionCandidateComparer>(id => new SelectionCandidateComparer(config, _isCached, _interfacePreferences[id].StabilityPolicy));
             _feeds = new TransparentCache<FeedUri, Feed>(feedManager.GetFeed);
         }
@@ -65,7 +69,13 @@ namespace ZeroInstall.Services.Solvers
         private static TransparentCache<Implementation, bool> BuildCacheChecker(IStore store)
         {
             var cachedDigests = store.ListAll();
-            return new TransparentCache<Implementation, bool>(x => cachedDigests.Contains(x.ManifestDigest, ManifestDigestPartialEqualityComparer.Instance));
+            return new TransparentCache<Implementation, bool>(implementation =>
+            {
+                var externalImplementation = implementation as ExternalImplementation;
+                if (externalImplementation != null) return externalImplementation.IsInstalled;
+
+                return cachedDigests.Contains(implementation.ManifestDigest, ManifestDigestPartialEqualityComparer.Instance);
+            });
         }
         #endregion
 
@@ -78,6 +88,11 @@ namespace ZeroInstall.Services.Solvers
 
         /// <summary>Maps feed URIs to <see cref="Feed"/>s. Transparent caching ensures individual feeds do not change during solver run.</summary>
         private readonly TransparentCache<FeedUri, Feed> _feeds;
+
+        /// <summary>
+        /// Maps <see cref="ImplementationBase.ID"/>s to <see cref="Implementation"/>s provided by <see cref="IPackageManager.Query"/>.
+        /// </summary>
+        private readonly Dictionary<string, ExternalImplementation> _externalImplementations = new Dictionary<string, ExternalImplementation>();
 
         /// <summary>Indicates which implementations are already cached in the <see cref="IStore"/>.</summary>
         private readonly TransparentCache<Implementation, bool> _isCached;
@@ -150,15 +165,30 @@ namespace ZeroInstall.Services.Solvers
 
         private IEnumerable<SelectionCandidate> GetCandidates(FeedUri feedUri, Feed feed, Requirements requirements)
         {
-            if (UnixUtils.IsUnix && feed.Elements.OfType<PackageImplementation>().Any())
-                Log.Warn("Linux native package managers not supported yet!");
-            // TODO: Windows <package-implementation>s
-
             var feedPreferences = FeedPreferences.LoadForSafe(feedUri);
-            return
-                from implementation in feed.Elements.OfType<Implementation>()
-                select new SelectionCandidate(feedUri, feedPreferences, implementation, requirements,
-                    offlineUncached: (_config.NetworkUse == NetworkLevel.Offline) && !_isCached[implementation]);
+
+            foreach (var element in feed.Elements)
+            {
+                var implementation = element as Implementation;
+                if (implementation != null)
+                { // Each <implementation> provides one selection candidate
+                    yield return new SelectionCandidate(feedUri, feedPreferences, implementation, requirements,
+                        offlineUncached: (_config.NetworkUse == NetworkLevel.Offline) && !_isCached[implementation]);
+                }
+                else
+                {
+                    var packageImplementation = element as PackageImplementation;
+                    if (packageImplementation != null)
+                    { // Each <package-implementation> provides zero to many selection candidates
+                        var externalImplementations = _packageManager.Query(packageImplementation, requirements.Distributions.ToArray());
+                        foreach (var externalImplementation in externalImplementations)
+                        {
+                            _externalImplementations[externalImplementation.ID] = externalImplementation;
+                            yield return new SelectionCandidate(new FeedUri(FeedUri.FromDistributionPrefix + feedUri), feedPreferences, externalImplementation, requirements);
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -170,7 +200,9 @@ namespace ZeroInstall.Services.Solvers
             if (implemenationSelection == null) throw new ArgumentNullException("implemenationSelection");
             #endregion
 
-            return _feeds[implemenationSelection.FromFeed ?? implemenationSelection.InterfaceUri][implemenationSelection.ID];
+            return implemenationSelection.ID.StartsWith(ExternalImplementation.PackagePrefix)
+                ? _externalImplementations[implemenationSelection.ID]
+                : _feeds[implemenationSelection.FromFeed ?? implemenationSelection.InterfaceUri][implemenationSelection.ID];
         }
     }
 }

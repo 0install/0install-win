@@ -20,6 +20,7 @@ using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Injector;
+using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
@@ -45,6 +46,7 @@ namespace ZeroInstall.Services
         private ITrustManager _trustManager;
         private IFeedManager _feedManager;
         private ICatalogManager _catalogManager;
+        private IPackageManager _packageManager;
         private ISolver _solver;
         private IFetcher _fetcher;
         private IExecutor _executor;
@@ -103,6 +105,11 @@ namespace ZeroInstall.Services
         public ICatalogManager CatalogManager { get { return Get(ref _catalogManager, () => new CatalogManager(TrustManager)); } set { _catalogManager = value; } }
 
         /// <summary>
+        /// An external package manager that can install <see cref="PackageImplementation"/>s.
+        /// </summary>
+        public IPackageManager PackageManager { get { return Get(ref _packageManager, PackageManagerFactory.Create); } set { _packageManager = value; } }
+
+        /// <summary>
         /// Chooses a set of <see cref="Implementation"/>s to satisfy the requirements of a program and its user.
         /// </summary>
         public ISolver Solver
@@ -110,7 +117,7 @@ namespace ZeroInstall.Services
             get
             {
                 return Get(ref _solver, () => new FallbackSolver(
-                    new BacktrackingSolver(Config, FeedManager, Store, Handler),
+                    new BacktrackingSolver(Config, FeedManager, Store, PackageManager, Handler),
                     new PythonSolver(Config, FeedManager, Handler)));
             }
             set { _solver = value; }
@@ -129,7 +136,7 @@ namespace ZeroInstall.Services
         /// <summary>
         /// Contains helper methods for filtering <see cref="Selections"/>.
         /// </summary>
-        public SelectionsManager SelectionsManager { get { return Get(ref _selectionsManager, () => _selectionsManager = new SelectionsManager(FeedCache, Store)); } set { _selectionsManager = value; } }
+        public SelectionsManager SelectionsManager { get { return Get(ref _selectionsManager, () => _selectionsManager = new SelectionsManager(FeedCache, Store, PackageManager)); } set { _selectionsManager = value; } }
 
         private static T Get<T>(ref T value, Func<T> build) where T : class
         {

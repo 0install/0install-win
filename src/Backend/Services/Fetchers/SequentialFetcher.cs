@@ -21,6 +21,7 @@ using System.Linq;
 using System.Threading;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -62,10 +63,8 @@ namespace ZeroInstall.Services.Fetchers
         /// <param name="implementation">The implementation to download.</param>
         private void FetchOne(Implementation implementation)
         {
-            if (!implementation.ManifestDigest.AvailableDigests.Any()) throw new NotSupportedException(string.Format(Resources.NoManifestDigest, implementation.ID));
-
             // Use mutex to detect in-progress download of same implementation in other processes
-            using (var mutex = new Mutex(false, "0install-fetcher-" + implementation.ManifestDigest.AvailableDigests.First()))
+            using (var mutex = new Mutex(false, "0install-fetcher-" + GetDownloadID(implementation)))
             {
                 try
                 {
@@ -95,6 +94,24 @@ namespace ZeroInstall.Services.Fetchers
                 {
                     mutex.ReleaseMutex();
                 }
+            }
+        }
+
+        private static string GetDownloadID(Implementation implementation)
+        {
+            if (implementation.ID.StartsWith(ExternalImplementation.PackagePrefix)) return implementation.ID;
+            else
+            {
+                try
+                {
+                    return implementation.ManifestDigest.AvailableDigests.First();
+                }
+                    #region Error handling
+                catch (InvalidOperationException)
+                {
+                    throw new NotSupportedException(string.Format(Resources.NoManifestDigest, implementation.ID));
+                }
+                #endregion
             }
         }
     }

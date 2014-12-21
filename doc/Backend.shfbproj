@@ -45,6 +45,7 @@
       <NamespaceSummaryItem name="ZeroInstall.Services.Feeds" isDocumented="True">Logic for downloading and verifying feeds.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Services.Fetchers" isDocumented="True">Downloads and extracts implementations.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Services.Injector" isDocumented="True">Launches implementations and injects the selected dependencies.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Services.PackageManagers" isDocumented="True">Handles packages provided by the operating system's native package managers rather than Zero Install itself.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Services.Solvers" isDocumented="True">Solves requirements by selecting a specific combination of implementations from feeds.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store" isDocumented="True">Manages persisting data in the file system.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Feeds" isDocumented="True">Caches for feeds.</NamespaceSummaryItem>

@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NanoByte.Common.Collections;
+using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
@@ -102,7 +103,7 @@ namespace ZeroInstall.Services
         /// <returns>A fully qualified path to the directory containing the implementation, a native package name prefixed with <code>package:</code> or <see langword="null"/> if the implementation is not cached yet.</returns>
         private static string GetPath(this ImplementationSelection implementation, IStore store)
         {
-            return implementation.ID.StartsWith("package:")
+            return implementation.ID.StartsWith(ExternalImplementation.PackagePrefix)
                 ? "(" + implementation.ID + ")"
                 : store.GetPath(implementation.ManifestDigest);
         }

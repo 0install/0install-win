@@ -24,6 +24,7 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using NUnit.Framework;
+using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
@@ -170,6 +171,52 @@ namespace ZeroInstall.Services.Fetchers
             Target.Fetch(new[] {testImplementation});
         }
         #endregion
+
+        [Test]
+        public void RunExternalConfirm()
+        {
+            bool installInvoked = false;
+            MockHandler.AnswerQuestionWith = true;
+            Target.Fetch(new[]
+            {
+                new Implementation
+                {
+                    ID = ExternalImplementation.PackagePrefix + "123",
+                    RetrievalMethods =
+                    {
+                        new ExternalRetrievalMethod
+                        {
+                            ConfirmationQuestion = "Install?",
+                            Install = () => { installInvoked = true; }
+                        }
+                    }
+                }
+            });
+            Assert.IsTrue(installInvoked);
+        }
+
+        [Test]
+        public void RunExternalDeny()
+        {
+            bool installInvoked = false;
+            MockHandler.AnswerQuestionWith = false;
+            Assert.Throws<OperationCanceledException>(() => Target.Fetch(new[]
+            {
+                new Implementation
+                {
+                    ID = ExternalImplementation.PackagePrefix + "123",
+                    RetrievalMethods =
+                    {
+                        new ExternalRetrievalMethod
+                        {
+                            ConfirmationQuestion = "Install?",
+                            Install = () => { installInvoked = true; }
+                        }
+                    }
+                }
+            }));
+            Assert.IsFalse(installInvoked);
+        }
 
         [Test]
         public void SkipExisting()

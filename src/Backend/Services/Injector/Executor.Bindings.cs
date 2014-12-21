@@ -29,6 +29,7 @@ using NanoByte.Common.Dispatch;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
+using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -82,7 +83,7 @@ namespace ZeroInstall.Services.Injector
             if (bindingContainer.Bindings.Count == 0) return;
 
             // Don't use bindings for PackageImplementations
-            if (!string.IsNullOrEmpty(implementation.Package)) return;
+            if (implementation.ID.StartsWith(ExternalImplementation.PackagePrefix)) return;
 
             new PerTypeDispatcher<Binding>(ignoreMissing: true)
             {

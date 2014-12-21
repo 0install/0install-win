@@ -48,7 +48,6 @@ namespace ZeroInstall.Store
         /// <summary>
         /// This is prepended to <see cref="ImplementationSelection.FromFeed"/> if data was pulled from a native package manager rather than the feed itself.
         /// </summary>
-        /// <seealso cref="ImplementationSelection.Package"/>
         /// <seealso cref="PackageImplementation"/>
         /// <seealso cref="IsFromDistribution"/>
         public const string FromDistributionPrefix = "distribution:";

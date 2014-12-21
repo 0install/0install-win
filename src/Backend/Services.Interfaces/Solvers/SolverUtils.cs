@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using NanoByte.Common.Collections;
+using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
@@ -87,6 +88,9 @@ namespace ZeroInstall.Services.Solvers
                 InterfaceUri = requirements.InterfaceUri
             };
             if (candidate.FeedUri != requirements.InterfaceUri) selection.FromFeed = candidate.FeedUri;
+
+            var externalImplementation = implementation as ExternalImplementation;
+            if (externalImplementation != null) selection.QuickTestFile = externalImplementation.QuickTestFile;
 
             selection.Bindings.AddRange(implementation.Bindings.CloneElements());
             selection.AddDependencies(requirements, from: candidate.Implementation);
@@ -156,6 +160,7 @@ namespace ZeroInstall.Services.Solvers
             #endregion
 
             var requirements = new Requirements(dependency.InterfaceUri, "", topLevelRequirements.Architecture);
+            requirements.Distributions.AddRange(dependency.Distributions);
             requirements.CopyVersionRestrictions(from: dependency);
             requirements.CopyVersionRestrictions(from: topLevelRequirements);
             return requirements;

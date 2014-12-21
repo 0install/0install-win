@@ -187,6 +187,9 @@ Do you want to trust this key to sign feeds from '{3}'?
   <data name="NoManifestDigest" xml:space="preserve">
     <value>No manifest digest for implementation '{0}' found.</value>
   </data>
+  <data name="NoPackageManagerSupport" xml:space="preserve">
+    <value>There is no native package manager support for this platform.</value>
+  </data>
   <data name="NoRetrievalMethod" xml:space="preserve">
     <value>No retrieval method found for implementation '{0}' found.</value>
   </data>
@@ -225,6 +228,9 @@ New time: {2}</value>
   </data>
   <data name="UnableToRetrieveKeyInfo" xml:space="preserve">
     <value>Unable to retrieve key information for '{0}'.</value>
+  </data>
+  <data name="UnknownPackageID" xml:space="preserve">
+    <value>'{0}' is not a known ID in the {1} package manager.</value>
   </data>
   <data name="UntrustedKeys" xml:space="preserve">
     <value>The feed is signed with untrusted keys!</value>

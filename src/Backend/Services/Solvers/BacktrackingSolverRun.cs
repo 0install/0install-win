@@ -21,6 +21,7 @@ using System.Linq;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
@@ -106,17 +107,31 @@ namespace ZeroInstall.Services.Solvers
 
         private bool ConflictsWithExistingRestrictions(SelectionCandidate candidate, FeedUri interfaceUri)
         {
-            return _restrictions.Where(x => x.InterfaceUri == interfaceUri)
-                .Any(x => !x.Versions.Match(candidate.Version));
+            foreach (var restriction in _restrictions.Where(x => x.InterfaceUri == interfaceUri))
+            {
+                if (!restriction.Versions.Match(candidate.Version)) return true;
+
+                var nativeImplementation = candidate.Implementation as ExternalImplementation;
+                if (nativeImplementation != null && restriction.Distributions.ContainsOrEmpty(nativeImplementation.Distribution)) return true;
+            }
+            return false;
         }
 
         private bool ConflictsWithExistingSelections(SelectionCandidate candidate)
         {
-            return candidate.Implementation.Restrictions.Any(restriction =>
+            var nativeImplementation = candidate.Implementation as ExternalImplementation;
+
+            foreach (var restriction in candidate.Implementation.Restrictions)
             {
                 var existingSelection = Selections.GetImplementation(restriction.InterfaceUri);
-                return existingSelection != null && !restriction.Versions.Match(existingSelection.Version);
-            });
+                if (existingSelection != null)
+                {
+                    if (!restriction.Versions.Match(existingSelection.Version)) return true;
+                    if (nativeImplementation != null && restriction.Distributions.ContainsOrEmpty(nativeImplementation.Distribution)) return true;
+                }
+            }
+
+            return false;
         }
 
         private bool TryToUseExistingCandidate(Requirements requirements, IEnumerable<SelectionCandidate> suitableCandidates, ImplementationSelection selection)

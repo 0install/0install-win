@@ -21,9 +21,6 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
-using NanoByte.Common;
-using NanoByte.Common.Collections;
-using ZeroInstall.Store.Model.Design;
 
 namespace ZeroInstall.Store.Model.Selection
 {
@@ -64,40 +61,11 @@ namespace ZeroInstall.Store.Model.Selection
         public string FromFeedString { get { return (FromFeed == null) ? null : FromFeed.ToStringRfc(); } set { FromFeed = (value == null) ? null : new FeedUri(value); } }
 
         /// <summary>
-        /// The name of the package in the distribution-specific package manager.
-        /// Only set for <see cref="PackageImplementation"/>s; <see langword="null"/> if this comes from a real Zero Instal <see cref="Store.Model.Implementation"/>.
+        /// A file which, if present, indicates that the selection is still valid. This is sometimes used with distribution-provided selections. If not present and the ID starts with "package:", you'll need to query the distribution's package manager to check that this version is still installed.
         /// </summary>
-        [Category("Identity"), Description("The name of the package in the distribution-specific package manager. Only set for PackageImplementation; null if this comes from a real Zero Instal implementation.")]
-        [XmlAttribute("package")]
-        public string Package { get; set; }
-
-        // Order is not important (but is preserved), duplicate entries are not allowed (but not enforced)
-        private readonly List<string> _distributions = new List<string>();
-
-        /// <summary>
-        /// A list of distribution names (e.g. Debian, RPM) where <see cref="Package"/> applies.
-        /// </summary>
-        [Browsable(false)]
-        [XmlIgnore]
-        public List<string> Distributions { get { return _distributions; } }
-
-        /// <summary>
-        /// A space-separated list of distribution names (e.g. Debian, RPM) where <see cref="Package"/> applies.
-        /// </summary>
-        /// <seealso cref="Distributions"/>
-        [Category("Identity"), DisplayName("Distributions"), Description("A space-separated list of distribution names (e.g. Debian, RPM) where Package applies.")]
-        [XmlAttribute("distributions"), DefaultValue("")]
-        [TypeConverter(typeof(DistributionNameConverter))]
-        public string DistributionsString
-        {
-            get { return StringUtils.Join(" ", _distributions); }
-            set
-            {
-                _distributions.Clear();
-                if (string.IsNullOrEmpty(value)) return;
-                _distributions.AddRange(value.Split(' '));
-            }
-        }
+        [Description("A file which, if present, indicates that the selection is still valid. This is sometimes used with distribution-provided selections. If not present and the ID starts with \"package:\", you'll need to query the distribution's package manager to check that this version is still installed.")]
+        [XmlAttribute("quick-test-file")]
+        public string QuickTestFile { get; set; }
 
         private readonly IEnumerable<SelectionCandidate> _candidates;
 
@@ -144,7 +112,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// <returns>The cloned <see cref="ImplementationSelection"/>.</returns>
         public ImplementationSelection CloneImplementation()
         {
-            var implementation = new ImplementationSelection {InterfaceUri = InterfaceUri, FromFeed = FromFeed, Package = Package};
+            var implementation = new ImplementationSelection {InterfaceUri = InterfaceUri, FromFeed = FromFeed, QuickTestFile = QuickTestFile};
             CloneFromTo(this, implementation);
             return implementation;
         }
@@ -164,7 +132,7 @@ namespace ZeroInstall.Store.Model.Selection
         public bool Equals(ImplementationSelection other)
         {
             if (other == null) return false;
-            return base.Equals(other) && InterfaceUri == other.InterfaceUri && FromFeed == other.FromFeed && Package == other.Package && Distributions.UnsequencedEquals(other.Distributions);
+            return base.Equals(other) && InterfaceUri == other.InterfaceUri && FromFeed == other.FromFeed && QuickTestFile == other.QuickTestFile;
         }
 
         /// <inheritdoc/>
@@ -183,8 +151,7 @@ namespace ZeroInstall.Store.Model.Selection
                 int result = base.GetHashCode();
                 if (InterfaceUri != null) result = (result * 397) ^ InterfaceUri.GetHashCode();
                 if (FromFeed != null) result = (result * 397) ^ FromFeed.GetHashCode();
-                if (Package != null) result = (result * 397) ^ Package.GetHashCode();
-                result = (result * 397) ^ Distributions.GetUnsequencedHashCode();
+                if (QuickTestFile != null) result = (result * 397) ^ QuickTestFile.GetHashCode();
                 return result;
             }
         }

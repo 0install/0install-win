@@ -22,6 +22,7 @@ using NUnit.Framework;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Fetchers;
 using ZeroInstall.Services.Injector;
+using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
@@ -45,6 +46,7 @@ namespace ZeroInstall.Commands
         protected Mock<IStore> StoreMock { get; private set; }
         protected Mock<ISolver> SolverMock { get; private set; }
         protected Mock<IFetcher> FetcherMock { get; private set; }
+        protected Mock<IPackageManager> PackageManagerMock { get; private set; }
         protected Mock<IExecutor> ExecutorMock { get; private set; }
 
         protected override void Register(AutoMockContainer container)
@@ -57,6 +59,7 @@ namespace ZeroInstall.Commands
             FeedCacheMock = container.GetMock<IFeedCache>();
             CatalogManagerMock = container.GetMock<ICatalogManager>();
             StoreMock = container.GetMock<IStore>();
+            PackageManagerMock = container.GetMock<IPackageManager>();
             SolverMock = container.GetMock<ISolver>();
             FetcherMock = container.GetMock<IFetcher>();
             ExecutorMock = container.GetMock<IExecutor>();
@@ -72,6 +75,7 @@ namespace ZeroInstall.Commands
             Target.CatalogManager = CatalogManagerMock.Object;
             Target.OpenPgp = Resolve<IOpenPgp>();
             Target.Store = StoreMock.Object;
+            Target.PackageManager = PackageManagerMock.Object;
             Target.Solver = SolverMock.Object;
             Target.Fetcher = FetcherMock.Object;
             Target.Executor = ExecutorMock.Object;

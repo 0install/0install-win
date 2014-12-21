@@ -19,6 +19,7 @@ using System;
 using System.Linq;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Feeds;
+using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
@@ -37,6 +38,7 @@ namespace ZeroInstall.Services.Solvers
         private readonly Config _config;
         private readonly IFeedManager _feedManager;
         private readonly IStore _store;
+        private readonly IPackageManager _packageManager;
         private readonly ITaskHandler _handler;
 
         /// <summary>
@@ -45,18 +47,21 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
         /// <param name="store">Used to check which <see cref="Implementation"/>s are already cached.</param>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
+        /// <param name="packageManager">An external package manager that can install <see cref="PackageImplementation"/>s.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public BacktrackingSolver(Config config, IFeedManager feedManager, IStore store, ITaskHandler handler)
+        public BacktrackingSolver(Config config, IFeedManager feedManager, IStore store, IPackageManager packageManager, ITaskHandler handler)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
             if (feedManager == null) throw new ArgumentNullException("feedManager");
             if (store == null) throw new ArgumentNullException("store");
+            if (packageManager == null) throw new ArgumentNullException("packageManager");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             _config = config;
             _store = store;
+            _packageManager = packageManager;
             _feedManager = feedManager;
             _handler = handler;
         }
@@ -71,7 +76,7 @@ namespace ZeroInstall.Services.Solvers
             #endregion
 
             var effectiveRequirements = requirements.GetEffective();
-            var candidateProvider = new SelectionCandidateProvider(_config, _feedManager, _store);
+            var candidateProvider = new SelectionCandidateProvider(_config, _feedManager, _store, _packageManager);
             var solverRuns = effectiveRequirements.Select(x => new BacktrackingSolverRun(x, _handler.CancellationToken, candidateProvider));
 
             var successfullSolverRun = solverRuns.FirstOrDefault(x => x.TryToSolve());
