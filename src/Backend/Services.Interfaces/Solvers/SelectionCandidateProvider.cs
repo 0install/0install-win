@@ -57,13 +57,15 @@ namespace ZeroInstall.Services.Solvers
             #endregion
 
             _config = config;
-
-            var implementations = store.ListAll();
-            _isCached = new TransparentCache<ManifestDigest, bool>(x => implementations.Contains(x, ManifestDigestPartialEqualityComparer.Instance));
-            //_isCached = new TransparentCache<ManifestDigest, bool>(store.Contains);
-
+            _isCached = BuildCacheChecker(store);
             _comparer = new TransparentCache<FeedUri, SelectionCandidateComparer>(id => new SelectionCandidateComparer(config, _isCached, _interfacePreferences[id].StabilityPolicy));
             _feeds = new TransparentCache<FeedUri, Feed>(feedManager.GetFeed);
+        }
+
+        private static TransparentCache<Implementation, bool> BuildCacheChecker(IStore store)
+        {
+            var cachedDigests = store.ListAll();
+            return new TransparentCache<Implementation, bool>(x => cachedDigests.Contains(x.ManifestDigest, ManifestDigestPartialEqualityComparer.Instance));
         }
         #endregion
 
@@ -77,8 +79,8 @@ namespace ZeroInstall.Services.Solvers
         /// <summary>Maps feed URIs to <see cref="Feed"/>s. Transparent caching ensures individual feeds do not change during solver run.</summary>
         private readonly TransparentCache<FeedUri, Feed> _feeds;
 
-        /// <summary>Indicates which implementations (identified by <see cref="ManifestDigest"/>) are already cached in the <see cref="IStore"/>.</summary>
-        private readonly TransparentCache<ManifestDigest, bool> _isCached;
+        /// <summary>Indicates which implementations are already cached in the <see cref="IStore"/>.</summary>
+        private readonly TransparentCache<Implementation, bool> _isCached;
         #endregion
 
         /// <summary>
@@ -156,7 +158,7 @@ namespace ZeroInstall.Services.Solvers
             return
                 from implementation in feed.Elements.OfType<Implementation>()
                 select new SelectionCandidate(feedUri, feedPreferences, implementation, requirements,
-                    offlineUncached: (_config.NetworkUse == NetworkLevel.Offline) && !_isCached[implementation.ManifestDigest]);
+                    offlineUncached: (_config.NetworkUse == NetworkLevel.Offline) && !_isCached[implementation]);
         }
 
         /// <summary>
