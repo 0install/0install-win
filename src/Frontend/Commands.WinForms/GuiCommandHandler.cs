@@ -17,9 +17,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Runtime.Remoting;
 using System.Threading;
 using System.Windows.Forms;
 using NanoByte.Common;
@@ -41,25 +39,18 @@ namespace ZeroInstall.Commands.WinForms
     /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
     public sealed class GuiCommandHandler : GuiTaskHandler, ICommandHandler
     {
-        #region Dispose
-        protected override void Dispose(bool disposing)
-        {
-            try
-            {
-                if (disposing)
-                {
-                    _modifySelectionsWaitHandle.Close();
-                    if (_form != null) _form.Dispose();
-                }
-            }
-            finally
-            {
-                base.Dispose(disposing);
-            }
-        }
-        #endregion
+        private readonly AsyncFormWrapper<ProgressForm> _wrapper;
 
-        //--------------------//
+        public GuiCommandHandler()
+        {
+            _wrapper = new AsyncFormWrapper<ProgressForm>(delegate
+            {
+                var form = new ProgressForm(CancellationTokenSource);
+                if (Batch) form.ShowTrayIcon();
+                else form.Show();
+                return form;
+            });
+        }
 
         #region Task tracking
         /// <inheritdoc/>
@@ -69,109 +60,34 @@ namespace ZeroInstall.Commands.WinForms
             if (task == null) throw new ArgumentNullException("task");
             #endregion
 
-            ShowUI();
-
-            IProgress<TaskSnapshot> progress = null;
-            if (task.Tag is ManifestDigest)
-            {
+            var progress = (task.Tag is ManifestDigest)
                 // Handle events coming from a non-UI thread
-                _form.Invoke(new Action(() => progress = _form.SetupProgress(task.Name, (ManifestDigest)task.Tag)));
-            }
-            else
-            {
+                ? _wrapper.Post(form => form.SetupProgress(task.Name, (ManifestDigest)task.Tag))
                 // Handle events coming from a non-UI thread
-                _form.Invoke(new Action(() => progress = _form.SetupProgress(task.Name)));
-            }
+                : _wrapper.Post(form => form.SetupProgress(task.Name));
 
             task.Run(CancellationToken, progress);
 
-            _form.Invoke(new Action(() => _form.RestoreSelections()));
+            try
+            {
+                _wrapper.Post(form => form.RestoreSelections());
+            }
+            catch (InvalidOperationException)
+            {}
         }
         #endregion
 
         #region UI control
-        private readonly object _uiLock = new object();
-
-        private ProgressForm _form;
-
-        /// <inheritdoc/>
-        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "handle", Justification = "Need to retrieve value from Form.Handle to force window handle creation")]
-        private void ShowUI()
-        {
-            lock (_uiLock)
-            {
-                // Can only show GUI once
-                if (_form != null) return;
-
-                // Start GUI thread
-                using (var guiReady = new ManualResetEvent(false))
-                {
-                    ProcessUtils.RunAsync(() =>
-                    {
-                        _form = new ProgressForm(CancellationTokenSource);
-
-                        if (Batch)
-                        {
-                            // Force creation of handle for invisible form
-                            // ReSharper disable once UnusedVariable
-                            var handle = _form.Handle;
-
-                            _form.ShowTrayIcon();
-                        }
-                        else _form.Show();
-
-                        // Signal that the GUI handles have been created
-                        // ReSharper disable once AccessToDisposedClosure
-                        guiReady.Set();
-
-                        Application.Run();
-                    }, "GuiHandler.ProgressUI");
-                    guiReady.WaitOne(); // Wait until the GUI handles have been created
-                }
-            }
-        }
-
         /// <inheritdoc/>
         public void DisableUI()
         {
-            lock (_uiLock)
-            {
-                if (_form == null) return;
-
-                _form.Invoke(new Action(() => _form.Enabled = false));
-            }
+            _wrapper.Disable();
         }
 
         /// <inheritdoc/>
         public void CloseUI()
         {
-            lock (_uiLock)
-            {
-                if (_form == null) return;
-
-                try
-                {
-                    var form = _form;
-                    _form = null;
-                    form.Invoke(new Action(() =>
-                    {
-                        form.HideTrayIcon();
-                        Application.ExitThread();
-                        form.Dispose();
-                    }));
-                }
-                    #region Error handling
-                catch (InvalidOperationException)
-                {
-                    // Don't worry if the form was disposed in the meantime
-                }
-                catch (RemotingException ex)
-                {
-                    // Remoting exceptions on clean-up are not critical
-                    Log.Warn(ex);
-                }
-                #endregion
-            }
+            _wrapper.Close();
         }
         #endregion
 
@@ -183,31 +99,25 @@ namespace ZeroInstall.Commands.WinForms
             if (string.IsNullOrEmpty(question)) throw new ArgumentNullException("question");
             #endregion
 
-            ShowUI();
-
-            // Handle events coming from a non-UI thread, block caller until user has answered
-            bool result = false;
-            _form.Invoke(new Action(delegate
+            if (Batch && !string.IsNullOrEmpty(batchInformation))
             {
                 // Auto-deny unknown keys and inform via tray icon when in batch mode
-                if (Batch && !string.IsNullOrEmpty(batchInformation)) _form.ShowTrayIcon(batchInformation, ToolTipIcon.Warning);
-                else
+                _wrapper.Post(form => form.ShowTrayIcon(batchInformation, ToolTipIcon.Warning));
+                return false;
+            }
+            else
+            {
+                switch (_wrapper.Post(form => Msg.YesNoCancel(form, question, MsgSeverity.Warn)))
                 {
-                    switch (Msg.YesNoCancel(_form, question, MsgSeverity.Warn))
-                    {
-                        case DialogResult.Yes:
-                            result = true;
-                            break;
-                        case DialogResult.No:
-                            result = false;
-                            break;
-                        case DialogResult.Cancel:
-                        default:
-                            throw new OperationCanceledException();
-                    }
+                    case DialogResult.Yes:
+                        return true;
+                    case DialogResult.No:
+                        return false;
+                    case DialogResult.Cancel:
+                    default:
+                        throw new OperationCanceledException();
                 }
-            }));
-            return result;
+            }
         }
         #endregion
 
@@ -220,16 +130,7 @@ namespace ZeroInstall.Commands.WinForms
             if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
-            ShowUI();
-
-            try
-            {
-                _form.Invoke(new Action(() => _form.ShowSelections(selections, feedCache)));
-            }
-            catch (InvalidOperationException)
-            {
-                // Don't worry if the form was disposed in the meantime
-            }
+            _wrapper.Post(form => form.ShowSelections(selections, feedCache));
         }
 
         /// <summary>A wait handle used by <see cref="ModifySelections"/> to be signaled once the user is satisfied with the <see cref="Selections"/>.</summary>
@@ -242,17 +143,15 @@ namespace ZeroInstall.Commands.WinForms
             if (solveCallback == null) throw new ArgumentNullException("solveCallback");
             #endregion
 
-            ShowUI();
-
-            // Show "modify selections" screen and then asynchronously wait until its done
-            _form.Invoke(new Action(() =>
+            // Show "modify selections" screen and then asynchronously wait until it's done
+            _wrapper.Post(form =>
             {
                 // Leave tray icon mode
-                _form.Show();
+                form.Show();
                 Application.DoEvents();
 
-                _form.ModifySelections(solveCallback, _modifySelectionsWaitHandle);
-            }));
+                form.ModifySelections(solveCallback, _modifySelectionsWaitHandle);
+            });
 
             _modifySelectionsWaitHandle.WaitOne();
         }
@@ -275,10 +174,8 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="message">The balloon message text.</param>
         private void ShowBalloonMessage(string title, string message)
         {
-            ShowUI();
-
             // Remove existing tray icon to give new balloon priority
-            _form.Invoke(new Action(() => _form.HideTrayIcon()));
+            _wrapper.Post(form => form.HideTrayIcon());
 
             var icon = new NotifyIcon {Visible = true, Icon = Resources.TrayIcon};
             icon.ShowBalloonTip(10000, title, message, ToolTipIcon.Info);
@@ -306,22 +203,18 @@ namespace ZeroInstall.Commands.WinForms
             if (state == null) throw new ArgumentNullException("state");
             #endregion
 
-            ShowUI();
-
-            bool apply = false;
-            _form.Invoke(new Action(() =>
+            var result = _wrapper.Post(form =>
             {
                 var integrationForm = new IntegrateAppForm(state);
 
-                _form.Visible = false;
-                _form.HideTrayIcon();
+                form.Visible = false;
+                form.HideTrayIcon();
 
-                apply = (integrationForm.ShowDialog() == DialogResult.OK);
+                return integrationForm.ShowDialog();
+            });
 
-                _form.Show();
-            }));
-
-            if (!apply) throw new OperationCanceledException();
+            if (result == DialogResult.OK) _wrapper.Post(form => form.Show());
+            else throw new OperationCanceledException();
         }
 
         /// <inheritdoc/>
@@ -380,6 +273,26 @@ namespace ZeroInstall.Commands.WinForms
 
             using (var form = new StoreManageForm(store, feedCache))
                 form.ShowDialog();
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Dispose
+        protected override void Dispose(bool disposing)
+        {
+            try
+            {
+                if (disposing)
+                {
+                    _modifySelectionsWaitHandle.Close();
+                    _wrapper.Dispose();
+                }
+            }
+            finally
+            {
+                base.Dispose(disposing);
+            }
         }
         #endregion
     }
