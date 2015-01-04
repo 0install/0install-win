@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Cli;
 using NanoByte.Common.Storage;
@@ -58,14 +59,12 @@ namespace ZeroInstall.Store.Trust
             // Get all available secret keys
             var secretKeys = ListSecretKeys();
 
-            if (secretKeys.Length == 0) throw new KeyNotFoundException(Resources.UnableToFindSecretKey);
-            if (string.IsNullOrEmpty(keySpecifier)) return secretKeys[0];
-
             // Find the first secret key that matches the key specifier
             try
             {
-                return secretKeys.First(
-                    key => key.Fingerprint == keySpecifier || key.KeyID == keySpecifier || key.UserID.ContainsIgnoreCase(keySpecifier));
+                return string.IsNullOrEmpty(keySpecifier)
+                    ? secretKeys.First()
+                    : secretKeys.First(key => key.Fingerprint == keySpecifier || key.KeyID == keySpecifier || key.UserID.ContainsIgnoreCase(keySpecifier));
             }
                 #region Error handling
             catch
@@ -76,33 +75,43 @@ namespace ZeroInstall.Store.Trust
         }
 
         /// <inheritdoc/>
-        public OpenPgpSecretKey[] ListSecretKeys()
+        public IEnumerable<OpenPgpSecretKey> ListSecretKeys()
         {
             string result = Execute("--batch --no-secmem-warning --list-secret-keys --with-colons --fixed-list-mode --fingerprint");
-            string[] lines = result.SplitMultilineText();
 
-            // Each secret key is represented by 4 lines of encoded information
-            var keys = new List<OpenPgpSecretKey>(lines.Length / 4);
-            for (int i = 0; i + 4 < lines.Length; i += 4)
+            string[] sec = null, fpr = null, uid = null;
+            foreach (string line in result.SplitMultilineText())
             {
-                string secLine = lines[i + 0];
-                string fprLine = lines[i + 1];
-                string uidLine = lines[i + 2];
-                //string ssbLine = lines[i + 3];
-                try
+                var parts = line.Split(':');
+                switch (parts[0])
                 {
-                    keys.Add(OpenPgpSecretKey.Parse(secLine, fprLine, uidLine));
+                    case "sec":
+                        // New element starting
+                        if (sec != null && fpr != null && uid != null) yield return ParseSecretKey(sec, fpr, uid);
+                        sec = parts;
+                        fpr = null;
+                        uid = null;
+                        break;
+
+                    case "fpr":
+                        fpr = parts;
+                        break;
+
+                    case "uid":
+                        uid = parts;
+                        break;
                 }
-                    #region Error handling
-                catch (FormatException ex)
-                {
-                    // Wrap exception since only certain exception types are allowed
-                    throw new IOException(ex.Message, ex);
-                }
-                #endregion
             }
 
-            return keys.ToArray();
+            if (sec != null && fpr != null && uid != null) yield return ParseSecretKey(sec, fpr, uid);
+        }
+
+        [NotNull]
+        private static OpenPgpSecretKey ParseSecretKey([NotNull] string[] sec, [NotNull] string[] fpr, [NotNull] string[] uid)
+        {
+            return new OpenPgpSecretKey(
+                fpr[9], sec[4], uid[9],
+                FileUtils.FromUnixTime(long.Parse(sec[5])), (OpenPgpAlgorithm)int.Parse(sec[3]), int.Parse(sec[2]));
         }
 
         /// <inheritdoc/>

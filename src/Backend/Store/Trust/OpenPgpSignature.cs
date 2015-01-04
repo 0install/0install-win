@@ -24,6 +24,7 @@ namespace ZeroInstall.Store.Trust
     /// <summary>
     /// Represents a signature checked by an <see cref="IOpenPgp"/> implementation.
     /// </summary>
+    /// <seealso cref="IOpenPgp.Verify"/>
     public abstract class OpenPgpSignature
     {
         #region Factory methods
@@ -75,6 +76,7 @@ namespace ZeroInstall.Store.Trust
     /// <summary>
     /// Represents a valid signature.
     /// </summary>
+    /// <seealso cref="IOpenPgp.Verify"/>
     public sealed class ValidSignature : OpenPgpSignature
     {
         #region Variables
@@ -116,6 +118,7 @@ namespace ZeroInstall.Store.Trust
     /// <summary>
     /// Represents a bad signature (i.e., the message has been tampered with).
     /// </summary>
+    /// <seealso cref="IOpenPgp.Verify"/>
     public sealed class BadSignature : OpenPgpSignature
     {
         #region Variables
@@ -150,6 +153,7 @@ namespace ZeroInstall.Store.Trust
     /// <summary>
     /// Represents a signature which's key is missing.
     /// </summary>
+    /// <seealso cref="IOpenPgp.Verify"/>
     public sealed class MissingKeySignature : OpenPgpSignature
     {
         #region Variables
@@ -184,6 +188,7 @@ namespace ZeroInstall.Store.Trust
     /// <summary>
     /// Represents a signature that could not be validated for some reason.
     /// </summary>
+    /// <seealso cref="IOpenPgp.Verify"/>
     public sealed class ErrorSignature : OpenPgpSignature
     {
         #region Variables

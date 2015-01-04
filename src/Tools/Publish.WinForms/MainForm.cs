@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using JetBrains.Annotations;
 using NanoByte.Common;
@@ -284,8 +285,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             comboBoxKeys.Items.Clear();
             comboBoxKeys.Items.Add("");
-            // ReSharper disable once CoVariantArrayConversion
-            comboBoxKeys.Items.AddRange(_openPgp.ListSecretKeys());
+            comboBoxKeys.Items.AddRange(_openPgp.ListSecretKeys().Cast<object>().ToArray());
             comboBoxKeys.Items.Add(NewKeyAction.Instance);
 
             if (FeedEditing != null) comboBoxKeys.SelectedItem = FeedEditing.SignedFeed.SecretKey;

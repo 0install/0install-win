@@ -49,7 +49,7 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
         [NotNull, ItemNotNull]
-        OpenPgpSecretKey[] ListSecretKeys();
+        IEnumerable<OpenPgpSecretKey> ListSecretKeys();
 
         /// <summary>
         /// Returns the public key for specific keypair.

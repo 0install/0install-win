@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using JetBrains.Annotations;
 using NanoByte.Common;
@@ -49,8 +50,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private void ListKeys()
         {
             comboBoxKeys.Items.Clear();
-            // ReSharper disable once CoVariantArrayConversion
-            comboBoxKeys.Items.AddRange(_openPgp.ListSecretKeys());
+            comboBoxKeys.Items.AddRange(_openPgp.ListSecretKeys().Cast<object>().ToArray());
 
             InputChanged(null, null);
         }
