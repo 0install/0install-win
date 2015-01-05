@@ -75,6 +75,9 @@ namespace ZeroInstall.Store.Service
         protected override string GetTempDir()
         {
             var callingIdentity = WindowsIdentity.GetCurrent();
+            Debug.Assert(callingIdentity != null);
+            Debug.Assert(callingIdentity.User != null);
+
             using (_serviceIdentity.Impersonate()) // Use system rights instead of calling user
             {
                 try
@@ -102,6 +105,8 @@ namespace ZeroInstall.Store.Service
         protected override void DeleteTempDir(string path)
         {
             var callingIdentity = WindowsIdentity.GetCurrent();
+            Debug.Assert(callingIdentity != null);
+
             using (_serviceIdentity.Impersonate()) // Use system rights instead of calling user
             {
                 try
@@ -109,7 +114,14 @@ namespace ZeroInstall.Store.Service
                     var directory = new DirectoryInfo(path);
                     if (directory.Exists)
                     {
-                        directory.ResetAcl();
+                        try
+                        {
+                            directory.ResetAcl();
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            // Workaround for .NET 2.0 bug
+                        }
                         directory.Delete(true);
                     }
                 }
@@ -133,12 +145,21 @@ namespace ZeroInstall.Store.Service
             #endregion
 
             var callingIdentity = WindowsIdentity.GetCurrent();
+            Debug.Assert(callingIdentity != null);
+
             using (_serviceIdentity.Impersonate()) // Use system rights instead of calling user
             {
                 try
                 {
                     var tempDirectory = new DirectoryInfo(Path.Combine(DirectoryPath, tempID));
-                    handler.RunTask(new SimpleTask(Resources.SettingFilePermissions, tempDirectory.ResetAcl) {Tag = expectedDigest});
+                    try
+                    {
+                        handler.RunTask(new SimpleTask(Resources.SettingFilePermissions, tempDirectory.ResetAcl) {Tag = expectedDigest});
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        // Workaround for .NET 2.0 bug
+                    }
 
                     base.VerifyAndAdd(tempID, expectedDigest, handler);
                 }
@@ -167,6 +188,8 @@ namespace ZeroInstall.Store.Service
             if (!WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminToRemove);
 
             var callingIdentity = WindowsIdentity.GetCurrent();
+            Debug.Assert(callingIdentity != null);
+
             using (_serviceIdentity.Impersonate()) // Use system rights instead of calling user
             {
                 bool removed;
