@@ -21,8 +21,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected IntegrationCommand(ICommandHandler handler) : base(handler)
         {
-            Options.Add("batch", () => Resources.OptionBatch, _ => Handler.Batch = true);
-
             Options.Add("o|offline", () => Resources.OptionOffline, _ => Config.NetworkUse = NetworkLevel.Offline);
             Options.Add("r|refresh", () => Resources.OptionRefresh, _ => FeedManager.Refresh = true);
 

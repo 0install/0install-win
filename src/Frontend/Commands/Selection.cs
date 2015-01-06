@@ -70,7 +70,6 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public Selection(ICommandHandler handler) : base(handler)
         {
-            Options.Add("batch", () => Resources.OptionBatch, _ => Handler.Batch = true);
             Options.Add("g|gui", () => Resources.OptionGui, _ => ShowModifySelections = true);
 
             Options.Add("o|offline", () => Resources.OptionOffline, _ => Config.NetworkUse = NetworkLevel.Offline);

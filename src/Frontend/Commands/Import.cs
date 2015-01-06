@@ -47,9 +47,7 @@ namespace ZeroInstall.Commands
 
         /// <inheritdoc/>
         public Import(ICommandHandler handler) : base(handler)
-        {
-            Options.Add("batch", () => Resources.OptionBatch, _ => Handler.Batch = true);
-        }
+        {}
         #endregion
 
         /// <inheritdoc/>

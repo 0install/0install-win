@@ -70,6 +70,7 @@ namespace ZeroInstall.Commands
                 Handler.Output(Resources.CommandLineArguments, HelpText);
                 throw new OperationCanceledException(); // Don't handle any of the other arguments
             });
+            Options.Add("batch", () => Resources.OptionBatch, _ => Handler.Batch = true);
             Options.Add("v|verbose", () => Resources.OptionVerbose, _ => Handler.Verbosity++);
         }
         #endregion
