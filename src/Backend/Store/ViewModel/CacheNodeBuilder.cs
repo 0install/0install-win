@@ -99,7 +99,7 @@ namespace ZeroInstall.Store.ViewModel
                 var implementation = _feeds.GetImplementation(digest, out feed);
 
                 ImplementationNode implementationNode;
-                if (feed == null) implementationNode = new OrphanedImplementationNode(digest, _store);
+                if (implementation == null) implementationNode = new OrphanedImplementationNode(digest, _store);
                 else implementationNode = new OwnedImplementationNode(digest, implementation, new FeedNode(feed, _feedCache), _store);
 
                 TotalSize += implementationNode.Size;

@@ -45,6 +45,7 @@ namespace ZeroInstall.DesktopIntegration.Unix
         public static void Create(InterfaceFeed target, string command, string aliasName, ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
+            if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException("aliasName");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 

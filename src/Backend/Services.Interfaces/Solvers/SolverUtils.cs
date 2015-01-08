@@ -65,7 +65,6 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="candidate">The selected candidate.</param>
         /// <param name="allCandidates">All candidates that were considered for selection (including the selected one). These are used to present the user with possible alternatives.</param>
         /// <param name="requirements">The requirements the selected candidate was chosen for.</param>
-        /// <returns></returns>
         public static ImplementationSelection ToSelection(this SelectionCandidate candidate, IEnumerable<SelectionCandidate> allCandidates, Requirements requirements)
         {
             #region Sanity checks

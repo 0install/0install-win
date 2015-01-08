@@ -50,6 +50,7 @@ namespace ZeroInstall.Capture
             {
                 using (var protocolKey = Registry.ClassesRoot.OpenSubKey(protocol))
                 {
+                    if (protocolKey == null) throw new IOException(protocol + " not found");
                     capabilities.Entries.Add(new UrlProtocol
                     {
                         ID = protocol,

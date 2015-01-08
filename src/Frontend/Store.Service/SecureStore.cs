@@ -59,6 +59,7 @@ namespace ZeroInstall.Store.Service
             #region Sanity checks
             if (eventLog == null) throw new ArgumentNullException("eventLog");
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (eventLog == null) throw new ArgumentNullException("eventLog");
             #endregion
 
             _serviceIdentity = serviceIdentity;

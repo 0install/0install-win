@@ -52,6 +52,7 @@ namespace ZeroInstall.Store.Model
                 if (x == null || y == null) return false;
                 if (x.NamespaceURI != y.NamespaceURI || x.Name != y.Name || x.InnerText != y.InnerText) return false;
 
+                // ReSharper disable once InvokeAsExtensionMethod
                 bool attributesEqual = EnumerableExtensions.UnsequencedEquals(
                     x.Attributes.OfType<XmlAttribute>().ToArray(),
                     y.Attributes.OfType<XmlAttribute>().ToArray(),
@@ -59,7 +60,7 @@ namespace ZeroInstall.Store.Model
                 bool elementsEqual = EnumerableExtensions.SequencedEquals(
                     x.ChildNodes.OfType<XmlElement>().ToArray(),
                     y.ChildNodes.OfType<XmlElement>().ToArray(),
-                    comparer: XmlElementComparer.Instance);
+                    comparer: Instance);
                 return attributesEqual && elementsEqual;
             }
 
@@ -76,6 +77,7 @@ namespace ZeroInstall.Store.Model
         protected bool Equals(XmlUnknown other)
         {
             if (other == null) return false;
+            // ReSharper disable once InvokeAsExtensionMethod
             bool attributesEqual = EnumerableExtensions.UnsequencedEquals(
                 UnknownAttributes ?? new XmlAttribute[0],
                 other.UnknownAttributes ?? new XmlAttribute[0],
@@ -93,10 +95,8 @@ namespace ZeroInstall.Store.Model
             unchecked
             {
                 int result = 397;
-                // ReSharper disable NonReadonlyFieldInGetHashCode
                 result = (result * 397) ^ (UnknownAttributes ?? new XmlAttribute[0]).GetUnsequencedHashCode(XmlAttributeComparer.Instance);
                 result = (result * 397) ^ (UnknownElements ?? new XmlElement[0]).GetSequencedHashCode(XmlElementComparer.Instance);
-                // ReSharper restore NonReadonlyFieldInGetHashCode
                 return result;
             }
         }

@@ -49,7 +49,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// The architecture to find executables for. Find for the current system if left at default value.
         /// </summary>
-        /// <remarks>Will default to <see cref="Store.Model.Architecture.CurrentSystem"/> if <see langword="null"/>. Will not try to find any command if set to <see cref="string.Empty"/>.</remarks>
+        /// <remarks>Will default to <see cref="Store.Model.Architecture.CurrentSystem"/> if left at default value. Will not try to find any command if set to <see cref="string.Empty"/>.</remarks>
         [Description("The architecture to find executables for. Find for the current system if left at default value.")]
         [JsonIgnore]
         public Architecture Architecture { get; set; }

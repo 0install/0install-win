@@ -324,6 +324,10 @@ namespace ZeroInstall.Store.Model
         /// <returns>The best matching name that was found.</returns>
         public string GetBestName(CultureInfo language, string command = null)
         {
+            #region Sanity checks
+            if (language == null) throw new ArgumentNullException("language");
+            #endregion
+
             if (string.IsNullOrEmpty(command)) command = Command.NameRun;
 
             var entryPoint = GetEntryPoint(command);
@@ -344,6 +348,10 @@ namespace ZeroInstall.Store.Model
         /// <returns>The best matching summary that was found; <see langword="null"/> if no matching summary was found.</returns>
         public string GetBestSummary(CultureInfo language, string command = null)
         {
+            #region Sanity checks
+            if (language == null) throw new ArgumentNullException("language");
+            #endregion
+
             if (string.IsNullOrEmpty(command)) command = Command.NameRun;
 
             var entryPoint = GetEntryPoint(command);

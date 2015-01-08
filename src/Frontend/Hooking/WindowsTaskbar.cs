@@ -28,14 +28,18 @@ using System.Text;
 
 namespace ZeroInstall.Hooking
 {
-    static partial class WindowsUtils
+    /// <summary>
+    /// Provides helper methods and API calls specific to the Windows 7 or newer taskbar.
+    /// </summary>
+    [SuppressMessage("ReSharper", "SuspiciousTypeConversion.Global"), SuppressMessage("ReSharper", "UnusedMember.Local"), SuppressMessage("ReSharper", "EmptyGeneralCatchClause")]
+    public static partial class WindowsTaskbar
     {
         #region Enumerations
         /// <summary>
         /// Represents the thumbnail progress bar state.
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1027:MarkEnumsWithFlags", Justification = "These enum values are mutually exclusive and not meant to be ORed like flags")]
-        public enum TaskbarProgressBarState
+        public enum ProgressBarState
         {
             /// <summary>
             /// No progress is displayed.
@@ -62,9 +66,44 @@ namespace ZeroInstall.Hooking
             /// </summary>
             Paused = 0x8
         }
+
+        private enum ThumbnailMask
+        {
+            Bitmap = 0x1,
+            Icon = 0x2,
+            Tooltip = 0x4,
+            Flags = 0x8
+        }
+
+        [Flags]
+        private enum ThumbnailFlags
+        {
+            Enabled = 0x0,
+            ThbfDisabled = 0x1,
+            ThbfDismissonclick = 0x2,
+            ThbfNobackground = 0x4,
+            ThbfHidden = 0x8,
+            ThbfNoninteractive = 0x10
+        }
+
+        [Flags]
+        private enum StpFlag
+        {
+            None = 0x0,
+            UseThumbnailalways = 0x1,
+            UseThumbnailWhenActive = 0x2,
+            UsePeekAlways = 0x4,
+            UsePeekWhenActive = 0x8
+        }
+
+        private enum KnownDestinationCategory
+        {
+            Frequent = 1,
+            Recent
+        }
         #endregion
 
-        #region Structs
+        #region Structures
         /// <summary>
         /// Represents a shell link targeting a file.
         /// </summary>
@@ -126,47 +165,9 @@ namespace ZeroInstall.Hooking
                 IconIndex = iconIndex;
             }
         }
-        #endregion
 
-        #region Enumerations
-        private enum ThumbnailMask
-        {
-            Bitmap = 0x1,
-            Icon = 0x2,
-            Tooltip = 0x4,
-            Flags = 0x8
-        }
-
-        [Flags]
-        private enum ThumbnailFlags
-        {
-            Enabled = 0x0,
-            ThbfDisabled = 0x1,
-            ThbfDismissonclick = 0x2,
-            ThbfNobackground = 0x4,
-            ThbfHidden = 0x8,
-            ThbfNoninteractive = 0x10
-        }
-
-        [Flags]
-        private enum StpFlag
-        {
-            None = 0x0,
-            UseThumbnailalways = 0x1,
-            UseThumbnailWhenActive = 0x2,
-            UsePeekAlways = 0x4,
-            UsePeekWhenActive = 0x8
-        }
-
-        private enum KnownDestinationCategory
-        {
-            Frequent = 1,
-            Recent
-        }
-        #endregion
-
-        #region Structures
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+        [StructLayout(LayoutKind.Sequential)]
+        [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
         private struct ThumbnailButton
         {
             [MarshalAs(UnmanagedType.U4)]
@@ -213,7 +214,7 @@ namespace ZeroInstall.Hooking
             void SetProgressValue(IntPtr hwnd, UInt64 ullCompleted, UInt64 ullTotal);
 
             [PreserveSig]
-            void SetProgressState(IntPtr hwnd, TaskbarProgressBarState tbpFlags);
+            void SetProgressState(IntPtr hwnd, ProgressBarState tbpFlags);
 
             [PreserveSig]
             void RegisterTab(IntPtr hwndTab, IntPtr hwndMDI);
@@ -337,9 +338,9 @@ namespace ZeroInstall.Hooking
         private static readonly ITaskbarList4 _taskbarList;
 
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "Must perform COM call during init")]
-        static WindowsUtils()
+        static WindowsTaskbar()
         {
-            if (IsWindows7)
+            if (WindowsUtils.IsWindows7)
             {
                 _taskbarList = (ITaskbarList4)new CTaskbarList();
                 _taskbarList.HrInit();
@@ -353,9 +354,9 @@ namespace ZeroInstall.Hooking
         /// <param name="handle">The handle of the window whose taskbar button contains the progress indicator.</param>
         /// <param name="state">The state of the progress indicator.</param>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "COM calls throw unpredictable exceptions and this methods successful execution is not critical.")]
-        public static void SetProgressState(IntPtr handle, TaskbarProgressBarState state)
+        public static void SetProgressState(IntPtr handle, ProgressBarState state)
         {
-            if (!IsWindows7) return;
+            if (!WindowsUtils.IsWindows7) return;
             try
             {
                 lock (_taskbarList)
@@ -374,7 +375,7 @@ namespace ZeroInstall.Hooking
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "COM calls throw unpredictable exceptions and this methods successful execution is not critical.")]
         public static void SetProgressValue(IntPtr handle, int currentValue, int maximumValue)
         {
-            if (!IsWindows7) return;
+            if (!WindowsUtils.IsWindows7) return;
             try
             {
                 lock (_taskbarList)
@@ -400,7 +401,7 @@ namespace ZeroInstall.Hooking
             if (string.IsNullOrEmpty(appID)) throw new ArgumentNullException("appID");
             #endregion
 
-            if (!IsWindows7) return;
+            if (!WindowsUtils.IsWindows7) return;
 
             try
             {
@@ -431,7 +432,7 @@ namespace ZeroInstall.Hooking
             if (links == null) throw new ArgumentNullException("links");
             #endregion
 
-            if (!IsWindows7) return;
+            if (!WindowsUtils.IsWindows7) return;
 
             try
             {
@@ -472,6 +473,32 @@ namespace ZeroInstall.Hooking
             nativePropertyStore.Commit();
 
             return nativeShellLink;
+        }
+
+        /// <summary>
+        /// Retrieves the property store for a window.
+        /// </summary>
+        /// <param name="hwnd">A handle to the window to retrieve the property store for.</param>
+        private static IPropertyStore GetWindowPropertyStore(IntPtr hwnd)
+        {
+            IPropertyStore propStore;
+            var guid = new Guid(PropertyStoreGuid);
+            int rc = UnsafeNativeMethods.SHGetPropertyStoreForWindow(hwnd, ref guid, out propStore);
+            if (rc != 0) throw Marshal.GetExceptionForHR(rc);
+            return propStore;
+        }
+
+        /// <summary>
+        /// Sets a property value.
+        /// </summary>
+        /// <param name="propertyStore">The property store to set the property in.</param>
+        /// <param name="property">The property to set.</param>
+        /// <param name="value">The value to set the property to.</param>
+        private static void SetPropertyValue(IPropertyStore propertyStore, PropertyKey property, string value)
+        {
+            var variant = new PropertyVariant(value);
+            propertyStore.SetValue(ref property, ref variant);
+            variant.Dispose();
         }
     }
 }

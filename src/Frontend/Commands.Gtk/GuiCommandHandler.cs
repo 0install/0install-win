@@ -17,7 +17,6 @@
 
 extern alias LinqBridge;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.ViewModel;

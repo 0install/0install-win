@@ -31,7 +31,7 @@ namespace ZeroInstall.Publish.EntryPoints
         internal override bool Analyze(DirectoryInfo baseDirectory, FileInfo file)
         {
             if (!base.Analyze(baseDirectory, file)) return false;
-            if (!StringUtils.EqualsIgnoreCase(file.Extension, ".class")) return false;
+            if (!StringUtils.EqualsIgnoreCase(file.Extension, @".class")) return false;
 
             Name = file.Name.Substring(0, file.Name.Length - file.Extension.Length);
             GuiOnly = false;

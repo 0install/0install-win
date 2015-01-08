@@ -16,32 +16,29 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
 
 namespace ZeroInstall.Hooking
 {
-    // ReSharper disable ClassNeverInstantiated.Global
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
     public partial class EntryPoint
     {
         #region Structures
         [StructLayout(LayoutKind.Sequential)]
+        [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local"), SuppressMessage("ReSharper", "MemberCanBePrivate.Local")]
         private struct ProcessInformation
         {
-            // ReSharper disable FieldCanBeMadeReadOnly.Local
             public IntPtr hProcess;
             public IntPtr hThread;
             public int dwProcessId;
             public int dwThreadId;
-            // ReSharper restore FieldCanBeMadeReadOnly.Local
         }
         #endregion
 
         private static class UnsafeNativeMethods
         {
-            [DllImport("kernel32.dll", CallingConvention = CallingConvention.StdCall)]
-            public static extern void SetLastError(uint dwErrCode);
-
             #region RegQueryValueEx
             public const uint ErrorMoreData = 0xEA;
 
@@ -103,6 +100,4 @@ namespace ZeroInstall.Hooking
             #endregion
         }
     }
-
-    // ReSharper restore ClassNeverInstantiated.Global
 }

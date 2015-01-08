@@ -172,7 +172,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
         {
             var assembly = Assembly.GetAssembly(typeof(StubBuilder));
             using (var stream = assembly.GetManifestResourceStream(typeof(StubBuilder), name))
+            {
+                Debug.Assert(stream != null);
                 return stream.ReadToString();
+            }
         }
 
         /// <summary>

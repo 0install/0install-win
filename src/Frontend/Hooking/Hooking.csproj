@@ -52,10 +52,10 @@
     <Compile Include="RegistryFilterRule.cs" />
     <Compile Include="RelaunchControl.cs" />
     <Compile Include="RelaunchEntry.cs" />
+    <Compile Include="WindowsTaskbar.cs" />
+    <Compile Include="WindowsTaskbar.NativeMethods.cs" />
     <Compile Include="WindowsUtils.NativeMethods.cs" />
     <Compile Include="WindowsUtils.Platform.cs" />
-    <Compile Include="WindowsUtils.Properties.cs" />
-    <Compile Include="WindowsUtils.Taskbar.cs" />
     <None Include="..\..\..\lib\EasyHook.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

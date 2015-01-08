@@ -143,7 +143,7 @@ namespace ZeroInstall.Publish
             var implementation =
                 new Implementation
                 {
-                    ID = "sha1new=" + ManifestDigest.Sha1New,
+                    ID = @"sha1new=" + ManifestDigest.Sha1New,
                     ManifestDigest = ManifestDigest,
                     Version = MainCandidate.Version,
                     Architecture = MainCandidate.Architecture,

@@ -261,6 +261,10 @@ namespace ZeroInstall.Store.Model
         /// <param name="parent">The object to take the attributes from.</param>
         internal void InheritFrom(Element parent)
         {
+            #region Sanity checks
+            if (parent == null) throw new ArgumentNullException("parent");
+            #endregion
+
             // Check if values are unset and need inheritance)
             if (Version == null) Version = parent.Version;
             if (VersionModifier == null) VersionModifier = parent.VersionModifier;

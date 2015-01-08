@@ -53,6 +53,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         public static void Create(InterfaceFeed target, string command, string aliasName, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
+            if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException("aliasName");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
@@ -96,8 +97,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
             using (var appPathsKey = hive.CreateSubKey(RegKeyAppPaths))
-            using (var exeKey = appPathsKey.CreateSubKey(exeName))
-                exeKey.SetValue("", exePath);
+            {
+                if (appPathsKey == null) throw new IOException("Registry access failed.");
+                using (var exeKey = appPathsKey.CreateSubKey(exeName))
+                {
+                    if (exeKey == null) throw new IOException("Registry access failed.");
+                    exeKey.SetValue("", exePath);
+                }
+            }
         }
         #endregion
 

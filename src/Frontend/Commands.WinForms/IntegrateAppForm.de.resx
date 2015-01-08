@@ -133,11 +133,7 @@
     <value>Befehl</value>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
-    <value>Aliase</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="checkBoxFileTypesAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 17</value>
+    <value>Befehlszeilenaliase</value>
   </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
     <value>&amp;Alle auswählen</value>
@@ -151,9 +147,6 @@
   <data name="tabPageFileTypes.Text" xml:space="preserve">
     <value>Dateitypen</value>
   </data>
-  <data name="checkBoxUrlProtocolsAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 17</value>
-  </data>
   <data name="checkBoxUrlProtocolsAll.Text" xml:space="preserve">
     <value>&amp;Alle auswählen</value>
   </data>
@@ -163,15 +156,8 @@
   <data name="dataGridUrlProtocolsColumnProtocols.HeaderText" xml:space="preserve">
     <value>Protokolle</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="dataGridUrlProtocolsColumnProtocols.Width" type="System.Int32, mscorlib">
-    <value>79</value>
-  </data>
   <data name="tabPageUrlProtocols.Text" xml:space="preserve">
     <value>URL Protokolle</value>
-  </data>
-  <data name="checkBoxAutoPlayAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 17</value>
   </data>
   <data name="checkBoxAutoPlayAll.Text" xml:space="preserve">
     <value>&amp;Alle auswählen</value>
@@ -182,12 +168,6 @@
   <data name="dataGridAutoPlayColumnEvents.HeaderText" xml:space="preserve">
     <value>Ereignisse</value>
   </data>
-  <data name="dataGridAutoPlayColumnEvents.Width" type="System.Int32, mscorlib">
-    <value>80</value>
-  </data>
-  <data name="checkBoxContextMenuAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 17</value>
-  </data>
   <data name="checkBoxContextMenuAll.Text" xml:space="preserve">
     <value>&amp;Alle auswählen</value>
   </data>
@@ -196,9 +176,6 @@
   </data>
   <data name="tabPageContextMenu.Text" xml:space="preserve">
     <value>Kontextmenü</value>
-  </data>
-  <data name="checkBoxDefaultProgramsAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 17</value>
   </data>
   <data name="checkBoxDefaultProgramsAll.Text" xml:space="preserve">
     <value>&amp;Alle auswählen</value>
@@ -209,14 +186,8 @@
   <data name="dataGridDefaultProgramsColumnService.HeaderText" xml:space="preserve">
     <value>Dienst</value>
   </data>
-  <data name="dataGridDefaultProgramsColumnService.Width" type="System.Int32, mscorlib">
-    <value>62</value>
-  </data>
   <data name="tabPageDefaultPrograms.Text" xml:space="preserve">
     <value>Standardprogramme</value>
-  </data>
-  <data name="checkBoxCapabilities.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 17</value>
   </data>
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
     <value>Fähigkeiten &amp;registrieren</value>

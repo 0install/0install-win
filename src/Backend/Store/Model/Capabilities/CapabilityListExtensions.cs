@@ -31,8 +31,8 @@ namespace ZeroInstall.Store.Model.Capabilities
         public static IEnumerable<Capability> CompatibleCapabilities(this IEnumerable<CapabilityList> capabilityLists)
         {
             return capabilityLists
-                    .Where(x => x.OS.IsCompatible(Architecture.CurrentSystem.OS))
-                    .SelectMany(x => x.Entries);
+                .Where(x => x.OS.IsCompatible(Architecture.CurrentSystem.OS))
+                .SelectMany(x => x.Entries);
         }
     }
 }

@@ -164,7 +164,7 @@ namespace ZeroInstall.Store.Implementations
             }
 
             // If we reach this, the implementation could not be added to any store
-            innerException.Rethrow();
+            if (innerException != null) innerException.Rethrow();
         }
         #endregion
 

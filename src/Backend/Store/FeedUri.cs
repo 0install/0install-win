@@ -143,23 +143,23 @@ namespace ZeroInstall.Store
             #endregion
 
             var builder = new StringBuilder();
-            for (int i = 0; i < value.Length; i++)
+            foreach (char t in value)
             {
-                switch (value[i])
+                switch (t)
                 {
                     case '-':
                     case '_':
                     case '.':
-                        builder.Append(value[i]);
+                        builder.Append(t);
                         break;
 
                     default:
-                        if (char.IsLetterOrDigit(value[i]))
-                            builder.Append(value[i]);
+                        if (char.IsLetterOrDigit(t))
+                            builder.Append(t);
                         else
                         {
                             builder.Append('%');
-                            builder.Append(((int)value[i]).ToString("x"));
+                            builder.Append(((int)t).ToString("x"));
                         }
                         break;
                 }
@@ -216,9 +216,9 @@ namespace ZeroInstall.Store
             #endregion
 
             var builder = new StringBuilder();
-            for (int i = 0; i < value.Length; i++)
+            foreach (char t in value)
             {
-                switch (value[i])
+                switch (t)
                 {
                     case '/':
                         builder.Append('#');
@@ -232,16 +232,16 @@ namespace ZeroInstall.Store
                     case '-':
                     case '_':
                     case '.':
-                        builder.Append(value[i]);
+                        builder.Append(t);
                         break;
 
                     default:
-                        if (char.IsLetterOrDigit(value[i]))
-                            builder.Append(value[i]);
+                        if (char.IsLetterOrDigit(t))
+                            builder.Append(t);
                         else
                         {
                             builder.Append('%');
-                            builder.Append(((int)value[i]).ToString("x"));
+                            builder.Append(((int)t).ToString("x"));
                         }
                         break;
                 }

@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -164,7 +165,9 @@ namespace ZeroInstall.Publish.Cli
             options.Add("h|help|?", () => Resources.OptionHelp, unused =>
             {
                 var usages = new[] {Resources.UsageFeed};
+                // ReSharper disable LocalizableElement
                 Console.WriteLine(Resources.Usage + "\t" + string.Join(Environment.NewLine + "\t", usages) + "\n");
+                // ReSharper restore LocalizableElement
                 Console.WriteLine(Resources.Options);
                 options.WriteOptionDescriptions(Console.Out);
 
@@ -273,6 +276,7 @@ namespace ZeroInstall.Publish.Cli
             {
                 try
                 {
+                    Debug.Assert(feedEditing.Path != null);
                     feedEditing.SignedFeed.Save(feedEditing.Path, _openPgpPassphrase);
                     break;
                 }

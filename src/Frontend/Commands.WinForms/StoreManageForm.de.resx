@@ -118,29 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="labelCurrentSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 19</value>
-  </data>
   <data name="labelCurrentSize.Text" xml:space="preserve">
     <value>Aktueller Eintrag:</value>
   </data>
-  <data name="textTotalSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>122, 41</value>
-  </data>
-  <data name="textCurrentSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>122, 3</value>
-  </data>
-  <data name="textCheckedSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>122, 22</value>
-  </data>
-  <data name="labelCheckedSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 19</value>
-  </data>
   <data name="labelCheckedSize.Text" xml:space="preserve">
     <value>Ausgewählte Einträge:</value>
-  </data>
-  <data name="labelTotalSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 20</value>
   </data>
   <data name="labelTotalSize.Text" xml:space="preserve">
     <value>Gesamtgröße:</value>
@@ -157,17 +139,8 @@
   <data name="buttonVerify.Text" xml:space="preserve">
     <value>&amp;Verifizieren</value>
   </data>
-  <data name="buttonRunAsAdmin.Location" type="System.Drawing.Point, System.Drawing">
-    <value>217, 439</value>
-  </data>
-  <data name="buttonRunAsAdmin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 23</value>
-  </data>
   <data name="buttonRunAsAdmin.Text" xml:space="preserve">
     <value>Als Admin ausführen</value>
-  </data>
-  <data name="labelLoading.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 13</value>
   </data>
   <data name="labelLoading.Text" xml:space="preserve">
     <value>Laden...</value>

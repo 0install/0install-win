@@ -29,7 +29,7 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Trust
 {
     /// <summary>
-    /// A database of OpenPGP the users trusts to sign <see cref="Feed"/>s.
+    /// A database of OpenPGP signature fingerprints the users trusts to sign <see cref="Feed"/>s coming from specific domains.
     /// </summary>
     [XmlRoot("trusted-keys", Namespace = XmlNamespace), XmlType("trusted-keys", Namespace = XmlNamespace)]
     [XmlNamespace("xsi", XmlStorage.XsiNamespace)]

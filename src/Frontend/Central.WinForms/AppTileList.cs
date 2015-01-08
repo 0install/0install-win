@@ -184,7 +184,10 @@ namespace ZeroInstall.Central.WinForms
         /// <inheritdoc/>
         public void RemoveTile(FeedUri interfaceUri)
         {
-            if (interfaceUri == null) return;
+            #region Sanity checks
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
+            #endregion
+
             RemoveTile(_tileDictionary[interfaceUri]);
         }
 

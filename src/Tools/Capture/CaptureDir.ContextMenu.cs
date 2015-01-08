@@ -45,6 +45,7 @@ namespace ZeroInstall.Capture
 
             using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesFiles))
             {
+                if (progIDKey == null) throw new IOException("Registry key not found");
                 foreach (string entry in snapshotDiff.ContextMenuFiles)
                 {
                     capabilities.Entries.Add(new ContextMenu
@@ -58,6 +59,7 @@ namespace ZeroInstall.Capture
 
             using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesExecutableFiles[0]))
             {
+                if (progIDKey == null) throw new IOException("Registry key not found");
                 foreach (string entry in snapshotDiff.ContextMenuExecutableFiles)
                 {
                     capabilities.Entries.Add(new ContextMenu
@@ -71,6 +73,7 @@ namespace ZeroInstall.Capture
 
             using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesDirectories))
             {
+                if (progIDKey == null) throw new IOException("Registry key not found");
                 foreach (string entry in snapshotDiff.ContextMenuDirectories)
                 {
                     capabilities.Entries.Add(new ContextMenu
@@ -84,6 +87,7 @@ namespace ZeroInstall.Capture
 
             using (var progIDKey = Registry.ClassesRoot.OpenSubKey(DesktopIntegration.Windows.ContextMenu.RegKeyClassesAll))
             {
+                if (progIDKey == null) throw new IOException("Registry key not found");
                 foreach (string entry in snapshotDiff.ContextMenuAll)
                 {
                     capabilities.Entries.Add(new ContextMenu

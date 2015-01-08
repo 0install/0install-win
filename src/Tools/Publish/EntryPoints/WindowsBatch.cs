@@ -30,7 +30,7 @@ namespace ZeroInstall.Publish.EntryPoints
         internal override bool Analyze(DirectoryInfo baseDirectory, FileInfo file)
         {
             if (!base.Analyze(baseDirectory, file)) return false;
-            if (!StringUtils.EqualsIgnoreCase(file.Extension, ".bat") && !StringUtils.EqualsIgnoreCase(file.Extension, ".cmd")) return false;
+            if (!StringUtils.EqualsIgnoreCase(file.Extension, @".bat") && !StringUtils.EqualsIgnoreCase(file.Extension, @".cmd")) return false;
 
             Architecture = new Architecture(OS.Windows, Cpu.All);
             Name = file.Name.Substring(0, file.Name.Length - file.Extension.Length);

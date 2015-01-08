@@ -45,6 +45,12 @@ namespace ZeroInstall.Store.ViewModel
         public OwnedImplementationNode(ManifestDigest digest, Implementation implementation, FeedNode iface, IStore store)
             : base(digest, store)
         {
+            #region Sanity checks
+            if (implementation == null) throw new ArgumentNullException("implementation");
+            if (iface == null) throw new ArgumentNullException("iface");
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
             _iface = iface;
             _implementation = implementation;
         }

@@ -30,7 +30,7 @@ namespace ZeroInstall.Publish.EntryPoints
         internal override bool Analyze(DirectoryInfo baseDirectory, FileInfo file)
         {
             if (!base.Analyze(baseDirectory, file)) return false;
-            if (!RelativePath.GetLeftPartAtLastOccurrence('/').EndsWith(".app/Contents/MacOS")) return false;
+            if (!RelativePath.GetLeftPartAtLastOccurrence('/').EndsWith(@".app/Contents/MacOS")) return false;
 
             // TODO: Parse MacOS plist
             Name = file.Name.Substring(0, file.Name.Length - file.Extension.Length);

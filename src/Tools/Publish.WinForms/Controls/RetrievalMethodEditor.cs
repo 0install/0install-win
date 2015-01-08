@@ -205,8 +205,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             executor.Execute(new SetValueCommand<ManifestDigest>(() => ContainerRef.ManifestDigest, value => ContainerRef.ManifestDigest = value, digest));
 
-            if (string.IsNullOrEmpty(ContainerRef.ID) || ContainerRef.ID.Contains("="))
-                executor.Execute(new SetValueCommand<string>(() => ContainerRef.ID, value => ContainerRef.ID = value, "sha1new=" + digest.Sha1New));
+            if (string.IsNullOrEmpty(ContainerRef.ID) || ContainerRef.ID.Contains(@"="))
+                executor.Execute(new SetValueCommand<string>(() => ContainerRef.ID, value => ContainerRef.ID = value, @"sha1new=" + digest.Sha1New));
         }
         #endregion
     }

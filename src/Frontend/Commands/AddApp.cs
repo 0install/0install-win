@@ -51,8 +51,8 @@ namespace ZeroInstall.Commands
         protected override int ExecuteHelper(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             #endregion
 
             try

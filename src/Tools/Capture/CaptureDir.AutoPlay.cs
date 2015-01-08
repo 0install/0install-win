@@ -83,6 +83,7 @@ namespace ZeroInstall.Capture
 
                 using (var progIDKey = Registry.ClassesRoot.OpenSubKey(progID))
                 {
+                    if (progIDKey == null) throw new IOException(progID + " key not found");
                     var autoPlay = new AutoPlay
                     {
                         ID = handler,

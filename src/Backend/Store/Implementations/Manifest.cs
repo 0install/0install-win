@@ -278,7 +278,7 @@ namespace ZeroInstall.Store.Implementations
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj is Manifest && Equals(obj as Manifest);
+            return obj is Manifest && Equals((Manifest)obj);
         }
 
         /// <inheritdoc/>

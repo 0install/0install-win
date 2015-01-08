@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Linq;
 using NanoByte.Common;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Feeds;

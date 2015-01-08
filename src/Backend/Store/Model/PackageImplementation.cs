@@ -103,7 +103,7 @@ namespace ZeroInstall.Store.Model
         /// A space-separated list of distribution names (e.g. Debian, RPM) where <see cref="Package"/> applies. Applies everywhere if empty.
         /// </summary>
         /// <seealso cref="Distributions"/>
-        [Category("Identity"), DisplayName("Distributions"), Description("A space-separated list of distribution names (e.g. Debian, RPM) where Package applies. Applies everywhere if empty.")]
+        [Category("Identity"), DisplayName(@"Distributions"), Description("A space-separated list of distribution names (e.g. Debian, RPM) where Package applies. Applies everywhere if empty.")]
         [XmlAttribute("distributions"), DefaultValue("")]
         [TypeConverter(typeof(DistributionNameConverter))]
         public string DistributionsString

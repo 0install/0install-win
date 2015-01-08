@@ -56,12 +56,12 @@ namespace ZeroInstall.Store.Model
 
         #region Properties
         /// <summary>
-        /// The modifier part of the version part; may be <see langword="null"/>.
+        /// The modifier part of the version part.
         /// </summary>
         public VersionModifier Modifier { get; private set; }
 
         /// <summary>
-        /// The dotted list part of the version part; may be <see langword="null"/>.
+        /// The dotted list part of the version part.
         /// </summary>
         public VersionDottedList DottedList { get; private set; }
         #endregion

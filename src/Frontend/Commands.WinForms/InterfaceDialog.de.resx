@@ -118,31 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="checkBoxShowAllVersions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>558, 10</value>
-  </data>
-  <data name="checkBoxShowAllVersions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>137, 17</value>
-  </data>
   <data name="checkBoxShowAllVersions.Text" xml:space="preserve">
     <value>Zeige alle &amp;Versionen an</value>
   </data>
-  <data name="labelStability.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 13</value>
-  </data>
   <data name="labelStability.Text" xml:space="preserve">
     <value>Bevorzugte &amp;Stabilität:</value>
-  </data>
-  <data name="comboBoxStability.Location" type="System.Drawing.Point, System.Drawing">
-    <value>116, 6</value>
   </data>
   <data name="dataColumnReleased.HeaderText" xml:space="preserve">
     <value>Veröffentlicht</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="dataColumnReleased.Width" type="System.Int32, mscorlib">
-    <value>94</value>
-  </data>
   <data name="dataColumnStability.HeaderText" xml:space="preserve">
     <value>Stabilität</value>
   </data>
@@ -152,14 +137,8 @@
   <data name="dataColumnArchitecture.HeaderText" xml:space="preserve">
     <value>Architektur</value>
   </data>
-  <data name="dataColumnArchitecture.Width" type="System.Int32, mscorlib">
-    <value>83</value>
-  </data>
   <data name="dataColumnNotes.HeaderText" xml:space="preserve">
     <value>Hinweise</value>
-  </data>
-  <data name="dataColumnNotes.Width" type="System.Int32, mscorlib">
-    <value>75</value>
   </data>
   <data name="dataColumnSource.HeaderText" xml:space="preserve">
     <value>Quelle</value>

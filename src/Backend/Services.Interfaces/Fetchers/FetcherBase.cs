@@ -36,6 +36,8 @@ namespace ZeroInstall.Services.Fetchers
     {
         #region Dependencies
         private readonly IStore _store;
+
+        /// <summary>A callback object used when the the user needs to be informed about progress.</summary>
         protected readonly ITaskHandler Handler;
 
         /// <summary>

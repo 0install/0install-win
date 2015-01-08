@@ -40,9 +40,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
             RegisterControl(textBoxHref, new PropertyPointer<Uri>(() => Target.Href, value => Target.Href = value));
             RegisterControl(comboBoxMimeType, new PropertyPointer<string>(() => Target.MimeType, value => Target.MimeType = value));
 
-            // ReSharper disable CoVariantArrayConversion
+            // ReSharper disable once CoVariantArrayConversion
             comboBoxMimeType.Items.AddRange(Icon.KnownMimeTypes);
-            // ReSharper restore CoVariantArrayConversion
         }
         #endregion
 

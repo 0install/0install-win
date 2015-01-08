@@ -141,9 +141,8 @@ namespace ZeroInstall.DesktopIntegration
             Assert.AreEqual(appList.Entries[0], appList[FeedTest.Test1Uri]);
 
             Assert.IsNull(appList.GetEntry(FeedTest.Test2Uri));
-            // ReSharper disable UnusedVariable
+            // ReSharper disable once UnusedVariable
             Assert.Throws<KeyNotFoundException>(() => { var dummy = appList[FeedTest.Test2Uri]; });
-            // ReSharper restore UnusedVariable
         }
 
         [Test(Description = "Ensures that the class can be correctly cloned without AccessPoints.")]

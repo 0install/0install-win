@@ -19,7 +19,6 @@ using System;
 using System.IO;
 using System.Linq;
 using Moq;
-using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;

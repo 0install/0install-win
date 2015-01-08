@@ -95,7 +95,7 @@ namespace ZeroInstall.Store.Model
         /// The special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <see cref="PackageImplementation"/>).
         /// </summary>
         /// <seealso cref="Distributions"/>
-        [DisplayName("Distributions"), Description("Specifies that the selected implementation must be from one of the space-separated distributions (e.g. Debian, RPM).\nThe special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <package-implementation>).")]
+        [DisplayName(@"Distributions"), Description("Specifies that the selected implementation must be from one of the space-separated distributions (e.g. Debian, RPM).\nThe special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <package-implementation>).")]
         [XmlAttribute("distribution"), DefaultValue("")]
         [TypeConverter(typeof(DistributionNameConverter))]
         public string DistributionsString

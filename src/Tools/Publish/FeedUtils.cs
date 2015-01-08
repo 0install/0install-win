@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -51,9 +52,15 @@ namespace ZeroInstall.Publish
             {
                 var assembly = Assembly.GetAssembly(typeof(FeedUtils));
                 using (var stream = assembly.GetManifestResourceStream(typeof(FeedUtils), name + ".xsl"))
+                {
+                    Debug.Assert(stream != null);
                     stream.WriteTo(Path.Combine(path, name + ".xsl"));
+                }
                 using (var stream = assembly.GetManifestResourceStream(typeof(FeedUtils), name + ".css"))
+                {
+                    Debug.Assert(stream != null);
                     stream.WriteTo(Path.Combine(path, name + ".css"));
+                }
             }
         }
 

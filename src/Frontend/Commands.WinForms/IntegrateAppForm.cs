@@ -36,7 +36,6 @@ namespace ZeroInstall.Commands.WinForms
     /// </summary>
     public sealed partial class IntegrateAppForm : OKCancelDialog
     {
-        #region Dependencies
         /// <summary>
         /// A View-Model for modifying the current desktop integration state.
         /// </summary>
@@ -56,7 +55,6 @@ namespace ZeroInstall.Commands.WinForms
 
             _state = state;
         }
-        #endregion
 
         #region Startup
         /// <summary>

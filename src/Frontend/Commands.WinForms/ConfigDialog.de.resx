@@ -118,59 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="linkSyncAccount.Location" type="System.Drawing.Point, System.Drawing">
-    <value>95, 81</value>
-  </data>
-  <data name="linkSyncAccount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 13</value>
-  </data>
   <data name="linkSyncAccount.Text" xml:space="preserve">
     <value>Account verwalten</value>
-  </data>
-  <data name="textBoxSyncCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 111</value>
-  </data>
-  <data name="textBoxSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>227, 20</value>
-  </data>
-  <data name="labelSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 13</value>
   </data>
   <data name="labelSyncCryptoKey.Text" xml:space="preserve">
     <value>&amp;Crypto-Schlüssel:</value>
   </data>
-  <data name="textBoxSyncPassword.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 58</value>
-  </data>
-  <data name="textBoxSyncPassword.Size" type="System.Drawing.Size, System.Drawing">
-    <value>252, 20</value>
-  </data>
-  <data name="labelSyncPassword.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 13</value>
-  </data>
   <data name="labelSyncPassword.Text" xml:space="preserve">
     <value>&amp;Passwort:</value>
   </data>
-  <data name="textBoxSyncServer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 6</value>
-  </data>
-  <data name="textBoxSyncServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>252, 20</value>
-  </data>
-  <data name="textBoxSyncUsername.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 32</value>
-  </data>
-  <data name="textBoxSyncUsername.Size" type="System.Drawing.Size, System.Drawing">
-    <value>252, 20</value>
-  </data>
-  <data name="labelSyncUsername.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 13</value>
-  </data>
   <data name="labelSyncUsername.Text" xml:space="preserve">
     <value>&amp;Benutzername:</value>
-  </data>
-  <data name="checkBoxHelpWithTesting.Size" type="System.Drawing.Size, System.Drawing">
-    <value>324, 17</value>
   </data>
   <data name="checkBoxHelpWithTesting.Text" xml:space="preserve">
     <value>&amp;Beta-Versionen von Anwendungen verwenden wenn verfügbar</value>
@@ -178,20 +136,11 @@
   <data name="groupNetworkUse.Text" xml:space="preserve">
     <value>Netzwerknutzung</value>
   </data>
-  <data name="radioNetworkUseOffline.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 17</value>
-  </data>
   <data name="radioNetworkUseOffline.Text" xml:space="preserve">
     <value>&amp;Offline (gar nichts herunterladen)</value>
   </data>
-  <data name="radioNetworkUseMinimal.Size" type="System.Drawing.Size, System.Drawing">
-    <value>283, 17</value>
-  </data>
   <data name="radioNetworkUseMinimal.Text" xml:space="preserve">
     <value>&amp;Minimal (nur herunterladen wenn unbedingt notwendig)</value>
-  </data>
-  <data name="radioNetworkUseFull.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 17</value>
   </data>
   <data name="radioNetworkUseFull.Text" xml:space="preserve">
     <value>&amp;Vollständig (immer beste Version herunterladen)</value>
@@ -222,9 +171,6 @@
   </data>
   <data name="tabPageTrust.Text" xml:space="preserve">
     <value>Vertrauen</value>
-  </data>
-  <data name="checkBoxAutoApproveKeys.Size" type="System.Drawing.Size, System.Drawing">
-    <value>339, 17</value>
   </data>
   <data name="checkBoxAutoApproveKeys.Text" xml:space="preserve">
     <value>Dem Schlüsselserver bekannte Schlüssel &amp;automatisch akzeptieren</value>

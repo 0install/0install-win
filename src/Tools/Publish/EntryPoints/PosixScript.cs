@@ -33,7 +33,7 @@ namespace ZeroInstall.Publish.EntryPoints
             if (!base.Analyze(baseDirectory, file)) return false;
 
             string firstLine = file.ReadFirstLine(Encoding.ASCII);
-            if (string.IsNullOrEmpty(firstLine) || !firstLine.StartsWith("#!")) return false;
+            if (string.IsNullOrEmpty(firstLine) || !firstLine.StartsWith(@"#!")) return false;
 
             Architecture = new Architecture(OS.Posix, Cpu.All);
             Name = file.Name;

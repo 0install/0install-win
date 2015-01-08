@@ -38,23 +38,14 @@ namespace ZeroInstall.Hooking
             public static extern bool IsWow64Process([In] IntPtr hProcess, [Out, MarshalAs(UnmanagedType.Bool)] out bool lpSystemInfo);
 
             [DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
-            public static extern uint GetModuleFileName(IntPtr hModule, [Out]StringBuilder lpFilename, int nSize);
+            public static extern uint GetModuleFileName(IntPtr hModule, [Out] StringBuilder lpFilename, int nSize);
         }
 
         [SuppressUnmanagedCodeSecurity]
         private static class UnsafeNativeMethods
         {
-            // Taskbar
             [DllImport("shell32", SetLastError = true)]
             public static extern void SetCurrentProcessExplicitAppUserModelID([MarshalAs(UnmanagedType.LPWStr)] string appID);
-
-
-            // Properties
-            [DllImport("shell32", SetLastError = true)]
-            public static extern int SHGetPropertyStoreForWindow(IntPtr hwnd, ref Guid iid, [Out, MarshalAs(UnmanagedType.Interface)] out IPropertyStore propertyStore);
-
-            [DllImport("ole32", PreserveSig = false)]
-            internal extern static void PropVariantClear([In, Out] ref PropertyVariant pvar);
         }
     }
 }

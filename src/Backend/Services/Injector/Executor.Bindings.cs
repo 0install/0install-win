@@ -344,7 +344,10 @@ namespace ZeroInstall.Services.Injector
             var assembly = Assembly.GetAssembly(typeof(Executor));
             using (var resourceStream = assembly.GetManifestResourceStream(typeof(Executor), resourceName))
             using (var fileStream = File.OpenWrite(filePath))
+            {
+                Debug.Assert(resourceStream != null);
                 resourceStream.CopyTo(fileStream);
+            }
         }
 
         /// <summary>

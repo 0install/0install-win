@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            return Source;
+            return Source ?? "(unset)";
         }
         #endregion
 

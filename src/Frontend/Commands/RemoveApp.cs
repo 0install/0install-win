@@ -54,8 +54,10 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override int ExecuteHelper(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri)
         {
+            #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
+            #endregion
 
             try
             {

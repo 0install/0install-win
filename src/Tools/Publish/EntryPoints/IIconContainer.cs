@@ -25,7 +25,7 @@ namespace ZeroInstall.Publish.EntryPoints
     public interface IIconContainer
     {
         /// <summary>
-        /// Extracts the primary icon of the executable. 
+        /// Extracts the primary icon of the executable.
         /// </summary>
         Icon ExtractIcon();
     }

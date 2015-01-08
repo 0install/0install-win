@@ -35,7 +35,12 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="openPgp">The OpenPGP-compatible system used to create signatures.</param>
         public WelcomeForm(IOpenPgp openPgp)
         {
+            #region Sanity checks
+            if (openPgp == null) throw new ArgumentNullException("openPgp");
+            #endregion
+
             InitializeComponent();
+
             _openPgp = openPgp;
         }
         #endregion

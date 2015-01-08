@@ -41,6 +41,7 @@ namespace ZeroInstall.Services
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
+            if (store == null) throw new ArgumentNullException("store");
             #endregion
 
             var builder = new StringBuilder();

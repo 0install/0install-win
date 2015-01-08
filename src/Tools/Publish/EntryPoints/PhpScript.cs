@@ -31,7 +31,7 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             if (!base.Analyze(baseDirectory, file)) return false;
             return
-                file.Extension.StartsWith(".php", StringComparison.OrdinalIgnoreCase) ||
+                file.Extension.StartsWith(@".php", StringComparison.OrdinalIgnoreCase) ||
                 HasShebang(file, "php");
         }
 

@@ -74,6 +74,13 @@ namespace ZeroInstall.Central
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         public AppTileManagement(IFeedManager feedManager, ICatalogManager catalogManager, IAppTileList tileListMyApps, IAppTileList tileListCatalog, bool machineWide)
         {
+            #region Sanity checks
+            if (feedManager == null) throw new ArgumentNullException("feedManager");
+            if (catalogManager == null) throw new ArgumentNullException("catalogManager");
+            if (tileListMyApps == null) throw new ArgumentNullException("tileListMyApps");
+            if (tileListCatalog == null) throw new ArgumentNullException("tileListCatalog");
+            #endregion
+
             _feedManager = feedManager;
             _catalogManager = catalogManager;
 

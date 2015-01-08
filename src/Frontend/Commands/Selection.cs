@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
+using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -68,7 +69,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 1; } }
 
         /// <inheritdoc/>
-        public Selection(ICommandHandler handler) : base(handler)
+        public Selection([NotNull] ICommandHandler handler) : base(handler)
         {
             Options.Add("g|gui", () => Resources.OptionGui, _ => ShowModifySelections = true);
 

@@ -72,9 +72,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             try
             {
                 if (disposing)
-                {
                     _database.Dispose();
-                }
             }
             finally
             {

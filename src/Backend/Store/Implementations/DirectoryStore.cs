@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -240,6 +241,7 @@ namespace ZeroInstall.Store.Implementations
             var result = new List<ManifestDigest>();
             foreach (string path in Directory.GetDirectories(DirectoryPath))
             {
+                Debug.Assert(path != null);
                 var digest = new ManifestDigest();
                 digest.ParseID(Path.GetFileName(path));
                 if (digest.Best != null) result.Add(new ManifestDigest(Path.GetFileName(path)));
@@ -255,6 +257,7 @@ namespace ZeroInstall.Store.Implementations
             var result = new List<string>();
             foreach (string path in Directory.GetDirectories(DirectoryPath))
             {
+                Debug.Assert(path != null);
                 try
                 {
                     // ReSharper disable once ObjectCreationAsStatement
@@ -336,7 +339,6 @@ namespace ZeroInstall.Store.Implementations
             }
             finally
             {
-                // Remove temporary directory before passing exception on
                 DeleteTempDir(tempDir);
             }
         }
@@ -381,7 +383,6 @@ namespace ZeroInstall.Store.Implementations
             }
             finally
             {
-                // Remove extracted directory if validation or something else failed
                 DeleteTempDir(tempDir);
             }
         }
@@ -470,9 +471,11 @@ namespace ZeroInstall.Store.Implementations
                 target: ListAll(),
                 work: manifestDigest =>
                 {
+                    // ReSharper disable AssignNullToNotNullAttribute
                     var manifest = Manifest.Load(
                         Path.Combine(GetPath(manifestDigest), ".manifest"),
                         ManifestFormat.FromPrefix(manifestDigest.Best));
+                    // ReSharper restore AssignNullToNotNullAttribute
 
                     string currentDirectory = "";
                     new AggregateDispatcher<ManifestNode>
@@ -541,7 +544,9 @@ namespace ZeroInstall.Store.Implementations
 
             if (!Contains(manifestDigest)) throw new ImplementationNotFoundException(manifestDigest);
 
-            string target = Path.Combine(DirectoryPath, manifestDigest.Best);
+            string digest = manifestDigest.Best;
+            if (digest == null) throw new NotSupportedException(Resources.NoKnownDigestMethod);
+            string target = Path.Combine(DirectoryPath, digest);
             try
             {
                 VerifyDirectory(target, manifestDigest, handler);

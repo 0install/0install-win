@@ -31,7 +31,7 @@ namespace ZeroInstall.Publish.EntryPoints
         internal override bool Analyze(DirectoryInfo baseDirectory, FileInfo file)
         {
             if (!base.Analyze(baseDirectory, file)) return false;
-            if (!StringUtils.EqualsIgnoreCase(file.Extension, ".jar")) return false;
+            if (!StringUtils.EqualsIgnoreCase(file.Extension, @".jar")) return false;
 
             // TODO: Parse JAR metadata
             Name = file.Name.Substring(0, file.Name.Length - file.Extension.Length);
@@ -62,7 +62,7 @@ namespace ZeroInstall.Publish.EntryPoints
                     {
                         InterfaceUri = new FeedUri("http://repo.roscidus.com/java/openjdk-jre"),
                         Command = NeedsTerminal ? Command.NameRun : Command.NameRunGui,
-                        Arguments = {"-jar"},
+                        Arguments = {@"-jar"},
                         Versions = (VersionRange)MinimumRuntimeVersion
                     }
                 };

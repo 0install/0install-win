@@ -53,6 +53,7 @@ namespace ZeroInstall.Publish
         {
             #region Sanity checks
             if (signedFeed == null) throw new ArgumentNullException("signedFeed");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
             Path = path;

@@ -290,6 +290,9 @@ Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen wom
   <data name="PurgingCache" xml:space="preserve">
     <value>Leere cache</value>
   </data>
+  <data name="RecipeFileNotDownloaded" xml:space="preserve">
+    <value>Eine Datei auf die im &lt;recipe&gt; verwießen wird wurde nicht heruntergeladen.</value>
+  </data>
   <data name="RecipeInvalidPath" xml:space="preserve">
     <value>Das Recipe enthält einen ungültigen Pfad (möglicherweise ein Sicherheitsrisiko): {0}</value>
   </data>

@@ -415,7 +415,7 @@
     <value>7</value>
   </data>
   <data name="tabPageAliases.Text" xml:space="preserve">
-    <value>Aliases</value>
+    <value>Command-line aliases</value>
   </data>
   <data name="&gt;&gt;tabPageAliases.Name" xml:space="preserve">
     <value>tabPageAliases</value>
@@ -1348,7 +1348,7 @@
     <value>4</value>
   </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
-    <value>Command-line</value>
+    <value>Command-line aliases</value>
   </data>
   <data name="&gt;&gt;checkBoxAliasesSimple.Name" xml:space="preserve">
     <value>checkBoxAliasesSimple</value>

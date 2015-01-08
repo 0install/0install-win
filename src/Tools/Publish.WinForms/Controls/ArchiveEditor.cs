@@ -35,9 +35,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
             RegisterControl(textBoxExtract, new PropertyPointer<string>(() => Target.Extract, value => Target.Extract = value));
             RegisterControl(textBoxDestination, new PropertyPointer<string>(() => Target.Destination, value => Target.Destination = value));
 
-            // ReSharper disable CoVariantArrayConversion
+            // ReSharper disable once CoVariantArrayConversion
             comboBoxMimeType.Items.AddRange(Archive.KnownMimeTypes);
-            // ReSharper restore CoVariantArrayConversion
         }
 
         private void textBox_TextChanged(object sender, EventArgs e)

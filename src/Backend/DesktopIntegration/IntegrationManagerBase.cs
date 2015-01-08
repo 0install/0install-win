@@ -42,6 +42,10 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         protected IntegrationManagerBase(ITaskHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             Handler = handler;
         }
         #endregion

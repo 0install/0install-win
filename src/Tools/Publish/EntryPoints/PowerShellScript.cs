@@ -30,7 +30,7 @@ namespace ZeroInstall.Publish.EntryPoints
         internal override bool Analyze(DirectoryInfo baseDirectory, FileInfo file)
         {
             if (!base.Analyze(baseDirectory, file)) return false;
-            return StringUtils.EqualsIgnoreCase(file.Extension, ".ps1");
+            return StringUtils.EqualsIgnoreCase(file.Extension, @".ps1");
         }
 
         /// <inheritdoc/>

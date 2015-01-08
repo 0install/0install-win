@@ -71,6 +71,7 @@ namespace ZeroInstall.Store.Implementations
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             if (format == null) throw new ArgumentNullException("format");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             var generator = new ManifestGenerator(path, format);

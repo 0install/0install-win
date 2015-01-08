@@ -32,44 +32,37 @@ namespace ZeroInstall.Hooking
         /// <summary>
         /// <see langword="true"/> if the current operating system is Windows (9x- or NT-based); <see langword="false"/> otherwise.
         /// </summary>
-        public static bool IsWindows
-        { get { return Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT; } }
+        public static bool IsWindows { get { return Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT; } }
 
         /// <summary>
         /// <see langword="true"/> if the current operating system is a modern Windows version (NT-based); <see langword="false"/> otherwise.
         /// </summary>
-        public static bool IsWindowsNT
-        { get { return Environment.OSVersion.Platform == PlatformID.Win32NT; } }
+        public static bool IsWindowsNT { get { return Environment.OSVersion.Platform == PlatformID.Win32NT; } }
 
         /// <summary>
         /// <see langword="true"/> if the current operating system is Windows Vista or newer; <see langword="false"/> otherwise.
         /// </summary>
-        public static bool IsWindowsVista
-        { get { return IsWindowsNT && Environment.OSVersion.Version >= new Version(6, 0); } }
+        public static bool IsWindowsVista { get { return IsWindowsNT && Environment.OSVersion.Version >= new Version(6, 0); } }
 
         /// <summary>
         /// <see langword="true"/> if the current operating system is Windows 7 or newer; <see langword="false"/> otherwise.
         /// </summary>
-        public static bool IsWindows7
-        { get { return IsWindowsNT && Environment.OSVersion.Version >= new Version(6, 1); } }
+        public static bool IsWindows7 { get { return IsWindowsNT && Environment.OSVersion.Version >= new Version(6, 1); } }
 
         /// <summary>
         /// <see langword="true"/> if the current operating system is Windows 8 or newer; <see langword="false"/> otherwise.
         /// </summary>
-        public static bool IsWindows8
-        { get { return IsWindowsNT && Environment.OSVersion.Version >= new Version(6, 2); } }
+        public static bool IsWindows8 { get { return IsWindowsNT && Environment.OSVersion.Version >= new Version(6, 2); } }
 
         /// <summary>
         /// <see langword="true"/> if the current operating system is 64-bit capable; <see langword="false"/> otherwise.
         /// </summary>
-        public static bool Is64BitOperatingSystem
-        { get { return Is64BitProcess || Is32BitProcessOn64BitOperatingSystem; } }
+        public static bool Is64BitOperatingSystem { get { return Is64BitProcess || Is32BitProcessOn64BitOperatingSystem; } }
 
         /// <summary>
         /// <see langword="true"/> if the current process is 64-bit; <see langword="false"/> otherwise.
         /// </summary>
-        public static bool Is64BitProcess
-        { get { return IntPtr.Size == 8; } }
+        public static bool Is64BitProcess { get { return IntPtr.Size == 8; } }
 
         /// <summary>
         /// <see langword="true"/> if the current process is 32-bit but the operating system is 64-bit capable; <see langword="false"/> otherwise.

@@ -72,7 +72,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// The specific POSIX-style operating system the binary is compiled for.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">A non-POSIX <see cref="OS"/> value is specified.</exception>
-        [Category("Details (POSIX)"), DisplayName("Operating system"), Description("The specific POSIX-style operating system the binary is compiled for.")]
+        [Category("Details (POSIX)"), DisplayName(@"Operating system"), Description("The specific POSIX-style operating system the binary is compiled for.")]
         [DefaultValue(typeof(OS), "Linux")]
         public OS OS
         {

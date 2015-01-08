@@ -162,7 +162,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="manifestDigest">The digest of the implementation to be verified.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress or asked questions.</param>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
-        /// <exception cref="ArgumentException"><paramref name="manifestDigest"/> indicates no known hash methods.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="manifestDigest"/> does not list any supported digests.</exception>
         /// <exception cref="ImplementationNotFoundException">No implementation matching <paramref name="manifestDigest"/> could be found in the store.</exception>
         /// <exception cref="IOException">The entry's directory could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the entry's directory is not permitted.</exception>

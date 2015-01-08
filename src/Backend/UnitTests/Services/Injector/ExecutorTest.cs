@@ -17,6 +17,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using Moq;
@@ -35,6 +36,7 @@ namespace ZeroInstall.Services.Injector
     /// Contains test methods for <see cref="Executor"/>.
     /// </summary>
     [TestFixture]
+    [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
     public class ExecutorTest
     {
         private const string Test1Path = "test1 path", Test2Path = "test2 path";

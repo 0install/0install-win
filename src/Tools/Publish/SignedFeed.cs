@@ -30,7 +30,6 @@ namespace ZeroInstall.Publish
     [Serializable]
     public class SignedFeed
     {
-        #region Properties
         /// <summary>
         /// The wrapped <see cref="Feed"/>.
         /// </summary>
@@ -40,9 +39,7 @@ namespace ZeroInstall.Publish
         /// The secret key used to sign the <see cref="Feed"/>; <see langword="null"/> for no signature.
         /// </summary>
         public OpenPgpSecretKey SecretKey { get; set; }
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a new signed feed.
         /// </summary>
@@ -57,9 +54,6 @@ namespace ZeroInstall.Publish
             Feed = feed;
             SecretKey = secretKey;
         }
-        #endregion
-
-        //--------------------//
 
         #region Storage
         /// <summary>
@@ -103,15 +97,18 @@ namespace ZeroInstall.Publish
             var openPgp = OpenPgpFactory.CreateDefault();
             using (var stream = new MemoryStream())
             {
-                Feed.SaveXml(stream, stylesheet: "feed.xsl");
+                Feed.SaveXml(stream, stylesheet: @"feed.xsl");
                 stream.Position = 0;
 
                 FeedUtils.SignFeed(stream, SecretKey, passphrase, openPgp);
                 stream.WriteTo(path);
             }
             string directory = Path.GetDirectoryName(path);
-            FeedUtils.DeployPublicKey(directory, SecretKey, openPgp);
-            FeedUtils.DeployStylesheet(directory, "feed");
+            if (directory != null)
+            {
+                FeedUtils.DeployPublicKey(directory, SecretKey, openPgp);
+                FeedUtils.DeployStylesheet(directory, @"feed");
+            }
         }
         #endregion
     }

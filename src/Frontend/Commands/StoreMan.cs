@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -204,6 +205,7 @@ namespace ZeroInstall.Commands
             var store = (AdditionalArgs.Count == 3) ? new DirectoryStore(AdditionalArgs[2]) : Store;
 
             string path = AdditionalArgs[1];
+            Debug.Assert(path != null);
             try
             {
                 store.AddDirectory(Path.GetFullPath(path), new ManifestDigest(Path.GetFileName(path)), Handler);
@@ -231,7 +233,7 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "list", "");
 
             var composite = Store as CompositeStore;
-            Handler.Output(Resources.CachedInterfaces, (composite == null) ? new[] { Store } : composite.Stores);
+            Handler.Output(Resources.CachedInterfaces, (composite == null) ? new[] {Store} : composite.Stores);
         }
 
         private void ListImplementations()
@@ -271,6 +273,7 @@ namespace ZeroInstall.Commands
             {
                 foreach (string arg in AdditionalArgs.Skip(1))
                 {
+                    Debug.Assert(arg != null);
                     if (Directory.Exists(arg))
                     { // Verify an arbitrary directory
                         string path = arg;

@@ -31,7 +31,7 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             if (!base.Analyze(baseDirectory, file)) return false;
             return
-                StringUtils.EqualsIgnoreCase(file.Extension, ".pl") ||
+                StringUtils.EqualsIgnoreCase(file.Extension, @".pl") ||
                 HasShebang(file, "perl");
         }
 

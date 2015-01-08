@@ -180,6 +180,11 @@ namespace ZeroInstall.Commands
         /// <returns>The first <see cref="AppAlias"/> in <paramref name="appList"/> matching <paramref name="aliasName"/>; <see langword="null"/> if none was found.</returns>
         internal static AppAlias GetAppAlias(AppList appList, string aliasName, out AppEntry foundAppEntry)
         {
+            #region Sanity checks
+            if (appList == null) throw new ArgumentNullException("appList");
+            if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException("aliasName");
+            #endregion
+
             var results =
                 from entry in appList.Entries
                 where entry.AccessPoints != null

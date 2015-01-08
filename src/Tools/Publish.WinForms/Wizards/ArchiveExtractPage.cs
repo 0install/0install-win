@@ -75,7 +75,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                 return;
             }
 
-            _archive.Extract = comboBoxExtract.Text;
+            _archive.Extract = comboBoxExtract.Text ?? "";
             string path = Path.Combine(_feedBuilder.TemporaryDirectory, FileUtils.UnifySlashes(_archive.Extract));
 
             try

@@ -35,6 +35,10 @@ namespace ZeroInstall.Store.Model
         /// <exception cref="ArgumentException"><paramref name="value"/> is not a valid version range string.</exception>
         public static VersionRangePart FromString(string value)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
+            #endregion
+
             if (value.Contains(".."))
             {
                 string start = value.GetLeftPartAtFirstOccurrence("..");

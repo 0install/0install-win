@@ -21,19 +21,21 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security;
 
 namespace ZeroInstall.Hooking
 {
-    static partial class WindowsUtils
+    static partial class WindowsTaskbar
     {
-        #region Structures
         [StructLayout(LayoutKind.Sequential, Pack = 4)]
+        [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local"), SuppressMessage("ReSharper", "PrivateFieldCanBeConvertedToLocalVariable")]
         private struct PropertyKey
         {
-            Guid formatID;
-            Int32 propertyID;
+            private Guid formatID;
+            private Int32 propertyID;
 
             public PropertyKey(Guid formatID, int propertyID)
             {
@@ -45,10 +47,10 @@ namespace ZeroInstall.Hooking
         [StructLayout(LayoutKind.Sequential)]
         private struct PropertyVariant : IDisposable
         {
-            ushort valueType;
-            ushort wReserved1, wReserved2, wReserved3;
-            IntPtr valueData;
-            Int32 valueDataExt;
+            private ushort valueType;
+            private ushort wReserved1, wReserved2, wReserved3;
+            private IntPtr valueData;
+            private Int32 valueDataExt;
 
             public PropertyVariant(string value)
             {
@@ -71,9 +73,7 @@ namespace ZeroInstall.Hooking
                 valueDataExt = 0;
             }
         }
-        #endregion
 
-        #region COM
         private const string PropertyStoreGuid = "886D8EEB-8CF2-4446-8D02-CDBA1DBDCF99";
 
         [ComImport, Guid(PropertyStoreGuid), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -96,32 +96,16 @@ namespace ZeroInstall.Hooking
             [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
             uint Commit();
         }
-        #endregion
-        
-        /// <summary>
-        /// Retrieves the property store for a window.
-        /// </summary>
-        /// <param name="hwnd">A handle to the window to retrieve the property store for.</param>
-        private static IPropertyStore GetWindowPropertyStore(IntPtr hwnd)
-        {
-            IPropertyStore propStore;
-            var guid = new Guid(PropertyStoreGuid);
-            int rc = UnsafeNativeMethods.SHGetPropertyStoreForWindow(hwnd, ref guid, out propStore);
-            if (rc != 0) throw Marshal.GetExceptionForHR(rc);
-            return propStore;
-        }
 
-        /// <summary>
-        /// Sets a property value.
-        /// </summary>
-        /// <param name="propertyStore">The property store to set the property in.</param>
-        /// <param name="property">The property to set.</param>
-        /// <param name="value">The value to set the property to.</param>
-        private static void SetPropertyValue(IPropertyStore propertyStore, PropertyKey property, string value)
+        [SuppressUnmanagedCodeSecurity]
+        private static class UnsafeNativeMethods
         {
-            var variant = new PropertyVariant(value);
-            propertyStore.SetValue(ref property, ref variant);
-            variant.Dispose();
+            // Properties
+            [DllImport("shell32", SetLastError = true)]
+            public static extern int SHGetPropertyStoreForWindow(IntPtr hwnd, ref Guid iid, [Out, MarshalAs(UnmanagedType.Interface)] out IPropertyStore propertyStore);
+
+            [DllImport("ole32", PreserveSig = false)]
+            internal static extern void PropVariantClear([In, Out] ref PropertyVariant pvar);
         }
     }
 }

@@ -290,6 +290,9 @@ You can delete the file '{1}' to fix the problem. Other settings may also be los
   <data name="PurgingCache" xml:space="preserve">
     <value>Purging cache</value>
   </data>
+  <data name="RecipeFileNotDownloaded" xml:space="preserve">
+    <value>A file referenced in the &lt;recipe&gt; was not downloaded.</value>
+  </data>
   <data name="RecipeInvalidPath" xml:space="preserve">
     <value>A recipe step contains an invalid path (potentially a security risk): {0}</value>
   </data>

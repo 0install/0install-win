@@ -35,7 +35,7 @@ namespace ZeroInstall.Publish.EntryPoints.Design
 
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
-            return new StandardValuesCollection(new[] {"", "6.0", "7.0", "8.0"});
+            return new StandardValuesCollection(new[] {"", @"6.0", @"7.0", @"8.0"});
         }
     }
 }

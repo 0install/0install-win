@@ -56,6 +56,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Description("The name of the environment variable.")]
         [XmlAttribute("name")]
+        [Localizable(false)]
         public string Name { get; set; }
 
         /// <summary>

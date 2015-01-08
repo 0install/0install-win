@@ -73,12 +73,13 @@ namespace ZeroInstall.Commands.WinForms
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
+            if (solveCallback == null) throw new ArgumentNullException("solveCallback");
             if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
             InitializeComponent();
             comboBoxStability.Items.AddRange(new object[] {Resources.UseDefaultSetting, Stability.Stable, Stability.Testing, Stability.Developer});
-            dataColumnUserStability.Items.AddRange(new object[] {Stability.Unset, Stability.Preferred, Stability.Packaged, Stability.Stable, Stability.Testing, Stability.Developer});
+            dataColumnUserStability.Items.AddRange(Stability.Unset, Stability.Preferred, Stability.Packaged, Stability.Stable, Stability.Testing, Stability.Developer);
 
             _interfaceUri = interfaceUri;
             _mainFeed = feedCache.GetFeed(_interfaceUri);
@@ -110,7 +111,9 @@ namespace ZeroInstall.Commands.WinForms
         public static void Show(IWin32Window owner, FeedUri interfaceUri, Func<Selections> solveCallback, IFeedCache feedCache)
         {
             #region Sanity checks
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             if (owner == null) throw new ArgumentNullException("owner");
+            if (solveCallback == null) throw new ArgumentNullException("solveCallback");
             if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
@@ -162,6 +165,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private IEnumerable<SelectionCandidate> GenerateDummyCandidates()
         {
+            // ReSharper disable once InvokeAsExtensionMethod
             var feedUris = Enumerable.Concat(
                 listBoxFeeds.Items.OfType<FeedUri>(),
                 listBoxFeeds.Items.OfType<FeedReference>().Select(x => x.Source));

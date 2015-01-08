@@ -26,7 +26,7 @@ namespace ZeroInstall.Store.Icons
         /// </summary>
         /// <param name="iconUrl">The location of the icon. Must be an HTTP(S) URL.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about icon downloading.</param>
-        /// <returns>The parsed icon object. Do not modify this object! It may be a reference to an in-memory cache entry.</returns>
+        /// <returns>File path to the cached icon.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">A problem occured while adding the icon to the cache.</exception>
         /// <exception cref="WebException">A problem occured while downloading the icon.</exception>

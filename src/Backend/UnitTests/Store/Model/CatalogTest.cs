@@ -67,9 +67,8 @@ namespace ZeroInstall.Store.Model
             Assert.AreEqual(FeedTest.CreateTestFeed(), catalog[FeedTest.Test1Uri]);
 
             Assert.IsNull(catalog.GetFeed(new FeedUri("http://invalid/")));
-            // ReSharper disable UnusedVariable
+            // ReSharper disable once UnusedVariable
             Assert.Throws<KeyNotFoundException>(() => { var dummy = catalog[new FeedUri("http://invalid/")]; });
-            // ReSharper restore UnusedVariable
         }
 
         /// <summary>

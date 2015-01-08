@@ -105,6 +105,7 @@ namespace ZeroInstall.DesktopIntegration
         {
             #region Sanity checks
             if (server.Uri == null) throw new ArgumentNullException("server");
+            if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
             #endregion
 
             _server = server;
@@ -135,6 +136,7 @@ namespace ZeroInstall.DesktopIntegration
         {
             #region Sanity checks
             if (server.Uri == null) throw new ArgumentNullException("server");
+            if (feedRetriever == null) throw new ArgumentNullException("feedRetriever");
             #endregion
 
             _server = server;

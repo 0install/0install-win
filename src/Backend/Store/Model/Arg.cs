@@ -29,7 +29,6 @@ namespace ZeroInstall.Store.Model
     [XmlRoot("arg", Namespace = Feed.XmlNamespace), XmlType("arg", Namespace = Feed.XmlNamespace)]
     public class Arg : ArgBase, IEquatable<Arg>
     {
-        #region Properties
         /// <summary>
         /// A single command-line arguments to be passed to an executable.
         /// Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
@@ -37,7 +36,6 @@ namespace ZeroInstall.Store.Model
         [Description("A single command-line arguments to be passed to an executable.\nWill be automatically escaped to allow proper concatenation of multiple arguments containing spaces.")]
         [XmlText]
         public string Value { get; set; }
-        #endregion
 
         //--------------------//
 

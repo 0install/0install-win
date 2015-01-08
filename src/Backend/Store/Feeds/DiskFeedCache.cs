@@ -88,6 +88,7 @@ namespace ZeroInstall.Store.Feeds
         {
             if (!Directory.Exists(DirectoryPath)) return Enumerable.Empty<FeedUri>();
 
+            // ReSharper disable once AssignNullToNotNullAttribute
             return Directory.GetFiles(DirectoryPath)
                 .TrySelect<string, FeedUri, UriFormatException>(x => FeedUri.Unescape(Path.GetFileName(x)));
         }

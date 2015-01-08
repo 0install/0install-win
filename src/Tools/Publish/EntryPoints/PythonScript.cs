@@ -31,19 +31,19 @@ namespace ZeroInstall.Publish.EntryPoints
         /// <summary>
         /// Does this application have a graphical interface an no terminal output? Only enable if you are sure!
         /// </summary>
-        [Category("Details (Python)"), DisplayName("GUI only"), Description("Does this application have a graphical interface an no terminal output? Only enable if you are sure!")]
+        [Category("Details (Python)"), DisplayName(@"GUI only"), Description("Does this application have a graphical interface an no terminal output? Only enable if you are sure!")]
         public bool GuiOnly { get { return !NeedsTerminal; } set { NeedsTerminal = !value; } }
 
         /// <inheritdoc/>
         internal override bool Analyze(DirectoryInfo baseDirectory, FileInfo file)
         {
             if (!base.Analyze(baseDirectory, file)) return false;
-            if (StringUtils.EqualsIgnoreCase(file.Extension, ".pyw"))
+            if (StringUtils.EqualsIgnoreCase(file.Extension, @".pyw"))
             {
                 GuiOnly = true;
                 return true;
             }
-            else if (StringUtils.EqualsIgnoreCase(file.Extension, ".py") || HasShebang(file, "python"))
+            else if (StringUtils.EqualsIgnoreCase(file.Extension, @".py") || HasShebang(file, "python"))
             {
                 GuiOnly = false;
                 return true;

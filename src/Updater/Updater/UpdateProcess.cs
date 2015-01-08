@@ -293,7 +293,6 @@ namespace ZeroInstall.Updater
             string ngenPath = Path.Combine(netFxDir, "ngen.exe");
             if (!File.Exists(ngenPath)) return;
 
-            // ReSharper disable once LoopCanBePartlyConvertedToQuery
             foreach (string assembly in _ngenAssemblies)
             {
                 string arguments = new[] {"install", Path.Combine(Target, assembly), "/queue"}.JoinEscapeArguments();

@@ -32,7 +32,6 @@ namespace ZeroInstall.Store.Model
     [XmlRoot("for-each", Namespace = Feed.XmlNamespace), XmlType("for-each", Namespace = Feed.XmlNamespace)]
     public class ForEachArgs : ArgBase, IEquatable<ForEachArgs>
     {
-        #region Properties
         /// <summary>
         /// The name of the environment variable to be expanded.
         /// </summary>
@@ -55,7 +54,6 @@ namespace ZeroInstall.Store.Model
         [Browsable(false)]
         [XmlElement("arg")]
         public List<Arg> Arguments { get { return _arguments; } }
-        #endregion
 
         //--------------------//
 

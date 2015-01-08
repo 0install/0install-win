@@ -115,7 +115,9 @@ namespace ZeroInstall.Store.Model
         /// <exception cref="NotSupportedException"><paramref name="id"/> is not a valid manifest digest.</exception>
         public ManifestDigest(string id) : this()
         {
+            #region Sanity checks
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+            #endregion
 
             if (id.StartsWith("sha1=")) Sha1 = id.Substring("sha1=".Length);
             else if (id.StartsWith("sha1new=")) Sha1New = id.Substring("sha1new=".Length);

@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using NanoByte.Common.Native;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
@@ -26,6 +27,7 @@ namespace ZeroInstall.Store
     /// Contains test methods for <see cref="FeedUri"/>.
     /// </summary>
     [TestFixture]
+    [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
     public class FeedUriTest
     {
         /// <summary>

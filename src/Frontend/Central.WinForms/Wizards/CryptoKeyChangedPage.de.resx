@@ -127,9 +127,6 @@
     <value>Crypto-Schlüssel geändert</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="labelInfo2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 155</value>
-  </data>
   <data name="labelInfo2.Text" xml:space="preserve">
     <value>Geben Sie den Schlüssel auf anderen Computern mit dem 'Optionen' Fenster ein. Verwenden Sie dort nicht diesen Assistenten, da er nur zur ersten Änderung benötigt wird.</value>
   </data>

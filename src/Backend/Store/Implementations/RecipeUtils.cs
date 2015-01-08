@@ -42,6 +42,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; may be <see langword="null"/>.</param>
         /// <returns>A <see cref="TemporaryDirectory"/> with the resulting directory content.</returns>
         /// <exception cref="NotSupportedException"><paramref name="recipe"/> contains unknown step types.</exception>
+        [SuppressMessage("Microsoft.Usage", "CA2208:InstantiateArgumentExceptionsCorrectly", Justification = "False positivie due to usage inside lamda")]
         public static TemporaryDirectory Apply(this Recipe recipe, IEnumerable<TemporaryFile> downloadedFiles, ITaskHandler handler, object tag = null)
         {
             #region Sanity checks
@@ -64,11 +65,13 @@ namespace ZeroInstall.Store.Implementations
                     (Archive step) =>
                     {
                         downloadedEnum.MoveNext();
+                        if (downloadedEnum.Current == null) throw new ArgumentException(Resources.RecipeFileNotDownloaded, "downloadedFiles");
                         step.Apply(downloadedEnum.Current, workingDir, handler, tag);
                     },
                     (SingleFile step) =>
                     {
                         downloadedEnum.MoveNext();
+                        if (downloadedEnum.Current == null) throw new ArgumentException(Resources.RecipeFileNotDownloaded, "downloadedFiles");
                         step.Apply(downloadedEnum.Current, workingDir, handler, tag);
                     },
                     (RemoveStep step) => step.Apply(workingDir),

@@ -16,10 +16,11 @@
  */
 
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Moq;
 using NUnit.Framework.Constraints;
 
-namespace NanoByte.Common
+namespace ZeroInstall
 {
     /// <summary>
     /// Extension methods for <see cref="Moq"/>.
@@ -30,7 +31,7 @@ namespace NanoByte.Common
         /// Ensures a collection is equal to this one (same elements in same order).
         /// </summary>
         [Matcher]
-        public static IEnumerable<T> IsEqual<T>(this IEnumerable<T> expected)
+        public static IEnumerable<T> IsEqual<T>([NotNull] this IEnumerable<T> expected)
         {
             return Match.Create<IEnumerable<T>>(new EqualConstraint(expected).Matches);
         }
@@ -39,7 +40,7 @@ namespace NanoByte.Common
         /// Ensures a collection is equivalet to this one (same elements in any order).
         /// </summary>
         [Matcher]
-        public static IEnumerable<T> IsEquivalent<T>(this IEnumerable<T> expected)
+        public static IEnumerable<T> IsEquivalent<T>([NotNull] this IEnumerable<T> expected)
         {
             return Match.Create<IEnumerable<T>>(new CollectionEquivalentConstraint(expected).Matches);
         }

@@ -99,7 +99,9 @@ namespace ZeroInstall.Store.Service
             string path = StoreFactory.GetImplementationDirs(excludeUserProfile: true).Last();
             eventLog.WriteEntry("Using cache directory: " + path, EventLogEntryType.Information);
 
-            return new SecureStore(path, WindowsIdentity.GetCurrent(), eventLog);
+            var identity = WindowsIdentity.GetCurrent();
+            Debug.Assert(identity != null);
+            return new SecureStore(path, identity, eventLog);
         }
         #endregion
 

@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using NanoByte.Common.Native;
 using NUnit.Framework;
@@ -62,6 +63,7 @@ namespace ZeroInstall.Store.Model
         /// Ensures that <see cref="Element.GetCommand"/> and <see cref="Element.this"/> correctly retrieve commands.
         /// </summary>
         [Test]
+        [SuppressMessage("ReSharper", "UnusedVariable")]
         public void TestGetCommand()
         {
             var implementation = CreateTestImplementation();
@@ -69,13 +71,11 @@ namespace ZeroInstall.Store.Model
             Assert.AreEqual(implementation.Commands[0], implementation.GetCommand(Command.NameRun));
             Assert.AreEqual(implementation.Commands[0], implementation[Command.NameRun]);
 
-            // ReSharper disable UnusedVariable
             Assert.Throws<ArgumentNullException>(() => { var dummy = implementation.GetCommand(""); });
             Assert.IsNull(implementation[""]);
 
             Assert.IsNull(implementation.GetCommand("invalid"));
             Assert.Throws<KeyNotFoundException>(() => { var dummy = implementation["invalid"]; });
-            // ReSharper restore UnusedVariable
         }
 
         /// <summary>
@@ -100,6 +100,7 @@ namespace ZeroInstall.Store.Model
         /// Ensures that <see cref="Implementation.Normalize"/> correctly converts <see cref="Element.Main"/> and <see cref="Element.SelfTest"/> to <see cref="Command"/>s.
         /// </summary>
         [Test]
+        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         public void TestNormalizeCommand()
         {
             var implementation = new Implementation {Main = "main", SelfTest = "test"};

@@ -32,7 +32,7 @@ namespace ZeroInstall.Publish.EntryPoints
         internal override bool Analyze(DirectoryInfo baseDirectory, FileInfo file)
         {
             if (!base.Analyze(baseDirectory, file)) return false;
-            if (!StringUtils.EqualsIgnoreCase(file.Extension, ".exe")) return false;
+            if (!StringUtils.EqualsIgnoreCase(file.Extension, @".exe")) return false;
 
             try
             {

@@ -48,7 +48,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// <summary>
         /// The range of versions of the script interpreter supported by the application.
         /// </summary>
-        [Category("Details (Script)"), DisplayName("Interpreter versions"), Description("The range of versions of the script interpreter supported by the application.")]
+        [Category("Details (Script)"), DisplayName(@"Interpreter versions"), Description("The range of versions of the script interpreter supported by the application.")]
         [DefaultValue("")]
         public VersionRange InterpreterVersions { get; set; }
 
@@ -81,8 +81,8 @@ namespace ZeroInstall.Publish.EntryPoints
             string firstLine = file.ReadFirstLine(Encoding.ASCII);
             if (string.IsNullOrEmpty(firstLine)) return false;
             return
-                firstLine.StartsWith("#!/usr/bin/" + interpreter) ||
-                firstLine.StartsWith("#!/usr/bin/env " + interpreter);
+                firstLine.StartsWith(@"#!/usr/bin/" + interpreter) ||
+                firstLine.StartsWith(@"#!/usr/bin/env " + interpreter);
         }
         #endregion
 

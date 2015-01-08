@@ -31,7 +31,7 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             if (!base.Analyze(baseDirectory, file)) return false;
             return
-                StringUtils.EqualsIgnoreCase(file.Extension, ".rb") ||
+                StringUtils.EqualsIgnoreCase(file.Extension, @".rb") ||
                 HasShebang(file, "ruby");
         }
 

@@ -135,6 +135,10 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="KeyNotFoundException">No capability matching <paramref name="id"/> and <typeparamref name="T"/> was found.</exception>
         public T GetCapability<T>(string id) where T : Capability
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+            #endregion
+
             try
             {
                 return _capabilityLists.CompatibleCapabilities().OfType<T>()

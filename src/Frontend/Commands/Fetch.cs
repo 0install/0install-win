@@ -49,7 +49,10 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            var feedFragment = XmlStorage.FromXmlString<Feed>(Console.ReadLine());
+            string input = Console.ReadLine();
+            if (string.IsNullOrEmpty(input)) return -1;
+
+            var feedFragment = XmlStorage.FromXmlString<Feed>(input);
             Fetcher.Fetch(feedFragment.Elements.OfType<Implementation>());
 
             return 0;

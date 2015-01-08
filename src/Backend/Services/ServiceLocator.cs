@@ -60,6 +60,10 @@ namespace ZeroInstall.Services
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         public ServiceLocator(ITaskHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             Handler = handler;
         }
         #endregion

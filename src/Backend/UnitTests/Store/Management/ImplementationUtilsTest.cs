@@ -33,10 +33,10 @@ namespace ZeroInstall.Store.Management
         public void TestGetImplementation()
         {
             var digest1 = new ManifestDigest(sha256: "123");
-            var implementation1 = new Model.Implementation {ManifestDigest = digest1};
+            var implementation1 = new Implementation {ManifestDigest = digest1};
             var feed1 = new Feed {Elements = {implementation1}};
             var digest2 = new ManifestDigest(sha256: "abc");
-            var implementation2 = new Model.Implementation {ManifestDigest = digest2};
+            var implementation2 = new Implementation {ManifestDigest = digest2};
             var feed2 = new Feed {Elements = {implementation2}};
             var feeds = new[] {feed1, feed2};
 

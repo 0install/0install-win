@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
@@ -209,6 +210,7 @@ namespace ZeroInstall.Store.Model
         /// Ensures that <see cref="Feed.Normalize"/> correctly collapses <see cref="Group"/> structures.
         /// </summary>
         [Test]
+        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         public void TestNormalize()
         {
             var feed = new Feed {Elements = {CreateTestGroup()}};
@@ -272,9 +274,8 @@ namespace ZeroInstall.Store.Model
             var feed = CreateTestFeed();
 
             Assert.AreEqual(CreateTestImplementation(), feed["id1"]);
-            // ReSharper disable UnusedVariable
+            // ReSharper disable once UnusedVariable
             Assert.Throws<KeyNotFoundException>(() => { var dummy = feed["invalid"]; });
-            // ReSharper restore UnusedVariable
         }
 
         /// <summary>

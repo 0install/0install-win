@@ -52,7 +52,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// <summary>
         /// The minimum version of the .NET Runtime required by the application.
         /// </summary>
-        [Category("Details (.NET)"), DisplayName("Minimum .NET version"), Description("The minimum version of the .NET Runtime required by the application.")]
+        [Category("Details (.NET)"), DisplayName(@"Minimum .NET version"), Description("The minimum version of the .NET Runtime required by the application.")]
         [DefaultValue("")]
         [TypeConverter(typeof(DotNetVersionConverter))]
         public ImplementationVersion MinimumRuntimeVersion { get; set; }
@@ -60,14 +60,14 @@ namespace ZeroInstall.Publish.EntryPoints
         /// <summary>
         /// The types of .NET runtimes supported by the application.
         /// </summary>
-        [Category("Details (.NET)"), DisplayName(".NET type"), Description("The types of .NET runtimes supported by the application.")]
+        [Category("Details (.NET)"), DisplayName(@".NET type"), Description("The types of .NET runtimes supported by the application.")]
         [DefaultValue(typeof(DotNetRuntimeType), "Any")]
         public DotNetRuntimeType RuntimeType { get; set; }
 
         /// <summary>
         /// Does this application have external dependencies that need to be injected by Zero Install? Only enable if you are sure!
         /// </summary>
-        [Category("Details (.NET)"), DisplayName("External dependencies"), Description("Does this application have external dependencies that need to be injected by Zero Install? Only enable if you are sure!")]
+        [Category("Details (.NET)"), DisplayName(@"External dependencies"), Description("Does this application have external dependencies that need to be injected by Zero Install? Only enable if you are sure!")]
         [DefaultValue(false)]
         public bool ExternalDependencies { get; set; }
 
@@ -80,37 +80,37 @@ namespace ZeroInstall.Publish.EntryPoints
                 Path = RelativePath,
                 Runner = new Runner
                 {
-                    InterfaceUri = new FeedUri(GetInterfaceUri()),
+                    InterfaceUri = GetInterfaceUri(),
                     Command = NeedsTerminal ? Command.NameRun : Command.NameRunGui,
                     Versions = (VersionRange)MinimumRuntimeVersion
                 }
             };
         }
 
-        private string GetInterfaceUri()
+        private FeedUri GetInterfaceUri()
         {
             switch (RuntimeType)
             {
                 case DotNetRuntimeType.Any:
                 default:
                     return ExternalDependencies
-                        ? "http://0install.de/feeds/cli/cli-monopath.xml"
-                        : "http://0install.de/feeds/cli/cli.xml";
+                        ? new FeedUri("http://0install.de/feeds/cli/cli-monopath.xml")
+                        : new FeedUri("http://0install.de/feeds/cli/cli.xml");
 
                 case DotNetRuntimeType.MicrosoftOnlyClientProfile:
                     Architecture = new Architecture(OS.Windows, Architecture.Cpu);
                     return ExternalDependencies
-                        ? "http://0install.de/feeds/cli/cli-monopath.xml"
-                        : "http://0install.de/feeds/cli/netfx-client.xml";
+                        ? new FeedUri("http://0install.de/feeds/cli/cli-monopath.xml")
+                        : new FeedUri("http://0install.de/feeds/cli/netfx-client.xml");
 
                 case DotNetRuntimeType.MicrosoftOnlyFullProfile:
                     Architecture = new Architecture(OS.Windows, Architecture.Cpu);
                     return ExternalDependencies
-                        ? "http://0install.de/feeds/cli/cli-monopath.xml"
-                        : "http://0install.de/feeds/cli/netf.xml";
+                        ? new FeedUri("http://0install.de/feeds/cli/cli-monopath.xml")
+                        : new FeedUri("http://0install.de/feeds/cli/netf.xml");
 
                 case DotNetRuntimeType.MonoOnly:
-                    return "http://0install.de/feeds/cli/mono.xml";
+                    return new FeedUri("http://0install.de/feeds/cli/mono.xml");
             }
         }
 

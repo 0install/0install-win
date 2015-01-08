@@ -103,15 +103,18 @@ namespace ZeroInstall.Publish
             var openPgp = OpenPgpFactory.CreateDefault();
             using (var stream = new MemoryStream())
             {
-                Catalog.SaveXml(stream, stylesheet: "catalog.xsl");
+                Catalog.SaveXml(stream, stylesheet: @"catalog.xsl");
                 stream.Position = 0;
 
                 FeedUtils.SignFeed(stream, SecretKey, passphrase, openPgp);
                 stream.WriteTo(path);
             }
             string directory = Path.GetDirectoryName(path);
-            FeedUtils.DeployPublicKey(directory, SecretKey, openPgp);
-            FeedUtils.DeployStylesheet(directory, "catalog");
+            if (directory != null)
+            {
+                FeedUtils.DeployPublicKey(directory, SecretKey, openPgp);
+                FeedUtils.DeployStylesheet(directory, @"catalog");
+            }
         }
         #endregion
     }

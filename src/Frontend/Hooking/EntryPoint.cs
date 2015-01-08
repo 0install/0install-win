@@ -17,6 +17,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -24,10 +25,10 @@ using EasyHook;
 
 namespace ZeroInstall.Hooking
 {
-    // ReSharper disable ClassNeverInstantiated.Global
     /// <summary>
     /// Used as an entry point when injecting the hooking DLL into another process.
     /// </summary>
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
     public partial class EntryPoint : IEntryPoint
     {
         #region Constants
@@ -53,7 +54,6 @@ namespace ZeroInstall.Hooking
         #endregion
 
         #region Constructor
-        // ReSharper disable UnusedParameter.Local
         /// <summary>
         /// Creates a new entry point.
         /// </summary>
@@ -74,14 +74,11 @@ namespace ZeroInstall.Hooking
             _relaunchControl = relaunchControl;
             _relaunchInformation = relaunchControl.GetCurrentEntry();
         }
-
-        // ReSharper restore UnusedParameter.Local
         #endregion
 
         //--------------------//
 
         #region Injection
-        // ReSharper disable UnusedParameter.Global
         /// <summary>
         /// Sets up the API hooks and maintains them.
         /// </summary>
@@ -114,8 +111,6 @@ namespace ZeroInstall.Hooking
             while (true) Thread.Sleep(500);
         }
 
-        // ReSharper restore UnusedParameter.Global
-
         private void SetupHooks()
         {
             _regQueryValueExWHook = LocalHook.Create(LocalHook.GetProcAddress("advapi32.dll", "RegQueryValueExW"), new UnsafeNativeMethods.DRegQueryValueExW(RegQueryValueExWCallback), null);
@@ -140,6 +135,4 @@ namespace ZeroInstall.Hooking
         }
         #endregion
     }
-
-    // ReSharper restore ClassNeverInstantiated.Global
 }

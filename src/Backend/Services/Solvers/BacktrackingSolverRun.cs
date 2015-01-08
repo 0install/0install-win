@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
@@ -109,7 +110,7 @@ namespace ZeroInstall.Services.Solvers
         {
             foreach (var restriction in _restrictions.Where(x => x.InterfaceUri == interfaceUri))
             {
-                if (!restriction.Versions.Match(candidate.Version)) return true;
+                if (restriction.Versions != null && !restriction.Versions.Match(candidate.Version)) return true;
 
                 var nativeImplementation = candidate.Implementation as ExternalImplementation;
                 if (nativeImplementation != null && restriction.Distributions.ContainsOrEmpty(nativeImplementation.Distribution)) return true;
@@ -126,7 +127,7 @@ namespace ZeroInstall.Services.Solvers
                 var existingSelection = Selections.GetImplementation(restriction.InterfaceUri);
                 if (existingSelection != null)
                 {
-                    if (!restriction.Versions.Match(existingSelection.Version)) return true;
+                    if (restriction.Versions != null && !restriction.Versions.Match(existingSelection.Version)) return true;
                     if (nativeImplementation != null && restriction.Distributions.ContainsOrEmpty(nativeImplementation.Distribution)) return true;
                 }
             }
@@ -149,6 +150,7 @@ namespace ZeroInstall.Services.Solvers
             {
                 var selection = AddToSelections(candidate, requirements, allCandidates);
 
+                Debug.Assert(requirements.Command != null);
                 var command = selection[requirements.Command];
                 if (TryToSolveDependencies(selection) && TryToSolveCommand(command, requirements) && TryToSolveBindingRequirements(selection)) return true;
                 else RemoveLastFromSelections();

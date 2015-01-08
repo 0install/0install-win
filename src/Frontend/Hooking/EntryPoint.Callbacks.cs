@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -24,7 +25,7 @@ using Microsoft.Win32;
 
 namespace ZeroInstall.Hooking
 {
-    // ReSharper disable ClassNeverInstantiated.Global
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
     public partial class EntryPoint
     {
         #region RegQueryValueEx
@@ -258,14 +259,12 @@ namespace ZeroInstall.Hooking
             // Add correct relaunch information
             string commandPath = (_relaunchInformation.NeedsTerminal ? _relaunchControl.CommandPathCli : _relaunchControl.CommandPathGui + " --no-wait"); // Select best suited launcher
             string icon = (string.IsNullOrEmpty(_relaunchInformation.IconPath) ? null : _relaunchInformation.IconPath + ",0"); // Always use the first icon in the file
-            WindowsUtils.SetWindowAppID(windowHandle,
+            WindowsTaskbar.SetWindowAppID(windowHandle,
                 _relaunchInformation.AppID, '"' + commandPath + "\" run " + _relaunchInformation.Target, icon, _relaunchInformation.Name);
 
             // Add jump list entry to select an alternative application version
-            WindowsUtils.AddTaskLinks(_relaunchInformation.AppID, new[] {new WindowsUtils.ShellLink("Versions", _relaunchControl.CommandPathGui, "run --gui " + _relaunchInformation.Target)});
+            WindowsTaskbar.AddTaskLinks(_relaunchInformation.AppID, new[] {new WindowsTaskbar.ShellLink("Versions", _relaunchControl.CommandPathGui, "run --gui " + _relaunchInformation.Target)});
         }
         #endregion
     }
-
-    // ReSharper restore ClassNeverInstantiated.Global
 }
