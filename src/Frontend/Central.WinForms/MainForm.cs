@@ -251,10 +251,7 @@ namespace ZeroInstall.Central.WinForms
             #endregion
 
             if (!config.SyncServer.IsFile && (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey)))
-            {
-                using (var wizard = new Wizards.SyncSetupWizard(_machineWide))
-                    wizard.ShowDialog(this);
-            }
+                new Wizards.SyncSetupWizard(_machineWide).Show(this);
             else Program.RunCommand(_machineWide, SyncApps.Name);
         }
 
@@ -286,8 +283,7 @@ namespace ZeroInstall.Central.WinForms
             if (!string.IsNullOrEmpty(config.SyncServerUsername) || !string.IsNullOrEmpty(config.SyncServerPassword) || !string.IsNullOrEmpty(config.SyncCryptoKey))
                 if (!Msg.YesNo(this, Resources.SyncWillReplaceConfig, MsgSeverity.Warn, Resources.Continue, Resources.Cancel)) return;
 
-            using (var wizard = new Wizards.SyncSetupWizard(_machineWide))
-                wizard.ShowDialog(this);
+            new Wizards.SyncSetupWizard(_machineWide).Show(this);
         }
 
         private void buttonSyncTroubleshoot_Click(object sender, EventArgs e)
@@ -318,10 +314,7 @@ namespace ZeroInstall.Central.WinForms
             if (string.IsNullOrEmpty(config.SyncServerUsername) || string.IsNullOrEmpty(config.SyncServerPassword) || string.IsNullOrEmpty(config.SyncCryptoKey))
                 Msg.Inform(this, Resources.SyncCompleteSetupFirst, MsgSeverity.Warn);
             else
-            {
-                using (var wizard = new Wizards.SyncTroubleshootWizard(_machineWide))
-                    wizard.ShowDialog(this);
-            }
+                new Wizards.SyncTroubleshootWizard(_machineWide).Show(this);
         }
 
         private void buttonUpdateAll_Click(object sender, EventArgs e)
@@ -342,8 +335,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonMoreApps_Click(object sender, EventArgs e)
         {
-            using (var dialog = new MoreAppsDialog(_machineWide))
-                dialog.ShowDialog(this);
+            new MoreAppsDialog(_machineWide).Show(this);
         }
 
         private void buttonOptions_Click(object sender, EventArgs e)
@@ -363,7 +355,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonIntro_Click(object sender, EventArgs e)
         {
-            using (var dialog = new IntroDialog()) dialog.ShowDialog(this);
+            new IntroDialog().Show(this);
         }
         #endregion
 

@@ -16,9 +16,11 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Globalization;
-using System.Windows.Forms;
+using System.IO;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Controls;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Store.Model;
@@ -50,70 +52,36 @@ namespace ZeroInstall.Central.WinForms
         }
         #endregion
 
-        #region Constructor
-        private SelectCommandDialog()
-        {
-            InitializeComponent();
-        }
-        #endregion
+        private readonly Feed _feed;
 
-        #region Static access
         /// <summary>
-        /// Displays an dialog box asking the the user to select an <see cref="Command"/>.
+        /// Creates a dialog box for asking the the user to select an <see cref="Command"/>.
         /// </summary>
-        /// <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
         /// <param name="feed">The <see cref="Feed"/> containing <see cref="EntryPoint"/>s with information about available <see cref="Command"/>s.</param>
-        /// <param name="args">Returns additional command-line arguments specified by the user.</param>
-        /// <returns>The <see cref="EntryPoint.Command"/> the user selected if she pressed OK; otherwise <see langword="null"/>.</returns>
-        [ContractAnnotation("=>null,args:null; =>notnull,args:notnull")]
-        public static string ShowDialog([CanBeNull] IWin32Window owner, [NotNull] Feed feed, out string args)
+        public SelectCommandDialog([NotNull] Feed feed)
         {
             #region Sanity checks
             if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            using (var dialog = new SelectCommandDialog
-            {
-                Text = string.Format(Resources.SelectCommand, feed.Name),
-                ShowInTaskbar = (owner == null)
-            })
-            {
-                // Wrap entry points so that their ToXmlString methods return localized names
-                foreach (var entryPoint in feed.EntryPoints)
-                    dialog.comboBoxCommand.Items.Add(new EntryPointWrapper(entryPoint));
+            _feed = feed;
 
-                // Add default command as a fallback
-                if (dialog.comboBoxCommand.Items.Count == 0)
-                    dialog.comboBoxCommand.Items.Add(Command.NameRun);
-
-                if (dialog.ShowDialog(owner) == DialogResult.OK)
-                {
-                    args = dialog.textBoxArgs.Text;
-                    return dialog.GetCommand();
-                }
-                else
-                {
-                    args = null;
-                    return null;
-                }
-            }
+            InitializeComponent();
         }
 
-        /// <summary>
-        /// Determines the name of the selected command.
-        /// </summary>
-        private string GetCommand()
-        {
-            // Differentiate between entry point describing a command and a direct command
-            var entryPoint = comboBoxCommand.SelectedItem as EntryPointWrapper;
-            return (entryPoint == null) ? comboBoxCommand.Text : entryPoint.Element.Command;
-        }
-        #endregion
-
-        #region ComboBox
         private void SelectCommandDialog_Load(object sender, EventArgs e)
         {
-            if (comboBoxCommand.Items.Count != 0) comboBoxCommand.SelectedIndex = 0;
+            Text = string.Format(Resources.SelectCommand, _feed.Name);
+
+            // Wrap entry points so that their ToXmlString methods return localized names
+            foreach (var entryPoint in _feed.EntryPoints)
+                comboBoxCommand.Items.Add(new EntryPointWrapper(entryPoint));
+
+            // Add default command as a fallback
+            if (comboBoxCommand.Items.Count == 0)
+                comboBoxCommand.Items.Add(Command.NameRun);
+
+            comboBoxCommand.SelectedIndex = 0;
         }
 
         private void comboBoxCommand_SelectedIndexChanged(object sender, EventArgs e)
@@ -122,6 +90,37 @@ namespace ZeroInstall.Central.WinForms
             var entryPoint = comboBoxCommand.SelectedItem as EntryPointWrapper;
             if (entryPoint != null) labelSummary.Text = entryPoint.Element.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
         }
-        #endregion
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            // Differentiate between entry point describing a command and a direct command
+            var entryPoint = comboBoxCommand.SelectedItem as EntryPointWrapper;
+            string command = (entryPoint == null) ? comboBoxCommand.Text : entryPoint.Element.Command;
+
+            try
+            {
+                // Cannot use in-process method here because the "args" string needs to be parsed by the operating system
+                ProcessUtils.LaunchAssembly(Commands.WinForms.Program.ExeName,
+                    "run --no-wait --command=" + command.EscapeArgument() + " " + _feed.Uri.ToStringRfc().EscapeArgument() +
+                    " " + textBoxArgs.Text);
+            }
+                #region Error handling
+            catch (FileNotFoundException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (Win32Exception ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
+
+            Close();
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

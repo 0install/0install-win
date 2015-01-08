@@ -60,5 +60,10 @@ namespace ZeroInstall.Central.WinForms
             Program.RunCommand(Run.Name, "http://0install.de/feeds/ZeroInstall_Tools.xml");
             Close();
         }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

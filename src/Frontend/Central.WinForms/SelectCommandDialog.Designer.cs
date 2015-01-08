@@ -39,10 +39,12 @@
             // buttonOK
             // 
             resources.ApplyResources(this.buttonOK, "buttonOK");
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // buttonCancel
             // 
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // comboBoxCommand
             // 
