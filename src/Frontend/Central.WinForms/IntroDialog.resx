@@ -175,7 +175,7 @@
     <value>tileListMyApps</value>
   </data>
   <data name="&gt;&gt;tileListMyApps.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=2.6.9.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=2.7.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;tileListMyApps.Parent" xml:space="preserve">
     <value>tabPageAppList</value>
@@ -226,7 +226,7 @@
     <value>tileListCatalog</value>
   </data>
   <data name="&gt;&gt;tileListCatalog.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=2.6.9.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=2.7.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;tileListCatalog.Parent" xml:space="preserve">
     <value>tabPageCatalog</value>
