@@ -38,14 +38,14 @@
       <DocumentationSource sourceFile="..\src\Tools\Capture.WinForms\Capture.WinForms.csproj" configuration="Debug" platform="AnyCPU" />
     </DocumentationSources>
     <NamespaceSummaries>
-      <NamespaceSummaryItem name="ZeroInstall.Publish" isDocumented="True" xmlns="">Shared code for feed publishing tools (feed editors).</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Publish" isDocumented="True" xmlns="">Shared logic for feed publishing tools (feed editors).</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Publish.EntryPoints" isDocumented="True" xmlns="">Automatic detection of application entry points. Helps publishers set up the appropriate &lt;see cref="ZeroInstall.Model.Command" /&gt;s and &lt;see cref="ZeroInstall.Model.Runner" /&gt;s.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Publish.EntryPoints.Design" isDocumented="True">Contains &lt;see cref="System.ComponentModel.TypeConverter" /&gt;s. These are used to provide a better runtime experience when using &lt;see cref="System.Windows.Forms.PropertyGrid" /&gt;.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Publish.EntryPoints.Design" isDocumented="True">&lt;see cref="System.ComponentModel.TypeConverter" /&gt;s for value types defined in this assembly. These are used to provide a better runtime experience when using &lt;see cref="System.Windows.Forms.PropertyGrid" /&gt;.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Publish.Cli" isDocumented="True" xmlns="">A command-line tool for editing Zero Install feeds.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Publish.WinForms" isDocumented="True" xmlns="">A &lt;see cref="System.Windows.Forms" /&gt;-based editor for Zero Install feeds.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Publish.WinForms.Controls" isDocumented="True" xmlns="">Contains &lt;see cref="System.Windows.Forms" /&gt; controls for manipulating data stored within a feed.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Publish.WinForms.Controls" isDocumented="True" xmlns="">&lt;see cref="System.Windows.Forms" /&gt; controls for manipulating data stored within a feed.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Publish.WinForms.Wizards" isDocumented="True" xmlns="">Wizard for creating new feeds.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Capture" isDocumented="True" xmlns="">Shared code for system state capturing tools (build feeds from installation snapshots).</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Capture" isDocumented="True" xmlns="">Shared logic for system state capturing tools (build feeds from installation snapshots).</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Capture.Cli" isDocumented="True" xmlns="">Command-line tool for system state capturing (build feeds from installation snapshots).</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Capture.WinForms" isDocumented="True" xmlns="">WinForms-based tool for system state capturing (build feeds from installation snapshots).</NamespaceSummaryItem>
     </NamespaceSummaries>
