@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Store.Implementations
@@ -30,7 +31,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Determines whether a path looks like it is inside a store known by <see cref="ManifestFormat"/>.
         /// </summary>
-        public static bool PathInAStore(string path)
+        public static bool PathInAStore([NotNull] string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -42,7 +43,8 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Wrapper for <see cref="IStore.ListAll"/>, handling exceptions.
         /// </summary>
-        public static IEnumerable<ManifestDigest> ListAllSafe(this IStore store)
+        [NotNull, ItemNotNull]
+        public static IEnumerable<ManifestDigest> ListAllSafe([NotNull] this IStore store)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");
@@ -64,7 +66,8 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Wrapper for <see cref="IStore.ListAllTemp"/>, handling exceptions.
         /// </summary>
-        public static IEnumerable<string> ListAllTempSafe(this IStore store)
+        [NotNull, ItemNotNull]
+        public static IEnumerable<string> ListAllTempSafe([NotNull] this IStore store)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");
@@ -86,7 +89,8 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Wrapper for <see cref="IStore.GetPath"/>, handling exceptions.
         /// </summary>
-        public static string GetPathSafe(this IStore store, ManifestDigest manifestDigest)
+        [CanBeNull]
+        public static string GetPathSafe([NotNull] this IStore store, ManifestDigest manifestDigest)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");

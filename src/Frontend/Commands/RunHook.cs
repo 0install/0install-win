@@ -17,12 +17,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using EasyHook;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -192,7 +194,8 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="command">The name of the command the icon should represent; <see langword="null"/> for <see cref="Command.NameRun"/>.</param>
         /// <returns>The path to the icon file; <see langword="null"/> if no suitable icon was found.</returns>
-        private string GetIconPath(string command = null)
+        [CanBeNull]
+        private string GetIconPath([CanBeNull] string command = null)
         {
             var icon = _target.Feed.GetIcon(Icon.MimeTypeIco, command);
             return icon == null ? null : IconProvider.GetIconPath(icon, _handler, machineWide: false);
@@ -203,14 +206,13 @@ namespace ZeroInstall.Commands
 
         #region Native
         [StructLayout(LayoutKind.Sequential)]
+        [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local"), SuppressMessage("ReSharper", "MemberCanBePrivate.Local")]
         private struct ProcessInformation
         {
-            // ReSharper disable FieldCanBeMadeReadOnly.Local
             public IntPtr hProcess;
             public IntPtr hThread;
             public int dwProcessId;
             public int dwThreadId;
-            // ReSharper restore FieldCanBeMadeReadOnly.Local
         }
 
         private static class UnsafeNativeMethods

@@ -23,6 +23,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
@@ -55,7 +56,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="store">The <see cref="IStore"/> to manage.</param>
         /// <param name="feedCache">Information about implementations found in the <paramref name="store"/> are extracted from here.</param>
-        public StoreManageForm(IStore store, IFeedCache feedCache)
+        public StoreManageForm([NotNull] IStore store, [NotNull] IFeedCache feedCache)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");

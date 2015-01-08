@@ -16,6 +16,7 @@
  */
 
 using System.ComponentModel;
+using JetBrains.Annotations;
 
 namespace ZeroInstall.Store.ViewModel
 {
@@ -28,6 +29,7 @@ namespace ZeroInstall.Store.ViewModel
         /// The UI path name of this node. Uses a backslash as the separator in hierarchical names.
         /// </summary>
         [Browsable(false)]
+        [NotNull]
         public abstract string Name { get; set; }
     }
 }

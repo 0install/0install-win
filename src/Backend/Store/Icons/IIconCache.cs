@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 
 namespace ZeroInstall.Store.Icons
@@ -19,7 +20,7 @@ namespace ZeroInstall.Store.Icons
         ///   <see langword="true"/> if the specified icon is available in this cache;
         ///   <see langword="false"/> if the specified icon is not available in this cache.
         /// </returns>
-        bool Contains(Uri iconUrl);
+        bool Contains([NotNull] Uri iconUrl);
 
         /// <summary>
         /// Gets a specific icon from this cache. If the icon is missing it will be downloaded automatically.
@@ -31,7 +32,8 @@ namespace ZeroInstall.Store.Icons
         /// <exception cref="IOException">A problem occured while adding the icon to the cache.</exception>
         /// <exception cref="WebException">A problem occured while downloading the icon.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to the cache is not permitted.</exception>
-        string GetIcon(Uri iconUrl, ITaskHandler handler);
+        [NotNull]
+        string GetIcon([NotNull] Uri iconUrl, [NotNull] ITaskHandler handler);
 
         /// <summary>
         /// Removes a specific icon from this cache.
@@ -39,6 +41,6 @@ namespace ZeroInstall.Store.Icons
         /// <param name="iconUrl">The location of the icon. Must be an HTTP(S) URL.</param>
         /// <exception cref="IOException">The icon could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the cache is not permitted.</exception>
-        void Remove(Uri iconUrl);
+        void Remove([NotNull] Uri iconUrl);
     }
 }

@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 
 namespace ZeroInstall.DesktopIntegration.ViewModel
@@ -32,7 +33,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         /// <typeparam name="T">The specific kind of <see cref="DesktopIntegration.AccessPoints.DefaultAccessPoint"/> to handle.</typeparam>
         /// <param name="model">A model represeting the underlying <see cref="Store.Model.Capabilities.DefaultCapability"/>s and their selection states.</param>
         /// <param name="value">The value to set.</param>
-        public static void SetAllUse<T>(this BindingList<T> model, bool value)
+        public static void SetAllUse<T>([NotNull, ItemNotNull] this BindingList<T> model, bool value)
             where T : CapabilityModel
         {
             #region Sanity checks

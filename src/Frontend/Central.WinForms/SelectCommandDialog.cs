@@ -18,6 +18,7 @@
 using System;
 using System.Globalization;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using NanoByte.Common.Controls;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Store.Model;
@@ -60,11 +61,12 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Displays an dialog box asking the the user to select an <see cref="Command"/>.
         /// </summary>
-        /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
+        /// <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
         /// <param name="feed">The <see cref="Feed"/> containing <see cref="EntryPoint"/>s with information about available <see cref="Command"/>s.</param>
         /// <param name="args">Returns additional command-line arguments specified by the user.</param>
         /// <returns>The <see cref="EntryPoint.Command"/> the user selected if she pressed OK; otherwise <see langword="null"/>.</returns>
-        public static string ShowDialog(IWin32Window owner, Feed feed, out string args)
+        [ContractAnnotation("=>null,args:null; =>notnull,args:notnull")]
+        public static string ShowDialog([CanBeNull] IWin32Window owner, [NotNull] Feed feed, out string args)
         {
             #region Sanity checks
             if (feed == null) throw new ArgumentNullException("feed");

@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Threading;
+using JetBrains.Annotations;
 using NanoByte.Common.Streams;
 using SevenZip.Sdk.Compression.Lzma;
 using ZeroInstall.Store.Properties;
@@ -37,7 +38,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">The archive is damaged.</exception>
-        internal TarLzmaExtractor(Stream stream, string target)
+        internal TarLzmaExtractor([NotNull] Stream stream, [NotNull] string target)
             : base(GetDecompressionStream(stream), target)
         {
             _stream = stream;

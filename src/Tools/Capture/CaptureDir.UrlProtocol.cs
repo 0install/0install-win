@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security;
+using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model;
@@ -38,7 +39,7 @@ namespace ZeroInstall.Capture
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
-        private static void CollectProtocolAssocs(IEnumerable<ComparableTuple<string>> protocolAssocs, CommandMapper commandMapper, CapabilityList capabilities)
+        private static void CollectProtocolAssocs([NotNull, ItemNotNull] IEnumerable<ComparableTuple<string>> protocolAssocs, [NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
             if (protocolAssocs == null) throw new ArgumentNullException("protocolAssocs");

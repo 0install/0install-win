@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
@@ -40,7 +41,7 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="config">Used to retrieve global configuration.</param>
         /// <param name="isCached">Used to determine which implementations are already cached in the <see cref="IStore"/>.</param>
         /// <param name="stabilityPolicy">Implementations at this stability level or higher are preferred. Lower levels are used only if there is no other choice. Must not be <see cref="Stability.Unset"/>!</param>
-        public SelectionCandidateComparer(Config config, TransparentCache<Implementation, bool> isCached, Stability stabilityPolicy)
+        public SelectionCandidateComparer([NotNull] Config config, [NotNull] TransparentCache<Implementation, bool> isCached, Stability stabilityPolicy)
         {
             #region Sanity check
             if (config == null) throw new ArgumentNullException("config");

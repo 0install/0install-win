@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NDesk.Options;
@@ -69,7 +70,7 @@ namespace ZeroInstall.Commands
         /// <param name="expectedExitStatus">The expected exit status code returned by <see cref="FrontendCommand.Execute"/>.</param>
         /// <param name="expectedSelections">The expected value passed to <see cref="ICommandHandler.ShowSelections"/>.</param>
         /// <param name="args">The arguments to pass to <see cref="FrontendCommand.Parse"/>.</param>
-        protected void RunAndAssert(string expectedOutput, int expectedExitStatus, Selections expectedSelections, params string[] args)
+        protected void RunAndAssert([CanBeNull] string expectedOutput, int expectedExitStatus, Selections expectedSelections, params string[] args)
         {
             RunAndAssert(expectedOutput, expectedExitStatus, args);
 

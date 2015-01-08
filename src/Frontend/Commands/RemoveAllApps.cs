@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -43,7 +44,7 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS]"; } }
 
         /// <inheritdoc/>
-        public RemoveAllApps(ICommandHandler handler) : base(handler)
+        public RemoveAllApps([NotNull] ICommandHandler handler) : base(handler)
         {}
         #endregion
 

@@ -17,6 +17,7 @@
 
 using System.IO;
 using ICSharpCode.SharpZipLib.GZip;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations.Archives
@@ -34,7 +35,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">The archive is damaged.</exception>
-        internal TarGzExtractor(Stream stream, string target)
+        internal TarGzExtractor([NotNull] Stream stream, [NotNull] string target)
             : base(GetDecompressionStream(stream), target)
         {
             _stream = stream;

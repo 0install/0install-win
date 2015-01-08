@@ -16,6 +16,7 @@
  */
 
 using System.ComponentModel;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Store.ViewModel
@@ -27,13 +28,14 @@ namespace ZeroInstall.Store.ViewModel
     {
         #region Dependencies
         /// <summary>The store containing the element.</summary>
+        [NotNull]
         protected readonly IStore Store;
 
         /// <summary>
         /// Creates a new store node.
         /// </summary>
         /// <param name="store">The store containing the element.</param>
-        protected StoreNode(IStore store)
+        protected StoreNode([NotNull] IStore store)
         {
             Store = store;
         }

@@ -23,6 +23,7 @@ using System.Text;
 using IniParser;
 using IniParser.Exceptions;
 using IniParser.Model;
+using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common;
 using NanoByte.Common.Native;
@@ -80,7 +81,8 @@ namespace ZeroInstall.Store
         /// <exception cref="IOException">A problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the config data.</exception>
-        public static Config Load(string path)
+        [NotNull]
+        public static Config Load([NotNull] string path)
         {
             var config = new Config();
             config.ReadFromIniFile(path);
@@ -94,6 +96,7 @@ namespace ZeroInstall.Store
         /// <exception cref="IOException">A problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the config data.</exception>
+        [NotNull]
         public static Config Load()
         {
             // Locate all applicable config files
@@ -122,7 +125,7 @@ namespace ZeroInstall.Store
         /// <remarks>This method performs an atomic write operation when possible.</remarks>
         /// <exception cref="IOException">A problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
-        public void Save(string path)
+        public void Save([NotNull] string path)
         {
             TransferToIni();
 
@@ -157,7 +160,7 @@ namespace ZeroInstall.Store
         /// <summary>
         /// Reads data from an INI file on the disk and transfers it to properties using <see cref="_metaData"/>.
         /// </summary>
-        private void ReadFromIniFile(string path)
+        private void ReadFromIniFile([NotNull] string path)
         {
             try
             {
@@ -199,7 +202,7 @@ namespace ZeroInstall.Store
         /// <summary>
         /// Reads data from a Windows registry key and transfers it to properties using <see cref="_metaData"/>.
         /// </summary>
-        private void ReadFromRegistry(RegistryKey registryKey)
+        private void ReadFromRegistry([NotNull] RegistryKey registryKey)
         {
             foreach (var property in _metaData)
             {
@@ -300,13 +303,13 @@ namespace ZeroInstall.Store
         {
             unchecked
             {
-                // ReSharper disable LoopCanBeConvertedToQuery
                 int result = 397;
                 foreach (var property in _metaData)
-
-                    if (property.Value.Value != null) result = (result * 397) ^ property.Value.Value.GetHashCode();
+                {
+                    if (property.Value.Value != null)
+                        result = (result * 397) ^ property.Value.Value.GetHashCode();
+                }
                 return result;
-                // ReSharper restore LoopCanBeConvertedToQuery
             }
         }
         #endregion

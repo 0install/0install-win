@@ -24,6 +24,7 @@ using System.Linq;
 using System.Security;
 using System.Threading;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
@@ -128,7 +129,7 @@ namespace ZeroInstall.Central.WinForms
         /// Executes a "0install-win" command in-process in a new thread. Returns immediately.
         /// </summary>
         /// <param name="args">Command name with arguments to execute.</param>
-        internal static void RunCommand(params string[] args)
+        internal static void RunCommand([NotNull] params string[] args)
         {
             RunCommand(false, args);
         }
@@ -138,7 +139,7 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         /// <param name="machineWide">Appends --machine to <paramref name="args"/> if <see langword="true"/>.</param>
         /// <param name="args">Command name with arguments to execute.</param>
-        internal static void RunCommand(bool machineWide, params string[] args)
+        internal static void RunCommand(bool machineWide, [NotNull] params string[] args)
         {
             RunCommand(null, machineWide, args);
         }
@@ -146,10 +147,10 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Executes a "0install-win" command in-process in a new thread. Returns immediately.
         /// </summary>
-        /// <param name="callback">A callback method to be raised once the command has finished executing. Uses <see cref="SynchronizationContext"/> of calling thread.</param>
+        /// <param name="callback">A callback method to be raised once the command has finished executing. Uses <see cref="SynchronizationContext"/> of calling thread. Can be <see langword="null"/>.</param>
         /// <param name="machineWide">Appends --machine to <paramref name="args"/> if <see langword="true"/>.</param>
         /// <param name="args">Command name with arguments to execute.</param>
-        internal static void RunCommand(Action callback, bool machineWide, params string[] args)
+        internal static void RunCommand([CanBeNull] Action callback, bool machineWide, [NotNull] params string[] args)
         {
             var context = SynchronizationContext.Current;
             ProcessUtils.RunAsync(
@@ -166,9 +167,9 @@ namespace ZeroInstall.Central.WinForms
         /// <summary>
         /// Opens a URL in the system's default browser.
         /// </summary>
-        /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
+        /// <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
         /// <param name="url">The URL to open.</param>
-        internal static void OpenInBrowser(IWin32Window owner, string url)
+        internal static void OpenInBrowser([CanBeNull] IWin32Window owner, [NotNull] string url)
         {
             try
             {
@@ -193,13 +194,14 @@ namespace ZeroInstall.Central.WinForms
         /// </summary>
         /// <param name="form">The window to configure.</param>
         /// <param name="name">The name for the taskbar entry.</param>
-        /// <param name="subCommand">The name to add to the <see cref="AppUserModelID"/> as a sub-command; may be <see langword="null"/>.</param>
-        /// <param name="arguments">Additional arguments to pass to <see cref="ExeName"/> when restarting to get back to this window; may be <see langword="null"/>.</param>
+        /// <param name="subCommand">The name to add to the <see cref="AppUserModelID"/> as a sub-command; can be <see langword="null"/>.</param>
+        /// <param name="arguments">Additional arguments to pass to <see cref="ExeName"/> when restarting to get back to this window; can be <see langword="null"/>.</param>
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "This method operates only on windows and not on individual controls.")]
-        internal static void ConfigureTaskbar(Form form, string name, string subCommand = null, string arguments = null)
+        internal static void ConfigureTaskbar([NotNull] Form form, [NotNull] string name, [CanBeNull] string subCommand = null, [CanBeNull] string arguments = null)
         {
             #region Sanity checks
             if (form == null) throw new ArgumentNullException("form");
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             #endregion
 
             string appUserModelID = AppUserModelID;

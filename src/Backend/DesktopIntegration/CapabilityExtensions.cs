@@ -16,6 +16,7 @@
  */
 
 using System;
+using JetBrains.Annotations;
 using NanoByte.Common.Dispatch;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 
@@ -31,7 +32,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="capability">The <see cref="Store.Model.Capabilities.DefaultCapability"/> to create a <see cref="DefaultAccessPoint"/> for.</param>
         /// <returns>The newly created <see cref="DefaultAccessPoint"/>.</returns>
-        public static AccessPoint ToAcessPoint(this Store.Model.Capabilities.DefaultCapability capability)
+        public static AccessPoint ToAcessPoint([NotNull] this Store.Model.Capabilities.DefaultCapability capability)
         {
             #region Sanity checks
             if (capability == null) throw new ArgumentNullException("capability");

@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Native;
 using NanoByte.Common.Values;
 using NanoByte.Common.Values.Design;
@@ -169,7 +170,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Creates a new architecture structure from a string in the form "os-cpu".
         /// </summary>
-        public Architecture(string architecture) : this()
+        public Architecture([NotNull] string architecture) : this()
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(architecture)) throw new ArgumentNullException("architecture");

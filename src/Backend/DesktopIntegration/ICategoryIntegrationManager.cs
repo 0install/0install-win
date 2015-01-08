@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Net;
+using JetBrains.Annotations;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
@@ -41,7 +42,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
-        void AddAccessPointCategories(AppEntry appEntry, Feed feed, params string[] categories);
+        void AddAccessPointCategories([NotNull] AppEntry appEntry, [NotNull] Feed feed, [NotNull, ItemNotNull] params string[] categories);
 
         /// <summary>
         /// Removes a category of already applied <see cref="AccessPoint"/>s for an application.
@@ -51,6 +52,6 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="InvalidDataException">One of the <see cref="AccessPoint"/>s or <see cref="Capability"/>s is invalid.</exception>
         /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
-        void RemoveAccessPointCategories(AppEntry appEntry, params string[] categories);
+        void RemoveAccessPointCategories([NotNull] AppEntry appEntry, [NotNull, ItemNotNull] params string[] categories);
     }
 }

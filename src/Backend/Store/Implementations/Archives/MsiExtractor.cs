@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using Microsoft.Deployment.Compression.Cab;
 using Microsoft.Deployment.WindowsInstaller;
 using NanoByte.Common.Storage;
@@ -42,7 +43,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="path">The path of the Windows Installer MSI package to be extracted.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">The package is damaged.</exception>
-        internal MsiExtractor(string path, string target)
+        internal MsiExtractor([NotNull] string path, [NotNull] string target)
             : base(target)
         {
             #region Sanity checks
@@ -207,7 +208,6 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             try
             {
-                // ReSharper disable once LoopCanBePartlyConvertedToQuery
                 foreach (string cabinet in _cabinets)
                 {
                     using (var streamsView = _database.OpenView("SELECT Data FROM _Streams WHERE Name = '{0}'", cabinet))

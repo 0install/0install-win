@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
@@ -38,7 +39,7 @@ namespace ZeroInstall.Store.Feeds
         /// </summary>
         /// <param name="cache">The <see cref="IFeedCache"/> to load <see cref="Feed"/>s from.</param>
         /// <returns>The parsed <see cref="Feed"/>s.</returns>
-        public static IEnumerable<Feed> GetAll(this IFeedCache cache)
+        public static IEnumerable<Feed> GetAll([NotNull] this IFeedCache cache)
         {
             #region Sanity checks
             if (cache == null) throw new ArgumentNullException("cache");
@@ -98,7 +99,7 @@ namespace ZeroInstall.Store.Feeds
         /// <returns>A list of signatures found, both valid and invalid.</returns>
         /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
         /// <exception cref="SignatureException">The signature data could not be handled.</exception>
-        public static IEnumerable<OpenPgpSignature> GetSignatures(IOpenPgp openPgp, byte[] feedData)
+        public static IEnumerable<OpenPgpSignature> GetSignatures([NotNull] IOpenPgp openPgp, [NotNull] byte[] feedData)
         {
             #region Sanity checks
             if (openPgp == null) throw new ArgumentNullException("openPgp");

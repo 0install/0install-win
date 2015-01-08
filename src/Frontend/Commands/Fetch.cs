@@ -17,6 +17,7 @@
 
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Model;
 
@@ -42,7 +43,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 0; } }
 
         /// <inheritdoc/>
-        public Fetch(ICommandHandler handler) : base(handler)
+        public Fetch([NotNull] ICommandHandler handler) : base(handler)
         {}
         #endregion
 

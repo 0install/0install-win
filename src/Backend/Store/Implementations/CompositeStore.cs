@@ -21,6 +21,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Tasks;
@@ -61,7 +62,7 @@ namespace ZeroInstall.Store.Implementations
         ///   A priority-sorted list of <see cref="IStore"/>s.
         ///   Queried last-to-first for adding new <see cref="Store.Model.Implementation"/>s, first-to-last otherwise.
         /// </param>
-        public CompositeStore(IEnumerable<IStore> stores)
+        public CompositeStore([NotNull, ItemNotNull] IEnumerable<IStore> stores)
         {
             #region Sanity checks
             if (stores == null) throw new ArgumentNullException("stores");
@@ -186,9 +187,7 @@ namespace ZeroInstall.Store.Implementations
                 try
                 {
                     // Try to add implementation to this store
-                    // ReSharper disable PossibleMultipleEnumeration
                     store.AddArchives(archiveInfos, manifestDigest, handler);
-                    // ReSharper restore PossibleMultipleEnumeration
                     return;
                 }
                     #region Error handling
@@ -208,7 +207,7 @@ namespace ZeroInstall.Store.Implementations
             }
 
             // If we reach this, the implementation couldn't be added to any store
-            innerException.Rethrow();
+            if (innerException != null) innerException.Rethrow();
         }
         #endregion
 
@@ -220,7 +219,6 @@ namespace ZeroInstall.Store.Implementations
 
             // Remove from _every_ store that contains the implementation
             bool removed = false;
-            // ReSharper disable once LoopCanBeConvertedToQuery
             foreach (var store in _stores.Reverse())
                 removed |= store.Remove(manifestDigest);
 

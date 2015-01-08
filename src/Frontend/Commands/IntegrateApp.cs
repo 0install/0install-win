@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
@@ -56,7 +57,7 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS] (PET-NAME|INTERFACE)"; } }
 
         /// <inheritdoc/>
-        public IntegrateApp(ICommandHandler handler) : base(handler)
+        public IntegrateApp([NotNull] ICommandHandler handler) : base(handler)
         {
             string categoryList = StringUtils.Join(", ", CategoryIntegrationManager.Categories);
 

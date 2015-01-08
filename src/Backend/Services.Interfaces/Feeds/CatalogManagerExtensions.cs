@@ -19,6 +19,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
@@ -35,7 +36,8 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         /// <returns>A <see cref="Catalog"/>; <see langword="null"/> if there was a problem.</returns>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "File system access")]
-        public static Catalog GetCachedSafe(this ICatalogManager manager)
+        [CanBeNull]
+        public static Catalog GetCachedSafe([NotNull] this ICatalogManager manager)
         {
             #region Sanity checks
             if (manager == null) throw new ArgumentNullException("manager");
@@ -69,7 +71,8 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         /// <returns>A merged <see cref="Catalog"/> view; <see langword="null"/> if there was a problem.</returns>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs network IO and has side-effects")]
-        public static Catalog GetOnlineSafe(this ICatalogManager manager)
+        [CanBeNull]
+        public static Catalog GetOnlineSafe([NotNull] this ICatalogManager manager)
         {
             #region Sanity checks
             if (manager == null) throw new ArgumentNullException("manager");

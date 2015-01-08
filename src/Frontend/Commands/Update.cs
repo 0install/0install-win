@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Solvers;
@@ -41,7 +42,7 @@ namespace ZeroInstall.Commands
         protected override string Description { get { return Resources.DescriptionUpdate; } }
 
         /// <inheritdoc/>
-        public Update(ICommandHandler handler) : base(handler)
+        public Update([NotNull] ICommandHandler handler) : base(handler)
         {
             //Options.Remove("o|offline");
             //Options.Remove("r|refresh");

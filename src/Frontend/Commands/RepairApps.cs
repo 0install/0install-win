@@ -16,6 +16,7 @@
  */
 
 using System;
+using JetBrains.Annotations;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services.Feeds;
@@ -45,7 +46,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 0; } }
 
         /// <inheritdoc/>
-        public RepairApps(ICommandHandler handler) : base(handler)
+        public RepairApps([NotNull] ICommandHandler handler) : base(handler)
         {}
         #endregion
 

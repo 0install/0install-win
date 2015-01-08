@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Text;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Values.Design;
 using ZeroInstall.Store.Properties;
@@ -115,7 +116,8 @@ namespace ZeroInstall.Store.Model
         /// <param name="value">The string to parse.</param>
         /// <param name="result">Returns the created <see cref="ImplementationVersion"/> if successfully; <see langword="null"/> otherwise.</param>
         /// <returns><see langword="true"/> if the <see cref="ImplementationVersion"/> was successfully created; <see langword="false"/> otherwise.</returns>
-        public static bool TryCreate(string value, out ImplementationVersion result)
+        [ContractAnnotation("=>false,result:null; =>true,result:notnull")]
+        public static bool TryCreate([NotNull] string value, out ImplementationVersion result)
         {
             try
             {

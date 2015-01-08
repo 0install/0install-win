@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common.Undo;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
@@ -49,7 +50,7 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="signedFeed">The feed to be edited.</param>
         /// <param name="path">The path of the file the <paramref name="signedFeed"/> was loaded from.</param>
-        public FeedEditing(SignedFeed signedFeed, string path)
+        public FeedEditing([NotNull] SignedFeed signedFeed, [NotNull] string path)
         {
             #region Sanity checks
             if (signedFeed == null) throw new ArgumentNullException("signedFeed");
@@ -64,16 +65,23 @@ namespace ZeroInstall.Publish
         /// Starts with a <see cref="Feed"/> that has not been saved on disk yet.
         /// </summary>
         /// <param name="signedFeed">The feed to be edited.</param>
-        public FeedEditing(SignedFeed signedFeed) : this(signedFeed, null)
+        public FeedEditing([NotNull] SignedFeed signedFeed)
         {
+            #region Sanity checks
+            if (signedFeed == null) throw new ArgumentNullException("signedFeed");
+            #endregion
+
             Changed = true; // Makes sure remind the user to save before closing
+            SignedFeed = signedFeed;
         }
 
         /// <summary>
         /// Starts with an empty <see cref="Feed"/>.
         /// </summary>
-        public FeedEditing() : this(new SignedFeed(new Feed()), null)
-        {}
+        public FeedEditing()
+        {
+            SignedFeed = new SignedFeed(new Feed());
+        }
         #endregion
 
         #region Storage
@@ -85,7 +93,8 @@ namespace ZeroInstall.Publish
         /// <exception cref="IOException">A problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        public static FeedEditing Load(string path)
+        [NotNull]
+        public static FeedEditing Load([NotNull] string path)
         {
             return new FeedEditing(SignedFeed.Load(path), path);
         }
@@ -98,7 +107,7 @@ namespace ZeroInstall.Publish
         /// <exception cref="IOException">A problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
         /// <exception cref="WrongPassphraseException">Passphrase was incorrect.</exception>
-        public void Save(string path)
+        public void Save([NotNull] string path)
         {
             SignedFeed.Save(path, Passphrase);
 

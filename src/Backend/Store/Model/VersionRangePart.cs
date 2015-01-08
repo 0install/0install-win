@@ -16,6 +16,7 @@
  */
 
 using System;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Store.Properties;
 
@@ -33,7 +34,8 @@ namespace ZeroInstall.Store.Model
         /// Parses a string into a <see cref="VersionRange"/> part.
         /// </summary>
         /// <exception cref="ArgumentException"><paramref name="value"/> is not a valid version range string.</exception>
-        public static VersionRangePart FromString(string value)
+        [NotNull]
+        public static VersionRangePart FromString([NotNull] string value)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
@@ -71,12 +73,13 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Intersects a <see cref="Constraint"/> with this range and returns the result as a new range.
         /// </summary>
-        public abstract VersionRangePart Intersects(Constraint constraint);
+        [CanBeNull]
+        public abstract VersionRangePart Intersects([NotNull] Constraint constraint);
 
         /// <summary>
         /// Determines whether a specific version lies within this range.
         /// </summary>
-        public abstract bool Match(ImplementationVersion version);
+        public abstract bool Match([NotNull] ImplementationVersion version);
     }
 
     #region Specific types

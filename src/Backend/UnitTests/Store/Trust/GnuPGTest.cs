@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.Trust
             TestData.GetResource("pubring.gpg").WriteTo(Locations.GetSaveConfigPath("0install.net", true, "gnupg", "pubring.gpg"));
             TestData.GetResource("secring.gpg").WriteTo(Locations.GetSaveConfigPath("0install.net", true, "gnupg", "secring.gpg"));
 
-            var signatureData = Convert.FromBase64String(Target.DetachSign(stream, "test@0install.de", null));
+            var signatureData = Convert.FromBase64String(Target.DetachSign(stream, "test@0install.de"));
             var signatures = Target.Verify(data, signatureData);
 
             Assert.AreEqual(testKeyID, ((ValidSignature)signatures.Single()).Fingerprint);

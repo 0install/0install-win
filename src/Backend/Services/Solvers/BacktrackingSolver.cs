@@ -17,6 +17,7 @@
 
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.PackageManagers;
@@ -49,7 +50,7 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="packageManager">An external package manager that can install <see cref="PackageImplementation"/>s.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public BacktrackingSolver(Config config, IFeedManager feedManager, IStore store, IPackageManager packageManager, ITaskHandler handler)
+        public BacktrackingSolver([NotNull] Config config, [NotNull] IFeedManager feedManager, [NotNull] IStore store, [NotNull] IPackageManager packageManager, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");

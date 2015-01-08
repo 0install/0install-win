@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Storage;
@@ -50,7 +51,8 @@ namespace ZeroInstall.Publish
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
         /// <exception cref="NotSupportedException">A <see cref="Archive.MimeType"/> is not supported.</exception>
-        public static TemporaryDirectory DownloadAndApply(this RetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor = null)
+        [NotNull]
+        public static TemporaryDirectory DownloadAndApply([NotNull] this RetrievalMethod retrievalMethod, [NotNull] ITaskHandler handler, [CanBeNull] ICommandExecutor executor = null)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
@@ -78,7 +80,8 @@ namespace ZeroInstall.Publish
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
         /// <exception cref="NotSupportedException">A <see cref="Archive.MimeType"/> is not supported.</exception>
-        public static TemporaryDirectory DownloadAndApply(this DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor = null)
+        [NotNull]
+        public static TemporaryDirectory DownloadAndApply([NotNull] this DownloadRetrievalMethod retrievalMethod, [NotNull] ITaskHandler handler, [CanBeNull] ICommandExecutor executor = null)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
@@ -122,7 +125,8 @@ namespace ZeroInstall.Publish
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
         /// <exception cref="NotSupportedException">A <see cref="Archive.MimeType"/> is not supported.</exception>
-        public static TemporaryDirectory DownloadAndApply(this Recipe recipe, ITaskHandler handler, ICommandExecutor executor = null)
+        [NotNull]
+        public static TemporaryDirectory DownloadAndApply([NotNull] this Recipe recipe, [NotNull] ITaskHandler handler, [CanBeNull] ICommandExecutor executor = null)
         {
             #region Sanity checks
             if (recipe == null) throw new ArgumentNullException("recipe");
@@ -132,10 +136,8 @@ namespace ZeroInstall.Publish
             var downloadedFiles = new List<TemporaryFile>();
             try
             {
-                // ReSharper disable LoopCanBeConvertedToQuery
                 foreach (var step in recipe.Steps.OfType<DownloadRetrievalMethod>())
                     downloadedFiles.Add(step.Download(handler, executor));
-                // ReSharper restore LoopCanBeConvertedToQuery
 
                 // Apply the recipe
                 return recipe.Apply(downloadedFiles, handler);
@@ -158,7 +160,8 @@ namespace ZeroInstall.Publish
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
-        public static TemporaryFile Download(this DownloadRetrievalMethod retrievalMethod, ITaskHandler handler, ICommandExecutor executor = null)
+        [NotNull]
+        public static TemporaryFile Download([NotNull] this DownloadRetrievalMethod retrievalMethod, [NotNull] ITaskHandler handler, [CanBeNull] ICommandExecutor executor = null)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");
@@ -217,7 +220,8 @@ namespace ZeroInstall.Publish
         /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
-        public static TemporaryDirectory LocalApply(this DownloadRetrievalMethod retrievalMethod, string localPath, ITaskHandler handler, ICommandExecutor executor = null)
+        [NotNull]
+        public static TemporaryDirectory LocalApply([NotNull] this DownloadRetrievalMethod retrievalMethod, string localPath, [NotNull] ITaskHandler handler, [CanBeNull] ICommandExecutor executor = null)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");

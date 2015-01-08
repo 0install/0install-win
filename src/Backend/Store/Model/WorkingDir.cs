@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 
 namespace ZeroInstall.Store.Model
 {
@@ -37,6 +38,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Description("The relative path of the directory in the implementation to publish. The default is to publish everything.")]
         [XmlAttribute("src"), DefaultValue("")]
+        [CanBeNull]
         public string Source { get; set; }
         #endregion
 

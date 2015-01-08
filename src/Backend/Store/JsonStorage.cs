@@ -17,6 +17,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace ZeroInstall.Store
@@ -32,7 +33,8 @@ namespace ZeroInstall.Store
         /// <typeparam name="T">The type of object to be saved in an JSON string.</typeparam>
         /// <param name="data">The object to be stored.</param>
         /// <returns>A string containing the JSON code.</returns>
-        public static string ToJsonString<T>(this T data)
+        [NotNull]
+        public static string ToJsonString<T>([NotNull] this T data)
         {
             return JsonConvert.SerializeObject(data);
         }
@@ -44,7 +46,8 @@ namespace ZeroInstall.Store
         /// <param name="data">The JSON string to be parsed.</param>
         /// <returns>The loaded object.</returns>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
-        public static T FromJsonString<T>(string data)
+        [NotNull]
+        public static T FromJsonString<T>([NotNull] string data)
         {
             #region Sanity checks
             if (data == null) throw new ArgumentNullException("data");

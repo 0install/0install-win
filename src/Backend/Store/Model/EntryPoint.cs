@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model.Design;
 
@@ -48,6 +49,7 @@ namespace ZeroInstall.Store.Model
         /// <remarks>Will default to <see cref="Command"/> when left <see langword="null"/>.</remarks>
         [Description("The canonical name of the binary supplying the command (without file extensions). This is used to suggest suitable alias names.")]
         [XmlAttribute("binary-name"), DefaultValue("")]
+        [CanBeNull]
         public string BinaryName { get; set; }
 
         /// <summary>

@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common.Cli;
 using NanoByte.Common.Storage;
 using ZeroInstall.Commands.Properties;
@@ -46,7 +47,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMin { get { return 1; } }
 
         /// <inheritdoc/>
-        public Import(ICommandHandler handler) : base(handler)
+        public Import([NotNull] ICommandHandler handler) : base(handler)
         {}
         #endregion
 
@@ -65,7 +66,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="path">The local path of the feed file to import.</param>
         /// <exception cref="InvalidDataException">The feed specifies no <see cref="Feed.Uri"/>.</exception>
-        private void ImportFile(string path)
+        private void ImportFile([NotNull] string path)
         {
             var feed = XmlStorage.LoadXml<Feed>(path);
 

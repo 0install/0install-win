@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
@@ -50,6 +51,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// </summary>
         [Category("Details (Script)"), DisplayName(@"Interpreter versions"), Description("The range of versions of the script interpreter supported by the application.")]
         [DefaultValue("")]
+        [UsedImplicitly]
         public VersionRange InterpreterVersions { get; set; }
 
         /// <inheritdoc/>
@@ -69,7 +71,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// </summary>
         /// <param name="file">The file to analyze.</param>
         /// <param name="interpreter">The name of the interpreter to search for (e.g. 'python').</param>
-        protected bool HasShebang(FileInfo file, string interpreter)
+        protected bool HasShebang([NotNull] FileInfo file, [NotNull, Localizable(false)] string interpreter)
         {
             #region Sanity checks
             if (file == null) throw new ArgumentNullException("file");

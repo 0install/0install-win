@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using JetBrains.Annotations;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
@@ -47,7 +48,7 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS] (PET-NAME|INTERFACE)"; } }
 
         /// <inheritdoc/>
-        public RemoveApp(ICommandHandler handler) : base(handler)
+        public RemoveApp([NotNull] ICommandHandler handler) : base(handler)
         {}
         #endregion
 

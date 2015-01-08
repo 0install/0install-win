@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Security;
+using JetBrains.Annotations;
 using Microsoft.Win32;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
@@ -35,7 +36,7 @@ namespace ZeroInstall.Capture
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
-        private static void CollectContextMenus(Snapshot snapshotDiff, CommandMapper commandMapper, CapabilityList capabilities)
+        private static void CollectContextMenus([NotNull] Snapshot snapshotDiff, [NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");

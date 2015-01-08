@@ -41,7 +41,7 @@ namespace ZeroInstall.Publish
             using (var stream = new MemoryStream())
             {
                 var feed = FeedTest.CreateTestFeed();
-                var secretKey = new OpenPgpSecretKey("fingerprint", "key", null, new DateTime(2000, 1, 1), OpenPgpAlgorithm.Rsa, 128);
+                var secretKey = new OpenPgpSecretKey("fingerprint", "key", "user@0install.de", new DateTime(2000, 1, 1), OpenPgpAlgorithm.Rsa, 128);
                 var openPgpMock = MockRepository.Create<IOpenPgp>();
                 const string passphrase = "passphrase123";
                 const string signature = "iQEcB";
@@ -67,7 +67,7 @@ namespace ZeroInstall.Publish
         {
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                var secretKey = new OpenPgpSecretKey("fingerprint", "key", null, new DateTime(2000, 1, 1), OpenPgpAlgorithm.Rsa, 128);
+                var secretKey = new OpenPgpSecretKey("fingerprint", "key", "user@0install.de", new DateTime(2000, 1, 1), OpenPgpAlgorithm.Rsa, 128);
                 const string publicKey = "public";
                 var openPgpMock = MockRepository.Create<IOpenPgp>();
 

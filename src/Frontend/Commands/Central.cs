@@ -16,6 +16,7 @@
  */
 
 using System;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Commands.Properties;
 
@@ -41,7 +42,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 0; } }
 
         /// <inheritdoc/>
-        public Central(ICommandHandler handler) : base(handler)
+        public Central([NotNull] ICommandHandler handler) : base(handler)
         {
             Options.Add("m|machine", () => Resources.OptionMachine, _ => _machineWide = true);
         }

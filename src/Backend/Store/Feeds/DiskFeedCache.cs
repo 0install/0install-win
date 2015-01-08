@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
@@ -46,7 +47,7 @@ namespace ZeroInstall.Store.Feeds
         /// </summary>
         /// <param name="path">A fully qualified directory path.</param>
         /// <param name="openPgp">Provides access to an encryption/signature system compatible with the OpenPGP standard.</param>
-        public DiskFeedCache(string path, IOpenPgp openPgp)
+        public DiskFeedCache([NotNull] string path, [NotNull] IOpenPgp openPgp)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");

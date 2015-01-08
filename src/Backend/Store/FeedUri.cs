@@ -22,6 +22,7 @@ using System.Globalization;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Values.Design;
@@ -74,7 +75,7 @@ namespace ZeroInstall.Store
         /// <param name="value">A string to parse as an HTTP(S) URL or an absolute local path.</param>
         /// <exception cref="UriFormatException"><paramref name="value"/> is not a valid HTTP(S) URL or an absolute local path.</exception>
         [SuppressMessage("Microsoft.Design", "CA1057:StringUriOverloadsCallSystemUriOverloads")]
-        public FeedUri(string value) : base(TrimPrefix(value), UriKind.Absolute)
+        public FeedUri([NotNull, Localizable(false)] string value) : base(TrimPrefix(value), UriKind.Absolute)
         {
             if (string.IsNullOrEmpty(value)) throw new UriFormatException();
 
@@ -105,7 +106,8 @@ namespace ZeroInstall.Store
         /// </summary>
         /// <param name="value">An existing <see cref="Uri"/>.</param>
         /// <exception cref="UriFormatException"><paramref name="value"/> is not a valid HTTP(S) URL or an absolute local path.</exception>
-        public FeedUri(Uri value) : this((value == null) ? null : value.OriginalString)
+        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
+        public FeedUri([NotNull] Uri value) : this(value.OriginalString)
         {}
         #endregion
 
@@ -136,7 +138,8 @@ namespace ZeroInstall.Store
         /// <summary>
         /// Escapes an identifier using URL encoding.
         /// </summary>
-        public static string Escape(string value)
+        [Pure, NotNull]
+        public static string Escape([NotNull] string value)
         {
             #region Sanity checks
             if (value == null) throw new ArgumentNullException("value");
@@ -170,6 +173,7 @@ namespace ZeroInstall.Store
         /// <summary>
         /// Escapes the identifier using URL encoding.
         /// </summary>
+        [NotNull]
         public new string Escape()
         {
             return Escape(AbsoluteUri);
@@ -179,7 +183,8 @@ namespace ZeroInstall.Store
         /// Unescapes an identifier using URL encoding.
         /// </summary>
         /// <exception cref="UriFormatException">The unescaped string is not a valid HTTP(S) URL or an absolute local path.</exception>
-        public new static FeedUri Unescape(string escaped)
+        [NotNull]
+        public new static FeedUri Unescape([NotNull] string escaped)
         {
             #region Sanity checks
             if (escaped == null) throw new ArgumentNullException("escaped");
@@ -209,7 +214,8 @@ namespace ZeroInstall.Store
         /// <summary>
         /// Escapes an identifier using URL encoding except for slashes (encoded as #) and colons (left as-is on POSIX systems).
         /// </summary>
-        public static string PrettyEscape(string value)
+        [Pure, NotNull]
+        public static string PrettyEscape([NotNull] string value)
         {
             #region Sanity checks
             if (value == null) throw new ArgumentNullException("value");
@@ -252,6 +258,7 @@ namespace ZeroInstall.Store
         /// <summary>
         /// Escapes the identifier using URL encoding except for slashes (encoded as #) and colons (left as-is on POSIX systems).
         /// </summary>
+        [NotNull]
         public string PrettyEscape()
         {
             return PrettyEscape(AbsoluteUri);
@@ -260,7 +267,8 @@ namespace ZeroInstall.Store
         /// <summary>
         /// Unescapes an identifier using URL encoding except for slashes (encoded as #).
         /// </summary>
-        public static FeedUri PrettyUnescape(string escaped)
+        [Pure, NotNull]
+        public static FeedUri PrettyUnescape([NotNull] string escaped)
         {
             #region Sanity checks
             if (escaped == null) throw new ArgumentNullException("escaped");

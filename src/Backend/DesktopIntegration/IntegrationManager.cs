@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
@@ -70,7 +71,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="IOException">A problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to the <see cref="AppList"/> file is not permitted.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        public IntegrationManager(string appListPath, ITaskHandler handler, bool machineWide = false) : base(handler)
+        public IntegrationManager([NotNull] string appListPath, [NotNull] ITaskHandler handler, bool machineWide = false) : base(handler)
         {
             #region Sanity checks
             if (appListPath == null) throw new ArgumentNullException("appListPath");
@@ -96,7 +97,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="IOException">A problem occurs while accessing the <see cref="AppList"/> file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read or write access to the <see cref="AppList"/> file is not permitted or if another desktop integration class is currently active.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        public IntegrationManager(ITaskHandler handler, bool machineWide = false) : base(handler)
+        public IntegrationManager([NotNull] ITaskHandler handler, bool machineWide = false) : base(handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -285,7 +286,6 @@ namespace ZeroInstall.DesktopIntegration
 
             if (appEntry.AccessPoints == null) appEntry.AccessPoints = new AccessPointList();
 
-            // ReSharper disable PossibleMultipleEnumeration
             AppList.CheckForConflicts(accessPoints, appEntry);
 
             accessPoints.ApplyWithRollback(
@@ -300,7 +300,6 @@ namespace ZeroInstall.DesktopIntegration
             appEntry.AccessPoints.Entries.RemoveRange(accessPoints); // Replace pre-existing entries
             appEntry.AccessPoints.Entries.AddRange(accessPoints);
             appEntry.Timestamp = DateTime.UtcNow;
-            // ReSharper restore PossibleMultipleEnumeration
         }
 
         /// <inheritdoc/>
@@ -313,14 +312,12 @@ namespace ZeroInstall.DesktopIntegration
 
             if (appEntry.AccessPoints == null) return;
 
-            // ReSharper disable PossibleMultipleEnumeration
             foreach (var accessPoint in accessPoints)
                 accessPoint.Unapply(appEntry, MachineWide);
 
             // Remove the access points from the AppList
             appEntry.AccessPoints.Entries.RemoveRange(accessPoints);
             appEntry.Timestamp = DateTime.UtcNow;
-            // ReSharper restore PossibleMultipleEnumeration
         }
 
         /// <inheritdoc/>
@@ -388,7 +385,6 @@ namespace ZeroInstall.DesktopIntegration
             Dispose(false);
         }
 
-        // ReSharper disable UnusedParameter.Global
         /// <summary>
         /// Releases the mutex and any unmanaged resources.
         /// </summary>
@@ -401,8 +397,6 @@ namespace ZeroInstall.DesktopIntegration
                 _mutex.Close();
             }
         }
-
-        // ReSharper restore UnusedParameter.Global
         #endregion
     }
 }

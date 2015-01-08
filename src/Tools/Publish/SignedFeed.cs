@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using ZeroInstall.Store.Model;
@@ -33,11 +34,13 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// The wrapped <see cref="Feed"/>.
         /// </summary>
+        [NotNull]
         public Feed Feed { get; set; }
 
         /// <summary>
         /// The secret key used to sign the <see cref="Feed"/>; <see langword="null"/> for no signature.
         /// </summary>
+        [CanBeNull]
         public OpenPgpSecretKey SecretKey { get; set; }
 
         /// <summary>
@@ -45,7 +48,7 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="feed">The wrapped <see cref="Feed"/>.</param>
         /// <param name="secretKey">The secret key used to sign the <see cref="Feed"/>; <see langword="null"/> for no signature.</param>
-        public SignedFeed(Feed feed, OpenPgpSecretKey secretKey = null)
+        public SignedFeed([NotNull] Feed feed, [CanBeNull] OpenPgpSecretKey secretKey = null)
         {
             #region Sanity checks
             if (feed == null) throw new ArgumentNullException("feed");
@@ -64,7 +67,8 @@ namespace ZeroInstall.Publish
         /// <exception cref="IOException">A problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        public static SignedFeed Load(string path)
+        [NotNull]
+        public static SignedFeed Load([NotNull] string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -78,11 +82,11 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <remarks>Writing and signing the feed file are performed as an atomic operation (i.e. if signing fails an existing file remains unchanged).</remarks>
         /// <param name="path">The file to save in.</param>
-        /// <param name="passphrase">The passphrase to use to unlock the secret key; may be <see langword="null"/> if <see cref="SecretKey"/> is <see langword="null"/>.</param>
+        /// <param name="passphrase">The passphrase to use to unlock the secret key; can be <see langword="null"/> if <see cref="SecretKey"/> is <see langword="null"/>.</param>
         /// <exception cref="IOException">A problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
         /// <exception cref="WrongPassphraseException">Passphrase was incorrect.</exception>
-        public void Save(string path, string passphrase = null)
+        public void Save([NotNull] string path, [CanBeNull] string passphrase = null)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");

@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
@@ -76,7 +77,7 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         /// <param name="fingerprint">The fingerprint of the key to check.</param>
         /// <param name="domain">The domain the key should be valid for.</param>
-        public bool IsTrusted(string fingerprint, Domain domain)
+        public bool IsTrusted([NotNull] string fingerprint, Domain domain)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException("fingerprint");
@@ -90,7 +91,7 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         /// <param name="fingerprint">The fingerprint of the key to check.</param>
         /// <param name="domain">The domain the key should be valid for.</param>
-        public void TrustKey(string fingerprint, Domain domain)
+        public void TrustKey([NotNull] string fingerprint, Domain domain)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException("fingerprint");
@@ -111,7 +112,7 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         /// <param name="fingerprint">The fingerprint of the key to check.</param>
         /// <param name="domain">The domain the key should be valid for.</param>
-        public void UntrustKey(string fingerprint, Domain domain)
+        public void UntrustKey([NotNull] string fingerprint, Domain domain)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException("fingerprint");
@@ -131,7 +132,8 @@ namespace ZeroInstall.Store.Trust
         /// <exception cref="IOException">A problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        public static TrustDB Load(string path)
+        [NotNull]
+        public static TrustDB Load([NotNull] string path)
         {
             return XmlStorage.LoadXml<TrustDB>(path);
         }
@@ -143,6 +145,7 @@ namespace ZeroInstall.Store.Trust
         /// <exception cref="IOException">A problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
+        [NotNull]
         public static TrustDB Load()
         {
             return Load(Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml"));
@@ -152,6 +155,7 @@ namespace ZeroInstall.Store.Trust
         /// Tries to load the <see cref="TrustDB"/> from its default location. Automatically falls back to defaults on errors.
         /// </summary>
         /// <returns>The loaded <see cref="TrustDB"/>.</returns>
+        [NotNull]
         public static TrustDB LoadSafe()
         {
             try

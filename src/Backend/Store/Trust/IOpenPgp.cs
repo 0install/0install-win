@@ -18,6 +18,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using JetBrains.Annotations;
 
 namespace ZeroInstall.Store.Trust
 {
@@ -32,7 +33,7 @@ namespace ZeroInstall.Store.Trust
         /// </summary>
         /// <param name="data">The key data to be imported.</param>
         /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
-        void ImportKey(byte[] data);
+        void ImportKey([NotNull] byte[] data);
 
         /// <summary>
         /// Returns information about the secret key for specific keypair.
@@ -40,12 +41,14 @@ namespace ZeroInstall.Store.Trust
         /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair; <see langword="null"/> to use the default key.</param>
         /// <exception cref="KeyNotFoundException">The specified key could not be found on the system.</exception>
         /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
-        OpenPgpSecretKey GetSecretKey(string keySpecifier);
+        [NotNull]
+        OpenPgpSecretKey GetSecretKey([CanBeNull] string keySpecifier = null);
 
         /// <summary>
         /// Returns a list of information about available secret keys.
         /// </summary>
         /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
+        [NotNull, ItemNotNull]
         OpenPgpSecretKey[] ListSecretKeys();
 
         /// <summary>
@@ -54,7 +57,8 @@ namespace ZeroInstall.Store.Trust
         /// <param name="keySpecifier">The key ID, fingerprint or any part of a user ID that identifies the keypair.</param>
         /// <returns>The public key in ASCII Armored format.</returns>
         /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
-        string GetPublicKey(string keySpecifier);
+        [NotNull]
+        string GetPublicKey([NotNull] string keySpecifier);
 
         /// <summary>
         /// Launches an interactive process for generating a new keypair.
@@ -72,7 +76,8 @@ namespace ZeroInstall.Store.Trust
         /// <returns>The signature as a Base64 encoded string.</returns>
         /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
         /// <exception cref="WrongPassphraseException">Passphrase was incorrect.</exception>
-        string DetachSign(Stream stream, string keySpecifier, string passphrase);
+        [NotNull]
+        string DetachSign([NotNull] Stream stream, [NotNull] string keySpecifier, [CanBeNull] string passphrase = null);
 
         /// <summary>
         /// Validates data signed by one or more keys.
@@ -81,6 +86,7 @@ namespace ZeroInstall.Store.Trust
         /// <param name="signature">The signature data as a byte array.</param>
         /// <returns>A list of signatures found, both valid and invalid.</returns>
         /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
-        IEnumerable<OpenPgpSignature> Verify(byte[] data, byte[] signature);
+        [NotNull, ItemNotNull]
+        IEnumerable<OpenPgpSignature> Verify([NotNull] byte[] data, [NotNull] byte[] signature);
     }
 }

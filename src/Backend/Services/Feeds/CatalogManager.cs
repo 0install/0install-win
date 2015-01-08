@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Net;
@@ -53,7 +54,7 @@ namespace ZeroInstall.Services.Feeds
         /// Creates a new catalog manager.
         /// </summary>
         /// <param name="trustManager">Methods for verifying signatures and user trust.</param>
-        public CatalogManager(ITrustManager trustManager)
+        public CatalogManager([NotNull] ITrustManager trustManager)
         {
             #region Sanity checks
             if (trustManager == null) throw new ArgumentNullException("trustManager");

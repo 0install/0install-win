@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -106,7 +107,7 @@ namespace ZeroInstall.Publish
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">There was a problem generating the manifest or detectng the executables.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to temporary files was not permitted.</exception>
-        public void SetImplementationDirectory(string implementationDirectory, ITaskHandler handler)
+        public void SetImplementationDirectory([NotNull] string implementationDirectory, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(implementationDirectory)) throw new ArgumentNullException("implementationDirectory");

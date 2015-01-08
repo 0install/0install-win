@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Model
@@ -81,7 +82,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Copies all known values from one instance to another. Helper method for instance cloning.
         /// </summary>
-        protected static void CloneFromTo(TargetBase from, TargetBase to)
+        protected static void CloneFromTo([NotNull] TargetBase from, [NotNull] TargetBase to)
         {
             #region Sanity checks
             if (from == null) throw new ArgumentNullException("from");

@@ -16,6 +16,7 @@
  */
 
 using System;
+using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services.Feeds;
@@ -48,14 +49,14 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="selections">The <see cref="Selections"/> as provided by the solver.</param>
         /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
-        void ShowSelections(Selections selections, IFeedCache feedCache);
+        void ShowSelections([NotNull] Selections selections, [NotNull] IFeedCache feedCache);
 
         /// <summary>
         /// Allows the user to modify the interface preferences and rerun the solver if desired.
         /// Returns once the user is satisfied with her choice. Will be ignored by non-GUI intefaces.
         /// </summary>
         /// <param name="solveCallback">Called after interface preferences have been changed and the solver needs to be rerun.</param>
-        void ModifySelections(Func<Selections> solveCallback);
+        void ModifySelections([NotNull] Func<Selections> solveCallback);
 
         /// <summary>
         /// Displays application integration options to the user.
@@ -63,13 +64,13 @@ namespace ZeroInstall.Commands
         /// <param name="state">A View-Model for modifying the current desktop integration state.</param>
         /// <exception cref="OperationCanceledException">The user does not want any changes to be applied.</exception>
         /// <remarks>The caller is responsible for saving any changes.</remarks>
-        void ShowIntegrateApp(IntegrationState state);
+        void ShowIntegrateApp([NotNull] IntegrationState state);
 
         /// <summary>
         /// Displays the results of a feed search to the user.
         /// </summary>
         /// <param name="query">The search query that was performed.</param>
-        void ShowFeedSearch(SearchQuery query);
+        void ShowFeedSearch([NotNull] SearchQuery query);
 
         /// <summary>
         /// Displays the configuration settings to the user.
@@ -78,13 +79,13 @@ namespace ZeroInstall.Commands
         /// <param name="configTab">Switch to a specific tab in the configuration GUI. Has no effect in text-mode.</param>
         /// <exception cref="OperationCanceledException">The user does not want any changes to be applied.</exception>
         /// <remarks>The caller is responsible for saving any changes.</remarks>
-        void ShowConfig(Config config, ConfigTab configTab);
+        void ShowConfig([NotNull] Config config, ConfigTab configTab);
 
         /// <summary>
         /// Displays a user interface for managing <see cref="IStore"/>s.
         /// </summary>
         /// <param name="store">The <see cref="IStore"/> to manage.</param>
         /// <param name="feedCache">Information about implementations found in the <paramref name="store"/> are extracted from here.</param>
-        void ManageStore(IStore store, IFeedCache feedCache);
+        void ManageStore([NotNull] IStore store, [NotNull] IFeedCache feedCache);
     }
 }

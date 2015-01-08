@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Services.Properties;
@@ -37,7 +38,8 @@ namespace ZeroInstall.Services
         /// </summary>
         /// <param name="selections">The selections to be displayed.</param>
         /// <param name="store">A store to search for implementation storage locations.</param>
-        public static string GetHumanReadable(this Selections selections, IStore store)
+        [NotNull]
+        public static string GetHumanReadable([NotNull] this Selections selections, [NotNull] IStore store)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
@@ -102,7 +104,8 @@ namespace ZeroInstall.Services
         /// <param name="implementation">The implementation to locate.</param>
         /// <param name="store">The store to search for the implementation storage location.</param>
         /// <returns>A fully qualified path to the directory containing the implementation, a native package name prefixed with <code>package:</code> or <see langword="null"/> if the implementation is not cached yet.</returns>
-        private static string GetPath(this ImplementationSelection implementation, IStore store)
+        [CanBeNull]
+        private static string GetPath([NotNull] this ImplementationSelection implementation, [NotNull] IStore store)
         {
             return implementation.ID.StartsWith(ExternalImplementation.PackagePrefix)
                 ? "(" + implementation.ID + ")"

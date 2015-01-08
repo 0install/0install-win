@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 
@@ -39,14 +40,15 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Creates a nw <see cref="FrontendCommand"/> based on a name.
         /// </summary>
-        /// <param name="commandName">The command name to look for; case-insensitive; may be <see langword="null"/>.</param>
+        /// <param name="commandName">The command name to look for; case-insensitive; can be <see langword="null"/>.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         /// <returns>The requested <see cref="FrontendCommand"/> or <see cref="DefaultCommand"/> if <paramref name="commandName"/> was <see langword="null"/>.</returns>
         /// <exception cref="OptionException"><paramref name="commandName"/> is an unknown command.</exception>
         /// <exception cref="IOException">There was a problem accessing a configuration file or one of the stores.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to a configuration file or one of the stores was not permitted.</exception>
         /// <exception cref="InvalidDataException">A configuration file is damaged.</exception>
-        private static FrontendCommand GetCommand(string commandName, ICommandHandler handler)
+        [NotNull]
+        private static FrontendCommand GetCommand([CanBeNull] string commandName, [NotNull] ICommandHandler handler)
         {
             if (string.IsNullOrEmpty(commandName)) return new DefaultCommand(handler);
             switch (commandName.ToLowerInvariant())
@@ -127,7 +129,8 @@ namespace ZeroInstall.Commands
         /// <exception cref="UnauthorizedAccessException">Creating a directory is not permitted.</exception>
         /// <exception cref="InvalidDataException">A configuration file is damaged.</exception>
         /// <exception cref="UriFormatException">The URI or local path specified is invalid.</exception>
-        public static FrontendCommand CreateAndParse(IEnumerable<string> args, ICommandHandler handler)
+        [NotNull]
+        public static FrontendCommand CreateAndParse([NotNull, ItemNotNull] IEnumerable<string> args, [NotNull] ICommandHandler handler)
         {
             #region Sanity checks
             if (args == null) throw new ArgumentNullException("args");
@@ -146,7 +149,8 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="arguments">The command-line arguments to search for a command name. If a command is found it is removed from the collection.</param>
         /// <returns>The name of the command that was found or <see langword="null"/> if none was specified.</returns>
-        private static string GetCommandName(ICollection<string> arguments)
+        [CanBeNull]
+        private static string GetCommandName([NotNull, ItemNotNull] ICollection<string> arguments)
         {
             #region Sanity checks
             if (arguments == null) throw new ArgumentNullException("arguments");

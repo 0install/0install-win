@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Tasks;
@@ -41,7 +42,7 @@ namespace ZeroInstall.Store.ViewModel
         /// </summary>
         /// <param name="store">Used to list <see cref="Implementation"/>s</param>
         /// <param name="feedCache">Used to load <see cref="Feed"/>s.</param>
-        public CacheNodeBuilder(IStore store, IFeedCache feedCache)
+        public CacheNodeBuilder([NotNull] IStore store, [NotNull] IFeedCache feedCache)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");

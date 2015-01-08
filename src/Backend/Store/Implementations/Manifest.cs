@@ -22,6 +22,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Properties;
 
@@ -69,7 +70,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="format">The format used for <see cref="Save(Stream)"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Digest"/>.</param>
         /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
-        public Manifest(ManifestFormat format, IEnumerable<ManifestNode> nodes)
+        public Manifest([NotNull] ManifestFormat format, [NotNull, ItemNotNull, InstantHandle] IEnumerable<ManifestNode> nodes)
         {
             #region Sanity checks
             if (nodes == null) throw new ArgumentNullException("nodes");
@@ -85,7 +86,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="format">The format used for <see cref="Save(Stream)"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Digest"/>.</param>
         /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
-        public Manifest(ManifestFormat format, params ManifestNode[] nodes)
+        public Manifest([NotNull] ManifestFormat format, [NotNull, ItemNotNull, InstantHandle] params ManifestNode[] nodes)
         {
             #region Sanity checks
             if (nodes == null) throw new ArgumentNullException("nodes");
@@ -110,7 +111,8 @@ namespace ZeroInstall.Store.Implementations
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
-        public string Save(string path)
+        [NotNull]
+        public string Save([NotNull] string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -132,7 +134,7 @@ namespace ZeroInstall.Store.Implementations
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
-        public void Save(Stream stream)
+        public void Save([NotNull] Stream stream)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -158,7 +160,8 @@ namespace ZeroInstall.Store.Implementations
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
-        public static Manifest Load(Stream stream, ManifestFormat format)
+        [NotNull]
+        public static Manifest Load([NotNull] Stream stream, [NotNull] ManifestFormat format)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -194,7 +197,8 @@ namespace ZeroInstall.Store.Implementations
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
-        public static Manifest Load(string path, ManifestFormat format)
+        [NotNull]
+        public static Manifest Load([NotNull] string path, [NotNull] ManifestFormat format)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -264,10 +268,8 @@ namespace ZeroInstall.Store.Implementations
             if (_nodes.Length != other._nodes.Length) return false;
 
             // If any node pair does not match, the manifests are not equal
-            // ReSharper disable LoopCanBeConvertedToQuery
             for (int i = 0; i < _nodes.Length; i++)
                 if (!Equals(_nodes[i], other._nodes[i])) return false;
-            // ReSharper restore LoopCanBeConvertedToQuery
 
             // If the for-loop ran through, all node pairs are identical and the manifests are equal
             return true;
@@ -286,12 +288,10 @@ namespace ZeroInstall.Store.Implementations
         {
             unchecked
             {
-                // ReSharper disable LoopCanBeConvertedToQuery
                 int result = (Format != null ? Format.GetHashCode() : 0);
                 foreach (ManifestNode node in _nodes)
                     result = (result * 397) ^ node.GetHashCode();
                 return result;
-                // ReSharper restore LoopCanBeConvertedToQuery
             }
         }
         #endregion

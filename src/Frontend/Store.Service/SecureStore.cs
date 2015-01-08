@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Principal;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
@@ -54,7 +55,7 @@ namespace ZeroInstall.Store.Service
         /// <param name="eventLog">Writes messages to the Windows Event Log.</param>
         /// <exception cref="IOException">The directory <paramref name="path"/> could not be created or if the underlying filesystem can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Creating the directory <paramref name="path"/> is not permitted.</exception>
-        public SecureStore(string path, WindowsIdentity serviceIdentity, EventLog eventLog) : base(path)
+        public SecureStore([NotNull] string path, [NotNull] WindowsIdentity serviceIdentity, [NotNull] EventLog eventLog) : base(path)
         {
             #region Sanity checks
             if (eventLog == null) throw new ArgumentNullException("eventLog");
@@ -68,9 +69,6 @@ namespace ZeroInstall.Store.Service
         #endregion
 
         //--------------------//
-
-        // ReSharper disable PossibleNullReferenceException
-        // ReSharper disable AssignNullToNotNullAttribute
 
         #region Temp dir
         /// <inheritdoc/>
@@ -189,9 +187,6 @@ namespace ZeroInstall.Store.Service
             }
         }
         #endregion
-
-        // ReSharper restore PossibleNullReferenceException
-        // ReSharper restore AssignNullToNotNullAttribute
 
         #region Nop
         /// <summary>

@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Net;
+using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -45,7 +46,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">The data in <paramref name="comServer"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Store.Model.Capabilities.ComServer comServer, bool machineWide, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, [NotNull] Store.Model.Capabilities.ComServer comServer, bool machineWide, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
             if (comServer == null) throw new ArgumentNullException("comServer");
@@ -67,7 +68,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">The data in <paramref name="comServer"/> is invalid.</exception>
-        public static void Unregister(Store.Model.Capabilities.ComServer comServer, bool machineWide)
+        public static void Unregister([NotNull] Store.Model.Capabilities.ComServer comServer, bool machineWide)
         {
             #region Sanity checks
             if (comServer == null) throw new ArgumentNullException("comServer");

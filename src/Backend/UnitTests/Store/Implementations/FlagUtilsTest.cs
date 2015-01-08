@@ -36,9 +36,7 @@ namespace ZeroInstall.Store.Implementations
         {
             using (var flagDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                // ReSharper disable LocalizableElement
                 File.WriteAllText(Path.Combine(flagDir, ".xbit"), "/dir1/file1\n/dir2/file2\n");
-                // ReSharper restore LocalizableElement
 
                 var expectedResult = new[]
                 {
@@ -75,9 +73,7 @@ namespace ZeroInstall.Store.Implementations
         {
             using (var flagFile = new TemporaryFile("0install-unit-tests"))
             {
-                // ReSharper disable LocalizableElement
                 File.WriteAllText(flagFile, "/dir1/file1\n/dir2/file2\n");
-                // ReSharper restore LocalizableElement
 
                 FlagUtils.Remove(flagFile, "dir");
                 Assert.AreEqual("/dir1/file1\n/dir2/file2\n", File.ReadAllText(flagFile), "Partial match should not change anything");
@@ -98,9 +94,7 @@ namespace ZeroInstall.Store.Implementations
         {
             using (var flagFile = new TemporaryFile("0install-unit-tests"))
             {
-                // ReSharper disable LocalizableElement
                 File.WriteAllText(flagFile, "/dir/file1\n/dir/file2\n/dir2/file\n");
-                // ReSharper restore LocalizableElement
 
                 FlagUtils.Rename(flagFile, "dir", "new_dir");
                 Assert.AreEqual("/new_dir/file1\n/new_dir/file2\n/dir2/file\n", File.ReadAllText(flagFile));

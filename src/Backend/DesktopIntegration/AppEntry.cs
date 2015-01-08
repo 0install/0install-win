@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Storage;
@@ -82,6 +83,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         [Description("A set of requirements/restrictions imposed by the user on the implementation selection process. May be null if InterfaceUri is not a pet-name.")]
         [XmlIgnore]
+        [CanBeNull]
         public Requirements Requirements { get; set; }
 
         /// <summary>Used for XML+JSON serialization.</summary>
@@ -107,6 +109,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         [Description("A set of AccessPoints to be registered in the desktop environment. Is null if no desktop integration has been performed yet.")]
         [XmlElement("access-points")]
+        [CanBeNull]
         public AccessPointList AccessPoints { get; set; }
 
         /// <inheritdoc/>
@@ -133,7 +136,8 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="id">The <see cref="Capability.ID"/> to match.</param>
         /// <returns>The first matching <see cref="Capability"/> or <see langword="null"/> if none was found.</returns>
         /// <exception cref="KeyNotFoundException">No capability matching <paramref name="id"/> and <typeparamref name="T"/> was found.</exception>
-        public T GetCapability<T>(string id) where T : Capability
+        [CanBeNull]
+        public T GetCapability<T>([NotNull] string id) where T : Capability
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");

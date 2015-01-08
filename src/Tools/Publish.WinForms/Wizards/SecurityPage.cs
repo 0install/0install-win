@@ -17,6 +17,7 @@
 
 using System;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using ZeroInstall.Publish.Properties;
@@ -32,7 +33,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private readonly FeedBuilder _feedBuilder;
         private readonly IOpenPgp _openPgp;
 
-        public SecurityPage(FeedBuilder feedBuilder, IOpenPgp openPgp)
+        public SecurityPage([NotNull] FeedBuilder feedBuilder, [NotNull] IOpenPgp openPgp)
         {
             InitializeComponent();
 

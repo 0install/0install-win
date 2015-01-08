@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Properties;
 
@@ -106,7 +107,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// </summary>
         /// <param name="interfaceUri">The <see cref="ImplementationSelection.InterfaceUri"/> to look for.</param>
         /// <returns><see langword="true"/> if an implementation was found; <see langword="false"/> otherwise.</returns>
-        public bool ContainsImplementation(FeedUri interfaceUri)
+        public bool ContainsImplementation([NotNull] FeedUri interfaceUri)
         {
             return _implementations.Any(implementation => implementation.InterfaceUri == interfaceUri);
         }
@@ -117,7 +118,8 @@ namespace ZeroInstall.Store.Model.Selection
         /// <param name="interfaceUri">The <see cref="ImplementationSelection.InterfaceUri"/> to look for.</param>
         /// <returns>The first matching implementation.</returns>
         /// <exception cref="KeyNotFoundException">No matching implementation was found.</exception>
-        public ImplementationSelection this[FeedUri interfaceUri]
+        [NotNull]
+        public ImplementationSelection this[[NotNull] FeedUri interfaceUri]
         {
             get
             {
@@ -143,7 +145,8 @@ namespace ZeroInstall.Store.Model.Selection
         /// </summary>
         /// <param name="interfaceUri">The <see cref="ImplementationSelection.InterfaceUri"/> to look for.</param>
         /// <returns>The first matching implementation; <see langword="null"/> if no matching one was found.</returns>
-        public ImplementationSelection GetImplementation(FeedUri interfaceUri)
+        [CanBeNull]
+        public ImplementationSelection GetImplementation([NotNull] FeedUri interfaceUri)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");

@@ -18,6 +18,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using ZeroInstall.Commands.Properties;
@@ -68,7 +69,7 @@ namespace ZeroInstall.Commands.WinForms
         ///   <para>This method must not be called from a background thread.</para>
         ///   <para>This method must not be called before <see cref="Control.Handle"/> has been created.</para>
         /// </remarks>
-        public void SetSelections(Selections selections, IFeedCache feedCache)
+        public void SetSelections([NotNull] Selections selections, [NotNull] IFeedCache feedCache)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");

@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.ViewModel
@@ -50,7 +51,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         /// <param name="integrationManager">The integration manager used to apply selected integration options.</param>
         /// <param name="appEntry">The application being integrated.</param>
         /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
-        public IntegrationState(IIntegrationManager integrationManager, AppEntry appEntry, Feed feed)
+        public IntegrationState([NotNull] IIntegrationManager integrationManager, [NotNull] AppEntry appEntry, [NotNull] Feed feed)
         {
             #region Sanity checks
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");

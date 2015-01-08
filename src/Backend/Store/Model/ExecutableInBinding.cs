@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Model.Design;
 
 namespace ZeroInstall.Store.Model
@@ -16,6 +17,7 @@ namespace ZeroInstall.Store.Model
         [Description("The name of the command in the implementation to launch; leave empty for 'run'.")]
         [XmlAttribute("command"), DefaultValue("")]
         [TypeConverter(typeof(CommandNameConverter))]
+        [CanBeNull]
         public string Command { get; set; }
     }
 }

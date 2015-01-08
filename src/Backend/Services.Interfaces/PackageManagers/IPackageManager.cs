@@ -16,6 +16,7 @@
  */
 
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
@@ -35,13 +36,15 @@ namespace ZeroInstall.Services.PackageManagers
         /// </summary>
         /// <param name="package">The definition of the package to look for.</param>
         /// <param name="distributions">Specifies the distributions to check for matching packages. Leave empty to check in all available distributions.</param>
-        IEnumerable<ExternalImplementation> Query(PackageImplementation package, params string[] distributions);
+        [NotNull, ItemNotNull]
+        IEnumerable<ExternalImplementation> Query([NotNull] PackageImplementation package, [NotNull, ItemNotNull] params string[] distributions);
 
         /// <summary>
         /// Looks up the specific <see cref="ExternalImplementation"/> an <see cref="ImplementationSelection"/> was based on.
         /// </summary>
         /// <param name="selection">The implementation selection to look up.</param>
         /// <exception cref="ImplementationNotFoundException"><paramref name="selection"/> does not refer to a package known to this package manager.</exception>
-        ExternalImplementation Lookup(ImplementationSelection selection);
+        [NotNull, ItemNotNull]
+        ExternalImplementation Lookup([NotNull] ImplementationSelection selection);
     }
 }

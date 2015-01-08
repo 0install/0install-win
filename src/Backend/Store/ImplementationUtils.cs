@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -38,7 +39,8 @@ namespace ZeroInstall.Store
         /// <param name="digest">The digest to search for.</param>
         /// <param name="feed">Returns the <see cref="Feed"/> a match was found in; <see langword="null"/> if no match found.</param>
         /// <returns>The matching <see cref="Store.Model.Implementation"/>; <see langword="null"/> if no match found.</returns>
-        public static Implementation GetImplementation(this IEnumerable<Feed> feeds, ManifestDigest digest, out Feed feed)
+        [ContractAnnotation("=>null,feed:null; =>notnull,feed:notnull")]
+        public static Implementation GetImplementation([NotNull] this IEnumerable<Feed> feeds, ManifestDigest digest, out Feed feed)
         {
             #region Sanity checks
             if (feeds == null) throw new ArgumentNullException("feeds");
@@ -65,7 +67,7 @@ namespace ZeroInstall.Store
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="IOException">An implementation could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the store is not permitted.</exception>
-        public static void Purge(this IStore store, ITaskHandler handler)
+        public static void Purge([NotNull] this IStore store, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");

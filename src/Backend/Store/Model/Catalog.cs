@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
@@ -78,7 +79,8 @@ namespace ZeroInstall.Store.Model
         /// Merges the content of multiple <see cref="Catalog"/>s.
         /// </summary>
         /// <remarks>In case of duplicate <see cref="Feed.Uri"/>s only the first instance is kept.</remarks>
-        public static Catalog Merge(IEnumerable<Catalog> catalogs)
+        [NotNull]
+        public static Catalog Merge([NotNull, ItemNotNull] IEnumerable<Catalog> catalogs)
         {
             #region Sanity checks
             if (catalogs == null) throw new ArgumentNullException("catalogs");
@@ -121,7 +123,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <param name="uri">The <see cref="Feed.Uri"/> to look for.</param>
         /// <returns><see langword="true"/> if a matching feed was found; <see langword="false"/> otherwise.</returns>
-        public bool ContainsFeed(FeedUri uri)
+        public bool ContainsFeed([NotNull] FeedUri uri)
         {
             #region Sanity checks
             if (uri == null) throw new ArgumentNullException("uri");
@@ -136,7 +138,8 @@ namespace ZeroInstall.Store.Model
         /// <param name="uri">The <see cref="Feed.Uri"/> to look for.</param>
         /// <returns>The identified <see cref="Feed"/>.</returns>
         /// <exception cref="KeyNotFoundException">No <see cref="Feed"/> matching <paramref name="uri"/> was found in <see cref="Feeds"/>.</exception>
-        public Feed this[FeedUri uri]
+        [NotNull]
+        public Feed this[[NotNull] FeedUri uri]
         {
             get
             {
@@ -162,7 +165,8 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <param name="uri">The <see cref="Feed.Uri"/> to look for.</param>
         /// <returns>The identified <see cref="Feed"/>; <see langword="null"/> if no matching entry was found.</returns>
-        public Feed GetFeed(FeedUri uri)
+        [CanBeNull]
+        public Feed GetFeed([NotNull] FeedUri uri)
         {
             #region Sanity checks
             if (uri == null) throw new ArgumentNullException("uri");
@@ -175,8 +179,9 @@ namespace ZeroInstall.Store.Model
         /// Retruns the first <see cref="Feed"/> that matches a sepecific short name and has <see cref="Feed.Uri"/> set.
         /// </summary>
         /// <param name="shortName">The short name to look for. Must match either <see cref="Feed.Name"/> or <see cref="EntryPoint.BinaryName"/> of <see cref="Command.NameRun"/>.</param>
-        /// <returns>The first matching <see cref="Feed"/> or <see langword="null"/> if no match was found.</returns>
-        public Feed FindByShortName(string shortName)
+        /// <returns>The first matching <see cref="Feed"/>; <see langword="null"/> if no match was found.</returns>
+        [CanBeNull]
+        public Feed FindByShortName([NotNull] string shortName)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(shortName)) throw new ArgumentNullException("shortName");

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Properties;
 
@@ -13,7 +14,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Determines whether a string contains a template variable (a substring enclosed in curly brackets, e.g {var}).
         /// </summary>
-        public static bool ContainsTemplateVariables(string value)
+        public static bool ContainsTemplateVariables([NotNull] string value)
         {
             #region Sanity checks
             if (value == null) throw new ArgumentNullException("value");
@@ -28,10 +29,11 @@ namespace ZeroInstall.Store.Model
         /// Turns a relative path into an absolute one, using the file containing the reference as the base.
         /// </summary>
         /// <param name="path">The potentially relative path; will remain untouched if absolute.</param>
-        /// <param name="source">The file containing the reference; may be <see langword="null"/>.</param>
+        /// <param name="source">The file containing the reference; can be <see langword="null"/>.</param>
         /// <returns>An absolute path.</returns>
         /// <exception cref="IOException"><paramref name="path"/> is relative and <paramref name="source"/> is a remote URI.</exception>
-        public static string GetAbsolutePath(string path, FeedUri source)
+        [NotNull]
+        public static string GetAbsolutePath([NotNull] string path, [CanBeNull] FeedUri source = null)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -46,10 +48,11 @@ namespace ZeroInstall.Store.Model
         /// Turns a relative HREF into an absolute one, using the file containing the reference as the base.
         /// </summary>
         /// <param name="href">The potentially relative HREF; will remain untouched if absolute.</param>
-        /// <param name="source">The file containing the reference; may be <see langword="null"/>.</param>
+        /// <param name="source">The file containing the reference; can be <see langword="null"/>.</param>
         /// <returns>An absolute HREF.</returns>
         /// <exception cref="IOException"><paramref name="href"/> is relative and <paramref name="source"/> is a remote URI.</exception>
-        public static Uri GetAbsoluteHref(Uri href, FeedUri source)
+        [NotNull]
+        public static Uri GetAbsoluteHref([NotNull] Uri href, [CanBeNull] FeedUri source = null)
         {
             #region Sanity checks
             if (href == null) throw new ArgumentNullException("href");

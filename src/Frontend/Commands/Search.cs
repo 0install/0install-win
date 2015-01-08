@@ -16,6 +16,7 @@
  */
 
 using System;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Feeds;
@@ -49,7 +50,7 @@ namespace ZeroInstall.Commands
         }
 
         /// <inheritdoc/>
-        public Search(ICommandHandler handler) : base(handler)
+        public Search([NotNull] ICommandHandler handler) : base(handler)
         {}
         #endregion
 

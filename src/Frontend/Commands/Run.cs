@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NDesk.Options;
@@ -54,7 +55,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return int.MaxValue; } }
 
         /// <inheritdoc/>
-        public Run(ICommandHandler handler) : base(handler)
+        public Run([NotNull] ICommandHandler handler) : base(handler)
         {
             //Options.Remove("xml");
             //Options.Remove("show");

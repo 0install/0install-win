@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
@@ -43,7 +44,7 @@ namespace ZeroInstall.Services.Injector
         /// Creates a new executor.
         /// </summary>
         /// <param name="store">Used to locate the selected <see cref="Store.Model.Implementation"/>s.</param>
-        public Executor(IStore store)
+        public Executor([NotNull] IStore store)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");
@@ -95,7 +96,8 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="IOException">A problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
         /// <exception cref="Win32Exception">A problem occurred while creating a hard link.</exception>
-        internal ProcessStartInfo GetStartInfo(Selections selections, params string[] arguments)
+        [NotNull]
+        internal ProcessStartInfo GetStartInfo([NotNull] Selections selections, [NotNull, ItemNotNull] params string[] arguments)
         {
             #region Sanity checks
             if (arguments == null) throw new ArgumentNullException("arguments");

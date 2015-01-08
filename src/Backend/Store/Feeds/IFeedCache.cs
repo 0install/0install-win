@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
@@ -24,7 +25,7 @@ namespace ZeroInstall.Store.Feeds
         ///   <see langword="true"/> if the specified feed is available in this cache;
         ///   <see langword="false"/> if the specified feed is not available in this cache.
         /// </returns>
-        bool Contains(FeedUri feedUri);
+        bool Contains([NotNull] FeedUri feedUri);
 
         /// <summary>
         /// Returns a list of all <see cref="Feed"/>s stored in this cache.
@@ -46,7 +47,7 @@ namespace ZeroInstall.Store.Feeds
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the cache is not permitted.</exception>
         /// <exception cref="InvalidDataException">The feed file could not be parsed.</exception>
-        Feed GetFeed(FeedUri feedUri);
+        Feed GetFeed([NotNull] FeedUri feedUri);
 
         /// <summary>
         /// Determines which signatures a <see cref="Feed"/> from this cache is signed with.
@@ -56,7 +57,7 @@ namespace ZeroInstall.Store.Feeds
         /// <exception cref="KeyNotFoundException">The requested <paramref name="feedUri"/> was not found in the cache.</exception>
         /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
         /// <exception cref="SignatureException">The signature data could not be handled.</exception>
-        IEnumerable<OpenPgpSignature> GetSignatures(FeedUri feedUri);
+        IEnumerable<OpenPgpSignature> GetSignatures([NotNull] FeedUri feedUri);
 
         /// <summary>
         /// Adds a new <see cref="Feed"/> to the cache. Only do this after the feed source has been verified and trusted and replay attacks filtered!
@@ -67,7 +68,7 @@ namespace ZeroInstall.Store.Feeds
         /// <exception cref="UnauthorizedAccessException">Write access to the cache is not permitted.</exception>
         /// <exception cref="InvalidDataException">The feed file could not be parsed.</exception>
         /// <exception cref="InvalidOperationException"><paramref name="feedUri"/> is a a local path.</exception>
-        void Add(FeedUri feedUri, byte[] data);
+        void Add([NotNull] FeedUri feedUri, [NotNull] byte[] data);
 
         /// <summary>
         /// Removes a specific <see cref="Feed"/> from this cache. No exception is thrown if the specified <see cref="Feed"/> is not in the cache.
@@ -76,7 +77,7 @@ namespace ZeroInstall.Store.Feeds
         /// <exception cref="KeyNotFoundException">The requested <paramref name="feedUri"/> was not found in the cache.</exception>
         /// <exception cref="IOException">The feed could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the cache is not permitted.</exception>
-        void Remove(FeedUri feedUri);
+        void Remove([NotNull] FeedUri feedUri);
 
         /// <summary>
         /// Clears any in-memory caches.

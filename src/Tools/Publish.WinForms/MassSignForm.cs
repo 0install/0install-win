@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Tasks;
@@ -62,7 +63,7 @@ namespace ZeroInstall.Publish.WinForms
         /// Displays a dialog allowing the user to sign a set of <see cref="Feed"/>s.
         /// </summary>
         /// <param name="files">The <see cref="Feed"/> files to be signed.</param>
-        public static void Show(IEnumerable<FileInfo> files)
+        public static void Show([NotNull, ItemNotNull] IEnumerable<FileInfo> files)
         {
             #region Sanity checks
             if (files == null) throw new ArgumentNullException("files");

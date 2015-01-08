@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -46,7 +47,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
-        public static string GetIconPath(Icon icon, ITaskHandler handler, bool machineWide)
+        [NotNull]
+        public static string GetIconPath([NotNull] Icon icon, [NotNull] ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
             if (icon == null) throw new ArgumentNullException("icon");

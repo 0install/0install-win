@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Properties;
@@ -40,7 +41,7 @@ namespace ZeroInstall.Store.ViewModel
         /// <exception cref="FormatException">The manifest file is not valid.</exception>
         /// <exception cref="IOException">The manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
-        public TempDirectoryNode(string path, IStore store)
+        public TempDirectoryNode([NotNull] string path, [NotNull] IStore store)
             : base(store)
         {
             #region Sanity checks

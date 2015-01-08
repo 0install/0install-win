@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -52,7 +53,7 @@ namespace ZeroInstall.Commands.WinForms
         /// Creates a new progress tracking form.
         /// </summary>
         /// <param name="cancellationTokenSource">Used to signal when the user wishes to cancel the current process.</param>
-        public ProgressForm(CancellationTokenSource cancellationTokenSource)
+        public ProgressForm([NotNull] CancellationTokenSource cancellationTokenSource)
         {
             #region Sanity checks
             if (cancellationTokenSource == null) throw new ArgumentNullException("cancellationTokenSource");

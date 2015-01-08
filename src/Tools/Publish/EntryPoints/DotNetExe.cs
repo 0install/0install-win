@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using JetBrains.Annotations;
 using ZeroInstall.Publish.EntryPoints.Design;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
@@ -55,6 +56,7 @@ namespace ZeroInstall.Publish.EntryPoints
         [Category("Details (.NET)"), DisplayName(@"Minimum .NET version"), Description("The minimum version of the .NET Runtime required by the application.")]
         [DefaultValue("")]
         [TypeConverter(typeof(DotNetVersionConverter))]
+        [UsedImplicitly]
         public ImplementationVersion MinimumRuntimeVersion { get; set; }
 
         /// <summary>
@@ -62,6 +64,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// </summary>
         [Category("Details (.NET)"), DisplayName(@".NET type"), Description("The types of .NET runtimes supported by the application.")]
         [DefaultValue(typeof(DotNetRuntimeType), "Any")]
+        [UsedImplicitly]
         public DotNetRuntimeType RuntimeType { get; set; }
 
         /// <summary>
@@ -69,6 +72,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// </summary>
         [Category("Details (.NET)"), DisplayName(@"External dependencies"), Description("Does this application have external dependencies that need to be injected by Zero Install? Only enable if you are sure!")]
         [DefaultValue(false)]
+        [UsedImplicitly]
         public bool ExternalDependencies { get; set; }
 
         /// <inheritdoc/>

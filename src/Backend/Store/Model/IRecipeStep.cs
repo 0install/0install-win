@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using JetBrains.Annotations;
+
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
@@ -27,7 +29,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <param name="feedUri">The feed the data was originally loaded from.</param>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
-        void Normalize(FeedUri feedUri);
+        void Normalize([NotNull] FeedUri feedUri);
 
         /// <summary>
         /// Creates a deep copy of this <see cref="IRecipeStep"/> instance.

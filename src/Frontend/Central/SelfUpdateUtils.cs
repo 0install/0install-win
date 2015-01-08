@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Net;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Info;
 using NanoByte.Common.Native;
@@ -64,6 +65,7 @@ namespace ZeroInstall.Central
         /// <exception cref="UriFormatException"><see cref="Config.SelfUpdateUri"/> is invalid.</exception>
         /// <exception cref="SolverException">The dependencies could not be solved.</exception>
         /// <exception cref="InvalidDataException">A configuration file is damaged.</exception>
+        [CanBeNull]
         public static ImplementationVersion Check()
         {
             var services = new ServiceLocator(new SilentTaskHandler()) {FeedManager = {Refresh = true}};

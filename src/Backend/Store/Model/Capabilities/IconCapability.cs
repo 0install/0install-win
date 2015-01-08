@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 
@@ -58,7 +59,8 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// </summary>
         /// <param name="mimeType">The <see cref="Icon.MimeType"/> to try to find. Will only return exact matches.</param>
         /// <returns>The best matching icon that was found or <see langword="null"/> if no matching icon was found.</returns>
-        public Icon GetIcon(string mimeType)
+        [CanBeNull]
+        public Icon GetIcon([NotNull] string mimeType)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");

@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 
@@ -42,7 +43,7 @@ namespace ZeroInstall.Store.ViewModel
         /// <exception cref="FormatException">The manifest file is not valid.</exception>
         /// <exception cref="IOException">The manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
-        public OwnedImplementationNode(ManifestDigest digest, Implementation implementation, FeedNode iface, IStore store)
+        public OwnedImplementationNode(ManifestDigest digest, [NotNull] Implementation implementation, [NotNull] FeedNode iface, [NotNull] IStore store)
             : base(digest, store)
         {
             #region Sanity checks

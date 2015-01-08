@@ -17,6 +17,7 @@
 
 using System;
 using System.Globalization;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations
@@ -48,7 +49,8 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="line">The string representation to parse.</param>
         /// <returns>The newly created node.</returns>
         /// <exception cref="FormatException">The <paramref name="line"/> format is incorrect.</exception>
-        internal static ManifestExecutableFile FromString(string line)
+        [NotNull]
+        internal static ManifestExecutableFile FromString([NotNull] string line)
         {
             const int numberOfParts = 5;
             string[] parts = line.Split(new[] {' '}, numberOfParts);

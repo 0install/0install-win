@@ -23,6 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
@@ -55,13 +56,13 @@ namespace ZeroInstall.Commands
         /// A callback object used when the the user needs to be asked questions or informed about download and IO tasks.
         /// </summary>
         // Type covariance: ServiceLocator -> FrontendCommand, ITaskHandler -> ICommandHandler
+        [NotNull]
         public new ICommandHandler Handler { get; private set; }
 
         /// <summary>
         /// Creates a new command.
         /// </summary>
-        protected FrontendCommand(ICommandHandler handler)
-            : base(handler)
+        protected FrontendCommand([NotNull] ICommandHandler handler) : base(handler)
         {
             Handler = handler;
 
@@ -136,6 +137,7 @@ namespace ZeroInstall.Commands
         #region State
         /// <summary>Feeds to add, terms to search for, etc.</summary>
         [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists", Justification = "Using a List<T> for performance reasons")]
+        [NotNull, ItemNotNull]
         protected readonly List<string> AdditionalArgs = new List<string>();
 
         private AppList _appList;
@@ -190,14 +192,17 @@ namespace ZeroInstall.Commands
         /// <exception cref="IOException">A problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">more privileges are required.</exception>
         /// <exception cref="UriFormatException">The URI or local path specified is invalid.</exception>
-        public virtual void Parse(IEnumerable<string> args)
+        [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
+        public virtual void Parse([NotNull, ItemNotNull] IEnumerable<string> args)
         {
-            // ReSharper disable PossibleMultipleEnumeration
+            #region Sanity checks
+            if (args == null) throw new ArgumentNullException("args");
+            #endregion
+
             // Automatically show help for missing args
             if (AdditionalArgsMin > 0 && !args.Any()) args = new[] {"--help"};
 
             AdditionalArgs.AddRange(Options.Parse(args));
-            // ReSharper restore PossibleMultipleEnumeration
 
             if (AdditionalArgs.Count < AdditionalArgsMin) throw new OptionException(Resources.MissingArguments, "");
             if (AdditionalArgsMin == 1 && string.IsNullOrEmpty(AdditionalArgs[0])) throw new OptionException(Resources.MissingArguments, "");

@@ -17,6 +17,7 @@
 
 using System;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish.WinForms
@@ -33,7 +34,7 @@ namespace ZeroInstall.Publish.WinForms
         /// Creates a new welcome form.
         /// </summary>
         /// <param name="openPgp">The OpenPGP-compatible system used to create signatures.</param>
-        public WelcomeForm(IOpenPgp openPgp)
+        public WelcomeForm([NotNull] IOpenPgp openPgp)
         {
             #region Sanity checks
             if (openPgp == null) throw new ArgumentNullException("openPgp");

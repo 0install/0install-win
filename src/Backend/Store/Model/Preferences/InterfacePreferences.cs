@@ -22,6 +22,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
@@ -83,7 +84,8 @@ namespace ZeroInstall.Store.Model.Preferences
         /// <exception cref="IOException">A problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        public static InterfacePreferences LoadFor(FeedUri interfaceUri)
+        [NotNull]
+        public static InterfacePreferences LoadFor([NotNull] FeedUri interfaceUri)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
@@ -100,7 +102,8 @@ namespace ZeroInstall.Store.Model.Preferences
         /// </summary>
         /// <param name="interfaceUri">The interface to load the preferences for.</param>
         /// <returns>The loaded <see cref="InterfacePreferences"/> or default value if there was a problem.</returns>
-        public static InterfacePreferences LoadForSafe(FeedUri interfaceUri)
+        [NotNull]
+        public static InterfacePreferences LoadForSafe([NotNull] FeedUri interfaceUri)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
@@ -142,7 +145,7 @@ namespace ZeroInstall.Store.Model.Preferences
         /// <param name="interfaceUri">The interface to save the preferences for.</param>
         /// <exception cref="IOException">A problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
-        public void SaveFor(FeedUri interfaceUri)
+        public void SaveFor([NotNull] FeedUri interfaceUri)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");

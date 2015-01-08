@@ -26,6 +26,7 @@ using System.Security;
 using System.Security.Cryptography;
 using System.ServiceProcess;
 using System.Threading;
+using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common;
 using NanoByte.Common.Native;
@@ -71,7 +72,7 @@ namespace ZeroInstall.Updater
         /// <param name="target">The directory containing the old version to be updated.</param>
         /// <exception cref="IOException">There was a problem accessing one of the directories.</exception>
         /// <exception cref="NotSupportedException">One of the directory paths or the version number is invalid.</exception>
-        public UpdateProcess(string source, string newVersion, string target)
+        public UpdateProcess([NotNull] string source, [NotNull] string newVersion, [NotNull] string target)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");

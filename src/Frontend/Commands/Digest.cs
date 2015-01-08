@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -48,7 +49,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 2; } }
 
         /// <inheritdoc/>
-        public Digest(ICommandHandler handler) : base(handler)
+        public Digest([NotNull] ICommandHandler handler) : base(handler)
         {
             Options.Add("manifest", () => Resources.OptionManifest, _ => _printManifest = true);
             Options.Add("digest", () => Resources.OptionDigest, _ => _printDigest = true);

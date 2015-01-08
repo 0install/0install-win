@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Streams;
 using ZeroInstall.Publish.Properties;
@@ -42,7 +43,7 @@ namespace ZeroInstall.Publish
         /// <param name="name">The name of the stylesheet to deploy. Must be "feed" or "catalog".</param>
         /// <exception cref="IOException">Failed to write the sytelsheet files.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the directory is not permitted.</exception>
-        public static void DeployStylesheet(string path, string name)
+        public static void DeployStylesheet([NotNull] string path, [NotNull] string name)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -78,7 +79,7 @@ namespace ZeroInstall.Publish
         /// The existing file must end with a line break.
         /// Old signatures are not removed.
         /// </remarks>
-        public static void SignFeed(Stream stream, OpenPgpSecretKey secretKey, string passphrase, IOpenPgp openPgp)
+        public static void SignFeed([NotNull] Stream stream, [NotNull] OpenPgpSecretKey secretKey, string passphrase, [NotNull] IOpenPgp openPgp)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -105,7 +106,7 @@ namespace ZeroInstall.Publish
         /// <param name="openPgp">The OpenPGP-compatible system used to create signatures.</param>
         /// <exception cref="IOException">The OpenPGP implementation could not be launched or the file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the directory is not permitted.</exception>
-        public static void DeployPublicKey(string path, OpenPgpSecretKey secretKey, IOpenPgp openPgp)
+        public static void DeployPublicKey([NotNull] string path, [NotNull] OpenPgpSecretKey secretKey, [NotNull] IOpenPgp openPgp)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -128,7 +129,8 @@ namespace ZeroInstall.Publish
         /// <exception cref="FileNotFoundException">The file file could not be found.</exception>
         /// <exception cref="IOException">The OpenPGP implementation could not be launched or the file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
-        public static OpenPgpSecretKey GetKey(string path, IOpenPgp openPgp)
+        [CanBeNull]
+        public static OpenPgpSecretKey GetKey([NotNull] string path, [NotNull] IOpenPgp openPgp)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");

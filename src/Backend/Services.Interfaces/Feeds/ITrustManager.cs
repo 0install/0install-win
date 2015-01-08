@@ -16,6 +16,7 @@
  */
 
 using System;
+using JetBrains.Annotations;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Trust;
 
@@ -34,6 +35,7 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="mirrorUrl">The URL or local file path the file was fetched from; <see langword="null"/> if it is identical to <paramref name="uri"/>.</param>
         /// <exception cref="SignatureException">No trusted signature was found.</exception>
         /// <exception cref="UriFormatException"><paramref name="uri"/> is a local file.</exception>
-        ValidSignature CheckTrust(byte[] data, FeedUri uri, FeedUri mirrorUrl = null);
+        [NotNull]
+        ValidSignature CheckTrust([NotNull] byte[] data, [NotNull] FeedUri uri, [CanBeNull] FeedUri mirrorUrl = null);
     }
 }

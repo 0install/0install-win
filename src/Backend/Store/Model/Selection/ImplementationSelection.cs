@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 
 namespace ZeroInstall.Store.Model.Selection
 {
@@ -53,6 +54,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// </summary>
         [Description("The URL or local path of the feed that contains this implementation. \"distribution:\" is prepended if data is pulled from a native package manager. If null or empty use InterfaceUri instead.")]
         [XmlIgnore]
+        [CanBeNull]
         public FeedUri FromFeed { get; set; }
 
         /// <summary>Used for XML serialization.</summary>
@@ -74,6 +76,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// </summary>
         [Browsable(false)]
         [XmlIgnore]
+        [CanBeNull]
         public IEnumerable<SelectionCandidate> Candidates { get { return _candidates; } }
         #endregion
 
@@ -88,7 +91,6 @@ namespace ZeroInstall.Store.Model.Selection
         /// Creates a new implemenetation selection.
         /// </summary>
         /// <param name="candidates">All candidates that were considered for selection (including the selected one). These are used to present the user with possible alternatives.</param>
-        // ReSharper disable once ParameterTypeCanBeEnumerable.Local
         public ImplementationSelection(IEnumerable<SelectionCandidate> candidates)
         {
             _candidates = candidates.ToList();

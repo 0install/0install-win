@@ -17,6 +17,7 @@
 
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
@@ -56,7 +57,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 3; } }
 
         /// <inheritdoc/>
-        public AddAlias(ICommandHandler handler) : base(handler)
+        public AddAlias([NotNull] ICommandHandler handler) : base(handler)
         {
             Options.Add("resolve", () => Resources.OptionAliasResolve, _ => _resolve = true);
             Options.Add("remove", () => Resources.OptionAliasRemove, _ => _remove = true);
@@ -126,7 +127,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="aliasName">The name of the alias to create.</param>
         /// <param name="interfaceUri">The interface URI the alias shall point to.</param>
-        /// <param name="command">A command within the interface the alias shall point to; may be <see langword="null"/>.</param>
+        /// <param name="command">A command within the interface the alias shall point to; can be <see langword="null"/>.</param>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
         private int CreateAlias(string aliasName, FeedUri interfaceUri, string command = null)
         {
@@ -178,7 +179,8 @@ namespace ZeroInstall.Commands
         /// <param name="aliasName">The name of the alias to search for.</param>
         /// <param name="foundAppEntry">Returns the <see cref="AppEntry"/> containing the found <see cref="AppAlias"/>; <see langword="null"/> if none was found.</param>
         /// <returns>The first <see cref="AppAlias"/> in <paramref name="appList"/> matching <paramref name="aliasName"/>; <see langword="null"/> if none was found.</returns>
-        internal static AppAlias GetAppAlias(AppList appList, string aliasName, out AppEntry foundAppEntry)
+        [ContractAnnotation("=>null,foundAppEntry:null; =>notnull,foundAppEntry:notnull")]
+        internal static AppAlias GetAppAlias([NotNull] AppList appList, [NotNull] string aliasName, out AppEntry foundAppEntry)
         {
             #region Sanity checks
             if (appList == null) throw new ArgumentNullException("appList");

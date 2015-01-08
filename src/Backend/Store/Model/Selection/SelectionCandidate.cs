@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Model.Preferences;
 using ZeroInstall.Store.Properties;
 
@@ -30,6 +31,7 @@ namespace ZeroInstall.Store.Model.Selection
     {
         #region Variables
         /// <summary>The preferences controlling how the solver evaluates this candidate.</summary>
+        [NotNull]
         private readonly ImplementationPreferences _implementationPreferences;
         #endregion
 
@@ -38,23 +40,27 @@ namespace ZeroInstall.Store.Model.Selection
         /// The implementation this selection candidate references.
         /// </summary>
         [Browsable(false)]
+        [NotNull]
         public Implementation Implementation { get; private set; }
 
         /// <summary>
         /// The file name or URL of the feed listing the implementation.
         /// </summary>
+        [NotNull]
         public FeedUri FeedUri { get; private set; }
 
         /// <summary>
         /// The <see cref="FeedPreferences"/> for <see cref="FeedUri"/>.
         /// </summary>
         [Browsable(false)]
+        [NotNull]
         public FeedPreferences FeedPreferences { get; private set; }
 
         /// <summary>
         /// The version number of the implementation.
         /// </summary>
         [Description("The version number of the implementation.")]
+        [NotNull]
         public ImplementationVersion Version { get { return Implementation.Version; } }
 
         /// <summary>
@@ -110,7 +116,7 @@ namespace ZeroInstall.Store.Model.Selection
         /// <param name="requirements">A set of requirements/restrictions the <paramref name="implementation"/> needs to fullfill for <see cref="IsSuitable"/> to be <see langword="true"/>.</param>
         /// <param name="offlineUncached">Mark this candidate as unsuitable because it is uncached and <see cref="Config.NetworkUse"/> is set to <see cref="NetworkLevel.Offline"/>.</param>
         /// <exception cref="InvalidDataException"><paramref name="implementation"/>'s <see cref="ImplementationBase.ID"/> is empty.</exception>
-        public SelectionCandidate(FeedUri feedUri, FeedPreferences feedPreferences, Implementation implementation, Requirements requirements, bool offlineUncached = false)
+        public SelectionCandidate([NotNull] FeedUri feedUri, [NotNull] FeedPreferences feedPreferences, [NotNull] Implementation implementation, [NotNull] Requirements requirements, bool offlineUncached = false)
         {
             #region Sanity checks
             if (feedUri == null) throw new ArgumentNullException("feedUri");

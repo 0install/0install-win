@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Security;
+using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common;
 using ZeroInstall.Capture.Properties;
@@ -40,7 +41,7 @@ namespace ZeroInstall.Capture
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
-        private static AppRegistration GetAppRegistration(Snapshot snapshotDiff, CommandMapper commandMapper, CapabilityList capabilities, ref string appName, ref string appDescription)
+        private static AppRegistration GetAppRegistration([NotNull] Snapshot snapshotDiff, [NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities, ref string appName, ref string appDescription)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
@@ -95,7 +96,7 @@ namespace ZeroInstall.Capture
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
-        private static void CollectProtocolAssocsEx(RegistryKey capsKey, CommandMapper commandMapper, CapabilityList capabilities)
+        private static void CollectProtocolAssocsEx([NotNull] RegistryKey capsKey, [NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
             if (capsKey == null) throw new ArgumentNullException("capsKey");
@@ -139,7 +140,7 @@ namespace ZeroInstall.Capture
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
-        private static void CollectFileAssocsEx(RegistryKey capsKey, CapabilityList capabilities)
+        private static void CollectFileAssocsEx([NotNull] RegistryKey capsKey, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
             if (capsKey == null) throw new ArgumentNullException("capsKey");
@@ -164,7 +165,7 @@ namespace ZeroInstall.Capture
         /// <param name="extension">The file extension including the leading dot (e.g. ".png").</param>
         /// <param name="progID">The ID of the <see cref="FileType"/> to add the extension to.</param>
         /// <param name="capabilities">The list of capabilities to find existing <see cref="FileType"/>s in.</param>
-        private static void AddExtensionToFileType(string extension, string progID, CapabilityList capabilities)
+        private static void AddExtensionToFileType([NotNull] string extension, [NotNull] string progID, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(progID)) throw new ArgumentNullException("progID");

@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
@@ -47,11 +48,11 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Constructor
         /// <inheritdoc/>
-        public CategoryIntegrationManager(string appListPath, ITaskHandler handler, bool machineWide = false) : base(appListPath, handler, machineWide)
+        public CategoryIntegrationManager([NotNull] string appListPath, [NotNull] ITaskHandler handler, bool machineWide = false) : base(appListPath, handler, machineWide)
         {}
 
         /// <inheritdoc/>
-        public CategoryIntegrationManager(ITaskHandler handler, bool machineWide = false) : base(handler, machineWide)
+        public CategoryIntegrationManager([NotNull] ITaskHandler handler, bool machineWide = false) : base(handler, machineWide)
         {}
         #endregion
 

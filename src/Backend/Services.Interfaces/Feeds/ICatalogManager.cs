@@ -19,6 +19,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
@@ -34,6 +35,7 @@ namespace ZeroInstall.Services.Feeds
         /// </summary>
         /// <returns>A <see cref="Catalog"/>; <see langword="null"/> if there is no cached data.</returns>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "File system access")]
+        [CanBeNull]
         Catalog GetCached();
 
         /// <summary>

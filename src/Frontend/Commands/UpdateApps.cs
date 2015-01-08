@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -50,7 +51,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 0; } }
 
         /// <inheritdoc/>
-        public UpdateApps(ICommandHandler handler) : base(handler)
+        public UpdateApps([NotNull] ICommandHandler handler) : base(handler)
         {
             Options.Add("c|clean", () => Resources.OptionClean, _ => _clean = true);
         }

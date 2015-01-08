@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Model;
 
@@ -38,7 +39,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <param name="appEntry">The application entry containing this access point.</param>
         /// <exception cref="KeyNotFoundException">An <see cref="AccessPoint"/> reference to a <see cref="Store.Model.Capabilities.Capability"/> is invalid.</exception>
         /// <remarks>These identifiers are not guaranteed to stay the same between versions. They should not be stored in files but instead always generated on demand.</remarks>
-        public abstract IEnumerable<string> GetConflictIDs(AppEntry appEntry);
+        public abstract IEnumerable<string> GetConflictIDs([NotNull] AppEntry appEntry);
 
         /// <summary>
         /// Applies this access point to the current machine.
@@ -53,7 +54,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">The access point's data or a referenced <see cref="Store.Model.Capabilities.Capability"/>'s data are invalid.</exception>
-        public abstract void Apply(AppEntry appEntry, Feed feed, ITaskHandler handler, bool machineWide);
+        public abstract void Apply([NotNull] AppEntry appEntry, [NotNull] Feed feed, [NotNull] ITaskHandler handler, bool machineWide);
 
         /// <summary>
         /// Unapplies this access point on the current machine.
@@ -63,7 +64,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <exception cref="KeyNotFoundException">An <see cref="AccessPoint"/> reference to a <see cref="Store.Model.Capabilities.Capability"/> is invalid.</exception>
         /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
-        public abstract void Unapply(AppEntry appEntry, bool machineWide);
+        public abstract void Unapply([NotNull] AppEntry appEntry, bool machineWide);
 
         /// <summary>
         /// Creates a deep copy of this <see cref="AccessPoint"/> instance.

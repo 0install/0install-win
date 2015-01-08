@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Store.Model.Design;
 
@@ -60,7 +61,8 @@ namespace ZeroInstall.Store.Model
         /// <param name="fileName">The file name to analyze.</param>
         /// <returns>The MIME type if it could be guessed; <see langword="null"/> otherwise.</returns>
         /// <remarks>The file's content is not analyzed.</remarks>
-        public static string GuessMimeType(string fileName)
+        [CanBeNull]
+        public static string GuessMimeType([NotNull] string fileName)
         {
             #region Sanity checks
             if (fileName == null) throw new ArgumentNullException("fileName");
@@ -107,13 +109,15 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Description("The name of the subdirectory in the archive to extract; null for entire archive.")]
         [XmlAttribute("extract"), DefaultValue("")]
+        [CanBeNull]
         public string Extract { get; set; }
 
         /// <summary>
-        /// The subdirectory within the implementation directory to extract this archive to; may be <see langword="null"/>.
+        /// The subdirectory within the implementation directory to extract this archive to; can be <see langword="null"/>.
         /// </summary>
-        [Description("The subdirectory within the implementation directory to extract this archive to; may be null.")]
+        [Description("The subdirectory within the implementation directory to extract this archive to; can be null.")]
         [XmlAttribute("dest")]
+        [CanBeNull]
         public string Destination { get; set; }
         #endregion
 

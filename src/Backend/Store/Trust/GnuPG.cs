@@ -53,7 +53,7 @@ namespace ZeroInstall.Store.Trust
         }
 
         /// <inheritdoc/>
-        public OpenPgpSecretKey GetSecretKey(string keySpecifier)
+        public OpenPgpSecretKey GetSecretKey(string keySpecifier = null)
         {
             // Get all available secret keys
             var secretKeys = ListSecretKeys();
@@ -127,7 +127,7 @@ namespace ZeroInstall.Store.Trust
 
         #region Sign
         /// <inheritdoc/>
-        public string DetachSign(Stream stream, string keySpecifier, string passphrase)
+        public string DetachSign(Stream stream, string keySpecifier, string passphrase = null)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");

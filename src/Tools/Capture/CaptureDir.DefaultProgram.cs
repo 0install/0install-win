@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Security;
+using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common;
 using ZeroInstall.Capture.Properties;
@@ -38,7 +39,7 @@ namespace ZeroInstall.Capture
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
-        private static void CollectDefaultPrograms(Snapshot snapshotDiff, CommandMapper commandMapper, CapabilityList capabilities, ref string appName)
+        private static void CollectDefaultPrograms([NotNull] Snapshot snapshotDiff, [NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities, ref string appName)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
@@ -83,7 +84,7 @@ namespace ZeroInstall.Capture
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
-        private static InstallCommands GetInstallCommands(RegistryKey clientKey, string installationDir)
+        private static InstallCommands GetInstallCommands([NotNull] RegistryKey clientKey, [NotNull] string installationDir)
         {
             #region Sanity checks
             if (clientKey == null) throw new ArgumentNullException("clientKey");

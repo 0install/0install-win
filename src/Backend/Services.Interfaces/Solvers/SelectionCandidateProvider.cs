@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Info;
@@ -50,7 +51,7 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="store">Used to check which <see cref="Implementation"/>s are already cached.</param>
         /// <param name="packageManager">An external package manager that can install <see cref="PackageImplementation"/>s.</param>
-        public SelectionCandidateProvider(Config config, IFeedManager feedManager, IStore store, IPackageManager packageManager)
+        public SelectionCandidateProvider([NotNull] Config config, [NotNull] IFeedManager feedManager, [NotNull] IStore store, [NotNull] IPackageManager packageManager)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
@@ -101,7 +102,7 @@ namespace ZeroInstall.Services.Solvers
         /// <summary>
         /// Gets all <see cref="SelectionCandidate"/>s for a specific set of <see cref="Requirements"/> sorted from best to worst.
         /// </summary>
-        public IList<SelectionCandidate> GetSortedCandidates(Requirements requirements)
+        public IList<SelectionCandidate> GetSortedCandidates([NotNull] Requirements requirements)
         {
             var candidates = GetFeeds(requirements)
                 .SelectMany(x => GetCandidates(x.Key, x.Value, requirements))

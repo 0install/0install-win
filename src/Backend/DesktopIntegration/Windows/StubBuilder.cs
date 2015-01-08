@@ -23,6 +23,7 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Security.Cryptography;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
@@ -47,14 +48,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="target">The application to be launched via the stub.</param>
         /// <param name="machineWide">Store the stub in a machine-wide directory instead of just for the current user.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
+        /// <param name="command">The command argument to be passed to the the "0install run" command; can be <see langword="null"/>.</param>
         /// <returns>The path to the generated stub EXE.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="InvalidOperationException">There was a compilation error while generating the stub EXE.</exception>
         /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="InvalidOperationException">Write access to the filesystem is not permitted.</exception>
-        public static string GetRunStub(this InterfaceFeed target, bool machineWide, ITaskHandler handler, string command = null)
+        public static string GetRunStub(this InterfaceFeed target, bool machineWide, [NotNull] ITaskHandler handler, [CanBeNull] string command = null)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -74,20 +75,20 @@ namespace ZeroInstall.DesktopIntegration.Windows
         }
 
         /// <summary>
-        /// Creates a new or updates an existing stub EXE that executes the "0install run" command. 
+        /// Creates a new or updates an existing stub EXE that executes the "0install run" command.
         /// </summary>
         /// <seealso cref="BuildRunStub"/>
         /// <param name="target">The application to be launched via the stub.</param>
         /// <param name="path">The target path to store the generated EXE file.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="needsTerminal"><see langword="true"/> to build a CLI stub, <see langword="false"/> to build a GUI stub.</param>
-        /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
+        /// <param name="command">The command argument to be passed to the the "0install run" command; can be <see langword="null"/>.</param>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="InvalidOperationException">There was a compilation error while generating the stub EXE.</exception>
         /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem is not permitted.</exception>
-        private static void CreateOrUpdateRunStub(this InterfaceFeed target, string path, ITaskHandler handler, bool needsTerminal, string command)
+        private static void CreateOrUpdateRunStub(this InterfaceFeed target, [NotNull] string path, [NotNull] ITaskHandler handler, bool needsTerminal, [CanBeNull] string command = null)
         {
             if (File.Exists(path))
             { // Existing stub
@@ -131,13 +132,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="path">The target path to store the generated EXE file.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="needsTerminal"><see langword="true"/> to build a CLI stub, <see langword="false"/> to build a GUI stub.</param>
-        /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
+        /// <param name="command">The command argument to be passed to the the "0install run" command; can be <see langword="null"/>.</param>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="InvalidOperationException">There was a compilation error while generating the stub EXE.</exception>
         /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem is not permitted.</exception>
-        internal static void BuildRunStub(this InterfaceFeed target, string path, ITaskHandler handler, bool needsTerminal, string command)
+        internal static void BuildRunStub(this InterfaceFeed target, [NotNull] string path, [NotNull] ITaskHandler handler, bool needsTerminal, [CanBeNull] string command = null)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -183,9 +184,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="target">The application to be launched via the stub.</param>
         /// <param name="needsTerminal"><see langword="true"/> to build a CLI stub, <see langword="false"/> to build a GUI stub.</param>
-        /// <param name="command">The command argument to be passed to the the "0install run" command; may be <see langword="null"/>.</param>
+        /// <param name="command">The command argument to be passed to the the "0install run" command; can be <see langword="null"/>.</param>
         /// <returns>Generated C# code.</returns>
-        private static string GetRunStubCode(InterfaceFeed target, bool needsTerminal, string command)
+        private static string GetRunStubCode(InterfaceFeed target, bool needsTerminal, [CanBeNull] string command = null)
         {
             // Build command-line
             string args = needsTerminal ? "" : "run --no-wait ";

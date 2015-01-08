@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Model;
@@ -68,7 +69,8 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="id">The digest id to extract the prefix from or only the prefix.</param>
         /// <exception cref="ArgumentException"><paramref name="id"/> is no known algorithm prefix.</exception>
-        public static ManifestFormat FromPrefix(string id)
+        [NotNull]
+        public static ManifestFormat FromPrefix([NotNull] string id)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
@@ -88,11 +90,13 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// The prefix used to identify the format (e.g. "sha256").
         /// </summary>
+        [NotNull]
         public abstract string Prefix { get; }
 
         /// <summary>
         /// The separator placed between the <see cref="Prefix"/> and the actual digest.
         /// </summary>
+        [NotNull]
         public virtual string Separator { get { return "="; } }
 
         /// <inheritdoc/>
@@ -106,12 +110,14 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Generates a file entry (line) for a specific <see cref="ManifestNode"/>.
         /// </summary>
-        public abstract string GenerateEntryForNode(ManifestNode node);
+        [NotNull]
+        public abstract string GenerateEntryForNode([NotNull] ManifestNode node);
 
         /// <summary>
         /// Parses a file entry (line) back into a <see cref="ManifestDirectory"/>.
         /// </summary>
-        internal abstract ManifestDirectory ReadDirectoryNodeFromEntry(string entry);
+        [NotNull]
+        internal abstract ManifestDirectory ReadDirectoryNodeFromEntry([NotNull] string entry);
 
         /// <summary>
         /// Creates a recursive list of all filesystem entries in a certain directory sorted according to the format specifications.
@@ -120,7 +126,8 @@ namespace ZeroInstall.Store.Implementations
         /// <returns>An array of filesystem entries.</returns>
         /// <exception cref="IOException">The directory could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the directory is not permitted.</exception>
-        public abstract FileSystemInfo[] GetSortedDirectoryEntries(string path);
+        [NotNull, ItemNotNull]
+        public abstract FileSystemInfo[] GetSortedDirectoryEntries([NotNull] string path);
         #endregion
 
         #region Digest methods
@@ -129,7 +136,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="stream">The content of the implementation file.</param>
         /// <returns>A string representation of the digest.</returns>
-        public string DigestContent(Stream stream)
+        public string DigestContent([NotNull] Stream stream)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -143,7 +150,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="data">The content of the implementation file as a byte array.</param>
         /// <returns>A string representation of the digest.</returns>
-        public string DigestContent(byte[] data)
+        public string DigestContent([NotNull] byte[] data)
         {
             #region Sanity checks
             if (data == null) throw new ArgumentNullException("data");
@@ -157,7 +164,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="stream">The content of the manifest file.</param>
         /// <returns>A string representation of the digest.</returns>
-        public string DigestManifest(Stream stream)
+        public string DigestManifest([NotNull] Stream stream)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -175,7 +182,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Serializes a hash as digest of an implementation file as used within the manifest file.
         /// </summary>
-        protected virtual string SerializeContentDigest(byte[] hash)
+        protected virtual string SerializeContentDigest([NotNull] byte[] hash)
         {
             return hash.Base16Encode();
         }
@@ -183,7 +190,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Serializes a hash as a digest of a manifest file as used for the implementation directory name.
         /// </summary>
-        protected virtual string SerializeManifestDigest(byte[] hash)
+        protected virtual string SerializeManifestDigest([NotNull] byte[] hash)
         {
             return hash.Base16Encode();
         }

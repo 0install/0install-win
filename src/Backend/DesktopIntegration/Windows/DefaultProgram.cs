@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Net;
+using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
@@ -68,7 +69,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">The data in <paramref name="defaultProgram"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Store.Model.Capabilities.DefaultProgram defaultProgram, ITaskHandler handler, bool accessPoint = false)
+        public static void Register(InterfaceFeed target, [NotNull] Store.Model.Capabilities.DefaultProgram defaultProgram, [NotNull] ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
             if (defaultProgram == null) throw new ArgumentNullException("defaultProgram");
@@ -132,7 +133,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">The data in <paramref name="defaultProgram"/> is invalid.</exception>
-        public static void Unregister(Store.Model.Capabilities.DefaultProgram defaultProgram, bool accessPoint = false)
+        public static void Unregister([NotNull] Store.Model.Capabilities.DefaultProgram defaultProgram, bool accessPoint = false)
         {
             #region Sanity checks
             if (defaultProgram == null) throw new ArgumentNullException("defaultProgram");

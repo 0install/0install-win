@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model.Design;
@@ -62,6 +63,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [Description("A more flexible alternative to Constraints.\nEach range is in the form \"START..!END\". The range matches versions where START < VERSION < END. The start or end may be omitted. A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version.")]
         [XmlIgnore]
+        [CanBeNull]
         public VersionRange Versions { get; set; }
 
         /// <summary>Used for XML serialization.</summary>

@@ -21,6 +21,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Cli;
 using NanoByte.Common.Dispatch;
@@ -94,6 +95,7 @@ namespace ZeroInstall.Publish.Cli
         /// A key specifier (key ID, fingerprint or any part of a user ID) for the secret key to use to sign the feeds.
         /// </summary>
         /// <remarks>Will use existing key or default key when left at <see langword="null"/>.</remarks>
+        [CanBeNull]
         private string _key;
 
         /// <summary>

@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model.Design;
 using ZeroInstall.Store.Properties;
@@ -166,6 +167,7 @@ namespace ZeroInstall.Store.Model
         /// </remarks>
         [Category("Execution"), Description("The relative path of an executable inside the implementation that should be executed by default when the interface is run. If an implementation has no main setting, then it cannot be executed without specifying one manually. This typically means that the interface is for a library.")]
         [XmlAttribute("main"), DefaultValue("")]
+        [CanBeNull]
         public string Main { get; set; }
 
         /// <summary>
@@ -233,7 +235,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <param name="feedUri">The feed the data was originally loaded from.</param>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
-        public virtual void Normalize(FeedUri feedUri)
+        public virtual void Normalize([NotNull] FeedUri feedUri)
         {
             #region Sanity checks
             if (feedUri == null) throw new ArgumentNullException("feedUri");
@@ -259,7 +261,7 @@ namespace ZeroInstall.Store.Model
         /// Existing values are not replaced. Provides an inheritance-like relation.
         /// </summary>
         /// <param name="parent">The object to take the attributes from.</param>
-        internal void InheritFrom(Element parent)
+        internal void InheritFrom([NotNull] Element parent)
         {
             #region Sanity checks
             if (parent == null) throw new ArgumentNullException("parent");
@@ -308,7 +310,8 @@ namespace ZeroInstall.Store.Model
         /// <returns>The first matching command; <see langword="null"/> if <paramref name="name"/> is <see cref="string.Empty"/>.</returns>
         /// <exception cref="KeyNotFoundException">No matching <see cref="Command"/> was found.</exception>
         /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will not be considered.</remarks>
-        public Command this[string name]
+        [CanBeNull]
+        public Command this[[NotNull] string name]
         {
             get
             {
@@ -336,7 +339,8 @@ namespace ZeroInstall.Store.Model
         /// <param name="name">The <see cref="Command.Name"/> to look for.</param>
         /// <returns>The first matching command; <see langword="null"/> if no matching one was found.</returns>
         /// <remarks>Should only be called after <see cref="Normalize"/> has been called, otherwise nested <see cref="Implementation"/>s will not be considered.</remarks>
-        public Command GetCommand(string name)
+        [CanBeNull]
+        public Command GetCommand([NotNull] string name)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(name);
@@ -363,7 +367,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Copies all known values from one instance to another. Helper method for instance cloning.
         /// </summary>
-        protected static void CloneFromTo(Element from, Element to)
+        protected static void CloneFromTo([NotNull] Element from, [NotNull] Element to)
         {
             #region Sanity checks
             if (from == null) throw new ArgumentNullException("from");

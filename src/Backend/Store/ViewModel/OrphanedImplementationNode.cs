@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Properties;
@@ -37,7 +38,7 @@ namespace ZeroInstall.Store.ViewModel
         /// <exception cref="FormatException">The manifest file is not valid.</exception>
         /// <exception cref="IOException">The manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
-        public OrphanedImplementationNode(ManifestDigest digest, IStore store)
+        public OrphanedImplementationNode(ManifestDigest digest, [NotNull] IStore store)
             : base(digest, store)
         {}
         #endregion

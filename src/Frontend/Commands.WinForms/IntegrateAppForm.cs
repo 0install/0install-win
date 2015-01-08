@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
@@ -45,7 +46,7 @@ namespace ZeroInstall.Commands.WinForms
         /// Creates an instance of the form.
         /// </summary>
         /// <param name="state">A View-Model for modifying the current desktop integration state.</param>
-        public IntegrateAppForm(IntegrationState state)
+        public IntegrateAppForm([NotNull] IntegrationState state)
         {
             #region Sanity checks
             if (state == null) throw new ArgumentNullException("state");

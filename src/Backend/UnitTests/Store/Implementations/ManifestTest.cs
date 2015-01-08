@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using JetBrains.Annotations;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
@@ -66,7 +67,7 @@ namespace ZeroInstall.Store.Implementations
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
-        public static string CreateDotFile(string path, ManifestFormat format, ITaskHandler handler)
+        public static string CreateDotFile([NotNull] string path, [NotNull] ManifestFormat format, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");

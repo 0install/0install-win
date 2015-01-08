@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Net;
+using JetBrains.Annotations;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
@@ -53,7 +54,8 @@ namespace ZeroInstall.Services.Feeds
         /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
         /// <exception cref="SignatureException">The signature data of a remote feed file could not be verified.</exception>
         /// <exception cref="UriFormatException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="feedUri"/>.</exception>
-        Feed GetFeed(FeedUri feedUri);
+        [NotNull]
+        Feed GetFeed([NotNull] FeedUri feedUri);
 
         /// <summary>
         /// Imports a remote <see cref="Feed"/> into the <see cref="IFeedCache"/> after verifying its signature.
@@ -65,7 +67,7 @@ namespace ZeroInstall.Services.Feeds
         /// <exception cref="UnauthorizedAccessException">Access to the feed file or the cache is not permitted.</exception>
         /// <exception cref="SignatureException">The signature data of the feed file could not be handled or if no signatures were trusted.</exception>
         /// <exception cref="UriFormatException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="uri"/> or <paramref name="uri"/> is a local file.</exception>
-        void ImportFeed(string path, FeedUri uri, FeedUri mirrorUrl = null);
+        void ImportFeed([NotNull] string path, [NotNull] FeedUri uri, [CanBeNull] FeedUri mirrorUrl = null);
 
         /// <summary>
         /// Calls <see cref="IFeedCache.Flush"/> on the underlying <see cref="IFeedCache"/>.

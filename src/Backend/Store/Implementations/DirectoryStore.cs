@@ -21,6 +21,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Net;
@@ -53,7 +54,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="path">A fully qualified directory path. The directory will be created if it doesn't exist yet.</param>
         /// <exception cref="IOException">The directory <paramref name="path"/> could not be created or if the underlying filesystem can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Creating the directory <paramref name="path"/> is not permitted.</exception>
-        public DirectoryStore(string path)
+        public DirectoryStore([NotNull] string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -113,7 +114,7 @@ namespace ZeroInstall.Store.Implementations
         /// Deletes a temporary directory.
         /// </summary>
         /// <param name="path">The path to the temporary directory.</param>
-        protected virtual void DeleteTempDir(string path)
+        protected virtual void DeleteTempDir([NotNull] string path)
         {
             if (Directory.Exists(path)) Directory.Delete(path, recursive: true);
         }
@@ -506,7 +507,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="source">The Unix-style path to the hardlink to create, relative to <see cref="DirectoryPath"/>. Existing file will be replaced.</param>
         /// <param name="destination">The Unix-style path to existing file the hardlink shall point to, relative to <see cref="DirectoryPath"/>.</param>
         /// <returns><see langword="true"/> the hardlink was created; <see langword="false"/> if the files were already linked.</returns>
-        private bool CreateHardlink(string source, string destination)
+        private bool CreateHardlink([NotNull] string source, [NotNull] string destination)
         {
             string tempFile = Path.Combine(DirectoryPath, Path.GetRandomFileName());
             string destinationFile = Path.Combine(DirectoryPath, FileUtils.UnifySlashes(destination));

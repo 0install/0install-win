@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Net;
 using NDesk.Options;
@@ -136,7 +137,7 @@ namespace ZeroInstall.Capture.Cli
         /// <returns>The options detected by the parsing process.</returns>
         /// <exception cref="OperationCanceledException">The user asked to see help information, version information, etc..</exception>
         /// <exception cref="OptionException"><paramref name="args"/> contains unknown options.</exception>
-        public static ParseResults ParseArgs(IEnumerable<string> args)
+        public static ParseResults ParseArgs([NotNull, ItemNotNull] IEnumerable<string> args)
         {
             #region Sanity checks
             if (args == null) throw new ArgumentNullException("args");

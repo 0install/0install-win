@@ -22,6 +22,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -102,7 +103,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMin { get { return 1; } }
 
         /// <inheritdoc/>
-        public StoreMan(ICommandHandler handler) : base(handler)
+        public StoreMan([NotNull] ICommandHandler handler) : base(handler)
         {}
         #endregion
 

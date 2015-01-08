@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Properties;
@@ -41,11 +42,13 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// The path of the directory to analyze. No trailing <see cref="Path.DirectorySeparatorChar"/>!
         /// </summary>
+        [NotNull]
         public string TargetDir { get; private set; }
 
         /// <summary>
         /// The format of the manifest to generate.
         /// </summary>
+        [NotNull]
         public ManifestFormat Format { get; private set; }
 
         /// <summary>
@@ -60,7 +63,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest to generate.</param>
-        public ManifestGenerator(string path, ManifestFormat format)
+        public ManifestGenerator([NotNull] string path, [NotNull] ManifestFormat format)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");

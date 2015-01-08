@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
@@ -38,7 +39,7 @@ namespace ZeroInstall.Commands
         protected override string Description { get { return Resources.DescriptionRemoveFeed; } }
 
         /// <inheritdoc/>
-        public RemoveFeed(ICommandHandler handler) : base(handler)
+        public RemoveFeed([NotNull] ICommandHandler handler) : base(handler)
         {}
         #endregion
 

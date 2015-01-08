@@ -21,6 +21,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Tasks;
@@ -74,7 +75,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">The data in <paramref name="appRegistration"/> or <paramref name="verbCapabilities"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, Store.Model.Capabilities.AppRegistration appRegistration, IEnumerable<VerbCapability> verbCapabilities, bool machineWide, ITaskHandler handler)
+        public static void Register(InterfaceFeed target, [NotNull] Store.Model.Capabilities.AppRegistration appRegistration, IEnumerable<VerbCapability> verbCapabilities, bool machineWide, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
             if (appRegistration == null) throw new ArgumentNullException("appRegistration");
@@ -136,7 +137,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">The data in <paramref name="appRegistration"/>.</exception>
-        public static void Unregister(Store.Model.Capabilities.AppRegistration appRegistration, bool machineWide)
+        public static void Unregister([NotNull] Store.Model.Capabilities.AppRegistration appRegistration, bool machineWide)
         {
             #region Sanity checks
             if (appRegistration == null) throw new ArgumentNullException("appRegistration");

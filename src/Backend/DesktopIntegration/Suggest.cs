@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using ZeroInstall.DesktopIntegration.AccessPoints;
@@ -35,7 +36,8 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Returns a list of suitable default <see cref="MenuEntry"/>s.
         /// </summary>
-        public static IEnumerable<MenuEntry> MenuEntries(Feed feed)
+        [NotNull, ItemNotNull]
+        public static IEnumerable<MenuEntry> MenuEntries([NotNull] Feed feed)
         {
             #region Sanity checks
             if (feed == null) throw new ArgumentNullException("feed");
@@ -77,7 +79,8 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Returns a list of suitable default <see cref="DesktopIcon"/>s.
         /// </summary>
-        public static IEnumerable<DesktopIcon> DesktopIcons(Feed feed)
+        [NotNull, ItemNotNull]
+        public static IEnumerable<DesktopIcon> DesktopIcons([NotNull] Feed feed)
         {
             #region Sanity checks
             if (feed == null) throw new ArgumentNullException("feed");
@@ -91,7 +94,8 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Returns a list of suitable default <see cref="AppAlias"/>s.
         /// </summary>
-        public static IEnumerable<AppAlias> Aliases(Feed feed)
+        [NotNull, ItemNotNull]
+        public static IEnumerable<AppAlias> Aliases([NotNull] Feed feed)
         {
             #region Sanity checks
             if (feed == null) throw new ArgumentNullException("feed");

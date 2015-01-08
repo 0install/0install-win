@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using ICSharpCode.SharpZipLib.Zip;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
@@ -77,7 +78,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="interfaceUri">The <see cref="AppEntry.InterfaceUri"/> to look for.</param>
         /// <returns><see langword="true"/> if a matching entry was found; <see langword="false"/> otherwise.</returns>
-        public bool ContainsEntry(FeedUri interfaceUri)
+        public bool ContainsEntry([NotNull] FeedUri interfaceUri)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
@@ -92,7 +93,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="interfaceUri">The <see cref="AppEntry.InterfaceUri"/> to look for.</param>
         /// <returns>The first matching <see cref="AppEntry"/>.</returns>
         /// <exception cref="KeyNotFoundException">No entry matching the interface URI was found.</exception>
-        public AppEntry this[FeedUri interfaceUri]
+        public AppEntry this[[NotNull] FeedUri interfaceUri]
         {
             get
             {
@@ -118,7 +119,8 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="interfaceUri">The <see cref="AppEntry.InterfaceUri"/> to look for.</param>
         /// <returns>The first matching <see cref="AppEntry"/>; <see langword="null"/> if no match was found.</returns>
-        public AppEntry GetEntry(FeedUri interfaceUri)
+        [CanBeNull]
+        public AppEntry GetEntry([NotNull] FeedUri interfaceUri)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
@@ -149,7 +151,8 @@ namespace ZeroInstall.DesktopIntegration
         /// <returns>The loaded list.</returns>
         /// <exception cref="ZipException">A problem occurred while reading the ZIP data or if <paramref name="password"/> is wrong.</exception>
         /// <exception cref="InvalidDataException">A problem occurred while deserializing the XML data.</exception>
-        public static AppList LoadXmlZip(Stream stream, string password = null)
+        [NotNull]
+        public static AppList LoadXmlZip([NotNull] Stream stream, [CanBeNull] string password = null)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -175,7 +178,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="stream">The ZIP archive to be written.</param>
         /// <param name="password">The password to use for encryption; <see langword="null"/> for no encryption.</param>
-        public void SaveXmlZip(Stream stream, string password = null)
+        public void SaveXmlZip([NotNull] Stream stream, [CanBeNull] string password = null)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");

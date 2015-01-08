@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Storage;
@@ -72,7 +73,7 @@ namespace ZeroInstall.Central
         /// <param name="tileListMyApps">The <see cref="IAppTileList"/> used to represent the "my apps" <see cref="AppList"/>.</param>
         /// <param name="tileListCatalog">The <see cref="IAppTileList"/> used to represent the merged <see cref="Catalog"/>.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        public AppTileManagement(IFeedManager feedManager, ICatalogManager catalogManager, IAppTileList tileListMyApps, IAppTileList tileListCatalog, bool machineWide)
+        public AppTileManagement([NotNull] IFeedManager feedManager, [NotNull] ICatalogManager catalogManager, [NotNull] IAppTileList tileListMyApps, [NotNull] IAppTileList tileListCatalog, bool machineWide)
         {
             #region Sanity checks
             if (feedManager == null) throw new ArgumentNullException("feedManager");
@@ -97,6 +98,7 @@ namespace ZeroInstall.Central
         /// Loads the current <see cref="AppList"/> from the disk and updates the "My Apps" <see cref="IAppTileList"/>.
         /// </summary>
         /// <returns>A list of <see cref="IAppTile"/>s that need to be injected with <see cref="Feed"/> data.</returns>
+        [NotNull, ItemNotNull]
         public IEnumerable<IAppTile> UpdateMyApps()
         {
             var newAppList = LoadAppListSafe();
@@ -147,6 +149,7 @@ namespace ZeroInstall.Central
         /// Loads the current <see cref="AppList"/> from the disk.
         /// </summary>
         /// <returns>The loaded <see cref="AppList"/>; an empty <see cref="AppList"/> on error.</returns>
+        [NotNull]
         private AppList LoadAppListSafe()
         {
             try
@@ -183,7 +186,8 @@ namespace ZeroInstall.Central
         /// Calls <see cref="IFeedManager.GetFeed"/>.
         /// </summary>
         /// <returns>The loaded <see cref="Feed"/>; <see langword="null"/> on error.</returns>
-        public Feed LoadFeedSafe(FeedUri feedUri)
+        [CanBeNull]
+        public Feed LoadFeedSafe([NotNull] FeedUri feedUri)
         {
             try
             {
@@ -242,6 +246,7 @@ namespace ZeroInstall.Central
         /// </summary>
         /// <remarks>This should be executed on a background worker thread and the result passed to <see cref="SetCatalog"/>.</remarks>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs network IO and has side-effects")]
+        [NotNull]
         public Catalog GetCatalogOnline()
         {
             return _catalogManager.GetOnline();
@@ -250,7 +255,7 @@ namespace ZeroInstall.Central
         /// <summary>
         /// Updates the displayed catalog list based on changes detected between the current and the new catalog.
         /// </summary>
-        public void SetCatalog(Catalog newCatalog)
+        public void SetCatalog([NotNull] Catalog newCatalog)
         {
             #region Sanity checks
             if (newCatalog == null) throw new ArgumentNullException("newCatalog");
@@ -269,7 +274,7 @@ namespace ZeroInstall.Central
         /// <summary>
         /// Creates a new tile for the <paramref name="feed"/> and queues it for adding on the <see cref="_tileListCatalog"/>.
         /// </summary>
-        private void QueueCatalogTile(Feed feed)
+        private void QueueCatalogTile([NotNull] Feed feed)
         {
             if (string.IsNullOrEmpty(feed.UriString) || feed.Name == null) return;
             try

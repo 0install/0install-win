@@ -19,6 +19,7 @@ using System;
 using System.Diagnostics;
 using System.Text;
 using System.Web;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Properties;
@@ -68,7 +69,8 @@ namespace ZeroInstall.Services.Solvers.Python
         /// </summary>
         /// <param name="line">The error line written to stderr.</param>
         /// <returns>The response to write to stdin; <see langword="null"/> for none.</returns>
-        public string HandleStdErrorLine(string line)
+        [CanBeNull]
+        public string HandleStdErrorLine([NotNull] string line)
         {
             #region Sanity checks
             if (line == null) throw new ArgumentNullException("line");

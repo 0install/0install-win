@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Store.Model;
 
@@ -72,7 +73,7 @@ namespace ZeroInstall.Capture
         /// </summary>
         /// <param name="installationDir">The fully qualified path to the installation directory.</param>
         /// <param name="commmands">A list of all known-commands available within the installation directory.</param>
-        public CommandMapper(string installationDir, IEnumerable<Command> commmands)
+        public CommandMapper([NotNull] string installationDir, [NotNull, ItemNotNull] IEnumerable<Command> commmands)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(installationDir)) throw new ArgumentNullException("installationDir");
@@ -118,7 +119,8 @@ namespace ZeroInstall.Capture
         /// <param name="commandLine">The fully qualified command-line to try to match.</param>
         /// <param name="additionalArgs">Any additional arguments from <paramref name="commandLine"/> that are not covered by the returned <see cref="Command"/>.</param>
         /// <returns>The best matching <see cref="Command"/> or <see langword="null"/> if no match was found.</returns>
-        public Command GetCommand(string commandLine, out string additionalArgs)
+        [CanBeNull]
+        public Command GetCommand([NotNull] string commandLine, [CanBeNull] out string additionalArgs)
         {
             #region Sanity checks
             if (commandLine == null) throw new ArgumentNullException("commandLine");

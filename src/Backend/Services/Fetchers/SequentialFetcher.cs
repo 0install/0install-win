@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.PackageManagers;
@@ -39,7 +40,7 @@ namespace ZeroInstall.Services.Fetchers
         /// </summary>
         /// <param name="store">The location to store the downloaded and unpacked <see cref="Store.Model.Implementation"/>s in.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
-        public SequentialFetcher(IStore store, ITaskHandler handler) : base(store, handler)
+        public SequentialFetcher([NotNull] IStore store, [NotNull] ITaskHandler handler) : base(store, handler)
         {}
         #endregion
 

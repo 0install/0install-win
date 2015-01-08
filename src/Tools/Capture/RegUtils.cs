@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Security;
+using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common.Native;
 
@@ -17,7 +18,8 @@ namespace ZeroInstall.Capture
         /// <param name="root">The root key to look within.</param>
         /// <param name="key">The path of the subkey below <paramref name="root"/>.</param>
         /// <returns>A list of value names; an empty array if the key does not exist.</returns>
-        public static string[] GetValueNames(RegistryKey root, string key)
+        [NotNull, ItemNotNull]
+        public static string[] GetValueNames([NotNull] RegistryKey root, [NotNull] string key)
         {
             #region Sanity checks
             if (root == null) throw new ArgumentNullException("root");
@@ -34,7 +36,8 @@ namespace ZeroInstall.Capture
         /// <param name="root">The root key to look within.</param>
         /// <param name="key">The path of the subkey below <paramref name="root"/>.</param>
         /// <returns>A list of key names; an empty array if the key does not exist.</returns>
-        public static string[] GetSubKeyNames(RegistryKey root, string key)
+        [NotNull, ItemNotNull]
+        public static string[] GetSubKeyNames([NotNull] RegistryKey root, [NotNull] string key)
         {
             #region Sanity checks
             if (root == null) throw new ArgumentNullException("root");
@@ -54,8 +57,13 @@ namespace ZeroInstall.Capture
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Access to the registry was not permitted.</exception>
-        public static RegistryKey OpenHklmKey(string keyPath, out bool x64)
+        [CanBeNull]
+        public static RegistryKey OpenHklmKey([NotNull] string keyPath, out bool x64)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(keyPath)) throw new ArgumentNullException("keyPath");
+            #endregion
+
             if (WindowsUtils.Is64BitProcess)
             {
                 var result = Registry.LocalMachine.OpenSubKey(keyPath);

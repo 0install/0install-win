@@ -29,6 +29,7 @@ namespace ZeroInstall.Hooking
     /// Used as an entry point when injecting the hooking DLL into another process.
     /// </summary>
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
+    [SuppressMessage("ReSharper", "UnusedParameter.Local")]
     public partial class EntryPoint : IEntryPoint
     {
         #region Constants

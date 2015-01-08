@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using JetBrains.Annotations;
 using Microsoft.Deployment.Compression;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
@@ -44,23 +45,27 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// The sub-directory in the archive (with Unix-style slashes) to be extracted; <see langword="null"/> to extract entire archive.
         /// </summary>
         [Description("The sub-directory in the archive (with Unix-style slashes) to be extracted; null to extract entire archive.")]
+        [CanBeNull]
         public string SubDir { get; set; }
 
         /// <summary>
         /// The path to the directory to extract into.
         /// </summary>
         [Description("The path to the directory to extract into.")]
+        [NotNull]
         public string TargetDir { get; protected set; }
 
         /// <summary>
         /// Sub-path to be appended to <see cref="TargetDir"/> without affecting location of flag files; <see langword="null"/> for none.
         /// </summary>
         [Description("Sub-path to be appended to TargetDir without affecting location of flag files.")]
+        [CanBeNull]
         public string Destination { get; set; }
 
         /// <summary>
         /// <see cref="TargetDir"/> and <see cref="Destination"/> combined.
         /// </summary>
+        [NotNull]
         protected string EffectiveTargetDir { get { return string.IsNullOrEmpty(Destination) ? TargetDir : Path.Combine(TargetDir, Destination); } }
         #endregion
 
@@ -74,7 +79,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// Prepares to extract an archive contained in a stream.
         /// </summary>
         /// <param name="target">The path to the directory to extract into.</param>
-        protected Extractor(string target)
+        protected Extractor([NotNull] string target)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
@@ -94,7 +99,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="mimeType">The MIME type of archive format of the stream.</param>
         /// <returns>The newly created <see cref="Extractor"/>.</returns>
         /// <exception cref="NotSupportedException">The <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
-        public static void VerifySupport(string mimeType)
+        public static void VerifySupport([NotNull] string mimeType)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
@@ -129,12 +134,12 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="mimeType">The MIME type of archive format of the stream.</param>
         /// <returns>The newly created <see cref="Extractor"/>.</returns>
         /// <exception cref="IOException">The archive is damaged.</exception>
-        /// <exception cref="NotSupportedException">The <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
-        public static Extractor FromStream(Stream stream, string target, string mimeType)
+        /// <exception cref="NotSupportedException">The <paramref name="mimeType"/> doesn't belong to a known and supported archive type or is <see langword="null"/>.</exception>
+        [NotNull]
+        public static Extractor FromStream([NotNull] Stream stream, [NotNull] string target, [CanBeNull] string mimeType)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
-            if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
@@ -186,7 +191,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <returns>The newly created <see cref="Extractor"/>.</returns>
         /// <exception cref="IOException">The archive is damaged.</exception>
         /// <exception cref="NotSupportedException">The <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
-        public static Extractor FromFile(string path, string target, string mimeType = null, long startOffset = 0)
+        [NotNull]
+        public static Extractor FromFile([NotNull] string path, [NotNull] string target, [CanBeNull] string mimeType = null, long startOffset = 0)
         {
             if (string.IsNullOrEmpty(mimeType)) mimeType = Model.Archive.GuessMimeType(path);
             if (mimeType == Model.Archive.MimeTypeMsi) return new MsiExtractor(path, target);
@@ -214,7 +220,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         /// <param name="entryName">The Unix-style path of the archive entry relative to the archive's root.</param>
         /// <returns>The trimmed path or <see langword="null"/> if the <paramref name="entryName"/> doesn't lie within the <see cref="SubDir"/>.</returns>
-        protected virtual string GetRelativePath(string entryName)
+        protected virtual string GetRelativePath([NotNull] string entryName)
         {
             entryName = FileUtils.UnifySlashes(entryName);
 
@@ -249,7 +255,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         /// <param name="relativePath">A path relative to the archive's root.</param>
         /// <param name="lastWriteTime">The last write time to set.</param>
-        protected void CreateDirectory(string relativePath, DateTime lastWriteTime)
+        protected void CreateDirectory([NotNull] string relativePath, DateTime lastWriteTime)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
@@ -269,7 +275,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="lastWriteTime">The last write time to set.</param>
         /// <param name="stream">The stream containing the file data to be written.</param>
         /// <param name="executable"><see langword="true"/> if the file's executable bit is set; <see langword="false"/> otherwise.</param>
-        protected void WriteFile(string relativePath, long fileSize, DateTime lastWriteTime, Stream stream, bool executable = false)
+        protected void WriteFile([NotNull] string relativePath, long fileSize, DateTime lastWriteTime, [NotNull] Stream stream, bool executable = false)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
@@ -288,7 +294,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="relativePath">A path relative to the archive's root.</param>
         /// <param name="executable"><see langword="true"/> if the file's executable bit is set; <see langword="false"/> otherwise.</param>
         /// <returns>A stream for writing the extracted file.</returns>
-        protected FileStream OpenFileWriteStream(string relativePath, bool executable = false)
+        protected FileStream OpenFileWriteStream([NotNull] string relativePath, bool executable = false)
         {
             CancellationToken.ThrowIfCancellationRequested();
 
@@ -317,7 +323,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         /// <param name="source">A path relative to the archive's root.</param>
         /// <param name="target">The target the symbolic link shall point to relative to <paramref name="source"/>. May use non-native path separators!</param>
-        protected void CreateSymlink(string source, string target)
+        protected void CreateSymlink([NotNull] string source, [NotNull] string target)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
@@ -347,7 +353,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// </summary>
         /// <param name="source">A path relative to the archive's root.</param>
         /// <param name="target">The target the hard link shall point to relative to <paramref name="source"/>. May use non-native path separators!</param>
-        protected void CreateHardlink(string source, string target)
+        protected void CreateHardlink([NotNull] string source, [NotNull] string target)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
@@ -382,7 +388,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="stream">The stream to write to a file.</param>
         /// <param name="fileStream">Stream access to the file to write.</param>
         /// <remarks>Can be overwritten for archive formats that don't simply write a <see cref="Stream"/> to a file.</remarks>
-        protected virtual void StreamToFile(Stream stream, FileStream fileStream)
+        protected virtual void StreamToFile([NotNull] Stream stream, [NotNull] FileStream fileStream)
         {
             stream.CopyTo(fileStream, cancellationToken: CancellationToken);
         }
@@ -393,7 +399,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="relativePath">A path relative to the archive's root.</param>
         /// <returns>The combined path as an absolute path.</returns>
         /// <exception cref="IOException"><paramref name="relativePath"/> is invalid (e.g. is absolute, points outside the archive's root, contains invalid characters).</exception>
-        protected string CombinePath(string relativePath)
+        protected string CombinePath([NotNull] string relativePath)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");

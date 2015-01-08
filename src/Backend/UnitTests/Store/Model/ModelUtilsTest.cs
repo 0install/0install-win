@@ -31,13 +31,13 @@ namespace ZeroInstall.Store.Model
             Assert.IsTrue(Path.IsPathRooted(result));
             Assert.AreEqual(absolutePath, result);
 
-            Assert.AreEqual(absolutePath, ModelUtils.GetAbsolutePath(absolutePath, null), "Should ignore source if path is already absolute.");
+            Assert.AreEqual(absolutePath, ModelUtils.GetAbsolutePath(absolutePath), "Should ignore source if path is already absolute.");
         }
 
         [Test]
         public void TestGetAbsolutePathException()
         {
-            Assert.Throws<IOException>(() => ModelUtils.GetAbsolutePath("subdir/file", null));
+            Assert.Throws<IOException>(() => ModelUtils.GetAbsolutePath("subdir/file"));
             Assert.Throws<IOException>(() => ModelUtils.GetAbsolutePath("subdir/file", new FeedUri("http://remote/")));
         }
 
@@ -50,13 +50,13 @@ namespace ZeroInstall.Store.Model
             Assert.IsTrue(result.IsAbsoluteUri);
             Assert.AreEqual(absoluteHref, result);
 
-            Assert.AreEqual(absoluteHref, ModelUtils.GetAbsoluteHref(absoluteHref, null), "Should ignore source if href is already absolute.");
+            Assert.AreEqual(absoluteHref, ModelUtils.GetAbsoluteHref(absoluteHref), "Should ignore source if href is already absolute.");
         }
 
         [Test]
         public void TestGetAbsoluteHrefException()
         {
-            Assert.Throws<IOException>(() => ModelUtils.GetAbsoluteHref(new Uri("subdir/file", UriKind.Relative), null));
+            Assert.Throws<IOException>(() => ModelUtils.GetAbsoluteHref(new Uri("subdir/file", UriKind.Relative)));
             Assert.Throws<IOException>(() => ModelUtils.GetAbsoluteHref(new Uri("subdir/file", UriKind.Relative), new FeedUri("http://remote/")));
         }
     }

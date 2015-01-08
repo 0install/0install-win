@@ -16,6 +16,7 @@
  */
 
 using System;
+using JetBrains.Annotations;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
 
@@ -35,7 +36,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 1; } }
 
         /// <inheritdoc/>
-        protected AppCommand(ICommandHandler handler) : base(handler)
+        protected AppCommand([NotNull] ICommandHandler handler) : base(handler)
         {}
         #endregion
 
@@ -53,6 +54,6 @@ namespace ZeroInstall.Commands
         /// <param name="integrationManager">Manages desktop integration operations.</param>
         /// <param name="interfaceUri">The interface for the application to perform the operation on.</param>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        protected abstract int ExecuteHelper(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri);
+        protected abstract int ExecuteHelper([NotNull] ICategoryIntegrationManager integrationManager, [NotNull] FeedUri interfaceUri);
     }
 }

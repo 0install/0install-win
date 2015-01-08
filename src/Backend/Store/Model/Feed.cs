@@ -23,6 +23,7 @@ using System.Globalization;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Net;
@@ -223,7 +224,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <param name="feedUri">The feed the data was originally loaded from.</param>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
-        public void Normalize(FeedUri feedUri)
+        public void Normalize([NotNull] FeedUri feedUri)
         {
             #region Sanity checks
             if (feedUri == null) throw new ArgumentNullException("feedUri");
@@ -307,7 +308,8 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <param name="command">The command name to search for.</param>
         /// <returns>The identified <see cref="EntryPoint"/>; <see langword="null"/> no matching one was found.</returns>
-        public EntryPoint GetEntryPoint(string command)
+        [CanBeNull]
+        public EntryPoint GetEntryPoint([NotNull] string command)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(command)) throw new ArgumentNullException("command");
@@ -320,9 +322,10 @@ namespace ZeroInstall.Store.Model
         /// Returns the best matching name for a specific <see cref="Command"/>/<see cref="EntryPoint"/>. Will fall back to <see cref="Name"/>.
         /// </summary>
         /// <param name="language">The language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
-        /// <param name="command">The name of the command the name should represent; may be <see langword="null"/>.</param>
+        /// <param name="command">The name of the command the name should represent; can be <see langword="null"/>.</param>
         /// <returns>The best matching name that was found.</returns>
-        public string GetBestName(CultureInfo language, string command = null)
+        [NotNull]
+        public string GetBestName([NotNull] CultureInfo language, [CanBeNull] string command = null)
         {
             #region Sanity checks
             if (language == null) throw new ArgumentNullException("language");
@@ -344,9 +347,10 @@ namespace ZeroInstall.Store.Model
         /// Returns the best matching summary for a specific <see cref="Command"/>/<see cref="EntryPoint"/>. Will fall back to <see cref="Summaries"/>.
         /// </summary>
         /// <param name="language">The language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
-        /// <param name="command">The name of the command the summary should represent; may be <see langword="null"/>.</param>
+        /// <param name="command">The name of the command the summary should represent; can be <see langword="null"/>.</param>
         /// <returns>The best matching summary that was found; <see langword="null"/> if no matching summary was found.</returns>
-        public string GetBestSummary(CultureInfo language, string command = null)
+        [CanBeNull]
+        public string GetBestSummary([NotNull] CultureInfo language, [CanBeNull] string command = null)
         {
             #region Sanity checks
             if (language == null) throw new ArgumentNullException("language");
@@ -368,9 +372,10 @@ namespace ZeroInstall.Store.Model
         /// Returns the best matching icon for a specific <see cref="Command"/>/<see cref="EntryPoint"/>. Will fall back to <see cref="Icons"/>.
         /// </summary>
         /// <param name="mimeType">The <see cref="Icon.MimeType"/> to try to find. Will only return exact matches.</param>
-        /// <param name="command">The name of the command the icon should represent; may be <see langword="null"/>.</param>
+        /// <param name="command">The name of the command the icon should represent; can be <see langword="null"/>.</param>
         /// <returns>The best matching icon that was found or <see langword="null"/> if no matching icon was found.</returns>
-        public Icon GetIcon(string mimeType, string command = null)
+        [CanBeNull]
+        public Icon GetIcon([NotNull] string mimeType, [CanBeNull] string command = null)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");

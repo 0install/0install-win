@@ -17,6 +17,7 @@
 
 using System;
 using System.Globalization;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations
@@ -74,7 +75,8 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="line">The string representation to parse.</param>
         /// <returns>The newly created node.</returns>
         /// <exception cref="FormatException">The <paramref name="line"/> format is incorrect.</exception>
-        internal static ManifestDirectory FromString(string line)
+        [NotNull]
+        internal static ManifestDirectory FromString([NotNull] string line)
         {
             const int numberOfParts = 2;
             string[] parts = line.Split(new[] {' '}, numberOfParts);
@@ -89,7 +91,8 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="line">The string representation to parse.</param>
         /// <returns>The newly created node.</returns>
         /// <exception cref="FormatException">The <paramref name="line"/> format is incorrect.</exception>
-        internal static ManifestDirectory FromStringOld(string line)
+        [NotNull]
+        internal static ManifestDirectory FromStringOld([NotNull] string line)
         {
             const int numberOfParts = 3;
             string[] parts = line.Split(new[] {' '}, numberOfParts);

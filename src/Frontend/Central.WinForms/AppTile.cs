@@ -17,11 +17,13 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Central.WinForms.Properties;
@@ -51,7 +53,8 @@ namespace ZeroInstall.Central.WinForms
 
         private static readonly ITaskHandler _handler = new SilentTaskHandler();
 
-        /// <summary>The icon cache used to retrieve icons specified in <see cref="Feed"/>; may be <see langword="null"/>.</summary>
+        /// <summary>The icon cache used to retrieve icons specified in <see cref="Feed"/>; can be <see langword="null"/>.</summary>
+        [CanBeNull]
         private readonly IIconCache _iconCache;
         #endregion
 
@@ -124,9 +127,9 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="interfaceUri">The interface URI of the application this tile represents.</param>
         /// <param name="appName">The name of the application this tile represents.</param>
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
-        /// <param name="iconCache">The icon cache used to retrieve icons specified in <see cref="Feed"/>; may be <see langword="null"/>.</param>
+        /// <param name="iconCache">The icon cache used to retrieve icons specified in <see cref="Feed"/>; can be <see langword="null"/>.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        public AppTile(FeedUri interfaceUri, string appName, AppStatus status, IIconCache iconCache, bool machineWide)
+        public AppTile([NotNull] FeedUri interfaceUri, [NotNull] string appName, AppStatus status, [CanBeNull] IIconCache iconCache = null, bool machineWide = false)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
@@ -165,6 +168,7 @@ namespace ZeroInstall.Central.WinForms
             // Download and load icon in background
             try
             {
+                Debug.Assert(_iconCache != null);
                 string path = _iconCache.GetIcon((Uri)e.Argument, _handler);
                 using (var stream = File.OpenRead(path))
                     e.Result = Image.FromStream(stream);

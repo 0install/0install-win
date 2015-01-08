@@ -16,6 +16,7 @@
  */
 
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Moq;
 using NanoByte.Common.Tasks;
 using NUnit.Framework;
@@ -87,7 +88,7 @@ namespace ZeroInstall.Commands
         /// <param name="expectedOutput">The expected string for a <see cref="ITaskHandler.Output"/> call; <see langword="null"/> if none.</param>
         /// <param name="expectedExitStatus">The expected exit status code returned by <see cref="FrontendCommand.Execute"/>.</param>
         /// <param name="args">The arguments to pass to <see cref="FrontendCommand.Parse"/>.</param>
-        protected void RunAndAssert(string expectedOutput, int expectedExitStatus, params string[] args)
+        protected void RunAndAssert([CanBeNull] string expectedOutput, int expectedExitStatus, params string[] args)
         {
             Target.Parse(args);
             Assert.AreEqual(expectedExitStatus, Target.Execute());

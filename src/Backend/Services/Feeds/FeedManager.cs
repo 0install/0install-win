@@ -21,6 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
@@ -52,7 +53,7 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="feedCache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
         /// <param name="trustManager">Methods for verifying signatures and user trust.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public FeedManager(Config config, IFeedCache feedCache, ITrustManager trustManager, ITaskHandler handler)
+        public FeedManager([NotNull] Config config, [NotNull] IFeedCache feedCache, [NotNull] ITrustManager trustManager, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
@@ -129,6 +130,7 @@ namespace ZeroInstall.Services.Feeds
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
+        [NotNull]
         private Feed LoadLocal(FeedUri feedUri)
         {
             if (File.Exists(feedUri.LocalPath))
@@ -159,6 +161,7 @@ namespace ZeroInstall.Services.Feeds
         /// <exception cref="KeyNotFoundException">The requested <paramref name="feedUri"/> was not found in the cache.</exception>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
+        [NotNull]
         private Feed LoadCached(FeedUri feedUri)
         {
             try

@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -38,6 +39,7 @@ namespace ZeroInstall.Services.Fetchers
         private readonly IStore _store;
 
         /// <summary>A callback object used when the the user needs to be informed about progress.</summary>
+        [NotNull]
         protected readonly ITaskHandler Handler;
 
         /// <summary>
@@ -45,7 +47,7 @@ namespace ZeroInstall.Services.Fetchers
         /// </summary>
         /// <param name="store">The location to store the downloaded and unpacked <see cref="ZeroInstall.Store.Model.Implementation"/>s in.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
-        protected FetcherBase(IStore store, ITaskHandler handler)
+        protected FetcherBase([NotNull] IStore store, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");
@@ -142,7 +144,6 @@ namespace ZeroInstall.Services.Fetchers
             var downloadedFiles = new List<TemporaryFile>();
             try
             {
-                // ReSharper disable once LoopCanBeConvertedToQuery
                 foreach (var downloadStep in recipe.Steps.OfType<DownloadRetrievalMethod>())
                     downloadedFiles.Add(Download(downloadStep, tag: manifestDigest));
 
@@ -164,7 +165,7 @@ namespace ZeroInstall.Services.Fetchers
         /// <param name="retrievalMethod">The file to download.</param>
         /// <param name="tag">The <see cref="ITask.Tag"/> to set for the download process.</param>
         /// <returns>The downloaded temporary file.</returns>
-        protected virtual TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, object tag = null)
+        protected virtual TemporaryFile Download(DownloadRetrievalMethod retrievalMethod, [CanBeNull] object tag = null)
         {
             #region Sanity checks
             if (retrievalMethod == null) throw new ArgumentNullException("retrievalMethod");

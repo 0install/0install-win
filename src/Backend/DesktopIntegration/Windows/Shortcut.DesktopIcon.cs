@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
@@ -33,7 +34,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="target">The target the shortcut shall point to.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Create the shortcut machine-wide instead of just for the current user.</param>
-        public static void Create(DesktopIcon desktopIcon, InterfaceFeed target, ITaskHandler handler, bool machineWide = false)
+        public static void Create([NotNull] DesktopIcon desktopIcon, InterfaceFeed target, [NotNull] ITaskHandler handler, bool machineWide = false)
         {
             #region Sanity checks
             if (desktopIcon == null) throw new ArgumentNullException("desktopIcon");
@@ -49,7 +50,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="desktopIcon">Information about the shortcut to be removed.</param>
         /// <param name="machineWide">The shortcut was created machine-wide instead of just for the current user.</param>
-        public static void Remove(DesktopIcon desktopIcon, bool machineWide = false)
+        public static void Remove([NotNull] DesktopIcon desktopIcon, bool machineWide = false)
         {
             #region Sanity checks
             if (desktopIcon == null) throw new ArgumentNullException("desktopIcon");

@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Properties;
@@ -41,7 +42,8 @@ namespace ZeroInstall.Store.Implementations
         /// <exception cref="IOException">There was an error reading the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the flag file.</exception>
         /// <remarks>The flag file is searched for instead of specifiying it directly to allow handling of special cases like creating manifests of subdirectories of extracted archives.</remarks>
-        public static ICollection<string> GetFiles(string name, string target)
+        [NotNull, ItemNotNull]
+        public static ICollection<string> GetFiles([NotNull] string name, [NotNull] string target)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
@@ -75,7 +77,8 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="flagName">The name of the flag type to search for (<code>.xbit</code> or <code>.symlink</code>).</param>
         /// <param name="target">The target directory to start the search from.</param>
         /// <returns>The full path to the closest flag file that was found; <see langword="null"/> if none was found.</returns>
-        private static string FindRootDir(string flagName, string target)
+        [CanBeNull]
+        private static string FindRootDir(string flagName, [NotNull] string target)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(flagName)) throw new ArgumentNullException("flagName");
@@ -105,7 +108,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="relativePath">The path of the file to set relative to <paramref name="file"/>.</param>
         /// <exception cref="IOException">There was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
-        public static void Set(string file, string relativePath)
+        public static void Set([NotNull] string file, [NotNull] string relativePath)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(file)) throw new ArgumentNullException("file");
@@ -127,7 +130,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="relativePath">The path of the file or directory to remove relative to <paramref name="file"/>.</param>
         /// <exception cref="IOException">There was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
-        public static void Remove(string file, string relativePath)
+        public static void Remove([NotNull] string file, [NotNull] string relativePath)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(file)) throw new ArgumentNullException("file");
@@ -167,7 +170,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="destination">The new path of the renamed file or directory relative to <paramref name="file"/>.</param>
         /// <exception cref="IOException">There was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
-        public static void Rename(string file, string source, string destination)
+        public static void Rename([NotNull] string file, [NotNull] string source, [NotNull] string destination)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(file)) throw new ArgumentNullException("file");

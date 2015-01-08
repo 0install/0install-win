@@ -16,6 +16,7 @@
  */
 
 using System;
+using JetBrains.Annotations;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
 
@@ -29,7 +30,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Reads the relevant information from a <see cref="Config"/> in order to construct a <see cref="SyncServer"/> struct.
         /// </summary>
-        public static SyncServer ToSyncServer(this Config config)
+        public static SyncServer ToSyncServer([NotNull] this Config config)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
@@ -41,7 +42,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Writes the data of a <see cref="SyncServer"/> struct back to a <see cref="Config"/>.
         /// </summary>
-        public static void FromSyncServer(this Config config, SyncServer syncServer)
+        public static void FromSyncServer([NotNull] this Config config, SyncServer syncServer)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");

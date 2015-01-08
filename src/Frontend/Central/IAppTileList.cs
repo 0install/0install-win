@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using JetBrains.Annotations;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Icons;
@@ -42,7 +43,7 @@ namespace ZeroInstall.Central
         /// <param name="status">Describes whether the application is listed in the <see cref="AppList"/> and if so whether it is integrated.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
         /// <exception cref="InvalidOperationException">The list already contains an <see cref="IAppTile"/> with the specified <paramref name="interfaceUri"/>.</exception>
-        IAppTile QueueNewTile(FeedUri interfaceUri, string appName, AppStatus status, bool machineWide);
+        IAppTile QueueNewTile([NotNull] FeedUri interfaceUri, [NotNull] string appName, AppStatus status, bool machineWide);
 
         /// <summary>
         /// Adds all new tiles queued by <see cref="IAppTileList.QueueNewTile"/> calls.
@@ -54,13 +55,14 @@ namespace ZeroInstall.Central
         /// </summary>
         /// <param name="interfaceUri">The interface URI of the application the tile to retrieve represents.</param>
         /// <returns>The requested <see cref="IAppTile"/>; <see langword="null"/> if no matching entry was found.</returns>
-        IAppTile GetTile(FeedUri interfaceUri);
+        [CanBeNull]
+        IAppTile GetTile([NotNull] FeedUri interfaceUri);
 
         /// <summary>
         /// Removes an application tile from the list. Does nothing if no matching tile can be found.
         /// </summary>
         /// <param name="interfaceUri">The interface URI of the application the tile to remove represents.</param>
-        void RemoveTile(FeedUri interfaceUri);
+        void RemoveTile([NotNull] FeedUri interfaceUri);
 
         /// <summary>
         /// Removes all application tiles from the list.

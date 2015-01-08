@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Values.Design;
@@ -51,7 +52,7 @@ namespace ZeroInstall.Store.Model
         #endregion
 
         #region Constructor
-        private VersionRange(params VersionRangePart[] parts)
+        private VersionRange([NotNull] params VersionRangePart[] parts)
         {
             #region Sanity checks
             if (parts == null) throw new ArgumentNullException("parts");
@@ -73,7 +74,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         /// <param name="value">The string containing the version information.</param>
         /// <exception cref="ArgumentException"><paramref name="value"/> is not a valid version range string.</exception>
-        public VersionRange(string value)
+        public VersionRange([NotNull] string value)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
@@ -86,9 +87,9 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Creates a single interval version range.
         /// </summary>
-        /// <param name="notBefore">The lower, inclusive border of the range; may be <see langword="null"/>.</param>
-        /// <param name="before">The upper, exclusive border of the range; may be <see langword="null"/>.</param>
-        public VersionRange(ImplementationVersion notBefore, ImplementationVersion before)
+        /// <param name="notBefore">The lower, inclusive border of the range; can be <see langword="null"/>.</param>
+        /// <param name="before">The upper, exclusive border of the range; can be <see langword="null"/>.</param>
+        public VersionRange([CanBeNull] ImplementationVersion notBefore, [CanBeNull] ImplementationVersion before)
         {
             _parts = new VersionRangePart[] {new VersionRangeRange(notBefore, before)};
         }
@@ -101,6 +102,7 @@ namespace ZeroInstall.Store.Model
         /// <param name="value">The string to parse.</param>
         /// <param name="result">Returns the created <see cref="VersionRange"/> if successfully; <see langword="null"/> otherwise.</param>
         /// <returns><see langword="true"/> if the <see cref="VersionRange"/> was successfully created; <see langword="false"/> otherwise.</returns>
+        [ContractAnnotation("=>false,result:null; =>true,result:notnull")]
         public static bool TryCreate(string value, out VersionRange result)
         {
             try
@@ -183,13 +185,11 @@ namespace ZeroInstall.Store.Model
                 return false;
 
             // Cacnel if one of the parts does not match
-            // ReSharper disable LoopCanBeConvertedToQuery
             for (int i = 0; i < _parts.Length; i++)
             {
                 if (!_parts[i].Equals(other._parts[i]))
                     return false;
             }
-            // ReSharper restore LoopCanBeConvertedToQuery
 
             // If we reach this, everything was equal
             return true;
@@ -208,12 +208,10 @@ namespace ZeroInstall.Store.Model
         {
             unchecked
             {
-                // ReSharper disable LoopCanBeConvertedToQuery
                 int result = 397;
                 foreach (VersionRangePart part in _parts)
                     result = (result * 397) ^ part.GetHashCode();
                 return result;
-                // ReSharper restore LoopCanBeConvertedToQuery
             }
         }
 

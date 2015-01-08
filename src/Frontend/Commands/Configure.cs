@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store;
@@ -40,7 +41,7 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[NAME [VALUE]]"; } }
 
         /// <inheritdoc/>
-        public Configure(ICommandHandler handler) : base(handler)
+        public Configure([NotNull] ICommandHandler handler) : base(handler)
         {
             Options.Add("tab=", () => Resources.OptionConfigTab, (ConfigTab tab) => _configTab = tab);
         }

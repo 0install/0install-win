@@ -18,6 +18,7 @@
 using System;
 using System.Globalization;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -35,10 +36,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="path">The location to place the shorcut at.</param>
         /// <param name="target">The target the shortcut shall point to.</param>
-        /// <param name="command">The command within <paramref name="target"/> the shorcut shall point to; may be <see langword="null"/>.</param>
+        /// <param name="command">The command within <paramref name="target"/> the shorcut shall point to; can be <see langword="null"/>.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Create the shortcut machine-wide instead of just for the current user.</param>
-        public static void Create(string path, InterfaceFeed target, string command, ITaskHandler handler, bool machineWide = false)
+        public static void Create([NotNull] string path, InterfaceFeed target, [CanBeNull] string command, [NotNull] ITaskHandler handler, bool machineWide = false)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");

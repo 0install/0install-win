@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Info;
 using NanoByte.Common.Storage;
@@ -46,7 +47,7 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS]"; } }
 
         /// <inheritdoc/>
-        public SelfUpdate(ICommandHandler handler) : base(handler)
+        public SelfUpdate([NotNull] ICommandHandler handler) : base(handler)
         {
             NoWait = true;
             FeedManager.Refresh = true;

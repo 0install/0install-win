@@ -23,6 +23,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
@@ -264,9 +265,9 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Opens a URL in the system's default browser.
         /// </summary>
-        /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
+        /// <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
         /// <param name="url">The URL to open.</param>
-        internal static void OpenInBrowser(IWin32Window owner, string url)
+        internal static void OpenInBrowser([CanBeNull] IWin32Window owner, [NotNull] string url)
         {
             try
             {
@@ -291,10 +292,10 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="form">The window to configure.</param>
         /// <param name="name">The name for the taskbar entry.</param>
-        /// <param name="subCommand">The name to add to the <see cref="AppUserModelID"/> as a sub-command; may be <see langword="null"/>.</param>
-        /// <param name="arguments">Additional arguments to pass to <see cref="ExeName"/> when restarting to get back to this window; may be <see langword="null"/>.</param>
+        /// <param name="subCommand">The name to add to the <see cref="AppUserModelID"/> as a sub-command; can be <see langword="null"/>.</param>
+        /// <param name="arguments">Additional arguments to pass to <see cref="ExeName"/> when restarting to get back to this window; can be <see langword="null"/>.</param>
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Taskbar operations are always per-window.")]
-        public static void ConfigureTaskbar(Form form, string name, string subCommand = null, string arguments = null)
+        public static void ConfigureTaskbar([NotNull] Form form, [NotNull] string name, [CanBeNull] string subCommand = null, [CanBeNull] string arguments = null)
         {
             #region Sanity checks
             if (form == null) throw new ArgumentNullException("form");

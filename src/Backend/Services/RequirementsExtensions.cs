@@ -17,6 +17,7 @@
 
 using System;
 using System.Text;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Values;
 using ZeroInstall.Store.Model;
@@ -31,7 +32,8 @@ namespace ZeroInstall.Services
         /// <summary>
         /// Transforms the requirements into a command-line argument string.
         /// </summary>
-        public static string ToCommandLine(this Requirements requirements)
+        [NotNull]
+        public static string ToCommandLine([NotNull] this Requirements requirements)
         {
             #region Sanity checks
             if (requirements == null) throw new ArgumentNullException("requirements");

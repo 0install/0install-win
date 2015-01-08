@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Model;
@@ -37,7 +38,7 @@ namespace ZeroInstall.Store.Icons
         /// Creates a new disk-based cache.
         /// </summary>
         /// <param name="path">A fully qualified directory path.</param>
-        public DiskIconCache(string path)
+        public DiskIconCache([NotNull] string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");

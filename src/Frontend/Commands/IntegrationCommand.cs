@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using ZeroInstall.Commands.Properties;
@@ -19,7 +20,7 @@ namespace ZeroInstall.Commands
     {
         #region Metadata
         /// <inheritdoc/>
-        protected IntegrationCommand(ICommandHandler handler) : base(handler)
+        protected IntegrationCommand([NotNull] ICommandHandler handler) : base(handler)
         {
             Options.Add("o|offline", () => Resources.OptionOffline, _ => Config.NetworkUse = NetworkLevel.Offline);
             Options.Add("r|refresh", () => Resources.OptionRefresh, _ => FeedManager.Refresh = true);
@@ -52,7 +53,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="integrationManager">Manages desktop integration operations.</param>
         /// <param name="interfaceUri">The interface URI to create an <see cref="AppEntry"/> for. Will be updated if <see cref="Feed.ReplacedBy"/> is set and accepted by the user.</param>
-        protected virtual AppEntry GetAppEntry(IIntegrationManager integrationManager, ref FeedUri interfaceUri)
+        protected virtual AppEntry GetAppEntry([NotNull] IIntegrationManager integrationManager, [NotNull] ref FeedUri interfaceUri)
         {
             #region Sanity checks
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
@@ -89,7 +90,7 @@ namespace ZeroInstall.Commands
         /// <param name="interfaceUri">The interface URI to create an <see cref="AppEntry"/> for. Will be updated if <see cref="Feed.ReplacedBy"/> is set and accepted by the user.</param>
         /// <exception cref="InvalidOperationException">The application is already in the list.</exception>
         /// <exception cref="SolverException">The <see cref="ISolver"/> could not ensure <paramref name="interfaceUri"/> specifies a runnable application.</exception>
-        protected AppEntry CreateAppEntry(IIntegrationManager integrationManager, ref FeedUri interfaceUri)
+        protected AppEntry CreateAppEntry([NotNull] IIntegrationManager integrationManager, [NotNull] ref FeedUri interfaceUri)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
@@ -124,7 +125,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Pre-download application in background for later use.
         /// </summary>
-        private void PreDownload(FeedUri interfaceUri)
+        private void PreDownload([NotNull] FeedUri interfaceUri)
         {
             if (!_noFetch && Config.NetworkUse == NetworkLevel.Full)
             {

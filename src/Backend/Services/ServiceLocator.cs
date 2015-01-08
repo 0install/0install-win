@@ -16,6 +16,7 @@
  */
 
 using System;
+using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Fetchers;
@@ -58,7 +59,7 @@ namespace ZeroInstall.Services
         /// Creates a new service locator.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public ServiceLocator(ITaskHandler handler)
+        public ServiceLocator([NotNull] ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -71,51 +72,61 @@ namespace ZeroInstall.Services
         /// <summary>
         /// A callback object used when the the user needs to be asked questions or informed about download and IO tasks.
         /// </summary>
+        [NotNull]
         public ITaskHandler Handler { get; private set; }
 
         /// <summary>
         /// User settings controlling network behaviour, solving, etc.
         /// </summary>
+        [NotNull]
         public Config Config { get { return Get(ref _config, Config.Load); } set { _config = value; } }
 
         /// <summary>
         /// Describes an object that allows the storage and retrieval of <see cref="Implementation"/> directories.
         /// </summary>
+        [NotNull]
         public IStore Store { get { return Get(ref _store, StoreFactory.CreateDefault); } set { _store = value; } }
 
         /// <summary>
         /// Provides access to an encryption/signature system compatible with the OpenPGP standard.
         /// </summary>
+        [NotNull]
         public IOpenPgp OpenPgp { get { return Get(ref _openPgp, OpenPgpFactory.CreateDefault); } set { _openPgp = value; } }
 
         /// <summary>
         /// Provides access to a cache of <see cref="Feed"/>s that were downloaded via HTTP(S).
         /// </summary>
+        [NotNull]
         public IFeedCache FeedCache { get { return Get(ref _feedCache, () => FeedCacheFactory.CreateDefault(OpenPgp)); } set { _feedCache = value; } }
 
         /// <summary>
         /// Methods for verifying signatures and user trust.
         /// </summary>
+        [NotNull]
         public ITrustManager TrustManager { get { return Get(ref _trustManager, () => new TrustManager(Config, OpenPgp, FeedCache, Handler)); } set { _trustManager = value; } }
 
         /// <summary>
         /// Allows configuration of the source used to request <see cref="Feed"/>s.
         /// </summary>
+        [NotNull]
         public IFeedManager FeedManager { get { return Get(ref _feedManager, () => new FeedManager(Config, FeedCache, TrustManager, Handler)); } set { _feedManager = value; } }
 
         /// <summary>
         /// Provides access to remote and local <see cref="Catalog"/>s. Handles downloading, signature verification and caching.
         /// </summary>
+        [NotNull]
         public ICatalogManager CatalogManager { get { return Get(ref _catalogManager, () => new CatalogManager(TrustManager)); } set { _catalogManager = value; } }
 
         /// <summary>
         /// An external package manager that can install <see cref="PackageImplementation"/>s.
         /// </summary>
+        [NotNull]
         public IPackageManager PackageManager { get { return Get(ref _packageManager, PackageManagerFactory.Create); } set { _packageManager = value; } }
 
         /// <summary>
         /// Chooses a set of <see cref="Implementation"/>s to satisfy the requirements of a program and its user.
         /// </summary>
+        [NotNull]
         public ISolver Solver
         {
             get
@@ -130,16 +141,19 @@ namespace ZeroInstall.Services
         /// <summary>
         /// Used to download missing <see cref="Implementation"/>s.
         /// </summary>
+        [NotNull]
         public IFetcher Fetcher { get { return Get(ref _fetcher, () => new SequentialFetcher(Store, Handler)); } set { _fetcher = value; } }
 
         /// <summary>
         /// Executes a set of <see cref="Selections"/> as a program using dependency injection.
         /// </summary>
+        [NotNull]
         public IExecutor Executor { get { return Get(ref _executor, () => new Executor(Store)); } set { _executor = value; } }
 
         /// <summary>
         /// Contains helper methods for filtering <see cref="Selections"/>.
         /// </summary>
+        [NotNull]
         public SelectionsManager SelectionsManager { get { return Get(ref _selectionsManager, () => _selectionsManager = new SelectionsManager(FeedCache, Store, PackageManager)); } set { _selectionsManager = value; } }
 
         private static T Get<T>(ref T value, Func<T> build) where T : class

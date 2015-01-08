@@ -17,6 +17,7 @@
 
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 using ZeroInstall.Commands.Properties;
 
 namespace ZeroInstall.Commands
@@ -42,7 +43,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 1; } }
 
         /// <inheritdoc/>
-        public List(ICommandHandler handler) : base(handler)
+        public List([NotNull] ICommandHandler handler) : base(handler)
         {}
         #endregion
 

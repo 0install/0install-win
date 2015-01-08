@@ -38,13 +38,11 @@ namespace ZeroInstall.Store.Model
             string[] parts = value.Split('.');
             _decimals = new long[parts.Length];
 
-            // ReSharper disable LoopCanBeConvertedToQuery
             for (int i = 0; i < parts.Length; i++)
             {
                 if (!long.TryParse(parts[i], out _decimals[i]))
                     throw new ArgumentException(Resources.MustBeDottedList);
             }
-            // ReSharper restore LoopCanBeConvertedToQuery
         }
         #endregion
 

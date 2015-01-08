@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
 
@@ -35,7 +36,7 @@ namespace ZeroInstall.Capture
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
-        private static void CollectComServers(IEnumerable<string> classIDs, CommandMapper commandMapper, CapabilityList capabilities)
+        private static void CollectComServers([NotNull] IEnumerable<string> classIDs, [NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
             if (classIDs == null) throw new ArgumentNullException("classIDs");

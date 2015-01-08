@@ -16,6 +16,7 @@
  */
 
 using System;
+using JetBrains.Annotations;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Services.PackageManagers
@@ -44,6 +45,7 @@ namespace ZeroInstall.Services.PackageManagers
         /// <summary>
         /// A question the user shall be asked for confirmation before calling <see cref="Install"/>. <see langword="null"/> if no confirmation is required.
         /// </summary>
+        [CanBeNull]
         public string ConfirmationQuestion { get; set; }
 
         /// <summary>

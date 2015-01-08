@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
@@ -88,7 +89,8 @@ namespace ZeroInstall.Services.PackageManagers
         /// Hook for retrieving a set of specific native implementations for a package name.
         /// </summary>
         /// <param name="packageName">The name of the package to look for.</param>
-        protected abstract IEnumerable<ExternalImplementation> GetImplementations(string packageName);
+        [NotNull, ItemNotNull]
+        protected abstract IEnumerable<ExternalImplementation> GetImplementations([NotNull] string packageName);
 
         private static void CopyValues(Element from, ExternalImplementation to)
         {

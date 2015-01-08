@@ -16,6 +16,7 @@
  */
 
 using System;
+using JetBrains.Annotations;
 using NanoByte.Common.Values;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
@@ -65,7 +66,7 @@ namespace ZeroInstall.Services.PackageManagers
         /// <param name="package">The name of the package in the <paramref name="distribution"/>.</param>
         /// <param name="version">The version number of the implementation.</param>
         /// <param name="architecture">For platform-specific binaries, the platform for which the implementation was compiled.</param>
-        public ExternalImplementation(string distribution, string package, ImplementationVersion version, Architecture architecture = default(Architecture))
+        public ExternalImplementation([NotNull] string distribution, [NotNull] string package, [NotNull] ImplementationVersion version, Architecture architecture = default(Architecture))
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(distribution)) throw new ArgumentNullException("distribution");
@@ -88,7 +89,7 @@ namespace ZeroInstall.Services.PackageManagers
         /// </summary>
         /// <param name="id">The ID to parse.</param>
         /// <exception cref="FormatException"><paramref name="id"/> is not a standard <see cref="ExternalImplementation"/> ID.</exception>
-        public static ExternalImplementation FromID(string id)
+        public static ExternalImplementation FromID([NotNull] string id)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");

@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -42,7 +43,7 @@ namespace ZeroInstall.Store.ViewModel
         /// <exception cref="FormatException">The manifest file is not valid.</exception>
         /// <exception cref="IOException">The manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
-        protected ImplementationNode(ManifestDigest digest, IStore store)
+        protected ImplementationNode(ManifestDigest digest, [NotNull] IStore store)
             : base(store)
         {
             #region Sanity checks
@@ -101,7 +102,7 @@ namespace ZeroInstall.Store.ViewModel
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="IOException">The entry's directory could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the entry's directory is not permitted.</exception>
-        public void Verify(ITaskHandler handler)
+        public void Verify([NotNull] ITaskHandler handler)
         {
             Store.Verify(_digest, handler);
         }

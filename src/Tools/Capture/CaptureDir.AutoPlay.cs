@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security;
+using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model;
@@ -38,7 +39,7 @@ namespace ZeroInstall.Capture
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
-        private static void CollectAutoPlays(Snapshot snapshotDiff, CommandMapper commandMapper, CapabilityList capabilities)
+        private static void CollectAutoPlays([NotNull] Snapshot snapshotDiff, [NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
@@ -65,7 +66,7 @@ namespace ZeroInstall.Capture
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
-        private static Capability GetAutoPlay(string handler, RegistryKey hive, IEnumerable<ComparableTuple<string>> autoPlayAssocs, CommandMapper commandMapper)
+        private static Capability GetAutoPlay([NotNull] string handler, [NotNull] RegistryKey hive, [NotNull, ItemNotNull] IEnumerable<ComparableTuple<string>> autoPlayAssocs, [NotNull] CommandMapper commandMapper)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");

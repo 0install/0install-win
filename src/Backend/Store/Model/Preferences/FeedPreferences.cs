@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
@@ -103,7 +104,8 @@ namespace ZeroInstall.Store.Model.Preferences
         /// <exception cref="IOException">A problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        public static FeedPreferences LoadFor(FeedUri feedUri)
+        [NotNull]
+        public static FeedPreferences LoadFor([NotNull] FeedUri feedUri)
         {
             #region Sanity checks
             if (feedUri == null) throw new ArgumentNullException("feedUri");
@@ -120,7 +122,8 @@ namespace ZeroInstall.Store.Model.Preferences
         /// </summary>
         /// <param name="feedUri">The feed to load the preferences for.</param>
         /// <returns>The loaded <see cref="FeedPreferences"/> or default value if there was a problem.</returns>
-        public static FeedPreferences LoadForSafe(FeedUri feedUri)
+        [NotNull]
+        public static FeedPreferences LoadForSafe([NotNull] FeedUri feedUri)
         {
             #region Sanity checks
             if (feedUri == null) throw new ArgumentNullException("feedUri");
@@ -162,7 +165,7 @@ namespace ZeroInstall.Store.Model.Preferences
         /// <param name="feedUri">The feed to save the preferences for.</param>
         /// <exception cref="IOException">A problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
-        public void SaveFor(FeedUri feedUri)
+        public void SaveFor([NotNull] FeedUri feedUri)
         {
             #region Sanity checks
             if (feedUri == null) throw new ArgumentNullException("feedUri");

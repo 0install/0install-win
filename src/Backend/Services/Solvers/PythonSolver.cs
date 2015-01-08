@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
@@ -47,7 +48,7 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
-        public PythonSolver(Config config, IFeedManager feedManager, ITaskHandler handler)
+        public PythonSolver([NotNull] Config config, [NotNull] IFeedManager feedManager, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");

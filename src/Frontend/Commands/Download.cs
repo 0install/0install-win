@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Solvers;
@@ -40,7 +41,7 @@ namespace ZeroInstall.Commands
         protected override string Description { get { return Resources.DescriptionDownload; } }
 
         /// <inheritdoc/>
-        public Download(ICommandHandler handler) : base(handler)
+        public Download([NotNull] ICommandHandler handler) : base(handler)
         {
             Options.Add("show", () => Resources.OptionShow, _ => _show = true);
         }

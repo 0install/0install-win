@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Xml;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -50,7 +51,7 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="openPgp">The OpenPGP-compatible system used to validate the signatures.</param>
         /// <param name="feedCache">Provides access to a cache of <see cref="Feed"/>s that were downloaded via HTTP(S).</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions.</param>
-        public TrustManager(Config config, IOpenPgp openPgp, IFeedCache feedCache, ITaskHandler handler)
+        public TrustManager([NotNull] Config config, [NotNull] IOpenPgp openPgp, [NotNull] IFeedCache feedCache, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
@@ -68,6 +69,7 @@ namespace ZeroInstall.Services.Feeds
 
         /// <inheritdoc/>
         [SuppressMessage("Microsoft.Usage", "CA2234:PassSystemUriObjectsInsteadOfStrings")]
+        [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
         public ValidSignature CheckTrust(byte[] data, FeedUri uri, FeedUri mirrorUrl = null)
         {
             #region Sanity checks
@@ -82,9 +84,6 @@ namespace ZeroInstall.Services.Feeds
             var trustDB = TrustDB.LoadSafe();
             var signatures = FeedUtils.GetSignatures(_openPgp, data);
 
-            // ReSharper disable PossibleMultipleEnumeration
-            // ReSharper disable LoopCanBePartlyConvertedToQuery
-
             foreach (var signature in signatures.OfType<ValidSignature>())
                 if (trustDB.IsTrusted(signature.Fingerprint, domain)) return signature;
 
@@ -96,9 +95,6 @@ namespace ZeroInstall.Services.Feeds
                 DownloadMissingKey(uri, mirrorUrl, signature);
                 goto KeyImported;
             }
-
-            // ReSharper restore LoopCanBePartlyConvertedToQuery
-            // ReSharper restore PossibleMultipleEnumeration
 
             throw new SignatureException(string.Format(Resources.FeedNoTrustedSignatures, uri));
         }
@@ -163,7 +159,8 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="fingerprint">The fingerprint of the key to check.</param>
         /// <param name="goodVote">Returns <see langword="true"/> if the server indicated that the key is trustworthy.</param>
         /// <returns>Human-readable information about the key or <see langword="null"/> if the server failed to provide a response.</returns>
-        private string GetKeyInformation(string fingerprint, out bool goodVote)
+        [CanBeNull]
+        private string GetKeyInformation([NotNull] string fingerprint, out bool goodVote)
         {
             if (_config.KeyInfoServer == null)
             {

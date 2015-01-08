@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Tasks;
@@ -46,7 +47,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 2; } }
 
         /// <inheritdoc/>
-        protected AddRemoveFeedCommand(ICommandHandler handler) : base(handler)
+        protected AddRemoveFeedCommand([NotNull] ICommandHandler handler) : base(handler)
         {
             Options.Add("o|offline", () => Resources.OptionOffline, _ => Config.NetworkUse = NetworkLevel.Offline);
             Options.Add("r|refresh", () => Resources.OptionRefresh, _ => FeedManager.Refresh = true);
@@ -76,7 +77,8 @@ namespace ZeroInstall.Commands
         /// Adds/removes a <see cref="FeedReference"/> to/from one or more <see cref="InterfacePreferences"/>.
         /// </summary>
         /// <returns>The interfaces that were actually affected.</returns>
-        protected abstract ICollection<FeedUri> ApplyFeedToInterfaces(FeedUri feedUri, IEnumerable<FeedUri> interfaces);
+        [NotNull, ItemNotNull]
+        protected abstract ICollection<FeedUri> ApplyFeedToInterfaces([NotNull] FeedUri feedUri, [NotNull, ItemNotNull] IEnumerable<FeedUri> interfaces);
 
         /// <summary>Message to be displayed if the command resulted in an action.</summary>
         protected abstract string ModifiedMessage { get; }

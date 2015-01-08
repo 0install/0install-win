@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using JetBrains.Annotations;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
@@ -28,11 +29,13 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// The URI or local path (must be absolute) to the interface.
         /// </summary>
+        [NotNull]
         public readonly FeedUri InterfaceUri;
 
         /// <summary>
         /// The data aquired from <see cref="InterfaceUri"/>. <see cref="Store.Model.Feed.Normalize"/> has already been called.
         /// </summary>
+        [NotNull]
         public readonly Feed Feed;
 
         /// <summary>
@@ -40,7 +43,7 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <param name="interfaceUri">The URI or local path (must be absolute) to the interface.</param>
         /// <param name="feed">The data aquired from <paramref name="interfaceUri"/>.</param>
-        public InterfaceFeed(FeedUri interfaceUri, Feed feed)
+        public InterfaceFeed([NotNull] FeedUri interfaceUri, [NotNull] Feed feed)
         {
             InterfaceUri = interfaceUri;
             Feed = feed;

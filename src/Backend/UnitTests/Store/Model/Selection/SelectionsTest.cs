@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 
@@ -58,9 +57,6 @@ namespace ZeroInstall.Store.Model.Selection
             Assert.AreEqual(implementation.Implementations[0], implementation[FeedTest.Test1Uri]);
 
             // ReSharper disable UnusedVariable
-            Assert.Throws<ArgumentNullException>(() => { var dummy = implementation.GetImplementation(null); });
-            Assert.Throws<ArgumentNullException>(() => { var dummy = implementation[null]; });
-
             Assert.IsNull(implementation.GetImplementation(new FeedUri("http://invalid/")));
             Assert.Throws<KeyNotFoundException>(() => { var dummy = implementation[new FeedUri("http://invalid/")]; });
             // ReSharper restore UnusedVariable

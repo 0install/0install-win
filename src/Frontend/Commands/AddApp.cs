@@ -16,6 +16,7 @@
  */
 
 using System;
+using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -43,7 +44,7 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "[OPTIONS] INTERFACE"; } }
 
         /// <inheritdoc/>
-        public AddApp(ICommandHandler handler) : base(handler)
+        public AddApp([NotNull] ICommandHandler handler) : base(handler)
         {}
         #endregion
 

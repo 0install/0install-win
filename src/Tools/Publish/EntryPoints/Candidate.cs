@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -39,7 +40,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// <see langword="true"/> if <paramref name="file"/> matches this candidate type. The object will then contain all available metadata.
         /// <see langword="false"/> if <paramref name="file"/>does not match this candidate type. The object will then be in an inconsistent state. Do not reuse!
         /// </returns>
-        internal virtual bool Analyze(DirectoryInfo baseDirectory, FileInfo file)
+        internal virtual bool Analyze([NotNull] DirectoryInfo baseDirectory, [NotNull] FileInfo file)
         {
             #region Sanity checks
             if (baseDirectory == null) throw new ArgumentNullException("baseDirectory");
@@ -54,7 +55,7 @@ namespace ZeroInstall.Publish.EntryPoints
         /// <summary>
         /// Determines whether a file is executable.
         /// </summary>
-        protected bool IsExecutable(string path)
+        protected bool IsExecutable([NotNull] string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");

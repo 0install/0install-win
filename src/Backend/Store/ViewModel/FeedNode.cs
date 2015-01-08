@@ -22,6 +22,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
@@ -42,7 +43,7 @@ namespace ZeroInstall.Store.ViewModel
         /// </summary>
         /// <param name="feed">The <see cref="Feed"/> to be represented by this node.</param>
         /// <param name="cache">The <see cref="IFeedCache"/> the <see cref="Feed"/> is located in.</param>
-        public FeedNode(Feed feed, IFeedCache cache)
+        public FeedNode([NotNull] Feed feed, [NotNull] IFeedCache cache)
         {
             #region Sanity checks
             if (cache == null) throw new ArgumentNullException("cache");

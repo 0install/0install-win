@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Security;
+using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model;
@@ -37,7 +38,7 @@ namespace ZeroInstall.Capture
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
-        private static void CollectFileTypes(Snapshot snapshotDiff, CommandMapper commandMapper, CapabilityList capabilities)
+        private static void CollectFileTypes([NotNull] Snapshot snapshotDiff, [NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
             if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
@@ -61,7 +62,8 @@ namespace ZeroInstall.Capture
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
         /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
-        private static VerbCapability GetFileType(string progID, Snapshot snapshotDiff, CommandMapper commandMapper)
+        [CanBeNull]
+        private static VerbCapability GetFileType([NotNull] string progID, [NotNull] Snapshot snapshotDiff, [NotNull] CommandMapper commandMapper)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(progID)) throw new ArgumentNullException("progID");

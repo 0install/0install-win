@@ -17,6 +17,7 @@
 
 using System;
 using System.Text;
+using JetBrains.Annotations;
 using NanoByte.Common.Info;
 using NanoByte.Common.Storage;
 using ZeroInstall.Commands.Properties;
@@ -49,7 +50,7 @@ namespace ZeroInstall.Commands
         protected override int AdditionalArgsMax { get { return 0; } }
 
         /// <inheritdoc/>
-        public DefaultCommand(ICommandHandler handler) : base(handler)
+        public DefaultCommand([NotNull] ICommandHandler handler) : base(handler)
         {
             Options.Add("V|version", () => Resources.OptionVersion, _ =>
             {

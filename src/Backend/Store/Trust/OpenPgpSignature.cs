@@ -16,6 +16,7 @@
  */
 
 using System;
+using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 
 namespace ZeroInstall.Store.Trust
@@ -32,7 +33,8 @@ namespace ZeroInstall.Store.Trust
         /// <param name="line">The console line containing the signature information.</param>
         /// <returns>The parsed signature representation; <see langword="null"/> if <paramref name="line"/> did not contain any signature information.</returns>
         /// <exception cref="FormatException"><paramref name="line"/> contains incorrectly formatted signature information.</exception>
-        internal static OpenPgpSignature Parse(string line)
+        [CanBeNull]
+        internal static OpenPgpSignature Parse([NotNull] string line)
         {
             #region Sanity checks
             if (line == null) throw new ArgumentNullException("line");

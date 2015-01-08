@@ -17,6 +17,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 using NanoByte.Common.Net;
 
 namespace ZeroInstall.Store.Implementations.Archives
@@ -31,21 +32,25 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <summary>
         /// The file to be extracted.
         /// </summary>
+        [NotNull]
         public string Path { get; set; }
 
         /// <summary>
         /// The sub-directory in the archive (with Unix-style slashes) to be extracted; <see langword="null"/> to extract entire archive.
         /// </summary>
+        [CanBeNull]
         public string SubDir { get; set; }
 
         /// <summary>
         /// Sub-path to be appended to the target directory without affecting location of flag files; <see langword="null"/> for none.
         /// </summary>
+        [CanBeNull]
         public string Destination { get; set; }
 
         /// <summary>
         /// The MIME type of archive format of the file; <see langword="null"/> to guess.
         /// </summary>
+        [CanBeNull]
         public string MimeType { get; set; }
 
         /// <summary>
@@ -57,6 +62,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// The URL the file was originally downloaded from.
         /// </summary>
         /// <remarks>This is used to provide additional information in case of an exception.</remarks>
+        [CanBeNull]
         public Uri OriginalSource { get; set; }
 
         /// <summary>

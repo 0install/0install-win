@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model.Design;
 
@@ -85,6 +86,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         [Description("The name of the command in the feed to use when launching via this capability; leave empty for 'run'.")]
         [XmlAttribute("command"), DefaultValue("")]
         [TypeConverter(typeof(CommandNameConverter))]
+        [CanBeNull]
         public string Command { get; set; }
 
         /// <summary>

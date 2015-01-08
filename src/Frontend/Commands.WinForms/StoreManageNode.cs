@@ -21,6 +21,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Tasks;
@@ -48,7 +49,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="backingNode">The underlying <see cref="CacheNode"/> containing the cache information.</param>
         /// <param name="manageForm">The form hosting the management UI.</param>
-        public StoreManageNode(CacheNode backingNode, StoreManageForm manageForm)
+        public StoreManageNode([NotNull] CacheNode backingNode, [NotNull] StoreManageForm manageForm)
         {
             #region Sanity checks
             if (backingNode == null) throw new ArgumentNullException("backingNode");

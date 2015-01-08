@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -59,7 +60,7 @@ namespace ZeroInstall.Capture
         /// Creates a new capture directory.
         /// </summary>
         /// <param name="path">A directory path. The directory will be created if it doesn't exist yet.</param>
-        private CaptureDir(string path)
+        private CaptureDir([NotNull] string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -104,7 +105,7 @@ namespace ZeroInstall.Capture
         /// <param name="getFiles">Indicates whether to collect installation files in addition to registry data.</param>
         /// <exception cref="IOException">There was an error accessing the registry or file system.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the registry or file system was not permitted.</exception>
-        public void Collect(string installationDir, string mainExe, bool getFiles)
+        public void Collect([CanBeNull] string installationDir = null, [CanBeNull] string mainExe = null, bool getFiles = false)
         {
             #region Sanity checks
             if (SnapshotPre == null) throw new InvalidOperationException("Pre-installation snapshot missing.");
@@ -153,8 +154,8 @@ namespace ZeroInstall.Capture
         /// <summary>
         /// Creates a local path <see cref="Implementation"/> from the installation directory.
         /// </summary>
-        /// <param name="installationDir">The fully qualified path to the installation directory; may be <see langword="null"/>.</param>
-        private Implementation GetImplementation(string installationDir = null)
+        /// <param name="installationDir">The fully qualified path to the installation directory.</param>
+        private Implementation GetImplementation([NotNull] string installationDir)
         {
             string implementationDir = Path.Combine(DirectoryPath, "implementation");
             if (Directory.Exists(implementationDir)) Directory.Delete(implementationDir, recursive: true);
@@ -178,8 +179,8 @@ namespace ZeroInstall.Capture
         /// <param name="appDescription">A user-friendly description of the application.</param>
         /// <param name="capabilities">A list of capabilities that were detected.</param>
         /// <param name="commands">A list of commands that can be uses to start the application.</param>
-        /// <param name="implementation">An implementation to add to the main group; may be <see langword="null"/>.</param>
-        private static Feed BuildFeed(string appName, string appDescription, CapabilityList capabilities, IEnumerable<Command> commands, Implementation implementation = null)
+        /// <param name="implementation">An implementation to add to the main group; can be <see langword="null"/>.</param>
+        private static Feed BuildFeed([CanBeNull] string appName, [CanBeNull] string appDescription, [NotNull, ItemNotNull] CapabilityList capabilities, [NotNull, ItemNotNull] IEnumerable<Command> commands, [CanBeNull] Implementation implementation = null)
         {
             #region Sanity checks
             if (capabilities == null) throw new ArgumentNullException("capabilities");
@@ -223,7 +224,8 @@ namespace ZeroInstall.Capture
         /// <returns>An object for accessing the newly created capture directory.</returns>
         /// <exception cref="IOException">The directory already exists and is not empty or if the directory could not be created.</exception>
         /// <exception cref="UnauthorizedAccessException">Creating a directory is not permitted.</exception>
-        public static CaptureDir Create(string path)
+        [PublicAPI]
+        public static CaptureDir Create([NotNull] string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -268,7 +270,7 @@ namespace ZeroInstall.Capture
         /// <exception cref="IOException">The directory already exists and is not empty or if the directory could not be created.</exception>
         /// <exception cref="UnauthorizedAccessException">Creating a directory is not permitted.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing snapshot data.</exception>
-        public static CaptureDir Open(string path)
+        public static CaptureDir Open([NotNull] string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");

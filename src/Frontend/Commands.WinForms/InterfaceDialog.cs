@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Net;
@@ -69,7 +70,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="interfaceUri">The interface to modify the preferences for.</param>
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
         /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
-        private InterfaceDialog(FeedUri interfaceUri, Func<Selections> solveCallback, IFeedCache feedCache)
+        private InterfaceDialog([NotNull] FeedUri interfaceUri, [NotNull] Func<Selections> solveCallback, [NotNull] IFeedCache feedCache)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
@@ -104,11 +105,11 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Displays a dialog allowing the user to modify <see cref="InterfacePreferences"/> and <see cref="FeedPreferences"/> for an interface.
         /// </summary>
-        /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
+        /// <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
         /// <param name="interfaceUri">The interface to modify the preferences for.</param>
         /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
         /// <param name="feedCache">The feed cache used to retrieve feeds for additional information about implementations.</param>
-        public static void Show(IWin32Window owner, FeedUri interfaceUri, Func<Selections> solveCallback, IFeedCache feedCache)
+        public static void Show([CanBeNull] IWin32Window owner, [NotNull] FeedUri interfaceUri, [NotNull] Func<Selections> solveCallback, [NotNull] IFeedCache feedCache)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");

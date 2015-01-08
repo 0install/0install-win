@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Trust;
 
@@ -30,7 +31,7 @@ namespace ZeroInstall.Store.ViewModel
         /// <summary>
         /// Creates <see cref="TrustNode"/> representations for all entries in a <see cref="TrustDB"/>.
         /// </summary>
-        public static NamedCollection<TrustNode> ToNodes(this TrustDB trustDB)
+        public static NamedCollection<TrustNode> ToNodes([NotNull] this TrustDB trustDB)
         {
             #region Sanity checks
             if (trustDB == null) throw new ArgumentNullException("trustDB");
@@ -48,7 +49,7 @@ namespace ZeroInstall.Store.ViewModel
         /// <summary>
         /// Creates a <see cref="TrustDB"/> from <see cref="TrustNode"/>s.
         /// </summary>
-        public static TrustDB ToTrustDB(this IEnumerable<TrustNode> nodes)
+        public static TrustDB ToTrustDB([NotNull] this IEnumerable<TrustNode> nodes)
         {
             #region Sanity checks
             if (nodes == null) throw new ArgumentNullException("nodes");

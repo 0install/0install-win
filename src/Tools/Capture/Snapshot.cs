@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security;
+using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
@@ -171,6 +172,8 @@ namespace ZeroInstall.Capture
                 {
                     using (var assocKey = Registry.ClassesRoot.OpenSubKey(keyName))
                     {
+                        if (assocKey == null) continue;
+
                         // Get the main ProgID
                         fileAssocsList.Add(new ComparableTuple<string>(keyName, assocKey.GetValue("", "").ToString()));
 
@@ -253,7 +256,8 @@ namespace ZeroInstall.Capture
         /// <param name="newSnapshot">The second snapshot taken.</param>
         /// <returns>A snapshot containing all elements that are present in <paramref name="newSnapshot"/> but not in <paramref name="oldSnapshot"/>.</returns>
         /// <remarks>Assumes that all internal arrays are sorted alphabetically.</remarks>
-        public static Snapshot Diff(Snapshot oldSnapshot, Snapshot newSnapshot)
+        [NotNull]
+        public static Snapshot Diff([NotNull] Snapshot oldSnapshot, [NotNull] Snapshot newSnapshot)
         {
             #region Sanity checks
             if (oldSnapshot == null) throw new ArgumentNullException("oldSnapshot");

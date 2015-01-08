@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using Microsoft.Deployment.Compression.Cab;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Properties;
@@ -35,7 +36,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed when the extractor is disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">The archive is damaged.</exception>
-        internal CabExtractor(Stream stream, string target)
+        internal CabExtractor([NotNull] Stream stream, [NotNull] string target)
             : base(target)
         {
             #region Sanity checks
