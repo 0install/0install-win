@@ -233,7 +233,7 @@ Diese Datei muss eine vertrauenswürdige digitale Signatur besitzen, genauso wie
     <value>Fügt eine Anwendung der Anwendungsliste hinzu (falls sie fehlt) und integriert sie in die Desktopumgebung.</value>
   </data>
   <data name="DescriptionList" xml:space="preserve">
-    <value>Listet alle bekannten Interface (Programm-) URIs auf. Wenn ein Suchbegriff angegeben wird, werden nur URIs angezeigt die den entsprechenden Begriff enthalten (Groß- und Kleinschreibung wird ignoriert) ausgegeben.</value>
+    <value>Listet alle lokal bekannten Feed URIs auf. Wenn ein Suchbegriff angegeben wird, werden nur URIs angezeigt die den entsprechenden Begriff enthalten (Groß- und Kleinschreibung wird ignoriert) ausgegeben.</value>
   </data>
   <data name="DescriptionListFeeds" xml:space="preserve">
     <value>Listet alle zusätzlichen Feeds auf, die mit '0install add-feed' hinzugefügt wurden.</value>
@@ -248,14 +248,14 @@ Diese Datei muss eine vertrauenswürdige digitale Signatur besitzen, genauso wie
     <value>Entfernt einen Feed. Dies ist das Gegenstück zu '0install add-feed'.</value>
   </data>
   <data name="DescriptionRepairApps" xml:space="preserve">
-    <value>Integriert alle Anwendungen aus der Anwendungsliste erneut in die Desktopumgebung.</value>
+    <value>Wendet alle Desktopintegrationen der Anwendungen aus der Anwendungsliste erneut an.</value>
   </data>
   <data name="DescriptionRun" xml:space="preserve">
     <value>Verhält sich ähnlich zu '0install download', mit dem Zusatz, dass das Programm gestartet wird nachdem sichergestellt ist dass es gecacht ist.
 Gibt den Exit-Status 1 zurück wenn der herunterladen Schritt fehlschlägt. Ansonsten wird der Exit-Status des gestarteten Programms zurückgegeben.</value>
   </data>
   <data name="DescriptionSearch" xml:space="preserve">
-    <value>Sucht nach Feeds die vom Mirror-Server indiziert wurden. Beachten Sie, dass der Standard Mirror-Server alle bekannten Feeds unabhängig von Qualität indiziert. Sie müssen selber entscheiden, ob Sie den Programmen vertrauen, bevor Sie sie starten.</value>
+    <value>Sucht nach Feeds die vom Mirror-Server indiziert wurden und zu den angegebenen Schlagwörtern passen. Beachten Sie, dass der Standard Mirror-Server alle bekannten Feeds unabhängig von Qualität indiziert. Sie müssen selber entscheiden, ob Sie den Programmen vertrauen, bevor Sie sie starten.</value>
   </data>
   <data name="DescriptionSelect" xml:space="preserve">
     <value>Wählt eine Version des Programmes aus, welches durch seine URI identifiziert wird, und kompatible Versionen aller seiner Abhängigkeiten hat.
@@ -279,7 +279,7 @@ Ein zusätzliches Argument spezifiziert ein alternatives Cache-Zielverzeichnis.<
     <value>Bestimmt den lokalen Pfad einer gecachten Implementierung.</value>
   </data>
   <data name="DescriptionStoreList" xml:space="preserve">
-    <value>Zeigt eine Liste aller Implementierungs-Stores.</value>
+    <value>Zeigt eine Liste aller Implementierungs-Cacheverzeichnisse.</value>
   </data>
   <data name="DescriptionStoreListImplementations" xml:space="preserve">
     <value>Zeigt eine Liste aller gecachten Implementierungen.</value>
@@ -302,7 +302,7 @@ Zusätzliche Argumente spezifizieren alternative Cache-Speicherorte.</value>
     <value>Stellt sicher, dass eine oder mehrere Implementierungen nicht beschädigt wurden.</value>
   </data>
   <data name="DescriptionSync" xml:space="preserve">
-    <value>Synchronisiere die Anwendungsliste mit dem Server.</value>
+    <value>Synchronisiert die Anwendungsliste mit dem Server.</value>
   </data>
   <data name="DescriptionUpdate" xml:space="preserve">
     <value>Prüft ob Updates für das Programm vorhanden sind und lädt sie gegebenenfalls herunter.

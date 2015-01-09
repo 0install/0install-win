@@ -219,7 +219,7 @@ Remove a checkbox to remove a capability's default status (it still remains avai
 With no arguments, it displays all settings and their current values. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value.</value>
   </data>
   <data name="DescriptionDigest" xml:space="preserve">
-    <value>Calculate the manifest digest of a directory or archive.</value>
+    <value>Calculates the manifest digest of a directory or archive.</value>
   </data>
   <data name="DescriptionDownload" xml:space="preserve">
     <value>Behaves similarly to '0install select', except that it also downloads the selected versions if they are not already cached.
@@ -230,13 +230,13 @@ Returns an exit status of 0 if it selected a suitable set of versions and they a
 The file must have a trusted digital signature, as when fetching from the network.</value>
   </data>
   <data name="DescriptionIntegrateApp" xml:space="preserve">
-    <value>Add an application to the application list (if missing) and integrate it into the desktop environment.</value>
+    <value>Adds an application to the application list (if missing) and integrate it into the desktop environment.</value>
   </data>
   <data name="DescriptionList" xml:space="preserve">
-    <value>List all known interface (program) URIs. If a search term is given, only URIs containing that string are shown (case insensitive).</value>
+    <value>Lists all locally known feed URIs. If a search term is given, only URIs containing that string are shown (case insensitive).</value>
   </data>
   <data name="DescriptionListFeeds" xml:space="preserve">
-    <value>List all extra feeds added to URI using '0install add-feed'.</value>
+    <value>Lists all extra feeds added to URI using '0install add-feed'.</value>
   </data>
   <data name="DescriptionRemoveAllApps" xml:space="preserve">
     <value>Removes all applications from the application list and undoes any desktop environment integration. Use this command to clean up the system before removing Zero Install.</value>
@@ -245,20 +245,20 @@ The file must have a trusted digital signature, as when fetching from the networ
     <value>Removes an application from the application list and undoes any desktop environment integration.</value>
   </data>
   <data name="DescriptionRemoveFeed" xml:space="preserve">
-    <value>Un-register a feed, reversing the effect of '0install add-feed'.</value>
+    <value>Un-registers a feed, reversing the effect of '0install add-feed'.</value>
   </data>
   <data name="DescriptionRepairApps" xml:space="preserve">
-    <value>Reintegrate all applications in the application list into the desktop environment.</value>
+    <value>Reapplys all desktop integrations of applications in the application list.</value>
   </data>
   <data name="DescriptionRun" xml:space="preserve">
     <value>Behaves similarly to '0install download', except that it also runs the program after ensuring it is in the cache.
 Returns an exit status of 1 if the download step failed. Otherwise, the exit status will be the exit status of the program being run.</value>
   </data>
   <data name="DescriptionSearch" xml:space="preserve">
-    <value>Searches for feeds indexed by the mirror server. Note that the default mirror server indexes all known feeds, regardless of quality; you must decide whether to trust the programs before running them.</value>
+    <value>Searches for feeds indexed by the mirror server that match specified keywords. Note that the default mirror server indexes all known feeds, regardless of quality; you must decide whether to trust the programs before running them.</value>
   </data>
   <data name="DescriptionSelect" xml:space="preserve">
-    <value>Select a version of the program identified by URI, and compatible versions of all of its dependencies.
+    <value>Selects a version of the program identified by URI, and compatible versions of all of its dependencies.
 Returns an exit status of zero if it selected a set of versions, and a status of 1 if it could not find a consistent set.</value>
   </data>
   <data name="DescriptionSelfUpdate" xml:space="preserve">
@@ -279,7 +279,7 @@ An additional arguments specifies a custom target cache location.</value>
     <value>Determines the local path of a cached implementation.</value>
   </data>
   <data name="DescriptionStoreList" xml:space="preserve">
-    <value>Displays a list of all implementation stores.</value>
+    <value>Displays a list of all implementation cache directories.</value>
   </data>
   <data name="DescriptionStoreListImplementations" xml:space="preserve">
     <value>Displays a list of all cached implementations.</value>
@@ -302,10 +302,10 @@ Additional arguments specify custom cache locations.</value>
     <value>Makes sure one or more implementations have not been damaged.</value>
   </data>
   <data name="DescriptionSync" xml:space="preserve">
-    <value>Synchronize the application list with the server.</value>
+    <value>Synchronizes the application list with the server.</value>
   </data>
   <data name="DescriptionUpdate" xml:space="preserve">
-    <value>Check for updates to the program and download them if found.
+    <value>Checks for updates to the program and download them if found.
 This is similar to '0install download --refresh', except that it prints information about whether any changes were found.</value>
   </data>
   <data name="DescriptionUpdateApps" xml:space="preserve">

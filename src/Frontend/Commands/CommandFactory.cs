@@ -35,7 +35,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// A list of command names (without alternatives) as used in command-line arguments in lower-case.
         /// </summary>
-        internal static readonly string[] CommandNames = {Central.Name, Selection.Name, Download.Name, Update.Name, Run.Name, SelfUpdate.Name, Import.Name, List.Name, Configure.Name, Search.Name, AddFeed.Name, RemoveFeed.Name, ListFeeds.Name, Digest.Name, AddApp.Name, RemoveApp.Name, RemoveAllApps.Name, IntegrateApp.Name, AddAlias.Name, UpdateApps.Name, RepairApps.Name, SyncApps.Name, StoreMan.Name};
+        internal static readonly string[] CommandNames = {Central.Name, SelfUpdate.Name, Selection.Name, Download.Name, Update.Name, Run.Name, Search.Name, List.Name, Import.Name, Configure.Name, AddFeed.Name, RemoveFeed.Name, ListFeeds.Name, AddApp.Name, RemoveApp.Name, RemoveAllApps.Name, IntegrateApp.Name, AddAlias.Name, UpdateApps.Name, RepairApps.Name, SyncApps.Name, Digest.Name, StoreMan.Name};
 
         /// <summary>
         /// Creates a nw <see cref="FrontendCommand"/> based on a name.
@@ -55,6 +55,8 @@ namespace ZeroInstall.Commands
             {
                 case Central.Name:
                     return new Central(handler);
+                case SelfUpdate.Name:
+                    return new SelfUpdate(handler);
                 case Selection.Name:
                     return new Selection(handler);
                 case Download.Name:
@@ -65,24 +67,20 @@ namespace ZeroInstall.Commands
                     return new Update(handler);
                 case Run.Name:
                     return new Run(handler);
-                case SelfUpdate.Name:
-                    return new SelfUpdate(handler);
-                case Import.Name:
-                    return new Import(handler);
-                case List.Name:
-                    return new List(handler);
-                case Configure.Name:
-                    return new Configure(handler);
                 case Search.Name:
                     return new Search(handler);
+                case List.Name:
+                    return new List(handler);
+                case Import.Name:
+                    return new Import(handler);
+                case Configure.Name:
+                    return new Configure(handler);
                 case AddFeed.Name:
                     return new AddFeed(handler);
                 case RemoveFeed.Name:
                     return new RemoveFeed(handler);
                 case ListFeeds.Name:
                     return new ListFeeds(handler);
-                case Digest.Name:
-                    return new Digest(handler);
                 case AddApp.Name:
                 case AddApp.AltName:
                     return new AddApp(handler);
@@ -108,6 +106,8 @@ namespace ZeroInstall.Commands
                     return new RepairApps(handler);
                 case SyncApps.Name:
                     return new SyncApps(handler);
+                case Digest.Name:
+                    return new Digest(handler);
                 case StoreMan.Name:
                     return new StoreMan(handler);
                 default:

@@ -348,7 +348,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Calculate the manifest digest of a directory or archive..
+        ///   Looks up a localized string similar to Calculates the manifest digest of a directory or archive..
         /// </summary>
         public static string DescriptionDigest {
             get {
@@ -377,7 +377,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add an application to the application list (if missing) and integrate it into the desktop environment..
+        ///   Looks up a localized string similar to Adds an application to the application list (if missing) and integrate it into the desktop environment..
         /// </summary>
         public static string DescriptionIntegrateApp {
             get {
@@ -386,7 +386,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to List all known interface (program) URIs. If a search term is given, only URIs containing that string are shown (case insensitive)..
+        ///   Looks up a localized string similar to Lists all locally known feed URIs. If a search term is given, only URIs containing that string are shown (case insensitive)..
         /// </summary>
         public static string DescriptionList {
             get {
@@ -395,7 +395,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to List all extra feeds added to URI using &apos;0install add-feed&apos;..
+        ///   Looks up a localized string similar to Lists all extra feeds added to URI using &apos;0install add-feed&apos;..
         /// </summary>
         public static string DescriptionListFeeds {
             get {
@@ -422,7 +422,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Un-register a feed, reversing the effect of &apos;0install add-feed&apos;..
+        ///   Looks up a localized string similar to Un-registers a feed, reversing the effect of &apos;0install add-feed&apos;..
         /// </summary>
         public static string DescriptionRemoveFeed {
             get {
@@ -431,7 +431,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reintegrate all applications in the application list into the desktop environment..
+        ///   Looks up a localized string similar to Reapplys all desktop integrations of applications in the application list..
         /// </summary>
         public static string DescriptionRepairApps {
             get {
@@ -450,7 +450,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Searches for feeds indexed by the mirror server. Note that the default mirror server indexes all known feeds, regardless of quality; you must decide whether to trust the programs before running them..
+        ///   Looks up a localized string similar to Searches for feeds indexed by the mirror server that match specified keywords. Note that the default mirror server indexes all known feeds, regardless of quality; you must decide whether to trust the programs before running them..
         /// </summary>
         public static string DescriptionSearch {
             get {
@@ -459,7 +459,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select a version of the program identified by URI, and compatible versions of all of its dependencies.
+        ///   Looks up a localized string similar to Selects a version of the program identified by URI, and compatible versions of all of its dependencies.
         ///Returns an exit status of zero if it selected a set of versions, and a status of 1 if it could not find a consistent set..
         /// </summary>
         public static string DescriptionSelect {
@@ -516,7 +516,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Displays a list of all implementation stores..
+        ///   Looks up a localized string similar to Displays a list of all implementation cache directories..
         /// </summary>
         public static string DescriptionStoreList {
             get {
@@ -581,7 +581,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Synchronize the application list with the server..
+        ///   Looks up a localized string similar to Synchronizes the application list with the server..
         /// </summary>
         public static string DescriptionSync {
             get {
@@ -590,7 +590,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check for updates to the program and download them if found.
+        ///   Looks up a localized string similar to Checks for updates to the program and download them if found.
         ///This is similar to &apos;0install download --refresh&apos;, except that it prints information about whether any changes were found..
         /// </summary>
         public static string DescriptionUpdate {
