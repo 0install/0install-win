@@ -32,29 +32,39 @@ namespace ZeroInstall.Store.Implementations
     [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
     public static class FlagUtils
     {
+        /// <summary>
+        /// The well-known file name used to store executable flags in directories.
+        /// </summary>
+        public const string XbitFile = ".xbit";
+
+        /// <summary>
+        /// The well-known file name used to store symlink flags in directories.
+        /// </summary>
+        public const string SymlinkFile = ".symlink";
+
         #region Read
         /// <summary>
         /// Retrieves a list of files for which an external flag is set.
         /// </summary>
-        /// <param name="name">The name of the flag type to search for (<code>.xbit</code> or <code>.symlink</code>).</param>
+        /// <param name="flagName">The name of the flag type to search for (<see cref="FlagUtils.XbitFile"/> or <see cref="FlagUtils.SymlinkFile"/>).</param>
         /// <param name="target">The target directory to start the search from (will go upwards through directory levels one-by-one, thus may deliver "too many" results).</param>
         /// <returns>A list of fully qualified paths of files that are named in an external flag file.</returns>
         /// <exception cref="IOException">There was an error reading the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the flag file.</exception>
         /// <remarks>The flag file is searched for instead of specifiying it directly to allow handling of special cases like creating manifests of subdirectories of extracted archives.</remarks>
         [NotNull, ItemNotNull]
-        public static ICollection<string> GetFiles([NotNull] string name, [NotNull] string target)
+        public static ICollection<string> GetFiles([NotNull] string flagName, [NotNull] string target)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            if (string.IsNullOrEmpty(flagName)) throw new ArgumentNullException("flagName");
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            string flagDir = FindRootDir(name, target);
+            string flagDir = FindRootDir(flagName, target);
             if (flagDir == null) return new string[0];
 
             var externalFlags = new List<string>();
-            using (StreamReader flagFile = File.OpenText(Path.Combine(flagDir, name)))
+            using (StreamReader flagFile = File.OpenText(Path.Combine(flagDir, flagName)))
             {
                 // Each line in the file signals a flagged file
                 while (!flagFile.EndOfStream)
@@ -74,11 +84,11 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Searches for a flag file starting in the <paramref name="target"/> directory and moving upwards until it finds it or until it reaches the root directory.
         /// </summary>
-        /// <param name="flagName">The name of the flag type to search for (<code>.xbit</code> or <code>.symlink</code>).</param>
+        /// <param name="flagName">The name of the flag type to search for (<see cref="FlagUtils.XbitFile"/> or <see cref="FlagUtils.SymlinkFile"/>).</param>
         /// <param name="target">The target directory to start the search from.</param>
         /// <returns>The full path to the closest flag file that was found; <see langword="null"/> if none was found.</returns>
         [CanBeNull]
-        private static string FindRootDir(string flagName, [NotNull] string target)
+        private static string FindRootDir([NotNull] string flagName, [NotNull] string target)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(flagName)) throw new ArgumentNullException("flagName");
@@ -104,14 +114,14 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Sets a flag for a file in an external flag file.
         /// </summary>
-        /// <param name="file">The path to the flag file, ending with the type in the type of flag to store (<code>.xbit</code> or <code>.symlink</code>).</param>
-        /// <param name="relativePath">The path of the file to set relative to <paramref name="file"/>.</param>
+        /// <param name="path">The full path to the flag file, named <see cref="FlagUtils.XbitFile"/> or <see cref="FlagUtils.SymlinkFile"/>.</param>
+        /// <param name="relativePath">The path of the file to set relative to <paramref name="path"/>.</param>
         /// <exception cref="IOException">There was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
-        public static void Set([NotNull] string file, [NotNull] string relativePath)
+        public static void Set([NotNull] string path, [NotNull] string relativePath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(file)) throw new ArgumentNullException("file");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             if (Path.IsPathRooted(relativePath)) throw new ArgumentException(Resources.PathNotRelative, "relativePath");
             #endregion
@@ -119,33 +129,33 @@ namespace ZeroInstall.Store.Implementations
             // Convert path to rooted Unix-style
             string unixPath = "/" + relativePath.Replace(Path.DirectorySeparatorChar, '/');
 
-            using (var flagFile = new StreamWriter(file, append: true, encoding: FeedUtils.Encoding) {NewLine = "\n"})
+            using (var flagFile = new StreamWriter(path, append: true, encoding: FeedUtils.Encoding) {NewLine = "\n"})
                 flagFile.WriteLine(unixPath);
         }
 
         /// <summary>
         /// Removes one or more flags for a file or directory in an external flag file.
         /// </summary>
-        /// <param name="file">The path to the flag file, ending with the type in the type of flag to store (<code>.xbit</code> or <code>.symlink</code>).</param>
-        /// <param name="relativePath">The path of the file or directory to remove relative to <paramref name="file"/>.</param>
+        /// <param name="path">The full path to the flag file, named <see cref="FlagUtils.XbitFile"/> or <see cref="FlagUtils.SymlinkFile"/>.</param>
+        /// <param name="relativePath">The path of the file or directory to remove relative to <paramref name="path"/>.</param>
         /// <exception cref="IOException">There was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
-        public static void Remove([NotNull] string file, [NotNull] string relativePath)
+        public static void Remove([NotNull] string path, [NotNull] string relativePath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(file)) throw new ArgumentNullException("file");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             if (Path.IsPathRooted(relativePath)) throw new ArgumentException(Resources.PathNotRelative, "relativePath");
             #endregion
 
-            if (!File.Exists(file)) return;
+            if (!File.Exists(path)) return;
 
             // Convert path to rooted Unix-style
             string unixPath = "/" + relativePath.Replace(Path.DirectorySeparatorChar, '/');
 
-            using (var atomic = new AtomicWrite(file))
+            using (var atomic = new AtomicWrite(path))
             using (var newFlagFile = new StreamWriter(atomic.WritePath, append: false, encoding: FeedUtils.Encoding) {NewLine = "\n"})
-            using (var oldFlagFile = File.OpenText(file))
+            using (var oldFlagFile = File.OpenText(path))
             {
                 // Each line in the file signals a flagged file
                 while (!oldFlagFile.EndOfStream)
@@ -165,30 +175,30 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// Adds a directory prefix to all entries in an external flag file.
         /// </summary>
-        /// <param name="file">The path to the flag file.</param>
-        /// <param name="source">The old path of the renamed file or directory relative to <paramref name="file"/>.</param>
-        /// <param name="destination">The new path of the renamed file or directory relative to <paramref name="file"/>.</param>
+        /// <param name="path">The full path to the flag file, named <see cref="FlagUtils.XbitFile"/> or <see cref="FlagUtils.SymlinkFile"/>.</param>
+        /// <param name="source">The old path of the renamed file or directory relative to <paramref name="path"/>.</param>
+        /// <param name="destination">The new path of the renamed file or directory relative to <paramref name="path"/>.</param>
         /// <exception cref="IOException">There was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
-        public static void Rename([NotNull] string file, [NotNull] string source, [NotNull] string destination)
+        public static void Rename([NotNull] string path, [NotNull] string source, [NotNull] string destination)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(file)) throw new ArgumentNullException("file");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
             if (Path.IsPathRooted(source)) throw new ArgumentException(Resources.PathNotRelative, "source");
             if (string.IsNullOrEmpty(destination)) throw new ArgumentNullException("destination");
             if (Path.IsPathRooted(destination)) throw new ArgumentException(Resources.PathNotRelative, "destination");
             #endregion
 
-            if (!File.Exists(file)) return;
+            if (!File.Exists(path)) return;
 
             // Convert paths to rooted Unix-style
             source = "/" + source.Replace(Path.DirectorySeparatorChar, '/');
             destination = "/" + destination.Replace(Path.DirectorySeparatorChar, '/');
 
-            using (var atomic = new AtomicWrite(file))
+            using (var atomic = new AtomicWrite(path))
             using (var newFlagFile = new StreamWriter(atomic.WritePath, append: false, encoding: FeedUtils.Encoding) {NewLine = "\n"})
-            using (var oldFlagFile = File.OpenText(file))
+            using (var oldFlagFile = File.OpenText(path))
             {
                 // Each line in the file signals a flagged file
                 while (!oldFlagFile.EndOfStream)

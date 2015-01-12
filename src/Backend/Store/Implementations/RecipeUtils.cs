@@ -186,8 +186,8 @@ namespace ZeroInstall.Store.Implementations
             File.SetLastWriteTimeUtc(destinationPath, FileUtils.FromUnixTime(0));
 
             // Update in flag files as well
-            FlagUtils.Remove(Path.Combine(workingDir, ".xbit"), destination);
-            FlagUtils.Remove(Path.Combine(workingDir, ".symlink"), destination);
+            FlagUtils.Remove(Path.Combine(workingDir, FlagUtils.XbitFile), destination);
+            FlagUtils.Remove(Path.Combine(workingDir, FlagUtils.SymlinkFile), destination);
         }
 
         /// <summary>
@@ -214,8 +214,8 @@ namespace ZeroInstall.Store.Implementations
             else File.Delete(absolutePath);
 
             // Update in flag files as well
-            FlagUtils.Remove(Path.Combine(workingDir, ".xbit"), path);
-            FlagUtils.Remove(Path.Combine(workingDir, ".symlink"), path);
+            FlagUtils.Remove(Path.Combine(workingDir, FlagUtils.XbitFile), path);
+            FlagUtils.Remove(Path.Combine(workingDir, FlagUtils.SymlinkFile), path);
         }
 
         /// <summary>
@@ -249,8 +249,8 @@ namespace ZeroInstall.Store.Implementations
             else File.Move(sourcePath, destinationPath);
 
             // Update in flag files as well
-            FlagUtils.Rename(Path.Combine(workingDir, ".xbit"), source, destination);
-            FlagUtils.Rename(Path.Combine(workingDir, ".symlink"), source, destination);
+            FlagUtils.Rename(Path.Combine(workingDir, FlagUtils.XbitFile), source, destination);
+            FlagUtils.Rename(Path.Combine(workingDir, FlagUtils.SymlinkFile), source, destination);
         }
     }
 }

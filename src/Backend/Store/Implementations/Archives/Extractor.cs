@@ -309,7 +309,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             if (alreadyExists)
             {
                 string flagRelativePath = string.IsNullOrEmpty(Destination) ? relativePath : Path.Combine(Destination, relativePath);
-                FlagUtils.Remove(Path.Combine(TargetDir, ".symlink"), flagRelativePath);
+                FlagUtils.Remove(Path.Combine(TargetDir, FlagUtils.SymlinkFile), flagRelativePath);
             }
 
             if (executable) SetExecutableBit(relativePath);
@@ -319,7 +319,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         }
 
         /// <summary>
-        /// Creates a symbolic link in the filesystem if possible; stores it in a .symlink file otherwise.
+        /// Creates a symbolic link in the filesystem if possible; stores it in a <see cref="FlagUtils.SymlinkFile"/> otherwise.
         /// </summary>
         /// <param name="source">A path relative to the archive's root.</param>
         /// <param name="target">The target the symbolic link shall point to relative to <paramref name="source"/>. May use non-native path separators!</param>
@@ -344,7 +344,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
                 // Non-Unixoid OSes (e.g. Windows) can't store the symlink flag directly in the filesystem; remember in a text-file instead
                 string flagRelativePath = string.IsNullOrEmpty(Destination) ? source : Path.Combine(Destination, source);
-                FlagUtils.Set(Path.Combine(TargetDir, ".symlink"), flagRelativePath);
+                FlagUtils.Set(Path.Combine(TargetDir, FlagUtils.SymlinkFile), flagRelativePath);
             }
         }
 
@@ -438,7 +438,7 @@ namespace ZeroInstall.Store.Implementations.Archives
 
         #region Executable flag
         /// <summary>
-        /// Marks a file as executable using the filesystem if possible, an .xbit file otherwise.
+        /// Marks a file as executable using the filesystem if possible; stores it in a <see cref="FlagUtils.XbitFile"/> otherwise.
         /// </summary>
         /// <param name="relativePath">A path relative to the archive's root.</param>
         private void SetExecutableBit(string relativePath)
@@ -452,12 +452,12 @@ namespace ZeroInstall.Store.Implementations.Archives
             {
                 // Non-Unixoid OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
                 string flagRelativePath = string.IsNullOrEmpty(Destination) ? relativePath : Path.Combine(Destination, relativePath);
-                FlagUtils.Set(Path.Combine(TargetDir, ".xbit"), flagRelativePath);
+                FlagUtils.Set(Path.Combine(TargetDir, FlagUtils.XbitFile), flagRelativePath);
             }
         }
 
         /// <summary>
-        /// Marks a file as no longer executable using the filesystem if possible, an .xbit file otherwise. 
+        /// Marks a file as no longer executable using the filesystem if possible, an <see cref="FlagUtils.XbitFile"/> file otherwise.
         /// </summary>
         /// <param name="relativePath">A path relative to the archive's root.</param>
         private void RemoveExecutableBit(string relativePath)
@@ -471,7 +471,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             {
                 // Non-Unixoid OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
                 string flagRelativePath = string.IsNullOrEmpty(Destination) ? relativePath : Path.Combine(Destination, relativePath);
-                FlagUtils.Remove(Path.Combine(TargetDir, ".xbit"), flagRelativePath);
+                FlagUtils.Remove(Path.Combine(TargetDir, FlagUtils.XbitFile), flagRelativePath);
             }
         }
         #endregion

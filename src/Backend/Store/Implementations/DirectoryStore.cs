@@ -149,7 +149,7 @@ namespace ZeroInstall.Store.Implementations
             string target = Path.Combine(DirectoryPath, expectedDigestValue);
 
             // Calculate the actual digest, compare it with the expected one and create a manifest file
-            VerifyDirectory(source, expectedDigest, handler).Save(Path.Combine(source, ".manifest"));
+            VerifyDirectory(source, expectedDigest, handler).Save(Path.Combine(source, Manifest.ManifestFile));
 
             lock (_renameLock) // Prevent race-conditions when adding the same digest twice
             {
@@ -214,7 +214,7 @@ namespace ZeroInstall.Store.Implementations
             var actualManifest = generator.Result;
             string actualDigestValue = actualManifest.CalculateDigest();
 
-            string manifestFilePath = Path.Combine(directory, ".manifest");
+            string manifestFilePath = Path.Combine(directory, Manifest.ManifestFile);
             var expectedManifest = File.Exists(manifestFilePath) ? Manifest.Load(manifestFilePath, format) : null;
 
             if (actualDigestValue != expectedDigestValue)
@@ -474,7 +474,7 @@ namespace ZeroInstall.Store.Implementations
                 {
                     // ReSharper disable AssignNullToNotNullAttribute
                     var manifest = Manifest.Load(
-                        Path.Combine(GetPath(manifestDigest), ".manifest"),
+                        Path.Combine(GetPath(manifestDigest), Manifest.ManifestFile),
                         ManifestFormat.FromPrefix(manifestDigest.Best));
                     // ReSharper restore AssignNullToNotNullAttribute
 

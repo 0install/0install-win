@@ -95,8 +95,8 @@ namespace ZeroInstall.Store.Implementations
         /// <returns>The nodes for the elements.</returns>
         private IEnumerable<ManifestNode> GetNodes(IEnumerable<FileSystemInfo> entries)
         {
-            var externalXbits = FlagUtils.GetFiles(".xbit", TargetDir);
-            var externalSymlinks = FlagUtils.GetFiles(".symlink", TargetDir);
+            var externalXbits = FlagUtils.GetFiles(FlagUtils.XbitFile, TargetDir);
+            var externalSymlinks = FlagUtils.GetFiles(FlagUtils.SymlinkFile, TargetDir);
 
             // Iterate through the directory listing to build a list of manifets entries
             var nodes = new List<ManifestNode>();
@@ -108,7 +108,7 @@ namespace ZeroInstall.Store.Implementations
                 if (file != null)
                 {
                     // Don't include manifest management files in manifest
-                    if (file.Name == ".manifest" || file.Name == ".xbit" || file.Name == ".symlink") continue;
+                    if (file.Name == Manifest.ManifestFile || file.Name == FlagUtils.XbitFile || file.Name == FlagUtils.SymlinkFile) continue;
 
                     nodes.Add(GetFileNode(file, Format, externalXbits, externalSymlinks));
                     UnitsProcessed += file.Length;
@@ -127,8 +127,8 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="file">The file object to create a node for.</param>
         /// <param name="format">The manifest format containing digest rules.</param>
-        /// <param name="externalXbits">A list of fully qualified paths of files that are named in the <code>.xbit</code> file.</param>
-        /// <param name="externalSymlinks">A list of fully qualified paths of files that are named in the <code>.symlink</code> file.</param>
+        /// <param name="externalXbits">A list of fully qualified paths of files that are named in the <see cref="FlagUtils.SymlinkFile"/>.</param>
+        /// <param name="externalSymlinks">A list of fully qualified paths of files that are named in the <see cref="FlagUtils.SymlinkFile"/>.</param>
         /// <returns>The node for the list.</returns>
         /// <exception cref="NotSupportedException">The <paramref name="file"/> has illegal properties (e.g. is a device file, has line breaks in the filename, etc.).</exception>
         /// <exception cref="IOException">There was an error reading the file.</exception>

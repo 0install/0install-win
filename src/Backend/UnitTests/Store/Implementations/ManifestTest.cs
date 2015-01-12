@@ -57,7 +57,7 @@ namespace ZeroInstall.Store.Implementations
         }
 
         /// <summary>
-        /// Generates a manifest for a directory in the filesystem and writes the manifest to a file named ".manifest" in that directory.
+        /// Generates a manifest for a directory in the filesystem and writes the manifest to a file named Manifest.ManifestFile in that directory.
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest (which file details are listed, which digest method is used, etc.).</param>
@@ -77,7 +77,7 @@ namespace ZeroInstall.Store.Implementations
 
             var generator = new ManifestGenerator(path, format);
             handler.RunTask(generator);
-            return generator.Result.Save(Path.Combine(path, ".manifest"));
+            return generator.Result.Save(Path.Combine(path, Manifest.ManifestFile));
         }
         #endregion
 
@@ -169,7 +169,7 @@ namespace ZeroInstall.Store.Implementations
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
                 string exePath = Path.Combine(package, "test.exe");
-                string manifestPath = Path.Combine(package, ".manifest");
+                string manifestPath = Path.Combine(package, Manifest.ManifestFile);
 
                 File.WriteAllText(exePath, "");
                 CreateDotFile(package, ManifestFormat.Sha256, new MockTaskHandler());
@@ -188,8 +188,8 @@ namespace ZeroInstall.Store.Implementations
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
                 string exePath = Path.Combine(package, "test.exe");
-                string xbitPath = Path.Combine(package, ".xbit");
-                string manifestPath = Path.Combine(package, ".manifest");
+                string xbitPath = Path.Combine(package, FlagUtils.XbitFile);
+                string manifestPath = Path.Combine(package, Manifest.ManifestFile);
 
                 File.WriteAllText(exePath, "");
                 File.WriteAllText(xbitPath, @"/test.exe");
@@ -209,8 +209,8 @@ namespace ZeroInstall.Store.Implementations
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
                 string exePath = Path.Combine(package, "test");
-                string xbitPath = Path.Combine(package, ".symlink");
-                string manifestPath = Path.Combine(package, ".manifest");
+                string xbitPath = Path.Combine(package, FlagUtils.SymlinkFile);
+                string manifestPath = Path.Combine(package, Manifest.ManifestFile);
 
                 File.WriteAllText(exePath, "");
                 File.WriteAllText(xbitPath, @"/test");
@@ -230,7 +230,7 @@ namespace ZeroInstall.Store.Implementations
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
                 CreateDotFile(package, ManifestFormat.Sha256, new MockTaskHandler());
-                using (var manifestFile = File.OpenRead(Path.Combine(package, ".manifest")))
+                using (var manifestFile = File.OpenRead(Path.Combine(package, Manifest.ManifestFile)))
                     Assert.AreEqual(0, manifestFile.Length, "Empty package directory should make an empty manifest");
             }
         }
@@ -244,8 +244,8 @@ namespace ZeroInstall.Store.Implementations
                 Directory.CreateDirectory(innerPath);
 
                 string innerExePath = Path.Combine(innerPath, "inner.exe");
-                string xbitPath = Path.Combine(package, ".xbit");
-                string manifestPath = Path.Combine(package, ".manifest");
+                string xbitPath = Path.Combine(package, FlagUtils.XbitFile);
+                string manifestPath = Path.Combine(package, Manifest.ManifestFile);
                 File.WriteAllText(innerExePath, @"xxxxxxx");
                 File.WriteAllText(xbitPath, @"/inner/inner.exe");
                 CreateDotFile(package, ManifestFormat.Sha256, new MockTaskHandler());
@@ -268,8 +268,8 @@ namespace ZeroInstall.Store.Implementations
                 Directory.CreateDirectory(innerPath);
 
                 string innerExePath = Path.Combine(innerPath, "inner.exe");
-                string xbitPath = Path.Combine(package, ".xbit");
-                string manifestPath = Path.Combine(package, ".manifest");
+                string xbitPath = Path.Combine(package, FlagUtils.XbitFile);
+                string manifestPath = Path.Combine(package, Manifest.ManifestFile);
                 File.WriteAllText(innerExePath, @"xxxxxxx");
                 File.WriteAllText(xbitPath, @"/inner/inner.exe");
                 CreateDotFile(package, ManifestFormat.Sha1, new MockTaskHandler());

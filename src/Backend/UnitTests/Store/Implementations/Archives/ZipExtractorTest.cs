@@ -181,7 +181,10 @@ namespace ZeroInstall.Store.Implementations.Archives
             _sandbox.Dispose();
         }
 
-        [Test(Description = "Tests whether the extractor generates a correct .symlink file for a sample ZIP archive containing an executable file.")]
+        /// <summary>
+        /// Tests whether the extractor generates a correct <see cref="FlagUtils.SymlinkFile"/> file for a sample ZIP archive containing an executable file.
+        /// </summary>
+        [Test]
         public void TestExtractUnixArchiveWithExecutable()
         {
             using (var archive = TestData.GetResource("testArchive.zip"))
@@ -194,12 +197,15 @@ namespace ZeroInstall.Store.Implementations.Archives
                 Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox, "subdir2/executable")), "File 'executable' should be marked as executable");
             else
             {
-                string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox, ".xbit")).Trim();
+                string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox, FlagUtils.XbitFile)).Trim();
                 Assert.AreEqual("/subdir2/executable", xbitFileContent);
             }
         }
 
-        [Test(Description = "Tests whether the extractor generates a correct .symlink file for a sample ZIP archive containing a symbolic link.")]
+        /// <summary>
+        /// Tests whether the extractor generates a correct <see cref="FlagUtils.SymlinkFile"/> file for a sample ZIP archive containing a symbolic link.
+        /// </summary>
+        [Test]
         public void TestExtractUnixArchiveWithSymlink()
         {
             using (var archive = TestData.GetResource("testArchive.zip"))
@@ -213,7 +219,7 @@ namespace ZeroInstall.Store.Implementations.Archives
                 Assert.IsTrue(FileUtils.IsSymlink(Path.Combine(_sandbox, "symlink"), out target));
             else
             {
-                string symlinkFileContent = File.ReadAllText(Path.Combine(_sandbox, ".symlink")).Trim();
+                string symlinkFileContent = File.ReadAllText(Path.Combine(_sandbox, FlagUtils.SymlinkFile)).Trim();
                 Assert.AreEqual("/symlink", symlinkFileContent);
                 target = File.ReadAllText(Path.Combine(_sandbox, "symlink"));
             }

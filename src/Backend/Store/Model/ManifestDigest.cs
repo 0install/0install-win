@@ -24,6 +24,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model.Design;
 using ZeroInstall.Store.Properties;
 
@@ -32,7 +33,7 @@ namespace ZeroInstall.Store.Model
     /// <summary>
     /// A manifest digest is a means of uniquely identifying an <see cref="Implementation"/> and verifying its contents.
     /// </summary>
-    /// <remarks>Stores digests of the .manifest file using various hashing algorithms.</remarks>
+    /// <remarks>Stores digests of the <see cref="Manifest"/> file using various hashing algorithms.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for string sorting in UI lists")]
     [Description("A manifest digest is a means of uniquely identifying an Implementation and verifying its contents.")]
     [Serializable]

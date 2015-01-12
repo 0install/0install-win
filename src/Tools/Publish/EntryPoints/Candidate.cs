@@ -63,7 +63,7 @@ namespace ZeroInstall.Publish.EntryPoints
 
             return
                 FileUtils.IsExecutable(path) ||
-                FlagUtils.GetFiles(@".xbit", BaseDirectory.FullName).Contains(path);
+                FlagUtils.GetFiles(FlagUtils.XbitFile, BaseDirectory.FullName).Contains(path);
         }
 
         /// <summary>

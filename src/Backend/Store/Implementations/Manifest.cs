@@ -36,6 +36,11 @@ namespace ZeroInstall.Store.Implementations
     [Serializable]
     public sealed class Manifest : IEquatable<Manifest>, IEnumerable<ManifestNode>
     {
+        /// <summary>
+        /// The well-known file name used to store manifest files in directories.
+        /// </summary>
+        public const string ManifestFile = ".manifest";
+
         #region Properties
         /// <summary>
         /// The format of the manifest (which file details are listed, which digest method is used, etc.).

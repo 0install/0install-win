@@ -36,7 +36,7 @@ namespace ZeroInstall.Store.Implementations
         {
             using (var flagDir = new TemporaryDirectory("0install-unit-tests"))
             {
-                File.WriteAllText(Path.Combine(flagDir, ".xbit"), "/dir1/file1\n/dir2/file2\n");
+                File.WriteAllText(Path.Combine(flagDir, FlagUtils.XbitFile), "/dir1/file1\n/dir2/file2\n");
 
                 var expectedResult = new[]
                 {
@@ -44,8 +44,8 @@ namespace ZeroInstall.Store.Implementations
                     new[] {flagDir, "dir2", "file2"}.Aggregate(Path.Combine)
                 };
 
-                CollectionAssert.AreEquivalent(expectedResult, FlagUtils.GetFiles(".xbit", flagDir), "Should find .xbit file in same directory");
-                CollectionAssert.AreEquivalent(expectedResult, FlagUtils.GetFiles(".xbit", Path.Combine(flagDir, "subdir")), "Should find .xbit file in parent directory");
+                CollectionAssert.AreEquivalent(expectedResult, FlagUtils.GetFiles(FlagUtils.XbitFile, flagDir), "Should find .xbit file in same directory");
+                CollectionAssert.AreEquivalent(expectedResult, FlagUtils.GetFiles(FlagUtils.XbitFile, Path.Combine(flagDir, "subdir")), "Should find .xbit file in parent directory");
             }
         }
 

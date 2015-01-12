@@ -55,7 +55,7 @@ namespace ZeroInstall.Store.ViewModel
             // Determine the total size of an implementation via its manifest file
             string path = store.GetPath(digest);
             if (path == null) return;
-            string manifestPath = System.IO.Path.Combine(path, ".manifest");
+            string manifestPath = System.IO.Path.Combine(path, Manifest.ManifestFile);
             Size = Manifest.Load(manifestPath, ManifestFormat.FromPrefix(digest.AvailableDigests.FirstOrDefault())).TotalSize;
         }
         #endregion

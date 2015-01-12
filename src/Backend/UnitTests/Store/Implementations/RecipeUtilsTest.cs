@@ -49,12 +49,12 @@ namespace ZeroInstall.Store.Implementations
                     // /dest/symlink [S]
                     string path = new[] {recipeDir, "subDir", "symlink"}.Aggregate(Path.Combine);
                     Assert.IsTrue(File.Exists(path), "File should exist: " + path);
-                    if (!UnixUtils.IsUnix) CollectionAssert.AreEquivalent(new[] {path}, FlagUtils.GetFiles(".symlink", recipeDir));
+                    if (!UnixUtils.IsUnix) CollectionAssert.AreEquivalent(new[] {path}, FlagUtils.GetFiles(FlagUtils.SymlinkFile, recipeDir));
 
                     // /dest/subdir2/executable [deleted]
                     path = new[] {recipeDir, "subDir", "subdir2", "executable"}.Aggregate(Path.Combine);
                     Assert.IsTrue(File.Exists(path), "File should exist: " + path);
-                    if (!UnixUtils.IsUnix) CollectionAssert.AreEquivalent(new[] {path}, FlagUtils.GetFiles(".xbit", recipeDir));
+                    if (!UnixUtils.IsUnix) CollectionAssert.AreEquivalent(new[] {path}, FlagUtils.GetFiles(FlagUtils.XbitFile, recipeDir));
                 }
             }
         }
@@ -78,7 +78,7 @@ namespace ZeroInstall.Store.Implementations
                     Assert.IsTrue(File.Exists(path), "File should exist: " + path);
                     Assert.AreEqual("data", File.ReadAllText(path));
                     Assert.AreEqual(0, File.GetLastWriteTimeUtc(path).ToUnixTime(), "Single files should be set to Unix epoch");
-                    if (!UnixUtils.IsUnix) Assert.IsEmpty(FlagUtils.GetFiles(".xbit", recipeDir));
+                    if (!UnixUtils.IsUnix) Assert.IsEmpty(FlagUtils.GetFiles(FlagUtils.XbitFile, recipeDir));
                 }
             }
         }
@@ -105,8 +105,8 @@ namespace ZeroInstall.Store.Implementations
                 {
                     if (!UnixUtils.IsUnix)
                     {
-                        Assert.IsEmpty(FlagUtils.GetFiles(".xbit", recipeDir));
-                        Assert.IsEmpty(FlagUtils.GetFiles(".symlink", recipeDir));
+                        Assert.IsEmpty(FlagUtils.GetFiles(FlagUtils.XbitFile, recipeDir));
+                        Assert.IsEmpty(FlagUtils.GetFiles(FlagUtils.SymlinkFile, recipeDir));
                     }
 
                     // /symlink [deleted]
@@ -144,10 +144,10 @@ namespace ZeroInstall.Store.Implementations
                     {
                         CollectionAssert.AreEquivalent(
                             new[] {new[] {recipeDir, "subdir2", "executable2"}.Aggregate(Path.Combine)},
-                            FlagUtils.GetFiles(".xbit", recipeDir));
+                            FlagUtils.GetFiles(FlagUtils.XbitFile, recipeDir));
                         CollectionAssert.AreEquivalent(
                             new[] {new[] {recipeDir, "subdir3", "symlink2"}.Aggregate(Path.Combine)},
-                            FlagUtils.GetFiles(".symlink", recipeDir));
+                            FlagUtils.GetFiles(FlagUtils.SymlinkFile, recipeDir));
                     }
 
                     // /symlink [deleted]
