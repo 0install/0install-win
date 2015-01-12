@@ -38,7 +38,9 @@ namespace ZeroInstall.Store.Feeds
         /// Loads all <see cref="Feed"/>s stored in <see cref="IFeedCache"/> into memory.
         /// </summary>
         /// <param name="cache">The <see cref="IFeedCache"/> to load <see cref="Feed"/>s from.</param>
-        /// <returns>The parsed <see cref="Feed"/>s.</returns>
+        /// <returns>The parsed <see cref="Feed"/>s. Damaged files are logged and skipped.</returns>
+        /// <exception cref="IOException">A problem occured while reading from the cache.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read access to the cache is not permitted.</exception>
         public static IEnumerable<Feed> GetAll([NotNull] this IFeedCache cache)
         {
             #region Sanity checks
@@ -53,13 +55,9 @@ namespace ZeroInstall.Store.Feeds
                     feeds.Add(cache.GetFeed(feedUri));
                 }
                     #region Error handling
-                catch (IOException ex)
+                catch (KeyNotFoundException)
                 {
-                    Log.Error(ex);
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    Log.Error(ex);
+                    // Feed file no longer exists
                 }
                 catch (InvalidDataException ex)
                 {

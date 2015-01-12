@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Feeds
             var cacheMock = MockRepository.Create<IFeedCache>();
             cacheMock.Setup(x => x.ListAll()).Returns(new[] {FeedTest.Test1Uri, FeedTest.Test2Uri, FeedTest.Test3Uri});
             cacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(feed1);
-            cacheMock.Setup(x => x.GetFeed(FeedTest.Test2Uri)).Throws(new IOException("Fake IO exception for testing"));
+            cacheMock.Setup(x => x.GetFeed(FeedTest.Test2Uri)).Throws(new InvalidDataException("Fake exception for testing"));
             cacheMock.Setup(x => x.GetFeed(FeedTest.Test3Uri)).Returns(feed3);
 
             CollectionAssert.AreEqual(new[] {feed1, feed3}, cacheMock.Object.GetAll());
