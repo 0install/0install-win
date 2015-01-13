@@ -80,7 +80,7 @@ namespace ZeroInstall.Commands
                     {"optimise [CACHE+]", Resources.DescriptionStoreOptimise},
                     {"purge [CACHE+]", Resources.DescriptionStorePurge},
                     {"remove DIGEST+", Resources.DescriptionStoreRemove},
-                    {"verify (DIGEST|DIRECTORY)+", Resources.DescriptionStoreVerify}
+                    {"verify [DIRECTORY] DIGEST", Resources.DescriptionStoreVerify}
                 };
 
                 var builder = new StringBuilder();
@@ -272,28 +272,30 @@ namespace ZeroInstall.Commands
         {
             try
             {
-                foreach (string arg in AdditionalArgs.Skip(1))
+                switch (AdditionalArgs.Count)
                 {
-                    Debug.Assert(arg != null);
-                    if (Directory.Exists(arg))
-                    { // Verify an arbitrary directory
-                        string path = arg;
-                        var digest = new ManifestDigest(Path.GetFileName(arg));
-                        DirectoryStore.VerifyDirectory(path, digest, Handler);
-                    }
-                    else
-                    { // Verify a directory inside the default store
-                        Store.Verify(new ManifestDigest(arg), Handler);
-                    }
+                    case 1:
+                        throw new OptionException(Resources.MissingArguments + Environment.NewLine + "verify [DIRECTORY] DIGEST" + Environment.NewLine + Resources.StoreVerfiyTryAuditInstead, "");
+
+                    case 2:
+                        // Verify a directory inside the store
+                        Store.Verify(new ManifestDigest(AdditionalArgs[1]), Handler);
+                        break;
+
+                    case 3:
+                        // Verify an arbitrary directory
+                        DirectoryStore.VerifyDirectory(AdditionalArgs[1], new ManifestDigest(AdditionalArgs[2]), Handler);
+                        break;
+
+                    default:
+                        throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "verify [DIRECTORY] DIGEST", "");
                 }
             }
-                #region Error handling
             catch (DigestMismatchException ex)
             {
                 Handler.Output(Resources.VerifyImplementation, ex.Message);
                 return StoreErrorLevel.DigestMismatch;
             }
-            #endregion
 
             return StoreErrorLevel.OK;
         }

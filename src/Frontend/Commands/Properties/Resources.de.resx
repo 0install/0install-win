@@ -299,7 +299,7 @@ Zusätzliche Argumente spezifizieren alternative Cache-Speicherorte.</value>
     <value>Entfernt eine Implementierung aus dem Cache.</value>
   </data>
   <data name="DescriptionStoreVerify" xml:space="preserve">
-    <value>Stellt sicher, dass eine oder mehrere Implementierungen nicht beschädigt wurden.</value>
+    <value>Stellt sicher, dass eine Implementierungen nicht beschädigt wurde (d.h. ihr Manifestdigest hat sich nicht geändert).</value>
   </data>
   <data name="DescriptionSync" xml:space="preserve">
     <value>Synchronisiert die Anwendungsliste mit dem Server.</value>
@@ -610,6 +610,9 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="StoreAudit" xml:space="preserve">
     <value>Store Überprüfung</value>
+  </data>
+  <data name="StoreVerfiyTryAuditInstead" xml:space="preserve">
+    <value>Verwenden Sie stattdessen "0store audit" um alle Implementierungen im Store zu überprüfen.</value>
   </data>
   <data name="SuccessfullyRemoved" xml:space="preserve">
     <value>{0} wurde erfolgreich entfernt.</value>

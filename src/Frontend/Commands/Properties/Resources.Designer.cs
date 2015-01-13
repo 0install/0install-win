@@ -572,7 +572,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Makes sure one or more implementations have not been damaged..
+        ///   Looks up a localized string similar to Makes sure an implementation have not been damaged (i.e. it manifest digest has not changed)..
         /// </summary>
         public static string DescriptionStoreVerify {
             get {
@@ -1475,6 +1475,15 @@ namespace ZeroInstall.Commands.Properties {
         public static string StoreAudit {
             get {
                 return ResourceManager.GetString("StoreAudit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use &quot;0store audit&quot; instead to check all implementations in the store..
+        /// </summary>
+        public static string StoreVerfiyTryAuditInstead {
+            get {
+                return ResourceManager.GetString("StoreVerfiyTryAuditInstead", resourceCulture);
             }
         }
         

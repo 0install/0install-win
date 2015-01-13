@@ -299,7 +299,7 @@ Additional arguments specify custom cache locations.</value>
     <value>Removes an implementation from the cache.</value>
   </data>
   <data name="DescriptionStoreVerify" xml:space="preserve">
-    <value>Makes sure one or more implementations have not been damaged.</value>
+    <value>Makes sure an implementation have not been damaged (i.e. it manifest digest has not changed).</value>
   </data>
   <data name="DescriptionSync" xml:space="preserve">
     <value>Synchronizes the application list with the server.</value>
@@ -610,6 +610,9 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   </data>
   <data name="StoreAudit" xml:space="preserve">
     <value>Store audit</value>
+  </data>
+  <data name="StoreVerfiyTryAuditInstead" xml:space="preserve">
+    <value>Use "0store audit" instead to check all implementations in the store.</value>
   </data>
   <data name="SuccessfullyRemoved" xml:space="preserve">
     <value>Successfully removed {0}.</value>
