@@ -67,16 +67,17 @@ namespace ZeroInstall.Services.Solvers
             _feeds = new TransparentCache<FeedUri, Feed>(feedManager.GetFeed);
         }
 
-        private static TransparentCache<Implementation, bool> BuildCacheChecker(IStore store)
+        private static Predicate<Implementation> BuildCacheChecker(IStore store)
         {
-            var cachedDigests = store.ListAll();
-            return new TransparentCache<Implementation, bool>(implementation =>
+            var storeContainsCache = new TransparentCache<ManifestDigest, bool>(store.Contains);
+
+            return implementation =>
             {
                 var externalImplementation = implementation as ExternalImplementation;
                 if (externalImplementation != null) return externalImplementation.IsInstalled;
 
-                return cachedDigests.Contains(implementation.ManifestDigest, ManifestDigestPartialEqualityComparer.Instance);
-            });
+                return storeContainsCache[implementation.ManifestDigest];
+            };
         }
         #endregion
 
@@ -96,7 +97,7 @@ namespace ZeroInstall.Services.Solvers
         private readonly Dictionary<string, ExternalImplementation> _externalImplementations = new Dictionary<string, ExternalImplementation>();
 
         /// <summary>Indicates which implementations are already cached in the <see cref="IStore"/>.</summary>
-        private readonly TransparentCache<Implementation, bool> _isCached;
+        private readonly Predicate<Implementation> _isCached;
         #endregion
 
         /// <summary>
@@ -174,7 +175,7 @@ namespace ZeroInstall.Services.Solvers
                 if (implementation != null)
                 { // Each <implementation> provides one selection candidate
                     yield return new SelectionCandidate(feedUri, feedPreferences, implementation, requirements,
-                        offlineUncached: (_config.NetworkUse == NetworkLevel.Offline) && !_isCached[implementation]);
+                        offlineUncached: (_config.NetworkUse == NetworkLevel.Offline) && !_isCached(implementation));
                 }
                 else
                 {

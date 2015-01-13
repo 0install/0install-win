@@ -23,7 +23,6 @@ using NUnit.Framework;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.PackageManagers;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Preferences;
 using ZeroInstall.Store.Model.Selection;
@@ -43,7 +42,6 @@ namespace ZeroInstall.Services.Solvers
         {
             _feedManagerMock = container.GetMock<IFeedManager>();
             _packageManagerMock = container.GetMock<IPackageManager>();
-            container.GetMock<IStore>().Setup(x => x.ListAll()).Returns(Enumerable.Empty<ManifestDigest>());
 
             base.Register(container);
         }

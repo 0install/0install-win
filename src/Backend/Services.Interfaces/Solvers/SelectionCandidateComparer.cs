@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using NanoByte.Common.Collections;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -32,7 +31,7 @@ namespace ZeroInstall.Services.Solvers
     public class SelectionCandidateComparer : IComparer<SelectionCandidate>
     {
         private readonly NetworkLevel _networkUse;
-        private readonly TransparentCache<Implementation, bool> _isCached;
+        private readonly Predicate<Implementation> _isCached;
         private readonly Stability _stabilityPolicy;
 
         /// <summary>
@@ -41,7 +40,7 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="config">Used to retrieve global configuration.</param>
         /// <param name="isCached">Used to determine which implementations are already cached in the <see cref="IStore"/>.</param>
         /// <param name="stabilityPolicy">Implementations at this stability level or higher are preferred. Lower levels are used only if there is no other choice. Must not be <see cref="Stability.Unset"/>!</param>
-        public SelectionCandidateComparer([NotNull] Config config, [NotNull] TransparentCache<Implementation, bool> isCached, Stability stabilityPolicy)
+        public SelectionCandidateComparer([NotNull] Config config, [NotNull] Predicate<Implementation> isCached, Stability stabilityPolicy)
         {
             #region Sanity check
             if (config == null) throw new ArgumentNullException("config");
@@ -74,8 +73,8 @@ namespace ZeroInstall.Services.Solvers
             // Cached implementations come next if we have limited network access
             if (_networkUse != NetworkLevel.Full)
             {
-                bool xCached = _isCached[x.Implementation];
-                bool yCached = _isCached[x.Implementation];
+                bool xCached = _isCached(x.Implementation);
+                bool yCached = _isCached(x.Implementation);
                 if (xCached && !yCached) return -1;
                 if (!xCached && yCached) return 1;
             }
@@ -99,8 +98,8 @@ namespace ZeroInstall.Services.Solvers
             // Slightly prefer cached versions
             if (_networkUse == NetworkLevel.Full)
             {
-                bool xCached = _isCached[x.Implementation];
-                bool yCached = _isCached[x.Implementation];
+                bool xCached = _isCached(x.Implementation);
+                bool yCached = _isCached(x.Implementation);
                 if (xCached && !yCached) return -1;
                 if (!xCached && yCached) return 1;
             }
