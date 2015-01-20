@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Net;
 using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
@@ -61,11 +62,18 @@ namespace ZeroInstall.Commands
                 CreateAppEntry(integrationManager, ref interfaceUri);
                 return 0;
             }
+                #region Error handling
+            catch (WebException)
+            {
+                // WebException is a subclass of InvalidOperationException but we don't want to catch it here
+                throw;
+            }
             catch (InvalidOperationException ex)
             { // Application already in AppList
                 Handler.OutputLow(Resources.DesktopIntegration, ex.Message);
                 return 1;
             }
+            #endregion
         }
     }
 }
