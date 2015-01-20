@@ -34,9 +34,9 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// Loads the last result of <see cref="ICatalogManager.GetOnline"/>.
         /// </summary>
-        /// <returns>A <see cref="Catalog"/>; <see langword="null"/> if there was a problem.</returns>
+        /// <returns>A <see cref="Catalog"/>; an empty <see cref="Catalog"/> if there was a problem.</returns>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "File system access")]
-        [CanBeNull]
+        [NotNull]
         public static Catalog GetCachedSafe([NotNull] this ICatalogManager manager)
         {
             #region Sanity checks
@@ -45,23 +45,23 @@ namespace ZeroInstall.Services.Feeds
 
             try
             {
-                return manager.GetCached();
+                return manager.GetCached() ?? new Catalog();
             }
                 #region Error handling
             catch (IOException ex)
             {
                 Log.Warn(ex.Message);
-                return null;
+                return new Catalog();
             }
             catch (UnauthorizedAccessException ex)
             {
                 Log.Warn(ex.Message);
-                return null;
+                return new Catalog();
             }
             catch (InvalidDataException ex)
             {
                 Log.Warn(ex.Message);
-                return null;
+                return new Catalog();
             }
             #endregion
         }
@@ -69,9 +69,9 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// Downloads and merges all <see cref="Catalog"/>s specified by the configuration files.
         /// </summary>
-        /// <returns>A merged <see cref="Catalog"/> view; <see langword="null"/> if there was a problem.</returns>
+        /// <returns>A <see cref="Catalog"/>; an empty <see cref="Catalog"/> if there was a problem.</returns>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs network IO and has side-effects")]
-        [CanBeNull]
+        [NotNull]
         public static Catalog GetOnlineSafe([NotNull] this ICatalogManager manager)
         {
             #region Sanity checks
@@ -86,27 +86,27 @@ namespace ZeroInstall.Services.Feeds
             catch (IOException ex)
             {
                 Log.Warn(ex);
-                return null;
+                return new Catalog();
             }
             catch (WebException ex)
             {
                 Log.Warn(ex);
-                return null;
+                return new Catalog();
             }
             catch (InvalidDataException ex)
             {
                 Log.Warn(ex);
-                return null;
+                return new Catalog();
             }
             catch (SignatureException ex)
             {
                 Log.Warn(ex);
-                return null;
+                return new Catalog();
             }
             catch (UriFormatException ex)
             {
                 Log.Warn(ex);
-                return null;
+                return new Catalog();
             }
             #endregion
         }

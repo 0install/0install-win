@@ -41,13 +41,13 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// Downloads and merges all <see cref="Catalog"/>s specified by the configuration files.
         /// </summary>
-        /// <returns>A merged <see cref="Catalog"/> view.</returns>
+        /// <returns>A <see cref="Catalog"/>.</returns>
         /// <exception cref="IOException">A problem occured while reading a local catalog file.</exception>
         /// <exception cref="WebException">A problem occured while fetching a remote catalog file.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
         /// <exception cref="SignatureException">The signature data of a remote catalog file could not be verified.</exception>
         /// <exception cref="UriFormatException">An invalid catalog source is specified in the configuration file.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs network IO and has side-effects")]
+        [NotNull, SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs network IO and has side-effects")]
         Catalog GetOnline();
     }
 }

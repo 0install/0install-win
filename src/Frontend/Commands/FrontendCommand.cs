@@ -282,24 +282,10 @@ namespace ZeroInstall.Commands
 
         private FeedUri TryResolveCatalog(string shortName)
         {
-            Catalog catalog = CatalogManager.GetCachedSafe();
-            bool catalogUpdated = false;
-            if (catalog == null)
-            {
-                catalog = CatalogManager.GetOnlineSafe();
-                if (catalog == null) return null;
-                else catalogUpdated = true;
-            }
-
-            var feed = catalog.FindByShortName(shortName);
+            var feed = CatalogManager.GetCachedSafe().FindByShortName(shortName);
             if (feed == null)
             {
-                if (catalogUpdated) return null;
-
-                catalog = CatalogManager.GetOnlineSafe();
-                if (catalog == null) return null;
-
-                feed = catalog.FindByShortName(shortName);
+                feed = CatalogManager.GetOnlineSafe().FindByShortName(shortName);
                 if (feed == null) return null;
             }
 
