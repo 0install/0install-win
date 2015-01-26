@@ -57,7 +57,6 @@ namespace ZeroInstall.Commands
             switch (AdditionalArgs.Count)
             {
                 case 0:
-                    // Only save if the user confirmed the changes
                     Handler.ShowConfig(Config, _configTab);
                     Config.Save();
                     return 0;

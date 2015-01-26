@@ -52,6 +52,7 @@ namespace ZeroInstall.Store.Implementations
         /// <exception cref="IOException">There was an error reading the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the flag file.</exception>
         /// <remarks>The flag file is searched for instead of specifiying it directly to allow handling of special cases like creating manifests of subdirectories of extracted archives.</remarks>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "flag")]
         [NotNull, ItemNotNull]
         public static ICollection<string> GetFiles([NotNull] string flagName, [NotNull] string target)
         {

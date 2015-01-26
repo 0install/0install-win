@@ -21,6 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Properties;
@@ -37,6 +38,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <exception cref="IOException">There was a problem accessing a configuration file or one of the stores.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to a configuration file or one of the stores was not permitted.</exception>
+        [NotNull]
         public static IStore CreateDefault()
         {
             return new CompositeStore(GetStores());
@@ -47,6 +49,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <exception cref="IOException">A directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Creating a directory was not permitted.</exception>
+        [NotNull, ItemNotNull]
         private static IEnumerable<IStore> GetStores()
         {
             var stores = new List<IStore>();
@@ -82,9 +85,11 @@ namespace ZeroInstall.Store.Implementations
         /// Returns a list of paths for implementation directories / stores as defined by configuration files including the default locations.
         /// </summary>
         /// <param name="excludeUserProfile"><see langword="true"/> to exclude the default location in the user profile (e.g. for system services).</param>
+        /// <remarks>Mutliple configuration files apply cumulatively. I.e., directories from both the user config and the system config are used.</remarks>
         /// <exception cref="IOException">There was a problem accessing a configuration file or one of the stores.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to a configuration file was not permitted.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reads data from a config file with no caching")]
+        [NotNull, ItemNotNull]
         public static IEnumerable<string> GetImplementationDirs(bool excludeUserProfile = false)
         {
             if (!excludeUserProfile)

@@ -120,7 +120,8 @@ namespace ZeroInstall.Services.Feeds
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="SignatureException">The signature data of a remote catalog file could not be verified.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        private Catalog DownloadCatalog(FeedUri url)
+        [NotNull]
+        private Catalog DownloadCatalog([NotNull] FeedUri url)
         {
             byte[] data;
             using (var webClient = new WebClientTimeout())
@@ -132,10 +133,12 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// Returns a list of catalog sources as defined by configuration files.
         /// </summary>
+        /// <remarks>Only the top-most configuration file is processed. I.e., a user config overrides a system config.</remarks>
         /// <exception cref="IOException">There was a problem accessing a configuration file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to a configuration file was not permitted.</exception>
         /// <exception cref="UriFormatException">An invalid catalog source is specified in the configuration file.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reads data from a config file with no caching")]
+        [NotNull, ItemNotNull]
         public static FeedUri[] GetCatalogSources()
         {
             var path = Locations.GetLoadConfigPaths("0install.net", true, "catalog-sources").FirstOrDefault();
