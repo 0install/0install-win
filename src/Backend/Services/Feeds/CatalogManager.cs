@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -28,6 +29,7 @@ using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
@@ -149,6 +151,29 @@ namespace ZeroInstall.Services.Feeds
                 .Except(line => line.StartsWith("#"))
                 .Select(line => new FeedUri(line))
                 .ToArray();
+        }
+
+        /// <summary>
+        /// Sets the list of catalog sources in a configuration file.
+        /// </summary>
+        /// <param name="uris">The list of catalog sources to use from now on.</param>
+        /// <exception cref="IOException">There was a problem writing a configuration file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to a configuration file was not permitted.</exception>
+        public static void SetCatalogSources([NotNull, ItemNotNull, InstantHandle] IEnumerable<FeedUri> uris)
+        {
+            #region Sanity checks
+            if (uris == null) throw new ArgumentNullException("uris");
+            #endregion
+
+            using (var atomic = new AtomicWrite(Locations.GetSaveConfigPath("0install.net", true, "catalog-sources")))
+            {
+                using (var configFile = new StreamWriter(atomic.WritePath, append: false, encoding: FeedUtils.Encoding) { NewLine = "\n" })
+                {
+                    foreach (var uri in uris)
+                        configFile.WriteLine(uri.ToStringRfc());
+                }
+                atomic.Commit();
+            }
         }
     }
 }

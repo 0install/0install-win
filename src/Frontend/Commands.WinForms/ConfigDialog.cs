@@ -16,10 +16,8 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
@@ -27,7 +25,6 @@ using NanoByte.Common.Storage;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
-using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
 using ZeroInstall.Store.ViewModel;
@@ -170,56 +167,42 @@ namespace ZeroInstall.Commands.WinForms
             SaveAdditionalConfig();
         }
 
-        private readonly string _implementationDirsConfigPath = Locations.GetSaveConfigPath("0install.net", true, "injector", "implementation-dirs");
-        private readonly string _catalogSourcesConfigPath = Locations.GetSaveConfigPath("0install.net", true, "catalog-sources");
-
         private void LoadAdditionalConfig()
         {
-            // List all implementation directories in use
             listBoxImplDirs.Items.Clear();
-            var userConfig = File.Exists(_implementationDirsConfigPath) ? File.ReadAllLines(_implementationDirsConfigPath, Encoding.UTF8) : new string[0];
-            foreach (string implementationDir in StoreFactory.GetImplementationDirs())
+            var allDirs = StoreFactory.GetImplementationDirs();
+            var userSpecifiedDirs = StoreFactory.GetCustomImplementationDirs(
+                Locations.GetSaveConfigPath("0install.net", true, "injector", "implementation-dirs"))
+                .ToList();
+            foreach (string implementationDir in allDirs)
             {
-                // Differentiate between directories that can be modified (because they are listed in the user config) and those that cannot
-                if (userConfig.Contains(implementationDir)) listBoxImplDirs.Items.Add(new DirectoryStore(implementationDir)); // DirectoryStore = can be modified
-                else listBoxImplDirs.Items.Add(implementationDir); // Plain string = cannot be modified
+                // Differentiate between...
+                if (userSpecifiedDirs.Contains(implementationDir))
+                { // ... directories that can be modified (because they are listed in the user config)...
+                    listBoxImplDirs.Items.Add(new DirectoryStore(implementationDir));
+                }
+                else
+                { // ... and those that cannot
+                    listBoxImplDirs.Items.Add(implementationDir);
+                }
             }
 
-            // List all catalog sources in use
             listBoxCatalogSources.Items.Clear();
             // ReSharper disable once CoVariantArrayConversion
             listBoxCatalogSources.Items.AddRange(CatalogManager.GetCatalogSources());
 
-            // Read list of trusted keys
             treeViewTrustedKeys.Nodes = TrustDB.LoadSafe().ToNodes();
         }
 
         private void SaveAdditionalConfig()
         {
-            // Write list of user implementation directories
-            WriteConfigFile(_implementationDirsConfigPath, listBoxImplDirs.Items.OfType<DirectoryStore>());
+            StoreFactory.SetUserCustomImplementationDirs(
+                listBoxImplDirs.Items.OfType<DirectoryStore>().Select(x => x.DirectoryPath));
 
-            // Write list of catalog sources
-            WriteConfigFile(_catalogSourcesConfigPath, listBoxCatalogSources.Items.OfType<FeedUri>());
+            CatalogManager.SetCatalogSources(
+                listBoxCatalogSources.Items.OfType<FeedUri>());
 
-            // Write list of trusted keys
             treeViewTrustedKeys.Nodes.ToTrustDB().Save();
-        }
-
-        /// <summary>
-        /// Writes a set of elements to a plain-text config file.
-        /// </summary>
-        private static void WriteConfigFile<T>(string path, IEnumerable<T> elements)
-        {
-            using (var atomic = new AtomicWrite(path))
-            {
-                using (var configFile = new StreamWriter(atomic.WritePath, append: false, encoding: FeedUtils.Encoding) {NewLine = "\n"})
-                {
-                    foreach (var element in elements)
-                        configFile.WriteLine(element.ToString());
-                }
-                atomic.Commit();
-            }
         }
         #endregion
 

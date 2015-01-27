@@ -24,6 +24,7 @@ using System.Text;
 using JetBrains.Annotations;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementations
@@ -116,30 +117,66 @@ namespace ZeroInstall.Store.Implementations
             // Add custom cache locations
             foreach (string configFile in Locations.GetLoadConfigPaths("0install.net", true, "injector", "implementation-dirs"))
             {
-                foreach (string path in
-                    from line in File.ReadAllLines(configFile, Encoding.UTF8)
-                    where !line.StartsWith("#") && !string.IsNullOrEmpty(line)
-                    select Environment.ExpandEnvironmentVariables(line))
-                {
-                    string result = path;
-                    try
-                    {
-                        if (!Path.IsPathRooted(path))
-                        { // Allow relative paths only for portable installations
-                            if (Locations.IsPortable) result = Path.Combine(Locations.PortableBase, path);
-                            else throw new IOException(string.Format(Resources.NonRootedPathInConfig, path, configFile));
-                        }
-                    }
-                        #region Error handling
-                    catch (ArgumentException ex)
-                    {
-                        // Wrap exception to add context information
-                        throw new IOException(string.Format(Resources.ProblemAccessingStoreEx, path, configFile), ex);
-                    }
-                    #endregion
+                foreach (var path in GetCustomImplementationDirs(configFile))
+                    yield return path;
+            }
+        }
 
-                    yield return result;
+        /// <summary>
+        /// Returns a list of implementation directory paths in a specific configuration file.
+        /// </summary>
+        /// <param name="configPath">The path of the configuration file to read.</param>
+        /// <exception cref="IOException">There was a problem accessing<paramref name="configPath"/>.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to <paramref name="configPath"/> was not permitted.</exception>
+        [NotNull, ItemNotNull]
+        public static IEnumerable<string> GetCustomImplementationDirs([NotNull] string configPath)
+        {
+            foreach (string path in
+                from line in File.ReadAllLines(configPath, Encoding.UTF8)
+                where !line.StartsWith("#") && !string.IsNullOrEmpty(line)
+                select Environment.ExpandEnvironmentVariables(line))
+            {
+                string result = path;
+                try
+                {
+                    if (!Path.IsPathRooted(path))
+                    { // Allow relative paths only for portable installations
+                        if (Locations.IsPortable) result = Path.Combine(Locations.PortableBase, path);
+                        else throw new IOException(string.Format(Resources.NonRootedPathInConfig, path, configPath));
+                    }
                 }
+                    #region Error handling
+                catch (ArgumentException ex)
+                {
+                    // Wrap exception to add context information
+                    throw new IOException(string.Format(Resources.ProblemAccessingStoreEx, path, configPath), ex);
+                }
+                #endregion
+
+                yield return result;
+            }
+        }
+
+        /// <summary>
+        /// Sets the list of implementation directory paths in the current user configuration.
+        /// </summary>
+        /// <param name="paths">The list of implementation directory paths to set.</param>
+        /// <exception cref="IOException">There was a problem writing a configuration file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to a configuration file was not permitted.</exception>
+        public static void SetUserCustomImplementationDirs([NotNull, ItemNotNull, InstantHandle] IEnumerable<string> paths)
+        {
+            #region Sanity checks
+            if (paths == null) throw new ArgumentNullException("paths");
+            #endregion
+
+            using (var atomic = new AtomicWrite(Locations.GetSaveConfigPath("0install.net", true, "injector", "implementation-dirs")))
+            {
+                using (var configFile = new StreamWriter(atomic.WritePath, append: false, encoding: FeedUtils.Encoding) {NewLine = "\n"})
+                {
+                    foreach (var path in paths)
+                        configFile.WriteLine(path);
+                }
+                atomic.Commit();
             }
         }
     }
