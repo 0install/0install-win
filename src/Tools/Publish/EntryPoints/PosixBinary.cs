@@ -34,7 +34,14 @@ namespace ZeroInstall.Publish.EntryPoints
             if (!base.Analyze(baseDirectory, file)) return false;
 
             IELF elfData;
-            if (!ELFReader.TryLoad(file.FullName, out elfData)) return false;
+            try
+            {
+                if (!ELFReader.TryLoad(file.FullName, out elfData)) return false;
+            }
+            catch (NullReferenceException)
+            {
+                return false;
+            }
 
             try
             {
