@@ -103,7 +103,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            string result = InterfaceUri.ToStringRfc();
+            string result = (InterfaceUri == null) ? "-" : InterfaceUri.ToStringRfc();
             if (!string.IsNullOrEmpty(Use)) result += " (" + Use + ")";
             return result;
         }

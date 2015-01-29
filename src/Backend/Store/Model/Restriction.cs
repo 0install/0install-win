@@ -137,7 +137,7 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         public override string ToString()
         {
-            return InterfaceUri.ToStringRfc();
+            return (InterfaceUri == null) ? "-" : InterfaceUri.ToStringRfc();
         }
         #endregion
 
