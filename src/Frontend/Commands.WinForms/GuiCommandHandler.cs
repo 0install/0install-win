@@ -224,8 +224,11 @@ namespace ZeroInstall.Commands.WinForms
             if (query == null) throw new ArgumentNullException("query");
             #endregion
 
-            using (var dialog = new FeedSearchDialog(query))
-                dialog.ShowDialog();
+            ProcessUtils.RunSta(() =>
+            {
+                using (var dialog = new FeedSearchDialog(query))
+                    dialog.ShowDialog();
+            });
         }
 
         /// <inheritdoc/>
@@ -235,11 +238,14 @@ namespace ZeroInstall.Commands.WinForms
             if (config == null) throw new ArgumentNullException("config");
             #endregion
 
-            using (var dialog = new ConfigDialog(config))
+            ProcessUtils.RunSta(() =>
             {
-                dialog.SelectTab(configTab);
-                if (dialog.ShowDialog() != DialogResult.OK) throw new OperationCanceledException();
-            }
+                using (var dialog = new ConfigDialog(config))
+                {
+                    dialog.SelectTab(configTab);
+                    if (dialog.ShowDialog() != DialogResult.OK) throw new OperationCanceledException();
+                }
+            });
         }
 
         /// <inheritdoc/>
@@ -250,8 +256,11 @@ namespace ZeroInstall.Commands.WinForms
             if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
-            using (var form = new StoreManageForm(store, feedCache))
-                form.ShowDialog();
+            ProcessUtils.RunSta(() =>
+            {
+                using (var form = new StoreManageForm(store, feedCache))
+                    form.ShowDialog();
+            });
         }
         #endregion
 
