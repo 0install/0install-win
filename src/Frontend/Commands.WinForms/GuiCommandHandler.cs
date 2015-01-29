@@ -237,28 +237,7 @@ namespace ZeroInstall.Commands.WinForms
 
             using (var dialog = new ConfigDialog(config))
             {
-                switch (configTab)
-                {
-                    case ConfigTab.Updates:
-                        dialog.tabOptions.SelectTab(dialog.tabPageUpdates);
-                        break;
-                    case ConfigTab.Storage:
-                        dialog.tabOptions.SelectTab(dialog.tabPageStorage);
-                        break;
-                    case ConfigTab.Catalog:
-                        dialog.tabOptions.SelectTab(dialog.tabPageCatalog);
-                        break;
-                    case ConfigTab.Trust:
-                        dialog.tabOptions.SelectTab(dialog.tabPageTrust);
-                        break;
-                    case ConfigTab.Sync:
-                        dialog.tabOptions.SelectTab(dialog.tabPageSync);
-                        break;
-                    case ConfigTab.Advanced:
-                        dialog.tabOptions.SelectTab(dialog.tabPageAdvanced);
-                        break;
-                }
-
+                dialog.SelectTab(configTab);
                 if (dialog.ShowDialog() != DialogResult.OK) throw new OperationCanceledException();
             }
         }

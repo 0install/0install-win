@@ -447,12 +447,12 @@ namespace ZeroInstall.Commands.WinForms
         private System.Windows.Forms.LinkLabel linkSyncAccount;
         private UriTextBox textBoxSyncServer;
         private System.Windows.Forms.Label labelServer;
-        internal System.Windows.Forms.TabControl tabOptions;
-        internal System.Windows.Forms.TabPage tabPageUpdates;
-        internal System.Windows.Forms.TabPage tabPageStorage;
-        internal System.Windows.Forms.TabPage tabPageCatalog;
-        internal System.Windows.Forms.TabPage tabPageTrust;
-        internal System.Windows.Forms.TabPage tabPageSync;
+        private System.Windows.Forms.TabControl tabOptions;
+        private System.Windows.Forms.TabPage tabPageUpdates;
+        private System.Windows.Forms.TabPage tabPageStorage;
+        private System.Windows.Forms.TabPage tabPageCatalog;
+        private System.Windows.Forms.TabPage tabPageTrust;
+        private System.Windows.Forms.TabPage tabPageSync;
         private System.Windows.Forms.GroupBox groupNetworkUse;
         private System.Windows.Forms.RadioButton radioNetworkUseOffline;
         private System.Windows.Forms.RadioButton radioNetworkUseMinimal;
@@ -474,7 +474,7 @@ namespace ZeroInstall.Commands.WinForms
         private System.Windows.Forms.Button buttonAddCatalogSource;
         private System.Windows.Forms.ListBox listBoxCatalogSources;
         private System.Windows.Forms.Button buttonResetCatalogSources;
-        internal System.Windows.Forms.TabPage tabPageAdvanced;
+        private System.Windows.Forms.TabPage tabPageAdvanced;
         private NanoByte.Common.Controls.ResettablePropertyGrid propertyGridAdvanced;
         private System.Windows.Forms.Label labelAdvancedWarning;
         private System.Windows.Forms.Button buttonAdvancedShow;

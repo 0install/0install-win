@@ -55,6 +55,35 @@ namespace ZeroInstall.Commands.WinForms
             panelTrustedKeys.Controls.Add(treeViewTrustedKeys);
             treeViewTrustedKeys.CheckedEntriesChanged += treeViewTrustedKeys_CheckedEntriesChanged;
         }
+
+        /// <summary>
+        /// Switch to a specific tab in the configuration GUI.
+        /// </summary>
+        /// <param name="configTab">The tab to switch to.</param>
+        public void SelectTab(ConfigTab configTab)
+        {
+            switch (configTab)
+            {
+                case ConfigTab.Updates:
+                    tabOptions.SelectTab(tabPageUpdates);
+                    break;
+                case ConfigTab.Storage:
+                    tabOptions.SelectTab(tabPageStorage);
+                    break;
+                case ConfigTab.Catalog:
+                    tabOptions.SelectTab(tabPageCatalog);
+                    break;
+                case ConfigTab.Trust:
+                    tabOptions.SelectTab(tabPageTrust);
+                    break;
+                case ConfigTab.Sync:
+                    tabOptions.SelectTab(tabPageSync);
+                    break;
+                case ConfigTab.Advanced:
+                    tabOptions.SelectTab(tabPageAdvanced);
+                    break;
+            }
+        }
         #endregion
 
         #region Config
