@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
@@ -63,7 +64,7 @@ namespace ZeroInstall.Services.Solvers
             _config = config;
             _isCached = BuildCacheChecker(store);
             _packageManager = packageManager;
-            _comparer = new TransparentCache<FeedUri, SelectionCandidateComparer>(id => new SelectionCandidateComparer(config, _isCached, _interfacePreferences[id].StabilityPolicy));
+            _comparer = new TransparentCache<FeedUri, SelectionCandidateComparer>(id => new SelectionCandidateComparer(config, _isCached, _interfacePreferences[id].StabilityPolicy, CultureInfo.CurrentUICulture));
             _feeds = new TransparentCache<FeedUri, Feed>(feedManager.GetFeed);
         }
 

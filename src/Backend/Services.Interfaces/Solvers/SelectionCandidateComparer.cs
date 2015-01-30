@@ -17,7 +17,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using JetBrains.Annotations;
+using NanoByte.Common.Collections;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
@@ -33,6 +36,7 @@ namespace ZeroInstall.Services.Solvers
         private readonly NetworkLevel _networkUse;
         private readonly Predicate<Implementation> _isCached;
         private readonly Stability _stabilityPolicy;
+        private readonly CultureInfo _culture;
 
         /// <summary>
         /// Creates a new <see cref="SelectionCandidate"/> ranker.
@@ -40,11 +44,13 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="config">Used to retrieve global configuration.</param>
         /// <param name="isCached">Used to determine which implementations are already cached in the <see cref="IStore"/>.</param>
         /// <param name="stabilityPolicy">Implementations at this stability level or higher are preferred. Lower levels are used only if there is no other choice. Must not be <see cref="Stability.Unset"/>!</param>
-        public SelectionCandidateComparer([NotNull] Config config, [NotNull] Predicate<Implementation> isCached, Stability stabilityPolicy)
+        /// <param name="culture">The user's culture, used to determine preferred languages.</param>
+        public SelectionCandidateComparer([NotNull] Config config, [NotNull] Predicate<Implementation> isCached, Stability stabilityPolicy, [NotNull] CultureInfo culture)
         {
             #region Sanity check
             if (config == null) throw new ArgumentNullException("config");
             if (isCached == null) throw new ArgumentNullException("isCached");
+            if (culture == null) throw new ArgumentNullException("culture");
             #endregion
 
             _networkUse = config.NetworkUse;
@@ -52,6 +58,7 @@ namespace ZeroInstall.Services.Solvers
             _stabilityPolicy = (stabilityPolicy == Stability.Unset)
                 ? (config.HelpWithTesting ? Stability.Testing : Stability.Stable)
                 : stabilityPolicy;
+            _culture = culture;
         }
 
         /// <inheritdoc/>
@@ -68,7 +75,11 @@ namespace ZeroInstall.Services.Solvers
             if (x.EffectiveStability == Stability.Preferred && y.EffectiveStability != Stability.Preferred) return -1;
             if (x.EffectiveStability != Stability.Preferred && y.EffectiveStability == Stability.Preferred) return 1;
 
-            // TODO: Strongly prefer languages we understand
+            // Strongly prefer languages we understand
+            int xLanguageRank = GetLanguageRank(x.Implementation.Languages);
+            int yLanguageRank = GetLanguageRank(y.Implementation.Languages);
+            if (xLanguageRank > yLanguageRank) return -1;
+            if (xLanguageRank < yLanguageRank) return 1;
 
             // Cached implementations come next if we have limited network access
             if (_networkUse != NetworkLevel.Full)
@@ -93,7 +104,11 @@ namespace ZeroInstall.Services.Solvers
             if (x.Implementation.Architecture.Cpu > y.Implementation.Architecture.Cpu) return -1;
             if (x.Implementation.Architecture.Cpu < y.Implementation.Architecture.Cpu) return 1;
 
-            // TODO: Slightly prefer languages specialised to our country
+            // Slightly prefer languages specialised to our country
+            int xCountryRank = GetCountryRank(x.Implementation.Languages);
+            int yCountryRank = GetCountryRank(y.Implementation.Languages);
+            if (xCountryRank > yCountryRank) return -1;
+            if (xCountryRank < yCountryRank) return 1;
 
             // Slightly prefer cached versions
             if (_networkUse == NetworkLevel.Full)
@@ -106,6 +121,20 @@ namespace ZeroInstall.Services.Solvers
 
             // Order by ID so the order is not random
             return string.CompareOrdinal(x.Implementation.ID, y.Implementation.ID);
+        }
+
+        private int GetLanguageRank(LanguageSet languages)
+        {
+            if (languages.Count == 0) return 0;
+            else if (languages.Any(x => x.TwoLetterISOLanguageName == _culture.TwoLetterISOLanguageName)) return 1;
+            else return -1;
+        }
+
+        private int GetCountryRank(LanguageSet languages)
+        {
+            if (languages.Count == 0) return 0;
+            else if (languages.Contains(_culture)) return 1;
+            else return -1;
         }
     }
 }

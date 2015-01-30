@@ -178,7 +178,7 @@ namespace ZeroInstall.Services.Solvers
             mainFeed.Feeds.Clear();
             _feedManagerMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(mainFeed);
 
-            var nativeImplementation = new ExternalImplementation("rpm", "firefox", new ImplementationVersion("1.0"));
+            var nativeImplementation = new ExternalImplementation("rpm", "firefox", new ImplementationVersion("1.0")) {Languages = {"en-US"}};
             _packageManagerMock.Setup(x => x.Query((PackageImplementation)mainFeed.Elements[1])).Returns(new[] {nativeImplementation});
 
             var requirements = new Requirements(FeedTest.Test1Uri, Command.NameRun);
