@@ -31,9 +31,8 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private void InitializeComponent()
         {
             this.labelTitle = new System.Windows.Forms.Label();
-            this.buttonSkip = new System.Windows.Forms.Button();
             this.buttonNext = new System.Windows.Forms.Button();
-            this.textBoxUri = new UriTextBox();
+            this.textBoxUri = new NanoByte.Common.Controls.UriTextBox();
             this.labelUri = new System.Windows.Forms.Label();
             this.labelSignature = new System.Windows.Forms.Label();
             this.comboBoxKeys = new System.Windows.Forms.ComboBox();
@@ -53,24 +52,13 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             this.labelTitle.Text = "Security";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // buttonSkip
-            // 
-            this.buttonSkip.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonSkip.Location = new System.Drawing.Point(189, 238);
-            this.buttonSkip.Name = "buttonSkip";
-            this.buttonSkip.Size = new System.Drawing.Size(120, 35);
-            this.buttonSkip.TabIndex = 6;
-            this.buttonSkip.Text = "&Skip";
-            this.buttonSkip.UseVisualStyleBackColor = true;
-            this.buttonSkip.Click += new System.EventHandler(this.buttonSkip_Click);
-            // 
             // buttonNext
             // 
             this.buttonNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonNext.Location = new System.Drawing.Point(315, 238);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(120, 35);
-            this.buttonNext.TabIndex = 7;
+            this.buttonNext.TabIndex = 6;
             this.buttonNext.Text = "&Next >";
             this.buttonNext.UseVisualStyleBackColor = true;
             this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
@@ -87,7 +75,6 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             this.textBoxUri.Name = "textBoxUri";
             this.textBoxUri.Size = new System.Drawing.Size(396, 26);
             this.textBoxUri.TabIndex = 5;
-            this.textBoxUri.TextChanged += new System.EventHandler(this.InputChanged);
             // 
             // labelUri
             // 
@@ -120,7 +107,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             this.comboBoxKeys.Name = "comboBoxKeys";
             this.comboBoxKeys.Size = new System.Drawing.Size(270, 28);
             this.comboBoxKeys.TabIndex = 2;
-            this.comboBoxKeys.SelectedIndexChanged += new System.EventHandler(this.InputChanged);
+            this.comboBoxKeys.SelectedIndexChanged += new System.EventHandler(this.comboBoxKeys_SelectedIndexChanged);
             // 
             // buttonNewKey
             // 
@@ -142,7 +129,6 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             this.Controls.Add(this.labelSignature);
             this.Controls.Add(this.labelUri);
             this.Controls.Add(this.textBoxUri);
-            this.Controls.Add(this.buttonSkip);
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.labelTitle);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -156,7 +142,6 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         #endregion
 
         private System.Windows.Forms.Label labelTitle;
-        private System.Windows.Forms.Button buttonSkip;
         private System.Windows.Forms.Button buttonNext;
         private UriTextBox textBoxUri;
         private System.Windows.Forms.Label labelUri;

@@ -130,10 +130,10 @@
     <value>Ist dies eine Installations EXE?</value>
   </data>
   <data name="AskSkipIcon" xml:space="preserve">
-    <value>Wenn Sie die Icons nicht hochladen wird Zero Install nur ein generisches Platzhalter-Symbol im Katalog wie auch bei Desktopintergations-Verknüpfungen verwenden können. Sind Sie sicher, dass Sie dies überspringen möchten?</value>
+    <value>Wenn Sie die Icons nicht hochladen wird Zero Install nur ein generisches Platzhalter-Symbol im Katalog wie auch bei Desktopintergations-Verknüpfungen verwenden können. Sind Sie sicher, dass Sie fortfahren möchten?</value>
   </data>
   <data name="AskSkipSecurity" xml:space="preserve">
-    <value>Ohne diese Einstellung wird Ihr Feed nur lokal und nicht online funktionieren. Sind Sie sicher, dass Sie dies überspringen möchten?</value>
+    <value>Ohne diese Einstellung zu vervollständigen wird Ihr Feed nur lokal und nicht online funktionieren. Sind Sie sicher, dass Sie fortfahren möchten?</value>
   </data>
   <data name="DetectingCandidates" xml:space="preserve">
     <value>Suche nach ausführbaren Dateien</value>

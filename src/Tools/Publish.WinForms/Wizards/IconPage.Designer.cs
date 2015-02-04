@@ -42,7 +42,6 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             this.labelStep4 = new System.Windows.Forms.Label();
             this.buttonSavePng = new System.Windows.Forms.Button();
             this.labelStep3 = new System.Windows.Forms.Label();
-            this.buttonSkip = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,12 +71,11 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             // 
             // buttonNext
             // 
-            this.buttonNext.Enabled = false;
             this.buttonNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonNext.Location = new System.Drawing.Point(315, 238);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(120, 35);
-            this.buttonNext.TabIndex = 11;
+            this.buttonNext.TabIndex = 10;
             this.buttonNext.Text = "&Next >";
             this.buttonNext.UseVisualStyleBackColor = true;
             this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
@@ -136,7 +134,6 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             this.textBoxHrefIco.Name = "textBoxHrefIco";
             this.textBoxHrefIco.Size = new System.Drawing.Size(191, 26);
             this.textBoxHrefIco.TabIndex = 5;
-            this.textBoxHrefIco.TextChanged += new System.EventHandler(this.textBoxHref_TextChanged);
             // 
             // textBoxHrefPng
             // 
@@ -150,7 +147,6 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             this.textBoxHrefPng.Name = "textBoxHrefPng";
             this.textBoxHrefPng.Size = new System.Drawing.Size(191, 26);
             this.textBoxHrefPng.TabIndex = 9;
-            this.textBoxHrefPng.TextChanged += new System.EventHandler(this.textBoxHref_TextChanged);
             // 
             // labelStep4
             // 
@@ -183,22 +179,10 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             this.labelStep3.TabIndex = 6;
             this.labelStep3.Text = "3.";
             // 
-            // buttonSkip
-            // 
-            this.buttonSkip.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonSkip.Location = new System.Drawing.Point(189, 238);
-            this.buttonSkip.Name = "buttonSkip";
-            this.buttonSkip.Size = new System.Drawing.Size(120, 35);
-            this.buttonSkip.TabIndex = 10;
-            this.buttonSkip.Text = "&Skip";
-            this.buttonSkip.UseVisualStyleBackColor = true;
-            this.buttonSkip.Click += new System.EventHandler(this.buttonSkip_Click);
-            // 
             // IconPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonSkip);
             this.Controls.Add(this.textBoxHrefPng);
             this.Controls.Add(this.labelStep4);
             this.Controls.Add(this.buttonSavePng);
@@ -234,7 +218,6 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private System.Windows.Forms.Label labelStep4;
         private System.Windows.Forms.Button buttonSavePng;
         private System.Windows.Forms.Label labelStep3;
-        private System.Windows.Forms.Button buttonSkip;
 
     }
 }

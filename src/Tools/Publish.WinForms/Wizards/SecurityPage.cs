@@ -50,26 +50,25 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private void ListKeys()
         {
             comboBoxKeys.Items.Clear();
+            comboBoxKeys.Items.Add("");
             comboBoxKeys.Items.AddRange(_openPgp.ListSecretKeys().Cast<object>().ToArray());
 
-            InputChanged(null, null);
+            comboBoxKeys.SelectedItem = _feedBuilder.SecretKey;
         }
 
-        private void InputChanged(object sender, EventArgs e)
+        private void comboBoxKeys_SelectedIndexChanged(object sender, EventArgs e)
         {
-            buttonNext.Enabled =
-                (comboBoxKeys.SelectedItem is OpenPgpSecretKey &&
-                 !string.IsNullOrEmpty(textBoxUri.Text) && textBoxUri.IsValid);
+            _feedBuilder.SecretKey = comboBoxKeys.SelectedItem as OpenPgpSecretKey;
         }
 
         private void buttonNewKey_Click(object sender, EventArgs e)
         {
             var process = _openPgp.GenerateKey();
-
-            // Update key list when done
             ProcessUtils.RunBackground(() =>
             {
                 process.WaitForExit();
+
+                // Update key list when done
                 try
                 {
                     Invoke(new Action(ListKeys));
@@ -83,27 +82,21 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             }, name: "WaitForOpenPgp");
         }
 
-        private void buttonSkip_Click(object sender, EventArgs e)
-        {
-            if (!Msg.YesNo(this, Resources.AskSkipSecurity, MsgSeverity.Info)) return;
-
-            _feedBuilder.SecretKey = null;
-            _feedBuilder.Uri = null;
-            Next();
-        }
-
         private void buttonNext_Click(object sender, EventArgs e)
         {
             _feedBuilder.SecretKey = comboBoxKeys.SelectedItem as OpenPgpSecretKey;
             try
             {
-                _feedBuilder.Uri = new FeedUri(textBoxUri.Uri);
+                _feedBuilder.Uri = (textBoxUri.Uri == null) ? null : new FeedUri(textBoxUri.Uri);
             }
             catch (UriFormatException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Warn);
                 return;
             }
+
+            if (_feedBuilder.SecretKey == null || _feedBuilder.Uri == null)
+                if (!Msg.YesNo(this, Resources.AskSkipSecurity, MsgSeverity.Info)) return;
             Next();
         }
     }

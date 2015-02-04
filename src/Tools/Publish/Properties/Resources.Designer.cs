@@ -97,7 +97,7 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Without uploading the icons Zero Install will only be able to display a generic placeholder icon in the catalog as well as for any desktop integration shortcuts. Are you sure you want to skip this?.
+        ///   Looks up a localized string similar to Without uploading the icons Zero Install will only be able to display a generic placeholder icon in the catalog as well as for any desktop integration shortcuts. Are you sure you want to continue?.
         /// </summary>
         public static string AskSkipIcon {
             get {
@@ -106,7 +106,7 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Without these settings your feed will only work locally and not online. Are you sure you want to skip this?.
+        ///   Looks up a localized string similar to Without completing these settings your feed will only work locally and not online. Are you sure you want to continue?.
         /// </summary>
         public static string AskSkipSecurity {
             get {

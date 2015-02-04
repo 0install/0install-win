@@ -173,12 +173,6 @@ namespace ZeroInstall.Publish.WinForms
         {
             Msg.Inform(this, AppInfo.Current.Name + " " + AppInfo.Current.Version, MsgSeverity.Info);
         }
-
-        private void comboBoxKeys_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBoxKeys.SelectedItem == NewKeyAction.Instance) NewKey();
-            else FeedEditing.SignedFeed.SecretKey = comboBoxKeys.SelectedItem as OpenPgpSecretKey;
-        }
         #endregion
 
         #region Storage
@@ -291,14 +285,20 @@ namespace ZeroInstall.Publish.WinForms
             if (FeedEditing != null) comboBoxKeys.SelectedItem = FeedEditing.SignedFeed.SecretKey;
         }
 
+        private void comboBoxKeys_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxKeys.SelectedItem == NewKeyAction.Instance) NewKey();
+            else FeedEditing.SignedFeed.SecretKey = comboBoxKeys.SelectedItem as OpenPgpSecretKey;
+        }
+
         private void NewKey()
         {
             var process = _openPgp.GenerateKey();
-
-            // Update key list when done
             ProcessUtils.RunBackground(() =>
             {
                 process.WaitForExit();
+
+                // Update key list when done
                 try
                 {
                     Invoke(new Action(ListKeys));

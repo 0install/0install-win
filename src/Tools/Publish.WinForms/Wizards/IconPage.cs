@@ -77,29 +77,22 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         }
         #endregion
 
-        private void textBoxHref_TextChanged(object sender, EventArgs e)
-        {
-            buttonNext.Enabled = IsValid(textBoxHrefIco) && IsValid(textBoxHrefPng);
-        }
-
-        private static bool IsValid(UriTextBox uriTextBox)
-        {
-            return !string.IsNullOrEmpty(uriTextBox.Text) && uriTextBox.IsValid;
-        }
-
-        private void buttonSkip_Click(object sender, EventArgs e)
-        {
-            if (!Msg.YesNo(this, Resources.AskSkipIcon, MsgSeverity.Info)) return;
-
-            _feedBuilder.Icons.Clear();
-            Next();
-        }
-
         private void buttonNext_Click(object sender, EventArgs e)
         {
             _feedBuilder.Icons.Clear();
-            _feedBuilder.Icons.Add(new Store.Model.Icon {Href = textBoxHrefIco.Uri, MimeType = Store.Model.Icon.MimeTypeIco});
-            _feedBuilder.Icons.Add(new Store.Model.Icon {Href = textBoxHrefPng.Uri, MimeType = Store.Model.Icon.MimeTypePng});
+            try
+            {
+                if (textBoxHrefIco.Uri != null) _feedBuilder.Icons.Add(new Store.Model.Icon {Href = textBoxHrefIco.Uri, MimeType = Store.Model.Icon.MimeTypeIco});
+                if (textBoxHrefPng.Uri != null) _feedBuilder.Icons.Add(new Store.Model.Icon {Href = textBoxHrefPng.Uri, MimeType = Store.Model.Icon.MimeTypePng});
+            }
+            catch (UriFormatException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                return;
+            }
+
+            if (_feedBuilder.Icons.Count != 2)
+                if (!Msg.YesNo(this, Resources.AskSkipIcon, MsgSeverity.Info)) return;
             Next();
         }
     }
