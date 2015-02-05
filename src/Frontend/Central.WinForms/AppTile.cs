@@ -239,7 +239,7 @@ namespace ZeroInstall.Central.WinForms
         private void buttonSelectVersion_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
-            Program.RunCommand(Commands.Run.Name, "--no-wait", "--gui", InterfaceUri.ToStringRfc());
+            Program.RunCommand(Commands.Run.Name, "--no-wait", "--customize", InterfaceUri.ToStringRfc());
         }
 
         private void buttonSelectCommand_Click(object sender, EventArgs e)

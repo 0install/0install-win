@@ -57,7 +57,7 @@ namespace ZeroInstall.Commands
         }
 
         /// <inheritdoc/>
-        public void ModifySelections(LinqBridge::System.Func<Selections> solveCallback)
+        public void CustomizeSelections(LinqBridge::System.Func<Selections> solveCallback)
         {
             // No UI, so nothing to do
         }

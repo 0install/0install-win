@@ -133,11 +133,11 @@ namespace ZeroInstall.Commands.WinForms
             _wrapper.Post(form => form.ShowSelections(selections, feedCache));
         }
 
-        /// <summary>A wait handle used by <see cref="ModifySelections"/> to be signaled once the user is satisfied with the <see cref="Selections"/>.</summary>
+        /// <summary>A wait handle used by <see cref="CustomizeSelections"/> to be signaled once the user is satisfied with the <see cref="Selections"/>.</summary>
         private readonly AutoResetEvent _modifySelectionsWaitHandle = new AutoResetEvent(false);
 
         /// <inheritdoc/>
-        public void ModifySelections(Func<Selections> solveCallback)
+        public void CustomizeSelections(Func<Selections> solveCallback)
         {
             #region Sanity checks
             if (solveCallback == null) throw new ArgumentNullException("solveCallback");

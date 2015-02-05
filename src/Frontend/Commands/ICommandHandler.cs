@@ -52,11 +52,11 @@ namespace ZeroInstall.Commands
         void ShowSelections([NotNull] Selections selections, [NotNull] IFeedCache feedCache);
 
         /// <summary>
-        /// Allows the user to modify the interface preferences and rerun the solver if desired.
+        /// Allows the user to customize the interface preferences and rerun the solver if desired.
         /// Returns once the user is satisfied with her choice. Will be ignored by non-GUI intefaces.
         /// </summary>
         /// <param name="solveCallback">Called after interface preferences have been changed and the solver needs to be rerun.</param>
-        void ModifySelections([NotNull] Func<Selections> solveCallback);
+        void CustomizeSelections([NotNull] Func<Selections> solveCallback);
 
         /// <summary>
         /// Displays application integration options to the user.

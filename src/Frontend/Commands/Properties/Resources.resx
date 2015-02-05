@@ -483,20 +483,17 @@ Has no effect in text-mode.</value>
   <data name="OptionCpu" xml:space="preserve">
     <value>Forces the solver to target a specific {CPU}.</value>
   </data>
+  <data name="OptionCustomize" xml:space="preserve">
+    <value>Show the graphical policy editor. This allows you to customize which version of a program or library to use.</value>
+  </data>
   <data name="OptionDigest" xml:space="preserve">
     <value>Display the manifest's digest (enabled by default if --manifest is not set).</value>
   </data>
   <data name="OptionForceSelfUpdate" xml:space="preserve">
     <value>Perform the update even if the currently installed version is the same or newer.</value>
   </data>
-  <data name="OptionGui" xml:space="preserve">
-    <value>Show the graphical policy editor. This allows you to select which version of a program or library to use.</value>
-  </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Show the built-in help text.</value>
-  </data>
-  <data name="OptionNoFetch" xml:space="preserve">
-    <value>Do not download the application itself yet. Will be automatically downloaded on first use instead.</value>
   </data>
   <data name="OptionMachine" xml:space="preserve">
     <value>Apply the configuration machine-wide (for the entire computer) instead of just for the current user.</value>
@@ -510,6 +507,9 @@ May not contain command-line arguments! Whitespaces do not need to be escaped.</
   </data>
   <data name="OptionManifest" xml:space="preserve">
     <value>Display the manifest itself (one line for each file or directory).</value>
+  </data>
+  <data name="OptionNoFetch" xml:space="preserve">
+    <value>Do not download the application itself yet. Will be automatically downloaded on first use instead.</value>
   </data>
   <data name="OptionNotBefore" xml:space="preserve">
     <value>Require a version of the main program not earlier than {VERSION}. E.g., if you want to run version 2.0 or later, use --not-before=2.0.</value>

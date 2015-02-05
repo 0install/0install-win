@@ -263,7 +263,7 @@ namespace ZeroInstall.Hooking
                 _relaunchInformation.AppID, '"' + commandPath + "\" run " + _relaunchInformation.Target, icon, _relaunchInformation.Name);
 
             // Add jump list entry to select an alternative application version
-            WindowsTaskbar.AddTaskLinks(_relaunchInformation.AppID, new[] {new WindowsTaskbar.ShellLink("Versions", _relaunchControl.CommandPathGui, "run --gui " + _relaunchInformation.Target)});
+            WindowsTaskbar.AddTaskLinks(_relaunchInformation.AppID, new[] {new WindowsTaskbar.ShellLink("Versions", _relaunchControl.CommandPathGui, "run --customize " + _relaunchInformation.Target)});
         }
         #endregion
     }

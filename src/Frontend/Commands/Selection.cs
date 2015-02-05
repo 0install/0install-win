@@ -51,7 +51,7 @@ namespace ZeroInstall.Commands
         protected bool SelectionsDocument;
 
         /// <summary>Indicates the user wants a UI to modify the <see cref="Selections"/>.</summary>
-        protected bool ShowModifySelections;
+        protected bool CustomizeSelections;
 
         /// <summary>Indicates the user wants a machine-readable output.</summary>
         protected bool ShowXml;
@@ -71,7 +71,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public Selection([NotNull] ICommandHandler handler) : base(handler)
         {
-            Options.Add("g|gui", () => Resources.OptionGui, _ => ShowModifySelections = true);
+            Options.Add("customize", () => Resources.OptionCustomize, _ => CustomizeSelections = true);
 
             Options.Add("o|offline", () => Resources.OptionOffline, _ => Config.NetworkUse = NetworkLevel.Offline);
             Options.Add("r|refresh", () => Resources.OptionRefresh, _ => FeedManager.Refresh = true);
@@ -210,7 +210,7 @@ namespace ZeroInstall.Commands
         protected void ShowSelections()
         {
             Handler.ShowSelections(Selections, FeedCache);
-            if (ShowModifySelections && !SelectionsDocument) Handler.ModifySelections(SolveCallback);
+            if (CustomizeSelections && !SelectionsDocument) Handler.CustomizeSelections(SolveCallback);
             Handler.CancellationToken.ThrowIfCancellationRequested();
         }
 

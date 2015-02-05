@@ -483,20 +483,17 @@ Hat keine Wirkung im Text-Modus.</value>
   <data name="OptionCpu" xml:space="preserve">
     <value>Zwingt den Solver auf eine bestimmte {CPU} abzuzielen.</value>
   </data>
+  <data name="OptionCustomize" xml:space="preserve">
+    <value>Zeigt den grafischen Versionseditor an. Dies gestattet Ihnen die Version des Programmes oder der Bibliothek anzupassen.</value>
+  </data>
   <data name="OptionDigest" xml:space="preserve">
     <value>Zeigt den Digest des Manifest an (standardmäßig aktiviert wenn --manifest nicht gesetzt ist).</value>
   </data>
   <data name="OptionForceSelfUpdate" xml:space="preserve">
     <value>Führe das Update durch, auch wenn die derzeit installierte Version die gleiche oder neuer ist.</value>
   </data>
-  <data name="OptionGui" xml:space="preserve">
-    <value>Zeigt den grafischen Versionseditor an. Dies gestattet Ihnen die Version des Programmes oder der Bibliothek auszuwählen.</value>
-  </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Zeigt den eingebauten Hilfe-Text an.</value>
-  </data>
-  <data name="OptionNoFetch" xml:space="preserve">
-    <value>Lade die Anwendung selbst noch nicht herunter. Wird stattdessen bei der ersten Verwendung automatisch heruntergeladen.</value>
   </data>
   <data name="OptionMachine" xml:space="preserve">
     <value>Wende die Konfiguration Maschinenweit (auf dem ganzen Computer) anstatt nur für den aktuellen User an.</value>
@@ -510,6 +507,9 @@ Darf keine Befehlszeilenargumente enthalten! Leerzeichen müssen nicht escaped w
   </data>
   <data name="OptionManifest" xml:space="preserve">
     <value>Zeigt das Manifest selbst an (eine Zeile für jede Datei und jedes Verzeichnis).</value>
+  </data>
+  <data name="OptionNoFetch" xml:space="preserve">
+    <value>Lade die Anwendung selbst noch nicht herunter. Wird stattdessen bei der ersten Verwendung automatisch heruntergeladen.</value>
   </data>
   <data name="OptionNotBefore" xml:space="preserve">
     <value>Die Version der ausgewählten Implementierung muss nach {VERSION} liegen. Zum Beispiel können Sie damit eine Version 2.0 oder eine spätere starten, in dem Sie '--not-before=2.0' angeben.</value>

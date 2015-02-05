@@ -92,7 +92,7 @@ namespace ZeroInstall.Commands
         /// <remarks>Makes sure <see cref="ISolver"/> ran with up-to-date feeds before downloading any implementations.</remarks>
         protected void DownloadUncachedImplementations()
         {
-            if (ShowModifySelections || UncachedImplementations.Count != 0) ShowSelections();
+            if (CustomizeSelections || UncachedImplementations.Count != 0) ShowSelections();
 
             if (UncachedImplementations.Count != 0)
             {
