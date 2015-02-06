@@ -44,8 +44,8 @@ namespace ZeroInstall.Store.Model
         public void TestMerge()
         {
             var feed1 = new Feed {Uri = FeedTest.Test1Uri};
-            var feed2 = new Feed {Uri = new FeedUri(FeedTest.Test2Uri)};
-            var feed3 = new Feed {Uri = new FeedUri(FeedTest.Test3Uri)};
+            var feed2 = new Feed {Uri = FeedTest.Test2Uri};
+            var feed3 = new Feed {Uri = FeedTest.Test3Uri};
             var catalog1 = new Catalog {Feeds = {feed1, feed2}};
             var catalog2 = new Catalog {Feeds = {feed2, feed3}};
 

@@ -242,7 +242,7 @@ namespace ZeroInstall.Capture.Cli
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
         /// <returns>The error code to end the process with.</returns>
-        /// <exception cref="OperationCanceledException">The user cancelled the operation.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
         private static ErrorLevel Execute(ParseResults results)
         {
             switch (results.Command)

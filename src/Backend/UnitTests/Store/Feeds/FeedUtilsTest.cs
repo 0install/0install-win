@@ -38,7 +38,7 @@ namespace ZeroInstall.Store.Feeds
         {
             var feed1 = FeedTest.CreateTestFeed();
             var feed3 = FeedTest.CreateTestFeed();
-            feed3.Uri = new FeedUri(FeedTest.Test3Uri);
+            feed3.Uri = FeedTest.Test3Uri;
 
             var cacheMock = MockRepository.Create<IFeedCache>();
             cacheMock.Setup(x => x.ListAll()).Returns(new[] {FeedTest.Test1Uri, FeedTest.Test2Uri, FeedTest.Test3Uri});

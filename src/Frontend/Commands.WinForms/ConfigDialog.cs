@@ -172,7 +172,7 @@ namespace ZeroInstall.Commands.WinForms
             listBoxImplDirs.Items.Clear();
             var allDirs = StoreFactory.GetImplementationDirs();
             var userSpecifiedDirs = StoreFactory.GetCustomImplementationDirs(
-                Locations.GetSaveConfigPath("0install.net", true, "injector", "implementation-dirs"))
+                configPath: Locations.GetSaveConfigPath("0install.net", true, "injector", "implementation-dirs"))
                 .ToList();
             foreach (string implementationDir in allDirs)
             {

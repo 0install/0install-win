@@ -19,7 +19,6 @@ using Moq;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
@@ -66,7 +65,7 @@ namespace ZeroInstall.Commands
         public override void TestImportSelections()
         {
             var testFeed1 = FeedTest.CreateTestFeed();
-            testFeed1.Uri = new FeedUri(FeedTest.Sub1Uri);
+            testFeed1.Uri = FeedTest.Sub1Uri;
             testFeed1.Name = "Sub 1";
             FeedCacheMock.Setup(x => x.GetFeed(FeedTest.Sub1Uri)).Returns(testFeed1);
             var testImplementation1 = (Implementation)testFeed1.Elements[0];
@@ -74,7 +73,7 @@ namespace ZeroInstall.Commands
             var testImplementation2 = new Implementation {ID = "id2", ManifestDigest = new ManifestDigest(sha256: "abc"), Version = new ImplementationVersion("1.0")};
             var testFeed2 = new Feed
             {
-                Uri = new FeedUri(FeedTest.Sub2Uri),
+                Uri = FeedTest.Sub2Uri,
                 Name = "Sub 2",
                 Elements = {testImplementation2}
             };

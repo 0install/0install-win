@@ -48,11 +48,11 @@ namespace ZeroInstall.Store.Model.Preferences
             // Add some dummy feeds to the cache
             _feed1 = FeedTest.CreateTestFeed();
             _feed1.Uri = FeedTest.Test1Uri;
-            _feed1.SaveXml(Path.Combine(_tempDir, new FeedUri(_feed1.Uri).Escape()));
+            _feed1.SaveXml(Path.Combine(_tempDir, _feed1.Uri.Escape()));
             _feed1.Normalize(_feed1.Uri);
             _feed2 = FeedTest.CreateTestFeed();
-            _feed2.Uri = new FeedUri(FeedTest.Test2Uri);
-            _feed2.SaveXml(Path.Combine(_tempDir, new FeedUri(_feed2.Uri).Escape()));
+            _feed2.Uri = FeedTest.Test2Uri;
+            _feed2.SaveXml(Path.Combine(_tempDir, _feed2.Uri.Escape()));
             _feed2.Normalize(_feed2.Uri);
             File.WriteAllText(Path.Combine(_tempDir, "http_invalid"), "");
         }
@@ -132,7 +132,7 @@ namespace ZeroInstall.Store.Model.Preferences
         public void TestAdd()
         {
             var feed = FeedTest.CreateTestFeed();
-            feed.Uri = new FeedUri(FeedTest.Test3Uri);
+            feed.Uri = FeedTest.Test3Uri;
 
             _cache.Add(feed.Uri, feed.ToArray());
 

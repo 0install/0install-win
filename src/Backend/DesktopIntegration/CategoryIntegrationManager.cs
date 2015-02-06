@@ -40,7 +40,7 @@ namespace ZeroInstall.DesktopIntegration
     {
         #region Constants
         /// <summary>Indicates that all <see cref="Store.Model.Capabilities.Capability"/>s and <see cref="AccessPoint"/>s shall be integrated.</summary>
-        private const string AllCategoryName = "all";
+        public const string AllCategoryName = "all";
 
         /// <summary>A list of all known <see cref="AccessPoint"/> categories.</summary>
         public static readonly ICollection<string> Categories = new[] {CapabilityRegistration.CategoryName, DefaultAccessPoint.CategoryName, IconAccessPoint.CategoryName, AppAlias.CategoryName, AllCategoryName};

@@ -103,7 +103,7 @@ namespace ZeroInstall.Commands
             { // Determine interfaces from feed content (<feed-for> tags)
                 feedUri = GetCanonicalUri(AdditionalArgs[0]);
                 var feed = FeedManager.GetFeedFresh(feedUri);
-                return feed.FeedFor.Select(reference => reference.Target).WhereNotNull().Select(x => new FeedUri(x));
+                return feed.FeedFor.Select(reference => reference.Target).WhereNotNull();
             }
         }
         #endregion

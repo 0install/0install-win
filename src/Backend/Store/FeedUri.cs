@@ -109,6 +109,13 @@ namespace ZeroInstall.Store
         [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public FeedUri([NotNull] Uri value) : this(value.OriginalString)
         {}
+
+        /// <summary>
+        /// Passing a <see cref="FeedUri"/> instance into the <see cref="FeedUri"/> constructor does nothing useful. Just use the original object.
+        /// </summary>
+        [Obsolete("Passing a FeedUri instance into the FeedUri constructor does nothing useful. Just use the original object.")]
+        public FeedUri(FeedUri value) : this((Uri)value)
+        {}
         #endregion
 
         #region Serialization

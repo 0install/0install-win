@@ -1,7 +1,7 @@
 This folder contains an Inno Setup Script for creating a Windows installer.
 The resulting installer executable is placed in ..\build\Setup.
 
-The "build.cmd" script assumes "..\vs\build.cmd Release" has already been executed.
+The "build.cmd" script assumes "..\src\build.cmd Release" has already been executed.
 An external solver must be located at ..\bundled. Please consult the main "readme.txt" for details on how to get this.
 
 Code based on this project is used to add the install directory to the System PATH:

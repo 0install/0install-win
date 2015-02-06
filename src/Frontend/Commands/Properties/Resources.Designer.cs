@@ -431,7 +431,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reapplys all desktop integrations of applications in the application list..
+        ///   Looks up a localized string similar to Reapplies all desktop integrations of applications in the application list..
         /// </summary>
         public static string DescriptionRepairApps {
             get {

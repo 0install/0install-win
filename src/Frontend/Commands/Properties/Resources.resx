@@ -248,7 +248,7 @@ The file must have a trusted digital signature, as when fetching from the networ
     <value>Un-registers a feed, reversing the effect of '0install add-feed'.</value>
   </data>
   <data name="DescriptionRepairApps" xml:space="preserve">
-    <value>Reapplys all desktop integrations of applications in the application list.</value>
+    <value>Reapplies all desktop integrations of applications in the application list.</value>
   </data>
   <data name="DescriptionRun" xml:space="preserve">
     <value>Behaves similarly to '0install download', except that it also runs the program after ensuring it is in the cache.
