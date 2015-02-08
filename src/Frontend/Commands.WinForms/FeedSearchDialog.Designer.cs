@@ -32,10 +32,10 @@
             System.Windows.Forms.ToolStripSeparator separator1;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FeedSearchDialog));
             System.Windows.Forms.ToolStripSeparator separator2;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGrid = new System.Windows.Forms.DataGridView();
             this.columnUri = new System.Windows.Forms.DataGridViewLinkColumn();
             this.columnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,10 +51,12 @@
             this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.queryTimer = new System.Windows.Forms.Timer(this.components);
             this.labelInfo = new System.Windows.Forms.Label();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             separator1 = new System.Windows.Forms.ToolStripSeparator();
             separator2 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.contextMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // separator1
@@ -101,8 +103,8 @@
             // columnName
             // 
             this.columnName.DataPropertyName = "Name";
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnName.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.columnName.DefaultCellStyle = dataGridViewCellStyle9;
             resources.ApplyResources(this.columnName, "columnName");
             this.columnName.Name = "columnName";
             this.columnName.ReadOnly = true;
@@ -110,8 +112,8 @@
             // columnScore
             // 
             this.columnScore.DataPropertyName = "Score";
-            dataGridViewCellStyle2.NullValue = null;
-            this.columnScore.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.NullValue = null;
+            this.columnScore.DefaultCellStyle = dataGridViewCellStyle10;
             resources.ApplyResources(this.columnScore, "columnScore");
             this.columnScore.Name = "columnScore";
             this.columnScore.ReadOnly = true;
@@ -119,8 +121,8 @@
             // columnSummary
             // 
             this.columnSummary.DataPropertyName = "Summary";
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnSummary.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.columnSummary.DefaultCellStyle = dataGridViewCellStyle11;
             resources.ApplyResources(this.columnSummary, "columnSummary");
             this.columnSummary.Name = "columnSummary";
             this.columnSummary.ReadOnly = true;
@@ -128,8 +130,8 @@
             // columnCategories
             // 
             this.columnCategories.DataPropertyName = "CategoriesString";
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnCategories.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.columnCategories.DefaultCellStyle = dataGridViewCellStyle12;
             resources.ApplyResources(this.columnCategories, "columnCategories");
             this.columnCategories.Name = "columnCategories";
             this.columnCategories.ReadOnly = true;
@@ -191,6 +193,10 @@
             this.labelInfo.AutoEllipsis = true;
             this.labelInfo.Name = "labelInfo";
             // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
             // FeedSearchDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -201,6 +207,7 @@
             this.Name = "FeedSearchDialog";
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
             this.contextMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,5 +230,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn columnScore;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnSummary;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnCategories;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

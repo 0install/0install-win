@@ -71,7 +71,16 @@ namespace ZeroInstall.Commands.WinForms
 
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            dataGrid.DataSource = _results = ((SearchQuery)e.Result).Results;
+            if (e.Error == null)
+            {
+                errorProvider.Clear();
+                dataGrid.DataSource = _results = ((SearchQuery)e.Result).Results;
+            }
+            else
+            {
+                errorProvider.SetIconAlignment(textKeywords, ErrorIconAlignment.MiddleLeft);
+                errorProvider.SetError(textKeywords, e.Error.Message);
+            }
         }
 
         #region Context menu
