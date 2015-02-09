@@ -57,19 +57,13 @@ namespace ZeroInstall.Capture
 
             // Get registry path pointer
             string appRegName = snapshotDiff.RegisteredApplications[0];
-            var capabilitiesRegPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\" + DesktopIntegration.Windows.AppRegistration.RegKeyMachineRegisteredApplications, appRegName, "") as string;
+            var capabilitiesRegPath = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\" + DesktopIntegration.Windows.AppRegistration.RegKeyMachineRegisteredApplications, appRegName);
             if (string.IsNullOrEmpty(capabilitiesRegPath))
                 return null;
 
             bool x64;
-            using (var capsKey = RegUtils.OpenHklmKey(capabilitiesRegPath, out x64))
+            using (var capsKey = RegistryUtils.OpenHklmKey(capabilitiesRegPath, out x64))
             {
-                if (capsKey == null)
-                {
-                    Log.Warn(string.Format(Resources.InvalidCapabilitiesRegistryPath, capabilitiesRegPath));
-                    return null;
-                }
-
                 if (string.IsNullOrEmpty(appName)) appName = capsKey.GetValue(DesktopIntegration.Windows.AppRegistration.RegValueAppName, "").ToString();
                 if (string.IsNullOrEmpty(appDescription)) appDescription = capsKey.GetValue(DesktopIntegration.Windows.AppRegistration.RegValueAppDescription, "").ToString();
 

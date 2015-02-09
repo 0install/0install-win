@@ -195,7 +195,7 @@ namespace ZeroInstall.Capture
         {
             return (
                 from protocol in new[] {"ftp", "gopher", "http", "https"}
-                let command = Registry.GetValue(@"HKEY_CLASSES_ROOT\" + protocol + @"\shell\open\command", "", "") as string
+                let command = RegistryUtils.GetString(@"HKEY_CLASSES_ROOT\" + protocol + @"\shell\open\command", valueName: null)
                 where !string.IsNullOrEmpty(command)
                 select new ComparableTuple<string>(protocol, command)).ToArray();
         }

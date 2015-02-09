@@ -1,9 +1,6 @@
 ﻿using System;
-using System.IO;
-using System.Security;
 using JetBrains.Annotations;
 using Microsoft.Win32;
-using NanoByte.Common.Native;
 
 namespace ZeroInstall.Capture
 {
@@ -46,43 +43,6 @@ namespace ZeroInstall.Capture
 
             using (var contextMenuExtendedKey = root.OpenSubKey(key))
                 return contextMenuExtendedKey == null ? new string[0] : contextMenuExtendedKey.GetSubKeyNames();
-        }
-
-        /// <summary>
-        /// Opens a HKEY_LOCAL_MACHINE key in the registry for reading, first trying to find the 64-bit version of it, then falling back to the 32-bit version.
-        /// </summary>
-        /// <param name="keyPath">The path to the key below HKEY_LOCAL_MACHINE.</param>
-        /// <param name="x64">Indicates whether a 64-bit key was opened.</param>
-        /// <returns>The opened registry key or <see langword="null"/> if it could not found.</returns>
-        /// <exception cref="IOException">There was an error accessing the registry.</exception>
-        /// <exception cref="UnauthorizedAccessException">Access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Access to the registry was not permitted.</exception>
-        [CanBeNull]
-        public static RegistryKey OpenHklmKey([NotNull] string keyPath, out bool x64)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(keyPath)) throw new ArgumentNullException("keyPath");
-            #endregion
-
-            if (WindowsUtils.Is64BitProcess)
-            {
-                var result = Registry.LocalMachine.OpenSubKey(keyPath);
-                if (result != null)
-                {
-                    x64 = true;
-                    return result;
-                }
-                else
-                {
-                    x64 = false;
-                    return Registry.LocalMachine.OpenSubKey(@"WOW6432Node\" + keyPath);
-                }
-            }
-            else
-            {
-                x64 = false;
-                return Registry.LocalMachine.OpenSubKey(keyPath);
-            }
         }
     }
 }

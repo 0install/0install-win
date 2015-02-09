@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using Microsoft.Win32;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
@@ -132,14 +131,14 @@ namespace ZeroInstall.Services.PackageManagers
         private static IEnumerable<KeyValuePair<Architecture, string>> GetRegistredPaths(string registrySuffix, string valueName)
         {
             // Check for system native architecture (may be 32-bit or 64-bit)
-            string path = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\" + registrySuffix, valueName, null) as string;
+            string path = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\" + registrySuffix, valueName);
             if (!string.IsNullOrEmpty(path))
                 yield return new KeyValuePair<Architecture, string>(Architecture.CurrentSystem, path);
 
             // Check for 32-bit on a 64-bit system
             if (WindowsUtils.Is64BitProcess)
             {
-                path = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\" + registrySuffix, valueName, null) as string;
+                path = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\" + registrySuffix, valueName);
                 if (!string.IsNullOrEmpty(path))
                     yield return new KeyValuePair<Architecture, string>(new Architecture(OS.Windows, Cpu.I486), path);
             }
@@ -148,8 +147,8 @@ namespace ZeroInstall.Services.PackageManagers
         // Uses detection logic described here: http://msdn.microsoft.com/library/hh925568
         private IEnumerable<ExternalImplementation> FindNetFx(ImplementationVersion version, string clrVersion, string registryVersion, int releaseNumber = 0)
         {
-            int install = GetDword(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\" + registryVersion, "Install", 0);
-            int release = GetDword(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\" + registryVersion, "Release", 0);
+            int install = RegistryUtils.GetDword(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\" + registryVersion, "Install");
+            int release = RegistryUtils.GetDword(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\" + registryVersion, "Release");
             if (install == 1 && release >= releaseNumber)
             {
                 yield return new ExternalImplementation(DistributionName, "netfx", version, Architecture.CurrentSystem)
@@ -160,11 +159,6 @@ namespace ZeroInstall.Services.PackageManagers
                     QuickTestFile = Path.Combine(WindowsUtils.GetNetFxDirectory(clrVersion), "mscorlib.dll")
                 };
             }
-        }
-
-        private static int GetDword(string key, string value, int defaultValue)
-        {
-            return Registry.GetValue(key, value, defaultValue) as int? ?? defaultValue;
         }
     }
 }

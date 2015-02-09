@@ -25,7 +25,6 @@ using System.Security;
 using System.Threading;
 using System.Windows.Forms;
 using JetBrains.Annotations;
-using Microsoft.Win32;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
@@ -96,14 +95,14 @@ namespace ZeroInstall.Central.WinForms
             {
                 if (WindowsUtils.IsAdministrator)
                 {
-                    Registry.SetValue(hklmKey, value, Locations.InstallBase, RegistryValueKind.String);
-                    if (WindowsUtils.Is64BitProcess) Registry.SetValue(hklmWowKey, value, Locations.InstallBase, RegistryValueKind.String);
+                    RegistryUtils.SetString(hklmKey, value, Locations.InstallBase);
+                    if (WindowsUtils.Is64BitProcess) RegistryUtils.SetString(hklmWowKey, value, Locations.InstallBase);
                 }
 
                 // Only set HKCU value if there is an existing incorrect value
-                if (((Registry.GetValue(hklmKey, value, Locations.InstallBase) ?? "").ToString() != Locations.InstallBase) ||
-                    ((Registry.GetValue(hkcuKey, value, Locations.InstallBase) ?? "").ToString() != Locations.InstallBase))
-                    Registry.SetValue(hkcuKey, value, Locations.InstallBase, RegistryValueKind.String);
+                if (((RegistryUtils.GetString(hklmKey, value, defaultValue: Locations.InstallBase)) != Locations.InstallBase) ||
+                    ((RegistryUtils.GetString(hkcuKey, value, defaultValue: Locations.InstallBase)) != Locations.InstallBase))
+                    RegistryUtils.SetString(hkcuKey, value, Locations.InstallBase);
             }
                 #region Error handling
             catch (SecurityException)

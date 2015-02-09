@@ -22,6 +22,7 @@ using System.Linq;
 using System.Security;
 using JetBrains.Annotations;
 using Microsoft.Win32;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
@@ -55,7 +56,7 @@ namespace ZeroInstall.Capture
                     capabilities.Entries.Add(new UrlProtocol
                     {
                         ID = protocol,
-                        Descriptions = {Registry.GetValue(@"HKEY_CLASSES_ROOT\" + protocol, "", "") as string},
+                        Descriptions = {RegistryUtils.GetString(@"HKEY_CLASSES_ROOT\" + protocol, valueName: null, defaultValue: protocol)},
                         Verbs = {GetVerb(protocolKey, commandMapper, "open")}
                     });
                 }

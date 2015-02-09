@@ -27,7 +27,6 @@ using System.Security.Cryptography;
 using System.ServiceProcess;
 using System.Threading;
 using JetBrains.Annotations;
-using Microsoft.Win32;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
@@ -210,7 +209,7 @@ namespace ZeroInstall.Updater
             var filesToDelete = new List<string>();
 
             string userProgams = Environment.GetFolderPath(Environment.SpecialFolder.Programs);
-            string commonPrograms = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Programs", "").ToString();
+            string commonPrograms = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Programs");
 
             if (NewVersion >= new Version("2.3.6"))
             {
@@ -268,7 +267,7 @@ namespace ZeroInstall.Updater
                 try
                 {
                     // Check if the target path is the same as the Inno Setup installation directory
-                    var installationDirectory = Registry.GetValue(InnoSetupRegKey, "Inno Setup: App Path", "") as string;
+                    var installationDirectory = RegistryUtils.GetString(InnoSetupRegKey, "Inno Setup: App Path");
                     return (installationDirectory == Target);
                 }
                 catch (SecurityException)
@@ -314,11 +313,11 @@ namespace ZeroInstall.Updater
             try
             {
                 // Update the Uninstall version entry
-                Registry.SetValue(InnoSetupRegKey, "DisplayVersion", NewVersion, RegistryValueKind.String);
+                RegistryUtils.SetString(InnoSetupRegKey, "DisplayVersion", NewVersion.ToString());
 
-                // Store installation location in registry to allow other applications or bootstrappers to locate Zero Install
-                Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install", "InstallLocation", Target, RegistryValueKind.String);
-                if (WindowsUtils.Is64BitProcess) Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Zero Install", "InstallLocation", Target, RegistryValueKind.String);
+                // Store SetString location in registry to allow other applications or bootstrappers to locate Zero Install
+                RegistryUtils.SetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install", "InstallLocation", Target);
+                if (WindowsUtils.Is64BitProcess) RegistryUtils.SetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Zero Install", "InstallLocation", Target);
             }
                 #region Error handling
             catch (SecurityException ex)
