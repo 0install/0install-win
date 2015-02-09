@@ -72,7 +72,7 @@ namespace ZeroInstall.DesktopIntegration
                         // Group all entry points in a single folder
                         Category = (category == null) ? feed.Name : category + "/" + feed.Name,
                         Command = entryPoint.Command
-                    }).Distinct(x => x.Name);
+                    }).DistinctBy(x => x.Name);
             }
         }
 
@@ -118,7 +118,7 @@ namespace ZeroInstall.DesktopIntegration
                     {
                         Name = entryPoint.BinaryName ?? entryPoint.Command,
                         Command = entryPoint.Command
-                    }).Distinct(x => x.Name);
+                    }).DistinctBy(x => x.Name);
             }
         }
     }

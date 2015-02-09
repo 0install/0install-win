@@ -171,7 +171,7 @@ namespace ZeroInstall.Publish
             feed.Icons.AddRange(_icons);
 
             foreach (var candidate in _candidates.Except(MainCandidate)
-                .Distinct(x => x.CreateCommand().Name))
+                .DistinctBy(x => x.CreateCommand().Name))
             {
                 var command = candidate.CreateCommand();
                 implementation.Commands.Add(command);
