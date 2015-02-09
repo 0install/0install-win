@@ -508,7 +508,7 @@ May not contain command-line arguments! Whitespaces do not need to be escaped.</
   <data name="OptionManifest" xml:space="preserve">
     <value>Display the manifest itself (one line for each file or directory).</value>
   </data>
-  <data name="OptionNoFetch" xml:space="preserve">
+  <data name="OptionNoDownload" xml:space="preserve">
     <value>Do not download the application itself yet. Will be automatically downloaded on first use instead.</value>
   </data>
   <data name="OptionNotBefore" xml:space="preserve">

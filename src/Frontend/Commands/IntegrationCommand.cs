@@ -25,7 +25,7 @@ namespace ZeroInstall.Commands
             Options.Add("o|offline", () => Resources.OptionOffline, _ => Config.NetworkUse = NetworkLevel.Offline);
             Options.Add("r|refresh", () => Resources.OptionRefresh, _ => FeedManager.Refresh = true);
 
-            Options.Add("no-fetch", () => Resources.OptionNoFetch, _ => _noFetch = true);
+            Options.Add("no-download", () => Resources.OptionNoDownload, _ => _noDownload = true);
 
             Options.Add("m|machine", () => Resources.OptionMachine, _ => MachineWide = true);
         }
@@ -33,7 +33,7 @@ namespace ZeroInstall.Commands
 
         #region State
         /// <summary>Do not download the application itself yet.</summary>
-        private bool _noFetch;
+        private bool _noDownload;
 
         /// <summary>Apply the operation machine-wide instead of just for the current user.</summary>
         protected bool MachineWide;
@@ -127,7 +127,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         private void PreDownload([NotNull] FeedUri interfaceUri)
         {
-            if (!_noFetch && Config.NetworkUse == NetworkLevel.Full)
+            if (!_noDownload && Config.NetworkUse == NetworkLevel.Full)
             {
                 ProcessUtils.LaunchAssembly(
                     /*MonoUtils.IsUnix ? "0install-gtk" :*/ "0install-win",

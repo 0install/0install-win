@@ -508,7 +508,7 @@ Darf keine Befehlszeilenargumente enthalten! Leerzeichen müssen nicht escaped w
   <data name="OptionManifest" xml:space="preserve">
     <value>Zeigt das Manifest selbst an (eine Zeile für jede Datei und jedes Verzeichnis).</value>
   </data>
-  <data name="OptionNoFetch" xml:space="preserve">
+  <data name="OptionNoDownload" xml:space="preserve">
     <value>Lade die Anwendung selbst noch nicht herunter. Wird stattdessen bei der ersten Verwendung automatisch heruntergeladen.</value>
   </data>
   <data name="OptionNotBefore" xml:space="preserve">
