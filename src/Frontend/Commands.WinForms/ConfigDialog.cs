@@ -189,7 +189,7 @@ namespace ZeroInstall.Commands.WinForms
 
             listBoxCatalogSources.Items.Clear();
             // ReSharper disable once CoVariantArrayConversion
-            listBoxCatalogSources.Items.AddRange(CatalogManager.GetCatalogSources());
+            listBoxCatalogSources.Items.AddRange(CatalogManager.GetSources());
 
             treeViewTrustedKeys.Nodes = TrustDB.LoadSafe().ToNodes();
         }
@@ -199,7 +199,7 @@ namespace ZeroInstall.Commands.WinForms
             StoreFactory.SetUserCustomImplementationDirs(
                 listBoxImplDirs.Items.OfType<DirectoryStore>().Select(x => x.DirectoryPath));
 
-            CatalogManager.SetCatalogSources(
+            CatalogManager.SetSources(
                 listBoxCatalogSources.Items.OfType<FeedUri>());
 
             treeViewTrustedKeys.Nodes.ToTrustDB().Save();

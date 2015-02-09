@@ -20,6 +20,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using JetBrains.Annotations;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
@@ -49,5 +50,23 @@ namespace ZeroInstall.Services.Feeds
         /// <exception cref="UriFormatException">An invalid catalog source is specified in the configuration file.</exception>
         [NotNull, SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs network IO and has side-effects")]
         Catalog GetOnline();
+
+        /// <summary>
+        /// Adds a new source to download <see cref="Catalog"/> files from.
+        /// </summary>
+        /// <param name="uri">The URI of the source to add.</param>
+        /// <exception cref="IOException">There was a problem accessing a configuration file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to a configuration file was not permitted.</exception>
+        /// <exception cref="UriFormatException">An invalid catalog source is specified in the configuration file.</exception>
+        void AddSource([NotNull] FeedUri uri);
+
+        /// <summary>
+        /// Removes an existing source of <see cref="Catalog"/> files.
+        /// </summary>
+        /// <param name="uri">The URI of the source to remove.</param>
+        /// <exception cref="IOException">There was a problem accessing a configuration file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to a configuration file was not permitted.</exception>
+        /// <exception cref="UriFormatException">An invalid catalog source is specified in the configuration file.</exception>
+        void RemoveSource([NotNull] FeedUri uri);
     }
 }

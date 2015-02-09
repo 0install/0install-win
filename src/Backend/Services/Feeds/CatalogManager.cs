@@ -87,7 +87,7 @@ namespace ZeroInstall.Services.Feeds
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs network IO and has side-effects")]
         public Catalog GetOnline()
         {
-            var catalogs = GetCatalogSources().Select(source => source.IsFile
+            var catalogs = GetSources().Select(source => source.IsFile
                 ? XmlStorage.LoadXml<Catalog>(source.LocalPath)
                 : DownloadCatalog(source));
             var catalog = Catalog.Merge(catalogs);
@@ -132,6 +132,22 @@ namespace ZeroInstall.Services.Feeds
             return XmlStorage.LoadXml<Catalog>(new MemoryStream(data));
         }
 
+        /// <inheritdoc/>
+        public void AddSource(FeedUri uri)
+        {
+            var sources = GetSources().ToList();
+            sources.AddIfNew(uri);
+            SetSources(sources);
+        }
+
+        /// <inheritdoc/>
+        public void RemoveSource(FeedUri uri)
+        {
+            var sources = GetSources().ToList();
+            sources.Remove(uri);
+            SetSources(sources);
+        }
+
         /// <summary>
         /// Returns a list of catalog sources as defined by configuration files.
         /// </summary>
@@ -141,7 +157,7 @@ namespace ZeroInstall.Services.Feeds
         /// <exception cref="UriFormatException">An invalid catalog source is specified in the configuration file.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reads data from a config file with no caching")]
         [NotNull, ItemNotNull]
-        public static FeedUri[] GetCatalogSources()
+        public static FeedUri[] GetSources()
         {
             var path = Locations.GetLoadConfigPaths("0install.net", true, "catalog-sources").FirstOrDefault();
             if (string.IsNullOrEmpty(path)) return new[] {DefaultSource};
@@ -159,7 +175,7 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="uris">The list of catalog sources to use from now on.</param>
         /// <exception cref="IOException">There was a problem writing a configuration file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to a configuration file was not permitted.</exception>
-        public static void SetCatalogSources([NotNull, ItemNotNull, InstantHandle] IEnumerable<FeedUri> uris)
+        public static void SetSources([NotNull, ItemNotNull, InstantHandle] IEnumerable<FeedUri> uris)
         {
             #region Sanity checks
             if (uris == null) throw new ArgumentNullException("uris");
