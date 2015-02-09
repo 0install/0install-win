@@ -30,7 +30,7 @@ Konzeptuell können Sie sich vorstellen, dass die Software nur auf einem Server 
 		<command name="0store-win" path="0store-win.exe">
 			<runner interface="http://0install.de/feeds/cli/cli.xml" />
 		</command>
-		<implementation version="2.7.0-post-1" stability="testing" id="local-release" local-path="build/Release/Frontend" />
-		<implementation version="2.7.0-post-2" stability="developer" id="local-debug" local-path="build/Debug/Frontend" />
+		<implementation version="2.7.1-post-1" stability="testing" id="local-release" local-path="build/Release/Frontend" />
+		<implementation version="2.7.1-post-2" stability="developer" id="local-debug" local-path="build/Debug/Frontend" />
 	</group>
 </interface>
