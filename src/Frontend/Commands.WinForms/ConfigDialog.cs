@@ -16,7 +16,7 @@
  */
 
 using System;
-using System.IO;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using NanoByte.Common;
@@ -47,7 +47,11 @@ namespace ZeroInstall.Commands.WinForms
 
             _config = config;
             ConfigToControls();
-            LoadAdditionalConfig();
+            LoadImplementationDirs();
+
+            LoadCatalogSources();
+
+            LoadTrust();
 
             panelTrustedKeys.Controls.Add(treeViewTrustedKeys);
             treeViewTrustedKeys.CheckedEntriesChanged += treeViewTrustedKeys_CheckedEntriesChanged;
@@ -83,7 +87,7 @@ namespace ZeroInstall.Commands.WinForms
         }
         #endregion
 
-        #region Config
+        #region General
         private readonly Config _config;
 
         private void ConfigToControls()
@@ -125,151 +129,79 @@ namespace ZeroInstall.Commands.WinForms
             propertyGridAdvanced.Refresh();
         }
 
-        private void checkBoxAutoApproveKeys_CheckedChanged(object sender, EventArgs e)
-        {
-            _config.AutoApproveKeys = checkBoxAutoApproveKeys.Checked;
-            propertyGridAdvanced.Refresh();
-        }
-
-        private void textBoxSyncServer_TextChanged(object sender, EventArgs e)
-        {
-            if (textBoxSyncServer.IsValid) _config.SyncServer = textBoxSyncServer.Uri;
-            propertyGridAdvanced.Refresh();
-        }
-
-        private void textBoxSyncUsername_TextChanged(object sender, EventArgs e)
-        {
-            _config.SyncServerUsername = textBoxSyncUsername.Text;
-            propertyGridAdvanced.Refresh();
-        }
-
-        private void textBoxSyncPassword_TextChanged(object sender, EventArgs e)
-        {
-            _config.SyncServerPassword = textBoxSyncPassword.Text;
-            propertyGridAdvanced.Refresh();
-        }
-
-        private void textBoxSyncCryptoKey_TextChanged(object sender, EventArgs e)
-        {
-            _config.SyncCryptoKey = textBoxSyncCryptoKey.Text;
-            propertyGridAdvanced.Refresh();
-        }
-
-        private void propertyGridAdvanced_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
-        {
-            ConfigToControls();
-        }
-        #endregion
-
-        #region Additional config
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            SaveAdditionalConfig();
-        }
-
-        private void LoadAdditionalConfig()
-        {
-            listBoxImplDirs.Items.Clear();
-            var allDirs = StoreFactory.GetImplementationDirs();
-            var userSpecifiedDirs = StoreFactory.GetCustomImplementationDirs(
-                configPath: Locations.GetSaveConfigPath("0install.net", true, "injector", "implementation-dirs"))
-                .ToList();
-            foreach (string implementationDir in allDirs)
-            {
-                // Differentiate between...
-                if (userSpecifiedDirs.Contains(implementationDir))
-                { // ... directories that can be modified (because they are listed in the user config)...
-                    listBoxImplDirs.Items.Add(new DirectoryStore(implementationDir));
-                }
-                else
-                { // ... and those that cannot
-                    listBoxImplDirs.Items.Add(implementationDir);
-                }
-            }
-
-            listBoxCatalogSources.Items.Clear();
-            // ReSharper disable once CoVariantArrayConversion
-            listBoxCatalogSources.Items.AddRange(CatalogManager.GetSources());
-
-            treeViewTrustedKeys.Nodes = TrustDB.LoadSafe().ToNodes();
-        }
-
-        private void SaveAdditionalConfig()
-        {
-            StoreFactory.SetUserCustomImplementationDirs(
-                listBoxImplDirs.Items.OfType<DirectoryStore>().Select(x => x.DirectoryPath));
-
-            CatalogManager.SetSources(
-                listBoxCatalogSources.Items.OfType<FeedUri>());
-
-            treeViewTrustedKeys.Nodes.ToTrustDB().Save();
+            SaveImplementationDirs();
+            SaveCatalogSources();
+            SaveTrust();
         }
         #endregion
 
-        //--------------------//
-
         #region Storage
+        private IEnumerable<string> _systemImplDirs;
+
+        private void LoadImplementationDirs()
+        {
+            var allImplDirs = StoreFactory.GetImplementationDirs().ToList();
+            var userImplDirs = StoreFactory.GetCustomImplementationDirs(configPath: Locations.GetSaveConfigPath("0install.net", true, "injector", "implementation-dirs"));
+            _systemImplDirs = allImplDirs.Except(userImplDirs);
+
+            listBoxImplDirs.Items.Clear();
+            listBoxImplDirs.Items.AddRange(allImplDirs.Cast<object>().ToArray());
+        }
+
+        private void SaveImplementationDirs()
+        {
+            StoreFactory.SetUserCustomImplementationDirs(
+                listBoxImplDirs.Items.Cast<string>().Except(_systemImplDirs));
+        }
+
         private void listBoxImplDirs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Enable go to button if there is exactly one object selected
             buttonGoToImplDir.Enabled = (listBoxImplDirs.SelectedItems.Count == 1);
-
-            // Enable remove button if there is at least one removable object selected
-            buttonRemoveImplDir.Enabled = listBoxImplDirs.SelectedItems.OfType<DirectoryStore>().Any();
+            buttonRemoveImplDir.Enabled = (listBoxImplDirs.SelectedItems.Count >= 1) && listBoxImplDirs.SelectedItems.Cast<string>().All(x => !_systemImplDirs.Contains(x));
         }
 
         private void buttonGoToImplDir_Click(object sender, EventArgs e)
         {
-            Program.OpenInBrowser(this, listBoxImplDirs.SelectedItem.ToString());
+            Program.OpenInBrowser(this, (string)listBoxImplDirs.SelectedItem);
         }
 
         private void buttonAddImplDir_Click(object sender, EventArgs e)
         {
             if (implDirBrowserDialog.ShowDialog(this) != DialogResult.OK) return;
 
-            DirectoryStore newStore;
-            try
-            {
-                newStore = new DirectoryStore(implDirBrowserDialog.SelectedPath);
-                if (Directory.GetFileSystemEntries(newStore.DirectoryPath).Length != 0)
-                {
-                    // TODO: newStore.Audit()
-                }
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            #endregion
-
-            // Insert after default location in user profile
-            listBoxImplDirs.Items.Insert(1, newStore);
+            listBoxImplDirs.Items.Insert(1, implDirBrowserDialog.SelectedPath);
         }
 
         private void buttonRemoveImplDir_Click(object sender, EventArgs e)
         {
-            // Remove all selected items that are DirectoryStores and not plain strings
-            var toRemove = listBoxImplDirs.SelectedItems.OfType<DirectoryStore>().ToList();
+            var toRemove = listBoxImplDirs.SelectedItems.Cast<string>().ToList();
 
-            if (!Msg.YesNo(this, string.Format(Resources.RemoveSelectedEntries, toRemove.Count), MsgSeverity.Warn)) return;
-            foreach (var store in toRemove) listBoxImplDirs.Items.Remove(store);
+            if (Msg.YesNo(this, string.Format(Resources.RemoveSelectedEntries, toRemove.Count), MsgSeverity.Warn))
+            {
+                foreach (var store in toRemove)
+                    listBoxImplDirs.Items.Remove(store);
+            }
         }
         #endregion
 
         #region Catalog
+        private void LoadCatalogSources()
+        {
+            listBoxCatalogSources.Items.Clear();
+            listBoxCatalogSources.Items.AddRange(CatalogManager.GetSources().Cast<object>().ToArray());
+        }
+
+        private void SaveCatalogSources()
+        {
+            CatalogManager.SetSources(
+                listBoxCatalogSources.Items.OfType<FeedUri>());
+        }
+
         private void listBoxCatalogSources_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Enable go to button if there is exactly one object selected
             buttonGoToCatalogSource.Enabled = (listBoxCatalogSources.SelectedItems.Count == 1);
-
-            // Enable remove button if there is at least one object selected
             buttonRemoveCatalogSource.Enabled = (listBoxCatalogSources.SelectedItems.Count >= 1);
         }
 
@@ -317,15 +249,23 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Trust
+        private void LoadTrust()
+        {
+            treeViewTrustedKeys.Nodes = TrustDB.LoadSafe().ToNodes();
+        }
+
+        private void SaveTrust()
+        {
+            treeViewTrustedKeys.Nodes.ToTrustDB().Save();
+        }
+
         private void treeViewTrustedKeys_CheckedEntriesChanged(object sender, EventArgs e)
         {
-            // Enable remove button when there are checked elements
             buttonRemoveTrustedKey.Enabled = (treeViewTrustedKeys.CheckedEntries.Count != 0);
         }
 
         private void buttonRemoveTrustedKey_Click(object sender, EventArgs e)
         {
-            // Copy to prevent enumerator from becoming invalid due to removals
             var checkedNodes = treeViewTrustedKeys.CheckedEntries.ToList();
 
             if (Msg.YesNo(this, string.Format(Resources.RemoveCheckedKeys, checkedNodes.Count), MsgSeverity.Warn))
@@ -333,6 +273,12 @@ namespace ZeroInstall.Commands.WinForms
                 foreach (var node in checkedNodes)
                     treeViewTrustedKeys.Nodes.Remove(node);
             }
+        }
+
+        private void checkBoxAutoApproveKeys_CheckedChanged(object sender, EventArgs e)
+        {
+            _config.AutoApproveKeys = checkBoxAutoApproveKeys.Checked;
+            propertyGridAdvanced.Refresh();
         }
         #endregion
 
@@ -348,6 +294,30 @@ namespace ZeroInstall.Commands.WinForms
         {
             Msg.Inform(this, Resources.SyncCryptoKeyDescription, MsgSeverity.Info);
         }
+
+        private void textBoxSyncServer_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxSyncServer.IsValid) _config.SyncServer = textBoxSyncServer.Uri;
+            propertyGridAdvanced.Refresh();
+        }
+
+        private void textBoxSyncUsername_TextChanged(object sender, EventArgs e)
+        {
+            _config.SyncServerUsername = textBoxSyncUsername.Text;
+            propertyGridAdvanced.Refresh();
+        }
+
+        private void textBoxSyncPassword_TextChanged(object sender, EventArgs e)
+        {
+            _config.SyncServerPassword = textBoxSyncPassword.Text;
+            propertyGridAdvanced.Refresh();
+        }
+
+        private void textBoxSyncCryptoKey_TextChanged(object sender, EventArgs e)
+        {
+            _config.SyncCryptoKey = textBoxSyncCryptoKey.Text;
+            propertyGridAdvanced.Refresh();
+        }
         #endregion
 
         #region Advanced
@@ -355,6 +325,11 @@ namespace ZeroInstall.Commands.WinForms
         {
             labelAdvancedWarning.Visible = buttonAdvancedShow.Visible = false;
             propertyGridAdvanced.Visible = true;
+        }
+
+        private void propertyGridAdvanced_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            ConfigToControls();
         }
         #endregion
     }
