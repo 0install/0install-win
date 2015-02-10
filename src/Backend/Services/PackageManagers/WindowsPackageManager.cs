@@ -147,6 +147,7 @@ namespace ZeroInstall.Services.PackageManagers
         // Uses detection logic described here: http://msdn.microsoft.com/library/hh925568
         private IEnumerable<ExternalImplementation> FindNetFx(ImplementationVersion version, string clrVersion, string registryVersion, int releaseNumber = 0)
         {
+            // Check for system native architecture (may be 32-bit or 64-bit)
             int install = RegistryUtils.GetDword(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\" + registryVersion, "Install");
             int release = RegistryUtils.GetDword(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\" + registryVersion, "Release");
             if (install == 1 && release >= releaseNumber)
@@ -158,6 +159,23 @@ namespace ZeroInstall.Services.PackageManagers
                     IsInstalled = true,
                     QuickTestFile = Path.Combine(WindowsUtils.GetNetFxDirectory(clrVersion), "mscorlib.dll")
                 };
+            }
+
+            // Check for 32-bit on a 64-bit system
+            if (WindowsUtils.Is64BitProcess)
+            {
+                install = RegistryUtils.GetDword(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\NET Framework Setup\NDP\" + registryVersion, "Install");
+                release = RegistryUtils.GetDword(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\NET Framework Setup\NDP\" + registryVersion, "Release");
+                if (install == 1 && release >= releaseNumber)
+                {
+                    yield return new ExternalImplementation(DistributionName, "netfx", version, new Architecture(OS.Windows, Cpu.I486))
+                    {
+                        // .NET executables do not need a runner on Windows
+                        Commands = {new Command {Name = Command.NameRun, Path = ""}},
+                        IsInstalled = true,
+                        QuickTestFile = Path.Combine(WindowsUtils.GetNetFxDirectory(clrVersion), "mscorlib.dll")
+                    };
+                }
             }
         }
     }
