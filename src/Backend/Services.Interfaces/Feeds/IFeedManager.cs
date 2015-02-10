@@ -58,6 +58,13 @@ namespace ZeroInstall.Services.Feeds
         Feed GetFeed([NotNull] FeedUri feedUri);
 
         /// <summary>
+        /// Determines whether there is a stale cached copy of a particular feed.
+        /// </summary>
+        /// <param name="feedUri">The ID used to identify the feed. Must be an HTTP(S) URL.</param>
+        /// <returns><see langword="true"/> if there is a stale copy in the cache or no copy at all; <see langword="false"/> if there is a fresh copy in the cache.</returns>
+        bool IsStale([NotNull] FeedUri feedUri);
+
+        /// <summary>
         /// Imports a remote <see cref="Feed"/> into the <see cref="IFeedCache"/> after verifying its signature.
         /// </summary>
         /// <param name="path">The path of a local copy of the feed.</param>

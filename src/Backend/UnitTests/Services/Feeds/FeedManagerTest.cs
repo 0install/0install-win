@@ -81,6 +81,8 @@ namespace ZeroInstall.Services.Feeds
                 var data = feedStream.ToArray();
                 feedStream.Position = 0;
 
+                Assert.IsTrue(Target.IsStale(feed.Uri), "Non-cached feeds should be reported as stale");
+
                 // No previous feed
                 _feedCacheMock.Setup(x => x.Contains(feed.Uri)).Returns(false);
                 _feedCacheMock.Setup(x => x.GetSignatures(feed.Uri)).Throws<KeyNotFoundException>();
@@ -128,6 +130,7 @@ namespace ZeroInstall.Services.Feeds
             _feedCacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(feed);
             new FeedPreferences {LastChecked = DateTime.UtcNow}.SaveFor(FeedTest.Test1Uri);
 
+            Assert.IsFalse(Target.IsStale(FeedTest.Test1Uri));
             Assert.AreSame(feed, Target.GetFeed(FeedTest.Test1Uri));
             Assert.IsFalse(Target.Stale);
         }
@@ -165,6 +168,7 @@ namespace ZeroInstall.Services.Feeds
             _feedCacheMock.Setup(x => x.GetFeed(FeedTest.Test1Uri)).Returns(feed);
             new FeedPreferences {LastChecked = DateTime.UtcNow - Resolve<Config>().Freshness}.SaveFor(FeedTest.Test1Uri);
 
+            Assert.IsTrue(Target.IsStale(FeedTest.Test1Uri));
             Assert.AreSame(feed, Target.GetFeed(FeedTest.Test1Uri));
             Assert.IsTrue(Target.Stale);
         }

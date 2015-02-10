@@ -184,8 +184,13 @@ namespace ZeroInstall.Services.Feeds
             #endregion
         }
 
-        private bool IsStale(FeedUri feedUri)
+        /// <inheritdoc/>
+        public bool IsStale(FeedUri feedUri)
         {
+            #region Sanity checks
+            if (feedUri == null) throw new ArgumentNullException("feedUri");
+            #endregion
+
             if (_config.NetworkUse != NetworkLevel.Full) return false;
 
             var preferences = FeedPreferences.LoadForSafe(feedUri);
