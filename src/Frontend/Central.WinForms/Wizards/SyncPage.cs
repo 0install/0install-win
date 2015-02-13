@@ -22,6 +22,7 @@ using NanoByte.Common.Controls;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Commands;
+using ZeroInstall.Commands.FrontendCommands;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;

@@ -93,15 +93,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CommandFactoryTest.cs" />
-    <Compile Include="Commands\FrontendCommandTest.cs" />
-    <Compile Include="Commands\DownloadTest.cs" />
-    <Compile Include="Commands\ListTest.cs" />
+    <Compile Include="Commands\FrontendCommands\DownloadTest.cs" />
+    <Compile Include="Commands\FrontendCommands\FrontendCommandTest.cs" />
+    <Compile Include="Commands\FrontendCommands\ListTest.cs" />
+    <Compile Include="Commands\FrontendCommands\RunTest.cs" />
+    <Compile Include="Commands\FrontendCommands\SelectionTest.cs" />
+    <Compile Include="Commands\FrontendCommands\SelectionTestBase.cs" />
+    <Compile Include="Commands\FrontendCommands\StoreManTest.cs" />
+    <Compile Include="Commands\FrontendCommands\UpdateTest.cs" />
     <Compile Include="Commands\MockCommandHandler.cs" />
-    <Compile Include="Commands\RunTest.cs" />
-    <Compile Include="Commands\SelectionTest.cs" />
-    <Compile Include="Commands\SelectionTestBase.cs" />
-    <Compile Include="Commands\StoreManTest.cs" />
-    <Compile Include="Commands\UpdateTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using NDesk.Options;
+using ZeroInstall.Commands.FrontendCommands;
 using ZeroInstall.Commands.Properties;
 
 namespace ZeroInstall.Commands

@@ -30,6 +30,7 @@ using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Commands.FrontendCommands;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementations;

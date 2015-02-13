@@ -20,6 +20,7 @@ using System.Windows.Forms;
 using NanoByte.Common.Controls;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.Commands;
+using ZeroInstall.Commands.FrontendCommands;
 
 namespace ZeroInstall.Central.WinForms
 {

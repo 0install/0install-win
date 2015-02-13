@@ -27,6 +27,7 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Central.WinForms.Properties;
+using ZeroInstall.Commands.FrontendCommands;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Icons;
@@ -233,13 +234,13 @@ namespace ZeroInstall.Central.WinForms
         {
             if (InterfaceUri.IsFake) return;
             if (Feed != null && Feed.NeedsTerminal) new SelectCommandDialog(Feed).Show(this);
-            else Program.RunCommand(Commands.Run.Name, "--no-wait", InterfaceUri.ToStringRfc());
+            else Program.RunCommand(Run.Name, "--no-wait", InterfaceUri.ToStringRfc());
         }
 
         private void buttonSelectVersion_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
-            Program.RunCommand(Commands.Run.Name, "--no-wait", "--customize", InterfaceUri.ToStringRfc());
+            Program.RunCommand(Run.Name, "--no-wait", "--customize", InterfaceUri.ToStringRfc());
         }
 
         private void buttonSelectCommand_Click(object sender, EventArgs e)
@@ -251,7 +252,7 @@ namespace ZeroInstall.Central.WinForms
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
-            Program.RunCommand(Commands.Update.Name, InterfaceUri.ToStringRfc());
+            Program.RunCommand(Commands.FrontendCommands.Update.Name, InterfaceUri.ToStringRfc());
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -261,7 +262,7 @@ namespace ZeroInstall.Central.WinForms
             // Disable button while operation is running
             buttonAdd.Enabled = false;
 
-            Program.RunCommand(UpdateButtons, _machineWide, Commands.AddApp.Name, InterfaceUri.ToStringRfc());
+            Program.RunCommand(UpdateButtons, _machineWide, AddApp.Name, InterfaceUri.ToStringRfc());
         }
 
         private void buttonIntegrate_Click(object sender, EventArgs e)
@@ -271,7 +272,7 @@ namespace ZeroInstall.Central.WinForms
             // Disable buttons while operation is running
             buttonRemove.Enabled = buttonIntegrate.Enabled = false;
 
-            Program.RunCommand(UpdateButtons, _machineWide, Commands.IntegrateApp.Name, InterfaceUri.ToStringRfc());
+            Program.RunCommand(UpdateButtons, _machineWide, IntegrateApp.Name, InterfaceUri.ToStringRfc());
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
@@ -283,7 +284,7 @@ namespace ZeroInstall.Central.WinForms
             // Disable buttons while operation is running
             buttonRemove.Enabled = buttonIntegrate.Enabled = false;
 
-            Program.RunCommand(UpdateButtons, _machineWide, Commands.RemoveApp.Name, InterfaceUri.ToStringRfc());
+            Program.RunCommand(UpdateButtons, _machineWide, RemoveApp.Name, InterfaceUri.ToStringRfc());
         }
         #endregion
 

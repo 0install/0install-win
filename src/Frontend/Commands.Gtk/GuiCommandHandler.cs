@@ -19,6 +19,7 @@ extern alias LinqBridge;
 using System;
 using System.Threading;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Commands.FrontendCommands;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;

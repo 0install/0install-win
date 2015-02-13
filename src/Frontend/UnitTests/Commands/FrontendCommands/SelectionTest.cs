@@ -15,29 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using System.Windows.Forms;
-using ZeroInstall.Commands;
-using ZeroInstall.Commands.FrontendCommands;
+using NUnit.Framework;
 
-namespace ZeroInstall.Central.WinForms.Wizards
+namespace ZeroInstall.Commands.FrontendCommands
 {
-    internal partial class ResetClientPage : UserControl
-    {
-        public event Action Next;
-        private readonly bool _machineWide;
-
-        public ResetClientPage(bool machineWide)
-        {
-            InitializeComponent();
-
-            _machineWide = machineWide;
-        }
-
-        private void buttonReset_Click(object sender, EventArgs e)
-        {
-            Program.RunCommand(_machineWide, SyncApps.Name, "--reset=client");
-            Next();
-        }
-    }
+    /// <summary>
+    /// Contains integration tests for <see cref="Selection"/>.
+    /// </summary>
+    [TestFixture]
+    public class SelectionTest : SelectionTestBase<Selection>
+    {}
 }

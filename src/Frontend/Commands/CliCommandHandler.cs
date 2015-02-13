@@ -20,6 +20,7 @@ using System.Diagnostics.CodeAnalysis;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Commands.FrontendCommands;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services.Feeds;

@@ -22,6 +22,7 @@ using System.Threading;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Commands.FrontendCommands;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services.Feeds;

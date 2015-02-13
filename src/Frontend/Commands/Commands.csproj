@@ -58,47 +58,47 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
-    <Compile Include="AddAlias.cs" />
-    <Compile Include="AddApp.cs" />
-    <Compile Include="AddFeed.cs" />
-    <Compile Include="AppCommand.cs" />
-    <Compile Include="Central.cs" />
     <Compile Include="CliCommandHandler.cs" />
     <Compile Include="ConfigTab.cs" />
-    <Compile Include="Fetch.cs" />
-    <Compile Include="FrontendCommand.cs" />
     <Compile Include="CommandFactory.cs" />
-    <Compile Include="Configure.cs" />
-    <Compile Include="AddRemoveFeedCommand.cs" />
+    <Compile Include="FrontendCommands\AddAlias.cs" />
+    <Compile Include="FrontendCommands\AddApp.cs" />
+    <Compile Include="FrontendCommands\AddFeed.cs" />
+    <Compile Include="FrontendCommands\AddRemoveFeedCommand.cs" />
+    <Compile Include="FrontendCommands\AppCommand.cs" />
+    <Compile Include="FrontendCommands\Central.cs" />
+    <Compile Include="FrontendCommands\Configure.cs" />
+    <Compile Include="FrontendCommands\DefaultCommand.cs" />
+    <Compile Include="FrontendCommands\Digest.cs" />
+    <Compile Include="FrontendCommands\Download.cs" />
+    <Compile Include="FrontendCommands\Fetch.cs" />
+    <Compile Include="FrontendCommands\FrontendCommand.cs" />
+    <Compile Include="FrontendCommands\Import.cs" />
+    <Compile Include="FrontendCommands\IntegrateApp.cs" />
+    <Compile Include="FrontendCommands\IntegrationCommand.cs" />
+    <Compile Include="FrontendCommands\List.cs" />
+    <Compile Include="FrontendCommands\ListFeeds.cs" />
+    <Compile Include="FrontendCommands\RemoveAllApps.cs" />
+    <Compile Include="FrontendCommands\RemoveApp.cs" />
+    <Compile Include="FrontendCommands\RemoveFeed.cs" />
+    <Compile Include="FrontendCommands\RepairApps.cs" />
+    <Compile Include="FrontendCommands\Run.cs" />
+    <Compile Include="FrontendCommands\Search.cs" />
+    <Compile Include="FrontendCommands\Selection.cs" />
+    <Compile Include="FrontendCommands\SelfUpdate.cs" />
+    <Compile Include="FrontendCommands\StoreMan.cs" />
+    <Compile Include="FrontendCommands\SyncApps.cs" />
+    <Compile Include="FrontendCommands\Update.cs" />
+    <Compile Include="FrontendCommands\UpdateApps.cs" />
     <Compile Include="ICommandHandler.cs" />
-    <Compile Include="IntegrationCommand.cs" />
-    <Compile Include="IntegrateApp.cs" />
-    <Compile Include="DefaultCommand.cs" />
-    <Compile Include="Digest.cs" />
-    <Compile Include="Download.cs" />
-    <Compile Include="Import.cs" />
-    <Compile Include="List.cs" />
-    <Compile Include="ListFeeds.cs" />
-    <Compile Include="RemoveAllApps.cs" />
-    <Compile Include="Search.cs" />
-    <Compile Include="StoreMan.cs" />
-    <Compile Include="SyncUtils.cs" />
-    <Compile Include="UpdateApps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="RemoveApp.cs" />
-    <Compile Include="RemoveFeed.cs" />
-    <Compile Include="RepairApps.cs" />
-    <Compile Include="Run.cs" />
     <Compile Include="RunHook.cs" />
-    <Compile Include="Selection.cs" />
-    <Compile Include="SelfUpdate.cs" />
-    <Compile Include="SyncApps.cs" />
-    <Compile Include="Update.cs" />
+    <Compile Include="SyncUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -26,6 +26,7 @@ using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands;
+using ZeroInstall.Commands.FrontendCommands;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Trust;
