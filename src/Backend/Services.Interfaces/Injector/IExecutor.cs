@@ -35,13 +35,14 @@ namespace ZeroInstall.Services.Injector
         /// </summary>
         /// <param name="selections">The specific <see cref="ImplementationSelection"/>s chosen by the solver.</param>
         /// <param name="arguments">Arguments to be passed to the launched programs.</param>
-        /// <returns>The newly created <see cref="Process"/>.</returns>
+        /// <returns>The newly created <see cref="Process"/>; <see langword="null"/> if no external process was started.</returns>
         /// <exception cref="KeyNotFoundException"><see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
         /// <exception cref="ImplementationNotFoundException">One of the <see cref="Store.Model.Implementation"/>s is not cached yet.</exception>
         /// <exception cref="ExecutorException">The <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
         /// <exception cref="IOException">A problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
         /// <exception cref="Win32Exception">The main executable could not be launched or if a problem occurred while creating a hard link.</exception>
+        [CanBeNull]
         Process Start([NotNull] Selections selections, [NotNull] params string[] arguments);
 
         /// <summary>

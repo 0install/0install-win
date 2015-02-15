@@ -61,20 +61,15 @@ namespace ZeroInstall.Commands.WinForms
             if (task == null) throw new ArgumentNullException("task");
             #endregion
 
-            var progress = (task.Tag is ManifestDigest)
+            var progress = _wrapper.Post(form => (task.Tag is ManifestDigest)
                 // Handle events coming from a non-UI thread
-                ? _wrapper.Post(form => form.SetupProgress(task.Name, (ManifestDigest)task.Tag))
+                ? form.SetupProgress(task.Name, (ManifestDigest)task.Tag)
                 // Handle events coming from a non-UI thread
-                : _wrapper.Post(form => form.SetupProgress(task.Name));
+                : form.SetupProgress(task.Name));
 
             task.Run(CancellationToken, progress);
 
-            try
-            {
-                _wrapper.Post(form => form.RestoreSelections());
-            }
-            catch (InvalidOperationException)
-            {}
+            _wrapper.Post(form => form.RestoreSelections());
         }
         #endregion
 
@@ -102,7 +97,7 @@ namespace ZeroInstall.Commands.WinForms
 
             if (Batch && !string.IsNullOrEmpty(batchInformation))
             {
-                // Auto-deny unknown keys and inform via tray icon when in batch mode
+                // Auto-deny questions and inform via tray icon when in batch mode
                 _wrapper.Post(form => form.ShowTrayIcon(batchInformation, ToolTipIcon.Warning));
                 return false;
             }
@@ -168,6 +163,19 @@ namespace ZeroInstall.Commands.WinForms
             else base.Output(title, message);
         }
 
+        /// <inheritdoc/>
+        public override void Output<T>(string title, IEnumerable<T> data)
+        {
+            DisableUI();
+
+            if (Batch)
+            {
+                string message = StringUtils.Join(Environment.NewLine, data.Select(x => x.ToString()));
+                ShowBalloonMessage(title, message);
+            }
+            else base.Output(title, data);
+        }
+
         /// <summary>
         /// Displays a tray icon with balloon message detached from the main GUI (will stick around even after the process ends).
         /// </summary>
@@ -180,19 +188,6 @@ namespace ZeroInstall.Commands.WinForms
 
             var icon = new NotifyIcon {Visible = true, Icon = Resources.TrayIcon};
             icon.ShowBalloonTip(10000, title, message, ToolTipIcon.Info);
-        }
-
-        /// <inheritdoc/>
-        public override void Output<T>(string title, IEnumerable<T> data)
-        {
-            DisableUI();
-
-            if (Batch)
-            {
-                string message = StringUtils.Join(Environment.NewLine, data.Select(x => x.ToString()));
-                ShowBalloonMessage(title, message);
-            }
-            else base.Output(title, data);
         }
         #endregion
 

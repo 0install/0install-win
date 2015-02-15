@@ -87,10 +87,21 @@ namespace ZeroInstall.Commands.FrontendCommands
             if (UncachedImplementations.Count != 0) RefreshSolve();
 
             DownloadUncachedImplementations();
-            BackgroundUpdate();
 
             Handler.CancellationToken.ThrowIfCancellationRequested();
-            return LaunchImplementation();
+            Handler.DisableUI();
+            var process = LaunchImplementation();
+            Handler.CloseUI();
+
+            BackgroundUpdate();
+
+            if (process == null) return 0;
+            if (NoWait) return (WindowsUtils.IsWindows ? process.Id : 0);
+            else
+            {
+                process.WaitForExit();
+                return process.ExitCode;
+            }
         }
 
         #region Helpers
@@ -116,42 +127,23 @@ namespace ZeroInstall.Commands.FrontendCommands
         }
 
         /// <summary>
-        /// If any of the feeds are getting old spawn a background update process.
-        /// </summary>
-        private void BackgroundUpdate()
-        {
-            if (FeedManager.Stale)
-            {
-                ProcessUtils.LaunchAssembly(
-                    /*MonoUtils.IsUnix ? "0install-gtk" :*/ "0install-win",
-                    "update --batch " + Requirements.ToCommandLine());
-            }
-        }
-
-        /// <summary>
         /// Launches the selected implementation.
         /// </summary>
-        /// <returns>The exit code of the process or 0 if waiting is disabled.</returns>
+        /// <returns>The newly created <see cref="Process"/>; <see langword="null"/> if no external process was started.</returns>
         /// <exception cref="ImplementationNotFoundException">One of the <see cref="Implementation"/>s is not cached yet.</exception>
         /// <exception cref="ExecutorException">The <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
         /// <exception cref="Win32Exception">An executable could not be launched.</exception>
         [SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "Explicit test for empty but non-null strings is intended")]
-        protected int LaunchImplementation()
+        [CanBeNull]
+        protected Process LaunchImplementation()
         {
             if (Requirements.Command == "") throw new OptionException(Resources.NoRunWithEmptyCommand, "--command");
 
-            // Prevent the user from pressing any buttons once the child process is being launched
-            Handler.DisableUI();
-
-            using (var runHook = CreateRunHook())
+            using (CreateRunHook())
             {
-                Process process;
                 try
                 {
-                    // Launch new child process
-                    process = Executor.Start(Selections, AdditionalArgs.ToArray());
-
-                    if (process == null) return 0;
+                    return Executor.Start(Selections, AdditionalArgs.ToArray());
                 }
                     #region Error handling
                 catch (KeyNotFoundException ex)
@@ -161,25 +153,12 @@ namespace ZeroInstall.Commands.FrontendCommands
                     else throw;
                 }
                 #endregion
-
-                Handler.CloseUI();
-
-                try
-                {
-                    if (NoWait && runHook == null) return (WindowsUtils.IsWindows ? process.Id : 0);
-                    process.WaitForExit();
-                    return process.ExitCode;
-                }
-                finally
-                {
-                    process.Close();
-                }
             }
         }
 
         private IDisposable CreateRunHook()
         {
-            if (Config.AllowApiHooking && WindowsUtils.IsWindows)
+            if (!NoWait && Config.AllowApiHooking && WindowsUtils.IsWindows)
             {
                 try
                 {
@@ -194,6 +173,19 @@ namespace ZeroInstall.Commands.FrontendCommands
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// If any of the feeds are getting old spawn a background update process.
+        /// </summary>
+        private void BackgroundUpdate()
+        {
+            if (FeedManager.Stale)
+            {
+                ProcessUtils.LaunchAssembly(
+                    /*MonoUtils.IsUnix ? "0install-gtk" :*/ "0install-win",
+                    "update --batch " + Requirements.ToCommandLine());
+            }
         }
         #endregion
     }

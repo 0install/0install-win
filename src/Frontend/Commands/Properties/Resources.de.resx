@@ -463,7 +463,7 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
     <value>Entferne alle {CATEGORY} Access Points.</value>
   </data>
   <data name="OptionBatch" xml:space="preserve">
-    <value>Im Stapelverarbeitungsmodus ausführen: dem Benutzer keine Meldungen zeigen und Rückfragen stillschweigend mit "Nein" beantworten.
+    <value>Im Stapelverarbeitungsmodus ausführen: dem Benutzer keine Meldungen zeigen und Rückfragen automatisch mit Standardantworten beantworten.
 Traysymbol im grafischen Modus verwenden.</value>
   </data>
   <data name="OptionBefore" xml:space="preserve">

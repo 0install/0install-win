@@ -126,9 +126,6 @@
   <data name="OptionAddMissing" xml:space="preserve">
     <value>Lade fehlende Archive runter, berechne Manifest Digests, etc..</value>
   </data>
-  <data name="OptionBatch" xml:space="preserve">
-    <value>Im Stapelverarbeitungsmodus ausführen: dem Benutzer keine Meldungen zeigen und Rückfragen stillschweigend mit "Nein" beantworten.</value>
-  </data>
   <data name="OptionCatalog" xml:space="preserve">
     <value>Alle angegebenen Feeds in einer einzelnen Katalog {DATEI} kombinieren.</value>
   </data>

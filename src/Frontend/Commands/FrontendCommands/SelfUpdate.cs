@@ -93,17 +93,18 @@ namespace ZeroInstall.Commands.FrontendCommands
             if (UpdateFound())
             {
                 DownloadUncachedImplementations();
+
                 Handler.CancellationToken.ThrowIfCancellationRequested();
-                return LaunchImplementation();
+                LaunchImplementation();
+                return 0;
             }
             else
             {
                 Handler.OutputLow(Resources.ChangesFound, Resources.NoUpdatesFound);
-                return 1;
+                return 0;
             }
         }
 
-        #region Helpers
         private bool UpdateFound()
         {
             var currentVersion = new ImplementationVersion(AppInfo.Current.Version);
@@ -111,6 +112,5 @@ namespace ZeroInstall.Commands.FrontendCommands
             bool updatesFound = newVersion > currentVersion || _force;
             return updatesFound;
         }
-        #endregion
     }
 }

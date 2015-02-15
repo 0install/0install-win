@@ -1054,8 +1054,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Run in batch mode: don&apos;t display progress reports to the user and silently answer all questions with &quot;No&quot;.
-        ///Use a tray icon when in GUI mode..
+        ///   Looks up a localized string similar to Run in batch mode: don&apos;t display progress reports to the user and answer questions with default answers..
         /// </summary>
         public static string OptionBatch {
             get {

@@ -56,21 +56,19 @@ namespace ZeroInstall.Commands.FrontendCommands
         /// <inheritdoc/>
         public override int Execute()
         {
-            using (var syncManager = new SyncIntegrationManager(Config.ToSyncServer(), Config.SyncCryptoKey, FeedManager.GetFeedFresh, Handler, MachineWide))
+            try
             {
-                try
-                {
+                using (var syncManager = new SyncIntegrationManager(Config.ToSyncServer(), Config.SyncCryptoKey, FeedManager.GetFeedFresh, Handler, MachineWide))
                     syncManager.Sync(_syncResetMode);
-                }
-                    #region Error handling
-                catch
-                {
-                    // Suppress any left-over errors if the user canceled anyway
-                    Handler.CancellationToken.ThrowIfCancellationRequested();
-                    throw;
-                }
             }
-            #endregion
+                #region Error handling
+            catch
+            {
+                // Suppress any left-over errors if the user canceled anyway
+                Handler.CancellationToken.ThrowIfCancellationRequested();
+                throw;
+            }
+                #endregion
 
             return 0;
         }

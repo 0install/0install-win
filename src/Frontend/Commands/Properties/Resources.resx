@@ -463,8 +463,7 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
     <value>Remove all {CATEGORY} access points.</value>
   </data>
   <data name="OptionBatch" xml:space="preserve">
-    <value>Run in batch mode: don't display progress reports to the user and silently answer all questions with "No".
-Use a tray icon when in GUI mode.</value>
+    <value>Run in batch mode: don't display progress reports to the user and answer questions with default answers.</value>
   </data>
   <data name="OptionBefore" xml:space="preserve">
     <value>Require a version of the main program earlier than {VERSION}. i.e., force the use of an old version the program.</value>

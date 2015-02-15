@@ -126,9 +126,6 @@
   <data name="OptionAddMissing" xml:space="preserve">
     <value>Download missing archives, calculate manifest digests, etc..</value>
   </data>
-  <data name="OptionBatch" xml:space="preserve">
-    <value>Run in batch mode: don't display any messages to the user and silently answer all questions with "No".</value>
-  </data>
   <data name="OptionCatalog" xml:space="preserve">
     <value>Combine all specified feeds into a single catalog {FILE}.</value>
   </data>
