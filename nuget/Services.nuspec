@@ -11,7 +11,7 @@
 Zero Install itself is built upon this API. You can use the API to integrate Zero Install features into your own application, e.g. for a plugin management system.</description>
         <summary>Zero Install Services API (download and run apps)</summary>
         <dependencies>
-            <dependency id="ZeroInstall.Store" version="$version$" />
+            <dependency id="ZeroInstall.Store" version="[$version$]" />
         </dependencies>
         <references>
             <reference file="ZeroInstall.Services.Interfaces.dll" />

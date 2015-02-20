@@ -11,7 +11,7 @@
 The Zero Install Publishing Tools (including the Feed Editor) are built upon this API. You can use the API to automate complex feed creation/update tasks.</description>
         <summary>Zero Install Publishing API (create and modify feeds)</summary>
         <dependencies>
-            <dependency id="ZeroInstall.Store" version="$version$" />
+            <dependency id="ZeroInstall.Store" version="[$version$]" />
         </dependencies>
         <references>
             <reference file="ZeroInstall.Capture.dll" />

@@ -11,7 +11,7 @@
 You can download end-user binaries at http://0install.de/.</description>
         <summary>Zero Install Frontend executables</summary>
         <dependencies>
-            <dependency id="ZeroInstall.Services" version="$version$" />
+            <dependency id="ZeroInstall.Services" version="[$version$]" />
         </dependencies>
     </metadata>
     <files>
