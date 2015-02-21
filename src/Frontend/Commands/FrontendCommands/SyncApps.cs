@@ -70,6 +70,11 @@ namespace ZeroInstall.Commands.FrontendCommands
             }
                 #endregion
 
+            finally
+            {
+                SelfUpdateCheck();
+            }
+
             return 0;
         }
     }

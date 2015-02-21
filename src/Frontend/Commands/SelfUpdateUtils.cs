@@ -16,12 +16,11 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using JetBrains.Annotations;
-using NanoByte.Common;
 using NanoByte.Common.Info;
-using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services;
@@ -31,30 +30,41 @@ using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
 
-namespace ZeroInstall.Central
+namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Provides methods for updating Zero Install itself.
+    /// Provides functionality for controlling Zero Install's self-update feature.
     /// </summary>
     public static class SelfUpdateUtils
     {
         /// <summary>
-        /// <see langword="true"/> if automatic check for updates is enabled.
+        /// <see langword="true"/> if the current Zero Install instance is itself an <see cref="Implementation"/> inside an <see cref="IStore"/> and therefore cannot self-update.
         /// </summary>
-        public static bool AutoCheckEnabled
-        {
-            get
-            {
-                // Do not check for updates if Zero Install itself was launched as a Zero Install implementation
-                if (StoreUtils.PathInAStore(Locations.InstallBase)) return false;
+        public static bool IsBlocked { get { return StoreUtils.PathInAStore(Locations.InstallBase); } }
 
-                // Flag file to supress check
-                return !File.Exists(Path.Combine(Locations.PortableBase, "_no_self_update_check"));
+        /// <summary>
+        /// The name of a file placed in <seealso cref="Locations.InstallBase"/> used to set <see cref="NoAutoCheck"/> to <see langword="true"/>.
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
+        public const string NoAutoCheckFlagName = "_no_self_update_check";
+
+        private static string NoAutoCheckFlagFile { get { return Path.Combine(Locations.PortableBase, NoAutoCheckFlagName); } }
+
+        /// <summary>
+        /// <see langword="true"/> if automatic check for updates are disabled.
+        /// </summary>
+        public static bool NoAutoCheck
+        {
+            get { return File.Exists(NoAutoCheckFlagFile); }
+            set
+            {
+                if (value) File.WriteAllText(NoAutoCheckFlagFile, "");
+                else File.Delete(NoAutoCheckFlagFile);
             }
         }
 
         /// <summary>
-        /// Checks if updates for Zero Install itself are available.
+        /// Checks if updates for Zero Install itself are available without using the usual command infrastructure.
         /// </summary>
         /// <returns>The version number of the newest available update; <see langword="null"/> if no update is available.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
@@ -66,7 +76,7 @@ namespace ZeroInstall.Central
         /// <exception cref="SolverException">The dependencies could not be solved.</exception>
         /// <exception cref="InvalidDataException">A configuration file is damaged.</exception>
         [CanBeNull]
-        public static ImplementationVersion Check()
+        public static ImplementationVersion SilentCheck()
         {
             var services = new ServiceLocator(new SilentTaskHandler()) {FeedManager = {Refresh = true}};
             if (services.Config.NetworkUse == NetworkLevel.Offline) return null;
@@ -79,16 +89,6 @@ namespace ZeroInstall.Central
             var currentVersion = new ImplementationVersion(AppInfo.Current.Version);
             var newVersion = selections.Implementations[0].Version;
             return (newVersion > currentVersion) ? newVersion : null;
-        }
-
-        /// <summary>
-        /// Starts the self-update process.
-        /// </summary>
-        /// <exception cref="NotSupportedException">Called on a non-Windows NT-based operating system.</exception>
-        public static void Run()
-        {
-            if (WindowsUtils.IsWindowsNT) ProcessUtils.LaunchAssembly("0install-win", "self-update --restart-central");
-            else throw new NotSupportedException();
         }
     }
 }

@@ -131,7 +131,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            if (SelfUpdateUtils.AutoCheckEnabled) selfUpdateWorker.RunWorkerAsync();
+            if (!SelfUpdateUtils.NoAutoCheck && !SelfUpdateUtils.IsBlocked) selfUpdateWorker.RunWorkerAsync();
 
             UpdateAppListAsync();
             _tileManagement.LoadCachedCatalog();
@@ -367,7 +367,7 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                e.Result = SelfUpdateUtils.Check();
+                e.Result = SelfUpdateUtils.SilentCheck();
             }
                 #region Error handling
             catch (OperationCanceledException)
@@ -415,7 +415,7 @@ namespace ZeroInstall.Central.WinForms
                 if (!Msg.YesNo(this, string.Format(Resources.SelfUpdateAvailable, selfUpdateVersion), MsgSeverity.Info, Resources.SelfUpdateYes, Resources.SelfUpdateNo)) return;
                 try
                 {
-                    SelfUpdateUtils.Run();
+                    ProcessUtils.LaunchAssembly("0install-win", SelfUpdate.Name + " --batch --restart-central");
                     Application.Exit();
                 }
                     #region Error handling

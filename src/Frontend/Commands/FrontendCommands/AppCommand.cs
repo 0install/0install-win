@@ -43,9 +43,16 @@ namespace ZeroInstall.Commands.FrontendCommands
         /// <inheritdoc/>
         public override int Execute()
         {
-            var interfaceUri = GetCanonicalUri(AdditionalArgs[0]);
-            using (var integrationManager = new CategoryIntegrationManager(Handler, MachineWide))
-                return ExecuteHelper(integrationManager, interfaceUri);
+            try
+            {
+                var interfaceUri = GetCanonicalUri(AdditionalArgs[0]);
+                using (var integrationManager = new CategoryIntegrationManager(Handler, MachineWide))
+                    return ExecuteHelper(integrationManager, interfaceUri);
+            }
+            finally
+            {
+                SelfUpdateCheck();
+            }
         }
 
         /// <summary>

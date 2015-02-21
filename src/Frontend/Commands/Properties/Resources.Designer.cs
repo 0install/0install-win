@@ -199,6 +199,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click here to install..
+        /// </summary>
+        public static string ClickToInstall {
+            get {
+                return ResourceManager.GetString("ClickToInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Command-line arguments:.
         /// </summary>
         public static string CommandLineArguments {
@@ -937,15 +946,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This Zero Install instance was launched as an implementation by another Zero Install instance. It therefore cannot update itself..
-        /// </summary>
-        public static string NoSelfUpdateStore {
-            get {
-                return ResourceManager.GetString("NoSelfUpdateStore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No such file or directory: {0}.
         /// </summary>
         public static string NoSuchFileOrDirectory {
@@ -1465,6 +1465,24 @@ namespace ZeroInstall.Commands.Properties {
         public static string SelectedImplementations {
             get {
                 return ResourceManager.GetString("SelectedImplementations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An update to Zero Install v{0} is available. Install now?.
+        /// </summary>
+        public static string SelfUpdateAvailable {
+            get {
+                return ResourceManager.GetString("SelfUpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Zero Install instance was launched as an implementation by another Zero Install instance. It therefore cannot update itself..
+        /// </summary>
+        public static string SelfUpdateBlocked {
+            get {
+                return ResourceManager.GetString("SelfUpdateBlocked", resourceCulture);
             }
         }
         

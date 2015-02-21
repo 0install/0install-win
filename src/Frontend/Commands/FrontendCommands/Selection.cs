@@ -135,6 +135,7 @@ namespace ZeroInstall.Commands.FrontendCommands
         {
             Solve();
             if (FeedManager.Stale) RefreshSolve();
+            SelfUpdateCheck();
 
             ShowSelections();
 

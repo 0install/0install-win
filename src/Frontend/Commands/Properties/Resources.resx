@@ -165,6 +165,9 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
   <data name="CheckingForUpdates" xml:space="preserve">
     <value>Checking for updates</value>
   </data>
+  <data name="ClickToInstall" xml:space="preserve">
+    <value>Click here to install.</value>
+  </data>
   <data name="CommandLineArguments" xml:space="preserve">
     <value>Command-line arguments:</value>
   </data>
@@ -423,9 +426,6 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
     <value>Can only update with Feed URIs, not with selections documents.</value>
   </data>
-  <data name="NoSelfUpdateStore" xml:space="preserve">
-    <value>This Zero Install instance was launched as an implementation by another Zero Install instance. It therefore cannot update itself.</value>
-  </data>
   <data name="NoSuchFileOrDirectory" xml:space="preserve">
     <value>No such file or directory: {0}</value>
   </data>
@@ -606,6 +606,12 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   </data>
   <data name="SelectedImplementations" xml:space="preserve">
     <value>Selected implementations:</value>
+  </data>
+  <data name="SelfUpdateAvailable" xml:space="preserve">
+    <value>An update to Zero Install v{0} is available. Install now?</value>
+  </data>
+  <data name="SelfUpdateBlocked" xml:space="preserve">
+    <value>This Zero Install instance was launched as an implementation by another Zero Install instance. It therefore cannot update itself.</value>
   </data>
   <data name="StorageReclaimed" xml:space="preserve">
     <value>{0} storage space reclaimed.</value>

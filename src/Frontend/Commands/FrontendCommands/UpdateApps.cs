@@ -66,6 +66,7 @@ namespace ZeroInstall.Commands.FrontendCommands
         {
             var selectedImplementations = SolveAll(GetTargets()).ToList();
             DownloadUncachedImplementations(selectedImplementations);
+            SelfUpdateCheck();
 
             Handler.CancellationToken.ThrowIfCancellationRequested();
             if (_clean) Clean(selectedImplementations.Select(impl => impl.ManifestDigest));

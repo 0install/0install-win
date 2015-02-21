@@ -62,6 +62,7 @@ namespace ZeroInstall.Commands.FrontendCommands
             if (FeedManager.Stale || UncachedImplementations.Count != 0) RefreshSolve();
 
             DownloadUncachedImplementations();
+            SelfUpdateCheck();
 
             Handler.CancellationToken.ThrowIfCancellationRequested();
             return ShowOutput();

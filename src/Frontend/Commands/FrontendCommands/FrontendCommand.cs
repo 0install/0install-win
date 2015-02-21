@@ -293,6 +293,15 @@ namespace ZeroInstall.Commands.FrontendCommands
         }
 
         /// <summary>
+        /// Periodically checks Zero Install itself for updates in a background proccess.
+        /// </summary>
+        protected void SelfUpdateCheck()
+        {
+            if (!SelfUpdateUtils.NoAutoCheck && !SelfUpdateUtils.IsBlocked && FeedManager.IsStale(Config.SelfUpdateUri))
+                RunCommandBackground(SelfUpdate.Name);
+        }
+
+        /// <summary>
         /// Executes a "0install" command in a new background process. Returns immediately.
         /// </summary>
         /// <param name="command">The <see cref="Name"/> of the command to execute.</param>

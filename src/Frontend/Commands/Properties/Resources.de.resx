@@ -165,6 +165,9 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
   <data name="CheckingForUpdates" xml:space="preserve">
     <value>Suche nach Updates</value>
   </data>
+  <data name="ClickToInstall" xml:space="preserve">
+    <value>Hier klicken zum Installieren.</value>
+  </data>
   <data name="CommandLineArguments" xml:space="preserve">
     <value>Befehlszeilenargumente</value>
   </data>
@@ -423,9 +426,6 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
     <value>Kann nur mit Feed URIs aktualisieren, nicht mit Selections Dokumenten.</value>
   </data>
-  <data name="NoSelfUpdateStore" xml:space="preserve">
-    <value>Diese Zero Install Instanz wurde als Implementierung von einer anderen Zero Install Instanz gestartet. Sie kann sich daher nicht selbst aktualisieren.</value>
-  </data>
   <data name="NoSuchFileOrDirectory" xml:space="preserve">
     <value>Keine Datei oder Verzeichnis unter diesem Namen: {0}</value>
   </data>
@@ -607,6 +607,12 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   </data>
   <data name="SelectedImplementations" xml:space="preserve">
     <value>Ausgewählte Implementierungen:</value>
+  </data>
+  <data name="SelfUpdateAvailable" xml:space="preserve">
+    <value>Ein Update auf Zero Install v{0} ist verfügbar. Jetzt installieren?</value>
+  </data>
+  <data name="SelfUpdateBlocked" xml:space="preserve">
+    <value>Diese Zero Install Instanz wurde als Implementierung von einer anderen Zero Install Instanz gestartet. Sie kann sich daher nicht selbst aktualisieren.</value>
   </data>
   <data name="StorageReclaimed" xml:space="preserve">
     <value>{0} Speicherplatz zurückgewonnen.</value>

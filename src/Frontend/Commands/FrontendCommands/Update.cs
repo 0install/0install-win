@@ -79,6 +79,7 @@ namespace ZeroInstall.Commands.FrontendCommands
             #endregion
 
             DownloadUncachedImplementations();
+            SelfUpdateCheck();
 
             ShowOutput();
             return 0;

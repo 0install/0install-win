@@ -96,6 +96,7 @@ namespace ZeroInstall.Commands.FrontendCommands
             Handler.CloseUI();
 
             BackgroundUpdate();
+            SelfUpdateCheck();
 
             if (process == null) return 0;
             if (NoWait) return (WindowsUtils.IsWindows ? process.Id : 0);

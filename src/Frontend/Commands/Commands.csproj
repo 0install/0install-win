@@ -98,6 +98,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="RunHook.cs" />
+    <Compile Include="SelfUpdateUtils.cs" />
     <Compile Include="SyncUtils.cs" />
   </ItemGroup>
   <ItemGroup>

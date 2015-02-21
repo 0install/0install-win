@@ -24,7 +24,6 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands.FrontendCommands
@@ -85,7 +84,7 @@ namespace ZeroInstall.Commands.FrontendCommands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (StoreUtils.PathInAStore(Locations.InstallBase)) throw new NotSupportedException(Resources.NoSelfUpdateStore);
+            if (SelfUpdateUtils.IsBlocked) throw new NotSupportedException(Resources.SelfUpdateBlocked);
 
             Solve();
 
@@ -94,6 +93,9 @@ namespace ZeroInstall.Commands.FrontendCommands
                 DownloadUncachedImplementations();
 
                 Handler.CancellationToken.ThrowIfCancellationRequested();
+                if (!Handler.AskQuestion(string.Format(Resources.SelfUpdateAvailable, Selections.MainImplementation.Version)))
+                    throw new OperationCanceledException();
+
                 LaunchImplementation();
                 return 0;
             }

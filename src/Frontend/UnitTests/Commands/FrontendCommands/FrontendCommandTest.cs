@@ -80,6 +80,8 @@ namespace ZeroInstall.Commands.FrontendCommands
             Target.Solver = SolverMock.Object;
             Target.Fetcher = FetcherMock.Object;
             Target.Executor = ExecutorMock.Object;
+
+            SelfUpdateUtils.NoAutoCheck = true;
         }
 
         /// <summary>
