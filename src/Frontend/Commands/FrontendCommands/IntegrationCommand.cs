@@ -93,8 +93,8 @@ namespace ZeroInstall.Commands.FrontendCommands
         protected AppEntry CreateAppEntry([NotNull] IIntegrationManager integrationManager, [NotNull] ref FeedUri interfaceUri)
         {
             #region Sanity checks
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
+            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             #endregion
 
             var feed = FeedManager.GetFeedFresh(interfaceUri);
@@ -128,11 +128,7 @@ namespace ZeroInstall.Commands.FrontendCommands
         private void PreDownload([NotNull] FeedUri interfaceUri)
         {
             if (!_noDownload && Config.NetworkUse == NetworkLevel.Full)
-            {
-                ProcessUtils.LaunchAssembly(
-                    /*MonoUtils.IsUnix ? "0install-gtk" :*/ "0install-win",
-                    "download --batch " + interfaceUri.OriginalString);
-            }
+                RunCommandBackground(Download.Name, "--batch", interfaceUri.ToStringRfc());
         }
         #endregion
     }

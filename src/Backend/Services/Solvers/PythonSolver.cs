@@ -115,8 +115,7 @@ namespace ZeroInstall.Services.Solvers
                 arguments += "--verbose ";
             if (_config.NetworkUse == NetworkLevel.Offline) arguments += "--offline ";
             if (_feedManager.Refresh) arguments += "--refresh ";
-            //if (additionalStore != null) arguments += "--store=" + additionalStore.DirectoryPath + " ";s
-            arguments += requirements.ToCommandLine();
+            arguments += requirements.ToCommandLineArgs().JoinEscapeArguments();
 
             return arguments;
         }

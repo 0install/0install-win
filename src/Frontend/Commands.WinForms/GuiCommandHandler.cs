@@ -42,12 +42,15 @@ namespace ZeroInstall.Commands.WinForms
     {
         private readonly AsyncFormWrapper<ProgressForm> _wrapper;
 
+        /// <inheritdoc/>
+        public bool Background { get; set; }
+
         public GuiCommandHandler()
         {
             _wrapper = new AsyncFormWrapper<ProgressForm>(delegate
             {
                 var form = new ProgressForm(CancellationTokenSource);
-                if (Batch) form.ShowTrayIcon();
+                if (Background) form.ShowTrayIcon();
                 else form.Show();
                 return form;
             });
@@ -159,7 +162,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             DisableUI();
 
-            if (Batch) ShowBalloonMessage(title, message);
+            if (Background) ShowBalloonMessage(title, message);
             else base.Output(title, message);
         }
 
@@ -168,7 +171,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             DisableUI();
 
-            if (Batch)
+            if (Background)
             {
                 string message = StringUtils.Join(Environment.NewLine, data.Select(x => x.ToString()));
                 ShowBalloonMessage(title, message);

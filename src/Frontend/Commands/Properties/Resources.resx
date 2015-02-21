@@ -462,6 +462,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="OptionAppRemove" xml:space="preserve">
     <value>Remove all {CATEGORY} access points.</value>
   </data>
+  <data name="OptionBackground" xml:space="preserve">
+    <value>Hide the graphical user interface and use something like a tray icon instead. Has no effect in command-line mode.</value>
+  </data>
   <data name="OptionBatch" xml:space="preserve">
     <value>Run in batch mode: don't display progress reports to the user and answer questions with default answers.</value>
   </data>

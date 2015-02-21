@@ -60,9 +60,9 @@ namespace ZeroInstall.Store.Model
         [Test(Description = "Ensures that the class can be serialized to a command-line argument string")]
         public void TestToCommandLineArgs()
         {
-            Assert.AreEqual(
-                "--command=command --os=Windows --cpu=i586 --version-for=http://0install.de/feeds/test/test1.xml 1.0..!2.0 --version-for=http://0install.de/feeds/test/test2.xml 2.0..!3.0 http://0install.de/feeds/test/test1.xml",
-                CreateTestRequirements().Clone().ToCommandLine());
+            CollectionAssert.AreEqual(
+                expected: new[] {"--command", "command", "--os", "Windows", "--cpu", "i586", "--version-for", "http://0install.de/feeds/test/test1.xml", "1.0..!2.0", "--version-for", "http://0install.de/feeds/test/test2.xml", "2.0..!3.0", "http://0install.de/feeds/test/test1.xml"},
+                actual: CreateTestRequirements().ToCommandLineArgs());
         }
 
         [Test]

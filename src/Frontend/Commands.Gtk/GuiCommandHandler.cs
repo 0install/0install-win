@@ -35,12 +35,8 @@ namespace ZeroInstall.Commands.Gtk
     /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
     public sealed class GuiCommandHandler : GuiTaskHandler, ICommandHandler
     {
-        #region Properties
         /// <inheritdoc/>
-        public override int Verbosity { get; set; }
-        #endregion
-
-        //--------------------//
+        public bool Background { get; set; }
 
         #region UI control
         /// <inheritdoc/>

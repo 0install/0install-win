@@ -16,9 +16,8 @@
  */
 
 using System;
-using System.Text;
+using System.Collections.Generic;
 using JetBrains.Annotations;
-using NanoByte.Common;
 using NanoByte.Common.Values;
 using ZeroInstall.Store.Model;
 
@@ -30,30 +29,30 @@ namespace ZeroInstall.Services
     public static class RequirementsExtensions
     {
         /// <summary>
-        /// Transforms the requirements into a command-line argument string.
+        /// Transforms the requirements into a command-line arguments.
         /// </summary>
         [NotNull]
-        public static string ToCommandLine([NotNull] this Requirements requirements)
+        public static string[] ToCommandLineArgs([NotNull] this Requirements requirements)
         {
             #region Sanity checks
             if (requirements == null) throw new ArgumentNullException("requirements");
             #endregion
 
-            var builder = new StringBuilder();
+            var args = new List<string>();
 
-            if (requirements.Command != null) builder.Append("--command=" + requirements.Command.EscapeArgument() + " ");
-            if (requirements.Architecture.Cpu == Cpu.Source) builder.Append("--source ");
+            if (requirements.Command != null) args.AddRange(new[] {"--command", requirements.Command});
+            if (requirements.Architecture.Cpu == Cpu.Source) args.Add("--source");
             else
             {
-                if (requirements.Architecture.OS != OS.All) builder.Append("--os=" + requirements.Architecture.OS.ConvertToString().EscapeArgument() + " ");
-                if (requirements.Architecture.Cpu != Cpu.All) builder.Append("--cpu=" + requirements.Architecture.Cpu.ConvertToString().EscapeArgument() + " ");
+                if (requirements.Architecture.OS != OS.All) args.AddRange(new[] {"--os", requirements.Architecture.OS.ConvertToString()});
+                if (requirements.Architecture.Cpu != Cpu.All) args.AddRange(new[] {"--cpu", requirements.Architecture.Cpu.ConvertToString()});
             }
-            //builder.Append("--languages=" + _languages.ToXmlString().EscapeArgument() + " ");
+            //args.AddRange(new[] {"--languages", _languages.ToXmlString()});
             foreach (var pair in requirements.ExtraRestrictions)
-                builder.Append("--version-for=" + pair.Key.ToStringRfc().EscapeArgument() + " " + pair.Value.ToString().EscapeArgument() + " ");
-            builder.Append(requirements.InterfaceUri.ToStringRfc().EscapeArgument());
+                args.AddRange(new[] {"--version-for", pair.Key.ToStringRfc(), pair.Value.ToString()});
+            args.Add(requirements.InterfaceUri.ToStringRfc());
 
-            return builder.ToString();
+            return args.ToArray();
         }
     }
 }

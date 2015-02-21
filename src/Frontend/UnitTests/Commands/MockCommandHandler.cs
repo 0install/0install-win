@@ -31,6 +31,11 @@ namespace ZeroInstall.Commands
     /// </summary>
     public class MockCommandHandler : MockTaskHandler, ICommandHandler
     {
+        /// <summary>
+        /// Always returns <see langword="false"/>.
+        /// </summary>
+        public bool Background { get { return false; } set { } }
+
         /// <inheritdoc/>
         public void DisableUI()
         {

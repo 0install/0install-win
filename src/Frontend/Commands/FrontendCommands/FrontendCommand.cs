@@ -176,6 +176,7 @@ namespace ZeroInstall.Commands.FrontendCommands
                 Handler.Output(Resources.CommandLineArguments, HelpText);
                 throw new OperationCanceledException(); // Don't handle any of the other arguments
             });
+            Options.Add("background", () => Resources.OptionBackground, _ => Handler.Background = true);
             Options.Add("batch", () => Resources.OptionBatch, _ => Handler.Batch = true);
             Options.Add("v|verbose", () => Resources.OptionVerbose, _ => Handler.Verbosity++);
         }
@@ -289,6 +290,23 @@ namespace ZeroInstall.Commands.FrontendCommands
 
             Log.Info(string.Format(Resources.ResolvedUsingCatalog, shortName, feed.Uri));
             return feed.Uri;
+        }
+
+        /// <summary>
+        /// Executes a "0install" command in a new background process. Returns immediately.
+        /// </summary>
+        /// <param name="command">The <see cref="Name"/> of the command to execute.</param>
+        /// <param name="args">Additional arguments to pass to the command.</param>
+        protected static void RunCommandBackground([NotNull] string command, [NotNull] params string[] args)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(command)) throw new ArgumentNullException("command");
+            #endregion
+
+            if (WindowsUtils.IsWindows)
+                ProcessUtils.LaunchAssembly("0install-win", command + " --background " + args.JoinEscapeArguments());
+            //else if (UnixUtils.IsUnix)
+            //    ProcessUtils.LaunchAssembly("0install-win", command + " --background " + args.JoinEscapeArguments());
         }
 
         /// <summary>

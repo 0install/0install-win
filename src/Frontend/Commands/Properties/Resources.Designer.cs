@@ -1054,6 +1054,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hide the graphical user interface and use something like a tray icon instead. Has no effect in command-line mode..
+        /// </summary>
+        public static string OptionBackground {
+            get {
+                return ResourceManager.GetString("OptionBackground", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Run in batch mode: don&apos;t display progress reports to the user and answer questions with default answers..
         /// </summary>
         public static string OptionBatch {

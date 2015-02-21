@@ -101,7 +101,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 // Cannot use in-process method here because the "args" string needs to be parsed by the operating system
                 ProcessUtils.LaunchAssembly(Commands.WinForms.Program.ExeName,
-                    "run --no-wait --command=" + command.EscapeArgument() + " " + _feed.Uri.ToStringRfc().EscapeArgument() +
+                    "run --no-wait --command " + command.EscapeArgument() + " " + _feed.Uri.ToStringRfc().EscapeArgument() +
                     " " + textBoxArgs.Text);
             }
                 #region Error handling

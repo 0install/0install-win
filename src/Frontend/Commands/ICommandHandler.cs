@@ -35,6 +35,11 @@ namespace ZeroInstall.Commands
     public interface ICommandHandler : ITaskHandler
     {
         /// <summary>
+        /// Hides the GUI and uses something like a tray icon instead. Has no effect in CLI mode.
+        /// </summary>
+        bool Background { get; set; }
+
+        /// <summary>
         /// Disables any persistent UI elements that were created but still leaves them visible.
         /// </summary>
         void DisableUI();

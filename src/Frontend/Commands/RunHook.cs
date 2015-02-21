@@ -169,7 +169,7 @@ namespace ZeroInstall.Commands
                 select new RelaunchEntry(
                     entryPoint.BinaryName,
                     entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture) ?? _target.Feed.Name,
-                    "--command=" + entryPoint.Command.EscapeArgument() + " " + escapedTarget,
+                    "--command " + entryPoint.Command.EscapeArgument() + " " + escapedTarget,
                     entryPoint.NeedsTerminal,
                     GetIconPath(entryPoint.Command));
 

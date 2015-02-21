@@ -59,7 +59,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             string arguments = "run ";
             if (!needsTerminal) arguments += "--no-wait ";
-            if (command != Command.NameRun) arguments += "--command=" + command.EscapeArgument() + " ";
+            if (command != Command.NameRun) arguments += "--command " + command.EscapeArgument() + " ";
             arguments += target.InterfaceUri.ToStringRfc().EscapeArgument();
             shortcut.Arguments = arguments;
 

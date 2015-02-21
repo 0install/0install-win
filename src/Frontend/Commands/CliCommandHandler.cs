@@ -37,6 +37,11 @@ namespace ZeroInstall.Commands
     [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Diamond inheritance structure leads to false positive")]
     public sealed class CliCommandHandler : CliTaskHandler, ICommandHandler
     {
+        /// <summary>
+        /// Always returns <see langword="false"/>.
+        /// </summary>
+        public bool Background { get { return false; } set { } }
+
         /// <inheritdoc/>
         public void DisableUI()
         {

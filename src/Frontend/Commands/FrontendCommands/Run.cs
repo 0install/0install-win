@@ -21,8 +21,10 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -175,17 +177,10 @@ namespace ZeroInstall.Commands.FrontendCommands
             return null;
         }
 
-        /// <summary>
-        /// If any of the feeds are getting old spawn a background update process.
-        /// </summary>
         private void BackgroundUpdate()
         {
             if (FeedManager.Stale)
-            {
-                ProcessUtils.LaunchAssembly(
-                    /*MonoUtils.IsUnix ? "0install-gtk" :*/ "0install-win",
-                    "update --batch " + Requirements.ToCommandLine());
-            }
+                RunCommandBackground(Update.Name, Requirements.ToCommandLineArgs().Append("--batch").ToArray());
         }
         #endregion
     }

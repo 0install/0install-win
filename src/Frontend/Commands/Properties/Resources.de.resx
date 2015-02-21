@@ -462,6 +462,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="OptionAppRemove" xml:space="preserve">
     <value>Entferne alle {CATEGORY} Access Points.</value>
   </data>
+  <data name="OptionBackground" xml:space="preserve">
+    <value>Versteckt die grafische Benutzeroberfläche und verwendet stattdessen etwas wie ein Tray Icon. Hat keine Auswirkung im Befehlszeilenmodus.</value>
+  </data>
   <data name="OptionBatch" xml:space="preserve">
     <value>Im Stapelverarbeitungsmodus ausführen: dem Benutzer keine Meldungen zeigen und Rückfragen automatisch mit Standardantworten beantworten.
 Traysymbol im grafischen Modus verwenden.</value>

@@ -190,7 +190,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         {
             // Build command-line
             string args = needsTerminal ? "" : "run --no-wait ";
-            if (!string.IsNullOrEmpty(command)) args += "--command=" + command.EscapeArgument() + " ";
+            if (!string.IsNullOrEmpty(command)) args += "--command " + command.EscapeArgument() + " ";
             args += target.InterfaceUri.ToStringRfc().EscapeArgument();
 
             // Load the template code and insert variables
