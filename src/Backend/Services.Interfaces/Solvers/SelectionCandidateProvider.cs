@@ -150,7 +150,7 @@ namespace ZeroInstall.Services.Solvers
 
         private void AddFeed(IDictionary<FeedUri, Feed> dictionary, FeedUri feedUri, Requirements requirements)
         {
-            if (dictionary.ContainsKey(feedUri)) return;
+            if (feedUri == null || dictionary.ContainsKey(feedUri)) return;
 
             var feed = _feeds[feedUri];
             if (feed.MinInjectorVersion != null && new ImplementationVersion(AppInfo.Current.Version) < feed.MinInjectorVersion)
