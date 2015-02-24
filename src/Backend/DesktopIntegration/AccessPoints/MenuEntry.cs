@@ -31,6 +31,13 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("menu-entry", Namespace = AppList.XmlNamespace)]
     public class MenuEntry : IconAccessPoint, IEquatable<MenuEntry>
     {
+        #region Constants
+        /// <summary>
+        /// The name of this category of <see cref="AccessPoint"/>s as used by command-line interfaces.
+        /// </summary>
+        public const string CategoryName = "menu";
+        #endregion
+
         #region Properties
         /// <summary>
         /// The category or folder in the menu to add the entry to. Leave empty for top-level entry.

@@ -26,13 +26,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("icon-access-point", Namespace = AppList.XmlNamespace)]
     public abstract class IconAccessPoint : CommandAccessPoint
     {
-        #region Constants
-        /// <summary>
-        /// The name of this category of <see cref="AccessPoint"/>s as used by command-line interfaces.
-        /// </summary>
-        public const string CategoryName = "icons";
-        #endregion
-
         #region Properties
         /// <summary>
         /// The user-defined override for name of the icon. Leve empty to use the <see cref="Store.Model.Feed.Name"/> + <see cref="Store.Model.EntryPoint.Names"/>.

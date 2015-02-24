@@ -30,6 +30,13 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     [XmlType("desktop-icon", Namespace = AppList.XmlNamespace)]
     public class DesktopIcon : IconAccessPoint, IEquatable<DesktopIcon>
     {
+        #region Constants
+        /// <summary>
+        /// The name of this category of <see cref="AccessPoint"/>s as used by command-line interfaces.
+        /// </summary>
+        public const string CategoryName = "desktop";
+        #endregion
+
         #region Conflict ID
         /// <inheritdoc/>
         public override IEnumerable<string> GetConflictIDs(AppEntry appEntry)

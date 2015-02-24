@@ -43,7 +43,7 @@ namespace ZeroInstall.DesktopIntegration
         public const string AllCategoryName = "all";
 
         /// <summary>A list of all known <see cref="AccessPoint"/> categories.</summary>
-        public static readonly ICollection<string> Categories = new[] {CapabilityRegistration.CategoryName, DefaultAccessPoint.CategoryName, IconAccessPoint.CategoryName, AppAlias.CategoryName, AllCategoryName};
+        public static readonly ICollection<string> Categories = new[] {CapabilityRegistration.CategoryName, MenuEntry.CategoryName, DesktopIcon.CategoryName, AppAlias.CategoryName, DefaultAccessPoint.CategoryName, AllCategoryName};
         #endregion
 
         #region Constructor
@@ -71,13 +71,17 @@ namespace ZeroInstall.DesktopIntegration
             // Parse categories list
             bool all = categories.Contains(AllCategoryName);
             bool capabilities = categories.Contains(CapabilityRegistration.CategoryName) || all;
-            bool defaults = categories.Contains(DefaultAccessPoint.CategoryName) || all;
-            bool icons = categories.Contains(IconAccessPoint.CategoryName) || all;
+            bool menu = categories.Contains(MenuEntry.CategoryName) || all;
+            bool desktop = categories.Contains(DesktopIcon.CategoryName) || all;
             bool aliases = categories.Contains(AppAlias.CategoryName) || all;
+            bool defaults = categories.Contains(DefaultAccessPoint.CategoryName) || all;
 
             // Build capability list
             var accessPointsToAdd = new List<AccessPoint>();
             if (capabilities) accessPointsToAdd.Add(new CapabilityRegistration());
+            if (menu) accessPointsToAdd.AddRange(Suggest.MenuEntries(feed).Cast<AccessPoint>());
+            if (desktop) accessPointsToAdd.AddRange(Suggest.DesktopIcons(feed).Cast<AccessPoint>());
+            if (aliases) accessPointsToAdd.AddRange(Suggest.Aliases(feed).Cast<AccessPoint>());
             if (defaults)
             {
                 // Add AccessPoints for all suitable Capabilities
@@ -87,18 +91,11 @@ namespace ZeroInstall.DesktopIntegration
                     where !capability.ExplicitOnly
                     select capability.ToAcessPoint()));
             }
-            if (icons)
-            {
-                accessPointsToAdd.AddRange(Suggest.MenuEntries(feed).Cast<AccessPoint>());
-                accessPointsToAdd.AddRange(Suggest.DesktopIcons(feed).Cast<AccessPoint>());
-            }
-            if (aliases)
-                accessPointsToAdd.AddRange(Suggest.Aliases(feed).Cast<AccessPoint>());
 
             try
             {
                 AddAccessPointsInternal(appEntry, feed, accessPointsToAdd);
-                if (icons && MachineWide) ToggleIconsVisible(appEntry, true);
+                if (menu && MachineWide) ToggleIconsVisible(appEntry, true);
             }
             catch (KeyNotFoundException ex)
             {
@@ -126,21 +123,23 @@ namespace ZeroInstall.DesktopIntegration
             // Parse categories list
             bool all = categories.Contains(AllCategoryName);
             bool capabilities = categories.Contains(CapabilityRegistration.CategoryName) || all;
-            bool defaults = categories.Contains(DefaultAccessPoint.CategoryName) || all;
-            bool icons = categories.Contains(IconAccessPoint.CategoryName) || all;
+            bool menu = categories.Contains(MenuEntry.CategoryName) || all;
+            bool desktop = categories.Contains(DesktopIcon.CategoryName) || all;
             bool aliases = categories.Contains(AppAlias.CategoryName) || all;
+            bool defaults = categories.Contains(DefaultAccessPoint.CategoryName) || all;
 
             // Build capability list
             var accessPointsToRemove = new List<AccessPoint>();
             if (capabilities) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<CapabilityRegistration>());
-            if (defaults) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<DefaultAccessPoint>());
-            if (icons) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<IconAccessPoint>());
+            if (menu) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<MenuEntry>());
+            if (desktop) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<DesktopIcon>());
             if (aliases) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<AppAlias>());
+            if (defaults) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<DefaultAccessPoint>());
 
             try
             {
                 RemoveAccessPointsInternal(appEntry, accessPointsToRemove);
-                if (icons && MachineWide) ToggleIconsVisible(appEntry, false);
+                if (menu && MachineWide) ToggleIconsVisible(appEntry, false);
             }
             catch (KeyNotFoundException ex)
             {
