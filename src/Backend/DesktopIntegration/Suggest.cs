@@ -50,7 +50,7 @@ namespace ZeroInstall.DesktopIntegration
                 {
                     new MenuEntry
                     {
-                        Name = feed.Name.RemoveAll(Path.GetInvalidFileNameChars()),
+                        Name = GetName(feed),
                         Category = (category == null) ? "" : category.ToString(),
                         Command = Command.NameRun
                     }
@@ -62,15 +62,8 @@ namespace ZeroInstall.DesktopIntegration
                     where !string.IsNullOrEmpty(entryPoint.Command) && !entryPoint.NeedsTerminal
                     select new MenuEntry
                     {
-                        // Try to get a localized name for the command
-                        Name = entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture) ?? // If that fails...
-                               ((entryPoint.Command == Command.NameRun)
-                                   // ... use the application's name
-                                   ? feed.Name.RemoveAll(Path.GetInvalidFileNameChars())
-                                   // ... or the application's name and the command
-                                   : feed.Name.RemoveAll(Path.GetInvalidFileNameChars()) + " " + entryPoint.Command),
-                        // Group all entry points in a single folder
                         Category = (category == null) ? feed.Name : category + "/" + feed.Name,
+                        Name = GetName(feed, entryPoint),
                         Command = entryPoint.Command
                     }).DistinctBy(x => x.Name);
             }
@@ -88,7 +81,7 @@ namespace ZeroInstall.DesktopIntegration
 
             return feed.NeedsTerminal
                 ? new DesktopIcon[0]
-                : new[] {new DesktopIcon {Name = feed.Name.RemoveAll(Path.GetInvalidFileNameChars()), Command = Command.NameRun}};
+                : new[] {new DesktopIcon {Name = GetName(feed), Command = Command.NameRun}};
         }
 
         /// <summary>
@@ -106,7 +99,7 @@ namespace ZeroInstall.DesktopIntegration
                 if (feed.NeedsTerminal)
                 {
                     // Try to guess reasonable alias name of command-line applications
-                    return new[] {new AppAlias {Name = feed.Name.RemoveAll(Path.GetInvalidFileNameChars()).Replace(' ', '-').ToLower(), Command = Command.NameRun}};
+                    return new[] {new AppAlias {Name = GetName(feed).Replace(' ', '-').ToLower(), Command = Command.NameRun}};
                 }
                 else return new AppAlias[0];
             }
@@ -120,6 +113,23 @@ namespace ZeroInstall.DesktopIntegration
                         Command = entryPoint.Command
                     }).DistinctBy(x => x.Name);
             }
+        }
+
+        private static string GetName(Feed feed)
+        {
+            return (feed.Name ?? "").RemoveAll(Path.GetInvalidFileNameChars());
+        }
+
+        private static string GetName(Feed feed, EntryPoint entryPoint)
+        {
+            // Try to get a localized name for the command
+            return entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture)
+                // If that fails...
+                   ?? ((entryPoint.Command == Command.NameRun)
+                       // ... use the application's name
+                       ? GetName(feed)
+                       // ... or the application's name and the command
+                       : GetName(feed) + " " + entryPoint.Command);
         }
     }
 }

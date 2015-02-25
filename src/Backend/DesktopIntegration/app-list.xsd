@@ -165,13 +165,15 @@
       <xsd:documentation>Makes an application discoverable via the system's search PATH.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="apps:command-access-point">
-        <xsd:attribute name="name" type="xsd:string" use="required">
-          <xsd:annotation>
-            <xsd:documentation>The name of the command-line command (without a file extension).</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
+      <xsd:extension base="apps:command-access-point" />
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="auto-start">
+    <xsd:annotation>
+      <xsd:documentation>Automatically starts an application when the user logs in.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="apps:command-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="icon-access-point" abstract="true">
@@ -179,13 +181,7 @@
       <xsd:documentation>Creates some form of icon in the dektop environment.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="apps:command-access-point">
-        <xsd:attribute name="name" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation>The user-defined override for name of the icon. Leve empty or unset to use the name from the feed + the entry-point name.</xsd:documentation>
-          </xsd:annotation>          
-        </xsd:attribute>
-      </xsd:extension>
+      <xsd:extension base="apps:command-access-point" />
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="menu-entry">

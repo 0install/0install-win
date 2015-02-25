@@ -73,15 +73,15 @@ namespace ZeroInstall.DesktopIntegration
             bool capabilities = categories.Contains(CapabilityRegistration.CategoryName) || all;
             bool menu = categories.Contains(MenuEntry.CategoryName) || all;
             bool desktop = categories.Contains(DesktopIcon.CategoryName) || all;
-            bool aliases = categories.Contains(AppAlias.CategoryName) || all;
+            bool alias = categories.Contains(AppAlias.CategoryName) || all;
             bool defaults = categories.Contains(DefaultAccessPoint.CategoryName) || all;
 
             // Build capability list
             var accessPointsToAdd = new List<AccessPoint>();
             if (capabilities) accessPointsToAdd.Add(new CapabilityRegistration());
-            if (menu) accessPointsToAdd.AddRange(Suggest.MenuEntries(feed).Cast<AccessPoint>());
-            if (desktop) accessPointsToAdd.AddRange(Suggest.DesktopIcons(feed).Cast<AccessPoint>());
-            if (aliases) accessPointsToAdd.AddRange(Suggest.Aliases(feed).Cast<AccessPoint>());
+            if (menu) accessPointsToAdd.AddRange(Suggest.MenuEntries(feed));
+            if (desktop) accessPointsToAdd.AddRange(Suggest.DesktopIcons(feed));
+            if (alias) accessPointsToAdd.AddRange(Suggest.Aliases(feed));
             if (defaults)
             {
                 // Add AccessPoints for all suitable Capabilities
@@ -125,7 +125,7 @@ namespace ZeroInstall.DesktopIntegration
             bool capabilities = categories.Contains(CapabilityRegistration.CategoryName) || all;
             bool menu = categories.Contains(MenuEntry.CategoryName) || all;
             bool desktop = categories.Contains(DesktopIcon.CategoryName) || all;
-            bool aliases = categories.Contains(AppAlias.CategoryName) || all;
+            bool alias = categories.Contains(AppAlias.CategoryName) || all;
             bool defaults = categories.Contains(DefaultAccessPoint.CategoryName) || all;
 
             // Build capability list
@@ -133,7 +133,7 @@ namespace ZeroInstall.DesktopIntegration
             if (capabilities) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<CapabilityRegistration>());
             if (menu) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<MenuEntry>());
             if (desktop) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<DesktopIcon>());
-            if (aliases) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<AppAlias>());
+            if (alias) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<AppAlias>());
             if (defaults) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<DefaultAccessPoint>());
 
             try

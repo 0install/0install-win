@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
@@ -25,36 +24,5 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     /// </summary>
     [XmlType("icon-access-point", Namespace = AppList.XmlNamespace)]
     public abstract class IconAccessPoint : CommandAccessPoint
-    {
-        #region Properties
-        /// <summary>
-        /// The user-defined override for name of the icon. Leve empty to use the <see cref="Store.Model.Feed.Name"/> + <see cref="Store.Model.EntryPoint.Names"/>.
-        /// </summary>
-        [Description("The user-defined override for name of the icon. Leve empty to use the Name from the Feed + the EntryPoint name.")]
-        [XmlAttribute("name")]
-        public string Name { get; set; }
-        #endregion
-
-        //--------------------//
-
-        #region Equality
-        /// <inheritdoc/>
-        protected bool Equals(IconAccessPoint other)
-        {
-            if (other == null) return false;
-            return base.Equals(other) && other.Name == Name;
-        }
-
-        /// <inheritdoc/>
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                int result = base.GetHashCode();
-                result = (result * 397) ^ (Name ?? "").GetHashCode();
-                return result;
-            }
-        }
-        #endregion
-    }
+    {}
 }

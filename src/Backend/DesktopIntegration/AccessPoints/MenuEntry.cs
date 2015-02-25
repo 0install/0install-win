@@ -87,11 +87,11 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Conversion
         /// <summary>
-        /// Returns the access point in the form "MenuEntry: Name". Not safe for parsing!
+        /// Returns the access point in the form "MenuEntry: Category/Name". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("MenuEntry: {0}", Name);
+            return string.Format("MenuEntry: {0}/{1}", Category, Name);
         }
         #endregion
 
@@ -99,7 +99,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override AccessPoint Clone()
         {
-            return new MenuEntry {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Command = Command, Name = Name, Category = Category};
+            return new MenuEntry {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, Command = Command, Category = Category};
         }
         #endregion
 

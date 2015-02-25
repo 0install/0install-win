@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Xml.Serialization;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
@@ -36,15 +35,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// The name of this category of <see cref="AccessPoint"/>s as used by command-line interfaces.
         /// </summary>
         public const string CategoryName = "aliases";
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// The name of the command-line command (without a file extension).
-        /// </summary>
-        [Description("The name of the command-line command (without a file extension).")]
-        [XmlAttribute("name")]
-        public string Name { get; set; }
         #endregion
 
         //--------------------//
@@ -99,7 +89,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override AccessPoint Clone()
         {
-            return new AppAlias {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Command = Command, Name = Name};
+            return new AppAlias {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, Command = Command};
         }
         #endregion
 
@@ -107,8 +97,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public bool Equals(AppAlias other)
         {
-            if (other == null) return false;
-            return base.Equals(other) && other.Name == Name;
+            return base.Equals(other);
         }
 
         /// <inheritdoc/>
@@ -122,12 +111,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int result = base.GetHashCode();
-                result = (result * 397) ^ (Name ?? "").GetHashCode();
-                return result;
-            }
+            return base.GetHashCode();
         }
         #endregion
     }

@@ -29,6 +29,13 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
     {
         #region Properties
         /// <summary>
+        /// The name of the menu entry, icon, command-line, etc..
+        /// </summary>
+        [Description("The name of the menu entry, icon, command-line, etc..")]
+        [XmlAttribute("name")]
+        public string Name { get; set; }
+
+        /// <summary>
         /// The name of the <see cref="Store.Model.Command"/> to use when launching via this access point. Leave empty to use default.
         /// </summary>
         [Description("The name of the Command to use when launching via this access point. Leave empty to use default.")]
@@ -43,7 +50,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         protected bool Equals(CommandAccessPoint other)
         {
             if (other == null) return false;
-            return base.Equals(other) && other.Command == Command;
+            return base.Equals(other) && other.Name == Name && other.Command == Command;
         }
 
         /// <inheritdoc/>
@@ -51,7 +58,10 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         {
             unchecked
             {
-                return (base.GetHashCode() * 397) ^ (Command ?? "").GetHashCode();
+                int hashCode = base.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Command != null ? Command.GetHashCode() : 0);
+                return hashCode;
             }
         }
         #endregion

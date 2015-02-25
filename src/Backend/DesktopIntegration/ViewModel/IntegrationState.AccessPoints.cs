@@ -39,7 +39,6 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
             if (AppEntry.AccessPoints == null)
             { // Fill in default values for first integration
                 foreach (var entry in Suggest.MenuEntries(Feed)) MenuEntries.Add(entry);
-                foreach (var desktopIcon in Suggest.DesktopIcons(Feed)) DesktopIcons.Add(desktopIcon);
                 foreach (var alias in Suggest.Aliases(Feed)) Aliases.Add(alias);
             }
             else
@@ -69,7 +68,6 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
                 }.Dispatch(AppEntry.AccessPoints.Entries);
             }
 
-            // Handle WinForms DataGrid bug creating phantom entries
             PurgeEmpty(MenuEntries);
             PurgeEmpty(DesktopIcons);
             PurgeEmpty(Aliases);
@@ -81,10 +79,9 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         }
 
         private static void PurgeEmpty<T>(ICollection<T> list)
-            where T : IEquatable<T>, new()
+            where T : CommandAccessPoint
         {
-            var emptyReference = new T();
-            foreach (var entry in list.Where(x => x.Equals(emptyReference)).ToList())
+            foreach (var entry in list.Where(x => string.IsNullOrEmpty(x.Name) || string.IsNullOrEmpty(x.Command)).ToList())
                 list.Remove(entry);
         }
     }
