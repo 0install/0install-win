@@ -46,16 +46,16 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Builds a stub EXE in a well-known location. Future calls with the same arguments will return the same EXE.
         /// </summary>
         /// <param name="target">The application to be launched via the stub.</param>
-        /// <param name="machineWide">Store the stub in a machine-wide directory instead of just for the current user.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="command">The command argument to be passed to the the "0install run" command; can be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
+        /// <param name="machineWide">Store the stub in a machine-wide directory instead of just for the current user.</param>
         /// <returns>The path to the generated stub EXE.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="InvalidOperationException">There was a compilation error while generating the stub EXE.</exception>
         /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="InvalidOperationException">Write access to the filesystem is not permitted.</exception>
-        public static string GetRunStub(this InterfaceFeed target, bool machineWide, [NotNull] ITaskHandler handler, [CanBeNull] string command = null)
+        public static string GetRunStub(this InterfaceFeed target, [CanBeNull] string command, [NotNull] ITaskHandler handler, bool machineWide = false)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -70,7 +70,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string hash = (target.InterfaceUri + "#" + command).Hash(SHA256.Create());
             string path = Path.Combine(Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "stubs", hash), exeName + ".exe");
 
-            target.CreateOrUpdateRunStub(path, handler, needsTerminal, command);
+            target.CreateOrUpdateRunStub(path, command, needsTerminal, handler);
             return path;
         }
 
@@ -80,15 +80,15 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <seealso cref="BuildRunStub"/>
         /// <param name="target">The application to be launched via the stub.</param>
         /// <param name="path">The target path to store the generated EXE file.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        /// <param name="needsTerminal"><see langword="true"/> to build a CLI stub, <see langword="false"/> to build a GUI stub.</param>
         /// <param name="command">The command argument to be passed to the the "0install run" command; can be <see langword="null"/>.</param>
+        /// <param name="needsTerminal"><see langword="true"/> to build a CLI stub, <see langword="false"/> to build a GUI stub.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="InvalidOperationException">There was a compilation error while generating the stub EXE.</exception>
         /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem is not permitted.</exception>
-        private static void CreateOrUpdateRunStub(this InterfaceFeed target, [NotNull] string path, [NotNull] ITaskHandler handler, bool needsTerminal, [CanBeNull] string command = null)
+        private static void CreateOrUpdateRunStub(this InterfaceFeed target, [NotNull] string path, [CanBeNull] string command, bool needsTerminal, [NotNull] ITaskHandler handler)
         {
             if (File.Exists(path))
             { // Existing stub

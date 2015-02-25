@@ -324,7 +324,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         {
             try
             {
-                string launchCommand = "\"" + target.GetRunStub(machineWide, handler, verb.Command) + "\"";
+                string launchCommand = "\"" + target.GetRunStub(verb.Command, handler, machineWide) + "\"";
                 if (!string.IsNullOrEmpty(verb.Arguments)) launchCommand += " " + verb.Arguments;
                 return launchCommand;
             }

@@ -111,11 +111,11 @@ namespace ZeroInstall.Commands
                     string registryCommandLine;
                     try
                     { // Try to use a machine-wide stub if possible
-                        registryCommandLine = _target.GetRunStub(true, _handler, command.Name);
+                        registryCommandLine = _target.GetRunStub(command.Name, _handler, machineWide: true);
                     }
                     catch (UnauthorizedAccessException)
                     { // Fall back to per-user stub
-                        registryCommandLine = _target.GetRunStub(false, _handler, command.Name);
+                        registryCommandLine = _target.GetRunStub(command.Name, _handler);
                     }
 
                     // Apply filter with normal and with escaped string
