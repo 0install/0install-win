@@ -39,11 +39,14 @@ namespace ZeroInstall.DesktopIntegration
     public class CategoryIntegrationManager : IntegrationManager, ICategoryIntegrationManager
     {
         #region Constants
-        /// <summary>Indicates that all <see cref="Store.Model.Capabilities.Capability"/>s and <see cref="AccessPoint"/>s shall be integrated.</summary>
+        /// <summary>Indicates that all <see cref="Store.Model.Capabilities.Capability"/>s and a conservative subset of <see cref="AccessPoint"/>s shall be integrated.</summary>
+        public const string StandardCategoryName = "standard";
+
+        /// <summary>Indicates that all <see cref="Store.Model.Capabilities.Capability"/>s and all <see cref="AccessPoint"/>s shall be integrated.</summary>
         public const string AllCategoryName = "all";
 
         /// <summary>A list of all known <see cref="AccessPoint"/> categories.</summary>
-        public static readonly ICollection<string> Categories = new[] {CapabilityRegistration.CategoryName, MenuEntry.CategoryName, DesktopIcon.CategoryName, SendTo.CategoryName, AppAlias.CategoryName, AutoStart.CategoryName, DefaultAccessPoint.CategoryName, AllCategoryName};
+        public static readonly ICollection<string> Categories = new[] {StandardCategoryName, AllCategoryName, CapabilityRegistration.CategoryName, MenuEntry.CategoryName, DesktopIcon.CategoryName, SendTo.CategoryName, AppAlias.CategoryName, AutoStart.CategoryName, DefaultAccessPoint.CategoryName};
         #endregion
 
         #region Constructor
@@ -69,12 +72,13 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             // Parse categories list
+            bool standard = categories.Contains(StandardCategoryName);
             bool all = categories.Contains(AllCategoryName);
-            bool capabilities = categories.Contains(CapabilityRegistration.CategoryName) || all;
-            bool menu = categories.Contains(MenuEntry.CategoryName) || all;
+            bool capabilities = categories.Contains(CapabilityRegistration.CategoryName) || standard || all;
+            bool menu = categories.Contains(MenuEntry.CategoryName) || standard || all;
             bool desktop = categories.Contains(DesktopIcon.CategoryName) || all;
-            bool sendTo = categories.Contains(SendTo.CategoryName) || all;
-            bool alias = categories.Contains(AppAlias.CategoryName) || all;
+            bool sendTo = categories.Contains(SendTo.CategoryName) || standard || all;
+            bool alias = categories.Contains(AppAlias.CategoryName) || standard || all;
             bool autoStart = categories.Contains(AutoStart.CategoryName) || all;
             bool defaults = categories.Contains(DefaultAccessPoint.CategoryName) || all;
 
@@ -125,12 +129,13 @@ namespace ZeroInstall.DesktopIntegration
             if (appEntry.AccessPoints == null) return;
 
             // Parse categories list
+            bool standard = categories.Contains(StandardCategoryName);
             bool all = categories.Contains(AllCategoryName);
-            bool capabilities = categories.Contains(CapabilityRegistration.CategoryName) || all;
-            bool menu = categories.Contains(MenuEntry.CategoryName) || all;
+            bool capabilities = categories.Contains(CapabilityRegistration.CategoryName) || standard || all;
+            bool menu = categories.Contains(MenuEntry.CategoryName) || standard || all;
             bool desktop = categories.Contains(DesktopIcon.CategoryName) || all;
-            bool sendTo = categories.Contains(SendTo.CategoryName) || all;
-            bool alias = categories.Contains(AppAlias.CategoryName) || all;
+            bool sendTo = categories.Contains(SendTo.CategoryName) || standard || all;
+            bool alias = categories.Contains(AppAlias.CategoryName) || standard || all;
             bool autoStart = categories.Contains(AutoStart.CategoryName) || all;
             bool defaults = categories.Contains(DefaultAccessPoint.CategoryName) || all;
 

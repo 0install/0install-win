@@ -1018,7 +1018,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply all {CATEGORY} access points..
+        ///   Looks up a localized string similar to Adds all access points of a specific {CATEGORY}..
         /// </summary>
         public static string OptionAppAdd {
             get {
@@ -1045,7 +1045,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove all {CATEGORY} access points..
+        ///   Looks up a localized string similar to Remove all access points of a specific {CATEGORY}..
         /// </summary>
         public static string OptionAppRemove {
             get {

@@ -31,7 +31,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// <summary>
         /// The name of this category of <see cref="AccessPoint"/>s as used by command-line interfaces.
         /// </summary>
-        public const string CategoryName = "defaults";
+        public const string CategoryName = "default-app";
         #endregion
 
         #region Properties
