@@ -33,7 +33,6 @@ namespace ZeroInstall.Store.Model.Selection
     [XmlRoot("selections", Namespace = Feed.XmlNamespace), XmlType("selections", Namespace = Feed.XmlNamespace)]
     public sealed class Selections : XmlUnknown, IInterfaceUri, ICloneable, IEquatable<Selections>
     {
-        #region Properties
         /// <summary>
         /// The URI or local path of the interface this selection is based on.
         /// </summary>
@@ -41,11 +40,13 @@ namespace ZeroInstall.Store.Model.Selection
         [XmlIgnore]
         public FeedUri InterfaceUri { get; set; }
 
+        #region XML serialization
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="InterfaceUri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string InterfaceUriString { get { return (InterfaceUri == null) ? null : InterfaceUri.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
+        #endregion
 
         /// <summary>
         /// The name of the <see cref="Command"/> in the interface to be started.
@@ -70,7 +71,6 @@ namespace ZeroInstall.Store.Model.Selection
         /// <exception cref="KeyNotFoundException">No <see cref="ImplementationSelection"/> matching <see cref="InterfaceUri"/> was found in <see cref="Implementations"/>.</exception>
         [XmlIgnore]
         public ImplementationSelection MainImplementation { get { return this[InterfaceUri]; } }
-        #endregion
 
         #region Constructor
         /// <summary>

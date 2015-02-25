@@ -39,7 +39,6 @@ namespace ZeroInstall.DesktopIntegration
     [XmlType("app", Namespace = AppList.XmlNamespace)]
     public sealed class AppEntry : XmlUnknown, IMergeable<AppEntry>, ICloneable
     {
-        #region Properties
         /// <summary>
         /// The URI or local path of the interface defining the application or the pet-name if <see cref="Requirements"/> is set.
         /// </summary>
@@ -47,11 +46,13 @@ namespace ZeroInstall.DesktopIntegration
         [XmlIgnore]
         public FeedUri InterfaceUri { get; set; }
 
+        #region XML serialization
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="InterfaceUri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string InterfaceUriString { get { return InterfaceUri.ToStringRfc(); } set { InterfaceUri = string.IsNullOrEmpty(value) ? null : new FeedUri(value); } }
+        #endregion
 
         string IMergeable<AppEntry>.MergeID { get { return InterfaceUri.ToStringRfc(); } }
 
@@ -124,7 +125,6 @@ namespace ZeroInstall.DesktopIntegration
         [Browsable(false)]
         [XmlAttribute("timestamp"), DefaultValue(0)]
         public long TimestampUnix { get { return Timestamp.ToUnixTime(); } set { Timestamp = FileUtils.FromUnixTime(value); } }
-        #endregion
 
         //--------------------//
 

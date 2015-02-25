@@ -32,13 +32,13 @@ namespace ZeroInstall.Store.Model
     [XmlRoot("interface-reference", Namespace = Feed.XmlNamespace), XmlType("interface-reference", Namespace = Feed.XmlNamespace)]
     public sealed class InterfaceReference : FeedElement, ICloneable, IEquatable<InterfaceReference>
     {
-        #region Properties
         /// <summary>
         /// The URI used to locate the interface.
         /// </summary>
         [XmlIgnore, Browsable(false)]
         public FeedUri Target { get; set; }
 
+        #region XML serialization
         /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="Target"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]

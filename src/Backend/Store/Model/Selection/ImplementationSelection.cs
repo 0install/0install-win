@@ -33,19 +33,12 @@ namespace ZeroInstall.Store.Model.Selection
     [XmlType("selection", Namespace = Feed.XmlNamespace)]
     public sealed class ImplementationSelection : ImplementationBase, IInterfaceUriBindingContainer, IEquatable<ImplementationSelection>
     {
-        #region Properties
         /// <summary>
         /// The URI or local path of the interface this implementation is for.
         /// </summary>
         [Description("The URI or local path of the interface this implementation is for.")]
         [XmlIgnore]
         public FeedUri InterfaceUri { get; set; }
-
-        /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="InterfaceUri"/>
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string InterfaceUriString { get { return (InterfaceUri == null) ? null : InterfaceUri.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
 
         /// <summary>
         /// The URL or local path of the feed that contains this implementation.
@@ -57,10 +50,18 @@ namespace ZeroInstall.Store.Model.Selection
         [CanBeNull]
         public FeedUri FromFeed { get; set; }
 
+        #region XML serialization
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="InterfaceUri"/>
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
+        [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string InterfaceUriString { get { return (InterfaceUri == null) ? null : InterfaceUri.ToStringRfc(); } set { InterfaceUri = (value == null) ? null : new FeedUri(value); } }
+
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="FromFeed"/>
         [XmlAttribute("from-feed"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string FromFeedString { get { return (FromFeed == null) ? null : FromFeed.ToStringRfc(); } set { FromFeed = (value == null) ? null : new FeedUri(value); } }
+        #endregion
 
         /// <summary>
         /// A file which, if present, indicates that the selection is still valid. This is sometimes used with distribution-provided selections. If not present and the ID starts with "package:", you'll need to query the distribution's package manager to check that this version is still installed.
@@ -78,7 +79,6 @@ namespace ZeroInstall.Store.Model.Selection
         [XmlIgnore]
         [CanBeNull]
         public IEnumerable<SelectionCandidate> Candidates { get { return _candidates; } }
-        #endregion
 
         #region Contructor
         /// <summary>

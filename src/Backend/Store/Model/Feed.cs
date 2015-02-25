@@ -69,7 +69,6 @@ namespace ZeroInstall.Store.Model
         public string SchemaLocation = XsiSchemaLocation;
         #endregion
 
-        #region Properties
         /// <summary>
         /// This attribute gives the oldest version of the injector that can read this file. Older versions will tell the user to upgrade if they are asked to read the file. Versions prior to 0.20 do not perform this check, however. If the attribute is not present, the file can be read by all versions.
         /// </summary>
@@ -77,23 +76,11 @@ namespace ZeroInstall.Store.Model
         [XmlIgnore]
         public ImplementationVersion MinInjectorVersion { get; set; }
 
-        /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="MinInjectorVersion"/>
-        [XmlAttribute("min-injector-version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string MinInjectorVersionString { get { return (MinInjectorVersion == null ? null : MinInjectorVersion.ToString()); } set { MinInjectorVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
-
         /// <summary>
         /// This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).
         /// </summary>
         [XmlIgnore, Browsable(false)]
         public FeedUri Uri { get; set; }
-
-        /// <summary>Used for XML serialization and PropertyGrid.</summary>
-        /// <seealso cref="Uri"/>
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [DisplayName(@"Uri"), Category("Feed"), Description("This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).")]
-        [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string UriString { get { return (Uri == null ? null : Uri.ToStringRfc()); } set { Uri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
 
         /// <summary>
         /// A short name to identify the interface (e.g. "Foo").
@@ -122,12 +109,6 @@ namespace ZeroInstall.Store.Model
         [XmlIgnore, Browsable(false)]
         public Uri Homepage { get; set; }
 
-        /// <summary>Used for XML serialization and PropertyGrid.</summary>
-        /// <seealso cref="Homepage"/>
-        [DisplayName(@"Homepage"), Category("Interface"), Description("The main website of the application.")]
-        [XmlElement("homepage"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string HomepageString { get { return Homepage != null ? Homepage.ToStringRfc() : null; } set { Homepage = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.Absolute)); } }
-
         private readonly List<Icon> _icons = new List<Icon>();
 
         /// <summary>
@@ -153,10 +134,30 @@ namespace ZeroInstall.Store.Model
         [XmlIgnore, DefaultValue(false)]
         public bool NeedsTerminal { get; set; }
 
+        #region XML serialization
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="MinInjectorVersion"/>
+        [XmlAttribute("min-injector-version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string MinInjectorVersionString { get { return (MinInjectorVersion == null ? null : MinInjectorVersion.ToString()); } set { MinInjectorVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
+
+        /// <summary>Used for XML serialization and PropertyGrid.</summary>
+        /// <seealso cref="Uri"/>
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
+        [DisplayName(@"Uri"), Category("Feed"), Description("This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).")]
+        [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string UriString { get { return (Uri == null ? null : Uri.ToStringRfc()); } set { Uri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
+
+        /// <summary>Used for XML serialization and PropertyGrid.</summary>
+        /// <seealso cref="Homepage"/>
+        [DisplayName(@"Homepage"), Category("Interface"), Description("The main website of the application.")]
+        [XmlElement("homepage"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string HomepageString { get { return Homepage != null ? Homepage.ToStringRfc() : null; } set { Homepage = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.Absolute)); } }
+
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="NeedsTerminal"/>
         [XmlElement("needs-terminal"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string NeedsTerminalString { get { return (NeedsTerminal ? "" : null); } set { NeedsTerminal = (value != null); } }
+        #endregion
 
         private readonly List<FeedReference> _feeds = new List<FeedReference>();
 
@@ -214,7 +215,6 @@ namespace ZeroInstall.Store.Model
         {
             get { return _capabilityLists; }
         }
-        #endregion
 
         //--------------------//
 

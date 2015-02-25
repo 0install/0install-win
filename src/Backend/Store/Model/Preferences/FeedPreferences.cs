@@ -35,7 +35,6 @@ namespace ZeroInstall.Store.Model.Preferences
     [XmlRoot("feed-preferences", Namespace = Feed.XmlNamespace), XmlType("feed-preferences", Namespace = Feed.XmlNamespace)]
     public sealed class FeedPreferences : XmlUnknown, ICloneable, IEquatable<FeedPreferences>
     {
-        #region Properties
         /// <summary>
         /// The point in time this feed was last checked for updates.
         /// </summary>
@@ -43,10 +42,12 @@ namespace ZeroInstall.Store.Model.Preferences
         [XmlIgnore]
         public DateTime LastChecked { get; set; }
 
+        #region XML serialization
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="LastChecked"/>
         [XmlAttribute("last-checked"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public long LastCheckedUnix { get { return LastChecked.ToUnixTime(); } set { LastChecked = FileUtils.FromUnixTime(value); } }
+        #endregion
 
         private readonly List<ImplementationPreferences> _implementations = new List<ImplementationPreferences>();
 
@@ -60,7 +61,6 @@ namespace ZeroInstall.Store.Model.Preferences
         {
             get { return _implementations; }
         }
-        #endregion
 
         //--------------------//
 

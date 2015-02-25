@@ -31,7 +31,6 @@ namespace ZeroInstall.Store.Model
     [XmlType("target-base", Namespace = Feed.XmlNamespace)]
     public abstract class TargetBase : FeedElement
     {
-        #region Properties
         // Order is always alphabetical, duplicate entries are not allowed
         private LanguageSet _languages = new LanguageSet();
 
@@ -55,12 +54,6 @@ namespace ZeroInstall.Store.Model
             }
         }
 
-        /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="Architecture"/>
-        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        [XmlAttribute("langs"), DefaultValue("")]
-        public string LanguagesString { get { return _languages.ToString(); } set { _languages = new LanguageSet(value); } }
-
         /// <summary>
         /// For platform-specific binaries, the platform for which an <see cref="Store.Model.Implementation"/> was compiled.
         /// </summary>
@@ -68,6 +61,13 @@ namespace ZeroInstall.Store.Model
         [Category("Release"), Description("For platform-specific binaries, the platform for which an implementation was compiled, in the form os-cpu.")]
         [XmlIgnore]
         public Architecture Architecture { get; set; }
+
+        #region XML serialization
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="Architecture"/>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        [XmlAttribute("langs"), DefaultValue("")]
+        public string LanguagesString { get { return _languages.ToString(); } set { _languages = new LanguageSet(value); } }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Architecture"/>

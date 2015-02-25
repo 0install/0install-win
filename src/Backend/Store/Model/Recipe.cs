@@ -33,7 +33,6 @@ namespace ZeroInstall.Store.Model
     [XmlRoot("recipe", Namespace = Feed.XmlNamespace), XmlType("recipe", Namespace = Feed.XmlNamespace)]
     public sealed class Recipe : RetrievalMethod, IEquatable<Recipe>
     {
-        #region Properties
         private readonly List<IRecipeStep> _steps = new List<IRecipeStep>();
 
         /// <summary>
@@ -43,6 +42,7 @@ namespace ZeroInstall.Store.Model
         [XmlIgnore]
         public List<IRecipeStep> Steps { get { return _steps; } }
 
+        #region XML serialization
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Steps"/>
         [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Used for XML serialization.")]
@@ -62,6 +62,7 @@ namespace ZeroInstall.Store.Model
                 if (value != null && value.Length > 0) _steps.AddRange(value.OfType<IRecipeStep>());
             }
         }
+        #endregion
 
         /// <summary>
         /// Indicates whether this recipe contains steps of unknown type and therefore can not be processed.
@@ -69,7 +70,6 @@ namespace ZeroInstall.Store.Model
         [Browsable(false)]
         [XmlIgnore]
         public bool ContainsUnknownSteps { get { return UnknownElements != null && UnknownElements.Length > 0; } }
-        #endregion
 
         //--------------------//
 

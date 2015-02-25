@@ -34,7 +34,6 @@ namespace ZeroInstall.Store.Model
     [XmlRoot("entry-point", Namespace = Feed.XmlNamespace), XmlType("entry-point", Namespace = Feed.XmlNamespace)]
     public sealed class EntryPoint : FeedElement, IIconContainer, ISummaryContainer, ICloneable, IEquatable<EntryPoint>
     {
-        #region Properties
         /// <summary>
         /// The name of the <see cref="Command"/> this entry point represents.
         /// </summary>
@@ -59,22 +58,12 @@ namespace ZeroInstall.Store.Model
         [XmlIgnore, DefaultValue(false)]
         public bool NeedsTerminal { get; set; }
 
-        /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="NeedsTerminal"/>
-        [XmlElement("needs-terminal"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string NeedsTerminalString { get { return (NeedsTerminal ? "" : null); } set { NeedsTerminal = (value != null); } }
-
         /// <summary>
         /// If <see langword="true"/>, indicates that this entry point should be offered as an auto-start candidate to the user.
         /// </summary>
         [Description("If true, indicates that this entry point should be offered as an auto-start candidate to the user.")]
         [XmlIgnore, DefaultValue(false)]
         public bool SuggestAutoStart { get; set; }
-
-        /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="SuggestAutoStart"/>
-        [XmlElement("suggest-auto-start"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string SuggestAutoStartString { get { return (SuggestAutoStart ? "" : null); } set { SuggestAutoStart = (value != null); } }
 
         /// <summary>
         /// If <see langword="true"/>, indicates that this entry point should be offered as a candidate for the "Send To" context menu to the user.
@@ -83,10 +72,22 @@ namespace ZeroInstall.Store.Model
         [XmlIgnore, DefaultValue(false)]
         public bool SuggestSendTo { get; set; }
 
+        #region XML serialization
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="NeedsTerminal"/>
+        [XmlElement("needs-terminal"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string NeedsTerminalString { get { return (NeedsTerminal ? "" : null); } set { NeedsTerminal = (value != null); } }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="SuggestAutoStart"/>
+        [XmlElement("suggest-auto-start"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string SuggestAutoStartString { get { return (SuggestAutoStart ? "" : null); } set { SuggestAutoStart = (value != null); } }
+
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="SuggestSendTo"/>
         [XmlElement("suggest-send-to"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string SuggestSendToString { get { return (SuggestSendTo ? "" : null); } set { SuggestSendTo = (value != null); } }
+        #endregion
 
         private readonly LocalizableStringCollection _names = new LocalizableStringCollection();
 
@@ -119,7 +120,6 @@ namespace ZeroInstall.Store.Model
         [Browsable(false)]
         [XmlElement("icon")]
         public List<Icon> Icons { get { return _icons; } }
-        #endregion
 
         //--------------------//
 

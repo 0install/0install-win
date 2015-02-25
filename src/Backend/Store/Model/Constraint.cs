@@ -29,7 +29,6 @@ namespace ZeroInstall.Store.Model
     [XmlRoot("constraint", Namespace = Feed.XmlNamespace), XmlType("constraint", Namespace = Feed.XmlNamespace)]
     public class Constraint : FeedElement, ICloneable, IEquatable<Constraint>
     {
-        #region Properties
         /// <summary>
         /// This is the lowest-numbered version that can be chosen.
         /// </summary>
@@ -37,10 +36,12 @@ namespace ZeroInstall.Store.Model
         [XmlIgnore]
         public ImplementationVersion NotBefore { get; set; }
 
+        #region XML serialization
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="NotBefore"/>
         [XmlAttribute("not-before"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string NotBeforeString { get { return (NotBefore == null ? null : NotBefore.ToString()); } set { NotBefore = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
+        #endregion
 
         /// <summary>
         /// This version and all later versions are unsuitable.
@@ -53,7 +54,6 @@ namespace ZeroInstall.Store.Model
         /// <seealso cref="Before"/>
         [XmlAttribute("before"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string BeforeString { get { return (Before == null ? null : Before.ToString()); } set { Before = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
-        #endregion
 
         //--------------------//
 

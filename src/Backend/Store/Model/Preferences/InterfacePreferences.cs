@@ -36,19 +36,20 @@ namespace ZeroInstall.Store.Model.Preferences
     [XmlRoot("interface-preferences", Namespace = Feed.XmlNamespace), XmlType("interface-preferences", Namespace = Feed.XmlNamespace)]
     public sealed class InterfacePreferences : XmlUnknown, ICloneable, IEquatable<InterfacePreferences>
     {
-        #region Properties
         /// <summary>
         /// The URI of the interface to be configured.
         /// </summary>
         [XmlIgnore, Browsable(false)]
         public FeedUri Uri { get; set; }
 
+        #region XML serialization
         /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="Uri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [DisplayName(@"Uri"), Description("The URI of the interface to be configured.")]
         [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public String UriString { get { return (Uri == null ? null : Uri.ToStringRfc()); } set { Uri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
+        #endregion
 
         private Stability _stabilityPolicy = Stability.Unset;
 
@@ -71,7 +72,6 @@ namespace ZeroInstall.Store.Model.Preferences
         {
             get { return _feeds; }
         }
-        #endregion
 
         //--------------------//
 

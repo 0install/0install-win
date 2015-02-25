@@ -28,18 +28,19 @@ namespace ZeroInstall.Store.Model
     [XmlType("download-retrieval-method", Namespace = Feed.XmlNamespace)]
     public abstract class DownloadRetrievalMethod : RetrievalMethod, IRecipeStep
     {
-        #region Properties
         /// <summary>
         /// The URL to download the file from. Relative URLs are only allowed in local feed files.
         /// </summary>
         [XmlIgnore, Browsable(false)]
         public Uri Href { get; set; }
 
+        #region XML serialization
         /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="Href"/>
         [DisplayName(@"Href"), Description("The URL to download the file from. Relative URLs are only allowed in local feed files.")]
         [XmlAttribute("href"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string HrefString { get { return (Href == null ? null : Href.ToStringRfc()); } set { Href = (string.IsNullOrEmpty(value) ? null : new Uri(value, UriKind.RelativeOrAbsolute)); } }
+        #endregion
 
         /// <summary>
         /// The size of the file in bytes. The file must have the given size or it will be rejected.
@@ -53,7 +54,6 @@ namespace ZeroInstall.Store.Model
         /// </summary>
         [XmlIgnore, Browsable(false)]
         public virtual long DownloadSize { get { return Size; } }
-        #endregion
 
         //--------------------//
 

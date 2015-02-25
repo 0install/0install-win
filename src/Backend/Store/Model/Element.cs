@@ -83,7 +83,6 @@ namespace ZeroInstall.Store.Model
         public const string ReleaseDateFormat = "yyyy-MM-dd";
         #endregion
 
-        #region Properties
         /// <summary>
         /// The version number of the implementation.
         /// </summary>
@@ -91,10 +90,12 @@ namespace ZeroInstall.Store.Model
         [XmlIgnore]
         public virtual ImplementationVersion Version { get; set; }
 
+        #region XML serialization
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Version"/>
         [XmlAttribute("version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string VersionString { get { return (Version == null ? null : Version.ToString()); } set { Version = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); } }
+        #endregion
 
         /// <seealso cref="VersionString"/>
         [Obsolete("Use VersionString instead")]
@@ -225,7 +226,6 @@ namespace ZeroInstall.Store.Model
         [Browsable(false)]
         [XmlElement("command")]
         public List<Command> Commands { get { return _commands; } }
-        #endregion
 
         //--------------------//
 

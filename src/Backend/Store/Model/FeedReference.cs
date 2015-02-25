@@ -30,7 +30,6 @@ namespace ZeroInstall.Store.Model
     [XmlRoot("feed-reference", Namespace = Feed.XmlNamespace), XmlType("feed-reference", Namespace = Feed.XmlNamespace)]
     public sealed class FeedReference : TargetBase, ICloneable, IEquatable<FeedReference>
     {
-        #region Properties
         /// <summary>
         /// The URL or local path used to locate the feed.
         /// </summary>
@@ -38,6 +37,7 @@ namespace ZeroInstall.Store.Model
         [XmlIgnore]
         public FeedUri Source { get; set; }
 
+        #region XML serialization
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Source"/>
         [XmlAttribute("src"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
