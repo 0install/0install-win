@@ -29,6 +29,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
     {
         public readonly BindingList<MenuEntry> MenuEntries = new BindingList<MenuEntry>();
         public readonly BindingList<DesktopIcon> DesktopIcons = new BindingList<DesktopIcon>();
+        public readonly BindingList<SendTo> SendTo = new BindingList<SendTo>();
         public readonly BindingList<AppAlias> Aliases = new BindingList<AppAlias>();
         public readonly BindingList<AutoStart> AutoStarts = new BindingList<AutoStart>();
 
@@ -40,6 +41,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
             if (AppEntry.AccessPoints == null)
             { // Fill in default values for first integration
                 foreach (var entry in Suggest.MenuEntries(Feed)) MenuEntries.Add(entry);
+                foreach (var entry in Suggest.SendTo(Feed)) SendTo.Add(entry);
                 foreach (var alias in Suggest.Aliases(Feed)) Aliases.Add(alias);
             }
             else
@@ -48,6 +50,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
                 {
                     (Action<MenuEntry>)MenuEntries.Add,
                     (Action<DesktopIcon>)DesktopIcons.Add,
+                    (Action<SendTo>)SendTo.Add,
                     (Action<AppAlias>)Aliases.Add,
                     (Action<AutoStart>)AutoStarts.Add
                 }.Dispatch(AppEntry.AccessPoints.Entries.CloneElements()); // Use clones so that user modifications can still be canceled
@@ -59,6 +62,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
             // Build lists with current integration state
             var currentMenuEntries = new List<MenuEntry>();
             var currentDesktopIcons = new List<DesktopIcon>();
+            var currentSendTo = new List<SendTo>();
             var currentAliases = new List<AppAlias>();
             var currentAutoStarts = new List<AutoStart>();
             if (AppEntry.AccessPoints != null)
@@ -67,6 +71,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
                 {
                     (Action<MenuEntry>)currentMenuEntries.Add,
                     (Action<DesktopIcon>)currentDesktopIcons.Add,
+                    (Action<SendTo>)currentSendTo.Add,
                     (Action<AppAlias>)currentAliases.Add,
                     (Action<AutoStart>)currentAutoStarts.Add
                 }.Dispatch(AppEntry.AccessPoints.Entries);
@@ -74,12 +79,14 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
 
             PurgeEmpty(MenuEntries);
             PurgeEmpty(DesktopIcons);
+            PurgeEmpty(SendTo);
             PurgeEmpty(Aliases);
             PurgeEmpty(AutoStarts);
 
             // Determine differences between current and desired state
             Merge.TwoWay(theirs: MenuEntries, mine: currentMenuEntries, added: toAdd.Add, removed: toRemove.Add);
             Merge.TwoWay(theirs: DesktopIcons, mine: currentDesktopIcons, added: toAdd.Add, removed: toRemove.Add);
+            Merge.TwoWay(theirs: SendTo, mine: currentSendTo, added: toAdd.Add, removed: toRemove.Add);
             Merge.TwoWay(theirs: Aliases, mine: currentAliases, added: toAdd.Add, removed: toRemove.Add);
             Merge.TwoWay(theirs: AutoStarts, mine: currentAutoStarts, added: toAdd.Add, removed: toRemove.Add);
         }

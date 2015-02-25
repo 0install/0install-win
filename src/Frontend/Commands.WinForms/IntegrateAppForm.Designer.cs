@@ -41,6 +41,11 @@
             this.dataGridDesktop = new System.Windows.Forms.DataGridView();
             this.dataGridDesktopColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridDesktopColumnCommand = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.tabPageSendTo = new System.Windows.Forms.TabPage();
+            this.buttonHelpSendTo = new System.Windows.Forms.Button();
+            this.dataGridSendTo = new System.Windows.Forms.DataGridView();
+            this.dataGridSendToColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridSendToColumnCommand = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tabPageAliases = new System.Windows.Forms.TabPage();
             this.buttonHelpAliases = new System.Windows.Forms.Button();
             this.dataGridAliases = new System.Windows.Forms.DataGridView();
@@ -94,6 +99,8 @@
             this.labelStartMenuSimple = new System.Windows.Forms.Label();
             this.checkBoxDesktopSimple = new System.Windows.Forms.CheckBox();
             this.labelDesktopSimple = new System.Windows.Forms.Label();
+            this.checkBoxSendToSimple = new System.Windows.Forms.CheckBox();
+            this.labelSendToSimple = new System.Windows.Forms.Label();
             this.checkBoxAliasesSimple = new System.Windows.Forms.CheckBox();
             this.labelAliasesSimple = new System.Windows.Forms.Label();
             this.checkBoxAutoStartSimple = new System.Windows.Forms.CheckBox();
@@ -115,6 +122,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).BeginInit();
             this.tabPageDesktop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDesktop)).BeginInit();
+            this.tabPageSendTo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridSendTo)).BeginInit();
             this.tabPageAliases.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAliases)).BeginInit();
             this.tabPageAutoStart.SuspendLayout();
@@ -147,6 +156,7 @@
             resources.ApplyResources(this.tabControl, "tabControl");
             this.tabControl.Controls.Add(this.tabPageStartMenu);
             this.tabControl.Controls.Add(this.tabPageDesktop);
+            this.tabControl.Controls.Add(this.tabPageSendTo);
             this.tabControl.Controls.Add(this.tabPageAliases);
             this.tabControl.Controls.Add(this.tabPageAutoStart);
             this.tabControl.Controls.Add(this.tabPageFileTypes);
@@ -251,6 +261,49 @@
             resources.ApplyResources(this.dataGridDesktopColumnCommand, "dataGridDesktopColumnCommand");
             this.dataGridDesktopColumnCommand.Name = "dataGridDesktopColumnCommand";
             this.dataGridDesktopColumnCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // tabPageSendTo
+            // 
+            this.tabPageSendTo.Controls.Add(this.buttonHelpSendTo);
+            this.tabPageSendTo.Controls.Add(this.dataGridSendTo);
+            resources.ApplyResources(this.tabPageSendTo, "tabPageSendTo");
+            this.tabPageSendTo.Name = "tabPageSendTo";
+            this.tabPageSendTo.UseVisualStyleBackColor = true;
+            // 
+            // buttonHelpSendTo
+            // 
+            resources.ApplyResources(this.buttonHelpSendTo, "buttonHelpSendTo");
+            this.buttonHelpSendTo.Name = "buttonHelpSendTo";
+            this.buttonHelpSendTo.UseVisualStyleBackColor = true;
+            this.buttonHelpSendTo.Click += new System.EventHandler(this.buttonHelpCommandAccessPoint_Click);
+            // 
+            // dataGridSendTo
+            // 
+            this.dataGridSendTo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridSendTo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridSendToColumnName,
+            this.dataGridSendToColumnCommand});
+            resources.ApplyResources(this.dataGridSendTo, "dataGridSendTo");
+            this.dataGridSendTo.Name = "dataGridSendTo";
+            this.dataGridSendTo.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.accessPointDataGrid_DataError);
+            // 
+            // dataGridSendToColumnName
+            // 
+            this.dataGridSendToColumnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridSendToColumnName.DataPropertyName = "Name";
+            this.dataGridSendToColumnName.FillWeight = 70F;
+            resources.ApplyResources(this.dataGridSendToColumnName, "dataGridSendToColumnName");
+            this.dataGridSendToColumnName.Name = "dataGridSendToColumnName";
+            // 
+            // dataGridSendToColumnCommand
+            // 
+            this.dataGridSendToColumnCommand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridSendToColumnCommand.DataPropertyName = "Command";
+            this.dataGridSendToColumnCommand.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.dataGridSendToColumnCommand.FillWeight = 30F;
+            resources.ApplyResources(this.dataGridSendToColumnCommand, "dataGridSendToColumnCommand");
+            this.dataGridSendToColumnCommand.Name = "dataGridSendToColumnCommand";
+            this.dataGridSendToColumnCommand.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // tabPageAliases
             // 
@@ -678,6 +731,8 @@
             this.flowLayoutBasic.Controls.Add(this.labelStartMenuSimple);
             this.flowLayoutBasic.Controls.Add(this.checkBoxDesktopSimple);
             this.flowLayoutBasic.Controls.Add(this.labelDesktopSimple);
+            this.flowLayoutBasic.Controls.Add(this.checkBoxSendToSimple);
+            this.flowLayoutBasic.Controls.Add(this.labelSendToSimple);
             this.flowLayoutBasic.Controls.Add(this.checkBoxAliasesSimple);
             this.flowLayoutBasic.Controls.Add(this.labelAliasesSimple);
             this.flowLayoutBasic.Controls.Add(this.checkBoxAutoStartSimple);
@@ -715,6 +770,17 @@
             // 
             resources.ApplyResources(this.labelDesktopSimple, "labelDesktopSimple");
             this.labelDesktopSimple.Name = "labelDesktopSimple";
+            // 
+            // checkBoxSendToSimple
+            // 
+            resources.ApplyResources(this.checkBoxSendToSimple, "checkBoxSendToSimple");
+            this.checkBoxSendToSimple.Name = "checkBoxSendToSimple";
+            this.checkBoxSendToSimple.UseVisualStyleBackColor = true;
+            // 
+            // labelSendToSimple
+            // 
+            resources.ApplyResources(this.labelSendToSimple, "labelSendToSimple");
+            this.labelSendToSimple.Name = "labelSendToSimple";
             // 
             // checkBoxAliasesSimple
             // 
@@ -838,6 +904,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).EndInit();
             this.tabPageDesktop.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDesktop)).EndInit();
+            this.tabPageSendTo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridSendTo)).EndInit();
             this.tabPageAliases.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAliases)).EndInit();
             this.tabPageAutoStart.ResumeLayout(false);
@@ -883,6 +951,8 @@
         private System.Windows.Forms.DataGridView dataGridStartMenu;
         private System.Windows.Forms.TabPage tabPageDesktop;
         private System.Windows.Forms.DataGridView dataGridDesktop;
+        private System.Windows.Forms.TabPage tabPageSendTo;
+        private System.Windows.Forms.DataGridView dataGridSendTo;
         private System.Windows.Forms.TabPage tabPageAutoPlay;
         private System.Windows.Forms.DataGridView dataGridAutoPlay;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridUrlProtocolsColumnDefault;
@@ -901,6 +971,8 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridStartMenuColumnCommand;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridDesktopColumnName;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridDesktopColumnCommand;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridSendToColumnName;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridSendToColumnCommand;
         private System.Windows.Forms.TabPage tabPageAliases;
         private System.Windows.Forms.DataGridView dataGridAliases;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridAliasesColumnName;
@@ -926,11 +998,13 @@
         private System.Windows.Forms.Button buttonHelpContextMenu;
         private System.Windows.Forms.Button buttonHelpDefaultPrograms;
         private System.Windows.Forms.Button buttonHelpDesktop;
+        private System.Windows.Forms.Button buttonHelpSendTo;
         private System.Windows.Forms.Button buttonAdvancedMode;
         private System.Windows.Forms.Button buttonHelpStartMenu;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutBasic;
         private System.Windows.Forms.CheckBox checkBoxStartMenuSimple;
         private System.Windows.Forms.CheckBox checkBoxDesktopSimple;
+        private System.Windows.Forms.CheckBox checkBoxSendToSimple;
         private System.Windows.Forms.CheckBox checkBoxAliasesSimple;
         private System.Windows.Forms.CheckBox checkBoxAutoStartSimple;
         private System.Windows.Forms.CheckBox checkBoxFileTypesSimple;
@@ -942,6 +1016,7 @@
         private System.Windows.Forms.Panel panelBasic;
         private System.Windows.Forms.Label labelStartMenuSimple;
         private System.Windows.Forms.Label labelDesktopSimple;
+        private System.Windows.Forms.Label labelSendToSimple;
         private System.Windows.Forms.Label labelAliasesSimple;
         private System.Windows.Forms.Label labelAutoStartSimple;
         private System.Windows.Forms.Label labelFileTypesSimple;

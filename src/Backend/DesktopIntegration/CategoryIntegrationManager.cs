@@ -43,7 +43,7 @@ namespace ZeroInstall.DesktopIntegration
         public const string AllCategoryName = "all";
 
         /// <summary>A list of all known <see cref="AccessPoint"/> categories.</summary>
-        public static readonly ICollection<string> Categories = new[] {CapabilityRegistration.CategoryName, MenuEntry.CategoryName, DesktopIcon.CategoryName, AppAlias.CategoryName, AutoStart.CategoryName, DefaultAccessPoint.CategoryName, AllCategoryName};
+        public static readonly ICollection<string> Categories = new[] {CapabilityRegistration.CategoryName, MenuEntry.CategoryName, DesktopIcon.CategoryName, SendTo.CategoryName, AppAlias.CategoryName, AutoStart.CategoryName, DefaultAccessPoint.CategoryName, AllCategoryName};
         #endregion
 
         #region Constructor
@@ -73,6 +73,7 @@ namespace ZeroInstall.DesktopIntegration
             bool capabilities = categories.Contains(CapabilityRegistration.CategoryName) || all;
             bool menu = categories.Contains(MenuEntry.CategoryName) || all;
             bool desktop = categories.Contains(DesktopIcon.CategoryName) || all;
+            bool sendTo = categories.Contains(SendTo.CategoryName) || all;
             bool alias = categories.Contains(AppAlias.CategoryName) || all;
             bool autoStart = categories.Contains(AutoStart.CategoryName) || all;
             bool defaults = categories.Contains(DefaultAccessPoint.CategoryName) || all;
@@ -82,6 +83,7 @@ namespace ZeroInstall.DesktopIntegration
             if (capabilities) accessPointsToAdd.Add(new CapabilityRegistration());
             if (menu) accessPointsToAdd.AddRange(Suggest.MenuEntries(feed));
             if (desktop) accessPointsToAdd.AddRange(Suggest.DesktopIcons(feed));
+            if (sendTo) accessPointsToAdd.AddRange(Suggest.SendTo(feed));
             if (alias) accessPointsToAdd.AddRange(Suggest.Aliases(feed));
             if (autoStart) accessPointsToAdd.AddRange(Suggest.AutoStart(feed));
             if (defaults)
@@ -127,6 +129,7 @@ namespace ZeroInstall.DesktopIntegration
             bool capabilities = categories.Contains(CapabilityRegistration.CategoryName) || all;
             bool menu = categories.Contains(MenuEntry.CategoryName) || all;
             bool desktop = categories.Contains(DesktopIcon.CategoryName) || all;
+            bool sendTo = categories.Contains(SendTo.CategoryName) || all;
             bool alias = categories.Contains(AppAlias.CategoryName) || all;
             bool autoStart = categories.Contains(AutoStart.CategoryName) || all;
             bool defaults = categories.Contains(DefaultAccessPoint.CategoryName) || all;
@@ -136,6 +139,7 @@ namespace ZeroInstall.DesktopIntegration
             if (capabilities) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<CapabilityRegistration>());
             if (menu) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<MenuEntry>());
             if (desktop) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<DesktopIcon>());
+            if (sendTo) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<SendTo>());
             if (alias) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<AppAlias>());
             if (autoStart) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<AutoStart>());
             if (defaults) accessPointsToRemove.AddRange(appEntry.AccessPoints.Entries.OfType<DefaultAccessPoint>());

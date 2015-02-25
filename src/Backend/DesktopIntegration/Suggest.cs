@@ -85,6 +85,25 @@ namespace ZeroInstall.DesktopIntegration
         }
 
         /// <summary>
+        /// Returns a list of suitable default <see cref="SendTo"/>s.
+        /// </summary>
+        [NotNull, ItemNotNull]
+        public static IEnumerable<SendTo> SendTo([NotNull] Feed feed)
+        {
+            #region Sanity checks
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
+            return (from entryPoint in feed.EntryPoints
+                where !string.IsNullOrEmpty(entryPoint.Command) && entryPoint.SuggestSendTo
+                select new SendTo
+                {
+                    Name = GetName(feed, entryPoint),
+                    Command = entryPoint.Command
+                }).DistinctBy(x => x.Name);
+        }
+
+        /// <summary>
         /// Returns a list of suitable default <see cref="AppAlias"/>s.
         /// </summary>
         [NotNull, ItemNotNull]

@@ -225,6 +225,13 @@
               </xsd:documentation>
             </xsd:annotation>
           </xsd:element>
+          <xsd:element name="suggest-send-to" type="xsd:string" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>
+                If present, this element indicates that this entry point should be offered as a candidate for the "Send To" context menu to the user.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
           <xsd:element name="name" type="feed:localizable-string">
             <xsd:annotation>
               <xsd:documentation>

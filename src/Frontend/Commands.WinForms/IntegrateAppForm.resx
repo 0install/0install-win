@@ -339,6 +339,96 @@
   <data name="&gt;&gt;tabPageDesktop.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="buttonHelpSendTo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonHelpSendTo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 168</value>
+  </data>
+  <data name="buttonHelpSendTo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>21, 23</value>
+  </data>
+  <data name="buttonHelpSendTo.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="buttonHelpSendTo.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;buttonHelpSendTo.Name" xml:space="preserve">
+    <value>buttonHelpSendTo</value>
+  </data>
+  <data name="&gt;&gt;buttonHelpSendTo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonHelpSendTo.Parent" xml:space="preserve">
+    <value>tabPageSendTo</value>
+  </data>
+  <data name="&gt;&gt;buttonHelpSendTo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="dataGridSendToColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridSendToColumnName.HeaderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <metadata name="dataGridSendToColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="dataGridSendTo.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dataGridSendTo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="dataGridSendTo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>436, 185</value>
+  </data>
+  <data name="dataGridSendTo.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;dataGridSendTo.Name" xml:space="preserve">
+    <value>dataGridSendTo</value>
+  </data>
+  <data name="&gt;&gt;dataGridSendTo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridSendTo.Parent" xml:space="preserve">
+    <value>tabPageSendTo</value>
+  </data>
+  <data name="&gt;&gt;dataGridSendTo.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tabPageSendTo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tabPageSendTo.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPageSendTo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>442, 191</value>
+  </data>
+  <data name="tabPageSendTo.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="tabPageSendTo.Text" xml:space="preserve">
+    <value>Send to</value>
+  </data>
+  <data name="&gt;&gt;tabPageSendTo.Name" xml:space="preserve">
+    <value>tabPageSendTo</value>
+  </data>
+  <data name="&gt;&gt;tabPageSendTo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageSendTo.Parent" xml:space="preserve">
+    <value>tabControl</value>
+  </data>
+  <data name="&gt;&gt;tabPageSendTo.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="buttonHelpAliases.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -1423,6 +1513,60 @@
     <value>flowLayoutBasic</value>
   </data>
   <data name="&gt;&gt;labelDesktopSimple.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="checkBoxSendToSimple.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxSendToSimple.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+  </data>
+  <data name="checkBoxSendToSimple.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="checkBoxSendToSimple.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="checkBoxSendToSimple.Text" xml:space="preserve">
+    <value>Send to</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSendToSimple.Name" xml:space="preserve">
+    <value>checkBoxSendToSimple</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSendToSimple.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSendToSimple.Parent" xml:space="preserve">
+    <value>flowLayoutBasic</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSendToSimple.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="labelSendToSimple.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelSendToSimple.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 12</value>
+  </data>
+  <data name="labelSendToSimple.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>16, 0, 0, 0</value>
+  </data>
+  <data name="labelSendToSimple.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="labelSendToSimple.Text" xml:space="preserve">
+    <value>An entry in the "Send to" menu</value>
+  </data>
+  <data name="&gt;&gt;labelSendToSimple.Name" xml:space="preserve">
+    <value>labelSendToSimple</value>
+  </data>
+  <data name="&gt;&gt;labelSendToSimple.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelSendToSimple.Parent" xml:space="preserve">
+    <value>flowLayoutBasic</value>
+  </data>
+  <data name="&gt;&gt;labelSendToSimple.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="checkBoxAliasesSimple.AutoSize" type="System.Boolean, mscorlib">
@@ -3041,6 +3185,18 @@
     <value>dataGridDesktopColumnCommand</value>
   </data>
   <data name="&gt;&gt;dataGridDesktopColumnCommand.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridSendToColumnName.Name" xml:space="preserve">
+    <value>dataGridSendToColumnName</value>
+  </data>
+  <data name="&gt;&gt;dataGridSendToColumnName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridSendToColumnCommand.Name" xml:space="preserve">
+    <value>dataGridSendToColumnCommand</value>
+  </data>
+  <data name="&gt;&gt;dataGridSendToColumnCommand.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridAliasesColumnName.Name" xml:space="preserve">

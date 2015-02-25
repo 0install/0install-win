@@ -76,6 +76,18 @@ namespace ZeroInstall.Store.Model
         [XmlElement("suggest-auto-start"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string SuggestAutoStartString { get { return (SuggestAutoStart ? "" : null); } set { SuggestAutoStart = (value != null); } }
 
+        /// <summary>
+        /// If <see langword="true"/>, indicates that this entry point should be offered as a candidate for the "Send To" context menu to the user.
+        /// </summary>
+        [Description("If true, indicates that this entry point should be offered as a candidate for the \"Send To\" context menu to the user.")]
+        [XmlIgnore, DefaultValue(false)]
+        public bool SuggestSendTo { get; set; }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="SuggestSendTo"/>
+        [XmlElement("suggest-send-to"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string SuggestSendToString { get { return (SuggestSendTo ? "" : null); } set { SuggestSendTo = (value != null); } }
+
         private readonly LocalizableStringCollection _names = new LocalizableStringCollection();
 
         /// <summary>

@@ -129,6 +129,12 @@
   <data name="dataGridDesktopColumnCommand.HeaderText" xml:space="preserve">
     <value>Befehl</value>
   </data>
+  <data name="dataGridSendToColumnCommand.HeaderText" xml:space="preserve">
+    <value>Befehl</value>
+  </data>
+  <data name="tabPageSendTo.Text" xml:space="preserve">
+    <value>Senden an</value>
+  </data>
   <data name="dataGridAliasesColumnCommand.HeaderText" xml:space="preserve">
     <value>Befehl</value>
   </data>
@@ -209,6 +215,12 @@
   </data>
   <data name="labelDesktopSimple.Text" xml:space="preserve">
     <value>Ein Symbol auf dem Desktop</value>
+  </data>
+  <data name="checkBoxSendToSimple.Text" xml:space="preserve">
+    <value>Senden an</value>
+  </data>
+  <data name="labelSendToSimple.Text" xml:space="preserve">
+    <value>Ein Eintrag im "Senden an" Menü</value>
   </data>
   <data name="checkBoxAliasesSimple.Text" xml:space="preserve">
     <value>Befehlszeilenaliase</value>
