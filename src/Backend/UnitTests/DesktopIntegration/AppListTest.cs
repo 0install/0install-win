@@ -79,6 +79,7 @@ namespace ZeroInstall.DesktopIntegration
                 Entries =
                 {
                     new AppAlias {Command = "main", Name = "myapp"},
+                    new AutoStart {Command = "main", Name = "myapp"},
                     new AutoPlay {Capability = "autoplay"},
                     new CapabilityRegistration(),
                     new ContextMenu {Capability = "context"},

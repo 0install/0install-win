@@ -429,6 +429,96 @@
   <data name="&gt;&gt;tabPageAliases.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="buttonHelpAutoStart.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonHelpAutoStart.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 168</value>
+  </data>
+  <data name="buttonHelpAutoStart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>21, 23</value>
+  </data>
+  <data name="buttonHelpAutoStart.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="buttonHelpAutoStart.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;buttonHelpAutoStart.Name" xml:space="preserve">
+    <value>buttonHelpAutoStart</value>
+  </data>
+  <data name="&gt;&gt;buttonHelpAutoStart.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonHelpAutoStart.Parent" xml:space="preserve">
+    <value>tabPageAutoStart</value>
+  </data>
+  <data name="&gt;&gt;buttonHelpAutoStart.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="dataGridAutoStartColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridAutoStartColumnName.HeaderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <metadata name="dataGridAutoStartColumnCommand.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="dataGridAutoStart.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dataGridAutoStart.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="dataGridAutoStart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>436, 185</value>
+  </data>
+  <data name="dataGridAutoStart.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;dataGridAutoStart.Name" xml:space="preserve">
+    <value>dataGridAutoStart</value>
+  </data>
+  <data name="&gt;&gt;dataGridAutoStart.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridAutoStart.Parent" xml:space="preserve">
+    <value>tabPageAutoStart</value>
+  </data>
+  <data name="&gt;&gt;dataGridAutoStart.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tabPageAutoStart.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tabPageAutoStart.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPageAutoStart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>442, 191</value>
+  </data>
+  <data name="tabPageAutoStart.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="tabPageAutoStart.Text" xml:space="preserve">
+    <value>Auto start</value>
+  </data>
+  <data name="&gt;&gt;tabPageAutoStart.Name" xml:space="preserve">
+    <value>tabPageAutoStart</value>
+  </data>
+  <data name="&gt;&gt;tabPageAutoStart.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageAutoStart.Parent" xml:space="preserve">
+    <value>tabControl</value>
+  </data>
+  <data name="&gt;&gt;tabPageAutoStart.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="buttonHelpFileTypes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -1387,6 +1477,60 @@
     <value>flowLayoutBasic</value>
   </data>
   <data name="&gt;&gt;labelAliasesSimple.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="checkBoxAutoStartSimple.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxAutoStartSimple.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
+  </data>
+  <data name="checkBoxAutoStartSimple.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="checkBoxAutoStartSimple.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
+    <value>Auto start</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoStartSimple.Name" xml:space="preserve">
+    <value>checkBoxAutoStartSimple</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoStartSimple.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoStartSimple.Parent" xml:space="preserve">
+    <value>flowLayoutBasic</value>
+  </data>
+  <data name="&gt;&gt;checkBoxAutoStartSimple.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="labelAutoStartSimple.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelAutoStartSimple.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 12</value>
+  </data>
+  <data name="labelAutoStartSimple.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>16, 0, 0, 0</value>
+  </data>
+  <data name="labelAutoStartSimple.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="labelAutoStartSimple.Text" xml:space="preserve">
+    <value>Start program automatically when the user logs in</value>
+  </data>
+  <data name="&gt;&gt;labelAutoStartSimple.Name" xml:space="preserve">
+    <value>labelAutoStartSimple</value>
+  </data>
+  <data name="&gt;&gt;labelAutoStartSimple.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelAutoStartSimple.Parent" xml:space="preserve">
+    <value>flowLayoutBasic</value>
+  </data>
+  <data name="&gt;&gt;labelAutoStartSimple.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
   <data name="checkBoxFileTypesSimple.AutoSize" type="System.Boolean, mscorlib">
@@ -2909,6 +3053,18 @@
     <value>dataGridAliasesColumnCommand</value>
   </data>
   <data name="&gt;&gt;dataGridAliasesColumnCommand.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridAutoStartColumnName.Name" xml:space="preserve">
+    <value>dataGridAutoStartColumnName</value>
+  </data>
+  <data name="&gt;&gt;dataGridAutoStartColumnName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridAutoStartColumnCommand.Name" xml:space="preserve">
+    <value>dataGridAutoStartColumnCommand</value>
+  </data>
+  <data name="&gt;&gt;dataGridAutoStartColumnCommand.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridFileTypesColumnDefault.Name" xml:space="preserve">

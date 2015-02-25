@@ -39,38 +39,42 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="command">The command within <paramref name="target"/> the shorcut shall point to; can be <see langword="null"/>.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Create the shortcut machine-wide instead of just for the current user.</param>
-        public static void Create([NotNull] string path, InterfaceFeed target, [CanBeNull] string command, [NotNull] ITaskHandler handler, bool machineWide = false)
+        private static void Create([NotNull] string path, InterfaceFeed target, [CanBeNull] string command, [NotNull] ITaskHandler handler, bool machineWide = false)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            #endregion
-
             if (string.IsNullOrEmpty(command)) command = Command.NameRun;
 
+            var entryPoint = target.Feed.GetEntryPoint(command);
+            bool needsTerminal = target.Feed.NeedsTerminal || (entryPoint != null && entryPoint.NeedsTerminal);
+
+            string arguments = "run ";
+            if (!needsTerminal) arguments += "--no-wait ";
+            if (command != Command.NameRun) arguments += "--command " + command.EscapeArgument() + " ";
+            arguments += target.InterfaceUri.ToStringRfc().EscapeArgument();
+
+            var icon = target.Feed.GetIcon(Icon.MimeTypeIco, command);
+
+            Create(path,
+                targetPath: Path.Combine(Locations.InstallBase, needsTerminal ? "0install.exe" : "0install-win.exe"),
+                arguments: arguments,
+                iconLocation: (icon == null) ? null : IconProvider.GetIconPath(icon, handler, machineWide),
+                description: target.Feed.GetBestSummary(CultureInfo.CurrentUICulture, command));
+        }
+
+        /// <summary>
+        /// Creates a new Windows shortcut.
+        /// </summary>
+        private static void Create([NotNull] string path, [NotNull] string targetPath, [CanBeNull] string arguments = null, [CanBeNull] string iconLocation = null, [CanBeNull] string description = null)
+        {
 #if !__MonoCS__
             if (File.Exists(path)) File.Delete(path);
 
             var wshShell = new IWshRuntimeLibrary.WshShellClass();
             var shortcut = (IWshRuntimeLibrary.IWshShortcut)wshShell.CreateShortcut(path);
 
-            var entryPoint = target.Feed.GetEntryPoint(command);
-            bool needsTerminal = target.Feed.NeedsTerminal || (entryPoint != null && entryPoint.NeedsTerminal);
-            shortcut.TargetPath = Path.Combine(Locations.InstallBase, needsTerminal ? "0install.exe" : "0install-win.exe");
-
-            string arguments = "run ";
-            if (!needsTerminal) arguments += "--no-wait ";
-            if (command != Command.NameRun) arguments += "--command " + command.EscapeArgument() + " ";
-            arguments += target.InterfaceUri.ToStringRfc().EscapeArgument();
-            shortcut.Arguments = arguments;
-
-            // .lnk descriptions may not be longer than 260 characters
-            const int maxDescriptionLength = 256;
-            string description = target.Feed.GetBestSummary(CultureInfo.CurrentUICulture, command);
-            if (!string.IsNullOrEmpty(description)) shortcut.Description = description.Substring(0, Math.Min(description.Length, maxDescriptionLength));
-
-            // Set icon if available
-            var icon = target.Feed.GetIcon(Icon.MimeTypeIco, command);
-            if (icon != null) shortcut.IconLocation = IconProvider.GetIconPath(icon, handler, machineWide);
+            shortcut.TargetPath = targetPath;
+            if (!string.IsNullOrEmpty(arguments)) shortcut.Arguments = arguments;
+            if (!string.IsNullOrEmpty(iconLocation)) shortcut.IconLocation = iconLocation;
+            if (!string.IsNullOrEmpty(description)) shortcut.Description = description.Substring(0, Math.Min(description.Length, 256));
 
             shortcut.Save();
 #endif

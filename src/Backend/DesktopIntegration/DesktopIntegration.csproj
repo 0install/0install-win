@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="AccessPoints\AutoStart.cs" />
     <Compile Include="AccessPoints\SendTo.cs" />
     <Compile Include="AccessPoints\MockAccessPoint.cs" />
     <Compile Include="CapabilityExtensions.cs" />
@@ -117,6 +118,9 @@
     <Compile Include="Windows\FileType.cs" />
     <Compile Include="Windows\IconProvider.cs" />
     <Compile Include="Windows\Shortcut.cs" />
+    <Compile Include="Windows\Shortcut.AutoStart.cs">
+      <DependentUpon>Shortcut.cs</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Shortcut.DesktopIcon.cs">
       <DependentUpon>Shortcut.cs</DependentUpon>
     </Compile>

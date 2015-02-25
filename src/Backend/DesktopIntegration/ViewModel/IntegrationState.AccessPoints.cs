@@ -30,6 +30,7 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         public readonly BindingList<MenuEntry> MenuEntries = new BindingList<MenuEntry>();
         public readonly BindingList<DesktopIcon> DesktopIcons = new BindingList<DesktopIcon>();
         public readonly BindingList<AppAlias> Aliases = new BindingList<AppAlias>();
+        public readonly BindingList<AutoStart> AutoStarts = new BindingList<AutoStart>();
 
         /// <summary>
         /// Reads the <see cref="CommandAccessPoint"/>s from <see cref="DesktopIntegration.AppEntry.AccessPoints"/> or uses suggestion methods to fill in defaults.
@@ -47,7 +48,8 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
                 {
                     (Action<MenuEntry>)MenuEntries.Add,
                     (Action<DesktopIcon>)DesktopIcons.Add,
-                    (Action<AppAlias>)Aliases.Add
+                    (Action<AppAlias>)Aliases.Add,
+                    (Action<AutoStart>)AutoStarts.Add
                 }.Dispatch(AppEntry.AccessPoints.Entries.CloneElements()); // Use clones so that user modifications can still be canceled
             }
         }
@@ -58,24 +60,28 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
             var currentMenuEntries = new List<MenuEntry>();
             var currentDesktopIcons = new List<DesktopIcon>();
             var currentAliases = new List<AppAlias>();
+            var currentAutoStarts = new List<AutoStart>();
             if (AppEntry.AccessPoints != null)
             {
                 new PerTypeDispatcher<AccessPoint>(ignoreMissing: true)
                 {
                     (Action<MenuEntry>)currentMenuEntries.Add,
                     (Action<DesktopIcon>)currentDesktopIcons.Add,
-                    (Action<AppAlias>)currentAliases.Add
+                    (Action<AppAlias>)currentAliases.Add,
+                    (Action<AutoStart>)currentAutoStarts.Add
                 }.Dispatch(AppEntry.AccessPoints.Entries);
             }
 
             PurgeEmpty(MenuEntries);
             PurgeEmpty(DesktopIcons);
             PurgeEmpty(Aliases);
+            PurgeEmpty(AutoStarts);
 
             // Determine differences between current and desired state
             Merge.TwoWay(theirs: MenuEntries, mine: currentMenuEntries, added: toAdd.Add, removed: toRemove.Add);
             Merge.TwoWay(theirs: DesktopIcons, mine: currentDesktopIcons, added: toAdd.Add, removed: toRemove.Add);
             Merge.TwoWay(theirs: Aliases, mine: currentAliases, added: toAdd.Add, removed: toRemove.Add);
+            Merge.TwoWay(theirs: AutoStarts, mine: currentAutoStarts, added: toAdd.Add, removed: toRemove.Add);
         }
 
         private static void PurgeEmpty<T>(ICollection<T> list)

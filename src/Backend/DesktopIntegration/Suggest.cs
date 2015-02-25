@@ -115,6 +115,25 @@ namespace ZeroInstall.DesktopIntegration
             }
         }
 
+        /// <summary>
+        /// Returns a list of suitable default <see cref="AutoStart"/>s.
+        /// </summary>
+        [NotNull, ItemNotNull]
+        public static IEnumerable<AutoStart> AutoStart([NotNull] Feed feed)
+        {
+            #region Sanity checks
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
+            return (from entryPoint in feed.EntryPoints
+                where !string.IsNullOrEmpty(entryPoint.Command) && entryPoint.SuggestAutoStart
+                select new AutoStart
+                {
+                    Name = GetName(feed, entryPoint),
+                    Command = entryPoint.Command
+                }).DistinctBy(x => x.Name);
+        }
+
         private static string GetName(Feed feed)
         {
             return (feed.Name ?? "").RemoveAll(Path.GetInvalidFileNameChars());

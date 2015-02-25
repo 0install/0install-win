@@ -55,7 +55,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// If <see langword="true"/>, indicates that the <see cref="Command"/> represented by this entry point requires a terminal in order to run.
         /// </summary>
-        [Category("Interface"), Description("If true, indicates that the Command represented by this entry point requires a terminal in order to run.")]
+        [Description("If true, indicates that the Command represented by this entry point requires a terminal in order to run.")]
         [XmlIgnore, DefaultValue(false)]
         public bool NeedsTerminal { get; set; }
 
@@ -63,6 +63,18 @@ namespace ZeroInstall.Store.Model
         /// <seealso cref="NeedsTerminal"/>
         [XmlElement("needs-terminal"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string NeedsTerminalString { get { return (NeedsTerminal ? "" : null); } set { NeedsTerminal = (value != null); } }
+
+        /// <summary>
+        /// If <see langword="true"/>, indicates that this entry point should be offered as an auto-start candidate to the user.
+        /// </summary>
+        [Description("If true, indicates that this entry point should be offered as an auto-start candidate to the user.")]
+        [XmlIgnore, DefaultValue(false)]
+        public bool SuggestAutoStart { get; set; }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="SuggestAutoStart"/>
+        [XmlElement("suggest-auto-start"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string SuggestAutoStartString { get { return (SuggestAutoStart ? "" : null); } set { SuggestAutoStart = (value != null); } }
 
         private readonly LocalizableStringCollection _names = new LocalizableStringCollection();
 

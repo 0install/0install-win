@@ -214,7 +214,14 @@
           <xsd:element name="needs-terminal" type="xsd:string" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>
-                If present, this element indicates that the entry point requires a terminal in order to run. Graphical launchers should therefore execute this entry point in a suitable terminal emulator.
+                If present, this element indicates that the command represented by this entry point requires a terminal in order to run. Graphical launchers should therefore execute this entry point in a suitable terminal emulator.
+              </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="suggest-auto-start" type="xsd:string" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>
+                If present, this element indicates that this entry point should be offered as an auto-start candidate to the user.
               </xsd:documentation>
             </xsd:annotation>
           </xsd:element>

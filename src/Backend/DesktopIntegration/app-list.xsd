@@ -74,6 +74,7 @@
       <xsd:element name="context-menu" type="apps:context-menu" />
       <xsd:element name="default-program" type="apps:default-program" />
       <xsd:element name="alias" type="apps:alias" />
+      <xsd:element name="auto-start" type="apps:auto-start" />
       <xsd:element name="file-type" type="apps:file-type" />
       <xsd:element name="menu-entry" type="apps:menu-entry" />
       <xsd:element name="send-to" type="apps:send-to" />
@@ -152,6 +153,11 @@
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="apps:access-point">
+        <xsd:attribute name="name" type="xsd:string" use="required">
+          <xsd:annotation>
+            <xsd:documentation>The name of the menu entry, icon, command-line, etc..</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
         <xsd:attribute name="command" type="xsd:string">
           <xsd:annotation>
             <xsd:documentation>The name of the command to use when launching via this access point. Leave empty or unset to use default.</xsd:documentation>

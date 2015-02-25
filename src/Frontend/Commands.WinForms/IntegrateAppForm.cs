@@ -117,6 +117,7 @@ namespace ZeroInstall.Commands.WinForms
             SetupCommandAccessPoint(checkBoxStartMenuSimple, labelStartMenuSimple, _state.MenuEntries, () => Suggest.MenuEntries(_state.Feed));
             SetupCommandAccessPoint(checkBoxDesktopSimple, labelDesktopSimple, _state.DesktopIcons, () => Suggest.DesktopIcons(_state.Feed));
             SetupCommandAccessPoint(checkBoxAliasesSimple, labelAliasesSimple, _state.Aliases, () => Suggest.Aliases(_state.Feed));
+            SetupCommandAccessPoint(checkBoxAutoStartSimple, labelAutoStartSimple, _state.AutoStarts, () => Suggest.AutoStart(_state.Feed));
 
             SetupCommandComboBoxes();
             ShowCommandAccessPoints();
@@ -136,6 +137,7 @@ namespace ZeroInstall.Commands.WinForms
             dataGridStartMenuColumnCommand.Items.AddRange(commands);
             dataGridDesktopColumnCommand.Items.AddRange(commands);
             dataGridAliasesColumnCommand.Items.AddRange(commands);
+            dataGridAutoStartColumnCommand.Items.AddRange(commands);
         }
 
         /// <summary>
@@ -146,6 +148,7 @@ namespace ZeroInstall.Commands.WinForms
             dataGridStartMenu.DataSource = _state.MenuEntries;
             dataGridDesktop.DataSource = _state.DesktopIcons;
             dataGridAliases.DataSource = _state.Aliases;
+            dataGridAutoStart.DataSource = _state.AutoStarts;
         }
 
         /// <summary>

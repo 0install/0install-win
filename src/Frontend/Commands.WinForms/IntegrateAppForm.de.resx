@@ -135,6 +135,12 @@
   <data name="tabPageAliases.Text" xml:space="preserve">
     <value>Befehlszeilenaliase</value>
   </data>
+  <data name="dataGridAutoStartColumnCommand.HeaderText" xml:space="preserve">
+    <value>Befehl</value>
+  </data>
+  <data name="tabPageAutoStart.Text" xml:space="preserve">
+    <value>Autostart</value>
+  </data>
   <data name="checkBoxFileTypesAll.Text" xml:space="preserve">
     <value>&amp;Alle auswählen</value>
   </data>
@@ -209,6 +215,12 @@
   </data>
   <data name="labelAliasesSimple.Text" xml:space="preserve">
     <value>Zugriff vom Befehlszeileninterface aus</value>
+  </data>
+  <data name="checkBoxAutoStartSimple.Text" xml:space="preserve">
+    <value>Autostart</value>
+  </data>
+  <data name="labelAutoStartSimple.Text" xml:space="preserve">
+    <value>Programm beim Anmelden automatisch starten</value>
   </data>
   <data name="checkBoxFileTypesSimple.Text" xml:space="preserve">
     <value>Dateitypen</value>
