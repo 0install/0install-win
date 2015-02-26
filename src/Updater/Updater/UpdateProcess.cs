@@ -165,14 +165,18 @@ namespace ZeroInstall.Updater
             if (File.Exists(Path.Combine(Target, Locations.PortableFlagName))) return false;
 
             // Determine whether the service is installed and running
-            var controller = ServiceController.GetServices().FirstOrDefault(service => service.ServiceName == "0store-service");
-            if (controller == null) return false;
-            if (controller.Status == ServiceControllerStatus.Stopped) return false;
+            var service = ServiceController.GetServices().FirstOrDefault(x => x.ServiceName == "0store-service");
+            if (service == null) return false;
+            if (service.Status == ServiceControllerStatus.Stopped) return false;
+
+            // Determine whether the service is installed in the target directory we are updating
+            string imagePath = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\0store-service", "ImagePath").Trim('"');
+            if (!imagePath.StartsWith(Target)) return false;
 
             if (!WindowsUtils.IsAdministrator) throw new UnauthorizedAccessException();
 
             // Stop the service
-            controller.Stop();
+            service.Stop();
             Thread.Sleep(2000);
             return true;
         }
