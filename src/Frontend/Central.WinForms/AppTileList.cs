@@ -64,24 +64,24 @@ namespace ZeroInstall.Central.WinForms
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IIconCache IconCache { get; set; }
 
-        private Color _tileColorLight = Color.White;
+        private Color _tileColorLight = SystemColors.Window;
 
         /// <summary>
         /// The light background color (one of two colors the list toggles between) for <see cref="AppTile"/>s.
         /// </summary>
         /// <seealso cref="TileColorDark"/>
         [Category("Appearance"), Description("The light background color (one of two colors the list toggles between) for AppTiles.")]
-        [DefaultValue(typeof(Color), "White")]
+        [DefaultValue(typeof(Color), "Window")]
         public Color TileColorLight { get { return _tileColorLight; } set { _tileColorLight = value; } }
 
-        private Color _tileColorDark = Color.Gainsboro;
+        private Color _tileColorDark = SystemColors.Control;
 
         /// <summary>
         /// The dark background color (one of two colors the list toggles between) for <see cref="AppTile"/>s.
         /// </summary>
         /// <seealso cref="TileColorLight"/>
         [Category("Appearance"), Description("The dark background color (one of two colors the list toggles between) for AppTiles.")]
-        [DefaultValue(typeof(Color), "Gainsboro")]
+        [DefaultValue(typeof(Color), "Control")]
         public Color TileColorDark { get { return _tileColorDark; } set { _tileColorDark = value; } }
         #endregion
 
