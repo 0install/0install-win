@@ -166,7 +166,7 @@ namespace ZeroInstall.Commands
             // Build a relaunch entry for each entry point
             var entries =
                 from entryPoint in _target.Feed.EntryPoints
-                where !string.IsNullOrEmpty(entryPoint.Command) && entryPoint.Names.Count != 0 && !string.IsNullOrEmpty(entryPoint.BinaryName)
+                where !string.IsNullOrEmpty(entryPoint.BinaryName)
                 select new RelaunchEntry(
                     entryPoint.BinaryName,
                     entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture) ?? _target.Feed.Name,

@@ -286,7 +286,7 @@ namespace ZeroInstall.Store.Model
         {
             var feed = CreateTestFeed();
 
-            Assert.AreEqual(CreateTestFeed().EntryPoints[0], feed.GetEntryPoint(Command.NameRun));
+            Assert.AreEqual(CreateTestFeed().EntryPoints[0], feed.GetEntryPoint());
             Assert.IsNull(feed.GetEntryPoint("unknown"));
         }
 
@@ -298,8 +298,8 @@ namespace ZeroInstall.Store.Model
         {
             var feed = CreateTestFeed();
 
-            Assert.AreEqual("Entry name", feed.GetBestName(CultureInfo.InvariantCulture, Command.NameRun));
-            Assert.AreEqual(feed.Name, feed.GetBestName(CultureInfo.InvariantCulture, "unknown"));
+            Assert.AreEqual("Entry name", feed.GetBestName(CultureInfo.InvariantCulture));
+            Assert.AreEqual(feed.Name + " unknown", feed.GetBestName(CultureInfo.InvariantCulture, "unknown"));
         }
 
         /// <summary>
@@ -310,7 +310,7 @@ namespace ZeroInstall.Store.Model
         {
             var feed = CreateTestFeed();
 
-            Assert.AreEqual("Entry summary", feed.GetBestSummary(CultureInfo.InvariantCulture, Command.NameRun));
+            Assert.AreEqual("Entry summary", feed.GetBestSummary(CultureInfo.InvariantCulture));
             Assert.AreEqual("Default summary", feed.GetBestSummary(CultureInfo.InvariantCulture, "unknown"));
         }
 
@@ -325,7 +325,7 @@ namespace ZeroInstall.Store.Model
             var feedIcon = new Icon {Href = new Uri("http://0install.de/feeds/images/test.ico"), MimeType = Icon.MimeTypeIco};
             var commandIcon = new Icon {Href = new Uri("http://0install.de/feeds/images/test_command.ico"), MimeType = Icon.MimeTypeIco};
 
-            Assert.AreEqual(commandIcon, feed.GetIcon(Icon.MimeTypeIco, Command.NameRun));
+            Assert.AreEqual(commandIcon, feed.GetIcon(Icon.MimeTypeIco));
             Assert.AreEqual(feedIcon, feed.GetIcon(Icon.MimeTypeIco, "unknown"));
             Assert.AreEqual(null, feed.GetIcon("wrong", "unknown"));
         }

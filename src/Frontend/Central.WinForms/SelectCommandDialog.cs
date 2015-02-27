@@ -19,10 +19,10 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
-using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using ZeroInstall.Central.Properties;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Central.WinForms
@@ -52,34 +52,26 @@ namespace ZeroInstall.Central.WinForms
         }
         #endregion
 
-        private readonly Feed _feed;
+        private readonly FeedTarget _target;
 
         /// <summary>
         /// Creates a dialog box for asking the the user to select an <see cref="Command"/>.
         /// </summary>
-        /// <param name="feed">The <see cref="Feed"/> containing <see cref="EntryPoint"/>s with information about available <see cref="Command"/>s.</param>
-        public SelectCommandDialog([NotNull] Feed feed)
+        /// <param name="target">The application to be launched.</param>
+        public SelectCommandDialog(FeedTarget target)
         {
-            #region Sanity checks
-            if (feed == null) throw new ArgumentNullException("feed");
-            #endregion
-
-            _feed = feed;
+            _target = target;
 
             InitializeComponent();
         }
 
         private void SelectCommandDialog_Load(object sender, EventArgs e)
         {
-            Text = string.Format(Resources.SelectCommand, _feed.Name);
+            Text = string.Format(Resources.SelectCommand, _target.Feed.Name);
 
             // Wrap entry points so that their ToXmlString methods return localized names
-            foreach (var entryPoint in _feed.EntryPoints)
+            foreach (var entryPoint in _target.Feed.EntryPoints)
                 comboBoxCommand.Items.Add(new EntryPointWrapper(entryPoint));
-
-            // Add default command as a fallback
-            if (comboBoxCommand.Items.Count == 0)
-                comboBoxCommand.Items.Add(Command.NameRun);
 
             comboBoxCommand.SelectedIndex = 0;
         }
@@ -101,7 +93,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 // Cannot use in-process method here because the "args" string needs to be parsed by the operating system
                 ProcessUtils.LaunchAssembly(Commands.WinForms.Program.ExeName,
-                    "run --no-wait --command " + command.EscapeArgument() + " " + _feed.Uri.ToStringRfc().EscapeArgument() +
+                    "run --no-wait --command " + command.EscapeArgument() + " " + _target.Uri.ToStringRfc().EscapeArgument() +
                     " " + textBoxArgs.Text);
             }
                 #region Error handling

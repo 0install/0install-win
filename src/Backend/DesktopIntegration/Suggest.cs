@@ -18,10 +18,8 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
-using NanoByte.Common;
 using NanoByte.Common.Collections;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Store.Model;
@@ -44,29 +42,16 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             var category = feed.Categories.FirstOrDefault();
-            if (feed.EntryPoints.Count < 2)
-            { // Only a single entry point
-                return new[]
+            string categoryString = (category == null) ? "" : category.ToString();
+            if (feed.EntryPoints.Count > 1) categoryString += "/" + feed.Name;
+
+            return (from entryPoint in feed.EntryPoints
+                select new MenuEntry
                 {
-                    new MenuEntry
-                    {
-                        Name = GetName(feed),
-                        Category = (category == null) ? "" : category.ToString(),
-                        Command = Command.NameRun
-                    }
-                };
-            }
-            else
-            { // Multiple entry points
-                return (from entryPoint in feed.EntryPoints
-                    where !string.IsNullOrEmpty(entryPoint.Command) && !entryPoint.NeedsTerminal
-                    select new MenuEntry
-                    {
-                        Category = (category == null) ? feed.Name : category + "/" + feed.Name,
-                        Name = GetName(feed, entryPoint),
-                        Command = entryPoint.Command
-                    }).DistinctBy(x => x.Name);
-            }
+                    Category = categoryString,
+                    Name = feed.GetBestName(CultureInfo.CurrentUICulture, entryPoint.Command),
+                    Command = entryPoint.Command
+                }).DistinctBy(x => x.Name);
         }
 
         /// <summary>
@@ -79,9 +64,13 @@ namespace ZeroInstall.DesktopIntegration
             if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            return feed.NeedsTerminal
-                ? new DesktopIcon[0]
-                : new[] {new DesktopIcon {Name = GetName(feed), Command = Command.NameRun}};
+            return (from entryPoint in feed.EntryPoints
+                where !entryPoint.NeedsTerminal && (entryPoint.Command == Command.NameRun || entryPoint.Command == Command.NameRunGui)
+                select new DesktopIcon
+                {
+                    Name = feed.GetBestName(CultureInfo.CurrentUICulture, entryPoint.Command),
+                    Command = entryPoint.Command
+                }).DistinctBy(x => x.Name);
         }
 
         /// <summary>
@@ -95,10 +84,10 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             return (from entryPoint in feed.EntryPoints
-                where !string.IsNullOrEmpty(entryPoint.Command) && entryPoint.SuggestSendTo
+                where entryPoint.SuggestSendTo
                 select new SendTo
                 {
-                    Name = GetName(feed, entryPoint),
+                    Name = feed.GetBestName(CultureInfo.CurrentUICulture, entryPoint.Command),
                     Command = entryPoint.Command
                 }).DistinctBy(x => x.Name);
         }
@@ -113,25 +102,13 @@ namespace ZeroInstall.DesktopIntegration
             if (feed == null) throw new ArgumentNullException("feed");
             #endregion
 
-            if (feed.EntryPoints.Count == 0)
-            { // Only one entry point
-                if (feed.NeedsTerminal)
+            return (from entryPoint in feed.EntryPoints
+                where entryPoint.NeedsTerminal
+                select new AppAlias
                 {
-                    // Try to guess reasonable alias name of command-line applications
-                    return new[] {new AppAlias {Name = GetName(feed).Replace(' ', '-').ToLower(), Command = Command.NameRun}};
-                }
-                else return new AppAlias[0];
-            }
-            else
-            { // Multiple entry points
-                return (from entryPoint in feed.EntryPoints
-                    where !string.IsNullOrEmpty(entryPoint.Command) && (entryPoint.NeedsTerminal || feed.NeedsTerminal)
-                    select new AppAlias
-                    {
-                        Name = entryPoint.BinaryName ?? entryPoint.Command,
-                        Command = entryPoint.Command
-                    }).DistinctBy(x => x.Name);
-            }
+                    Name = entryPoint.BinaryName ?? (entryPoint.Command == Command.NameRun ? feed.Name.Replace(' ', '-').ToLower() : entryPoint.Command),
+                    Command = entryPoint.Command
+                }).DistinctBy(x => x.Name);
         }
 
         /// <summary>
@@ -145,29 +122,12 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             return (from entryPoint in feed.EntryPoints
-                where !string.IsNullOrEmpty(entryPoint.Command) && entryPoint.SuggestAutoStart
+                where entryPoint.SuggestAutoStart
                 select new AutoStart
                 {
-                    Name = GetName(feed, entryPoint),
+                    Name = feed.GetBestName(CultureInfo.CurrentUICulture, entryPoint.Command),
                     Command = entryPoint.Command
                 }).DistinctBy(x => x.Name);
-        }
-
-        private static string GetName(Feed feed)
-        {
-            return (feed.Name ?? "").RemoveAll(Path.GetInvalidFileNameChars());
-        }
-
-        private static string GetName(Feed feed, EntryPoint entryPoint)
-        {
-            // Try to get a localized name for the command
-            return entryPoint.Names.GetBestLanguage(CultureInfo.CurrentUICulture)
-                // If that fails...
-                   ?? ((entryPoint.Command == Command.NameRun)
-                       // ... use the application's name
-                       ? GetName(feed)
-                       // ... or the application's name and the command
-                       : GetName(feed) + " " + entryPoint.Command);
         }
     }
 }

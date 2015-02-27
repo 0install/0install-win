@@ -61,11 +61,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var entryPoint = target.Feed.GetEntryPoint(command ?? Command.NameRun);
+            var entryPoint = target.Feed.GetEntryPoint(command);
             string exeName = (entryPoint != null)
                 ? entryPoint.BinaryName ?? entryPoint.Command
                 : FeedUri.Escape(target.Feed.Name);
-            bool needsTerminal = target.Feed.NeedsTerminal || (entryPoint != null && entryPoint.NeedsTerminal);
+            bool needsTerminal = (entryPoint != null && entryPoint.NeedsTerminal);
 
             string hash = (target.Uri + "#" + command).Hash(SHA256.Create());
             string path = Path.Combine(Locations.GetIntegrationDirPath("0install.net", machineWide, "desktop-integration", "stubs", hash), exeName + ".exe");

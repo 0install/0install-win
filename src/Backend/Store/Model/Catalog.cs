@@ -195,7 +195,7 @@ namespace ZeroInstall.Store.Model
                 if (StringUtils.EqualsIgnoreCase(feed.Name.Replace(' ', '-'), shortName)) return true;
 
                 // Short name matches binary name
-                var entryPoint = feed.GetEntryPoint(Command.NameRun);
+                var entryPoint = feed.GetEntryPoint();
                 return entryPoint != null && StringUtils.EqualsIgnoreCase(entryPoint.BinaryName, shortName);
             });
         }

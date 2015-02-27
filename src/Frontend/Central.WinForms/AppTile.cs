@@ -233,7 +233,7 @@ namespace ZeroInstall.Central.WinForms
         private void buttonRun_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
-            if (Feed != null && Feed.NeedsTerminal) new SelectCommandDialog(Feed).Show(this);
+            if (Feed != null && Feed.NeedsTerminal) new SelectCommandDialog(new FeedTarget(InterfaceUri, Feed)).Show(this);
             else Program.RunCommand(Run.Name, "--no-wait", InterfaceUri.ToStringRfc());
         }
 
@@ -246,7 +246,7 @@ namespace ZeroInstall.Central.WinForms
         private void buttonSelectCommand_Click(object sender, EventArgs e)
         {
             if (InterfaceUri.IsFake) return;
-            new SelectCommandDialog(Feed).Show(this);
+            new SelectCommandDialog(new FeedTarget(InterfaceUri, Feed)).Show(this);
         }
 
         private void buttonUpdate_Click(object sender, EventArgs e)

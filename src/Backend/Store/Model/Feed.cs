@@ -238,8 +238,13 @@ namespace ZeroInstall.Store.Model
             _feedFor.RemoveAll(FeedElement.FilterMismatch);
             _entryPoints.RemoveAll(FeedElement.FilterMismatch);
 
-            var collapsedElements = new List<Element>();
+            NormalizeElements(feedUri);
+            NormalizeEntryPoints();
+        }
 
+        private void NormalizeElements(FeedUri feedUri)
+        {
+            var collapsedElements = new List<Element>();
             foreach (var element in _elements)
             {
                 // Flatten structure in groups, set missing default values in implementations
@@ -253,8 +258,23 @@ namespace ZeroInstall.Store.Model
                 }
                 else collapsedElements.Add(element);
             }
+
             _elements.Clear();
             _elements.AddRange(collapsedElements);
+        }
+
+        private void NormalizeEntryPoints()
+        {
+            // Remove invalid entry points
+            _entryPoints.RemoveAll(x => string.IsNullOrEmpty(x.Command));
+
+            // Ensure an entry point for the "run" command exists
+            var mainEntryPoint = GetEntryPoint();
+            if (mainEntryPoint == null)
+                _entryPoints.Add(mainEntryPoint = new EntryPoint {Names = {Name}, Command = Command.NameRun});
+
+            // Copy the needs-terminal flag from the feed to the main entry point if present
+            if (NeedsTerminal) mainEntryPoint.NeedsTerminal = true;
         }
 
         /// <summary>
@@ -304,25 +324,23 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
-        /// Returns the first <see cref="EntryPoint"/> referencing a specific <see cref="Command"/>. Safe for missing elements.
+        /// Returns the first <see cref="EntryPoint"/> referencing a specific <see cref="Command"/>.
         /// </summary>
-        /// <param name="command">The command name to search for.</param>
+        /// <param name="command">The command name to search for; <see langword="null"/> is equivalent to <see cref="Command.NameRun"/>.</param>
         /// <returns>The identified <see cref="EntryPoint"/>; <see langword="null"/> no matching one was found.</returns>
-        [CanBeNull]
-        public EntryPoint GetEntryPoint([NotNull] string command)
+        [ContractAnnotation("command:null=>notnull")]
+        public EntryPoint GetEntryPoint([CanBeNull] string command = null)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(command)) throw new ArgumentNullException("command");
-            #endregion
+            if (command == null) command = Command.NameRun;
 
             return EntryPoints.FirstOrDefault(entryPoint => entryPoint.Command == command);
         }
 
         /// <summary>
-        /// Returns the best matching name for a specific <see cref="Command"/>/<see cref="EntryPoint"/>. Will fall back to <see cref="Name"/>.
+        /// Returns the best matching name for a specific <see cref="Command"/>/<see cref="EntryPoint"/>.
         /// </summary>
         /// <param name="language">The language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
-        /// <param name="command">The name of the command the name should represent; can be <see langword="null"/>.</param>
+        /// <param name="command">The name of the command the name should represent; <see langword="null"/> is equivalent to <see cref="Command.NameRun"/>.</param>
         /// <returns>The best matching name that was found.</returns>
         [NotNull]
         public string GetBestName([NotNull] CultureInfo language, [CanBeNull] string command = null)
@@ -331,7 +349,7 @@ namespace ZeroInstall.Store.Model
             if (language == null) throw new ArgumentNullException("language");
             #endregion
 
-            if (string.IsNullOrEmpty(command)) command = Command.NameRun;
+            if (command == null) command = Command.NameRun;
 
             var entryPoint = GetEntryPoint(command);
             if (entryPoint != null)
@@ -340,14 +358,14 @@ namespace ZeroInstall.Store.Model
                 if (!string.IsNullOrEmpty(name)) return name;
             }
 
-            return Name;
+            return Name + " " + command;
         }
 
         /// <summary>
         /// Returns the best matching summary for a specific <see cref="Command"/>/<see cref="EntryPoint"/>. Will fall back to <see cref="Summaries"/>.
         /// </summary>
         /// <param name="language">The language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
-        /// <param name="command">The name of the command the summary should represent; can be <see langword="null"/>.</param>
+        /// <param name="command">The name of the command the summary should represent; <see langword="null"/> is equivalent to <see cref="Command.NameRun"/>.</param>
         /// <returns>The best matching summary that was found; <see langword="null"/> if no matching summary was found.</returns>
         [CanBeNull]
         public string GetBestSummary([NotNull] CultureInfo language, [CanBeNull] string command = null)
@@ -356,7 +374,7 @@ namespace ZeroInstall.Store.Model
             if (language == null) throw new ArgumentNullException("language");
             #endregion
 
-            if (string.IsNullOrEmpty(command)) command = Command.NameRun;
+            if (command == null) command = Command.NameRun;
 
             var entryPoint = GetEntryPoint(command);
             if (entryPoint != null)
@@ -372,7 +390,7 @@ namespace ZeroInstall.Store.Model
         /// Returns the best matching icon for a specific <see cref="Command"/>/<see cref="EntryPoint"/>. Will fall back to <see cref="Icons"/>.
         /// </summary>
         /// <param name="mimeType">The <see cref="Icon.MimeType"/> to try to find. Will only return exact matches.</param>
-        /// <param name="command">The name of the command the icon should represent; can be <see langword="null"/>.</param>
+        /// <param name="command">The name of the command the icon should represent; <see langword="null"/> is equivalent to <see cref="Command.NameRun"/>.</param>
         /// <returns>The best matching icon that was found or <see langword="null"/> if no matching icon was found.</returns>
         [CanBeNull]
         public Icon GetIcon([NotNull] string mimeType, [CanBeNull] string command = null)
@@ -381,7 +399,8 @@ namespace ZeroInstall.Store.Model
             if (string.IsNullOrEmpty(mimeType)) throw new ArgumentNullException("mimeType");
             #endregion
 
-            if (string.IsNullOrEmpty(command)) command = Command.NameRun;
+            if (command == null) command = Command.NameRun;
+
             var entryPoint = GetEntryPoint(command);
             if (entryPoint != null)
             {

@@ -45,7 +45,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(command)) command = Command.NameRun;
 
             var entryPoint = target.Feed.GetEntryPoint(command);
-            bool needsTerminal = target.Feed.NeedsTerminal || (entryPoint != null && entryPoint.NeedsTerminal);
+            bool needsTerminal = (entryPoint != null && entryPoint.NeedsTerminal);
 
             string arguments = "run ";
             if (!needsTerminal) arguments += "--no-wait ";
