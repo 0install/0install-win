@@ -23,6 +23,7 @@ using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.DesktopIntegration.Windows
 {
@@ -53,7 +54,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">The data in <paramref name="urlProtocol"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, [NotNull] Store.Model.Capabilities.UrlProtocol urlProtocol, bool machineWide, [NotNull] ITaskHandler handler, bool accessPoint = false)
+        public static void Register(FeedTarget target, [NotNull] Store.Model.Capabilities.UrlProtocol urlProtocol, bool machineWide, [NotNull] ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
             if (urlProtocol == null) throw new ArgumentNullException("urlProtocol");

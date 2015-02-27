@@ -25,6 +25,7 @@ using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
 
@@ -75,7 +76,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">The data in <paramref name="appRegistration"/> or <paramref name="verbCapabilities"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, [NotNull] Store.Model.Capabilities.AppRegistration appRegistration, IEnumerable<VerbCapability> verbCapabilities, bool machineWide, [NotNull] ITaskHandler handler)
+        public static void Register(FeedTarget target, [NotNull] Store.Model.Capabilities.AppRegistration appRegistration, IEnumerable<VerbCapability> verbCapabilities, bool machineWide, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
             if (appRegistration == null) throw new ArgumentNullException("appRegistration");

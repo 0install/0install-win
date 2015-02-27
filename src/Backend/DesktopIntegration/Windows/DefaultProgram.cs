@@ -24,6 +24,7 @@ using Microsoft.Win32;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -69,7 +70,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">The data in <paramref name="defaultProgram"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, [NotNull] Store.Model.Capabilities.DefaultProgram defaultProgram, [NotNull] ITaskHandler handler, bool accessPoint = false)
+        public static void Register(FeedTarget target, [NotNull] Store.Model.Capabilities.DefaultProgram defaultProgram, [NotNull] ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
             if (defaultProgram == null) throw new ArgumentNullException("defaultProgram");
@@ -94,9 +95,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     using (var installInfoKey = appKey.CreateSubKey(RegSubKeyInstallInfo))
                     {
                         string exePath = Path.Combine(Locations.InstallBase, "0install-win.exe").EscapeArgument();
-                        installInfoKey.SetValue(RegValueReinstallCommand, exePath + " integrate-app --machine --batch --add=defaults " + target.InterfaceUri.ToStringRfc().EscapeArgument());
-                        installInfoKey.SetValue(RegValueShowIconsCommand, exePath + " integrate-app --machine --batch --add=icons " + target.InterfaceUri.ToStringRfc().EscapeArgument());
-                        installInfoKey.SetValue(RegValueHideIconsCommand, exePath + " integrate-app --machine --batch --remove=icons " + target.InterfaceUri.ToStringRfc().EscapeArgument());
+                        installInfoKey.SetValue(RegValueReinstallCommand, exePath + " integrate-app --machine --batch --add=defaults " + target.Uri.ToStringRfc().EscapeArgument());
+                        installInfoKey.SetValue(RegValueShowIconsCommand, exePath + " integrate-app --machine --batch --add=icons " + target.Uri.ToStringRfc().EscapeArgument());
+                        installInfoKey.SetValue(RegValueHideIconsCommand, exePath + " integrate-app --machine --batch --remove=icons " + target.Uri.ToStringRfc().EscapeArgument());
                         installInfoKey.SetValue(RegValueIconsVisible, 0, RegistryValueKind.DWord);
                     }
 

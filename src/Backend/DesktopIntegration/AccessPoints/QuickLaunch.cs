@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
@@ -47,7 +48,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var target = new InterfaceFeed(appEntry.InterfaceUri, feed);
+            var target = new FeedTarget(appEntry.InterfaceUri, feed);
             if (WindowsUtils.IsWindows && !machineWide) Windows.Shortcut.Create(this, target, handler);
         }
 

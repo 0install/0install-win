@@ -22,6 +22,7 @@ using System.Xml.Serialization;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
 
@@ -65,7 +66,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             var capabilities = appEntry.CapabilityLists.CompatibleCapabilities().ToList();
-            var target = new InterfaceFeed(appEntry.InterfaceUri, feed);
+            var target = new FeedTarget(appEntry.InterfaceUri, feed);
 
             var dispatcher = new PerTypeDispatcher<Capability>(ignoreMissing: true);
             if (WindowsUtils.IsWindows)

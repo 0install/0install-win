@@ -123,6 +123,7 @@
     <Compile Include="Implementations\IpcStore.cs" />
     <Compile Include="Implementations\StoreFactory.cs" />
     <Compile Include="Implementations\StoreUtils.cs" />
+    <Compile Include="FeedTarget.cs" />
     <Compile Include="JsonStorage.cs" />
     <Compile Include="Model\Architecture.cs" />
     <Compile Include="Model\ArchitectureExtensions.cs" />

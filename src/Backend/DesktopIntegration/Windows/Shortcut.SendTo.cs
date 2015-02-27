@@ -20,6 +20,7 @@ using System.IO;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.DesktopIntegration.Windows
 {
@@ -31,7 +32,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="sendTo">Information about the shortcut to be created.</param>
         /// <param name="target">The target the shortcut shall point to.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        public static void Create(SendTo sendTo, InterfaceFeed target, ITaskHandler handler)
+        public static void Create(SendTo sendTo, FeedTarget target, ITaskHandler handler)
         {
             #region Sanity checks
             if (sendTo == null) throw new ArgumentNullException("sendTo");

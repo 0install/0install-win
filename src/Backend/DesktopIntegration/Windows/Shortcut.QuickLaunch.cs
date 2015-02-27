@@ -21,6 +21,7 @@ using System.Linq;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.DesktopIntegration.Windows
 {
@@ -32,7 +33,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="quickLaunch">Information about the shortcut to be created.</param>
         /// <param name="target">The target the shortcut shall point to.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        public static void Create(QuickLaunch quickLaunch, InterfaceFeed target, ITaskHandler handler)
+        public static void Create(QuickLaunch quickLaunch, FeedTarget target, ITaskHandler handler)
         {
             #region Sanity checks
             if (quickLaunch == null) throw new ArgumentNullException("quickLaunch");

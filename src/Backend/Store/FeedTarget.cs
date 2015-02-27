@@ -16,36 +16,35 @@
  */
 
 using JetBrains.Annotations;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
-namespace ZeroInstall.DesktopIntegration
+namespace ZeroInstall.Store
 {
     /// <summary>
-    /// An interface URI combined with <see cref="Feed"/> data aquired from that ID.
+    /// A <see cref="FeedUri"/> combined with the <see cref="Feed"/> data aquired from there.
     /// </summary>
-    public struct InterfaceFeed
+    public struct FeedTarget
     {
         /// <summary>
-        /// The URI or local path (must be absolute) to the interface.
+        /// The URI or local path (must be absolute) to the feed.
         /// </summary>
         [NotNull]
-        public readonly FeedUri InterfaceUri;
+        public readonly FeedUri Uri;
 
         /// <summary>
-        /// The data aquired from <see cref="InterfaceUri"/>. <see cref="Store.Model.Feed.Normalize"/> has already been called.
+        /// The data aquired from <see cref="Uri"/>. <see cref="Store.Model.Feed.Normalize"/> has already been called.
         /// </summary>
         [NotNull]
         public readonly Feed Feed;
 
         /// <summary>
-        /// Creates a new interface-feed reference.
+        /// Creates a new feed target.
         /// </summary>
-        /// <param name="interfaceUri">The URI or local path (must be absolute) to the interface.</param>
-        /// <param name="feed">The data aquired from <paramref name="interfaceUri"/>.</param>
-        public InterfaceFeed([NotNull] FeedUri interfaceUri, [NotNull] Feed feed)
+        /// <param name="uri">The URI or local path (must be absolute) to the feed.</param>
+        /// <param name="feed">The data aquired from <paramref name="uri"/>. <see cref="Store.Model.Feed.Normalize"/> has already been called.</param>
+        public FeedTarget([NotNull] FeedUri uri, [NotNull] Feed feed)
         {
-            InterfaceUri = interfaceUri;
+            Uri = uri;
             Feed = feed;
         }
     }

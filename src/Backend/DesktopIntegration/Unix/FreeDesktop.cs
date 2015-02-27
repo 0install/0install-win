@@ -18,6 +18,7 @@
 using System;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.DesktopIntegration.Unix
 {
@@ -26,7 +27,7 @@ namespace ZeroInstall.DesktopIntegration.Unix
     /// </summary>
     public static class FreeDesktop
     {
-        public static void Create(MenuEntry menuEntry, InterfaceFeed target, bool machineWide, ITaskHandler handler)
+        public static void Create(MenuEntry menuEntry, FeedTarget target, bool machineWide, ITaskHandler handler)
         {
             throw new NotImplementedException();
         }
@@ -36,7 +37,7 @@ namespace ZeroInstall.DesktopIntegration.Unix
             throw new NotImplementedException();
         }
 
-        public static void Create(DesktopIcon desktopIcon, InterfaceFeed target, bool machineWide, ITaskHandler handler)
+        public static void Create(DesktopIcon desktopIcon, FeedTarget target, bool machineWide, ITaskHandler handler)
         {
             throw new NotImplementedException();
         }

@@ -26,6 +26,7 @@ using Microsoft.Win32;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -99,7 +100,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">The data in <paramref name="fileType"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, [NotNull] Store.Model.Capabilities.FileType fileType, bool machineWide, [NotNull] ITaskHandler handler, bool accessPoint = false)
+        public static void Register(FeedTarget target, [NotNull] Store.Model.Capabilities.FileType fileType, bool machineWide, [NotNull] ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
             if (fileType == null) throw new ArgumentNullException("fileType");
@@ -269,7 +270,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">The data in <paramref name="capability"/> is invalid.</exception>
-        internal static void RegisterVerbCapability(RegistryKey registryKey, InterfaceFeed target, Store.Model.Capabilities.VerbCapability capability, bool machineWide, ITaskHandler handler)
+        internal static void RegisterVerbCapability(RegistryKey registryKey, FeedTarget target, Store.Model.Capabilities.VerbCapability capability, bool machineWide, ITaskHandler handler)
         {
             #region Sanity checks
             if (capability == null) throw new ArgumentNullException("capability");
@@ -320,7 +321,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="InvalidOperationException">Write access to the filesystem is not permitted.</exception>
-        internal static string GetLaunchCommandLine(InterfaceFeed target, Store.Model.Capabilities.Verb verb, bool machineWide, ITaskHandler handler)
+        internal static string GetLaunchCommandLine(FeedTarget target, Store.Model.Capabilities.Verb verb, bool machineWide, ITaskHandler handler)
         {
             try
             {

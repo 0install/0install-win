@@ -23,6 +23,7 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.DesktopIntegration.Windows
 {
@@ -35,7 +36,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="target">The target the shortcut shall point to.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Create the shortcut machine-wide instead of just for the current user.</param>
-        public static void Create([NotNull] MenuEntry menuEntry, InterfaceFeed target, [NotNull] ITaskHandler handler, bool machineWide = false)
+        public static void Create([NotNull] MenuEntry menuEntry, FeedTarget target, [NotNull] ITaskHandler handler, bool machineWide = false)
         {
             #region Sanity checks
             if (menuEntry == null) throw new ArgumentNullException("menuEntry");

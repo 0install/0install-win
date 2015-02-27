@@ -22,6 +22,7 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -39,7 +40,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="command">The command within <paramref name="target"/> the shorcut shall point to; can be <see langword="null"/>.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Create the shortcut machine-wide instead of just for the current user.</param>
-        private static void Create([NotNull] string path, InterfaceFeed target, [CanBeNull] string command, [NotNull] ITaskHandler handler, bool machineWide = false)
+        private static void Create([NotNull] string path, FeedTarget target, [CanBeNull] string command, [NotNull] ITaskHandler handler, bool machineWide = false)
         {
             if (string.IsNullOrEmpty(command)) command = Command.NameRun;
 
@@ -49,7 +50,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             string arguments = "run ";
             if (!needsTerminal) arguments += "--no-wait ";
             if (command != Command.NameRun) arguments += "--command " + command.EscapeArgument() + " ";
-            arguments += target.InterfaceUri.ToStringRfc().EscapeArgument();
+            arguments += target.Uri.ToStringRfc().EscapeArgument();
 
             var icon = target.Feed.GetIcon(Icon.MimeTypeIco, command);
 

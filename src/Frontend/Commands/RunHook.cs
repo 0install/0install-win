@@ -33,6 +33,7 @@ using ZeroInstall.DesktopIntegration.Windows;
 using ZeroInstall.Hooking;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Injector;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
@@ -49,7 +50,7 @@ namespace ZeroInstall.Commands
         #region Variables
         private readonly ITaskHandler _handler;
 
-        private readonly InterfaceFeed _target;
+        private readonly FeedTarget _target;
 
         /// <summary>The local path the selected main implementation is launched from.</summary>
         private readonly string _implementationDir;
@@ -73,7 +74,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="ImplementationNotFoundException">The main implementation is not cached (possibly because it is installed natively).</exception>
         public RunHook(Selections selections, IExecutor executor, IFeedManager feedManager, ITaskHandler handler)
         {
-            _target = new InterfaceFeed(selections.InterfaceUri, feedManager.GetFeed(selections.InterfaceUri));
+            _target = new FeedTarget(selections.InterfaceUri, feedManager.GetFeed(selections.InterfaceUri));
 
             var mainImplementation = selections.MainImplementation;
             _implementationDir = executor.GetImplementationPath(mainImplementation);
@@ -128,11 +129,11 @@ namespace ZeroInstall.Commands
             foreach (var defaultProgram in _target.Feed.CapabilityLists.CompatibleCapabilities().OfType<Store.Model.Capabilities.DefaultProgram>())
             {
                 if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.Reinstall))
-                    filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.Reinstall, defaultProgram.InstallCommands.ReinstallArgs, "--machine --batch --add=defaults " + _target.InterfaceUri.ToStringRfc().EscapeArgument()));
+                    filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.Reinstall, defaultProgram.InstallCommands.ReinstallArgs, "--machine --batch --add=defaults " + _target.Uri.ToStringRfc().EscapeArgument()));
                 if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.ShowIcons))
-                    filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.ShowIcons, defaultProgram.InstallCommands.ShowIconsArgs, "--machine --batch --add=icons " + _target.InterfaceUri.ToStringRfc().EscapeArgument()));
+                    filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.ShowIcons, defaultProgram.InstallCommands.ShowIconsArgs, "--machine --batch --add=icons " + _target.Uri.ToStringRfc().EscapeArgument()));
                 if (!string.IsNullOrEmpty(defaultProgram.InstallCommands.HideIcons))
-                    filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.HideIcons, defaultProgram.InstallCommands.HideIconsArgs, "--machine --batch --remove=icons " + _target.InterfaceUri.ToStringRfc().EscapeArgument()));
+                    filterRuleList.AddLast(GetInstallCommandFilter(defaultProgram.InstallCommands.HideIcons, defaultProgram.InstallCommands.HideIconsArgs, "--machine --batch --remove=icons " + _target.Uri.ToStringRfc().EscapeArgument()));
             }
 
             return new RegistryFilter(filterRuleList);
@@ -160,7 +161,7 @@ namespace ZeroInstall.Commands
         private RelaunchControl GetRelaunchControl()
         {
             // This will be used as a command-line argument
-            string escapedTarget = _target.InterfaceUri.ToStringRfc().EscapeArgument();
+            string escapedTarget = _target.Uri.ToStringRfc().EscapeArgument();
 
             // Build a relaunch entry for each entry point
             var entries =

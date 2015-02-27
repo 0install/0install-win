@@ -24,6 +24,7 @@ using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.Windows
@@ -73,7 +74,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
         /// <exception cref="InvalidDataException">The data in <paramref name="autoPlay"/> is invalid.</exception>
-        public static void Register(InterfaceFeed target, [NotNull] Store.Model.Capabilities.AutoPlay autoPlay, bool machineWide, [NotNull] ITaskHandler handler, bool accessPoint = false)
+        public static void Register(FeedTarget target, [NotNull] Store.Model.Capabilities.AutoPlay autoPlay, bool machineWide, [NotNull] ITaskHandler handler, bool accessPoint = false)
         {
             #region Sanity checks
             if (autoPlay == null) throw new ArgumentNullException("autoPlay");

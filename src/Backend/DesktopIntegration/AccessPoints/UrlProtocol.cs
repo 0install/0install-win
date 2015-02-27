@@ -21,6 +21,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.DesktopIntegration.AccessPoints
@@ -58,7 +59,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             var capability = appEntry.GetCapability<Store.Model.Capabilities.UrlProtocol>(Capability);
             if (capability == null) return;
 
-            var target = new InterfaceFeed(appEntry.InterfaceUri, feed);
+            var target = new FeedTarget(appEntry.InterfaceUri, feed);
             if (WindowsUtils.IsWindows) Windows.UrlProtocol.Register(target, capability, machineWide, handler, accessPoint: true);
         }
 

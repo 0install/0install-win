@@ -22,6 +22,7 @@ using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.Properties;
+using ZeroInstall.Store;
 
 namespace ZeroInstall.DesktopIntegration.Unix
 {
@@ -43,7 +44,7 @@ namespace ZeroInstall.DesktopIntegration.Unix
         /// <exception cref="IOException">A problem occurs while writing to the filesystem.</exception>
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem is not permitted.</exception>
-        public static void Create(InterfaceFeed target, [CanBeNull] string command, [NotNull] string aliasName, [NotNull] ITaskHandler handler, bool machineWide)
+        public static void Create(FeedTarget target, [CanBeNull] string command, [NotNull] string aliasName, [NotNull] ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(aliasName)) throw new ArgumentNullException("aliasName");
