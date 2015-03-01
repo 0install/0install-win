@@ -32,28 +32,40 @@ namespace ZeroInstall.Publish.EntryPoints
         internal override bool Analyze(DirectoryInfo baseDirectory, FileInfo file)
         {
             if (!base.Analyze(baseDirectory, file)) return false;
+            if (!HasMagicBytes(file)) return false;
 
-            IELF elfData;
+            Name = file.Name;
+            Architecture = new Architecture(OS.Linux, Cpu.All);
+
+            IELF elfData = null;
             try
             {
-                if (!ELFReader.TryLoad(file.FullName, out elfData)) return false;
+                if (ELFReader.TryLoad(file.FullName, out elfData))
+                {
+                    if (elfData.Class == Class.NotELF || elfData.Type != FileType.Executable) return false;
+
+                    Architecture = new Architecture(OS.Linux, GetCpu(elfData));
+                }
             }
             catch (NullReferenceException)
-            {
-                return false;
-            }
-
-            try
-            {
-                if (elfData.Class == Class.NotELF || elfData.Type != FileType.Executable) return false;
-                Name = file.Name;
-                Architecture = new Architecture(OS.Linux, GetCpu(elfData));
-                return true;
-            }
+            {}
             finally
             {
-                elfData.Dispose();
+                if (elfData != null) elfData.Dispose();
             }
+
+            return true;
+        }
+
+        private static bool HasMagicBytes(FileInfo file)
+        {
+            using (var stream = file.OpenRead())
+            {
+                var magic = new byte[4];
+                stream.Read(magic, 0, 4);
+                if (magic[0] != 0x7f || magic[1] != 0x45 || magic[2] != 0x4c || magic[3] != 0x46) return false;
+            }
+            return true;
         }
 
         private static Cpu GetCpu(IELF elfData)
