@@ -1,4 +1,5 @@
-﻿using NanoByte.Common.Controls;
+﻿using System.Diagnostics.CodeAnalysis;
+using NanoByte.Common.Controls;
 
 namespace ZeroInstall.Commands.WinForms
 {
@@ -13,6 +14,7 @@ namespace ZeroInstall.Commands.WinForms
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        [SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "_pendingResult", Justification = "Is owned and disposed by external caller.")]
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -56,6 +58,7 @@ namespace ZeroInstall.Commands.WinForms
             // 
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "Zero Install";
+            this.notifyIcon.BalloonTipClicked += new System.EventHandler(this.notifyIcon_BalloonTipClicked);
             this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
             // 
             // buttonHide
@@ -122,6 +125,7 @@ namespace ZeroInstall.Commands.WinForms
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Zero Install";
             this.Closing += new System.ComponentModel.CancelEventHandler(this.ProgressForm_Closing);
+            this.Shown += new System.EventHandler(this.ProgressForm_Shown);
             this.ResumeLayout(false);
 
         }

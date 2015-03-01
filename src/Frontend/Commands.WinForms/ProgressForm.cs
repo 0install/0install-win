@@ -115,7 +115,6 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             Visible = true;
-            WindowState = FormWindowState.Normal;
             HideTrayIcon();
 
             _modifySelectionsWaitHandle = waitHandle;
@@ -200,6 +199,37 @@ namespace ZeroInstall.Commands.WinForms
         }
         #endregion
 
+        #region Question
+        private string _pendingQuestion;
+        private Future<DialogResult> _pendingResult;
+
+        /// <inheritdoc/>
+        public Future<DialogResult> Ask(string question)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(question)) throw new ArgumentNullException("question");
+            #endregion
+
+            if (Visible)
+                return new Future<DialogResult>(Msg.YesNoCancel(this, question, MsgSeverity.Warn));
+            else
+            {
+                _pendingResult = new Future<DialogResult>();
+                ShowTrayIcon(_pendingQuestion = question, ToolTipIcon.Info);
+                return _pendingResult;
+            }
+        }
+
+        private void ProgressForm_Shown(object sender, EventArgs e)
+        {
+            if (_pendingQuestion != null)
+            {
+                _pendingResult.Set(Msg.YesNoCancel(this, _pendingQuestion, MsgSeverity.Warn));
+                _pendingQuestion = null;
+            }
+        }
+        #endregion
+
         #region Tray icon
         /// <summary>
         /// Shows the tray icon with an associated balloon message.
@@ -235,7 +265,12 @@ namespace ZeroInstall.Commands.WinForms
         private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
             Visible = true;
-            WindowState = FormWindowState.Normal;
+            HideTrayIcon();
+        }
+
+        private void notifyIcon_BalloonTipClicked(object sender, EventArgs e)
+        {
+            Visible = true;
             HideTrayIcon();
         }
 

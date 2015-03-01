@@ -103,15 +103,18 @@ namespace ZeroInstall.Commands.WinForms
             if (string.IsNullOrEmpty(question)) throw new ArgumentNullException("question");
             #endregion
 
-            switch (_wrapper.Post(form => Msg.YesNoCancel(form, question, MsgSeverity.Warn)))
+            using (var future = _wrapper.Post(form => form.Ask(question)))
             {
-                case DialogResult.Yes:
-                    return true;
-                case DialogResult.No:
-                    return false;
-                case DialogResult.Cancel:
-                default:
-                    throw new OperationCanceledException();
+                switch (future.Get())
+                {
+                    case DialogResult.Yes:
+                        return true;
+                    case DialogResult.No:
+                        return false;
+                    case DialogResult.Cancel:
+                    default:
+                        throw new OperationCanceledException();
+                }
             }
         }
         #endregion
