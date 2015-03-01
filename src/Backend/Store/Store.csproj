@@ -83,6 +83,7 @@
     <Compile Include="Feeds\IFeedCache.cs" />
     <Compile Include="Feeds\MemoryFeedCache.cs" />
     <Compile Include="FeedUri.cs" />
+    <Compile Include="FeedUriExtensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Icons\DiskIconCache.cs" />
     <Compile Include="Icons\IconCacheProvider.cs" />

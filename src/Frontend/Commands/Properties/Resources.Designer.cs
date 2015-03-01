@@ -339,7 +339,7 @@ namespace ZeroInstall.Commands.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to View or change configuration settings.
-        ///With no arguments, it displays all settings and their current values. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value..
+        ///With no arguments, it displays all settings and their current values. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value or resets it to the default value if the value &quot;default&quot; is given..
         /// </summary>
         public static string DescriptionConfig {
             get {
@@ -1574,6 +1574,15 @@ namespace ZeroInstall.Commands.Properties {
         public static string UnknownCommand {
             get {
                 return ResourceManager.GetString("UnknownCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown config key &apos;{0}&apos;..
+        /// </summary>
+        public static string UnknownConfigKey {
+            get {
+                return ResourceManager.GetString("UnknownConfigKey", resourceCulture);
             }
         }
         

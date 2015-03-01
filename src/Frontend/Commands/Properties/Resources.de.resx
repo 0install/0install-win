@@ -216,7 +216,7 @@ Entfernen Sie ein Häckchen um den Standard-Status einer Fähigkeit zu entfernen
   </data>
   <data name="DescriptionConfig" xml:space="preserve">
     <value>Konfigurationseinstellungen anzeigen oder verändern.
-Ohne Argumente zeigt es alle Einstellungen und ihre aktuellen Werte an. Mit einem Argument zeigt es den aktuellen Wert der benannten Einstellung an. Mit zwei Argumenten setzt es den Wert der benannten Einstellung.</value>
+Ohne Argumente zeigt es alle Einstellungen und ihre aktuellen Werte an. Mit einem Argument zeigt es den aktuellen Wert der benannten Einstellung an. Mit zwei Argumenten setzt es den angegebenen Wert Einstellungswert oder setzt die Einstellung auf ihre Standardeinstellung zurück wenn der Wert "default" angegeben wird.</value>
   </data>
   <data name="DescriptionDigest" xml:space="preserve">
     <value>Berechnet den Manifest Digest eines Verzeichnisses oder eines Archivs.</value>
@@ -644,6 +644,9 @@ Halten Sie diesen Schlüssel geheim und verwenden Sie etwas anderes für Ihr Pas
   </data>
   <data name="UnknownCommand" xml:space="preserve">
     <value>Unbekannter Befehl '{0}'.</value>
+  </data>
+  <data name="UnknownConfigKey" xml:space="preserve">
+    <value>Unbekannter Config-Schlüssel '{0}'.</value>
   </data>
   <data name="UnknownMode" xml:space="preserve">
     <value>Unbekannter Betriebsmodus.</value>

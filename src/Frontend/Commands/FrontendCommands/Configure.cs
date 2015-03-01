@@ -38,7 +38,10 @@ namespace ZeroInstall.Commands.FrontendCommands
         protected override string Description { get { return Resources.DescriptionConfig; } }
 
         /// <inheritdoc/>
-        protected override string Usage { get { return "[NAME [VALUE]]"; } }
+        protected override string Usage { get { return "[NAME [VALUE|default]]"; } }
+
+        /// <inheritdoc/>
+        protected override int AdditionalArgsMax { get { return 2; } }
         #endregion
 
         #region State
@@ -59,69 +62,52 @@ namespace ZeroInstall.Commands.FrontendCommands
                 case 0:
                     Handler.ShowConfig(Config, _configTab);
                     Config.Save();
-                    return 0;
+                    break;
 
                 case 1:
-                    return PrintOption(AdditionalArgs[0]);
+                    GetOptions(AdditionalArgs[0]);
+                    break;
 
                 case 2:
-                    return SetOption(AdditionalArgs[0], AdditionalArgs[1]);
-
-                default:
-                    throw new OptionException(Resources.TooManyArguments, "");
+                    SetOption(AdditionalArgs[0], AdditionalArgs[1]);
+                    Config.Save();
+                    break;
             }
-        }
 
-        #region Helpers
-        /// <summary>
-        /// Prints the value of an option or an error message.
-        /// </summary>
-        /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        private int PrintOption(string key)
-        {
-            string value;
-            try
-            {
-                value = Config.GetOption(key);
-            }
-                #region Error handling
-            catch (KeyNotFoundException)
-            {
-                Handler.Output("Configuration error", string.Format("Unknown option '{0}'", key));
-                return 1;
-            }
-            #endregion
-
-            Handler.Output(key, value);
             return 0;
         }
 
-        /// <summary>
-        /// Sets the value of an option or prints an error message.
-        /// </summary>
-        /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        private int SetOption(string key, string value)
+        private void GetOptions(string key)
         {
             try
             {
-                Config.SetOption(key, value);
+                Handler.Output(key, Config.GetOption(key));
             }
                 #region Error handling
             catch (KeyNotFoundException)
             {
-                Handler.Output("Configuration error", string.Format("Unknown option '{0}'", key));
-                return 1;
+                throw new OptionException(string.Format(Resources.UnknownConfigKey, key), key);
+            }
+            #endregion
+        }
+
+        private void SetOption(string key, string value)
+        {
+            try
+            {
+                if (value == "default") Config.ResetOption(key);
+                else Config.SetOption(key, value);
+            }
+                #region Error handling
+            catch (KeyNotFoundException)
+            {
+                throw new OptionException(string.Format(Resources.UnknownConfigKey, key), key);
             }
             catch (FormatException ex)
             {
-                Handler.Output("Configuration error", ex.Message);
-                return 1;
+                throw new OptionException(ex.Message, key);
             }
             #endregion
-
-            Config.Save();
-            return 0;
         }
-        #endregion
     }
 }
