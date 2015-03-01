@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Net;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Info;
@@ -24,6 +25,7 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands.FrontendCommands
@@ -86,7 +88,24 @@ namespace ZeroInstall.Commands.FrontendCommands
         {
             if (SelfUpdateUtils.IsBlocked) throw new NotSupportedException(Resources.SelfUpdateBlocked);
 
-            Solve();
+            try
+            {
+                Solve();
+            }
+                #region Error handling
+            catch (WebException)
+            {
+                // Supress network-related error messages on background downloads
+                if (Handler.Background) return 1;
+                else throw;
+            }
+            catch (SolverException)
+            {
+                // Supress network-related error messages on background downloads
+                if (Handler.Background) return 1;
+                else throw;
+            }
+            #endregion
 
             if (UpdateFound())
             {

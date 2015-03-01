@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
@@ -58,8 +59,25 @@ namespace ZeroInstall.Commands.FrontendCommands
         /// <inheritdoc/>
         public override int Execute()
         {
-            Solve();
-            if (FeedManager.Stale || UncachedImplementations.Count != 0) RefreshSolve();
+            try
+            {
+                Solve();
+                if (FeedManager.Stale || UncachedImplementations.Count != 0) RefreshSolve();
+            }
+                #region Error handling
+            catch (WebException)
+            {
+                // Supress network-related error messages on background downloads
+                if (Handler.Background) return 1;
+                else throw;
+            }
+            catch (SolverException)
+            {
+                // Supress network-related error messages on background downloads
+                if (Handler.Background) return 1;
+                else throw;
+            }
+            #endregion
 
             DownloadUncachedImplementations();
             SelfUpdateCheck();
@@ -81,7 +99,7 @@ namespace ZeroInstall.Commands.FrontendCommands
                 #region Error handling
             catch (InvalidDataException ex)
             {
-                // Wrap exception to add context
+                // Wrap exception since only certain exception types are allowed
                 throw new SolverException(ex.Message, ex);
             }
             #endregion

@@ -68,12 +68,14 @@ namespace ZeroInstall.Commands.FrontendCommands
                 #region Error handling
             catch (WebException)
             {
-                if (Handler.Verbosity <= Verbosity.Batch) return 1;
+                // Supress network-related error messages on background downloads
+                if (Handler.Background) return 1;
                 else throw;
             }
             catch (SolverException)
             {
-                if (Handler.Verbosity <= Verbosity.Batch) return 1;
+                // Supress network-related error messages on background downloads
+                if (Handler.Background) return 1;
                 else throw;
             }
             #endregion
