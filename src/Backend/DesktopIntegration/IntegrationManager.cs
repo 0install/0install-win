@@ -125,7 +125,7 @@ namespace ZeroInstall.DesktopIntegration
 
             try
             {
-                switch (WaitHandle.WaitAny(new[] {mutex, Handler.CancellationToken.WaitHandle}, millisecondsTimeout: Handler.Batch ? 30000 : 1000, exitContext: false))
+                switch (WaitHandle.WaitAny(new[] {mutex, Handler.CancellationToken.WaitHandle}, millisecondsTimeout: Handler.Verbosity == Verbosity.Batch ? 30000 : 1000, exitContext: false))
                 {
                     case 0:
                         return mutex;

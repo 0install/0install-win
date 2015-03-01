@@ -111,7 +111,7 @@ namespace ZeroInstall.Services.Solvers
         {
             string arguments = "";
 
-            for (int i = 0; i < _handler.Verbosity; i++)
+            for (int i = 0; i < (int)_handler.Verbosity; i++)
                 arguments += "--verbose ";
             if (_config.NetworkUse == NetworkLevel.Offline) arguments += "--offline ";
             if (_feedManager.Refresh) arguments += "--refresh ";

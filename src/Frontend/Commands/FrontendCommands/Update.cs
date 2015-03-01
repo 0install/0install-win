@@ -68,12 +68,12 @@ namespace ZeroInstall.Commands.FrontendCommands
                 #region Error handling
             catch (WebException)
             {
-                if (Handler.Batch) return 1;
+                if (Handler.Verbosity <= Verbosity.Batch) return 1;
                 else throw;
             }
             catch (SolverException)
             {
-                if (Handler.Batch) return 1;
+                if (Handler.Verbosity <= Verbosity.Batch) return 1;
                 else throw;
             }
             #endregion

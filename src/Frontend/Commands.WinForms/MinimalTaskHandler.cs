@@ -23,7 +23,7 @@ using NanoByte.Common.Tasks;
 namespace ZeroInstall.Commands.WinForms
 {
     /// <summary>
-    /// Like <see cref="SilentTaskHandler"/> but with <see cref="Msg"/> for <see cref="ITaskHandler.AskQuestion"/>.
+    /// Like <see cref="SilentTaskHandler"/> but with <see cref="Msg"/> for <see cref="ITaskHandler.Ask"/>.
     /// </summary>
     public class MinimalTaskHandler : SilentTaskHandler
     {
@@ -39,7 +39,7 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <inheritdoc/>
-        public override bool AskQuestion(string question, string batchInformation = null)
+        public override bool Ask(string question)
         {
             bool result = false;
             _owner.Invoke(new Action(() => result = Msg.YesNo(_owner, question, MsgSeverity.Info)));

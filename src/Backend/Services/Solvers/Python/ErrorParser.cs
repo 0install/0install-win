@@ -112,7 +112,7 @@ namespace ZeroInstall.Services.Solvers.Python
                         if (line.Contains("[Y/N]") && _currentErrorMode == ErrorMode.Question)
                         {
                             _currentErrorMode = ErrorMode.None;
-                            return _handler.AskQuestion(_cache.ToString(), batchInformation: Resources.UntrustedKeys) ? "Y" : "N";
+                            return _handler.Ask(_cache.ToString(), defaultAnswer: false, alternateMessage: Resources.UntrustedKeys) ? "Y" : "N";
                         }
                         _cache.AppendLine(line);
                     }

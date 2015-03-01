@@ -3311,6 +3311,6 @@
     <value>IntegrateAppForm</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.OKCancelDialog, NanoByte.Common.WinForms, Version=1.1.4.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.OKCancelDialog, NanoByte.Common.WinForms, Version=1.1.5.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
 </root>

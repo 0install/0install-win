@@ -100,16 +100,11 @@ namespace ZeroInstall.Central.WinForms.Wizards
         }
 
         /// <summary>
-        /// Always returns 1. This ensures that information hidden by the GUI is at least retrievable from the log files.
+        /// Always returns <see cref="NanoByte.Common.Tasks.Verbosity.Batch"/>
         /// </summary>
-        public int Verbosity { get { return 1; } set { } }
+        public Verbosity Verbosity { get { return Verbosity.Batch; } set { } }
 
-        /// <summary>
-        /// Always returns <see langword="true"/>.
-        /// </summary>
-        public bool Batch { get { return true; } set { } }
-
-        public bool AskQuestion(string question, string batchInformation = null)
+        public bool Ask(string question)
         {
             throw new NotImplementedException();
         }

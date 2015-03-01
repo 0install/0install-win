@@ -24,6 +24,7 @@ using System.Net;
 using System.Windows.Forms;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
@@ -204,7 +205,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             var candidates = checkBoxShowAllVersions.Checked ? _candidates : _candidates.Where(candidate => candidate.IsSuitable);
             var list = new BindingList<SelectionCandidate> {AllowEdit = true, AllowNew = false};
-            foreach (var candidate in candidates) list.Add(candidate);
+            list.AddRange(candidates);
             dataGridVersions.DataSource = list;
         }
         #endregion

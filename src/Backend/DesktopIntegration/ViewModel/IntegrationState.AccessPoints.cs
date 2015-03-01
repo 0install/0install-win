@@ -40,9 +40,9 @@ namespace ZeroInstall.DesktopIntegration.ViewModel
         {
             if (AppEntry.AccessPoints == null)
             { // Fill in default values for first integration
-                foreach (var entry in Suggest.MenuEntries(Feed)) MenuEntries.Add(entry);
-                foreach (var entry in Suggest.SendTo(Feed)) SendTo.Add(entry);
-                foreach (var alias in Suggest.Aliases(Feed)) Aliases.Add(alias);
+                MenuEntries.AddRange(Suggest.MenuEntries(Feed));
+                SendTo.AddRange(Suggest.SendTo(Feed));
+                Aliases.AddRange(Suggest.Aliases(Feed));
             }
             else
             { // Distribute existing CommandAccessPoints among type-specific binding lists

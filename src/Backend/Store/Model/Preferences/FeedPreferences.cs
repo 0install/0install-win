@@ -187,7 +187,7 @@ namespace ZeroInstall.Store.Model.Preferences
         public FeedPreferences Clone()
         {
             var feedPreferences = new FeedPreferences {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, LastChecked = LastChecked};
-            foreach (var implementation in Implementations) feedPreferences.Implementations.Add(implementation.Clone());
+            feedPreferences.Implementations.AddRange(Implementations.CloneElements());
 
             return feedPreferences;
         }

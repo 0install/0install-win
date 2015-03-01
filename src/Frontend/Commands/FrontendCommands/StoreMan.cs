@@ -252,7 +252,7 @@ namespace ZeroInstall.Commands.FrontendCommands
 
         private void Purge()
         {
-            if (Handler.Batch || Handler.AskQuestion(Resources.ConfirmPurge)) GetStore().Purge(Handler);
+            if (Handler.Ask(Resources.ConfirmPurge, defaultAnswer: true)) GetStore().Purge(Handler);
             else throw new OperationCanceledException();
         }
 

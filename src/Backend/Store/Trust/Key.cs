@@ -63,7 +63,7 @@ namespace ZeroInstall.Store.Trust
         public Key Clone()
         {
             var key = new Key {Fingerprint = Fingerprint};
-            foreach (var domain in Domains) key.Domains.Add(domain.Clone());
+            key.Domains.AddRange(Domains.CloneElements());
 
             return key;
         }

@@ -26,18 +26,15 @@ namespace ZeroInstall.Services
     /// </summary>
     public class MockTaskHandler : SilentTaskHandler
     {
-        /// <summary>
-        /// Do not show progress reports, questions or messages (except for non-intrusive background messages like tray icons) unless a critical error occurs.
-        /// </summary>
-        public override bool Batch { get; set; }
+        public override Verbosity Verbosity { get; set; }
 
         /// <summary>
-        /// The prerecorded result for <see cref="AskQuestion"/>.
+        /// The prerecorded result for <see cref="Ask"/>.
         /// </summary>
         public bool AnswerQuestionWith { get; set; }
 
         /// <summary>
-        /// Last question passed to <see cref="AskQuestion"/>.
+        /// Last question passed to <see cref="Ask"/>.
         /// </summary>
         public string LastQuestion { get; private set; }
 
@@ -45,7 +42,7 @@ namespace ZeroInstall.Services
         /// Fakes asking the user a question.
         /// </summary>
         /// <returns>The current value of <see cref="AnswerQuestionWith"/>.</returns>
-        public override bool AskQuestion(string question, string batchInformation = null)
+        public override bool Ask(string question)
         {
             LastQuestion = question;
             return AnswerQuestionWith;

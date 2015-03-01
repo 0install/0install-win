@@ -124,7 +124,10 @@ namespace ZeroInstall.Services.Fetchers
         private void RunNative(ExternalRetrievalMethod externalRetrievalMethod)
         {
             if (!string.IsNullOrEmpty(externalRetrievalMethod.ConfirmationQuestion))
-                if (!Handler.AskQuestion(externalRetrievalMethod.ConfirmationQuestion)) throw new OperationCanceledException();
+            {
+                if (!Handler.Ask(externalRetrievalMethod.ConfirmationQuestion,
+                    defaultAnswer: false, alternateMessage: externalRetrievalMethod.ConfirmationQuestion)) throw new OperationCanceledException();
+            }
 
             externalRetrievalMethod.Install();
         }

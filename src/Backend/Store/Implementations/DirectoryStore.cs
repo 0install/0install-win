@@ -557,9 +557,9 @@ namespace ZeroInstall.Store.Implementations
             catch (DigestMismatchException ex)
             {
                 Log.Error(ex);
-                if (handler.AskQuestion(
+                if (handler.Ask(
                     question: string.Format(Resources.ImplementationDamaged + Environment.NewLine + Resources.ImplementationDamagedAskRemove, ex.ExpectedDigest),
-                    batchInformation: string.Format(Resources.ImplementationDamaged + Environment.NewLine + Resources.ImplementationDamagedBatchInformation, ex.ExpectedDigest)))
+                    defaultAnswer: false, alternateMessage: string.Format(Resources.ImplementationDamaged + Environment.NewLine + Resources.ImplementationDamagedBatchInformation, ex.ExpectedDigest)))
                     handler.RunTask(new SimpleTask(string.Format(Resources.DeletingImplementation, ex.ExpectedDigest), () => Remove(new ManifestDigest(ex.ExpectedDigest))));
             }
 

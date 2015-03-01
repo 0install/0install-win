@@ -119,9 +119,9 @@ namespace ZeroInstall.Services.Feeds
             if (_config.AutoApproveKeys && goodVote && !_feedCache.Contains(uri)) return true;
 
             // Otherwise ask user
-            return _handler.AskQuestion(
+            return _handler.Ask(
                 string.Format(Resources.AskKeyTrust, uri, signature.Fingerprint, keyInformation, domain),
-                batchInformation: Resources.UntrustedKeys);
+                defaultAnswer: false, alternateMessage: Resources.UntrustedKeys);
         }
 
         private void DownloadMissingKey(FeedUri uri, FeedUri mirrorUrl, MissingKeySignature signature)

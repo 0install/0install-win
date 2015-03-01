@@ -56,7 +56,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         public AccessPointList Clone()
         {
             var accessPointList = new AccessPointList {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements};
-            foreach (var entry in Entries) accessPointList.Entries.Add(entry.Clone());
+            accessPointList.Entries.AddRange(Entries.CloneElements());
 
             return accessPointList;
         }

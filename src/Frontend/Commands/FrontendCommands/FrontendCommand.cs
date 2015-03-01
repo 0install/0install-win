@@ -28,6 +28,7 @@ using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
+using NanoByte.Common.Tasks;
 using NanoByte.Common.Values;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -177,7 +178,7 @@ namespace ZeroInstall.Commands.FrontendCommands
                 throw new OperationCanceledException(); // Don't handle any of the other arguments
             });
             Options.Add("background", () => Resources.OptionBackground, _ => Handler.Background = true);
-            Options.Add("batch", () => Resources.OptionBatch, _ => Handler.Batch = true);
+            Options.Add("batch", () => Resources.OptionBatch, _ => Handler.Verbosity = Verbosity.Batch);
             Options.Add("v|verbose", () => Resources.OptionVerbose, _ => Handler.Verbosity++);
         }
         #endregion

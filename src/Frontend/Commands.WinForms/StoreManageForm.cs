@@ -245,15 +245,8 @@ namespace ZeroInstall.Commands.WinForms
         /// <inheritdoc/>
         public CancellationToken CancellationToken { get { return default(CancellationToken); } }
 
-        /// <summary>
-        /// Always returns <see langword="false"/>.
-        /// </summary>
-        public bool Batch { get { return false; } set { } }
-
-        /// <summary>
-        /// Always returns 1. This ensures that information hidden by the GUI is at least retrievable from the log files.
-        /// </summary>
-        public int Verbosity { get { return 1; } set { } }
+        /// <inheritdoc/>
+        public Verbosity Verbosity { get; set; }
 
         /// <inheritdoc/>
         public void RunTask(ITask task)
@@ -261,7 +254,7 @@ namespace ZeroInstall.Commands.WinForms
             using (var handler = new GuiTaskHandler(this)) handler.RunTask(task);
         }
 
-        public bool AskQuestion(string question, string batchInformation = null)
+        public bool Ask(string question)
         {
             return Msg.YesNo(this, question, MsgSeverity.Warn);
         }

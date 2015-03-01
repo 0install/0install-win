@@ -179,7 +179,7 @@ namespace ZeroInstall.DesktopIntegration
             var appList = new AppEntry {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Name = Name, InterfaceUri = InterfaceUri};
             if (Requirements != null) appList.Requirements = Requirements.Clone();
             if (AccessPoints != null) appList.AccessPoints = AccessPoints.Clone();
-            foreach (var list in CapabilityLists) appList.CapabilityLists.Add(list.Clone());
+            appList.CapabilityLists.AddRange(CapabilityLists.CloneElements());
 
             return appList;
         }

@@ -210,7 +210,7 @@ namespace ZeroInstall.Store.Trust
         public TrustDB Clone()
         {
             var trust = new TrustDB();
-            foreach (var key in Keys) trust.Keys.Add(key.Clone());
+            trust.Keys.AddRange(Keys.CloneElements());
 
             return trust;
         }

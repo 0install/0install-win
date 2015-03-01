@@ -92,30 +92,21 @@ namespace ZeroInstall.Commands.WinForms
 
         #region Question
         /// <inheritdoc/>
-        public override bool AskQuestion(string question, string batchInformation = null)
+        public override bool Ask(string question)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(question)) throw new ArgumentNullException("question");
             #endregion
 
-            if (Batch && !string.IsNullOrEmpty(batchInformation))
+            switch (_wrapper.Post(form => Msg.YesNoCancel(form, question, MsgSeverity.Warn)))
             {
-                // Auto-deny questions and inform via tray icon when in batch mode
-                _wrapper.Post(form => form.ShowTrayIcon(batchInformation, ToolTipIcon.Warning));
-                return false;
-            }
-            else
-            {
-                switch (_wrapper.Post(form => Msg.YesNoCancel(form, question, MsgSeverity.Warn)))
-                {
-                    case DialogResult.Yes:
-                        return true;
-                    case DialogResult.No:
-                        return false;
-                    case DialogResult.Cancel:
-                    default:
-                        throw new OperationCanceledException();
-                }
+                case DialogResult.Yes:
+                    return true;
+                case DialogResult.No:
+                    return false;
+                case DialogResult.Cancel:
+                default:
+                    throw new OperationCanceledException();
             }
         }
         #endregion

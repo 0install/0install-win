@@ -93,7 +93,7 @@ namespace ZeroInstall.Commands.FrontendCommands
                 DownloadUncachedImplementations();
 
                 Handler.CancellationToken.ThrowIfCancellationRequested();
-                if (!Handler.AskQuestion(string.Format(Resources.SelfUpdateAvailable, Selections.MainImplementation.Version)))
+                if (!Handler.Ask(string.Format(Resources.SelfUpdateAvailable, Selections.MainImplementation.Version), defaultAnswer: true))
                     throw new OperationCanceledException();
 
                 LaunchImplementation();

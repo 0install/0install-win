@@ -105,7 +105,7 @@ namespace ZeroInstall.Commands.WinForms
 
             menu.Add(new MenuItem(Resources.Remove, delegate
             {
-                if (_manageForm.AskQuestion(Resources.DeleteEntry))
+                if (_manageForm.Ask(Resources.DeleteEntry))
                 {
                     try
                     {

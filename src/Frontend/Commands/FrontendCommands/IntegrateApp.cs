@@ -23,6 +23,7 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -117,16 +118,16 @@ namespace ZeroInstall.Commands.FrontendCommands
                     #region Error handling
                 catch (ConflictException ex)
                 {
-                    if (Handler.AskQuestion(
+                    if (Handler.Ask(
                         Resources.IntegrateAppInvalid + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + Resources.IntegrateAppRetry,
-                        batchInformation: ex.Message))
+                        defaultAnswer: false, alternateMessage: ex.Message))
                         goto Retry;
                 }
                 catch (InvalidDataException ex)
                 {
-                    if (Handler.AskQuestion(
+                    if (Handler.Ask(
                         Resources.IntegrateAppInvalid + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + Resources.IntegrateAppRetry,
-                        batchInformation: ex.Message))
+                        defaultAnswer: false, alternateMessage: ex.Message))
                         goto Retry;
                 }
                 #endregion
@@ -197,9 +198,9 @@ namespace ZeroInstall.Commands.FrontendCommands
             if (!appEntry.CapabilityLists.UnsequencedEquals(feed.CapabilityLists))
             {
                 string changedMessage = string.Format(Resources.CapabilitiesChanged, appEntry.Name);
-                if (Handler.AskQuestion(
+                if (Handler.Ask(
                     changedMessage + " " + Resources.AskUpdateCapabilities,
-                    batchInformation: changedMessage))
+                    defaultAnswer: false, alternateMessage: changedMessage))
                     integrationManager.UpdateApp(appEntry, feed);
             }
             return appEntry;

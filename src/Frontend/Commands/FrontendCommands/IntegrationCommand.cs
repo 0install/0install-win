@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services.Feeds;
@@ -113,9 +114,9 @@ namespace ZeroInstall.Commands.FrontendCommands
         {
             if (feed.ReplacedBy == null || feed.ReplacedBy.Target == null) return;
 
-            if (Handler.AskQuestion(
+            if (Handler.Ask(
                 string.Format(Resources.FeedReplacedAsk, feed.Name, interfaceUri, feed.ReplacedBy.Target),
-                batchInformation: string.Format(Resources.FeedReplaced, interfaceUri, feed.ReplacedBy.Target)))
+                defaultAnswer: false, alternateMessage: string.Format(Resources.FeedReplaced, interfaceUri, feed.ReplacedBy.Target)))
             {
                 interfaceUri = feed.ReplacedBy.Target;
                 feed = FeedManager.GetFeedFresh(interfaceUri);

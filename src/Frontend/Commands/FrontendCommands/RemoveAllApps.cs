@@ -55,7 +55,7 @@ namespace ZeroInstall.Commands.FrontendCommands
             {
                 if (AppList.Entries.Count == 0) return 0;
 
-                if (Handler.Batch || Handler.AskQuestion(Resources.ConfirmRemoveAll))
+                if (Handler.Ask(Resources.ConfirmRemoveAll, defaultAnswer: true))
                 {
                     Handler.RunTask(new ForEachTask<AppEntry>(Resources.RemovingApplications, AppList.Entries, integrationManager.RemoveApp));
 

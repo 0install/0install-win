@@ -166,7 +166,7 @@ namespace ZeroInstall.Store.Model.Preferences
         public InterfacePreferences Clone()
         {
             var feed = new InterfacePreferences {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, Uri = Uri, StabilityPolicy = StabilityPolicy};
-            foreach (var feedReference in Feeds) feed.Feeds.Add(feedReference.Clone());
+            feed.Feeds.AddRange(Feeds.CloneElements());
 
             return feed;
         }
