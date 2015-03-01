@@ -22,7 +22,6 @@ using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
-using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -65,29 +64,28 @@ namespace ZeroInstall.Commands.FrontendCommands
         /// <summary>A list of all <see cref="AccessPoint"/> categories to be removed from the already applied ones.</summary>
         private readonly List<string> _removeCategories = new List<string>();
 
-        /// <summary>A list of <see cref="AccessPointList"/> files to be imported.</summary>
-        private readonly List<string> _importLists = new List<string>();
-
         /// <inheritdoc/>
         public IntegrateApp([NotNull] ICommandHandler handler) : base(handler)
         {
             Options.Add("no-download", () => Resources.OptionNoDownload, _ => NoDownload = true);
 
-            string categoryList = StringUtils.Join(", ", CategoryIntegrationManager.Categories);
+            string categoryList = StringUtils.Join(", ", CategoryIntegrationManager.AllCategories);
 
-            Options.Add("a|add=", () => Resources.OptionAppAdd + "\n" + Resources.OptionAppCategory + categoryList, category =>
+            Options.Add("add-standard", () => Resources.OptionIntegrateAddStandard, _ => _addCategories.AddRange(CategoryIntegrationManager.StandardCategories));
+            Options.Add("add-all", () => Resources.OptionIntegrateAddAll, _ => _addCategories.AddRange(CategoryIntegrationManager.AllCategories));
+            Options.Add("add=", () => Resources.OptionIntegrateAdd + "\n" + Resources.OptionIntegrateCategories + categoryList, category =>
             {
                 category = category.ToLower();
-                if (!CategoryIntegrationManager.Categories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "add");
+                if (!CategoryIntegrationManager.AllCategories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "add");
                 _addCategories.Add(category);
             });
-            Options.Add("x|remove=", () => Resources.OptionAppRemove + "\n" + Resources.OptionAppCategory + categoryList, category =>
+            Options.Add("remove-all", () => Resources.OptionIntegrateRemoveAll, _ => _removeCategories.AddRange(CategoryIntegrationManager.AllCategories));
+            Options.Add("remove=", () => Resources.OptionIntegrateRemove + "\n" + Resources.OptionIntegrateCategories + categoryList, category =>
             {
                 category = category.ToLower();
-                if (!CategoryIntegrationManager.Categories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "remove");
+                if (!CategoryIntegrationManager.AllCategories.Contains(category)) throw new OptionException(string.Format(Resources.UnknownCategory, category), "remove");
                 _removeCategories.Add(category);
             });
-            Options.Add("i|import=", () => Resources.OptionAppImport, path => _importLists.Add(path));
         }
         #endregion
 
@@ -147,7 +145,7 @@ namespace ZeroInstall.Commands.FrontendCommands
         /// </summary>
         private bool RemoveOnly()
         {
-            return !_addCategories.Any() && !_importLists.Any() && _removeCategories.Any();
+            return !_addCategories.Any() && _removeCategories.Any();
         }
 
         /// <summary>
@@ -163,7 +161,7 @@ namespace ZeroInstall.Commands.FrontendCommands
         /// </summary>
         private bool NoSpecifiedIntegrations()
         {
-            return !_addCategories.Any() && !_removeCategories.Any() && !_importLists.Any();
+            return !_addCategories.Any() && !_removeCategories.Any();
         }
 
         /// <summary>
@@ -176,9 +174,6 @@ namespace ZeroInstall.Commands.FrontendCommands
 
             if (_addCategories.Any())
                 integrationManager.AddAccessPointCategories(appEntry, feed, _addCategories.ToArray());
-
-            foreach (string path in _importLists)
-                integrationManager.AddAccessPoints(appEntry, feed, XmlStorage.LoadXml<AccessPointList>(path).Entries);
         }
 
         /// <summary>

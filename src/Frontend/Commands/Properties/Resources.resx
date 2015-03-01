@@ -450,18 +450,6 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="OptionAliasResolve" xml:space="preserve">
     <value>Print the interface URI for the given alias.</value>
   </data>
-  <data name="OptionAppAdd" xml:space="preserve">
-    <value>Adds all access points of a specific {CATEGORY}.</value>
-  </data>
-  <data name="OptionAppCategory" xml:space="preserve">
-    <value>{CATEGORY} must be one of the following: </value>
-  </data>
-  <data name="OptionAppImport" xml:space="preserve">
-    <value>Apply all access points specified in {FILE}.</value>
-  </data>
-  <data name="OptionAppRemove" xml:space="preserve">
-    <value>Remove all access points of a specific {CATEGORY}.</value>
-  </data>
   <data name="OptionBackground" xml:space="preserve">
     <value>Hide the graphical user interface and use something like a tray icon instead. Has no effect in command-line mode.</value>
   </data>
@@ -496,6 +484,24 @@ Has no effect in text-mode.</value>
   </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Show the built-in help text.</value>
+  </data>
+  <data name="OptionIntegrateAdd" xml:space="preserve">
+    <value>Add all access points of a specific {CATEGORY}.</value>
+  </data>
+  <data name="OptionIntegrateAddAll" xml:space="preserve">
+    <value>Add all available access points.</value>
+  </data>
+  <data name="OptionIntegrateAddStandard" xml:space="preserve">
+    <value>Add the recommended standard access points.</value>
+  </data>
+  <data name="OptionIntegrateCategories" xml:space="preserve">
+    <value>{CATEGORY} must be one of the following: </value>
+  </data>
+  <data name="OptionIntegrateRemove" xml:space="preserve">
+    <value>Remove all access points of a specific {CATEGORY}.</value>
+  </data>
+  <data name="OptionIntegrateRemoveAll" xml:space="preserve">
+    <value>Remove all access points.</value>
   </data>
   <data name="OptionMachine" xml:space="preserve">
     <value>Apply the configuration machine-wide (for the entire computer) instead of just for the current user.</value>

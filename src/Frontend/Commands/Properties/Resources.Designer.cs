@@ -1018,42 +1018,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adds all access points of a specific {CATEGORY}..
-        /// </summary>
-        public static string OptionAppAdd {
-            get {
-                return ResourceManager.GetString("OptionAppAdd", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {CATEGORY} must be one of the following: .
-        /// </summary>
-        public static string OptionAppCategory {
-            get {
-                return ResourceManager.GetString("OptionAppCategory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Apply all access points specified in {FILE}..
-        /// </summary>
-        public static string OptionAppImport {
-            get {
-                return ResourceManager.GetString("OptionAppImport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove all access points of a specific {CATEGORY}..
-        /// </summary>
-        public static string OptionAppRemove {
-            get {
-                return ResourceManager.GetString("OptionAppRemove", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hide the graphical user interface and use something like a tray icon instead. Has no effect in command-line mode..
         /// </summary>
         public static string OptionBackground {
@@ -1151,6 +1115,60 @@ namespace ZeroInstall.Commands.Properties {
         public static string OptionHelp {
             get {
                 return ResourceManager.GetString("OptionHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add all access points of a specific {CATEGORY}..
+        /// </summary>
+        public static string OptionIntegrateAdd {
+            get {
+                return ResourceManager.GetString("OptionIntegrateAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add all available access points..
+        /// </summary>
+        public static string OptionIntegrateAddAll {
+            get {
+                return ResourceManager.GetString("OptionIntegrateAddAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add the recommended standard access points..
+        /// </summary>
+        public static string OptionIntegrateAddStandard {
+            get {
+                return ResourceManager.GetString("OptionIntegrateAddStandard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {CATEGORY} must be one of the following: .
+        /// </summary>
+        public static string OptionIntegrateCategories {
+            get {
+                return ResourceManager.GetString("OptionIntegrateCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all access points of a specific {CATEGORY}..
+        /// </summary>
+        public static string OptionIntegrateRemove {
+            get {
+                return ResourceManager.GetString("OptionIntegrateRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all access points..
+        /// </summary>
+        public static string OptionIntegrateRemoveAll {
+            get {
+                return ResourceManager.GetString("OptionIntegrateRemoveAll", resourceCulture);
             }
         }
         

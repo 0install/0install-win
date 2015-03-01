@@ -450,18 +450,6 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="OptionAliasResolve" xml:space="preserve">
     <value>Gebe die Interface URI für den angegebenen Alias aus.</value>
   </data>
-  <data name="OptionAppAdd" xml:space="preserve">
-    <value>Füge alle Access Points einer bestimmten {CATEGORY} hinzu.</value>
-  </data>
-  <data name="OptionAppCategory" xml:space="preserve">
-    <value>{CATEGORY} muss einen der folgenden Werte haben: </value>
-  </data>
-  <data name="OptionAppImport" xml:space="preserve">
-    <value>Wende alle Access Points die in {FILE} gelistet sind an.</value>
-  </data>
-  <data name="OptionAppRemove" xml:space="preserve">
-    <value>Entferne alle Access Points einer bestimmten {CATEGORY}.</value>
-  </data>
   <data name="OptionBackground" xml:space="preserve">
     <value>Versteckt die grafische Benutzeroberfläche und verwendet stattdessen etwas wie ein Tray Icon. Hat keine Auswirkung im Befehlszeilenmodus.</value>
   </data>
@@ -497,6 +485,24 @@ Hat keine Wirkung im Text-Modus.</value>
   </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Zeigt den eingebauten Hilfe-Text an.</value>
+  </data>
+  <data name="OptionIntegrateAdd" xml:space="preserve">
+    <value>Füge alle Zugriffspunkte einer bestimmten {CATEGORY} hinzu.</value>
+  </data>
+  <data name="OptionIntegrateAddAll" xml:space="preserve">
+    <value>Füge alle verfügbaren Zugriffspunkte hinzu.</value>
+  </data>
+  <data name="OptionIntegrateAddStandard" xml:space="preserve">
+    <value>Füge die empfohlenen Standard Zugriffspunkte hinzu.</value>
+  </data>
+  <data name="OptionIntegrateCategories" xml:space="preserve">
+    <value>{CATEGORY} muss einen der folgenden Werte haben: </value>
+  </data>
+  <data name="OptionIntegrateRemove" xml:space="preserve">
+    <value>Entferne alle Zugriffspunkte einer bestimmten {CATEGORY}.</value>
+  </data>
+  <data name="OptionIntegrateRemoveAll" xml:space="preserve">
+    <value>Entferne alle Zugriffspunkte.</value>
   </data>
   <data name="OptionMachine" xml:space="preserve">
     <value>Wende die Konfiguration Maschinenweit (auf dem ganzen Computer) anstatt nur für den aktuellen User an.</value>
