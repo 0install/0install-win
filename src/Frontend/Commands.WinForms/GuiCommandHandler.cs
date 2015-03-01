@@ -52,6 +52,10 @@ namespace ZeroInstall.Commands.WinForms
                 var form = new ProgressForm(CancellationTokenSource);
                 if (Background) form.ShowTrayIcon();
                 else form.Show();
+
+                // Only start reporting log entries when something else trigger the UI first
+                Log.NewEntry += Log_NewEntry;
+
                 return form;
             });
         }
@@ -86,6 +90,7 @@ namespace ZeroInstall.Commands.WinForms
         /// <inheritdoc/>
         public void CloseUI()
         {
+            Log.NewEntry -= Log_NewEntry;
             _wrapper.Close();
         }
         #endregion
@@ -254,6 +259,27 @@ namespace ZeroInstall.Commands.WinForms
         }
         #endregion
 
+        #region Log entries
+        private void Log_NewEntry(LogSeverity severity, string message)
+        {
+            switch (severity)
+            {
+                case LogSeverity.Echo:
+                    if (Verbosity >= Verbosity.Debug) _wrapper.Send(form => form.ShowTrayIcon(message));
+                    break;
+                case LogSeverity.Info:
+                    if (Verbosity >= Verbosity.Verbose) _wrapper.Send(form => form.ShowTrayIcon(message, ToolTipIcon.Info));
+                    break;
+                case LogSeverity.Warn:
+                    _wrapper.Send(form => form.ShowTrayIcon(message, ToolTipIcon.Warning));
+                    break;
+                case LogSeverity.Error:
+                    _wrapper.Send(form => form.ShowTrayIcon(message, ToolTipIcon.Error));
+                    break;
+            }
+        }
+        #endregion
+
         //--------------------//
 
         #region Dispose
@@ -269,6 +295,7 @@ namespace ZeroInstall.Commands.WinForms
             }
             finally
             {
+                Log.NewEntry -= Log_NewEntry;
                 base.Dispose(disposing);
             }
         }
