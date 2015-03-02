@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010-2014 Bastian Eicher
+ * Copyright 2010-2015 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -16,56 +16,62 @@
  */
 
 using System;
-using System.IO;
 using JetBrains.Annotations;
-using NanoByte.Common.Tasks;
+using NanoByte.Common.Storage;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 
 namespace ZeroInstall.Commands.FrontendCommands
 {
     /// <summary>
-    /// Removes all applications from the <see cref="AppList"/> and undoes any desktop environment integration.
+    /// Imports a set of applications and desktop integrations from an existing <see cref="AppList"/> file.
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class RemoveAllApps : IntegrationCommand
+    public class ImportApps : IntegrationCommand
     {
         #region Metadata
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
-        public new const string Name = "remove-all";
-
-        /// <summary>The alternative name of this command as used in command-line arguments in lower-case.</summary>
-        public const string AltName = "remove-all-apps";
+        public new const string Name = "import-apps";
 
         /// <inheritdoc/>
-        protected override string Description { get { return Resources.DescriptionRemoveAllApps; } }
+        protected override string Description { get { return Resources.DescriptionImportApps; } }
 
         /// <inheritdoc/>
-        protected override string Usage { get { return "[OPTIONS]"; } }
+        protected override string Usage { get { return "APP-LIST-FILE [OPTIONS]"; } }
 
         /// <inheritdoc/>
-        protected override int AdditionalArgsMax { get { return 0; } }
+        protected override int AdditionalArgsMin { get { return 1; } }
+
+        /// <inheritdoc/>
+        protected override int AdditionalArgsMax { get { return 1; } }
         #endregion
 
+        #region State
         /// <inheritdoc/>
-        public RemoveAllApps([NotNull] ICommandHandler handler) : base(handler)
-        {}
+        public ImportApps([NotNull] ICommandHandler handler) : base(handler)
+        {
+            Options.Add("no-download", () => Resources.OptionNoDownload, _ => NoDownload = true);
+        }
+        #endregion
 
         /// <inheritdoc/>
         public override int Execute()
         {
+            var importList = XmlStorage.LoadXml<AppList>(AdditionalArgs[0]);
+
             using (var integrationManager = new IntegrationManager(Handler, MachineWide))
             {
-                if (AppList.Entries.Count == 0) return 0;
-
-                if (Handler.Ask(Resources.ConfirmRemoveAll, defaultAnswer: true))
+                foreach (var importEntry in importList.Entries)
                 {
-                    Handler.RunTask(new ForEachTask<AppEntry>(Resources.RemovingApplications, AppList.Entries, integrationManager.RemoveApp));
+                    var interfaceUri = importEntry.InterfaceUri;
+                    var appEntry = GetAppEntry(integrationManager, ref interfaceUri);
 
-                    // Purge sync status, otherwise next sync would remove everything from server as well instead of restoring from there
-                    File.Delete(AppList.GetDefaultPath(MachineWide) + SyncIntegrationManager.AppListLastSyncSuffix);
+                    if (importEntry.AccessPoints != null)
+                    {
+                        var feed = FeedManager.GetFeed(interfaceUri);
+                        integrationManager.AddAccessPoints(appEntry, feed, importEntry.AccessPoints.Entries);
+                    }
                 }
-                else throw new OperationCanceledException();
             }
 
             return 0;

@@ -232,6 +232,9 @@ Gibt einen Exit Status von 0 zurück falls ein geeigneter Satz an Versionen gefu
     <value>Importiert einen Feed aus einer lokalen Datei, als wäre aus einem Netzwerk heruntergeladen worden. Dies ist praktisch um einen Feed zu testen, der nicht extra auf einem entfernten Server hochgeladen werden muss, nur um ihn wieder herunterzuladen.
 Diese Datei muss eine vertrauenswürdige digitale Signatur besitzen, genauso wie beim Abrufen aus dem Netzwerk.</value>
   </data>
+  <data name="DescriptionImportApps" xml:space="preserve">
+    <value>Importiert einen Satz an Anwendungen und Desktopintegrationen aus einer bestehenden app-list.xml Datei.</value>
+  </data>
   <data name="DescriptionIntegrateApp" xml:space="preserve">
     <value>Fügt eine Anwendung der Anwendungsliste hinzu (falls sie fehlt) und integriert sie in die Desktopumgebung.</value>
   </data>

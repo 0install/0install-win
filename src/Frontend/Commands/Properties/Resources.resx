@@ -232,6 +232,9 @@ Returns an exit status of 0 if it selected a suitable set of versions and they a
     <value>Imports a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again.
 The file must have a trusted digital signature, as when fetching from the network.</value>
   </data>
+  <data name="DescriptionImportApps" xml:space="preserve">
+    <value>Imports a set of applications and desktop integrations from an existing app-list.xml file.</value>
+  </data>
   <data name="DescriptionIntegrateApp" xml:space="preserve">
     <value>Adds an application to the application list (if missing) and integrate it into the desktop environment.</value>
   </data>

@@ -74,6 +74,7 @@
     <Compile Include="FrontendCommands\Fetch.cs" />
     <Compile Include="FrontendCommands\FrontendCommand.cs" />
     <Compile Include="FrontendCommands\Import.cs" />
+    <Compile Include="FrontendCommands\ImportApps.cs" />
     <Compile Include="FrontendCommands\IntegrateApp.cs" />
     <Compile Include="FrontendCommands\IntegrationCommand.cs" />
     <Compile Include="FrontendCommands\List.cs" />

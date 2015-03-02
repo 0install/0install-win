@@ -386,6 +386,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Imports a set of applications and desktop integrations from an existing app-list.xml file..
+        /// </summary>
+        public static string DescriptionImportApps {
+            get {
+                return ResourceManager.GetString("DescriptionImportApps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adds an application to the application list (if missing) and integrate it into the desktop environment..
         /// </summary>
         public static string DescriptionIntegrateApp {
