@@ -17,9 +17,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Storage;
 using ZeroInstall.Commands.FrontendCommands;
@@ -139,16 +141,19 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Storage
-        private IEnumerable<string> _systemImplDirs;
+        private List<string> _systemImplDirs;
 
         private void LoadImplementationDirs()
         {
-            var allImplDirs = StoreFactory.GetImplementationDirs().ToList();
-            var userImplDirs = StoreFactory.GetCustomImplementationDirs(configPath: Locations.GetSaveConfigPath("0install.net", true, "injector", "implementation-dirs"));
-            _systemImplDirs = allImplDirs.Except(userImplDirs);
-
+            // List all implementation dirs in list box
+            _systemImplDirs = StoreFactory.GetImplementationDirs().ToList();
             listBoxImplDirs.Items.Clear();
-            listBoxImplDirs.Items.AddRange(allImplDirs.Cast<object>().ToArray());
+            listBoxImplDirs.Items.AddRange(_systemImplDirs.Cast<object>().ToArray());
+
+            // Then remove user-specific entries from the backing list to prevent modification
+            string userConfigPath = Locations.GetSaveConfigPath("0install.net", true, "injector", "implementation-dirs");
+            if (File.Exists(userConfigPath))
+                _systemImplDirs.RemoveRange(StoreFactory.GetCustomImplementationDirs(userConfigPath));
         }
 
         private void SaveImplementationDirs()
