@@ -219,7 +219,7 @@ Save changes</value>
     <value>Select &amp;version</value>
   </data>
   <data name="SelfUpdateAvailable" xml:space="preserve">
-    <value>An update to Zero Install v{0} is available. Install now? (recommended)</value>
+    <value>Update to Zero Install v{0} available. Click to install.</value>
   </data>
   <data name="SelfUpdateNo" xml:space="preserve">
     <value>No

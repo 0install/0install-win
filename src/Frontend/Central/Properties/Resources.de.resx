@@ -218,7 +218,7 @@ fügen Sie sie zu "Meine Anwendungen" hinzu.</value>
     <value>&amp;Version auswählen</value>
   </data>
   <data name="SelfUpdateAvailable" xml:space="preserve">
-    <value>Ein Update auf Zero Install v{0} ist verfügbar. Jetzt installieren? (empfohlen)</value>
+    <value>Update auf Zero Install v{0} verfügbar. Klicken zum Installieren.</value>
   </data>
   <data name="SelfUpdateNo" xml:space="preserve">
     <value>Nein

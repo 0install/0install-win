@@ -58,6 +58,7 @@
             this.appListWorker = new System.ComponentModel.BackgroundWorker();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.rootTable = new System.Windows.Forms.TableLayoutPanel();
+            this.labelSelfUpdateMessage = new System.Windows.Forms.Label();
             this.tabControlApps.SuspendLayout();
             this.tabPageAppList.SuspendLayout();
             this.menuUpdateAll.SuspendLayout();
@@ -268,11 +269,20 @@
             this.rootTable.Controls.Add(this.tabControlApps, 0, 1);
             this.rootTable.Name = "rootTable";
             // 
+            // labelSelfUpdateMessage
+            // 
+            resources.ApplyResources(this.labelSelfUpdateMessage, "labelSelfUpdateMessage");
+            this.labelSelfUpdateMessage.BackColor = System.Drawing.SystemColors.Info;
+            this.labelSelfUpdateMessage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.labelSelfUpdateMessage.Name = "labelSelfUpdateMessage";
+            this.labelSelfUpdateMessage.Click += new System.EventHandler(this.labelSelfUpdateMessage_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelSelfUpdateMessage);
             this.Controls.Add(this.rootTable);
             this.Name = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -326,6 +336,7 @@
         private System.Windows.Forms.ToolStripMenuItem butonSyncSetup;
         private System.Windows.Forms.ToolStripMenuItem buttonSyncTroubleshoot;
         private System.Windows.Forms.Button buttonOptions;
+        private System.Windows.Forms.Label labelSelfUpdateMessage;
 
     }
 }

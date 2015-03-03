@@ -410,25 +410,30 @@ namespace ZeroInstall.Central.WinForms
         private void selfUpdateWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             var selfUpdateVersion = e.Result as ImplementationVersion;
-            if (selfUpdateVersion != null && Visible)
+            if (selfUpdateVersion != null)
             {
-                if (!Msg.YesNo(this, string.Format(Resources.SelfUpdateAvailable, selfUpdateVersion), MsgSeverity.Info, Resources.SelfUpdateYes, Resources.SelfUpdateNo)) return;
-                try
-                {
-                    ProcessUtils.LaunchAssembly("0install-win", SelfUpdate.Name + " --batch --restart-central");
-                    Application.Exit();
-                }
-                    #region Error handling
-                catch (FileNotFoundException ex)
-                {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                }
-                catch (Win32Exception ex)
-                {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                }
-                #endregion
+                labelSelfUpdateMessage.Text = string.Format(Resources.SelfUpdateAvailable, selfUpdateVersion);
+                labelSelfUpdateMessage.Visible = true;
             }
+        }
+
+        private void labelSelfUpdateMessage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ProcessUtils.LaunchAssembly("0install-win", SelfUpdate.Name + " --batch --restart-central");
+                Application.Exit();
+            }
+                #region Error handling
+            catch (FileNotFoundException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+            }
+            catch (Win32Exception ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
         #endregion
 
