@@ -46,7 +46,7 @@
             this.buttonMoreApps = new System.Windows.Forms.Button();
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
             this.tileListCatalog = new ZeroInstall.Central.WinForms.AppTileList();
-            this.buttonOptions = new NanoByte.Common.Controls.SplitButton();
+            this.buttonOptions = new System.Windows.Forms.Button();
             this.buttonCacheManagement = new System.Windows.Forms.Button();
             this.buttonHelp = new NanoByte.Common.Controls.SplitButton();
             this.menuHelp = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -304,7 +304,6 @@
         private NanoByte.Common.Controls.SplitButton buttonHelp;
         private System.Windows.Forms.Button buttonCacheManagement;
         private System.Windows.Forms.Label labelVersion;
-        private System.Windows.Forms.Button buttonOptions;
         private System.ComponentModel.BackgroundWorker selfUpdateWorker;
         private AppTileList tileListMyApps;
         private AppTileList tileListCatalog;
@@ -326,6 +325,7 @@
         private System.Windows.Forms.ContextMenuStrip menuSync;
         private System.Windows.Forms.ToolStripMenuItem butonSyncSetup;
         private System.Windows.Forms.ToolStripMenuItem buttonSyncTroubleshoot;
+        private System.Windows.Forms.Button buttonOptions;
 
     }
 }
