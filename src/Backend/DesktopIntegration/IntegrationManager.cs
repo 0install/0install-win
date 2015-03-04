@@ -19,6 +19,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Text.RegularExpressions;
 using System.Threading;
 using JetBrains.Annotations;
@@ -121,7 +123,15 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         private Mutex AquireMutex()
         {
-            var mutex = new Mutex(initiallyOwned: false, name: MachineWide ? @"Global\" + MutexName : MutexName);
+            Mutex mutex;
+            if (MachineWide)
+            {
+                var mutexSecurity = new MutexSecurity();
+                mutexSecurity.AddAccessRule(new MutexAccessRule(new SecurityIdentifier(WellKnownSidType.WorldSid, null), MutexRights.FullControl, AccessControlType.Allow));
+                bool createdNew;
+                mutex = new Mutex(false, @"Global\" + MutexName, out createdNew, mutexSecurity);
+            }
+            else mutex = new Mutex(false, MutexName);
 
             try
             {
@@ -129,10 +139,8 @@ namespace ZeroInstall.DesktopIntegration
                 {
                     case 0:
                         return mutex;
-
                     case 1:
                         throw new OperationCanceledException();
-
                     default:
                     case WaitHandle.WaitTimeout:
                         throw new UnauthorizedAccessException(Resources.IntegrationMutex);
@@ -271,8 +279,6 @@ namespace ZeroInstall.DesktopIntegration
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             if (feed == null) throw new ArgumentNullException("feed");
             if (accessPoints == null) throw new ArgumentNullException("accessPoints");
-
-            // ReSharper disable once PossibleUnintendedReferenceComparison
             if (appEntry.AccessPoints != null && appEntry.AccessPoints.Entries == accessPoints) throw new ArgumentException("Must not be equal to appEntry.AccessPoints.Entries", "accessPoints");
             #endregion
 
