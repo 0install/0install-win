@@ -98,29 +98,26 @@ namespace ZeroInstall.Commands.FrontendCommands
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             #endregion
 
-            var feed = FeedManager.GetFeedFresh(interfaceUri);
-            DetectReplacement(ref interfaceUri, ref feed);
+            var target = FeedManager.GetFeedTarget(interfaceUri);
+            DetectReplacement(ref target);
             //TryToSolve(interfaceUri);
 
-            var appEntry = integrationManager.AddApp(interfaceUri, feed);
-            PreDownload(interfaceUri);
+            var appEntry = integrationManager.AddApp(target);
+            PreDownload(target.Uri);
             return appEntry;
         }
 
         /// <summary>
         /// Detects and handles <see cref="Feed.ReplacedBy"/>.
         /// </summary>
-        private void DetectReplacement(ref FeedUri interfaceUri, ref Feed feed)
+        private void DetectReplacement(ref FeedTarget target)
         {
-            if (feed.ReplacedBy == null || feed.ReplacedBy.Target == null) return;
+            if (target.Feed.ReplacedBy == null || target.Feed.ReplacedBy.Target == null) return;
 
             if (Handler.Ask(
-                string.Format(Resources.FeedReplacedAsk, feed.Name, interfaceUri, feed.ReplacedBy.Target),
-                defaultAnswer: false, alternateMessage: string.Format(Resources.FeedReplaced, interfaceUri, feed.ReplacedBy.Target)))
-            {
-                interfaceUri = feed.ReplacedBy.Target;
-                feed = FeedManager.GetFeedFresh(interfaceUri);
-            }
+                string.Format(Resources.FeedReplacedAsk, target.Feed.Name, target.Uri, target.Feed.ReplacedBy.Target),
+                defaultAnswer: false, alternateMessage: string.Format(Resources.FeedReplaced, target.Uri, target.Feed.ReplacedBy.Target)))
+                target = FeedManager.GetFeedTarget(target.Feed.ReplacedBy.Target);
         }
 
         /// <summary>

@@ -104,7 +104,7 @@ namespace ZeroInstall.Commands.FrontendCommands
             else
             { // Determine interfaces from feed content (<feed-for> tags)
                 feedUri = GetCanonicalUri(AdditionalArgs[0]);
-                var feed = FeedManager.GetFeedFresh(feedUri);
+                var feed = FeedManager.GetFeed(feedUri);
                 return feed.FeedFor.Select(reference => reference.Target).WhereNotNull();
             }
         }

@@ -21,12 +21,13 @@ using ZeroInstall.Store.Model;
 namespace ZeroInstall.Store
 {
     /// <summary>
-    /// A <see cref="FeedUri"/> combined with the <see cref="Feed"/> data aquired from there.
+    /// Associates a <see cref="FeedUri"/> with the <see cref="Feed"/> data aquired from there.
     /// </summary>
+    /// <remarks><see cref="Model.Feed.Uri"/> is only mandatory for remote feeds. This structure associates a <see cref="FeedUri"/> with all kinds of feeds, local and remote.</remarks>
     public struct FeedTarget
     {
         /// <summary>
-        /// The URI or local path (must be absolute) to the feed.
+        /// The URI or local path (must be absolute) the feed was aquired from.
         /// </summary>
         [NotNull]
         public readonly FeedUri Uri;

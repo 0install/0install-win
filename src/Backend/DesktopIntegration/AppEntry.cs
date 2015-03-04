@@ -46,14 +46,6 @@ namespace ZeroInstall.DesktopIntegration
         [XmlIgnore]
         public FeedUri InterfaceUri { get; set; }
 
-        #region XML serialization
-        /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="InterfaceUri"/>
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
-        public string InterfaceUriString { get { return InterfaceUri.ToStringRfc(); } set { InterfaceUri = string.IsNullOrEmpty(value) ? null : new FeedUri(value); } }
-        #endregion
-
         string IMergeable<AppEntry>.MergeID { get { return InterfaceUri.ToStringRfc(); } }
 
         /// <summary>
@@ -87,10 +79,18 @@ namespace ZeroInstall.DesktopIntegration
         [CanBeNull]
         public Requirements Requirements { get; set; }
 
+        #region XML serialization
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="InterfaceUri"/>
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
+        [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string InterfaceUriString { get { return InterfaceUri.ToStringRfc(); } set { InterfaceUri = string.IsNullOrEmpty(value) ? null : new FeedUri(value); } }
+
         /// <summary>Used for XML+JSON serialization.</summary>
         /// <seealso cref="Requirements"/>
-        [XmlElement("requirements-json"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [XmlElement("requirements-json"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string RequirementsJson { get { return (Requirements == null) ? null : Requirements.ToJsonString(); } set { Requirements = JsonStorage.FromJsonString<Requirements>(value); } }
+        #endregion
 
         private readonly List<CapabilityList> _capabilityLists = new List<CapabilityList>();
 

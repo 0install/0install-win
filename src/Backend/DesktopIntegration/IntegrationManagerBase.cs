@@ -68,14 +68,9 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Interface
         /// <inheritdoc/>
-        public AppEntry AddApp(FeedUri interfaceUri, Feed feed)
+        public AppEntry AddApp(FeedTarget target)
         {
-            #region Sanity checks
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
-            if (feed == null) throw new ArgumentNullException("feed");
-            #endregion
-
-            var appEntry = AddAppInternal(interfaceUri, feed);
+            var appEntry = AddAppInternal(target);
             Finish();
             return appEntry;
         }
@@ -238,13 +233,12 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// Creates a new unnamed <see cref="AppEntry"/> and adds it to the <see cref="AppList"/>.
         /// </summary>
-        /// <param name="interfaceUri">The interface URI of the application to add.</param>
-        /// <param name="feed">The feed providing additional metadata, capabilities, etc. for the application.</param>
+        /// <param name="target">The application to add.</param>
         /// <returns>The newly created application entry (already added to <see cref="AppList"/>).</returns>
         /// <exception cref="InvalidOperationException">The application is already in the list.</exception>
         /// <exception cref="IOException">A problem occurs while writing to the filesystem or registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
-        protected abstract AppEntry AddAppInternal([NotNull] FeedUri interfaceUri, [NotNull] Feed feed);
+        protected abstract AppEntry AddAppInternal(FeedTarget target);
 
         /// <summary>
         /// Creates a new named <see cref="AppEntry"/> and adds it to the <see cref="AppList"/>.

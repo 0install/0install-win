@@ -26,7 +26,6 @@ using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.AccessPoints;
-using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Commands.FrontendCommands
@@ -142,7 +141,7 @@ namespace ZeroInstall.Commands.FrontendCommands
                 var alias = new AppAlias {Name = aliasName, Command = command};
                 try
                 {
-                    integrationManager.AddAccessPoints(appEntry, FeedManager.GetFeedFresh(interfaceUri), new AccessPoint[] {alias});
+                    integrationManager.AddAccessPoints(appEntry, FeedManager.GetFeed(interfaceUri), new AccessPoint[] {alias});
                 }
                 catch (ConflictException ex)
                 {

@@ -79,5 +79,23 @@ namespace ZeroInstall.Services.Feeds
 
             return feed;
         }
+
+        /// <summary>
+        /// Returns a specific <see cref="Feed"/> wrapped in a <see cref="FeedTarget"/>. Automatically updates cached feeds that have become stale.
+        /// </summary>
+        /// <param name="feedManager">The <see cref="IFeedManager"/> implementation.</param>
+        /// <param name="feedUri">The canonical ID used to identify the feed.</param>
+        /// <returns>A structure associating <paramref name="feedUri"/> with the <see cref="Feed"/> data aquired from there.</returns>
+        /// <remarks><see cref="Feed"/>s are always served from the <see cref="IFeedCache"/> if possible, unless <see cref="IFeedManager.Refresh"/> is set to <see langword="true"/>.</remarks>
+        /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
+        /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
+        /// <exception cref="WebException">A problem occured while fetching the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
+        /// <exception cref="SignatureException">The signature data of a remote feed file could not be verified.</exception>
+        /// <exception cref="UriFormatException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="feedUri"/>.</exception>
+        public static FeedTarget GetFeedTarget([NotNull] this IFeedManager feedManager, [NotNull] FeedUri feedUri)
+        {
+            return new FeedTarget(feedUri, feedManager.GetFeedFresh(feedUri));
+        }
     }
 }

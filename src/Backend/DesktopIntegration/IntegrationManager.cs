@@ -151,19 +151,14 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Apps
         /// <inheritdoc/>
-        protected override AppEntry AddAppInternal(FeedUri interfaceUri, Feed feed)
+        protected override AppEntry AddAppInternal(FeedTarget target)
         {
-            #region Sanity checks
-            if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
-            if (feed == null) throw new ArgumentNullException("feed");
-            #endregion
-
             // Prevent double entries
-            if (AppList.ContainsEntry(interfaceUri)) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, feed.Name));
+            if (AppList.ContainsEntry(target.Uri)) throw new InvalidOperationException(string.Format(Resources.AppAlreadyInList, target.Feed.Name));
 
             // Get basic metadata and copy of capabilities from feed
-            var appEntry = new AppEntry {InterfaceUri = interfaceUri, Name = feed.Name, Timestamp = DateTime.UtcNow};
-            appEntry.CapabilityLists.AddRange(feed.CapabilityLists.CloneElements());
+            var appEntry = new AppEntry {InterfaceUri = target.Uri, Name = target.Feed.Name, Timestamp = DateTime.UtcNow};
+            appEntry.CapabilityLists.AddRange(target.Feed.CapabilityLists.CloneElements());
 
             AppList.Entries.Add(appEntry);
             WriteAppDir(appEntry);

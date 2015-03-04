@@ -28,7 +28,6 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using ZeroInstall.DesktopIntegration;
 using ZeroInstall.DesktopIntegration.Windows;
 using ZeroInstall.Hooking;
 using ZeroInstall.Services.Feeds;
@@ -74,7 +73,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="ImplementationNotFoundException">The main implementation is not cached (possibly because it is installed natively).</exception>
         public RunHook(Selections selections, IExecutor executor, IFeedManager feedManager, ITaskHandler handler)
         {
-            _target = new FeedTarget(selections.InterfaceUri, feedManager.GetFeed(selections.InterfaceUri));
+            _target = feedManager.GetFeedTarget(selections.InterfaceUri);
 
             var mainImplementation = selections.MainImplementation;
             _implementationDir = executor.GetImplementationPath(mainImplementation);

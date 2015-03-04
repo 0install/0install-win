@@ -21,6 +21,7 @@ using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Services;
+using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
 using FileType = ZeroInstall.Store.Model.Capabilities.FileType;
@@ -55,19 +56,20 @@ namespace ZeroInstall.DesktopIntegration
         public void TestAddApp()
         {
             var capabilityList = CapabilityListTest.CreateTestCapabilityList();
-            var feed = new Feed {Name = "Test", CapabilityLists = {capabilityList}};
-            _integrationManager.AddApp(FeedTest.Test1Uri, feed);
+            var target = new FeedTarget(FeedTest.Test1Uri, new Feed {Name = "Test", CapabilityLists = {capabilityList}});
+            _integrationManager.AddApp(target);
 
-            var expectedAppEntry = new AppEntry {InterfaceUri = FeedTest.Test1Uri, Name = feed.Name, CapabilityLists = {capabilityList}};
+            var expectedAppEntry = new AppEntry {InterfaceUri = FeedTest.Test1Uri, Name = target.Feed.Name, CapabilityLists = {capabilityList}};
             CollectionAssert.AreEqual(new[] {expectedAppEntry}, _integrationManager.AppList.Entries);
 
-            Assert.Throws<InvalidOperationException>(() => _integrationManager.AddApp(FeedTest.Test1Uri, feed), "Do not allow adding applications to AppList more than once.");
+            Assert.Throws<InvalidOperationException>(() => _integrationManager.AddApp(target), "Do not allow adding applications to AppList more than once.");
         }
 
         [Test]
         public void TestRemoveApp()
         {
-            var appEntry = _integrationManager.AddApp(FeedTest.Test1Uri, new Feed {Name = "Test"});
+            var target = new FeedTarget(FeedTest.Test1Uri, new Feed {Name = "Test"});
+            var appEntry = _integrationManager.AddApp(target);
 
             // Inject access point into AppEntry (without running integration)
             using (var unapplyFlag = new TemporaryFlagFile("0install-unit-tests"))
@@ -95,7 +97,7 @@ namespace ZeroInstall.DesktopIntegration
                 var accessPoints2 = new AccessPoint[] {new MockAccessPoint {ID = "id2", Capability = "my_ext2", ApplyFlagPath = applyFlag2}};
 
                 Assert.AreEqual(0, _integrationManager.AppList.Entries.Count);
-                var appEntry1 = _integrationManager.AddApp(FeedTest.Test1Uri, feed1);
+                var appEntry1 = _integrationManager.AddApp(new FeedTarget(FeedTest.Test1Uri, feed1));
                 _integrationManager.AddAccessPoints(appEntry1, feed1, accessPoints1);
                 Assert.AreEqual(1, _integrationManager.AppList.Entries.Count, "Should implicitly create missing AppEntries");
                 Assert.IsTrue(applyFlag1.Set, "Should apply AccessPoint");
@@ -107,7 +109,7 @@ namespace ZeroInstall.DesktopIntegration
                 _integrationManager.AddAccessPoints(appEntry1, feed1, accessPoints2);
                 applyFlag2.Set = false;
 
-                var appEntry2 = _integrationManager.AddApp(FeedTest.Test2Uri, feed2);
+                var appEntry2 = _integrationManager.AddApp(new FeedTarget(FeedTest.Test2Uri, feed2));
                 Assert.Throws<ConflictException>(() => _integrationManager.AddAccessPoints(appEntry2, feed2, accessPoints2), "Should prevent access point conflicts");
                 Assert.IsFalse(applyFlag2.Set, "Should prevent access point conflicts");
             }
@@ -124,7 +126,7 @@ namespace ZeroInstall.DesktopIntegration
                 var accessPoint = new MockAccessPoint {ID = "id1", Capability = "my_ext1", UnapplyFlagPath = unapplyFlag};
 
                 // Inject access point into AppEntry (without running integration)
-                var appEntry = _integrationManager.AddApp(FeedTest.Test1Uri, testApp);
+                var appEntry = _integrationManager.AddApp(new FeedTarget(FeedTest.Test1Uri, testApp));
                 appEntry.AccessPoints = new AccessPointList {Entries = {accessPoint}};
 
                 _integrationManager.RemoveAccessPoints(appEntry, new[] {accessPoint});
@@ -147,7 +149,7 @@ namespace ZeroInstall.DesktopIntegration
             var feed = new Feed {Name = "Test 1", CapabilityLists = {capabilitiyList}};
             var accessPoints = new AccessPoint[] {new MockAccessPoint {ID = "id1", Capability = "my_ext1"}};
 
-            var appEntry = _integrationManager.AddApp(FeedTest.Test1Uri, feed);
+            var appEntry = _integrationManager.AddApp(new FeedTarget(FeedTest.Test1Uri, feed));
             _integrationManager.AddAccessPoints(appEntry, feed, accessPoints);
             CollectionAssert.AreEquivalent(accessPoints, _integrationManager.AppList.Entries[0].AccessPoints.Entries, "All access points should be applied.");
 
@@ -163,7 +165,8 @@ namespace ZeroInstall.DesktopIntegration
         [Test]
         public void TestRepair()
         {
-            var appEntry = _integrationManager.AddApp(FeedTest.Test1Uri, new Feed {Name = "Test"});
+            var target = new FeedTarget(FeedTest.Test1Uri, new Feed {Name = "Test"});
+            var appEntry = _integrationManager.AddApp(target);
 
             using (var applyFlag = new TemporaryFlagFile("0install-unit-tests"))
             {

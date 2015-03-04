@@ -104,7 +104,7 @@ namespace ZeroInstall.Commands.FrontendCommands
             }
 
             var appEntry = GetAppEntry(integrationManager, ref interfaceUri);
-            var feed = FeedManager.GetFeedFresh(interfaceUri);
+            var feed = FeedManager.GetFeed(interfaceUri);
 
             if (NoSpecifiedIntegrations())
             {
