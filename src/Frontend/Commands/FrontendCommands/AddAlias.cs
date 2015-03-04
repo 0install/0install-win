@@ -63,6 +63,8 @@ namespace ZeroInstall.Commands.FrontendCommands
         /// <inheritdoc/>
         public AddAlias([NotNull] ICommandHandler handler) : base(handler)
         {
+            Options.Add("no-download", () => Resources.OptionNoDownload, _ => NoDownload = true);
+
             Options.Add("resolve", () => Resources.OptionAliasResolve, _ => _resolve = true);
             Options.Add("remove", () => Resources.OptionAliasRemove, _ => _remove = true);
         }

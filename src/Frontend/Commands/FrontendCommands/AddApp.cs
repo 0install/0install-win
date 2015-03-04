@@ -45,9 +45,13 @@ namespace ZeroInstall.Commands.FrontendCommands
         protected override string Usage { get { return "[OPTIONS] INTERFACE"; } }
         #endregion
 
+        #region State
         /// <inheritdoc/>
         public AddApp([NotNull] ICommandHandler handler) : base(handler)
-        {}
+        {
+            Options.Add("no-download", () => Resources.OptionNoDownload, _ => NoDownload = true);
+        }
+        #endregion
 
         /// <inheritdoc/>
         protected override int ExecuteHelper(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri)

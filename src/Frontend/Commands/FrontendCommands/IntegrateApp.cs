@@ -71,6 +71,8 @@ namespace ZeroInstall.Commands.FrontendCommands
         /// <inheritdoc/>
         public IntegrateApp([NotNull] ICommandHandler handler) : base(handler)
         {
+            Options.Add("no-download", () => Resources.OptionNoDownload, _ => NoDownload = true);
+
             string categoryList = StringUtils.Join(", ", CategoryIntegrationManager.Categories);
 
             Options.Add("a|add=", () => Resources.OptionAppAdd + "\n" + Resources.OptionAppCategory + categoryList, category =>

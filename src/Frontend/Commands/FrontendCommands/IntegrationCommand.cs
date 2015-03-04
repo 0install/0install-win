@@ -22,7 +22,7 @@ namespace ZeroInstall.Commands.FrontendCommands
     {
         #region State
         /// <summary>Do not download the application itself yet.</summary>
-        private bool _noDownload;
+        protected bool NoDownload;
 
         /// <summary>Apply the operation machine-wide instead of just for the current user.</summary>
         protected bool MachineWide { private set; get; }
@@ -32,8 +32,6 @@ namespace ZeroInstall.Commands.FrontendCommands
         {
             Options.Add("o|offline", () => Resources.OptionOffline, _ => Config.NetworkUse = NetworkLevel.Offline);
             Options.Add("r|refresh", () => Resources.OptionRefresh, _ => FeedManager.Refresh = true);
-
-            Options.Add("no-download", () => Resources.OptionNoDownload, _ => _noDownload = true);
 
             Options.Add("m|machine", () => Resources.OptionMachine, _ => MachineWide = true);
         }
@@ -125,7 +123,7 @@ namespace ZeroInstall.Commands.FrontendCommands
         /// </summary>
         private void PreDownload([NotNull] FeedUri interfaceUri)
         {
-            if (!_noDownload && Config.NetworkUse == NetworkLevel.Full)
+            if (!NoDownload && Config.NetworkUse == NetworkLevel.Full)
                 RunCommandBackground(Download.Name, "--batch", interfaceUri.ToStringRfc());
         }
         #endregion
