@@ -358,7 +358,7 @@ namespace ZeroInstall.Store.Model
                 if (!string.IsNullOrEmpty(name)) return name;
             }
 
-            return Name + " " + command;
+            return (command == Command.NameRun) ? Name : Name + " " + command;
         }
 
         /// <summary>
