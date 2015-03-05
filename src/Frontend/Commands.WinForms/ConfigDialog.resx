@@ -153,7 +153,7 @@
     <value>True</value>
   </data>
   <data name="linkSyncAccount.Location" type="System.Drawing.Point, System.Drawing">
-    <value>74, 81</value>
+    <value>85, 81</value>
   </data>
   <data name="linkSyncAccount.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 13</value>
@@ -208,10 +208,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="textBoxSyncCryptoKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>77, 111</value>
+    <value>88, 111</value>
   </data>
   <data name="textBoxSyncCryptoKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>248, 20</value>
+    <value>237, 20</value>
   </data>
   <data name="textBoxSyncCryptoKey.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -259,10 +259,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="textBoxSyncPassword.Location" type="System.Drawing.Point, System.Drawing">
-    <value>77, 58</value>
+    <value>88, 58</value>
   </data>
   <data name="textBoxSyncPassword.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 20</value>
+    <value>262, 20</value>
   </data>
   <data name="textBoxSyncPassword.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -313,10 +313,10 @@
     <value />
   </data>
   <data name="textBoxSyncServer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>77, 6</value>
+    <value>88, 6</value>
   </data>
   <data name="textBoxSyncServer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 20</value>
+    <value>262, 20</value>
   </data>
   <data name="textBoxSyncServer.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -367,10 +367,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="textBoxSyncUsername.Location" type="System.Drawing.Point, System.Drawing">
-    <value>77, 32</value>
+    <value>88, 32</value>
   </data>
   <data name="textBoxSyncUsername.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 20</value>
+    <value>262, 20</value>
   </data>
   <data name="textBoxSyncUsername.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>

@@ -526,10 +526,10 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonRunAsAdmin.Location" type="System.Drawing.Point, System.Drawing">
-    <value>242, 439</value>
+    <value>222, 439</value>
   </data>
   <data name="buttonRunAsAdmin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>98, 23</value>
+    <value>118, 23</value>
   </data>
   <data name="buttonRunAsAdmin.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
