@@ -120,6 +120,68 @@ namespace ZeroInstall.Store.Implementations
         }
         #endregion
 
+        #region Write protection
+        /// <summary>
+        /// Makes a directory read-only using platform-specific mechanisms. Logs any errors and continues.
+        /// </summary>
+        /// <param name="path">The directory to protect.</param>
+        public static void EnableWriteProtection([NotNull] string path)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
+            try
+            {
+                FileUtils.EnableWriteProtection(path);
+            }
+                #region Error handling
+            catch (IOException)
+            {
+                Log.Warn(string.Format(Resources.UnableToWriteProtect, path));
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Log.Warn(string.Format(Resources.UnableToWriteProtect, path));
+            }
+            catch (InvalidOperationException)
+            {
+                Log.Warn(string.Format(Resources.UnableToWriteProtect, path));
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Removes write-protection from a directory read-only using platform-specific mechanisms. Logs any errors and continues.
+        /// </summary>
+        /// <param name="path">The directory to unprotect.</param>
+        public static void DisableWriteProtection([NotNull] string path)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
+            try
+            {
+                FileUtils.DisableWriteProtection(path);
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Log.Error(ex);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error(ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                Log.Error(ex);
+            }
+            #endregion
+        }
+        #endregion
+
         #region Verify and add
         private readonly object _renameLock = new object();
 
@@ -171,20 +233,7 @@ namespace ZeroInstall.Store.Implementations
             }
 
             // Prevent any further changes to the directory
-            try
-            {
-                FileUtils.EnableWriteProtection(target);
-            }
-                #region Error handling
-            catch (IOException)
-            {
-                Log.Warn(string.Format(Resources.UnableToWriteProtect, target));
-            }
-            catch (UnauthorizedAccessException)
-            {
-                Log.Warn(string.Format(Resources.UnableToWriteProtect, target));
-            }
-            #endregion
+            EnableWriteProtection(target);
         }
         #endregion
 
@@ -398,16 +447,7 @@ namespace ZeroInstall.Store.Implementations
             string path = GetPath(manifestDigest);
             if (path == null) return false;
 
-            try
-            {
-                FileUtils.DisableWriteProtection(path);
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Log.Error(ex);
-            }
-            #endregion
+            DisableWriteProtection(path);
 
             // Move the directory to be deleted to a temporary directory to ensure the removal operation is atomic
             string tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
@@ -519,8 +559,8 @@ namespace ZeroInstall.Store.Implementations
 
             if (FileUtils.AreHardlinked(sourceFile, destinationFile)) return false;
 
-            FileUtils.DisableWriteProtection(sourceImplementation);
-            if (destinationImplementation != sourceImplementation) FileUtils.DisableWriteProtection(destinationImplementation);
+            DisableWriteProtection(sourceImplementation);
+            if (destinationImplementation != sourceImplementation) DisableWriteProtection(destinationImplementation);
             try
             {
                 FileUtils.CreateHardlink(tempFile, destinationFile);
@@ -529,8 +569,8 @@ namespace ZeroInstall.Store.Implementations
             finally
             {
                 if (File.Exists(tempFile)) File.Delete(tempFile);
-                FileUtils.EnableWriteProtection(sourceImplementation);
-                if (destinationImplementation != sourceImplementation) FileUtils.EnableWriteProtection(destinationImplementation);
+                EnableWriteProtection(sourceImplementation);
+                if (destinationImplementation != sourceImplementation) EnableWriteProtection(destinationImplementation);
             }
             return true;
         }
@@ -564,16 +604,7 @@ namespace ZeroInstall.Store.Implementations
             }
 
             // Reseal the directory in case the write protection got lost
-            try
-            {
-                FileUtils.EnableWriteProtection(target);
-            }
-                #region Error handling
-            catch (IOException)
-            {}
-            catch (UnauthorizedAccessException)
-            {}
-            #endregion
+            EnableWriteProtection(target);
         }
         #endregion
 

@@ -68,21 +68,7 @@ namespace ZeroInstall.Store.ViewModel
         {
             try
             {
-                try
-                {
-                    FileUtils.DisableWriteProtection(_path);
-                }
-                    #region Error handling
-                catch (IOException)
-                {
-                    // Ignore since we may be able to delete it anyway
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    // Ignore since we may be able to delete it anyway
-                }
-                #endregion
-
+                DirectoryStore.DisableWriteProtection(_path);
                 Directory.Delete(_path, recursive: true);
             }
                 #region Error handling
