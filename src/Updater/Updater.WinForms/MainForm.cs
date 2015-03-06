@@ -107,14 +107,11 @@ namespace ZeroInstall.Updater.WinForms
                 SetStatus(Resources.DeleteFiles);
                 _updateProcess.DeleteFiles();
 
-                if (_updateProcess.IsInnoSetup)
-                {
-                    SetStatus(Resources.RunNgen);
-                    _updateProcess.RunNgen();
+                SetStatus(Resources.RunNgen);
+                _updateProcess.RunNgen();
 
-                    SetStatus(Resources.UpdateRegistry);
-                    _updateProcess.UpdateRegistry();
-                }
+                SetStatus(Resources.UpdateRegistry);
+                _updateProcess.UpdateRegistry();
 
                 SetStatus(Resources.FixPermissions);
                 _updateProcess.FixPermissions();

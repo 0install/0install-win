@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Security;
@@ -60,6 +59,8 @@ namespace ZeroInstall.Updater
         /// The version number of the new/updated version.
         /// </summary>
         public Version NewVersion { get; private set; }
+
+        private bool IsPortable { get { return File.Exists(Path.Combine(Target, Locations.PortableFlagName)); } }
         #endregion
 
         #region Constructor
@@ -162,7 +163,7 @@ namespace ZeroInstall.Updater
         public bool StopService()
         {
             // Do not touch the service in portable mode
-            if (File.Exists(Path.Combine(Target, Locations.PortableFlagName))) return false;
+            if (IsPortable) return false;
 
             // Determine whether the service is installed and running
             var service = ServiceController.GetServices().FirstOrDefault(x => x.ServiceName == "0store-service");
@@ -256,32 +257,6 @@ namespace ZeroInstall.Updater
         }
         #endregion
 
-        #region Inno Setup
-        /// <summary>The registry key Inno Setup uses to store uninstall information for Zero Install.</summary>
-        private const string InnoSetupRegKey = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1";
-
-        /// <summary>
-        /// Indicates whether the <see cref="Target"/> was installed with Inno Setup.
-        /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Registry exceptions are passed through")]
-        public bool IsInnoSetup
-        {
-            get
-            {
-                try
-                {
-                    // Check if the target path is the same as the Inno Setup installation directory
-                    var installationDirectory = RegistryUtils.GetString(InnoSetupRegKey, "Inno Setup: App Path");
-                    return (installationDirectory == Target);
-                }
-                catch (SecurityException)
-                {
-                    return false;
-                }
-            }
-        }
-        #endregion
-
         #region Run Ngen
         private static readonly string[] _ngenAssemblies = {"ZeroInstall.exe", "0install.exe", "0install-win.exe", "0launch.exe", "0alias.exe", "0store.exe", "StoreService.exe", "ZeroInstall.DesktopIntegration.XmlSerializers.dll", "ZeroInstall.Store.XmlSerializers.dll"};
 
@@ -290,6 +265,9 @@ namespace ZeroInstall.Updater
         /// </summary>
         public void RunNgen()
         {
+            // Do not run Ngen in portable mode
+            if (IsPortable) return;
+
             // Use .NET 4.0 if possible, otherwise 2.0
             string netFxDir = WindowsUtils.GetNetFxDirectory(
                 WindowsUtils.HasNetFxVersion(WindowsUtils.NetFx40) ? WindowsUtils.NetFx40 : WindowsUtils.NetFx20);
@@ -307,21 +285,34 @@ namespace ZeroInstall.Updater
         }
         #endregion
 
-        #region Update registry
+        #region Update Registry
         /// <summary>
         /// Update the registry entries.
         /// </summary>
         /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
         public void UpdateRegistry()
         {
+            // Do not run touch registry in portable mode
+            if (IsPortable) return;
+
+            UpdateInnoSetup();
+        }
+
+        /// <summary>
+        /// Update the Inno Setup registry entries.
+        /// </summary>
+        /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
+        private void UpdateInnoSetup()
+        {
             try
             {
-                // Update the Uninstall version entry
-                RegistryUtils.SetString(InnoSetupRegKey, "DisplayVersion", NewVersion.ToString());
+                const string innoSetupRegKey = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1";
 
-                // Store SetString location in registry to allow other applications or bootstrappers to locate Zero Install
-                RegistryUtils.SetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install", "InstallLocation", Target);
-                if (WindowsUtils.Is64BitProcess) RegistryUtils.SetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Zero Install", "InstallLocation", Target);
+                // Check if the target path is the same as the Inno Setup installation directory
+                if (RegistryUtils.GetString(innoSetupRegKey, "Inno Setup: App Path") != Target) return;
+
+                // Update the Uninstall version entry
+                RegistryUtils.SetString(innoSetupRegKey, "DisplayVersion", NewVersion.ToString());
             }
                 #region Error handling
             catch (SecurityException ex)
@@ -344,7 +335,7 @@ namespace ZeroInstall.Updater
             if (!WindowsUtils.IsWindowsVista) return;
 
             // Do not touch ACLs in portable mode
-            if (File.Exists(Path.Combine(Target, Locations.PortableFlagName))) return;
+            if (IsPortable) return;
 
             string path = Path.Combine(Locations.SystemCacheDir, "0install.net");
             if (!File.Exists(Path.Combine(path, Locations.SecuredFlagName)))
