@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using ZeroInstall.Central.Properties;
@@ -32,22 +33,39 @@ namespace ZeroInstall.Central.WinForms
     /// </summary>
     public partial class SelectCommandDialog : OKCancelDialog
     {
-        #region Inner classes
-        /// <summary>
-        /// Wraps <see cref="Element"/>s so that their <see cref="object.ToString"/> methods return localized names.
-        /// </summary>
+        #region Inner classe
         private class EntryPointWrapper
         {
-            public readonly EntryPoint Element;
+            private readonly Feed _feed;
+            private readonly EntryPoint _entryPoint;
 
-            public EntryPointWrapper(EntryPoint element)
+            public EntryPointWrapper([NotNull] Feed feed, [NotNull] EntryPoint entryPoint)
             {
-                Element = element;
+                _feed = feed;
+                _entryPoint = entryPoint;
+            }
+
+            public EntryPointWrapper([NotNull] Feed feed, [NotNull] string commandName)
+            {
+                _feed = feed;
+                _entryPoint = new EntryPoint {Command = commandName};
+            }
+
+            [CanBeNull]
+            public string GetSummary()
+            {
+                return _feed.GetBestSummary(CultureInfo.CurrentUICulture, _entryPoint.Command);
             }
 
             public override string ToString()
             {
-                return Element.Names.GetBestLanguage(CultureInfo.CurrentUICulture) ?? Element.Command;
+                return _feed.GetBestName(CultureInfo.CurrentUICulture, _entryPoint.Command);
+            }
+
+            [NotNull]
+            public string GetCommand()
+            {
+                return _entryPoint.Command ?? Command.NameRun;
             }
         }
         #endregion
@@ -69,9 +87,10 @@ namespace ZeroInstall.Central.WinForms
         {
             Text = string.Format(Resources.SelectCommand, _target.Feed.Name);
 
-            // Wrap entry points so that their ToXmlString methods return localized names
             foreach (var entryPoint in _target.Feed.EntryPoints)
-                comboBoxCommand.Items.Add(new EntryPointWrapper(entryPoint));
+                comboBoxCommand.Items.Add(new EntryPointWrapper(_target.Feed, entryPoint));
+            if (comboBoxCommand.Items.Count == 0)
+                comboBoxCommand.Items.Add(new EntryPointWrapper(_target.Feed, Command.NameRun));
 
             comboBoxCommand.SelectedIndex = 0;
         }
@@ -80,14 +99,14 @@ namespace ZeroInstall.Central.WinForms
         {
             // Display entry point description
             var entryPoint = comboBoxCommand.SelectedItem as EntryPointWrapper;
-            if (entryPoint != null) labelSummary.Text = entryPoint.Element.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture);
+            if (entryPoint != null) labelSummary.Text = entryPoint.GetSummary();
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
             // Differentiate between entry point describing a command and a direct command
             var entryPoint = comboBoxCommand.SelectedItem as EntryPointWrapper;
-            string command = (entryPoint == null) ? comboBoxCommand.Text : entryPoint.Element.Command;
+            string command = (entryPoint == null) ? comboBoxCommand.Text : entryPoint.GetCommand();
 
             try
             {
