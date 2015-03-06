@@ -91,6 +91,7 @@ namespace ZeroInstall.Services.Feeds
                 ? XmlStorage.LoadXml<Catalog>(source.LocalPath)
                 : DownloadCatalog(source));
             var catalog = Catalog.Merge(catalogs);
+            catalog.Normalize();
 
             // Cache the result
             try

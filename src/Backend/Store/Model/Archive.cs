@@ -125,7 +125,7 @@ namespace ZeroInstall.Store.Model
 
         #region Normalize
         /// <inheritdoc/>
-        public override void Normalize(FeedUri feedUri)
+        public override void Normalize(FeedUri feedUri = null)
         {
             base.Normalize(feedUri);
 

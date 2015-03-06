@@ -222,9 +222,9 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Flattens the <see cref="Group"/> inheritance structure and sets missing default values in <see cref="Implementation"/>s.
         /// </summary>
-        /// <param name="feedUri">The feed the data was originally loaded from.</param>
+        /// <param name="feedUri">The feed the data was originally loaded from; can be <see langword="null"/>.</param>
         /// <remarks>This method should be called to prepare a <see cref="Feed"/> for solver processing. Do not call it if you plan on serializing the feed again since it may loose some of its structure.</remarks>
-        public void Normalize([NotNull] FeedUri feedUri)
+        public void Normalize([CanBeNull] FeedUri feedUri = null)
         {
             #region Sanity checks
             if (feedUri == null) throw new ArgumentNullException("feedUri");
@@ -242,7 +242,7 @@ namespace ZeroInstall.Store.Model
             NormalizeEntryPoints();
         }
 
-        private void NormalizeElements(FeedUri feedUri)
+        private void NormalizeElements([CanBeNull] FeedUri feedUri = null)
         {
             var collapsedElements = new List<Element>();
             foreach (var element in _elements)

@@ -201,6 +201,18 @@ namespace ZeroInstall.Store.Model
         }
         #endregion
 
+        #region Normalize
+        /// <summary>
+        /// Runs <see cref="Feed.Normalize"/> on all contained <see cref="Feeds"/>.
+        /// </summary>
+        /// <remarks>This method should be called to prepare a <see cref="Catalog"/> for solver processing. Do not call it if you plan on serializing the catalog again since it may loose some of its structure.</remarks>
+        public void Normalize()
+        {
+            foreach (var feed in _feeds)
+                feed.Normalize(feed.Uri);
+        }
+        #endregion
+
         //--------------------//
 
         #region Clone
