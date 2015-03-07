@@ -16,17 +16,17 @@
 #include "scripts\modpath.iss"
 
 [CustomMessages]
-win2000sp4_title=Windows 2000 Service Pack 4
-winxpsp2_title=Windows XP Service Pack 2
-en.compile_netfx=Pre-compiling .NET assemblies for faster application startup...
-de.compile_netfx=.NET Assemblies zum schnelleren Anwendugsstart vorkompilieren...
-
 ;Used by downloader
 appname=Zero Install
+win2000sp4_title=Windows 2000 Service Pack 4
+winxpsp2_title=Windows XP Service Pack 2
 
+en.compile_netfx=Pre-compiling .NET assemblies for faster application startup...
 en.DesktopIcon=Create desktop icon
-de.DesktopIcon=Desktopsymbol erstellen
 en.StoreService=Install Store service (share app files between users)
+
+de.DesktopIcon=Desktopsymbol erstellen
+de.compile_netfx=.NET Assemblies zum schnelleren Anwendugsstart vorkompilieren...
 de.StoreService=Store Dienst installieren (Anwendungsdateien zwischen Benutzern teilen)
 
 [Setup]
@@ -72,8 +72,8 @@ Compression=lzma/ultra
 SolidCompression=true
 
 [Languages]
-Name: de; MessagesFile: compiler:Languages\German.isl
 Name: en; MessagesFile: compiler:Default.isl
+Name: de; MessagesFile: compiler:Languages\German.isl
 
 [Files]
 Source: ..\COPYING.txt; DestDir: {app}; Flags: ignoreversion

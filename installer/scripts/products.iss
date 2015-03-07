@@ -27,6 +27,7 @@ de.depinstall_missing=%1 muss installiert werden bevor das Setup fortfahren kann
 en.depinstall_error=An error occured while installing the dependencies. Please restart the computer and run the setup again or install the following dependencies manually:%n
 de.depinstall_error=Ein Fehler ist während der Installation der Abghängigkeiten aufgetreten. Bitte starten Sie den Computer neu und führen Sie das Setup erneut aus oder installieren Sie die folgenden Abhängigkeiten per Hand:%n
 
+en.isxdl_langfile=english.ini
 de.isxdl_langfile=german.ini
 
 
