@@ -21,6 +21,7 @@ using System.Linq;
 using System.Net;
 using JetBrains.Annotations;
 using Microsoft.Win32;
+using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store;
@@ -69,13 +70,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
             {
                 if (accessPoint)
                 { // Can only be registered invasively by registering protocol ProgID (will replace existing and become default)
-                    using (var progIDKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + urlProtocol.ID))
+                    using (var progIDKey = hive.CreateSubKeyChecked(FileType.RegKeyClasses + @"\" + urlProtocol.ID))
                         FileType.RegisterVerbCapability(progIDKey, target, urlProtocol, machineWide, handler);
                 }
             }
             else
             { // Can be registered non-invasively by registering custom ProgID (without becoming default)
-                using (var progIDKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + urlProtocol.ID))
+                using (var progIDKey = hive.CreateSubKeyChecked(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + urlProtocol.ID))
                 {
                     // Add flag to remember whether created for capability or access point
                     progIDKey.SetValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, "");
@@ -89,13 +90,13 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     {
                         if (WindowsUtils.IsWindowsVista && !machineWide)
                         {
-                            using (var someKey = Registry.CurrentUser.CreateSubKey(RegKeyUserVistaUrlAssoc + @"\" + prefix.Value + @"\UserChoice"))
+                            using (var someKey = Registry.CurrentUser.CreateSubKeyChecked(RegKeyUserVistaUrlAssoc + @"\" + prefix.Value + @"\UserChoice"))
                                 someKey.SetValue("ProgID", FileType.RegKeyPrefix + urlProtocol.ID);
                         }
                         else
                         {
                             // Setting default invasively by registering protocol ProgID
-                            using (var progIDKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + prefix.Value))
+                            using (var progIDKey = hive.CreateSubKeyChecked(FileType.RegKeyClasses + @"\" + prefix.Value))
                                 FileType.RegisterVerbCapability(progIDKey, target, urlProtocol, machineWide, handler);
                         }
                     }

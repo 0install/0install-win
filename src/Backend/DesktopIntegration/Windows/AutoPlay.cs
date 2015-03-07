@@ -22,6 +22,7 @@ using System.Linq;
 using System.Net;
 using JetBrains.Annotations;
 using Microsoft.Win32;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store;
@@ -88,10 +89,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
 
-            using (var commandKey = hive.CreateSubKey(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + ".AutoPlay" + autoPlay.ID + @"\shell\" + autoPlay.Verb.Name + @"\command"))
+            using (var commandKey = hive.CreateSubKeyChecked(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + ".AutoPlay" + autoPlay.ID + @"\shell\" + autoPlay.Verb.Name + @"\command"))
                 commandKey.SetValue("", FileType.GetLaunchCommandLine(target, autoPlay.Verb, machineWide, handler));
 
-            using (var handlerKey = hive.CreateSubKey(RegKeyHandlers + @"\" + FileType.RegKeyPrefix + autoPlay.ID))
+            using (var handlerKey = hive.CreateSubKeyChecked(RegKeyHandlers + @"\" + FileType.RegKeyPrefix + autoPlay.ID))
             {
                 // Add flag to remember whether created for capability or access point
                 handlerKey.SetValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, "");
@@ -108,12 +109,12 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             foreach (var autoPlayEvent in autoPlay.Events.Except(x => string.IsNullOrEmpty(x.Name)))
             {
-                using (var eventKey = hive.CreateSubKey(RegKeyAssocs + @"\" + autoPlayEvent.Name))
+                using (var eventKey = hive.CreateSubKeyChecked(RegKeyAssocs + @"\" + autoPlayEvent.Name))
                     eventKey.SetValue(FileType.RegKeyPrefix + autoPlay.ID, "");
 
                 if (accessPoint)
                 {
-                    using (var chosenEventKey = hive.CreateSubKey(RegKeyChosenAssocs + @"\" + autoPlayEvent.Name))
+                    using (var chosenEventKey = hive.CreateSubKeyChecked(RegKeyChosenAssocs + @"\" + autoPlayEvent.Name))
                         chosenEventKey.SetValue("", FileType.RegKeyPrefix + autoPlay.ID);
                 }
             }
@@ -164,7 +165,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 {
                     foreach (var autoPlayEvent in autoPlay.Events.Except(x => string.IsNullOrEmpty(x.Name)))
                     {
-                        using (var eventKey = hive.CreateSubKey(RegKeyAssocs + @"\" + autoPlayEvent.Name))
+                        using (var eventKey = hive.CreateSubKeyChecked(RegKeyAssocs + @"\" + autoPlayEvent.Name))
                             eventKey.DeleteValue(FileType.RegKeyPrefix + autoPlay.ID, throwOnMissingValue: false);
                     }
 

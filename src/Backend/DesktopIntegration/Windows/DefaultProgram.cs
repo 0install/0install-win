@@ -80,9 +80,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(defaultProgram.ID)) throw new InvalidDataException("Missing ID");
             if (string.IsNullOrEmpty(defaultProgram.Service)) throw new InvalidDataException("Missing Service");
 
-            using (var serviceKey = Registry.LocalMachine.CreateSubKey(RegKeyMachineClients + @"\" + defaultProgram.Service))
+            using (var serviceKey = Registry.LocalMachine.CreateSubKeyChecked(RegKeyMachineClients + @"\" + defaultProgram.Service))
             {
-                using (var appKey = serviceKey.CreateSubKey(defaultProgram.ID))
+                using (var appKey = serviceKey.CreateSubKeyChecked(defaultProgram.ID))
                 {
                     // Add flag to remember whether created for capability or access point
                     appKey.SetValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, "");
@@ -92,7 +92,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     FileType.RegisterVerbCapability(appKey, target, defaultProgram, true, handler);
 
                     // Set callbacks for Windows SPAD
-                    using (var installInfoKey = appKey.CreateSubKey(RegSubKeyInstallInfo))
+                    using (var installInfoKey = appKey.CreateSubKeyChecked(RegSubKeyInstallInfo))
                     {
                         string exePath = Path.Combine(Locations.InstallBase, "0install-win.exe").EscapeArgument();
                         installInfoKey.SetValue(RegValueReinstallCommand, exePath + " integrate-app --machine --batch --add=defaults " + target.Uri.ToStringRfc().EscapeArgument());
@@ -104,7 +104,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     if (defaultProgram.Service == Store.Model.Capabilities.DefaultProgram.ServiceMail)
                     {
                         var mailToProtocol = new Store.Model.Capabilities.UrlProtocol {Verbs = {new Verb {Name = Verb.NameOpen}}};
-                        using (var mailToKey = appKey.CreateSubKey(@"Protocols\mailto"))
+                        using (var mailToKey = appKey.CreateSubKeyChecked(@"Protocols\mailto"))
                             FileType.RegisterVerbCapability(mailToKey, target, mailToProtocol, true, handler);
                     }
                 }
@@ -120,7 +120,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="iconsVisible"><see langword="true"/> if the icons are currently visible, <see langword="false"/> if the icons are currently not visible.</param>
         internal static void ToggleIconsVisible(Store.Model.Capabilities.DefaultProgram defaultProgram, bool iconsVisible)
         {
-            using (var installInfoKey = Registry.LocalMachine.OpenSubKey(RegKeyMachineClients + @"\" + defaultProgram.Service + @"\" + defaultProgram.ID + @"\" + RegSubKeyInstallInfo, writable: true))
+            using (var installInfoKey = Registry.LocalMachine.OpenSubKeyChecked(RegKeyMachineClients + @"\" + defaultProgram.Service + @"\" + defaultProgram.ID + @"\" + RegSubKeyInstallInfo, writable: true))
                 installInfoKey.SetValue(RegValueIconsVisible, iconsVisible ? 1 : 0, RegistryValueKind.DWord);
         }
         #endregion
@@ -143,7 +143,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(defaultProgram.ID)) throw new InvalidDataException("Missing ID");
             if (string.IsNullOrEmpty(defaultProgram.Service)) throw new InvalidDataException("Missing Service");
 
-            using (var serviceKey = Registry.LocalMachine.CreateSubKey(RegKeyMachineClients + @"\" + defaultProgram.Service))
+            using (var serviceKey = Registry.LocalMachine.CreateSubKeyChecked(RegKeyMachineClients + @"\" + defaultProgram.Service))
             {
                 if (accessPoint)
                 {

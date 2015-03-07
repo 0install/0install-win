@@ -23,6 +23,7 @@ using System.Linq;
 using System.Net;
 using JetBrains.Annotations;
 using Microsoft.Win32;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
@@ -112,7 +113,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
 
             // Register ProgID
-            using (var progIDKey = hive.CreateSubKey(RegKeyClasses + @"\" + RegKeyPrefix + fileType.ID))
+            using (var progIDKey = hive.CreateSubKeyChecked(RegKeyClasses + @"\" + RegKeyPrefix + fileType.ID))
             {
                 // Add flag to remember whether created for capability or access point
                 progIDKey.SetValue(accessPoint ? PurposeFlagAccessPoint : PurposeFlagCapability, "");
@@ -125,20 +126,20 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 foreach (var extension in fileType.Extensions.Except(x => string.IsNullOrEmpty(x.Value)))
                 {
                     // Register extensions
-                    using (var extensionKey = classesKey.CreateSubKey(extension.Value))
+                    using (var extensionKey = classesKey.CreateSubKeyChecked(extension.Value))
                     {
                         if (!string.IsNullOrEmpty(extension.MimeType)) extensionKey.SetValue(RegValueContentType, extension.MimeType);
                         if (!string.IsNullOrEmpty(extension.PerceivedType)) extensionKey.SetValue(RegValuePerceivedType, extension.PerceivedType);
 
-                        using (var openWithKey = extensionKey.CreateSubKey(RegSubKeyOpenWith))
+                        using (var openWithKey = extensionKey.CreateSubKeyChecked(RegSubKeyOpenWith))
                             openWithKey.SetValue(RegKeyPrefix + fileType.ID, "");
 
                         if (accessPoint)
                         {
                             if (!machineWide && WindowsUtils.IsWindowsVista)
                             { // Windows Vista and later store per-user file extension overrides
-                                using (var overridesKey = hive.OpenSubKey(RegKeyOverrides, writable: true))
-                                using (var extensionOverrideKey = overridesKey.CreateSubKey(extension.Value))
+                                using (var overridesKey = hive.OpenSubKeyChecked(RegKeyOverrides, writable: true))
+                                using (var extensionOverrideKey = overridesKey.CreateSubKeyChecked(extension.Value))
                                 {
                                     // Only mess with this part of the registry when necessary
                                     bool alreadySet;
@@ -153,7 +154,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                                         // Must delete and recreate instead of direct modification due to wicked ACLs
                                         extensionOverrideKey.DeleteSubKey("UserChoice", throwOnMissingSubKey: false);
 
-                                        using (var userChoiceKey = extensionOverrideKey.CreateSubKey("UserChoice"))
+                                        using (var userChoiceKey = extensionOverrideKey.CreateSubKeyChecked("UserChoice"))
                                             userChoiceKey.SetValue("Progid", RegKeyPrefix + fileType.ID);
                                     }
                                 }
@@ -165,7 +166,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     // Register MIME types
                     if (!string.IsNullOrEmpty(extension.MimeType))
                     {
-                        using (var mimeKey = classesKey.CreateSubKey(RegSubKeyMimeType + @"\" + extension.MimeType))
+                        using (var mimeKey = classesKey.CreateSubKeyChecked(RegSubKeyMimeType + @"\" + extension.MimeType))
                             mimeKey.SetValue(RegValueExtension, extension.Value);
                     }
                 }
@@ -192,14 +193,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(fileType.ID)) throw new InvalidDataException("Missing ID");
 
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
-            using (var classesKey = hive.OpenSubKey(RegKeyClasses, writable: true))
+            using (var classesKey = hive.OpenSubKeyChecked(RegKeyClasses, writable: true))
             {
                 foreach (var extension in fileType.Extensions.Except(extension => string.IsNullOrEmpty(extension.Value)))
                 {
                     // Unegister MIME types
                     if (!string.IsNullOrEmpty(extension.MimeType))
                     {
-                        using (var extensionKey = classesKey.CreateSubKey(extension.Value))
+                        using (var extensionKey = classesKey.CreateSubKeyChecked(extension.Value))
                         {
                             // TODO: Restore previous default
                             //extensionKey.SetValue("", fileType.PreviousID);
@@ -209,20 +210,20 @@ namespace ZeroInstall.DesktopIntegration.Windows
                         //{
                         //    // Windows Vista and later store per-user file extension overrides, Windows 8 blocks programmatic modification with hash values
                         //    using (var overridesKey = hive.OpenSubKey(RegKeyOverrides, true))
-                        //    using (var extensionOverrideKey = overridesKey.CreateSubKey(extension.Value))
+                        //    using (var extensionOverrideKey = overridesKey.CreateSubKeyChecked(extension.Value))
                         //    {
                         //        // Must delete and recreate instead of direct modification due to wicked ACLs
                         //        extensionOverrideKey.DeleteSubKey("UserChoice", throwOnMissingSubKey: false);
-                        //        using (var userChoiceKey = extensionOverrideKey.CreateSubKey("UserChoice"))
+                        //        using (var userChoiceKey = extensionOverrideKey.CreateSubKeyChecked("UserChoice"))
                         //            userChoiceKey.SetValue("Progid", fileType.PreviousID);
                         //    }
                         //}
                     }
 
                     // Unregister extensions
-                    using (var extensionKey = classesKey.CreateSubKey(extension.Value))
+                    using (var extensionKey = classesKey.CreateSubKeyChecked(extension.Value))
                     {
-                        using (var openWithKey = extensionKey.CreateSubKey(RegSubKeyOpenWith))
+                        using (var openWithKey = extensionKey.CreateSubKeyChecked(RegSubKeyOpenWith))
                             openWithKey.DeleteValue(RegKeyPrefix + fileType.ID, throwOnMissingValue: false);
 
                         if (accessPoint)
@@ -283,17 +284,17 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (description != null) registryKey.SetValue("", description);
 
             // Write verb command information
-            using (var shellKey = registryKey.CreateSubKey("shell"))
+            using (var shellKey = registryKey.CreateSubKeyChecked("shell"))
             {
                 foreach (var verb in capability.Verbs)
                 {
-                    using (var verbKey = shellKey.CreateSubKey(verb.Name))
+                    using (var verbKey = shellKey.CreateSubKeyChecked(verb.Name))
                     {
                         string verbDescription = verb.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture);
                         if (verbDescription != null) verbKey.SetValue("", verbDescription);
                         if (verb.Extended) verbKey.SetValue(RegValueExtended, "");
 
-                        using (var commandKey = verbKey.CreateSubKey("command"))
+                        using (var commandKey = verbKey.CreateSubKeyChecked("command"))
                             commandKey.SetValue("", GetLaunchCommandLine(target, verb, machineWide, handler));
 
                         // Prevent conflicts with existing entries
@@ -306,7 +307,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var icon = capability.GetIcon(Icon.MimeTypeIco) ?? target.Feed.GetIcon(Icon.MimeTypeIco);
             if (icon != null)
             {
-                using (var iconKey = registryKey.CreateSubKey(RegSubKeyIcon))
+                using (var iconKey = registryKey.CreateSubKeyChecked(RegSubKeyIcon))
                     iconKey.SetValue("", IconProvider.GetIconPath(icon, handler, machineWide) + ",0");
             }
         }

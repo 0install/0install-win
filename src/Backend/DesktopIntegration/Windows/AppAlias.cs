@@ -21,6 +21,7 @@ using System.IO;
 using System.Net;
 using JetBrains.Annotations;
 using Microsoft.Win32;
+using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -98,15 +99,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (!machineWide && !WindowsUtils.IsWindows7) return;
 
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
-            using (var appPathsKey = hive.CreateSubKey(RegKeyAppPaths))
-            {
-                if (appPathsKey == null) throw new IOException("Registry access failed.");
-                using (var exeKey = appPathsKey.CreateSubKey(exeName))
-                {
-                    if (exeKey == null) throw new IOException("Registry access failed.");
-                    exeKey.SetValue("", exePath);
-                }
-            }
+            using (var appPathsKey = hive.CreateSubKeyChecked(RegKeyAppPaths))
+            using (var exeKey = appPathsKey.CreateSubKeyChecked(exeName))
+                exeKey.SetValue("", exePath);
         }
         #endregion
 
@@ -140,13 +135,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
         private static void RemoveFromAppPaths(string exeName, bool machineWide)
         {
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
-            using (var appPathsKey = hive.OpenSubKey(RegKeyAppPaths, writable: true))
+            using (var appPathsKey = hive.OpenSubKeyChecked(RegKeyAppPaths, writable: true))
             {
-                if (appPathsKey != null)
-                {
-                    if (((ICollection<string>)appPathsKey.GetSubKeyNames()).Contains(exeName))
-                        appPathsKey.DeleteSubKey(exeName);
-                }
+                if (((ICollection<string>)appPathsKey.GetSubKeyNames()).Contains(exeName))
+                    appPathsKey.DeleteSubKey(exeName);
             }
         }
         #endregion

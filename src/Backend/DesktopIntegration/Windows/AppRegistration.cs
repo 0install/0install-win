@@ -23,6 +23,7 @@ using System.Linq;
 using System.Net;
 using JetBrains.Annotations;
 using Microsoft.Win32;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store;
@@ -90,7 +91,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
 
             // TODO: Handle appRegistration.X64
-            using (var capabilitiesKey = hive.CreateSubKey( /*CapabilityPrefix +*/ appRegistration.CapabilityRegPath))
+            using (var capabilitiesKey = hive.CreateSubKeyChecked( /*CapabilityPrefix +*/ appRegistration.CapabilityRegPath))
             {
                 capabilitiesKey.SetValue(RegValueAppName, target.Feed.Name ?? "");
                 capabilitiesKey.SetValue(RegValueAppDescription, target.Feed.Descriptions.GetBestLanguage(CultureInfo.CurrentUICulture) ?? "");
@@ -99,7 +100,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 var icon = target.Feed.GetIcon(Icon.MimeTypeIco);
                 if (icon != null) capabilitiesKey.SetValue(RegValueAppIcon, IconProvider.GetIconPath(icon, handler, machineWide) + ",0");
 
-                using (var fileAssocsKey = capabilitiesKey.CreateSubKey(RegSubKeyFileAssocs))
+                using (var fileAssocsKey = capabilitiesKey.CreateSubKeyChecked(RegSubKeyFileAssocs))
                 {
                     foreach (var fileType in verbCapabilities.OfType<Store.Model.Capabilities.FileType>().Except(x => string.IsNullOrEmpty(x.ID)))
                     {
@@ -108,7 +109,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     }
                 }
 
-                using (var urlAssocsKey = capabilitiesKey.CreateSubKey(RegSubKeyUrlAssocs))
+                using (var urlAssocsKey = capabilitiesKey.CreateSubKeyChecked(RegSubKeyUrlAssocs))
                 {
                     foreach (var urlProtocol in verbCapabilities.OfType<Store.Model.Capabilities.UrlProtocol>())
                     {
@@ -117,14 +118,14 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     }
                 }
 
-                using (var startMenuKey = capabilitiesKey.CreateSubKey(RegSubKeyStartMenu))
+                using (var startMenuKey = capabilitiesKey.CreateSubKeyChecked(RegSubKeyStartMenu))
                 {
                     foreach (var defaultProgram in verbCapabilities.OfType<Store.Model.Capabilities.DefaultProgram>().Except(x => string.IsNullOrEmpty(x.ID) || string.IsNullOrEmpty(x.Service)))
                         startMenuKey.SetValue(defaultProgram.Service, defaultProgram.ID);
                 }
             }
 
-            using (var regAppsKey = hive.CreateSubKey(RegKeyMachineRegisteredApplications))
+            using (var regAppsKey = hive.CreateSubKeyChecked(RegKeyMachineRegisteredApplications))
                 regAppsKey.SetValue(appRegistration.ID, /*CapabilityPrefix +*/ appRegistration.CapabilityRegPath);
         }
         #endregion
@@ -149,7 +150,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
 
-            using (var regAppsKey = hive.CreateSubKey(RegKeyMachineRegisteredApplications))
+            using (var regAppsKey = hive.CreateSubKeyChecked(RegKeyMachineRegisteredApplications))
                 regAppsKey.DeleteValue(appRegistration.ID, throwOnMissingValue: false);
 
             // TODO: Handle appRegistration.X64
