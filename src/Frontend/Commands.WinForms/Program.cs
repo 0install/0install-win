@@ -30,7 +30,6 @@ using NanoByte.Common.Native;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NDesk.Options;
-using ZeroInstall.Commands.FrontendCommands;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services.Injector;
@@ -89,54 +88,14 @@ namespace ZeroInstall.Commands.WinForms
         public static int Run(string[] args)
         {
             Log.Info("Zero Install Command WinForms GUI started with: " + args.JoinEscapeArguments());
+            var errorLog = new RtfBuilder();
+            Log.NewEntry += errorLog.AppendLogEntry;
 
             using (var handler = new GuiCommandHandler())
             {
-                FrontendCommand command;
                 try
                 {
-                    command = CommandFactory.CreateAndParse(args, handler);
-                }
-                    #region Error handling
-                catch (OperationCanceledException)
-                {
-                    // This is reached if --help, --version or similar was used
-                    return 0;
-                }
-                catch (OptionException ex)
-                {
-                    var messsage = new StringBuilder(ex.Message);
-                    if (ex.InnerException != null) messsage.Append("\n" + ex.InnerException.Message);
-                    messsage.Append("\n" + string.Format(Resources.TryHelp, ExeName));
-                    Msg.Inform(null, messsage.ToString(), MsgSeverity.Warn);
-                    return 1;
-                }
-                catch (IOException ex)
-                {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                    return 1;
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                    return 1;
-                }
-                catch (InvalidDataException ex)
-                {
-                    Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Warn);
-                    return 1;
-                }
-                catch (UriFormatException ex)
-                {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                    return 1;
-                }
-                #endregion
-
-                var errorLog = new RtfBuilder();
-                Log.NewEntry += errorLog.AppendLogEntry;
-                try
-                {
+                    var command = CommandFactory.CreateAndParse(args, handler);
                     return command.Execute();
                 }
                     #region Error handling
@@ -157,8 +116,10 @@ namespace ZeroInstall.Commands.WinForms
                 }
                 catch (OptionException ex)
                 {
-                    handler.CloseUI();
-                    Msg.Inform(null, ex.Message + "\n" + string.Format(Resources.TryHelp, ExeName), MsgSeverity.Error);
+                    var messsage = new StringBuilder(ex.Message);
+                    if (ex.InnerException != null) messsage.Append("\n" + ex.InnerException.Message);
+                    messsage.Append("\n" + string.Format(Resources.TryHelp, ExeName));
+                    Msg.Inform(null, messsage.ToString(), MsgSeverity.Warn);
                     return 1;
                 }
                 catch (Win32Exception ex)
@@ -254,10 +215,9 @@ namespace ZeroInstall.Commands.WinForms
 
                 finally
                 {
-                    Log.NewEntry -= errorLog.AppendLogEntry;
-
-                    // Always close GUI in the end
                     handler.CloseUI();
+
+                    Log.NewEntry -= errorLog.AppendLogEntry;
                 }
             }
         }

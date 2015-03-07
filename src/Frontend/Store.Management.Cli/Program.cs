@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Net;
@@ -39,6 +40,11 @@ namespace ZeroInstall.Store.Management.Cli
     /// <seealso cref="StoreMan"/>
     public static class Program
     {
+        /// <summary>
+        /// The canonical EXE name (without the file ending) for this binary.
+        /// </summary>
+        public const string ExeName = "0store";
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -64,47 +70,10 @@ namespace ZeroInstall.Store.Management.Cli
         public static int Run(string[] args)
         {
             var handler = new CliCommandHandler();
-            FrontendCommand command;
             try
             {
-                command = new StoreMan(handler);
+                var command = new StoreMan(handler);
                 command.Parse(args);
-            }
-                #region Error handling
-            catch (OperationCanceledException)
-            {
-                // This is reached if --help, --version or similar was used
-                return 0;
-            }
-            catch (OptionException ex)
-            {
-                Log.Error(ex.Message + "\n" + string.Format(Resources.TryHelp, "0store"));
-                return 1;
-            }
-            catch (IOException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            catch (InvalidDataException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            catch (UriFormatException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            #endregion
-
-            try
-            {
                 return command.Execute();
             }
                 #region Error handling
@@ -132,7 +101,10 @@ namespace ZeroInstall.Store.Management.Cli
             }
             catch (OptionException ex)
             {
-                Log.Error(ex.Message + "\n" + string.Format(Resources.TryHelp, "0store"));
+                var messsage = new StringBuilder(ex.Message);
+                if (ex.InnerException != null) messsage.Append("\n" + ex.InnerException.Message);
+                messsage.Append("\n" + string.Format(Resources.TryHelp, ExeName));
+                Log.Error(messsage.ToString());
                 return 1;
             }
             catch (Win32Exception ex)

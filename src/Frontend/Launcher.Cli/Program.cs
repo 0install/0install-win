@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Net;
@@ -41,6 +42,11 @@ namespace ZeroInstall.Launcher.Cli
     /// <seealso cref="Run"/>
     public static class Program
     {
+        /// <summary>
+        /// The canonical EXE name (without the file ending) for this binary.
+        /// </summary>
+        public const string ExeName = "0launch";
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -66,47 +72,10 @@ namespace ZeroInstall.Launcher.Cli
         public static int Run(string[] args)
         {
             var handler = new CliCommandHandler();
-            FrontendCommand command;
             try
             {
-                command = new Run(handler);
+                var command = new Run(handler);
                 command.Parse(args);
-            }
-                #region Error handling
-            catch (OperationCanceledException)
-            {
-                // This is reached if --help, --version or similar was used
-                return 0;
-            }
-            catch (OptionException ex)
-            {
-                Log.Error(ex.Message + "\n" + string.Format(Resources.TryHelp, "0launch"));
-                return 1;
-            }
-            catch (IOException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            catch (InvalidDataException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            catch (UriFormatException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            #endregion
-
-            try
-            {
                 return command.Execute();
             }
                 #region Error handling
@@ -134,7 +103,10 @@ namespace ZeroInstall.Launcher.Cli
             }
             catch (OptionException ex)
             {
-                Log.Error(ex.Message + "\n" + string.Format(Resources.TryHelp, "0launch"));
+                var messsage = new StringBuilder(ex.Message);
+                if (ex.InnerException != null) messsage.Append("\n" + ex.InnerException.Message);
+                messsage.Append("\n" + string.Format(Resources.TryHelp, ExeName));
+                Log.Error(messsage.ToString());
                 return 1;
             }
             catch (Win32Exception ex)
@@ -201,7 +173,6 @@ namespace ZeroInstall.Launcher.Cli
 
             finally
             {
-                // Always close GUI in the end
                 handler.CloseUI();
             }
         }

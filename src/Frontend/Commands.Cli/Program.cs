@@ -25,7 +25,6 @@ using NanoByte.Common.Native;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NDesk.Options;
-using ZeroInstall.Commands.FrontendCommands;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services.Injector;
@@ -40,6 +39,11 @@ namespace ZeroInstall.Commands.Cli
     /// </summary>
     public static class Program
     {
+        /// <summary>
+        /// The canonical EXE name (without the file ending) for this binary.
+        /// </summary>
+        public const string ExeName = "0install";
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -66,49 +70,9 @@ namespace ZeroInstall.Commands.Cli
         public static int Run(string[] args)
         {
             var handler = new CliCommandHandler();
-            FrontendCommand command;
             try
             {
-                command = CommandFactory.CreateAndParse(args, handler);
-            }
-                #region Error handling
-            catch (OperationCanceledException)
-            {
-                // This is reached if --help, --version or similar was used
-                return 0;
-            }
-            catch (OptionException ex)
-            {
-                var messsage = new StringBuilder(ex.Message);
-                if (ex.InnerException != null) messsage.Append("\n" + ex.InnerException.Message);
-                messsage.Append("\n" + string.Format(Resources.TryHelp, "0install"));
-                Log.Error(messsage.ToString());
-                return 1;
-            }
-            catch (IOException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            catch (InvalidDataException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            catch (UriFormatException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            #endregion
-
-            try
-            {
+                var command = CommandFactory.CreateAndParse(args, handler);
                 return command.Execute();
             }
                 #region Error handling
@@ -136,7 +100,10 @@ namespace ZeroInstall.Commands.Cli
             }
             catch (OptionException ex)
             {
-                Log.Error(ex.Message + "\n" + string.Format(Resources.TryHelp, "0install"));
+                var messsage = new StringBuilder(ex.Message);
+                if (ex.InnerException != null) messsage.Append("\n" + ex.InnerException.Message);
+                messsage.Append("\n" + string.Format(Resources.TryHelp, ExeName));
+                Log.Error(messsage.ToString());
                 return 1;
             }
             catch (Win32Exception ex)
@@ -209,7 +176,6 @@ namespace ZeroInstall.Commands.Cli
 
             finally
             {
-                // Always close GUI in the end
                 handler.CloseUI();
             }
         }
