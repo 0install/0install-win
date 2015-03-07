@@ -15,9 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.IO;
+using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Net;
+using NanoByte.Common.Storage;
 using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Store.Implementations;
 
 namespace ZeroInstall.Commands
 {
@@ -31,6 +36,18 @@ namespace ZeroInstall.Commands
         /// </summary>
         public static void Startup()
         {
+            if (WindowsUtils.IsWindows && !Locations.IsPortable && !StoreUtils.PathInAStore(Locations.InstallBase))
+            {
+                try
+                {
+                    RegistryUtils.SetSoftwareString("Zero Install", "InstallLocation", Locations.InstallBase);
+                }
+                catch (IOException)
+                {}
+                catch (UnauthorizedAccessException)
+                {}
+            }
+
             NetUtils.ApplyProxy();
             if (!WindowsUtils.IsWindows7) NetUtils.TrustCertificates(SyncIntegrationManager.DefaultServerPublicKey);
         }

@@ -295,6 +295,8 @@ namespace ZeroInstall.Updater
             // Do not run touch registry in portable mode
             if (IsPortable) return;
 
+            RegistryUtils.SetSoftwareString("Zero Install", "InstallLocation", Target);
+
             UpdateInnoSetup();
         }
 
@@ -304,23 +306,13 @@ namespace ZeroInstall.Updater
         /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
         private void UpdateInnoSetup()
         {
-            try
-            {
-                const string innoSetupRegKey = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1";
+            const string innoSetupRegKey = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1";
 
-                // Check if the target path is the same as the Inno Setup installation directory
-                if (RegistryUtils.GetString(innoSetupRegKey, "Inno Setup: App Path") != Target) return;
+            // Check if the target path is the same as the Inno Setup installation directory
+            if (RegistryUtils.GetString(innoSetupRegKey, "Inno Setup: App Path") != Target) return;
 
-                // Update the Uninstall version entry
-                RegistryUtils.SetString(innoSetupRegKey, "DisplayVersion", NewVersion.ToString());
-            }
-                #region Error handling
-            catch (SecurityException ex)
-            {
-                // Wrap exception since only certain exception types are allowed in tasks
-                throw new UnauthorizedAccessException(ex.Message, ex);
-            }
-            #endregion
+            // Update the Uninstall version entry
+            RegistryUtils.SetString(innoSetupRegKey, "DisplayVersion", NewVersion.ToString());
         }
         #endregion
 
