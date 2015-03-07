@@ -21,7 +21,6 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Security;
 using System.Threading;
 using System.Windows.Forms;
 using JetBrains.Annotations;
@@ -29,10 +28,8 @@ using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
-using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
-using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Store.Implementations;
+using ZeroInstall.Commands;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -73,41 +70,8 @@ namespace ZeroInstall.Central.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("https://0install.de/error-report/"));
 
-            UpdateRegistry();
-            NetUtils.ApplyProxy();
-            if (!WindowsUtils.IsWindows7) NetUtils.TrustCertificates(SyncIntegrationManager.DefaultServerPublicKey);
+            ProgramUtils.Startup();
             return Run(args);
-        }
-
-        /// <summary>
-        /// Store installation location in registry to allow other applications or bootstrappers to locate Zero Install.
-        /// </summary>
-        private static void UpdateRegistry()
-        {
-            if (!WindowsUtils.IsWindows || Locations.IsPortable || StoreUtils.PathInAStore(Locations.InstallBase)) return;
-
-            const string hklmKey = @"HKEY_LOCAL_MACHINE\SOFTWARE\Zero Install";
-            const string hklmWowKey = @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Zero Install";
-            const string hkcuKey = @"HKEY_CURRENT_USER\SOFTWARE\Zero Install";
-            const string value = "InstallLocation";
-
-            try
-            {
-                if (WindowsUtils.IsAdministrator)
-                {
-                    RegistryUtils.SetString(hklmKey, value, Locations.InstallBase);
-                    if (WindowsUtils.Is64BitProcess) RegistryUtils.SetString(hklmWowKey, value, Locations.InstallBase);
-                }
-
-                // Only set HKCU value if there is an existing incorrect value
-                if (((RegistryUtils.GetString(hklmKey, value, defaultValue: Locations.InstallBase)) != Locations.InstallBase) ||
-                    ((RegistryUtils.GetString(hkcuKey, value, defaultValue: Locations.InstallBase)) != Locations.InstallBase))
-                    RegistryUtils.SetString(hkcuKey, value, Locations.InstallBase);
-            }
-                #region Error handling
-            catch (SecurityException)
-            {}
-            #endregion
         }
 
         /// <summary>

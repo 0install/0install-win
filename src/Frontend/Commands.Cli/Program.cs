@@ -22,7 +22,6 @@ using System.Net;
 using System.Text;
 using NanoByte.Common;
 using NanoByte.Common.Native;
-using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -59,8 +58,7 @@ namespace ZeroInstall.Commands.Cli
             AppMutex.Create("Zero Install");
 #endif
 
-            NetUtils.ApplyProxy();
-            if (!WindowsUtils.IsWindows7) NetUtils.TrustCertificates(SyncIntegrationManager.DefaultServerPublicKey);
+            ProgramUtils.Startup();
             return Run(args);
         }
 

@@ -19,9 +19,8 @@ using System.Linq;
 using Gtk;
 using NanoByte.Common;
 using NanoByte.Common.Native;
-using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
-using ZeroInstall.DesktopIntegration;
+using ZeroInstall.Commands;
 
 namespace ZeroInstall.Central.Gtk
 {
@@ -58,8 +57,7 @@ namespace ZeroInstall.Central.Gtk
             AppMutex.Create("Zero Install");
 #endif
 
-            NetUtils.ApplyProxy();
-            if (!WindowsUtils.IsWindows7) NetUtils.TrustCertificates(SyncIntegrationManager.DefaultServerPublicKey);
+            ProgramUtils.Startup();
             return Run(args);
         }
 
