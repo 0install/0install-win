@@ -77,7 +77,7 @@ namespace ZeroInstall.Central.WinForms
             Program.ConfigureTaskbar(this, Text);
             WindowsTaskbar.AddTaskLinks(Program.AppUserModelID, new[]
             {
-                new WindowsTaskbar.ShellLink(buttonCacheManagement.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), StoreMan.Name + " manage"),
+                new WindowsTaskbar.ShellLink(buttonStoreManage.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), StoreMan.Name + " manage"),
                 new WindowsTaskbar.ShellLink(buttonOptions.Text.Replace("&", ""), Path.Combine(Locations.InstallBase, Commands.WinForms.Program.ExeName + ".exe"), Configure.Name)
             });
         }
@@ -344,9 +344,19 @@ namespace ZeroInstall.Central.WinForms
             Program.RunCommand(Configure.Name);
         }
 
-        private void buttonCacheManagement_Click(object sender, EventArgs e)
+        private void buttonStoreManage_Click(object sender, EventArgs e)
         {
             Program.RunCommand(StoreMan.Name, "manage");
+        }
+
+        private void buttonStoreAudit_Click(object sender, EventArgs e)
+        {
+            Program.RunCommand(StoreMan.Name, "audit");
+        }
+
+        private void buttonStoreOptimise_Click(object sender, EventArgs e)
+        {
+            Program.RunCommand(StoreMan.Name, "optimise");
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)

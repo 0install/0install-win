@@ -23,6 +23,7 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Native;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -141,7 +142,9 @@ namespace ZeroInstall.Store.Implementations
             }
             catch (UnauthorizedAccessException)
             {
-                Log.Warn(string.Format(Resources.UnableToWriteProtect, path));
+                // Only warn if even an Admin is unable to set ACLs
+                if (WindowsUtils.IsAdministrator)
+                    Log.Warn(string.Format(Resources.UnableToWriteProtect, path));
             }
             catch (InvalidOperationException)
             {

@@ -244,7 +244,7 @@
     <value>tileListMyApps</value>
   </data>
   <data name="&gt;&gt;tileListMyApps.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=2.7.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=2.7.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;tileListMyApps.Parent" xml:space="preserve">
     <value>tabPageAppList</value>
@@ -433,7 +433,7 @@
     <value>tileListCatalog</value>
   </data>
   <data name="&gt;&gt;tileListCatalog.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=2.7.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=2.7.3.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;tileListCatalog.Parent" xml:space="preserve">
     <value>tabPageCatalog</value>
@@ -522,31 +522,58 @@
   <data name="&gt;&gt;buttonOptions.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="buttonCacheManagement.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonStoreManage.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <metadata name="menuStoreManage.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>943, 19</value>
+  </metadata>
+  <data name="buttonStoreAudit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 22</value>
+  </data>
+  <data name="buttonStoreAudit.Text" xml:space="preserve">
+    <value>&amp;Check for errors</value>
+  </data>
+  <data name="buttonStoreOptimise.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 22</value>
+  </data>
+  <data name="buttonStoreOptimise.Text" xml:space="preserve">
+    <value>Merge &amp;duplicates</value>
+  </data>
+  <data name="menuStoreManage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 48</value>
+  </data>
+  <data name="&gt;&gt;menuStoreManage.Name" xml:space="preserve">
+    <value>menuStoreManage</value>
+  </data>
+  <data name="&gt;&gt;menuStoreManage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonStoreManage.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonCacheManagement.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="buttonStoreManage.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="buttonCacheManagement.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="buttonStoreManage.Size" type="System.Drawing.Size, System.Drawing">
     <value>150, 23</value>
   </data>
-  <data name="buttonCacheManagement.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonStoreManage.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="buttonCacheManagement.Text" xml:space="preserve">
+  <data name="buttonStoreManage.Text" xml:space="preserve">
     <value>&amp;Cache management</value>
   </data>
-  <data name="&gt;&gt;buttonCacheManagement.Name" xml:space="preserve">
-    <value>buttonCacheManagement</value>
+  <data name="&gt;&gt;buttonStoreManage.Name" xml:space="preserve">
+    <value>buttonStoreManage</value>
   </data>
-  <data name="&gt;&gt;buttonCacheManagement.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;buttonStoreManage.Type" xml:space="preserve">
+    <value>NanoByte.Common.Controls.SplitButton, NanoByte.Common.WinForms, Version=1.1.6.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
-  <data name="&gt;&gt;buttonCacheManagement.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonStoreManage.Parent" xml:space="preserve">
     <value>panelBottom</value>
   </data>
-  <data name="&gt;&gt;buttonCacheManagement.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonStoreManage.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="buttonHelp.AutoSize" type="System.Boolean, mscorlib">
@@ -724,7 +751,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;rootTable.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="rootTable.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="pictureBoxLogo" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="panelBottom" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tabControlApps" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Absolute,56,Percent,100,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
@@ -766,8 +793,11 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelSelfUpdateMessage.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>de</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -1187,6 +1217,18 @@
     <value>buttonSyncTroubleshoot</value>
   </data>
   <data name="&gt;&gt;buttonSyncTroubleshoot.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonStoreAudit.Name" xml:space="preserve">
+    <value>buttonStoreAudit</value>
+  </data>
+  <data name="&gt;&gt;buttonStoreAudit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonStoreOptimise.Name" xml:space="preserve">
+    <value>buttonStoreOptimise</value>
+  </data>
+  <data name="&gt;&gt;buttonStoreOptimise.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonIntro.Name" xml:space="preserve">

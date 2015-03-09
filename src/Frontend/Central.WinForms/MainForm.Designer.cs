@@ -47,7 +47,10 @@
             this.buttonRefreshCatalog = new System.Windows.Forms.Button();
             this.tileListCatalog = new ZeroInstall.Central.WinForms.AppTileList();
             this.buttonOptions = new System.Windows.Forms.Button();
-            this.buttonCacheManagement = new System.Windows.Forms.Button();
+            this.buttonStoreManage = new NanoByte.Common.Controls.SplitButton();
+            this.menuStoreManage = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.buttonStoreAudit = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonStoreOptimise = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonHelp = new NanoByte.Common.Controls.SplitButton();
             this.menuHelp = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonIntro = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,6 +67,7 @@
             this.menuUpdateAll.SuspendLayout();
             this.menuSync.SuspendLayout();
             this.tabPageCatalog.SuspendLayout();
+            this.menuStoreManage.SuspendLayout();
             this.menuHelp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.panelBottom.SuspendLayout();
@@ -195,12 +199,35 @@
             this.buttonOptions.UseVisualStyleBackColor = true;
             this.buttonOptions.Click += new System.EventHandler(this.buttonOptions_Click);
             // 
-            // buttonCacheManagement
+            // buttonStoreManage
             // 
-            resources.ApplyResources(this.buttonCacheManagement, "buttonCacheManagement");
-            this.buttonCacheManagement.Name = "buttonCacheManagement";
-            this.buttonCacheManagement.UseVisualStyleBackColor = true;
-            this.buttonCacheManagement.Click += new System.EventHandler(this.buttonCacheManagement_Click);
+            resources.ApplyResources(this.buttonStoreManage, "buttonStoreManage");
+            this.buttonStoreManage.ContextMenuStrip = this.menuStoreManage;
+            this.buttonStoreManage.Name = "buttonStoreManage";
+            this.buttonStoreManage.ShowSplit = true;
+            this.buttonStoreManage.SplitMenuStrip = this.menuStoreManage;
+            this.buttonStoreManage.UseVisualStyleBackColor = true;
+            this.buttonStoreManage.Click += new System.EventHandler(this.buttonStoreManage_Click);
+            // 
+            // menuStoreManage
+            // 
+            this.menuStoreManage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buttonStoreAudit,
+            this.buttonStoreOptimise});
+            this.menuStoreManage.Name = "contextMenuStrip1";
+            resources.ApplyResources(this.menuStoreManage, "menuStoreManage");
+            // 
+            // buttonStoreAudit
+            // 
+            this.buttonStoreAudit.Name = "buttonStoreAudit";
+            resources.ApplyResources(this.buttonStoreAudit, "buttonStoreAudit");
+            this.buttonStoreAudit.Click += new System.EventHandler(this.buttonStoreAudit_Click);
+            // 
+            // buttonStoreOptimise
+            // 
+            this.buttonStoreOptimise.Name = "buttonStoreOptimise";
+            resources.ApplyResources(this.buttonStoreOptimise, "buttonStoreOptimise");
+            this.buttonStoreOptimise.Click += new System.EventHandler(this.buttonStoreOptimise_Click);
             // 
             // buttonHelp
             // 
@@ -254,7 +281,7 @@
             // 
             // panelBottom
             // 
-            this.panelBottom.Controls.Add(this.buttonCacheManagement);
+            this.panelBottom.Controls.Add(this.buttonStoreManage);
             this.panelBottom.Controls.Add(this.buttonHelp);
             this.panelBottom.Controls.Add(this.buttonOptions);
             this.panelBottom.Controls.Add(this.labelVersion);
@@ -297,6 +324,7 @@
             this.menuSync.ResumeLayout(false);
             this.tabPageCatalog.ResumeLayout(false);
             this.tabPageCatalog.PerformLayout();
+            this.menuStoreManage.ResumeLayout(false);
             this.menuHelp.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.panelBottom.ResumeLayout(false);
@@ -312,7 +340,9 @@
         private System.Windows.Forms.TabPage tabPageAppList;
         private System.Windows.Forms.TabPage tabPageCatalog;
         private NanoByte.Common.Controls.SplitButton buttonHelp;
-        private System.Windows.Forms.Button buttonCacheManagement;
+        private System.Windows.Forms.ContextMenuStrip menuStoreManage;
+        private NanoByte.Common.Controls.SplitButton buttonStoreManage;
+        private System.Windows.Forms.ToolStripMenuItem buttonStoreOptimise;
         private System.Windows.Forms.Label labelVersion;
         private System.ComponentModel.BackgroundWorker selfUpdateWorker;
         private AppTileList tileListMyApps;
@@ -337,6 +367,7 @@
         private System.Windows.Forms.ToolStripMenuItem buttonSyncTroubleshoot;
         private System.Windows.Forms.Button buttonOptions;
         private System.Windows.Forms.Label labelSelfUpdateMessage;
+        private System.Windows.Forms.ToolStripMenuItem buttonStoreAudit;
 
     }
 }
