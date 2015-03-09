@@ -40,7 +40,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="NanoByte.Common">
-      <HintPath>..\..\packages\NanoByte.Common.1.1.5\lib\net20\NanoByte.Common.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.1.1.6\lib\net20\NanoByte.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
