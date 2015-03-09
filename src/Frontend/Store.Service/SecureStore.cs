@@ -138,7 +138,7 @@ namespace ZeroInstall.Store.Service
 
         #region Verify directory
         /// <inheritdoc/>
-        protected override void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, ITaskHandler handler)
+        protected override string VerifyAndAdd(string tempID, ManifestDigest expectedDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -161,7 +161,9 @@ namespace ZeroInstall.Store.Service
                         // Workaround for .NET 2.0 bug
                     }
 
-                    base.VerifyAndAdd(tempID, expectedDigest, handler);
+                    string result = base.VerifyAndAdd(tempID, expectedDigest, handler);
+                    _eventLog.WriteEntry(string.Format(Resources.SuccessfullyAddedImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), DirectoryPath));
+                    return result;
                 }
                     #region Error handling
                 catch (OperationCanceledException)
@@ -174,8 +176,6 @@ namespace ZeroInstall.Store.Service
                     throw;
                 }
                 #endregion
-
-                _eventLog.WriteEntry(string.Format(Resources.SuccessfullyAddedImplementation, callingIdentity.Name, expectedDigest.AvailableDigests.FirstOrDefault(), DirectoryPath));
             }
         }
         #endregion

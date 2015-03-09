@@ -191,11 +191,12 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="tempID">The temporary identifier of the directory inside the cache.</param>
         /// <param name="expectedDigest">The digest the <see cref="Store.Model.Implementation"/> is supposed to match.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        /// <returns>The final location of the directory.</returns>
         /// <exception cref="DigestMismatchException">The temporary directory doesn't match the <paramref name="expectedDigest"/>.</exception>
         /// <exception cref="IOException"><paramref name="tempID"/> cannot be moved or the digest cannot be calculated.</exception>
         /// <exception cref="ImplementationAlreadyInStoreException">There is already an <see cref="Store.Model.Implementation"/> with the specified <paramref name="expectedDigest"/> in the store.</exception>
         [SuppressMessage("Microsoft.Usage", "CA2208:InstantiateArgumentExceptionsCorrectly")]
-        protected virtual void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, ITaskHandler handler)
+        protected virtual string VerifyAndAdd(string tempID, ManifestDigest expectedDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(tempID)) throw new ArgumentNullException("tempID");
@@ -234,6 +235,7 @@ namespace ZeroInstall.Store.Implementations
 
             // Prevent any further changes to the directory
             EnableWriteProtection(target);
+            return target;
         }
         #endregion
 
@@ -357,7 +359,7 @@ namespace ZeroInstall.Store.Implementations
 
         #region Add
         /// <inheritdoc/>
-        public void AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
+        public string AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -387,7 +389,7 @@ namespace ZeroInstall.Store.Implementations
                 }
                 #endregion
 
-                VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
+                return VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
             }
             finally
             {
@@ -396,7 +398,7 @@ namespace ZeroInstall.Store.Implementations
         }
 
         /// <inheritdoc/>
-        public void AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
+        public string AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
@@ -431,7 +433,7 @@ namespace ZeroInstall.Store.Implementations
                     #endregion
                 }
 
-                VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
+                return VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
             }
             finally
             {

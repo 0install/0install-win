@@ -123,11 +123,11 @@ namespace ZeroInstall.Store.Implementations
 
         #region Add
         /// <inheritdoc/>
-        public void AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
+        public string AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             try
             {
-                GetServiceProxy().AddDirectory(path, manifestDigest, handler);
+                return GetServiceProxy().AddDirectory(path, manifestDigest, handler);
             }
                 #region Error handling
             catch (RemotingException ex)
@@ -138,11 +138,11 @@ namespace ZeroInstall.Store.Implementations
         }
 
         /// <inheritdoc/>
-        public void AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
+        public string AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             try
             {
-                GetServiceProxy().AddArchives(archiveInfos, manifestDigest, handler);
+                return GetServiceProxy().AddArchives(archiveInfos, manifestDigest, handler);
             }
                 #region Error handling
             catch (RemotingException ex)

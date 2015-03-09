@@ -125,7 +125,7 @@ namespace ZeroInstall.Store.Implementations
 
         #region Add directory
         /// <inheritdoc/>
-        public void AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
+        public string AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -141,8 +141,7 @@ namespace ZeroInstall.Store.Implementations
                 try
                 {
                     // Try to add implementation to this store
-                    store.AddDirectory(path, manifestDigest, handler);
-                    return;
+                    return store.AddDirectory(path, manifestDigest, handler);
                 }
                     #region Error handling
                 catch (ImplementationAlreadyInStoreException)
@@ -166,12 +165,13 @@ namespace ZeroInstall.Store.Implementations
 
             // If we reach this, the implementation could not be added to any store
             if (innerException != null) innerException.Rethrow();
+            throw new InvalidOperationException();
         }
         #endregion
 
         #region Add archive
         /// <inheritdoc/>
-        public void AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
+        public string AddArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
@@ -187,8 +187,7 @@ namespace ZeroInstall.Store.Implementations
                 try
                 {
                     // Try to add implementation to this store
-                    store.AddArchives(archiveInfos, manifestDigest, handler);
-                    return;
+                    return store.AddArchives(archiveInfos, manifestDigest, handler);
                 }
                     #region Error handling
                 catch (IOException ex)
@@ -208,6 +207,7 @@ namespace ZeroInstall.Store.Implementations
 
             // If we reach this, the implementation couldn't be added to any store
             if (innerException != null) innerException.Rethrow();
+            throw new InvalidOperationException();
         }
         #endregion
 
