@@ -158,7 +158,7 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void TestAddDirectoryFirst()
         {
-            _mockStore2.Setup(x => x.AddDirectory("path", _digest1, _handler));
+            _mockStore2.Setup(x => x.AddDirectory("path", _digest1, _handler)).Returns("");
             _testStore.AddDirectory("path", _digest1, _handler);
         }
 
@@ -166,7 +166,7 @@ namespace ZeroInstall.Store.Implementations
         public void TestAddDirectorySecond()
         {
             _mockStore2.Setup(x => x.AddDirectory("path", _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
-            _mockStore1.Setup(x => x.AddDirectory("path", _digest1, _handler));
+            _mockStore1.Setup(x => x.AddDirectory("path", _digest1, _handler)).Returns("");
             _testStore.AddDirectory("path", _digest1, _handler);
         }
 
@@ -183,7 +183,7 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void TestAddArchivesFirst()
         {
-            _mockStore2.Setup(x => x.AddArchives(_archives, _digest1, _handler));
+            _mockStore2.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Returns("");
             _testStore.AddArchives(_archives, _digest1, _handler);
         }
 
@@ -191,7 +191,7 @@ namespace ZeroInstall.Store.Implementations
         public void TestAddArchivesSecond()
         {
             _mockStore2.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Throws(new IOException("Fake IO exception for testing"));
-            _mockStore1.Setup(x => x.AddArchives(_archives, _digest1, _handler));
+            _mockStore1.Setup(x => x.AddArchives(_archives, _digest1, _handler)).Returns("");
             _testStore.AddArchives(_archives, _digest1, _handler);
         }
 

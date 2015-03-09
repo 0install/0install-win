@@ -142,7 +142,7 @@ namespace ZeroInstall.Services.Fetchers
             var testImplementation = new Implementation {ID = "test", ManifestDigest = digest, RetrievalMethods = {GetRetrievalMethod(archives)}};
 
             _storeMock.Setup(x => x.Contains(digest)).Returns(false);
-            _storeMock.Setup(x => x.AddArchives(archiveInfos.IsEqual(), digest, Resolve<ITaskHandler>()));
+            _storeMock.Setup(x => x.AddArchives(archiveInfos.IsEqual(), digest, Resolve<ITaskHandler>())).Returns("");
 
             Target.Fetch(new[] {testImplementation});
         }
@@ -165,7 +165,7 @@ namespace ZeroInstall.Services.Fetchers
             testImplementation.RetrievalMethods.AddRange(retrievalMethod);
 
             _storeMock.Setup(x => x.Contains(digest)).Returns(false);
-            _storeMock.Setup(x => x.AddDirectory(It.Is<string>(path => directoryCheck(path)), digest, Resolve<ITaskHandler>()));
+            _storeMock.Setup(x => x.AddDirectory(It.Is<string>(path => directoryCheck(path)), digest, Resolve<ITaskHandler>())).Returns("");
 
             Target.Fetch(new[] {testImplementation});
         }
