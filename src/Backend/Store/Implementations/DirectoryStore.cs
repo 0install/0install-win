@@ -23,7 +23,6 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
-using NanoByte.Common.Dispatch;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -462,44 +461,6 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Optimise
-
-        #region Structs
-        private struct DedupKey
-        {
-            public readonly long Size;
-            public readonly long LastModified;
-            public readonly ManifestFormat Format;
-            public readonly string Digest;
-
-            public DedupKey(long size, long lastModified, ManifestFormat format, string digest)
-            {
-                Size = size;
-                LastModified = lastModified;
-                Format = format;
-                Digest = digest;
-            }
-
-            public override bool Equals(object obj)
-            {
-                if (!(obj is DedupKey)) return false;
-                var other = (DedupKey)obj;
-                return Size == other.Size && LastModified == other.LastModified && Format.Equals(other.Format) && string.Equals(Digest, other.Digest);
-            }
-
-            public override int GetHashCode()
-            {
-                unchecked
-                {
-                    int hashCode = Size.GetHashCode();
-                    hashCode = (hashCode * 397) ^ LastModified.GetHashCode();
-                    hashCode = (hashCode * 397) ^ Format.GetHashCode();
-                    hashCode = (hashCode * 397) ^ Digest.GetHashCode();
-                    return hashCode;
-                }
-            }
-        }
-        #endregion
-
         /// <inheritdoc/>
         public virtual long Optimise(ITaskHandler handler)
         {
@@ -509,72 +470,14 @@ namespace ZeroInstall.Store.Implementations
 
             if (!Directory.Exists(DirectoryPath)) return 0;
 
-            var fileHashes = new Dictionary<DedupKey, string>();
-            long savedSpace = 0;
-            handler.RunTask(new ForEachTask<ManifestDigest>(
-                name: string.Format(Resources.FindingDuplicateFiles, DirectoryPath),
-                target: ListAll(),
-                work: manifestDigest =>
-                {
-                    // ReSharper disable AssignNullToNotNullAttribute
-                    var manifest = Manifest.Load(
-                        Path.Combine(GetPath(manifestDigest), Manifest.ManifestFile),
-                        ManifestFormat.FromPrefix(manifestDigest.Best));
-                    // ReSharper restore AssignNullToNotNullAttribute
-
-                    string currentDirectory = "";
-                    new AggregateDispatcher<ManifestNode>
-                    {
-                        (ManifestDirectory x) => { currentDirectory = x.FullPath; },
-                        (ManifestFileBase x) =>
-                        {
-                            if (x.Size == 0) return;
-
-                            var key = new DedupKey(x.Size, x.ModifiedTime, manifest.Format, x.Digest);
-                            string path = manifestDigest.Best + currentDirectory + "/" + x.FileName;
-
-                            string existingPath;
-                            if (fileHashes.TryGetValue(key, out existingPath))
-                            {
-                                if (CreateHardlink(path, existingPath)) savedSpace += x.Size;
-                            }
-                            else fileHashes.Add(key, path);
-                        }
-                    }.Dispatch(manifest);
-                }));
-            return savedSpace;
-        }
-
-        /// <summary>
-        /// Creates a hardlink between two implementation files.
-        /// </summary>
-        /// <param name="source">The Unix-style path to the hardlink to create, relative to <see cref="DirectoryPath"/>. Existing file will be replaced.</param>
-        /// <param name="destination">The Unix-style path to existing file the hardlink shall point to, relative to <see cref="DirectoryPath"/>.</param>
-        /// <returns><see langword="true"/> the hardlink was created; <see langword="false"/> if the files were already linked.</returns>
-        private bool CreateHardlink([NotNull] string source, [NotNull] string destination)
-        {
-            string tempFile = Path.Combine(DirectoryPath, Path.GetRandomFileName());
-            string destinationFile = Path.Combine(DirectoryPath, FileUtils.UnifySlashes(destination));
-            string sourceFile = Path.Combine(DirectoryPath, FileUtils.UnifySlashes(source));
-            string sourceImplementation = Path.Combine(DirectoryPath, source.GetLeftPartAtFirstOccurrence('/'));
-            string destinationImplementation = Path.Combine(DirectoryPath, destination.GetLeftPartAtFirstOccurrence('/'));
-
-            if (FileUtils.AreHardlinked(sourceFile, destinationFile)) return false;
-
-            DisableWriteProtection(sourceImplementation);
-            if (destinationImplementation != sourceImplementation) DisableWriteProtection(destinationImplementation);
-            try
+            using (var run = new OptimiseRun(DirectoryPath))
             {
-                FileUtils.CreateHardlink(tempFile, destinationFile);
-                FileUtils.Replace(tempFile, sourceFile);
+                handler.RunTask(new ForEachTask<ManifestDigest>(
+                    name: string.Format(Resources.FindingDuplicateFiles, DirectoryPath),
+                    target: ListAll(),
+                    work: run.Work));
+                return run.SavedBytes;
             }
-            finally
-            {
-                if (File.Exists(tempFile)) File.Delete(tempFile);
-                EnableWriteProtection(sourceImplementation);
-                if (destinationImplementation != sourceImplementation) EnableWriteProtection(destinationImplementation);
-            }
-            return true;
         }
         #endregion
 

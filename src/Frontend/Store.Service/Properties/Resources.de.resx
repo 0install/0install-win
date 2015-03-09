@@ -138,6 +138,9 @@
   <data name="MustBeAdminToRemove" xml:space="preserve">
     <value>Nur Administratoren können Elemente aus einem geteilten Store entfernen.</value>
   </data>
+  <data name="MustBeAdminToOptimise" xml:space="preserve">
+    <value>Nur Administratoren können einen geteilten Store optimieren.</value>
+  </data>
   <data name="NoPortableMode" xml:space="preserve">
     <value>Der Dienst kann nicht im Portablen Modus laufen!</value>
   </data>

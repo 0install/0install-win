@@ -235,7 +235,7 @@ namespace ZeroInstall.Store.Implementations
             #endregion
 
             // Try to optimize all contained stores
-            return _stores.Sum(x => x.Optimise(handler));
+            return _stores.Reverse().Sum(x => x.Optimise(handler));
         }
         #endregion
 
