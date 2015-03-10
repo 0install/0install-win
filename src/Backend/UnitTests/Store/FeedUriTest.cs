@@ -44,7 +44,13 @@ namespace ZeroInstall.Store
             Assert.DoesNotThrow(() => new FeedUri("http://0install.de/feeds/my feed.xml"));
             Assert.DoesNotThrow(() => new FeedUri("http://0install.de/feeds/my%20feed.xml"));
 
-            Assert.DoesNotThrow(() => new FeedUri(WindowsUtils.IsWindows ? @"C:\feed.xml" : "/root/feed.xml"));
+            Assert.DoesNotThrow(() => new FeedUri(WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml"));
+            Assert.DoesNotThrow(() => new FeedUri(WindowsUtils.IsWindows ? "file:///C:/my%20feed.xml" : "file:///root/my%20feed.xml"));
+            if (WindowsUtils.IsWindows)
+            {
+                Assert.DoesNotThrow(() => new FeedUri(@"\\SERVER\C$\my feed.xml"));
+                Assert.DoesNotThrow(() => new FeedUri("file://SERVER/C$/my%20feed.xml"));
+            }
         }
 
         /// <summary>
@@ -90,6 +96,36 @@ namespace ZeroInstall.Store
             Assert.AreEqual(
                 expected: WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml",
                 actual: absoluteUri.ToStringRfc());
+
+            absoluteUri = new FeedUri(WindowsUtils.IsWindows ? "file:///C:/my%20feed.xml" : "file:///root/my%20feed.xml");
+            Assert.AreEqual(
+                expected: WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml",
+                actual: absoluteUri.LocalPath);
+            Assert.AreEqual(
+                expected: WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml",
+                actual: absoluteUri.ToString());
+            Assert.AreEqual(
+                expected: WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml",
+                actual: absoluteUri.ToStringRfc());
+
+            if (WindowsUtils.IsWindows)
+            {
+                absoluteUri = new FeedUri(@"\\SERVER\C$\my feed.xml");
+                Assert.AreEqual(
+                    expected: @"\\server\C$\my feed.xml",
+                    actual: absoluteUri.ToString());
+                Assert.AreEqual(
+                    expected: @"\\server\C$\my feed.xml",
+                    actual: absoluteUri.ToStringRfc());
+
+                absoluteUri = new FeedUri("file://SERVER/C$/my%20feed.xml");
+                Assert.AreEqual(
+                    expected: @"\\server\C$\my feed.xml",
+                    actual: absoluteUri.ToString());
+                Assert.AreEqual(
+                    expected: @"\\server\C$\my feed.xml",
+                    actual: absoluteUri.ToStringRfc());
+            }
         }
 
         [Test]
@@ -136,8 +172,15 @@ namespace ZeroInstall.Store
                 actual: new FeedUri("http://example.com/").EscapeComponent());
 
             CollectionAssert.AreEqual(
-                expected: new[] {"file", WindowsUtils.IsWindows ? "C_3a___feed.xml" : "root__feed.xml"},
-                actual: new FeedUri(WindowsUtils.IsWindows ? @"C:\feed.xml" : "/root/feed.xml").EscapeComponent());
+                expected: new[] {"file", WindowsUtils.IsWindows ? "C_3a___my_20_feed.xml" : "root__my_20_feed.xml"},
+                actual: new FeedUri(WindowsUtils.IsWindows ? @"C:\my feed.xml" : "/root/my feed.xml").EscapeComponent());
+
+            if (WindowsUtils.IsWindows)
+            {
+                CollectionAssert.AreEqual(
+                    expected: new[] {"file", "____server__C_24___my_20_feed.xml"},
+                    actual: new FeedUri(@"\\SERVER\C$\my feed.xml").EscapeComponent());
+            }
         }
     }
 }

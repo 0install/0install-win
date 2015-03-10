@@ -245,7 +245,7 @@ namespace ZeroInstall.Commands.FrontendCommands
             try
             {
                 if (uri.StartsWith("alias:")) return ResolveAlias(uri.Substring("alias:".Length));
-                else if (uri.StartsWith("file:///")) return new FeedUri(uri);
+                else if (uri.StartsWith("file://")) return new FeedUri(uri);
                 else if (uri.StartsWith("file:/")) throw new ArgumentException(Resources.FilePrefixAbsoluteUsage);
                 else if (uri.StartsWith("file:")) return new FeedUri(Path.GetFullPath(uri.Substring("file:".Length)));
                 else if (uri.StartsWith("http:") || uri.StartsWith("https:")) return new FeedUri(uri);
