@@ -65,7 +65,7 @@ namespace ZeroInstall.DesktopIntegration
             #endregion
 
             return (from entryPoint in feed.EntryPoints
-                where !entryPoint.NeedsTerminal && (entryPoint.Command == Command.NameRun || entryPoint.Command == Command.NameRunGui)
+                where entryPoint.Command == Command.NameRun || entryPoint.Command == Command.NameRunGui
                 select new DesktopIcon
                 {
                     Name = feed.GetBestName(CultureInfo.CurrentUICulture, entryPoint.Command),
