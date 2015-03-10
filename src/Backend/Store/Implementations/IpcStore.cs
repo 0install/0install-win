@@ -171,12 +171,19 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Optimise
-        /// <summary>
-        /// Does nothing. Should be handled by an administrator directly instead of using the service.
-        /// </summary>
+        /// <inheritdoc/>
         public long Optimise(ITaskHandler handler)
         {
-            return 0;
+            try
+            {
+                return GetServiceProxy().Optimise(handler);
+            }
+                #region Error handling
+            catch (RemotingException)
+            {
+                return 0;
+            }
+            #endregion
         }
         #endregion
 
