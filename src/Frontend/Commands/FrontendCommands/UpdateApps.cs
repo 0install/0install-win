@@ -96,8 +96,8 @@ namespace ZeroInstall.Commands.FrontendCommands
 
             // Run solver for each app
             var implementations = new List<ImplementationSelection>();
-            Handler.RunTask(new ForEachTask<Requirements>(Resources.CheckingForUpdates, targets.ToList(),
-                requirements => implementations.AddRange(Solver.Solve(requirements).Implementations)));
+            foreach (var requirements in targets)
+                implementations.AddRange(Solver.Solve(requirements).Implementations);
 
             // Deduplicate selections
             return implementations.Distinct(ManifestDigestPartialEqualityComparer<ImplementationSelection>.Instance);
