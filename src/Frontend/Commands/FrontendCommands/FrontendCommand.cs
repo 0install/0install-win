@@ -25,19 +25,13 @@ using System.Net;
 using System.Reflection;
 using JetBrains.Annotations;
 using NanoByte.Common;
-using NanoByte.Common.Native;
-using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Values;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Services;
-using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Injector;
 using ZeroInstall.Services.Solvers;
-using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
@@ -50,7 +44,7 @@ namespace ZeroInstall.Commands.FrontendCommands
     /// </summary>
     /// <remarks>Specific sub-classes of this class are used to handle a commands like "0install COMMAND [OPTIONS]".</remarks>
     [CLSCompliant(false)]
-    public abstract class FrontendCommand : ServiceLocator
+    public abstract class FrontendCommand : CommandBase
     {
         #region Metadata
         /// <summary>
@@ -123,51 +117,10 @@ namespace ZeroInstall.Commands.FrontendCommands
         [NotNull, ItemNotNull]
         protected readonly List<string> AdditionalArgs = new List<string>();
 
-        private AppList _appList;
-
-        /// <summary>
-        /// Lazy-loaded <see cref="AppList"/>. Not thread-safe!
-        /// </summary>
-        protected AppList AppList
-        {
-            get
-            {
-                if (_appList == null)
-                {
-                    try
-                    {
-                        _appList = XmlStorage.LoadXml<AppList>(AppList.GetDefaultPath());
-                    }
-                        #region Error handling
-                    catch (FileNotFoundException)
-                    {
-                        _appList = new AppList();
-                    }
-                    catch (IOException ex)
-                    {
-                        Log.Warn(ex);
-                        _appList = new AppList();
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        Log.Warn(ex);
-                        _appList = new AppList();
-                    }
-                    catch (InvalidDataException ex)
-                    {
-                        Log.Warn(ex);
-                        _appList = new AppList();
-                    }
-                    #endregion
-                }
-
-                return _appList;
-            }
-        }
-
         /// <summary>
         /// Creates a new command.
         /// </summary>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         protected FrontendCommand([NotNull] ICommandHandler handler) : base(handler)
         {
             Handler = handler;
@@ -232,93 +185,6 @@ namespace ZeroInstall.Commands.FrontendCommands
         /// <remarks>When inheriting this method is usually replaced.</remarks>
         public abstract int Execute();
 
-        #region Helpers
-        /// <summary>
-        /// Converts an interface or feed URI to its canonical representation.
-        /// </summary>
-        /// <exception cref="UriFormatException"><paramref name="uri"/> is an invalid interface URI.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#", Justification = "This method handles a number of non-standard URI types which cannot be represented by the regular Uri class.")]
-        public FeedUri GetCanonicalUri(string uri)
-        {
-            if (string.IsNullOrEmpty(uri)) throw new UriFormatException();
-
-            try
-            {
-                if (uri.StartsWith("alias:")) return ResolveAlias(uri.Substring("alias:".Length));
-                else if (uri.StartsWith("file://")) return new FeedUri(uri);
-                else if (uri.StartsWith("file:/")) throw new UriFormatException(Resources.FilePrefixAbsoluteUsage);
-                else if (uri.StartsWith("file:")) return new FeedUri(Path.GetFullPath(uri.Substring("file:".Length)));
-                else if (uri.StartsWith("http:") || uri.StartsWith("https:")) return new FeedUri(uri);
-
-                string path = Path.GetFullPath(WindowsUtils.IsWindows ? Environment.ExpandEnvironmentVariables(uri) : uri);
-                if (File.Exists(path)) return new FeedUri(path);
-
-                var result = TryResolveCatalog(uri);
-                if (result != null) return result;
-
-                return new FeedUri(path);
-            }
-                #region Error handling
-            catch (ArgumentException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new UriFormatException(ex.Message);
-            }
-            catch (InvalidOperationException ex)
-            {
-                // Wrap exception since only certain exception types are allowed
-                throw new UriFormatException(ex.Message);
-            }
-            #endregion
-        }
-
-        private FeedUri ResolveAlias(string aliasName)
-        {
-            AppEntry appEntry;
-            AddAlias.GetAppAlias(AppList, aliasName, out appEntry);
-            if (appEntry == null) throw new UriFormatException(string.Format(Resources.AliasNotFound, aliasName));
-            return appEntry.InterfaceUri;
-        }
-
-        private FeedUri TryResolveCatalog(string shortName)
-        {
-            var feed = CatalogManager.GetCachedSafe().FindByShortName(shortName);
-            if (feed == null)
-            {
-                feed = CatalogManager.GetOnlineSafe().FindByShortName(shortName);
-                if (feed == null) return null;
-            }
-
-            Log.Info(string.Format(Resources.ResolvedUsingCatalog, shortName, feed.Uri));
-            return feed.Uri;
-        }
-
-        /// <summary>
-        /// Periodically checks Zero Install itself for updates in a background proccess.
-        /// </summary>
-        protected void SelfUpdateCheck()
-        {
-            if (!SelfUpdateUtils.NoAutoCheck && !SelfUpdateUtils.IsBlocked && FeedManager.IsStale(Config.SelfUpdateUri))
-                RunCommandBackground(SelfUpdate.Name);
-        }
-
-        /// <summary>
-        /// Executes a "0install" command in a new background process. Returns immediately.
-        /// </summary>
-        /// <param name="command">The <see cref="Name"/> of the command to execute.</param>
-        /// <param name="args">Additional arguments to pass to the command.</param>
-        protected static void RunCommandBackground([NotNull] string command, [NotNull] params string[] args)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(command)) throw new ArgumentNullException("command");
-            #endregion
-
-            if (WindowsUtils.IsWindows)
-                ProcessUtils.LaunchAssembly("0install-win", command + " --background " + args.JoinEscapeArguments());
-            //else if (UnixUtils.IsUnix)
-            //    ProcessUtils.LaunchAssembly("0install-win", command + " --background " + args.JoinEscapeArguments());
-        }
-
         /// <summary>
         /// Generates a localized instruction string describing multiple selectable values.
         /// </summary>
@@ -326,6 +192,5 @@ namespace ZeroInstall.Commands.FrontendCommands
         {
             return string.Format(Resources.SupportedValues, StringUtils.Join(", ", values.Select(AttributeUtils.ConvertToString)));
         }
-        #endregion
     }
 }

@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
     <Compile Include="CliCommandHandler.cs" />
+    <Compile Include="CommandBase.cs" />
     <Compile Include="ConfigTab.cs" />
     <Compile Include="CommandFactory.cs" />
     <Compile Include="FrontendCommands\AddAlias.cs" />

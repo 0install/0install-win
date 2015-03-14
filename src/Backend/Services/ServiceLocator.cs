@@ -39,22 +39,6 @@ namespace ZeroInstall.Services
     /// <remarks>Use the property setters to override default service implementations, e.g. for mocking.</remarks>
     public class ServiceLocator
     {
-        #region Variables
-        private Config _config;
-        private IOpenPgp _openPgp;
-        private IFeedCache _feedCache;
-        private IStore _store;
-        private ITrustManager _trustManager;
-        private IFeedManager _feedManager;
-        private ICatalogManager _catalogManager;
-        private IPackageManager _packageManager;
-        private ISolver _solver;
-        private IFetcher _fetcher;
-        private IExecutor _executor;
-        private SelectionsManager _selectionsManager;
-        #endregion
-
-        #region Constructor
         /// <summary>
         /// Creates a new service locator.
         /// </summary>
@@ -67,7 +51,6 @@ namespace ZeroInstall.Services
 
             Handler = handler;
         }
-        #endregion
 
         /// <summary>
         /// A callback object used when the the user needs to be asked questions or informed about download and IO tasks.
@@ -75,11 +58,15 @@ namespace ZeroInstall.Services
         [NotNull]
         public ITaskHandler Handler { get; private set; }
 
+        private Config _config;
+
         /// <summary>
         /// User settings controlling network behaviour, solving, etc.
         /// </summary>
         [NotNull]
         public Config Config { get { return Get(ref _config, Config.Load); } set { _config = value; } }
+
+        private IStore _store;
 
         /// <summary>
         /// Describes an object that allows the storage and retrieval of <see cref="Implementation"/> directories.
@@ -87,11 +74,15 @@ namespace ZeroInstall.Services
         [NotNull]
         public IStore Store { get { return Get(ref _store, StoreFactory.CreateDefault); } set { _store = value; } }
 
+        private IOpenPgp _openPgp;
+
         /// <summary>
         /// Provides access to an encryption/signature system compatible with the OpenPGP standard.
         /// </summary>
         [NotNull]
         public IOpenPgp OpenPgp { get { return Get(ref _openPgp, OpenPgpFactory.CreateDefault); } set { _openPgp = value; } }
+
+        private IFeedCache _feedCache;
 
         /// <summary>
         /// Provides access to a cache of <see cref="Feed"/>s that were downloaded via HTTP(S).
@@ -99,11 +90,15 @@ namespace ZeroInstall.Services
         [NotNull]
         public IFeedCache FeedCache { get { return Get(ref _feedCache, () => FeedCacheFactory.CreateDefault(OpenPgp)); } set { _feedCache = value; } }
 
+        private ITrustManager _trustManager;
+
         /// <summary>
         /// Methods for verifying signatures and user trust.
         /// </summary>
         [NotNull]
         public ITrustManager TrustManager { get { return Get(ref _trustManager, () => new TrustManager(Config, OpenPgp, FeedCache, Handler)); } set { _trustManager = value; } }
+
+        private IFeedManager _feedManager;
 
         /// <summary>
         /// Allows configuration of the source used to request <see cref="Feed"/>s.
@@ -111,17 +106,23 @@ namespace ZeroInstall.Services
         [NotNull]
         public IFeedManager FeedManager { get { return Get(ref _feedManager, () => new FeedManager(Config, FeedCache, TrustManager, Handler)); } set { _feedManager = value; } }
 
+        private ICatalogManager _catalogManager;
+
         /// <summary>
         /// Provides access to remote and local <see cref="Catalog"/>s. Handles downloading, signature verification and caching.
         /// </summary>
         [NotNull]
         public ICatalogManager CatalogManager { get { return Get(ref _catalogManager, () => new CatalogManager(TrustManager)); } set { _catalogManager = value; } }
 
+        private IPackageManager _packageManager;
+
         /// <summary>
         /// An external package manager that can install <see cref="PackageImplementation"/>s.
         /// </summary>
         [NotNull]
         public IPackageManager PackageManager { get { return Get(ref _packageManager, PackageManagerFactory.Create); } set { _packageManager = value; } }
+
+        private ISolver _solver;
 
         /// <summary>
         /// Chooses a set of <see cref="Implementation"/>s to satisfy the requirements of a program and its user.
@@ -138,17 +139,23 @@ namespace ZeroInstall.Services
             set { _solver = value; }
         }
 
+        private IFetcher _fetcher;
+
         /// <summary>
         /// Used to download missing <see cref="Implementation"/>s.
         /// </summary>
         [NotNull]
         public IFetcher Fetcher { get { return Get(ref _fetcher, () => new SequentialFetcher(Store, Handler)); } set { _fetcher = value; } }
 
+        private IExecutor _executor;
+
         /// <summary>
         /// Executes a set of <see cref="Selections"/> as a program using dependency injection.
         /// </summary>
         [NotNull]
         public IExecutor Executor { get { return Get(ref _executor, () => new Executor(Store)); } set { _executor = value; } }
+
+        private SelectionsManager _selectionsManager;
 
         /// <summary>
         /// Contains helper methods for filtering <see cref="Selections"/>.
