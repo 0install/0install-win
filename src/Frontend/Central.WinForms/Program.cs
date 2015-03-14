@@ -83,7 +83,28 @@ namespace ZeroInstall.Central.WinForms
             bool machineWide = args.Any(arg => arg == "-m" || arg == "--machine");
             if (machineWide && WindowsUtils.IsWindowsNT && !WindowsUtils.IsAdministrator) return ProcessUtils.RunAssemblyAsAdmin("ZeroInstall", args.JoinEscapeArguments());
 
-            Application.Run(new MainForm(machineWide));
+            try
+            {
+                Application.Run(new MainForm(machineWide));
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                return -1;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                return -1;
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
+                return -1;
+            }
+            #endregion
+
             return 0;
         }
 

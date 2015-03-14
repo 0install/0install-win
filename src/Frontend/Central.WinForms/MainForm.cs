@@ -51,7 +51,7 @@ namespace ZeroInstall.Central.WinForms
         private readonly bool _machineWide;
 
         /// <summary>Manages <see cref="IAppTileList"/>s.</summary>
-        private AppTileManagement _tileManagement;
+        private readonly AppTileManagement _tileManagement;
         #endregion
 
         #region Constructor
@@ -59,6 +59,9 @@ namespace ZeroInstall.Central.WinForms
         /// Initializes the main GUI.
         /// </summary>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
+        /// <exception cref="IOException">Failed to read a config file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to a configuration file was not permitted.</exception>
+        /// <exception cref="InvalidDataException">The config data is damaged.</exception>
         public MainForm(bool machineWide)
         {
             InitializeComponent();
@@ -66,6 +69,11 @@ namespace ZeroInstall.Central.WinForms
             MouseWheel += MainForm_MouseWheel;
 
             _machineWide = machineWide;
+
+            var services = new ServiceLocator(new MinimalTaskHandler(this)) { Config = { NetworkUse = NetworkLevel.Minimal } };
+            _tileManagement = new AppTileManagement(
+                services.FeedManager, services.CatalogManager,
+                tileListMyApps, tileListCatalog, _machineWide);
         }
         #endregion
 
@@ -84,33 +92,6 @@ namespace ZeroInstall.Central.WinForms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Branding();
-
-            try
-            {
-                SetupTileManagement();
-            }
-                #region Error handling
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Close();
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                Close();
-            }
-            catch (InvalidDataException ex)
-            {
-                Msg.Inform(this, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
-                Close();
-            }
-            #endregion
-        }
-
-        private void Branding()
-        {
             string brandingPath = Path.Combine(Locations.InstallBase, "_branding");
             if (File.Exists(brandingPath + ".txt")) Text = File.ReadAllText(brandingPath + ".txt");
             if (File.Exists(brandingPath + ".png")) pictureBoxLogo.Image = Image.FromFile(brandingPath + ".png");
@@ -118,21 +99,12 @@ namespace ZeroInstall.Central.WinForms
             if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
             if (_machineWide) Text += @" - " + Resources.MachineWideMode;
             labelVersion.Text = @"v" + AppInfo.Current.Version;
-        }
 
-        private void SetupTileManagement()
-        {
             tileListMyApps.IconCache = tileListCatalog.IconCache = IconCacheProvider.GetInstance();
-            var services = new ServiceLocator(new MinimalTaskHandler(this)) {Config = {NetworkUse = NetworkLevel.Minimal}};
-            _tileManagement = new AppTileManagement(
-                services.FeedManager, services.CatalogManager,
-                tileListMyApps, tileListCatalog, _machineWide);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            if (!SelfUpdateUtils.NoAutoCheck && !SelfUpdateUtils.IsBlocked) selfUpdateWorker.RunWorkerAsync();
-
             UpdateAppListAsync();
             _tileManagement.LoadCachedCatalog();
             LoadCatalogAsync();
@@ -145,6 +117,8 @@ namespace ZeroInstall.Central.WinForms
                 // Show catalog automatically if AppList is empty
                 tabControlApps.SelectTab(tabPageCatalog);
             }
+
+            if (!SelfUpdateUtils.NoAutoCheck && !SelfUpdateUtils.IsBlocked) selfUpdateWorker.RunWorkerAsync();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
