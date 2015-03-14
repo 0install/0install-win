@@ -42,6 +42,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         /// <param name="tag">The <see cref="ITaskHandler"/> tag used by <paramref name="handler"/>; can be <see langword="null"/>.</param>
         /// <returns>A <see cref="TemporaryDirectory"/> with the resulting directory content.</returns>
+        /// <exception cref="ArgumentException">The <see cref="Archive"/>s in <paramref name="recipe"/> and the files in <paramref name="downloadedFiles"/> do not match up.</exception>
         /// <exception cref="NotSupportedException"><paramref name="recipe"/> contains unknown step types.</exception>
         [SuppressMessage("Microsoft.Usage", "CA2208:InstantiateArgumentExceptionsCorrectly", Justification = "False positivie due to usage inside lamda")]
         public static TemporaryDirectory Apply([NotNull] this Recipe recipe, [NotNull, ItemNotNull] IEnumerable<TemporaryFile> downloadedFiles, [NotNull] ITaskHandler handler, [CanBeNull] object tag = null)

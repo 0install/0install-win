@@ -90,6 +90,7 @@ namespace ZeroInstall.Services.Injector
         /// <param name="selections">The specific <see cref="ImplementationSelection"/>s chosen by the solver.</param>
         /// <param name="arguments">Arguments to be passed to the launched programs.</param>
         /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
+        /// <exception cref="ArgumentException"><see cref="Store.Model.Selection.Selections.Implementations"/> on <paramref name="selections"/> is empty.</exception>
         /// <exception cref="KeyNotFoundException"><see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
         /// <exception cref="ImplementationNotFoundException">One of the <see cref="Store.Model.Implementation"/>s is not cached yet.</exception>
         /// <exception cref="ExecutorException">The <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>

@@ -156,6 +156,7 @@ namespace ZeroInstall.Publish
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="executor">Used to apply properties in an undoable fashion.</param>
         /// <returns>A downloaded file.</returns>
+        /// <exception cref="ArgumentException"><see cref="DownloadRetrievalMethod.Href"/> on <paramref name="retrievalMethod"/> is missing.</exception>
         /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
         /// <exception cref="IOException">There is a problem access a temporary file.</exception>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>

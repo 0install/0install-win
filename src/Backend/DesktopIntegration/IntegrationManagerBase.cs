@@ -284,6 +284,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="appEntry">The application being integrated.</param>
         /// <param name="feed">The feed providing additional metadata, icons, etc. for the application.</param>
         /// <param name="accessPoints">The access points to apply.</param>
+        /// <exception cref="ArgumentException"><see cref="AccessPointList.Entries"/> from <paramref name="appEntry"/> is the same reference as <paramref name="accessPoints"/>.</exception>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="KeyNotFoundException">An <see cref="AccessPoint"/> reference to a <see cref="Store.Model.Capabilities.Capability"/> is invalid.</exception>
         /// <exception cref="ConflictException">One or more of the <paramref name="accessPoints"/> would cause a conflict with the existing <see cref="AccessPoint"/>s in <see cref="IIntegrationManager.AppList"/>.</exception>

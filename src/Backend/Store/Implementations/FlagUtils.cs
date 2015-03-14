@@ -117,6 +117,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="path">The full path to the flag file, named <see cref="FlagUtils.XbitFile"/> or <see cref="FlagUtils.SymlinkFile"/>.</param>
         /// <param name="relativePath">The path of the file to set relative to <paramref name="path"/>.</param>
+        /// <exception cref="ArgumentException"><paramref name="relativePath"/> is not a relative path.</exception>
         /// <exception cref="IOException">There was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
         public static void Set([NotNull] string path, [NotNull] string relativePath)
@@ -139,6 +140,7 @@ namespace ZeroInstall.Store.Implementations
         /// </summary>
         /// <param name="path">The full path to the flag file, named <see cref="FlagUtils.XbitFile"/> or <see cref="FlagUtils.SymlinkFile"/>.</param>
         /// <param name="relativePath">The path of the file or directory to remove relative to <paramref name="path"/>.</param>
+        /// <exception cref="ArgumentException"><paramref name="relativePath"/> is not a relative path.</exception>
         /// <exception cref="IOException">There was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
         public static void Remove([NotNull] string path, [NotNull] string relativePath)
@@ -179,6 +181,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="path">The full path to the flag file, named <see cref="FlagUtils.XbitFile"/> or <see cref="FlagUtils.SymlinkFile"/>.</param>
         /// <param name="source">The old path of the renamed file or directory relative to <paramref name="path"/>.</param>
         /// <param name="destination">The new path of the renamed file or directory relative to <paramref name="path"/>.</param>
+        /// <exception cref="ArgumentException"><paramref name="source"/> or <paramref name="destination"/> is not a relative path.</exception>
         /// <exception cref="IOException">There was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
         public static void Rename([NotNull] string path, [NotNull] string source, [NotNull] string destination)
