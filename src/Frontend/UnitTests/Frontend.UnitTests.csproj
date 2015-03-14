@@ -92,15 +92,15 @@
     <Folder Include="Central\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CliCommands\CliCommandTest.cs" />
+    <Compile Include="Commands\CliCommands\DownloadTest.cs" />
+    <Compile Include="Commands\CliCommands\ListTest.cs" />
+    <Compile Include="Commands\CliCommands\RunTest.cs" />
+    <Compile Include="Commands\CliCommands\SelectionTest.cs" />
+    <Compile Include="Commands\CliCommands\SelectionTestBase.cs" />
+    <Compile Include="Commands\CliCommands\StoreManTest.cs" />
+    <Compile Include="Commands\CliCommands\UpdateTest.cs" />
     <Compile Include="Commands\CommandFactoryTest.cs" />
-    <Compile Include="Commands\FrontendCommands\DownloadTest.cs" />
-    <Compile Include="Commands\FrontendCommands\FrontendCommandTest.cs" />
-    <Compile Include="Commands\FrontendCommands\ListTest.cs" />
-    <Compile Include="Commands\FrontendCommands\RunTest.cs" />
-    <Compile Include="Commands\FrontendCommands\SelectionTest.cs" />
-    <Compile Include="Commands\FrontendCommands\SelectionTestBase.cs" />
-    <Compile Include="Commands\FrontendCommands\StoreManTest.cs" />
-    <Compile Include="Commands\FrontendCommands\UpdateTest.cs" />
     <Compile Include="Commands\MockCommandHandler.cs" />
   </ItemGroup>
   <ItemGroup>

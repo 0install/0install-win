@@ -17,7 +17,7 @@
 
 using NDesk.Options;
 using NUnit.Framework;
-using ZeroInstall.Commands.FrontendCommands;
+using ZeroInstall.Commands.CliCommands;
 
 namespace ZeroInstall.Commands
 {
@@ -40,7 +40,7 @@ namespace ZeroInstall.Commands
             }
         }
 
-        private static FrontendCommand CreateCommand(string name)
+        private static CliCommand CreateCommand(string name)
         {
             var handler = new MockCommandHandler();
             try

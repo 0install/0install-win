@@ -23,7 +23,7 @@ using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using ZeroInstall.Commands.FrontendCommands;
+using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
@@ -158,7 +158,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Executes a "0install" command in a new background process. Returns immediately.
         /// </summary>
-        /// <param name="command">The <see cref="FrontendCommand.Name"/> of the command to execute.</param>
+        /// <param name="command">The <see cref="CliCommand.Name"/> of the command to execute.</param>
         /// <param name="args">Additional arguments to pass to the command.</param>
         protected static void RunCommandBackground([NotNull] string command, [NotNull] params string[] args)
         {

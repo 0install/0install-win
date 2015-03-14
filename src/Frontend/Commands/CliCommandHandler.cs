@@ -20,7 +20,7 @@ using System.Diagnostics.CodeAnalysis;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Tasks;
-using ZeroInstall.Commands.FrontendCommands;
+using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services.Feeds;
@@ -32,7 +32,7 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Uses the stdin/stderr streams to allow users to interact with <see cref="FrontendCommand"/>s.
+    /// Uses the stdin/stderr streams to allow users to interact with <see cref="CliCommand"/>s.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Diamond inheritance structure leads to false positive")]
     public sealed class CliCommandHandler : CliTaskHandler, ICommandHandler

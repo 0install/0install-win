@@ -23,7 +23,7 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
-using ZeroInstall.Commands.FrontendCommands;
+using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Feeds;
@@ -34,7 +34,7 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall.Commands.WinForms
 {
     /// <summary>
-    /// Displays the progress of a <see cref="FrontendCommand"/> and <see cref="ITask"/>s.
+    /// Displays the progress of a <see cref="CliCommand"/> and <see cref="ITask"/>s.
     /// </summary>
     public partial class ProgressForm : Form
     {

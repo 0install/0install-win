@@ -18,7 +18,7 @@
 using System;
 using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
-using ZeroInstall.Commands.FrontendCommands;
+using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
@@ -29,7 +29,7 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Callback methods to allow users to interact with <see cref="FrontendCommand"/>s.
+    /// Callback methods to allow users to interact with <see cref="CliCommand"/>s.
     /// </summary>
     /// <remarks>The methods may be called from a background thread. Implementations apply appropriate thread-synchronization to update UI elements.</remarks>
     public interface ICommandHandler : ITaskHandler

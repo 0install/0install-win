@@ -26,7 +26,7 @@ using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands;
-using ZeroInstall.Commands.FrontendCommands;
+using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Solvers;
 using ZeroInstall.Store.Implementations;

@@ -18,7 +18,7 @@
 using System;
 using System.Windows.Forms;
 using ZeroInstall.Commands;
-using ZeroInstall.Commands.FrontendCommands;
+using ZeroInstall.Commands.CliCommands;
 
 namespace ZeroInstall.Central.WinForms.Wizards
 {

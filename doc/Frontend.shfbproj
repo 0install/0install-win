@@ -47,7 +47,7 @@
       <NamespaceSummaryItem name="ZeroInstall.Central.WinForms" isDocumented="True" xmlns="">The main GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Central.WinForms.Wizards" isDocumented="True" xmlns="">Wizards helping users configure features such as Sync.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Commands" isDocumented="True">Shared logic for applications that wish to support default Zero Install command-line arguments.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Commands.FrontendCommands" isDocumented="True">Classes that each represent a specific command-line command.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Commands.CliCommands" isDocumented="True">Classes that each represent a specific command-line command.</NamespaceSummaryItem>
 	  <NamespaceSummaryItem name="ZeroInstall.Commands.Cli" isDocumented="True" xmlns="">A command-line interface for Zero Install, for installing and launching applications, managing caches, etc.</NamespaceSummaryItem>
 	  <NamespaceSummaryItem name="ZeroInstall.Commands.Gtk" isDocumented="True" xmlns="">A GTK#-based GUI for Zero Install, for installing and launching applications, managing caches, etc.</NamespaceSummaryItem>
 	  <NamespaceSummaryItem name="ZeroInstall.Commands.WinForms" isDocumented="True" xmlns="">A WinForms-based GUI for Zero Install, for installing and launching applications, managing caches, etc.</NamespaceSummaryItem>

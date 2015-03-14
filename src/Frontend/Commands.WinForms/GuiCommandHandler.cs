@@ -22,7 +22,7 @@ using System.Threading;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
-using ZeroInstall.Commands.FrontendCommands;
+using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.DesktopIntegration.ViewModel;
 using ZeroInstall.Services.Feeds;
@@ -35,7 +35,7 @@ using ZeroInstall.Store.Model.Selection;
 namespace ZeroInstall.Commands.WinForms
 {
     /// <summary>
-    /// Uses <see cref="System.Windows.Forms"/> to allow users to interact with <see cref="FrontendCommand"/>s.
+    /// Uses <see cref="System.Windows.Forms"/> to allow users to interact with <see cref="CliCommand"/>s.
     /// </summary>
     /// <remarks>This class manages a GUI thread with an independent message queue. Invoking methods on the right thread is handled automatically.</remarks>
     public sealed class GuiCommandHandler : GuiTaskHandler, ICommandHandler

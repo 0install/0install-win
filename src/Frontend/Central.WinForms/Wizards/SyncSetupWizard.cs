@@ -20,7 +20,7 @@ using System.IO;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using ZeroInstall.Commands;
-using ZeroInstall.Commands.FrontendCommands;
+using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store;
 
