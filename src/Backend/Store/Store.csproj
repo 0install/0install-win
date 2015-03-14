@@ -151,9 +151,7 @@
     <Compile Include="Model\Capabilities\UrlProtocol.cs" />
     <Compile Include="Model\Capabilities\Verb.cs" />
     <Compile Include="Model\Capabilities\VerbCapability.cs" />
-    <Compile Include="Model\Catalog.cs">
-      <DependentUpon>catalog.xsd</DependentUpon>
-    </Compile>
+    <Compile Include="Model\Catalog.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Command.cs" />
     <Compile Include="Model\Constraint.cs" />

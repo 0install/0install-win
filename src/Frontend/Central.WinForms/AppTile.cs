@@ -167,29 +167,34 @@ namespace ZeroInstall.Central.WinForms
         private void iconDownloadWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             // Download and load icon in background
+            var uri = (Uri)e.Argument;
             try
             {
                 Debug.Assert(_iconCache != null);
-                string path = _iconCache.GetIcon((Uri)e.Argument, _handler);
+                string path = _iconCache.GetIcon(uri, _handler);
                 using (var stream = File.OpenRead(path))
                     e.Result = Image.FromStream(stream);
             }
                 #region Error handling
             catch (OperationCanceledException)
             {}
+            catch (WebException ex)
+            {
+                Log.Warn(ex);
+            }
             catch (IOException ex)
             {
-                Log.Warn("Unable to store icon");
+                Log.Warn("Failed to store icon from " + uri);
                 Log.Warn(ex);
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Warn("Unable to store icon");
+                Log.Warn("Failed to store icon from " + uri);
                 Log.Warn(ex);
             }
-            catch (WebException ex)
+            catch (ArgumentException ex)
             {
-                Log.Warn("Unable to store icon");
+                Log.Warn("Failed to parse icon from " + uri);
                 Log.Warn(ex);
             }
             #endregion
@@ -197,16 +202,9 @@ namespace ZeroInstall.Central.WinForms
 
         private void iconDownloadWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (e.Error == null)
-            { // Display icon in UI thread
-                var image = e.Result as Image;
-                if (image != null) pictureBoxIcon.Image = image;
-            }
-            else
-            {
-                Log.Error("Unable to load icon");
-                Log.Error(e.Error);
-            }
+            // Display icon in UI thread
+            var image = e.Result as Image;
+            if (image != null) pictureBoxIcon.Image = image;
         }
         #endregion
 
