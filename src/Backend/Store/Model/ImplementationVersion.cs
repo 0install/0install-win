@@ -68,12 +68,10 @@ namespace ZeroInstall.Store.Model
         /// Creates a new implementation version from a a string.
         /// </summary>
         /// <param name="value">The string containing the version information.</param>
-        /// <exception cref="ArgumentException"><paramref name="value"/> is not a valid version string.</exception>
-        public ImplementationVersion(string value)
+        /// <exception cref="FormatException"><paramref name="value"/> is not a valid version string.</exception>
+        public ImplementationVersion([NotNull] string value)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
-            #endregion
+            if (string.IsNullOrEmpty(value)) throw new FormatException(Resources.MustStartWithDottedList);
 
             if (ModelUtils.ContainsTemplateVariables(value))
             {
@@ -85,7 +83,7 @@ namespace ZeroInstall.Store.Model
             string[] parts = value.Split('-');
 
             // Ensure the first part is a dotted list
-            if (!VersionDottedList.IsValid(parts[0])) throw new ArgumentException(Resources.MustStartWithDottedList);
+            if (!VersionDottedList.IsValid(parts[0])) throw new FormatException(Resources.MustStartWithDottedList);
             _firstPart = new VersionDottedList(parts[0]);
 
             // Iterate through all additional parts
@@ -124,7 +122,7 @@ namespace ZeroInstall.Store.Model
                 result = new ImplementationVersion(value);
                 return true;
             }
-            catch (ArgumentException)
+            catch (FormatException)
             {
                 result = null;
                 return false;

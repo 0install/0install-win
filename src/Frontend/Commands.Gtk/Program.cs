@@ -163,7 +163,7 @@ namespace ZeroInstall.Commands.Gtk
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return 1;
                 }
-                catch (UriFormatException ex)
+                catch (FormatException ex)
                 {
                     handler.CloseUI();
                     Log.Error(ex);

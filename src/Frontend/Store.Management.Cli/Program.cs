@@ -151,7 +151,7 @@ namespace ZeroInstall.Store.Management.Cli
                 Log.Error(ex);
                 return 1;
             }
-            catch (UriFormatException ex)
+            catch (FormatException ex)
             {
                 Log.Error(ex);
                 return 1;

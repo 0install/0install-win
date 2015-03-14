@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Parses a string into a <see cref="VersionRange"/> part.
         /// </summary>
-        /// <exception cref="ArgumentException"><paramref name="value"/> is not a valid version range string.</exception>
+        /// <exception cref="FormatException"><paramref name="value"/> is not a valid version range string.</exception>
         [NotNull]
         public static VersionRangePart FromString([NotNull] string value)
         {
@@ -51,7 +51,7 @@ namespace ZeroInstall.Store.Model
                 if (string.IsNullOrEmpty(end)) endVersion = null;
                 else
                 {
-                    if (!end.StartsWith("!")) throw new ArgumentException(string.Format(Resources.VersionRangeEndNotExclusive, end));
+                    if (!end.StartsWith("!")) throw new FormatException(string.Format(Resources.VersionRangeEndNotExclusive, end));
                     endVersion = new ImplementationVersion(end.Substring(1));
                 }
 

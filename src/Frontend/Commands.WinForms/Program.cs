@@ -174,7 +174,7 @@ namespace ZeroInstall.Commands.WinForms
                     ErrorBox.Show(ex.Message, errorLog);
                     return 1;
                 }
-                catch (UriFormatException ex)
+                catch (FormatException ex)
                 {
                     handler.CloseUI();
                     Log.Error(ex);

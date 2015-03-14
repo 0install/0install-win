@@ -170,6 +170,7 @@ namespace ZeroInstall.Store.Model
         /// <summary>
         /// Creates a new architecture structure from a string in the form "os-cpu".
         /// </summary>
+        /// <exception cref="FormatException"><paramref name="architecture"/> is not in the form "os-cpu"</exception>
         public Architecture([NotNull] string architecture) : this()
         {
             #region Sanity checks
@@ -177,7 +178,7 @@ namespace ZeroInstall.Store.Model
             #endregion
 
             var architectureArray = architecture.Split('-');
-            if (architectureArray.Length != 2) throw new ArgumentException(Resources.ArchitectureStringFormat, "architecture");
+            if (architectureArray.Length != 2) throw new FormatException(Resources.ArchitectureStringFormat);
 
             OS = ParseOSString(architectureArray[0]);
             Cpu = ParseCpuString(architectureArray[1]);

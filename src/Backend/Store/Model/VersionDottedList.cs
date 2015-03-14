@@ -29,6 +29,7 @@ namespace ZeroInstall.Store.Model
         /// Creates a new dotted-list from a a string.
         /// </summary>
         /// <param name="value">The string containing the dotted-list.</param>
+        /// <exception cref="FormatException"><paramref name="value"/> is not a valid dotted-list.</exception>
         public VersionDottedList(string value)
         {
             #region Sanity checks
@@ -41,7 +42,7 @@ namespace ZeroInstall.Store.Model
             for (int i = 0; i < parts.Length; i++)
             {
                 if (!long.TryParse(parts[i], out _decimals[i]))
-                    throw new ArgumentException(Resources.MustBeDottedList);
+                    throw new FormatException(Resources.MustBeDottedList);
             }
         }
         #endregion
