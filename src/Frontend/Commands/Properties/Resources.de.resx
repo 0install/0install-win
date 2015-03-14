@@ -498,9 +498,6 @@ Hat keine Wirkung im Text-Modus.</value>
   <data name="OptionIntegrateAddStandard" xml:space="preserve">
     <value>Füge die empfohlenen Standard Zugriffspunkte hinzu.</value>
   </data>
-  <data name="OptionIntegrateCategories" xml:space="preserve">
-    <value>{CATEGORY} muss einen der folgenden Werte haben: </value>
-  </data>
   <data name="OptionIntegrateRemove" xml:space="preserve">
     <value>Entferne alle Zugriffspunkte einer bestimmten {CATEGORY}.</value>
   </data>

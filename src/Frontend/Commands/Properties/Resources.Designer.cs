@@ -1155,15 +1155,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {CATEGORY} must be one of the following: .
-        /// </summary>
-        public static string OptionIntegrateCategories {
-            get {
-                return ResourceManager.GetString("OptionIntegrateCategories", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Remove all access points of a specific {CATEGORY}..
         /// </summary>
         public static string OptionIntegrateRemove {

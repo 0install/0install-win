@@ -322,7 +322,7 @@ namespace ZeroInstall.Commands.FrontendCommands
         /// <summary>
         /// Generates a localized instruction string describing multiple selectable values.
         /// </summary>
-        protected static string SupportedValues<T>(IEnumerable<T> values)
+        protected static string SupportedValues<T>(params T[] values)
         {
             return string.Format(Resources.SupportedValues, StringUtils.Join(", ", values.Select(AttributeUtils.ConvertToString)));
         }

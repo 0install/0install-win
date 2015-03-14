@@ -497,9 +497,6 @@ Has no effect in text-mode.</value>
   <data name="OptionIntegrateAddStandard" xml:space="preserve">
     <value>Add the recommended standard access points.</value>
   </data>
-  <data name="OptionIntegrateCategories" xml:space="preserve">
-    <value>{CATEGORY} must be one of the following: </value>
-  </data>
   <data name="OptionIntegrateRemove" xml:space="preserve">
     <value>Remove all access points of a specific {CATEGORY}.</value>
   </data>
