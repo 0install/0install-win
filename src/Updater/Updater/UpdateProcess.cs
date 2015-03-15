@@ -316,25 +316,6 @@ namespace ZeroInstall.Updater
         }
         #endregion
 
-        #region Fix permissions
-        /// <summary>
-        /// Fixes NTFS ACLs (permissions) for shared directories.
-        /// </summary>
-        /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
-        public void FixPermissions()
-        {
-            // Changing ACLs in the "All Users" AppData folder fails on Windows XP
-            if (!WindowsUtils.IsWindowsVista) return;
-
-            // Do not touch ACLs in portable mode
-            if (IsPortable) return;
-
-            string path = Path.Combine(Locations.SystemCacheDir, "0install.net");
-            if (!File.Exists(Path.Combine(path, Locations.SecuredFlagName)))
-                Locations.SecureExistingMachineWideDir(path);
-        }
-        #endregion
-
         #region Start service
         /// <summary>
         /// Starts the Zero Install Store Service.

@@ -113,9 +113,6 @@ namespace ZeroInstall.Updater.WinForms
                 SetStatus(Resources.UpdateRegistry);
                 _updateProcess.UpdateRegistry();
 
-                SetStatus(Resources.FixPermissions);
-                _updateProcess.FixPermissions();
-
                 _updateProcess.MutexRelease(); // Must release blocking mutexes before restarting the service
                 if (serviceWasRunning)
                 {

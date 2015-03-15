@@ -126,9 +126,6 @@
   <data name="Done" xml:space="preserve">
     <value>Done.</value>
   </data>
-  <data name="FixPermissions" xml:space="preserve">
-    <value>Fixing NTFS security permissions...</value>
-  </data>
   <data name="MutexWait" xml:space="preserve">
     <value>Waiting for all Zero Install instances to end...</value>
   </data>
