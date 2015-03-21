@@ -277,7 +277,9 @@ namespace ZeroInstall.Capture
                 ClassIDs = newSnapshot.ClassIDs.GetAddedElements(oldSnapshot.ClassIDs, StringComparer.OrdinalIgnoreCase),
                 RegisteredApplications = newSnapshot.RegisteredApplications.GetAddedElements(oldSnapshot.RegisteredApplications),
                 ContextMenuFiles = newSnapshot.ContextMenuFiles.GetAddedElements(oldSnapshot.ContextMenuFiles),
+                ContextMenuExecutableFiles = newSnapshot.ContextMenuExecutableFiles.GetAddedElements(oldSnapshot.ContextMenuExecutableFiles),
                 ContextMenuDirectories = newSnapshot.ContextMenuDirectories.GetAddedElements(oldSnapshot.ContextMenuDirectories),
+                ContextMenuAll = newSnapshot.ContextMenuAll.GetAddedElements(oldSnapshot.ContextMenuAll),
                 ProgramsDirs = newSnapshot.ProgramsDirs.GetAddedElements(oldSnapshot.ProgramsDirs, StringComparer.OrdinalIgnoreCase)
             };
         }
