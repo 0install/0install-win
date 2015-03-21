@@ -115,6 +115,7 @@ namespace ZeroInstall.Capture
             var snapshotDiff = Snapshot.Diff(SnapshotPre, SnapshotPost);
 
             if (string.IsNullOrEmpty(installationDir)) installationDir = GetInstallationDir(snapshotDiff);
+            if (string.IsNullOrEmpty(installationDir)) throw new IOException("Installation directory not found.");
             var commands = GetCommands(installationDir, mainExe);
 
             string appName = null, appDescription = null;

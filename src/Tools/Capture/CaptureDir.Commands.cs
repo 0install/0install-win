@@ -35,6 +35,7 @@ namespace ZeroInstall.Capture
         /// Locates the directory into which the new application was installed.
         /// </summary>
         /// <param name="snapshotDiff">The elements added between two snapshots.</param>
+        [CanBeNull]
         private static string GetInstallationDir([NotNull] Snapshot snapshotDiff)
         {
             #region Sanity checks
@@ -64,9 +65,8 @@ namespace ZeroInstall.Capture
         /// <param name="installationDir">The fully qualified path to the installation directory; leave <see langword="null"/> for auto-detection.</param>
         /// <param name="mainExe">The relative path to the main EXE; leave <see langword="null"/> for auto-detection.</param>
         [NotNull, ItemNotNull]
-        private static IEnumerable<Command> GetCommands([CanBeNull] string installationDir, [CanBeNull] string mainExe)
+        private static IEnumerable<Command> GetCommands([NotNull] string installationDir, [CanBeNull] string mainExe)
         {
-            if (installationDir == null) return Enumerable.Empty<Command>();
             installationDir = Path.GetFullPath(installationDir);
 
             bool isFirstExe = true;
@@ -95,6 +95,7 @@ namespace ZeroInstall.Capture
         /// <param name="typeKey">The registry key containing information about the file type / protocol the verbs belong to.</param>
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <returns>A list of detected <see cref="Verb"/>.</returns>
+        [NotNull, ItemNotNull]
         private static IEnumerable<Verb> GetVerbs([NotNull] RegistryKey typeKey, [NotNull] CommandMapper commandMapper)
         {
             #region Sanity checks
@@ -113,6 +114,7 @@ namespace ZeroInstall.Capture
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="verbName">The internal name of the verb.</param>
         /// <returns>The detected <see cref="Verb"/> or an empty <see cref="Verb"/> if no match was found.</returns>
+        [CanBeNull]
         private static Verb GetVerb([NotNull] RegistryKey typeKey, [NotNull] CommandMapper commandMapper, [NotNull] string verbName)
         {
             #region Sanity checks
