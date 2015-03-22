@@ -78,9 +78,11 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             _archive.Extract = comboBoxExtract.Text ?? "";
             string path = Path.Combine(_feedBuilder.TemporaryDirectory, FileUtils.UnifySlashes(_archive.Extract));
 
+            _feedBuilder.ImplementationDirectory = path;
             try
             {
-                _feedBuilder.SetImplementationDirectory(path, handler);
+                _feedBuilder.DetectCandidates(handler);
+                _feedBuilder.CalculateDigest(handler);
             }
                 #region Error handling
             catch (OperationCanceledException)

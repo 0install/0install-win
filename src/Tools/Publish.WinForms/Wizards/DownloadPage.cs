@@ -126,7 +126,9 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             var handler = new GuiTaskHandler(this);
 
             Retrieve(new SingleFile {Href = textBoxUrl.Uri});
-            _feedBuilder.SetImplementationDirectory(_feedBuilder.TemporaryDirectory, handler);
+            _feedBuilder.ImplementationDirectory = _feedBuilder.TemporaryDirectory;
+            _feedBuilder.DetectCandidates(handler);
+            _feedBuilder.CalculateDigest(handler);
             if (_feedBuilder.MainCandidate == null) Msg.Inform(this, Resources.NoEntryPointsFound, MsgSeverity.Warn);
             else SingleFile();
         }

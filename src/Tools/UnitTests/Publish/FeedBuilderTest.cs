@@ -34,67 +34,99 @@ namespace ZeroInstall.Publish
     [TestFixture]
     public class FeedBuilderTest
     {
+        private FeedBuilder _builder;
+        private TemporaryDirectory _implementationDir;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _builder = new FeedBuilder();
+            _implementationDir = new TemporaryDirectory("0install-unit-tests");
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _builder.Dispose();
+            _implementationDir.Dispose();
+        }
+
+        [Test]
+        public void TestCalculateDigest()
+        {
+            _builder.ImplementationDirectory = _implementationDir;
+            _builder.CalculateDigest(new SilentTaskHandler());
+            Assert.AreEqual(ManifestDigest.Empty, _builder.ManifestDigest);
+        }
+
+        [Test]
+        public void TestDetectCandidates()
+        {
+            _builder.ImplementationDirectory = _implementationDir;
+            _builder.DetectCandidates(new SilentTaskHandler());
+        }
+
+        [Test]
+        public void TestGenerateCommands()
+        {
+            _builder.MainCandidate = new WindowsExe
+            {
+                RelativePath = "test",
+                Name = "TestApp",
+                Summary = "a test app",
+                Version = new ImplementationVersion("1.0"),
+                Architecture = new Architecture(OS.Windows, Cpu.All)
+            };
+            _builder.GenerateCommands();
+        }
+
         [Test]
         public void TestBuild()
         {
-            using (var implementationDir = new TemporaryDirectory("0install-unit-tests"))
-            using (var builder = new FeedBuilder
-            {
-                Uri = new FeedUri("http://0install.de/feeds/test/test1.xml"),
-                Icons =
-                {
-                    new Icon {MimeType = Icon.MimeTypePng, Href = new Uri("http://0install.de/test.png")},
-                    new Icon {MimeType = Icon.MimeTypeIco, Href = new Uri("http://0install.de/test.ico")}
-                },
-                RetrievalMethod = new Archive(),
-                SecretKey = new OpenPgpSecretKey("fingerprint", "key", "user", new DateTime(2000, 1, 1), OpenPgpAlgorithm.Rsa, 1024)
-            })
-            {
-                builder.SetImplementationDirectory(implementationDir, new SilentTaskHandler());
-                builder.MainCandidate = new WindowsExe
-                {
-                    RelativePath = "test",
-                    Name = "TestApp",
-                    Summary = "a test app",
-                    Version = new ImplementationVersion("1.0"),
-                    Architecture = new Architecture(OS.Windows, Cpu.All)
-                };
-                var signedFeed = builder.Build();
+            TestCalculateDigest();
+            TestDetectCandidates();
+            TestGenerateCommands();
 
-                Assert.AreEqual(expected: builder.MainCandidate.Name, actual: signedFeed.Feed.Name);
-                Assert.AreEqual(expected: builder.Uri, actual: signedFeed.Feed.Uri);
-                CollectionAssert.AreEqual(
-                    expected: new LocalizableStringCollection {builder.MainCandidate.Summary},
-                    actual: signedFeed.Feed.Summaries);
-                Assert.AreEqual(expected: builder.MainCandidate.NeedsTerminal, actual: signedFeed.Feed.NeedsTerminal);
-                CollectionAssert.AreEqual(
-                    expected: new[]
+            _builder.RetrievalMethod = new Archive();
+            _builder.Uri = new FeedUri("http://0install.de/feeds/test/test1.xml");
+            _builder.Icons.Add(new Icon {MimeType = Icon.MimeTypePng, Href = new Uri("http://0install.de/test.png")});
+            _builder.Icons.Add(new Icon {MimeType = Icon.MimeTypeIco, Href = new Uri("http://0install.de/test.ico")});
+            _builder.SecretKey = new OpenPgpSecretKey("fingerprint", "key", "user", new DateTime(2000, 1, 1), OpenPgpAlgorithm.Rsa, 1024);
+            var signedFeed = _builder.Build();
+
+            Assert.AreEqual(expected: _builder.MainCandidate.Name, actual: signedFeed.Feed.Name);
+            Assert.AreEqual(expected: _builder.Uri, actual: signedFeed.Feed.Uri);
+            CollectionAssert.AreEqual(
+                expected: new LocalizableStringCollection {_builder.MainCandidate.Summary},
+                actual: signedFeed.Feed.Summaries);
+            Assert.AreEqual(expected: _builder.MainCandidate.NeedsTerminal, actual: signedFeed.Feed.NeedsTerminal);
+            CollectionAssert.AreEqual(
+                expected: new[]
+                {
+                    new Implementation
                     {
-                        new Implementation
-                        {
-                            ID = "sha1new=" + ManifestDigest.Empty.Sha1New,
-                            ManifestDigest = ManifestDigest.Empty,
-                            Version = builder.MainCandidate.Version,
-                            Architecture = builder.MainCandidate.Architecture,
-                            Commands = {new Command {Name = Command.NameRun, Path = "test"}},
-                            RetrievalMethods = {builder.RetrievalMethod}
-                        }
-                    },
-                    actual: signedFeed.Feed.Elements);
-                CollectionAssert.AreEqual(expected: builder.Icons, actual: signedFeed.Feed.Icons);
-                CollectionAssert.AreEqual(
-                    expected: new[]
+                        ID = "sha1new=" + ManifestDigest.Empty.Sha1New,
+                        ManifestDigest = ManifestDigest.Empty,
+                        Version = _builder.MainCandidate.Version,
+                        Architecture = _builder.MainCandidate.Architecture,
+                        Commands = {new Command {Name = Command.NameRun, Path = "test"}},
+                        RetrievalMethods = {_builder.RetrievalMethod}
+                    }
+                },
+                actual: signedFeed.Feed.Elements);
+            CollectionAssert.AreEqual(expected: _builder.Icons, actual: signedFeed.Feed.Icons);
+            CollectionAssert.AreEqual(
+                expected: new[]
+                {
+                    new EntryPoint
                     {
-                        new EntryPoint
-                        {
-                            Command = Command.NameRun,
-                            Names = {builder.MainCandidate.Name},
-                            BinaryName = "test"
-                        }
-                    },
-                    actual: signedFeed.Feed.EntryPoints);
-                Assert.AreEqual(expected: builder.SecretKey, actual: signedFeed.SecretKey);
-            }
+                        Command = Command.NameRun,
+                        Names = {_builder.MainCandidate.Name},
+                        BinaryName = "test"
+                    }
+                },
+                actual: signedFeed.Feed.EntryPoints);
+            Assert.AreEqual(expected: _builder.SecretKey, actual: signedFeed.SecretKey);
         }
 
         [Test]
@@ -102,15 +134,16 @@ namespace ZeroInstall.Publish
         {
             var tempDir1 = new TemporaryDirectory("0install-unit-tests");
             var tempDir2 = new TemporaryDirectory("0install-unit-tests");
-            var builder = new FeedBuilder {TemporaryDirectory = tempDir1};
 
+            _builder.TemporaryDirectory = tempDir1;
             Assert.IsTrue(Directory.Exists(tempDir1), "Directory should exist");
-            builder.TemporaryDirectory = tempDir2;
-            Assert.IsFalse(Directory.Exists(tempDir1), "Directory should be auto-disposed when replaced with a new one");
 
+            _builder.TemporaryDirectory = tempDir2;
+            Assert.IsFalse(Directory.Exists(tempDir1), "Directory should be auto-disposed when replaced with a new one");
             Assert.IsTrue(Directory.Exists(tempDir2), "Directory should exist");
-            builder.Dispose();
-            Assert.IsFalse(Directory.Exists(tempDir2), "Directory should be disposed as a part of builder");
+
+            _builder.Dispose();
+            Assert.IsFalse(Directory.Exists(tempDir2), "Directory should be disposed together with FeedBuilder");
         }
     }
 }

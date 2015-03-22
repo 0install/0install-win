@@ -73,6 +73,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             securityPage.Next += () => PushPage(donePage);
             donePage.Finish += () =>
             {
+                _feedBuilder.GenerateCommands();
                 _signedFeed = _feedBuilder.Build();
                 Close();
             };

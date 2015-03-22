@@ -28,51 +28,21 @@ using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Capabilities;
 using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Publish
 {
     /// <summary>
-    /// Builds basic single-<see cref="Implementation"/> <see cref="Feed"/>s.
+    /// Builds simple <see cref="Feed"/>s containing a single <see cref="Implementation"/>.
     /// </summary>
     public class FeedBuilder : IDisposable
     {
-        #region Properties
-        /// <summary>
-        /// Used for <see cref="Feed.Uri"/>.
-        /// </summary>
-        public FeedUri Uri { get; set; }
-
-        private readonly List<Icon> _icons = new List<Icon>();
-
-        /// <summary>
-        /// Used for <see cref="Feed.Icons"/>.
-        /// </summary>
-        public ICollection<Icon> Icons { get { return _icons; } }
-
-        private readonly List<Candidate> _candidates = new List<Candidate>();
-
-        /// <summary>
-        /// Auto-detected candidates for entry points.
-        /// </summary>
-        public IEnumerable<Candidate> Candidates { get { return _candidates; } }
-
-        /// <summary>
-        /// The main entry point. Provides meta-data and startup instructions for the application.
-        /// Should be one of the auto-detected <see cref="Candidates"/>.
-        /// </summary>
-        public Candidate MainCandidate { get; set; }
-
-        /// <summary>
-        /// A retrieval method for the single <see cref="Implementation"/> in the <see cref="Feed"/>.
-        /// </summary>
-        [CanBeNull]
-        public RetrievalMethod RetrievalMethod { get; set; }
-
+        #region Directories
         private TemporaryDirectory _temporaryDirectory;
 
         /// <summary>
-        /// A temporary directory to prepare files for <see cref="SetImplementationDirectory"/>. Not used by the <see cref="FeedBuilder"/> itself.
+        /// A temporary directory to prepare files for <see cref="ImplementationDirectory"/>. Not used by the <see cref="FeedBuilder"/> itself.
         /// </summary>
         /// <remarks>Setting a new value will automatically <see cref="IDisposable.Dispose"/> the previous one.</remarks>
         public TemporaryDirectory TemporaryDirectory
@@ -84,117 +54,6 @@ namespace ZeroInstall.Publish
                 _temporaryDirectory = value;
             }
         }
-
-        /// <summary>
-        /// Used for <see cref="ImplementationBase.ManifestDigest"/>.
-        /// </summary>
-        public ManifestDigest ManifestDigest { get; private set; }
-
-        /// <summary>
-        /// Used for <see cref="SignedFeed.SecretKey"/>.
-        /// </summary>
-        public OpenPgpSecretKey SecretKey { get; set; }
-        #endregion
-
-        //--------------------//
-
-        #region Implementation directory
-        /// <summary>
-        /// Sets the final implementation directory.
-        /// Auto-detects <see cref="Candidates"/>.
-        /// Calculates the <see cref="ManifestDigest"/> if <seealso cref="RetrievalMethod"/> is set.
-        /// </summary>
-        /// <param name="implementationDirectory">The implementation directory. Should be a subdirectory of <see cref="TemporaryDirectory"/>.</param>
-        /// <param name="handler">A callback object used when the the user needs to be informed about IO tasks.</param>
-        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
-        /// <exception cref="IOException">There was a problem generating the manifest or detectng the executables.</exception>
-        /// <exception cref="UnauthorizedAccessException">Write access to temporary files was not permitted.</exception>
-        public void SetImplementationDirectory([NotNull] string implementationDirectory, [NotNull] ITaskHandler handler)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(implementationDirectory)) throw new ArgumentNullException("implementationDirectory");
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
-            _candidates.Clear();
-            handler.RunTask(new SimpleTask(Resources.DetectingCandidates,
-                () => _candidates.AddRange(Detection.ListCandidates(new DirectoryInfo(implementationDirectory)))));
-            MainCandidate = _candidates.FirstOrDefault();
-
-            if (RetrievalMethod != null)
-            {
-                var newDigest = new ManifestDigest();
-                // Generate manifest for each available format...
-                foreach (var generator in ManifestFormat.Recommended.Select(format => new ManifestGenerator(implementationDirectory, format)))
-                {
-                    // ... and add the resulting digest to the return value
-                    handler.RunTask(generator);
-                    newDigest.ParseID(generator.Result.CalculateDigest());
-                }
-                ManifestDigest = newDigest;
-            }
-        }
-        #endregion
-
-        #region Build
-        /// <summary>
-        /// Generates the feed described by the properties.
-        /// </summary>
-        /// <exception cref="InvalidOperationException"><see cref="MainCandidate"/> is <see langword="null"/>.</exception>
-        public SignedFeed Build()
-        {
-            if (MainCandidate == null) throw new InvalidOperationException("MainCandidate is not set.");
-
-            var implementation =
-                new Implementation
-                {
-                    ID = @"sha1new=" + ManifestDigest.Sha1New,
-                    ManifestDigest = ManifestDigest,
-                    Version = MainCandidate.Version,
-                    Architecture = MainCandidate.Architecture,
-                    Commands = {MainCandidate.CreateCommand()},
-                    RetrievalMethods = {RetrievalMethod}
-                };
-            var feed = new Feed
-            {
-                Name = MainCandidate.Name,
-                Uri = Uri,
-                Summaries = {MainCandidate.Summary},
-                NeedsTerminal = MainCandidate.NeedsTerminal,
-                Elements = {implementation},
-                EntryPoints =
-                {
-                    new EntryPoint
-                    {
-                        Command = Command.NameRun,
-                        Names = {MainCandidate.Name},
-                        BinaryName = Path.GetFileNameWithoutExtension(MainCandidate.RelativePath)
-                    }
-                }
-            };
-            feed.Icons.AddRange(_icons);
-
-            foreach (var candidate in _candidates.Except(MainCandidate)
-                .DistinctBy(x => x.CreateCommand().Name))
-            {
-                var command = candidate.CreateCommand();
-                implementation.Commands.Add(command);
-                feed.EntryPoints.Add(new EntryPoint
-                {
-                    Command = command.Name,
-                    Names = {candidate.Name},
-                    Summaries = {candidate.Summary},
-                    BinaryName = Path.GetFileNameWithoutExtension(candidate.RelativePath),
-                    NeedsTerminal = candidate.NeedsTerminal
-                });
-            }
-            implementation.Commands[0].Name = Command.NameRun;
-
-            return new SignedFeed(feed, SecretKey);
-        }
-        #endregion
-
-        #region Dispose
         /// <summary>
         /// Deletes the <see cref="TemporaryDirectory"/>.
         /// </summary>
@@ -210,6 +69,206 @@ namespace ZeroInstall.Publish
             if (!disposing) return;
 
             if (_temporaryDirectory != null) _temporaryDirectory.Dispose();
+        }
+
+        /// <summary>
+        /// Set the directory to search for <see cref="Candidates"/> and to generate the <see cref="ManifestDigest"/> from.
+        /// Is usually a subdirectory of <see cref="TemporaryDirectory"/>.
+        /// </summary>
+        public string ImplementationDirectory { get; set; }
+        #endregion
+
+        #region Candidates
+        private readonly List<Candidate> _candidates = new List<Candidate>();
+
+        /// <summary>
+        /// Lists auto-detected candidates for <see cref="EntryPoint"/>s.
+        /// </summary>
+        public IEnumerable<Candidate> Candidates { get { return _candidates; } }
+
+        /// <summary>
+        /// Set the main entry point. Provides meta-data and startup instructions for the application.
+        /// Should be one of the auto-detected <see cref="Candidates"/>.
+        /// </summary>
+        public Candidate MainCandidate { get; set; }
+
+        /// <summary>
+        /// Detects <see cref="Candidates"/> in the <see cref="ImplementationDirectory"/>.
+        /// </summary>
+        /// <param name="handler">A callback object used when the the user needs to be informed about IO tasks.</param>
+        /// <exception cref="InvalidOperationException"><see cref="ImplementationDirectory"/> is <see langword="null"/> or empty.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="IOException">There was a problem generating the manifest or detectng the executables.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to temporary files was not permitted.</exception>
+        public void DetectCandidates(ITaskHandler handler)
+        {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            if (string.IsNullOrEmpty(ImplementationDirectory)) throw new InvalidOperationException("ImplementationDirectory is not set.");
+            #endregion
+
+            _candidates.Clear();
+
+            handler.RunTask(new SimpleTask(Resources.DetectingCandidates,
+                () => _candidates.AddRange(Detection.ListCandidates(new DirectoryInfo(ImplementationDirectory)))));
+
+            MainCandidate = _candidates.FirstOrDefault();
+        }
+        #endregion
+
+        #region Commands
+        private readonly List<Command> _commands = new List<Command>();
+
+        /// <summary>
+        /// Lists the <see cref="Command"/> derived from <see cref="Candidates"/> and <see cref="MainCandidate"/>.
+        /// </summary>
+        public List<Command> Commands { get { return _commands; } }
+
+        private readonly List<EntryPoint> _entryPoints = new List<EntryPoint>();
+
+        /// <summary>
+        /// Lists the <see cref="EntryPoint"/>s accompanying <see cref="Commands"/>.
+        /// </summary>
+        public List<EntryPoint> EntryPoints { get { return _entryPoints; } }
+
+        /// <summary>
+        /// Generates <see cref="Commands"/> and <see cref="EntryPoints"/> bases on <see cref="Candidates"/> and <see cref="MainCandidate"/>.
+        /// </summary>
+        /// <exception cref="InvalidOperationException"><see cref="MainCandidate"/> is <see langword="null"/>.</exception>
+        public void GenerateCommands()
+        {
+            #region Sanity checks
+            if (MainCandidate == null) throw new InvalidOperationException("MainCandidate is not set.");
+            #endregion
+
+            _commands.Clear();
+            _entryPoints.Clear();
+
+            var mainCommand = MainCandidate.CreateCommand();
+            mainCommand.Name = Command.NameRun;
+            _commands.Add(mainCommand);
+
+            _entryPoints.Add(new EntryPoint
+            {
+                Command = Command.NameRun,
+                Names = { MainCandidate.Name },
+                BinaryName = Path.GetFileNameWithoutExtension(MainCandidate.RelativePath)
+            });
+
+            foreach (var candidate in _candidates.Except(MainCandidate))
+            {
+                var command = candidate.CreateCommand();
+                _commands.Add(command);
+
+                _entryPoints.Add(new EntryPoint
+                {
+                    Command = command.Name,
+                    Names = { candidate.Name },
+                    Summaries = { candidate.Summary },
+                    BinaryName = Path.GetFileNameWithoutExtension(candidate.RelativePath),
+                    NeedsTerminal = candidate.NeedsTerminal
+                });
+            }
+        }
+        #endregion
+
+        #region Manifest digest
+        /// <summary>
+        /// The value used for <see cref="ImplementationBase.ManifestDigest"/>.
+        /// </summary>
+        public ManifestDigest ManifestDigest { get; private set; }
+
+        /// <summary>
+        /// Calculates the <see cref="ManifestDigest"/>.
+        /// </summary>
+        /// <param name="handler">A callback object used when the the user needs to be informed about IO tasks.</param>
+        /// <exception cref="InvalidOperationException"><see cref="ImplementationDirectory"/> is <see langword="null"/> or empty.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
+        /// <exception cref="IOException">There was a problem generating the manifest or detectng the executables.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to temporary files was not permitted.</exception>
+        public void CalculateDigest(ITaskHandler handler)
+        {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            if (string.IsNullOrEmpty(ImplementationDirectory)) throw new InvalidOperationException("ImplementationDirectory is not set.");
+            #endregion
+
+            var newDigest = new ManifestDigest();
+
+            // Generate manifest for each available format...
+            foreach (var generator in ManifestFormat.Recommended.Select(format => new ManifestGenerator(ImplementationDirectory, format)))
+            {
+                // ... and add the resulting digest to the return value
+                handler.RunTask(generator);
+                newDigest.ParseID(generator.Result.CalculateDigest());
+            }
+
+            ManifestDigest = newDigest;
+        }
+        #endregion
+
+        #region Feed
+        /// <summary>
+        /// Set to configure <see cref="Feed.Uri"/>.
+        /// </summary>
+        public FeedUri Uri { get; set; }
+
+        private readonly List<Icon> _icons = new List<Icon>();
+
+        /// <summary>
+        /// Set to configure <see cref="Feed.Icons"/>.
+        /// </summary>
+        public ICollection<Icon> Icons { get { return _icons; } }
+
+        /// <summary>
+        /// Set to configure <see cref="Implementation.RetrievalMethods"/>.
+        /// </summary>
+        [CanBeNull]
+        public RetrievalMethod RetrievalMethod { get; set; }
+
+        /// <summary>
+        /// Set to configure <see cref="Feed.CapabilityLists"/>.
+        /// </summary>
+        public CapabilityList CapabilityList { get; set; }
+
+        /// <summary>
+        /// Set to configure <see cref="SignedFeed.SecretKey"/>.
+        /// </summary>
+        public OpenPgpSecretKey SecretKey { get; set; }
+
+        /// <summary>
+        /// Generates a feed as described by the properties.
+        /// </summary>
+        /// <exception cref="InvalidOperationException"><see cref="MainCandidate"/> is <see langword="null"/>.</exception>
+        public SignedFeed Build()
+        {
+            #region Sanity checks
+            if (MainCandidate == null) throw new InvalidOperationException("MainCandidate is not set.");
+            #endregion
+
+            var implementation = new Implementation
+            {
+                ID = @"sha1new=" + ManifestDigest.Sha1New,
+                ManifestDigest = ManifestDigest,
+                Version = MainCandidate.Version,
+                Architecture = MainCandidate.Architecture
+            };
+            implementation.Commands.AddRange(_commands);
+            if (RetrievalMethod != null) implementation.RetrievalMethods.Add(RetrievalMethod);
+
+            var feed = new Feed
+            {
+                Name = MainCandidate.Name,
+                Uri = Uri,
+                Summaries = {MainCandidate.Summary},
+                NeedsTerminal = MainCandidate.NeedsTerminal,
+                Elements = {implementation}
+            };
+            feed.Icons.AddRange(_icons);
+            feed.EntryPoints.AddRange(_entryPoints);
+            if (CapabilityList != null) feed.CapabilityLists.Add(CapabilityList);
+
+            return new SignedFeed(feed, SecretKey);
         }
         #endregion
     }
