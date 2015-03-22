@@ -1,8 +1,8 @@
 ﻿/*
- * Copyright 2011 Bastian Eicher
+ * Copyright 2010-2015 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser Public License as Captureed by
+ * it under the terms of the GNU Lesser Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.Win32;
@@ -29,64 +28,59 @@ using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.Publish.Capture
 {
-    public partial class CaptureDir
+    /// <summary>
+    /// Represents the differences between two <see cref="Snapshot"/>s. Extracts information about applications installed.
+    /// </summary>
+    internal partial class SnapshotDiff : Snapshot
     {
         /// <summary>
-        /// Locates the directory into which the new application was installed.
+        /// Determines which elements have been added to the system between two snapshots.
         /// </summary>
-        /// <param name="snapshotDiff">The elements added between two snapshots.</param>
-        [CanBeNull]
-        private static string GetInstallationDir([NotNull] Snapshot snapshotDiff)
+        /// <param name="before">The first snapshot taken.</param>
+        /// <param name="after">The second snapshot taken.</param>
+        /// <remarks>Assumes that all internal arrays are sorted alphabetically.</remarks>
+        public SnapshotDiff([NotNull] Snapshot before, [NotNull] Snapshot after)
         {
             #region Sanity checks
-            if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
+            if (before == null) throw new ArgumentNullException("before");
+            if (after == null) throw new ArgumentNullException("after");
             #endregion
 
-            string installationDir;
-            if (snapshotDiff.ProgramsDirs.Length == 0)
-            {
-                Log.Warn(Resources.NoInstallationDirDetected);
-                installationDir = null;
-            }
-            else
-            {
-                if (snapshotDiff.ProgramsDirs.Length > 1)
-                    Log.Warn(Resources.MultipleInstallationDirsDetected);
-
-                installationDir = snapshotDiff.ProgramsDirs[0];
-                Log.Info(string.Format(Resources.InstallationDirDetected, installationDir));
-            }
-            return installationDir;
+            ServiceAssocs = after.ServiceAssocs.GetAddedElements(before.ServiceAssocs);
+            AutoPlayHandlersUser = after.AutoPlayHandlersUser.GetAddedElements(before.AutoPlayHandlersUser);
+            AutoPlayHandlersMachine = after.AutoPlayHandlersMachine.GetAddedElements(before.AutoPlayHandlersMachine);
+            AutoPlayAssocsUser = after.AutoPlayAssocsUser.GetAddedElements(before.AutoPlayAssocsUser);
+            AutoPlayAssocsMachine = after.AutoPlayAssocsMachine.GetAddedElements(before.AutoPlayAssocsMachine);
+            FileAssocs = after.FileAssocs.GetAddedElements(before.FileAssocs);
+            ProtocolAssocs = after.ProtocolAssocs.GetAddedElements(before.ProtocolAssocs);
+            ProgIDs = after.ProgIDs.GetAddedElements(before.ProgIDs, StringComparer.OrdinalIgnoreCase);
+            ClassIDs = after.ClassIDs.GetAddedElements(before.ClassIDs, StringComparer.OrdinalIgnoreCase);
+            RegisteredApplications = after.RegisteredApplications.GetAddedElements(before.RegisteredApplications);
+            ContextMenuFiles = after.ContextMenuFiles.GetAddedElements(before.ContextMenuFiles);
+            ContextMenuExecutableFiles = after.ContextMenuExecutableFiles.GetAddedElements(before.ContextMenuExecutableFiles);
+            ContextMenuDirectories = after.ContextMenuDirectories.GetAddedElements(before.ContextMenuDirectories);
+            ContextMenuAll = after.ContextMenuAll.GetAddedElements(before.ContextMenuAll);
+            ProgramsDirs = after.ProgramsDirs.GetAddedElements(before.ProgramsDirs, StringComparer.OrdinalIgnoreCase);
         }
 
         /// <summary>
-        /// Detects all EXE files within the installation directory and returns them as <see cref="Command"/>s.
+        /// Locates the directory into which the new application was installed.
         /// </summary>
-        /// <param name="installationDir">The fully qualified path to the installation directory; leave <see langword="null"/> for auto-detection.</param>
-        /// <param name="mainExe">The relative path to the main EXE; leave <see langword="null"/> for auto-detection.</param>
-        [NotNull, ItemNotNull]
-        private static IEnumerable<Command> GetCommands([NotNull] string installationDir, [CanBeNull] string mainExe)
+        [NotNull]
+        public string GetInstallationDir()
         {
-            installationDir = Path.GetFullPath(installationDir);
-
-            bool isFirstExe = true;
-            var commands = new List<Command>();
-            foreach (string absolutePath in Directory.GetFiles(installationDir, "*.exe", SearchOption.AllDirectories))
+            string installationDir;
+            if (ProgramsDirs.Length == 0)
+                throw new InvalidOperationException(Resources.NoInstallationDirDetected);
+            else
             {
-                // Ignore uninstallers
-                if (absolutePath.ContainsIgnoreCase("uninstall") || absolutePath.ContainsIgnoreCase("unins0")) continue;
+                if (ProgramsDirs.Length > 1)
+                    Log.Warn(Resources.MultipleInstallationDirsDetected);
 
-                // Cut away installation directory plus trailing slash
-                string relativePath = absolutePath.Substring(installationDir.Length + 1);
-
-                // Assume first detected EXE is the main entry point if not specified explicitly
-                string name = (isFirstExe && (mainExe == null)) || StringUtils.EqualsIgnoreCase(relativePath, mainExe)
-                    ? Command.NameRun
-                    : relativePath.Replace(".exe", "").Replace(Path.DirectorySeparatorChar, '.');
-                commands.Add(new Command {Name = name, Path = relativePath.Replace(Path.DirectorySeparatorChar, '/')});
-                isFirstExe = false;
+                installationDir = ProgramsDirs[0];
+                Log.Info(string.Format(Resources.InstallationDirDetected, installationDir));
             }
-            return commands;
+            return installationDir;
         }
 
         /// <summary>

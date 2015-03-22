@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
@@ -220,43 +219,6 @@ namespace ZeroInstall.Publish.Capture
             if (!string.IsNullOrEmpty(programFiles64Bit))
                 programDirs.AddRange(Directory.GetDirectories(programFiles64Bit));
             ProgramsDirs = programDirs.ToArray();
-        }
-        #endregion
-
-        #region Diff
-        /// <summary>
-        /// Determines which elements have been added to the system between two snapshots.
-        /// </summary>
-        /// <param name="oldSnapshot">The first snapshot taken.</param>
-        /// <param name="newSnapshot">The second snapshot taken.</param>
-        /// <returns>A snapshot containing all elements that are present in <paramref name="newSnapshot"/> but not in <paramref name="oldSnapshot"/>.</returns>
-        /// <remarks>Assumes that all internal arrays are sorted alphabetically.</remarks>
-        [NotNull]
-        public static Snapshot Diff([NotNull] Snapshot oldSnapshot, [NotNull] Snapshot newSnapshot)
-        {
-            #region Sanity checks
-            if (oldSnapshot == null) throw new ArgumentNullException("oldSnapshot");
-            if (newSnapshot == null) throw new ArgumentNullException("newSnapshot");
-            #endregion
-
-            return new Snapshot
-            {
-                ServiceAssocs = newSnapshot.ServiceAssocs.GetAddedElements(oldSnapshot.ServiceAssocs),
-                AutoPlayHandlersUser = newSnapshot.AutoPlayHandlersUser.GetAddedElements(oldSnapshot.AutoPlayHandlersUser),
-                AutoPlayHandlersMachine = newSnapshot.AutoPlayHandlersMachine.GetAddedElements(oldSnapshot.AutoPlayHandlersMachine),
-                AutoPlayAssocsUser = newSnapshot.AutoPlayAssocsUser.GetAddedElements(oldSnapshot.AutoPlayAssocsUser),
-                AutoPlayAssocsMachine = newSnapshot.AutoPlayAssocsMachine.GetAddedElements(oldSnapshot.AutoPlayAssocsMachine),
-                FileAssocs = newSnapshot.FileAssocs.GetAddedElements(oldSnapshot.FileAssocs),
-                ProtocolAssocs = newSnapshot.ProtocolAssocs.GetAddedElements(oldSnapshot.ProtocolAssocs),
-                ProgIDs = newSnapshot.ProgIDs.GetAddedElements(oldSnapshot.ProgIDs, StringComparer.OrdinalIgnoreCase),
-                ClassIDs = newSnapshot.ClassIDs.GetAddedElements(oldSnapshot.ClassIDs, StringComparer.OrdinalIgnoreCase),
-                RegisteredApplications = newSnapshot.RegisteredApplications.GetAddedElements(oldSnapshot.RegisteredApplications),
-                ContextMenuFiles = newSnapshot.ContextMenuFiles.GetAddedElements(oldSnapshot.ContextMenuFiles),
-                ContextMenuExecutableFiles = newSnapshot.ContextMenuExecutableFiles.GetAddedElements(oldSnapshot.ContextMenuExecutableFiles),
-                ContextMenuDirectories = newSnapshot.ContextMenuDirectories.GetAddedElements(oldSnapshot.ContextMenuDirectories),
-                ContextMenuAll = newSnapshot.ContextMenuAll.GetAddedElements(oldSnapshot.ContextMenuAll),
-                ProgramsDirs = newSnapshot.ProgramsDirs.GetAddedElements(oldSnapshot.ProgramsDirs, StringComparer.OrdinalIgnoreCase)
-            };
         }
         #endregion
     }

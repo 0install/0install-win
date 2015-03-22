@@ -135,9 +135,6 @@
   <data name="AskSkipSecurity" xml:space="preserve">
     <value>Without completing these settings your feed will only work locally and not online. Are you sure you want to continue?</value>
   </data>
-  <data name="CaptureDirInitialized" xml:space="preserve">
-    <value>Capture directory initialized.</value>
-  </data>
   <data name="DetectingCandidates" xml:space="preserve">
     <value>Searching for executable files</value>
   </data>
@@ -155,9 +152,6 @@ The implementation was supposed to stay the same</value>
     <value>Replace
 I changed the implementation on purpose</value>
   </data>
-  <data name="DirectoryNotEmpty" xml:space="preserve">
-    <value>The directory '{0}' is not empty.</value>
-  </data>
   <data name="DiscardChanges" xml:space="preserve">
     <value>Discard
 Discard unsaved changes</value>
@@ -167,6 +161,10 @@ Discard unsaved changes</value>
   </data>
   <data name="EmptyImplementation" xml:space="preserve">
     <value>A manifest digest was calculated for an empty directory. Check that you have set the correct "extract" value for the archive.</value>
+  </data>
+  <data name="EntryPointNotFound" xml:space="preserve">
+    <value>The application's entry point was not found.
+Try specifying it manually.</value>
   </data>
   <data name="FeedNotValid" xml:space="preserve">
     <value>The feed does not have the correct format.</value>
@@ -188,10 +186,6 @@ Discard unsaved changes</value>
   </data>
   <data name="InstallationDirDetected" xml:space="preserve">
     <value>Detected '{0}' as installation directory.</value>
-  </data>
-  <data name="InstallDataCollected" xml:space="preserve">
-    <value>Installation data collected.
-Please edit the newly created 'feed.xml' to fit your needs.</value>
   </data>
   <data name="InvalidCapabilitiesRegistryPath" xml:space="preserve">
     <value>Invalid capabilities registry path: {0}</value>
@@ -225,26 +219,18 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
     <value>No entry points (EXEs, JARs, Python scripts, etc.) were found. Please make sure you selected the correct archive and extract directory.</value>
   </data>
   <data name="NoInstallationDirDetected" xml:space="preserve">
-    <value>No installation directory was detected.</value>
+    <value>No installation directory was detected.
+Try specifying it manually.</value>
   </data>
   <data name="NoSingleExecutable" xml:space="preserve">
     <value>No, the application itself
 consists only of one EXE</value>
-  </data>
-  <data name="NotCaptureDirectory" xml:space="preserve">
-    <value>The directory '{0}' is not a capture directory.</value>
   </data>
   <data name="OnlyAvailableOnWindows" xml:space="preserve">
     <value>This method is currently only available on Windows.</value>
   </data>
   <data name="PleaseClick" xml:space="preserve">
     <value>Please click:</value>
-  </data>
-  <data name="PostInstallSnapshotCreated" xml:space="preserve">
-    <value>Post-installation snapshot created.</value>
-  </data>
-  <data name="PreInstallSnapshotCreated" xml:space="preserve">
-    <value>Pre-installation snapshot created.</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Save

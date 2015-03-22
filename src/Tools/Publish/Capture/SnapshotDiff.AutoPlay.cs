@@ -28,31 +28,28 @@ using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.Publish.Capture
 {
-    public partial class CaptureDir
+    partial class SnapshotDiff
     {
         /// <summary>
-        /// Collects data about AutoPlay handlers indicated by a snapshot diff.
+        /// Collects data about AutoPlay handlers.
         /// </summary>
-        /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
-        private static void CollectAutoPlays([NotNull] Snapshot snapshotDiff, [NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities)
+        public void CollectAutoPlays([NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
-            if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
             if (capabilities == null) throw new ArgumentNullException("capabilities");
             if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
-            capabilities.Entries.AddRange(snapshotDiff.AutoPlayHandlersUser
-                .Select(handler => GetAutoPlay(handler, Registry.CurrentUser, snapshotDiff.AutoPlayAssocsUser, commandMapper))
+            capabilities.Entries.AddRange(AutoPlayHandlersUser
+                .Select(handler => GetAutoPlay(handler, Registry.CurrentUser, AutoPlayAssocsUser, commandMapper))
                 .WhereNotNull());
 
-            capabilities.Entries.AddRange(snapshotDiff.AutoPlayHandlersMachine
-                .Select(handler => GetAutoPlay(handler, Registry.LocalMachine, snapshotDiff.AutoPlayAssocsMachine, commandMapper))
+            capabilities.Entries.AddRange(AutoPlayHandlersMachine
+                .Select(handler => GetAutoPlay(handler, Registry.LocalMachine, AutoPlayAssocsMachine, commandMapper))
                 .WhereNotNull());
         }
 
@@ -65,7 +62,7 @@ namespace ZeroInstall.Publish.Capture
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
+        [CanBeNull]
         private static Capability GetAutoPlay([NotNull] string handler, [NotNull] RegistryKey hive, [NotNull, ItemNotNull] IEnumerable<ComparableTuple<string>> autoPlayAssocs, [NotNull] CommandMapper commandMapper)
         {
             #region Sanity checks

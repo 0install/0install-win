@@ -135,9 +135,6 @@
   <data name="AskSkipSecurity" xml:space="preserve">
     <value>Ohne diese Einstellung zu vervollständigen wird Ihr Feed nur lokal und nicht online funktionieren. Sind Sie sicher, dass Sie fortfahren möchten?</value>
   </data>
-  <data name="CaptureDirInitialized" xml:space="preserve">
-    <value>Capture Verzeichnis initialisiert.</value>
-  </data>
   <data name="DetectingCandidates" xml:space="preserve">
     <value>Suche nach ausführbaren Dateien</value>
   </data>
@@ -155,9 +152,6 @@ Die Implementierung sollte gleich bleiben</value>
     <value>Ersetzen
 Ich habe die Implementierung absichtlich verändert</value>
   </data>
-  <data name="DirectoryNotEmpty" xml:space="preserve">
-    <value>Das Verzeichnis '{0}' ist nicht leer.</value>
-  </data>
   <data name="DiscardChanges" xml:space="preserve">
     <value>Verwerfen
 Ungespeicherte Änderungen verwerfen</value>
@@ -167,6 +161,10 @@ Ungespeicherte Änderungen verwerfen</value>
   </data>
   <data name="EmptyImplementation" xml:space="preserve">
     <value>Ein Manifest Digest wurde für ein leeres Verzeichnis berechnet. Überprüfen Sie, ob Sie den korrekten "extract" Wert für das Archiv angegeben haben.</value>
+  </data>
+  <data name="EntryPointNotFound" xml:space="preserve">
+    <value>Der Einstiegspunkt der Anwendungen wurde nicht gefunden.
+Versuchen Sie ihn manuell anzugeben.</value>
   </data>
   <data name="FeedNotValid" xml:space="preserve">
     <value>Der Feed hat nicht das richtige Format</value>
@@ -188,10 +186,6 @@ Ungespeicherte Änderungen verwerfen</value>
   </data>
   <data name="InstallationDirDetected" xml:space="preserve">
     <value>'{0}' als Installationsverzeichnis erkannt.</value>
-  </data>
-  <data name="InstallDataCollected" xml:space="preserve">
-    <value>Installationsdaten erfasst.
-Bitte bearbeiten Sie die neu angelegte 'feed.xml' Ihren Anforderungen entsprechend.</value>
   </data>
   <data name="InvalidCapabilitiesRegistryPath" xml:space="preserve">
     <value>Ungültiger Capabilities Registrierungspfad: {0}</value>
@@ -225,26 +219,18 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
     <value>Es wurden keine Einstiegspunkte (EXEs, JARs, Python Skripts, etc.) gefunden. Bitte überprüfen Sie, ob Sie das korrekte Archiv und das korrekte Unterverzeichnis ausgewählt haben.</value>
   </data>
   <data name="NoInstallationDirDetected" xml:space="preserve">
-    <value>Es wurde kein Installationsverzeichnis erkannt.</value>
+    <value>Es wurde kein Installationsverzeichnis erkannt.
+Versuchen Sie es manuell anzugeben.</value>
   </data>
   <data name="NoSingleExecutable" xml:space="preserve">
     <value>Nein, die Anwendung selbst
 besteht aus nur einer EXE</value>
-  </data>
-  <data name="NotCaptureDirectory" xml:space="preserve">
-    <value>Das Verzeichnis '{0}' ist kein Capture-Verzeichnis.</value>
   </data>
   <data name="OnlyAvailableOnWindows" xml:space="preserve">
     <value>Diese Methode steht derzeit nur unter Windows zur Verfügung.</value>
   </data>
   <data name="PleaseClick" xml:space="preserve">
     <value>Bitte klicken Sie:</value>
-  </data>
-  <data name="PostInstallSnapshotCreated" xml:space="preserve">
-    <value>Post-Installation Schnappschuss erstellt.</value>
-  </data>
-  <data name="PreInstallSnapshotCreated" xml:space="preserve">
-    <value>Prä-Installation Schnappschuss erstellt.</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Speichern

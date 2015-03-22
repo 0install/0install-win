@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using NanoByte.Common;
 using NanoByte.Common.Storage;
 
 namespace ZeroInstall.Publish.EntryPoints
@@ -49,11 +50,14 @@ namespace ZeroInstall.Publish.EntryPoints
         /// Returns a list of entry point <see cref="Candidate"/>s in a directory.
         /// </summary>
         /// <param name="baseDirectory">The base directory to scan for entry points.</param>
-        public static IEnumerable<Candidate> ListCandidates(DirectoryInfo baseDirectory)
+        public static List<Candidate> ListCandidates(DirectoryInfo baseDirectory)
         {
             var candidates = new List<Candidate>();
             baseDirectory.Walk(fileAction: file =>
             {
+                // Ignore uninstallers
+                if (file.Name.ContainsIgnoreCase("uninstall") || file.Name.ContainsIgnoreCase("unins0")) return;
+
                 var candidate = _candidateCreators.Select(x => x()).FirstOrDefault(x => x.Analyze(baseDirectory, file));
                 if (candidate != null) candidates.Add(candidate);
             });

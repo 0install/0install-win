@@ -28,7 +28,7 @@ namespace ZeroInstall.Publish.Capture
     /// <summary>
     /// Maps command-lines to the best matching <see cref="Command"/>.
     /// </summary>
-    public class CommandMapper
+    internal class CommandMapper
     {
         /// <summary>
         /// An association of a command-line with a <see cref="Store.Model.Command"/>.

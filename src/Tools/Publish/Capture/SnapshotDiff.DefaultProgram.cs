@@ -17,7 +17,6 @@
 
 using System;
 using System.IO;
-using System.Security;
 using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common;
@@ -27,31 +26,28 @@ using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.Publish.Capture
 {
-    public partial class CaptureDir
+    partial class SnapshotDiff
     {
         /// <summary>
-        /// Collects data about default programs indicated by a snapshot diff.
+        /// Collects data about default programs.
         /// </summary>
-        /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <param name="appName">Is set to the name of the application as displayed to the user; unchanged if the name was not found.</param>
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
-        private static void CollectDefaultPrograms([NotNull] Snapshot snapshotDiff, [NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities, ref string appName)
+        public void CollectDefaultPrograms([NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities, ref string appName)
         {
             #region Sanity checks
-            if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
             if (capabilities == null) throw new ArgumentNullException("capabilities");
             if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
             // Ambiguity warnings
-            if (snapshotDiff.ServiceAssocs.Length > 1)
+            if (ServiceAssocs.Length > 1)
                 Log.Warn(Resources.MultipleDefaultProgramsDetected);
 
-            foreach (var serviceAssoc in snapshotDiff.ServiceAssocs)
+            foreach (var serviceAssoc in ServiceAssocs)
             {
                 string service = serviceAssoc.Key;
                 string client = serviceAssoc.Value;
@@ -83,7 +79,6 @@ namespace ZeroInstall.Publish.Capture
         /// <param name="installationDir">The fully qualified path to the installation directory.</param>
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
         private static InstallCommands GetInstallCommands([NotNull] RegistryKey clientKey, [NotNull] string installationDir)
         {
             #region Sanity checks

@@ -27,47 +27,41 @@ using ZeroInstall.Store.Model.Capabilities;
 
 namespace ZeroInstall.Publish.Capture
 {
-    public partial class CaptureDir
+    partial class SnapshotDiff
     {
         /// <summary>
-        /// Collects data about file types and also URL protocol handlers indicated by a snapshot diff.
+        /// Collects data about file types and also URL protocol handlers.
         /// </summary>
-        /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <param name="capabilities">The capability list to add the collected data to.</param>
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
-        private static void CollectFileTypes([NotNull] Snapshot snapshotDiff, [NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities)
+        public void CollectFileTypes([NotNull] CommandMapper commandMapper, [NotNull] CapabilityList capabilities)
         {
             #region Sanity checks
-            if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
             if (capabilities == null) throw new ArgumentNullException("capabilities");
             if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
             capabilities.Entries.AddRange((
-                from progID in snapshotDiff.ProgIDs
+                from progID in ProgIDs
                 where !string.IsNullOrEmpty(progID)
-                select GetFileType(progID, snapshotDiff, commandMapper)).WhereNotNull());
+                select GetFileType(progID, commandMapper)).WhereNotNull());
         }
 
         /// <summary>
         /// Retrieves data about a specific file type or URL protocol from a snapshot diff.
         /// </summary>
         /// <param name="progID">The programatic identifier of the file type.</param>
-        /// <param name="snapshotDiff">The elements added between two snapshots.</param>
         /// <param name="commandMapper">Provides best-match command-line to <see cref="Command"/> mapping.</param>
         /// <returns>Data about the file type or <see paramref="null"/> if no file type for this <paramref name="progID"/> was detected.</returns>
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
         [CanBeNull]
-        private static VerbCapability GetFileType([NotNull] string progID, [NotNull] Snapshot snapshotDiff, [NotNull] CommandMapper commandMapper)
+        private VerbCapability GetFileType([NotNull] string progID, [NotNull] CommandMapper commandMapper)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(progID)) throw new ArgumentNullException("progID");
-            if (snapshotDiff == null) throw new ArgumentNullException("snapshotDiff");
             if (commandMapper == null) throw new ArgumentNullException("commandMapper");
             #endregion
 
@@ -80,7 +74,7 @@ namespace ZeroInstall.Publish.Capture
                 { // Normal file type
                     var fileType = new FileType {ID = progID};
 
-                    foreach (var fileAssoc in snapshotDiff.FileAssocs.Where(fileAssoc => fileAssoc.Value == progID && !string.IsNullOrEmpty(fileAssoc.Key)))
+                    foreach (var fileAssoc in FileAssocs.Where(fileAssoc => fileAssoc.Value == progID && !string.IsNullOrEmpty(fileAssoc.Key)))
                     {
                         using (var assocKey = Registry.ClassesRoot.OpenSubKey(fileAssoc.Key))
                         {
