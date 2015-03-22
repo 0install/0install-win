@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security;
 using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common;
@@ -36,7 +35,6 @@ namespace ZeroInstall.Capture
     [Serializable]
     public class Snapshot
     {
-        #region Variables
         /// <summary>A list of associations of services with clients (e.g. web browsers, mail readers, ...).</summary>
         public ComparableTuple<string>[] ServiceAssocs;
 
@@ -75,11 +73,7 @@ namespace ZeroInstall.Capture
 
         /// <summary>A list of program installation directories.</summary>
         public string[] ProgramsDirs;
-        #endregion
 
-        //--------------------//
-
-        #region Take snapshot
         /// <summary>
         /// Takes a snapshot of the current system state.
         /// </summary>
@@ -92,49 +86,33 @@ namespace ZeroInstall.Capture
             if (!WindowsUtils.IsWindows) throw new PlatformNotSupportedException(Resources.OnlyAvailableOnWindows);
 
             var snapshot = new Snapshot();
-
-            try
-            {
-                TakeRegistry(snapshot);
-            }
-                #region Error handling
-            catch (SecurityException ex)
-            {
-                // Wrap exception since only certain exception types are allowed in tasks
-                throw new UnauthorizedAccessException(ex.Message, ex);
-            }
-            #endregion
-
-            TakeFileSystem(snapshot);
-
+            snapshot.TakeRegistry();
+            snapshot.TakeFileSystem();
             return snapshot;
         }
-        #endregion
 
         #region Registry
         /// <summary>
         /// Stores information about the current state of the registry in a snapshot.
         /// </summary>
-        /// <param name="snapshot">The snapshot to store the data in.</param>
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
-        private static void TakeRegistry(Snapshot snapshot)
+        private void TakeRegistry()
         {
-            snapshot.ServiceAssocs = GetServiceAssocs();
-            snapshot.AutoPlayHandlersUser = RegUtils.GetSubKeyNames(Registry.CurrentUser, AutoPlay.RegKeyHandlers);
-            snapshot.AutoPlayHandlersMachine = RegUtils.GetSubKeyNames(Registry.LocalMachine, AutoPlay.RegKeyHandlers);
-            snapshot.AutoPlayAssocsUser = GetAutoPlayAssocs(Registry.CurrentUser);
-            snapshot.AutoPlayAssocsMachine = GetAutoPlayAssocs(Registry.LocalMachine);
-            GetFileAssocData(out snapshot.FileAssocs, out snapshot.ProgIDs);
-            snapshot.ProtocolAssocs = GetProtocolAssoc();
-            snapshot.ClassIDs = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ComServer.RegKeyClassesIDs);
-            snapshot.RegisteredApplications = RegUtils.GetValueNames(Registry.LocalMachine, AppRegistration.RegKeyMachineRegisteredApplications);
+            ServiceAssocs = GetServiceAssocs();
+            AutoPlayHandlersUser = RegUtils.GetSubKeyNames(Registry.CurrentUser, AutoPlay.RegKeyHandlers);
+            AutoPlayHandlersMachine = RegUtils.GetSubKeyNames(Registry.LocalMachine, AutoPlay.RegKeyHandlers);
+            AutoPlayAssocsUser = GetAutoPlayAssocs(Registry.CurrentUser);
+            AutoPlayAssocsMachine = GetAutoPlayAssocs(Registry.LocalMachine);
+            GetFileAssocData(out FileAssocs, out ProgIDs);
+            ProtocolAssocs = GetProtocolAssoc();
+            ClassIDs = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ComServer.RegKeyClassesIDs);
+            RegisteredApplications = RegUtils.GetValueNames(Registry.LocalMachine, AppRegistration.RegKeyMachineRegisteredApplications);
 
-            snapshot.ContextMenuFiles = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFiles + "\\" + ContextMenu.RegKeyPostfix);
-            snapshot.ContextMenuExecutableFiles = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesExecutableFiles + "\\" + ContextMenu.RegKeyPostfix);
-            snapshot.ContextMenuDirectories = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesDirectories + "\\" + ContextMenu.RegKeyPostfix);
-            snapshot.ContextMenuAll = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAll + "\\" + ContextMenu.RegKeyPostfix);
+            ContextMenuFiles = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesFiles + "\\" + ContextMenu.RegKeyPostfix);
+            ContextMenuExecutableFiles = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesExecutableFiles + "\\" + ContextMenu.RegKeyPostfix);
+            ContextMenuDirectories = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesDirectories + "\\" + ContextMenu.RegKeyPostfix);
+            ContextMenuAll = RegUtils.GetSubKeyNames(Registry.ClassesRoot, ContextMenu.RegKeyClassesAll + "\\" + ContextMenu.RegKeyPostfix);
         }
 
         /// <summary>
@@ -142,7 +120,6 @@ namespace ZeroInstall.Capture
         /// </summary>
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
         private static ComparableTuple<string>[] GetServiceAssocs()
         {
             using (var clientsKey = Registry.LocalMachine.OpenSubKey(DefaultProgram.RegKeyMachineClients))
@@ -206,7 +183,6 @@ namespace ZeroInstall.Capture
         /// <param name="hive">The registry hive to search in (usually HKCU or HKLM).</param>
         /// <exception cref="IOException">There was an error accessing the registry.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the registry was not permitted.</exception>
-        /// <exception cref="SecurityException">Read access to the registry was not permitted.</exception>
         private static ComparableTuple<string>[] GetAutoPlayAssocs(RegistryKey hive)
         {
             using (var eventsKey = hive.OpenSubKey(AutoPlay.RegKeyAssocs))
@@ -225,10 +201,9 @@ namespace ZeroInstall.Capture
         /// <summary>
         /// Stores information about the current state of the file system in a snapshot.
         /// </summary>
-        /// <param name="snapshot">The snapshot to store the data in.</param>
         /// <exception cref="IOException">There was an error accessing the file system.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file system was not permitted.</exception>
-        private static void TakeFileSystem(Snapshot snapshot)
+        private void TakeFileSystem()
         {
             // Locate installation directories
             string programFiles32Bit = WindowsUtils.Is64BitProcess
@@ -244,7 +219,7 @@ namespace ZeroInstall.Capture
             else programDirs.AddRange(Directory.GetDirectories(programFiles32Bit));
             if (!string.IsNullOrEmpty(programFiles64Bit))
                 programDirs.AddRange(Directory.GetDirectories(programFiles64Bit));
-            snapshot.ProgramsDirs = programDirs.ToArray();
+            ProgramsDirs = programDirs.ToArray();
         }
         #endregion
 

@@ -30,7 +30,6 @@ namespace ZeroInstall.Capture
     /// </summary>
     public class CommandMapper
     {
-        #region Private structs
         /// <summary>
         /// An association of a command-line with a <see cref="Store.Model.Command"/>.
         /// </summary>
@@ -53,21 +52,15 @@ namespace ZeroInstall.Capture
                 Command = command;
             }
         }
-        #endregion
 
-        #region Variables
         /// <summary>A list of command-lines and coressponding <see cref="Command"/>s.</summary>
         private readonly List<CommandTuple> _commmands = new List<CommandTuple>();
-        #endregion
 
-        #region Properties
         /// <summary>
         /// The fully qualified path to the installation directory.
         /// </summary>
         public string InstallationDir { get; private set; }
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a new command provider.
         /// </summary>
@@ -108,11 +101,7 @@ namespace ZeroInstall.Capture
             if (!string.IsNullOrEmpty(arguments)) commmandLine += " " + arguments;
             return new CommandTuple(commmandLine, command);
         }
-        #endregion
 
-        //--------------------//
-
-        #region Access
         /// <summary>
         /// Tries to find the best-match <see cref="Command"/> for a command-line.
         /// </summary>
@@ -136,6 +125,5 @@ namespace ZeroInstall.Capture
             additionalArgs = null;
             return null;
         }
-        #endregion
     }
 }

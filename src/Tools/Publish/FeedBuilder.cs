@@ -66,6 +66,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// A retrieval method for the single <see cref="Implementation"/> in the <see cref="Feed"/>.
         /// </summary>
+        [CanBeNull]
         public RetrievalMethod RetrievalMethod { get; set; }
 
         private TemporaryDirectory _temporaryDirectory;
@@ -99,8 +100,9 @@ namespace ZeroInstall.Publish
 
         #region Implementation directory
         /// <summary>
-        /// Sets the final implementation directory as it would be created by the <see cref="RetrievalMethod"/>.
-        /// Calculates the <see cref="ManifestDigest"/> and auto-detects <see cref="Candidates"/>.
+        /// Sets the final implementation directory.
+        /// Auto-detects <see cref="Candidates"/>.
+        /// Calculates the <see cref="ManifestDigest"/> if <seealso cref="RetrievalMethod"/> is set.
         /// </summary>
         /// <param name="implementationDirectory">The implementation directory. Should be a subdirectory of <see cref="TemporaryDirectory"/>.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about IO tasks.</param>
@@ -114,20 +116,23 @@ namespace ZeroInstall.Publish
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var newDigest = new ManifestDigest();
-            // Generate manifest for each available format...
-            foreach (var generator in ManifestFormat.Recommended.Select(format => new ManifestGenerator(implementationDirectory, format)))
-            {
-                // ... and add the resulting digest to the return value
-                handler.RunTask(generator);
-                newDigest.ParseID(generator.Result.CalculateDigest());
-            }
-            ManifestDigest = newDigest;
-
             _candidates.Clear();
             handler.RunTask(new SimpleTask(Resources.DetectingCandidates,
                 () => _candidates.AddRange(Detection.ListCandidates(new DirectoryInfo(implementationDirectory)))));
             MainCandidate = _candidates.FirstOrDefault();
+
+            if (RetrievalMethod != null)
+            {
+                var newDigest = new ManifestDigest();
+                // Generate manifest for each available format...
+                foreach (var generator in ManifestFormat.Recommended.Select(format => new ManifestGenerator(implementationDirectory, format)))
+                {
+                    // ... and add the resulting digest to the return value
+                    handler.RunTask(generator);
+                    newDigest.ParseID(generator.Result.CalculateDigest());
+                }
+                ManifestDigest = newDigest;
+            }
         }
         #endregion
 
@@ -135,11 +140,10 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// Generates the feed described by the properties.
         /// </summary>
+        /// <exception cref="InvalidOperationException"><see cref="MainCandidate"/> is <see langword="null"/>.</exception>
         public SignedFeed Build()
         {
-            #region Sanity checks
             if (MainCandidate == null) throw new InvalidOperationException("MainCandidate is not set.");
-            #endregion
 
             var implementation =
                 new Implementation
