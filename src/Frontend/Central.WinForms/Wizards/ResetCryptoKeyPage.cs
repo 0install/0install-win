@@ -17,12 +17,14 @@
 
 using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 using NanoByte.Common;
+using NanoByte.Common.Controls;
 using ZeroInstall.DesktopIntegration;
 
 namespace ZeroInstall.Central.WinForms.Wizards
 {
-    internal partial class ResetCryptoKeyPage : SyncPage
+    internal partial class ResetCryptoKeyPage : SyncPage, IWizardPage
     {
         public SyncServer Server;
 
@@ -33,6 +35,12 @@ namespace ZeroInstall.Central.WinForms.Wizards
             InitializeComponent();
 
             textBoxCryptoKey.Text = StringUtils.GeneratePassword(16);
+        }
+
+        public void OnPageShow()
+        {
+            var parent = Parent as Form;
+            if (parent != null) parent.AcceptButton = buttonReset;
         }
 
         private void textBoxCryptoKey_TextChanged(object sender, EventArgs e)

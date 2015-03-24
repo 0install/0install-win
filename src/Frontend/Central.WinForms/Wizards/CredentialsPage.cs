@@ -21,13 +21,14 @@ using System.Net;
 using System.Net.Cache;
 using System.Windows.Forms;
 using NanoByte.Common;
+using NanoByte.Common.Controls;
 using NanoByte.Common.Net;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.DesktopIntegration;
 
 namespace ZeroInstall.Central.WinForms.Wizards
 {
-    internal partial class CredentialsPage : UserControl
+    internal partial class CredentialsPage : UserControl, IWizardPage
     {
         public Uri ServerUri;
 
@@ -36,6 +37,12 @@ namespace ZeroInstall.Central.WinForms.Wizards
         public CredentialsPage()
         {
             InitializeComponent();
+        }
+
+        public void OnPageShow()
+        {
+            var parent = Parent as Form;
+            if (parent != null) parent.AcceptButton = buttonNext;
         }
 
         private void textBox_TextChanged(object sender, EventArgs e)

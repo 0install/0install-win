@@ -18,10 +18,11 @@
 using System;
 using System.Windows.Forms;
 using NanoByte.Common;
+using NanoByte.Common.Controls;
 
 namespace ZeroInstall.Central.WinForms.Wizards
 {
-    internal partial class NewCryptoKeyPage : UserControl
+    internal partial class NewCryptoKeyPage : UserControl, IWizardPage
     {
         public event Action<string> NewKeySet;
 
@@ -30,6 +31,12 @@ namespace ZeroInstall.Central.WinForms.Wizards
             InitializeComponent();
 
             textBoxCryptoKey.Text = StringUtils.GeneratePassword(16);
+        }
+
+        public void OnPageShow()
+        {
+            var parent = Parent as Form;
+            if (parent != null) parent.AcceptButton = buttonNext;
         }
 
         private void textBoxCryptoKey_TextChanged(object sender, EventArgs e)
