@@ -177,11 +177,17 @@
     <Compile Include="Wizards\IconPage.Designer.cs">
       <DependentUpon>IconPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wizards\InstallerPage.cs">
+    <Compile Include="Wizards\InstallerPageFinish.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Wizards\InstallerPage.Designer.cs">
-      <DependentUpon>InstallerPage.cs</DependentUpon>
+    <Compile Include="Wizards\InstallerPageFinish.Designer.cs">
+      <DependentUpon>InstallerPageFinish.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\InstallerPageStart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\InstallerPageStart.Designer.cs">
+      <DependentUpon>InstallerPageStart.cs</DependentUpon>
     </Compile>
     <Compile Include="Wizards\NewFeedWizard.cs">
       <SubType>Form</SubType>
@@ -226,8 +232,11 @@
     <EmbeddedResource Include="Wizards\IconPage.resx">
       <DependentUpon>IconPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wizards\InstallerPage.resx">
-      <DependentUpon>InstallerPage.cs</DependentUpon>
+    <EmbeddedResource Include="Wizards\InstallerPageFinish.resx">
+      <DependentUpon>InstallerPageFinish.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\InstallerPageStart.resx">
+      <DependentUpon>InstallerPageStart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\SecurityPage.resx">
       <DependentUpon>SecurityPage.cs</DependentUpon>

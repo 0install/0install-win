@@ -40,7 +40,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         public event Action SingleFile;
 
         /// <summary>
-        /// Raised if a Installer EXE was chosen as the implementation source.
+        /// Raised if the user wants to use the installer capture feature.
         /// </summary>
         public event Action Installer;
 
@@ -143,22 +143,14 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         {
             try
             {
-                // Try to handle self-extracting ZIP archives as normal archives
-                Retrieve(new Archive {Href = textBoxUrl.Uri, MimeType = Store.Model.Archive.MimeTypeZip});
+                // 7zip's extraction logic can handle a number of self-extracting formats
+                Retrieve(new Archive {Href = textBoxUrl.Uri, MimeType = Store.Model.Archive.MimeType7Z});
                 Archive();
             }
             catch (IOException)
             {
-                try
-                {
-                    // 7zip's extraction logic can detect a number of other self-extracting formats
-                    Retrieve(new Archive {Href = textBoxUrl.Uri, MimeType = Store.Model.Archive.MimeType7Z});
-                    Archive();
-                }
-                catch (IOException)
-                {
-                    Installer();
-                }
+                Msg.Inform(this, "Zero Install is unable to extract the contents of this installer. We will now continue with the Installer Capture feature.", MsgSeverity.Warn);
+                Installer();
             }
         }
 
@@ -170,6 +162,11 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
             _feedBuilder.RetrievalMethod = retrievalMethod;
             _feedBuilder.TemporaryDirectory = temporaryDirectory;
+        }
+
+        private void buttonCapture_Click(object sender, EventArgs e)
+        {
+            Installer();
         }
     }
 }

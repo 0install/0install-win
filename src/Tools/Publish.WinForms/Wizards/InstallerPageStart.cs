@@ -17,14 +17,22 @@
 
 using System;
 using System.Windows.Forms;
+using ZeroInstall.Publish.Capture;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
 {
-    internal partial class InstallerPage : UserControl
+    internal partial class InstallerPageStart : UserControl
     {
-        public InstallerPage()
+        public Action<CaptureSession> Next;
+
+        public InstallerPageStart()
         {
             InitializeComponent();
+        }
+
+        private void buttonCapture_Click(object sender, EventArgs e)
+        {
+            Next(CaptureSession.Start());
         }
     }
 }

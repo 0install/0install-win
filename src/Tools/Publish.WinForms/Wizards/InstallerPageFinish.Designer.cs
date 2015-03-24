@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms.Wizards
 {
-    partial class InstallerPage
+    partial class InstallerPageFinish
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InstallerPageFinish));
             this.labelTitle = new System.Windows.Forms.Label();
-            this.labelQuestion = new System.Windows.Forms.Label();
+            this.labelInfo = new System.Windows.Forms.Label();
+            this.buttonCapture = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelTitle
@@ -42,27 +44,40 @@
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(470, 37);
             this.labelTitle.TabIndex = 0;
-            this.labelTitle.Text = "Installer";
+            this.labelTitle.Text = "Installer capture";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // labelQuestion
+            // labelInfo
             // 
-            this.labelQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.labelQuestion.Location = new System.Drawing.Point(35, 82);
-            this.labelQuestion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelQuestion.Name = "labelQuestion";
-            this.labelQuestion.Size = new System.Drawing.Size(400, 30);
-            this.labelQuestion.TabIndex = 1;
-            this.labelQuestion.Text = "TODO";
+            this.labelInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.labelInfo.Location = new System.Drawing.Point(35, 66);
+            this.labelInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(400, 115);
+            this.labelInfo.TabIndex = 1;
+            this.labelInfo.Text = resources.GetString("labelInfo.Text");
             // 
-            // InstallerPage
+            // buttonCapture
+            // 
+            this.buttonCapture.Enabled = false;
+            this.buttonCapture.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.buttonCapture.Location = new System.Drawing.Point(175, 257);
+            this.buttonCapture.Name = "buttonCapture";
+            this.buttonCapture.Size = new System.Drawing.Size(120, 35);
+            this.buttonCapture.TabIndex = 3;
+            this.buttonCapture.Text = "&Capture";
+            this.buttonCapture.UseVisualStyleBackColor = true;
+            this.buttonCapture.Click += new System.EventHandler(this.buttonCapture_Click);
+            // 
+            // InstallerPageFinish
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.labelQuestion);
+            this.Controls.Add(this.buttonCapture);
+            this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.labelTitle);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "InstallerPage";
+            this.Name = "InstallerPageFinish";
             this.Size = new System.Drawing.Size(470, 300);
             this.ResumeLayout(false);
 
@@ -71,6 +86,7 @@
         #endregion
 
         private System.Windows.Forms.Label labelTitle;
-        private System.Windows.Forms.Label labelQuestion;
+        private System.Windows.Forms.Label labelInfo;
+        private System.Windows.Forms.Button buttonCapture;
     }
 }
