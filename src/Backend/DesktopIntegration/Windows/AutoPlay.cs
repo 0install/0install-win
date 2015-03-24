@@ -146,35 +146,42 @@ namespace ZeroInstall.DesktopIntegration.Windows
                 // TODO: Restore previous default
             }
 
-            try
+            // Remove appropriate purpose flag and check if there are others
+            bool otherFlags;
+            using (var handlerKey = hive.OpenSubKey(RegKeyHandlers + @"\" + FileType.RegKeyPrefix + autoPlay.ID, writable: true))
             {
-                // Remove appropriate purpose flag and check if there are others
-                bool otherFlags;
-                using (var handlerKey = hive.OpenSubKey(RegKeyHandlers + @"\" + FileType.RegKeyPrefix + autoPlay.ID, writable: true))
+                if (handlerKey == null) otherFlags = false;
+                else
                 {
-                    if (handlerKey == null) otherFlags = false;
-                    else
-                    {
-                        handlerKey.DeleteValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, throwOnMissingValue: false);
-                        otherFlags = handlerKey.GetValueNames().Any(name => name.StartsWith(FileType.PurposeFlagPrefix));
-                    }
-                }
-
-                // Delete handler key and ProgID if there are no other references
-                if (!otherFlags)
-                {
-                    foreach (var autoPlayEvent in autoPlay.Events.Except(x => string.IsNullOrEmpty(x.Name)))
-                    {
-                        using (var eventKey = hive.CreateSubKeyChecked(RegKeyAssocs + @"\" + autoPlayEvent.Name))
-                            eventKey.DeleteValue(FileType.RegKeyPrefix + autoPlay.ID, throwOnMissingValue: false);
-                    }
-
-                    hive.DeleteSubKey(RegKeyHandlers + @"\" + FileType.RegKeyPrefix + autoPlay.ID, throwOnMissingSubKey: false);
-                    hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + ".AutoPlay" + autoPlay.ID);
+                    handlerKey.DeleteValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, throwOnMissingValue: false);
+                    otherFlags = handlerKey.GetValueNames().Any(name => name.StartsWith(FileType.PurposeFlagPrefix));
                 }
             }
-            catch (ArgumentException)
-            {} // Ignore missing registry keys
+
+            // Delete handler key and ProgID if there are no other references
+            if (!otherFlags)
+            {
+                foreach (var autoPlayEvent in autoPlay.Events.Except(x => string.IsNullOrEmpty(x.Name)))
+                {
+                    using (var eventKey = hive.OpenSubKey(RegKeyAssocs + @"\" + autoPlayEvent.Name))
+                    {
+                        if (eventKey != null)
+                            eventKey.DeleteValue(FileType.RegKeyPrefix + autoPlay.ID, throwOnMissingValue: false);
+                    }
+                }
+
+                hive.DeleteSubKey(RegKeyHandlers + @"\" + FileType.RegKeyPrefix + autoPlay.ID, throwOnMissingSubKey: false);
+                try
+                {
+                    hive.DeleteSubKeyTree(FileType.RegKeyClasses + @"\" + FileType.RegKeyPrefix + ".AutoPlay" + autoPlay.ID);
+                }
+                    #region Error handling
+                catch (ArgumentException)
+                {
+                    // Ignore missing registry keys
+                }
+                #endregion
+            }
         }
         #endregion
     }

@@ -143,33 +143,39 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(defaultProgram.ID)) throw new InvalidDataException("Missing ID");
             if (string.IsNullOrEmpty(defaultProgram.Service)) throw new InvalidDataException("Missing Service");
 
-            using (var serviceKey = Registry.LocalMachine.CreateSubKeyChecked(RegKeyMachineClients + @"\" + defaultProgram.Service))
+            using (var serviceKey = Registry.LocalMachine.OpenSubKey(RegKeyMachineClients + @"\" + defaultProgram.Service))
             {
                 if (accessPoint)
                 {
                     // TODO: Restore previous default
                 }
 
-                try
+                // Remove appropriate purpose flag and check if there are others
+                bool otherFlags;
+                using (var appKey = serviceKey.OpenSubKey(defaultProgram.ID, writable: true))
                 {
-                    // Remove appropriate purpose flag and check if there are others
-                    bool otherFlags;
-                    using (var appKey = serviceKey.OpenSubKey(defaultProgram.ID, writable: true))
+                    if (appKey == null) otherFlags = false;
+                    else
                     {
-                        if (appKey == null) otherFlags = false;
-                        else
-                        {
-                            appKey.DeleteValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, throwOnMissingValue: false);
-                            otherFlags = appKey.GetValueNames().Any(name => name.StartsWith(FileType.PurposeFlagPrefix));
-                        }
+                        appKey.DeleteValue(accessPoint ? FileType.PurposeFlagAccessPoint : FileType.PurposeFlagCapability, throwOnMissingValue: false);
+                        otherFlags = appKey.GetValueNames().Any(name => name.StartsWith(FileType.PurposeFlagPrefix));
                     }
-
-                    // Delete app key if there are no other references
-                    if (!otherFlags)
-                        serviceKey.DeleteSubKeyTree(defaultProgram.ID);
                 }
-                catch (ArgumentException)
-                {} // Ignore missing registry keys
+
+                // Delete app key if there are no other references
+                if (!otherFlags)
+                {
+                    try
+                    {
+                        serviceKey.DeleteSubKeyTree(defaultProgram.ID);
+                    }
+                        #region Error handling
+                    catch (ArgumentException)
+                    {
+                        // Ignore missing registry keys
+                    }
+                    #endregion
+                }
             }
         }
         #endregion

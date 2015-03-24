@@ -150,16 +150,23 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
 
-            using (var regAppsKey = hive.CreateSubKeyChecked(RegKeyMachineRegisteredApplications))
-                regAppsKey.DeleteValue(appRegistration.ID, throwOnMissingValue: false);
+            using (var regAppsKey = hive.OpenSubKey(RegKeyMachineRegisteredApplications))
+            {
+                if (regAppsKey != null)
+                    regAppsKey.DeleteValue(appRegistration.ID, throwOnMissingValue: false);
+            }
 
             // TODO: Handle appRegistration.X64
             try
             {
                 hive.DeleteSubKeyTree( /*CapabilityPrefix +*/ appRegistration.CapabilityRegPath);
             }
+                #region Error handling
             catch (ArgumentException)
-            {} // Ignore missing registry keys
+            {
+                // Ignore missing registry keys
+            }
+            #endregion
         }
         #endregion
     }

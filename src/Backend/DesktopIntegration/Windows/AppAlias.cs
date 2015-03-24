@@ -16,8 +16,8 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using JetBrains.Annotations;
 using Microsoft.Win32;
@@ -135,9 +135,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
         private static void RemoveFromAppPaths(string exeName, bool machineWide)
         {
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
-            using (var appPathsKey = hive.OpenSubKeyChecked(RegKeyAppPaths, writable: true))
+            using (var appPathsKey = hive.OpenSubKey(RegKeyAppPaths, writable: true))
             {
-                if (((ICollection<string>)appPathsKey.GetSubKeyNames()).Contains(exeName))
+                if (appPathsKey != null && appPathsKey.GetSubKeyNames().Contains(exeName))
                     appPathsKey.DeleteSubKey(exeName);
             }
         }

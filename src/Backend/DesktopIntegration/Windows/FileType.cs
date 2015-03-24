@@ -221,10 +221,16 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     }
 
                     // Unregister extensions
-                    using (var extensionKey = classesKey.CreateSubKeyChecked(extension.Value))
+                    using (var extensionKey = classesKey.OpenSubKey(extension.Value))
                     {
-                        using (var openWithKey = extensionKey.CreateSubKeyChecked(RegSubKeyOpenWith))
-                            openWithKey.DeleteValue(RegKeyPrefix + fileType.ID, throwOnMissingValue: false);
+                        if (extensionKey != null)
+                        {
+                            using (var openWithKey = extensionKey.OpenSubKey(RegSubKeyOpenWith))
+                            {
+                                if (openWithKey != null)
+                                    openWithKey.DeleteValue(RegKeyPrefix + fileType.ID, throwOnMissingValue: false);
+                            }
+                        }
 
                         if (accessPoint)
                         {
@@ -233,26 +239,33 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     }
                 }
 
-                try
+                // Remove appropriate purpose flag and check if there are others
+                bool otherFlags;
+                using (var progIDKey = classesKey.OpenSubKey(RegKeyPrefix + fileType.ID, writable: true))
                 {
-                    // Remove appropriate purpose flag and check if there are others
-                    bool otherFlags;
-                    using (var progIDKey = classesKey.OpenSubKey(RegKeyPrefix + fileType.ID, writable: true))
+                    if (progIDKey == null) otherFlags = false;
+                    else
                     {
-                        if (progIDKey == null) otherFlags = false;
-                        else
-                        {
-                            progIDKey.DeleteValue(accessPoint ? PurposeFlagAccessPoint : PurposeFlagCapability, throwOnMissingValue: false);
-                            otherFlags = progIDKey.GetValueNames().Any(name => name.StartsWith(PurposeFlagPrefix));
-                        }
+                        progIDKey.DeleteValue(accessPoint ? PurposeFlagAccessPoint : PurposeFlagCapability, throwOnMissingValue: false);
+                        otherFlags = progIDKey.GetValueNames().Any(name => name.StartsWith(PurposeFlagPrefix));
+                    }
+                }
+
+                // Delete ProgID if there are no other references
+                if (!otherFlags)
+                {
+                    try
+                    {
+                        classesKey.DeleteSubKeyTree(RegKeyPrefix + fileType.ID);
                     }
 
-                    // Delete ProgID if there are no other references
-                    if (!otherFlags)
-                        classesKey.DeleteSubKeyTree(RegKeyPrefix + fileType.ID);
+                        #region Error handling
+                    catch (ArgumentException)
+                    {
+                        // Ignore missing registry keys
+                    }
+                    #endregion
                 }
-                catch (ArgumentException)
-                {} // Ignore missing registry keys
             }
         }
         #endregion
