@@ -118,11 +118,7 @@ namespace ZeroInstall.Commands.CliCommands
                 LaunchImplementation();
                 return 0;
             }
-            else
-            {
-                Handler.OutputLow(Resources.ChangesFound, Resources.NoUpdatesFound);
-                return 0;
-            }
+            else return 0;
         }
 
         private bool UpdateFound()

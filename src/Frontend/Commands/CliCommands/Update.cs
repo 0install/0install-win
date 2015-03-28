@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using JetBrains.Annotations;
@@ -102,31 +101,21 @@ namespace ZeroInstall.Commands.CliCommands
         /// </summary>
         private void ShowOutput()
         {
-            string output = GetOutputMessage();
-            if (string.IsNullOrEmpty(output)) Handler.OutputLow(Resources.ChangesFound, Resources.NoUpdatesFound);
-            else Handler.Output(Resources.ChangesFound, output);
-        }
-
-        private string GetOutputMessage()
-        {
             var builder = new StringBuilder();
             foreach (var oldImplementation in _oldSelections.Implementations)
             {
                 var interfaceUri = oldImplementation.InterfaceUri;
-                try
-                {
-                    var newImplementation = Selections[interfaceUri];
-                    if (oldImplementation.Version != newImplementation.Version)
-                    { // Implementation updated
-                        builder.AppendLine(interfaceUri + ": " + oldImplementation.Version + " -> " + newImplementation.Version);
-                    }
-                }
-                catch (KeyNotFoundException)
+
+                var newImplementation = Selections.GetImplementation(interfaceUri);
+                if (newImplementation == null)
                 { // Implementation removed
                     builder.AppendLine(Resources.NoLongerUsed + interfaceUri);
                 }
+                else if (oldImplementation.Version != newImplementation.Version)
+                { // Implementation updated
+                    builder.AppendLine(interfaceUri + ": " + oldImplementation.Version + " -> " + newImplementation.Version);
+                }
             }
-
             foreach (var newImplementation in Selections.Implementations)
             {
                 var interfaceUri = newImplementation.InterfaceUri;
@@ -141,9 +130,10 @@ namespace ZeroInstall.Commands.CliCommands
             if (feed.ReplacedBy != null)
                 builder.AppendLine(string.Format(Resources.FeedReplaced, Requirements.InterfaceUri, feed.ReplacedBy.Target));
 
-            return (builder.Length == 0)
-                ? ""
-                : builder.ToString(0, builder.Length - Environment.NewLine.Length);
+            if (builder.Length == 0)
+                Handler.OutputLow(Resources.NoUpdatesFound, Resources.NoUpdatesFound);
+            else
+                Handler.Output(Resources.ChangesFound, builder.ToString(0, builder.Length - Environment.NewLine.Length));
         }
         #endregion
     }

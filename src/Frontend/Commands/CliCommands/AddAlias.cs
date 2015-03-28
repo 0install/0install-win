@@ -111,13 +111,13 @@ namespace ZeroInstall.Commands.CliCommands
                 {
                     string result = appEntry.InterfaceUri.ToStringRfc();
                     if (!string.IsNullOrEmpty(appAlias.Command)) result += Environment.NewLine + "Command: " + appAlias.Command;
-                    Handler.Output(Resources.AppAlias, result);
+                    Handler.OutputLow(Resources.AppAlias, result);
                 }
                 if (_remove)
                 {
                     integrationManager.RemoveAccessPoints(appEntry, new AccessPoint[] {appAlias});
 
-                    Handler.Output(Resources.AppAlias, string.Format(Resources.AliasRemoved, aliasName, appEntry.Name));
+                    Handler.OutputLow(Resources.AppAlias, string.Format(Resources.AliasRemoved, aliasName, appEntry.Name));
                 }
                 return 0;
             }
