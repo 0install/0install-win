@@ -199,11 +199,11 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here to install..
+        ///   Looks up a localized string similar to Click here to choose..
         /// </summary>
-        public static string ClickToInstall {
+        public static string ClickToChoose {
             get {
-                return ResourceManager.GetString("ClickToInstall", resourceCulture);
+                return ResourceManager.GetString("ClickToChoose", resourceCulture);
             }
         }
         

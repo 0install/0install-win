@@ -214,8 +214,11 @@ namespace ZeroInstall.Commands.WinForms
                 return new Future<DialogResult>(Msg.YesNoCancel(this, question, MsgSeverity.Warn));
             else
             {
+                _pendingQuestion = question;
                 _pendingResult = new Future<DialogResult>();
-                ShowTrayIcon(_pendingQuestion = question, ToolTipIcon.Info);
+
+                ShowTrayIcon(question.GetLeftPartAtFirstOccurrence(Environment.NewLine) + Environment.NewLine + Resources.ClickToChoose, ToolTipIcon.Info);
+
                 return _pendingResult;
             }
         }

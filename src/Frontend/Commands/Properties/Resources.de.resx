@@ -165,8 +165,8 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
   <data name="CheckingForUpdates" xml:space="preserve">
     <value>Suche nach Updates</value>
   </data>
-  <data name="ClickToInstall" xml:space="preserve">
-    <value>Hier klicken zum Installieren.</value>
+  <data name="ClickToChoose" xml:space="preserve">
+    <value>Hier klicken zum Auswählen.</value>
   </data>
   <data name="CommandLineArguments" xml:space="preserve">
     <value>Befehlszeilenargumente</value>
