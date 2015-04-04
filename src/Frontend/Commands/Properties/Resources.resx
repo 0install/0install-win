@@ -338,6 +338,9 @@ This is similar to '0install download --refresh', except that it prints informat
   <data name="EnterFeedUrl" xml:space="preserve">
     <value>Please enter the URL of the new source of implementations for this interface:</value>
   </data>
+  <data name="ExclusiveOptions" xml:space="preserve">
+    <value>The options {0} and {1} cannot be used together.</value>
+  </data>
   <data name="FeedAlreadyRegistered" xml:space="preserve">
     <value>The feed was already registered for all appropriate interfaces.</value>
   </data>

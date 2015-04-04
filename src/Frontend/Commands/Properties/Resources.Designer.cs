@@ -690,6 +690,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The options {0} and {1} cannot be used together..
+        /// </summary>
+        public static string ExclusiveOptions {
+            get {
+                return ResourceManager.GetString("ExclusiveOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The feed was already registered for all appropriate interfaces..
         /// </summary>
         public static string FeedAlreadyRegistered {
