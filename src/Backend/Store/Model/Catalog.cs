@@ -74,47 +74,6 @@ namespace ZeroInstall.Store.Model
         public List<Feed> Feeds { get { return _feeds; } }
         #endregion
 
-        #region Factory methods
-        /// <summary>
-        /// Merges the content of multiple <see cref="Catalog"/>s.
-        /// </summary>
-        /// <remarks>In case of duplicate <see cref="Feed.Uri"/>s only the first instance is kept.</remarks>
-        [NotNull]
-        public static Catalog Merge([NotNull, ItemNotNull] IEnumerable<Catalog> catalogs)
-        {
-            #region Sanity checks
-            if (catalogs == null) throw new ArgumentNullException("catalogs");
-            #endregion
-
-            var newCatalog = new Catalog();
-            newCatalog.Feeds.AddRange(catalogs.SelectMany(catalog => catalog.Feeds).Distinct(new FeedUriComparer()));
-            return newCatalog;
-        }
-
-        private class FeedUriComparer : IEqualityComparer<Feed>
-        {
-            public bool Equals(Feed x, Feed y)
-            {
-                #region Sanity checks
-                if (x == null) throw new ArgumentNullException("x");
-                if (y == null) throw new ArgumentNullException("y");
-                #endregion
-
-                return x.Uri == y.Uri;
-            }
-
-            public int GetHashCode(Feed obj)
-            {
-                #region Sanity checks
-                if (obj == null) throw new ArgumentNullException("obj");
-                #endregion
-
-                if (obj.Uri == null) return 0;
-                return obj.Uri.GetHashCode();
-            }
-        }
-        #endregion
-
         //--------------------//
 
         #region Query

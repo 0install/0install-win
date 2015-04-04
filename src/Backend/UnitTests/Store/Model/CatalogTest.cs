@@ -38,24 +38,6 @@ namespace ZeroInstall.Store.Model
         #endregion
 
         /// <summary>
-        /// Ensures that <see cref="Catalog.Merge"/> correctly combines <see cref="Feed"/>s from multiple <see cref="Catalog"/>s and filters out duplicates.
-        /// </summary>
-        [Test]
-        public void TestMerge()
-        {
-            var feed1 = new Feed {Uri = FeedTest.Test1Uri};
-            var feed2 = new Feed {Uri = FeedTest.Test2Uri};
-            var feed3 = new Feed {Uri = FeedTest.Test3Uri};
-            var catalog1 = new Catalog {Feeds = {feed1, feed2}};
-            var catalog2 = new Catalog {Feeds = {feed2, feed3}};
-
-            var mergedCatalog = Catalog.Merge(new[] {catalog1, catalog2});
-            CollectionAssert.IsSubsetOf(catalog1.Feeds, mergedCatalog.Feeds);
-            CollectionAssert.IsSubsetOf(catalog2.Feeds, mergedCatalog.Feeds);
-            CollectionAssert.AreEqual(new[] {feed1, feed2, feed3}, mergedCatalog.Feeds);
-        }
-
-        /// <summary>
         /// Ensures that <see cref="Catalog.GetFeed"/> and <see cref="Catalog.this"/> correctly find contained <see cref="Feed"/>s.
         /// </summary>
         [Test]

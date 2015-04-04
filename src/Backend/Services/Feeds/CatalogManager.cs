@@ -87,17 +87,23 @@ namespace ZeroInstall.Services.Feeds
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs network IO and has side-effects")]
         public Catalog GetOnline()
         {
-            var catalogs = GetSources().Select(source => source.IsFile
-                ? XmlStorage.LoadXml<Catalog>(source.LocalPath)
-                : DownloadCatalog(source));
-            var catalog = Catalog.Merge(catalogs);
-            catalog.Normalize();
+            // Download + merge
+            Catalog mergedCatalog = new Catalog();
+            foreach (var source in GetSources())
+            {
+                foreach (var feed in DownloadCatalog(source).Feeds)
+                {
+                    feed.CatalogUri = source;
+                    mergedCatalog.Feeds.Add(feed);
+                }
+            }
+            mergedCatalog.Normalize();
 
-            // Cache the result
+            // Cache
             try
             {
                 using (new MutexLock(CacheMutexName))
-                    catalog.SaveXml(_cacheFilePath);
+                    mergedCatalog.SaveXml(_cacheFilePath);
             }
                 #region Error handling
             catch (IOException ex)
@@ -112,24 +118,26 @@ namespace ZeroInstall.Services.Feeds
             }
             #endregion
 
-            return catalog;
+            return mergedCatalog;
         }
 
         /// <summary>
         /// Downloads and parses a remote catalog file.
         /// </summary>
-        /// <param name="url">The URL to download the catalog file from.</param>
+        /// <param name="source">The URL to download the catalog file from.</param>
         /// <returns>The parsed <see cref="Catalog"/>.</returns>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="SignatureException">The signature data of a remote catalog file could not be verified.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
         [NotNull]
-        private Catalog DownloadCatalog([NotNull] FeedUri url)
+        private Catalog DownloadCatalog([NotNull] FeedUri source)
         {
+            if (source.IsFile) return XmlStorage.LoadXml<Catalog>(source.LocalPath);
+
             byte[] data;
             using (var webClient = new WebClientTimeout())
-                data = webClient.DownloadData(url);
-            _trustManager.CheckTrust(data, url);
+                data = webClient.DownloadData(source);
+            _trustManager.CheckTrust(data, source);
             return XmlStorage.LoadXml<Catalog>(new MemoryStream(data));
         }
 
@@ -184,7 +192,7 @@ namespace ZeroInstall.Services.Feeds
 
             using (var atomic = new AtomicWrite(Locations.GetSaveConfigPath("0install.net", true, "catalog-sources")))
             {
-                using (var configFile = new StreamWriter(atomic.WritePath, append: false, encoding: FeedUtils.Encoding) { NewLine = "\n" })
+                using (var configFile = new StreamWriter(atomic.WritePath, append: false, encoding: FeedUtils.Encoding) {NewLine = "\n"})
                 {
                     foreach (var uri in uris)
                         configFile.WriteLine(uri.ToStringRfc());

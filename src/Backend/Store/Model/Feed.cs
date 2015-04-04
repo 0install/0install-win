@@ -83,6 +83,12 @@ namespace ZeroInstall.Store.Model
         public FeedUri Uri { get; set; }
 
         /// <summary>
+        /// The URI of the <see cref="Catalog"/> this feed was stored within. Used as an implementation detail; not part of the official feed format!
+        /// </summary>
+        [XmlIgnore, Browsable(false)]
+        public FeedUri CatalogUri { get; set; }
+
+        /// <summary>
         /// A short name to identify the interface (e.g. "Foo").
         /// </summary>
         [Category("Interface"), Description("A short name to identify the interface (e.g. \"Foo\").")]
@@ -146,6 +152,13 @@ namespace ZeroInstall.Store.Model
         [DisplayName(@"Uri"), Category("Feed"), Description("This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).")]
         [XmlAttribute("uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string UriString { get { return (Uri == null ? null : Uri.ToStringRfc()); } set { Uri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
+
+        /// <summary>Used for XML serialization and PropertyGrid.</summary>
+        /// <seealso cref="CatalogUri"/>
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
+        [Browsable(false)]
+        [XmlAttribute("catalog-uri"), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
+        public string CatalogUriString { get { return (CatalogUri == null ? null : CatalogUri.ToStringRfc()); } set { CatalogUri = (string.IsNullOrEmpty(value) ? null : new FeedUri(value)); } }
 
         /// <summary>Used for XML serialization and PropertyGrid.</summary>
         /// <seealso cref="Homepage"/>
