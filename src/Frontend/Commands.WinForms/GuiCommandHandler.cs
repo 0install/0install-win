@@ -52,10 +52,6 @@ namespace ZeroInstall.Commands.WinForms
                 var form = new ProgressForm(CancellationTokenSource);
                 if (Background) form.ShowTrayIcon();
                 else form.Show();
-
-                // Only start reporting log entries when something else trigger the UI first
-                Log.NewEntry += Log_NewEntry;
-
                 return form;
             });
         }
@@ -67,6 +63,8 @@ namespace ZeroInstall.Commands.WinForms
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
             #endregion
+
+            Log.Debug("Task: " + task.Name);
 
             var progress = _wrapper.Post(form => (task.Tag is ManifestDigest)
                 // Handle events coming from a non-UI thread
@@ -90,7 +88,6 @@ namespace ZeroInstall.Commands.WinForms
         /// <inheritdoc/>
         public void CloseUI()
         {
-            Log.NewEntry -= Log_NewEntry;
             _wrapper.Close();
         }
         #endregion
@@ -103,16 +100,20 @@ namespace ZeroInstall.Commands.WinForms
             if (string.IsNullOrEmpty(question)) throw new ArgumentNullException("question");
             #endregion
 
+            Log.Debug("Question: " + question);
             using (var future = _wrapper.Post(form => form.Ask(question)))
             {
                 switch (future.Get())
                 {
                     case DialogResult.Yes:
+                        Log.Debug("Answer: Yes");
                         return true;
                     case DialogResult.No:
+                        Log.Debug("Answer: No");
                         return false;
                     case DialogResult.Cancel:
                     default:
+                        Log.Debug("Answer: Cancel");
                         throw new OperationCanceledException();
                 }
             }
@@ -262,12 +263,20 @@ namespace ZeroInstall.Commands.WinForms
         }
         #endregion
 
-        #region Log entries
-        private void Log_NewEntry(LogSeverity severity, string message)
+        #region Log handler
+        /// <summary>
+        /// Outputs <see cref="Log"/> messages as balloon tips based on their <see cref="LogSeverity"/> and the current <see cref="Verbosity"/> level.
+        /// </summary>
+        /// <param name="severity">The type/severity of the entry.</param>
+        /// <param name="message">The message text of the entry.</param>
+        protected override void LogHandler(LogSeverity severity, string message)
         {
+            base.LogHandler(severity, message);
+
+            if (!_wrapper.IsReady) return;
             switch (severity)
             {
-                case LogSeverity.Echo:
+                case LogSeverity.Debug:
                     if (Verbosity >= Verbosity.Debug) _wrapper.Send(form => form.ShowTrayIcon(message));
                     break;
                 case LogSeverity.Info:
@@ -298,7 +307,6 @@ namespace ZeroInstall.Commands.WinForms
             }
             finally
             {
-                Log.NewEntry -= Log_NewEntry;
                 base.Dispose(disposing);
             }
         }

@@ -86,8 +86,6 @@ namespace ZeroInstall.Commands.WinForms
         public static int Run(string[] args)
         {
             Log.Info("Zero Install Command WinForms GUI started with: " + args.JoinEscapeArguments());
-            var errorLog = new RtfBuilder();
-            Log.NewEntry += errorLog.AppendLogEntry;
 
             using (var handler = new GuiCommandHandler())
             {
@@ -136,77 +134,77 @@ namespace ZeroInstall.Commands.WinForms
                 {
                     handler.CloseUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, errorLog);
+                    ErrorBox.Show(ex.Message, handler.ErrorLog);
                     return 1;
                 }
                 catch (NotSupportedException ex)
                 {
                     handler.CloseUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, errorLog);
+                    ErrorBox.Show(ex.Message, handler.ErrorLog);
                     return 1;
                 }
                 catch (IOException ex)
                 {
                     handler.CloseUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, errorLog);
+                    ErrorBox.Show(ex.Message, handler.ErrorLog);
                     return 1;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
                     handler.CloseUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, errorLog);
+                    ErrorBox.Show(ex.Message, handler.ErrorLog);
                     return 1;
                 }
                 catch (InvalidDataException ex)
                 {
                     handler.CloseUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, errorLog);
+                    ErrorBox.Show(ex.Message, handler.ErrorLog);
                     return 1;
                 }
                 catch (SignatureException ex)
                 {
                     handler.CloseUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, errorLog);
+                    ErrorBox.Show(ex.Message, handler.ErrorLog);
                     return 1;
                 }
                 catch (FormatException ex)
                 {
                     handler.CloseUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, errorLog);
+                    ErrorBox.Show(ex.Message, handler.ErrorLog);
                     return 1;
                 }
                 catch (DigestMismatchException ex)
                 {
                     handler.CloseUI();
                     Log.Error(ex);
-                    ErrorBox.Show(Resources.DownloadDamaged, errorLog);
+                    ErrorBox.Show(Resources.DownloadDamaged, handler.ErrorLog);
                     return 1;
                 }
                 catch (SolverException ex)
                 {
                     handler.CloseUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message.GetLeftPartAtFirstOccurrence(Environment.NewLine), errorLog);
+                    ErrorBox.Show(ex.Message.GetLeftPartAtFirstOccurrence(Environment.NewLine), handler.ErrorLog);
                     return 1;
                 }
                 catch (ExecutorException ex)
                 {
                     handler.CloseUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, errorLog);
+                    ErrorBox.Show(ex.Message, handler.ErrorLog);
                     return 1;
                 }
                 catch (ConflictException ex)
                 {
                     handler.CloseUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, errorLog);
+                    ErrorBox.Show(ex.Message, handler.ErrorLog);
                     return 1;
                 }
                     #endregion
@@ -214,8 +212,6 @@ namespace ZeroInstall.Commands.WinForms
                 finally
                 {
                     handler.CloseUI();
-
-                    Log.NewEntry -= errorLog.AppendLogEntry;
                 }
             }
         }

@@ -211,7 +211,7 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             if (Visible)
-                return new Future<DialogResult>(Msg.YesNoCancel(this, question, MsgSeverity.Warn));
+                return Msg.YesNoCancel(this, question, MsgSeverity.Warn);
             else
             {
                 _pendingQuestion = question;
