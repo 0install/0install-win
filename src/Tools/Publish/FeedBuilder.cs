@@ -104,7 +104,7 @@ namespace ZeroInstall.Publish
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
-            if (string.IsNullOrEmpty(ImplementationDirectory)) throw new InvalidOperationException("ImplementationDirectory is not set.");
+            if (string.IsNullOrEmpty(ImplementationDirectory)) throw new InvalidOperationException("Implementation directory is not set.");
             #endregion
 
             _candidates.Clear();
@@ -190,7 +190,7 @@ namespace ZeroInstall.Publish
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
-            if (string.IsNullOrEmpty(ImplementationDirectory)) throw new InvalidOperationException("ImplementationDirectory is not set.");
+            if (string.IsNullOrEmpty(ImplementationDirectory)) throw new InvalidOperationException("Implementation directory is not set.");
             #endregion
 
             var newDigest = new ManifestDigest();

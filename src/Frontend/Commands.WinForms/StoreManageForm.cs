@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -163,7 +162,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             try
             {
-                Process.Start(new ProcessStartInfo(Path.Combine(Locations.InstallBase, "0install-win.exe"), "store manage") {Verb = "runas"});
+                ProcessUtils.LaunchAssemblyAsAdmin("0install-win", "store manage");
                 Close();
             }
                 #region Error handling

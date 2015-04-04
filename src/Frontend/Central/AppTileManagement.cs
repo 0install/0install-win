@@ -238,7 +238,7 @@ namespace ZeroInstall.Central
         /// </summary>
         public void LoadCachedCatalog()
         {
-            SetCatalog(_catalogManager.GetCachedSafe() ?? new Catalog());
+            SetCatalog(_catalogManager.GetCachedSafe());
         }
 
         /// <summary>

@@ -148,7 +148,7 @@ namespace ZeroInstall.Store.Implementations
             string tempFile = Path.Combine(_storePath, Path.GetRandomFileName());
             try
             {
-                Log.Info("Hardlink: " + file1 + " <=> " + file2);
+                Log.Info("Hard link: " + file1 + " <=> " + file2);
                 FileUtils.CreateHardlink(tempFile, file2);
                 FileUtils.Replace(tempFile, file1);
             }
