@@ -55,7 +55,7 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             var importList = XmlStorage.LoadXml<AppList>(AdditionalArgs[0]);
 
@@ -74,7 +74,7 @@ namespace ZeroInstall.Commands.CliCommands
                 }
             }
 
-            return 0;
+            return ExitCode.OK;
         }
     }
 }

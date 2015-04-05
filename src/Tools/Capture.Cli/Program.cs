@@ -21,36 +21,10 @@ using NanoByte.Common;
 using NanoByte.Common.Net;
 using NanoByte.Common.Tasks;
 using NDesk.Options;
+using ZeroInstall.Publish;
 
 namespace ZeroInstall.Capture.Cli
 {
-
-    #region Enumerations
-    /// <summary>
-    /// An errorlevel is returned to the original caller after the application terminates, to indicate success or the reason for failure.
-    /// </summary>
-    public enum ErrorLevel
-    {
-        ///<summary>Everything is OK.</summary>
-        OK = 0,
-
-        /// <summary>The user canceled the operation.</summary>
-        UserCanceled = 1,
-
-        /// <summary>The arguments passed on the command-line were not valid.</summary>
-        InvalidArguments = 2,
-
-        /// <summary>An unknown or not supported feature was requested.</summary>
-        NotSupported = 3,
-
-        /// <summary>A warning regarding potentially unintended usage caused the operation to be canceled.</summary>
-        Warning = 9,
-
-        /// <summary>An IO error occurred.</summary>
-        IOError = 10
-    }
-    #endregion
-
     /// <summary>
     /// Launches a command-line tool for capturing application installations to feeds.
     /// </summary>
@@ -71,32 +45,37 @@ namespace ZeroInstall.Capture.Cli
                 #region Error hanlding
             catch (OperationCanceledException)
             {
-                return (int)ErrorLevel.UserCanceled;
+                return (int)ExitCode.UserCanceled;
+            }
+            catch (ArgumentException ex)
+            {
+                Log.Error(ex);
+                return (int)ExitCode.InvalidArguments;
             }
             catch (OptionException ex)
             {
                 Log.Error(ex);
-                return (int)ErrorLevel.InvalidArguments;
+                return (int)ExitCode.InvalidArguments;
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidDataException ex)
             {
                 Log.Error(ex);
-                return (int)ErrorLevel.IOError;
-            }
-            catch (FileNotFoundException ex)
-            {
-                Log.Error(ex);
-                return (int)ErrorLevel.IOError;
+                return (int)ExitCode.InvalidData;
             }
             catch (IOException ex)
             {
                 Log.Error(ex);
-                return (int)ErrorLevel.IOError;
+                return (int)ExitCode.IOError;
             }
             catch (UnauthorizedAccessException ex)
             {
                 Log.Error(ex);
-                return (int)ErrorLevel.IOError;
+                return (int)ExitCode.AccessDenied;
+            }
+            catch (NotSupportedException ex)
+            {
+                Log.Error(ex);
+                return (int)ExitCode.NotSupported;
             }
             #endregion
         }

@@ -55,7 +55,7 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             switch (AdditionalArgs.Count)
             {
@@ -74,7 +74,7 @@ namespace ZeroInstall.Commands.CliCommands
                     break;
             }
 
-            return 0;
+            return ExitCode.OK;
         }
 
         private void GetOptions(string key)

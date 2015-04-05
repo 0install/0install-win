@@ -55,11 +55,11 @@ namespace ZeroInstall.Commands.CliCommands
         {}
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             string keywords = StringUtils.Join(" ", AdditionalArgs);
             Handler.ShowFeedSearch(SearchQuery.Perform(Config, keywords));
-            return 0;
+            return ExitCode.OK;
         }
     }
 }

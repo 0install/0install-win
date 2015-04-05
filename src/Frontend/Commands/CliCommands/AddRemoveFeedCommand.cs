@@ -56,22 +56,28 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             FeedUri feedUri;
             var interfaces = GetInterfaces(out feedUri);
             if (!interfaces.Any())
             {
                 Handler.Output(Resources.FeedManagement, string.Format(Resources.MissingFeedFor, feedUri));
-                return 1;
+                return ExitCode.InvalidArguments;
             }
 
             var modifiedInterfaces = ApplyFeedToInterfaces(feedUri, interfaces);
 
-            Handler.OutputLow(Resources.FeedManagement, (modifiedInterfaces.Count == 0)
-                ? NoneModifiedMessage
-                : string.Format(ModifiedMessage, StringUtils.Join(Environment.NewLine, modifiedInterfaces.Select(x => x.ToStringRfc()))));
-            return (modifiedInterfaces.Count == 0) ? 0 : 1;
+            if (modifiedInterfaces.Count == 0)
+            {
+                Handler.OutputLow(Resources.FeedManagement, NoneModifiedMessage);
+                return ExitCode.OK;
+            }
+            else
+            {
+                Handler.OutputLow(Resources.FeedManagement, string.Format(ModifiedMessage, StringUtils.Join(Environment.NewLine, modifiedInterfaces.Select(x => x.ToStringRfc()))));
+                return ExitCode.NoChanges;
+            }
         }
 
         /// <summary>

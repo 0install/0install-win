@@ -92,6 +92,7 @@
     <Compile Include="EntryPoints\WindowsExe.cs" />
     <Compile Include="EntryPoints\PowerShellScript.cs" />
     <Compile Include="EntryPoints\WindowsBatch.cs" />
+    <Compile Include="ExitCode.cs" />
     <Compile Include="FeedBuilder.cs" />
     <Compile Include="RetrievalMethodUtils.cs" />
     <Compile Include="FeedEditing.cs" />

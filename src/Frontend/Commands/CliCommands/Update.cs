@@ -55,7 +55,7 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             if (SelectionsDocument) throw new NotSupportedException(Resources.NoSelectionsDocumentUpdate);
 
@@ -68,13 +68,13 @@ namespace ZeroInstall.Commands.CliCommands
             catch (WebException)
             {
                 // Supress network-related error messages on background downloads
-                if (Handler.Background) return 1;
+                if (Handler.Background) return ExitCode.WebError;
                 else throw;
             }
             catch (SolverException)
             {
                 // Supress network-related error messages on background downloads
-                if (Handler.Background) return 1;
+                if (Handler.Background) return ExitCode.SolverError;
                 else throw;
             }
             #endregion
@@ -82,8 +82,7 @@ namespace ZeroInstall.Commands.CliCommands
             DownloadUncachedImplementations();
             SelfUpdateCheck();
 
-            ShowOutput();
-            return 0;
+            return ShowOutput();
         }
 
         #region Helpers
@@ -99,7 +98,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// <summary>
         /// Shows a list of changes found by the update process.
         /// </summary>
-        private void ShowOutput()
+        private ExitCode ShowOutput()
         {
             var builder = new StringBuilder();
             foreach (var oldImplementation in _oldSelections.Implementations)
@@ -131,9 +130,15 @@ namespace ZeroInstall.Commands.CliCommands
                 builder.AppendLine(string.Format(Resources.FeedReplaced, Requirements.InterfaceUri, feed.ReplacedBy.Target));
 
             if (builder.Length == 0)
+            {
                 Handler.OutputLow(Resources.NoUpdatesFound, Resources.NoUpdatesFound);
+                return ExitCode.NoChanges;
+            }
             else
+            {
                 Handler.Output(Resources.ChangesFound, builder.ToString(0, builder.Length - Environment.NewLine.Length));
+                return ExitCode.OK;
+            }
         }
         #endregion
     }

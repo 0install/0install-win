@@ -53,9 +53,9 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
-            return ProcessUtils.RunAssembly(
+            return (ExitCode)ProcessUtils.RunAssembly(
                 /*MonoUtils.IsUnix ? "ZeroInstall-gtk" :*/ "ZeroInstall",
                 _machineWide ? "-m" : null);
         }

@@ -30,14 +30,14 @@ namespace ZeroInstall.Commands.CliCommands
         public void TestNoArgs()
         {
             FeedCacheMock.Setup(x => x.ListAll()).Returns(new[] {FeedTest.Test1Uri, FeedTest.Test2Uri});
-            RunAndAssert(new[] {FeedTest.Test1Uri.ToStringRfc(), FeedTest.Test2Uri.ToStringRfc()}, 0);
+            RunAndAssert(new[] {FeedTest.Test1Uri.ToStringRfc(), FeedTest.Test2Uri.ToStringRfc()}, ExitCode.OK);
         }
 
         [Test(Description = "Ensures calling with a single argument returns a filtered list of feeds in the cache.")]
         public void TestPattern()
         {
             FeedCacheMock.Setup(x => x.ListAll()).Returns(new[] {FeedTest.Test1Uri, FeedTest.Test2Uri});
-            RunAndAssert(new[] {FeedTest.Test2Uri.ToStringRfc()}, 0, "test2");
+            RunAndAssert(new[] {FeedTest.Test2Uri.ToStringRfc()}, ExitCode.OK, "test2");
         }
     }
 }

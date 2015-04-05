@@ -35,24 +35,6 @@ using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands.CliCommands
 {
-
-    #region Enumerations
-    /// <summary>
-    /// An StoreErrorLevel is returned to the original caller after the application terminates, to indicate success or the reason for failure.
-    /// </summary>
-    public enum StoreErrorLevel
-    {
-        ///<summary>Everything is OK.</summary>
-        OK = 0,
-
-        /// <summary>An implementation to be added is already in the store.</summary>
-        ImplementationAlreadyInStore = 10,
-
-        /// <summary>A manifest digest for an implementation did not match the expected value.</summary>
-        DigestMismatch = 20
-    }
-    #endregion
-
     /// <summary>
     /// Manages the contents of the <see cref="IStore"/>s.
     /// </summary>
@@ -108,34 +90,34 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             switch (AdditionalArgs[0])
             {
                 case "add":
-                    return (int)Add();
+                    return Add();
 
                 case "audit":
-                    return (int)Audit();
+                    return Audit();
 
                 case "copy":
-                    return (int)Copy();
+                    return Copy();
 
                 case "find":
                     Find();
-                    return (int)StoreErrorLevel.OK;
+                    return ExitCode.OK;
 
                 case "list":
                     List();
-                    return (int)StoreErrorLevel.OK;
+                    return ExitCode.OK;
 
                 case "list-implementations":
                     ListImplementations();
-                    return (int)StoreErrorLevel.OK;
+                    return ExitCode.OK;
 
                 case "manage":
                     Handler.ManageStore(Store, FeedCache);
-                    return (int)StoreErrorLevel.OK;
+                    return ExitCode.OK;
 
                 case "manifest":
                     throw new NotSupportedException(string.Format(Resources.UseInstead, "0install digest --manifest"));
@@ -143,18 +125,18 @@ namespace ZeroInstall.Commands.CliCommands
                 case "optimise":
                 case "optimize":
                     Optimise();
-                    return (int)StoreErrorLevel.OK;
+                    return ExitCode.OK;
 
                 case "purge":
                     Purge();
-                    return (int)StoreErrorLevel.OK;
+                    return ExitCode.OK;
 
                 case "remove":
                     Remove();
-                    return (int)StoreErrorLevel.OK;
+                    return ExitCode.OK;
 
                 case "verify":
-                    return (int)Verify();
+                    return Verify();
 
                 default:
                     throw new OptionException(Resources.UnknownMode, "");
@@ -162,7 +144,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         #region Subcommands
-        private StoreErrorLevel Add()
+        private ExitCode Add()
         {
             if (AdditionalArgs.Count < 3) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))", "");
 
@@ -173,32 +155,32 @@ namespace ZeroInstall.Commands.CliCommands
                 if (File.Exists(path))
                 { // One or more archives (combined/overlayed)
                     Store.AddArchives(GetArchiveFileInfos(), manifestDigest, Handler);
-                    return StoreErrorLevel.OK;
+                    return ExitCode.OK;
                 }
                 else if (Directory.Exists(path))
                 { // A single directory
                     if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT [MIME-TYPE [...]]))", "");
                     Store.AddDirectory(Path.GetFullPath(path), manifestDigest, Handler);
-                    return StoreErrorLevel.OK;
+                    return ExitCode.OK;
                 }
                 else throw new FileNotFoundException(string.Format(Resources.NoSuchFileOrDirectory, path), path);
             }
             catch (ImplementationAlreadyInStoreException ex)
             {
                 Log.Warn(ex);
-                return StoreErrorLevel.ImplementationAlreadyInStore;
+                return ExitCode.NoChanges;
             }
         }
 
-        private StoreErrorLevel Audit()
+        private ExitCode Audit()
         {
             var store = GetStore();
             foreach (var manifestDigest in store.ListAll())
                 store.Verify(manifestDigest, Handler);
-            return StoreErrorLevel.OK;
+            return ExitCode.OK;
         }
 
-        private StoreErrorLevel Copy()
+        private ExitCode Copy()
         {
             if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "copy DIRECTORY [CACHE]", "");
             if (AdditionalArgs.Count > 3) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "copy DIRECTORY [CACHE]", "");
@@ -210,12 +192,12 @@ namespace ZeroInstall.Commands.CliCommands
             try
             {
                 store.AddDirectory(Path.GetFullPath(path), new ManifestDigest(Path.GetFileName(path)), Handler);
-                return StoreErrorLevel.OK;
+                return ExitCode.OK;
             }
             catch (ImplementationAlreadyInStoreException ex)
             {
                 Log.Warn(ex);
-                return StoreErrorLevel.ImplementationAlreadyInStore;
+                return ExitCode.NoChanges;
             }
         }
 
@@ -268,7 +250,7 @@ namespace ZeroInstall.Commands.CliCommands
             }));
         }
 
-        private StoreErrorLevel Verify()
+        private ExitCode Verify()
         {
             try
             {
@@ -294,10 +276,10 @@ namespace ZeroInstall.Commands.CliCommands
             catch (DigestMismatchException ex)
             {
                 Handler.Output(Resources.VerifyImplementation, ex.Message);
-                return StoreErrorLevel.DigestMismatch;
+                return ExitCode.DigestMismatch;
             }
 
-            return StoreErrorLevel.OK;
+            return ExitCode.OK;
         }
         #endregion
 

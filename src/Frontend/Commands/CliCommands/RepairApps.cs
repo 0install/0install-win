@@ -51,12 +51,12 @@ namespace ZeroInstall.Commands.CliCommands
         {}
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             using (var integrationManager = new IntegrationManager(Handler, MachineWide))
                 integrationManager.Repair(FeedManager.GetFeedFresh);
 
-            return 0;
+            return ExitCode.OK;
         }
     }
 }

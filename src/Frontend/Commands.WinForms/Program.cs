@@ -76,14 +76,14 @@ namespace ZeroInstall.Commands.WinForms
             ErrorReportForm.SetupMonitoring(new Uri("https://0install.de/error-report/"));
 
             ProgramUtils.Startup();
-            return Run(args);
+            return (int)Run(args);
         }
 
         /// <summary>
         /// Runs the application (called by main method or by embedding process).
         /// </summary>
         [STAThread] // Required for WinForms
-        public static int Run(string[] args)
+        public static ExitCode Run(string[] args)
         {
             Log.Info("Zero Install Command WinForms GUI started with: " + args.JoinEscapeArguments());
 
@@ -97,18 +97,18 @@ namespace ZeroInstall.Commands.WinForms
                     #region Error handling
                 catch (OperationCanceledException)
                 {
-                    return 1;
+                    return ExitCode.UserCanceled;
                 }
                 catch (NotAdminException ex)
                 {
                     handler.DisableUI();
                     if (WindowsUtils.IsWindowsNT)
-                        return ProcessUtils.RunAssemblyAsAdmin("0install-win", args.JoinEscapeArguments());
+                        return (ExitCode)ProcessUtils.RunAssemblyAsAdmin("0install-win", args.JoinEscapeArguments());
                     else
                     {
                         Log.Error(ex);
                         Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                        return 1;
+                        return ExitCode.AccessDenied;
                     }
                 }
                 catch (OptionException ex)
@@ -117,84 +117,84 @@ namespace ZeroInstall.Commands.WinForms
                     if (ex.InnerException != null) builder.Append("\n" + ex.InnerException.Message);
                     builder.Append("\n" + string.Format(Resources.TryHelp, ExeName));
                     Msg.Inform(null, builder.ToString(), MsgSeverity.Warn);
-                    return 1;
+                    return ExitCode.InvalidArguments;
                 }
                 catch (FormatException ex)
                 {
                     handler.DisableUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, handler.ErrorLog);
-                    return 1;
+                    return ExitCode.InvalidArguments;
                 }
                 catch (WebException ex)
                 {
                     handler.DisableUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, handler.ErrorLog);
-                    return 1;
+                    return ExitCode.WebError;
                 }
                 catch (NotSupportedException ex)
                 {
                     handler.DisableUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, handler.ErrorLog);
-                    return 1;
+                    return ExitCode.NotSupported;
                 }
                 catch (IOException ex)
                 {
                     handler.DisableUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, handler.ErrorLog);
-                    return 1;
+                    return ExitCode.IOError;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
                     handler.DisableUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, handler.ErrorLog);
-                    return 1;
+                    return ExitCode.AccessDenied;
                 }
                 catch (InvalidDataException ex)
                 {
                     handler.DisableUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, handler.ErrorLog);
-                    return 1;
+                    return ExitCode.InvalidData;
                 }
                 catch (SignatureException ex)
                 {
                     handler.DisableUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, handler.ErrorLog);
-                    return 1;
+                    return ExitCode.InvalidSignature;
                 }
                 catch (DigestMismatchException ex)
                 {
                     handler.DisableUI();
                     Log.Error(ex);
                     ErrorBox.Show(Resources.DownloadDamaged, handler.ErrorLog);
-                    return 1;
+                    return ExitCode.DigestMismatch;
                 }
                 catch (SolverException ex)
                 {
                     handler.DisableUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message.GetLeftPartAtFirstOccurrence(Environment.NewLine), handler.ErrorLog);
-                    return 1;
+                    return ExitCode.SolverError;
                 }
                 catch (ExecutorException ex)
                 {
                     handler.DisableUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, handler.ErrorLog);
-                    return 1;
+                    return ExitCode.ExecutorError;
                 }
                 catch (ConflictException ex)
                 {
                     handler.DisableUI();
                     Log.Error(ex);
                     ErrorBox.Show(ex.Message, handler.ErrorLog);
-                    return 1;
+                    return ExitCode.Conflict;
                 }
                     #endregion
 

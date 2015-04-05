@@ -61,10 +61,10 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             Handler.Output(Resources.CommandLineArguments, HelpText);
-            return 1;
+            return ExitCode.InvalidArguments;
         }
     }
 }

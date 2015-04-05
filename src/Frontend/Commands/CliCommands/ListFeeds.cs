@@ -51,7 +51,7 @@ namespace ZeroInstall.Commands.CliCommands
         {}
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             var interfaceUri = GetCanonicalUri(AdditionalArgs[0]);
             var preferences = InterfacePreferences.LoadFor(interfaceUri);
@@ -59,7 +59,7 @@ namespace ZeroInstall.Commands.CliCommands
             Handler.Output(
                 string.Format(Resources.FeedsRegistered, interfaceUri),
                 preferences.Feeds.Select(x => x.Source));
-            return 0;
+            return ExitCode.OK;
         }
     }
 }

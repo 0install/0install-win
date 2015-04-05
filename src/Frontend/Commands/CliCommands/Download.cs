@@ -57,7 +57,7 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             try
             {
@@ -68,13 +68,13 @@ namespace ZeroInstall.Commands.CliCommands
             catch (WebException)
             {
                 // Supress network-related error messages on background downloads
-                if (Handler.Background) return 1;
+                if (Handler.Background) return ExitCode.WebError;
                 else throw;
             }
             catch (SolverException)
             {
                 // Supress network-related error messages on background downloads
-                if (Handler.Background) return 1;
+                if (Handler.Background) return ExitCode.SolverError;
                 else throw;
             }
             #endregion
@@ -130,12 +130,12 @@ namespace ZeroInstall.Commands.CliCommands
             }
         }
 
-        private int ShowOutput()
+        private ExitCode ShowOutput()
         {
             if (_show || ShowXml) Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             else Handler.OutputLow(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
 
-            return 0;
+            return ExitCode.OK;
         }
         #endregion
     }

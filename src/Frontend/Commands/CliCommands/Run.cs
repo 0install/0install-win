@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -83,7 +82,7 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             Solve();
             if (UncachedImplementations.Count != 0) RefreshSolve();
@@ -98,12 +97,12 @@ namespace ZeroInstall.Commands.CliCommands
             BackgroundUpdate();
             SelfUpdateCheck();
 
-            if (process == null) return 0;
-            if (NoWait) return (WindowsUtils.IsWindows ? process.Id : 0);
+            if (process == null) return ExitCode.OK;
+            if (NoWait) return (WindowsUtils.IsWindows ? (ExitCode)process.Id : ExitCode.OK);
             else
             {
                 process.WaitForExit();
-                return process.ExitCode;
+                return (ExitCode)process.ExitCode;
             }
         }
 

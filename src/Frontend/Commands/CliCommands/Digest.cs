@@ -79,14 +79,14 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             var manifest = GenerateManifest(
                 AdditionalArgs[0],
                 (AdditionalArgs.Count == 2) ? AdditionalArgs[1] : null);
 
             Handler.Output("Manifest digest", GetOutput(manifest));
-            return 0;
+            return ExitCode.OK;
         }
 
         #region Helpers

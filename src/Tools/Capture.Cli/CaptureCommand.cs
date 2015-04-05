@@ -23,6 +23,7 @@ using System.Reflection;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using NDesk.Options;
+using ZeroInstall.Publish;
 using ZeroInstall.Publish.Capture;
 
 namespace ZeroInstall.Capture.Cli
@@ -99,17 +100,17 @@ namespace ZeroInstall.Capture.Cli
         }
 
         [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly")]
-        private static ErrorLevel PrintHelp()
+        private static ExitCode PrintHelp()
         {
             Console.WriteLine("0capture start myapp.snapshot [--force]");
             Console.WriteLine("0capture finish myapp.snapshot myapp.xml [--force]");
             Console.WriteLine("\t[--installation-dir=C:\\myapp] [--main-exe=myapp.exe] [--collect-files]");
 
-            return ErrorLevel.InvalidArguments;
+            return ExitCode.InvalidArguments;
         }
         #endregion
 
-        public ErrorLevel Execute()
+        public ExitCode Execute()
         {
             if (_additionalArgs.Count == 0) return PrintHelp();
 
@@ -124,24 +125,24 @@ namespace ZeroInstall.Capture.Cli
             }
         }
 
-        private ErrorLevel Start()
+        private ExitCode Start()
         {
             if (_additionalArgs.Count != 2) return PrintHelp();
             string snapshotFile = _additionalArgs[1];
-            if (FileExists(snapshotFile)) return ErrorLevel.Warning;
+            if (FileExists(snapshotFile)) return ExitCode.IOError;
 
             var session = CaptureSession.Start();
             session.Save(snapshotFile);
 
-            return ErrorLevel.OK;
+            return ExitCode.OK;
         }
 
-        private ErrorLevel Finish()
+        private ExitCode Finish()
         {
             if (_additionalArgs.Count != 3) return PrintHelp();
             string snapshotFile = _additionalArgs[1];
             string feedFile = _additionalArgs[2];
-            if (FileExists(feedFile)) return ErrorLevel.Warning;
+            if (FileExists(feedFile)) return ExitCode.IOError;
 
             var session = CaptureSession.Load(snapshotFile);
             session.InstallationDir = _installationDirectory;
@@ -151,7 +152,7 @@ namespace ZeroInstall.Capture.Cli
 
             if (_collectFiles) session.CollectFiles();
 
-            return ErrorLevel.OK;
+            return ExitCode.OK;
         }
 
         private bool FileExists(string path)

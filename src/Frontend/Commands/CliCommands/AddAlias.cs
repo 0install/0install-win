@@ -18,7 +18,6 @@
 using System;
 using System.Linq;
 using JetBrains.Annotations;
-using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -71,7 +70,7 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             if (_resolve || _remove)
             {
@@ -94,8 +93,8 @@ namespace ZeroInstall.Commands.CliCommands
         /// Resolves or removes existing aliases.
         /// </summary>
         /// <param name="aliasName">The name of the existing alias.</param>
-        /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        private int ResolveOrRemove(string aliasName)
+        /// <returns>The exit status code to end the process with.</returns>
+        private ExitCode ResolveOrRemove(string aliasName)
         {
             using (var integrationManager = new IntegrationManager(Handler, MachineWide))
             {
@@ -104,7 +103,7 @@ namespace ZeroInstall.Commands.CliCommands
                 if (appAlias == null)
                 {
                     Handler.Output(Resources.AppAlias, string.Format(Resources.AliasNotFound, aliasName));
-                    return 1;
+                    return ExitCode.InvalidArguments;
                 }
 
                 if (_resolve)
@@ -119,7 +118,7 @@ namespace ZeroInstall.Commands.CliCommands
 
                     Handler.OutputLow(Resources.AppAlias, string.Format(Resources.AliasRemoved, aliasName, appEntry.Name));
                 }
-                return 0;
+                return ExitCode.OK;
             }
         }
 
@@ -129,8 +128,8 @@ namespace ZeroInstall.Commands.CliCommands
         /// <param name="aliasName">The name of the alias to create.</param>
         /// <param name="interfaceUri">The interface URI the alias shall point to.</param>
         /// <param name="command">A command within the interface the alias shall point to; can be <see langword="null"/>.</param>
-        /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        private int CreateAlias(string aliasName, FeedUri interfaceUri, string command = null)
+        /// <returns>The exit status code to end the process with.</returns>
+        private ExitCode CreateAlias(string aliasName, FeedUri interfaceUri, string command = null)
         {
             using (var integrationManager = new IntegrationManager(Handler, MachineWide))
             {
@@ -141,20 +140,12 @@ namespace ZeroInstall.Commands.CliCommands
 
                 // Apply the new alias
                 var alias = new AppAlias {Name = aliasName, Command = command};
-                try
-                {
-                    integrationManager.AddAccessPoints(appEntry, FeedManager.GetFeed(interfaceUri), new AccessPoint[] {alias});
-                }
-                catch (ConflictException ex)
-                {
-                    Log.Warn(ex.Message);
-                    return 1;
-                }
+                integrationManager.AddAccessPoints(appEntry, FeedManager.GetFeed(interfaceUri), new AccessPoint[] {alias});
 
                 Handler.OutputLow(
                     Resources.DesktopIntegration,
                     string.Format(needsReopenTerminal ? Resources.AliasCreatedReopenTerminal : Resources.AliasCreated, aliasName, appEntry.Name));
-                return 0;
+                return ExitCode.OK;
             }
         }
 

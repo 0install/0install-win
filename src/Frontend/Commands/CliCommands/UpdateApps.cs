@@ -62,7 +62,7 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             var selectedImplementations = SolveAll(GetTargets()).ToList();
             DownloadUncachedImplementations(selectedImplementations);
@@ -71,7 +71,7 @@ namespace ZeroInstall.Commands.CliCommands
             Handler.CancellationToken.ThrowIfCancellationRequested();
             if (_clean) Clean(selectedImplementations.Select(impl => impl.ManifestDigest));
 
-            return 0;
+            return ExitCode.OK;
         }
 
         #region Helpers

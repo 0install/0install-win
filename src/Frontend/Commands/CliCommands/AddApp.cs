@@ -54,7 +54,7 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        protected override int ExecuteHelper(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri)
+        protected override ExitCode ExecuteHelper(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri)
         {
             #region Sanity checks
             if (integrationManager == null) throw new ArgumentNullException("integrationManager");
@@ -64,7 +64,7 @@ namespace ZeroInstall.Commands.CliCommands
             try
             {
                 CreateAppEntry(integrationManager, ref interfaceUri);
-                return 0;
+                return ExitCode.OK;
             }
                 #region Error handling
             catch (WebException)
@@ -75,7 +75,7 @@ namespace ZeroInstall.Commands.CliCommands
             catch (InvalidOperationException ex)
             { // Application already in AppList
                 Handler.OutputLow(Resources.DesktopIntegration, ex.Message);
-                return 1;
+                return ExitCode.NoChanges;
             }
             #endregion
         }

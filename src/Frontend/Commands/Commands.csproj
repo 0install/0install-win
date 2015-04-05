@@ -92,6 +92,7 @@
     <Compile Include="CommandBase.cs" />
     <Compile Include="ConfigTab.cs" />
     <Compile Include="CommandFactory.cs" />
+    <Compile Include="ExitCode.cs" />
     <Compile Include="ICommandHandler.cs" />
     <Compile Include="ProgramUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

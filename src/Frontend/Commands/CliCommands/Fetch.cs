@@ -48,15 +48,15 @@ namespace ZeroInstall.Commands.CliCommands
         {}
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             string input = Console.ReadLine();
-            if (string.IsNullOrEmpty(input)) return -1;
+            if (string.IsNullOrEmpty(input)) return ExitCode.InvalidData;
 
             var feedFragment = XmlStorage.FromXmlString<Feed>(input);
             Fetcher.Fetch(feedFragment.Elements.OfType<Implementation>());
 
-            return 0;
+            return ExitCode.OK;
         }
     }
 }

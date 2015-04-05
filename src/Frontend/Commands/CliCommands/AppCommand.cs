@@ -41,7 +41,7 @@ namespace ZeroInstall.Commands.CliCommands
         {}
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             try
             {
@@ -60,7 +60,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// </summary>
         /// <param name="integrationManager">Manages desktop integration operations.</param>
         /// <param name="interfaceUri">The interface for the application to perform the operation on.</param>
-        /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        protected abstract int ExecuteHelper([NotNull] ICategoryIntegrationManager integrationManager, [NotNull] FeedUri interfaceUri);
+        /// <returns>The exit status code to end the process with.</returns>
+        protected abstract ExitCode ExecuteHelper([NotNull] ICategoryIntegrationManager integrationManager, [NotNull] FeedUri interfaceUri);
     }
 }

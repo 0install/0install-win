@@ -84,7 +84,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             if (SelfUpdateUtils.IsBlocked) throw new NotSupportedException(Resources.SelfUpdateBlocked);
 
@@ -96,13 +96,13 @@ namespace ZeroInstall.Commands.CliCommands
             catch (WebException)
             {
                 // Supress network-related error messages on background downloads
-                if (Handler.Background) return 1;
+                if (Handler.Background) return ExitCode.WebError;
                 else throw;
             }
             catch (SolverException)
             {
                 // Supress network-related error messages on background downloads
-                if (Handler.Background) return 1;
+                if (Handler.Background) return ExitCode.SolverError;
                 else throw;
             }
             #endregion
@@ -116,9 +116,9 @@ namespace ZeroInstall.Commands.CliCommands
                     throw new OperationCanceledException();
 
                 LaunchImplementation();
-                return 0;
+                return ExitCode.OK;
             }
-            else return 0;
+            else return ExitCode.OK;
         }
 
         private bool UpdateFound()

@@ -48,13 +48,13 @@ namespace ZeroInstall.Commands.CliCommands
         {}
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             var feeds = FeedCache.ListAll().Select(x => x.ToStringRfc());
             if (AdditionalArgs.Count > 0) feeds = feeds.Where(x => x.Contains(AdditionalArgs[0]));
 
             Handler.Output(Resources.FoundFeeds, feeds);
-            return 0;
+            return ExitCode.OK;
         }
     }
 }

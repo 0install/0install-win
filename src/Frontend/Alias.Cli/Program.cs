@@ -60,13 +60,13 @@ namespace ZeroInstall.Alias.Cli
 #endif
 
             ProgramUtils.Startup();
-            return Run(args);
+            return (int)Run(args);
         }
 
         /// <summary>
         /// Runs the application (called by main method or by embedding process).
         /// </summary>
-        public static int Run(string[] args)
+        public static ExitCode Run(string[] args)
         {
             var handler = new CliCommandHandler();
             try
@@ -78,26 +78,26 @@ namespace ZeroInstall.Alias.Cli
                 #region Error handling
             catch (OperationCanceledException)
             {
-                return 1;
+                return ExitCode.UserCanceled;
             }
             catch (NeedGuiException ex)
             {
                 if (WindowsUtils.IsWindows)
-                    return ProcessUtils.RunAssembly("0install-win", new[] {"add-alias"}.Concat(args).JoinEscapeArguments());
+                    return (ExitCode)ProcessUtils.RunAssembly("0install-win", new[] {"add-alias"}.Concat(args).JoinEscapeArguments());
                 else
                 {
                     Log.Error(ex);
-                    return 1;
+                    return ExitCode.InvalidArguments;
                 }
             }
             catch (NotAdminException ex)
             {
                 if (WindowsUtils.IsWindowsNT)
-                    return ProcessUtils.RunAssemblyAsAdmin("0install-win", new[] { "add-alias" }.Concat(args).JoinEscapeArguments());
+                    return (ExitCode)ProcessUtils.RunAssemblyAsAdmin("0install-win", new[] {"add-alias"}.Concat(args).JoinEscapeArguments());
                 else
                 {
                     Log.Error(ex);
-                    return 1;
+                    return ExitCode.AccessDenied;
                 }
             }
             catch (OptionException ex)
@@ -106,52 +106,52 @@ namespace ZeroInstall.Alias.Cli
                 if (ex.InnerException != null) builder.Append("\n" + ex.InnerException.Message);
                 builder.Append("\n" + string.Format(Resources.TryHelp, ExeName));
                 Log.Error(builder.ToString());
-                return 1;
+                return ExitCode.InvalidArguments;
             }
             catch (FormatException ex)
             {
                 Log.Error(ex);
-                return 1;
+                return ExitCode.InvalidArguments;
             }
             catch (WebException ex)
             {
                 Log.Error(ex);
-                return 1;
+                return ExitCode.WebError;
             }
             catch (NotSupportedException ex)
             {
                 Log.Error(ex);
-                return 1;
+                return ExitCode.NotSupported;
             }
             catch (IOException ex)
             {
                 Log.Error(ex);
-                return 1;
+                return ExitCode.IOError;
             }
             catch (UnauthorizedAccessException ex)
             {
                 Log.Error(ex);
-                return 1;
+                return ExitCode.AccessDenied;
             }
             catch (InvalidDataException ex)
             {
                 Log.Error(ex);
-                return 1;
+                return ExitCode.InvalidData;
             }
             catch (SignatureException ex)
             {
                 Log.Error(ex);
-                return 1;
+                return ExitCode.InvalidSignature;
             }
             catch (DigestMismatchException ex)
             {
                 Log.Error(ex);
-                return 1;
+                return ExitCode.DigestMismatch;
             }
             catch (SolverException ex)
             {
                 Log.Error(ex);
-                return 1;
+                return ExitCode.SolverError;
             }
                 #endregion
 

@@ -131,7 +131,7 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             Solve();
             if (FeedManager.Stale) RefreshSolve();
@@ -237,10 +237,10 @@ namespace ZeroInstall.Commands.CliCommands
             return Selections;
         }
 
-        private int ShowOutput()
+        private ExitCode ShowOutput()
         {
             Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
-            return 0;
+            return ExitCode.OK;
         }
 
         /// <summary>

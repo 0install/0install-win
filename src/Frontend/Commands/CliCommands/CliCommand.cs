@@ -173,7 +173,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// <summary>
         /// Executes the commands specified by the command-line arguments. Must call <see cref="Parse"/> first!
         /// </summary>
-        /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
+        /// <returns>The exit status code to end the process with.</returns>
         /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
         /// <exception cref="OptionException">The number of arguments passed in on the command-line is incorrect.</exception>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
@@ -188,7 +188,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// <exception cref="ImplementationNotFoundException">One of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
         /// <exception cref="ExecutorException">The <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
         /// <remarks>When inheriting this method is usually replaced.</remarks>
-        public abstract int Execute();
+        public abstract ExitCode Execute();
 
         /// <summary>
         /// Generates a localized instruction string describing multiple selectable values.

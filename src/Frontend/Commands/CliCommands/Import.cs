@@ -52,12 +52,12 @@ namespace ZeroInstall.Commands.CliCommands
         {}
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             foreach (var file in ArgumentUtils.GetFiles(AdditionalArgs, "*.xml"))
                 ImportFile(file.FullName);
 
-            return 0;
+            return ExitCode.OK;
         }
 
         #region Helpers

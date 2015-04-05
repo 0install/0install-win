@@ -87,7 +87,7 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        protected override int ExecuteHelper(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri)
+        protected override ExitCode ExecuteHelper(ICategoryIntegrationManager integrationManager, FeedUri interfaceUri)
         {
             #region Sanity checks
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
@@ -97,7 +97,7 @@ namespace ZeroInstall.Commands.CliCommands
             if (RemoveOnly())
             {
                 RemoveOnly(integrationManager, interfaceUri);
-                return 0;
+                return ExitCode.OK;
             }
 
             var appEntry = GetAppEntry(integrationManager, ref interfaceUri);
@@ -129,11 +129,11 @@ namespace ZeroInstall.Commands.CliCommands
                 }
                 #endregion
 
-                return 0;
+                return ExitCode.OK;
             }
 
             RemoveAndAdd(integrationManager, feed, appEntry);
-            return 0;
+            return ExitCode.OK;
         }
 
         #region Helpers

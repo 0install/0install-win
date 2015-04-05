@@ -88,12 +88,12 @@ namespace ZeroInstall.Commands.CliCommands
         /// Verifies that calling <see cref="CliCommand.Parse"/> and <see cref="CliCommand.Execute"/> causes a specific reuslt.
         /// </summary>
         /// <param name="expectedOutput">The expected string for a <see cref="ITaskHandler.Output"/> call; <see langword="null"/> if none.</param>
-        /// <param name="expectedExitStatus">The expected exit status code returned by <see cref="CliCommand.Execute"/>.</param>
+        /// <param name="expectedExitCode">The expected exit status code returned by <see cref="CliCommand.Execute"/>.</param>
         /// <param name="args">The arguments to pass to <see cref="CliCommand.Parse"/>.</param>
-        protected void RunAndAssert([CanBeNull] string expectedOutput, int expectedExitStatus, params string[] args)
+        protected void RunAndAssert([CanBeNull] string expectedOutput, ExitCode expectedExitCode, params string[] args)
         {
             Target.Parse(args);
-            Assert.AreEqual(expectedExitStatus, Target.Execute());
+            Assert.AreEqual(expectedExitCode, Target.Execute());
             Assert.AreEqual(expectedOutput, MockHandler.LastOutput);
         }
 
@@ -101,12 +101,12 @@ namespace ZeroInstall.Commands.CliCommands
         /// Verifies that calling <see cref="CliCommand.Parse"/> and <see cref="CliCommand.Execute"/> causes a specific reuslt.
         /// </summary>
         /// <param name="expectedOutput">The expected tabular data for a <see cref="ITaskHandler.Output{T}"/> call.</param>
-        /// <param name="expectedExitStatus">The expected exit status code returned by <see cref="CliCommand.Execute"/>.</param>
+        /// <param name="expectedExitCode">The expected exit status code returned by <see cref="CliCommand.Execute"/>.</param>
         /// <param name="args">The arguments to pass to <see cref="CliCommand.Parse"/>.</param>
-        protected void RunAndAssert<T>(IEnumerable<T> expectedOutput, int expectedExitStatus, params string[] args)
+        protected void RunAndAssert<T>(IEnumerable<T> expectedOutput, ExitCode expectedExitCode, params string[] args)
         {
             Target.Parse(args);
-            Assert.AreEqual(expectedExitStatus, Target.Execute());
+            Assert.AreEqual(expectedExitCode, Target.Execute());
             CollectionAssert.AreEqual(expectedOutput, MockHandler.LastOutputObjects);
         }
     }

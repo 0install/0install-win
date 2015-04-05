@@ -52,11 +52,11 @@ namespace ZeroInstall.Commands.CliCommands
         {}
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             using (var integrationManager = new IntegrationManager(Handler, MachineWide))
             {
-                if (AppList.Entries.Count == 0) return 0;
+                if (AppList.Entries.Count == 0) return ExitCode.OK;
 
                 if (Handler.Ask(Resources.ConfirmRemoveAll, defaultAnswer: true))
                 {
@@ -68,7 +68,7 @@ namespace ZeroInstall.Commands.CliCommands
                 else throw new OperationCanceledException();
             }
 
-            return 0;
+            return ExitCode.OK;
         }
     }
 }

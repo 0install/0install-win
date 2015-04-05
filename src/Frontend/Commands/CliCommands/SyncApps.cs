@@ -54,7 +54,7 @@ namespace ZeroInstall.Commands.CliCommands
         #endregion
 
         /// <inheritdoc/>
-        public override int Execute()
+        public override ExitCode Execute()
         {
             try
             {
@@ -75,7 +75,7 @@ namespace ZeroInstall.Commands.CliCommands
                 SelfUpdateCheck();
             }
 
-            return 0;
+            return ExitCode.OK;
         }
     }
 }

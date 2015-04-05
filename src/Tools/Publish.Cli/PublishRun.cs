@@ -195,7 +195,7 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="DigestMismatchException">An existing digest does not match the newly calculated one.</exception>
         /// <exception cref="KeyNotFoundException">An OpenPGP key could not be found.</exception>
         /// <exception cref="NotSupportedException">A MIME type doesn't belong to a known and supported archive type.</exception>
-        public ErrorLevel Execute()
+        public ExitCode Execute()
         {
             switch (_mode)
             {
@@ -203,7 +203,7 @@ namespace ZeroInstall.Publish.Cli
                     if (_feeds.Count == 0)
                     {
                         Log.Error(string.Format(Resources.MissingArguments, "0publish"));
-                        return ErrorLevel.InvalidArguments;
+                        return ExitCode.InvalidArguments;
                     }
 
                     foreach (var feedEditing in _feeds.Select(file => FeedEditing.Load(file.FullName)))
@@ -211,7 +211,7 @@ namespace ZeroInstall.Publish.Cli
                         HandleModify(feedEditing);
                         SaveFeed(feedEditing);
                     }
-                    return ErrorLevel.OK;
+                    return ExitCode.OK;
 
                 case OperationMode.Catalog:
                     // Default to using all XML files in the current directory
@@ -227,11 +227,11 @@ namespace ZeroInstall.Publish.Cli
                     if (catalog.Feeds.Count == 0) throw new FileNotFoundException(Resources.NoFeedFilesFound);
 
                     SaveCatalog(catalog);
-                    return ErrorLevel.OK;
+                    return ExitCode.OK;
 
                 default:
                     Log.Error(string.Format(Resources.UnknownMode, "0publish"));
-                    return ErrorLevel.NotSupported;
+                    return ExitCode.InvalidArguments;
             }
         }
         #endregion
