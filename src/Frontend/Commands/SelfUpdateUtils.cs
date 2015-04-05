@@ -73,7 +73,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="UnauthorizedAccessException">Access to the cache is not permitted.</exception>
         /// <exception cref="SignatureException">The signature data of a remote feed file could not be verified.</exception>
         /// <exception cref="UriFormatException"><see cref="Config.SelfUpdateUri"/> is invalid.</exception>
-        /// <exception cref="SolverException">The dependencies could not be solved.</exception>
+        /// <exception cref="SolverException">The solver was unable to get information about the current version of Zero Install.</exception>
         /// <exception cref="InvalidDataException">A configuration file is damaged.</exception>
         [CanBeNull]
         public static ImplementationVersion SilentCheck()

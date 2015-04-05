@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -86,7 +85,6 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="ExecutorException">A <see cref="Command"/> contained invalid data.</exception>
         /// <exception cref="IOException">A problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
-        /// <exception cref="Win32Exception">A problem occurred while creating a hard link.</exception>
         private List<ArgBase> GetCommandLine(ImplementationSelection implementation, string commandName, ProcessStartInfo startInfo)
         {
             #region Sanity checks

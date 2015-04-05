@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -88,112 +87,89 @@ namespace ZeroInstall.Commands.Gtk
                     #region Error handling
                 catch (OperationCanceledException)
                 {
-                    return 0;
-                }
-                catch (NotAdminException ex)
-                {
-                    handler.CloseUI();
-
-                    if (WindowsUtils.IsWindowsNT) return ProcessUtils.RunAssemblyAsAdmin("0install-gtk", args.JoinEscapeArguments());
-                    else
-                    {
-                        Log.Error(ex);
-                        return 1;
-                    }
+                    return 1;
                 }
                 catch (OptionException ex)
                 {
-                    var messsage = new StringBuilder(ex.Message);
-                    if (ex.InnerException != null) messsage.Append("\n" + ex.InnerException.Message);
-                    messsage.Append("\n" + string.Format(Resources.TryHelp, ExeName));
-                    Msg.Inform(null, messsage.ToString(), MsgSeverity.Warn);
+                    var builder = new StringBuilder(ex.Message);
+                    if (ex.InnerException != null) builder.Append("\n" + ex.InnerException.Message);
+                    builder.Append("\n" + string.Format(Resources.TryHelp, ExeName));
+                    Msg.Inform(null, builder.ToString(), MsgSeverity.Warn);
                     return 1;
                 }
-                catch (Win32Exception ex)
+                catch (FormatException ex)
                 {
-                    handler.CloseUI();
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    return 1;
-                }
-                catch (BadImageFormatException ex)
-                {
-                    handler.CloseUI();
+                    handler.DisableUI();
+                    Log.Error(ex);
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return 1;
                 }
                 catch (WebException ex)
                 {
-                    handler.CloseUI();
+                    handler.DisableUI();
                     Log.Error(ex);
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return 1;
                 }
                 catch (NotSupportedException ex)
                 {
-                    handler.CloseUI();
+                    handler.DisableUI();
                     Log.Error(ex);
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return 1;
                 }
                 catch (IOException ex)
                 {
-                    handler.CloseUI();
+                    handler.DisableUI();
                     Log.Error(ex);
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return 1;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    handler.CloseUI();
+                    handler.DisableUI();
                     Log.Error(ex);
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return 1;
                 }
                 catch (InvalidDataException ex)
                 {
-                    handler.CloseUI();
+                    handler.DisableUI();
                     Log.Error(ex);
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return 1;
                 }
                 catch (SignatureException ex)
                 {
-                    handler.CloseUI();
-                    Log.Error(ex);
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    return 1;
-                }
-                catch (FormatException ex)
-                {
-                    handler.CloseUI();
+                    handler.DisableUI();
                     Log.Error(ex);
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return 1;
                 }
                 catch (DigestMismatchException ex)
                 {
-                    handler.CloseUI();
+                    handler.DisableUI();
                     Log.Error(ex);
                     Msg.Inform(null, Resources.DownloadDamaged, MsgSeverity.Error);
                     return 1;
                 }
                 catch (SolverException ex)
                 {
-                    handler.CloseUI();
+                    handler.DisableUI();
                     Log.Error(ex);
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return 1;
                 }
                 catch (ExecutorException ex)
                 {
-                    handler.CloseUI();
+                    handler.DisableUI();
                     Log.Error(ex);
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return 1;
                 }
                 catch (ConflictException ex)
                 {
-                    handler.CloseUI();
+                    handler.DisableUI();
                     Log.Error(ex);
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return 1;

@@ -17,12 +17,11 @@
 
 using System;
 using System.Runtime.Serialization;
-using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Services.Injector
 {
     /// <summary>
-    /// Indicates the <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.
+    /// Indicates that the <see cref="IExecutor"/> was unable to launch the desired application.
     /// </summary>
     [Serializable]
     public sealed class ExecutorException : Exception

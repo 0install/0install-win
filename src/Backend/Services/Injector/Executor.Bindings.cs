@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -47,7 +46,6 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="ExecutorException">A <see cref="Command"/> contained invalid data.</exception>
         /// <exception cref="IOException">A problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
-        /// <exception cref="Win32Exception">A problem occurred while creating a hard link.</exception>
         private ProcessStartInfo BuildStartInfoWithBindings()
         {
             var startInfo = new ProcessStartInfo {ErrorDialog = false, UseShellExecute = false};
@@ -74,7 +72,6 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="ExecutorException">A <see cref="Command"/> contained invalid data.</exception>
         /// <exception cref="IOException">A problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
-        /// <exception cref="Win32Exception">A problem occurred while creating a hard link.</exception>
         private void ApplyBindings(IBindingContainer bindingContainer, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
             // Do not apply bindings more than once
@@ -104,7 +101,6 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="ExecutorException">A <see cref="Command"/> contained invalid data.</exception>
         /// <exception cref="IOException">A problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
-        /// <exception cref="Win32Exception">A problem occurred while creating a hard link.</exception>
         private void ApplyDependencyBindings(IDependencyContainer dependencyContainer, ProcessStartInfo startInfo)
         {
             foreach (var dependency in dependencyContainer.Dependencies
@@ -214,7 +210,6 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="ExecutorException"><see cref="ExecutableInVar.Name"/> is invalid.</exception>
         /// <exception cref="IOException">A problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
-        /// <exception cref="Win32Exception">A problem occurred while creating a hard link.</exception>
         private void ApplyExecutableInVar(ExecutableInVar binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
             if (string.IsNullOrEmpty(binding.Name)) throw new ExecutorException(string.Format(Resources.MissingBindingName, @"<executable-in-var>"));
@@ -242,7 +237,6 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="ExecutorException"><see cref="ExecutableInPath.Name"/> is invalid.</exception>
         /// <exception cref="IOException">A problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
-        /// <exception cref="Win32Exception">A problem occurred while creating a hard link.</exception>
         private void ApplyExecutableInPath(ExecutableInPath binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
             if (string.IsNullOrEmpty(binding.Name)) throw new ExecutorException(string.Format(Resources.MissingBindingName, @"<executable-in-path>"));
@@ -265,7 +259,6 @@ namespace ZeroInstall.Services.Injector
         /// <returns>The fully qualified path of the deployed run-environment executable.</returns>
         /// <exception cref="IOException">A problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
-        /// <exception cref="Win32Exception">A problem occurred while creating a hard link.</exception>
         /// <remarks>A run-environment executable executes a command-line specified in an environment variable based on its own name.</remarks>
         private static string DeployRunEnvExecutable(string name)
         {

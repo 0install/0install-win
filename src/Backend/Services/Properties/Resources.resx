@@ -142,6 +142,9 @@ Do you want to trust this key to sign feeds from '{3}'?
   <data name="ExternalSolverRunning" xml:space="preserve">
     <value>Running external solver</value>
   </data>
+  <data name="FailedToLaunch" xml:space="preserve">
+    <value>Failed to launch '{0}'.</value>
+  </data>
   <data name="FeedDownloadError" xml:space="preserve">
     <value>Error while downloading feed '{0}'.</value>
   </data>

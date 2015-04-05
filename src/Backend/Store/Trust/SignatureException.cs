@@ -22,7 +22,7 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Trust
 {
     /// <summary>
-    /// Indicates an <see cref="IOpenPgp"/> implementation detected a problem with a digital signature.
+    /// Indicates the <see cref="IOpenPgp"/> implementation detected a problem with a digital signature.
     /// </summary>
     [Serializable]
     public sealed class SignatureException : Exception

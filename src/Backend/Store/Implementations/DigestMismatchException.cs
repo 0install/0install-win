@@ -26,7 +26,7 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementations
 {
     /// <summary>
-    /// Indicates an <see cref="Store.Model.Implementation"/> directory does not match a <see cref="ManifestDigest"/>.
+    /// Indicates that the <see cref="ManifestDigest"/> of an implementation does not match the expected value.
     /// </summary>
     [Serializable]
     public sealed class DigestMismatchException : Exception

@@ -168,7 +168,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// <exception cref="OperationCanceledException">The user canceled the process.</exception>
         /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">An external application or file required by the solver could not be accessed.</exception>
-        /// <exception cref="SolverException">The dependencies could not be solved.</exception>
+        /// <exception cref="SolverException">The <see cref="ISolver"/> was unable to provide a set of <see cref="Selections"/> that fulfill the <see cref="Requirements"/>.</exception>
         protected virtual void Solve()
         {
             // TODO: Handle named apps

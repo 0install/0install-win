@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -80,18 +79,20 @@ namespace ZeroInstall.Store.Management.Cli
             {
                 return 1;
             }
-            catch (NotAdminException ex)
+            catch (NeedGuiException ex)
             {
-                if (WindowsUtils.IsWindowsNT) return ProcessUtils.RunAssemblyAsAdmin("0install-win", new[] {"store"}.Concat(args).JoinEscapeArguments());
+                if (WindowsUtils.IsWindows)
+                    return ProcessUtils.RunAssembly("0install-win", new[] {"store"}.Concat(args).JoinEscapeArguments());
                 else
                 {
                     Log.Error(ex);
                     return 1;
                 }
             }
-            catch (NeedGuiException ex)
+            catch (NotAdminException ex)
             {
-                if (WindowsUtils.IsWindows) return ProcessUtils.RunAssembly("0install-win", new[] {"store"}.Concat(args).JoinEscapeArguments());
+                if (WindowsUtils.IsWindowsNT)
+                    return ProcessUtils.RunAssemblyAsAdmin("0install-win", new[] {"store"}.Concat(args).JoinEscapeArguments());
                 else
                 {
                     Log.Error(ex);
@@ -100,18 +101,13 @@ namespace ZeroInstall.Store.Management.Cli
             }
             catch (OptionException ex)
             {
-                var messsage = new StringBuilder(ex.Message);
-                if (ex.InnerException != null) messsage.Append("\n" + ex.InnerException.Message);
-                messsage.Append("\n" + string.Format(Resources.TryHelp, ExeName));
-                Log.Error(messsage.ToString());
+                var builder = new StringBuilder(ex.Message);
+                if (ex.InnerException != null) builder.Append("\n" + ex.InnerException.Message);
+                builder.Append("\n" + string.Format(Resources.TryHelp, ExeName));
+                Log.Error(builder.ToString());
                 return 1;
             }
-            catch (Win32Exception ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            catch (BadImageFormatException ex)
+            catch (FormatException ex)
             {
                 Log.Error(ex);
                 return 1;
@@ -126,11 +122,6 @@ namespace ZeroInstall.Store.Management.Cli
                 Log.Error(ex);
                 return 1;
             }
-            catch (InvalidDataException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
             catch (IOException ex)
             {
                 Log.Error(ex);
@@ -141,7 +132,7 @@ namespace ZeroInstall.Store.Management.Cli
                 Log.Error(ex);
                 return 1;
             }
-            catch (DigestMismatchException ex)
+            catch (InvalidDataException ex)
             {
                 Log.Error(ex);
                 return 1;
@@ -151,7 +142,7 @@ namespace ZeroInstall.Store.Management.Cli
                 Log.Error(ex);
                 return 1;
             }
-            catch (FormatException ex)
+            catch (DigestMismatchException ex)
             {
                 Log.Error(ex);
                 return 1;
@@ -160,7 +151,6 @@ namespace ZeroInstall.Store.Management.Cli
 
             finally
             {
-                // Always close GUI in the end
                 handler.CloseUI();
             }
         }

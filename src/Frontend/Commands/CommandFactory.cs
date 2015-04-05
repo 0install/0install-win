@@ -131,7 +131,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="IOException">A problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Creating a directory is not permitted.</exception>
         /// <exception cref="InvalidDataException">A configuration file is damaged.</exception>
-        /// <exception cref="UriFormatException">The URI or local path specified is invalid.</exception>
+        /// <exception cref="FormatException">An URI, local path, version number, etc. is invalid.</exception>
         [NotNull]
         public static CliCommand CreateAndParse([NotNull, ItemNotNull] IEnumerable<string> args, [NotNull] ICommandHandler handler)
         {

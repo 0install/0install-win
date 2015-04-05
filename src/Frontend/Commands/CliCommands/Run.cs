@@ -135,7 +135,6 @@ namespace ZeroInstall.Commands.CliCommands
         /// <returns>The newly created <see cref="Process"/>; <see langword="null"/> if no external process was started.</returns>
         /// <exception cref="ImplementationNotFoundException">One of the <see cref="Implementation"/>s is not cached yet.</exception>
         /// <exception cref="ExecutorException">The <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
-        /// <exception cref="Win32Exception">An executable could not be launched.</exception>
         [SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "Explicit test for empty but non-null strings is intended")]
         [CanBeNull]
         protected Process LaunchImplementation()

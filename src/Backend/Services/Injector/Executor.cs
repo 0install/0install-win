@@ -70,16 +70,17 @@ namespace ZeroInstall.Services.Injector
             if (arguments == null) throw new ArgumentNullException("arguments");
             #endregion
 
+            var startInfo = GetStartInfo(selections, arguments);
             try
             {
-                return Process.Start(GetStartInfo(selections, arguments));
+                return Process.Start(startInfo);
             }
                 #region Error handling
             catch (Win32Exception ex)
             {
                 const int requestedOperationRequiresElevation = 740;
                 if (ex.NativeErrorCode == requestedOperationRequiresElevation) throw new NotAdminException(ex.Message);
-                else throw;
+                else throw new ExecutorException(string.Format(Resources.FailedToLaunch, startInfo.FileName), ex);
             }
             #endregion
         }
@@ -96,7 +97,6 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="ExecutorException">The <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
         /// <exception cref="IOException">A problem occurred while writing a file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
-        /// <exception cref="Win32Exception">A problem occurred while creating a hard link.</exception>
         [NotNull]
         internal ProcessStartInfo GetStartInfo([NotNull] Selections selections, [NotNull, ItemNotNull] params string[] arguments)
         {

@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -78,18 +77,20 @@ namespace ZeroInstall.Commands.Cli
             {
                 return 1;
             }
-            catch (NotAdminException ex)
+            catch (NeedGuiException ex)
             {
-                if (WindowsUtils.IsWindowsNT) return ProcessUtils.RunAssemblyAsAdmin("0install-win", args.JoinEscapeArguments());
+                if (WindowsUtils.IsWindows)
+                    return ProcessUtils.RunAssembly("0install-win", args.JoinEscapeArguments());
                 else
                 {
                     Log.Error(ex);
                     return 1;
                 }
             }
-            catch (NeedGuiException ex)
+            catch (NotAdminException ex)
             {
-                if (WindowsUtils.IsWindows) return ProcessUtils.RunAssembly("0install-win", args.JoinEscapeArguments());
+                if (WindowsUtils.IsWindowsNT)
+                    return ProcessUtils.RunAssemblyAsAdmin("0install-win", args.JoinEscapeArguments());
                 else
                 {
                     Log.Error(ex);
@@ -98,18 +99,13 @@ namespace ZeroInstall.Commands.Cli
             }
             catch (OptionException ex)
             {
-                var messsage = new StringBuilder(ex.Message);
-                if (ex.InnerException != null) messsage.Append("\n" + ex.InnerException.Message);
-                messsage.Append("\n" + string.Format(Resources.TryHelp, ExeName));
-                Log.Error(messsage.ToString());
+                var builder = new StringBuilder(ex.Message);
+                if (ex.InnerException != null) builder.Append("\n" + ex.InnerException.Message);
+                builder.Append("\n" + string.Format(Resources.TryHelp, ExeName));
+                Log.Error(builder.ToString());
                 return 1;
             }
-            catch (Win32Exception ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            catch (BadImageFormatException ex)
+            catch (FormatException ex)
             {
                 Log.Error(ex);
                 return 1;
@@ -131,7 +127,6 @@ namespace ZeroInstall.Commands.Cli
             }
             catch (UnauthorizedAccessException ex)
             {
-                handler.CloseUI();
                 Log.Error(ex);
                 return 1;
             }
@@ -141,11 +136,6 @@ namespace ZeroInstall.Commands.Cli
                 return 1;
             }
             catch (SignatureException ex)
-            {
-                Log.Error(ex);
-                return 1;
-            }
-            catch (FormatException ex)
             {
                 Log.Error(ex);
                 return 1;

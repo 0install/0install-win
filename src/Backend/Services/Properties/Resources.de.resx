@@ -142,6 +142,9 @@ Möchten Sie diesem Key zum Signieren von Feeds von '{3}' vertrauen?
   <data name="ExternalSolverRunning" xml:space="preserve">
     <value>Führe externen Solver aus</value>
   </data>
+  <data name="FailedToLaunch" xml:space="preserve">
+    <value>Fehler beim Starten von '{0}'.</value>
+  </data>
   <data name="FeedDownloadError" xml:space="preserve">
     <value>Fehler beim Runterladen des Feeds '{0}'.</value>
   </data>

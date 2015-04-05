@@ -72,7 +72,7 @@ namespace ZeroInstall.Services.Feeds
         /// <param name="mirrorUrl">The URL or local file path the file was fetched from; <see langword="null"/> if it is identical to <paramref name="uri"/>.</param>
         /// <exception cref="IOException">A problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the feed file or the cache is not permitted.</exception>
-        /// <exception cref="SignatureException">The signature data of the feed file could not be handled or if no signatures were trusted.</exception>
+        /// <exception cref="SignatureException">The signature data of the feed file could not be handled or no signatures were trusted.</exception>
         /// <exception cref="UriFormatException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="uri"/> or <paramref name="uri"/> is a local file.</exception>
         void ImportFeed([NotNull] string path, [NotNull] FeedUri uri, [CanBeNull] FeedUri mirrorUrl = null);
 
