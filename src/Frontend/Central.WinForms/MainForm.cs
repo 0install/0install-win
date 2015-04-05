@@ -70,7 +70,7 @@ namespace ZeroInstall.Central.WinForms
 
             _machineWide = machineWide;
 
-            var services = new ServiceLocator(new MinimalTaskHandler(this)) { Config = { NetworkUse = NetworkLevel.Minimal } };
+            var services = new ServiceLocator(new MinimalTaskHandler(this)) {Config = {NetworkUse = NetworkLevel.Minimal}};
             _tileManagement = new AppTileManagement(
                 services.FeedManager, services.CatalogManager,
                 tileListMyApps, tileListCatalog, _machineWide);

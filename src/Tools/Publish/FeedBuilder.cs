@@ -54,6 +54,7 @@ namespace ZeroInstall.Publish
                 _temporaryDirectory = value;
             }
         }
+
         /// <summary>
         /// Deletes the <see cref="TemporaryDirectory"/>.
         /// </summary>
@@ -151,7 +152,7 @@ namespace ZeroInstall.Publish
             _entryPoints.Add(new EntryPoint
             {
                 Command = Command.NameRun,
-                Names = { MainCandidate.Name },
+                Names = {MainCandidate.Name},
                 BinaryName = Path.GetFileNameWithoutExtension(MainCandidate.RelativePath)
             });
 
@@ -163,8 +164,8 @@ namespace ZeroInstall.Publish
                 _entryPoints.Add(new EntryPoint
                 {
                     Command = command.Name,
-                    Names = { candidate.Name },
-                    Summaries = { candidate.Summary },
+                    Names = {candidate.Name},
+                    Summaries = {candidate.Summary},
                     BinaryName = Path.GetFileNameWithoutExtension(candidate.RelativePath),
                     NeedsTerminal = candidate.NeedsTerminal
                 });

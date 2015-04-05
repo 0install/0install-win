@@ -18,11 +18,9 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Security;
 using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common;
-using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
 

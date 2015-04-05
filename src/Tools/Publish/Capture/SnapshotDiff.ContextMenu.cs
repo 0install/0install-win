@@ -17,7 +17,6 @@
 
 using System;
 using System.IO;
-using System.Security;
 using JetBrains.Annotations;
 using Microsoft.Win32;
 using ZeroInstall.Store.Model;

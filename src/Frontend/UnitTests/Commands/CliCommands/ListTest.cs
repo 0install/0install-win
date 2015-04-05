@@ -17,7 +17,6 @@
 
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
-using List = ZeroInstall.Commands.CliCommands.List;
 
 namespace ZeroInstall.Commands.CliCommands
 {

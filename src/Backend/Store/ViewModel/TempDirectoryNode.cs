@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
-using NanoByte.Common.Storage;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Properties;
 

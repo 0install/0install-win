@@ -19,7 +19,6 @@ using System;
 using System.Windows.Forms;
 using NanoByte.Common.Controls;
 using ZeroInstall.Central.Properties;
-using ZeroInstall.Commands;
 using ZeroInstall.Commands.CliCommands;
 
 namespace ZeroInstall.Central.WinForms

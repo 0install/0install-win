@@ -18,7 +18,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Security;
 using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common;

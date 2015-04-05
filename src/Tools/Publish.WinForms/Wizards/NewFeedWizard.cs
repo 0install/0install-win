@@ -73,7 +73,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                 installerPageFinish.Session = session;
                 PushPage(installerPageFinish);
             };
-            installerPageFinish.Next +=  () => PushPage(entryPointPage);
+            installerPageFinish.Next += () => PushPage(entryPointPage);
             entryPointPage.Next += () => PushPage(detailsPage);
             detailsPage.Next += () => PushPage(iconPage);
             iconPage.Next += () => PushPage(securityPage);

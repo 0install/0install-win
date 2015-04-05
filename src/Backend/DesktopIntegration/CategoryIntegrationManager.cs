@@ -40,10 +40,10 @@ namespace ZeroInstall.DesktopIntegration
     {
         #region Constants
         /// <summary>A list of all known <see cref="AccessPoint"/> categories.</summary>
-        public static readonly ICollection<string> AllCategories = new[] {CapabilityRegistration.CategoryName, MenuEntry.CategoryName, DesktopIcon.CategoryName, SendTo.CategoryName, AppAlias.CategoryName, AutoStart.CategoryName, DefaultAccessPoint.CategoryName};
+        public static readonly string[] AllCategories = {CapabilityRegistration.CategoryName, MenuEntry.CategoryName, DesktopIcon.CategoryName, SendTo.CategoryName, AppAlias.CategoryName, AutoStart.CategoryName, DefaultAccessPoint.CategoryName};
 
         /// <summary>A list of recommended standard <see cref="AccessPoint"/> categories.</summary>
-        public static readonly ICollection<string> StandardCategories = new[] { CapabilityRegistration.CategoryName, MenuEntry.CategoryName, SendTo.CategoryName, AppAlias.CategoryName, };
+        public static readonly string[] StandardCategories = {CapabilityRegistration.CategoryName, MenuEntry.CategoryName, SendTo.CategoryName, AppAlias.CategoryName};
         #endregion
 
         #region Constructor
