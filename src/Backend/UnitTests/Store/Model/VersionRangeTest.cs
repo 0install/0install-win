@@ -31,8 +31,9 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestToString()
         {
-            Assert.AreEqual("!3", new VersionRange("!3").ToString());
             Assert.AreEqual("2.6", new VersionRange("2.6").ToString());
+            Assert.AreEqual("..!3", new VersionRange("..!3").ToString());
+            Assert.AreEqual("!3", new VersionRange("!3").ToString());
             Assert.AreEqual("2.6..!3|3.2.2..", new VersionRange("2.6..!3 | 3.2.2..").ToString());
             Assert.AreEqual("..!3|3.2.2..", new VersionRange("..!3 | 3.2.2..").ToString());
             Assert.AreNotEqual("2.6..!3|3.2.2..", new VersionRange("2.6..!3|3.2.2..!3.3").ToString());
@@ -46,8 +47,9 @@ namespace ZeroInstall.Store.Model
         [Test]
         public void TestEquals()
         {
+            Assert.AreEqual(new VersionRange(new ImplementationVersion("2.6")), new VersionRange("2.6"));
+            Assert.AreEqual(new VersionRange(null, new ImplementationVersion("3")), new VersionRange("..!3"));
             Assert.AreEqual(new VersionRange("!3"), new VersionRange("!3"));
-            Assert.AreEqual(new VersionRange("2.6"), new VersionRange("2.6"));
             Assert.AreEqual(new VersionRange("2.6..!3|3.2.2.."), new VersionRange("2.6..!3 | 3.2.2.."));
             Assert.AreEqual(new VersionRange("..!3|3.2.2.."), new VersionRange("..!3 | 3.2.2.."));
             Assert.AreNotEqual(new VersionRange("2.6..!3|3.2.2.."), new VersionRange("2.6..!3|3.2.2..!3.3"));

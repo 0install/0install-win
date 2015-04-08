@@ -123,8 +123,10 @@ namespace ZeroInstall.Commands.CliCommands
             Requirements.InterfaceUri = GetCanonicalUri(AdditionalArgs[0]);
             AdditionalArgs.RemoveAt(0);
 
-            if (_version != null) Requirements.ExtraRestrictions[Requirements.InterfaceUri] = _version;
-            else if (_before != null || _notBefore != null) Requirements.ExtraRestrictions[Requirements.InterfaceUri] = new VersionRange(_notBefore, _before);
+            if (_version != null)
+                Requirements.ExtraRestrictions[Requirements.InterfaceUri] = _version;
+            else if (_notBefore != null || _before != null)
+                Requirements.ExtraRestrictions[Requirements.InterfaceUri] = new VersionRange(_notBefore, _before);
 
             if (Requirements.InterfaceUri.IsFile && File.Exists(Requirements.InterfaceUri.LocalPath))
                 TryParseSelectionsDocument();

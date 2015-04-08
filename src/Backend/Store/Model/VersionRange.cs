@@ -85,6 +85,19 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
+        /// Creates a version range matching exactly one version.
+        /// </summary>
+        /// <param name="version">The exact version to match.</param>
+        public VersionRange([NotNull] ImplementationVersion version)
+        {
+            #region Sanity checks
+            if (version == null) throw new ArgumentNullException("version");
+            #endregion
+
+            _parts = new VersionRangePart[] { new VersionRangeExact(version) };
+        }
+
+        /// <summary>
         /// Creates a single interval version range.
         /// </summary>
         /// <param name="notBefore">The lower, inclusive border of the range; can be <see langword="null"/>.</param>
