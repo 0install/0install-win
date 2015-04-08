@@ -29,6 +29,7 @@ using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
+using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -49,6 +50,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Lazy-loaded <see cref="AppList"/>. Not thread-safe!
         /// </summary>
+        [NotNull]
         protected AppList AppList
         {
             get
@@ -91,6 +93,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <exception cref="UriFormatException"><paramref name="uri"/> is an invalid interface URI.</exception>
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#", Justification = "This method handles a number of non-standard URI types which cannot be represented by the regular Uri class.")]
+        [NotNull]
         public FeedUri GetCanonicalUri(string uri)
         {
             if (string.IsNullOrEmpty(uri)) throw new UriFormatException();
@@ -125,6 +128,7 @@ namespace ZeroInstall.Commands
             #endregion
         }
 
+        [NotNull]
         private FeedUri ResolveAlias(string aliasName)
         {
             AppEntry appEntry;
@@ -133,9 +137,10 @@ namespace ZeroInstall.Commands
             return appEntry.InterfaceUri;
         }
 
+        [CanBeNull]
         private FeedUri TryResolveCatalog(string shortName)
         {
-            var feed = CatalogManager.GetCachedSafe().FindByShortName(shortName);
+            var feed = FindByShortName(shortName);
             if (feed == null)
             {
                 feed = CatalogManager.GetOnlineSafe().FindByShortName(shortName);
@@ -144,6 +149,23 @@ namespace ZeroInstall.Commands
 
             Log.Info(string.Format(Resources.ResolvedUsingCatalog, shortName, feed.Uri));
             return feed.Uri;
+        }
+
+        /// <summary>
+        /// Retruns the first <see cref="Feed"/> from the <see cref="CatalogManager"/> that matches a sepecific short name.
+        /// </summary>
+        /// <param name="shortName">The short name to look for. Must match either <see cref="Feed.Name"/> or <see cref="EntryPoint.BinaryName"/> of <see cref="Command.NameRun"/>.</param>
+        /// <returns>The first matching <see cref="Feed"/>; <see langword="null"/> if no match was found.</returns>
+        [CanBeNull]
+        protected Feed FindByShortName([NotNull] string shortName)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(shortName)) throw new ArgumentNullException("shortName");
+            #endregion
+
+            return
+                CatalogManager.GetCachedSafe().FindByShortName(shortName) ??
+                CatalogManager.GetOnlineSafe().FindByShortName(shortName);
         }
 
         /// <summary>
