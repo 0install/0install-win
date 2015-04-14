@@ -72,12 +72,20 @@ namespace ZeroInstall.DesktopIntegration
         public string Hostname { get; set; }
 
         /// <summary>
-        /// A set of requirements/restrictions imposed by the user on the implementation selection process. May be <see langword="null"/> if <see cref="InterfaceUri"/> is not a pet-name.
+        /// A set of requirements/restrictions imposed by the user on the implementation selection process.
         /// </summary>
-        [Description("A set of requirements/restrictions imposed by the user on the implementation selection process. May be null if InterfaceUri is not a pet-name.")]
+        [Description("A set of requirements/restrictions imposed by the user on the implementation selection process.")]
         [XmlIgnore]
         [CanBeNull]
         public Requirements Requirements { get; set; }
+
+        /// <summary>
+        /// The <see cref="Requirements"/> if it is set, otherwise a basic reference to <see cref="InterfaceUri"/>.
+        /// </summary>
+        [Browsable(false)]
+        [XmlIgnore]
+        [NotNull]
+        public Requirements EffectiveRequirements { get { return Requirements ?? new Requirements(InterfaceUri); } }
 
         #region XML serialization
         /// <summary>Used for XML serialization.</summary>
