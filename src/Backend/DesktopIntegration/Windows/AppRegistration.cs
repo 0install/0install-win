@@ -150,7 +150,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             var hive = machineWide ? Registry.LocalMachine : Registry.CurrentUser;
 
-            using (var regAppsKey = hive.OpenSubKey(RegKeyMachineRegisteredApplications))
+            using (var regAppsKey = hive.OpenSubKey(RegKeyMachineRegisteredApplications, writable: true))
             {
                 if (regAppsKey != null)
                     regAppsKey.DeleteValue(appRegistration.ID, throwOnMissingValue: false);

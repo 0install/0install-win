@@ -221,11 +221,11 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     }
 
                     // Unregister extensions
-                    using (var extensionKey = classesKey.OpenSubKey(extension.Value))
+                    using (var extensionKey = classesKey.OpenSubKey(extension.Value, writable: true))
                     {
                         if (extensionKey != null)
                         {
-                            using (var openWithKey = extensionKey.OpenSubKey(RegSubKeyOpenWith))
+                            using (var openWithKey = extensionKey.OpenSubKey(RegSubKeyOpenWith, writable: true))
                             {
                                 if (openWithKey != null)
                                     openWithKey.DeleteValue(RegKeyPrefix + fileType.ID, throwOnMissingValue: false);

@@ -163,7 +163,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             {
                 foreach (var autoPlayEvent in autoPlay.Events.Except(x => string.IsNullOrEmpty(x.Name)))
                 {
-                    using (var eventKey = hive.OpenSubKey(RegKeyAssocs + @"\" + autoPlayEvent.Name))
+                    using (var eventKey = hive.OpenSubKey(RegKeyAssocs + @"\" + autoPlayEvent.Name, writable: true))
                     {
                         if (eventKey != null)
                             eventKey.DeleteValue(FileType.RegKeyPrefix + autoPlay.ID, throwOnMissingValue: false);
