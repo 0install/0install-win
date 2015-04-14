@@ -32,7 +32,7 @@ namespace ZeroInstall.Services.Solvers
     public interface ISolver
     {
         /// <summary>
-        /// Solves the dependencies for a specific feed.
+        /// Provides a set of <see cref="Selections"/> that satisfy a set of <see cref="Requirements"/>.
         /// </summary>
         /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>

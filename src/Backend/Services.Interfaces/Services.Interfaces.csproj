@@ -70,6 +70,7 @@
     <Compile Include="Solvers\SelectionCandidateComparer.cs" />
     <Compile Include="Solvers\SelectionCandidateProvider.cs" />
     <Compile Include="Solvers\SolverException.cs" />
+    <Compile Include="Solvers\SolverExtensions.cs" />
     <Compile Include="Solvers\SolverUtils.cs" />
   </ItemGroup>
   <ItemGroup>
