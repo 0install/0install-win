@@ -17,6 +17,7 @@
 
 using System;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.Fetchers;
@@ -165,7 +166,13 @@ namespace ZeroInstall.Services
 
         private static T Get<T>(ref T value, Func<T> build) where T : class
         {
-            return value ?? (value = build());
+            if (value == null)
+            {
+                value = build();
+                Log.Debug("Initialized by ServiceLocator: " + value);
+            }
+
+            return value;
         }
     }
 }

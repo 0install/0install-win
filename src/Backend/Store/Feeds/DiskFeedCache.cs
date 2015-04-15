@@ -191,5 +191,17 @@ namespace ZeroInstall.Store.Feeds
         void IFeedCache.Flush()
         {}
         #endregion
+
+        //--------------------//
+
+        #region Conversion
+        /// <summary>
+        /// Returns <see cref="DirectoryPath"/>. Not safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            return "DiskFeedCache: " + DirectoryPath;
+        }
+        #endregion
     }
 }

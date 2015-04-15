@@ -262,11 +262,11 @@ namespace ZeroInstall.Store.Implementations
 
         #region Conversion
         /// <summary>
-        /// Returns the Store in the form "CompositeStore: # of children". Not safe for parsing!
+        /// Returns the names of the child stores. Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return "CompositeStore: " + _stores.Length + " children";
+            return "CompositeStore: " + StringUtils.Join(", ", _stores.Select(x => x.ToString()));
         }
         #endregion
     }
