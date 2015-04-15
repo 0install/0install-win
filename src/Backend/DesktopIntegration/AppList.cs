@@ -128,6 +128,29 @@ namespace ZeroInstall.DesktopIntegration
 
             return Entries.FirstOrDefault(entry => entry.InterfaceUri == interfaceUri);
         }
+
+        /// <summary>
+        /// Returns all <see cref="AppEntry"/>s that match a specific search query.
+        /// </summary>
+        /// <param name="query">The search query. Must be contained within <see cref="AppEntry.Name"/>.</param>
+        /// <returns>All <see cref="AppEntry"/>s matching <paramref name="query"/>.</returns>
+        [NotNull, ItemNotNull]
+        public IEnumerable<AppEntry> Search([CanBeNull] string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                foreach (var entry in Entries)
+                    yield return entry;
+            }
+            else
+            {
+                foreach (var entry in Entries.Where(x => x.InterfaceUri != null && !string.IsNullOrEmpty(x.Name)))
+                {
+                    if (entry.Name.ContainsIgnoreCase(query)) yield return entry;
+                    else if (entry.Name.Replace(' ', '-').ContainsIgnoreCase(query)) yield return entry;
+                }
+            }
+        }
         #endregion
 
         #region Storage

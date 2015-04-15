@@ -146,6 +146,20 @@ namespace ZeroInstall.DesktopIntegration
             Assert.Throws<KeyNotFoundException>(() => { var dummy = appList[FeedTest.Test2Uri]; });
         }
 
+        [Test]
+        public void TestSearch()
+        {
+            var appA = new AppEntry {InterfaceUri = FeedTest.Test1Uri, Name = "AppA"};
+            var appB = new AppEntry {InterfaceUri = FeedTest.Test2Uri, Name = "AppB"};
+            var lib = new AppEntry {InterfaceUri = FeedTest.Test3Uri, Name = "Lib"};
+            var appList = new AppList {Entries = {appA, appB, lib}};
+
+            CollectionAssert.AreEqual(expected: new[] {appA, appB, lib}, actual: appList.Search(""));
+            CollectionAssert.AreEqual(expected: new[] {appA, appB}, actual: appList.Search("App"));
+            CollectionAssert.AreEqual(expected: new[] {appA}, actual: appList.Search("AppA"));
+            CollectionAssert.AreEqual(expected: new[] {appB}, actual: appList.Search("AppB"));
+        }
+
         [Test(Description = "Ensures that the class can be correctly cloned without AccessPoints.")]
         public void TestCloneWithoutAPs()
         {

@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using JetBrains.Annotations;
@@ -141,18 +142,14 @@ namespace ZeroInstall.Commands
         private FeedUri TryResolveCatalog(string shortName)
         {
             var feed = FindByShortName(shortName);
-            if (feed == null)
-            {
-                feed = CatalogManager.GetOnlineSafe().FindByShortName(shortName);
-                if (feed == null) return null;
-            }
+            if (feed == null) return null;
 
             Log.Info(string.Format(Resources.ResolvedUsingCatalog, shortName, feed.Uri));
             return feed.Uri;
         }
 
         /// <summary>
-        /// Retruns the first <see cref="Feed"/> from the <see cref="CatalogManager"/> that matches a sepecific short name.
+        /// Uses <see cref="Catalog.FindByShortName"/> to find a <see cref="Feed"/> matching a specific short name.
         /// </summary>
         /// <param name="shortName">The short name to look for. Must match either <see cref="Feed.Name"/> or <see cref="EntryPoint.BinaryName"/> of <see cref="Command.NameRun"/>.</param>
         /// <returns>The first matching <see cref="Feed"/>; <see langword="null"/> if no match was found.</returns>

@@ -88,5 +88,47 @@ namespace ZeroInstall.Store.Model
             Assert.AreEqual(catalog1.GetHashCode(), catalog2.GetHashCode(), "Cloned objects' hashes should be equal.");
             Assert.IsFalse(ReferenceEquals(catalog1, catalog2), "Cloning should not return the same reference.");
         }
+
+        /// <summary>
+        /// Ensures that <see cref="Catalog.FindByShortName"/> works correctly.
+        /// </summary>
+        [Test]
+        public void TestFindByShortName()
+        {
+            var appA = new Feed
+            {
+                Uri = FeedTest.Test1Uri, Name = "AppA",
+                EntryPoints = {new EntryPoint {Command = Command.NameRun, BinaryName = "BinaryA"}}
+            };
+            var appB = new Feed
+            {
+                Uri = FeedTest.Test2Uri, Name = "AppB",
+                EntryPoints = {new EntryPoint {Command = Command.NameRun, BinaryName = "BinaryB"}}
+            };
+            var catalog = new Catalog {Feeds = {appA, appA.Clone(), appB, appB.Clone()}};
+
+            Assert.IsNull(catalog.FindByShortName(""));
+            Assert.AreSame(expected: appA, actual: catalog.FindByShortName("AppA"));
+            Assert.AreSame(expected: appA, actual: catalog.FindByShortName("BinaryA"));
+            Assert.AreSame(expected: appB, actual: catalog.FindByShortName("AppB"));
+            Assert.AreSame(expected: appB, actual: catalog.FindByShortName("BinaryB"));
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="Catalog.Search"/> works correctly.
+        /// </summary>
+        [Test]
+        public void TestSearch()
+        {
+            var appA = new Feed {Uri = FeedTest.Test1Uri, Name = "AppA"};
+            var appB = new Feed {Uri = FeedTest.Test2Uri, Name = "AppB"};
+            var lib = new Feed {Uri = FeedTest.Test3Uri, Name = "Lib"};
+            var catalog = new Catalog {Feeds = {appA, appB, lib}};
+
+            CollectionAssert.AreEqual(expected: new[] {appA, appB, lib}, actual: catalog.Search(""));
+            CollectionAssert.AreEqual(expected: new[] {appA, appB}, actual: catalog.Search("App"));
+            CollectionAssert.AreEqual(expected: new[] {appA}, actual: catalog.Search("AppA"));
+            CollectionAssert.AreEqual(expected: new[] {appB}, actual: catalog.Search("AppB"));
+        }
     }
 }

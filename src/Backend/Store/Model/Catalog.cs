@@ -135,28 +135,50 @@ namespace ZeroInstall.Store.Model
         }
 
         /// <summary>
-        /// Retruns the first <see cref="Feed"/> that matches a sepecific short name and has <see cref="Feed.Uri"/> set.
+        /// Retruns the first <see cref="Feed"/> that matches a sepecific short name.
         /// </summary>
         /// <param name="shortName">The short name to look for. Must match either <see cref="Feed.Name"/> or <see cref="EntryPoint.BinaryName"/> of <see cref="Command.NameRun"/>.</param>
         /// <returns>The first matching <see cref="Feed"/>; <see langword="null"/> if no match was found.</returns>
         [CanBeNull]
-        public Feed FindByShortName([NotNull] string shortName)
+        public Feed FindByShortName([CanBeNull] string shortName)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(shortName)) throw new ArgumentNullException("shortName");
-            #endregion
+            if (string.IsNullOrEmpty(shortName)) return null;
 
-            return Feeds.FirstOrDefault(feed =>
+            foreach (var feed in Feeds.Where(x => x.Uri != null && !string.IsNullOrEmpty(x.Name)))
             {
-                if (feed.Uri == null) return false;
+                if (StringUtils.EqualsIgnoreCase(feed.Name, shortName)) return feed;
+                if (StringUtils.EqualsIgnoreCase(feed.Name.Replace(' ', '-'), shortName)) return feed;
 
-                // Short name matches application name
-                if (StringUtils.EqualsIgnoreCase(feed.Name.Replace(' ', '-'), shortName)) return true;
-
-                // Short name matches binary name
                 var entryPoint = feed.GetEntryPoint();
-                return entryPoint != null && StringUtils.EqualsIgnoreCase(entryPoint.BinaryName, shortName);
-            });
+                if (entryPoint != null && !string.IsNullOrEmpty(entryPoint.BinaryName) &&
+                    StringUtils.EqualsIgnoreCase(entryPoint.BinaryName, shortName))
+                    return feed;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Returns all <see cref="Feed"/>s that match a specific search query.
+        /// </summary>
+        /// <param name="query">The search query. Must be contained within <see cref="Feed.Name"/> or <see cref="EntryPoint.BinaryName"/> of <see cref="Command.NameRun"/>.</param>
+        /// <returns>All <see cref="Feed"/>s matching <paramref name="query"/>.</returns>
+        [NotNull, ItemNotNull]
+        public IEnumerable<Feed> Search([CanBeNull] string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                foreach (var feed in Feeds)
+                    yield return feed;
+            }
+            else
+            {
+                foreach (var feed in Feeds.Where(x => x.Uri != null && !string.IsNullOrEmpty(x.Name)))
+                {
+                    if (feed.Name.ContainsIgnoreCase(query)) yield return feed;
+                    else if (feed.Name.Replace(' ', '-').ContainsIgnoreCase(query)) yield return feed;
+                }
+            }
         }
         #endregion
 
