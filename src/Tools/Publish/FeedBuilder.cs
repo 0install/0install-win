@@ -161,14 +161,15 @@ namespace ZeroInstall.Publish
                 var command = candidate.CreateCommand();
                 _commands.Add(command);
 
-                _entryPoints.Add(new EntryPoint
+                var entryPoint = new EntryPoint
                 {
                     Command = command.Name,
-                    Names = {candidate.Name},
-                    Summaries = {candidate.Summary},
                     BinaryName = Path.GetFileNameWithoutExtension(candidate.RelativePath),
                     NeedsTerminal = candidate.NeedsTerminal
-                });
+                };
+                if (!string.IsNullOrEmpty(candidate.Name)) entryPoint.Names.Add(candidate.Name);
+                if (!string.IsNullOrEmpty(candidate.Summary)) entryPoint.Summaries.Add(candidate.Summary);
+                _entryPoints.Add(entryPoint);
             }
         }
         #endregion
@@ -266,7 +267,7 @@ namespace ZeroInstall.Publish
                 Elements = {implementation}
             };
             feed.Icons.AddRange(_icons);
-            feed.EntryPoints.AddRange(_entryPoints);
+            if (_commands.Count > 1) feed.EntryPoints.AddRange(_entryPoints);
             if (CapabilityList != null) feed.CapabilityLists.Add(CapabilityList);
 
             return new SignedFeed(feed, SecretKey);

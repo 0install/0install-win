@@ -115,17 +115,7 @@ namespace ZeroInstall.Publish
                 },
                 actual: signedFeed.Feed.Elements);
             CollectionAssert.AreEqual(expected: _builder.Icons, actual: signedFeed.Feed.Icons);
-            CollectionAssert.AreEqual(
-                expected: new[]
-                {
-                    new EntryPoint
-                    {
-                        Command = Command.NameRun,
-                        Names = {_builder.MainCandidate.Name},
-                        BinaryName = "test"
-                    }
-                },
-                actual: signedFeed.Feed.EntryPoints);
+            CollectionAssert.IsEmpty(signedFeed.Feed.EntryPoints, "Should not generate entry points if there is only a single command");
             Assert.AreEqual(expected: _builder.SecretKey, actual: signedFeed.SecretKey);
         }
 
