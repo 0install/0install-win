@@ -18,8 +18,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Xml.Serialization;
+using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Model;
 
@@ -75,7 +75,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                 appEntry.GetCapability<Store.Model.Capabilities.FileType>(Capability);
             }
 
-            if (!string.IsNullOrEmpty(ApplyFlagPath)) File.WriteAllText(ApplyFlagPath, "");
+            if (!string.IsNullOrEmpty(ApplyFlagPath)) FileUtils.Touch(ApplyFlagPath);
         }
 
         /// <inheritdoc/>
@@ -91,7 +91,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
                 appEntry.GetCapability<Store.Model.Capabilities.FileType>(Capability);
             }
 
-            if (!string.IsNullOrEmpty(UnapplyFlagPath)) File.WriteAllText(UnapplyFlagPath, "");
+            if (!string.IsNullOrEmpty(UnapplyFlagPath)) FileUtils.Touch(UnapplyFlagPath);
         }
         #endregion
 

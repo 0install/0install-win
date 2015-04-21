@@ -17,6 +17,7 @@
 
 using System.IO;
 using System.Linq;
+using NanoByte.Common.Storage;
 using NUnit.Framework;
 
 namespace ZeroInstall.Publish.EntryPoints
@@ -52,7 +53,7 @@ namespace ZeroInstall.Publish.EntryPoints
         [Test(Description = "Should not fail on empty files")]
         public void TestEmpty()
         {
-            File.WriteAllText(Path.Combine(Directory.FullName, "empty"), "");
+            FileUtils.Touch(Path.Combine(Directory.FullName, "empty"));
             Assert.IsEmpty(Detection.ListCandidates(Directory).ToList());
         }
     }

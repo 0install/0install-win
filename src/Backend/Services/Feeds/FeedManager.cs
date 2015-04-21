@@ -352,7 +352,7 @@ namespace ZeroInstall.Services.Feeds
                 feedUri.PrettyEscape());
 
             // Set modification time to now
-            File.WriteAllText(path, "");
+            FileUtils.Touch(path);
         }
         #endregion
     }

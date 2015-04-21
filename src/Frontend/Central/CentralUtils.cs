@@ -37,7 +37,7 @@ namespace ZeroInstall.Central
             {
                 string firstRunFlag = Locations.GetSaveConfigPath("0install.net", true, "central", "intro_done");
                 if (!File.Exists(firstRunFlag)) firstRun = true;
-                File.WriteAllText(firstRunFlag, "");
+                FileUtils.Touch(firstRunFlag);
             }
                 #region Error handling
             catch (IOException ex)

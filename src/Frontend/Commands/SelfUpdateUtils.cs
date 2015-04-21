@@ -58,7 +58,7 @@ namespace ZeroInstall.Commands
             get { return File.Exists(NoAutoCheckFlagFile); }
             set
             {
-                if (value) File.WriteAllText(NoAutoCheckFlagFile, "");
+                if (value) FileUtils.Touch(NoAutoCheckFlagFile);
                 else File.Delete(NoAutoCheckFlagFile);
             }
         }
