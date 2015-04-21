@@ -300,6 +300,15 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Missing arguments. Try {0} --help.
+        /// </summary>
+        public static string MissingArguments {
+            get {
+                return ResourceManager.GetString("MissingArguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No 32-bit %ProgramFiles% directory found..
         /// </summary>
         public static string MissingProgramFiles32Bit {
@@ -354,6 +363,15 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to find any matching feed files..
+        /// </summary>
+        public static string NoFeedFilesFound {
+            get {
+                return ResourceManager.GetString("NoFeedFilesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No installation directory was detected.
         ///Try specifying it manually..
         /// </summary>
@@ -379,6 +397,96 @@ namespace ZeroInstall.Publish.Properties {
         public static string OnlyAvailableOnWindows {
             get {
                 return ResourceManager.GetString("OnlyAvailableOnWindows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download missing archives, calculate manifest digests, etc...
+        /// </summary>
+        public static string OptionAddMissing {
+            get {
+                return ResourceManager.GetString("OptionAddMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Combine all specified feeds into a single catalog {FILE}..
+        /// </summary>
+        public static string OptionCatalog {
+            get {
+                return ResourceManager.GetString("OptionCatalog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use {PASS} to unlock the GnuPG secret key..
+        /// </summary>
+        public static string OptionGnuPGPassphrase {
+            get {
+                return ResourceManager.GetString("OptionGnuPGPassphrase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show the built-in help text..
+        /// </summary>
+        public static string OptionHelp {
+            get {
+                return ResourceManager.GetString("OptionHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key to use for signing (if you have more than one, or if you want to resign with a different key)..
+        /// </summary>
+        public static string OptionKey {
+            get {
+                return ResourceManager.GetString("OptionKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options:.
+        /// </summary>
+        public static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add any downloaded archives to the implementation store..
+        /// </summary>
+        public static string OptionsKeepDownloads {
+            get {
+                return ResourceManager.GetString("OptionsKeepDownloads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove any existing signatures..
+        /// </summary>
+        public static string OptionUnsign {
+            get {
+                return ResourceManager.GetString("OptionUnsign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display version information..
+        /// </summary>
+        public static string OptionVersion {
+            get {
+                return ResourceManager.GetString("OptionVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add an XML signature block. (All remote feeds must be signed.).
+        /// </summary>
+        public static string OptionXmlSign {
+            get {
+                return ResourceManager.GetString("OptionXmlSign", resourceCulture);
             }
         }
         
@@ -429,11 +537,30 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unknown operation mode.
+        ///Try {0} --help.
+        /// </summary>
+        public static string UnknownMode {
+            get {
+                return ResourceManager.GetString("UnknownMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown retrieval method type..
         /// </summary>
         public static string UnknownRetrievalMethodType {
             get {
                 return ResourceManager.GetString("UnknownRetrievalMethodType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usage:.
+        /// </summary>
+        public static string Usage {
+            get {
+                return ResourceManager.GetString("Usage", resourceCulture);
             }
         }
         

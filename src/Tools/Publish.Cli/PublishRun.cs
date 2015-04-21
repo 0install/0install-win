@@ -30,11 +30,10 @@ using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Undo;
 using NDesk.Options;
-using ZeroInstall.Publish.Cli.Properties;
+using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Trust;
-using SharedResources = ZeroInstall.Publish.Properties.Resources;
 
 namespace ZeroInstall.Publish.Cli
 {
@@ -139,7 +138,7 @@ namespace ZeroInstall.Publish.Cli
                 {
                     "V|version", () => Resources.OptionVersion, unused =>
                     {
-                        Console.WriteLine(AppInfo.Current.Name + @" " + AppInfo.Current.Version + Environment.NewLine + AppInfo.Current.Copyright + Environment.NewLine + SharedResources.LicenseInfo);
+                        Console.WriteLine(AppInfo.Current.Name + @" " + AppInfo.Current.Version + Environment.NewLine + AppInfo.Current.Copyright + Environment.NewLine + Resources.LicenseInfo);
                         throw new OperationCanceledException(); // Don't handle any of the other arguments
                     }
                 },
@@ -166,10 +165,10 @@ namespace ZeroInstall.Publish.Cli
             };
             options.Add("h|help|?", () => Resources.OptionHelp, unused =>
             {
-                var usages = new[] {Resources.UsageFeed};
-                // ReSharper disable LocalizableElement
-                Console.WriteLine(Resources.Usage + "\t" + string.Join(Environment.NewLine + "\t", usages) + "\n");
-                // ReSharper restore LocalizableElement
+                Console.WriteLine(Resources.Usage);
+                // ReSharper disable once LocalizableElement
+                Console.WriteLine("\t0publish [OPTIONS] feed.xml");
+                Console.WriteLine();
                 Console.WriteLine(Resources.Options);
                 options.WriteOptionDescriptions(Console.Out);
 
@@ -288,7 +287,7 @@ namespace ZeroInstall.Publish.Cli
                 }
 
                 // Ask for passphrase to unlock secret key if we were unable to save without it
-                _openPgpPassphrase = CliUtils.ReadPassword(string.Format(Publish.Properties.Resources.AskForPassphrase, feedEditing.SignedFeed.SecretKey));
+                _openPgpPassphrase = CliUtils.ReadPassword(string.Format(Resources.AskForPassphrase, feedEditing.SignedFeed.SecretKey));
             }
         }
 

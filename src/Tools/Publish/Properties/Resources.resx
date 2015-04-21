@@ -200,6 +200,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="ManifestDigestMissing" xml:space="preserve">
     <value>Manifest digest not calculated yet.</value>
   </data>
+  <data name="MissingArguments" xml:space="preserve">
+    <value>Missing arguments. Try {0} --help</value>
+  </data>
   <data name="MissingProgramFiles32Bit" xml:space="preserve">
     <value>No 32-bit %ProgramFiles% directory found.</value>
   </data>
@@ -218,6 +221,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   <data name="NoEntryPointsFound" xml:space="preserve">
     <value>No entry points (EXEs, JARs, Python scripts, etc.) were found. Please make sure you selected the correct archive and extract directory.</value>
   </data>
+  <data name="NoFeedFilesFound" xml:space="preserve">
+    <value>Unable to find any matching feed files.</value>
+  </data>
   <data name="NoInstallationDirDetected" xml:space="preserve">
     <value>No installation directory was detected.
 Try specifying it manually.</value>
@@ -228,6 +234,36 @@ consists only of one EXE</value>
   </data>
   <data name="OnlyAvailableOnWindows" xml:space="preserve">
     <value>This method is currently only available on Windows.</value>
+  </data>
+  <data name="OptionAddMissing" xml:space="preserve">
+    <value>Download missing archives, calculate manifest digests, etc..</value>
+  </data>
+  <data name="OptionCatalog" xml:space="preserve">
+    <value>Combine all specified feeds into a single catalog {FILE}.</value>
+  </data>
+  <data name="OptionGnuPGPassphrase" xml:space="preserve">
+    <value>Use {PASS} to unlock the GnuPG secret key.</value>
+  </data>
+  <data name="OptionHelp" xml:space="preserve">
+    <value>Show the built-in help text.</value>
+  </data>
+  <data name="OptionKey" xml:space="preserve">
+    <value>Key to use for signing (if you have more than one, or if you want to resign with a different key).</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options:</value>
+  </data>
+  <data name="OptionsKeepDownloads" xml:space="preserve">
+    <value>Add any downloaded archives to the implementation store.</value>
+  </data>
+  <data name="OptionUnsign" xml:space="preserve">
+    <value>Remove any existing signatures.</value>
+  </data>
+  <data name="OptionVersion" xml:space="preserve">
+    <value>Display version information.</value>
+  </data>
+  <data name="OptionXmlSign" xml:space="preserve">
+    <value>Add an XML signature block. (All remote feeds must be signed.)</value>
   </data>
   <data name="PleaseClick" xml:space="preserve">
     <value>Please click:</value>
@@ -245,8 +281,15 @@ Save changes</value>
   <data name="SizeMissing" xml:space="preserve">
     <value>File size not determined yet.</value>
   </data>
+  <data name="UnknownMode" xml:space="preserve">
+    <value>Unknown operation mode.
+Try {0} --help</value>
+  </data>
   <data name="UnknownRetrievalMethodType" xml:space="preserve">
     <value>Unknown retrieval method type.</value>
+  </data>
+  <data name="Usage" xml:space="preserve">
+    <value>Usage:</value>
   </data>
   <data name="WrongMimeType" xml:space="preserve">
     <value>Wrong MIME type! Should be {0}.</value>

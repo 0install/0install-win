@@ -200,6 +200,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="ManifestDigestMissing" xml:space="preserve">
     <value>Manifest Digest noch nicht berechnet.</value>
   </data>
+  <data name="MissingArguments" xml:space="preserve">
+    <value>Fehlende Argumente. Probieren Sie {0} --help</value>
+  </data>
   <data name="MissingProgramFiles32Bit" xml:space="preserve">
     <value>Kein 32-bit %ProgramFiles% Verzeichnis gefunden.</value>
   </data>
@@ -218,6 +221,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   <data name="NoEntryPointsFound" xml:space="preserve">
     <value>Es wurden keine Einstiegspunkte (EXEs, JARs, Python Skripts, etc.) gefunden. Bitte überprüfen Sie, ob Sie das korrekte Archiv und das korrekte Unterverzeichnis ausgewählt haben.</value>
   </data>
+  <data name="NoFeedFilesFound" xml:space="preserve">
+    <value>Konnte keine passenden Feed-Dateien finden.</value>
+  </data>
   <data name="NoInstallationDirDetected" xml:space="preserve">
     <value>Es wurde kein Installationsverzeichnis erkannt.
 Versuchen Sie es manuell anzugeben.</value>
@@ -228,6 +234,36 @@ besteht aus nur einer EXE</value>
   </data>
   <data name="OnlyAvailableOnWindows" xml:space="preserve">
     <value>Diese Methode steht derzeit nur unter Windows zur Verfügung.</value>
+  </data>
+  <data name="OptionAddMissing" xml:space="preserve">
+    <value>Lade fehlende Archive runter, berechne Manifest Digests, etc..</value>
+  </data>
+  <data name="OptionCatalog" xml:space="preserve">
+    <value>Alle angegebenen Feeds in einer einzelnen Katalog {DATEI} kombinieren.</value>
+  </data>
+  <data name="OptionGnuPGPassphrase" xml:space="preserve">
+    <value>Verwende {PASS} um den privaten GnuPG Schlüssel freizuschalten.</value>
+  </data>
+  <data name="OptionHelp" xml:space="preserve">
+    <value>Zeigt den eingebauten Hilfe-Text an.</value>
+  </data>
+  <data name="OptionKey" xml:space="preserve">
+    <value>Schlüssel der zum Signieren verwenden werden soll (falls Sie mehrere haben oder falls Sie mit einem anderen Schlüssel resignieren möchten).</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Optionen:</value>
+  </data>
+  <data name="OptionsKeepDownloads" xml:space="preserve">
+    <value>Füge alle heruntergeladenen Archive dem Implementierungsstore hinzu.</value>
+  </data>
+  <data name="OptionUnsign" xml:space="preserve">
+    <value>Entferne alle bestehenden Signaturen.</value>
+  </data>
+  <data name="OptionVersion" xml:space="preserve">
+    <value>Zeigt die Versionsinformationen an.</value>
+  </data>
+  <data name="OptionXmlSign" xml:space="preserve">
+    <value>Füge einen XML Signaturblock hinzu. (Alle Remote-Feeds müssen signiert sein.)</value>
   </data>
   <data name="PleaseClick" xml:space="preserve">
     <value>Bitte klicken Sie:</value>
@@ -245,8 +281,15 @@ besteht aus nur einer EXE</value>
   <data name="SizeMissing" xml:space="preserve">
     <value>Dateigröße noch nicht bestimmt.</value>
   </data>
+  <data name="UnknownMode" xml:space="preserve">
+    <value>Unbekannter Betriebsmodus.
+Probieren Sie {0} --help</value>
+  </data>
   <data name="UnknownRetrievalMethodType" xml:space="preserve">
     <value>Unbekannter Typ von Retrieval Method.</value>
+  </data>
+  <data name="Usage" xml:space="preserve">
+    <value>Verwendung:</value>
   </data>
   <data name="WrongMimeType" xml:space="preserve">
     <value>Falscher MIME Typ! Sollte {0} sein.</value>
