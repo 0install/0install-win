@@ -196,4 +196,22 @@
   <data name="$this.Text" xml:space="preserve">
     <value>Zero Install Konfiguration</value>
   </data>
+  <data name="buttonAddCatalogSource.Text" xml:space="preserve">
+    <value>&amp;Hinzufügen</value>
+  </data>
+  <data name="buttonGoToCatalogSource.Text" xml:space="preserve">
+    <value>&amp;Gehe zu</value>
+  </data>
+  <data name="buttonRemoveCatalogSource.Text" xml:space="preserve">
+    <value>&amp;Entfernen</value>
+  </data>
+  <data name="labelServer.Text" xml:space="preserve">
+    <value>&amp;Server:</value>
+  </data>
+  <data name="tabPageSync.Text" xml:space="preserve">
+    <value>Sync</value>
+  </data>
+  <data name="tabPageUpdates.Text" xml:space="preserve">
+    <value>Updates</value>
+  </data>
 </root>

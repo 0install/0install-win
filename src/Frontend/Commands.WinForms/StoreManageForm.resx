@@ -191,6 +191,7 @@
   </data>
   <data name="textTotalSize.Text" xml:space="preserve">
     <value>-</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;textTotalSize.Name" xml:space="preserve">
     <value>textTotalSize</value>
@@ -218,6 +219,7 @@
   </data>
   <data name="textCurrentSize.Text" xml:space="preserve">
     <value>-</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;textCurrentSize.Name" xml:space="preserve">
     <value>textCurrentSize</value>
@@ -245,6 +247,7 @@
   </data>
   <data name="textCheckedSize.Text" xml:space="preserve">
     <value>-</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;textCheckedSize.Name" xml:space="preserve">
     <value>textCheckedSize</value>

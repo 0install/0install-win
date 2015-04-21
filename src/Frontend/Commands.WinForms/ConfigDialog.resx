@@ -191,6 +191,7 @@
   </data>
   <data name="buttonSyncCryptoKey.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;buttonSyncCryptoKey.Name" xml:space="preserve">
     <value>buttonSyncCryptoKey</value>

@@ -143,6 +143,7 @@
   </data>
   <data name="labelName.Text" xml:space="preserve">
     <value>Name</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;labelName.Name" xml:space="preserve">
     <value>labelName</value>
@@ -170,6 +171,7 @@
   </data>
   <data name="labelVersion.Text" xml:space="preserve">
     <value>Version</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;labelVersion.Name" xml:space="preserve">
     <value>labelVersion</value>
@@ -197,6 +199,7 @@
   </data>
   <data name="labelTask.Text" xml:space="preserve">
     <value>Task</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;labelTask.Name" xml:space="preserve">
     <value>labelTask</value>

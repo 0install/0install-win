@@ -132,4 +132,7 @@
   <data name="buttonOfficalServer.Text" xml:space="preserve">
     <value>&amp;Ja, verwende den 0install.de server</value>
   </data>
+  <data name="textBoxCustomServer.HintText" xml:space="preserve">
+    <value>Server URI</value>
+  </data>
 </root>

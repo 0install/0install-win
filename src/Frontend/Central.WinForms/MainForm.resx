@@ -338,6 +338,7 @@
   </data>
   <data name="labelLastCatalogError.Text" xml:space="preserve">
     <value>(Last catalog error)</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="labelLastCatalogError.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -641,6 +642,7 @@
   </data>
   <data name="labelVersion.Text" xml:space="preserve">
     <value>vX.YY.Z</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="labelVersion.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopRight</value>
@@ -776,6 +778,7 @@
   </data>
   <data name="labelSelfUpdateMessage.Text" xml:space="preserve">
     <value>(Update message)</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="labelSelfUpdateMessage.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -1200,6 +1203,7 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Zero Install</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;buttonUpdateAllClean.Name" xml:space="preserve">
     <value>buttonUpdateAllClean</value>

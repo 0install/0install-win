@@ -129,4 +129,7 @@
   <data name="buttonUsedBeforeNo.Text" xml:space="preserve">
     <value>&amp;Nein, ich richte Sync zum ersten Mal ein</value>
   </data>
+  <data name="labelTitle.Text" xml:space="preserve">
+    <value>Sync einrichten</value>
+  </data>
 </root>

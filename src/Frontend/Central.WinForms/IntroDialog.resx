@@ -140,6 +140,7 @@
   </data>
   <data name="labelSubtitles.Text" xml:space="preserve">
     <value>(Subtitles)</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="labelSubtitles.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>

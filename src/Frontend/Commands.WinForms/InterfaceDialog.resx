@@ -226,7 +226,7 @@
     <value>3</value>
   </data>
   <data name="comboBoxStability.ToolTip" xml:space="preserve">
-    <value>Determines which kind of stability rating on versions will be considered the "best" and thus chosen first</value>
+    <value>Determines which stability rating will be considered the "best"</value>
   </data>
   <data name="&gt;&gt;comboBoxStability.Name" xml:space="preserve">
     <value>comboBoxStability</value>

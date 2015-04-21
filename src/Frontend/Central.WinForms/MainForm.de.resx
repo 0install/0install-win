@@ -184,4 +184,13 @@
   <data name="buttonHelp.Text" xml:space="preserve">
     <value>&amp;Hilfe</value>
   </data>
+  <data name="butonSyncSetup.Text" xml:space="preserve">
+    <value>&amp;Einrichten</value>
+  </data>
+  <data name="buttonIntro.Text" xml:space="preserve">
+    <value>&amp;Intro Video</value>
+  </data>
+  <data name="buttonSync.Text" xml:space="preserve">
+    <value>&amp;Sync</value>
+  </data>
 </root>

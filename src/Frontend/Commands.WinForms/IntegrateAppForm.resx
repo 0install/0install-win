@@ -167,7 +167,7 @@
   </data>
   <data name="buttonHelpStartMenu.Text" xml:space="preserve">
     <value>?</value>
-  </data>
+  <comment>@Invariant</comment></data>
   <data name="&gt;&gt;buttonHelpStartMenu.Name" xml:space="preserve">
     <value>buttonHelpStartMenu</value>
   </data>
@@ -263,7 +263,7 @@
   </data>
   <data name="buttonHelpDesktop.Text" xml:space="preserve">
     <value>?</value>
-  </data>
+  <comment>@Invariant</comment></data>
   <data name="&gt;&gt;buttonHelpDesktop.Name" xml:space="preserve">
     <value>buttonHelpDesktop</value>
   </data>
@@ -353,7 +353,7 @@
   </data>
   <data name="buttonHelpSendTo.Text" xml:space="preserve">
     <value>?</value>
-  </data>
+  <comment>@Invariant</comment></data>
   <data name="&gt;&gt;buttonHelpSendTo.Name" xml:space="preserve">
     <value>buttonHelpSendTo</value>
   </data>
@@ -443,7 +443,7 @@
   </data>
   <data name="buttonHelpAliases.Text" xml:space="preserve">
     <value>?</value>
-  </data>
+  <comment>@Invariant</comment></data>
   <data name="&gt;&gt;buttonHelpAliases.Name" xml:space="preserve">
     <value>buttonHelpAliases</value>
   </data>
@@ -533,7 +533,7 @@
   </data>
   <data name="buttonHelpAutoStart.Text" xml:space="preserve">
     <value>?</value>
-  </data>
+  <comment>@Invariant</comment></data>
   <data name="&gt;&gt;buttonHelpAutoStart.Name" xml:space="preserve">
     <value>buttonHelpAutoStart</value>
   </data>
@@ -623,7 +623,7 @@
   </data>
   <data name="buttonHelpFileTypes.Text" xml:space="preserve">
     <value>?</value>
-  </data>
+  <comment>@Invariant</comment></data>
   <data name="&gt;&gt;buttonHelpFileTypes.Name" xml:space="preserve">
     <value>buttonHelpFileTypes</value>
   </data>
@@ -755,7 +755,7 @@
   </data>
   <data name="buttonHelpUrlProtocols.Text" xml:space="preserve">
     <value>?</value>
-  </data>
+  <comment>@Invariant</comment></data>
   <data name="&gt;&gt;buttonHelpUrlProtocols.Name" xml:space="preserve">
     <value>buttonHelpUrlProtocols</value>
   </data>
@@ -887,7 +887,7 @@
   </data>
   <data name="buttonHelpAutoPlay.Text" xml:space="preserve">
     <value>?</value>
-  </data>
+  <comment>@Invariant</comment></data>
   <data name="&gt;&gt;buttonHelpAutoPlay.Name" xml:space="preserve">
     <value>buttonHelpAutoPlay</value>
   </data>
@@ -1019,7 +1019,7 @@
   </data>
   <data name="buttonHelpContextMenu.Text" xml:space="preserve">
     <value>?</value>
-  </data>
+  <comment>@Invariant</comment></data>
   <data name="&gt;&gt;buttonHelpContextMenu.Name" xml:space="preserve">
     <value>buttonHelpContextMenu</value>
   </data>
@@ -1142,7 +1142,7 @@
   </data>
   <data name="buttonHelpDefaultPrograms.Text" xml:space="preserve">
     <value>?</value>
-  </data>
+  <comment>@Invariant</comment></data>
   <data name="&gt;&gt;buttonHelpDefaultPrograms.Name" xml:space="preserve">
     <value>buttonHelpDefaultPrograms</value>
   </data>
@@ -1358,7 +1358,7 @@
   </data>
   <data name="labelLastDataError.Text" xml:space="preserve">
     <value>(Last data error)</value>
-  </data>
+  <comment>@Invariant</comment></data>
   <data name="labelLastDataError.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
