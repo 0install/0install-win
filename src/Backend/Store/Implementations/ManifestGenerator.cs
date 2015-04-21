@@ -76,7 +76,7 @@ namespace ZeroInstall.Store.Implementations
             TargetDir = path.TrimEnd(Path.DirectorySeparatorChar);
             Format = format;
 
-            _isUnixFS = FileUtils.IsUnixFS(TargetDir);
+            _isUnixFS = FlagUtils.IsUnixFS(TargetDir);
         }
         #endregion
 

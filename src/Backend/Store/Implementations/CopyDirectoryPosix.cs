@@ -38,8 +38,8 @@ namespace ZeroInstall.Store.Implementations
         public CopyDirectoryPosix(string sourcePath, string destinationPath, bool preserveDirectoryTimestamps = true, bool overwrite = false)
             : base(sourcePath, destinationPath, preserveDirectoryTimestamps, overwrite)
         {
-            _sourceIsUnixFS = FileUtils.IsUnixFS(SourcePath);
-            _destinationIsUnixFS = FileUtils.IsUnixFS(DestinationPath);
+            _sourceIsUnixFS = FlagUtils.IsUnixFS(SourcePath);
+            _destinationIsUnixFS = FlagUtils.IsUnixFS(DestinationPath);
         }
 
         protected override void CopyFile(FileInfo sourceFile, FileInfo destinationFile)

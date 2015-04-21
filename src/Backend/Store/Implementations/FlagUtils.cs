@@ -33,6 +33,11 @@ namespace ZeroInstall.Store.Implementations
     public static class FlagUtils
     {
         /// <summary>
+        /// The well-known file name used for a flag file to indicate that a directory resides on a non-Unix filesystem.
+        /// </summary>
+        public const string NoUnixFSFile = ".no-unix-fs";
+
+        /// <summary>
         /// The well-known file name used to store executable flags in directories.
         /// </summary>
         public const string XbitFile = ".xbit";
@@ -43,6 +48,25 @@ namespace ZeroInstall.Store.Implementations
         public const string SymlinkFile = ".symlink";
 
         #region Read
+        /// <summary>
+        /// Determines whether a directory resides on a non-Unix filesystem.
+        /// </summary>
+        /// <param name="target">The full path to the directory.</param>
+        /// <exception cref="IOException">There was an error reading the flag file.</exception>
+        /// <exception cref="UnauthorizedAccessException">You have insufficient rights to read the flag file.</exception>
+        /// <remarks>The flag file is searched for instead of specifiying it directly to allow handling of special cases like creating manifests of subdirectories of extracted archives.</remarks>
+        /// <seealso cref="NoUnixFSFile"/>
+        /// <seealso cref="FileUtils.IsUnixFS"/>
+        public static bool IsUnixFS([NotNull] string target)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            #endregion
+
+            if (FindRootDir(NoUnixFSFile, target) != null) return false;
+            else return FileUtils.IsUnixFS(target);
+        }
+
         /// <summary>
         /// Retrieves a list of files for which an external flag is set.
         /// </summary>
@@ -112,6 +136,22 @@ namespace ZeroInstall.Store.Implementations
         #endregion
 
         #region Write
+        /// <summary>
+        /// Sets a flag for a directory indicating that it resides on a non-Unix filesystem. This makes future calls to <seealso cref="IsUnixFS"/> run faster and more reliable.
+        /// </summary>
+        /// <param name="target">The full path to the directory.</param>
+        /// <exception cref="IOException">There was an error writing the flag file.</exception>
+        /// <exception cref="UnauthorizedAccessException">You have insufficient rights to write the flag file.</exception>
+        /// <seealso cref="NoUnixFSFile"/>
+        public static void MarkAsNoUnixFS([NotNull] string target)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            #endregion
+
+            FileUtils.Touch(Path.Combine(target, NoUnixFSFile));
+        }
+
         /// <summary>
         /// Sets a flag for a file in an external flag file.
         /// </summary>

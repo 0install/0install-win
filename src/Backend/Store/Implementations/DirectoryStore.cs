@@ -213,7 +213,8 @@ namespace ZeroInstall.Store.Implementations
             string source = Path.Combine(DirectoryPath, tempID);
             string target = Path.Combine(DirectoryPath, expectedDigestValue);
 
-            if (FileUtils.IsUnixFS(source)) FlagUtils.ConvertToFS(source);
+            if (FlagUtils.IsUnixFS(DirectoryPath)) FlagUtils.ConvertToFS(source);
+            else FlagUtils.MarkAsNoUnixFS(DirectoryPath);
 
             // Calculate the actual digest, compare it with the expected one and create a manifest file
             VerifyDirectory(source, expectedDigest, handler).Save(Path.Combine(source, Manifest.ManifestFile));

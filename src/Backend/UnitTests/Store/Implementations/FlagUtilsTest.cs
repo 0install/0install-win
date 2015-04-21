@@ -17,6 +17,7 @@
 
 using System.IO;
 using System.Linq;
+using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 
@@ -28,6 +29,25 @@ namespace ZeroInstall.Store.Implementations
     [TestFixture]
     public class FlagUtilsTest
     {
+        /// <summary>
+        /// Ensures <see cref="FlagUtils.IsUnixFS"/> and <see cref="FlagUtils.MarkAsNoUnixFS"/> work correctly.
+        /// </summary>
+        [Test]
+        public void TestIsUnixFS()
+        {
+            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
+            {
+                if (UnixUtils.IsUnix)
+                {
+                    Assert.IsTrue(FlagUtils.IsUnixFS(tempDir));
+
+                    FlagUtils.MarkAsNoUnixFS(tempDir);
+                    Assert.IsFalse(FlagUtils.IsUnixFS(tempDir));
+                }
+                else Assert.IsFalse(FlagUtils.IsUnixFS(tempDir));
+            }
+        }
+
         /// <summary>
         /// Ensures <see cref="FlagUtils.GetFiles"/> works correctly.
         /// </summary>

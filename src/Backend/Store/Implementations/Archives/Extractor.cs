@@ -88,7 +88,7 @@ namespace ZeroInstall.Store.Implementations.Archives
             TargetDir = target;
 
             if (Directory.Exists(target)) Directory.CreateDirectory(target);
-            _isUnixFS = FileUtils.IsUnixFS(target);
+            _isUnixFS = FlagUtils.IsUnixFS(target);
         }
         #endregion
 
