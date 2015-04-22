@@ -113,7 +113,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
             var commandCollector = new CommandCollector {Path = CommandExecutor.Path}; // Represent all changes in a single undo step
             try
             {
-                CheckDigest(new GuiTaskHandler(this), commandCollector);
+                using (var handler = new GuiTaskHandler(this))
+                    CheckDigest(handler, commandCollector);
             }
                 #region Error handling
             catch (OperationCanceledException)
@@ -142,7 +143,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             }
             catch (NotSupportedException ex)
             {
-                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
                 return;
             }
                 #endregion

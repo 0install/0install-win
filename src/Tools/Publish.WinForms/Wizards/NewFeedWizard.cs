@@ -28,8 +28,11 @@ namespace ZeroInstall.Publish.WinForms.Wizards
     /// </summary>
     public sealed partial class NewFeedWizard : Wizard
     {
+        /// <summary>The result retrurned by <see cref="Run"/>.</summary>
         private SignedFeed _signedFeed;
-        private readonly FeedBuilder _feedBuilder;
+
+        /// <summary>Shared between wizard pages.</summary>
+        private readonly FeedBuilder _feedBuilder = new FeedBuilder();
 
         /// <summary>
         /// Runs the wizard.
@@ -50,7 +53,6 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private NewFeedWizard(IOpenPgp openPgp)
         {
             InitializeComponent();
-            _feedBuilder = new FeedBuilder();
 
             // Pages
             var downloadPage = new DownloadPage(_feedBuilder);
@@ -64,23 +66,30 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             var donePage = new DonePage();
 
             // Flows
-            downloadPage.Archive += () => PushPage(archiveExtractPage);
+            downloadPage.AsArchive += () => PushPage(archiveExtractPage);
             archiveExtractPage.Next += () => PushPage(entryPointPage);
-            downloadPage.SingleFile += () => PushPage(detailsPage);
-            downloadPage.Installer += () => PushPage(installerPageStart);
+            downloadPage.AsSingleFile += () =>
+            {
+                _feedBuilder.GenerateCommands();
+                PushPage(detailsPage);
+            };
+            downloadPage.AsInstaller += () => PushPage(installerPageStart);
             installerPageStart.Next += session =>
             {
                 installerPageFinish.Session = session;
                 PushPage(installerPageFinish);
             };
             installerPageFinish.Next += () => PushPage(entryPointPage);
-            entryPointPage.Next += () => PushPage(detailsPage);
+            entryPointPage.Next += () =>
+            {
+                _feedBuilder.GenerateCommands();
+                PushPage(detailsPage);
+            };
             detailsPage.Next += () => PushPage(iconPage);
             iconPage.Next += () => PushPage(securityPage);
             securityPage.Next += () => PushPage(donePage);
             donePage.Finish += () =>
             {
-                _feedBuilder.GenerateCommands();
                 _signedFeed = _feedBuilder.Build();
                 Close();
             };

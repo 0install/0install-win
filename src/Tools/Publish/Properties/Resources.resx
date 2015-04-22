@@ -130,10 +130,12 @@
     <value>Is this an installer EXE?</value>
   </data>
   <data name="AskSkipIcon" xml:space="preserve">
-    <value>Without uploading the icons Zero Install will only be able to display a generic placeholder icon in the catalog as well as for any desktop integration shortcuts. Are you sure you want to continue?</value>
+    <value>Are you sure you want to continue without adding icons?
+Zero Install will only be able to display a generic placeholder icon in the catalog as well as for any desktop integration shortcuts.</value>
   </data>
   <data name="AskSkipSecurity" xml:space="preserve">
-    <value>Without completing these settings your feed will only work locally and not online. Are you sure you want to continue?</value>
+    <value>Are you sure you want to continue without completing these settings?
+Your feed will only work locally and not online.</value>
   </data>
   <data name="DetectingCandidates" xml:space="preserve">
     <value>Searching for executable files</value>

@@ -20,6 +20,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using ZeroInstall.Publish.EntryPoints;
@@ -33,10 +34,11 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private readonly FeedBuilder _feedBuilder;
 
-        public IconPage(FeedBuilder feedBuilder)
+        public IconPage([NotNull] FeedBuilder feedBuilder)
         {
-            _feedBuilder = feedBuilder;
             InitializeComponent();
+
+            _feedBuilder = feedBuilder;
         }
 
         #region Export icon from EXE

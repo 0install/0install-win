@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DonePage));
             this.labelTitle = new System.Windows.Forms.Label();
             this.buttonFinish = new System.Windows.Forms.Button();
             this.labelInfo = new System.Windows.Forms.Label();
+            this.labelInfo2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelTitle
@@ -63,14 +63,26 @@
             this.labelInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelInfo.Location = new System.Drawing.Point(35, 82);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(400, 153);
+            this.labelInfo.Size = new System.Drawing.Size(400, 92);
             this.labelInfo.TabIndex = 1;
-            this.labelInfo.Text = resources.GetString("labelInfo.Text");
+            this.labelInfo.Text = "The wizard is done! We will now open the feed in the editor so you can look every" +
+    "thing over, make any changes you like and save the feed as a file afterwards.";
+            // 
+            // labelInfo2
+            // 
+            this.labelInfo2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.labelInfo2.Location = new System.Drawing.Point(35, 174);
+            this.labelInfo2.Name = "labelInfo2";
+            this.labelInfo2.Size = new System.Drawing.Size(400, 61);
+            this.labelInfo2.TabIndex = 1;
+            this.labelInfo2.Text = "When uploading the feed make sure you also include these files: feed.xsl, feed.cs" +
+    "s, *.gpg";
             // 
             // DonePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelInfo2);
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.buttonFinish);
             this.Controls.Add(this.labelTitle);
@@ -86,5 +98,6 @@
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Button buttonFinish;
         private System.Windows.Forms.Label labelInfo;
+        private System.Windows.Forms.Label labelInfo2;
     }
 }

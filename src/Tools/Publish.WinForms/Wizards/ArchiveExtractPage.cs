@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Storage;
@@ -34,10 +35,11 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private readonly FeedBuilder _feedBuilder;
 
-        public ArchiveExtractPage(FeedBuilder feedBuilder)
+        public ArchiveExtractPage([NotNull] FeedBuilder feedBuilder)
         {
-            _feedBuilder = feedBuilder;
             InitializeComponent();
+
+            _feedBuilder = feedBuilder;
         }
 
         private Archive _archive;
@@ -67,44 +69,45 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            var handler = new GuiTaskHandler(this);
+            using (var handler = new GuiTaskHandler(this))
+            {
+                if (FileUtils.IsBreakoutPath(comboBoxExtract.Text))
+                {
+                    Msg.Inform(this, Resources.ArchiveBreakoutPath, MsgSeverity.Error);
+                    return;
+                }
 
-            if (FileUtils.IsBreakoutPath(comboBoxExtract.Text))
-            {
-                Msg.Inform(this, Resources.ArchiveBreakoutPath, MsgSeverity.Error);
-                return;
-            }
+                _archive.Extract = comboBoxExtract.Text ?? "";
+                string path = Path.Combine(_feedBuilder.TemporaryDirectory, FileUtils.UnifySlashes(_archive.Extract));
 
-            _archive.Extract = comboBoxExtract.Text ?? "";
-            string path = Path.Combine(_feedBuilder.TemporaryDirectory, FileUtils.UnifySlashes(_archive.Extract));
-
-            _feedBuilder.ImplementationDirectory = path;
-            try
-            {
-                _feedBuilder.DetectCandidates(handler);
-                _feedBuilder.CalculateDigest(handler);
+                _feedBuilder.ImplementationDirectory = path;
+                try
+                {
+                    _feedBuilder.DetectCandidates(handler);
+                    _feedBuilder.CalculateDigest(handler);
+                }
+                    #region Error handling
+                catch (OperationCanceledException)
+                {
+                    return;
+                }
+                catch (ArgumentException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                    return;
+                }
+                catch (IOException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                    return;
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    return;
+                }
+                #endregion
             }
-                #region Error handling
-            catch (OperationCanceledException)
-            {
-                return;
-            }
-            catch (ArgumentException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-                return;
-            }
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-                return;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
-                return;
-            }
-            #endregion
 
             if (_feedBuilder.ManifestDigest.PartialEquals(ManifestDigest.Empty))
             {

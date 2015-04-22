@@ -17,6 +17,7 @@
 
 using System;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using NanoByte.Common.Controls;
 
 namespace ZeroInstall.Publish.WinForms.Wizards
@@ -27,10 +28,11 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private readonly FeedBuilder _feedBuilder;
 
-        public DetailsPage(FeedBuilder feedBuilder)
+        public DetailsPage([NotNull] FeedBuilder feedBuilder)
         {
-            _feedBuilder = feedBuilder;
             InitializeComponent();
+
+            _feedBuilder = feedBuilder;
         }
 
         public void OnPageShow()
@@ -46,7 +48,9 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            if (ValidateInput()) Next();
+            if (!ValidateInput()) return;
+
+            Next();
         }
 
         private bool ValidateInput()

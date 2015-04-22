@@ -18,6 +18,7 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using NanoByte.Common.Controls;
 using ZeroInstall.Publish.EntryPoints;
 
@@ -29,10 +30,11 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private readonly FeedBuilder _feedBuilder;
 
-        public EntryPointPage(FeedBuilder feedBuilder)
+        public EntryPointPage([NotNull] FeedBuilder feedBuilder)
         {
-            _feedBuilder = feedBuilder;
             InitializeComponent();
+
+            _feedBuilder = feedBuilder;
         }
 
         public void OnPageShow()
@@ -45,7 +47,9 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         private void buttonNext_Click(object sender, EventArgs e)
         {
             _feedBuilder.MainCandidate = comboBoxEntryPoint.SelectedItem as Candidate;
-            if (_feedBuilder.MainCandidate != null) Next();
+            if (_feedBuilder.MainCandidate == null) return;
+
+            Next();
         }
     }
 }

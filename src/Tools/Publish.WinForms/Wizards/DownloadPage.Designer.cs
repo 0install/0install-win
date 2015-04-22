@@ -37,7 +37,6 @@
             this.checkLocalCopy = new System.Windows.Forms.CheckBox();
             this.buttonNext = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.buttonCapture = new System.Windows.Forms.Button();
             this.groupLocalCopy.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -137,23 +136,10 @@
             // 
             this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog_FileOk);
             // 
-            // buttonCapture
-            // 
-            this.buttonCapture.Enabled = false;
-            this.buttonCapture.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonCapture.Location = new System.Drawing.Point(39, 238);
-            this.buttonCapture.Name = "buttonCapture";
-            this.buttonCapture.Size = new System.Drawing.Size(220, 35);
-            this.buttonCapture.TabIndex = 6;
-            this.buttonCapture.Text = "&Capture an installer instead";
-            this.buttonCapture.UseVisualStyleBackColor = true;
-            this.buttonCapture.Click += new System.EventHandler(this.buttonCapture_Click);
-            // 
             // DownloadPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonCapture);
             this.Controls.Add(this.checkLocalCopy);
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.groupLocalCopy);
@@ -181,6 +167,5 @@
         private System.Windows.Forms.CheckBox checkLocalCopy;
         private System.Windows.Forms.Button buttonNext;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.Button buttonCapture;
     }
 }

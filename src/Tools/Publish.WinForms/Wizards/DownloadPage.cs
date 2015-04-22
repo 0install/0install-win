@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Publish.Properties;
@@ -32,24 +33,25 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         /// <summary>
         /// Raised if an <see cref="Archive"/> was chosen as the implementation source.
         /// </summary>
-        public event Action Archive;
+        public event Action AsArchive;
 
         /// <summary>
         /// Raised if a <see cref="SingleFile"/> was chosen as the implementation source.
         /// </summary>
-        public event Action SingleFile;
+        public event Action AsSingleFile;
 
         /// <summary>
         /// Raised if the user wants to use the installer capture feature.
         /// </summary>
-        public event Action Installer;
+        public event Action AsInstaller;
 
         private readonly FeedBuilder _feedBuilder;
 
-        public DownloadPage(FeedBuilder feedBuilder)
+        public DownloadPage([NotNull] FeedBuilder feedBuilder)
         {
-            _feedBuilder = feedBuilder;
             InitializeComponent();
+
+            _feedBuilder = feedBuilder;
         }
 
         private void ToggleControls(object sender, EventArgs e)
@@ -78,7 +80,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
             try
             {
-                if (fileName.EndsWithIgnoreCase(".exe"))
+                if (fileName.EndsWithIgnoreCase(@".exe"))
                 {
                     switch (Msg.YesNoCancel(this, Resources.AskInstallerEXE, MsgSeverity.Info, Resources.YesInstallerExe, Resources.NoSingleExecutable))
                     {
@@ -92,7 +94,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                             return;
                     }
                 }
-                else if (Store.Model.Archive.GuessMimeType(fileName) == null) OnSingleFile();
+                else if (Archive.GuessMimeType(fileName) == null) OnSingleFile();
                 else OnArchive();
             }
                 #region Error handling
@@ -108,7 +110,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             }
             catch (UnauthorizedAccessException ex)
             {
-                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }
             catch (WebException ex)
             {
@@ -130,13 +132,13 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             _feedBuilder.DetectCandidates(handler);
             _feedBuilder.CalculateDigest(handler);
             if (_feedBuilder.MainCandidate == null) Msg.Inform(this, Resources.NoEntryPointsFound, MsgSeverity.Warn);
-            else SingleFile();
+            else AsSingleFile();
         }
 
         private void OnArchive()
         {
             Retrieve(new Archive {Href = textBoxUrl.Uri});
-            Archive();
+            AsArchive();
         }
 
         private void OnInstaller()
@@ -144,29 +146,26 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             try
             {
                 // 7zip's extraction logic can handle a number of self-extracting formats
-                Retrieve(new Archive {Href = textBoxUrl.Uri, MimeType = Store.Model.Archive.MimeType7Z});
-                Archive();
+                Retrieve(new Archive {Href = textBoxUrl.Uri, MimeType = Archive.MimeType7Z});
+                AsArchive();
             }
             catch (IOException)
             {
                 Msg.Inform(this, "Zero Install is unable to extract the contents of this installer. We will now continue with the Installer Capture feature.", MsgSeverity.Warn);
-                Installer();
+                AsInstaller();
             }
         }
 
         private void Retrieve(DownloadRetrievalMethod retrievalMethod)
         {
-            var temporaryDirectory = checkLocalCopy.Checked
-                ? retrievalMethod.LocalApply(textBoxLocalPath.Text, new GuiTaskHandler(this))
-                : retrievalMethod.DownloadAndApply(new GuiTaskHandler(this));
-
             _feedBuilder.RetrievalMethod = retrievalMethod;
-            _feedBuilder.TemporaryDirectory = temporaryDirectory;
-        }
 
-        private void buttonCapture_Click(object sender, EventArgs e)
-        {
-            Installer();
+            using (var handler = new GuiTaskHandler(this))
+            {
+                _feedBuilder.TemporaryDirectory = checkLocalCopy.Checked
+                    ? retrievalMethod.LocalApply(textBoxLocalPath.Text, handler)
+                    : retrievalMethod.DownloadAndApply(handler);
+            }
         }
     }
 }
