@@ -57,8 +57,8 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             // Pages
             var downloadPage = new DownloadPage(_feedBuilder);
             var archiveExtractPage = new ArchiveExtractPage(_feedBuilder);
-            var installerPageStart = new InstallerPageStart();
-            var installerPageFinish = new InstallerPageFinish(_feedBuilder);
+            var installerPageStart = new InstallerPageStart(_feedBuilder);
+            var installerPageFinish = new InstallerPageFinish();
             var entryPointPage = new EntryPointPage(_feedBuilder);
             var detailsPage = new DetailsPage(_feedBuilder);
             var iconPage = new IconPage(_feedBuilder);

@@ -138,9 +138,7 @@ namespace ZeroInstall.Publish
         /// <exception cref="InvalidOperationException"><see cref="MainCandidate"/> is <see langword="null"/>.</exception>
         public void GenerateCommands()
         {
-            #region Sanity checks
-            if (MainCandidate == null) throw new InvalidOperationException("MainCandidate is not set.");
-            #endregion
+            if (MainCandidate == null) throw new InvalidOperationException(Resources.EntryPointNotFound);
 
             _commands.Clear();
             _entryPoints.Clear();

@@ -25,14 +25,18 @@ namespace ZeroInstall.Publish.WinForms.Wizards
     {
         public Action<CaptureSession> Next;
 
-        public InstallerPageStart()
+        private readonly FeedBuilder _feedBuilder;
+
+        public InstallerPageStart(FeedBuilder feedBuilder)
         {
             InitializeComponent();
+
+            _feedBuilder = feedBuilder;
         }
 
         private void buttonCapture_Click(object sender, EventArgs e)
         {
-            Next(CaptureSession.Start());
+            Next(CaptureSession.Start(_feedBuilder));
         }
     }
 }

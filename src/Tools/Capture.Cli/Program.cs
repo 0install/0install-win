@@ -57,6 +57,11 @@ namespace ZeroInstall.Capture.Cli
                 Log.Error(ex);
                 return (int)ExitCode.InvalidArguments;
             }
+            catch (InvalidOperationException ex)
+            {
+                Log.Error(ex);
+                return (int)ExitCode.InvalidArguments;
+            }
             catch (InvalidDataException ex)
             {
                 Log.Error(ex);

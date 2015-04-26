@@ -19,8 +19,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using NanoByte.Common;
+using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NDesk.Options;
 using ZeroInstall.Publish;
@@ -131,7 +133,7 @@ namespace ZeroInstall.Capture.Cli
             string snapshotFile = _additionalArgs[1];
             if (FileExists(snapshotFile)) return ExitCode.IOError;
 
-            var session = CaptureSession.Start();
+            var session = CaptureSession.Start(new FeedBuilder());
             session.Save(snapshotFile);
 
             return ExitCode.OK;
@@ -144,11 +146,17 @@ namespace ZeroInstall.Capture.Cli
             string feedFile = _additionalArgs[2];
             if (FileExists(feedFile)) return ExitCode.IOError;
 
-            var session = CaptureSession.Load(snapshotFile);
-            session.InstallationDir = _installationDirectory;
-            session.MainExe = _mainExe;
+            var feedBuilder = new FeedBuilder();
+            var session = CaptureSession.Load(snapshotFile, feedBuilder);
 
-            session.Finish(_handler).Save(feedFile);
+            session.InstallationDir = _installationDirectory;
+            session.Diff(_handler);
+
+            feedBuilder.MainCandidate = string.IsNullOrEmpty(_mainExe)
+                ? feedBuilder.Candidates.FirstOrDefault()
+                : feedBuilder.Candidates.FirstOrDefault(x => StringUtils.EqualsIgnoreCase(FileUtils.UnifySlashes(x.RelativePath), _mainExe));
+            session.Finish();
+            feedBuilder.Build().Save(feedFile);
 
             if (_collectFiles) session.CollectFiles();
 
