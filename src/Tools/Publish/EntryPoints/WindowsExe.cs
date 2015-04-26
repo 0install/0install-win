@@ -58,7 +58,7 @@ namespace ZeroInstall.Publish.EntryPoints
                 {
                     Version = new ImplementationVersion(versionInfo.ProductVersion.Trim());
                 }
-                catch (ArgumentException)
+                catch (FormatException)
                 {}
             }
         }

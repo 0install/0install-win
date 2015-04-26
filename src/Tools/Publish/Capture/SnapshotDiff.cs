@@ -66,6 +66,7 @@ namespace ZeroInstall.Publish.Capture
         /// <summary>
         /// Locates the directory into which the new application was installed.
         /// </summary>
+        /// <exception cref="InvalidOperationException">No installation directory was detected.</exception>
         [NotNull]
         public string GetInstallationDir()
         {
