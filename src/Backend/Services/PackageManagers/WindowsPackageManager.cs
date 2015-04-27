@@ -114,7 +114,7 @@ namespace ZeroInstall.Services.PackageManagers
                     yield return new ExternalImplementation(DistributionName,
                         package: "openjdk-" + version + "-" + typeShort,
                         version: new ImplementationVersion(FileVersionInfo.GetVersionInfo(mainPath).ProductVersion.GetLeftPartAtLastOccurrence(".")), // Trim patch level
-                        architecture: javaHome.Key)
+                        cpu: javaHome.Key)
                     {
                         Commands =
                         {
@@ -128,19 +128,19 @@ namespace ZeroInstall.Services.PackageManagers
             }
         }
 
-        private static IEnumerable<KeyValuePair<Architecture, string>> GetRegistredPaths(string registrySuffix, string valueName)
+        private static IEnumerable<KeyValuePair<Cpu, string>> GetRegistredPaths(string registrySuffix, string valueName)
         {
             // Check for system native architecture (may be 32-bit or 64-bit)
             string path = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\" + registrySuffix, valueName);
             if (!string.IsNullOrEmpty(path))
-                yield return new KeyValuePair<Architecture, string>(Architecture.CurrentSystem, path);
+                yield return new KeyValuePair<Cpu, string>(Architecture.CurrentSystem.Cpu, path);
 
             // Check for 32-bit on a 64-bit system
             if (WindowsUtils.Is64BitProcess)
             {
                 path = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\" + registrySuffix, valueName);
                 if (!string.IsNullOrEmpty(path))
-                    yield return new KeyValuePair<Architecture, string>(new Architecture(OS.Windows, Cpu.I486), path);
+                    yield return new KeyValuePair<Cpu, string>(Cpu.I486, path);
             }
         }
 
@@ -152,7 +152,7 @@ namespace ZeroInstall.Services.PackageManagers
             int release = RegistryUtils.GetDword(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\" + registryVersion, "Release");
             if (install == 1 && release >= releaseNumber)
             {
-                yield return new ExternalImplementation(DistributionName, "netfx", version, Architecture.CurrentSystem)
+                yield return new ExternalImplementation(DistributionName, "netfx", version, Architecture.CurrentSystem.Cpu)
                 {
                     // .NET executables do not need a runner on Windows
                     Commands = {new Command {Name = Command.NameRun, Path = ""}},
@@ -168,7 +168,7 @@ namespace ZeroInstall.Services.PackageManagers
                 release = RegistryUtils.GetDword(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\NET Framework Setup\NDP\" + registryVersion, "Release");
                 if (install == 1 && release >= releaseNumber)
                 {
-                    yield return new ExternalImplementation(DistributionName, "netfx", version, new Architecture(OS.Windows, Cpu.I486))
+                    yield return new ExternalImplementation(DistributionName, "netfx", version, Cpu.I486)
                     {
                         // .NET executables do not need a runner on Windows
                         Commands = {new Command {Name = Command.NameRun, Path = ""}},

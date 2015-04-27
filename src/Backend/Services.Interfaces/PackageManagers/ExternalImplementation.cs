@@ -65,8 +65,8 @@ namespace ZeroInstall.Services.PackageManagers
         /// <param name="distribution">The name of the distribution (e.g. Debian, RPM) where this implementation comes from.</param>
         /// <param name="package">The name of the package in the <paramref name="distribution"/>.</param>
         /// <param name="version">The version number of the implementation.</param>
-        /// <param name="architecture">For platform-specific binaries, the platform for which the implementation was compiled.</param>
-        public ExternalImplementation([NotNull] string distribution, [NotNull] string package, [NotNull] ImplementationVersion version, Architecture architecture = default(Architecture))
+        /// <param name="cpu">For platform-specific binaries, the CPU architecture for which the implementation was compiled.</param>
+        public ExternalImplementation([NotNull] string distribution, [NotNull] string package, [NotNull] ImplementationVersion version, Cpu cpu = Cpu.All)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(distribution)) throw new ArgumentNullException("distribution");
@@ -75,13 +75,17 @@ namespace ZeroInstall.Services.PackageManagers
             #endregion
 
             ID = PackagePrefix + distribution.ToLowerInvariant() + ":" + package + ":" + version;
-            if (architecture.Cpu != Cpu.All) ID += ":" + architecture.Cpu.ConvertToString();
 
             Version = version;
             Stability = Stability.Packaged;
-            Architecture = architecture;
             Distribution = distribution;
             Package = package;
+
+            if (cpu != Cpu.All)
+            {
+                ID += ":" + cpu.ConvertToString();
+                Architecture = new Architecture(OS.All, cpu);
+            }
         }
 
         /// <summary>
@@ -96,7 +100,7 @@ namespace ZeroInstall.Services.PackageManagers
             #endregion
 
             var parts = id.Split(':');
-            if (parts.Length < 4 || parts[0] != PackagePrefix)
+            if (parts.Length < 4 || parts[0] + ":" != PackagePrefix)
                 throw new FormatException();
 
             var implementation = new ExternalImplementation(distribution: parts[1], package: parts[2], version: new ImplementationVersion(parts[3])) {ID = id};
