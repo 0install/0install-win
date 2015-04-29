@@ -129,6 +129,10 @@
   <data name="AskInstallerEXE" xml:space="preserve">
     <value>Is this an installer EXE?</value>
   </data>
+  <data name="AskSkipCapture" xml:space="preserve">
+    <value>Are you sure you skip capturing?
+Information about the application's desktop integration (e.g. file associations) will not be added to the feed.</value>
+  </data>
   <data name="AskSkipIcon" xml:space="preserve">
     <value>Are you sure you want to continue without adding icons?
 Zero Install will only be able to display a generic placeholder icon in the catalog as well as for any desktop integration shortcuts.</value>
@@ -188,6 +192,12 @@ Try specifying it manually.</value>
   </data>
   <data name="InstallationDirDetected" xml:space="preserve">
     <value>Detected '{0}' as installation directory.</value>
+  </data>
+  <data name="InstallerExtractFailed" xml:space="preserve">
+    <value>Failed to extract the installer as an archive.</value>
+  </data>
+  <data name="InstallerNeedAltSource" xml:space="preserve">
+    <value>You need to provide an alternative download source for the application, e.g. a ZIP archive. We will still use the desktop integration information captured from the installer!</value>
   </data>
   <data name="InvalidCapabilitiesRegistryPath" xml:space="preserve">
     <value>Invalid capabilities registry path: {0}</value>
@@ -292,6 +302,9 @@ Try {0} --help</value>
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Usage:</value>
+  </data>
+  <data name="WaitingForInstaller" xml:space="preserve">
+    <value>Waiting for installer to complete</value>
   </data>
   <data name="WrongMimeType" xml:space="preserve">
     <value>Wrong MIME type! Should be {0}.</value>

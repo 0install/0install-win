@@ -34,6 +34,9 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         /// <summary>Shared between wizard pages.</summary>
         private readonly FeedBuilder _feedBuilder = new FeedBuilder();
 
+        /// <summary>Shared between installer-specific wizard pages.</summary>
+        private readonly InstallerCapture _installerCapture = new InstallerCapture();
+
         /// <summary>
         /// Runs the wizard.
         /// </summary>
@@ -55,11 +58,14 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             InitializeComponent();
 
             // Pages
-            var downloadPage = new DownloadPage(_feedBuilder);
+            var downloadPage = new DownloadPage(_feedBuilder, _installerCapture);
             var archiveExtractPage = new ArchiveExtractPage(_feedBuilder);
-            var installerPageStart = new InstallerPageStart(_feedBuilder);
-            var installerPageFinish = new InstallerPageFinish();
             var entryPointPage = new EntryPointPage(_feedBuilder);
+            var installerCaptureStartPage = new InstallerCaptureStartPage(_installerCapture, _feedBuilder);
+            var installerCaptureDiffPage = new InstallerCaptureDiffPage(_installerCapture, _feedBuilder);
+            var installerAltDownloadPage = new DownloadPage(_feedBuilder, _installerCapture);
+            var installerExtractPage = new ArchiveExtractPage(_feedBuilder, _installerCapture);
+            var installerEntryPointPage = new EntryPointPage(_feedBuilder);
             var detailsPage = new DetailsPage(_feedBuilder);
             var iconPage = new IconPage(_feedBuilder);
             var securityPage = new SecurityPage(_feedBuilder, openPgp);
@@ -67,22 +73,27 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
             // Flows
             downloadPage.AsArchive += () => PushPage(archiveExtractPage);
-            archiveExtractPage.Next += () => PushPage(entryPointPage);
             downloadPage.AsSingleFile += () =>
             {
                 _feedBuilder.GenerateCommands();
                 PushPage(detailsPage);
             };
-            downloadPage.AsInstaller += () => PushPage(installerPageStart);
-            installerPageStart.Next += session =>
-            {
-                installerPageFinish.Session = session;
-                PushPage(installerPageFinish);
-            };
-            installerPageFinish.Next += () => PushPage(entryPointPage);
+            downloadPage.AsInstaller += () => PushPage(installerCaptureStartPage);
+            archiveExtractPage.Next += () => PushPage(entryPointPage);
             entryPointPage.Next += () =>
             {
                 _feedBuilder.GenerateCommands();
+                PushPage(detailsPage);
+            };
+            installerCaptureStartPage.Next += () => PushPage(installerCaptureDiffPage);
+            installerCaptureStartPage.Skip += () => PushPage(archiveExtractPage);
+            installerCaptureDiffPage.AsArchive += () => PushPage(installerExtractPage);
+            installerCaptureDiffPage.Other += () => PushPage(installerAltDownloadPage);
+            installerAltDownloadPage.AsArchive += () => PushPage(installerExtractPage);
+            installerExtractPage.Next += () => PushPage(installerEntryPointPage);
+            installerEntryPointPage.Next += () =>
+            {
+                _installerCapture.CaptureSession.Finish();
                 PushPage(detailsPage);
             };
             detailsPage.Next += () => PushPage(iconPage);

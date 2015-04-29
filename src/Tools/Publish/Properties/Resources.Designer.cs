@@ -100,6 +100,16 @@ namespace ZeroInstall.Publish.Properties {
         ///   Looks up a localized string similar to Are you sure you skip capturing?
         ///Information about the application&apos;s desktop integration (e.g. file associations) will not be added to the feed..
         /// </summary>
+        public static string AskSkipCapture {
+            get {
+                return ResourceManager.GetString("AskSkipCapture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to continue without adding icons?
+        ///Zero Install will only be able to display a generic placeholder icon in the catalog as well as for any desktop integration shortcuts..
+        /// </summary>
         public static string AskSkipIcon {
             get {
                 return ResourceManager.GetString("AskSkipIcon", resourceCulture);
@@ -261,6 +271,24 @@ namespace ZeroInstall.Publish.Properties {
         public static string InstallationDirDetected {
             get {
                 return ResourceManager.GetString("InstallationDirDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to extract the installer as an archive..
+        /// </summary>
+        public static string InstallerExtractFailed {
+            get {
+                return ResourceManager.GetString("InstallerExtractFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to provide an alternative download source for the application, e.g. a ZIP archive. We will still use the desktop integration information captured from the installer!.
+        /// </summary>
+        public static string InstallerNeedAltSource {
+            get {
+                return ResourceManager.GetString("InstallerNeedAltSource", resourceCulture);
             }
         }
         
@@ -563,6 +591,15 @@ namespace ZeroInstall.Publish.Properties {
         public static string Usage {
             get {
                 return ResourceManager.GetString("Usage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waiting for installer to complete.
+        /// </summary>
+        public static string WaitingForInstaller {
+            get {
+                return ResourceManager.GetString("WaitingForInstaller", resourceCulture);
             }
         }
         

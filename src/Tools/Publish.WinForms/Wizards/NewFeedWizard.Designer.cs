@@ -17,6 +17,7 @@
             {
                 if (components != null) components.Dispose();
                 if (_feedBuilder != null) _feedBuilder.Dispose();
+                if (_installerCapture != null) _installerCapture.Dispose();
             }
             base.Dispose(disposing);
         }

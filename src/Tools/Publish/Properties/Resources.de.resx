@@ -129,6 +129,10 @@
   <data name="AskInstallerEXE" xml:space="preserve">
     <value>Ist dies eine Installations EXE?</value>
   </data>
+  <data name="AskSkipCapture" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie den Capture Schritt überspringen möchten?
+Informationen über die Desktopintegration der Anwendung (z.B. Dateityp-Assoziationen) werden nicht zum Feed hinzugefügt.</value>
+  </data>
   <data name="AskSkipIcon" xml:space="preserve">
     <value>Sind Sie sicher, dass Sie fortfahren möchten ohne Icons hinzuzufügen?
 Zero Install wird nur ein generisches Platzhalter-Symbol im Katalog wie auch bei Desktopintergations-Verknüpfungen verwenden können.</value>
@@ -188,6 +192,12 @@ Versuchen Sie ihn manuell anzugeben.</value>
   </data>
   <data name="InstallationDirDetected" xml:space="preserve">
     <value>'{0}' als Installationsverzeichnis erkannt.</value>
+  </data>
+  <data name="InstallerExtractFailed" xml:space="preserve">
+    <value>Entpacken des Installers als ein Archiv fehlgeschlagen.</value>
+  </data>
+  <data name="InstallerNeedAltSource" xml:space="preserve">
+    <value>Sie müssen eine alternative Downloadquelle für die Anwendung, z.B. ein ZIP Archiv, angeben. Wir werden dennoch die Desktopintegration-Informationen, die vom Installer erfasst wurden, verwenden!</value>
   </data>
   <data name="InvalidCapabilitiesRegistryPath" xml:space="preserve">
     <value>Ungültiger Capabilities Registrierungspfad: {0}</value>
@@ -292,6 +302,9 @@ Probieren Sie {0} --help</value>
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Verwendung:</value>
+  </data>
+  <data name="WaitingForInstaller" xml:space="preserve">
+    <value>Warte bis Installater beendet ist</value>
   </data>
   <data name="WrongMimeType" xml:space="preserve">
     <value>Falscher MIME Typ! Sollte {0} sein.</value>

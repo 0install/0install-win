@@ -34,11 +34,15 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private readonly FeedBuilder _feedBuilder;
 
-        public ArchiveExtractPage([NotNull] FeedBuilder feedBuilder)
+        [CanBeNull]
+        private readonly InstallerCapture _installerCapture;
+
+        public ArchiveExtractPage([NotNull] FeedBuilder feedBuilder, [CanBeNull] InstallerCapture installerCapture = null)
         {
             InitializeComponent();
 
             _feedBuilder = feedBuilder;
+            _installerCapture = installerCapture;
         }
 
         private Archive _archive;
@@ -72,7 +76,9 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
                 try
                 {
-                    _feedBuilder.DetectCandidates(handler);
+                    // Candidate detection is handled differently when captuing an installer
+                    if (_installerCapture == null) _feedBuilder.DetectCandidates(handler);
+
                     _feedBuilder.CalculateDigest(handler);
                 }
                     #region Error handling

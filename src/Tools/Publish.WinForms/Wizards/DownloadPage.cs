@@ -30,28 +30,19 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 {
     internal partial class DownloadPage : UserControl
     {
-        /// <summary>
-        /// Raised if an <see cref="Archive"/> was chosen as the implementation source.
-        /// </summary>
         public event Action AsArchive;
-
-        /// <summary>
-        /// Raised if a <see cref="SingleFile"/> was chosen as the implementation source.
-        /// </summary>
         public event Action AsSingleFile;
-
-        /// <summary>
-        /// Raised if the user wants to use the installer capture feature.
-        /// </summary>
         public event Action AsInstaller;
 
         private readonly FeedBuilder _feedBuilder;
+        private readonly InstallerCapture _installerCapture;
 
-        public DownloadPage([NotNull] FeedBuilder feedBuilder)
+        public DownloadPage([NotNull] FeedBuilder feedBuilder, [NotNull] InstallerCapture installerCapture)
         {
             InitializeComponent();
 
             _feedBuilder = feedBuilder;
+            _installerCapture = installerCapture;
         }
 
         private void ToggleControls(object sender, EventArgs e)
@@ -80,7 +71,8 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
             try
             {
-                if (fileName.EndsWithIgnoreCase(@".exe"))
+                if (AsInstaller == null) OnArchive();
+                else if (fileName.EndsWithIgnoreCase(@".exe"))
                 {
                     switch (Msg.YesNoCancel(this, Resources.AskInstallerEXE, MsgSeverity.Info, Resources.YesInstallerExe, Resources.NoSingleExecutable))
                     {
@@ -90,12 +82,23 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                         case DialogResult.No:
                             OnSingleFile();
                             break;
-                        case DialogResult.Cancel:
-                            return;
                     }
                 }
-                else if (Archive.GuessMimeType(fileName) == null) OnSingleFile();
-                else OnArchive();
+                else
+                {
+                    switch (Archive.GuessMimeType(fileName))
+                    {
+                        case Archive.MimeTypeMsi:
+                            OnInstaller();
+                            break;
+                        case null:
+                            OnSingleFile();
+                            break;
+                        default:
+                            OnArchive();
+                            break;
+                    }
+                }
             }
                 #region Error handling
             catch (OperationCanceledException)
@@ -125,12 +128,13 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private void OnSingleFile()
         {
-            var handler = new GuiTaskHandler(this);
-
             Retrieve(new SingleFile {Href = textBoxUrl.Uri});
             _feedBuilder.ImplementationDirectory = _feedBuilder.TemporaryDirectory;
-            _feedBuilder.DetectCandidates(handler);
-            _feedBuilder.CalculateDigest(handler);
+            using (var handler = new GuiTaskHandler(this))
+            {
+                _feedBuilder.DetectCandidates(handler);
+                _feedBuilder.CalculateDigest(handler);
+            }
             if (_feedBuilder.MainCandidate == null) Msg.Inform(this, Resources.NoEntryPointsFound, MsgSeverity.Warn);
             else AsSingleFile();
         }
@@ -139,21 +143,6 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         {
             Retrieve(new Archive {Href = textBoxUrl.Uri});
             AsArchive();
-        }
-
-        private void OnInstaller()
-        {
-            try
-            {
-                // 7zip's extraction logic can handle a number of self-extracting formats
-                Retrieve(new Archive {Href = textBoxUrl.Uri, MimeType = Archive.MimeType7Z});
-                AsArchive();
-            }
-            catch (IOException)
-            {
-                Msg.Inform(this, "Zero Install is unable to extract the contents of this installer. We will now continue with the Installer Capture feature.", MsgSeverity.Warn);
-                AsInstaller();
-            }
         }
 
         private void Retrieve(DownloadRetrievalMethod retrievalMethod)
@@ -166,6 +155,18 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                     ? retrievalMethod.LocalApply(textBoxLocalPath.Text, handler)
                     : retrievalMethod.DownloadAndApply(handler);
             }
+        }
+
+        private void OnInstaller()
+        {
+            if (checkLocalCopy.Checked)
+                _installerCapture.SetLocal(textBoxUrl.Uri, textBoxLocalPath.Text);
+            else
+            {
+                using (var handler = new GuiTaskHandler(this))
+                    _installerCapture.Download(textBoxUrl.Uri, handler);
+            }
+            AsInstaller();
         }
     }
 }
