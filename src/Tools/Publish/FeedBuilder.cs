@@ -265,8 +265,9 @@ namespace ZeroInstall.Publish
                 Elements = {implementation}
             };
             feed.Icons.AddRange(_icons);
+            if (!string.IsNullOrEmpty(MainCandidate.Category)) feed.Categories.Add(new Category {Name = MainCandidate.Category});
             if (_commands.Count > 1) feed.EntryPoints.AddRange(_entryPoints);
-            if (CapabilityList != null) feed.CapabilityLists.Add(CapabilityList);
+            if (CapabilityList != null && CapabilityList.Entries.Count != 0) feed.CapabilityLists.Add(CapabilityList);
 
             return new SignedFeed(feed, SecretKey);
         }

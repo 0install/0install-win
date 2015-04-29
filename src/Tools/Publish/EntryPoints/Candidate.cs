@@ -22,6 +22,7 @@ using JetBrains.Annotations;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
+using ZeroInstall.Store.Model.Design;
 
 namespace ZeroInstall.Publish.EntryPoints
 {
@@ -112,6 +113,13 @@ namespace ZeroInstall.Publish.EntryPoints
         public Architecture Architecture { get; internal set; }
 
         /// <summary>
+        /// The main category of the application. May influence the placement in the start menu.
+        /// </summary>
+        [Category("Details"), Description("The main category of the application. May influence the placement in the start menu.")]
+        [TypeConverter(typeof(CategoryNameConverter))]
+        public string Category { get; set; }
+
+        /// <summary>
         /// Creates a <see cref="Command"/> to launch this entry point.
         /// </summary>
         [Browsable(false)]
@@ -133,6 +141,7 @@ namespace ZeroInstall.Publish.EntryPoints
                 string.Equals(RelativePath, other.RelativePath) &&
                 string.Equals(Name, other.Name) &&
                 string.Equals(Summary, other.Summary) &&
+                string.Equals(Category, other.Category) &&
                 Equals(Version, other.Version) &&
                 Architecture == other.Architecture &&
                 NeedsTerminal == other.NeedsTerminal;
@@ -153,6 +162,7 @@ namespace ZeroInstall.Publish.EntryPoints
                 int hashCode = (RelativePath != null ? RelativePath.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Name != null ? Name.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Summary != null ? Summary.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Category != null ? Category.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Version != null ? Version.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Architecture.GetHashCode();
                 hashCode = (hashCode * 397) ^ NeedsTerminal.GetHashCode();

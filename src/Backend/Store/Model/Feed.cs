@@ -127,7 +127,7 @@ namespace ZeroInstall.Store.Model
         private readonly List<Category> _categories = new List<Category>();
 
         /// <summary>
-        /// A list of well-known categories the applications fits into.
+        /// A list of well-known categories the applications fits into. May influence the placement in the application menu.
         /// </summary>
         [Browsable(false)]
         [XmlElement("category")]

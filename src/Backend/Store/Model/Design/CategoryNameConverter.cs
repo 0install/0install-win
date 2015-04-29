@@ -19,7 +19,7 @@ using System.ComponentModel;
 
 namespace ZeroInstall.Store.Model.Design
 {
-    internal class CategoryNameConverter : StringConverter
+    public class CategoryNameConverter : StringConverter
     {
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
         {
