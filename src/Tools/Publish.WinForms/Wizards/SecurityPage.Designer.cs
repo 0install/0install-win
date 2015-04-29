@@ -116,7 +116,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             this.buttonNewKey.Name = "buttonNewKey";
             this.buttonNewKey.Size = new System.Drawing.Size(120, 28);
             this.buttonNewKey.TabIndex = 3;
-            this.buttonNewKey.Text = "&New key";
+            this.buttonNewKey.Text = "New &key";
             this.buttonNewKey.UseVisualStyleBackColor = true;
             this.buttonNewKey.Click += new System.EventHandler(this.buttonNewKey_Click);
             // 

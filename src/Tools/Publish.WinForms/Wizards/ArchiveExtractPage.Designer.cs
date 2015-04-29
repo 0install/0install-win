@@ -40,10 +40,10 @@
             this.labelQuestion.Location = new System.Drawing.Point(35, 82);
             this.labelQuestion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQuestion.Name = "labelQuestion";
-            this.labelQuestion.Size = new System.Drawing.Size(400, 43);
+            this.labelQuestion.Size = new System.Drawing.Size(400, 65);
             this.labelQuestion.TabIndex = 1;
-            this.labelQuestion.Text = "What is the top-level directory of the application in the archive? (Just leave em" +
-    "pty if you are not sure.)";
+            this.labelQuestion.Text = "What is the top-level directory of the application in the archive? (Just leave th" +
+    "e default if you are not sure.)";
             // 
             // labelTitle
             // 
@@ -62,7 +62,7 @@
             // 
             this.comboBoxExtract.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.comboBoxExtract.FormattingEnabled = true;
-            this.comboBoxExtract.Location = new System.Drawing.Point(39, 140);
+            this.comboBoxExtract.Location = new System.Drawing.Point(39, 150);
             this.comboBoxExtract.Name = "comboBoxExtract";
             this.comboBoxExtract.Size = new System.Drawing.Size(396, 28);
             this.comboBoxExtract.TabIndex = 2;

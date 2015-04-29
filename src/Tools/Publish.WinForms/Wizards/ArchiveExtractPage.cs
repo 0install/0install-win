@@ -68,9 +68,8 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                 }
 
                 _archive.Extract = comboBoxExtract.Text ?? "";
-                string path = Path.Combine(_feedBuilder.TemporaryDirectory, FileUtils.UnifySlashes(_archive.Extract));
+                _feedBuilder.ImplementationDirectory = Path.Combine(_feedBuilder.TemporaryDirectory, FileUtils.UnifySlashes(_archive.Extract));
 
-                _feedBuilder.ImplementationDirectory = path;
                 try
                 {
                     _feedBuilder.DetectCandidates(handler);
