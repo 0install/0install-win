@@ -17,11 +17,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.Win32;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
+using NanoByte.Common.Storage;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Capabilities;
@@ -78,7 +80,7 @@ namespace ZeroInstall.Publish.Capture
                 if (ProgramsDirs.Length > 1)
                     Log.Warn(Resources.MultipleInstallationDirsDetected);
 
-                installationDir = ProgramsDirs[0];
+                installationDir = new DirectoryInfo(ProgramsDirs[0]).WalkThroughPrefix().FullName;
                 Log.Info(string.Format(Resources.InstallationDirDetected, installationDir));
             }
             return installationDir;

@@ -17,7 +17,6 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using JetBrains.Annotations;
 using NanoByte.Common;
@@ -50,21 +49,12 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
             comboBoxExtract.BeginUpdate();
             comboBoxExtract.Items.Clear();
+
             var baseDirectory = new DirectoryInfo(_feedBuilder.TemporaryDirectory);
-            baseDirectory.Walk(
-                dir => comboBoxExtract.Items.Add(dir.RelativeTo(baseDirectory).Replace(Path.DirectorySeparatorChar, '/')));
+            baseDirectory.Walk(dir => comboBoxExtract.Items.Add(dir.RelativeTo(baseDirectory).Replace(Path.DirectorySeparatorChar, '/')));
+            comboBoxExtract.SelectedItem = baseDirectory.WalkThroughPrefix().RelativeTo(baseDirectory).Replace(Path.DirectorySeparatorChar, '/');
+
             comboBoxExtract.EndUpdate();
-
-            if (HasSolitarySubdir(baseDirectory)) comboBoxExtract.SelectedIndex = 1;
-        }
-
-        private static bool HasSolitarySubdir(DirectoryInfo baseDirectory)
-        {
-            return
-                // Exactly one directory
-                baseDirectory.GetDirectories().Length == 1 &&
-                // No files or only dot files
-                baseDirectory.GetFiles().Select(x => x.Name).All(x => x.StartsWith("."));
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
