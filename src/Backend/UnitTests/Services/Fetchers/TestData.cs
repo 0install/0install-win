@@ -17,10 +17,10 @@
 
 using System;
 using System.IO;
-using System.Reflection;
 using System.Security.Cryptography;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
 
 namespace ZeroInstall.Services.Fetchers
 {
@@ -37,18 +37,6 @@ namespace ZeroInstall.Services.Fetchers
         public static readonly string ExecutableHash = ExecutableString.Hash(SHA256.Create());
         public static readonly long ExecutableTimestamp = new DateTime(2000, 1, 1, 12, 0, 0).ToUnixTime();
 
-        private static readonly Assembly _testDataAssembly = Assembly.GetAssembly(typeof(TestData));
-
-        public static Stream GetZipArchiveStream()
-        {
-            return GetResourceStreamByName("testArchive.zip");
-        }
-
-        public static readonly long ZipArchiveSize = GetZipArchiveStream().Length;
-
-        private static Stream GetResourceStreamByName(string name)
-        {
-            return _testDataAssembly.GetManifestResourceStream(typeof(TestData), name);
-        }
+        public static readonly Stream ZipArchiveStream = typeof(TestData).GetEmbeddedStream("testArchive.zip");
     }
 }

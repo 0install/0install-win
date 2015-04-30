@@ -16,9 +16,9 @@
  */
 
 using System.IO;
-using System.Reflection;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
 using NUnit.Framework;
 using ZeroInstall.Store.Implementations;
 
@@ -68,8 +68,10 @@ namespace ZeroInstall.Publish.EntryPoints
         protected FileInfo Deploy(Candidate reference, bool xbit)
         {
             var file = new FileInfo(Path.Combine(Directory.FullName, reference.RelativePath));
-            using (var stream = file.Create())
-                GetResource(reference.RelativePath).CopyTo(stream);
+
+            using (var stream = typeof(CandidateTest).GetEmbeddedStream(reference.RelativePath))
+            using (var fileStream = file.Create())
+                stream.CopyTo(fileStream);
 
             if (xbit)
             {
@@ -79,14 +81,5 @@ namespace ZeroInstall.Publish.EntryPoints
 
             return file;
         }
-
-        #region Resources
-        private static readonly Assembly _testDataAssembly = Assembly.GetAssembly(typeof(CandidateTest));
-
-        private static Stream GetResource(string name)
-        {
-            return _testDataAssembly.GetManifestResourceStream(typeof(CandidateTest), name);
-        }
-        #endregion
     }
 }

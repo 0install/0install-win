@@ -41,14 +41,14 @@ namespace ZeroInstall.Publish
         [Test]
         public void DownloadAndApplyArchive()
         {
-            using (var originalStream = TestData.GetResource("testArchive.zip"))
-            using (var microServer = new MicroServer("archive.zip", originalStream))
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.zip"))
+            using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var archive = new Archive {Href = microServer.FileUri};
                 archive.DownloadAndApply(new SilentTaskHandler()).Dispose();
 
                 Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
-                Assert.AreEqual(originalStream.Length, archive.Size);
+                Assert.AreEqual(stream.Length, archive.Size);
             }
         }
 
@@ -58,13 +58,13 @@ namespace ZeroInstall.Publish
         [Test]
         public void DownloadAndApplySingleFile()
         {
-            using (var originalStream = SingleFileData.ToStream())
-            using (var microServer = new MicroServer(SingleFileName, originalStream))
+            using (var stream = SingleFileData.ToStream())
+            using (var microServer = new MicroServer(SingleFileName, stream))
             {
                 var file = new SingleFile {Href = microServer.FileUri, Destination = SingleFileName};
                 file.DownloadAndApply(new SilentTaskHandler()).Dispose();
 
-                Assert.AreEqual(originalStream.Length, file.Size);
+                Assert.AreEqual(stream.Length, file.Size);
             }
         }
 
@@ -74,15 +74,15 @@ namespace ZeroInstall.Publish
         [Test]
         public void DownloadAndApplyRecipe()
         {
-            using (var originalStream = TestData.GetResource("testArchive.zip"))
-            using (var microServer = new MicroServer("archive.zip", originalStream))
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.zip"))
+            using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var archive = new Archive {Href = microServer.FileUri};
                 var recipe = new Recipe {Steps = {archive}};
                 recipe.DownloadAndApply(new SilentTaskHandler()).Dispose();
 
                 Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
-                Assert.AreEqual(originalStream.Length, archive.Size);
+                Assert.AreEqual(stream.Length, archive.Size);
             }
         }
 
@@ -95,8 +95,7 @@ namespace ZeroInstall.Publish
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
             {
                 string tempFile = Path.Combine(tempDir, "archive.zip");
-                using (var memoryStream = TestData.GetResource("testArchive.zip"))
-                    memoryStream.WriteTo(tempFile);
+                typeof(ExtractorTest).WriteEmbeddedFile("testArchive.zip", tempFile);
 
                 var archive = new Archive();
                 using (var extractedDir = archive.LocalApply(tempFile, new SilentTaskHandler()))

@@ -103,7 +103,6 @@
     <Compile Include="Store\Implementations\Archives\MsiExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\SevenZipExtractorTest.cs" />
     <Compile Include="Store\Implementations\Archives\TarExtractorTest.cs" />
-    <Compile Include="Store\Implementations\Archives\TestData.cs" />
     <Compile Include="Store\Implementations\Archives\ZipExtractorTest.cs" />
     <Compile Include="Store\Implementations\CompositeStoreTest.cs" />
     <Compile Include="Store\Implementations\DirectoryStoreTest.cs" />
@@ -146,7 +145,6 @@
     <Compile Include="Store\Model\VersionRangeTest.cs" />
     <Compile Include="Store\Model\XmlUnknownTest.cs" />
     <Compile Include="Store\Trust\GnuPGTest.cs" />
-    <Compile Include="Store\Trust\TestData.cs" />
     <Compile Include="Store\Trust\TrustDBTest.cs" />
     <Compile Include="TestWithContainer.cs" />
     <Compile Include="TestWithMocks.cs" />

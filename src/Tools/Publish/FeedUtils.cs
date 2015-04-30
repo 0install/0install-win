@@ -17,10 +17,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using JetBrains.Annotations;
 using NanoByte.Common;
@@ -51,17 +49,8 @@ namespace ZeroInstall.Publish
 
             if (!File.Exists(Path.Combine(path, name + ".xsl")))
             {
-                var assembly = Assembly.GetAssembly(typeof(FeedUtils));
-                using (var stream = assembly.GetManifestResourceStream(typeof(FeedUtils), name + ".xsl"))
-                {
-                    Debug.Assert(stream != null);
-                    stream.WriteTo(Path.Combine(path, name + ".xsl"));
-                }
-                using (var stream = assembly.GetManifestResourceStream(typeof(FeedUtils), name + ".css"))
-                {
-                    Debug.Assert(stream != null);
-                    stream.WriteTo(Path.Combine(path, name + ".css"));
-                }
+                typeof(FeedUtils).WriteEmbeddedFile(name + ".xsl", Path.Combine(path, name + ".xsl"));
+                typeof(FeedUtils).WriteEmbeddedFile(name + ".css", Path.Combine(path, name + ".css"));
             }
         }
 

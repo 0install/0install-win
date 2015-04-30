@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 
@@ -32,8 +33,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             if (!WindowsUtils.IsWindows) Assert.Ignore("CAB extraction relies on a Win32 API and therefore will not work on non-Windows platforms");
 
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.cab"))
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
-            using (var extractor = Extractor.FromStream(TestData.GetResource("testArchive.cab"), sandbox, Archive.MimeTypeCab))
+            using (var extractor = Extractor.FromStream(stream, sandbox, Archive.MimeTypeCab))
             {
                 extractor.Run();
 
@@ -54,8 +56,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             if (!WindowsUtils.IsWindows) Assert.Ignore("CAB extraction relies on a Win32 API and therefore will not work on non-Windows platforms");
 
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.cab"))
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
-            using (var extractor = Extractor.FromStream(TestData.GetResource("testArchive.cab"), sandbox, Archive.MimeTypeCab))
+            using (var extractor = Extractor.FromStream(stream, sandbox, Archive.MimeTypeCab))
             {
                 extractor.SubDir = "folder1";
                 extractor.Run();

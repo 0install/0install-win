@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 
@@ -32,8 +33,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             if (!WindowsUtils.IsWindows) Assert.Ignore("7z extraction relies on a Win32 DLL and therefore will not work on non-Windows platforms");
 
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.7z"))
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
-            using (var extractor = Extractor.FromStream(TestData.GetResource("testArchive.7z"), sandbox, Archive.MimeType7Z))
+            using (var extractor = Extractor.FromStream(stream, sandbox, Archive.MimeType7Z))
             {
                 extractor.Run();
 
@@ -54,8 +56,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             if (!WindowsUtils.IsWindows) Assert.Ignore("7z extraction relies on a Win32 DLL and therefore will not work on non-Windows platforms");
 
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.7z"))
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
-            using (var extractor = Extractor.FromStream(TestData.GetResource("testArchive.7z"), sandbox, Archive.MimeType7Z))
+            using (var extractor = Extractor.FromStream(stream, sandbox, Archive.MimeType7Z))
             {
                 extractor.SubDir = "folder1";
                 extractor.Run();

@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
 using NUnit.Framework;
 using ZeroInstall.Store.Model;
 
@@ -32,8 +33,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             if (!WindowsUtils.IsWindows) Assert.Ignore("MSI extraction relies on a Win32 API and therefore will not work on non-Windows platforms");
 
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.msi"))
+            using (var tempFile = Deploy(stream))
             using (var sandbox = new TemporaryDirectory("0install-unit-tests"))
-            using (var tempFile = Deploy(TestData.GetResource("testArchive.msi")))
             using (var extractor = Extractor.FromFile(tempFile, sandbox, Archive.MimeTypeMsi))
             {
                 extractor.SubDir = "SourceDir";

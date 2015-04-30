@@ -21,7 +21,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net;
-using System.Reflection;
 using System.Security.Cryptography;
 using JetBrains.Annotations;
 using NanoByte.Common;
@@ -166,17 +165,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
             compilerParameters.CompileCSharp(
                 GetRunStubCode(target, needsTerminal, command),
-                GetEmbeddedResource("Stub.manifest"));
-        }
-
-        private static string GetEmbeddedResource(string name)
-        {
-            var assembly = Assembly.GetAssembly(typeof(StubBuilder));
-            using (var stream = assembly.GetManifestResourceStream(typeof(StubBuilder), name))
-            {
-                Debug.Assert(stream != null);
-                return stream.ReadToString();
-            }
+                typeof(StubBuilder).GetEmbeddedString("Stub.manifest"));
         }
 
         /// <summary>
@@ -194,7 +183,9 @@ namespace ZeroInstall.DesktopIntegration.Windows
             args += target.Uri.ToStringRfc().EscapeArgument();
 
             // Load the template code and insert variables
-            string code = GetEmbeddedResource("stub.template.cs").Replace("[EXE]", Path.Combine(Locations.InstallBase, needsTerminal ? "0launch.exe" : "0install-win.exe").Replace(@"\", @"\\"));
+            var code = typeof(StubBuilder).GetEmbeddedString("stub.template.cs")
+                .Replace("[EXE]", Path.Combine(Locations.InstallBase, needsTerminal ? "0launch.exe" : "0install-win.exe")
+                .Replace(@"\", @"\\"));
             code = code.Replace("[ARGUMENTS]", EscapeForCode(args));
             code = code.Replace("[TITLE]", EscapeForCode(target.Feed.GetBestName(CultureInfo.CurrentUICulture, command)));
             return code;

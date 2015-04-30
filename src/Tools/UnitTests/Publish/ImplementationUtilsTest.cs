@@ -49,15 +49,15 @@ namespace ZeroInstall.Publish
         [Test]
         public void BuildArchive()
         {
-            using (var originalStream = TestData.GetResource("testArchive.zip"))
-            using (var microServer = new MicroServer("archive.zip", originalStream))
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.zip"))
+            using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var implementation = ImplementationUtils.Build(new Archive {Href = microServer.FileUri}, new SilentTaskHandler());
                 Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
 
                 var archive = (Archive)implementation.RetrievalMethods[0];
                 Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
-                Assert.AreEqual(originalStream.Length, archive.Size);
+                Assert.AreEqual(stream.Length, archive.Size);
             }
         }
 
@@ -84,15 +84,15 @@ namespace ZeroInstall.Publish
         [Test]
         public void BuildRecipe()
         {
-            using (var originalStream = TestData.GetResource("testArchive.zip"))
-            using (var microServer = new MicroServer("archive.zip", originalStream))
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.zip"))
+            using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var implementation = ImplementationUtils.Build(new Recipe {Steps = {new Archive {Href = microServer.FileUri}}}, new SilentTaskHandler());
                 Assert.AreEqual(ArchiveSha256Digest, implementation.ManifestDigest.Sha256New);
 
                 var archive = (Archive)((Recipe)implementation.RetrievalMethods[0]).Steps[0];
                 Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
-                Assert.AreEqual(originalStream.Length, archive.Size);
+                Assert.AreEqual(stream.Length, archive.Size);
             }
         }
 
@@ -102,8 +102,8 @@ namespace ZeroInstall.Publish
         [Test]
         public void AddMissingArchive()
         {
-            using (var originalStream = TestData.GetResource("testArchive.zip"))
-            using (var microServer = new MicroServer("archive.zip", originalStream))
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.zip"))
+            using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var implementation = new Implementation {RetrievalMethods = {new Archive {Href = microServer.FileUri}}};
                 implementation.AddMissing(new SilentTaskHandler());
@@ -111,7 +111,7 @@ namespace ZeroInstall.Publish
 
                 var archive = (Archive)implementation.RetrievalMethods[0];
                 Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
-                Assert.AreEqual(originalStream.Length, archive.Size);
+                Assert.AreEqual(stream.Length, archive.Size);
             }
         }
 
@@ -140,8 +140,8 @@ namespace ZeroInstall.Publish
         [Test]
         public void AddMissingRecipe()
         {
-            using (var originalStream = TestData.GetResource("testArchive.zip"))
-            using (var microServer = new MicroServer("archive.zip", originalStream))
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.zip"))
+            using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var implementation = new Implementation {RetrievalMethods = {new Recipe {Steps = {new Archive {Href = microServer.FileUri}}}}};
                 implementation.AddMissing(new SilentTaskHandler());
@@ -149,7 +149,7 @@ namespace ZeroInstall.Publish
 
                 var archive = (Archive)((Recipe)implementation.RetrievalMethods[0]).Steps[0];
                 Assert.AreEqual(Archive.MimeTypeZip, archive.MimeType);
-                Assert.AreEqual(originalStream.Length, archive.Size);
+                Assert.AreEqual(stream.Length, archive.Size);
             }
         }
 
@@ -159,8 +159,8 @@ namespace ZeroInstall.Publish
         [Test]
         public void AddMissingExceptions()
         {
-            using (var originalStream = TestData.GetResource("testArchive.zip"))
-            using (var microServer = new MicroServer("archive.zip", originalStream))
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.zip"))
+            using (var microServer = new MicroServer("archive.zip", stream))
             {
                 var implementation = new Implementation {ManifestDigest = new ManifestDigest(sha1New: "invalid"), RetrievalMethods = {new Archive {Href = microServer.FileUri}}};
                 Assert.Throws<DigestMismatchException>(() => implementation.AddMissing(new SilentTaskHandler()));

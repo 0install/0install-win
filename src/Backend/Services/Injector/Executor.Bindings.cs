@@ -21,7 +21,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
@@ -313,7 +312,7 @@ namespace ZeroInstall.Services.Injector
             string path = Path.Combine(Locations.GetCacheDirPath("0install.net", false, "injector", "executables"), templateName);
             try
             {
-                WriteOutEmbeddedResource(templateName, path);
+                typeof(Executor).WriteEmbeddedFile(templateName, path);
             }
                 #region Error handling
             catch (IOException)
@@ -323,24 +322,6 @@ namespace ZeroInstall.Services.Injector
             #endregion
 
             return path;
-        }
-
-        /// <summary>
-        /// Writes the contents of an embedded resource to a file.
-        /// </summary>
-        /// <param name="resourceName">The name of the embedded resource.</param>
-        /// <param name="filePath">The file to write the data to.</param>
-        /// <exception cref="IOException">A problem occurred while writing the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
-        private static void WriteOutEmbeddedResource(string resourceName, string filePath)
-        {
-            var assembly = Assembly.GetAssembly(typeof(Executor));
-            using (var resourceStream = assembly.GetManifestResourceStream(typeof(Executor), resourceName))
-            using (var fileStream = File.OpenWrite(filePath))
-            {
-                Debug.Assert(resourceStream != null);
-                resourceStream.CopyTo(fileStream);
-            }
         }
 
         /// <summary>

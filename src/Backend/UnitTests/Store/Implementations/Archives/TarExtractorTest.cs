@@ -45,8 +45,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestPlain()
         {
-            using (var archive = TestData.GetResource("testArchive.tar"))
-                TestExtract(Model.Archive.MimeTypeTar, archive);
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.tar"))
+                TestExtract(Model.Archive.MimeTypeTar, stream);
         }
 
         [Test]
@@ -58,7 +58,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestGzCompressed()
         {
-            TestExtract(Model.Archive.MimeTypeTarGzip, TestData.GetResource("testArchive.tar.gz"));
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.tar.gz"))
+                TestExtract(Model.Archive.MimeTypeTarGzip, stream);
         }
 
         [Test]
@@ -70,7 +71,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestBz2Compressed()
         {
-            TestExtract(Model.Archive.MimeTypeTarBzip, TestData.GetResource("testArchive.tar.bz2"));
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.tar.bz2"))
+                TestExtract(Model.Archive.MimeTypeTarBzip, stream);
         }
 
         [Test]
@@ -82,8 +84,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestLzmaCompressed()
         {
-            using (var archive = TestData.GetResource("testArchive.tar.lzma"))
-                TestExtract(Model.Archive.MimeTypeTarLzma, archive);
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.tar.lzma"))
+                TestExtract(Model.Archive.MimeTypeTarLzma, stream);
         }
 
         [Test]
@@ -91,8 +93,7 @@ namespace ZeroInstall.Store.Implementations.Archives
         {
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                using (var archive = TestData.GetResource("testArchive.tar.lzma"))
-                    archive.WriteTo(tempFile);
+                typeof(ExtractorTest).WriteEmbeddedFile("testArchive.tar.lzma", tempFile);
 
                 using (var stream = File.OpenRead(tempFile))
                     TestExtract(Model.Archive.MimeTypeTarLzma, stream);
@@ -108,7 +109,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestRubyGem()
         {
-            TestExtract(Model.Archive.MimeTypeRubyGem, TestData.GetResource("testArchive.gem"));
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.gem"))
+                TestExtract(Model.Archive.MimeTypeRubyGem, stream);
         }
 
         private void TestExtract(string mimeType, Stream archive)
@@ -126,7 +128,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestHardlink()
         {
-            using (var extractor = Extractor.FromStream(TestData.GetResource("testArchiveHardlink.tar"), _sandbox, Model.Archive.MimeTypeTar))
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchiveHardlink.tar"))
+            using (var extractor = Extractor.FromStream(stream, _sandbox, Model.Archive.MimeTypeTar))
                 extractor.Run();
 
             Assert.AreEqual("data", File.ReadAllText("file1"));
@@ -157,11 +160,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestExtractUnixArchiveWithExecutable()
         {
-            using (var archive = TestData.GetResource("testArchive.tar"))
-            {
-                var extractor = new TarExtractor(archive, _sandbox);
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.tar"))
+            using (var extractor = new TarExtractor(stream, _sandbox))
                 extractor.Run();
-            }
 
             if (UnixUtils.IsUnix)
                 Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox, "subdir2/executable")), "File 'executable' should be marked as executable");
@@ -178,11 +179,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestExtractUnixArchiveWithSymlink()
         {
-            using (var archive = TestData.GetResource("testArchive.tar"))
-            {
-                var extractor = new TarExtractor(archive, _sandbox);
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.tar"))
+            using (var extractor = new TarExtractor(stream, _sandbox))
                 extractor.Run();
-            }
 
             string target;
             if (UnixUtils.IsUnix)

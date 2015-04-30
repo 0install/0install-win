@@ -20,6 +20,7 @@ using System.IO;
 using System.Linq;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Streams;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Implementations.Archives
@@ -72,7 +73,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test(Description = "Tests whether the extractor correctly restores files including their last changed timestamps.")]
         public void TestFileExtract()
         {
-            using (var extractor = Extractor.FromStream(TestData.GetResource("testArchive.zip"), _sandbox, Model.Archive.MimeTypeZip))
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.zip"))
+            using (var extractor = Extractor.FromStream(stream, _sandbox, Model.Archive.MimeTypeZip))
                 extractor.Run();
 
             Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "subdir1/regular")), "Should extract file 'regular'");
@@ -187,11 +189,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestExtractUnixArchiveWithExecutable()
         {
-            using (var archive = TestData.GetResource("testArchive.zip"))
-            {
-                var extractor = new ZipExtractor(archive, _sandbox);
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.zip"))
+            using (var extractor = new ZipExtractor(stream, _sandbox))
                 extractor.Run();
-            }
 
             if (UnixUtils.IsUnix)
                 Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox, "subdir2/executable")), "File 'executable' should be marked as executable");
@@ -208,11 +208,9 @@ namespace ZeroInstall.Store.Implementations.Archives
         [Test]
         public void TestExtractUnixArchiveWithSymlink()
         {
-            using (var archive = TestData.GetResource("testArchive.zip"))
-            {
-                var extractor = new ZipExtractor(archive, _sandbox);
+            using (var stream = typeof(ExtractorTest).GetEmbeddedStream("testArchive.zip"))
+            using (var extractor = new ZipExtractor(stream, _sandbox))
                 extractor.Run();
-            }
 
             string target;
             if (UnixUtils.IsUnix)
@@ -236,9 +234,8 @@ namespace ZeroInstall.Store.Implementations.Archives
             {
                 builder.GeneratePackageArchive(archiveStream);
                 archiveStream.Seek(0, SeekOrigin.Begin);
-                var extractor = new ZipExtractor(archiveStream, _sandbox);
-                Assert.Throws<IOException>(() => extractor.Run(), "ZipExtractor must not accept archives with '..' as entry");
-                archiveStream.Dispose();
+                using (var extractor = new ZipExtractor(archiveStream, _sandbox))
+                    Assert.Throws<IOException>(() => extractor.Run(), "ZipExtractor must not accept archives with '..' as entry");
             }
         }
 
@@ -252,10 +249,10 @@ namespace ZeroInstall.Store.Implementations.Archives
             {
                 builder.GeneratePackageArchive(archiveStream);
                 archiveStream.Seek(0, SeekOrigin.Begin);
-                var extractor = new ZipExtractor(archiveStream, _sandbox);
 
                 const string message = "ZipExtractor should correctly extract empty files in an archive";
-                Assert.DoesNotThrow(() => extractor.Run());
+                using (var extractor = new ZipExtractor(archiveStream, _sandbox))
+                    Assert.DoesNotThrow(() => extractor.Run());
                 Assert.IsTrue(File.Exists(Path.Combine(_sandbox, "emptyFile")), message);
                 Assert.AreEqual(new byte[] {}, File.ReadAllBytes(Path.Combine(_sandbox, "emptyFile")), message);
             }
@@ -271,10 +268,10 @@ namespace ZeroInstall.Store.Implementations.Archives
             {
                 builder.GeneratePackageArchive(archiveStream);
                 archiveStream.Seek(0, SeekOrigin.Begin);
-                var extractor = new ZipExtractor(archiveStream, _sandbox) {Destination = "custom"};
 
                 const string message = "ZipExtractor should correctly extract empty files in an archive to custom destination";
-                Assert.DoesNotThrow(() => extractor.Run());
+                using (var extractor = new ZipExtractor(archiveStream, _sandbox) {Destination = "custom"})
+                    Assert.DoesNotThrow(() => extractor.Run());
                 Assert.IsTrue(File.Exists(new[] {_sandbox, "custom", "emptyFile"}.Aggregate(Path.Combine)), message);
                 Assert.AreEqual(new byte[] {}, File.ReadAllBytes(new[] {_sandbox, "custom", "emptyFile"}.Aggregate(Path.Combine)), message);
             }

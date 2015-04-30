@@ -34,7 +34,8 @@ namespace ZeroInstall.Store.Trust
         public void TestImportExport()
         {
             const string testKeyID = "5B5CB97421BAA5DC";
-            Target.ImportKey(TestData.GetResource(testKeyID + ".gpg").ReadToArray());
+            using (var stream = typeof(GnuPGTest).GetEmbeddedStream(testKeyID + ".gpg"))
+                Target.ImportKey(stream.ReadToArray());
             Assert.IsTrue(Target.GetPublicKey(testKeyID).StartsWith("-----BEGIN PGP PUBLIC KEY BLOCK-----"));
         }
 
@@ -45,8 +46,8 @@ namespace ZeroInstall.Store.Trust
             var data = new byte[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
             var stream = new MemoryStream(data);
 
-            TestData.GetResource("pubring.gpg").WriteTo(Locations.GetSaveConfigPath("0install.net", true, "gnupg", "pubring.gpg"));
-            TestData.GetResource("secring.gpg").WriteTo(Locations.GetSaveConfigPath("0install.net", true, "gnupg", "secring.gpg"));
+            typeof(GnuPGTest).WriteEmbeddedFile("pubring.gpg", Locations.GetSaveConfigPath("0install.net", true, "gnupg", "pubring.gpg"));
+            typeof(GnuPGTest).WriteEmbeddedFile("secring.gpg", Locations.GetSaveConfigPath("0install.net", true, "gnupg", "secring.gpg"));
 
             var signatureData = Convert.FromBase64String(Target.DetachSign(stream, "test@0install.de"));
             var signatures = Target.Verify(data, signatureData);
