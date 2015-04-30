@@ -163,7 +163,7 @@
     <value>buttonUpdateAll</value>
   </data>
   <data name="&gt;&gt;buttonUpdateAll.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.SplitButton, NanoByte.Common.WinForms, Version=1.1.7.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.SplitButton, NanoByte.Common.WinForms, Version=1.1.8.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;buttonUpdateAll.Parent" xml:space="preserve">
     <value>tabPageAppList</value>
@@ -220,7 +220,7 @@
     <value>buttonSync</value>
   </data>
   <data name="&gt;&gt;buttonSync.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.SplitButton, NanoByte.Common.WinForms, Version=1.1.7.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.SplitButton, NanoByte.Common.WinForms, Version=1.1.8.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;buttonSync.Parent" xml:space="preserve">
     <value>tabPageAppList</value>
@@ -569,7 +569,7 @@
     <value>buttonStoreManage</value>
   </data>
   <data name="&gt;&gt;buttonStoreManage.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.SplitButton, NanoByte.Common.WinForms, Version=1.1.7.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.SplitButton, NanoByte.Common.WinForms, Version=1.1.8.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;buttonStoreManage.Parent" xml:space="preserve">
     <value>panelBottom</value>
@@ -617,7 +617,7 @@
     <value>buttonHelp</value>
   </data>
   <data name="&gt;&gt;buttonHelp.Type" xml:space="preserve">
-    <value>NanoByte.Common.Controls.SplitButton, NanoByte.Common.WinForms, Version=1.1.7.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>NanoByte.Common.Controls.SplitButton, NanoByte.Common.WinForms, Version=1.1.8.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;buttonHelp.Parent" xml:space="preserve">
     <value>panelBottom</value>

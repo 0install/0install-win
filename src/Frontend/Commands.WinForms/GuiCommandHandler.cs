@@ -79,10 +79,13 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region UI control
+        private bool _disabled;
+
         /// <inheritdoc/>
         public void DisableUI()
         {
-            _wrapper.Disable();
+            _disabled = true;
+            _wrapper.SendLow(x => x.Enabled = false);
         }
 
         /// <inheritdoc/>
@@ -271,22 +274,23 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="message">The message text of the entry.</param>
         protected override void LogHandler(LogSeverity severity, string message)
         {
+            if (_disabled) return;
+
             base.LogHandler(severity, message);
 
-            if (!_wrapper.IsReady) return;
             switch (severity)
             {
                 case LogSeverity.Debug:
-                    if (Verbosity >= Verbosity.Debug) _wrapper.Send(form => form.ShowTrayIcon(message));
+                    if (Verbosity >= Verbosity.Debug) _wrapper.SendLow(form => form.ShowTrayIcon(message));
                     break;
                 case LogSeverity.Info:
-                    if (Verbosity >= Verbosity.Verbose) _wrapper.Send(form => form.ShowTrayIcon(message, ToolTipIcon.Info));
+                    if (Verbosity >= Verbosity.Verbose) _wrapper.SendLow(form => form.ShowTrayIcon(message, ToolTipIcon.Info));
                     break;
                 case LogSeverity.Warn:
-                    _wrapper.Send(form => form.ShowTrayIcon(message, ToolTipIcon.Warning));
+                    _wrapper.SendLow(form => form.ShowTrayIcon(message, ToolTipIcon.Warning));
                     break;
                 case LogSeverity.Error:
-                    _wrapper.Send(form => form.ShowTrayIcon(message, ToolTipIcon.Error));
+                    _wrapper.SendLow(form => form.ShowTrayIcon(message, ToolTipIcon.Error));
                     break;
             }
         }
