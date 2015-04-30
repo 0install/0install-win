@@ -16,6 +16,7 @@ You can download end-user binaries at http://0install.de/.</description>
     </metadata>
     <files>
         <file src="..\build\Release\Frontend\ZeroInstall.Commands.*" target="lib\net20" />
+        <file src="..\build\Release\Frontend\ZeroInstall.OneGet.*" target="lib\net20" />
         <file src="..\build\Release\Frontend\ZeroInstall.Central.*" target="lib\net20" />
         <file src="..\build\Release\Frontend\ZeroInstall.Hooking.*" target="lib\net20" />
         <file src="..\build\Release\Frontend\0install.*" target="lib\net20" />

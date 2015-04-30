@@ -16,7 +16,7 @@ Directory structure
 - The top-level directory contains local Zero Install feeds referencing the contents of the `build` directory. They can be registered with `0install add-feed` in order to replace the online versions of Zero Install and its tools with your local builds.
 
 `VERSION` and `VERSION_UPDATER` contain the version numbers used by build scripts.
-Keep in sync with the version numbers in `ZeroInstall.xml`, `ZeroInstall_Tools.xml`, `ZeroInstall_Updater.xml`, `src/AssemblyInfo.Global.cs`, and `src/Updater/AssemblyInfo.Updater.cs`!
+Keep in sync with the version numbers in `ZeroInstall.xml`, `ZeroInstall_Tools.xml`, `ZeroInstall_Updater.xml`, `src/AssemblyInfo.Global.cs`, `src/Updater/AssemblyInfo.Updater.cs` and `src/Frontend/OneGet/oneget.manifest`!
 
 
 

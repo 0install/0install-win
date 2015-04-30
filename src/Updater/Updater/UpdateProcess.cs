@@ -257,7 +257,7 @@ namespace ZeroInstall.Updater
         #endregion
 
         #region Run Ngen
-        private static readonly string[] _ngenAssemblies = {"ZeroInstall.exe", "0install.exe", "0install-win.exe", "0launch.exe", "0alias.exe", "0store.exe", "StoreService.exe", "ZeroInstall.DesktopIntegration.XmlSerializers.dll", "ZeroInstall.Store.XmlSerializers.dll"};
+        private static readonly string[] _ngenAssemblies = {"ZeroInstall.exe", "0install.exe", "0install-win.exe", "0launch.exe", "0alias.exe", "0store.exe", "StoreService.exe", "ZeroInstall.DesktopIntegration.XmlSerializers.dll", "ZeroInstall.Store.XmlSerializers.dll", "ZeroInstall.OneGet.dll"};
 
         /// <summary>
         /// Runs ngen in the background to pre-compile new/updated .NET assemblies.
@@ -295,6 +295,7 @@ namespace ZeroInstall.Updater
             if (IsPortable) return;
 
             RegistryUtils.SetSoftwareString("Zero Install", "InstallLocation", Target);
+            RegistryUtils.SetSoftwareString(@"Microsoft\PackageManagement", "ZeroInstall", Path.Combine(Target, "ZeroInstall.OneGet.dll"));
 
             UpdateInnoSetup();
         }

@@ -104,9 +104,12 @@ Name: {app}\de\ZeroInstall.Model.resources.dll; Type: files
 [Registry]
 #ifdef PerUser
   Root: HKCU; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty
+  Root: HKCU; Subkey: Software\Microsoft\PackageManagement; ValueType: string; ValueName: ZeroInstall; ValueData: {app}\ZeroInstall.OneGet.dll; Flags: uninsdeletevalue uninsdeletekeyifempty
 #else
   Root: HKLM32; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty
   Root: HKLM64; Subkey: Software\Zero Install; ValueType: string; ValueName: InstallLocation; ValueData: {app}; Flags: uninsdeletevalue uninsdeletekeyifempty; Check: IsWin64
+  Root: HKLM32; Subkey: Software\Microsoft\PackageManagement; ValueType: string; ValueName: ZeroInstall; ValueData: {app}\ZeroInstall.OneGet.dll; Flags: uninsdeletevalue uninsdeletekeyifempty
+  Root: HKLM64; Subkey: Software\Microsoft\PackageManagement; ValueType: string; ValueName: ZeroInstall; ValueData: {app}\ZeroInstall.OneGet.dll; Flags: uninsdeletevalue uninsdeletekeyifempty; Check: IsWin64
 #endif
 
 [Tasks]
@@ -132,6 +135,7 @@ Name: {commondesktop}\Zero Install; Filename: {app}\ZeroInstall.exe; Tasks: desk
   Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: install 0store-service.exe; WorkingDir: {app}; Flags: runhidden skipifdoesntexist; Tasks: ngen; StatusMsg: {cm:compile_netfx}
   Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: install ZeroInstall.Store.XmlSerializers.dll; WorkingDir: {app}; Flags: runhidden skipifdoesntexist; Tasks: ngen; StatusMsg: {cm:compile_netfx}
   Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: install ZeroInstall.DesktopIntegration.XmlSerializers.dll; WorkingDir: {app}; Flags: runhidden skipifdoesntexist; Tasks: ngen; StatusMsg: {cm:compile_netfx}
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: install ZeroInstall.OneGet.dll; WorkingDir: {app}; Flags: runhidden skipifdoesntexist; Tasks: ngen; StatusMsg: {cm:compile_netfx}
 
   Filename: {app}\0store-service.exe; Parameters: install --silent; Tasks: storeservice
   Filename: {app}\0store-service.exe; Parameters: start --silent; Tasks: storeservice
@@ -154,6 +158,7 @@ Filename: {app}\0install-win.exe; Parameters: store purge; RunOnceId: PurgeCache
   Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: uninstall 0store-service.exe; WorkingDir: {app}; Flags: runhidden skipifdoesntexist
   Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: uninstall ZeroInstall.Store.XmlSerializers.dll; WorkingDir: {app}; Flags: runhidden skipifdoesntexist
   Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: uninstall ZeroInstall.DesktopIntegration.XmlSerializers.dll; WorkingDir: {app}; Flags: runhidden skipifdoesntexist
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: uninstall ZeroInstall.OneGet.dll; WorkingDir: {app}; Flags: runhidden skipifdoesntexist
 #endif
 
 [UninstallDelete]

@@ -51,6 +51,7 @@ namespace ZeroInstall.Commands
                 try
                 {
                     RegistryUtils.SetSoftwareString("Zero Install", "InstallLocation", Locations.InstallBase);
+                    RegistryUtils.SetSoftwareString(@"Microsoft\PackageManagement", "ZeroInstall", Path.Combine(Locations.InstallBase, "ZeroInstall.OneGet.dll"));
                 }
                 catch (IOException)
                 {}
