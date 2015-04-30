@@ -132,6 +132,22 @@
   <data name="CopyFiles" xml:space="preserve">
     <value>Kopiere Dateien</value>
   </data>
+  <data name="DeleteInfoFileContent" xml:space="preserve">
+    <value>Die Unterverzeichnisse in diesem Cache werden durch NTFS Berechtigungen vor unerwünschten Veränderungen geschützt.
+Als ein Nebeneffekt verhindert dies das Löschen mit dem Windows Explorer.
+
+Wenn Sie einen einzelnen Eintrag löschen möchten, können Sie diese Befehlszeile verwenden:
+0install store remove IMPLEMENTIERUNGS-ID
+
+Wenn Sie dieses gesamte Verzeichnis löschen möchten, können Sie diese Befehlszeile verwenden:
+0install store purge {0}
+
+Alternativ können Sie auch die grafische Oberfläche zur Verwaltung der Caches nutzen:
+0install store manage</value>
+  </data>
+  <data name="DeleteInfoFileName" xml:space="preserve">
+    <value>Hinweis zum Löschen</value>
+  </data>
   <data name="DeletingDirectory" xml:space="preserve">
     <value>Lösche Verzeichnis {0}</value>
   </data>

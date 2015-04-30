@@ -21,6 +21,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Text;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
@@ -34,27 +35,32 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementations
 {
     /// <summary>
-    /// Models a cache directory that stores <see cref="Store.Model.Implementation"/>s, each in its own sub-directory named by its <see cref="ManifestDigest"/>.
+    /// Manages a cache directory that stores <see cref="Implementation"/>s, each in its own sub-directory named by its <see cref="ManifestDigest"/>.
     /// </summary>
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
     public class DirectoryStore : MarshalNoTimeout, IStore, IEquatable<DirectoryStore>
     {
-        #region Properties
         /// <inheritdoc/>
         public StoreKind Kind { get; private set; }
 
         /// <inheritdoc/>
         public string DirectoryPath { get; private set; }
-        #endregion
+
+        /// <summary>Controls whether implementation directories are made write-protected once added to the cache to prevent unintentional modification (which would invalidate the manifest digests).</summary>
+        private readonly bool _useWriteProtection;
+
+        /// <summary>Indicates whether <see cref="DirectoryPath"/> is located on a filesystem with support for Unixoid features such as executable bits.</summary>
+        private readonly bool _isUnixFS;
 
         #region Constructor
         /// <summary>
         /// Creates a new store using a specific path to a cache directory.
         /// </summary>
         /// <param name="path">A fully qualified directory path. The directory will be created if it doesn't exist yet.</param>
+        /// <param name="useWriteProtection">Controls whether implementation directories are made write-protected once added to the cache to prevent unintentional modification (which would invalidate the manifest digests).</param>
         /// <exception cref="IOException">The directory <paramref name="path"/> could not be created or if the underlying filesystem can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Creating the directory <paramref name="path"/> is not permitted.</exception>
-        public DirectoryStore([NotNull] string path)
+        public DirectoryStore([NotNull] string path, bool useWriteProtection = true)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -62,8 +68,8 @@ namespace ZeroInstall.Store.Implementations
 
             try
             {
-                path = Path.GetFullPath(path);
-                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+                DirectoryPath = Path.GetFullPath(path);
+                if (!Directory.Exists(DirectoryPath)) Directory.CreateDirectory(DirectoryPath);
             }
                 #region Error handling
             catch (ArgumentException ex)
@@ -78,20 +84,53 @@ namespace ZeroInstall.Store.Implementations
             }
             #endregion
 
-            DirectoryPath = path;
+            Kind = DetermineKind(DirectoryPath);
+            _useWriteProtection = useWriteProtection;
+            _isUnixFS = FlagUtils.IsUnixFS(DirectoryPath);
 
+            if (Kind == StoreKind.ReadWrite)
+            {
+                if (!_isUnixFS) FlagUtils.MarkAsNoUnixFS(DirectoryPath);
+                if (_useWriteProtection && WindowsUtils.IsWindowsNT) WriteDeleteInfoFile(DirectoryPath);
+            }
+        }
+
+        private static StoreKind DetermineKind(string path)
+        {
             try
             {
                 // Ensure the store is backed by a filesystem that can store file-changed times accurate to the second (otherwise ManifestDigets will break)
                 if (FileUtils.DetermineTimeAccuracy(path) > 0)
                     throw new IOException(Resources.InsufficientFSTimeAccuracy);
 
-                Kind = StoreKind.ReadWrite;
+                // As a side-effect the test above told us we have write access
+                return StoreKind.ReadWrite;
             }
             catch (UnauthorizedAccessException)
             {
-                Kind = StoreKind.ReadOnly;
+                // The test could not be performed because we have no write access, which is fine
+                return StoreKind.ReadOnly;
             }
+        }
+
+        private static void WriteDeleteInfoFile(string path)
+        {
+            try
+            {
+                File.WriteAllText(
+                    Path.Combine(path, Resources.DeleteInfoFileName + ".txt"),
+                    string.Format(Resources.DeleteInfoFileContent, path), Encoding.UTF8);
+            }
+                #region Error handling
+            catch (IOException)
+            {
+                // Writing this file is not important, just ignore (might be a race condition)
+            }
+            catch (UnauthorizedAccessException)
+            {
+                // Writing this file is not important, just ignore
+            }
+            #endregion
         }
         #endregion
 
@@ -213,8 +252,7 @@ namespace ZeroInstall.Store.Implementations
             string source = Path.Combine(DirectoryPath, tempID);
             string target = Path.Combine(DirectoryPath, expectedDigestValue);
 
-            if (FlagUtils.IsUnixFS(DirectoryPath)) FlagUtils.ConvertToFS(source);
-            else FlagUtils.MarkAsNoUnixFS(DirectoryPath);
+            if (_isUnixFS) FlagUtils.ConvertToFS(source);
 
             // Calculate the actual digest, compare it with the expected one and create a manifest file
             VerifyDirectory(source, expectedDigest, handler).Save(Path.Combine(source, Manifest.ManifestFile));
@@ -237,7 +275,7 @@ namespace ZeroInstall.Store.Implementations
             }
 
             // Prevent any further changes to the directory
-            EnableWriteProtection(target);
+            if (_useWriteProtection) EnableWriteProtection(target);
             return target;
         }
         #endregion
@@ -513,7 +551,7 @@ namespace ZeroInstall.Store.Implementations
             }
 
             // Reseal the directory in case the write protection got lost
-            EnableWriteProtection(target);
+            if (_useWriteProtection) EnableWriteProtection(target);
         }
         #endregion
 
