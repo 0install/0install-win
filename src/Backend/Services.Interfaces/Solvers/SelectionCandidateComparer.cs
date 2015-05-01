@@ -85,7 +85,7 @@ namespace ZeroInstall.Services.Solvers
             if (_networkUse != NetworkLevel.Full)
             {
                 bool xCached = _isCached(x.Implementation);
-                bool yCached = _isCached(x.Implementation);
+                bool yCached = _isCached(y.Implementation);
                 if (xCached && !yCached) return -1;
                 if (!xCached && yCached) return 1;
             }
@@ -114,7 +114,7 @@ namespace ZeroInstall.Services.Solvers
             if (_networkUse == NetworkLevel.Full)
             {
                 bool xCached = _isCached(x.Implementation);
-                bool yCached = _isCached(x.Implementation);
+                bool yCached = _isCached(y.Implementation);
                 if (xCached && !yCached) return -1;
                 if (!xCached && yCached) return 1;
             }
