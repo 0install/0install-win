@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using JetBrains.Annotations;
@@ -170,7 +169,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         protected void SelfUpdateCheck()
         {
-            if (!SelfUpdateUtils.NoAutoCheck && !SelfUpdateUtils.IsBlocked && FeedManager.IsStale(Config.SelfUpdateUri))
+            if (!SelfUpdateUtils.NoAutoCheck && !SelfUpdateUtils.IsBlocked && Config.NetworkUse == NetworkLevel.Full && FeedManager.IsStale(Config.SelfUpdateUri))
                 RunCommandBackground(SelfUpdate.Name);
         }
 

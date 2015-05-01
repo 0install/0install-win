@@ -85,7 +85,6 @@ namespace ZeroInstall.Commands.CliCommands
         public override ExitCode Execute()
         {
             Solve();
-            if (UncachedImplementations.Count != 0) RefreshSolve();
 
             DownloadUncachedImplementations();
 
@@ -110,7 +109,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// <inheritdoc/>
         protected override void Solve()
         {
-            if (Config.NetworkUse == NetworkLevel.Full)
+            if (Config.NetworkUse == NetworkLevel.Full && !FeedManager.Refresh)
             {
                 // Temporarily change configuration to prefer cached implementations (we download updates in the background later on)
                 Config.NetworkUse = NetworkLevel.Minimal;
@@ -178,7 +177,7 @@ namespace ZeroInstall.Commands.CliCommands
 
         private void BackgroundUpdate()
         {
-            if (FeedManager.Stale)
+            if (FeedManager.ShouldRefresh)
                 RunCommandBackground(Update.Name, Requirements.ToCommandLineArgs().Append("--batch").ToArray());
         }
         #endregion

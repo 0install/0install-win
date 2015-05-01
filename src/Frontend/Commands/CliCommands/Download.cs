@@ -62,7 +62,7 @@ namespace ZeroInstall.Commands.CliCommands
             try
             {
                 Solve();
-                if (FeedManager.Stale || UncachedImplementations.Count != 0) RefreshSolve();
+                if (FeedManager.ShouldRefresh) RefreshSolve();
             }
                 #region Error handling
             catch (WebException)
@@ -111,6 +111,9 @@ namespace ZeroInstall.Commands.CliCommands
         /// <remarks>Makes sure <see cref="ISolver"/> ran with up-to-date feeds before downloading any implementations.</remarks>
         protected void DownloadUncachedImplementations()
         {
+            if (UncachedImplementations.Count != 0 && !FeedManager.Refresh)
+                RefreshSolve();
+
             if (CustomizeSelections || UncachedImplementations.Count != 0) ShowSelections();
 
             if (UncachedImplementations.Count != 0)

@@ -19,7 +19,6 @@ using System;
 using JetBrains.Annotations;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
-using ZeroInstall.Services.Feeds;
 
 namespace ZeroInstall.Commands.CliCommands
 {
@@ -54,7 +53,7 @@ namespace ZeroInstall.Commands.CliCommands
         public override ExitCode Execute()
         {
             using (var integrationManager = new IntegrationManager(Handler, MachineWide))
-                integrationManager.Repair(FeedManager.GetFeedFresh);
+                integrationManager.Repair(FeedManager.GetFeed);
 
             return ExitCode.OK;
         }

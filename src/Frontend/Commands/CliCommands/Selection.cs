@@ -136,7 +136,7 @@ namespace ZeroInstall.Commands.CliCommands
         public override ExitCode Execute()
         {
             Solve();
-            if (FeedManager.Stale) RefreshSolve();
+            if (FeedManager.ShouldRefresh) RefreshSolve();
             SelfUpdateCheck();
 
             ShowSelections();
@@ -199,9 +199,7 @@ namespace ZeroInstall.Commands.CliCommands
         /// </summary>
         protected void RefreshSolve()
         {
-            // No need if initial solver run already had refresh turned on
-            if (FeedManager.Refresh) return;
-
+            FeedManager.Stale = false;
             FeedManager.Refresh = true;
             Solve();
         }

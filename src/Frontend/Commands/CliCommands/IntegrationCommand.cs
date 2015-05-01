@@ -96,12 +96,11 @@ namespace ZeroInstall.Commands.CliCommands
             if (interfaceUri == null) throw new ArgumentNullException("interfaceUri");
             #endregion
 
-            var target = FeedManager.GetFeedTarget(interfaceUri);
+            var target = new FeedTarget(interfaceUri, FeedManager.GetFeedFresh(interfaceUri));
             DetectReplacement(ref target);
-            //TryToSolve(interfaceUri);
 
             var appEntry = integrationManager.AddApp(target);
-            PreDownload(target.Uri);
+            BackgroundDownload(target.Uri);
             return appEntry;
         }
 
@@ -115,13 +114,17 @@ namespace ZeroInstall.Commands.CliCommands
             if (Handler.Ask(
                 string.Format(Resources.FeedReplacedAsk, target.Feed.Name, target.Uri, target.Feed.ReplacedBy.Target),
                 defaultAnswer: false, alternateMessage: string.Format(Resources.FeedReplaced, target.Uri, target.Feed.ReplacedBy.Target)))
-                target = FeedManager.GetFeedTarget(target.Feed.ReplacedBy.Target);
+            {
+                target = new FeedTarget(
+                    target.Feed.ReplacedBy.Target,
+                    FeedManager.GetFeedFresh(target.Feed.ReplacedBy.Target));
+            }
         }
 
         /// <summary>
         /// Pre-download application in background for later use.
         /// </summary>
-        private void PreDownload([NotNull] FeedUri interfaceUri)
+        private void BackgroundDownload([NotNull] FeedUri interfaceUri)
         {
             if (!NoDownload && Config.NetworkUse == NetworkLevel.Full)
                 RunCommandBackground(Download.Name, "--batch", interfaceUri.ToStringRfc());

@@ -81,6 +81,9 @@ namespace ZeroInstall.Services.Feeds
 
         /// <inheritdoc/>
         public bool Stale { get; set; }
+
+        /// <inheritdoc/>
+        public bool ShouldRefresh { get { return Stale && _config.NetworkUse == NetworkLevel.Full; } }
         #endregion
 
         //--------------------//
@@ -190,8 +193,6 @@ namespace ZeroInstall.Services.Feeds
             #region Sanity checks
             if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
-
-            if (_config.NetworkUse != NetworkLevel.Full) return false;
 
             var preferences = FeedPreferences.LoadForSafe(feedUri);
             TimeSpan lastChecked = DateTime.UtcNow - preferences.LastChecked;

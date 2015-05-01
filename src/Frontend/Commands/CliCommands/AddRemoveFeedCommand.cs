@@ -23,6 +23,7 @@ using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Preferences;
@@ -109,7 +110,7 @@ namespace ZeroInstall.Commands.CliCommands
             else
             { // Determine interfaces from feed content (<feed-for> tags)
                 feedUri = GetCanonicalUri(AdditionalArgs[0]);
-                var feed = FeedManager.GetFeed(feedUri);
+                var feed = FeedManager.GetFeedFresh(feedUri);
                 return feed.FeedFor.Select(reference => reference.Target).WhereNotNull();
             }
         }

@@ -39,8 +39,13 @@ namespace ZeroInstall.Services.Feeds
         /// <summary>
         /// Is set to <see langword="true"/> if any <see cref="Feed"/> returned by <see cref="GetFeed"/> is getting stale and should be updated by setting <see cref="Refresh"/> to <see langword="true"/>.
         /// </summary>
-        /// <remarks><see cref="Config.Freshness"/> controls the time span after which a feed is considered stale. The check is only performed when <see cref="Config.NetworkUse"/> is set to <see cref="NetworkLevel.Full"/>.</remarks>
+        /// <remarks><see cref="Config.Freshness"/> controls the time span after which a feed is considered stale.</remarks>
         bool Stale { get; set; }
+
+        /// <summary>
+        /// Indicates whether <see cref="Stale"/> is <see langword="true"/> and <see cref="Config.NetworkUse"/> is <see cref="NetworkLevel.Full"/>.
+        /// </summary>
+        bool ShouldRefresh { get; }
 
         /// <summary>
         /// Returns a specific <see cref="Feed"/>. Automatically handles downloading and caching. Updates the <see cref="Stale"/> indicator.
