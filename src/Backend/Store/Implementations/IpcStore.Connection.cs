@@ -30,7 +30,6 @@ namespace ZeroInstall.Store.Implementations
 {
     public partial class IpcStore
     {
-        #region Constants
         /// <summary>
         /// The port name to use to contact the store service.
         /// </summary>
@@ -55,9 +54,7 @@ namespace ZeroInstall.Store.Implementations
             dacl.AddAccess(AccessControlType.Allow, new SecurityIdentifier(WellKnownSidType.LocalSystemSid, null), -1, InheritanceFlags.None, PropagationFlags.None);
             IpcAcl = new CommonSecurityDescriptor(false, false, ControlFlags.GroupDefaulted | ControlFlags.OwnerDefaulted | ControlFlags.DiscretionaryAclPresent, null, null, null, dacl);
         }
-        #endregion
 
-        #region Singleton
         private static readonly object _lock = new object();
         private static volatile IStore _store;
 
@@ -112,6 +109,5 @@ namespace ZeroInstall.Store.Implementations
             // Create proxy object
             return (IStore)Activator.GetObject(typeof(IStore), "ipc://" + IpcPortName + "/" + IpcObjectUri);
         }
-        #endregion
     }
 }

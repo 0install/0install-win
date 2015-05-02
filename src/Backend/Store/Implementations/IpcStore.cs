@@ -30,7 +30,6 @@ namespace ZeroInstall.Store.Implementations
     /// </summary>
     public partial class IpcStore : IStore
     {
-        #region Properties
         /// <inheritdoc/>
         public StoreKind Kind { get { return StoreKind.Service; } }
 
@@ -46,16 +45,15 @@ namespace ZeroInstall.Store.Implementations
                     #region Error handling
                 catch (RemotingException)
                 {
+                    // Ignore remoting errors in case service is offline
                     return null;
                 }
                 #endregion
             }
         }
-        #endregion
 
         //--------------------//
 
-        #region List all
         /// <summary>
         /// Always returns empty list. Use a non-IPC <see cref="IStore"/> for this method instead.
         /// </summary>
@@ -73,9 +71,7 @@ namespace ZeroInstall.Store.Implementations
         {
             return Enumerable.Empty<string>();
         }
-        #endregion
 
-        #region Contains
         /// <summary>
         /// Always returns <see langword="false"/>. Use a non-IPC <see cref="IStore"/> for this method instead.
         /// </summary>
@@ -97,20 +93,9 @@ namespace ZeroInstall.Store.Implementations
         /// <inheritdoc/>
         public void Flush()
         {
-            try
-            {
-                GetServiceProxy().Flush();
-            }
-                #region Error handling
-            catch (RemotingException)
-            {
-                // Ignore remoting errors in case service is offline
-            }
-            #endregion
+            // No internal caching
         }
-        #endregion
 
-        #region Get path
         /// <summary>
         /// Always returns <see langword="null"/>. Use a non-IPC <see cref="IStore"/> for this method instead.
         /// </summary>
@@ -119,9 +104,7 @@ namespace ZeroInstall.Store.Implementations
         {
             return null;
         }
-        #endregion
 
-        #region Add
         /// <inheritdoc/>
         public string AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
         {
@@ -132,6 +115,7 @@ namespace ZeroInstall.Store.Implementations
                 #region Error handling
             catch (RemotingException ex)
             {
+                // Wrap exception since only certain exception types are allowed
                 throw new IOException(ex.Message, ex);
             }
             #endregion
@@ -147,13 +131,12 @@ namespace ZeroInstall.Store.Implementations
                 #region Error handling
             catch (RemotingException ex)
             {
+                // Wrap exception since only certain exception types are allowed
                 throw new IOException(ex.Message, ex);
             }
             #endregion
         }
-        #endregion
 
-        #region Remove
         /// <inheritdoc/>
         public bool Remove(ManifestDigest manifestDigest)
         {
@@ -164,13 +147,12 @@ namespace ZeroInstall.Store.Implementations
                 #region Error handling
             catch (RemotingException)
             {
+                // Ignore remoting errors in case service is offline
                 return false;
             }
             #endregion
         }
-        #endregion
 
-        #region Optimise
         /// <inheritdoc/>
         public long Optimise(ITaskHandler handler)
         {
@@ -181,39 +163,27 @@ namespace ZeroInstall.Store.Implementations
                 #region Error handling
             catch (RemotingException)
             {
+                // Ignore remoting errors in case service is offline
                 return 0;
             }
             #endregion
         }
-        #endregion
 
-        #region Verify
-        /// <inheritdoc/>
+        /// <summary>
+        /// Does nothing. Should be handled by an <see cref="DirectoryStore"/> directly instead of using the service.
+        /// </summary>
         public void Verify(ManifestDigest manifestDigest, ITaskHandler handler)
-        {
-            try
-            {
-                GetServiceProxy().Verify(manifestDigest, handler);
-            }
-                #region Error handling
-            catch (RemotingException)
-            {
-                // Ignore remoting errors in case service is offline
-            }
-            #endregion
-        }
-        #endregion
+        {}
 
         //--------------------//
 
-        #region Conversion
         /// <summary>
-        /// Returns <see cref="Kind"/> and <see cref="DirectoryPath"/>. Not safe for parsing!
+        /// Returns a fixed string.
         /// </summary>
         public override string ToString()
         {
-            return Kind + ": " + DirectoryPath;
+            // NOTE: Do not touch DirectoryPath here to avoid potentially expensive IPC
+            return "Connection to Store Service (if available)";
         }
-        #endregion
     }
 }

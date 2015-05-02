@@ -75,23 +75,16 @@ namespace ZeroInstall.Central.WinForms.Wizards
         }
         #endregion
 
-        protected void ShowProgressUI()
-        {
-            Invoke(new Action(() => labelWorking.Visible = true));
-        }
-
-        protected void CloseProgressUI()
-        {
-            Invoke(new Action(() => labelWorking.Visible = false));
-        }
-
         #region ITaskHandler
-        private readonly CancellationToken _cancellationToken = new CancellationToken();
-
         /// <summary>
         /// Should never be signaled.
         /// </summary>
-        public CancellationToken CancellationToken { get { return _cancellationToken; } }
+        public CancellationToken CancellationToken { get { return default(CancellationToken); } }
+
+        /// <summary>
+        /// Always returns <see cref="NanoByte.Common.Tasks.Verbosity.Batch"/>
+        /// </summary>
+        public Verbosity Verbosity { get { return Verbosity.Batch; } set { } }
 
         /// <inheritdoc/>
         public void RunTask(ITask task)
@@ -100,24 +93,24 @@ namespace ZeroInstall.Central.WinForms.Wizards
         }
 
         /// <summary>
-        /// Always returns <see cref="NanoByte.Common.Tasks.Verbosity.Batch"/>
+        /// Always returns <see langword="false"/>.
         /// </summary>
-        public Verbosity Verbosity { get { return Verbosity.Batch; } set { } }
-
         public bool Ask(string question)
         {
-            throw new NotImplementedException();
+            return false;
         }
 
+        /// <summary>
+        /// Does nothing.
+        /// </summary>
         public void Output(string title, string message)
-        {
-            throw new NotImplementedException();
-        }
+        {}
 
+        /// <summary>
+        /// Does nothing.
+        /// </summary>
         public void Output<T>(string title, IEnumerable<T> data)
-        {
-            throw new NotImplementedException();
-        }
+        {}
         #endregion
     }
 }

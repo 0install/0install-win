@@ -134,10 +134,6 @@ namespace ZeroInstall.Store.Model.Preferences
                 return LoadFor(feedUri);
             }
                 #region Error handling
-            catch (FileNotFoundException)
-            {
-                return new FeedPreferences();
-            }
             catch (IOException ex)
             {
                 Log.Warn(string.Format(Resources.ErrorLoadingFeedPrefs, feedUri));

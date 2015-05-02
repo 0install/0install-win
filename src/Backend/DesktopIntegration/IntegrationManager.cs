@@ -339,6 +339,8 @@ namespace ZeroInstall.DesktopIntegration
         #endregion
 
         #region Finish
+        private static readonly Random _random = new Random();
+
         /// <inheritdoc/>
         protected override void Finish()
         {
@@ -349,7 +351,7 @@ namespace ZeroInstall.DesktopIntegration
             catch (IOException)
             {
                 // Bypass race conditions where another thread is reading an old version of the list while we are trying to write a new one
-                Thread.Sleep(1000);
+                Thread.Sleep(_random.Next(250, 1500));
                 AppList.SaveXml(AppListPath);
             }
 

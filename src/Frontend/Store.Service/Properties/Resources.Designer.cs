@@ -61,6 +61,24 @@ namespace ZeroInstall.Store.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Zero Install Store Service is already running..
+        /// </summary>
+        internal static string AlreadyRunning {
+            get {
+                return ResourceManager.GetString("AlreadyRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Zero Install Store Service is already stopped..
+        /// </summary>
+        internal static string AlreadyStopped {
+            get {
+                return ResourceManager.GetString("AlreadyStopped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The user &apos;{0}&apos; failed to add the implementation &apos;{1}&apos; to &apos;{2}&apos;..
         /// </summary>
         internal static string FailedToAddImplementation {

@@ -264,7 +264,7 @@ namespace ZeroInstall.Store.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the architecture in the form "os-cpu". Safe for parsing.
+        /// Returns the architecture in the form "os-cpu". Safe for parsing!
         /// </summary>
         public override string ToString()
         {

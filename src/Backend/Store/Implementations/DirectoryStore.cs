@@ -44,6 +44,7 @@ namespace ZeroInstall.Store.Implementations
         public StoreKind Kind { get; private set; }
 
         /// <inheritdoc/>
+        [NotNull]
         public string DirectoryPath { get; private set; }
 
         /// <summary>Controls whether implementation directories are made write-protected once added to the cache to prevent unintentional modification (which would invalidate the manifest digests).</summary>
@@ -586,7 +587,7 @@ namespace ZeroInstall.Store.Implementations
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return (DirectoryPath != null ? DirectoryPath.GetHashCode() : 0);
+            return DirectoryPath.GetHashCode();
         }
         #endregion
     }

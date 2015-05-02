@@ -58,7 +58,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label labelWorking;
+        protected System.Windows.Forms.Label labelWorking;
 
     }
 }

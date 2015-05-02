@@ -353,15 +353,15 @@ namespace ZeroInstall.Services.Injector
         /// <summary>
         /// Applies a <see cref="WorkingDir"/> change to the <see cref="ProcessStartInfo"/>.
         /// </summary>
-        /// <param name="workingDir">The <see cref="WorkingDir"/> to apply.</param>
+        /// <param name="binding">The <see cref="WorkingDir"/> to apply.</param>
         /// <param name="implementation">The implementation to be made available via the <see cref="WorkingDir"/> change.</param>
         /// <param name="startInfo">The process launch environment to apply the <see cref="WorkingDir"/> change to.</param>
         /// <exception cref="ImplementationNotFoundException">The <paramref name="implementation"/> is not cached yet.</exception>
-        /// <exception cref="ExecutorException">The <paramref name="workingDir"/> has an invalid path or another working directory has already been set.</exception>
+        /// <exception cref="ExecutorException">The <paramref name="binding"/> has an invalid path or another working directory has already been set.</exception>
         /// <remarks>This method can only be called successfully once per <see cref="BuildStartInfoWithBindings()"/>.</remarks>
-        private void ApplyWorkingDir(WorkingDir workingDir, ImplementationSelection implementation, ProcessStartInfo startInfo)
+        private void ApplyWorkingDir(WorkingDir binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
-            string source = FileUtils.UnifySlashes(workingDir.Source) ?? "";
+            string source = FileUtils.UnifySlashes(binding.Source) ?? "";
             if (Path.IsPathRooted(source) || source.Contains(".." + Path.DirectorySeparatorChar)) throw new ExecutorException(Resources.WorkingDirInvalidPath);
 
             // Only allow working directory to be changed once

@@ -144,6 +144,9 @@ You may have to close and reopen your terminal for this to become effective.</va
 If you select 'Yes' potentially incompatible integrations will be removed.
 If you select 'No' Zero Install will continue to use the old capabilities.</value>
   </data>
+  <data name="CachedImplementations" xml:space="preserve">
+    <value>Cached implementations</value>
+  </data>
   <data name="CachedInterfaces" xml:space="preserve">
     <value>Cached interfaces</value>
   </data>

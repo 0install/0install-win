@@ -277,7 +277,7 @@ namespace ZeroInstall.DesktopIntegration
             Handler.CancellationToken.ThrowIfCancellationRequested();
             try
             {
-                MergeData(serverList, Handler, resetClient: (resetMode == SyncResetMode.Client));
+                MergeData(serverList, resetClient: (resetMode == SyncResetMode.Client));
             }
             catch (KeyNotFoundException ex)
             {
@@ -318,7 +318,6 @@ namespace ZeroInstall.DesktopIntegration
         /// Merges a new <see cref="IntegrationManagerBase.AppList"/> with the existing data.
         /// </summary>
         /// <param name="remoteAppList">The remote <see cref="AppList"/> to merge in.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="resetClient">Set to <see langword="true"/> to completly replace the contents of <see cref="IIntegrationManager.AppList"/> with <paramref name="remoteAppList"/> instead of merging the two.</param>
         /// <exception cref="OperationCanceledException">The user canceled the task.</exception>
         /// <exception cref="KeyNotFoundException">An <see cref="AccessPoint"/> reference to a <see cref="Store.Model.Capabilities.Capability"/> is invalid.</exception>
@@ -328,11 +327,10 @@ namespace ZeroInstall.DesktopIntegration
         /// <exception cref="WebException">A problem occured while downloading additional data (such as icons).</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the filesystem or registry is not permitted.</exception>
         /// <remarks>Performs a three-way merge using <see cref="_appListLastSync"/> as base.</remarks>
-        private void MergeData([NotNull] AppList remoteAppList, [NotNull] ITaskHandler handler, bool resetClient)
+        private void MergeData([NotNull] AppList remoteAppList, bool resetClient)
         {
             #region Sanity checks
             if (remoteAppList == null) throw new ArgumentNullException("remoteAppList");
-            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             var toAdd = new List<AppEntry>();

@@ -213,7 +213,7 @@ namespace ZeroInstall.Commands.CliCommands
 
         private void List()
         {
-            if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "list", "");
+            if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
 
             var composite = Store as CompositeStore;
             Handler.Output(Resources.CachedInterfaces, (composite == null) ? new[] {Store} : composite.Stores);
@@ -221,9 +221,9 @@ namespace ZeroInstall.Commands.CliCommands
 
         private void ListImplementations()
         {
-            if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments + Environment.NewLine + "list", "");
+            if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
 
-            Handler.Output(Resources.CachedInterfaces, Store.ListAll());
+            Handler.Output(Resources.CachedImplementations, Store.ListAll());
         }
 
         private void Optimise()

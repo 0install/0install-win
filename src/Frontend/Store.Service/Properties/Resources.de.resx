@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AlreadyRunning" xml:space="preserve">
+    <value>Der Zero Install Store Dienst läuft bereits.</value>
+  </data>
+  <data name="AlreadyStopped" xml:space="preserve">
+    <value>Der Zero Install Store Dienst ist bereits beendet.</value>
+  </data>
   <data name="FailedToAddImplementation" xml:space="preserve">
     <value>Der Benutzer '{0}' konnte die Implementierung '{1}' nicht in '{2}' hinzufügen.</value>
   </data>

@@ -125,20 +125,6 @@ namespace ZeroInstall.Store.Trust
 
         #region Storage
         /// <summary>
-        /// Loads a <see cref="TrustDB"/> from an XML file.
-        /// </summary>
-        /// <param name="path">The file to load from.</param>
-        /// <returns>The loaded <see cref="TrustDB"/>.</returns>
-        /// <exception cref="IOException">A problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        [NotNull]
-        public static TrustDB Load([NotNull] string path)
-        {
-            return XmlStorage.LoadXml<TrustDB>(path);
-        }
-
-        /// <summary>
         /// Loads the <see cref="TrustDB"/> from its default location.
         /// </summary>
         /// <returns>The loaded <see cref="TrustDB"/>.</returns>
@@ -148,7 +134,8 @@ namespace ZeroInstall.Store.Trust
         [NotNull]
         public static TrustDB Load()
         {
-            return Load(Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml"));
+            string path = Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml");
+            if (!File.Exists(path)) return new TrustDB();
         }
 
         /// <summary>
@@ -163,11 +150,6 @@ namespace ZeroInstall.Store.Trust
                 return Load();
             }
                 #region Error handling
-            catch (FileNotFoundException)
-            {
-                // Creat new trust database
-                return new TrustDB();
-            }
             catch (IOException ex)
             {
                 Log.Warn(Resources.ErrorLoadingTrustDB);
@@ -190,13 +172,14 @@ namespace ZeroInstall.Store.Trust
         }
 
         /// <summary>
-        /// Saves the this <see cref="TrustDB"/> to an XML file.
+        /// Saves the this <see cref="TrustDB"/> to its default location.
         /// </summary>
         /// <exception cref="IOException">A problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
         public void Save()
         {
-            this.SaveXml(Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml"));
+            string path = Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml");
+            this.SaveXml(path);
         }
         #endregion
 

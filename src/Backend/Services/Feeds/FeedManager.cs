@@ -304,7 +304,7 @@ namespace ZeroInstall.Services.Feeds
         /// <exception cref="UriFormatException"><see cref="Feed.Uri"/> is missing or does not match <paramref name="uri"/>.</exception>
         private void DetectAttacks(byte[] data, FeedUri uri, ValidSignature signature)
         {
-            // Detect feed substitution 
+            // Detect feed substitution
             var feed = XmlStorage.LoadXml<Feed>(new MemoryStream(data));
             if (feed.Uri == null) throw new UriFormatException(string.Format(Resources.FeedUriMissing, uri));
             if (feed.Uri != uri) throw new UriFormatException(string.Format(Resources.FeedUriMismatch, feed.Uri, uri));

@@ -32,7 +32,6 @@ namespace ZeroInstall.Hooking
         [SuppressUnmanagedCodeSecurity]
         private static class SafeNativeMethods
         {
-            // Platform
             [DllImport("kernel32")]
             [return: MarshalAs(UnmanagedType.Bool)]
             public static extern bool IsWow64Process([In] IntPtr hProcess, [Out, MarshalAs(UnmanagedType.Bool)] out bool lpSystemInfo);

@@ -97,7 +97,8 @@ namespace ZeroInstall.Store.Service
                 case "uninstall":
                     return Uninstall(silent);
                 case "start":
-                    return Start(silent);
+                    Start(silent);
+                    return 0;
                 case "stop":
                     Stop(silent);
                     return 0;
@@ -147,18 +148,29 @@ namespace ZeroInstall.Store.Service
             }
         }
 
-        private static int Start(bool silent)
+        private static void Start(bool silent)
         {
             var controller = new ServiceController("0store-service");
 
+            if (controller.Status == ServiceControllerStatus.Running)
+            {
+                if (!silent) Msg.Inform(null, Resources.AlreadyRunning, MsgSeverity.Info);
+                return;
+            }
+
             controller.Start();
             if (!silent) Msg.Inform(null, Resources.StartSuccess, MsgSeverity.Info);
-            return 0;
         }
 
         private static void Stop(bool silent)
         {
             var controller = new ServiceController("0store-service");
+
+            if (controller.Status == ServiceControllerStatus.Stopped)
+            {
+                if (!silent) Msg.Inform(null, Resources.AlreadyStopped, MsgSeverity.Info);
+                return;
+            }
 
             controller.Stop();
             if (!silent) Msg.Inform(null, Resources.StopSuccess, MsgSeverity.Info);

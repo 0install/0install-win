@@ -62,7 +62,7 @@ namespace ZeroInstall.Store.Trust
             {
                 // Write and read file
                 trust1.SaveXml(tempFile);
-                trust2 = TrustDB.Load(tempFile);
+                trust2 = XmlStorage.LoadXml<TrustDB>(tempFile);
             }
 
             // Ensure data stayed the same

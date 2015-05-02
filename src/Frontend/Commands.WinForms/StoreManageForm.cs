@@ -69,10 +69,13 @@ namespace ZeroInstall.Commands.WinForms
             InitializeComponent();
             buttonRunAsAdmin.AddShieldIcon();
 
-            if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
-            if (WindowsUtils.IsAdministrator) Text += @" (Administrator)";
-            else if (WindowsUtils.IsWindowsNT) buttonRunAsAdmin.Visible = true;
-            HandleCreated += delegate { Program.ConfigureTaskbar(this, Text, subCommand: ".Store.Manage", arguments: StoreMan.Name + " manage"); };
+            HandleCreated += delegate
+            {
+                Program.ConfigureTaskbar(this, Text, subCommand: ".Store.Manage", arguments: StoreMan.Name + " manage");
+                if (Locations.IsPortable) Text += @" - " + Resources.PortableMode;
+                if (WindowsUtils.IsAdministrator) Text += @" (Administrator)";
+                else if (WindowsUtils.IsWindowsNT) buttonRunAsAdmin.Visible = true;
+            };
 
             Shown += delegate { RefreshList(); };
 
@@ -100,9 +103,9 @@ namespace ZeroInstall.Commands.WinForms
             _store.Flush();
             _feedCache.Flush();
 
-            var listBuilder = new CacheNodeBuilder(_store, _feedCache);
-            listBuilder.Run();
-            e.Result = listBuilder;
+            var nodeBuilder = new CacheNodeBuilder(_store, _feedCache);
+            nodeBuilder.Run();
+            e.Result = nodeBuilder;
         }
 
         private void refreshListWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -194,11 +197,11 @@ namespace ZeroInstall.Commands.WinForms
                 }
                 catch (IOException ex)
                 {
-                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    Msg.Inform(this, ex.Message, MsgSeverity.Warn);
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    Msg.Inform(this, ex.Message, MsgSeverity.Warn);
                 }
                 #endregion
 

@@ -114,10 +114,6 @@ namespace ZeroInstall.Store.Model.Preferences
                 return LoadFor(interfaceUri);
             }
                 #region Error handling
-            catch (FileNotFoundException)
-            {
-                return new InterfacePreferences();
-            }
             catch (IOException ex)
             {
                 Log.Warn(string.Format(Resources.ErrorLoadingInterfacePrefs, interfaceUri));

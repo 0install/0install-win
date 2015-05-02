@@ -58,6 +58,7 @@ namespace ZeroInstall.Store.Implementations
         /// <summary>
         /// The directory containing the cached <see cref="Store.Model.Implementation"/>s. May be <see langword="null"/> for some <see cref="IStore"/> types.
         /// </summary>
+        [CanBeNull]
         string DirectoryPath { get; }
 
         /// <summary>

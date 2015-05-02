@@ -136,6 +136,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cached implementations.
+        /// </summary>
+        public static string CachedImplementations {
+            get {
+                return ResourceManager.GetString("CachedImplementations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cached interfaces.
         /// </summary>
         public static string CachedInterfaces {

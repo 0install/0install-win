@@ -51,7 +51,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
         private void buttonReset_Click(object sender, EventArgs e)
         {
             Parent.Parent.Enabled = buttonReset.Visible = false;
-            ShowProgressUI();
+            labelWorking.Visible = true;
 
             resetWorker.RunWorkerAsync(textBoxCryptoKey.Text);
         }
@@ -65,7 +65,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
 
         private void resetWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            CloseProgressUI();
+            labelWorking.Visible = false;
             Parent.Parent.Enabled = buttonReset.Visible = true;
 
             if (e.Error == null) NewKeySet(textBoxCryptoKey.Text);

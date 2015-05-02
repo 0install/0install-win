@@ -51,7 +51,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
         private void buttonApply_Click(object sender, EventArgs e)
         {
             Parent.Parent.Enabled = buttonApply.Visible = textBoxCryptoKey.Enabled = false;
-            ShowProgressUI();
+            labelWorking.Visible = true;
 
             resetWorker.RunWorkerAsync(textBoxCryptoKey.Text);
         }
@@ -67,7 +67,7 @@ namespace ZeroInstall.Central.WinForms.Wizards
 
         private void resetWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            CloseProgressUI();
+            labelWorking.Visible = false;
             Parent.Parent.Enabled = buttonApply.Visible = textBoxCryptoKey.Enabled = true;
 
             if (e.Error == null) NewKeySet(textBoxCryptoKey.Text);

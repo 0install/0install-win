@@ -56,36 +56,36 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\AssemblyInfo.Global.cs" />
+    <Compile Include="AccessPoints\AccessPoint.cs" />
+    <Compile Include="AccessPoints\AccessPointList.cs" />
+    <Compile Include="AccessPoints\AppAlias.cs" />
+    <Compile Include="AccessPoints\AutoPlay.cs" />
     <Compile Include="AccessPoints\AutoStart.cs" />
-    <Compile Include="AccessPoints\SendTo.cs" />
+    <Compile Include="AccessPoints\CapabilitiyRegistration.cs" />
+    <Compile Include="AccessPoints\CommandAccessPoint.cs" />
+    <Compile Include="AccessPoints\ContextMenu.cs" />
+    <Compile Include="AccessPoints\DefaultAccessPoint.cs" />
+    <Compile Include="AccessPoints\DefaultProgram.cs" />
+    <Compile Include="AccessPoints\DesktopIcon.cs" />
+    <Compile Include="AccessPoints\FileType.cs" />
+    <Compile Include="AccessPoints\IconAccessPoint.cs" />
+    <Compile Include="AccessPoints\MenuEntry.cs" />
     <Compile Include="AccessPoints\MockAccessPoint.cs" />
+    <Compile Include="AccessPoints\QuickLaunch.cs" />
+    <Compile Include="AccessPoints\SendTo.cs" />
+    <Compile Include="AccessPoints\UrlProtocol.cs" />
+    <Compile Include="AppEntry.cs" />
+    <Compile Include="AppList.cs" />
     <Compile Include="CapabilityExtensions.cs" />
     <Compile Include="CategoryIntegrationManager.cs" />
     <Compile Include="ConflictData.cs" />
     <Compile Include="ConflictDataUtils.cs" />
     <Compile Include="ConflictException.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ICategoryIntegrationManager.cs" />
     <Compile Include="IIntegrationManager.cs" />
-    <Compile Include="IntegrationManagerBase.cs" />
     <Compile Include="IntegrationManager.cs" />
-    <Compile Include="AccessPoints\AccessPoint.cs" />
-    <Compile Include="AccessPoints\AccessPointList.cs" />
-    <Compile Include="AppEntry.cs" />
-    <Compile Include="AppList.cs" />
-    <Compile Include="AccessPoints\AppAlias.cs" />
-    <Compile Include="AccessPoints\AutoPlay.cs" />
-    <Compile Include="AccessPoints\CapabilitiyRegistration.cs" />
-    <Compile Include="AccessPoints\DefaultAccessPoint.cs" />
-    <Compile Include="AccessPoints\ContextMenu.cs" />
-    <Compile Include="AccessPoints\DefaultProgram.cs" />
-    <Compile Include="AccessPoints\CommandAccessPoint.cs" />
-    <Compile Include="AccessPoints\FileType.cs" />
-    <Compile Include="AccessPoints\IconAccessPoint.cs" />
-    <Compile Include="AccessPoints\MenuEntry.cs" />
-    <Compile Include="AccessPoints\DesktopIcon.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="AccessPoints\QuickLaunch.cs" />
-    <Compile Include="AccessPoints\UrlProtocol.cs" />
+    <Compile Include="IntegrationManagerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -112,8 +112,12 @@
     <Compile Include="ViewModel\IntegrationState.Capabilities.cs" />
     <Compile Include="ViewModel\IntegrationState.cs" />
     <Compile Include="ViewModel\UrlProtocolModel.cs" />
+    <Compile Include="Windows\AppAlias.cs" />
     <Compile Include="Windows\AppRegistration.cs" />
-    <EmbeddedResource Include="Windows\stub.template.cs" />
+    <Compile Include="Windows\AutoPlay.cs" />
+    <Compile Include="Windows\ComServer.cs" />
+    <Compile Include="Windows\ContextMenu.cs" />
+    <Compile Include="Windows\DefaultProgram.cs" />
     <Compile Include="Windows\FileType.cs" />
     <Compile Include="Windows\IconProvider.cs" />
     <Compile Include="Windows\Shortcut.cs" />
@@ -133,11 +137,6 @@
       <DependentUpon>Shortcut.cs</DependentUpon>
     </Compile>
     <Compile Include="Windows\StubBuilder.cs" />
-    <Compile Include="Windows\AppAlias.cs" />
-    <Compile Include="Windows\AutoPlay.cs" />
-    <Compile Include="Windows\ComServer.cs" />
-    <Compile Include="Windows\ContextMenu.cs" />
-    <Compile Include="Windows\DefaultProgram.cs" />
     <Compile Include="Windows\UrlProtocol.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +148,7 @@
     <EmbeddedResource Include="Properties\Resources.de.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Windows\stub.template.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CodeAnalysisDictionary.xml" />
@@ -165,6 +165,7 @@
     </None>
     <None Include="ClassDiagram.cd" />
     <EmbeddedResource Include="Windows\Stub.manifest" />
+    <None Include="CodeAnalysis.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
