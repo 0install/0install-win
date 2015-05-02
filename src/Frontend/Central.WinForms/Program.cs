@@ -78,16 +78,19 @@ namespace ZeroInstall.Central.WinForms
                 #region Error handling
             catch (IOException ex)
             {
+                Log.Error(ex);
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 return -1;
             }
             catch (UnauthorizedAccessException ex)
             {
+                Log.Error(ex);
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 return -1;
             }
             catch (InvalidDataException ex)
             {
+                Log.Error(ex);
                 Msg.Inform(null, ex.Message + (ex.InnerException == null ? "" : "\n" + ex.InnerException.Message), MsgSeverity.Error);
                 return -1;
             }

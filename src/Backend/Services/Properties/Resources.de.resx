@@ -211,9 +211,6 @@ Feed URI: {0}
 Alte Zeit: {1}
 Neue Zeit: {2}</value>
   </data>
-  <data name="SolverFallback" xml:space="preserve">
-    <value>Falle für {0} auf sekundären Solver zurück. Primärer Solver meldet:</value>
-  </data>
   <data name="SolverProblem" xml:space="preserve">
     <value>Der Solver ist auf ein unerwartetes Problem gestoßen.</value>
   </data>

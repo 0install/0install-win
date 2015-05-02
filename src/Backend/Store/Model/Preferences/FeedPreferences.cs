@@ -114,6 +114,7 @@ namespace ZeroInstall.Store.Model.Preferences
             var path = Locations.GetLoadConfigPaths("0install.net", true, "injector", "feeds", feedUri.PrettyEscape()).FirstOrDefault();
             if (string.IsNullOrEmpty(path)) return new FeedPreferences();
 
+            Log.Debug("Loading feed preferences for " + feedUri.ToStringRfc() + " from: " + path);
             return XmlStorage.LoadXml<FeedPreferences>(path);
         }
 
@@ -168,7 +169,10 @@ namespace ZeroInstall.Store.Model.Preferences
             #endregion
 
             Normalize();
+
             var path = Locations.GetSaveConfigPath("0install.net", true, "injector", "feeds", feedUri.PrettyEscape());
+
+            Log.Debug("Saving feed preferences for " + feedUri.ToStringRfc() + " to: " + path);
             this.SaveXml(path);
         }
         #endregion

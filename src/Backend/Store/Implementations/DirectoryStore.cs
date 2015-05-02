@@ -146,6 +146,7 @@ namespace ZeroInstall.Store.Implementations
         protected virtual string GetTempDir()
         {
             string path = Path.Combine(DirectoryPath, Path.GetRandomFileName());
+            Log.Debug("Creating temp directory for extracting: " + path);
             Directory.CreateDirectory(path);
             return path;
         }
@@ -156,7 +157,11 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="path">The path to the temporary directory.</param>
         protected virtual void DeleteTempDir([NotNull] string path)
         {
-            if (Directory.Exists(path)) Directory.Delete(path, recursive: true);
+            if (Directory.Exists(path))
+            {
+                Log.Debug("Deleting left-over temp directory: " + path);
+                Directory.Delete(path, recursive: true);
+            }
         }
         #endregion
 
@@ -173,6 +178,7 @@ namespace ZeroInstall.Store.Implementations
 
             try
             {
+                Log.Debug("Enabling write protection for: " + path);
                 FileUtils.EnableWriteProtection(path);
             }
                 #region Error handling
@@ -183,8 +189,8 @@ namespace ZeroInstall.Store.Implementations
             catch (UnauthorizedAccessException)
             {
                 // Only warn if even an Admin is unable to set ACLs
-                if (WindowsUtils.IsAdministrator)
-                    Log.Warn(string.Format(Resources.UnableToWriteProtect, path));
+                if (WindowsUtils.IsAdministrator) Log.Warn(string.Format(Resources.UnableToWriteProtect, path));
+                else Log.Info(string.Format(Resources.UnableToWriteProtect, path));
             }
             catch (InvalidOperationException)
             {
@@ -205,6 +211,7 @@ namespace ZeroInstall.Store.Implementations
 
             try
             {
+                Log.Debug("Disabling write protection for: " + path);
                 FileUtils.DisableWriteProtection(path);
             }
                 #region Error handling
@@ -409,6 +416,7 @@ namespace ZeroInstall.Store.Implementations
             #endregion
 
             if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
+            Log.Info("Caching implementation: " + manifestDigest.AvailableDigests.First());
 
             // Copy to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             string tempDir = GetTempDir();
@@ -448,6 +456,7 @@ namespace ZeroInstall.Store.Implementations
             #endregion
 
             if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
+            Log.Info("Caching implementation: " + manifestDigest.AvailableDigests.First());
 
             // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             string tempDir = GetTempDir();
@@ -493,10 +502,9 @@ namespace ZeroInstall.Store.Implementations
 
             DisableWriteProtection(path);
 
-            // Move the directory to be deleted to a temporary directory to ensure the removal operation is atomic
             string tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
+            Log.Info("Attempting atomic delete: " + path);
             Directory.Move(path, tempDir);
-
             Directory.Delete(tempDir, recursive: true);
 
             return true;

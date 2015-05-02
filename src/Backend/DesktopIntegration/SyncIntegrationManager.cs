@@ -23,6 +23,7 @@ using System.Net.Cache;
 using System.Threading;
 using ICSharpCode.SharpZipLib.Zip;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Net;
@@ -225,8 +226,8 @@ namespace ZeroInstall.DesktopIntegration
                     {
                         var response = ex.Response as HttpWebResponse;
                         if (response != null && response.StatusCode == HttpStatusCode.PreconditionFailed)
-                        { // Precondition failure indicates a "lost update" (race condition)
-                            // Wait for a randomized interval before retrying
+                        {
+                            Log.Info("Race condition encountered while syncing. Waiting for a moment and then retrying.");
                             Thread.Sleep(_random.Next(250, 1500));
                             Handler.CancellationToken.ThrowIfCancellationRequested();
                             goto Retry;

@@ -58,7 +58,7 @@ namespace ZeroInstall.Commands.Gtk
         /// </summary>
         public static ExitCode Run(string[] args)
         {
-            Log.Info("Zero Install Command GTK GUI started with: " + args.JoinEscapeArguments());
+            Log.Debug("Zero Install Command GTK GUI started with: " + args.JoinEscapeArguments());
 
             using (var handler = new GuiCommandHandler())
             {

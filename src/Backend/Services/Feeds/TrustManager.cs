@@ -116,7 +116,11 @@ namespace ZeroInstall.Services.Feeds
             var keyInformation = GetKeyInformation(signature.Fingerprint, out goodVote) ?? Resources.NoKeyInfoServerData;
 
             // Automatically trust key for _new_ feeds if  voted good by key server
-            if (_config.AutoApproveKeys && goodVote && !_feedCache.Contains(uri)) return true;
+            if (_config.AutoApproveKeys && goodVote && !_feedCache.Contains(uri))
+            {
+                Log.Info("Auto-approving key for " + uri.ToStringRfc());
+                return true;
+            }
 
             // Otherwise ask user
             return _handler.Ask(
@@ -150,6 +154,8 @@ namespace ZeroInstall.Services.Feeds
                 }
                 #endregion
             }
+
+            Log.Info("Importing OpenPGP public key for " + signature.KeyID);
             _openPgp.ImportKey(keyData);
         }
 
@@ -171,6 +177,7 @@ namespace ZeroInstall.Services.Feeds
             try
             {
                 var keyInfoUri = new Uri(_config.KeyInfoServer, "key/" + fingerprint);
+                Log.Info("Getting key information for " + fingerprint + " from: " + keyInfoUri);
                 var xmlReader = XmlReader.Create(keyInfoUri.AbsoluteUri);
                 _handler.CancellationToken.ThrowIfCancellationRequested();
                 if (!xmlReader.ReadToFollowing("item"))

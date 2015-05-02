@@ -21,6 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -136,7 +137,11 @@ namespace ZeroInstall.Commands.CliCommands
         public override ExitCode Execute()
         {
             Solve();
-            if (FeedManager.ShouldRefresh) RefreshSolve();
+            if (FeedManager.ShouldRefresh)
+            {
+                Log.Info("Running Refresh Solve because feeds have become stale");
+                RefreshSolve();
+            }
             SelfUpdateCheck();
 
             ShowSelections();

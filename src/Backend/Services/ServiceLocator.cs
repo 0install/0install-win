@@ -169,7 +169,7 @@ namespace ZeroInstall.Services
             if (value == null)
             {
                 value = build();
-                Log.Debug("Initialized by ServiceLocator: " + value);
+                Log.Debug("Initialized by Service Locator: " + value);
             }
 
             return value;

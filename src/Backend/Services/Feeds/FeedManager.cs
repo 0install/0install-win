@@ -280,6 +280,7 @@ namespace ZeroInstall.Services.Feeds
             #endregion
 
             if (uri.IsFile) throw new UriFormatException(Resources.FeedUriLocal);
+            Log.Debug("Importing feed " + uri.ToStringRfc() + " from: " + path);
 
             var data = File.ReadAllBytes(path);
 

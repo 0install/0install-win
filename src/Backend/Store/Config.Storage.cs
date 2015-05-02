@@ -84,6 +84,8 @@ namespace ZeroInstall.Store
         [NotNull]
         public static Config Load([NotNull] string path)
         {
+            Log.Debug("Loading Config from: " + path);
+
             var config = new Config();
             config.ReadFromIniFile(path);
             return config;
@@ -128,6 +130,8 @@ namespace ZeroInstall.Store
         public void Save([NotNull] string path)
         {
             TransferToIni();
+
+            Log.Debug("Saving Config to: " + path);
 
             using (var atomic = new AtomicWrite(path))
             using (var writer = new StreamWriter(atomic.WritePath, append: false, encoding: FeedUtils.Encoding))
@@ -204,6 +208,8 @@ namespace ZeroInstall.Store
         /// </summary>
         private void ReadFromRegistry([NotNull] RegistryKey registryKey)
         {
+            Log.Debug("Loading config from: " + registryKey);
+
             foreach (var property in _metaData)
             {
                 string key = property.Key;

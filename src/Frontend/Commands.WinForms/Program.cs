@@ -73,7 +73,7 @@ namespace ZeroInstall.Commands.WinForms
         [STAThread] // Required for WinForms
         public static ExitCode Run(string[] args)
         {
-            Log.Info("Zero Install Command WinForms GUI started with: " + args.JoinEscapeArguments());
+            Log.Debug("Zero Install Command WinForms GUI started with: " + args.JoinEscapeArguments());
 
             using (var handler = new GuiCommandHandler())
             {

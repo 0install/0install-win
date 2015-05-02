@@ -84,6 +84,7 @@ namespace ZeroInstall.Commands
             _registryFilter = GetRegistryFilter();
             _relaunchControl = GetRelaunchControl();
 
+            Log.Info("Activating API hooking");
             _hookW = LocalHook.Create(LocalHook.GetProcAddress("kernel32.dll", "CreateProcessW"), new UnsafeNativeMethods.DCreateProcessW(CreateProcessWCallback), null);
             _hookW.ThreadACL.SetInclusiveACL(new[] {Thread.CurrentThread.ManagedThreadId});
             _hookA = LocalHook.Create(LocalHook.GetProcAddress("kernel32.dll", "CreateProcessA"), new UnsafeNativeMethods.DCreateProcessA(CreateProcessACallback), null);

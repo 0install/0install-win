@@ -99,6 +99,7 @@ namespace ZeroInstall.Commands.CliCommands
             var target = new FeedTarget(interfaceUri, FeedManager.GetFeedFresh(interfaceUri));
             DetectReplacement(ref target);
 
+            Log.Info("Creating app entry for " + target.Uri.ToStringRfc());
             var appEntry = integrationManager.AddApp(target);
             BackgroundDownload(target.Uri);
             return appEntry;
@@ -122,12 +123,15 @@ namespace ZeroInstall.Commands.CliCommands
         }
 
         /// <summary>
-        /// Pre-download application in background for later use.
+        /// Pre-download application in a background proccess for later use.
         /// </summary>
         private void BackgroundDownload([NotNull] FeedUri interfaceUri)
         {
             if (!NoDownload && Config.NetworkUse == NetworkLevel.Full)
+            {
+                Log.Info("Starting background download for later use");
                 RunCommandBackground(Download.Name, "--batch", interfaceUri.ToStringRfc());
+            }
         }
         #endregion
     }

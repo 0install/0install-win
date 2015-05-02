@@ -103,7 +103,10 @@ namespace ZeroInstall.Store.Feeds
             if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
 
-            var feed = XmlStorage.LoadXml<Feed>(GetPath(feedUri));
+            string path = GetPath(feedUri);
+            Log.Debug("Loading feed " + feedUri.ToStringRfc() + " from disk cache: " + path);
+
+            var feed = XmlStorage.LoadXml<Feed>(path);
             feed.Normalize(feedUri);
             return feed;
         }
@@ -147,11 +150,13 @@ namespace ZeroInstall.Store.Feeds
 
             try
             {
-                WriteToFile(data, Path.Combine(DirectoryPath, feedUri.Escape()));
+                string path = Path.Combine(DirectoryPath, feedUri.Escape());
+                Log.Debug("Adding feed " + feedUri.ToStringRfc() + " to disk cache: " + path);
+                WriteToFile(data, path);
             }
             catch (PathTooLongException)
             {
-                // Contract too long file paths using a hash of the feed URI
+                Log.Info("File path in feed cache too long. Using hash of feed URI to shorten path.");
                 WriteToFile(data, Path.Combine(DirectoryPath, feedUri.AbsoluteUri.Hash(SHA256.Create())));
             }
         }
@@ -182,7 +187,9 @@ namespace ZeroInstall.Store.Feeds
             if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
 
-            File.Delete(GetPath(feedUri));
+            string path = GetPath(feedUri);
+            Log.Debug("Removing feed " + feedUri.ToStringRfc() + " from disk cache: " + path);
+            File.Delete(path);
         }
         #endregion
 

@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using ZeroInstall.Store;
@@ -65,6 +66,7 @@ namespace ZeroInstall.Services.Feeds
                 config.FeedMirror.EnsureTrailingSlash(),
                 new Uri("search/?q=" + Uri.EscapeUriString(keywords), UriKind.Relative));
 
+            Log.Info("Performing search query: " + url.ToStringRfc());
             using (var webClient = new WebClientTimeout())
             {
                 var result = XmlStorage.FromXmlString<SearchQuery>(webClient.DownloadString(url));

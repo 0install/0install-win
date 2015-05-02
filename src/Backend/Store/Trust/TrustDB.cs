@@ -97,6 +97,8 @@ namespace ZeroInstall.Store.Trust
             if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException("fingerprint");
             #endregion
 
+            Log.Debug("Trusting " + fingerprint + " for " + domain);
+
             Key targetKey = Keys.FirstOrDefault(key => key.Fingerprint == fingerprint);
             if (targetKey == null)
             {
@@ -118,6 +120,8 @@ namespace ZeroInstall.Store.Trust
             if (string.IsNullOrEmpty(fingerprint)) throw new ArgumentNullException("fingerprint");
             #endregion
 
+            Log.Debug("Untrusting " + fingerprint + " for " + domain);
+
             foreach (Key key in Keys.Where(key => key.Fingerprint == fingerprint))
                 key.Domains.Remove(domain);
         }
@@ -136,6 +140,9 @@ namespace ZeroInstall.Store.Trust
         {
             string path = Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml");
             if (!File.Exists(path)) return new TrustDB();
+
+            Log.Debug("Loading trust database from: " + path);
+            return XmlStorage.LoadXml<TrustDB>(path);
         }
 
         /// <summary>
@@ -179,6 +186,7 @@ namespace ZeroInstall.Store.Trust
         public void Save()
         {
             string path = Locations.GetSaveConfigPath("0install.net", true, "injector", "trustdb.xml");
+            Log.Debug("Saving trust database to: " + path);
             this.SaveXml(path);
         }
         #endregion

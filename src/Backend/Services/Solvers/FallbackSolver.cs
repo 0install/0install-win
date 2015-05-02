@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using NanoByte.Common;
-using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
@@ -58,8 +58,8 @@ namespace ZeroInstall.Services.Solvers
             }
             catch (SolverException ex)
             {
-                Log.Warn(string.Format(Resources.SolverFallback, requirements));
-                Log.Warn(ex);
+                Log.Info(string.Format("Primary solver reported: " + ex.Message + Environment.NewLine + "Falling back to secondary solver.", requirements));
+                Log.Debug(ex);
 
                 return _secondarySolver.Solve(requirements);
             }

@@ -4,6 +4,7 @@
     <Recognized>
       <Word>ZeroInstall</Word>
       <Word>ZeroInstallTools</Word>
+      <Word>OpenPGP</Word>
       <Word>GnuPG</Word>
       <Word>WinForms</Word>
       <Word>MainCandidate</Word>
@@ -27,6 +28,7 @@
     <CasingExceptions>
       <Acronym>ZeroInstall</Acronym>
       <Acronym>ZeroInstallTools</Acronym>
+      <Acronym>OpenPGP</Acronym>
       <Acronym>GnuPG</Acronym>
       <Acronym>WinForms</Acronym>
       <Acronym>MainCandidate</Acronym>

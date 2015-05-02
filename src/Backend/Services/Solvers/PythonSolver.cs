@@ -70,6 +70,8 @@ namespace ZeroInstall.Services.Solvers
             if (requirements.InterfaceUri == null) throw new ArgumentException(Resources.MissingInterfaceUri, "requirements");
             #endregion
 
+            Log.Info("Running Python Solver for: " + requirements);
+
             // Execute the external solver
             ISolverControl control;
             if (WindowsUtils.IsWindows) control = new SolverControlBundled(_handler); // Use bundled Python on Windows
@@ -96,7 +98,7 @@ namespace ZeroInstall.Services.Solvers
                 #region Error handling
             catch (InvalidDataException ex)
             {
-                Log.Warn("Solver result:\n" + result);
+                Log.Warn("Solver result:" + Environment.NewLine + result);
                 throw new SolverException(Resources.ExternalSolverOutputErrror, ex);
             }
             #endregion

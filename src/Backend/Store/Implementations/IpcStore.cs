@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting;
+using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
@@ -43,9 +44,10 @@ namespace ZeroInstall.Store.Implementations
                     return GetServiceProxy().DirectoryPath;
                 }
                     #region Error handling
-                catch (RemotingException)
+                catch (RemotingException ex)
                 {
                     // Ignore remoting errors in case service is offline
+                    Log.Debug(ex);
                     return null;
                 }
                 #endregion
@@ -110,12 +112,15 @@ namespace ZeroInstall.Store.Implementations
         {
             try
             {
-                return GetServiceProxy().AddDirectory(path, manifestDigest, handler);
+                string result = GetServiceProxy().AddDirectory(path, manifestDigest, handler);
+                Log.Info("Sent implementation to Store Service: " + manifestDigest.AvailableDigests.First());
+                return result;
             }
                 #region Error handling
             catch (RemotingException ex)
             {
                 // Wrap exception since only certain exception types are allowed
+                Log.Debug(ex);
                 throw new IOException(ex.Message, ex);
             }
             #endregion
@@ -126,12 +131,15 @@ namespace ZeroInstall.Store.Implementations
         {
             try
             {
-                return GetServiceProxy().AddArchives(archiveInfos, manifestDigest, handler);
+                string result = GetServiceProxy().AddArchives(archiveInfos, manifestDigest, handler);
+                Log.Info("Sent implementation to Store Service: " + manifestDigest.AvailableDigests.First());
+                return result;
             }
                 #region Error handling
             catch (RemotingException ex)
             {
                 // Wrap exception since only certain exception types are allowed
+                Log.Debug(ex);
                 throw new IOException(ex.Message, ex);
             }
             #endregion
@@ -142,12 +150,15 @@ namespace ZeroInstall.Store.Implementations
         {
             try
             {
-                return GetServiceProxy().Remove(manifestDigest);
+                var proxy = GetServiceProxy();
+                Log.Info("Using Store Service to remove implementation from cache");
+                return proxy.Remove(manifestDigest);
             }
                 #region Error handling
-            catch (RemotingException)
+            catch (RemotingException ex)
             {
                 // Ignore remoting errors in case service is offline
+                Log.Debug(ex);
                 return false;
             }
             #endregion
@@ -161,9 +172,10 @@ namespace ZeroInstall.Store.Implementations
                 return GetServiceProxy().Optimise(handler);
             }
                 #region Error handling
-            catch (RemotingException)
+            catch (RemotingException ex)
             {
                 // Ignore remoting errors in case service is offline
+                Log.Debug(ex);
                 return 0;
             }
             #endregion

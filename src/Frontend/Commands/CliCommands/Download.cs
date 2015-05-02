@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Solvers;
@@ -62,7 +63,11 @@ namespace ZeroInstall.Commands.CliCommands
             try
             {
                 Solve();
-                if (FeedManager.ShouldRefresh) RefreshSolve();
+                if (FeedManager.ShouldRefresh)
+                {
+                    Log.Info("Running Refresh Solve because feeds have become stale");
+                    RefreshSolve();
+                }
             }
                 #region Error handling
             catch (WebException)
@@ -112,7 +117,10 @@ namespace ZeroInstall.Commands.CliCommands
         protected void DownloadUncachedImplementations()
         {
             if (UncachedImplementations.Count != 0 && !FeedManager.Refresh)
+            {
+                Log.Info("Running Refresh Solve because there are un-cached implementations");
                 RefreshSolve();
+            }
 
             if (CustomizeSelections || UncachedImplementations.Count != 0) ShowSelections();
 

@@ -102,6 +102,7 @@ namespace ZeroInstall.Services.Feeds
             // Cache
             try
             {
+                Log.Debug("Caching merged Catalog in: " + _cacheFilePath);
                 using (new MutexLock(CacheMutexName))
                     mergedCatalog.SaveXml(_cacheFilePath);
             }
@@ -134,6 +135,7 @@ namespace ZeroInstall.Services.Feeds
         {
             if (source.IsFile) return XmlStorage.LoadXml<Catalog>(source.LocalPath);
 
+            Log.Info("Downloading catalog: " + source.ToStringRfc());
             byte[] data;
             using (var webClient = new WebClientTimeout())
                 data = webClient.DownloadData(source);

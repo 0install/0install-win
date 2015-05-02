@@ -117,6 +117,8 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="ExecutorException"><see cref="EnvironmentBinding.Name"/> or other data is invalid.</exception>
         private void ApplyEnvironmentBinding(EnvironmentBinding binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
+            Log.Debug("Applying " + binding + " for " + implementation);
+
             if (string.IsNullOrEmpty(binding.Name)) throw new ExecutorException(string.Format(Resources.MissingBindingName, @"<environment>"));
 
             var environmentVariables = startInfo.EnvironmentVariables;
@@ -211,6 +213,8 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
         private void ApplyExecutableInVar(ExecutableInVar binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
+            Log.Debug("Applying " + binding + " for " + implementation);
+
             if (string.IsNullOrEmpty(binding.Name)) throw new ExecutorException(string.Format(Resources.MissingBindingName, @"<executable-in-var>"));
             if (Path.GetInvalidFileNameChars().Any(invalidChar => binding.Name.Contains(invalidChar.ToString(CultureInfo.InvariantCulture))))
                 throw new ExecutorException(string.Format(Resources.IllegalCharInBindingName, @"<executable-in-var>"));
@@ -238,6 +242,8 @@ namespace ZeroInstall.Services.Injector
         /// <exception cref="UnauthorizedAccessException">Write access to the file is not permitted.</exception>
         private void ApplyExecutableInPath(ExecutableInPath binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
+            Log.Debug("Applying " + binding + " for " + implementation);
+
             if (string.IsNullOrEmpty(binding.Name)) throw new ExecutorException(string.Format(Resources.MissingBindingName, @"<executable-in-path>"));
             if (Path.GetInvalidFileNameChars().Any(invalidChar => binding.Name.Contains(invalidChar.ToString(CultureInfo.InvariantCulture))))
                 throw new ExecutorException(string.Format(Resources.IllegalCharInBindingName, @"<executable-in-path>"));
@@ -265,6 +271,7 @@ namespace ZeroInstall.Services.Injector
             string deployedPath = Path.Combine(Locations.GetCacheDirPath("0install.net", false, "injector", "executables", name), name);
             if (WindowsUtils.IsWindows) deployedPath += ".exe";
 
+            Log.Info("Deploying run-environment executable to: " + deployedPath);
             try
             {
                 if (File.Exists(deployedPath)) File.Delete(deployedPath);
@@ -310,14 +317,16 @@ namespace ZeroInstall.Services.Injector
             else throw new NotSupportedException(string.Format(Resources.BindingNotSupportedOnCurrentOS, @"<executable-in-*>"));
 
             string path = Path.Combine(Locations.GetCacheDirPath("0install.net", false, "injector", "executables"), templateName);
+            Log.Info("Writing run-environment template to: " + path);
             try
             {
                 typeof(Executor).WriteEmbeddedFile(templateName, path);
             }
                 #region Error handling
-            catch (IOException)
+            catch (IOException ex)
             {
-                // File is probably currently in use
+                Log.Info("Unable to write run-environment template. File is probably currently in use.");
+                Log.Debug(ex);
             }
             #endregion
 
@@ -361,6 +370,8 @@ namespace ZeroInstall.Services.Injector
         /// <remarks>This method can only be called successfully once per <see cref="BuildStartInfoWithBindings()"/>.</remarks>
         private void ApplyWorkingDir(WorkingDir binding, ImplementationSelection implementation, ProcessStartInfo startInfo)
         {
+            Log.Debug("Applying " + binding + " for " + implementation);
+
             string source = FileUtils.UnifySlashes(binding.Source) ?? "";
             if (Path.IsPathRooted(source) || source.Contains(".." + Path.DirectorySeparatorChar)) throw new ExecutorException(Resources.WorkingDirInvalidPath);
 

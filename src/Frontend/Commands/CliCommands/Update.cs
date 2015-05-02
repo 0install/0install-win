@@ -19,6 +19,7 @@ using System;
 using System.Net;
 using System.Text;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Solvers;
@@ -62,6 +63,7 @@ namespace ZeroInstall.Commands.CliCommands
             try
             {
                 OldSolve();
+                Log.Info("Running Refresh Solve to find updates");
                 RefreshSolve();
             }
                 #region Error handling

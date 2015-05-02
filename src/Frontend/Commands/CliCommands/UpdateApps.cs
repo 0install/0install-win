@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -97,7 +98,10 @@ namespace ZeroInstall.Commands.CliCommands
             // Run solver for each app
             var implementations = new List<ImplementationSelection>();
             foreach (var requirements in targets)
+            {
+                Log.Info("Solving for " + requirements);
                 implementations.AddRange(Solver.Solve(requirements).Implementations);
+            }
 
             // Deduplicate selections
             return implementations.Distinct(ManifestDigestPartialEqualityComparer<ImplementationSelection>.Instance);

@@ -94,6 +94,7 @@ namespace ZeroInstall.Store.Model.Preferences
             var path = Locations.GetLoadConfigPaths("0install.net", true, "injector", "interfaces", interfaceUri.PrettyEscape()).FirstOrDefault();
             if (string.IsNullOrEmpty(path)) return new InterfacePreferences();
 
+            Log.Debug("Loading interface preferences for " + interfaceUri.ToStringRfc() + " from: " + path);
             return XmlStorage.LoadXml<InterfacePreferences>(path);
         }
 
@@ -148,6 +149,8 @@ namespace ZeroInstall.Store.Model.Preferences
             #endregion
 
             var path = Locations.GetSaveConfigPath("0install.net", true, "injector", "interfaces", interfaceUri.PrettyEscape());
+
+            Log.Debug("Saving interface preferences for " + interfaceUri.ToStringRfc() + " to: " + path);
             this.SaveXml(path);
         }
         #endregion

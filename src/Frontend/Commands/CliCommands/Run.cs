@@ -100,6 +100,7 @@ namespace ZeroInstall.Commands.CliCommands
             if (NoWait) return (WindowsUtils.IsWindows ? (ExitCode)process.Id : ExitCode.OK);
             else
             {
+                Log.Debug("Waiting for application to exit");
                 process.WaitForExit();
                 return (ExitCode)process.ExitCode;
             }
@@ -111,7 +112,7 @@ namespace ZeroInstall.Commands.CliCommands
         {
             if (Config.NetworkUse == NetworkLevel.Full && !FeedManager.Refresh)
             {
-                // Temporarily change configuration to prefer cached implementations (we download updates in the background later on)
+                Log.Info("Minimal-network Solve for faster startup");
                 Config.NetworkUse = NetworkLevel.Minimal;
 
                 try
@@ -175,10 +176,16 @@ namespace ZeroInstall.Commands.CliCommands
             return null;
         }
 
+        /// <summary>
+        /// Updates the application in a background proccess.
+        /// </summary>
         private void BackgroundUpdate()
         {
             if (FeedManager.ShouldRefresh)
+            {
+                Log.Info("Starting background update because feeds have become stale");
                 RunCommandBackground(Update.Name, Requirements.ToCommandLineArgs().Append("--batch").ToArray());
+            }
         }
         #endregion
     }

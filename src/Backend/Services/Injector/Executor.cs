@@ -73,6 +73,7 @@ namespace ZeroInstall.Services.Injector
             var startInfo = GetStartInfo(selections, arguments);
             try
             {
+                Log.Info("Launching application: " + startInfo.FileName.EscapeArgument() + " " + startInfo.Arguments + " (+ environment variables)");
                 return Process.Start(startInfo);
             }
                 #region Error handling

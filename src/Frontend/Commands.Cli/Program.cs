@@ -69,7 +69,10 @@ namespace ZeroInstall.Commands.Cli
             catch (NeedGuiException ex)
             {
                 if (WindowsUtils.IsWindows)
+                {
+                    Log.Info("Switching to GUI");
                     return (ExitCode)ProcessUtils.RunAssembly("0install-win", args.JoinEscapeArguments());
+                }
                 else
                 {
                     Log.Error(ex);

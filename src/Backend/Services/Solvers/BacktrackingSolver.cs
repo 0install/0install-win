@@ -18,6 +18,7 @@
 using System;
 using System.Linq;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Services.PackageManagers;
@@ -75,6 +76,8 @@ namespace ZeroInstall.Services.Solvers
             if (requirements == null) throw new ArgumentNullException("requirements");
             if (requirements.InterfaceUri == null) throw new ArgumentException(Resources.MissingInterfaceUri, "requirements");
             #endregion
+
+            Log.Info("Running Backtracking Solver for: " + requirements);
 
             var effectiveRequirements = requirements.GetEffective();
             var candidateProvider = new SelectionCandidateProvider(_config, _feedManager, _store, _packageManager);

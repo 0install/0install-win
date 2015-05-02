@@ -83,9 +83,14 @@ namespace ZeroInstall.DesktopIntegration
             MachineWide = machineWide;
             AppListPath = appListPath;
 
-            if (File.Exists(AppListPath)) AppList = XmlStorage.LoadXml<AppList>(AppListPath);
+            if (File.Exists(AppListPath))
+            {
+                Log.Debug("Loading AppList from: " + AppListPath);
+                AppList = XmlStorage.LoadXml<AppList>(AppListPath);
+            }
             else
             {
+                Log.Debug("Creating new AppList: " + AppListPath);
                 AppList = new AppList();
                 AppList.SaveXml(AppListPath);
             }
@@ -110,9 +115,14 @@ namespace ZeroInstall.DesktopIntegration
 
             AppListPath = AppList.GetDefaultPath(machineWide);
 
-            if (File.Exists(AppListPath)) AppList = XmlStorage.LoadXml<AppList>(AppListPath);
+            if (File.Exists(AppListPath))
+            {
+                Log.Debug("Loading AppList from: " + AppListPath);
+                AppList = XmlStorage.LoadXml<AppList>(AppListPath);
+            }
             else
             {
+                Log.Debug("Creating new AppList: " + AppListPath);
                 AppList = new AppList();
                 AppList.SaveXml(AppListPath);
             }
@@ -346,11 +356,12 @@ namespace ZeroInstall.DesktopIntegration
         {
             try
             {
+                Log.Debug("Saving AppList to: " + AppListPath);
                 AppList.SaveXml(AppListPath);
             }
             catch (IOException)
             {
-                // Bypass race conditions where another thread is reading an old version of the list while we are trying to write a new one
+                Log.Info("Race condition encountered while saving AppList. Waiting for a moment and then retrying.");
                 Thread.Sleep(_random.Next(250, 1500));
                 AppList.SaveXml(AppListPath);
             }

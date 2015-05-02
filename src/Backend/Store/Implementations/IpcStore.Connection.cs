@@ -25,6 +25,7 @@ using System.Runtime.Remoting.Channels.Ipc;
 using System.Runtime.Serialization.Formatters;
 using System.Security.AccessControl;
 using System.Security.Principal;
+using NanoByte.Common;
 
 namespace ZeroInstall.Store.Implementations
 {
@@ -83,6 +84,8 @@ namespace ZeroInstall.Store.Implementations
         /// <remarks>Must only be called once per process!</remarks>
         private static IStore CreateServiceProxy()
         {
+            Log.Debug("Attempting to connect to Store Service");
+
             // IPC channel for accessing the server
             ChannelServices.RegisterChannel(new IpcClientChannel(
                 new Hashtable

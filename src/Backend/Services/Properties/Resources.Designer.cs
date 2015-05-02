@@ -329,15 +329,6 @@ namespace ZeroInstall.Services.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Falling back to secondary solver for {0}. Primary solver reported:.
-        /// </summary>
-        internal static string SolverFallback {
-            get {
-                return ResourceManager.GetString("SolverFallback", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The solver encountered an unexpected problem..
         /// </summary>
         internal static string SolverProblem {

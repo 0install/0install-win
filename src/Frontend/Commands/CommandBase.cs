@@ -169,8 +169,15 @@ namespace ZeroInstall.Commands
         /// </summary>
         protected void SelfUpdateCheck()
         {
-            if (!SelfUpdateUtils.NoAutoCheck && !SelfUpdateUtils.IsBlocked && Config.NetworkUse == NetworkLevel.Full && FeedManager.IsStale(Config.SelfUpdateUri))
-                RunCommandBackground(SelfUpdate.Name);
+            if (!SelfUpdateUtils.NoAutoCheck && !SelfUpdateUtils.IsBlocked && Config.NetworkUse == NetworkLevel.Full)
+            {
+                Log.Debug("Determining whether self-update check is due");
+                if (FeedManager.IsStale(Config.SelfUpdateUri))
+                {
+                    Log.Info("Starting periodic background self-update check");
+                    RunCommandBackground(SelfUpdate.Name);
+                }
+            }
         }
 
         /// <summary>
