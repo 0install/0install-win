@@ -29,7 +29,6 @@ namespace ZeroInstall.Store.ViewModel
     /// </summary>
     public sealed class OrphanedImplementationNode : ImplementationNode
     {
-        #region Dependencies
         /// <summary>
         /// Creates a new orphaned implementation node.
         /// </summary>
@@ -41,7 +40,6 @@ namespace ZeroInstall.Store.ViewModel
         public OrphanedImplementationNode(ManifestDigest digest, [NotNull] IStore store)
             : base(digest, store)
         {}
-        #endregion
 
         /// <inheritdoc/>
         public override string Name { get { return Resources.UnknownInterface + "\\" + Digest + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }

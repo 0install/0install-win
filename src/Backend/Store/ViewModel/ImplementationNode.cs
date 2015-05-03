@@ -32,9 +32,6 @@ namespace ZeroInstall.Store.ViewModel
     /// </summary>
     public abstract class ImplementationNode : StoreNode
     {
-        #region Dependencies
-        private readonly ManifestDigest _digest;
-
         /// <summary>
         /// Creates a new implementation node.
         /// </summary>
@@ -58,22 +55,24 @@ namespace ZeroInstall.Store.ViewModel
             string manifestPath = System.IO.Path.Combine(path, Manifest.ManifestFile);
             Size = Manifest.Load(manifestPath, ManifestFormat.FromPrefix(digest.AvailableDigests.FirstOrDefault())).TotalSize;
         }
-        #endregion
 
-        /// <inheritdoc/>
-        public override string Path { get { return Store.GetPath(_digest); } }
+        private readonly ManifestDigest _digest;
 
         /// <summary>
         /// The digest identifying the implementation in the store.
         /// </summary>
         [Description("The digest identifying the implementation in the store.")]
-        public string Digest { get { return _digest.AvailableDigests.FirstOrDefault(); } }
+        [NotNull]
+        public string Digest { get { return _digest.AvailableDigests.First(); } }
 
         /// <summary>
         /// The total size of the implementation in bytes.
         /// </summary>
-        [Browsable(false)]
+        [Description("The total size of the implementation in bytes.")]
         public long Size { get; private set; }
+
+        /// <inheritdoc/>
+        public override string Path { get { return Store.GetPath(_digest); } }
 
         /// <summary>
         /// Deletes this implementation from the <see cref="IStore"/> it is located in.
@@ -105,6 +104,14 @@ namespace ZeroInstall.Store.ViewModel
         public void Verify([NotNull] ITaskHandler handler)
         {
             Store.Verify(_digest, handler);
+        }
+
+        /// <summary>
+        /// Returns the Node in the form "Digest". Safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            return Digest;
         }
     }
 }

@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using NanoByte.Common;
@@ -27,12 +28,18 @@ namespace ZeroInstall.Store.ViewModel
     /// Models information about elements in a cache for display in a UI.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for INamed sorting")]
-    public abstract class CacheNode : Node, INamed<CacheNode>
+    public abstract class CacheNode : INamed<CacheNode>, IEquatable<CacheNode>
     {
+        /// <summary>
+        /// The UI path name of this node. Uses a backslash as the separator in hierarchical names.
+        /// </summary>
+        [Browsable(false)]
+        public virtual string Name { get; set; }
+
         /// <summary>
         /// A counter that can be used to prevent naming collisions.
         /// </summary>
-        /// <remarks>If this value is not zero it is appended to the <see cref="Node.Name"/>.</remarks>
+        /// <remarks>If this value is not zero it is appended to the <see cref="Name"/>.</remarks>
         public int SuffixCounter;
 
         /// <summary>
@@ -42,6 +49,31 @@ namespace ZeroInstall.Store.ViewModel
         /// <exception cref="IOException">The element could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the cache is not permitted.</exception>
         public abstract void Delete();
+
+        #region Equality
+        /// <inheritdoc/>
+        public bool Equals(CacheNode other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Name == other.Name;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((CacheNode)obj);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return (Name != null ? Name.GetHashCode() : 0);
+        }
+        #endregion
 
         #region Comparison
         /// <inheritdoc/>

@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using JetBrains.Annotations;
+using NanoByte.Common.Values.Design;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Model;
 
@@ -29,53 +30,71 @@ namespace ZeroInstall.Store.ViewModel
     /// </summary>
     public sealed class OwnedImplementationNode : ImplementationNode
     {
-        #region Dependencies
-        private readonly FeedNode _iface;
+        [NotNull]
         private readonly Implementation _implementation;
+
+        [NotNull]
+        private readonly FeedNode _parent;
 
         /// <summary>
         /// Creates a new owned implementation node.
         /// </summary>
         /// <param name="digest">The digest identifying the implementation.</param>
         /// <param name="implementation">Information about the implementation from a <see cref="Feed"/> file.</param>
-        /// <param name="iface">The node of the interface owning the implementation.</param>
+        /// <param name="parent">The node of the feed owning the implementation.</param>
         /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
         /// <exception cref="FormatException">The manifest file is not valid.</exception>
         /// <exception cref="IOException">The manifest file could not be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the file is not permitted.</exception>
-        public OwnedImplementationNode(ManifestDigest digest, [NotNull] Implementation implementation, [NotNull] FeedNode iface, [NotNull] IStore store)
+        public OwnedImplementationNode(ManifestDigest digest, [NotNull] Implementation implementation, [NotNull] FeedNode parent, [NotNull] IStore store)
             : base(digest, store)
         {
             #region Sanity checks
             if (implementation == null) throw new ArgumentNullException("implementation");
-            if (iface == null) throw new ArgumentNullException("iface");
+            if (parent == null) throw new ArgumentNullException("parent");
             if (store == null) throw new ArgumentNullException("store");
             #endregion
 
-            _iface = iface;
+            _parent = parent;
             _implementation = implementation;
         }
-        #endregion
 
         /// <inheritdoc/>
-        public override string Name { get { return _iface.Name + "\\" + Version + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
+        public override string Name { get { return _parent.Name + "\\" + Version + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
+
+        /// <summary>
+        /// The URI of the feed describing the implementation.
+        /// </summary>
+        [Description("The URI of the feed describing the implementation.")]
+        public FeedUri FeedUri { get { return _parent.Uri; } }
 
         /// <summary>
         /// The version number of the implementation.
         /// </summary>
         [Description("The version number of the implementation.")]
+        [NotNull]
         public ImplementationVersion Version { get { return _implementation.Version; } }
 
         /// <summary>
         /// The version number of the implementation.
         /// </summary>
         [Description("The version number of the implementation.")]
+        [TypeConverter(typeof(StringConstructorConverter<Architecture>))]
         public Architecture Architecture { get { return _implementation.Architecture; } }
 
         /// <summary>
         /// A unique identifier for the implementation. Used when storing implementation-specific user preferences.
         /// </summary>
         [Description("A unique identifier for the implementation. Used when storing implementation-specific user preferences.")]
+        [NotNull]
         public string ID { get { return _implementation.ID; } }
+
+        /// <summary>
+        /// Returns the Node in the form "Digest URI Version Architecture". Safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            return Digest + " " + _parent.Uri.ToStringRfc() + " " + Version + " " + Architecture;
+        }
     }
 }

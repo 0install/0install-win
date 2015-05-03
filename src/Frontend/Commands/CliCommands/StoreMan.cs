@@ -32,6 +32,7 @@ using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
+using ZeroInstall.Store.ViewModel;
 
 namespace ZeroInstall.Commands.CliCommands
 {
@@ -221,9 +222,22 @@ namespace ZeroInstall.Commands.CliCommands
 
         private void ListImplementations()
         {
-            if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
+            if (AdditionalArgs.Count > 2) throw new OptionException(Resources.TooManyArguments, "");
 
-            Handler.Output(Resources.CachedImplementations, Store.ListAll());
+            var nodeBuilder = new CacheNodeBuilder(Store, FeedCache);
+            nodeBuilder.Run();
+
+            if (AdditionalArgs.Count == 2)
+            {
+                var uri = GetCanonicalUri(AdditionalArgs[1]);
+                var nodes = nodeBuilder.Nodes.OfType<OwnedImplementationNode>().Where(x => x.FeedUri == uri);
+                Handler.Output(Resources.CachedImplementations, nodes);
+            }
+            else
+            {
+                var nodes = nodeBuilder.Nodes.OfType<ImplementationNode>();
+                Handler.Output(Resources.CachedImplementations, nodes);
+            }
         }
 
         private void Optimise()

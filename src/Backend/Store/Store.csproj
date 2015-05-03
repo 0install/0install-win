@@ -243,7 +243,6 @@
     <Compile Include="ViewModel\CacheNodeBuilder.cs" />
     <Compile Include="ViewModel\FeedNode.cs" />
     <Compile Include="ViewModel\ImplementationNode.cs" />
-    <Compile Include="ViewModel\Node.cs" />
     <Compile Include="ViewModel\OrphanedImplementationNode.cs" />
     <Compile Include="ViewModel\OwnedImplementationNode.cs" />
     <Compile Include="ViewModel\StoreNode.cs" />

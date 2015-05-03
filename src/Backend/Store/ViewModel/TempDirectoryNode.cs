@@ -29,9 +29,6 @@ namespace ZeroInstall.Store.ViewModel
     /// </summary>
     public sealed class TempDirectoryNode : StoreNode
     {
-        #region Dependencies
-        private readonly string _path;
-
         /// <summary>
         /// Creates a new temporary directory node.
         /// </summary>
@@ -49,10 +46,11 @@ namespace ZeroInstall.Store.ViewModel
 
             _path = path;
         }
-        #endregion
 
         /// <inheritdoc/>
         public override string Name { get { return Resources.TemporaryDirectories + "\\" + System.IO.Path.GetFileName(_path) + (SuffixCounter == 0 ? "" : " " + SuffixCounter); } set { throw new NotSupportedException(); } }
+
+        private readonly string _path;
 
         /// <inheritdoc/>
         public override string Path { get { return _path; } }

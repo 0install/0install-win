@@ -26,7 +26,6 @@ namespace ZeroInstall.Store.ViewModel
     /// </summary>
     public abstract class StoreNode : CacheNode
     {
-        #region Dependencies
         /// <summary>The store containing the element.</summary>
         [NotNull]
         protected readonly IStore Store;
@@ -39,7 +38,6 @@ namespace ZeroInstall.Store.ViewModel
         {
             Store = store;
         }
-        #endregion
 
         /// <summary>
         /// The file system path of the element.

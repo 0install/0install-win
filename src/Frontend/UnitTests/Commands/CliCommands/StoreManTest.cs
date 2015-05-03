@@ -17,12 +17,14 @@
 
 using System.Globalization;
 using System.IO;
+using Moq;
 using NanoByte.Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Implementations.Archives;
 using ZeroInstall.Store.Model;
+using ZeroInstall.Store.ViewModel;
 
 namespace ZeroInstall.Commands.CliCommands
 {
@@ -210,12 +212,24 @@ namespace ZeroInstall.Commands.CliCommands
         [Test]
         public void TestListImplementations()
         {
-            var digest1 = new ManifestDigest(sha256New: "1");
+            var testFeed = FeedTest.CreateTestFeed();
+            var testImplementation = (Implementation)testFeed.Elements[0];
+            var digest1 = testImplementation.ManifestDigest;
             var digest2 = new ManifestDigest(sha256New: "2");
-            StoreMock.Setup(x => x.ListAll()).Returns(new[] {digest1, digest2});
 
-            RunAndAssert(new[] {digest1, digest2}, ExitCode.OK,
-                "list-implementations");
+            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
+            {
+                FeedCacheMock.Setup(x => x.ListAll()).Returns(new[] {testFeed.Uri});
+                FeedCacheMock.Setup(x => x.GetFeed(testFeed.Uri)).Returns(testFeed);
+                StoreMock.Setup(x => x.ListAll()).Returns(new[] {digest1, digest2});
+                StoreMock.Setup(x => x.ListAllTemp()).Returns(new string[0]);
+                StoreMock.Setup(x => x.GetPath(It.IsAny<ManifestDigest>())).Returns(tempDir);
+                FileUtils.Touch(Path.Combine(tempDir, ".manifest"));
+
+                var feedNode = new FeedNode(testFeed, Target.FeedCache);
+                RunAndAssert(new ImplementationNode[] {new OwnedImplementationNode(digest1, testImplementation, feedNode, Target.Store), new OrphanedImplementationNode(digest2, Target.Store)}, ExitCode.OK,
+                    "list-implementations");
+            }
         }
 
         [Test]

@@ -34,7 +34,6 @@ namespace ZeroInstall.Store.ViewModel
     /// </summary>
     public sealed class FeedNode : CacheNode
     {
-        #region Dependencies
         private readonly IFeedCache _cache;
         private readonly Feed _feed;
 
@@ -53,7 +52,6 @@ namespace ZeroInstall.Store.ViewModel
             _cache = cache;
             _feed = feed;
         }
-        #endregion
 
         /// <inheritdoc/>
         public override string Name
@@ -76,24 +74,28 @@ namespace ZeroInstall.Store.ViewModel
         /// The URI indentifying this feed.
         /// </summary>
         [Description("The URI indentifying this feed.")]
+        [NotNull]
         public FeedUri Uri { get { return _feed.Uri; } }
 
         /// <summary>
         /// The main website of the application.
         /// </summary>
         [Description("The main website of the application.")]
+        [CanBeNull]
         public Uri Homepage { get { return _feed.Homepage; } }
 
         /// <summary>
         /// A short one-line description of the application.
         /// </summary>
         [Description("A short one-line description of the application.")]
+        [CanBeNull]
         public string Summary { get { return _feed.GetBestSummary(CultureInfo.CurrentUICulture); } }
 
         /// <summary>
         /// A comma-separated list of categories the applications fits into.
         /// </summary>
         [Description("A comma-separated list of categories the applications fits into.")]
+        [NotNull]
         public string Categories { get { return StringUtils.Join(",", _feed.Categories.Select(x => x.Name)); } }
 
         /// <summary>
