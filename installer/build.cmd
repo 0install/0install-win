@@ -26,9 +26,9 @@ cd /d "%~dp0"
 if errorlevel 1 pause
 
 
-if "%1"=="+run" "%~dp0..\build\Installer\zero-install.exe" /silent
-if "%2"=="+run" "%~dp0..\build\Installer\zero-install.exe" /silent
-if "%3"=="+run" "%~dp0..\build\Installer\zero-install.exe" /silent
-if "%4"=="+run" "%~dp0..\build\Installer\zero-install.exe" /silent
+if "%1"=="+run" "%~dp0..\build\Installer\zero-install.exe" /silent /mergetasks=!desktopicon,!ngen
+if "%2"=="+run" "%~dp0..\build\Installer\zero-install.exe" /silent /mergetasks=!desktopicon,!ngen
+if "%3"=="+run" "%~dp0..\build\Installer\zero-install.exe" /silent /mergetasks=!desktopicon,!ngen
+if "%4"=="+run" "%~dp0..\build\Installer\zero-install.exe" /silent /mergetasks=!desktopicon,!ngen
 
 :end

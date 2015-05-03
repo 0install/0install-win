@@ -276,7 +276,7 @@ namespace ZeroInstall.Updater
 
             foreach (string assembly in _ngenAssemblies)
             {
-                string arguments = new[] {"install", Path.Combine(Target, assembly), "/queue"}.JoinEscapeArguments();
+                string arguments = new[] {"install", Path.Combine(Target, assembly)}.JoinEscapeArguments();
                 var startInfo = new ProcessStartInfo(ngenPath, arguments) {WindowStyle = ProcessWindowStyle.Hidden};
                 using (var process = Process.Start(startInfo))
                     process.WaitForExit();

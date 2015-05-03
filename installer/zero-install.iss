@@ -21,12 +21,12 @@ appname=Zero Install
 win2000sp4_title=Windows 2000 Service Pack 4
 winxpsp2_title=Windows XP Service Pack 2
 
-en.compile_netfx=Pre-compiling .NET assemblies for faster application startup...
+en.compile_netfx=Pre-compile .NET assemblies for faster application startup
 en.DesktopIcon=Create desktop icon
 en.StoreService=Install Store service (share app files between users)
 
 de.DesktopIcon=Desktopsymbol erstellen
-de.compile_netfx=.NET Assemblies zum schnelleren Anwendugsstart vorkompilieren...
+de.compile_netfx=.NET Assemblies zum schnelleren Anwendugsstart vorkompilieren
 de.StoreService=Store Dienst installieren (Anwendungsdateien zwischen Benutzern teilen)
 
 [Setup]
@@ -112,6 +112,7 @@ Name: {app}\de\ZeroInstall.Model.resources.dll; Type: files
 [Tasks]
 Name: desktopicon; Description: {cm:DesktopIcon}
 #ifndef PerUser
+  Name: ngen; Description: {cm:compile_netfx}
   Name: storeservice; Description: {cm:StoreService}
 #endif
 
@@ -121,8 +122,19 @@ Name: {commondesktop}\Zero Install; Filename: {app}\ZeroInstall.exe; Tasks: desk
 
 [Run]
 #ifndef PerUser
+  ;Note: Can't use {dotnet40} because that shows an error message if we only have .NET 2.0 installed
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: install ZeroInstall.exe; WorkingDir: {app}; Flags: runhidden skipifdoesntexist; Tasks: ngen; StatusMsg: {cm:compile_netfx}
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: install 0install.exe; WorkingDir: {app}; Flags: runhidden skipifdoesntexist; Tasks: ngen; StatusMsg: {cm:compile_netfx}
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: install 0install-win.exe; WorkingDir: {app}; Flags: runhidden skipifdoesntexist; Tasks: ngen; StatusMsg: {cm:compile_netfx}
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: install 0launch.exe; WorkingDir: {app}; Flags: runhidden skipifdoesntexist; Tasks: ngen; StatusMsg: {cm:compile_netfx}
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: install 0alias.exe; WorkingDir: {app}; Flags: runhidden skipifdoesntexist; Tasks: ngen; StatusMsg: {cm:compile_netfx}
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: install 0store.exe; WorkingDir: {app}; Flags: runhidden skipifdoesntexist; Tasks: ngen; StatusMsg: {cm:compile_netfx}
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: install 0store-service.exe; WorkingDir: {app}; Flags: runhidden skipifdoesntexist; Tasks: ngen; StatusMsg: {cm:compile_netfx}
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: install ZeroInstall.Store.XmlSerializers.dll; WorkingDir: {app}; Flags: runhidden skipifdoesntexist; Tasks: ngen; StatusMsg: {cm:compile_netfx}
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: install ZeroInstall.DesktopIntegration.XmlSerializers.dll; WorkingDir: {app}; Flags: runhidden skipifdoesntexist; Tasks: ngen; StatusMsg: {cm:compile_netfx}
+
   Filename: {app}\0store-service.exe; Parameters: install --silent; Tasks: storeservice
-  Filename: {app}\0store-service.exe; Parameters: start --silent
+  Filename: {app}\0store-service.exe; Parameters: start --silent; Tasks: storeservice
 #endif
 Filename: {app}\ZeroInstall.exe; Description: {cm:LaunchProgram,Zero Install}; Flags: nowait postinstall runasoriginaluser skipifsilent
 
@@ -131,6 +143,17 @@ Filename: {app}\0install-win.exe; Parameters: remove-all; RunOnceId: RemoveAllAp
 Filename: {app}\0install-win.exe; Parameters: store purge; RunOnceId: PurgeCache
 #ifndef PerUser
   Filename: {app}\0store-service.exe; Parameters: uninstall --silent; RunOnceId: UninstallService
+
+  ;Note: Can't use {dotnet40} because that shows an error message if we only have .NET 2.0 installed
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: uninstall ZeroInstall.exe; WorkingDir: {app}; Flags: runhidden skipifdoesntexist
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: uninstall 0install.exe; WorkingDir: {app}; Flags: runhidden skipifdoesntexist
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: uninstall 0install-win.exe; WorkingDir: {app}; Flags: runhidden skipifdoesntexist
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: uninstall 0launch.exe; WorkingDir: {app}; Flags: runhidden skipifdoesntexist
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: uninstall 0alias.exe; WorkingDir: {app}; Flags: runhidden skipifdoesntexist
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: uninstall 0store.exe; WorkingDir: {app}; Flags: runhidden skipifdoesntexist
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: uninstall 0store-service.exe; WorkingDir: {app}; Flags: runhidden skipifdoesntexist
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: uninstall ZeroInstall.Store.XmlSerializers.dll; WorkingDir: {app}; Flags: runhidden skipifdoesntexist
+  Filename: "{reg:HKLM\SOFTWARE\Microsoft\.NETFramework,InstallRoot}\v4.0.30319\ngen.exe"; Parameters: uninstall ZeroInstall.DesktopIntegration.XmlSerializers.dll; WorkingDir: {app}; Flags: runhidden skipifdoesntexist
 #endif
 
 [UninstallDelete]
