@@ -35,29 +35,12 @@ namespace ZeroInstall.Central.Gtk
         public const string ExeName = "ZeroInstall-gtk";
 
         /// <summary>
-        /// The application user model ID used by the Windows 7 taskbar. Encodes <see cref="Locations.InstallBase"/> and the name of this sub-app.
-        /// </summary>
-        public static readonly string AppUserModelID = "ZeroInstall." + Locations.InstallBase.GetHashCode() + ".Central";
-
-        /// <summary>
         /// The main entry point for the application.
         /// </summary>s
         private static int Main(string[] args)
         {
-            WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
+            ProgramUtils.Init();
             Application.Init();
-
-            // Encode installation path into mutex name to allow instance detection during updates
-            string mutexName = "mutex-" + Locations.InstallBase.GetHashCode();
-            if (AppMutex.Probe(mutexName + "-update")) return 99;
-            AppMutex.Create(mutexName);
-
-            // Allow setup to detect Zero Install instances
-#if !DEBUG
-            AppMutex.Create("Zero Install");
-#endif
-
-            ProgramUtils.Startup();
             return Run(args);
         }
 

@@ -21,7 +21,6 @@ using System.Net;
 using System.Text;
 using NanoByte.Common;
 using NanoByte.Common.Native;
-using NanoByte.Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -47,17 +46,7 @@ namespace ZeroInstall.Commands.Cli
         /// </summary>
         private static int Main(string[] args)
         {
-            // Encode installation path into mutex name to allow instance detection during updates
-            string mutexName = "mutex-" + Locations.InstallBase.GetHashCode();
-            if (AppMutex.Probe(mutexName + "-update")) return 99;
-            AppMutex.Create(mutexName);
-
-            // Allow setup to detect Zero Install instances
-#if !DEBUG
-            AppMutex.Create("Zero Install");
-#endif
-
-            ProgramUtils.Startup();
+            ProgramUtils.Init();
             return (int)Run(args);
         }
 

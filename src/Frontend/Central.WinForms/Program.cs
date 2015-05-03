@@ -54,23 +54,11 @@ namespace ZeroInstall.Central.WinForms
         [STAThread] // Required for WinForms
         private static int Main(string[] args)
         {
+            ProgramUtils.Init();
             WindowsUtils.SetCurrentProcessAppID(AppUserModelID);
-
-            // Encode installation path into mutex name to allow instance detection during updates
-            string mutexName = "mutex-" + Locations.InstallBase.GetHashCode();
-            if (AppMutex.Probe(mutexName + "-update")) return 99;
-            AppMutex.Create(mutexName);
-
-            // Allow setup to detect Zero Install instances
-#if !DEBUG
-            AppMutex.Create("Zero Install");
-#endif
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ErrorReportForm.SetupMonitoring(new Uri("https://0install.de/error-report/"));
-
-            ProgramUtils.Startup();
             return Run(args);
         }
 

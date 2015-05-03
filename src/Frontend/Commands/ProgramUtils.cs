@@ -32,10 +32,20 @@ namespace ZeroInstall.Commands
     public static class ProgramUtils
     {
         /// <summary>
-        /// Common initialization code to be called by every Frontend executable after start.
+        /// Common initialization code to be called by every Frontend executable right after startup.
         /// </summary>
-        public static void Startup()
+        public static void Init()
         {
+            // Encode installation path into mutex name to allow instance detection during updates
+            string mutexName = "mutex-" + Locations.InstallBase.GetHashCode();
+            if (AppMutex.Probe(mutexName + "-update")) Environment.Exit(999);
+            AppMutex.Create(mutexName);
+
+#if !DEBUG
+            // Allow setup to detect Zero Install instances
+            AppMutex.Create("Zero Install");
+#endif
+
             if (WindowsUtils.IsWindows && !Locations.IsPortable && !StoreUtils.PathInAStore(Locations.InstallBase))
             {
                 try
