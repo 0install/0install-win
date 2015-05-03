@@ -38,7 +38,7 @@ namespace ZeroInstall.Store.Feeds
         private readonly IFeedCache _backingCache;
 
         /// <summary>The in-memory cache for storing parsed <see cref="Feed"/>s.</summary>
-        private readonly Dictionary<FeedUri, Feed> _feedDictionary = new Dictionary<FeedUri, Feed>();
+        private readonly Dictionary<string, Feed> _feedDictionary = new Dictionary<string, Feed>();
         #endregion
 
         #region Constructor
@@ -82,17 +82,18 @@ namespace ZeroInstall.Store.Feeds
             if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
 
+            string key = feedUri.Escape();
             lock (_feedDictionary)
             {
-                if (!_feedDictionary.ContainsKey(feedUri))
+                if (!_feedDictionary.ContainsKey(key))
                 { // Add to memory cache if missing
                     Feed feed = _backingCache.GetFeed(feedUri);
-                    _feedDictionary.Add(feedUri, feed);
+                    _feedDictionary.Add(key, feed);
                     return feed;
                 }
 
                 // Get from memory cache
-                return _feedDictionary[feedUri];
+                return _feedDictionary[key];
             }
         }
 
@@ -118,10 +119,12 @@ namespace ZeroInstall.Store.Feeds
             // Add to memory cache (replacing existing old versions)
             var feed = XmlStorage.LoadXml<Feed>(new MemoryStream(data));
             feed.Normalize(feedUri);
+
+            string key = feedUri.Escape();
             lock (_feedDictionary)
             {
-                _feedDictionary.Remove(feedUri);
-                _feedDictionary.Add(feedUri, feed);
+                _feedDictionary.Remove(key);
+                _feedDictionary.Add(key, feed);
             }
         }
         #endregion
@@ -134,11 +137,10 @@ namespace ZeroInstall.Store.Feeds
             if (feedUri == null) throw new ArgumentNullException("feedUri");
             #endregion
 
+            // Remove from memory cache
+            string key = feedUri.Escape();
             lock (_feedDictionary)
-            {
-                // Remove from memory cache
-                _feedDictionary.Remove(feedUri);
-            }
+                _feedDictionary.Remove(key);
 
             // Remove from underlying cache
             _backingCache.Remove(feedUri);
