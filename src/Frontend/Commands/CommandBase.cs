@@ -169,7 +169,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         protected void SelfUpdateCheck()
         {
-            if (!SelfUpdateUtils.NoAutoCheck && !SelfUpdateUtils.IsBlocked && Config.NetworkUse == NetworkLevel.Full)
+            if (!SelfUpdateUtils.NoAutoCheck && !SelfUpdateUtils.IsBlocked && Config.NetworkUse == NetworkLevel.Full && Handler.Verbosity != Verbosity.Batch)
             {
                 Log.Debug("Determining whether self-update check is due");
                 if (FeedManager.IsStale(Config.SelfUpdateUri))
