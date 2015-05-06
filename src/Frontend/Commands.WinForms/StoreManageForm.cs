@@ -40,7 +40,7 @@ namespace ZeroInstall.Commands.WinForms
     /// <summary>
     /// Displays the content of caches (<see cref="IFeedCache"/> and <see cref="IStore"/>) in a combined tree view.
     /// </summary>
-    public sealed partial class StoreManageForm : Form, ITaskHandler
+    public sealed partial class StoreManageForm : Form
     {
         #region Variables
         private readonly IStore _store;
@@ -186,8 +186,11 @@ namespace ZeroInstall.Commands.WinForms
             {
                 try
                 {
-                    foreach (var node in _treeView.CheckedEntries.Select(x => x.BackingNode).ToList())
-                        node.Delete(this);
+                    using (var handler = new GuiTaskHandler(this))
+                    {
+                        foreach (var node in _treeView.CheckedEntries.Select(x => x.BackingNode).ToList())
+                            node.Delete(handler);
+                    }
                 }
                     #region Error handling
                 catch (OperationCanceledException)
@@ -217,8 +220,11 @@ namespace ZeroInstall.Commands.WinForms
         {
             try
             {
-                foreach (var entry in _treeView.CheckedEntries.Select(x => x.BackingNode).OfType<ImplementationNode>())
-                    entry.Verify(this);
+                using (var handler = new GuiTaskHandler(this))
+                {
+                    foreach (var entry in _treeView.CheckedEntries.Select(x => x.BackingNode).OfType<ImplementationNode>())
+                        entry.Verify(handler);
+                }
             }
                 #region Error handling
             catch (OperationCanceledException)
@@ -244,35 +250,6 @@ namespace ZeroInstall.Commands.WinForms
         private void buttonClose_Click(object sender, EventArgs e)
         {
             Close();
-        }
-        #endregion
-
-        #region ITaskHandler
-        /// <inheritdoc/>
-        public CancellationToken CancellationToken { get { return default(CancellationToken); } }
-
-        /// <inheritdoc/>
-        public Verbosity Verbosity { get; set; }
-
-        /// <inheritdoc/>
-        public void RunTask(ITask task)
-        {
-            using (var handler = new GuiTaskHandler(this)) handler.RunTask(task);
-        }
-
-        public bool Ask(string question)
-        {
-            return Msg.YesNo(this, question, MsgSeverity.Warn);
-        }
-
-        public void Output(string title, string message)
-        {
-            Msg.Inform(this, message, MsgSeverity.Info);
-        }
-
-        public void Output<T>(string title, IEnumerable<T> data)
-        {
-            OutputGridBox.Show(title, data);
         }
         #endregion
     }

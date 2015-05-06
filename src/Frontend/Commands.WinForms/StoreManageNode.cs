@@ -79,54 +79,60 @@ namespace ZeroInstall.Commands.WinForms
                 var implementationNode = storeNode as ImplementationNode;
                 if (implementationNode != null)
                 {
-                    menu.Add(new MenuItem(Resources.Verify, delegate
+                    using (var handler = new GuiTaskHandler(_manageForm))
                     {
-                        try
+                        menu.Add(new MenuItem(Resources.Verify, delegate
                         {
-                            implementationNode.Verify(_manageForm);
-                        }
-                            #region Error handling
-                        catch (OperationCanceledException)
-                        {}
-                        catch (IOException ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                        }
-                        catch (UnauthorizedAccessException ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                        }
-                        #endregion
+                            try
+                            {
+                                implementationNode.Verify(handler);
+                            }
+                                #region Error handling
+                            catch (OperationCanceledException)
+                            {}
+                            catch (IOException ex)
+                            {
+                                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                            }
+                            catch (UnauthorizedAccessException ex)
+                            {
+                                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                            }
+                            #endregion
 
-                        _manageForm.RefreshList();
-                    }));
+                            _manageForm.RefreshList();
+                        }));
+                    }
                 }
             }
 
             menu.Add(new MenuItem(Resources.Remove, delegate
             {
-                if (_manageForm.Ask(Resources.DeleteEntry))
+                using (var handler = new GuiTaskHandler(_manageForm))
                 {
-                    try
+                    if (handler.Ask(Resources.DeleteEntry))
                     {
-                        _manageForm.RunTask(new SimpleTask(Resources.DeletingImplementations, () => BackingNode.Delete(_manageForm)));
-                    }
-                        #region Error handling
-                    catch (KeyNotFoundException ex)
-                    {
-                        Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    }
-                    catch (IOException ex)
-                    {
-                        Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    }
-                    #endregion
+                        try
+                        {
+                            handler.RunTask(new SimpleTask(Resources.DeletingImplementations, () => BackingNode.Delete(handler)));
+                        }
+                            #region Error handling
+                        catch (KeyNotFoundException ex)
+                        {
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                        }
+                        catch (IOException ex)
+                        {
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                        }
+                        catch (UnauthorizedAccessException ex)
+                        {
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                        }
+                        #endregion
 
-                    _manageForm.RefreshList();
+                        _manageForm.RefreshList();
+                    }
                 }
             }));
 
