@@ -145,40 +145,20 @@ namespace ZeroInstall.Store.Implementations
             #endregion
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Does nothing. Should be handled by an <see cref="DirectoryStore"/> directly instead of using the service.
+        /// </summary>
         public bool Remove(ManifestDigest manifestDigest, ITaskHandler handler)
         {
-            try
-            {
-                var proxy = GetServiceProxy();
-                Log.Info("Using Store Service to remove implementation from cache");
-                return proxy.Remove(manifestDigest, handler);
-            }
-                #region Error handling
-            catch (RemotingException ex)
-            {
-                // Ignore remoting errors in case service is offline
-                Log.Debug(ex);
-                return false;
-            }
-            #endregion
+            return false;
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Does nothing. Should be handled by an <see cref="DirectoryStore"/> directly instead of using the service.
+        /// </summary>
         public long Optimise(ITaskHandler handler)
         {
-            try
-            {
-                return GetServiceProxy().Optimise(handler);
-            }
-                #region Error handling
-            catch (RemotingException ex)
-            {
-                // Ignore remoting errors in case service is offline
-                Log.Debug(ex);
-                return 0;
-            }
-            #endregion
+            return 0;
         }
 
         /// <summary>

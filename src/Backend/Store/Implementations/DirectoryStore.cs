@@ -503,6 +503,7 @@ namespace ZeroInstall.Store.Implementations
 
             string path = GetPath(manifestDigest);
             if (path == null) return false;
+            if (Kind == StoreKind.ReadOnly && !WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminToRemove);
 
             handler.RunTask(new SimpleTask(string.Format(Resources.DeletingImplementation, manifestDigest), () =>
             {
@@ -527,6 +528,7 @@ namespace ZeroInstall.Store.Implementations
             #endregion
 
             if (!Directory.Exists(DirectoryPath)) return 0;
+            if (Kind == StoreKind.ReadOnly && !WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminToOptimise);
 
             using (var run = new OptimiseRun(DirectoryPath))
             {

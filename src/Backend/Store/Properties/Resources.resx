@@ -254,6 +254,12 @@ If you are using a FAT-formatted drive please convert it to NTFS.</value>
   <data name="MissingPath" xml:space="preserve">
     <value>No path specified.</value>
   </data>
+  <data name="MustBeAdminToOptimise" xml:space="preserve">
+    <value>Only administrators can optimise a shared store.</value>
+  </data>
+  <data name="MustBeAdminToRemove" xml:space="preserve">
+    <value>Only administrators can remove elements from a shared store.</value>
+  </data>
   <data name="MustBeDottedList" xml:space="preserve">
     <value>The dot-separated list may only contain decimal numbers.</value>
   </data>

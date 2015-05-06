@@ -227,8 +227,6 @@ namespace ZeroInstall.Store.Service
         /// </summary>
         public override long Optimise(ITaskHandler handler)
         {
-            if (!WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminToOptimise);
-
             return 0;
         }
         #endregion

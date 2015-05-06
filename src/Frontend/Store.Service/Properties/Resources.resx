@@ -141,9 +141,6 @@
   <data name="InstallSuccess" xml:space="preserve">
     <value>Successfully installed the Zero Install Store Service.</value>
   </data>
-  <data name="MustBeAdminToOptimise" xml:space="preserve">
-    <value>Only administrators can optimise a shared store.</value>
-  </data>
   <data name="MustBeAdminToRemove" xml:space="preserve">
     <value>Only administrators can remove elements from a shared store.</value>
   </data>

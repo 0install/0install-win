@@ -254,6 +254,12 @@ Falls Sie ein FAT-formatiertes Laufwerk verwenden, konvertieren Sie es bitte zu 
   <data name="MissingPath" xml:space="preserve">
     <value>Kein Pfad angegeben.</value>
   </data>
+  <data name="MustBeAdminToOptimise" xml:space="preserve">
+    <value>Nur Administratoren können einen gemeinsam genutzen Store optimieren.</value>
+  </data>
+  <data name="MustBeAdminToRemove" xml:space="preserve">
+    <value>Nur Administratoren können Elemente aus einem gemeinsam genutzen Store entfernen.</value>
+  </data>
   <data name="MustBeDottedList" xml:space="preserve">
     <value>Die Punkt-getrennten Liste darf nur Dezimalzahlen enthalten.</value>
   </data>

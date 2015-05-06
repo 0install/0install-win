@@ -133,15 +133,6 @@ namespace ZeroInstall.Store.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only administrators can optimise a shared store..
-        /// </summary>
-        internal static string MustBeAdminToOptimise {
-            get {
-                return ResourceManager.GetString("MustBeAdminToOptimise", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Only administrators can remove elements from a shared store..
         /// </summary>
         internal static string MustBeAdminToRemove {
