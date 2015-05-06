@@ -287,6 +287,33 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The files you want to deleted are currently in use..
+        /// </summary>
+        internal static string FilesInUse {
+            get {
+                return ResourceManager.GetString("FilesInUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to close these applications and continue?.
+        /// </summary>
+        internal static string FilesInUseAskClose {
+            get {
+                return ResourceManager.GetString("FilesInUseAskClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following applications need to be closed:.
+        /// </summary>
+        internal static string FilesInUseInform {
+            get {
+                return ResourceManager.GetString("FilesInUseInform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finding duplicate files in &apos;{0}&apos;.
         /// </summary>
         internal static string FindingDuplicateFiles {
@@ -657,6 +684,15 @@ namespace ZeroInstall.Store.Properties {
         internal static string RemovingTempFiles {
             get {
                 return ResourceManager.GetString("RemovingTempFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Searching for open file references.
+        /// </summary>
+        internal static string RestartManagerSearch {
+            get {
+                return ResourceManager.GetString("RestartManagerSearch", resourceCulture);
             }
         }
         

@@ -199,6 +199,15 @@ Alternatively you can use the graphical user interface for managing the caches:
   <data name="FileMissingDest" xml:space="preserve">
     <value>A &lt;file&gt; tag is missing a destination attribute.</value>
   </data>
+  <data name="FilesInUse" xml:space="preserve">
+    <value>The files you want to deleted are currently in use.</value>
+  </data>
+  <data name="FilesInUseAskClose" xml:space="preserve">
+    <value>Do you want to close these applications and continue?</value>
+  </data>
+  <data name="FilesInUseInform" xml:space="preserve">
+    <value>The following applications need to be closed:</value>
+  </data>
   <data name="FindingDuplicateFiles" xml:space="preserve">
     <value>Finding duplicate files in '{0}'</value>
   </data>
@@ -326,6 +335,9 @@ You can delete the file '{1}' to fix the problem. Other settings may also be los
   </data>
   <data name="RemovingTempFiles" xml:space="preserve">
     <value>Removing temporary files</value>
+  </data>
+  <data name="RestartManagerSearch" xml:space="preserve">
+    <value>Searching for open file references</value>
   </data>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>A fully qualified/rooted path is required.</value>

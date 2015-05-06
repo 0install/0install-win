@@ -199,6 +199,15 @@ Alternativ können Sie auch die grafische Oberfläche zur Verwaltung der Caches 
   <data name="FileMissingDest" xml:space="preserve">
     <value>Einem &lt;file&gt; Tag fehlt ein Destination Attribut.</value>
   </data>
+  <data name="FilesInUse" xml:space="preserve">
+    <value>Die Dateien die Sie löschen möchten werden gerade verwendet.</value>
+  </data>
+  <data name="FilesInUseAskClose" xml:space="preserve">
+    <value>Möchten Sie diese Anwendungen beendet und fortfahren?</value>
+  </data>
+  <data name="FilesInUseInform" xml:space="preserve">
+    <value>Folgende Anwendungen müssen beendet werden:</value>
+  </data>
   <data name="FindingDuplicateFiles" xml:space="preserve">
     <value>Suche Dateiduplikate in '{0}'</value>
   </data>
@@ -326,6 +335,9 @@ Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen wom
   </data>
   <data name="RemovingTempFiles" xml:space="preserve">
     <value>Entferne temporäre Dateien</value>
+  </data>
+  <data name="RestartManagerSearch" xml:space="preserve">
+    <value>Suche nach offenen Dateirefernzen</value>
   </data>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>Ein vollständig qualifizierter/gewurzelter Pfad wird benötigt.</value>

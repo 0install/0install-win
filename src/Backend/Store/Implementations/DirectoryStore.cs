@@ -505,6 +505,8 @@ namespace ZeroInstall.Store.Implementations
             if (path == null) return false;
             if (Kind == StoreKind.ReadOnly && !WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminToRemove);
 
+            if (WindowsUtils.IsWindowsVista) UseRestartManager(path, handler);
+
             handler.RunTask(new SimpleTask(string.Format(Resources.DeletingImplementation, manifestDigest), () =>
             {
                 DisableWriteProtection(path);
@@ -516,6 +518,33 @@ namespace ZeroInstall.Store.Implementations
             }));
 
             return true;
+        }
+
+        /// <summary>
+        /// Ensures that there are no applications running with open file handles in <paramref name="path"/>.
+        /// </summary>
+        /// <returns>A Restart Manager session that is to be disposed once exclusive access to the directory is no longer required; may be <see langword="null"/>.</returns>
+        [CanBeNull]
+        private static void UseRestartManager(string path, ITaskHandler handler)
+        {
+            using (var restartManager = new WindowsRestartManager())
+            {
+                string[] apps = null;
+                handler.RunTask(new SimpleTask(Resources.RestartManagerSearch, () =>
+                {
+                    restartManager.RegisterResources(FileUtils.GetFilesRecursive(path));
+                    apps = restartManager.ListApps();
+                }));
+
+                if (apps.Length != 0)
+                {
+                    string appsList = string.Join(Environment.NewLine, apps);
+                    if (handler.Ask(Resources.FilesInUse + @" " + Resources.FilesInUseAskClose + Environment.NewLine + appsList,
+                        defaultAnswer: false, alternateMessage: Resources.FilesInUse + @" " + Resources.FilesInUseInform + Environment.NewLine + appsList))
+                        restartManager.ShutdownApps(handler);
+                    else throw new OperationCanceledException();
+                }
+            }
         }
         #endregion
 
