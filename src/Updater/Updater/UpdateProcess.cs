@@ -39,6 +39,9 @@ namespace ZeroInstall.Updater
     public class UpdateProcess
     {
         #region Variables
+        [CanBeNull]
+        private WindowsRestartManager _restartManager;
+
         /// <summary>A mutex that prevents Zero Install instances from being launched while an update is in progress.</summary>
         private AppMutex _blockingMutexOld, _blockingMutexNew;
         #endregion
@@ -109,6 +112,44 @@ namespace ZeroInstall.Updater
 
         //--------------------//
 
+        #region Restart Manager
+        public void RestartManagerShutdown()
+        {
+            if (!WindowsUtils.IsWindowsVista) return;
+
+            _restartManager = new WindowsRestartManager();
+            try
+            {
+                _restartManager.RegisterResources(GetFilesToWrite());
+                _restartManager.RegisterResources(GetFilesToDelete());
+                var apps = _restartManager.ListApps();
+                _restartManager.ShutdownApps(new SilentTaskHandler());
+            }
+                #region Error handling
+            catch
+            {
+                _restartManager.Dispose();
+                throw;
+            }
+            #endregion
+        }
+
+        public void RestartManagerRestart()
+        {
+            if (_restartManager == null) return;
+
+            _restartManager.RestartApps(new SilentTaskHandler());
+        }
+
+        public void RestartManagerFinish()
+        {
+            if (_restartManager == null) return;
+
+            _restartManager.Dispose();
+            _restartManager = null;
+        }
+        #endregion
+
         #region Mutex wait
         /// <summary>
         /// Waits for any Zero Install instances running in <see cref="Target"/> to terminate and then prevents new ones from starting.
@@ -148,8 +189,8 @@ namespace ZeroInstall.Updater
         /// </summary>
         public void MutexRelease()
         {
-            _blockingMutexOld.Close();
-            _blockingMutexNew.Close();
+            if (_blockingMutexOld != null) _blockingMutexOld.Close();
+            if (_blockingMutexNew != null) _blockingMutexNew.Close();
         }
         #endregion
 
@@ -183,6 +224,16 @@ namespace ZeroInstall.Updater
         #endregion
 
         #region Copy files
+        private string[] GetFilesToWrite()
+        {
+            var paths = new List<string>();
+
+            var source = new DirectoryInfo(Source);
+            source.Walk(fileAction: file => paths.Add(Path.Combine(Target, file.RelativeTo(source))));
+
+            return paths.ToArray();
+        }
+
         /// <summary>
         /// Copies the content of <see cref="Source"/> to <see cref="Target"/>.
         /// </summary>
@@ -204,13 +255,9 @@ namespace ZeroInstall.Updater
         #endregion
 
         #region Delete files
-        /// <summary>
-        /// Deletes obsolete files from <see cref="Target"/>.
-        /// </summary>
-        /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
-        public void DeleteFiles()
+        private string[] GetFilesToDelete()
         {
-            var filesToDelete = new List<string>();
+            var paths = new List<string>();
 
             string userProgams = Environment.GetFolderPath(Environment.SpecialFolder.Programs);
             string commonPrograms = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Programs");
@@ -222,11 +269,11 @@ namespace ZeroInstall.Updater
                     "0store-win.exe", "0store-win.exe.config", Path.Combine("de", "0store-win.resources.dll"),
                     "StoreService.exe", Path.Combine("de", "StoreService.resources.dll")
                 };
-                filesToDelete.AddRange(appFiles.Select(x => Path.Combine(Target, x)));
+                paths.AddRange(appFiles.Select(x => Path.Combine(Target, x)));
 
                 var shortcuts = new[] {"Cache management.lnk", "Cache Verwaltung.lnk"}.Select(x => Path.Combine("Zero Install", x)).ToArray();
-                filesToDelete.AddRange(shortcuts.Select(x => Path.Combine(userProgams, x)));
-                filesToDelete.AddRange(shortcuts.Select(x => Path.Combine(commonPrograms, x)));
+                paths.AddRange(shortcuts.Select(x => Path.Combine(userProgams, x)));
+                paths.AddRange(shortcuts.Select(x => Path.Combine(commonPrograms, x)));
             }
             if (NewVersion >= new Version("2.3.9"))
             {
@@ -239,7 +286,7 @@ namespace ZeroInstall.Updater
                     "ZeroInstall.Injector.dll", Path.Combine("de", "ZeroInstall.Injecto.resourcesr.dll"),
                     "ZeroInstall.Model.dll", "ZeroInstall.Model.XmlSerializers.dll", Path.Combine("de", "ZeroInstall.Model.resources.dll")
                 };
-                filesToDelete.AddRange(appFiles.Select(x => Path.Combine(Target, x)));
+                paths.AddRange(appFiles.Select(x => Path.Combine(Target, x)));
             }
             if (NewVersion >= new Version("2.5.2"))
             {
@@ -248,10 +295,19 @@ namespace ZeroInstall.Updater
                     "Common.dll", Path.Combine("de", "Common.resources.dll"),
                     "Common.WinForms.dll", Path.Combine("de", "Common.WinForms.resources.dll")
                 };
-                filesToDelete.AddRange(appFiles.Select(x => Path.Combine(Target, x)));
+                paths.AddRange(appFiles.Select(x => Path.Combine(Target, x)));
             }
 
-            foreach (string file in filesToDelete.Where(File.Exists))
+            return paths.Where(File.Exists).ToArray();
+        }
+
+        /// <summary>
+        /// Deletes obsolete files from <see cref="Target"/>.
+        /// </summary>
+        /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
+        public void DeleteFiles()
+        {
+            foreach (string file in GetFilesToDelete())
                 File.Delete(file);
         }
         #endregion

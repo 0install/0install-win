@@ -41,11 +41,6 @@ namespace ZeroInstall.Commands
             if (AppMutex.Probe(mutexName + "-update")) Environment.Exit(999);
             AppMutex.Create(mutexName);
 
-#if !DEBUG
-            // Allow setup to detect Zero Install instances
-            AppMutex.Create("Zero Install");
-#endif
-
             if (WindowsUtils.IsWindows && !Locations.IsPortable && !StoreUtils.PathInAStore(Locations.InstallBase))
             {
                 try

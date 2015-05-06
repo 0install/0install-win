@@ -75,11 +75,12 @@ namespace ZeroInstall.Updater.WinForms
         #region Background worker
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            SetStatus(Resources.MutexWait);
-            _updateProcess.MutexAquire();
-
             try
             {
+                SetStatus(Resources.MutexWait);
+                _updateProcess.RestartManagerShutdown();
+                _updateProcess.MutexAquire();
+
                 SetStatus(Resources.StopService);
                 bool serviceWasRunning = _updateProcess.StopService();
 
@@ -113,17 +114,20 @@ namespace ZeroInstall.Updater.WinForms
                 SetStatus(Resources.UpdateRegistry);
                 _updateProcess.UpdateRegistry();
 
-                _updateProcess.MutexRelease(); // Must release blocking mutexes before restarting the service
-                if (serviceWasRunning)
-                {
-                    SetStatus(Resources.StartService);
-                    _updateProcess.StartService();
-                }
+                SetStatus(Resources.StartService);
+                _updateProcess.MutexRelease();
+                _updateProcess.RestartManagerRestart();
+                _updateProcess.RestartManagerFinish();
+                if (serviceWasRunning) _updateProcess.StartService();
 
                 SetStatus(Resources.Done);
             }
             catch (UnauthorizedAccessException ex)
             {
+                // Release resources in case the child process needs them
+                _updateProcess.MutexRelease();
+                _updateProcess.RestartManagerFinish();
+
                 // Do not try to elevate endlessly
                 if (_rerun || WindowsUtils.IsAdministrator) throw;
 
@@ -131,7 +135,6 @@ namespace ZeroInstall.Updater.WinForms
                 Log.Warn(ex);
 
                 SetStatus(Resources.RerunElevated);
-                _updateProcess.MutexRelease(); // Must release blocking mutexes in case the child process needs them
                 RerunElevated();
 
                 SetStatus(Resources.Done);

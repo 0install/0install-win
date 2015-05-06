@@ -105,6 +105,8 @@ namespace ZeroInstall.Central.WinForms
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            WindowsUtils.RegisterApplicationRestart(_machineWide ? "--restart --machine" : "--restart");
+
             UpdateAppListAsync();
             _tileManagement.LoadCachedCatalog();
             LoadCatalogAsync();
@@ -123,6 +125,8 @@ namespace ZeroInstall.Central.WinForms
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            WindowsUtils.UnregisterApplicationRestart();
+
             Visible = false;
 
             // Wait for background tasks to shut down

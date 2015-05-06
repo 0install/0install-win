@@ -54,7 +54,6 @@ AppVerName=Zero Install for Windows v{#Version}
 AppCopyright=Copyright 2010-2013 Bastian Eicher et al
 AppPublisher=0install.de
 AppPublisherURL=http://0install.de/
-AppMutex=Zero Install
 VersionInfoDescription=Zero Install Setup
 VersionInfoTextVersion=Zero Install for Windows v{#Version} Setup
 VersionInfoVersion={#Version}
