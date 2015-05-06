@@ -605,9 +605,6 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
   <data name="RemovingApplications" xml:space="preserve">
     <value>Entferne Anwendungen</value>
   </data>
-  <data name="RemovingImplementations" xml:space="preserve">
-    <value>Entferne Implementierungen</value>
-  </data>
   <data name="RemovingOutdated" xml:space="preserve">
     <value>Entferne veraltete Dateien</value>
   </data>

@@ -146,13 +146,13 @@ namespace ZeroInstall.Store.Implementations
         }
 
         /// <inheritdoc/>
-        public bool Remove(ManifestDigest manifestDigest)
+        public bool Remove(ManifestDigest manifestDigest, ITaskHandler handler)
         {
             try
             {
                 var proxy = GetServiceProxy();
                 Log.Info("Using Store Service to remove implementation from cache");
-                return proxy.Remove(manifestDigest);
+                return proxy.Remove(manifestDigest, handler);
             }
                 #region Error handling
             catch (RemotingException ex)

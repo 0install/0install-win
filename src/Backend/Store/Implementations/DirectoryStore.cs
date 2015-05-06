@@ -495,17 +495,24 @@ namespace ZeroInstall.Store.Implementations
 
         #region Remove
         /// <inheritdoc/>
-        public virtual bool Remove(ManifestDigest manifestDigest)
+        public virtual bool Remove(ManifestDigest manifestDigest, ITaskHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             string path = GetPath(manifestDigest);
             if (path == null) return false;
 
-            DisableWriteProtection(path);
+            handler.RunTask(new SimpleTask(string.Format(Resources.DeletingImplementation, manifestDigest), () =>
+            {
+                DisableWriteProtection(path);
 
-            string tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
-            Log.Info("Attempting atomic delete: " + path);
-            Directory.Move(path, tempDir);
-            Directory.Delete(tempDir, recursive: true);
+                string tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
+                Log.Info("Attempting atomic delete: " + path);
+                Directory.Move(path, tempDir);
+                Directory.Delete(tempDir, recursive: true);
+            }));
 
             return true;
         }
@@ -559,7 +566,7 @@ namespace ZeroInstall.Store.Implementations
                 if (handler.Ask(
                     question: string.Format(Resources.ImplementationDamaged + Environment.NewLine + Resources.ImplementationDamagedAskRemove, ex.ExpectedDigest),
                     defaultAnswer: false, alternateMessage: string.Format(Resources.ImplementationDamaged + Environment.NewLine + Resources.ImplementationDamagedBatchInformation, ex.ExpectedDigest)))
-                    handler.RunTask(new SimpleTask(string.Format(Resources.DeletingImplementation, ex.ExpectedDigest), () => Remove(new ManifestDigest(ex.ExpectedDigest))));
+                    Remove(new ManifestDigest(ex.ExpectedDigest), handler);
             }
         }
         #endregion

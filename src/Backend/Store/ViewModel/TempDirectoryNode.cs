@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Store.Implementations;
 using ZeroInstall.Store.Properties;
 
@@ -58,10 +59,11 @@ namespace ZeroInstall.Store.ViewModel
         /// <summary>
         /// Deletes this temporary directory from the <see cref="IStore"/> it is located in.
         /// </summary>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
         /// <exception cref="DirectoryNotFoundException">The directory could be found in the store.</exception>
         /// <exception cref="IOException">The directory could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the store is not permitted.</exception>
-        public override void Delete()
+        public override void Delete(ITaskHandler handler)
         {
             try
             {

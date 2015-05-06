@@ -256,12 +256,11 @@ namespace ZeroInstall.Commands.CliCommands
         {
             if (AdditionalArgs.Count < 2) throw new OptionException(Resources.MissingArguments + Environment.NewLine + "remove DIGEST+", "");
 
-            var digests = AdditionalArgs.Skip(1).Select(x => new ManifestDigest(x));
-            Handler.RunTask(new ForEachTask<ManifestDigest>(Resources.RemovingImplementations, digests, digest =>
+            foreach (var digest in AdditionalArgs.Skip(1).Select(x => new ManifestDigest(x)))
             {
-                if (!Store.Remove(digest))
+                if (!Store.Remove(digest, Handler))
                     throw new ImplementationNotFoundException(digest);
-            }));
+            }
         }
 
         private ExitCode Verify()

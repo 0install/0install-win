@@ -248,7 +248,7 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 var digest = new ManifestDigest(sha256New: "abc");
                 StoreMock.Setup(x => x.ListAll()).Returns(new[] {digest});
-                StoreMock.Setup(x => x.Remove(digest)).Returns(true);
+                StoreMock.Setup(x => x.Remove(digest, MockHandler)).Returns(true);
                 StoreMock.Setup(x => x.ListAllTemp()).Returns(new[] {tempDir.Path});
 
                 MockHandler.AnswerQuestionWith = true;
@@ -262,7 +262,7 @@ namespace ZeroInstall.Commands.CliCommands
         public void TestRemove()
         {
             var digest = new ManifestDigest(sha256New: "abc");
-            StoreMock.Setup(x => x.Remove(digest)).Returns(true);
+            StoreMock.Setup(x => x.Remove(digest, MockHandler)).Returns(true);
 
             RunAndAssert(null, ExitCode.OK,
                 "remove", "sha256new_abc");

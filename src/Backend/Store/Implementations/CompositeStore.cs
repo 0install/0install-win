@@ -213,14 +213,18 @@ namespace ZeroInstall.Store.Implementations
 
         #region Remove
         /// <inheritdoc/>
-        public bool Remove(ManifestDigest manifestDigest)
+        public bool Remove(ManifestDigest manifestDigest, ITaskHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             Flush();
 
             // Remove from _every_ store that contains the implementation
             bool removed = false;
             foreach (var store in _stores.Reverse())
-                removed |= store.Remove(manifestDigest);
+                removed |= store.Remove(manifestDigest, handler);
 
             return removed;
         }

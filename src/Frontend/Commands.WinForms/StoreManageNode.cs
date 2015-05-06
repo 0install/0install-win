@@ -109,7 +109,7 @@ namespace ZeroInstall.Commands.WinForms
                 {
                     try
                     {
-                        _manageForm.RunTask(new SimpleTask(Resources.DeletingImplementations, BackingNode.Delete));
+                        _manageForm.RunTask(new SimpleTask(Resources.DeletingImplementations, () => BackingNode.Delete(_manageForm)));
                     }
                         #region Error handling
                     catch (KeyNotFoundException ex)

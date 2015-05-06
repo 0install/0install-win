@@ -604,9 +604,6 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
   <data name="RemovingApplications" xml:space="preserve">
     <value>Removing applications</value>
   </data>
-  <data name="RemovingImplementations" xml:space="preserve">
-    <value>Removing implementations</value>
-  </data>
   <data name="RemovingOutdated" xml:space="preserve">
     <value>Removing outdated implementations</value>
   </data>

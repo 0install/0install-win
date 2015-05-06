@@ -182,8 +182,12 @@ namespace ZeroInstall.Store.Service
 
         #region Remove
         /// <inheritdoc/>
-        public override bool Remove(ManifestDigest manifestDigest)
+        public override bool Remove(ManifestDigest manifestDigest, ITaskHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             if (!Contains(manifestDigest)) return false;
             if (!WindowsUtils.IsAdministrator) throw new NotAdminException(Resources.MustBeAdminToRemove);
 
@@ -195,7 +199,7 @@ namespace ZeroInstall.Store.Service
                 bool removed;
                 try
                 {
-                    removed = base.Remove(manifestDigest);
+                    removed = base.Remove(manifestDigest, handler);
                 }
                     #region Error handling
                 catch (Exception)

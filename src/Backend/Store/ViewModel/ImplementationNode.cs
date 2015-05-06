@@ -77,14 +77,15 @@ namespace ZeroInstall.Store.ViewModel
         /// <summary>
         /// Deletes this implementation from the <see cref="IStore"/> it is located in.
         /// </summary>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
         /// <exception cref="KeyNotFoundException">No matching implementation could be found in the <see cref="IStore"/>.</exception>
         /// <exception cref="IOException">The implementation could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the store is not permitted.</exception>
-        public override void Delete()
+        public override void Delete(ITaskHandler handler)
         {
             try
             {
-                Store.Remove(_digest);
+                Store.Remove(_digest, handler);
             }
                 #region Error handling
             catch (ImplementationNotFoundException ex)

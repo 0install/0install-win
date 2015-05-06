@@ -186,7 +186,8 @@ namespace ZeroInstall.Commands.WinForms
             {
                 try
                 {
-                    RunTask(new ForEachTask<CacheNode>(Resources.DeletingEntries, _treeView.CheckedEntries.Select(x => x.BackingNode).ToList(), entry => entry.Delete()));
+                    foreach (var node in _treeView.CheckedEntries.Select(x => x.BackingNode).ToList())
+                        node.Delete(this);
                 }
                     #region Error handling
                 catch (OperationCanceledException)
@@ -203,9 +204,12 @@ namespace ZeroInstall.Commands.WinForms
                 {
                     Msg.Inform(this, ex.Message, MsgSeverity.Warn);
                 }
-                #endregion
+                    #endregion
 
-                RefreshList();
+                finally
+                {
+                    RefreshList();
+                }
             }
         }
 

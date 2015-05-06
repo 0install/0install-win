@@ -208,25 +208,25 @@ namespace ZeroInstall.Store.Implementations
         [Test]
         public void TestRemoveTwo()
         {
-            _mockStore1.Setup(x => x.Remove(_digest1)).Returns(true);
-            _mockStore2.Setup(x => x.Remove(_digest1)).Returns(true);
-            Assert.IsTrue(_testStore.Remove(_digest1));
+            _mockStore1.Setup(x => x.Remove(_digest1, _handler)).Returns(true);
+            _mockStore2.Setup(x => x.Remove(_digest1, _handler)).Returns(true);
+            Assert.IsTrue(_testStore.Remove(_digest1, _handler));
         }
 
         [Test]
         public void TestRemoveOne()
         {
-            _mockStore1.Setup(x => x.Remove(_digest1)).Returns(false);
-            _mockStore2.Setup(x => x.Remove(_digest1)).Returns(true);
-            Assert.IsTrue(_testStore.Remove(_digest1));
+            _mockStore1.Setup(x => x.Remove(_digest1, _handler)).Returns(false);
+            _mockStore2.Setup(x => x.Remove(_digest1, _handler)).Returns(true);
+            Assert.IsTrue(_testStore.Remove(_digest1, _handler));
         }
 
         [Test]
         public void TestRemoveNone()
         {
-            _mockStore1.Setup(x => x.Remove(_digest1)).Returns(false);
-            _mockStore2.Setup(x => x.Remove(_digest1)).Returns(false);
-            Assert.IsFalse(_testStore.Remove(_digest1));
+            _mockStore1.Setup(x => x.Remove(_digest1, _handler)).Returns(false);
+            _mockStore2.Setup(x => x.Remove(_digest1, _handler)).Returns(false);
+            Assert.IsFalse(_testStore.Remove(_digest1, _handler));
         }
         #endregion
 

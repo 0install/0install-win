@@ -218,7 +218,7 @@ namespace ZeroInstall.Store.Implementations
             string implPath = Path.Combine(_tempDir, "sha256new_123ABC");
             Directory.CreateDirectory(implPath);
 
-            _store.Remove(new ManifestDigest(sha256New: "123ABC"));
+            _store.Remove(new ManifestDigest(sha256New: "123ABC"), _handler);
             Assert.IsFalse(Directory.Exists(implPath), "After remove, Store may no longer contain the added package");
         }
 
@@ -288,7 +288,7 @@ namespace ZeroInstall.Store.Implementations
                         {
                             // ReSharper disable once AccessToDisposedClosure
                             _store.AddDirectory(packageDir, digest, _handler);
-                            _store.Remove(digest);
+                            _store.Remove(digest, _handler);
                         }
                         catch (ImplementationAlreadyInStoreException)
                         {}

@@ -1460,15 +1460,6 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removing implementations.
-        /// </summary>
-        public static string RemovingImplementations {
-            get {
-                return ResourceManager.GetString("RemovingImplementations", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Removing outdated implementations.
         /// </summary>
         public static string RemovingOutdated {
