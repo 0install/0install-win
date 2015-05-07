@@ -136,7 +136,7 @@ namespace ZeroInstall.Store
         /// <summary>
         /// The ID used by the solver to search for updates for Zero Install itself.
         /// </summary>
-        [DefaultValue(typeof(Uri), DefaultSelfUpdateUri), Category("Sources"), DisplayName(@"Self-update URI"), Description("The URI used by the solver to search for updates for Zero Install itself.")]
+        [DefaultValue(typeof(FeedUri), DefaultSelfUpdateUri), Category("Sources"), DisplayName(@"Self-update URI"), Description("The URI used by the solver to search for updates for Zero Install itself.")]
         public FeedUri SelfUpdateUri { get { return _selfUpdateUri; } set { _selfUpdateUri = value; } }
 
         /// <summary>
