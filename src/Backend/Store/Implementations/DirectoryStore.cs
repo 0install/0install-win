@@ -549,6 +549,9 @@ namespace ZeroInstall.Store.Implementations
             try
             {
                 VerifyDirectory(target, manifestDigest, handler);
+
+                // Reseal the directory in case the write protection got lost
+                if (_useWriteProtection) EnableWriteProtection(target);
             }
             catch (DigestMismatchException ex)
             {
@@ -558,9 +561,6 @@ namespace ZeroInstall.Store.Implementations
                     defaultAnswer: false, alternateMessage: string.Format(Resources.ImplementationDamaged + Environment.NewLine + Resources.ImplementationDamagedBatchInformation, ex.ExpectedDigest)))
                     handler.RunTask(new SimpleTask(string.Format(Resources.DeletingImplementation, ex.ExpectedDigest), () => Remove(new ManifestDigest(ex.ExpectedDigest))));
             }
-
-            // Reseal the directory in case the write protection got lost
-            if (_useWriteProtection) EnableWriteProtection(target);
         }
         #endregion
 
