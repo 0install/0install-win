@@ -244,18 +244,13 @@ namespace ZeroInstall.Commands.CliCommands
         [Test]
         public void TestPurge()
         {
-            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
-            {
-                var digest = new ManifestDigest(sha256New: "abc");
-                StoreMock.Setup(x => x.ListAll()).Returns(new[] {digest});
-                StoreMock.Setup(x => x.Remove(digest, MockHandler)).Returns(true);
-                StoreMock.Setup(x => x.ListAllTemp()).Returns(new[] {tempDir.Path});
+            var digest = new ManifestDigest(sha256New: "abc");
+            StoreMock.Setup(x => x.ListAll()).Returns(new[] {digest});
+            StoreMock.Setup(x => x.Remove(digest, MockHandler)).Returns(true);
 
-                MockHandler.AnswerQuestionWith = true;
-                RunAndAssert(null, ExitCode.OK,
-                    "purge");
-                Assert.IsFalse(Directory.Exists(tempDir), "Temporary directory should have been deleted");
-            }
+            MockHandler.AnswerQuestionWith = true;
+            RunAndAssert(null, ExitCode.OK,
+                "purge");
         }
 
         [Test]

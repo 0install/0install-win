@@ -318,9 +318,6 @@ You can delete the file '{0}' to fix the problem.</value>
     <value>There was a problem loading the configuration value '{0}'.
 You can delete the file '{1}' to fix the problem. Other settings may also be lost.</value>
   </data>
-  <data name="PurgingCache" xml:space="preserve">
-    <value>Purging cache</value>
-  </data>
   <data name="RecipeFileNotDownloaded" xml:space="preserve">
     <value>A file referenced in the &lt;recipe&gt; was not downloaded.</value>
   </data>
@@ -332,9 +329,6 @@ You can delete the file '{1}' to fix the problem. Other settings may also be los
   </data>
   <data name="RelativeUriInRemoteFeed" xml:space="preserve">
     <value>The relative HREF '{0}' was specified in a remote feed. Only local feeds may contain relative HREFs.</value>
-  </data>
-  <data name="RemovingTempFiles" xml:space="preserve">
-    <value>Removing temporary files</value>
   </data>
   <data name="RestartManagerSearch" xml:space="preserve">
     <value>Searching for open file references</value>

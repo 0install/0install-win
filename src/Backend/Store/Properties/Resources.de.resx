@@ -318,9 +318,6 @@ Sie können die Datei '{0}' löschen, um das Problem zu beheben.</value>
     <value>Es gab ein Problem beim Laden des Konfigurationswerts '{0}'.
 Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen womöglich auch andere Einstellungen verloren.</value>
   </data>
-  <data name="PurgingCache" xml:space="preserve">
-    <value>Leere cache</value>
-  </data>
   <data name="RecipeFileNotDownloaded" xml:space="preserve">
     <value>Eine Datei auf die im &lt;recipe&gt; verwießen wird wurde nicht heruntergeladen.</value>
   </data>
@@ -332,9 +329,6 @@ Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen wom
   </data>
   <data name="RelativeUriInRemoteFeed" xml:space="preserve">
     <value>Der relative HREF '{0}' wurde in einem Remote-Feed angegeben. Nur lokale Feeds dürfen relative HREFs verwenden.</value>
-  </data>
-  <data name="RemovingTempFiles" xml:space="preserve">
-    <value>Entferne temporäre Dateien</value>
   </data>
   <data name="RestartManagerSearch" xml:space="preserve">
     <value>Suche nach offenen Dateirefernzen</value>

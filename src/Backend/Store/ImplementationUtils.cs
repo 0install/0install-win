@@ -74,8 +74,8 @@ namespace ZeroInstall.Store
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            handler.RunTask(new ForEachTask<ManifestDigest>(Resources.PurgingCache, store.ListAll(), x => store.Remove(x, handler)));
-            handler.RunTask(new ForEachTask<string>(Resources.RemovingTempFiles, store.ListAllTemp(), path => Directory.Delete(path, recursive: true)));
+            foreach (var manifestDigest in store.ListAll())
+                store.Remove(manifestDigest, handler);
         }
     }
 }

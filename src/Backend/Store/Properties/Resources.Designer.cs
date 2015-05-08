@@ -634,15 +634,6 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Purging cache.
-        /// </summary>
-        internal static string PurgingCache {
-            get {
-                return ResourceManager.GetString("PurgingCache", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to A file referenced in the &lt;recipe&gt; was not downloaded..
         /// </summary>
         internal static string RecipeFileNotDownloaded {
@@ -675,15 +666,6 @@ namespace ZeroInstall.Store.Properties {
         internal static string RelativeUriInRemoteFeed {
             get {
                 return ResourceManager.GetString("RelativeUriInRemoteFeed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Removing temporary files.
-        /// </summary>
-        internal static string RemovingTempFiles {
-            get {
-                return ResourceManager.GetString("RemovingTempFiles", resourceCulture);
             }
         }
         
