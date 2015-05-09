@@ -51,8 +51,9 @@
     <Reference Include="NanoByte.Common">
       <HintPath>..\..\packages\NanoByte.Common.1.1.8\lib\net20\NanoByte.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.5\lib\net20\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net20\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SevenZipSharp">
       <HintPath>..\..\packages\SevenZipSharp.0.64\lib\SevenZipSharp.dll</HintPath>
