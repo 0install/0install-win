@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -36,6 +37,7 @@ namespace ZeroInstall.Updater
     /// <summary>
     /// Controls the installation of an update for Zero Install (copying new files, removing old ones, etc.)
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Restart Manager is Dispose")]
     public class UpdateProcess
     {
         #region Variables
@@ -122,7 +124,6 @@ namespace ZeroInstall.Updater
             {
                 _restartManager.RegisterResources(GetFilesToWrite());
                 _restartManager.RegisterResources(GetFilesToDelete());
-                var apps = _restartManager.ListApps();
                 _restartManager.ShutdownApps(new SilentTaskHandler());
             }
                 #region Error handling

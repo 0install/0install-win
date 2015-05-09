@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common.Tasks;
@@ -65,17 +64,15 @@ namespace ZeroInstall.Store.ViewModel
         /// <exception cref="UnauthorizedAccessException">Write access to the store is not permitted.</exception>
         public override void Delete(ITaskHandler handler)
         {
-            try
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            handler.RunTask(new SimpleTask(string.Format(Resources.DeletingDirectory, _path), () =>
             {
                 DirectoryStore.DisableWriteProtection(_path);
                 Directory.Delete(_path, recursive: true);
-            }
-                #region Error handling
-            catch (ImplementationNotFoundException ex)
-            {
-                throw new KeyNotFoundException(ex.Message, ex);
-            }
-            #endregion
+            }));
         }
     }
 }

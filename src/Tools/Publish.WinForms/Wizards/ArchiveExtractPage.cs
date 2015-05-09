@@ -55,8 +55,8 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             comboBoxExtract.Items.Clear();
 
             var baseDirectory = new DirectoryInfo(_feedBuilder.TemporaryDirectory);
-            baseDirectory.Walk(dir => comboBoxExtract.Items.Add(dir.RelativeTo(baseDirectory).Replace(Path.DirectorySeparatorChar, '/')));
-            comboBoxExtract.SelectedItem = baseDirectory.WalkThroughPrefix().RelativeTo(baseDirectory).Replace(Path.DirectorySeparatorChar, '/');
+            baseDirectory.Walk(dir => comboBoxExtract.Items.Add(dir.RelativeTo(baseDirectory)));
+            comboBoxExtract.SelectedItem = baseDirectory.WalkThroughPrefix().RelativeTo(baseDirectory);
 
             comboBoxExtract.EndUpdate();
         }
