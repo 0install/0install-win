@@ -296,6 +296,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="expectedDigest">The digest the <see cref="Manifest"/> of the <paramref name="directory"/> should have.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <returns>The generated <see cref="Manifest"/>.</returns>
+        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
         /// <exception cref="IOException">The <paramref name="directory"/> could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Read access to the <paramref name="directory"/> is not permitted.</exception>
         /// <exception cref="DigestMismatchException">The <paramref name="directory"/> doesn't match the <paramref name="expectedDigest"/>.</exception>

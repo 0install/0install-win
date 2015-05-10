@@ -195,6 +195,8 @@ namespace ZeroInstall.Store.Implementations.Archives
         public static Extractor FromFile([NotNull] string path, [NotNull] string target, [CanBeNull] string mimeType = null, long startOffset = 0)
         {
             if (string.IsNullOrEmpty(mimeType)) mimeType = Model.Archive.GuessMimeType(path);
+
+            // MSI Extractor does not support Stream-based access
             if (mimeType == Model.Archive.MimeTypeMsi) return new MsiExtractor(path, target);
 
             Stream stream = File.OpenRead(path);

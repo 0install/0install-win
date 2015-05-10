@@ -71,8 +71,9 @@ namespace ZeroInstall.Publish.Capture
         /// Collects data from the locations indicated by the differences between the <see cref="Start"/> state and the current system state.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be informed about IO tasks.</param>
-        /// <exception cref="IOException">There was an error accessing the registry or file system.</exception>
         /// <exception cref="InvalidOperationException">No installation directory was detected.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry or file system.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the registry or file system was not permitted.</exception>
         public void Diff([NotNull] ITaskHandler handler)
         {
@@ -90,8 +91,8 @@ namespace ZeroInstall.Publish.Capture
         /// <summary>
         /// Finishes the capture process after <see cref="Diff"/> has been called an <see cref="FeedBuilder.MainCandidate"/> has been set.
         /// </summary>
-        /// <exception cref="IOException">There was an error accessing the registry or file system.</exception>
         /// <exception cref="InvalidOperationException"><see cref="Diff"/> was not called or <see cref="FeedBuilder.MainCandidate"/> is not set.</exception>
+        /// <exception cref="IOException">There was an error accessing the registry or file system.</exception>
         /// <exception cref="UnauthorizedAccessException">Access to the registry or file system was not permitted.</exception>
         public void Finish()
         {

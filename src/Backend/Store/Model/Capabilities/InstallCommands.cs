@@ -27,7 +27,7 @@ namespace ZeroInstall.Store.Model.Capabilities
     /// Used by registry virtualization to stand in for the actual Zero Install commands at runtime.
     /// </summary>
     [TypeConverter(typeof(InstallCommandsConverter))]
-    [Description("Lists the commands the application normally registers for use by Windows' \"Set Program Access and Defaults\".\nUsed by registry virtualization to stand in for the actual Zero Install commands at runtime.")]
+    [Description("Lists the commands the application normally registers for use by Windows' \"Set Program Access and Defaults\".\r\nUsed by registry virtualization to stand in for the actual Zero Install commands at runtime.")]
     [Serializable]
     [XmlType("install-commands", Namespace = CapabilityList.XmlNamespace)]
     public struct InstallCommands : IEquatable<InstallCommands>

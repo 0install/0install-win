@@ -54,7 +54,7 @@ namespace ZeroInstall.Store.Model
         /// A more flexible alternative to <see cref="Constraints"/>.
         /// Each range is in the form "START..!END". The range matches versions where START &lt;= VERSION &lt; END. The start or end may be omitted. A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version.
         /// </summary>
-        [Description("A more flexible alternative to Constraints.\nEach range is in the form \"START..!END\". The range matches versions where START < VERSION < END. The start or end may be omitted. A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version.")]
+        [Description("A more flexible alternative to Constraints.\r\nEach range is in the form \"START..!END\". The range matches versions where START < VERSION < END. The start or end may be omitted. A single version number may be used instead of a range to match only that version, or !VERSION to match everything except that version.")]
         [XmlIgnore]
         [CanBeNull]
         public VersionRange Versions { get; set; }
@@ -98,7 +98,7 @@ namespace ZeroInstall.Store.Model
         /// The special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <see cref="PackageImplementation"/>).
         /// </summary>
         /// <seealso cref="Distributions"/>
-        [DisplayName(@"Distributions"), Description("Specifies that the selected implementation must be from one of the space-separated distributions (e.g. Debian, RPM).\nThe special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <package-implementation>).")]
+        [DisplayName(@"Distributions"), Description("Specifies that the selected implementation must be from one of the space-separated distributions (e.g. Debian, RPM).\r\nThe special value '0install' may be used to require an implementation provided by Zero Install (i.e. one not provided by a <package-implementation>).")]
         [XmlAttribute("distribution"), DefaultValue("")]
         [TypeConverter(typeof(DistributionNameConverter))]
         public string DistributionsString

@@ -150,6 +150,7 @@ namespace ZeroInstall.Store.Implementations
         /// <param name="manifestDigest">The digest of the implementation to be removed.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <returns><see langword="true"/> if the implementation was successfully removed; <see langword="false"/> if no implementation matching <paramref name="manifestDigest"/> could be found in the store.</returns>
+        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
         /// <exception cref="IOException">Thrown if the implementation could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
         bool Remove(ManifestDigest manifestDigest, [NotNull] ITaskHandler handler);

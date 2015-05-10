@@ -21,6 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -41,10 +42,12 @@ namespace ZeroInstall.Capture.Cli
         /// <summary>Ignore warnings and perform the operation anyway.</summary>
         private bool _force;
 
-        /// <summary>The directory the application to be captured is installed in.</summary>
+        /// <summary>The directory the application to be captured is installed in; <see langword="null"/> to create no ZIP archive.</summary>
+        [CanBeNull]
         private string _installationDirectory;
 
-        /// <summary>The relative path to the main EXE of the application to be captured.</summary>
+        /// <summary>The relative path to the main EXE of the application to be captured; <see langword="null"/> to auto-detect.</summary>
+        [CanBeNull]
         private string _mainExe;
 
         /// <summary>Indicates whether to collect installation files in addition to registry data.</summary>

@@ -67,16 +67,24 @@ namespace ZeroInstall.Commands.CliCommands
                 RefreshSolve();
             }
                 #region Error handling
-            catch (WebException)
+            catch (WebException ex)
             {
-                // Supress network-related error messages on background downloads
-                if (Handler.Background) return ExitCode.WebError;
+                if (Handler.Background)
+                {
+                    Log.Debug("Supressing network-related error message on background download");
+                    Log.Debug(ex);
+                    return ExitCode.WebError;
+                }
                 else throw;
             }
-            catch (SolverException)
+            catch (SolverException ex)
             {
-                // Supress network-related error messages on background downloads
-                if (Handler.Background) return ExitCode.SolverError;
+                if (Handler.Background)
+                {
+                    Log.Debug("Supressing Solver-related error message on background download");
+                    Log.Debug(ex);
+                    return ExitCode.SolverError;
+                }
                 else throw;
             }
             #endregion

@@ -902,7 +902,7 @@
     <xsd:attribute name="src" type="xsd:string">
       <xsd:annotation>
         <xsd:documentation>
-          The relative path of the directory in the implementation to publish. The default is to publish everything.
+          The relative path of the directory in the implementation to set as the working directory. Defaults to use the root of the implementation if unset.
         </xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>

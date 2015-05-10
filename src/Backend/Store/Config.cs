@@ -97,7 +97,7 @@ namespace ZeroInstall.Store
         /// WARNING! This feature is highly experimental!<br/>
         /// Controls whether Zero Install may install hooks for operating sytem APIs to improve desktop integration.
         /// </summary>
-        [DefaultValue(false), Category("Policy"), DisplayName(@"Allow API hooking"), Description("WARNING! This feature is highly experimental!\nControls whether Zero Install may install hooks for operating sytem APIs to improve desktop integration.")]
+        [DefaultValue(false), Category("Policy"), DisplayName(@"Allow API hooking"), Description("WARNING! This feature is highly experimental!\r\nControls whether Zero Install may install hooks for operating sytem APIs to improve desktop integration.")]
         public bool AllowApiHooking { get { return _allowApiHooking; } set { _allowApiHooking = value; } }
 
         /// <summary>

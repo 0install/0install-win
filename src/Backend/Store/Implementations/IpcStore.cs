@@ -120,7 +120,6 @@ namespace ZeroInstall.Store.Implementations
             catch (RemotingException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                Log.Debug(ex);
                 throw new IOException(ex.Message, ex);
             }
             #endregion
@@ -139,7 +138,6 @@ namespace ZeroInstall.Store.Implementations
             catch (RemotingException ex)
             {
                 // Wrap exception since only certain exception types are allowed
-                Log.Debug(ex);
                 throw new IOException(ex.Message, ex);
             }
             #endregion

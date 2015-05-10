@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Model
         /// A single command-line arguments to be passed to an executable.
         /// Will be automatically escaped to allow proper concatenation of multiple arguments containing spaces.
         /// </summary>
-        [Description("A single command-line arguments to be passed to an executable.\nWill be automatically escaped to allow proper concatenation of multiple arguments containing spaces.")]
+        [Description("A single command-line arguments to be passed to an executable.\r\nWill be automatically escaped to allow proper concatenation of multiple arguments containing spaces.")]
         [XmlText]
         public string Value { get; set; }
 

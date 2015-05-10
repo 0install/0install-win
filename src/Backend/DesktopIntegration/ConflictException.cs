@@ -46,11 +46,6 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="newEntry">The new entry that is in conflict with <paramref name="existingEntry"/>.</param>
         public static ConflictException NewConflict(ConflictData existingEntry, ConflictData newEntry)
         {
-            #region Sanity checks
-            if (existingEntry == null) throw new ArgumentNullException("existingEntry");
-            if (newEntry == null) throw new ArgumentNullException("newEntry");
-            #endregion
-
             string message = string.Format(Resources.AccessPointNewConflict, existingEntry, newEntry);
             return new ConflictException(message) {Entries = new[] {existingEntry, newEntry}};
         }

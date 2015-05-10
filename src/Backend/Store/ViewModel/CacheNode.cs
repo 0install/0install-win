@@ -47,6 +47,7 @@ namespace ZeroInstall.Store.ViewModel
         /// Deletes this element from the cache it is stored in.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about IO tasks.</param>
+        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
         /// <exception cref="KeyNotFoundException">No matching element could be found in the cache.</exception>
         /// <exception cref="IOException">The element could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Write access to the cache is not permitted.</exception>
