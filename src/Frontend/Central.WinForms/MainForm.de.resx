@@ -117,36 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonUpdateAllClean.Size" type="System.Drawing.Size, System.Drawing">
-    <value>227, 22</value>
-  </data>
   <data name="buttonUpdateAllClean.Text" xml:space="preserve">
     <value>Aktualisieren und aufräumen</value>
-  </data>
-  <data name="menuUpdateAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>228, 26</value>
   </data>
   <data name="buttonUpdateAll.Text" xml:space="preserve">
     <value>Alle &amp;aktualisieren</value>
   </data>
-  <data name="butonSyncSetup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 22</value>
-  </data>
-  <data name="buttonSyncTroubleshoot.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 22</value>
-  </data>
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
     <value>&amp;Problembehebung</value>
   </data>
-  <data name="menuSync.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 48</value>
-  </data>
   <data name="tabPageAppList.Text" xml:space="preserve">
     <value>Meine Anwendungen</value>
-  </data>
-  <data name="labelLoadingCatalog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 16</value>
   </data>
   <data name="labelLoadingCatalog.Text" xml:space="preserve">
     <value>Lade Katalog vom Server...</value>
@@ -163,20 +144,11 @@
   <data name="buttonOptions.Text" xml:space="preserve">
     <value>&amp;Optionen</value>
   </data>
-  <data name="buttonStoreAudit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 22</value>
-  </data>
   <data name="buttonStoreAudit.Text" xml:space="preserve">
     <value>Nach Fehlern &amp;suchen</value>
   </data>
-  <data name="buttonStoreOptimise.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 22</value>
-  </data>
   <data name="buttonStoreOptimise.Text" xml:space="preserve">
     <value>&amp;Duplikate zusammenführen</value>
-  </data>
-  <data name="menuStoreManage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 70</value>
   </data>
   <data name="buttonStoreManage.Text" xml:space="preserve">
     <value>&amp;Cache Verwaltung</value>

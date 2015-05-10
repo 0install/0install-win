@@ -163,14 +163,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SelectionsControl.de.resx">
-      <DependentUpon>SelectionsControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectionsControl.resx">
-      <DependentUpon>SelectionsControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="StoreManageForm.de.resx">
       <DependentUpon>StoreManageForm.cs</DependentUpon>
       <SubType>Designer</SubType>
