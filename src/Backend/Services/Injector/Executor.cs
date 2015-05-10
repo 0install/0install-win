@@ -16,15 +16,12 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store.Implementations;
-using ZeroInstall.Store.Model;
 using ZeroInstall.Store.Model.Selection;
 
 namespace ZeroInstall.Services.Injector
@@ -86,22 +83,11 @@ namespace ZeroInstall.Services.Injector
             #endregion
         }
 
-        /// <summary>
-        /// Prepares a <see cref="ProcessStartInfo"/> for executing the program as specified by the <see cref="Selections"/>.
-        /// </summary>
-        /// <param name="selections">The specific <see cref="ImplementationSelection"/>s chosen by the solver.</param>
-        /// <param name="arguments">Arguments to be passed to the launched programs.</param>
-        /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
-        /// <exception cref="ArgumentException"><see cref="Store.Model.Selection.Selections.Implementations"/> on <paramref name="selections"/> is empty.</exception>
-        /// <exception cref="KeyNotFoundException"><see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
-        /// <exception cref="ImplementationNotFoundException">One of the <see cref="Store.Model.Implementation"/>s is not cached yet.</exception>
-        /// <exception cref="ExecutorException">The <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
-        /// <exception cref="IOException">A problem occurred while writing a file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
-        [NotNull]
-        internal ProcessStartInfo GetStartInfo([NotNull] Selections selections, [NotNull, ItemNotNull] params string[] arguments)
+        /// <inheritdoc/>
+        public ProcessStartInfo GetStartInfo(Selections selections, params string[] arguments)
         {
             #region Sanity checks
+            if (selections == null) throw new ArgumentNullException("selections");
             if (arguments == null) throw new ArgumentNullException("arguments");
             #endregion
 

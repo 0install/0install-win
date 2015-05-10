@@ -15,7 +15,7 @@ namespace ZeroInstall.Services.Injector
     public interface IExecutor
     {
         /// <summary>
-        /// The specific <see cref="Store.Model.Implementation"/>s chosen for the <see cref="Dependency"/>s.
+        /// The <see cref="Store.Model.Implementation"/>s chosen for the <see cref="Dependency"/>s.
         /// </summary>
         Selections Selections { get; }
 
@@ -30,9 +30,24 @@ namespace ZeroInstall.Services.Injector
         string Wrapper { get; set; }
 
         /// <summary>
-        /// Starts the program as specified by the <see cref="Selections"/>.
+        /// Prepares a <see cref="ProcessStartInfo"/> for executing the program as specified by the <see cref="Selections"/>.
         /// </summary>
-        /// <param name="selections">The specific <see cref="ImplementationSelection"/>s chosen by the solver.</param>
+        /// <param name="selections">The <see cref="ImplementationSelection"/>s chosen by the solver.</param>
+        /// <param name="arguments">Arguments to be passed to the launched programs.</param>
+        /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
+        /// <exception cref="ArgumentException"><see cref="Store.Model.Selection.Selections.Implementations"/> on <paramref name="selections"/> is empty.</exception>
+        /// <exception cref="KeyNotFoundException"><see cref="Selections"/> points to missing <see cref="Dependency"/>s.</exception>
+        /// <exception cref="ImplementationNotFoundException">One of the <see cref="Store.Model.Implementation"/>s is not cached yet.</exception>
+        /// <exception cref="ExecutorException">The <see cref="IExecutor"/> was unable to process the <see cref="Selections"/>.</exception>
+        /// <exception cref="IOException">A problem occurred while writing a file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Write access to a file is not permitted.</exception>
+        [NotNull]
+        ProcessStartInfo GetStartInfo([NotNull] Selections selections, [NotNull, ItemNotNull] params string[] arguments);
+
+        /// <summary>
+        /// Starts the program as specified by <see cref="ProcessStartInfo"/>.
+        /// </summary>
+        /// <param name="selections">The <see cref="ImplementationSelection"/>s chosen by the solver.</param>
         /// <param name="arguments">Arguments to be passed to the launched programs.</param>
         /// <returns>The newly created <see cref="Process"/>; <see langword="null"/> if no external process was started.</returns>
         /// <exception cref="KeyNotFoundException"><see cref="Selections"/> contains <see cref="Dependency"/>s pointing to interfaces without selections.</exception>
