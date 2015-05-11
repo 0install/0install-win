@@ -1,0 +1,315 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMissing" xml:space="preserve">
+    <value>Eksik ekle</value>
+  </data>
+  <data name="ArchiveBreakoutPath" xml:space="preserve">
+    <value>Bu yol noktası arşivin dışında.</value>
+  </data>
+  <data name="AskForPassphrase" xml:space="preserve">
+    <value>{0} için GnuPG parolasını girin:</value>
+  </data>
+  <data name="AskInstallerEXE" xml:space="preserve">
+    <value>Bu bir EXE yükleyicisi mi?</value>
+  </data>
+  <data name="AskSkipCapture" xml:space="preserve">
+    <value>Yakalamayı geçmek istediğinize emin misiniz?
+Bunu yaparsanız uygulamaların masaüstü tümleştirmeleri (örneğin dosya ilişkilendirmeleri) akışa eklenmez.</value>
+  </data>
+  <data name="AskSkipIcon" xml:space="preserve">
+    <value>Simgeler olmadan devam etmek istediğinize emin misiniz?
+Bunu yaparsanız Zero Install katalogdaki uygulama simgelerini yer tutan genel bir simge üzerinden görüntüler.</value>
+  </data>
+  <data name="AskSkipSecurity" xml:space="preserve">
+    <value>Ayarları tamamlamadan devam etmek istediğinize emin misiniz?
+Bunu yaparsanız akışınız yerel kipte ve çevrimdışı olarak çalışacaktır.</value>
+  </data>
+  <data name="DetectingCandidates" xml:space="preserve">
+    <value>Yürütülebilir dosyalar aranıyor</value>
+  </data>
+  <data name="DigestKeep" xml:space="preserve">
+    <value>Devam
+Bu uygulamanın aynı şekilde kalması gerekiyordu</value>
+  </data>
+  <data name="DigestMismatch" xml:space="preserve">
+    <value>Bildirim özeti değişti. Değişikliğin varolan başka bir bildirim özetinin yerini almasını ister misiniz?</value>
+  </data>
+  <data name="DigestOtherImplementations" xml:space="preserve">
+    <value>Bu uygulama için yeni özetin tüm diğer alma yöntemleriyle eşleşmesi gereklidir.</value>
+  </data>
+  <data name="DigestReplace" xml:space="preserve">
+    <value>Değiştir
+Uygulama amacını ben değiştirdim</value>
+  </data>
+  <data name="DiscardChanges" xml:space="preserve">
+    <value>Yoksay
+Kaydedilmemiş değişiklikleri yoksay</value>
+  </data>
+  <data name="DownloadingPeviewImage" xml:space="preserve">
+    <value>Önizleme için görsel indiriliyor...</value>
+  </data>
+  <data name="EmptyImplementation" xml:space="preserve">
+    <value>Bir bildirim özeti bir boş dizin için tasarlandı. &quot;extract&quot; değerinin arşiv için doğru şekilde ayarlandığını denetleyin.</value>
+  </data>
+  <data name="EntryPointNotFound" xml:space="preserve">
+    <value>Uygulamaların giriş noktaları bulunamıyor.
+Giriş noktalarını el ile belirtmeyi deneyin.</value>
+  </data>
+  <data name="FeedNotValid" xml:space="preserve">
+    <value>Akış geçerli bir biçime sahip değil.</value>
+  </data>
+  <data name="FileDialogFilter" xml:space="preserve">
+    <value>Akış dosyaları (*.xml)|*.xml|Geçici dosyalar (*.xml.template)|*.xml.template|Tüm dosyalar|*</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>&apos;{0}&apos; dosyası bulunamıyor.</value>
+  </data>
+  <data name="HintTextMultiline" xml:space="preserve">
+    <value>Büyük olasılıkla çok satırlı tam bir açıklama</value>
+  </data>
+  <data name="HrefMissing" xml:space="preserve">
+    <value>İndirme akışı eksik.</value>
+  </data>
+  <data name="ImageFormatNotSupported" xml:space="preserve">
+    <value>Görsel dosyası Zero Install tarafından desteklenmiyor.</value>
+  </data>
+  <data name="InstallationDirDetected" xml:space="preserve">
+    <value>&apos;{0}&apos; bir yükleme dizini olarak algılandı.</value>
+  </data>
+  <data name="InstallerExtractFailed" xml:space="preserve">
+    <value>Yükleyici ile ilgili olan bir arşiv ayıklanamadı.</value>
+  </data>
+  <data name="InstallerNeedAltSource" xml:space="preserve">
+    <value>Uygulama için, ZIP arşivi gibi alternatif bir indirme kaynağı belirtmelisiniz. Bu durumda da yükleyici tarafından belirlenmiş masaüstü tümleştirmesi kullanılmaya devam edilecek.</value>
+  </data>
+  <data name="InvalidCapabilitiesRegistryPath" xml:space="preserve">
+    <value>Geçersiz yetenek kaydı yolu: {0}</value>
+  </data>
+  <data name="LicenseInfo" xml:space="preserve">
+    <value>BU PROGRAM KESİN GARANTİ KOŞULU ALTINDA GELMEMEKTEDİR, hukukî dayanağı bulunmaktadır.
+GNU Kısıtlı Kamu Lisansı altında bu program ve bu programın kopyaları yeniden dağıtılabilir.</value>
+  </data>
+  <data name="ManifestDigestChanged" xml:space="preserve">
+    <value>Bildirim özeti değişmiş olabilir.</value>
+  </data>
+  <data name="ManifestDigestMissing" xml:space="preserve">
+    <value>Bildirim özeti henüz tasarlanmamış.</value>
+  </data>
+  <data name="MissingArguments" xml:space="preserve">
+    <value>Değişkenler eksik. {0} --help deneyin.</value>
+  </data>
+  <data name="MissingProgramFiles32Bit" xml:space="preserve">
+    <value>32-bit %ProgramFiles% dizini bulunamıyor.</value>
+  </data>
+  <data name="MultipleDefaultProgramsDetected" xml:space="preserve">
+    <value>Kayıt defterinde çoklu varsayılan program kaydı algılandı. Aynı anda tümü kullanılamaz, ancak genellikle sonuncu kayıtlar önceliklidir.</value>
+  </data>
+  <data name="MultipleInstallationDirsDetected" xml:space="preserve">
+    <value>Çoklu yükleme dizini algılandı. İlk olarak varsayılanı seçin.</value>
+  </data>
+  <data name="MultipleRegisteredAppsDetected" xml:space="preserve">
+    <value>Kayıt defterinde çoklu yeni uygulama kayıtları algılandı. İlk olarak varsayılanı seçin.</value>
+  </data>
+  <data name="NewKey" xml:space="preserve">
+    <value>Yeni anahtar...</value>
+  </data>
+  <data name="NoEntryPointsFound" xml:space="preserve">
+    <value>Hiçbir giriş noktası (EXE&apos;ler, JAR&apos;lar, Python komutları, vb.) bulunamadı. Lütfen seçtiğiniz arşivin geçerliliğinden ve dizine çıkartılmış olduğundan emin olun.</value>
+  </data>
+  <data name="NoFeedFilesFound" xml:space="preserve">
+    <value>Eşleşen herhangi bir akış dosyası bulunamadı.</value>
+  </data>
+  <data name="NoInstallationDirDetected" xml:space="preserve">
+    <value>Yükleme dizini algılanmadı.
+El ile belirtmeyi deneyin.</value>
+  </data>
+  <data name="NoSingleExecutable" xml:space="preserve">
+    <value>Hayır, uygulamanın kendisi
+yalnız bir EXE&apos;den oluşur</value>
+  </data>
+  <data name="OnlyAvailableOnWindows" xml:space="preserve">
+    <value>Bu yöntem yalnız Windows üzerinde kullanılabilir.</value>
+  </data>
+  <data name="OptionAddMissing" xml:space="preserve">
+    <value>Eksik arşivleri, tasarlanmış bildirim özetlerini, vb. indirin.</value>
+  </data>
+  <data name="OptionCatalog" xml:space="preserve">
+    <value>Belirtilen tüm akışları tek bir katalogda {FILE} birleştirin.</value>
+  </data>
+  <data name="OptionGnuPGPassphrase" xml:space="preserve">
+    <value>GnuPG gizli anahtar kilidini kaldırmak için {PASS} kullanın.</value>
+  </data>
+  <data name="OptionHelp" xml:space="preserve">
+    <value>Yerleşik yardım metnini görün.</value>
+  </data>
+  <data name="OptionKey" xml:space="preserve">
+    <value>İmzalama işlemi için anahtarı kullanın (eğer birden fazla anahtarınız varsa, ya da yeniden imzalama işlemi yapmak istiyorsanız farklı anahtarlar kullanın).</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Seçenekler:</value>
+  </data>
+  <data name="OptionsKeepDownloads" xml:space="preserve">
+    <value>İndirilen herhangi bir arşivi uygulama mağazasına ekleyin.</value>
+  </data>
+  <data name="OptionUnsign" xml:space="preserve">
+    <value>Varolan herhangi bir imzayı kaldırın.</value>
+  </data>
+  <data name="OptionVersion" xml:space="preserve">
+    <value>Sürüm bilgilerini görün.</value>
+  </data>
+  <data name="OptionXmlSign" xml:space="preserve">
+    <value>Bir XML imza kalıbı ekleyin. (Tüm uzak akışların imzalanmış olması gerekmektedir.)</value>
+  </data>
+  <data name="PleaseClick" xml:space="preserve">
+    <value>Lütfen tıklatın:</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Kaydet
+Değişiklikleri kaydet</value>
+  </data>
+  <data name="SaveQuestion" xml:space="preserve">
+    <value>Değişiklikleri kaydetmek ister misiniz?</value>
+  </data>
+  <data name="SecretKeyNotInKeyring" xml:space="preserve">
+    <value>Gizli anahtar kullanıcı anahtarlığında değil.</value>
+  </data>
+  <data name="SizeMissing" xml:space="preserve">
+    <value>Dosya boyutu henüz saptanamadı.</value>
+  </data>
+  <data name="UnknownMode" xml:space="preserve">
+    <value>Bilinmeyen işlem kipi.
+{0} --help deneyin</value>
+  </data>
+  <data name="UnknownRetrievalMethodType" xml:space="preserve">
+    <value>Bilinmeyen alma yöntemi tipi.</value>
+  </data>
+  <data name="Usage" xml:space="preserve">
+    <value>Kullanım:</value>
+  </data>
+  <data name="WaitingForInstaller" xml:space="preserve">
+    <value>Yükleyicinin tamamlanması bekleniyor</value>
+  </data>
+  <data name="WrongMimeType" xml:space="preserve">
+    <value>Yanlış MIME tipi! {0} olmalıdır.</value>
+  </data>
+  <data name="YesInstallerExe" xml:space="preserve">
+    <value>Evet, EXE yükleyici</value>
+  </data>
+</root>

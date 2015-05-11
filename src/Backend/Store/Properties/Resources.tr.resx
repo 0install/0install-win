@@ -1,0 +1,417 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ArchitectureStringFormat" xml:space="preserve">
+    <value>&quot;os-cpu&quot; dize biçiminde olmalı.</value>
+  </data>
+  <data name="ArchiveInvalid" xml:space="preserve">
+    <value>Arşiv dosyası geçersiz ya da bozuk.</value>
+  </data>
+  <data name="ArchiveInvalidPath" xml:space="preserve">
+    <value>Arşiv geçersiz bir yol içeriyor (olası güvenlik açığı): {0}</value>
+  </data>
+  <data name="CommandNotFound" xml:space="preserve">
+    <value>&apos;{0}&apos; komutu tanınmıyor.</value>
+  </data>
+  <data name="CopyFiles" xml:space="preserve">
+    <value>Dosyalar kopyalanıyor</value>
+  </data>
+  <data name="DeleteInfoFileContent" xml:space="preserve">
+    <value>Bu önbellek içindeki alt dizinler NTFS izinleri ile istenmeyen değişikliklere karşı korunmuştur.
+Bu korumanın yan etkisi olarak bu dosyalar Windows Gezgini kullanılarak silinemez.
+
+Tek bir kaydı silmek için komut satırında şu komutu kullanabilirsiniz:
+0install store remove UYGULAMA-KODU
+
+Tüm klasörü silmek için komut satırında şu komutu kullanabilirsiniz:
+0install store purge {0}
+
+Ayrıca ek olarak görsel kullanıcı arabirimini kullanarak da önbellekleri yönetebilirsiniz:
+0install store manage</value>
+  </data>
+  <data name="DeleteInfoFileName" xml:space="preserve">
+    <value>Nasıl silinir</value>
+  </data>
+  <data name="DeletingDirectory" xml:space="preserve">
+    <value>{0} dizini siliniyor</value>
+  </data>
+  <data name="DeletingImplementation" xml:space="preserve">
+    <value>{0} uygulaması siliniyor</value>
+  </data>
+  <data name="DigestMismatch" xml:space="preserve">
+    <value>Bir uygulamanın karma değeri beklenen değerle eşleşmiyor.</value>
+  </data>
+  <data name="DigestMismatchActualDigest" xml:space="preserve">
+    <value>Gerçek değer: {0}</value>
+  </data>
+  <data name="DigestMismatchActualManifest" xml:space="preserve">
+    <value>Gerçek özet: {0}</value>
+  </data>
+  <data name="DigestMismatchExpectedDigest" xml:space="preserve">
+    <value>Beklenen değer: {0}</value>
+  </data>
+  <data name="DigestMismatchExpectedManifest" xml:space="preserve">
+    <value>Beklenen özet: {0}</value>
+  </data>
+  <data name="DirectoryNotFound" xml:space="preserve">
+    <value>&apos;{0}&apos; dizini bulunamadı.</value>
+  </data>
+  <data name="ErrorLoadingFeedPrefs" xml:space="preserve">
+    <value>&apos;{0}&apos; için akış yükleme ayarları hatalı. Varsayılan ayarlara geri dönün.</value>
+  </data>
+  <data name="ErrorLoadingInterfacePrefs" xml:space="preserve">
+    <value>&apos;{0}&apos; için arabirim yükleme ayarları hatalı. Varsayılan ayarlara geri dönün.</value>
+  </data>
+  <data name="ErrorLoadingTrustDB" xml:space="preserve">
+    <value>Güvenli veritabanı yüklenirken hata. Varsayılan ayarlara geri dönün.</value>
+  </data>
+  <data name="ExtractingArchive" xml:space="preserve">
+    <value>Arşiv çıkartılıyor</value>
+  </data>
+  <data name="ExtractionOnlyOnWindows" xml:space="preserve">
+    <value>Ayıklanan bu arşiv tipi yalnız Windows üzerinde desteklenir.</value>
+  </data>
+  <data name="FailedToExtractArchive" xml:space="preserve">
+    <value>Arşiv &apos;{0}&apos; üzerinden ayıklanamadı.</value>
+  </data>
+  <data name="FeedNotInCache" xml:space="preserve">
+    <value>&apos;{0}&apos; akış önbelleğinden alınamadı. Dosya için şuraya bakın: {1}</value>
+  </data>
+  <data name="FeedNotInCatalog" xml:space="preserve">
+    <value>Katalogda &apos;{0}&apos; akışı bulunamadı.</value>
+  </data>
+  <data name="FileMissingDest" xml:space="preserve">
+    <value>Bir &lt;file&gt; etiketi eksik bir dizin özniteliğinde.</value>
+  </data>
+  <data name="FilesInUse" xml:space="preserve">
+    <value>Kullanmak istediğiniz dosyalar silinmiş.</value>
+  </data>
+  <data name="FilesInUseAskClose" xml:space="preserve">
+    <value>Uygulamalardan çıkıp devam etmek ister misiniz?</value>
+  </data>
+  <data name="FilesInUseInform" xml:space="preserve">
+    <value>Şu uygulamaların kapatılması gerekiyor:</value>
+  </data>
+  <data name="FindingDuplicateFiles" xml:space="preserve">
+    <value>&apos;{0}&apos; üzerinde ikili dosyalar bulunuyor</value>
+  </data>
+  <data name="GeneratingManifest" xml:space="preserve">
+    <value>{0} özeti oluşturuluyor</value>
+  </data>
+  <data name="IllegalFileType" xml:space="preserve">
+    <value>&apos;{0}&apos; dosyası bir sayısal bağlantı ya da normal bir dosya değil.</value>
+  </data>
+  <data name="ImplementationAlreadyInStore" xml:space="preserve">
+    <value>&apos;{0}&apos; uygulaması zaten bellekte var.</value>
+  </data>
+  <data name="ImplementationDamaged" xml:space="preserve">
+    <value>&apos;{0}&apos; uygulaması bozuk.</value>
+  </data>
+  <data name="ImplementationDamagedAskRemove" xml:space="preserve">
+    <value>Kaldırmak ister misiniz? Daha sonra gerekirse yeni bir kopya otomatik olarak indirilir.</value>
+  </data>
+  <data name="ImplementationDamagedBatchInformation" xml:space="preserve">
+    <value>Kaldırmak için &apos;0install store remove {0}&apos; kullanın. Daha sonra gerekirse bir kopya otomatik olarak indirilir.</value>
+  </data>
+  <data name="ImplementationMissingID" xml:space="preserve">
+    <value>{1} &apos;{0}&apos; kimliği içermiyor.</value>
+  </data>
+  <data name="ImplementationNotFound" xml:space="preserve">
+    <value>&apos;{0}&apos; uygulaması bulunamadı.</value>
+  </data>
+  <data name="ImplementationNotInSelection" xml:space="preserve">
+    <value>Seçiminizde &apos;{0}&apos; arabirimi için uygulama bulunamıyor.</value>
+  </data>
+  <data name="InsufficientFSTimeAccuracy" xml:space="preserve">
+    <value>Temel dosya sistemi bellek dosyasının değişiklik zamanını doğrulamak için yeterli değil.
+FAT dosya sistemi ile biçimlendirilmiş bir sürücü kullanıyorsanız lütfen dosya sistemini NTFS&apos;ye dönüştürün.</value>
+  </data>
+  <data name="InvalidDigest" xml:space="preserve">
+    <value>&apos;{0}&apos; özeti &apos;algorithm=value&apos; formunda değil.</value>
+  </data>
+  <data name="InvalidFeedUri" xml:space="preserve">
+    <value>&apos;{0}&apos; geçerli bir &apos;HTTP(S):&apos; ağ iletişim kuralı ya da geçerli bir yerel hedef değil.</value>
+  </data>
+  <data name="InvalidLinesInManifest" xml:space="preserve">
+    <value>Bildirim dosyası geçersiz satırlar içeriyor.</value>
+  </data>
+  <data name="InvalidNumberOfLineParts" xml:space="preserve">
+    <value>Satırda geçersiz kısım numaraları var.</value>
+  </data>
+  <data name="InvalidSignature" xml:space="preserve">
+    <value>İmza geçersiz ya da bozuk.</value>
+  </data>
+  <data name="InvalidUrl" xml:space="preserve">
+    <value>İstenilen ağ akışı geçersiz.</value>
+  </data>
+  <data name="MissingPath" xml:space="preserve">
+    <value>Belirtilmiş hedef yok.</value>
+  </data>
+  <data name="MustBeAdminToOptimise" xml:space="preserve">
+    <value>Paylaşılan bir belleği yalnız yöneticiler iyileştirebilir.</value>
+  </data>
+  <data name="MustBeAdminToRemove" xml:space="preserve">
+    <value>Paylaşılan bir bellekten yalnız yöneticiler bileşen kaldırabilir.</value>
+  </data>
+  <data name="MustBeDottedList" xml:space="preserve">
+    <value>Nokta ile ayrılmış liste yalnız ondalık sayılar içerebilir.</value>
+  </data>
+  <data name="MustBeSpecificCPU" xml:space="preserve">
+    <value>Değer belirli bir işlemci olmalıdır (&quot;Tümü&quot; ya da &quot;Bilinmiyor&quot; olamaz).</value>
+  </data>
+  <data name="MustBeSpecificOS" xml:space="preserve">
+    <value>Değer belirli bir işletim sistemi olmalıdır (&quot;Tümü&quot; ya da &quot;Bilinmiyor&quot; olamaz).</value>
+  </data>
+  <data name="MustBeValidVersionPart" xml:space="preserve">
+    <value>Sürüm numarası yalnız nokta ile ayrılmış ondalıkları ve değiştirici dizeleri içerebilir.</value>
+  </data>
+  <data name="MustStartWithDottedList" xml:space="preserve">
+    <value>Sürüm numarası bir listede nokta ile ayrılmış ondalıklarla başlar.</value>
+  </data>
+  <data name="NewlineInName" xml:space="preserve">
+    <value>Dosya ya da dizin adı yeni satır karakteri içermemelidir.</value>
+  </data>
+  <data name="NoKnownDigestMethod" xml:space="preserve">
+    <value>Tanımlanmış bilinen özet yöntemi yok.</value>
+  </data>
+  <data name="NonRootedPathInConfig" xml:space="preserve">
+    <value>&apos;{0}&apos; yolu kesin bir yol değil. Bağıl yollar yalnız taşınabilir kipte kullanılabilir.
+&apos;{1}&apos; yapılandırma dosyasında belirtilmiştir.</value>
+  </data>
+  <data name="NoSuitableIconFound" xml:space="preserve">
+    <value>Uygun simge bulunamadı.</value>
+  </data>
+  <data name="NumberTooLarge" xml:space="preserve">
+    <value>Numara değeri çok büyük.</value>
+  </data>
+  <data name="PathNotRelative" xml:space="preserve">
+    <value>Yol bağıl olmalıdır.</value>
+  </data>
+  <data name="ProblemAccessingStore" xml:space="preserve">
+    <value>&apos;{0}&apos; uygulama mağazasına erişilirken bir sorun oluştu.</value>
+  </data>
+  <data name="ProblemAccessingStoreEx" xml:space="preserve">
+    <value>&apos;{0}&apos; uygulama mağazasına erişilirken bir sorun oluştu.
+&apos;{1}&apos; yapılandırma dosyasında belirtilmiştir.</value>
+  </data>
+  <data name="ProblemLoadingConfigFile" xml:space="preserve">
+    <value>Bir yapılandırma dosyasını yüklerken sorun oluştu.
+&apos;{0}&apos; dosyasını silerek sorunu giderebilirsiniz.</value>
+  </data>
+  <data name="ProblemLoadingConfigValue" xml:space="preserve">
+    <value>&apos;{0}&apos; yapılandırma değeri yüklenirken bir sorun oluştu.
+&apos;{1}&apos; dosyasını silerek sorunu giderebilirsiniz. Diğer ayarlar da kaybolacak.</value>
+  </data>
+  <data name="RecipeFileNotDownloaded" xml:space="preserve">
+    <value>&lt;recipe&gt; içinde belirtilen bir dosya indirilemedi.</value>
+  </data>
+  <data name="RecipeInvalidPath" xml:space="preserve">
+    <value>Bir tarif adımı geçersiz yol içeriyor (olası güvenlik açığı): {0}</value>
+  </data>
+  <data name="RelativePathInRemoteFeed" xml:space="preserve">
+    <value>Uzak akış için &apos;{0}&apos; bağıl yolu belirtilmiş. Bağıl yollar yalnız yerel akışlarda kullanılabilir.</value>
+  </data>
+  <data name="RelativeUriInRemoteFeed" xml:space="preserve">
+    <value>Uzak akış içinde &apos;{0}&apos; HREF belirtilmiş. Bağıl HREF yalnız yerel akışlarda kullanılabilir.</value>
+  </data>
+  <data name="RestartManagerSearch" xml:space="preserve">
+    <value>Dosyayı açacak uygulamalar aranıyor</value>
+  </data>
+  <data name="RootedPathRequired" xml:space="preserve">
+    <value>Tam belirtilmiş/köke göre yazılmış yol gereklidir.</value>
+  </data>
+  <data name="RubyGemInvalid" xml:space="preserve">
+    <value>Ruby Gem dosyası içinde data.tar.gz bulunamadı.</value>
+  </data>
+  <data name="SelectionCandidateNoteBuggy" xml:space="preserve">
+    <value>Uygulama hatalı</value>
+  </data>
+  <data name="SelectionCandidateNoteCommand" xml:space="preserve">
+    <value>&apos;{0}&apos; komutu verilmedi.</value>
+  </data>
+  <data name="SelectionCandidateNoteIncompatibleArchitecture" xml:space="preserve">
+    <value>Uyumsuz işletim sistemi ya da CPU</value>
+  </data>
+  <data name="SelectionCandidateNoteInsecure" xml:space="preserve">
+    <value>Güvenilmeyen uygulama</value>
+  </data>
+  <data name="SelectionCandidateNoteNotCached" xml:space="preserve">
+    <value>Uygulama önbellekte değil (şu anda çevrimdışı kipte)</value>
+  </data>
+  <data name="SelectionCandidateNoteSource" xml:space="preserve">
+    <value>Yürütülemeyen kaynak uygulaması</value>
+  </data>
+  <data name="SelectionCandidateNoteVersionMismatch" xml:space="preserve">
+    <value>Uygulama sürümü çok eski ya da çok yeni</value>
+  </data>
+  <data name="SelectionCandidateNoteWrongLanguage" xml:space="preserve">
+    <value>Dil doğru değil</value>
+  </data>
+  <data name="SignatureAldreadyExists" xml:space="preserve">
+    <value>İmza dosyası zaten var.</value>
+  </data>
+  <data name="StoreServiceCommunicationProblem" xml:space="preserve">
+    <value>Bellek Hizmeti bağlantısı kurulamadı.</value>
+  </data>
+  <data name="TemporaryDirectories" xml:space="preserve">
+    <value>Geçici dizinler</value>
+  </data>
+  <data name="UnableToFindSecretKey" xml:space="preserve">
+    <value>Belirtilen ad ile bir gizli anahtar bulunamıyor.</value>
+  </data>
+  <data name="UnableToWriteProtect" xml:space="preserve">
+    <value>&apos;{0}&apos; için yazma koruması etkinleştirilemiyor.</value>
+  </data>
+  <data name="UnknownArchiveType" xml:space="preserve">
+    <value>Bilinmeyen arşiv tipi.</value>
+  </data>
+  <data name="UnknownCpu" xml:space="preserve">
+    <value>Bilinmeyen CPU.</value>
+  </data>
+  <data name="UnknownInterface" xml:space="preserve">
+    <value>Bilinmeyen arabirim</value>
+  </data>
+  <data name="UnknownModifier" xml:space="preserve">
+    <value>Bilinmeyen tamamlayıcı.</value>
+  </data>
+  <data name="UnknownOS" xml:space="preserve">
+    <value>Bilinmeyen işletim sistemi.</value>
+  </data>
+  <data name="UnknownRecipeStepType" xml:space="preserve">
+    <value>&apos;{0}&apos; olarak gösterilen yönerge tipi bilinmiyor.</value>
+  </data>
+  <data name="UnsupportedArchiveMimeType" xml:space="preserve">
+    <value>&apos;{0}&apos; arşiv MIME tipi desteklenmiyor.</value>
+  </data>
+  <data name="VersionRangeEndNotExclusive" xml:space="preserve">
+    <value>Sürüm aralığı sonu özel olmalıdır. &apos;..!{0}&apos; kullanın &apos;..{0}&apos; değil.</value>
+  </data>
+  <data name="WrongPassphrase" xml:space="preserve">
+    <value>Girdiğiniz parola geçersiz.</value>
+  </data>
+  <data name="XmlSignatureInvalidEnd" xml:space="preserve">
+    <value>Dosyanın son satırı imza bloğunun sonu değil.</value>
+  </data>
+  <data name="XmlSignatureMissingNewLine" xml:space="preserve">
+    <value>XML imzası yeni satırda başlatılamadı.</value>
+  </data>
+  <data name="XmlSignatureNotBase64" xml:space="preserve">
+    <value>İmza geçerli base 64 değil:</value>
+  </data>
+</root>

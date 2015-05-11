@@ -1,0 +1,417 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ArchitectureStringFormat" xml:space="preserve">
+    <value>Η σειρά πρέπει να είναι σε μορφή &quot;os-CPU&quot;.</value>
+  </data>
+  <data name="ArchiveInvalid" xml:space="preserve">
+    <value>Το αρχείο αρχειοθέτησης δεν είναι έγκυρο ή κατεστραμμένο.</value>
+  </data>
+  <data name="ArchiveInvalidPath" xml:space="preserve">
+    <value>Το αρχείο περιέχει μια μη έγκυρη διαδρομή (ενδεχομένως κίνδυνος για την ασφάλεια): {0}</value>
+  </data>
+  <data name="CommandNotFound" xml:space="preserve">
+    <value>Αδυναμία εύρεσης εντολής &apos;{0}&apos;.</value>
+  </data>
+  <data name="CopyFiles" xml:space="preserve">
+    <value>Αντιγραφή αρχείων</value>
+  </data>
+  <data name="DeleteInfoFileContent" xml:space="preserve">
+    <value>Οι υποκαταλόγοοι σε αυτό το χώρο προσωρινής αποθήκευσης προστατεύονται από ακούσια τροποποίηση χρησιμοποιώντας δικαιώματα NTFS.
+Ως παρενέργεια αυτό τους εμποδίζει από το να διαγράφονται χρησιμοποιώντας το Windows Explorer.
+
+Αν θέλετε να διαγράψετε μια καταχώρηση, μπορείτε να χρησιμοποιήσετε αυτή τη γραμμή εντολών:
+0install κατάστημα αφαίρεση ΕΦΑΡΜΟΓΗ-ID
+
+Εάν επιθυμείτε να διαγράψετε ολόκληρο αυτό τον κατάλογο, μπορείτε να χρησιμοποιήσετε αυτή τη γραμμή εντολών:
+0install εκκαθάριση {0}
+
+Εναλλακτικά, μπορείτε να χρησιμοποιήσετε το γραφικό περιβάλλον χρήστη για τη διαχείριση:
+Αποθήκευση 0install διαχείρισης</value>
+  </data>
+  <data name="DeleteInfoFileName" xml:space="preserve">
+    <value>Πώς να διαγράψετε</value>
+  </data>
+  <data name="DeletingDirectory" xml:space="preserve">
+    <value>Διαγραφή καταλόγου {0}</value>
+  </data>
+  <data name="DeletingImplementation" xml:space="preserve">
+    <value>Διαγραφή εφαρμογής {0}</value>
+  </data>
+  <data name="DigestMismatch" xml:space="preserve">
+    <value>Μια εφαρμογή δηλωτικου δίεσης δεν ταιριάζει με την αναμενόμενη τιμή.</value>
+  </data>
+  <data name="DigestMismatchActualDigest" xml:space="preserve">
+    <value>Πραγματική τιμή: {0}</value>
+  </data>
+  <data name="DigestMismatchActualManifest" xml:space="preserve">
+    <value>Πραγματικο Δηλωτικό: {0}</value>
+  </data>
+  <data name="DigestMismatchExpectedDigest" xml:space="preserve">
+    <value>Αναμενόμενη τιμή: {0}</value>
+  </data>
+  <data name="DigestMismatchExpectedManifest" xml:space="preserve">
+    <value>Αναμενόμενο Δηλωτικό: {0}</value>
+  </data>
+  <data name="DirectoryNotFound" xml:space="preserve">
+    <value>Ο κατάλογος &apos;{0}&apos; δεν μπορεσε να βρεθεί.</value>
+  </data>
+  <data name="ErrorLoadingFeedPrefs" xml:space="preserve">
+    <value>Σφάλμα κατά τη φόρτωση των προτιμήσεων τροφοδοσίας για &apos;{0}&apos;. Επαναφορά στις προεπιλεγμένες τιμές.</value>
+  </data>
+  <data name="ErrorLoadingInterfacePrefs" xml:space="preserve">
+    <value>Προτιμήσεις διεπαφής Σφάλμα κατά τη φόρτωση για &apos;{0}&apos;. Επαναφορά στις προεπιλεγμένες τιμές.</value>
+  </data>
+  <data name="ErrorLoadingTrustDB" xml:space="preserve">
+    <value>Σφάλμα κατά τη φόρτωση δεδομένων εμπιστοσύνης. Επαναφορά στις προεπιλεγμένες τιμές.</value>
+  </data>
+  <data name="ExtractingArchive" xml:space="preserve">
+    <value>Εξαγόμενο αρχείο</value>
+  </data>
+  <data name="ExtractionOnlyOnWindows" xml:space="preserve">
+    <value>Η εξαγωγή αυτού του είδους αρχείων υποστηρίζεται μόνο στο Windows.</value>
+  </data>
+  <data name="FailedToExtractArchive" xml:space="preserve">
+    <value>Αποτυχία εξαγωγής του αρχείο από &apos;{0}&apos;.</value>
+  </data>
+  <data name="FeedNotInCache" xml:space="preserve">
+    <value>&apos;{0}&apos; δεν ήταν δυνατό να εντοπιστεί στην προσωρινή μνήμη τροφοδοσίας. Κοίταξtε για το αρχείο στο: {1}</value>
+  </data>
+  <data name="FeedNotInCatalog" xml:space="preserve">
+    <value>Αδυναμία εύρεσης τροφοδοσίας &apos;{0}&apos; στον κατάλογο.</value>
+  </data>
+  <data name="FileMissingDest" xml:space="preserve">
+    <value>Ένα &lt;αρχείο&gt; ετικέτας λείπει ένα χαρακτηριστικό προορισμού.</value>
+  </data>
+  <data name="FilesInUse" xml:space="preserve">
+    <value>Τα αρχεία που θέλετε να διαγραφούν χρησιμοποιούνται σήμερα.</value>
+  </data>
+  <data name="FilesInUseAskClose" xml:space="preserve">
+    <value>Θέλετε να κλείσετε αυτές τις εφαρμογές και να συνεχίσετε;</value>
+  </data>
+  <data name="FilesInUseInform" xml:space="preserve">
+    <value>Οι παρακάτω εφαρμογές πρέπει να κλείσουν:</value>
+  </data>
+  <data name="FindingDuplicateFiles" xml:space="preserve">
+    <value>Εύρεση διπλών αρχείων στο &apos;{0}&apos;</value>
+  </data>
+  <data name="GeneratingManifest" xml:space="preserve">
+    <value>Δημιουργία {0} Δηλωτικoz</value>
+  </data>
+  <data name="IllegalFileType" xml:space="preserve">
+    <value>Το αρχείο &apos;{0}&apos; δεν είναι ούτε ένας συμβολικός δεσμός ούτε ένα κανονικό αρχείο.</value>
+  </data>
+  <data name="ImplementationAlreadyInStore" xml:space="preserve">
+    <value>Η εφαρμογή &apos;{0}&apos; είναι ήδη στη λίστα εφαρμογών.</value>
+  </data>
+  <data name="ImplementationDamaged" xml:space="preserve">
+    <value>Η εφαρμογή &apos;{0}&apos; έχει καταστραφεί.</value>
+  </data>
+  <data name="ImplementationDamagedAskRemove" xml:space="preserve">
+    <value>Θέλετε να το καταργήσετε; Ένα νέο αντίγραφο θα γίνει αυτόματα και πάλι όταν χρειαστεί.</value>
+  </data>
+  <data name="ImplementationDamagedBatchInformation" xml:space="preserve">
+    <value>Θέλετε να το καταργήσετε {0}&apos; ; Ένα νέο αντίγραφο θα γίνει αυτόματα και πάλι όταν χρειαστεί.</value>
+  </data>
+  <data name="ImplementationMissingID" xml:space="preserve">
+    <value>&apos;{0}&apos; {1} δεν έχει ID.</value>
+  </data>
+  <data name="ImplementationNotFound" xml:space="preserve">
+    <value>Η εφαρμογή &apos;{0}&apos; δεν μπορεσε να βρεθεί.</value>
+  </data>
+  <data name="ImplementationNotInSelection" xml:space="preserve">
+    <value>Αδυναμία εύρεσης εφαρμογής για διασύνδεση &apos;{0}&apos; στην επιλογή.</value>
+  </data>
+  <data name="InsufficientFSTimeAccuracy" xml:space="preserve">
+    <value>Το υποκείμενικο σύστημα αρχείων δεν αποθηκεύει χρόνους αλλαγής αρχείου με επαρκή ακρίβεια.
+Εάν χρησιμοποιείτε έναν διαμορφωμένο με FAT σκληρο δίσκο παρακαλουμε να τον μετατρέψετε σε NTFS.</value>
+  </data>
+  <data name="InvalidDigest" xml:space="preserve">
+    <value>Αφομοίωση &apos;{0}&apos; δεν έχει τη μορφή «αλγόριθμος = τιμή».</value>
+  </data>
+  <data name="InvalidFeedUri" xml:space="preserve">
+    <value>&apos;{0}&apos; δεν είναι έγκυρο &apos;http (s): «URI και δεν είναι έγκυρη τοπική διαδρομή.</value>
+  </data>
+  <data name="InvalidLinesInManifest" xml:space="preserve">
+    <value>Το αρχείο δήλωσης περιέχει μη έγκυρες γραμμές.</value>
+  </data>
+  <data name="InvalidNumberOfLineParts" xml:space="preserve">
+    <value>Μη έγκυρος αριθμός των τμημάτων στη γραμμή.</value>
+  </data>
+  <data name="InvalidSignature" xml:space="preserve">
+    <value>Η υπογραφή δεν είναι έγκυρη ή έχει υποστεί ζημιά.</value>
+  </data>
+  <data name="InvalidUrl" xml:space="preserve">
+    <value>Η ζητούμενη διεύθυνση URL δεν είναι έγκυρη.</value>
+  </data>
+  <data name="MissingPath" xml:space="preserve">
+    <value>Καμία καθορισμένη διαδρομή.</value>
+  </data>
+  <data name="MustBeAdminToOptimise" xml:space="preserve">
+    <value>Μόνο οι διαχειριστές μπορούν να βελτιστοποιήσουν ένα κοινό κατάστημα.</value>
+  </data>
+  <data name="MustBeAdminToRemove" xml:space="preserve">
+    <value>Μόνο οι διαχειριστές μπορούν να αφαιρέσουν στοιχεία από ένα κοινό κατάστημα.</value>
+  </data>
+  <data name="MustBeDottedList" xml:space="preserve">
+    <value>Η λίστα διαχωρισμένη με τελείες μπορεί να περιέχει μόνο δεκαδικούς αριθμούς.</value>
+  </data>
+  <data name="MustBeSpecificCPU" xml:space="preserve">
+    <value>Η τιμή πρέπει να είναι ένας ειδικός επεξεργαστής (όχι &quot;Όλα&quot; ή &quot;Αγνωστο&quot;).</value>
+  </data>
+  <data name="MustBeSpecificOS" xml:space="preserve">
+    <value>Η τιμή πρέπει να είναι ένας ειδικό λειτουργικό σύστημα (όχι &quot;Όλα&quot; ή &quot;Αγνωστο&quot;).</value>
+  </data>
+  <data name="MustBeValidVersionPart" xml:space="preserve">
+    <value>Ο αριθμός έκδοσης μπορεί να περιέχει μόνο διαχωρισμένα με τελείες δεκαδικά ψηφία και συμβολοσειρές τροποποίησης.</value>
+  </data>
+  <data name="MustStartWithDottedList" xml:space="preserve">
+    <value>Ο αριθμός έκδοσης πρέπει να αρχίζει με μια λίστα διαχωρισμένη με τελείες δεκαδικά ψηφία.</value>
+  </data>
+  <data name="NewlineInName" xml:space="preserve">
+    <value>Το όνομα του αρχείου ή του καταλόγου δεν πρέπει να περιέχει έναν χαρακτήρα νέας γραμμής.</value>
+  </data>
+  <data name="NoKnownDigestMethod" xml:space="preserve">
+    <value>Καμία γνωστή μέθοδος έχει καθοριστεί.</value>
+  </data>
+  <data name="NonRootedPathInConfig" xml:space="preserve">
+    <value>Η διαδρομή &apos;{0}&apos; δεν είναι μια απόλυτη διαδρομή. Οι σχετικές διαδρομές επιτρέπονται μόνο στην φορητη κατάσταση.
+Καθορίζεται στο αρχείο ρυθμίσεων &apos;{1}&apos;.</value>
+  </data>
+  <data name="NoSuitableIconFound" xml:space="preserve">
+    <value>Δεν βρέθηκε καμία κατάλληλη εικόνα. </value>
+  </data>
+  <data name="NumberTooLarge" xml:space="preserve">
+    <value>Η αριθμητική τιμή είναι πολύ μεγάλη.</value>
+  </data>
+  <data name="PathNotRelative" xml:space="preserve">
+    <value>Η διαδρομή θα πρέπει να είναι σχετική.</value>
+  </data>
+  <data name="ProblemAccessingStore" xml:space="preserve">
+    <value>Υπήρξε έναν πρόβλημα κατά την πρόσβαση στο κατάστημα εφαρμογής &apos;{0}&apos;.</value>
+  </data>
+  <data name="ProblemAccessingStoreEx" xml:space="preserve">
+    <value>Υπήρξε ένα πρόβλημα κατά την πρόσβαση στο κατάστημα εφαρμογής &apos;{0}&apos;.
+Καθορίζεται στο αρχείο ρυθμίσεων &apos;{1}&apos;.</value>
+  </data>
+  <data name="ProblemLoadingConfigFile" xml:space="preserve">
+    <value>Υπήρξε ένα πρόβλημα κατά τη φόρτωση ενός αρχείου διαμόρφωσης.
+Μπορείτε να διαγράψετε το αρχείο &apos;{0}&apos; για να διορθώσετε το πρόβλημα.</value>
+  </data>
+  <data name="ProblemLoadingConfigValue" xml:space="preserve">
+    <value>Υπήρξε ένα πρόβλημα κατά τη φόρτωση της τιμής ρύθμισης &apos;{0}&apos;.
+Μπορείτε να διαγράψετε το αρχείο &apos;{1}&apos; για να διορθώσετε το πρόβλημα. Άλλες ρυθμίσεις μπορούν επίσης να χαθούν.</value>
+  </data>
+  <data name="RecipeFileNotDownloaded" xml:space="preserve">
+    <value>Ένα αρχείο που αναφέρεται στο &lt;recipe&gt; δεν μεταφορτώθηκε.</value>
+  </data>
+  <data name="RecipeInvalidPath" xml:space="preserve">
+    <value>Ένα recipe περιέχει μια έγκυρη διαδρομή (ενδεχομένως κίνδυνος για την ασφάλεια): {0}</value>
+  </data>
+  <data name="RelativePathInRemoteFeed" xml:space="preserve">
+    <value>Η σχετική διαδρομή &apos;{0}&apos; έχει καθοριστεί σε μια απομακρυσμένη τροφοδοσία. Μόνο τοπικές τροφοδοσίες μπορούν να περιέχουν σχετικές διαδρομές.</value>
+  </data>
+  <data name="RelativeUriInRemoteFeed" xml:space="preserve">
+    <value>Η σχετική HREF &apos;{0}&apos; έχει καθοριστεί σε μια απομακρυσμένη τροφοδοσίας. Μόνο τοπικές τροφοδοσίες μπορούν να περιέχουν σχετικές HREFs.</value>
+  </data>
+  <data name="RestartManagerSearch" xml:space="preserve">
+    <value>Ψάχνοντας για ανοικτές αναφορές αρχείου</value>
+  </data>
+  <data name="RootedPathRequired" xml:space="preserve">
+    <value>Μια πλήρως αναγνωρισμένη/ριζωμένη διαδρομή απαιτείται.</value>
+  </data>
+  <data name="RubyGemInvalid" xml:space="preserve">
+    <value>Αδυναμία εύρεσης data.tar.gz εσωτερικό αρχείου Ruby Gem.</value>
+  </data>
+  <data name="SelectionCandidateNoteBuggy" xml:space="preserve">
+    <value>Προβληματικη εφαρμογή </value>
+  </data>
+  <data name="SelectionCandidateNoteCommand" xml:space="preserve">
+    <value>Δεν παρέχει την εντολή &apos;{0}&apos;.</value>
+  </data>
+  <data name="SelectionCandidateNoteIncompatibleArchitecture" xml:space="preserve">
+    <value>Ασυμβίβαστο λειτουργικό σύστημα ή CPU</value>
+  </data>
+  <data name="SelectionCandidateNoteInsecure" xml:space="preserve">
+    <value>Ανασφαλής εφαρμογή</value>
+  </data>
+  <data name="SelectionCandidateNoteNotCached" xml:space="preserve">
+    <value>Εφαρμογή όχι στην προσωρινή μνήμη (επί του παρόντος σε λειτουργία εκτός σύνδεσης)</value>
+  </data>
+  <data name="SelectionCandidateNoteSource" xml:space="preserve">
+    <value>Μη εκτελέσιμη εφαρμογή πηγής</value>
+  </data>
+  <data name="SelectionCandidateNoteVersionMismatch" xml:space="preserve">
+    <value>Η εκδοση εφαρμογής ειναι πολύ παλιά ή πολύ νέα</value>
+  </data>
+  <data name="SelectionCandidateNoteWrongLanguage" xml:space="preserve">
+    <value>Λάθος γλώσσα</value>
+  </data>
+  <data name="SignatureAldreadyExists" xml:space="preserve">
+    <value>Η υπογραφή αρχείου υπάρχει ήδη.</value>
+  </data>
+  <data name="StoreServiceCommunicationProblem" xml:space="preserve">
+    <value>Δεν είναι δυνατή η δημιουργία σύνδεσης με το StoreService.</value>
+  </data>
+  <data name="TemporaryDirectories" xml:space="preserve">
+    <value>Προσωρινή κατάλογοι</value>
+  </data>
+  <data name="UnableToFindSecretKey" xml:space="preserve">
+    <value>Αδυναμία εύρεσης ενός μυστικού κλειδίου με το συγκεκριμένο όνομα.</value>
+  </data>
+  <data name="UnableToWriteProtect" xml:space="preserve">
+    <value>Δεν είναι δυνατή η ενεργοποιήση της προστασίας εγγραφής για &apos;{0}&apos;.</value>
+  </data>
+  <data name="UnknownArchiveType" xml:space="preserve">
+    <value>Άγνωστος τύπος αρχείου.</value>
+  </data>
+  <data name="UnknownCpu" xml:space="preserve">
+    <value>Άγνωστο CPU.</value>
+  </data>
+  <data name="UnknownInterface" xml:space="preserve">
+    <value>Άγνωστη διεπαφή</value>
+  </data>
+  <data name="UnknownModifier" xml:space="preserve">
+    <value>Άγνωστος τροποποιητής</value>
+  </data>
+  <data name="UnknownOS" xml:space="preserve">
+    <value>Άγνωστο λειτουργικό σύστημα.</value>
+  </data>
+  <data name="UnknownRecipeStepType" xml:space="preserve">
+    <value>Ο τύπος recipe &apos;{0}&apos; είναι άγνωστος.</value>
+  </data>
+  <data name="UnsupportedArchiveMimeType" xml:space="preserve">
+    <value>Ο τύπος MIME του αρχείου &apos;{0}&apos; δεν υποστηρίζεται.</value>
+  </data>
+  <data name="VersionRangeEndNotExclusive" xml:space="preserve">
+    <value>Το τέλος της σειράς έκδοσης πρέπει να είναι αποκλειστική χρήση »..! {0} &apos;, όχι&apos; .. {0} &apos;.</value>
+  </data>
+  <data name="WrongPassphrase" xml:space="preserve">
+    <value>Η φράση πρόσβασης που έχετε εισάγει είναι λάθος.</value>
+  </data>
+  <data name="XmlSignatureInvalidEnd" xml:space="preserve">
+    <value>Η τελευταία γραμμή του αρχείου δεν είναι το τέλος του μπλοκ υπογραφής.</value>
+  </data>
+  <data name="XmlSignatureMissingNewLine" xml:space="preserve">
+    <value>Η υπογραφή XML δεν ξεκινά σε μια νέα γραμμή.</value>
+  </data>
+  <data name="XmlSignatureNotBase64" xml:space="preserve">
+    <value>Για την υπογραφή δεν ισχύει η βάση 64:</value>
+  </data>
+</root>

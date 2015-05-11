@@ -1,0 +1,249 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AskKeyTrust" xml:space="preserve">
+    <value>Τροφοδοσία: {0}
+- Ισχύει υπογραφή από {1}
+- {2}
+Θέλετε να εμπιστευόμαστε αυτό το κλειδί για να υπογράψει τροφοδοσίες από &apos;{3}&apos;;
+
+
+</value>
+  </data>
+  <data name="BindingNotSupportedOnCurrentOS" xml:space="preserve">
+    <value>Οι {0} συνδέσεις επί του παρόντος δεν υποστηρίζονται σε αυτό το λειτουργικό σύστημα.</value>
+  </data>
+  <data name="CommandLineEmpty" xml:space="preserve">
+    <value>Η προκύπτουσα γραμμή εντολών είναι κενή.</value>
+  </data>
+  <data name="CommandNotSpecified" xml:space="preserve">
+    <value>Εντολή για &apos;{0}&apos; δεν έχει καθοριστεί.</value>
+  </data>
+  <data name="EnvironmentBindingValueInvalid" xml:space="preserve">
+    <value>&lt;περιβάλλον&gt; συνδέσεις πρέπει να περιέχουν είτε μια «αξία» ή ένα «ένθετο» χαρακτηριστικό.</value>
+  </data>
+  <data name="ExternalSolverOutputErrror" xml:space="preserve">
+    <value>Η έξοδος της εξωτερικής επιλυτής δεν μπόρεσε να υποβληθη σε επεξεργασία.</value>
+  </data>
+  <data name="ExternalSolverRunning" xml:space="preserve">
+    <value>Εκτέλεση εξωτερικής επιλυτής</value>
+  </data>
+  <data name="FailedToLaunch" xml:space="preserve">
+    <value>Απέτυχε ξεκινήσει &apos;{0}&apos;.</value>
+  </data>
+  <data name="FeedDownloadError" xml:space="preserve">
+    <value>Σφάλμα κατά τη λήψη τροφοδοσίας &apos;{0}&apos;.</value>
+  </data>
+  <data name="FeedNotCachedOffline" xml:space="preserve">
+    <value>Η τροφοδοσία &apos;{0}&apos; δεν αποθηκεύεται προσωρινά και το Zero Install είναι επί του παρόντος σε λειτουργία εκτός σύνδεσης.</value>
+  </data>
+  <data name="FeedNoTrustedSignatures" xml:space="preserve">
+    <value>Η τροφοδοσία &apos;{0}&apos; δεν υπεγράφη με αξιόπιστα κλειδιά.</value>
+  </data>
+  <data name="FeedUriLocal" xml:space="preserve">
+    <value>&apos;{0}&apos; είναι ένα τοπικό αρχείο. Θα πρέπει να είναι ένα HTTP (S) URL.</value>
+  </data>
+  <data name="FeedUriMismatch" xml:space="preserve">
+    <value>Το &lt;interface&gt; uri χαρακτηριστικό (&apos;{0}&apos;) δεν ταιριάζει με τη διεύθυνση URL της τροφοδοσίας έχετε κατεβάσει από (&apos;{1}&apos;).</value>
+  </data>
+  <data name="FeedUriMissing" xml:space="preserve">
+    <value>Οι &lt;interface&gt; uri ιδιότητες ειναι ελείπεις. Πρέπει να είναι &apos;{0}&apos;.</value>
+  </data>
+  <data name="FetcherProblem" xml:space="preserve">
+    <value>Ο επιλυτής αντιμετώπισε ένα μη αναμενόμενο πρόβλημα.</value>
+  </data>
+  <data name="FileNotExpectedSize" xml:space="preserve">
+    <value>Το αρχείο που μεταφορτώνεται από {0} δεν έχει το αναμενόμενο μέγεθος. Ήταν υποτιθέμενο για να είναι {1} bytes, αλλά στην πραγματικότητα ήταν {2} bytes.</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>Το αρχείο δεν βρέθηκε: {0}</value>
+  </data>
+  <data name="IllegalCharInBindingName" xml:space="preserve">
+    <value>Παράνομος χαρακτήρας στο {0} όνομα σύνδεσης.</value>
+  </data>
+  <data name="MissingBindingName" xml:space="preserve">
+    <value>Όνομα στην {0} δεσμευτική λείπει.</value>
+  </data>
+  <data name="MissingInterfaceUri" xml:space="preserve">
+    <value>Δεν ορίστηκε διεπαφή.</value>
+  </data>
+  <data name="NoImplementationsPassed" xml:space="preserve">
+    <value>Τουλάχιστον μία εφαρμογή πρέπει να περάσει.</value>
+  </data>
+  <data name="NoKeyInfoServerData" xml:space="preserve">
+    <value>Το κλειδί του διακομιστή πληροφοριών δεν ήταν σε θέση να παράσχει οποιαδήποτε επιπλέον πληροφορία σχετικά με αυτό το κλειδί.</value>
+  </data>
+  <data name="NoManifestDigest" xml:space="preserve">
+    <value>Δεν συντρέχει πρόδηλη αφομοιώση για την εφαρμογή &apos;{0}&apos; που βρέθηκε.</value>
+  </data>
+  <data name="NoPackageManagerSupport" xml:space="preserve">
+    <value>Δεν υπάρχει διαχειριστής πακέτων υποστήριξης για αυτήν την πλατφόρμα.</value>
+  </data>
+  <data name="NoRetrievalMethod" xml:space="preserve">
+    <value>Καμία μέθοδος ανάκτησης για την εφαρμογή &apos;{0}&apos; δεν βρέθηκε.</value>
+  </data>
+  <data name="NoSelectedVersion" xml:space="preserve">
+    <value>Καμμια επιλεγμενη έκδοση</value>
+  </data>
+  <data name="NotCached" xml:space="preserve">
+    <value>(όχι προσωρινή αποθήκευση)</value>
+  </data>
+  <data name="NotInterfaceUri" xml:space="preserve">
+    <value>Η διεπαφή &apos;{0}&apos; δεν ξεκινά με &apos;http:&apos; και δεν υπάρχει ως αρχείο &apos;{1}&apos;.</value>
+  </data>
+  <data name="ReplayAttack" xml:space="preserve">
+    <value>Μια πιθανή επίθεση αναπαραγωγής ανιχνεύθηκε. Χρόνος τροποποίησης της νέας τροφοδοσίας είναι πριν από την παλιά έκδοση.
+Τροφοδοσία URI: {0}
+Παλιός χρόνος: {1}
+Νέος χρόνος: {2}</value>
+  </data>
+  <data name="SolverProblem" xml:space="preserve">
+    <value>Ο επιλυτής αντιμετώπισε ένα μη αναμενόμενο πρόβλημα.</value>
+  </data>
+  <data name="TryingFeedMirror" xml:space="preserve">
+    <value>Trying feed mirror server</value>
+  </data>
+  <data name="UnableToCacheCatalog" xml:space="preserve">
+    <value>Δεν είναι δυνατή η προσωρινή αποθήκευση του κατάλογου της εφαρμογής.</value>
+  </data>
+  <data name="UnableToLoadKeyFile" xml:space="preserve">
+    <value>Δεν είναι δυνατή η λήψη του GnuPG αρχείου κλειδιών για &apos;{0}&apos;.</value>
+  </data>
+  <data name="UnableToParseKeyInfo" xml:space="preserve">
+    <value>Αδυναμία αναλύσης βασικών πληροφοριών για &apos;{0}&apos;.</value>
+  </data>
+  <data name="UnableToRetrieveKeyInfo" xml:space="preserve">
+    <value>Αδύνατη η ανάκτηση βασικών πληροφοριών για &apos;{0}&apos;.</value>
+  </data>
+  <data name="UnknownPackageID" xml:space="preserve">
+    <value>&apos;{0}&apos; δεν είναι ένα γνωστό αναγνωριστικό στο {1} διαχειριστή πακέτων.</value>
+  </data>
+  <data name="UntrustedKeys" xml:space="preserve">
+    <value>Η τροφοδοσία έχει υπογραφεί με μη έμπιστα κλειδιά!</value>
+  </data>
+  <data name="WaitingForDownload" xml:space="preserve">
+    <value>Αναμονή για να ολοκληρωθεί η λήψη</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Ο κατάλογος εργασίας έχει ήδη τροποποιηθεί από την προηγούμενη εντολή.</value>
+  </data>
+  <data name="WorkingDirInvalidPath" xml:space="preserve">
+    <value>Ο κατάλογος εργασίας περιέχει μια μη έγκυρη διαδρομή (ενδεχομένως κίνδυνος ασφάλειας).</value>
+  </data>
+</root>

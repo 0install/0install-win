@@ -1,0 +1,277 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButtonTooltip" xml:space="preserve">
+    <value>Προσθήκη στα &quot;εφαρμογές μου&quot;</value>
+  </data>
+  <data name="AppRemoveConfirm" xml:space="preserve">
+    <value>Είστε βέβαιοι ότι θέλετε να καταργήσετε &apos;{0}&apos; από τη λίστα την αίτησή σας; 
+Αυτό θα αφαιρέσει επίσης κάθε ολοκλήρωση της επιφάνειας εργασίας που εφαρμόζεται για την εφαρμογή αυτή.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Συνέχεια</value>
+  </data>
+  <data name="EnterFeedUrl" xml:space="preserve">
+    <value>Παρακαλώ εισάγετε το URL της Zero Install τροφοδοσίας εδώ:</value>
+  </data>
+  <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
+    <value>Παράβλεψη διπλής καταχώρησης λίστας εφαρμογών για &apos;{0}&apos;.</value>
+  </data>
+  <data name="IntroCommonApp" xml:space="preserve">
+    <value>Κοινή εφαρμογή</value>
+  </data>
+  <data name="IntroCommonAppSummary" xml:space="preserve">
+    <value>κάνει τα συνηθισμένα</value>
+  </data>
+  <data name="IntroCoolApp" xml:space="preserve">
+    <value>Cool εφαρμογή</value>
+  </data>
+  <data name="IntroCoolAppSummary" xml:space="preserve">
+    <value>κάνει κάτι cool</value>
+  </data>
+  <data name="IntroOtherApp" xml:space="preserve">
+    <value>Άλλη εφαρμογή</value>
+  </data>
+  <data name="IntroOtherAppSummary" xml:space="preserve">
+    <value>Κάνει κάτι άλλο</value>
+  </data>
+  <data name="IntroSubtitlesAddApp" xml:space="preserve">
+    <value>Αν σας αρέσει μια εφαρμογή, 
+προσθέστε το στο &quot;Οι εφαρμογές μου&quot;.</value>
+  </data>
+  <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
+    <value>Αναζήτηση για μια εφαρμογή στο &quot;Κατάλογος&quot;...</value>
+  </data>
+  <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
+    <value>&quot;Ενσωμάτωση&quot; μια εφαρμογή για να μπει
+στο μενού έναρξης ή στην επιφάνεια εργασίας.</value>
+  </data>
+  <data name="IntroSubtitlesMyApps" xml:space="preserve">
+    <value>Μπορείτε να διαχειριστείτε τη λίστα με τις αγαπημένες εφαρμογές εδώ.</value>
+  </data>
+  <data name="IntroSubtitlesRunApp" xml:space="preserve">
+    <value>... Και να την εκτελέσετε!</value>
+  </data>
+  <data name="IntroSubtitlesThanks" xml:space="preserve">
+    <value>Καλή διασκέδαση!</value>
+  </data>
+  <data name="IntroSubtitlesWelcome" xml:space="preserve">
+    <value>Με Zero Install δεν χρειάζεται να εγκαταστήσετε εφαρμογές.</value>
+  </data>
+  <data name="MachineWideMode" xml:space="preserve">
+    <value>Λειτουργία μηχανήματος σε επίπεδο</value>
+  </data>
+  <data name="ModifyButtonTooltip" xml:space="preserve">
+    <value>Τροποποίηση ολοκλήρωσης</value>
+  </data>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Φορητή λειτουργία</value>
+  </data>
+  <data name="RemoveButtonTooltip" xml:space="preserve">
+    <value>Αφαιρεση από το &quot;εφαρμογές μου&quot;</value>
+  </data>
+  <data name="RemoveSelectedEntries" xml:space="preserve">
+    <value>Θέλετε να αφαιρέσετε τις {0} καταχωρήσεις από τη λίστα;</value>
+  </data>
+  <data name="RunButtonText" xml:space="preserve">
+    <value>Εκτελεση</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Θέλετε να αποθηκεύσετε τις αλλαγές που έγιναν;</value>
+  </data>
+  <data name="SaveChangesNo" xml:space="preserve">
+    <value>No
+Απορρίψη αλλαγων</value>
+  </data>
+  <data name="SaveChangesYes" xml:space="preserve">
+    <value>Ναι
+Αποθήκευση αλλαγών</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Αναζήτηση</value>
+  </data>
+  <data name="SelectCommand" xml:space="preserve">
+    <value>Επιλογή εντολής για {0}</value>
+  </data>
+  <data name="SelectCommandButton" xml:space="preserve">
+    <value>Επιλογή εντολής</value>
+  </data>
+  <data name="SelectVersionButton" xml:space="preserve">
+    <value>Επιλογή έκδοσης</value>
+  </data>
+  <data name="SelfUpdateAvailable" xml:space="preserve">
+    <value>Ενημέρωση για το Zero Install ν {0} διατίθεται. Κάντε κλικ για εγκατάσταση.</value>
+  </data>
+  <data name="SelfUpdateNo" xml:space="preserve">
+    <value>όχι
+Παράβλεψη ενημέρωσης τώρα</value>
+  </data>
+  <data name="SelfUpdateYes" xml:space="preserve">
+    <value>Ναι
+Εγκατάσταση νεας έκδοσης</value>
+  </data>
+  <data name="SetupButtonTooltip" xml:space="preserve">
+    <value>Ενσωμάτωση εγκατάστασης</value>
+  </data>
+  <data name="SyncCompleteSetupFirst" xml:space="preserve">
+    <value>Θα πρέπει να ολοκληρωθεί ο συγχρονισμός πρώτης εγκατάστασης.</value>
+  </data>
+  <data name="SyncCredentialsInvalid" xml:space="preserve">
+    <value>Το όνομα χρήστη και/ή ο κωδικός πρόσβασης που εισάγατε δεν είναι σωστος.</value>
+  </data>
+  <data name="SyncCryptoKeyInvalid" xml:space="preserve">
+    <value>Το κλειδί Κρυπτογραφίας που εισαγατε είναι λάθος.</value>
+  </data>
+  <data name="SyncServerDataDamaged" xml:space="preserve">
+    <value>Τα δεδομένα που είναι σήμερα αποθηκευμένα στο διακομιστή Συγχρονισμός είναι κατεστραμμένα.
+Μπορείτε να αντικαταστήσετε τα δεδομένα που είναι αποθηκευμένα στο διακομιστή, επιλέγοντας το κλειδί Κρυπτογραφίας.</value>
+  </data>
+  <data name="SyncWillReplaceConfig" xml:space="preserve">
+    <value>Αυτό θα αντικαταστήσει τις υπάρχουσες ρυθμίσεις συγχρονισμού με καινούργιες. Συνέχεια;</value>
+  </data>
+  <data name="UnableToDownloadCatalog" xml:space="preserve">
+    <value>Δεν είναι δυνατή η ληψη του κατάλογου της εφαρμογής.</value>
+  </data>
+  <data name="UnableToLoadAppList" xml:space="preserve">
+    <value>Δεν είναι δυνατή η φόρτωση της λίστας εφαρμογών.</value>
+  </data>
+  <data name="UnableToLoadFeedForApp" xml:space="preserve">
+    <value>Δεν είναι δυνατή η φόρτωση τροφοδοσίας για την είσοδο λίστας εφαρμογών &apos;{0}&apos;.</value>
+  </data>
+  <data name="UnableToSelfUpdate" xml:space="preserve">
+    <value>Δεν είναι δυνατή η διενέργεια του ελέγχου της αυτόματης ενημέρωσης.</value>
+  </data>
+  <data name="UnencryptedSyncServer" xml:space="preserve">
+    <value>Είστε σίγουροι ότι θέλετε να χρησιμοποιήσετε μια σύνδεση χωρίς κρυπτογράφηση σε ένα διακομιστή συγχρονισμού;
+Κρυπτογραφημένες συνδέσεις χρησιμοποιούν ένα https: // πρόθεμα.</value>
+  </data>
+  <data name="UpdateAllCleanWillRemove" xml:space="preserve">
+    <value>Αυτό θα απομακρύνει αυτόματα τις εφαρμογές από την κρυφή μνήμη που δεν χρειάζονται πλέον μετά την ενημέρωση. Συνέχεια;
+Σημαντικό: Εφαρμογές που έχετε &quot;Εκτέλεση&quot; στο παρελθόν, χωρίς την προσθήκη τους στο &quot;Οι εφαρμογές μου&quot; θα πρέπει επίσης να αφαιρεθούν από την κρυφή μνήμη. Θα πρέπει να είναι σε απευθείας σύνδεση, αν αποφασίσετε να τις εκτελέσετε ξανά.</value>
+  </data>
+  <data name="UpdateButtonText" xml:space="preserve">
+    <value>Ενημέρωση</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Εργασία...</value>
+  </data>
+</root>

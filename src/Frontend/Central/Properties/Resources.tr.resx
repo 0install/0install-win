@@ -1,0 +1,277 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButtonTooltip" xml:space="preserve">
+    <value>&quot;Uygulamalarım&quot;a ekle</value>
+  </data>
+  <data name="AppRemoveConfirm" xml:space="preserve">
+    <value>&apos;{0}&apos; uygulamasını uygulama listenizden kaldırmak istiyor musunuz?
+Ayrıca bu işlem, bu uygulamanın getirdiği tüm masaüstü tümleştirmelerini de kaldıracaktır.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Devam</value>
+  </data>
+  <data name="EnterFeedUrl" xml:space="preserve">
+    <value>Lütfen buraya bir Zero Install akışının adresini yazın:</value>
+  </data>
+  <data name="IgnoringDuplicateAppListEntry" xml:space="preserve">
+    <value>&apos;{0}&apos; için çift uygulama listesi kaydı yoksayılıyor.</value>
+  </data>
+  <data name="IntroCommonApp" xml:space="preserve">
+    <value>Sıradan uygulama</value>
+  </data>
+  <data name="IntroCommonAppSummary" xml:space="preserve">
+    <value>sıradan işler yapıyor</value>
+  </data>
+  <data name="IntroCoolApp" xml:space="preserve">
+    <value>Harika uygulama</value>
+  </data>
+  <data name="IntroCoolAppSummary" xml:space="preserve">
+    <value>harika işler yapıyor</value>
+  </data>
+  <data name="IntroOtherApp" xml:space="preserve">
+    <value>Diğer uygulama</value>
+  </data>
+  <data name="IntroOtherAppSummary" xml:space="preserve">
+    <value>başka işler yapıyor</value>
+  </data>
+  <data name="IntroSubtitlesAddApp" xml:space="preserve">
+    <value>Bir uygulamayı beğendiyseniz,
+&quot;Uygulamalarım&quot;a ekleyin.</value>
+  </data>
+  <data name="IntroSubtitlesCatalogSearch" xml:space="preserve">
+    <value>&quot;Katalog&quot; içinde bir uygulama arayın...</value>
+  </data>
+  <data name="IntroSubtitlesIntegrateApp" xml:space="preserve">
+    <value>Bir uygulamayı başlat menüsü
+ya da masaüstüne ekleyerek &quot;tümleştirin&quot;.</value>
+  </data>
+  <data name="IntroSubtitlesMyApps" xml:space="preserve">
+    <value>Sık kullandığınız uygulamaların listesini buradan yönetebilirsiniz.</value>
+  </data>
+  <data name="IntroSubtitlesRunApp" xml:space="preserve">
+    <value>... ve çalıştırın!</value>
+  </data>
+  <data name="IntroSubtitlesThanks" xml:space="preserve">
+    <value>Eğlenin!</value>
+  </data>
+  <data name="IntroSubtitlesWelcome" xml:space="preserve">
+    <value>Zero Install ile artık uygulamaları yüklemek zorunda değilsiniz.</value>
+  </data>
+  <data name="MachineWideMode" xml:space="preserve">
+    <value>Makine çapında geçerli kip</value>
+  </data>
+  <data name="ModifyButtonTooltip" xml:space="preserve">
+    <value>Tümleştirmeyi değiştir</value>
+  </data>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Taşınabilir kip</value>
+  </data>
+  <data name="RemoveButtonTooltip" xml:space="preserve">
+    <value>&quot;Uygulamalarım&quot;dan kaldır</value>
+  </data>
+  <data name="RemoveSelectedEntries" xml:space="preserve">
+    <value>Listeden seçilmiş {0} kaydı kaldırmak istediğinize emin misiniz?</value>
+  </data>
+  <data name="RunButtonText" xml:space="preserve">
+    <value>Çalıştır</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Yaptığınız değişiklikleri kaydetmek ister misiniz?</value>
+  </data>
+  <data name="SaveChangesNo" xml:space="preserve">
+    <value>Hayır
+Değişiklikleri yoksay</value>
+  </data>
+  <data name="SaveChangesYes" xml:space="preserve">
+    <value>Evet
+Değişiklikleri kaydet</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Arama</value>
+  </data>
+  <data name="SelectCommand" xml:space="preserve">
+    <value>{0} için komut seçin</value>
+  </data>
+  <data name="SelectCommandButton" xml:space="preserve">
+    <value>&amp;Komut seçin</value>
+  </data>
+  <data name="SelectVersionButton" xml:space="preserve">
+    <value>&amp;Sürüm seçin</value>
+  </data>
+  <data name="SelfUpdateAvailable" xml:space="preserve">
+    <value>Zero Install v{0} sürümü kullanılabilir. Yüklemek için tıklatın.</value>
+  </data>
+  <data name="SelfUpdateNo" xml:space="preserve">
+    <value>Hayır
+Güncelleştirmeyi şimdilik yoksay</value>
+  </data>
+  <data name="SelfUpdateYes" xml:space="preserve">
+    <value>Evet
+Güncelleştirmeyi kur</value>
+  </data>
+  <data name="SetupButtonTooltip" xml:space="preserve">
+    <value>Yükleme tümleştirmesi</value>
+  </data>
+  <data name="SyncCompleteSetupFirst" xml:space="preserve">
+    <value>Önce Sync Yüklemesi tamamlanmalıdır.</value>
+  </data>
+  <data name="SyncCredentialsInvalid" xml:space="preserve">
+    <value>Yazdığınız kullanıcı adı ya da parola hatalı.</value>
+  </data>
+  <data name="SyncCryptoKeyInvalid" xml:space="preserve">
+    <value>Yazdığınız şifreleme anahtarı hatalı.</value>
+  </data>
+  <data name="SyncServerDataDamaged" xml:space="preserve">
+    <value>Sync sunucusundaki kayıtlı veri bozulmuş.
+Sunucudaki kayıtlı veriyi değiştirmek için Şifreleme anahtarını unuttum seçeneğini kullanın.</value>
+  </data>
+  <data name="SyncWillReplaceConfig" xml:space="preserve">
+    <value>Böylece eski Sync ayarları yenileri ile değiştirilir. Devam etmek ister misiniz?</value>
+  </data>
+  <data name="UnableToDownloadCatalog" xml:space="preserve">
+    <value>Uygulama kataloğu indirilemedi.</value>
+  </data>
+  <data name="UnableToLoadAppList" xml:space="preserve">
+    <value>Uygulama listesi yüklenemedi.</value>
+  </data>
+  <data name="UnableToLoadFeedForApp" xml:space="preserve">
+    <value>&apos;{0}&apos; uygulama listesi kaydı için akış yüklenemedi.</value>
+  </data>
+  <data name="UnableToSelfUpdate" xml:space="preserve">
+    <value>Güncelleştirme denetimi yapılamadı.</value>
+  </data>
+  <data name="UnencryptedSyncServer" xml:space="preserve">
+    <value>Sync sunucusu ile şifresiz bir bağlantı kurmak istediğinize emin misiniz?
+Şifrelenmiş bağlantılar https:// ile başlar.</value>
+  </data>
+  <data name="UpdateAllCleanWillRemove" xml:space="preserve">
+    <value>Bu işlem güncelleştirme sonrasında artık gerek duyulmayan uygulamaları önbellekten siler. Devam etmek ister misiniz?
+Uyarı: Daha önce &quot;Uygulamalarım&quot; altına eklemeden &quot;Çalıştırdığınız&quot; uygulamalar da önbellekten silinecek. Bu uygulamaları yeniden çalıştırmak istiyorsanız çevrimiçi olmanız gerekecek.</value>
+  </data>
+  <data name="UpdateButtonText" xml:space="preserve">
+    <value>&amp;Güncelleştir</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>İşleniyor...</value>
+  </data>
+</root>

@@ -128,31 +128,55 @@
       <DependentUpon>ConfigDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConfigDialog.el.resx">
+      <DependentUpon>ConfigDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConfigDialog.resx">
       <DependentUpon>ConfigDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConfigDialog.tr.resx">
+      <DependentUpon>ConfigDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FeedSearchDialog.de.resx">
       <DependentUpon>FeedSearchDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FeedSearchDialog.el.resx">
+      <DependentUpon>FeedSearchDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FeedSearchDialog.resx">
+      <DependentUpon>FeedSearchDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FeedSearchDialog.tr.resx">
       <DependentUpon>FeedSearchDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IntegrateAppForm.de.resx">
       <DependentUpon>IntegrateAppForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="IntegrateAppForm.el.resx">
+      <DependentUpon>IntegrateAppForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IntegrateAppForm.resx">
       <DependentUpon>IntegrateAppForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IntegrateAppForm.tr.resx">
+      <DependentUpon>IntegrateAppForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InterfaceDialog.de.resx">
       <DependentUpon>InterfaceDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="InterfaceDialog.el.resx">
+      <DependentUpon>InterfaceDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InterfaceDialog.resx">
       <DependentUpon>InterfaceDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InterfaceDialog.tr.resx">
+      <DependentUpon>InterfaceDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
@@ -167,9 +191,15 @@
       <DependentUpon>StoreManageForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="StoreManageForm.el.resx">
+      <DependentUpon>StoreManageForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StoreManageForm.resx">
       <DependentUpon>StoreManageForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StoreManageForm.tr.resx">
+      <DependentUpon>StoreManageForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

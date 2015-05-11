@@ -1,0 +1,313 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMissing" xml:space="preserve">
+    <value>Προσθήκη λείπει</value>
+  </data>
+  <data name="ArchiveBreakoutPath" xml:space="preserve">
+    <value>Αυτή η διαδρομή υπογραμμίζει εξωτερικα το αρχείο.</value>
+  </data>
+  <data name="AskForPassphrase" xml:space="preserve">
+    <value>Παρακαλούμε εισάγετε την συνθηματική φράση για το GnuPG {0}:</value>
+  </data>
+  <data name="AskInstallerEXE" xml:space="preserve">
+    <value>Είναι αυτό ένα EXE πρόγραμμα εγκατάστασης;</value>
+  </data>
+  <data name="AskSkipCapture" xml:space="preserve">
+    <value>Είστε βέβαιοι ότι παραλείψετε σύλληψη;
+Πληροφορίες σχετικά με την ένταξη της επιφάνειας εργασίας της εφαρμογής (π.χ. ενώσεις αρχείου) δεν θα πρέπει να προστεθούν στην τροφοδοσία.</value>
+  </data>
+  <data name="AskSkipIcon" xml:space="preserve">
+    <value>Είστε σίγουροι ότι θέλετε να συνεχίσετε χωρίς να προσθέσετε εικόνες;
+Το Zero Install  θα είναι σε θέση να εμφανίζει ένα γενικό εικονίδιο κράτησης θέσης στον κατάλογο, καθώς και για όλες τις συντομεύσεις ενσωμάτωσης στην επιφάνεια εργασίας.</value>
+  </data>
+  <data name="AskSkipSecurity" xml:space="preserve">
+    <value>Είστε σίγουροι ότι θέλετε να συνεχίσετε χωρίς να ολοκληρώσετε αυτές τις ρυθμίσεις;
+Η τροφοδοσία σας θα λειτουργήσει μόνο σε τοπικό επίπεδο και όχι σε απευθείας σύνδεση.</value>
+  </data>
+  <data name="DetectingCandidates" xml:space="preserve">
+    <value>Αναζήτηση για τα εκτελέσιμα αρχεία</value>
+  </data>
+  <data name="DigestKeep" xml:space="preserve">
+    <value>Διατήρηση
+Η εφαρμογή υποτίθεται ότι θα παραμείνει η ίδια</value>
+  </data>
+  <data name="DigestMismatch" xml:space="preserve">
+    <value>Το επιβατολόγιο έχει αλλάξει. Θέλετε να αντικαταστήσετε το υπάρχον;</value>
+  </data>
+  <data name="DigestOtherImplementations" xml:space="preserve">
+    <value>Όλες οι άλλες μέθοδοι ανάκτησης για την εφαρμογή αυτή θα πρέπει ταιριάζουν!</value>
+  </data>
+  <data name="DigestReplace" xml:space="preserve">
+    <value>Αντικατάσταση
+Έχω αλλάξει την εφαρμογή για τον σκοπό</value>
+  </data>
+  <data name="DiscardChanges" xml:space="preserve">
+    <value>Απόρριψη
+Απόρριψη των μη αποθηκευμένων αλλαγων</value>
+  </data>
+  <data name="DownloadingPeviewImage" xml:space="preserve">
+    <value>Λήψη εικόνας για προεπισκόπηση...</value>
+  </data>
+  <data name="EmptyImplementation" xml:space="preserve">
+    <value>Δηλωτικό υπολογίστηκε για ένα άδειο κατάλογο. Βεβαιωθείτε ότι έχετε ορίσει το σωστό &quot;απόσπασμα&quot; αξίας για το αρχείο.</value>
+  </data>
+  <data name="EntryPointNotFound" xml:space="preserve">
+    <value>Το σημείο εισόδου της εφαρμογής δεν βρέθηκε.
+Δοκιμάστε προσδιορίζοντας με μη αυτόματο τρόπο.</value>
+  </data>
+  <data name="FeedNotValid" xml:space="preserve">
+    <value>Η τροφοδοσία δεν έχει τη σωστή μορφή.</value>
+  </data>
+  <data name="FileDialogFilter" xml:space="preserve">
+    <value>Feed files (*.xml)|*.xml|Template files (*.xml.template)|*.xml.template|All files|*</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>Το αρχείο &apos;{0}&apos; δεν θα μπορεσε να βρεθεί.</value>
+  </data>
+  <data name="HintTextMultiline" xml:space="preserve">
+    <value>Μια πλήρης περιγραφή πιθανόν πολλαπλών γραμμών</value>
+  </data>
+  <data name="HrefMissing" xml:space="preserve">
+    <value>Η λήψη διεύθυνσης URL δεν υπάρχει.</value>
+  </data>
+  <data name="ImageFormatNotSupported" xml:space="preserve">
+    <value>Η μορφή της εικόνας δεν υποστηρίζεται από το Zero Install.</value>
+  </data>
+  <data name="InstallationDirDetected" xml:space="preserve">
+    <value>Εντοπίστηκε &apos;{0}&apos; ως κατάλογος εγκατάστασης.</value>
+  </data>
+  <data name="InstallerExtractFailed" xml:space="preserve">
+    <value>Αποτυχία εξαγωγής του προγράμματος εγκατάστασης ως αρχείο.</value>
+  </data>
+  <data name="InstallerNeedAltSource" xml:space="preserve">
+    <value>Θα πρέπει να παρέχετε μια εναλλακτική πηγή λήψης για την εφαρμογή, π.χ. ένα αρχείο ZIP. Θα εξακολουθούν να χρησιμοποιούν τις πληροφορίες ενσωμάτωσης στην επιφάνεια εργασίας συλλαμβάνονται από το πρόγραμμα εγκατάστασης!</value>
+  </data>
+  <data name="InvalidCapabilitiesRegistryPath" xml:space="preserve">
+    <value>Μη έγκυρη διαδρομή μητρώου δυνατοτήτων: {0}</value>
+  </data>
+  <data name="LicenseInfo" xml:space="preserve">
+    <value>Το πρόγραμμα έρχεται με ΑΠΟΛΥΤΩΣ ΚΑΜΙΑ ΕΓΓΥΗΣΗ, στο βαθμό που επιτρέπεται από το νόμο.
+Μπορείτε να αναδιανέμετε αντίγραφα του προγράμματος υπό τους όρους της GNU Lesser General Public License.</value>
+  </data>
+  <data name="ManifestDigestChanged" xml:space="preserve">
+    <value>Το δηλωτικό μπορεί να έχει αλλάξει.</value>
+  </data>
+  <data name="ManifestDigestMissing" xml:space="preserve">
+    <value>Εκδηλώνεται όχι η αφομοίωση  να εχει υπολογιστεί ακόμη.</value>
+  </data>
+  <data name="MissingArguments" xml:space="preserve">
+    <value>Λείπουν επιχειρήματα. Δοκιμάστε {0} --help</value>
+  </data>
+  <data name="MissingProgramFiles32Bit" xml:space="preserve">
+    <value>Δεν βρέθηκε κανενας 32-bit %Program Files% Κατάλογος.</value>
+  </data>
+  <data name="MultipleDefaultProgramsDetected" xml:space="preserve">
+    <value>Πολλαπλά νέα προεπιλεγμένα προγράμματα εντοπίστηκαν στο μητρώο. Χειρισμός όλων αυτων, αλλά ο τελευταίος μπορεί να λάβει προτεραιότητα σε ορισμένες περιπτώσεις.</value>
+  </data>
+  <data name="MultipleInstallationDirsDetected" xml:space="preserve">
+    <value>Πολλαπλή κατάλογοι εγκατάστασης εντοπίστηκαν. Επιλέγοντας πρώτο από προεπιλογή.</value>
+  </data>
+  <data name="MultipleRegisteredAppsDetected" xml:space="preserve">
+    <value>Πολλαπλές νέες εγγραφές εφαρμογής εντοπίστηκαν στο μητρώο. Επιλέγοντας πρώτο από προεπιλογή.</value>
+  </data>
+  <data name="NewKey" xml:space="preserve">
+    <value>Νέο κλειδί...</value>
+  </data>
+  <data name="NoEntryPointsFound" xml:space="preserve">
+    <value>Δεν υπάρχουν σημεία εισόδου (EXEs, JAR, Python σκριπτ, κλπ). Παρακαλούμε βεβαιωθείτε ότι έχετε επιλέξει το σωστό αρχείο και απόσπασμα καταλόγου</value>
+  </data>
+  <data name="NoFeedFilesFound" xml:space="preserve">
+    <value>Αδυναμία εύρεσης των αρχείων που ταιριάζουν με τις τροφοδοσίες.</value>
+  </data>
+  <data name="NoInstallationDirDetected" xml:space="preserve">
+    <value>Δεν εντοπίστηκε κατάλογος εγκατάστασης.</value>
+  </data>
+  <data name="NoSingleExecutable" xml:space="preserve">
+    <value>Όχι, η ίδια η εφαρμογή αποτελείται μόνο από ένα EXE</value>
+  </data>
+  <data name="OnlyAvailableOnWindows" xml:space="preserve">
+    <value>Η μέθοδος αυτή είναι προς το παρόν διαθέσιμη μόνο στα Windows.</value>
+  </data>
+  <data name="OptionAddMissing" xml:space="preserve">
+    <value>Λήψη αρχείων που λείπουν, υπολογισμος δηλωτικου, κλπ...</value>
+  </data>
+  <data name="OptionCatalog" xml:space="preserve">
+    <value>Συνδυάστε όλες τις καθορισμένες τροφοδοσίες σε ένα ενιαίο κατάλογο {ΑΡΧΕΙΟ}.</value>
+  </data>
+  <data name="OptionGnuPGPassphrase" xml:space="preserve">
+    <value>Χρήση {} PASS για να ξεκλειδώσετε το μυστικό κλειδί του GnuPG.</value>
+  </data>
+  <data name="OptionHelp" xml:space="preserve">
+    <value>Εμφάνιση του ενσωματωμένου κειμένου βοήθειας.</value>
+  </data>
+  <data name="OptionKey" xml:space="preserve">
+    <value>Κλειδί για την χρήση υπογραφής (αν έχετε περισσότερα από ενα, ή αν θέλετε παραίτησή με διαφορετικό κλειδί).</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Επιλογές:</value>
+  </data>
+  <data name="OptionsKeepDownloads" xml:space="preserve">
+    <value>Προσθήκη τυχόν ληφθέντα αρχείων στο χώρο αποθήκευσης εφαρμογής.</value>
+  </data>
+  <data name="OptionUnsign" xml:space="preserve">
+    <value>Αφαιρέστε τυχόν υπάρχουσες υπογραφές.</value>
+  </data>
+  <data name="OptionVersion" xml:space="preserve">
+    <value>Εμφάνιση πληροφοριών έκδοσης.</value>
+  </data>
+  <data name="OptionXmlSign" xml:space="preserve">
+    <value>Προσθήκη μπλοκ υπογραφής XML. (Όλες οι απομακρυσμένες τροφοδοσίες πρέπει να υπογράφονται.)</value>
+  </data>
+  <data name="PleaseClick" xml:space="preserve">
+    <value>Παρακαλώ κάντε κλικ:</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Αποθήκευση
+Αποθήκευση αλλαγών</value>
+  </data>
+  <data name="SaveQuestion" xml:space="preserve">
+    <value>Θέλετε να αποθηκεύσετε τις αλλαγές;</value>
+  </data>
+  <data name="SecretKeyNotInKeyring" xml:space="preserve">
+    <value>Το μυστικό κλειδί δεν είναι σε μπρελόκ του χρήστη.</value>
+  </data>
+  <data name="SizeMissing" xml:space="preserve">
+    <value>Το μέγεθος του αρχείου δεν καθορίζεται ακόμα.</value>
+  </data>
+  <data name="UnknownMode" xml:space="preserve">
+    <value>Άγνωστος τυπος λειτουργίας
+Δοκιμάστε {0} --help</value>
+  </data>
+  <data name="UnknownRetrievalMethodType" xml:space="preserve">
+    <value>Άγνωστη ανάκτηση τύπου μεθόδου.</value>
+  </data>
+  <data name="Usage" xml:space="preserve">
+    <value>Χρήση:</value>
+  </data>
+  <data name="WaitingForInstaller" xml:space="preserve">
+    <value>Αναμονη για την ολοκληρωση της εγκαταστασης</value>
+  </data>
+  <data name="WrongMimeType" xml:space="preserve">
+    <value>Λάθος τύπος MIME! Πρέπει να είναι {0}.</value>
+  </data>
+  <data name="YesInstallerExe" xml:space="preserve">
+    <value>Ναι, πρόγραμμα εγκατάστασης EXE </value>
+  </data>
+</root>

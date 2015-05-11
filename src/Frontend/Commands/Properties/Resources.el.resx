@@ -1,0 +1,696 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AliasCreated" xml:space="preserve">
+    <value>Ένα ψευδώνυμο που ονομάζεται &apos;{0}&apos; για &apos;{1}&apos; δημιουργήθηκε.</value>
+  </data>
+  <data name="AliasCreatedReopenTerminal" xml:space="preserve">
+    <value>Ένα ψευδώνυμο που ονομάζεται &apos;{0}&apos; για &apos;{1}&apos; δημιουργηθηκε. Μπορεί να χρειαστεί να κλείσετε και να ανοίξετε ξανά το τερματικό σας για να γίνει αυτό αποτελεσματικά.</value>
+  </data>
+  <data name="AliasNotFound" xml:space="preserve">
+    <value>Κανένα υπαρκτό ψευδώνυμο που ονομάζεται &apos;{0}&apos; δεν βρέθηκε.</value>
+  </data>
+  <data name="AliasRemoved" xml:space="preserve">
+    <value>Το ψευδώνυμο που ονομάζεται &apos;{0}&apos; για &apos;{1}&apos; αφαιρέθηκε.</value>
+  </data>
+  <data name="AllComponentsDownloaded" xml:space="preserve">
+    <value>Όλα τα απαιτούμενα εξαρτήματα έχουν λήφθει.</value>
+  </data>
+  <data name="AppAlias" xml:space="preserve">
+    <value>Ψευδώνυμο εφαρμογής</value>
+  </data>
+  <data name="AppList" xml:space="preserve">
+    <value>Λίστα εφαρμογών</value>
+  </data>
+  <data name="AskUpdateCapabilities" xml:space="preserve">
+    <value>Θέλετε να επικαιροποιήσετε την τυχόν υπάρχουσα ενσωμάτωση στην επιφάνεια εργασίας για να εκφραστεί αυτό;
+Αν επιλέξετε δυνητικά ασυμβίβαστες ενσωματώσεις «Ναι» θα πρέπει να αφαιρεθεί.
+Αν επιλέξετε «Όχι» το  Zero Install θα συνεχίσει να χρησιμοποιεί τις παλαιές δυνατότητες.</value>
+  </data>
+  <data name="CachedImplementations" xml:space="preserve">
+    <value>Αποθηκευμενη εφαρμογή</value>
+  </data>
+  <data name="CachedInterfaces" xml:space="preserve">
+    <value>Αποθηκευμένες διεπαφές</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="CapabilitiesChanged" xml:space="preserve">
+    <value>Οι δυνατότητες της εφαρμογής &quot;{0}&quot; άλλαξαν.</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Αλλαγή</value>
+  </data>
+  <data name="ChangesFound" xml:space="preserve">
+    <value>Αλλαγές βρέθηκαν:</value>
+  </data>
+  <data name="CheckingFeed" xml:space="preserve">
+    <value>Έλεγχος τροφοδοσίας</value>
+  </data>
+  <data name="CheckingForUpdates" xml:space="preserve">
+    <value>Έλεγχος για ενημερώσεις</value>
+  </data>
+  <data name="ClickToChoose" xml:space="preserve">
+    <value>κάντε κλικ εδώ για να επιλέξετε.</value>
+  </data>
+  <data name="CommandLineArguments" xml:space="preserve">
+    <value>Επιχειρήματα της γραμμής εντολών:</value>
+  </data>
+  <data name="Configuration" xml:space="preserve">
+    <value>Ρύθμιση</value>
+  </data>
+  <data name="ConfirmPurge" xml:space="preserve">
+    <value>Μήπως θέλετε να αφαιρέσετε όλα τα αρχεία της εφαρμογής από το Zero Install της μνήμης cache;
+Αυτά τα αρχεία μπορούν να μεταφορτωθούν και πάλι αν χρειαστεί.</value>
+  </data>
+  <data name="ConfirmRemoveAll" xml:space="preserve">
+    <value>Θέλετε να αφαιρέσετε όλες τις εφαρμογές από τη λίστα «Οι εφαρμογές μου»; Αυτό αποτρέπει να απομείνουν καταχωρήσεις μενού μετά την αφαίρεση του Zero Install.
+Μπορείτε να δημιουργήσετε ένα αντίγραφο ασφαλείας του καταλόγου αυτού με τη χρήση «0install συγχρονισμός».</value>
+  </data>
+  <data name="DataGridCommandAccessPointHelp" xml:space="preserve">
+    <value>Ξεκινήστε την εισαγωγή κειμένου στην τελευταία γραμμή για να δημιουργήσετε μια νέα καταχώρηση.
+Επιλέξτε μια ολόκληρη γραμμή, κάνοντας κλικ στην πρώτη στήλη και, στη συνέχεια, πατήστε το πλήκτρο DEL στο πληκτρολόγιο για να αφαιρέσετε μια καταχώρηση.</value>
+  </data>
+  <data name="DataGridDefaultAccessPointHelp" xml:space="preserve">
+    <value>Ορίστε ένα πλαίσιο ελέγχου για να δημιουργησει μια ικανότητα του επιθυμητού προεπιλεγμένου πρόγραμματος διαχείρισης.
+Αφαιρέστε το πλαίσιο ελέγχου για να καταργήσετε την προεπιλεγμένη κατάσταση της ικανότητα του (εξακολουθεί να παραμένει διαθέσιμο).</value>
+  </data>
+  <data name="DeleteCheckedEntries" xml:space="preserve">
+    <value>Θέλετε να διαγράψετε το {0} ελέγχομενο στοιχείο(α) από την προσωρινή μνήμη;</value>
+  </data>
+  <data name="DeleteEntry" xml:space="preserve">
+    <value>Θέλετε να διαγράψετε την εγγραφή από τη μνήμη cache;</value>
+  </data>
+  <data name="DeletingDirectory" xml:space="preserve">
+    <value>Διαγραφή καταλόγου</value>
+  </data>
+  <data name="DeletingEntries" xml:space="preserve">
+    <value>Διαγραφή καταχωρήσεων</value>
+  </data>
+  <data name="DeletingImplementations" xml:space="preserve">
+    <value>Διαγραφή εφαρμογής</value>
+  </data>
+  <data name="DescriptionAddAlias" xml:space="preserve">
+    <value>Δημιουργήστε ένα ψευδώνυμο για την εκκίνηση μιας εφαρμογής μέσω του 0install χωρίς πάντα να χρειάζεται να επιλέξετε το πλήρες URI.</value>
+  </data>
+  <data name="DescriptionAddApp" xml:space="preserve">
+    <value>Προσθήκη μια εφαρμογής στην λίστα εφαρμογών.</value>
+  </data>
+  <data name="DescriptionAddFeed" xml:space="preserve">
+    <value>Καταχωρήση μιας πρόσθετης πηγής των εφαρμογών (εκδόσεις) του προγράμματος.</value>
+  </data>
+  <data name="DescriptionCentral" xml:space="preserve">
+    <value>Άνοιγμα του κεντρικού γραφικου διεπαφής χρήστη για τη δρομολόγηση και τη διαχείριση εφαρμογών.</value>
+  </data>
+  <data name="DescriptionConfig" xml:space="preserve">
+    <value>Εμφάνιση ή αλλάγη των ρυθμίσεων.
+Χωρίς επιχειρήματα, εμφανίζει όλες τις ρυθμίσεις και τις τρέχουσες τιμές τους. Με ένα επιχείρημα, εμφανίζει την τρέχουσα αξία της επώνυμη ρύθμιση. Με δύο Επιχειρήματα, θέτει τη ρύθμιση με την δεδομένη αξία ή επαναφέρει αυτό στην προεπιλεγμένη τιμή, αν η τιμή &quot;default&quot; είναι δεδομένη.</value>
+  </data>
+  <data name="DescriptionDigest" xml:space="preserve">
+    <value>Υπολογισμός του δηλωτικού ενός καταλόγου ή αρχείου.</value>
+  </data>
+  <data name="DescriptionDownload" xml:space="preserve">
+    <value>Συμπεριφορα παρόμοια με το «0install επιλογη&apos;, εκτός από το ότι κάνει λήψη των εκδόσεων που έχουν επιλεγεί, εφόσον δεν έχουν ήδη αποθηκευτεί προσωρινά, στρέφει την κατάσταση εξόδου του 0, εάν επιλεγεί ένα κατάλληλο σύνολο των εκδόσεων και ολες μεταφορτωθούν στη μνήμη cache, αλλιως στρέφει την κατάσταση 1.</value>
+  </data>
+  <data name="DescriptionImport" xml:space="preserve">
+    <value>Εισάγει μια τροφοδοσία από ένα τοπικό αρχείο, σαν να είχε μεταφορτωθεί από το δίκτυο. Αυτό είναι χρήσιμο όταν δοκιμάζετε ένα αρχείο τροφοδοσίας, για να αποφύγετε το ανέβασμα σε ένα απομακρυσμένο διακομιστή με σκοπό την λήψη ξανά.
+Το αρχείο πρέπει να έχει μια αξιόπιστη ψηφιακή υπογραφή, όπως κατά την ανάκτηση από το δίκτυο.</value>
+  </data>
+  <data name="DescriptionImportApps" xml:space="preserve">
+    <value>Εισάγει μια σειρά από εφαρμογές και desktop ενσωματώσεις από ένα υπάρχον αρχείο app-list.xml.</value>
+  </data>
+  <data name="DescriptionIntegrateApp" xml:space="preserve">
+    <value>Προσθέτει μια εφαρμογή στη λίστα εφαρμογών (εάν λείπει) και την ενσωματώνει στο περιβάλλον εργασίας.</value>
+  </data>
+  <data name="DescriptionList" xml:space="preserve">
+    <value>Λίστα με όλα τα γνωστά URIs τροφοδοσίας. Εάν δοθεί ένας όρος αναζήτησης, μόνο URIs που περιέχουν αυτό το αλφαριθμητικό θα εμφανιζονται (με πεζά ή κεφαλαία).</value>
+  </data>
+  <data name="DescriptionListFeeds" xml:space="preserve">
+    <value>Παραθέτει όλες τις επιπλέον τροφοδοσίες που προστίθενται στο URI χρησιμοποιώντας «0install πρόσθετο τροφοδοσίας&apos;.</value>
+  </data>
+  <data name="DescriptionRemoveAllApps" xml:space="preserve">
+    <value>Καταργεί όλες τις εφαρμογές από τη λίστα εφαρμογών και αναιρεί οποιαδήποτε ενοποίηση περιβάλλοντος επιφάνειας εργασίας. Χρησιμοποιήστε αυτή την εντολή για τον καθαρισμό του συστήματος πριν από την αφαίρεση του Zero Install.</value>
+  </data>
+  <data name="DescriptionRemoveApp" xml:space="preserve">
+    <value>Αφαιρεί μια εφαρμογή από τη λίστα εφαρμογών και αναιρεί οποιαδήποτε ενοποίηση περιβάλλοντος επιφάνειας εργασίας.</value>
+  </data>
+  <data name="DescriptionRemoveFeed" xml:space="preserve">
+    <value>Μη-καταχωρηση μιας τροφοδοσίας αντιστρέφοντας την επίδραση του «0install add-τροφοδοσίας&apos;.</value>
+  </data>
+  <data name="DescriptionRepairApps" xml:space="preserve">
+    <value>Εφαρμόζει ξανά όλες τις desktop εφαρμογές ενσωματώσεις στη λίστα εφαρμογών.</value>
+  </data>
+  <data name="DescriptionRun" xml:space="preserve">
+    <value>Συμπεριφέρεται παρόμοια με «0install λήψη», εκτός από το ότι εφαρμόζει το πρόγραμμα αφού εξασφαλίσει ότι είναι στη μνήμη cache.
+Επιστρέφει κατάσταση εξόδου 1, εάν η λήψη απέτυχε. Σε αντίθετη περίπτωση, η κατάσταση εξόδου θα είναι η κατάσταση του προγράμματος που τρέχει.</value>
+  </data>
+  <data name="DescriptionSearch" xml:space="preserve">
+    <value>Αναζητηση για ροές που αναπροσαρμόζονται από το διακομιστή που ταιριάζουν με συγκεκριμένες λέξεις-κλειδιά. Σημειώνεται ότι οι δείκτες προεπιλεγμένου διακομιστή εμανιζουν όλες τις γνωστές τροφοδοσίες, ανεξάρτητα από την ποιότητα. Πρέπει να αποφασίσετε εάν πρέπει να εμπιστευθείτε τα προγράμματα πριν από την εκτέλεση τους.</value>
+  </data>
+  <data name="DescriptionSelect" xml:space="preserve">
+    <value>Επιλογή μιας έκδοσης του προγράμματος που προσδιορίζεται από το URI, και συμβατές εκδόσεις για όλες τις εξαρτήσεις του.
+Επιστροφη στην κατάσταση εξόδου μηδέν αν επιλεγεί μια σειρά από εκδόσεις, και καθεστώς του 1, αν δεν μπορεσε να βρει ένα συνεκτικό σύνολο.</value>
+  </data>
+  <data name="DescriptionSelfUpdate" xml:space="preserve">
+    <value>Ενημερώσεις του Zero Install στην πιο πρόσφατη έκδοση.</value>
+  </data>
+  <data name="DescriptionStoreAdd" xml:space="preserve">
+    <value>Προσθέτει τα περιεχόμενα ενός καταλόγου ή αρχείου στη μνήμη cache.</value>
+  </data>
+  <data name="DescriptionStoreAudit" xml:space="preserve">
+    <value>Έλεγχος ώστε όλες οι εφαρμογές στη μνήμη cache να είναι άθικτες.
+Πρόσθετα επιχειρήματα καθορισμού θέσεων που προσαρμοζονται στην μνήμη cache.</value>
+  </data>
+  <data name="DescriptionStoreCopy" xml:space="preserve">
+    <value>Αντίγραφα μια εφαρμογής στη μνήμη cache. Παρόμοια με την «0install προσθηκη», αλλά η αναλωθείσα ύλη εξάγεται από το όνομα του καταλόγου.
+Ένα επιπλέον επιχειρήμα προσδιορίζει μια θέση της μνήμης cache προσαρμοσμένου στόχου.</value>
+  </data>
+  <data name="DescriptionStoreFind" xml:space="preserve">
+    <value>Καθορίζει την τοπική διαδρομή της εφαρμογής της μνήμης cache.</value>
+  </data>
+  <data name="DescriptionStoreList" xml:space="preserve">
+    <value>Εμφανίζει μια λίστα με όλους τους καταλόγους της μνήμης cache εφαρμογής.</value>
+  </data>
+  <data name="DescriptionStoreListImplementations" xml:space="preserve">
+    <value>Εμφανίζει μια λίστα με όλες τις εφαρμογές προσωρινής αποθήκευσης.</value>
+  </data>
+  <data name="DescriptionStoreManage" xml:space="preserve">
+    <value>Εμφανίζει μια γραφική διεπαφή χρήστη για τη διαχείριση των εφαρμογών στη μνήμη cache. Εμφανίζει ενώσεις με προσωρινά αποθηκευμένες τροφοδοσίες.</value>
+  </data>
+  <data name="DescriptionStoreOptimise" xml:space="preserve">
+    <value>Εξοικονομεί χώρο στο δίσκο με τη συγχώνευση ίδιων αρχείων με hardlinks.
+Πρόσθετα επιχειρήματα καθορισμού θέσεων της προσαρμοσμένης μνήμης cache.</value>
+  </data>
+  <data name="DescriptionStorePurge" xml:space="preserve">
+    <value>Removes all implementations from the cache. Use this command to clean up the system before removing Zero Install. Deleting cache directories manually may be difficult due to the NTFS ACLs employed to protect implementations against modification.
+Additional arguments specify custom cache locations.</value>
+  </data>
+  <data name="DescriptionStoreRemove" xml:space="preserve">
+    <value>Αφαιρεί μια εφαρμογή από την προσωρινή μνήμη.</value>
+  </data>
+  <data name="DescriptionStoreVerify" xml:space="preserve">
+    <value>Καθιστά βέβαιο ότι μια εφαρμογή δεν έχει καταστραφεί (δηλαδή το δηλωτικό δεν έχει αλλάξει).</value>
+  </data>
+  <data name="DescriptionSync" xml:space="preserve">
+    <value>Συγχρονίζει τη λίστα εφαρμογών με το διακομιστή.</value>
+  </data>
+  <data name="DescriptionUpdate" xml:space="preserve">
+    <value>Έλεγχος για ενημερώσεις του προγράμματος και λήψη τους εάν βρεθούν.
+Αυτό είναι παρόμοιο με «0install λήψη --refresh», εκτός από το ότι εμφανίζει πληροφορίες για το αν βρέθηκαν οποιεσδήποτε αλλαγές.</value>
+  </data>
+  <data name="DescriptionUpdateApps" xml:space="preserve">
+    <value>Ενημερώνει όλες τις εφαρμογές στη λίστα εφαρμογών</value>
+  </data>
+  <data name="DesktopIntegration" xml:space="preserve">
+    <value>Ενσωμάτωση επιφάνειας εργασίας</value>
+  </data>
+  <data name="DirectoryNotFound" xml:space="preserve">
+    <value>Ο κατάλογος &apos;{0}&apos; δεν μπορεσε να βρεθεί.</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Ολοκληρώθηκε</value>
+  </data>
+  <data name="DownloadComplete" xml:space="preserve">
+    <value>Η λήψη ολοκληρώθηκε</value>
+  </data>
+  <data name="DownloadDamaged" xml:space="preserve">
+    <value>Ένα αρχείο λήψης έχει καταστραφεί ή δεν είναι έγκυρο</value>
+  </data>
+  <data name="EnterCatalogUrl" xml:space="preserve">
+    <value>Παρακαλούμε εισάγετε το URL ή τοπική διαδρομή αρχείου του καταλόγου τροφοδοσίας για να προστεθεί:</value>
+  </data>
+  <data name="EnterFeedUrl" xml:space="preserve">
+    <value>Παρακαλούμε εισάγετε το URL της νέας πηγής των εφαρμογών για τη διασύνδεση αυτή:</value>
+  </data>
+  <data name="ExclusiveOptions" xml:space="preserve">
+    <value>Οι επιλογές {0} και {1} δεν μπορούν να χρησιμοποιηθούν μαζί.</value>
+  </data>
+  <data name="FeedAlreadyRegistered" xml:space="preserve">
+    <value>Η τροφοδοσία ήδη εγγραφεί για όλες τις κατάλληλες διασυνδέσεις.</value>
+  </data>
+  <data name="FeedManagement" xml:space="preserve">
+    <value>Διαχείριση τροφοδοσίας</value>
+  </data>
+  <data name="FeedNotRegistered" xml:space="preserve">
+    <value>Η τροφοδοσία δεν είχε καταχωρηθεί για τυχόν διασυνδέσεις.</value>
+  </data>
+  <data name="FeedRegistered" xml:space="preserve">
+    <value>Η τροφοδοσία καταχωρηθηκε με επιτυχία για τις ακόλουθες διεπαφές:
+{0}</value>
+  </data>
+  <data name="FeedReplaced" xml:space="preserve">
+    <value>&apos;{0}&apos; έχει αντικατασταθεί από &apos;{1}&apos;. Εξετάστε την ενημέρωση.</value>
+  </data>
+  <data name="FeedReplacedAsk" xml:space="preserve">
+    <value>Η τροφοδοσία για &apos;{0}&apos; ({1}) έχει αντικατασταθεί από &apos;{2}&apos;. Θέλετε να χρησιμοποιήσετε τη νέα τροφοδοσία αντ &apos;αυτού;</value>
+  </data>
+  <data name="FeedsRegistered" xml:space="preserve">
+    <value>Τροφοδοσίες καταχωριστηκαν για &apos;{0}&apos;:</value>
+  </data>
+  <data name="FeedUnregistered" xml:space="preserve">
+    <value>Η τροφοδοσία αποκαταχωρηθηκε με επιτυχία για τις ακόλουθες διεπαφές:
+{0}</value>
+  </data>
+  <data name="FileOrDirNotFound" xml:space="preserve">
+    <value>Δεν είναι δυνατή η εύρεση του αρχείου ή του καταλόγου &apos;{0}&apos;.</value>
+  </data>
+  <data name="FilePrefixAbsoluteUsage" xml:space="preserve">
+    <value>Χρήση file:///path για απόλυτες διαδρομές, όχι file:/path.</value>
+  </data>
+  <data name="FoundFeeds" xml:space="preserve">
+    <value>Βρέθηκαν τροφοδοσίες:</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Απόκρυψη</value>
+  </data>
+  <data name="IgnoreMissingFeedFor" xml:space="preserve">
+    <value>Αυτή η τροφοδοσία δεν φαίνεται να είναι για την ίδια εφαρμογή. Να προστεθει ούτως ή άλλως;
+Μια &lt;feed-για&gt; ετικέτα υποδεικνύει την συμβατότητα τροφοδοσίας.</value>
+  </data>
+  <data name="ImportNoSource" xml:space="preserve">
+    <value>Τροφοδοσίες πρέπει να καθορίζουν το URI απο που προέρχονται προκειμένου να εισάγονται</value>
+  </data>
+  <data name="Integrate" xml:space="preserve">
+    <value>Ενσωμάτωση {0}</value>
+  </data>
+  <data name="IntegrateAppInvalid" xml:space="preserve">
+    <value>Οι επιλογές ενσωμάτωσης στην επιφάνεια εργασίας σας δεν μπορούν να εφαρμοστούν.</value>
+  </data>
+  <data name="IntegrateAppRetry" xml:space="preserve">
+    <value>Θέλετε να αλλάξετε την επιλογή σας και να προσπαθήσετε ξανά;</value>
+  </data>
+  <data name="IntegrateAppUseGui" xml:space="preserve">
+    <value>Παρακαλούμε χρησιμοποιήστε την έκδοση GUI του Zero Install ή καθορίστε σαφείς επιλογές ολοκλήρωσης χρησιμοποιώντας επιχειρήματα της γραμμής εντολών.</value>
+  </data>
+  <data name="LicenseInfo" xml:space="preserve">
+    <value>Το πρόγραμμα έρχεται με ΑΠΟΛΥΤΩΣ ΚΑΜΙΑ ΕΓΓΥΗΣΗ, στο βαθμό που επιτρέπεται από το νόμο.
+Μπορείτε να αναδιανέμετε αντίγραφα του προγράμματος υπό τους όρους της GNU Lesser General Public License.</value>
+  </data>
+  <data name="LocalPathOf" xml:space="preserve">
+    <value>Τοπική διαδρομή του {0}</value>
+  </data>
+  <data name="MissingArguments" xml:space="preserve">
+    <value>Λείπουν επιχειρήματα.</value>
+  </data>
+  <data name="MissingFeedFor" xml:space="preserve">
+    <value>Ελλειπεις &lt;feed-για&gt; στοιχείο στο &apos;{0}&apos;; δεν είναι δυνατόν να χρησιμοποιηθεί ως τροφοδοσία για οποιαδήποτε άλλη διασύνδεση.</value>
+  </data>
+  <data name="MissingOptionValue" xml:space="preserve">
+    <value>Ελλειπεις απαιτούμενη τιμή για την επιλογή {0}.</value>
+  </data>
+  <data name="MustBeAdminForMachineWide" xml:space="preserve">
+    <value>Πρέπει να είστε διαχειριστης για να εκτελέσετε λειτουργίες του μηχανήματος κλίμακας.</value>
+  </data>
+  <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
+    <value>Η αγκίστρωση του ΑΡΙ δεν είναι δυνατή λόγω της μη εφαρμογής προσωρινής αποθήκευσης.</value>
+  </data>
+  <data name="NoLongerUsed" xml:space="preserve">
+    <value>Δεν χρησιμοποιείται πλέον:</value>
+  </data>
+  <data name="NoModifySelectionsInCli" xml:space="preserve">
+    <value>Ο γραφικός επεξεργαστής πολιτικής δεν διατίθενται σε λειτουργία της γραμμής εντολών.</value>
+  </data>
+  <data name="NoRunWithEmptyCommand" xml:space="preserve">
+    <value>Κατά την εκτέλεση μιας εφαρμογής η εντολή δεν μπορεί να είναι κενή.</value>
+  </data>
+  <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
+    <value>Μπορεί να ανανεώνετε μόνο με URIs τροφοδοσίας, όχι με επιλογές εγγράφων.</value>
+  </data>
+  <data name="NoSuchFileOrDirectory" xml:space="preserve">
+    <value>Δεν υπάρχει τέτοιο αρχείο ή κατάλογος: {0}</value>
+  </data>
+  <data name="NotAvailableInPortableMode" xml:space="preserve">
+    <value>Αυτή η λειτουργία δεν είναι διαθέσιμη σε φορητή λειτουργία.</value>
+  </data>
+  <data name="NoUpdatesFound" xml:space="preserve">
+    <value>Δεν βρέθηκαν ενημερώσεις</value>
+  </data>
+  <data name="OpenInFileManager" xml:space="preserve">
+    <value>Άνοιγμα στον διαχειριστή αρχείων</value>
+  </data>
+  <data name="OptimiseComplete" xml:space="preserve">
+    <value>Η βελτιστοποίηση ειναι πλήρης</value>
+  </data>
+  <data name="OptionAlgorithm" xml:space="preserve">
+    <value>Ο {} HASH αλγόριθμος που θα χρησιμοποιηθεί.</value>
+  </data>
+  <data name="OptionAliasRemove" xml:space="preserve">
+    <value>Αφαίρεση ενός υπάρχοντος ψευδωνύμου.</value>
+  </data>
+  <data name="OptionAliasResolve" xml:space="preserve">
+    <value>Εκτυπώστε το περιβάλλον URI για το συγκεκριμένο ψευδώνυμο.</value>
+  </data>
+  <data name="OptionBackground" xml:space="preserve">
+    <value>Απόκρυψη της γραφικής διεπαφής χρήστη και χρησιμοποιήστε κάτι σαν εικονίδιο του δίσκου αντ &apos;αυτού. Δεν έχει κανένα αποτέλεσμα στη λειτουργία της γραμμής εντολών.</value>
+  </data>
+  <data name="OptionBatch" xml:space="preserve">
+    <value>Εκτέλεση σε λειτουργία δέσμης: δεν εμφανίζονται εκθέσεις προόδου προς το χρήστη και να απαντήσει σε ερωτήσεις με τις προεπιλεγμένες απαντήσεις.</value>
+  </data>
+  <data name="OptionBefore" xml:space="preserve">
+    <value>Απαιτείται μια έκδοση του κύριου προγράμματος νωρίτερα από {ΕΚΔΟΣΗ}. δηλαδή, να επιβάλει τη χρήση μιας παλαιάς μορφής του προγράμματος.</value>
+  </data>
+  <data name="OptionClean" xml:space="preserve">
+    <value>Αφαίρεση εφαρμογών που απαιτούνται πλέον μετά την ενημέρωση.</value>
+  </data>
+  <data name="OptionCommand" xml:space="preserve">
+    <value>Αντί για την εκτέλεση της εντολής προεπιλογή, χρησιμοποιήστε {} ΕΝΤΟΛΗ αντ &apos;αυτού. Τα πιθανά ονόματα εντολή που ορίζεται στο περιβάλλον του προγράμματος.
+Ρύθμιση για να αδειάσει (&quot;&quot;) για να αγνοήσει την εντολή κατά τη διάρκεια της επιλογής.</value>
+  </data>
+  <data name="OptionConfigTab" xml:space="preserve">
+    <value>Μετάβαση σε συγκεκριμένη καρτέλα στο GUI διαμόρφωσης. Πιθανές {καρτελ} ες είναι «ενημερώσεις», «αποθήκευση», «κατάλογο», «εμπιστοσύνη», «συγχρονισμός» και «προχωρημένο».
+Δεν έχει κανένα αποτέλεσμα στην λειτουργία κειμένου.</value>
+  </data>
+  <data name="OptionCpu" xml:space="preserve">
+    <value>Αναγκάζει τον επιλυτή να στόχευση μια ειδική {} CPU.</value>
+  </data>
+  <data name="OptionCustomize" xml:space="preserve">
+    <value>Εμφάνιση του πρόγραμμα επεξεργασίας γραφικών πολιτικής. Αυτό σας δίνει τη δυνατότητα να προσαρμόσετε την έκδοση ενός προγράμματος ή βιβλιοθήκη για να χρησιμοποιήσετε.</value>
+  </data>
+  <data name="OptionDigest" xml:space="preserve">
+    <value>Εμφάνιση του δηλωτικού (ενεργοποιημένο από προεπιλογή αν --manifest δεν έχει οριστεί).</value>
+  </data>
+  <data name="OptionForceSelfUpdate" xml:space="preserve">
+    <value>Εκτέλεση της ενημέρωσης, ακόμη και αν η τρέχουσα εγκατεστημένη έκδοση είναι η ίδια ή νεότερη έκδοση.</value>
+  </data>
+  <data name="OptionHelp" xml:space="preserve">
+    <value>Εμφάνιση του ενσωματωμένου κειμένου βοήθειας.</value>
+  </data>
+  <data name="OptionIntegrateAdd" xml:space="preserve">
+    <value>Προσθήκη όλων των σημείων πρόσβασης μιας συγκεκριμένης {ΚΑΤΗΓΟΡΙΑ}.</value>
+  </data>
+  <data name="OptionIntegrateAddAll" xml:space="preserve">
+    <value>Προσθήκη όλων των διαθέσιμων σημείων πρόσβασης.</value>
+  </data>
+  <data name="OptionIntegrateAddStandard" xml:space="preserve">
+    <value>Προσθέστε τα πρότυπα σημεία πρόσβασης.</value>
+  </data>
+  <data name="OptionIntegrateRemove" xml:space="preserve">
+    <value>Αφαίρεση όλων των σημείων πρόσβασης μιας συγκεκριμένης {ΚΑΤΗΓΟΡΙΑ}.</value>
+  </data>
+  <data name="OptionIntegrateRemoveAll" xml:space="preserve">
+    <value>Αφαίρεση όλων των σημείων πρόσβασης.</value>
+  </data>
+  <data name="OptionMachine" xml:space="preserve">
+    <value>Εφαρμογή του μηχανήματος σε επίπεδο διαμόρφωσης (για το σύνολο του υπολογιστή) και όχι μόνο για τον τρέχοντα χρήστη.</value>
+  </data>
+  <data name="OptionMain" xml:space="preserve">
+    <value>Εκτέλεση το συγκεκριμένο εκτελέσιμο {} ΚΥΡΙΟ αντί για το προεπιλεγμένο. Αν ξεκινά με &apos;/&apos; ή &apos;\&apos; τότε η διαδρομή είναι σχετική με κατάλογο ανώτατου επιπέδου της υλοποίησης, ενώ σε αντίθετη περίπτωση, είναι σε σχέση με τον κατάλογο που περιέχει το προεπιλεγμένο κύριο πρόγραμμα.
+Δεν μπορεί να περιέχει επιχειρήματα της γραμμής εντολών! Κενά διαστήματα δεν χρειάζεται να διαφύγετε.</value>
+  </data>
+  <data name="OptionMan" xml:space="preserve">
+    <value>Εμφάνιση πληρέστερης τεκμηρίωσης για τους τρόπους λειτουργίας.</value>
+  </data>
+  <data name="OptionManifest" xml:space="preserve">
+    <value>Εμφάνιση της εκδηλωθεί (μία γραμμή για κάθε αρχείο ή κατάλογο).</value>
+  </data>
+  <data name="OptionNoDownload" xml:space="preserve">
+    <value>Μην κάνετε λήψη της εφαρμογής ακόμη. Θα μεταφορτωθεί αυτόματα κατά την πρώτη χρήση αντ &apos;αυτού.</value>
+  </data>
+  <data name="OptionNotBefore" xml:space="preserve">
+    <value>Απαιτείται μια έκδοση του κύριου προγράμματος, οχι νωρίτερα απο {ΕΚΔΟΣΗ}. Π.χ., αν θέλετε να εκτελέσετε την έκδοση 2.0 ή νεότερη έκδοση, χρησιμοποιήστε  --not-before=2.0.</value>
+  </data>
+  <data name="OptionNoWait" xml:space="preserve">
+    <value>Αμέσως επιστρέφει μόλις το επιλεγμένο πρόγραμμα έχει ξεκινήσειαντί να περιμένει να τελειώσει η εκτέλεση. Στο Windows ο κωδικός εξόδου είναι το ID της διεργασίας που ξεκίνησε το πρόγραμμα.</value>
+  </data>
+  <data name="OptionOffline" xml:space="preserve">
+    <value>Εκτέλεση σε κατάσταση λειτουργίας εκτός σύνδεσης, παρακάμπτοντας την προεπιλεγμένη ρύθμιση.
+Στη λειτουργία εκτός γραμμής, δεν υπάρχουν διασυνδέσεις που ανανεώνονται ακόμη και αν γίνονται εκτός χρόνου, καθώς και νεότερες εκδόσεις των προγραμμάτων δεν θα πρέπει να μεταφορτωνονται ακόμα και αν ο εγχυτήρας γνωρίζει ήδη γι &apos;αυτούς (π.χ. από προηγούμενη ανανέωση).</value>
+  </data>
+  <data name="OptionOS" xml:space="preserve">
+    <value>Αναγκάζει τον επιλυτή να στόχευση μια ειδική {} CPU.</value>
+  </data>
+  <data name="OptionRefresh" xml:space="preserve">
+    <value>Λήψη νέων αντίγραφων όλων των τροφοδοσίων που χρησιμοποιούνται.</value>
+  </data>
+  <data name="OptionRestartCentral" xml:space="preserve">
+    <value>Επανεκκινήση του «0install κεντρικό» GUI μετά την ενημέρωση.</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Επιλογές:</value>
+  </data>
+  <data name="OptionShow" xml:space="preserve">
+    <value>Εμφάνιση όταν τα επιλεγμένα στοιχεία είναι αποθηκευμένα στο δίσκο.</value>
+  </data>
+  <data name="OptionSource" xml:space="preserve">
+    <value>Επιλέξτε τον πηγαίο κώδικα και όχι ένα δυαδικό. Αυτό χρησιμοποιείται εσωτερικά από «0compile».</value>
+  </data>
+  <data name="OptionSyncReset" xml:space="preserve">
+    <value>Επαναφορά των δεδομένων συγχρονισμού. Πιθανές {MODE} ες είναι «καμία» (συγχώνευση των δεδομένων από τον πελάτη και το διακομιστή κανονικά), «πελάτης» (αντικαταστήσει όλα τα δεδομένα σχετικά με τον πελάτη με τα δεδομένα από το διακομιστή) και «διακομιστής» (αντικαταστήσει όλα τα δεδομένα στο διακομιστή με δεδομένα από τον πελάτη).</value>
+  </data>
+  <data name="OptionVerbose" xml:space="preserve">
+    <value>Πιο αναλυτική έξοδος. Χρησιμοποιήστε δύο φορές για ακόμα πιο λεπτομερούς εξόδους.</value>
+  </data>
+  <data name="OptionVersion" xml:space="preserve">
+    <value>Εμφάνιση πληροφοριών έκδοσης.</value>
+  </data>
+  <data name="OptionVersionRange" xml:space="preserve">
+    <value>Απαιτείται μια έκδοση του κύριου προγράμματος εντός της δεδομένης {εύρος}.
+Οι περιοχές που χωρίζονται από σωλήνες (|).
+Κάθε περιοχή είναι υπό τη μορφή &quot;START ..! END&quot;. Η σειρά αγώνων εκδόσεις όπου Έναρξη &lt;= ΕΚΔΟΣΗ &lt;ΤΕΛΟΣ. Ο αρχή ή στο τέλος μπορεί να παραλειφθεί.
+Ένας ενιαίος αριθμός έκδοσης μπορεί να χρησιμοποιηθεί αντί για μια σειρά για να ταιριάζει μόνο αυτής της έκδοσης, ή! ΕΚΔΟΣΗ να ταιριάζει με τα πάντα εκτός από το εν λόγω κείμενο.</value>
+  </data>
+  <data name="OptionVersionRangeFor" xml:space="preserve">
+    <value>Καθορίζει την έκδοση {1: Εύρος} για κάθε βιβλιοθήκη ή υπο-συστατικό με το δεδομένο {0: URI} (όπως για --version).</value>
+  </data>
+  <data name="OptionWithStore" xml:space="preserve">
+    <value>Προσθήκη {} DIR στον κατάλογο των κρυπτών εφαρμογής για την αναζήτηση.
+Ωστόσο, οι νέα λήψη δεν θα γραφτεί σε αυτόν τον κατάλογο.</value>
+  </data>
+  <data name="OptionWrapper" xml:space="preserve">
+    <value>Αντί για την εκτέλεση του προγράμματος επιλέγεται άμεσα, εκτελέστε {} ΕΝΤΟΛΗ ARGS ΠΡΟΓΡΑΜΜΑ. Αυτό είναι χρήσιμο για τη λειτουργία εντοπισμού σφαλμάτων και τον εντοπισμό εργαλεία σχετικά με το πρόγραμμα (και όχι στο Zero Install!).
+Σημειώστε ότι το περιτύλιγμα εκτελείται στο περιβάλλον που επιλέγεται από το πρόγραμμα? Ως εκ τούτου, αυτός ο μηχανισμός δεν μπορεί να χρησιμοποιηθεί για το φιλτράρισμα.
+Μπορεί να περιέχει επιχειρήματα της γραμμής εντολών. Κενά διαστήματα πρέπει να διαφύγονται!</value>
+  </data>
+  <data name="OptionXml" xml:space="preserve">
+    <value>Eggrafh εκδόσεων που έχουν επιλεγεί για την κονσόλα ως αναγνώσιμα από μηχάνημα XML.</value>
+  </data>
+  <data name="PortableMode" xml:space="preserve">
+    <value>Φορητή λειτουργία</value>
+  </data>
+  <data name="PropertiesFor" xml:space="preserve">
+    <value>Ιδιότητες για {0}</value>
+  </data>
+  <data name="ReadingCache" xml:space="preserve">
+    <value>Ανάγνωση της μνήμης cache</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Αφαίρεση</value>
+  </data>
+  <data name="RemoveCheckedKeys" xml:space="preserve">
+    <value>Θέλετε να αφαιρέσετε τα {0} ελέγχομενα κλειδιά από τη λίστα;</value>
+  </data>
+  <data name="RemoveSelectedEntries" xml:space="preserve">
+    <value>Θέλετε να αφαιρέσετε τις {0} καταχωρήσεις από τη λίστα;</value>
+  </data>
+  <data name="RemovingApplications" xml:space="preserve">
+    <value>Αφαίρεση εφαρμογών</value>
+  </data>
+  <data name="RemovingOutdated" xml:space="preserve">
+    <value>Αφαίρεση παρωχημένων εφαρμογών</value>
+  </data>
+  <data name="ResetList" xml:space="preserve">
+    <value>Θέλετε να επαναφέρετε τη λίστα στην αρχική της κατάσταση;</value>
+  </data>
+  <data name="ResolvedUsingCatalog" xml:space="preserve">
+    <value>Αποφασισμένοι &apos;{0}&apos; σε &apos;{1}&apos; χρησιμοποιώντας έναν κατάλογο.</value>
+  </data>
+  <data name="SelectedImplementations" xml:space="preserve">
+    <value>Επιλεγμένες υλοποιήσεις:</value>
+  </data>
+  <data name="SelfUpdateAvailable" xml:space="preserve">
+    <value>Ενημέρωση για το Zero Install ν {0} διατίθεται. Εγκατάσταση τώρα;</value>
+  </data>
+  <data name="SelfUpdateBlocked" xml:space="preserve">
+    <value>Αυτή η Zero Install περίπτωση ξεκίνησε ως εφαρμογή από άλλη Zero Install περίπτωση. Ως εκ τούτου, δεν μπορεί να ενημερωθεί.</value>
+  </data>
+  <data name="StorageReclaimed" xml:space="preserve">
+    <value>{0} χώρος αποθήκευσης ποιοτική αποκατάσταση.</value>
+  </data>
+  <data name="StoreAudit" xml:space="preserve">
+    <value>Ελεγχος</value>
+  </data>
+  <data name="StoreVerfiyTryAuditInstead" xml:space="preserve">
+    <value>Χρησιμοποιήστε &quot;έλεγχος 0store&quot; αντί να ελέγξετε όλες τις εφαρμογές στο χώρο αποθήκευσης.</value>
+  </data>
+  <data name="SuccessfullyRemoved" xml:space="preserve">
+    <value>Αφαιρέθηκε επιτυχώς {0}.</value>
+  </data>
+  <data name="SupportedValues" xml:space="preserve">
+    <value>Υποστηριζόμενες τιμές: {0}</value>
+  </data>
+  <data name="SyncCryptoKeyDescription" xml:space="preserve">
+    <value>Το κρυπτογραφημενο κλειδί χρησιμοποιείται για την κρυπτογράφηση των δεδομένων σας σε τοπικό επίπεδο πριν τη μετάδοσή τους στο διακομιστή.
+Φυλάξτε αυτό το βασικό μυστικό και χρησιμοποιήστε κάτι διαφορετικό για τον κωδικό πρόσβασής σας. Με αυτό τον τρόπο κανείς δεν μπορεί να έχει πρόσβαση στα δεδομένα σας, ακόμα και αν ο διακομιστής τεθεί σε κίνδυνο.</value>
+  </data>
+  <data name="TooManyArguments" xml:space="preserve">
+    <value>Πάρα πολλά επιχειρήματα ή άγνωστες επιλογές.</value>
+  </data>
+  <data name="Try0installWin" xml:space="preserve">
+    <value>Δοκιμάστε να χρησιμοποιήσετε την εντολή &quot;0install-win» αντί του όρου «0install».</value>
+  </data>
+  <data name="TryHelp" xml:space="preserve">
+    <value>Δοκιμάστε {0} --help</value>
+  </data>
+  <data name="TryHelpWith" xml:space="preserve">
+    <value>Δοκιμάστε --help με ένα από αυτά:</value>
+  </data>
+  <data name="UnableToLoadFeed" xml:space="preserve">
+    <value>Δεν είναι δυνατή η φόρτωση τροφοδοσίας &apos;{0}&apos;? παρακάμπτοντας.</value>
+  </data>
+  <data name="UnknownCategory" xml:space="preserve">
+    <value>Άγνωστη κατηγορία: {0}</value>
+  </data>
+  <data name="UnknownCommand" xml:space="preserve">
+    <value>Άγνωστη εντολή &apos;{0}&apos;.</value>
+  </data>
+  <data name="UnknownConfigKey" xml:space="preserve">
+    <value>Άγνωστο κλειδί config &apos;{0}&apos;.</value>
+  </data>
+  <data name="UnknownMode" xml:space="preserve">
+    <value>Άγνωστος τυπος λειτουργίας.</value>
+  </data>
+  <data name="UnknownOption" xml:space="preserve">
+    <value>Άγνωστη επιλογή.</value>
+  </data>
+  <data name="UnknownResetMode" xml:space="preserve">
+    <value>Άγνωστη λειτουργία επαναφοράς συγχρονισμού.</value>
+  </data>
+  <data name="Usage" xml:space="preserve">
+    <value>Χρήση:</value>
+  </data>
+  <data name="UseDefaultSetting" xml:space="preserve">
+    <value>Χρήση προκαθορισμένης ρύθμισης</value>
+  </data>
+  <data name="UseInstead" xml:space="preserve">
+    <value>Χρήση &apos;{0}&apos; αντ &apos;αυτού.</value>
+  </data>
+  <data name="Verify" xml:space="preserve">
+    <value>Επαλήθευση</value>
+  </data>
+  <data name="VerifyImplementation" xml:space="preserve">
+    <value>Επαλήθευση εφαρμογής</value>
+  </data>
+  <data name="VersionInformation" xml:space="preserve">
+    <value>Έκδοση πληροφοριών:</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Εργασία</value>
+  </data>
+</root>
