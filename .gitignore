@@ -12,3 +12,4 @@ test-results/
 *.userprefs
 *.*proj.DotSettings
 *.resources
+*.filtered.resx

@@ -25,8 +25,8 @@ Zero Install itself is built upon this API. You can use the API to integrate Zer
         <file src="..\build\Release\Backend\Interop.IWshRuntimeLibrary.*" target="lib\net20" />
 
         <!-- Satellite assemblies (translations) -->
-        <file src="..\build\Release\Backend\de\ZeroInstall.Services.resources.dll" target="lib\net20\de" />
-        <file src="..\build\Release\Backend\de\ZeroInstall.DesktopIntegration.resources.dll" target="lib\net20\de" />
+        <file src="..\build\Release\Backend\**\ZeroInstall.Services.resources.dll" target="lib\net20" />
+        <file src="..\build\Release\Backend\**\ZeroInstall.DesktopIntegration.resources.dll" target="lib\net20" />
 
         <!-- Source code -->
         <file src="..\src\Backend\Services\**\*.cs" target="src\Services" />

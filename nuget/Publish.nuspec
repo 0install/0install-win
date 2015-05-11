@@ -21,7 +21,7 @@ The Zero Install Publishing Tools (including the Feed Editor) are built upon thi
         <file src="..\build\Release\Tools\ZeroInstall.Publish.*" target="lib\net20" />
 
         <!-- Satellite assemblies (translations) -->
-        <file src="..\build\Release\Tools\de\ZeroInstall.Publish.resources.dll" target="lib\net20\de" />
+        <file src="..\build\Release\Tools\**\ZeroInstall.Publish.resources.dll" target="lib\net20" />
 
         <!-- Source code -->
         <file src="..\src\Tools\Publish\**\*.cs" target="src\Publish" />
