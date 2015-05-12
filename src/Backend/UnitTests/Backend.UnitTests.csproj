@@ -78,6 +78,7 @@
     <Compile Include="DesktopIntegration\ConflictDataUtilsTest.cs" />
     <Compile Include="DesktopIntegration\IntegrationManagerTest.cs" />
     <Compile Include="DesktopIntegration\SyncIntegrationManagerTest.cs" />
+    <Compile Include="DesktopIntegration\Windows\StubBuilderTest.cs" />
     <Compile Include="MoqExtensions.cs" />
     <Compile Include="PackageBuilder.cs" />
     <Compile Include="Services\Feeds\FeedManagerTest.cs" />

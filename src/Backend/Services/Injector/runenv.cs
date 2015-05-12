@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -32,6 +33,8 @@ using System.Text;
 /// <summary>
 public class RunEnv
 {
+    public const int Win32RequestedOperationRequiresElevation = 740, Win32Cancelled = 1223;
+
     public static int Main(string[] args)
     {
         // Get file name without ending
@@ -53,11 +56,32 @@ public class RunEnv
         // Launch child process
         ProcessStartInfo startInfo = new ProcessStartInfo(envFile, string.IsNullOrEmpty(userArgs) ? envArgs : envArgs + " " + userArgs);
         startInfo.UseShellExecute = false;
-        using (Process process = Process.Start(startInfo))
+        Process process;
+        try
         {
+            try
+            {
+                process = Process.Start(startInfo);
+            }
+            catch (Win32Exception ex)
+            {
+                if (ex.NativeErrorCode == Win32RequestedOperationRequiresElevation)
+                {
+                    // UAC handling requires ShellExecute
+                    startInfo.UseShellExecute = true;
+                    process = Process.Start(startInfo);
+                }
+                else throw;
+            }
+
             process.WaitForExit();
-            return process.ExitCode;
         }
+        catch (Win32Exception ex)
+        {
+            if (ex.NativeErrorCode == Win32Cancelled) return 100;
+            else throw;
+        }
+        return process.ExitCode;
     }
 
     #region StringUtils

@@ -1,5 +1,7 @@
 // Embedded source template used by StubBuilder class
 
+using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
@@ -8,40 +10,65 @@ using System.Text;
 
 public static class Stub
 {
-	public static int Main(string[] args)
-	{
-		ProcessStartInfo startInfo = new ProcessStartInfo("[EXE]", "[ARGUMENTS] " + GetArguments(args));
-		startInfo.UseShellExecute = false;
-		Process process = Process.Start(startInfo);
-		process.WaitForExit();
-		return process.ExitCode;
-	}
+    public const int Win32RequestedOperationRequiresElevation = 740, Win32Cancelled = 1223;
 
-	private static string GetArguments(string[] args)
-	{
-		StringBuilder output = new StringBuilder();
-		bool first = true;
-		for (int i = 0; i < args.Length; i++)
-		{
-			// No separator before first or after last line
-			if (first) first = false;
-			else output.Append(' ');
+    public static int Main(string[] args)
+    {
+        ProcessStartInfo startInfo = new ProcessStartInfo("[EXE]", "[ARGUMENTS] " + GetArguments(args));
+        startInfo.UseShellExecute = false;
+        Process process;
+        try
+        {
+            try
+            {
+                process = Process.Start(startInfo);
+            }
+            catch (Win32Exception ex)
+            {
+                if (ex.NativeErrorCode == Win32RequestedOperationRequiresElevation)
+                {
+                    // UAC handling requires ShellExecute
+                    startInfo.UseShellExecute = true;
+                    process = Process.Start(startInfo);
+                }
+                else throw;
+            }
 
-			output.Append(Escape(args[i]));
-		}
+            process.WaitForExit();
+        }
+        catch (Win32Exception ex)
+        {
+            if (ex.NativeErrorCode == Win32Cancelled) return 100;
+            else throw;
+        }
+        return process.ExitCode;
+    }
 
-		return output.ToString();
-	}
+    private static string GetArguments(string[] args)
+    {
+        StringBuilder output = new StringBuilder();
+        bool first = true;
+        for (int i = 0; i < args.Length; i++)
+        {
+            // No separator before first or after last line
+            if (first) first = false;
+            else output.Append(' ');
 
-	private static string Escape(string value)
-	{
-		value = value.Replace("\"", "\\\"");
-		if (ContainsWhitespace(value)) value = "\"" + value + "\"";
-		return value;
-	}
+            output.Append(Escape(args[i]));
+        }
 
-	private static bool ContainsWhitespace(string text)
-	{
-		return text.Contains(" ") || text.Contains("\t") || text.Contains("\n") || text.Contains("\r");
-	}
+        return output.ToString();
+    }
+
+    private static string Escape(string value)
+    {
+        value = value.Replace("\"", "\\\"");
+        if (ContainsWhitespace(value)) value = "\"" + value + "\"";
+        return value;
+    }
+
+    private static bool ContainsWhitespace(string text)
+    {
+        return text.Contains(" ") || text.Contains("\t") || text.Contains("\n") || text.Contains("\r");
+    }
 }
