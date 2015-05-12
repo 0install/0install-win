@@ -289,7 +289,7 @@ namespace ZeroInstall.OneGet
             _request.YieldSoftwareIdentity(
                 fastPath: requirements.ToJsonString(),
                 name: feed.Name,
-                version: (implementation == null) ? null : implementation.Version.ToString(),
+                version: (implementation == null || implementation.Version == null) ? null : implementation.Version.ToString(),
                 versionScheme: null,
                 summary: feed.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture),
                 source: (feed.CatalogUri == null) ? null : feed.CatalogUri.ToStringRfc(),
