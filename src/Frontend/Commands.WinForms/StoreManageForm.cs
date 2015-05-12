@@ -165,15 +165,13 @@ namespace ZeroInstall.Commands.WinForms
         {
             try
             {
-                ProcessUtils.LaunchAssemblyAsAdmin("0install-win", "store manage");
+                ProcessUtils.Assembly(Program.ExeName, "store", "manage").AsAdmin().Start();
                 Close();
             }
                 #region Error handling
+            catch (OperationCanceledException)
+            {}
             catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            catch (Win32Exception ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }

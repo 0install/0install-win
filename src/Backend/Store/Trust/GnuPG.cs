@@ -130,7 +130,7 @@ namespace ZeroInstall.Store.Trust
         /// <inheritdoc/>
         public Process GenerateKey()
         {
-            return Process.Start(GetStartInfo("--gen-key"));
+            return GetStartInfo("--gen-key").Start();
         }
         #endregion
 

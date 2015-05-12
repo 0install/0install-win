@@ -24,7 +24,6 @@ using System.Threading;
 using ICSharpCode.SharpZipLib.Zip;
 using JetBrains.Annotations;
 using NanoByte.Common;
-using NanoByte.Common.Collections;
 using NanoByte.Common.Dispatch;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;

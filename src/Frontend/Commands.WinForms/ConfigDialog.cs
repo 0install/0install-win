@@ -170,7 +170,18 @@ namespace ZeroInstall.Commands.WinForms
 
         private void buttonGoToImplDir_Click(object sender, EventArgs e)
         {
-            Program.OpenInBrowser(this, (string)listBoxImplDirs.SelectedItem);
+            try
+            {
+                ProcessUtils.Start((string)listBoxImplDirs.SelectedItem);
+            }
+                #region Error handling
+            catch (OperationCanceledException)
+            {}
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
 
         private void buttonAddImplDir_Click(object sender, EventArgs e)
@@ -223,7 +234,20 @@ namespace ZeroInstall.Commands.WinForms
         private void buttonGoToCatalogSource_Click(object sender, EventArgs e)
         {
             if (listBoxCatalogSources.SelectedItem != null)
-                Program.OpenInBrowser(this, listBoxCatalogSources.SelectedItem.ToString());
+            {
+                try
+                {
+                    ProcessUtils.Start(listBoxCatalogSources.SelectedItem.ToString());
+                }
+                #region Error handling
+            catch (OperationCanceledException)
+            {}
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
+            }
         }
 
         private void buttonAddCatalogSource_Click(object sender, EventArgs e)
@@ -293,7 +317,18 @@ namespace ZeroInstall.Commands.WinForms
         {
             string syncServer = textBoxSyncServer.Text;
             if (!syncServer.EndsWith("/")) syncServer += "/"; // Ensure the server URI references a directory
-            Program.OpenInBrowser(this, syncServer + "account");
+            try
+            {
+                ProcessUtils.Start(syncServer + "account");
+            }
+                #region Error handling
+            catch (OperationCanceledException)
+            {}
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
 
         private void buttonSyncCryptoKey_Click(object sender, EventArgs e)

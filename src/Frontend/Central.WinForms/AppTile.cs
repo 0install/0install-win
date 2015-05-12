@@ -225,7 +225,18 @@ namespace ZeroInstall.Central.WinForms
         private void linkLabelDetails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (InterfaceUri.IsFake) return;
-            Program.OpenInBrowser(this, InterfaceUri.OriginalString);
+            try
+            {
+                ProcessUtils.Start(InterfaceUri.OriginalString);
+            }
+                #region Error handling
+            catch (OperationCanceledException)
+            {}
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
 
         private void buttonRun_Click(object sender, EventArgs e)

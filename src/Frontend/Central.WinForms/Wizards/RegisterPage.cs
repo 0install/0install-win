@@ -16,7 +16,9 @@
  */
 
 using System;
+using System.IO;
 using System.Windows.Forms;
+using NanoByte.Common;
 using ZeroInstall.Store;
 
 namespace ZeroInstall.Central.WinForms.Wizards
@@ -32,7 +34,18 @@ namespace ZeroInstall.Central.WinForms.Wizards
 
         private void linkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Program.OpenInBrowser(this, Config.DefaultSyncServer + "register");
+            try
+            {
+                ProcessUtils.Start(Config.DefaultSyncServer + "register");
+            }
+                #region Error handling
+            catch (OperationCanceledException)
+            {}
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
 
         private void buttonNext_Click(object sender, EventArgs e)

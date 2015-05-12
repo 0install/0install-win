@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Windows.Forms;
 using JetBrains.Annotations;
 using NanoByte.Common;
@@ -95,7 +96,18 @@ namespace ZeroInstall.Commands.WinForms
             if (dataGrid.CurrentRow == null) return;
             var result = _results[dataGrid.CurrentRow.Index];
 
-            ProcessUtils.LaunchAssembly("0install-win", "run --no-wait " + result.Uri.ToStringRfc());
+            try
+            {
+                ProcessUtils.Assembly(Program.ExeName, "run", "--no-wait", result.Uri.ToStringRfc()).Start();
+            }
+                #region Error handling
+            catch (OperationCanceledException)
+            {}
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -103,7 +115,18 @@ namespace ZeroInstall.Commands.WinForms
             if (dataGrid.CurrentRow == null) return;
             var result = _results[dataGrid.CurrentRow.Index];
 
-            ProcessUtils.LaunchAssembly("0install-win", "add " + result.Uri.ToStringRfc());
+            try
+            {
+                ProcessUtils.Assembly(Program.ExeName, "add", result.Uri.ToStringRfc()).Start();
+            }
+                #region Error handling
+            catch (OperationCanceledException)
+            {}
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
 
         private void buttonIntegrate_Click(object sender, EventArgs e)
@@ -111,7 +134,18 @@ namespace ZeroInstall.Commands.WinForms
             if (dataGrid.CurrentRow == null) return;
             var result = _results[dataGrid.CurrentRow.Index];
 
-            ProcessUtils.LaunchAssembly("0install-win", "integrate " + result.Uri.ToStringRfc());
+            try
+            {
+                ProcessUtils.Assembly(Program.ExeName, "integrate", result.Uri.ToStringRfc()).Start();
+            }
+                #region Error handling
+            catch (OperationCanceledException)
+            {}
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
 
         private void buttonDetails_Click(object sender, EventArgs e)
@@ -119,7 +153,18 @@ namespace ZeroInstall.Commands.WinForms
             if (dataGrid.CurrentRow == null) return;
             var result = _results[dataGrid.CurrentRow.Index];
 
-            Program.OpenInBrowser(this, result.Uri.ToStringRfc());
+            try
+            {
+                ProcessUtils.Start(result.Uri.ToStringRfc());
+            }
+                #region Error handling
+            catch (OperationCanceledException)
+            {}
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
         #endregion
     }

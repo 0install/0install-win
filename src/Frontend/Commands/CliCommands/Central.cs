@@ -18,6 +18,7 @@
 using System;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Native;
 using ZeroInstall.Commands.Properties;
 
 namespace ZeroInstall.Commands.CliCommands
@@ -55,9 +56,11 @@ namespace ZeroInstall.Commands.CliCommands
         /// <inheritdoc/>
         public override ExitCode Execute()
         {
-            return (ExitCode)ProcessUtils.RunAssembly(
-                /*MonoUtils.IsUnix ? "ZeroInstall-gtk" :*/ "ZeroInstall",
-                _machineWide ? "-m" : null);
+            string assembly = WindowsUtils.IsWindows ? "ZeroInstall" : "ZeroInstall-gtk";
+            var startInfo = _machineWide
+                ? ProcessUtils.Assembly(assembly, "-m").AsAdmin()
+                : ProcessUtils.Assembly(assembly);
+            return (ExitCode)startInfo.Run();
         }
     }
 }

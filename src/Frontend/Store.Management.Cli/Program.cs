@@ -17,10 +17,10 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
 using NDesk.Options;
 using ZeroInstall.Commands;
@@ -71,18 +71,51 @@ namespace ZeroInstall.Store.Management.Cli
             }
             catch (NeedGuiException ex)
             {
-                if (WindowsUtils.IsWindows)
-                    return (ExitCode)ProcessUtils.RunAssembly("0install-win", new[] {"store"}.Concat(args).JoinEscapeArguments());
-                else
+                if (ProgramUtils.GuiAssemblyName == null)
                 {
                     Log.Error(ex);
                     return ExitCode.InvalidArguments;
+                }
+                else
+                {
+                    Log.Info("Switching to GUI");
+                    try
+                    {
+                        return (ExitCode)ProcessUtils.Assembly(ProgramUtils.GuiAssemblyName, args.Prepend(StoreMan.Name)).Run();
+                    }
+                        #region Error handling
+                    catch (OperationCanceledException)
+                    {
+                        return ExitCode.UserCanceled;
+                    }
+                    catch (IOException ex2)
+                    {
+                        Log.Error(ex2);
+                        return ExitCode.IOError;
+                    }
+                    #endregion
                 }
             }
             catch (NotAdminException ex)
             {
                 if (WindowsUtils.IsWindowsNT)
-                    return (ExitCode)ProcessUtils.RunAssemblyAsAdmin("0install-win", new[] {"store"}.Concat(args).JoinEscapeArguments());
+                {
+                    try
+                    {
+                        return (ExitCode)ProcessUtils.Assembly(ProgramUtils.GuiAssemblyName ?? "0install", args.Prepend(StoreMan.Name)).AsAdmin().Run();
+                    }
+                        #region Error handling
+                    catch (OperationCanceledException)
+                    {
+                        return ExitCode.UserCanceled;
+                    }
+                    catch (IOException ex2)
+                    {
+                        Log.Error(ex2);
+                        return ExitCode.IOError;
+                    }
+                    #endregion
+                }
                 else
                 {
                     Log.Error(ex);

@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows.Forms;
@@ -74,7 +73,7 @@ namespace ZeroInstall.Commands.WinForms
             var storeNode = BackingNode as StoreNode;
             if (storeNode != null)
             {
-                menu.Add(new MenuItem(Resources.OpenInFileManager, delegate { Process.Start(storeNode.Path); }));
+                menu.Add(new MenuItem(Resources.OpenInFileManager, delegate { ProcessUtils.Start(storeNode.Path); }));
 
                 var implementationNode = storeNode as ImplementationNode;
                 if (implementationNode != null)

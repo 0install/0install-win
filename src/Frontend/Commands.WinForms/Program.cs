@@ -16,8 +16,6 @@
  */
 
 using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
@@ -91,7 +89,23 @@ namespace ZeroInstall.Commands.WinForms
                 {
                     handler.DisableUI();
                     if (WindowsUtils.IsWindowsNT)
-                        return (ExitCode)ProcessUtils.RunAssemblyAsAdmin("0install-win", args.JoinEscapeArguments());
+                    {
+                        try
+                        {
+                            return (ExitCode)ProcessUtils.Assembly(ExeName, args).AsAdmin().Run();
+                        }
+                            #region Error handling
+                        catch (OperationCanceledException)
+                        {
+                            return ExitCode.UserCanceled;
+                        }
+                        catch (IOException ex2)
+                        {
+                            Log.Error(ex2);
+                            return ExitCode.IOError;
+                        }
+                        #endregion
+                    }
                     else
                     {
                         Log.Error(ex);
@@ -109,79 +123,79 @@ namespace ZeroInstall.Commands.WinForms
                 }
                 catch (FormatException ex)
                 {
-                    handler.DisableUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, handler.ErrorLog);
+                    handler.DisableUI();
+                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.InvalidArguments;
                 }
                 catch (WebException ex)
                 {
-                    handler.DisableUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, handler.ErrorLog);
+                    handler.DisableUI();
+                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.WebError;
                 }
                 catch (NotSupportedException ex)
                 {
-                    handler.DisableUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, handler.ErrorLog);
+                    handler.DisableUI();
+                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.NotSupported;
                 }
                 catch (IOException ex)
                 {
-                    handler.DisableUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, handler.ErrorLog);
+                    handler.DisableUI();
+                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.IOError;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    handler.DisableUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, handler.ErrorLog);
+                    handler.DisableUI();
+                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.AccessDenied;
                 }
                 catch (InvalidDataException ex)
                 {
-                    handler.DisableUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, handler.ErrorLog);
+                    handler.DisableUI();
+                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.InvalidData;
                 }
                 catch (SignatureException ex)
                 {
-                    handler.DisableUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, handler.ErrorLog);
+                    handler.DisableUI();
+                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.InvalidSignature;
                 }
                 catch (DigestMismatchException ex)
                 {
-                    handler.DisableUI();
                     Log.Error(ex);
-                    ErrorBox.Show(Resources.DownloadDamaged, handler.ErrorLog);
+                    handler.DisableUI();
+                    ErrorBox.Show(null, Resources.DownloadDamaged, handler.ErrorLog);
                     return ExitCode.DigestMismatch;
                 }
                 catch (SolverException ex)
                 {
-                    handler.DisableUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message.GetLeftPartAtFirstOccurrence(Environment.NewLine), handler.ErrorLog);
+                    handler.DisableUI();
+                    ErrorBox.Show(null, ex.Message.GetLeftPartAtFirstOccurrence(Environment.NewLine), handler.ErrorLog);
                     return ExitCode.SolverError;
                 }
                 catch (ExecutorException ex)
                 {
-                    handler.DisableUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, handler.ErrorLog);
+                    handler.DisableUI();
+                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.ExecutorError;
                 }
                 catch (ConflictException ex)
                 {
-                    handler.DisableUI();
                     Log.Error(ex);
-                    ErrorBox.Show(ex.Message, handler.ErrorLog);
+                    handler.DisableUI();
+                    ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.Conflict;
                 }
                     #endregion
@@ -192,31 +206,6 @@ namespace ZeroInstall.Commands.WinForms
                 }
             }
         }
-
-        #region Browser
-        /// <summary>
-        /// Opens a URL in the system's default browser.
-        /// </summary>
-        /// <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
-        /// <param name="url">The URL to open.</param>
-        internal static void OpenInBrowser([CanBeNull] IWin32Window owner, [NotNull] string url)
-        {
-            try
-            {
-                Process.Start(url);
-            }
-                #region Error handling
-            catch (FileNotFoundException ex)
-            {
-                Msg.Inform(owner, ex.Message, MsgSeverity.Error);
-            }
-            catch (Win32Exception ex)
-            {
-                Msg.Inform(owner, ex.Message, MsgSeverity.Error);
-            }
-            #endregion
-        }
-        #endregion
 
         #region Taskbar
         /// <summary>

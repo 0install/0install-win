@@ -68,21 +68,51 @@ namespace ZeroInstall.Commands.Cli
             }
             catch (NeedGuiException ex)
             {
-                if (WindowsUtils.IsWindows)
-                {
-                    Log.Info("Switching to GUI");
-                    return (ExitCode)ProcessUtils.RunAssembly("0install-win", args.JoinEscapeArguments());
-                }
-                else
+                if (ProgramUtils.GuiAssemblyName == null)
                 {
                     Log.Error(ex);
                     return ExitCode.InvalidArguments;
+                }
+                else
+                {
+                    Log.Info("Switching to GUI");
+                    try
+                    {
+                        return (ExitCode)ProcessUtils.Assembly(ProgramUtils.GuiAssemblyName, args).Run();
+                    }
+                        #region Error handling
+                    catch (OperationCanceledException)
+                    {
+                        return ExitCode.UserCanceled;
+                    }
+                    catch (IOException ex2)
+                    {
+                        Log.Error(ex2);
+                        return ExitCode.IOError;
+                    }
+                    #endregion
                 }
             }
             catch (NotAdminException ex)
             {
                 if (WindowsUtils.IsWindowsNT)
-                    return (ExitCode)ProcessUtils.RunAssemblyAsAdmin("0install-win", args.JoinEscapeArguments());
+                {
+                    try
+                    {
+                        return (ExitCode)ProcessUtils.Assembly(ProgramUtils.GuiAssemblyName ?? ExeName, args).AsAdmin().Run();
+                    }
+                        #region Error handling
+                    catch (OperationCanceledException)
+                    {
+                        return ExitCode.UserCanceled;
+                    }
+                    catch (IOException ex2)
+                    {
+                        Log.Error(ex2);
+                        return ExitCode.IOError;
+                    }
+                    #endregion
+                }
                 else
                 {
                     Log.Error(ex);

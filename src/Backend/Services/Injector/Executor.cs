@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using JetBrains.Annotations;
 using NanoByte.Common;
@@ -67,20 +66,7 @@ namespace ZeroInstall.Services.Injector
             if (arguments == null) throw new ArgumentNullException("arguments");
             #endregion
 
-            var startInfo = GetStartInfo(selections, arguments);
-            try
-            {
-                Log.Info("Launching application: " + startInfo.FileName.EscapeArgument() + " " + startInfo.Arguments + " (+ environment variables)");
-                return Process.Start(startInfo);
-            }
-                #region Error handling
-            catch (Win32Exception ex)
-            {
-                const int requestedOperationRequiresElevation = 740;
-                if (ex.NativeErrorCode == requestedOperationRequiresElevation) throw new NotAdminException(ex.Message);
-                else throw new ExecutorException(string.Format(Resources.FailedToLaunch, startInfo.FileName), ex);
-            }
-            #endregion
+            return GetStartInfo(selections, arguments).Start();
         }
 
         /// <inheritdoc/>

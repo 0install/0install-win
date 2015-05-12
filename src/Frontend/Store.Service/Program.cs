@@ -113,19 +113,17 @@ namespace ZeroInstall.Store.Service
 
         private static int Install(bool silent)
         {
-            using (var process = Process.Start(
-                new ProcessStartInfo(InstallUtilPath, Application.ExecutablePath.EscapeArgument())
-                {WindowStyle = (silent ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal)}))
+            int exitCode = new ProcessStartInfo(InstallUtilPath, Application.ExecutablePath.EscapeArgument())
             {
-                process.WaitForExit();
+                WindowStyle = (silent ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal)
+            }.Run();
 
-                if (!silent)
-                {
-                    if (process.ExitCode == 0) Msg.Inform(null, Resources.InstallSuccess, MsgSeverity.Info);
-                    else Msg.Inform(null, Resources.InstallFail, MsgSeverity.Error);
-                }
-                return process.ExitCode;
+            if (!silent)
+            {
+                if (exitCode == 0) Msg.Inform(null, Resources.InstallSuccess, MsgSeverity.Info);
+                else Msg.Inform(null, Resources.InstallFail, MsgSeverity.Error);
             }
+            return exitCode;
         }
 
         private static int Uninstall(bool silent)
@@ -134,18 +132,17 @@ namespace ZeroInstall.Store.Service
 
             if (controller.Status == ServiceControllerStatus.Running) controller.Stop();
 
-            using (var process = Process.Start(
-                new ProcessStartInfo(InstallUtilPath, new[] {"/u", Application.ExecutablePath}.JoinEscapeArguments()) {WindowStyle = (silent ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal)}))
+            int exitCode = new ProcessStartInfo(InstallUtilPath, new[] {"/u", Application.ExecutablePath}.JoinEscapeArguments())
             {
-                process.WaitForExit();
+                WindowStyle = (silent ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal)
+            }.Run();
 
-                if (!silent)
-                {
-                    if (process.ExitCode == 0) Msg.Inform(null, Resources.UninstallSuccess, MsgSeverity.Info);
-                    else Msg.Inform(null, Resources.UninstallFail, MsgSeverity.Error);
-                }
-                return process.ExitCode;
+            if (!silent)
+            {
+                if (exitCode == 0) Msg.Inform(null, Resources.UninstallSuccess, MsgSeverity.Info);
+                else Msg.Inform(null, Resources.UninstallFail, MsgSeverity.Error);
             }
+            return exitCode;
         }
 
         private static void Start(bool silent)

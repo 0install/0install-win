@@ -17,7 +17,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -169,12 +168,17 @@ namespace ZeroInstall.Updater.WinForms
         {
             try
             {
-                var startInfo = new ProcessStartInfo(Application.ExecutablePath, new[] {_updateProcess.Source, _updateProcess.NewVersion.ToString(), _updateProcess.Target, "--rerun"}.JoinEscapeArguments()) {Verb = "runas"};
-                using (var process = Process.Start(startInfo))
-                    process.WaitForExit();
+                ProcessUtils.Assembly("0update-win", _updateProcess.Source, _updateProcess.NewVersion.ToString(), _updateProcess.Target, "--rerun").AsAdmin().Run();
             }
-            catch (Win32Exception)
+                #region Error handling
+            catch (OperationCanceledException)
             {}
+            catch (IOException ex)
+            {
+                Log.Warn("Rerunning elevated failed");
+                Log.Warn(ex);
+            }
+            #endregion
         }
     }
 }

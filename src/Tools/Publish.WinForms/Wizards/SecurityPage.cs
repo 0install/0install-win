@@ -16,6 +16,8 @@
  */
 
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using JetBrains.Annotations;
@@ -63,8 +65,21 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
         private void buttonNewKey_Click(object sender, EventArgs e)
         {
-            var process = _openPgp.GenerateKey();
-            ProcessUtils.RunBackground(() =>
+            Process process;
+            try
+            {
+                process = _openPgp.GenerateKey();
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Log.Error(ex);
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            #endregion
+
+            ThreadUtils.StartBackground(() =>
             {
                 process.WaitForExit();
 

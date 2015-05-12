@@ -20,6 +20,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -191,10 +192,24 @@ namespace ZeroInstall.Commands
             if (string.IsNullOrEmpty(command)) throw new ArgumentNullException("command");
             #endregion
 
-            if (WindowsUtils.IsWindows)
-                ProcessUtils.LaunchAssembly("0install-win", command + " --background " + args.JoinEscapeArguments());
-            //else if (UnixUtils.IsUnix)
-            //    ProcessUtils.LaunchAssembly("0install-win", command + " --background " + args.JoinEscapeArguments());
+            if (ProgramUtils.GuiAssemblyName == null)
+            {
+                Log.Info("Skipping background command because there is no GUI subsystem available");
+                return;
+            }
+
+            try
+            {
+                ProcessUtils.Assembly(ProgramUtils.GuiAssemblyName, args.Prepend("--background").Prepend(command)).Start();
+            }
+                #region Error handling
+            catch (OperationCanceledException)
+            {}
+            catch (IOException ex)
+            {
+                Log.Warn(ex);
+            }
+            #endregion
         }
     }
 }

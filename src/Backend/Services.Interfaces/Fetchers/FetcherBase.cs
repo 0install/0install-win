@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Annotations;
-using NanoByte.Common.Collections;
+using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Services.PackageManagers;
@@ -91,7 +91,7 @@ namespace ZeroInstall.Services.Fetchers
 
             implementation.RetrievalMethods
                 .OrderBy(x => x, RetrievalMethodRanker.Instance)
-                .Try(retrievalMethod => Retrieve(retrievalMethod, implementation.ManifestDigest));
+                .TryAny(retrievalMethod => Retrieve(retrievalMethod, implementation.ManifestDigest));
         }
 
         /// <summary>

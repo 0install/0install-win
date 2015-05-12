@@ -52,6 +52,10 @@ namespace ZeroInstall.Publish.WinForms.Wizards
                     _installerCapture.RunInstaller(handler);
             }
                 #region Error handling
+            catch (OperationCanceledException)
+            {
+                return;
+            }
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Warn);

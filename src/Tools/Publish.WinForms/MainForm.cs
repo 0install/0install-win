@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -293,8 +294,21 @@ namespace ZeroInstall.Publish.WinForms
 
         private void NewKey()
         {
-            var process = _openPgp.GenerateKey();
-            ProcessUtils.RunBackground(() =>
+            Process process;
+            try
+            {
+                process = _openPgp.GenerateKey();
+            }
+                #region Error handling
+            catch (IOException ex)
+            {
+                Log.Error(ex);
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            #endregion
+
+            ThreadUtils.StartBackground(() =>
             {
                 process.WaitForExit();
 

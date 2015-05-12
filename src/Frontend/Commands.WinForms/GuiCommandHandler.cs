@@ -226,7 +226,7 @@ namespace ZeroInstall.Commands.WinForms
             if (query == null) throw new ArgumentNullException("query");
             #endregion
 
-            ProcessUtils.RunSta(() =>
+            ThreadUtils.RunSta(() =>
             {
                 using (var dialog = new FeedSearchDialog(query))
                     dialog.ShowDialog();
@@ -240,7 +240,7 @@ namespace ZeroInstall.Commands.WinForms
             if (config == null) throw new ArgumentNullException("config");
             #endregion
 
-            ProcessUtils.RunSta(() =>
+            ThreadUtils.RunSta(() =>
             {
                 using (var dialog = new ConfigDialog(config))
                 {
@@ -258,7 +258,7 @@ namespace ZeroInstall.Commands.WinForms
             if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
-            ProcessUtils.RunSta(() =>
+            ThreadUtils.RunSta(() =>
             {
                 using (var form = new StoreManageForm(store, feedCache))
                     form.ShowDialog();

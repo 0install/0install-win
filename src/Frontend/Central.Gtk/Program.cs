@@ -15,11 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.IO;
 using System.Linq;
 using Gtk;
 using NanoByte.Common;
 using NanoByte.Common.Native;
-using NanoByte.Common.Storage;
 using ZeroInstall.Commands;
 
 namespace ZeroInstall.Central.Gtk
@@ -50,7 +51,24 @@ namespace ZeroInstall.Central.Gtk
         public static int Run(string[] args)
         {
             bool machineWide = args.Any(arg => arg == "-m" || arg == "--machine");
-            if (machineWide && WindowsUtils.IsWindowsNT && !WindowsUtils.IsAdministrator) return ProcessUtils.RunAssemblyAsAdmin("ZeroInstall", args.JoinEscapeArguments());
+            if (machineWide && WindowsUtils.IsWindowsNT && !WindowsUtils.IsAdministrator)
+            {
+                try
+                {
+                    return ProcessUtils.Assembly(ExeName, args).AsAdmin().Run();
+                }
+                    #region Error handling
+                catch (OperationCanceledException)
+                {
+                    return (int)ExitCode.UserCanceled;
+                }
+                catch (IOException ex)
+                {
+                    Log.Error(ex);
+                    return (int)ExitCode.IOError;
+                }
+                #endregion
+            }
 
             var window = new MainWindow();
             window.DeleteEvent += delegate { Application.Quit(); };

@@ -16,8 +16,6 @@
  */
 
 using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -69,7 +67,24 @@ namespace ZeroInstall.Central.WinForms
         public static int Run(string[] args)
         {
             bool machineWide = args.Any(arg => arg == "-m" || arg == "--machine");
-            if (machineWide && WindowsUtils.IsWindowsNT && !WindowsUtils.IsAdministrator) return ProcessUtils.RunAssemblyAsAdmin("ZeroInstall", args.JoinEscapeArguments());
+            if (machineWide && WindowsUtils.IsWindowsNT && !WindowsUtils.IsAdministrator)
+            {
+                try
+                {
+                    return ProcessUtils.Assembly(ExeName, args).AsAdmin().Run();
+                }
+                    #region Error handling
+                catch (OperationCanceledException)
+                {
+                    return (int)ExitCode.UserCanceled;
+                }
+                catch (IOException ex)
+                {
+                    Log.Error(ex);
+                    return (int)ExitCode.IOError;
+                }
+                #endregion
+            }
 
             try
             {
@@ -128,38 +143,13 @@ namespace ZeroInstall.Central.WinForms
         internal static void RunCommand([CanBeNull] Action callback, bool machineWide, [NotNull] params string[] args)
         {
             var context = SynchronizationContext.Current;
-            ProcessUtils.RunAsync(
+            ThreadUtils.StartAsync(
                 () =>
                 {
                     Commands.WinForms.Program.Run(machineWide ? args.Append("--machine").ToArray() : args);
                     if (callback != null) context.Send(state => callback(), null);
                 },
                 "0install-win (" + args.JoinEscapeArguments() + ")");
-        }
-        #endregion
-
-        #region Browser
-        /// <summary>
-        /// Opens a URL in the system's default browser.
-        /// </summary>
-        /// <param name="owner">The parent window the displayed window is modal to; can be <see langword="null"/>.</param>
-        /// <param name="url">The URL to open.</param>
-        internal static void OpenInBrowser([CanBeNull] IWin32Window owner, [NotNull] string url)
-        {
-            try
-            {
-                Process.Start(url);
-            }
-                #region Error handling
-            catch (FileNotFoundException ex)
-            {
-                Msg.Inform(owner, ex.Message, MsgSeverity.Error);
-            }
-            catch (Win32Exception ex)
-            {
-                Msg.Inform(owner, ex.Message, MsgSeverity.Error);
-            }
-            #endregion
         }
         #endregion
 

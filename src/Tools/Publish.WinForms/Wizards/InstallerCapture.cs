@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using JetBrains.Annotations;
@@ -112,7 +111,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         {
             if (string.IsNullOrEmpty(_localPath)) throw new InvalidOperationException();
 
-            var process = Process.Start(_localPath);
+            var process = ProcessUtils.Start(_localPath);
             if (process == null) return;
             handler.RunTask(new SimpleTask(Resources.WaitingForInstaller, () => process.WaitForExit()));
         }

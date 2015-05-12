@@ -161,7 +161,7 @@ namespace ZeroInstall.Store.Model
         private static Architecture GetCurrentSystem()
         {
             if (WindowsUtils.IsWindows) return new Architecture(OS.Windows, WindowsUtils.Is64BitOperatingSystem ? Cpu.X64 : Cpu.I586);
-            else if (UnixUtils.IsUnix) return new Architecture(ParseOSString(UnixUtils.OSName), ParseCpuString(UnixUtils.CpuType));
+            else if (UnixUtils.IsUnix) return new Architecture(UnixUtils.IsMacOSX ? OS.MacOSX : ParseOSString(UnixUtils.OSName), ParseCpuString(UnixUtils.CpuType));
             else return new Architecture(OS.Unknown, Cpu.Unknown);
         }
         #endregion

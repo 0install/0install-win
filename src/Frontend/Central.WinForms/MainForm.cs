@@ -339,7 +339,18 @@ namespace ZeroInstall.Central.WinForms
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            Program.OpenInBrowser(this, "http://0install.de/help/");
+            try
+            {
+                ProcessUtils.Start("http://0install.de/help/");
+            }
+                #region Error handling
+            catch (OperationCanceledException)
+            {}
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
 
         private void buttonIntro_Click(object sender, EventArgs e)
@@ -409,17 +420,15 @@ namespace ZeroInstall.Central.WinForms
         {
             try
             {
-                ProcessUtils.LaunchAssembly("0install-win", SelfUpdate.Name + " --batch --restart-central");
+                ProcessUtils.Assembly("0install-win", SelfUpdate.Name, "--batch", "--restart-central").Start();
                 Application.Exit();
             }
                 #region Error handling
-            catch (FileNotFoundException ex)
+            catch (OperationCanceledException)
+            {}
+            catch (IOException ex)
             {
-                Msg.Inform(null, ex.Message, MsgSeverity.Error);
-            }
-            catch (Win32Exception ex)
-            {
-                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }
             #endregion
         }

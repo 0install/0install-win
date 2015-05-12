@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using JetBrains.Annotations;
@@ -111,16 +110,13 @@ namespace ZeroInstall.Central.WinForms
             try
             {
                 // Cannot use in-process method here because the "args" string needs to be parsed by the operating system
-                ProcessUtils.LaunchAssembly(Commands.WinForms.Program.ExeName,
-                    "run --no-wait --command " + command.EscapeArgument() + " " + _target.Uri.ToStringRfc().EscapeArgument() +
-                    " " + textBoxArgs.Text);
+                ProcessUtils.Assembly(Commands.WinForms.Program.ExeName,
+                    "run", "--no-wait", "--command", command, _target.Uri.ToStringRfc(), textBoxArgs.Text).Start();
             }
                 #region Error handling
-            catch (FileNotFoundException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            catch (Win32Exception ex)
+            catch (OperationCanceledException)
+            {}
+            catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }

@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -354,8 +353,8 @@ namespace ZeroInstall.Updater
             {
                 string arguments = new[] {"install", Path.Combine(Target, assembly)}.JoinEscapeArguments();
                 var startInfo = new ProcessStartInfo(ngenPath, arguments) {WindowStyle = ProcessWindowStyle.Hidden};
-                using (var process = Process.Start(startInfo))
-                    process.WaitForExit();
+                using (var process = startInfo.Start())
+                    if (process != null) process.WaitForExit();
             }
         }
         #endregion
@@ -400,15 +399,12 @@ namespace ZeroInstall.Updater
         {
             try
             {
-                Process.Start(new ProcessStartInfo(
-                    Path.Combine(Target, WindowsUtils.IsWindows ? "0install-win.exe" : "0install-gtk.exe"), "central") {ErrorDialog = true});
+                ProcessUtils.Start(Path.Combine(Target, WindowsUtils.IsWindows ? "0install-win.exe" : "0install-gtk.exe"), "central");
             }
                 #region Error handling
+            catch (OperationCanceledException)
+            {}
             catch (IOException ex)
-            {
-                Log.Error(ex);
-            }
-            catch (Win32Exception ex)
             {
                 Log.Error(ex);
             }

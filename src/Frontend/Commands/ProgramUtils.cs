@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Net;
@@ -57,5 +58,14 @@ namespace ZeroInstall.Commands
             NetUtils.ApplyProxy();
             if (!WindowsUtils.IsWindows7) NetUtils.TrustCertificates(SyncIntegrationManager.DefaultServerPublicKey);
         }
+
+        /// <summary>
+        /// The EXE name for the Command GUI best suited for the current system; <see langword="null"/> if no GUI subsystem is running.
+        /// </summary>
+        [CanBeNull]
+        public static readonly string GuiAssemblyName =
+            WindowsUtils.IsWindows
+                ? "0install-win"
+                : UnixUtils.HasGui ? "0install-gtk" : null;
     }
 }
