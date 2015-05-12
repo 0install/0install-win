@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.statusLabel = new System.Windows.Forms.Label();
+            this.labelStatus = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
@@ -39,31 +39,34 @@
             this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
             this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
             // 
-            // statusLabel
+            // labelStatus
             // 
-            this.statusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.statusLabel.Location = new System.Drawing.Point(12, 9);
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(262, 35);
-            this.statusLabel.TabIndex = 0;
+            this.labelStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelStatus.Location = new System.Drawing.Point(12, 9);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(364, 118);
+            this.labelStatus.TabIndex = 0;
+            this.labelStatus.Text = "(Status)";
+            this.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(15, 47);
+            this.progressBar.Location = new System.Drawing.Point(15, 130);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(259, 23);
+            this.progressBar.Size = new System.Drawing.Size(361, 23);
             this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar.TabIndex = 1;
             // 
             // MainForm
             // 
-            this.ClientSize = new System.Drawing.Size(286, 82);
+            this.ClientSize = new System.Drawing.Size(388, 165);
             this.Controls.Add(this.progressBar);
-            this.Controls.Add(this.statusLabel);
+            this.Controls.Add(this.labelStatus);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -78,7 +81,7 @@
         #endregion
 
         private System.ComponentModel.BackgroundWorker backgroundWorker;
-        private System.Windows.Forms.Label statusLabel;
+        private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.ProgressBar progressBar;
     }
 }
