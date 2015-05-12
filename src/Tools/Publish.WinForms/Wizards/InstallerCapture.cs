@@ -18,7 +18,9 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Publish.Capture;
@@ -32,12 +34,23 @@ namespace ZeroInstall.Publish.WinForms.Wizards
     /// </summary>
     internal sealed class InstallerCapture : IDisposable
     {
+        /// <summary>
+        /// Holds the <see cref="CaptureSession"/> created at the start of the process.
+        /// </summary>
+        public CaptureSession CaptureSession { get; set; }
+
         [CanBeNull]
         private Uri _url;
 
         [CanBeNull]
         private string _localPath;
 
+        /// <summary>
+        /// Sets the installer source to a pre-existing local file.
+        /// </summary>
+        /// <param name="url">The URL the file was originally downloaded from.</param>
+        /// <param name="path">The local path of the file.</param>
+        /// <remarks>Use either this or <see cref="Download"/>.</remarks>
         public void SetLocal([NotNull] Uri url, [NotNull] string path)
         {
             _url = url;
@@ -47,6 +60,15 @@ namespace ZeroInstall.Publish.WinForms.Wizards
         [CanBeNull]
         private TemporaryDirectory _tempDir;
 
+        /// <summary>
+        /// Downloads the installer from the web to a temporary file.
+        /// </summary>
+        /// <param name="url">The URL of the file to download.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
+        /// <exception cref="IOException">A downloaded file could not be written to the disk.</exception>
+        /// <exception cref="UnauthorizedAccessException">An operation failed due to insufficient rights.</exception>
+        /// <remarks>Use either this or <see cref="SetLocal"/>.</remarks>
         public void Download([NotNull] Uri url, [NotNull] ITaskHandler handler)
         {
             _url = url;
@@ -71,13 +93,21 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             #endregion
         }
 
+        /// <summary>
+        /// Disposes any temporary files created by <see cref="Download"/>.
+        /// </summary>
         public void Dispose()
         {
             if (_tempDir != null) _tempDir.Dispose();
         }
 
-        public CaptureSession CaptureSession { get; set; }
-
+        /// <summary>
+        /// Runs the installer and waits for it to exit.
+        /// </summary>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="IOException">There is a problem access a temporary file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
         public void RunInstaller([NotNull] ITaskHandler handler)
         {
             if (string.IsNullOrEmpty(_localPath)) throw new InvalidOperationException();
@@ -87,6 +117,14 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             handler.RunTask(new SimpleTask(Resources.WaitingForInstaller, () => process.WaitForExit()));
         }
 
+        /// <summary>
+        /// Tries extracting the installer as an <see cref="Archive"/>.
+        /// </summary>
+        /// <param name="feedBuilder">All collected data is stored into this builder.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="IOException">The installer could not be extracted as an archive.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read or write access to a temporary file is not permitted.</exception>
         public void ExtractInstallerAsArchive([NotNull] FeedBuilder feedBuilder, [NotNull] ITaskHandler handler)
         {
             if (string.IsNullOrEmpty(_localPath) || _url == null) throw new InvalidOperationException();
