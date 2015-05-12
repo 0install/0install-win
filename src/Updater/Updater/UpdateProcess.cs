@@ -40,15 +40,6 @@ namespace ZeroInstall.Updater
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Restart Manager is Dispose")]
     public class UpdateProcess
     {
-        #region Variables
-        [CanBeNull]
-        private WindowsRestartManager _restartManager;
-
-        /// <summary>A mutex that prevents Zero Install instances from being launched while an update is in progress.</summary>
-        private AppMutex _blockingMutexOld, _blockingMutexNew;
-        #endregion
-
-        #region Properties
         /// <summary>
         /// The full path to the directory containing the new/updated version.
         /// </summary>
@@ -59,15 +50,13 @@ namespace ZeroInstall.Updater
         /// </summary>
         public string Target { get; private set; }
 
+        private bool IsPortable { get { return File.Exists(Path.Combine(Target, Locations.PortableFlagName)); } }
+
         /// <summary>
         /// The version number of the new/updated version.
         /// </summary>
         public Version NewVersion { get; private set; }
 
-        private bool IsPortable { get { return File.Exists(Path.Combine(Target, Locations.PortableFlagName)); } }
-        #endregion
-
-        #region Constructor
         /// <summary>
         /// Creates a new update process.
         /// </summary>
@@ -110,55 +99,67 @@ namespace ZeroInstall.Updater
 
             if (!Directory.Exists(Source)) throw new DirectoryNotFoundException(Resources.SourceMissing);
         }
-        #endregion
 
         //--------------------//
 
-        #region Restart Manager
-        public void RestartManagerShutdown()
+        #region Service
+        /// <summary>
+        /// Stops the Zero Install Store Service if it is running.
+        /// </summary>
+        /// <returns><see langword="true"/> if the service was running; <see langword="false"/> otherwise.</returns>
+        /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
+        public bool ServiceStop()
         {
-            if (!WindowsUtils.IsWindowsVista) return;
+            // Do not touch the service in portable mode
+            if (IsPortable) return false;
 
-            _restartManager = new WindowsRestartManager();
-            try
-            {
-                _restartManager.RegisterResources(GetFilesToWrite());
-                _restartManager.RegisterResources(GetFilesToDelete());
-                _restartManager.ShutdownApps(new SilentTaskHandler());
-            }
-                #region Error handling
-            catch
-            {
-                _restartManager.Dispose();
-                throw;
-            }
-            #endregion
+            // Determine whether the service is installed and running
+            var service = ServiceController.GetServices().FirstOrDefault(x => x.ServiceName == "0store-service");
+            if (service == null) return false;
+            if (service.Status == ServiceControllerStatus.Stopped) return false;
+
+            // Determine whether the service is installed in the target directory we are updating
+            string imagePath = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\0store-service", "ImagePath").Trim('"');
+            if (!imagePath.StartsWith(Target)) return false;
+
+            if (!WindowsUtils.IsAdministrator) throw new UnauthorizedAccessException();
+
+            // Stop the service
+            service.Stop();
+            Thread.Sleep(2000);
+            return true;
         }
 
-        public void RestartManagerRestart()
+        /// <summary>
+        /// Starts the Zero Install Store Service.
+        /// </summary>
+        /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
+        /// <remarks>Must call this after <see cref="MutexRelease"/>.</remarks>
+        public void ServiceStart()
         {
-            if (_restartManager == null) return;
+            if (!WindowsUtils.IsAdministrator) throw new UnauthorizedAccessException();
 
-            _restartManager.RestartApps(new SilentTaskHandler());
-        }
+            // Ensure the service executable exists
+            string servicePath = Path.Combine(Target, "0store-service.exe");
+            if (!File.Exists(servicePath)) return;
 
-        public void RestartManagerFinish()
-        {
-            if (_restartManager == null) return;
-
-            _restartManager.Dispose();
-            _restartManager = null;
+            // Start the service
+            var controller = new ServiceController("0store-service");
+            controller.Start();
         }
         #endregion
 
-        #region Mutex wait
+        #region Mutex
+        /// <summary>A mutex that prevents Zero Install instances from being launched while an update is in progress.</summary>
+        private AppMutex _blockingMutexOld, _blockingMutexNew;
+
         /// <summary>
         /// Waits for any Zero Install instances running in <see cref="Target"/> to terminate and then prevents new ones from starting.
         /// </summary>
         public void MutexAquire()
         {
             // Installation paths are encoded into mutex names to allow instance detection
-            // Support old versions that used SHA256 or MD5 for mutex names (unnecessarily complex since not security-relevant)
+            // Support old versions that used SHA256 or MD5 for mutex names
             string targetMutexOld1 = "mutex-" + Target.Hash(SHA256.Create());
             string targetMutexOld2 = "mutex-" + Target.Hash(MD5.Create());
             string targetMutex = "mutex-" + Target.GetHashCode();
@@ -195,51 +196,61 @@ namespace ZeroInstall.Updater
         }
         #endregion
 
-        #region Stop service
+        #region Restart Manager
+        [CanBeNull]
+        private WindowsRestartManager _restartManager;
+
         /// <summary>
-        /// Stops the Zero Install Store Service if it is running.
+        /// Uses the <see cref="WindowsRestartManager"/> to shut down applications holding references to files we want to update.
         /// </summary>
-        /// <returns><see langword="true"/> if the service was running; <see langword="false"/> otherwise.</returns>
-        /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
-        public bool StopService()
+        public void RestartManagerShutdown()
         {
-            // Do not touch the service in portable mode
-            if (IsPortable) return false;
+            if (!WindowsUtils.IsWindowsVista) return;
 
-            // Determine whether the service is installed and running
-            var service = ServiceController.GetServices().FirstOrDefault(x => x.ServiceName == "0store-service");
-            if (service == null) return false;
-            if (service.Status == ServiceControllerStatus.Stopped) return false;
+            _restartManager = new WindowsRestartManager();
+            try
+            {
+                _restartManager.RegisterResources(GetFilesToWrite());
+                _restartManager.RegisterResources(GetFilesToDelete());
+                _restartManager.ShutdownApps(new SilentTaskHandler());
+            }
+                #region Error handling
+            catch
+            {
+                _restartManager.Dispose();
+                throw;
+            }
+            #endregion
+        }
 
-            // Determine whether the service is installed in the target directory we are updating
-            string imagePath = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\0store-service", "ImagePath").Trim('"');
-            if (!imagePath.StartsWith(Target)) return false;
+        /// <summary>
+        /// Uses the <see cref="WindowsRestartManager"/> to restart applications closed by <see cref="RestartManagerShutdown"/>
+        /// </summary>
+        public void RestartManagerRestart()
+        {
+            if (_restartManager == null) return;
 
-            if (!WindowsUtils.IsAdministrator) throw new UnauthorizedAccessException();
+            _restartManager.RestartApps(new SilentTaskHandler());
+        }
 
-            // Stop the service
-            service.Stop();
-            Thread.Sleep(2000);
-            return true;
+        /// <summary>
+        /// Closes any open <see cref="WindowsRestartManager"/> sessions.
+        /// </summary>
+        public void RestartManagerFinish()
+        {
+            if (_restartManager == null) return;
+
+            _restartManager.Dispose();
+            _restartManager = null;
         }
         #endregion
 
-        #region Copy files
-        private string[] GetFilesToWrite()
-        {
-            var paths = new List<string>();
-
-            var source = new DirectoryInfo(Source);
-            source.Walk(fileAction: file => paths.Add(Path.Combine(Target, file.RelativeTo(source))));
-
-            return paths.ToArray();
-        }
-
+        #region Files
         /// <summary>
         /// Copies the content of <see cref="Source"/> to <see cref="Target"/>.
         /// </summary>
         /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
-        public void CopyFiles()
+        public void FilesCopy()
         {
             try
             {
@@ -253,9 +264,27 @@ namespace ZeroInstall.Updater
             }
             #endregion
         }
-        #endregion
 
-        #region Delete files
+        private string[] GetFilesToWrite()
+        {
+            var paths = new List<string>();
+
+            var source = new DirectoryInfo(Source);
+            source.Walk(fileAction: file => paths.Add(Path.Combine(Target, file.RelativeTo(source))));
+
+            return paths.ToArray();
+        }
+
+        /// <summary>
+        /// Deletes obsolete files from <see cref="Target"/>.
+        /// </summary>
+        /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
+        public void FilesDelete()
+        {
+            foreach (string file in GetFilesToDelete())
+                File.Delete(file);
+        }
+
         private string[] GetFilesToDelete()
         {
             var paths = new List<string>();
@@ -301,25 +330,15 @@ namespace ZeroInstall.Updater
 
             return paths.Where(File.Exists).ToArray();
         }
-
-        /// <summary>
-        /// Deletes obsolete files from <see cref="Target"/>.
-        /// </summary>
-        /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
-        public void DeleteFiles()
-        {
-            foreach (string file in GetFilesToDelete())
-                File.Delete(file);
-        }
         #endregion
 
-        #region Run Ngen
+        #region Ngen
         private static readonly string[] _ngenAssemblies = {"ZeroInstall.exe", "0install.exe", "0install-win.exe", "0launch.exe", "0alias.exe", "0store.exe", "StoreService.exe", "ZeroInstall.DesktopIntegration.XmlSerializers.dll", "ZeroInstall.Store.XmlSerializers.dll", "ZeroInstall.OneGet.dll"};
 
         /// <summary>
         /// Runs ngen in the background to pre-compile new/updated .NET assemblies.
         /// </summary>
-        public void RunNgen()
+        public void Ngen()
         {
             // Do not run Ngen in portable mode
             if (IsPortable) return;
@@ -341,12 +360,12 @@ namespace ZeroInstall.Updater
         }
         #endregion
 
-        #region Update Registry
+        #region Registry
         /// <summary>
         /// Update the registry entries.
         /// </summary>
         /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
-        public void UpdateRegistry()
+        public void Registry()
         {
             // Do not run touch registry in portable mode
             if (IsPortable) return;
@@ -354,14 +373,14 @@ namespace ZeroInstall.Updater
             RegistryUtils.SetSoftwareString("Zero Install", "InstallLocation", Target);
             RegistryUtils.SetSoftwareString(@"Microsoft\PackageManagement", "ZeroInstall", Path.Combine(Target, "ZeroInstall.OneGet.dll"));
 
-            UpdateInnoSetup();
+            RegistryInnoSetup();
         }
 
         /// <summary>
         /// Update the Inno Setup registry entries.
         /// </summary>
         /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
-        private void UpdateInnoSetup()
+        private void RegistryInnoSetup()
         {
             const string innoSetupRegKey = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1";
 
@@ -373,27 +392,7 @@ namespace ZeroInstall.Updater
         }
         #endregion
 
-        #region Start service
-        /// <summary>
-        /// Starts the Zero Install Store Service.
-        /// </summary>
-        /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
-        /// <remarks>Must call this after <see cref="MutexRelease"/>.</remarks>
-        public void StartService()
-        {
-            if (!WindowsUtils.IsAdministrator) throw new UnauthorizedAccessException();
-
-            // Ensure the service executable exists
-            string servicePath = Path.Combine(Target, "0store-service.exe");
-            if (!File.Exists(servicePath)) return;
-
-            // Start the service
-            var controller = new ServiceController("0store-service");
-            controller.Start();
-        }
-        #endregion
-
-        #region Restart central
+        #region Central
         /// <summary>
         /// Restarts the "0install central" GUI.
         /// </summary>
@@ -401,12 +400,19 @@ namespace ZeroInstall.Updater
         {
             try
             {
-                Process.Start(new ProcessStartInfo(Path.Combine(Target, "0install-win.exe"), "central") {ErrorDialog = true});
+                Process.Start(new ProcessStartInfo(
+                    Path.Combine(Target, WindowsUtils.IsWindows ? "0install-win.exe" : "0install-gtk.exe"), "central") {ErrorDialog = true});
             }
-            catch (IOException)
-            {}
-            catch (Win32Exception)
-            {}
+                #region Error handling
+            catch (IOException ex)
+            {
+                Log.Error(ex);
+            }
+            catch (Win32Exception ex)
+            {
+                Log.Error(ex);
+            }
+            #endregion
         }
         #endregion
     }

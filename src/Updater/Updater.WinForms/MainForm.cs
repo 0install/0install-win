@@ -33,7 +33,6 @@ namespace ZeroInstall.Updater.WinForms
     /// </summary>
     public sealed partial class MainForm : Form
     {
-        #region Variables
         /// <summary>The update process to execute and track.</summary>
         private readonly UpdateProcess _updateProcess;
 
@@ -42,9 +41,7 @@ namespace ZeroInstall.Updater.WinForms
 
         /// <summary>Indicates whether the updater shall restart the "0install central" GUI after the update.</summary>
         private readonly bool _restartCentral;
-        #endregion
 
-        #region Constructor
         /// <summary>
         /// Creates a new update GUI.
         /// </summary>
@@ -59,36 +56,32 @@ namespace ZeroInstall.Updater.WinForms
 
             InitializeComponent();
         }
-        #endregion
 
-        #region Startup
         private void MainForm_Shown(object sender, EventArgs e)
         {
             WindowsTaskbar.SetProgressState(Handle, WindowsTaskbar.ProgressBarState.Indeterminate);
 
             backgroundWorker.RunWorkerAsync();
         }
-        #endregion
 
         //--------------------//
 
-        #region Background worker
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
+                SetStatus(Resources.StopService);
+                bool serviceWasRunning = _updateProcess.ServiceStop();
+
                 SetStatus(Resources.MutexWait);
                 _updateProcess.RestartManagerShutdown();
                 _updateProcess.MutexAquire();
-
-                SetStatus(Resources.StopService);
-                bool serviceWasRunning = _updateProcess.StopService();
 
                 SetStatus(Resources.CopyFiles);
                 Retry:
                 try
                 {
-                    _updateProcess.CopyFiles();
+                    _updateProcess.FilesCopy();
                 }
                     #region Error handling
                 catch (IOException ex)
@@ -106,19 +99,19 @@ namespace ZeroInstall.Updater.WinForms
                 #endregion
 
                 SetStatus(Resources.DeleteFiles);
-                _updateProcess.DeleteFiles();
+                _updateProcess.FilesDelete();
 
                 SetStatus(Resources.RunNgen);
-                _updateProcess.RunNgen();
+                _updateProcess.Ngen();
 
                 SetStatus(Resources.UpdateRegistry);
-                _updateProcess.UpdateRegistry();
+                _updateProcess.Registry();
 
                 SetStatus(Resources.StartService);
                 _updateProcess.MutexRelease();
                 _updateProcess.RestartManagerRestart();
                 _updateProcess.RestartManagerFinish();
-                if (serviceWasRunning) _updateProcess.StartService();
+                if (serviceWasRunning) _updateProcess.ServiceStart();
 
                 SetStatus(Resources.Done);
             }
@@ -168,9 +161,7 @@ namespace ZeroInstall.Updater.WinForms
         {
             Invoke(new Action(() => labelStatus.Text = message));
         }
-        #endregion
 
-        #region Spawn processes
         /// <summary>
         /// Reruns the updater using elevated permissions (as administartor).
         /// </summary>
@@ -185,6 +176,5 @@ namespace ZeroInstall.Updater.WinForms
             catch (Win32Exception)
             {}
         }
-        #endregion
     }
 }
