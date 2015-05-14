@@ -66,6 +66,7 @@ namespace ZeroInstall.OneGet
             RefreshKey = "Refresh",
             MachineWideKey = "MachineWide",
             DownloadLaterKey = "DownloadLater",
+            SearchMirrorKey = "SearchMirror",
             AllVersionsKey = "AllVersions";
 
         public void GetDynamicOptions(string category)
@@ -74,6 +75,7 @@ namespace ZeroInstall.OneGet
             {
                 case "package":
                     _request.YieldDynamicOption(RefreshKey, Constants.OptionType.Switch, false);
+                    _request.YieldDynamicOption(SearchMirrorKey, Constants.OptionType.Switch, false);
                     break;
 
                 case "source":
@@ -92,6 +94,8 @@ namespace ZeroInstall.OneGet
         private bool DownloadLater { get { return _request.OptionKeys.Contains(DownloadLaterKey); } }
 
         private bool MachineWide { get { return _request.OptionKeys.Contains(MachineWideKey); } }
+
+        private bool SearchMirror { get { return _request.OptionKeys.Contains(SearchMirrorKey); } }
 
         private bool AllVersions { get { return _request.OptionKeys.Contains(AllVersionsKey); } }
         #endregion
@@ -129,7 +133,28 @@ namespace ZeroInstall.OneGet
         {
             FeedManager.Refresh = Refresh;
 
-            foreach (var feed in CatalogSearch(name))
+            VersionRange versionRange;
+            if (requiredVersion != null) versionRange = new VersionRange(requiredVersion);
+            else if (minimumVersion != null || maximumVersion != null) versionRange = new VersionRange(minimumVersion, maximumVersion);
+            else versionRange = null;
+
+            if (SearchMirror) MirrorSearch(name, versionRange);
+            else CatalogSearch(name, versionRange);
+        }
+
+        private void MirrorSearch([NotNull] string name, [CanBeNull] VersionRange versionRange)
+        {
+            foreach (var result in SearchQuery.Perform(Config, name).Results)
+            {
+                var requirements = new Requirements(result.Uri);
+                if (versionRange != null) requirements.ExtraRestrictions[requirements.InterfaceUri] = versionRange;
+                Yield(requirements, result.ToPseudoFeed());
+            }
+        }
+
+        private void CatalogSearch([NotNull] string name, [CanBeNull] VersionRange versionRange)
+        {
+            foreach (var feed in GetCatalogResults(name))
             {
                 if (AllVersions)
                 {
@@ -142,15 +167,14 @@ namespace ZeroInstall.OneGet
                 else
                 {
                     var requirements = new Requirements(feed.Uri);
-                    if (requiredVersion != null) requirements.ExtraRestrictions[requirements.InterfaceUri] = new VersionRange(requiredVersion);
-                    else if (minimumVersion != null || maximumVersion != null) requirements.ExtraRestrictions[requirements.InterfaceUri] = new VersionRange(minimumVersion, maximumVersion);
+                    if (versionRange != null) requirements.ExtraRestrictions[requirements.InterfaceUri] = versionRange;
                     Yield(requirements, feed);
                 }
             }
         }
 
         [NotNull, ItemNotNull]
-        private IEnumerable<Feed> CatalogSearch([NotNull] string query)
+        private IEnumerable<Feed> GetCatalogResults([NotNull] string query)
         {
             Log.Info("Searching for short-name match in Catalog: " + query);
             var feed = FindByShortName(query);
@@ -286,13 +310,14 @@ namespace ZeroInstall.OneGet
             }
             if (feed == null) feed = FeedManager.GetFeed(requirements.InterfaceUri);
 
+            var sourceUri = feed.CatalogUri ?? feed.Uri;
             _request.YieldSoftwareIdentity(
                 fastPath: requirements.ToJsonString(),
                 name: feed.Name,
                 version: (implementation == null || implementation.Version == null) ? null : implementation.Version.ToString(),
                 versionScheme: null,
                 summary: feed.Summaries.GetBestLanguage(CultureInfo.CurrentUICulture),
-                source: (feed.CatalogUri == null) ? null : feed.CatalogUri.ToStringRfc(),
+                source: (sourceUri == null) ? null : sourceUri.ToStringRfc(),
                 searchKey: feed.Name,
                 fullPath: null,
                 packageFileName: feed.Name);
