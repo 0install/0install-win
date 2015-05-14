@@ -22,6 +22,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model;
 
@@ -81,6 +82,20 @@ namespace ZeroInstall.Services.Feeds
         [XmlIgnore, DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), EditorBrowsable(EditorBrowsableState.Never)]
         public string CategoriesString { get { return StringUtils.Join(", ", _categories.Select(x => x.Name)); } }
 
+        /// <summary>
+        /// Generates a pseudo-<see cref="Feed"/> using the information from this result.
+        /// </summary>
+        /// <returns>A pseudo-<see cref="Feed"/>; not a complete feed that can be used to launch an implementation.</returns>
+        public Feed ToPseudoFeed()
+        {
+            var feed = new Feed {Uri = Uri, Name = Name, Summaries = {Summary}};
+            feed.Categories.AddRange(Categories.CloneElements());
+            return feed;
+        }
+
+        /// <summary>
+        /// Returns the result in the form "Uri NEWLINE Name - Summary [Score]". Not safe for parsing!
+        /// </summary>
         public override string ToString()
         {
             return Uri.ToStringRfc() + Environment.NewLine + string.Format("{0} - {1} [{2}%]", Name, Summary, Score);
