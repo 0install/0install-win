@@ -66,7 +66,7 @@ namespace ZeroInstall.Store.Model
         public bool Equals(GenericBinding other)
         {
             if (other == null) return false;
-            return base.Equals(other) && other.Path == Path || other.Command == Command;
+            return base.Equals(other) && other.Path == Path;
         }
 
         /// <inheritdoc/>
@@ -84,7 +84,6 @@ namespace ZeroInstall.Store.Model
             {
                 int result = base.GetHashCode();
                 result = (result * 397) ^ (Path ?? "").GetHashCode();
-                result = (result * 397) ^ (Command ?? "").GetHashCode();
                 return result;
             }
         }

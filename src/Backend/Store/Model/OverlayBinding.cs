@@ -84,7 +84,7 @@ namespace ZeroInstall.Store.Model
         public bool Equals(OverlayBinding other)
         {
             if (other == null) return false;
-            return base.Equals(other) && other.Source == Source || other.MountPoint == MountPoint;
+            return base.Equals(other) && other.Source == Source && other.MountPoint == MountPoint;
         }
 
         /// <inheritdoc/>

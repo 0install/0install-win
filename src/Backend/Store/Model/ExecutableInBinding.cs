@@ -19,5 +19,25 @@ namespace ZeroInstall.Store.Model
         [TypeConverter(typeof(CommandNameConverter))]
         [CanBeNull]
         public string Command { get; set; }
+
+        #region Equality
+        /// <inheritdoc/>
+        protected bool Equals(ExecutableInBinding other)
+        {
+            if (other == null) return false;
+            return base.Equals(other) && Command == other.Command;
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = base.GetHashCode();
+                if (Command != null) result = (result * 397) ^ Command.GetHashCode();
+                return result;
+            }
+        }
+        #endregion
     }
 }

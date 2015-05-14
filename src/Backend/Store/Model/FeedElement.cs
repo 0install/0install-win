@@ -73,7 +73,7 @@ namespace ZeroInstall.Store.Model
         protected bool Equals(FeedElement other)
         {
             if (other == null) return false;
-            return IfZeroInstallVersion == other.IfZeroInstallVersion && base.Equals(other);
+            return base.Equals(other) && IfZeroInstallVersion == other.IfZeroInstallVersion;
         }
 
         /// <inheritdoc/>

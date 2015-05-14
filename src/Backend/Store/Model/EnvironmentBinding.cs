@@ -130,7 +130,7 @@ namespace ZeroInstall.Store.Model
         public bool Equals(EnvironmentBinding other)
         {
             if (other == null) return false;
-            return base.Equals(other) && other.Name == Name || other.Value == Value || other.Insert == Insert || other.Mode == Mode || other.Separator == Separator || other.Default == Default;
+            return base.Equals(other) && other.Name == Name && other.Value == Value && other.Insert == Insert && other.Mode == Mode && other.Separator == Separator && other.Default == Default;
         }
 
         /// <inheritdoc/>
