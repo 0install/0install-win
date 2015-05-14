@@ -71,8 +71,8 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 if (Handler.Background)
                 {
-                    Log.Debug("Supressing network-related error message on background download");
-                    Log.Debug(ex);
+                    Log.Info("Suppressed network-related error message due to background mode");
+                    Log.Info(ex);
                     return ExitCode.WebError;
                 }
                 else throw;
@@ -81,8 +81,8 @@ namespace ZeroInstall.Commands.CliCommands
             {
                 if (Handler.Background)
                 {
-                    Log.Debug("Supressing Solver-related error message on background download");
-                    Log.Debug(ex);
+                    Log.Info("Suppressed Solver-related error message due to background mode");
+                    Log.Info(ex);
                     return ExitCode.SolverError;
                 }
                 else throw;

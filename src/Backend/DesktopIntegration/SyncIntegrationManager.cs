@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Cache;
-using System.Threading;
 using ICSharpCode.SharpZipLib.Zip;
 using JetBrains.Annotations;
 using NanoByte.Common;
@@ -155,8 +154,6 @@ namespace ZeroInstall.DesktopIntegration
         //--------------------//
 
         #region Sync
-        private static readonly Random _random = new Random();
-
         /// <summary>
         /// Synchronize the <see cref="AppList"/> with the sync server and (un)apply <see cref="AccessPoint"/>s accordingly.
         /// </summary>
@@ -175,67 +172,59 @@ namespace ZeroInstall.DesktopIntegration
                 CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
             })
             {
-                bool timeoutRetryPerformed = false;
-                Retry:
-                byte[] appListData;
-                try
+                ExceptionUtils.Retry<TimeoutException>(delegate
                 {
-                    appListData = DownloadAppList(appListUri, webClient, resetMode);
-                }
-                    #region Error handling
-                catch (WebException ex)
-                {
-                    switch (ex.Status)
+                    Handler.CancellationToken.ThrowIfCancellationRequested();
+
+                    byte[] appListData;
+                    try
                     {
-                        case WebExceptionStatus.ProtocolError:
-                            // Wrap exception to add context information
-                            var response = ex.Response as HttpWebResponse;
-                            if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
-                                throw new WebException(Resources.SyncCredentialsInvalid, ex);
-                            else throw;
-
-                        case WebExceptionStatus.Timeout:
-                            // In case of timeout retry exactly once
-                            if (!timeoutRetryPerformed)
-                            {
-                                timeoutRetryPerformed = true;
-                                Handler.CancellationToken.ThrowIfCancellationRequested();
-                                goto Retry;
-                            }
-                            else throw;
-
-                        default:
-                            if (ex.InnerException != null && ex.InnerException.InnerException is FileNotFoundException) appListData = new byte[0];
-                            else throw;
-                            break;
+                        appListData = DownloadAppList(appListUri, webClient, resetMode);
                     }
-                }
-                #endregion
-
-                HandleDownloadedAppList(resetMode, appListData);
-
-                try
-                {
-                    UploadAppList(appListUri, webClient, resetMode);
-                }
-                    #region Error handling
-                catch (WebException ex)
-                {
-                    if (ex.Status == WebExceptionStatus.ProtocolError)
+                        #region Error handling
+                    catch (WebException ex)
                     {
-                        var response = ex.Response as HttpWebResponse;
-                        if (response != null && response.StatusCode == HttpStatusCode.PreconditionFailed)
+                        switch (ex.Status)
                         {
-                            Log.Info("Race condition encountered while syncing. Waiting for a moment and then retrying.");
-                            Thread.Sleep(_random.Next(250, 1500));
-                            Handler.CancellationToken.ThrowIfCancellationRequested();
-                            goto Retry;
+                            case WebExceptionStatus.ProtocolError:
+                                var response = ex.Response as HttpWebResponse;
+                                if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
+                                    throw new WebException(Resources.SyncCredentialsInvalid, ex);
+                                else throw;
+
+                            case WebExceptionStatus.Timeout:
+                                throw new TimeoutException(ex.Message, ex);
+
+                            default:
+                                if (ex.InnerException != null && ex.InnerException.InnerException is FileNotFoundException) appListData = new byte[0];
+                                else throw;
+                                break;
                         }
                     }
+                    #endregion
 
-                    throw;
-                }
-                #endregion
+                    HandleDownloadedAppList(resetMode, appListData);
+
+                    try
+                    {
+                        UploadAppList(appListUri, webClient, resetMode);
+                    }
+                        #region Error handling
+                    catch (WebException ex)
+                    {
+                        if (ex.Status == WebExceptionStatus.ProtocolError)
+                        {
+                            var response = ex.Response as HttpWebResponse;
+                            if (response != null && response.StatusCode == HttpStatusCode.PreconditionFailed)
+                            {
+                                Handler.CancellationToken.ThrowIfCancellationRequested();
+                                throw new TimeoutException("Race condition encountered while syncing.");
+                            }
+                        }
+                        else throw;
+                    }
+                    #endregion
+                }, maxRetries: 3);
             }
 
             // Save reference point for future syncs

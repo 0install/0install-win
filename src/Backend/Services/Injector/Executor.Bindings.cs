@@ -325,8 +325,8 @@ namespace ZeroInstall.Services.Injector
                 #region Error handling
             catch (IOException ex)
             {
-                Log.Info("Unable to write run-environment template. File is probably currently in use.");
-                Log.Debug(ex);
+                Log.Info("Unable to write run-environment template.");
+                Log.Info(ex);
             }
             #endregion
 

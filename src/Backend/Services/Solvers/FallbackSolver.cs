@@ -59,7 +59,7 @@ namespace ZeroInstall.Services.Solvers
             catch (SolverException ex)
             {
                 Log.Info(string.Format("Primary solver reported: " + ex.Message + Environment.NewLine + "Falling back to secondary solver.", requirements));
-                Log.Debug(ex);
+                Log.Info(ex);
 
                 return _secondarySolver.Solve(requirements);
             }
