@@ -50,8 +50,9 @@ namespace ZeroInstall.Capture.Cli
         [CanBeNull]
         private string _mainExe;
 
-        /// <summary>Indicates whether to collect installation files in addition to registry data.</summary>
-        private bool _collectFiles;
+        /// <summary>The path of the ZIP file to create from the installation directory; <see langword="null"/> to create no ZIP archive.</summary>
+        [CanBeNull]
+        private string _zipFile;
 
         private readonly List<string> _additionalArgs;
 
@@ -92,7 +93,7 @@ namespace ZeroInstall.Capture.Cli
                     }
                 },
                 {"main-exe=", value => _mainExe = value},
-                {"collect-files", _ => _collectFiles = true},
+                {"collect-files=", value => _zipFile = value},
                 {
                     "h|help|?", _ =>
                     {
@@ -109,7 +110,7 @@ namespace ZeroInstall.Capture.Cli
         {
             Console.WriteLine("0capture start myapp.snapshot [--force]");
             Console.WriteLine("0capture finish myapp.snapshot myapp.xml [--force]");
-            Console.WriteLine("\t[--installation-dir=C:\\myapp] [--main-exe=myapp.exe] [--collect-files]");
+            Console.WriteLine("\t[--installation-dir=C:\\myapp] [--main-exe=myapp.exe] [--collect-files=myapp.zip]");
 
             return ExitCode.InvalidArguments;
         }
@@ -159,9 +160,17 @@ namespace ZeroInstall.Capture.Cli
                 ? feedBuilder.Candidates.FirstOrDefault()
                 : feedBuilder.Candidates.FirstOrDefault(x => StringUtils.EqualsIgnoreCase(FileUtils.UnifySlashes(x.RelativePath), _mainExe));
             session.Finish();
-            feedBuilder.Build().Save(feedFile);
 
-            if (_collectFiles) session.CollectFiles();
+            if (!string.IsNullOrEmpty(_zipFile))
+            {
+                if (FileExists(_zipFile)) return ExitCode.IOError;
+
+                var relativeUri = new Uri(Path.GetFullPath(feedFile)).MakeRelativeUri(new Uri(Path.GetFullPath(_zipFile)));
+                session.CollectFiles(_zipFile, relativeUri, _handler);
+                Log.Info("If you wish to upload this feed and ZIP archive, make sure to turn the archive's relative href into an absolute one.");
+            }
+
+            feedBuilder.Build().Save(feedFile);
 
             return ExitCode.OK;
         }

@@ -126,11 +126,32 @@ namespace ZeroInstall.Publish.Capture
         }
 
         /// <summary>
-        /// 
+        /// Creates a ZIP archive containing the <see cref="InstallationDir"/>.
         /// </summary>
-        public void CollectFiles()
+        /// <remarks>Sets <see cref="FeedBuilder.RetrievalMethod"/> and calls <see cref="FeedBuilder.CalculateDigest"/>.</remarks>
+        /// <param name="archivePath">The path of the ZIP file to create.</param>
+        /// <param name="archiveUrl">The URL where the ZIP file will be uploaded.</param>
+        /// <param name="handler">A callback object used when the the user needs to be informed about IO tasks.</param>
+        /// <exception cref="InvalidOperationException"><see cref="Diff"/> was not called or <see cref="FeedBuilder.MainCandidate"/> is not set.</exception>
+        /// <exception cref="OperationCanceledException">The user canceled the operation.</exception>
+        /// <exception cref="IOException">There was an error reading the installation files or writing the ZIP archive.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to the file system was not permitted.</exception>
+        public void CollectFiles([NotNull] string archivePath, [NotNull] Uri archiveUrl, [NotNull] ITaskHandler handler)
         {
-            throw new NotImplementedException();
+            #region Sanity checks
+            if (string.IsNullOrEmpty(archivePath)) throw new ArgumentNullException("archivePath");
+            if (archiveUrl == null) throw new ArgumentNullException("archiveUrl");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            if (InstallationDir == null) throw new InvalidOperationException("Diff() must be called first.");
+
+            handler.RunTask(new CreateZip(InstallationDir, archivePath));
+
+            var archive = new Archive {Href = archiveUrl, MimeType = Archive.MimeTypeZip};
+            _feedBuilder.TemporaryDirectory = archive.LocalApply(archivePath, handler);
+            _feedBuilder.RetrievalMethod = archive;
+            _feedBuilder.CalculateDigest(handler);
         }
 
         #region Storage
