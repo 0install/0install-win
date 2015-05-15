@@ -127,6 +127,15 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating ZIP archive {0}.
+        /// </summary>
+        public static string CreatingZip {
+            get {
+                return ResourceManager.GetString("CreatingZip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Searching for executable files.
         /// </summary>
         public static string DetectingCandidates {

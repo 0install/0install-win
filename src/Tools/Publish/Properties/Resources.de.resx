@@ -141,6 +141,9 @@ Zero Install wird nur ein generisches Platzhalter-Symbol im Katalog wie auch bei
     <value>Sind Sie sicher, dass Sie fortfahren möchten ohne diese Einstellung zu vervollständigen?
 Ihr Feed wird nur lokal und nicht online funktionieren.</value>
   </data>
+  <data name="CreatingZip" xml:space="preserve">
+    <value>Erstelle ZIP Archiv {0}</value>
+  </data>
   <data name="DetectingCandidates" xml:space="preserve">
     <value>Suche nach ausführbaren Dateien</value>
   </data>
