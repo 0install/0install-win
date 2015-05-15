@@ -28,7 +28,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
     internal partial class InstallerCaptureDiffPage : UserControl
     {
         public Action AsArchive;
-        public Action Other;
+        public Action AltSource;
 
         private readonly InstallerCapture _installerCapture;
         private readonly FeedBuilder _feedBuilder;
@@ -87,7 +87,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             catch (IOException)
             {
                 Msg.Inform(this, Resources.InstallerExtractFailed + Environment.NewLine + Resources.InstallerNeedAltSource, MsgSeverity.Info);
-                Other();
+                AltSource();
             }
                 #region Error handling
             catch (OperationCanceledException)

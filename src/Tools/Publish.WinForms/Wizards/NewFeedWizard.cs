@@ -63,6 +63,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             var entryPointPage = new EntryPointPage(_feedBuilder);
             var installerCaptureStartPage = new InstallerCaptureStartPage(_installerCapture, _feedBuilder);
             var installerCaptureDiffPage = new InstallerCaptureDiffPage(_installerCapture, _feedBuilder);
+            var installerCollectFilesPage = new InstallerCollectFilesPage(_installerCapture);
             var installerAltDownloadPage = new DownloadPage(_feedBuilder, _installerCapture);
             var installerExtractPage = new ArchiveExtractPage(_feedBuilder, _installerCapture);
             var installerEntryPointPage = new EntryPointPage(_feedBuilder);
@@ -88,7 +89,9 @@ namespace ZeroInstall.Publish.WinForms.Wizards
             installerCaptureStartPage.Next += () => PushPage(installerCaptureDiffPage);
             installerCaptureStartPage.Skip += () => PushPage(archiveExtractPage);
             installerCaptureDiffPage.AsArchive += () => PushPage(installerExtractPage);
-            installerCaptureDiffPage.Other += () => PushPage(installerAltDownloadPage);
+            installerCaptureDiffPage.AltSource += () => PushPage(installerCollectFilesPage);
+            installerCollectFilesPage.Next += () => PushPage(installerEntryPointPage);
+            installerCollectFilesPage.ExistingArchive += () => PushPage(installerAltDownloadPage);
             installerAltDownloadPage.AsArchive += () => PushPage(installerExtractPage);
             installerExtractPage.Next += () => PushPage(installerEntryPointPage);
             installerEntryPointPage.Next += () =>

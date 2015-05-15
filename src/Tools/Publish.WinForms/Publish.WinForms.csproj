@@ -190,6 +190,12 @@
     <Compile Include="Wizards\InstallerCaptureStartPage.Designer.cs">
       <DependentUpon>InstallerCaptureStartPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Wizards\InstallerCollectFilesPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizards\InstallerCollectFilesPage.Designer.cs">
+      <DependentUpon>InstallerCollectFilesPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Wizards\NewFeedWizard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -239,6 +245,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\InstallerCaptureStartPage.resx">
       <DependentUpon>InstallerCaptureStartPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards\InstallerCollectFilesPage.resx">
+      <DependentUpon>InstallerCollectFilesPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Wizards\SecurityPage.resx">
       <DependentUpon>SecurityPage.cs</DependentUpon>
