@@ -965,7 +965,7 @@
     <value>Update and &amp;clean</value>
   </data>
   <data name="&gt;&gt;tileListCatalog.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=2.8.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=2.8.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="labelLoadingCatalog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -1151,7 +1151,7 @@
     <value>524, 512</value>
   </data>
   <data name="&gt;&gt;tileListMyApps.Type" xml:space="preserve">
-    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=2.8.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
+    <value>ZeroInstall.Central.WinForms.AppTileList, ZeroInstall, Version=2.8.1.0, Culture=neutral, PublicKeyToken=3090a828a7702cec</value>
   </data>
   <data name="&gt;&gt;buttonRefreshCatalog.Name" xml:space="preserve">
     <value>buttonRefreshCatalog</value>
