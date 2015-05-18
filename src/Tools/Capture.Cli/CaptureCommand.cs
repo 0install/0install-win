@@ -167,7 +167,7 @@ namespace ZeroInstall.Capture.Cli
 
                 var relativeUri = new Uri(Path.GetFullPath(feedFile)).MakeRelativeUri(new Uri(Path.GetFullPath(_zipFile)));
                 session.CollectFiles(_zipFile, relativeUri, _handler);
-                Log.Info("If you wish to upload this feed and ZIP archive, make sure to turn the archive's relative href into an absolute one.");
+                Log.Warn("If you wish to upload this feed and ZIP archive, make sure to turn the <archive>'s relative href into an absolute one.");
             }
 
             feedBuilder.Build().Save(feedFile);

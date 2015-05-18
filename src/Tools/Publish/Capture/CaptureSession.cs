@@ -149,9 +149,12 @@ namespace ZeroInstall.Publish.Capture
             handler.RunTask(new CreateZip(InstallationDir, archivePath));
 
             var archive = new Archive {Href = archiveUrl, MimeType = Archive.MimeTypeZip};
-            _feedBuilder.TemporaryDirectory = archive.LocalApply(archivePath, handler);
+            using (var tempDir = archive.LocalApply(archivePath, handler))
+            {
+                _feedBuilder.ImplementationDirectory = tempDir;
+                _feedBuilder.CalculateDigest(handler);
+            }
             _feedBuilder.RetrievalMethod = archive;
-            _feedBuilder.CalculateDigest(handler);
         }
 
         #region Storage

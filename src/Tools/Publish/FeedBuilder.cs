@@ -74,7 +74,7 @@ namespace ZeroInstall.Publish
 
         /// <summary>
         /// Set the directory to search for <see cref="Candidates"/> and to generate the <see cref="ManifestDigest"/> from.
-        /// Is usually a subdirectory of <see cref="TemporaryDirectory"/>.
+        /// Is usually a subdirectory of or equal to <see cref="TemporaryDirectory"/>.
         /// </summary>
         public string ImplementationDirectory { get; set; }
         #endregion
