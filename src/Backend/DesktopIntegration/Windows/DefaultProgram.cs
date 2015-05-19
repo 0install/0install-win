@@ -24,6 +24,7 @@ using Microsoft.Win32;
 using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
+using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Model.Capabilities;
 
@@ -94,10 +95,10 @@ namespace ZeroInstall.DesktopIntegration.Windows
                     // Set callbacks for Windows SPAD
                     using (var installInfoKey = appKey.CreateSubKeyChecked(RegSubKeyInstallInfo))
                     {
-                        string exePath = Path.Combine(Locations.InstallBase, "0install-win.exe").EscapeArgument();
-                        installInfoKey.SetValue(RegValueReinstallCommand, exePath + " integrate-app --machine --batch --add=defaults " + target.Uri.ToStringRfc().EscapeArgument());
-                        installInfoKey.SetValue(RegValueShowIconsCommand, exePath + " integrate-app --machine --batch --add=icons " + target.Uri.ToStringRfc().EscapeArgument());
-                        installInfoKey.SetValue(RegValueHideIconsCommand, exePath + " integrate-app --machine --batch --remove=icons " + target.Uri.ToStringRfc().EscapeArgument());
+                        string exePath = Path.Combine(Locations.InstallBase, "0install-win.exe");
+                        installInfoKey.SetValue(RegValueReinstallCommand, new[] {exePath, "integrate", "--machine", "--batch", "--add", "defaults", target.Uri.ToStringRfc()}.JoinEscapeArguments());
+                        installInfoKey.SetValue(RegValueShowIconsCommand, new[] {exePath, "integrate", "--machine", "--batch", "--add", MenuEntry.CategoryName, "--add", DesktopIcon.CategoryName, target.Uri.ToStringRfc()}.JoinEscapeArguments());
+                        installInfoKey.SetValue(RegValueHideIconsCommand, new[] {exePath, "integrate", "--machine", "--batch", "--remove", MenuEntry.CategoryName, "--remove", DesktopIcon.CategoryName, target.Uri.ToStringRfc()}.JoinEscapeArguments());
                         installInfoKey.SetValue(RegValueIconsVisible, 0, RegistryValueKind.DWord);
                     }
 
@@ -143,7 +144,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (string.IsNullOrEmpty(defaultProgram.ID)) throw new InvalidDataException("Missing ID");
             if (string.IsNullOrEmpty(defaultProgram.Service)) throw new InvalidDataException("Missing Service");
 
-            using (var serviceKey = Registry.LocalMachine.OpenSubKey(RegKeyMachineClients + @"\" + defaultProgram.Service, writable: true))
+            using (var serviceKey = Registry.LocalMachine.OpenSubKeyChecked(RegKeyMachineClients + @"\" + defaultProgram.Service, writable: true))
             {
                 if (accessPoint)
                 {
