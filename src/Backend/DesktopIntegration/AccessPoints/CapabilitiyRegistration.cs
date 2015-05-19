@@ -127,7 +127,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// </summary>
         public override string ToString()
         {
-            return string.Format("CapabilityRegistration");
+            return "CapabilityRegistration";
         }
         #endregion
 

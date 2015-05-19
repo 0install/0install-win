@@ -56,8 +56,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             var capability = appEntry.GetCapability<Store.Model.Capabilities.FileType>(Capability);
-            if (capability == null) return;
-
             var target = new FeedTarget(appEntry.InterfaceUri, feed);
             if (WindowsUtils.IsWindows) Windows.FileType.Register(target, capability, machineWide, handler, accessPoint: true);
         }
@@ -70,8 +68,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             var capability = appEntry.GetCapability<Store.Model.Capabilities.FileType>(Capability);
-            if (capability == null) return;
-
             if (WindowsUtils.IsWindows) Windows.FileType.Unregister(capability, machineWide, accessPoint: true);
         }
         #endregion

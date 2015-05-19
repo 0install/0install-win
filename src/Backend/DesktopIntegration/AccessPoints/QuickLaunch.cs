@@ -71,7 +71,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// </summary>
         public override string ToString()
         {
-            return string.Format("QuickLaunch");
+            return "QuickLaunch";
         }
         #endregion
 

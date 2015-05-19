@@ -55,8 +55,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             var capability = appEntry.GetCapability<Store.Model.Capabilities.ContextMenu>(Capability);
-            if (capability == null) return;
-
             var target = new FeedTarget(appEntry.InterfaceUri, feed);
             if (WindowsUtils.IsWindows) Windows.ContextMenu.Apply(target, capability, machineWide, handler);
             else if (UnixUtils.IsUnix) Unix.ContextMenu.Apply(target, capability, machineWide, handler);
@@ -70,8 +68,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             var capability = appEntry.GetCapability<Store.Model.Capabilities.ContextMenu>(Capability);
-            if (capability == null) return;
-
             if (WindowsUtils.IsWindows) Windows.ContextMenu.Remove(capability, machineWide);
             else if (UnixUtils.IsUnix) Unix.ContextMenu.Remove(capability, machineWide);
         }
@@ -85,7 +81,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// </summary>
         public override string ToString()
         {
-            return string.Format("ContextMenu");
+            return "ContextMenu";
         }
         #endregion
 

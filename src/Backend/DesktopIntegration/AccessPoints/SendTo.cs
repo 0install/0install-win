@@ -78,7 +78,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// </summary>
         public override string ToString()
         {
-            return string.Format("SendTo");
+            return "SendTo";
         }
         #endregion
 

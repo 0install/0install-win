@@ -55,8 +55,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             var capability = appEntry.GetCapability<Store.Model.Capabilities.DefaultProgram>(Capability);
-            if (capability == null) return;
-
             var target = new FeedTarget(appEntry.InterfaceUri, feed);
             if (WindowsUtils.IsWindows && machineWide)
                 Windows.DefaultProgram.Register(target, capability, handler, accessPoint: true);
@@ -70,8 +68,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             var capability = appEntry.GetCapability<Store.Model.Capabilities.DefaultProgram>(Capability);
-            if (capability == null) return;
-
             if (WindowsUtils.IsWindows && machineWide)
                 Windows.DefaultProgram.Unregister(capability, accessPoint: true);
         }
@@ -85,7 +81,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
         /// </summary>
         public override string ToString()
         {
-            return string.Format("DefaultProgram");
+            return "DefaultProgram";
         }
         #endregion
 

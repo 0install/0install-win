@@ -57,8 +57,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             var capability = appEntry.GetCapability<Store.Model.Capabilities.UrlProtocol>(Capability);
-            if (capability == null) return;
-
             var target = new FeedTarget(appEntry.InterfaceUri, feed);
             if (WindowsUtils.IsWindows) Windows.UrlProtocol.Register(target, capability, machineWide, handler, accessPoint: true);
         }
@@ -71,8 +69,6 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             var capability = appEntry.GetCapability<Store.Model.Capabilities.UrlProtocol>(Capability);
-            if (capability == null) return;
-
             if (WindowsUtils.IsWindows) Windows.UrlProtocol.Unregister(capability, machineWide, accessPoint: true);
         }
         #endregion
