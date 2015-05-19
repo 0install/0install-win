@@ -70,8 +70,7 @@ namespace ZeroInstall.Publish.Capture
                 return new AppRegistration
                 {
                     ID = appRegName,
-                    CapabilityRegPath = capabilitiesRegPath,
-                    X64 = x64
+                    CapabilityRegPath = capabilitiesRegPath
                 };
             }
         }

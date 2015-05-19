@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Model.Capabilities
                 OS = Architecture.CurrentSystem.OS,
                 Entries =
                 {
-                    new AppRegistration {ID = "myapp", CapabilityRegPath = @"SOFTWARE\MyApp\Capabilities", X64 = true},
+                    new AppRegistration {ID = "myapp", CapabilityRegPath = @"SOFTWARE\MyApp\Capabilities"},
                     new AutoPlay {ID = "autoplay", Descriptions = {"Do somthing"}, Icons = {testIcon}, Provider = "MyApp", Verb = testVerb, Events = {new AutoPlayEvent {Name = AutoPlayEvent.NameBurnCD}}},
                     new ComServer {ID = "com-server"},
                     new ContextMenu {ID = "context-menu", Verb = testVerb},

@@ -50,13 +50,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         [XmlAttribute("capability-reg-path")]
         public string CapabilityRegPath { get; set; }
 
-        /// <summary>
-        /// Set to <see langword="true"/> for real 64-bit applications whose registry entries do not get redirected by WOW.
-        /// </summary>
-        [Description("Set to true for real 64-bit applications whose registry entries do not get redirected by WOW.")]
-        [XmlAttribute("x64"), DefaultValue(false)]
-        public bool X64 { get; set; }
-
         /// <inheritdoc/>
         [XmlIgnore]
         public override IEnumerable<string> ConflictIDs { get { return new[] {"registered-apps:" + ID, "hklm:" + CapabilityRegPath}; } }
@@ -78,7 +71,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         /// <inheritdoc/>
         public override Capability Clone()
         {
-            return new AppRegistration {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, CapabilityRegPath = CapabilityRegPath, X64 = X64};
+            return new AppRegistration {UnknownAttributes = UnknownAttributes, UnknownElements = UnknownElements, ID = ID, CapabilityRegPath = CapabilityRegPath};
         }
         #endregion
 
@@ -87,7 +80,7 @@ namespace ZeroInstall.Store.Model.Capabilities
         public bool Equals(AppRegistration other)
         {
             if (other == null) return false;
-            return base.Equals(other) && other.CapabilityRegPath == CapabilityRegPath && other.X64 == X64;
+            return base.Equals(other) && other.CapabilityRegPath == CapabilityRegPath;
         }
 
         /// <inheritdoc/>
@@ -105,7 +98,6 @@ namespace ZeroInstall.Store.Model.Capabilities
             {
                 int result = base.GetHashCode();
                 result = (result * 397) ^ (CapabilityRegPath ?? "").GetHashCode();
-                result = (result * 397) ^ X64.GetHashCode();
                 return result;
             }
         }
