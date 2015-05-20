@@ -34,7 +34,7 @@ namespace ZeroInstall.Services.Solvers
     /// Uses limited backtracking to solve <see cref="Requirements"/>. Does not find all possible solutions!
     /// </summary>
     /// <remarks>This class is immutable and thread-safe.</remarks>
-    public sealed class BacktrackingSolver : ISolver
+    public partial class BacktrackingSolver : ISolver
     {
         #region Dependencies
         private readonly Config _config;
@@ -81,7 +81,7 @@ namespace ZeroInstall.Services.Solvers
 
             var effectiveRequirements = requirements.GetEffective();
             var candidateProvider = new SelectionCandidateProvider(_config, _feedManager, _store, _packageManager);
-            var solverRuns = effectiveRequirements.Select(x => new BacktrackingSolverRun(x, _handler.CancellationToken, candidateProvider));
+            var solverRuns = effectiveRequirements.Select(x => new Pass(x, _handler.CancellationToken, candidateProvider));
 
             var successfullSolverRun = solverRuns.FirstOrDefault(x => x.TryToSolve());
             if (successfullSolverRun == null) throw new SolverException("No solution found");
