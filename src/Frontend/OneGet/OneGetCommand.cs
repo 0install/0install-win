@@ -129,7 +129,7 @@ namespace ZeroInstall.OneGet
             CatalogManager.RemoveSource(location);
         }
 
-        public void FindPackage([NotNull] string name, [CanBeNull] ImplementationVersion requiredVersion, [CanBeNull] ImplementationVersion minimumVersion, [CanBeNull] ImplementationVersion maximumVersion)
+        public void FindPackage([CanBeNull] string name, [CanBeNull] ImplementationVersion requiredVersion, [CanBeNull] ImplementationVersion minimumVersion, [CanBeNull] ImplementationVersion maximumVersion)
         {
             FeedManager.Refresh = Refresh;
 
@@ -142,7 +142,7 @@ namespace ZeroInstall.OneGet
             else CatalogSearch(name, versionRange);
         }
 
-        private void MirrorSearch([NotNull] string name, [CanBeNull] VersionRange versionRange)
+        private void MirrorSearch([CanBeNull] string name, [CanBeNull] VersionRange versionRange)
         {
             foreach (var result in SearchQuery.Perform(Config, name).Results)
             {
@@ -152,7 +152,7 @@ namespace ZeroInstall.OneGet
             }
         }
 
-        private void CatalogSearch([NotNull] string name, [CanBeNull] VersionRange versionRange)
+        private void CatalogSearch([CanBeNull] string name, [CanBeNull] VersionRange versionRange)
         {
             foreach (var feed in GetCatalogResults(name))
             {
@@ -174,8 +174,14 @@ namespace ZeroInstall.OneGet
         }
 
         [NotNull, ItemNotNull]
-        private IEnumerable<Feed> GetCatalogResults([NotNull] string query)
+        private IEnumerable<Feed> GetCatalogResults([CanBeNull] string query)
         {
+            if (string.IsNullOrEmpty(query))
+            {
+                Log.Info("Returning entire catalog");
+                return (CatalogManager.GetCached() ?? CatalogManager.GetOnlineSafe()).Feeds;
+            }
+
             Log.Info("Searching for short-name match in Catalog: " + query);
             var feed = FindByShortName(query);
             if (feed == null)
