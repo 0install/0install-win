@@ -22,9 +22,8 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
-using NanoByte.Common.Cli;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
-using NanoByte.Common.Streams;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Trust
@@ -33,24 +32,13 @@ namespace ZeroInstall.Store.Trust
     /// Provides access to the signature functions of GnuPG.
     /// </summary>
     /// <remarks>This class is immutable and thread-safe.</remarks>
-    public class GnuPG : BundledCliAppControl, IOpenPgp
+    public partial class GnuPG : IOpenPgp
     {
-        /// <inheritdoc/>
-        protected override string AppBinary { get { return "gpg"; } }
-
-        /// <inheritdoc/>
-        protected override string AppDirName { get { return "GnuPG"; } }
-
         #region Keys
         /// <inheritdoc/>
         public void ImportKey(byte[] data)
         {
-            Execute("--batch --no-secmem-warning --quiet --import",
-                inputCallback: writer =>
-                {
-                    writer.BaseStream.Write(data, 0, data.Length);
-                    writer.Close();
-                });
+            new CliControlData(data).Execute("--batch", "--no-secmem-warning", "--quiet", "--import");
         }
 
         /// <inheritdoc/>
@@ -77,7 +65,7 @@ namespace ZeroInstall.Store.Trust
         /// <inheritdoc/>
         public IEnumerable<OpenPgpSecretKey> ListSecretKeys()
         {
-            string result = Execute("--batch --no-secmem-warning --list-secret-keys --with-colons --fixed-list-mode --fingerprint");
+            string result = new CliControl().Execute("--batch", "--no-secmem-warning", "--list-secret-keys", "--with-colons", "--fixed-list-mode", "--fingerprint");
 
             string[] sec = null, fpr = null, uid = null;
             foreach (string line in result.SplitMultilineText())
@@ -121,16 +109,16 @@ namespace ZeroInstall.Store.Trust
             if (string.IsNullOrEmpty(keySpecifier)) throw new ArgumentNullException("keySpecifier");
             #endregion
 
-            string arguments = "--batch --no-secmem-warning --armor --export";
-            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " " + keySpecifier.EscapeArgument();
+            var arguments = new[] {"--batch", "--no-secmem-warning", "--armor", "--export"};
+            if (!string.IsNullOrEmpty(keySpecifier)) arguments = arguments.Append(keySpecifier);
 
-            return Execute(arguments);
+            return new CliControl().Execute(arguments);
         }
 
         /// <inheritdoc/>
         public Process GenerateKey()
         {
-            return GetStartInfo("--gen-key").Start();
+            return new CliControl().StartInteractive("--gen-key");
         }
         #endregion
 
@@ -143,16 +131,11 @@ namespace ZeroInstall.Store.Trust
             if (string.IsNullOrEmpty(keySpecifier)) throw new ArgumentNullException("keySpecifier");
             #endregion
 
-            string arguments = "--batch --no-secmem-warning --passphrase-fd 0";
-            if (!string.IsNullOrEmpty(keySpecifier)) arguments += " --local-user " + keySpecifier.EscapeArgument();
-            arguments += " --detach-sign --armor --output - -";
+            var arguments = string.IsNullOrEmpty(keySpecifier)
+                ? new[] {"--batch", "--no-secmem-warning", "--passphrase-fd", "0", "--detach-sign", "--armor", "--output", "-", "-"}
+                : new[] {"--batch", "--no-secmem-warning", "--passphrase-fd", "0", "--local-user", keySpecifier, "--detach-sign", "--armor", "--output", "-", "-"};
 
-            string output = Execute(arguments, inputCallback: writer =>
-            {
-                writer.WriteLine(passphrase ?? "");
-                stream.CopyTo(writer.BaseStream);
-                writer.Close();
-            });
+            string output = new CliControlStream(passphrase, stream).Execute(arguments);
 
             return output
                 .GetRightPartAtFirstOccurrence(Environment.NewLine + Environment.NewLine)
@@ -174,12 +157,7 @@ namespace ZeroInstall.Store.Trust
             using (var signatureFile = new TemporaryFile("0install-sig"))
             {
                 File.WriteAllBytes(signatureFile, signature);
-                result = Execute("--batch --no-secmem-warning --status-fd 1 --verify " + signatureFile.Path.EscapeArgument() + " -",
-                    inputCallback: writer =>
-                    {
-                        writer.BaseStream.Write(data, 0, data.Length);
-                        writer.Close();
-                    });
+                result = new CliControlData(data).Execute("--batch", "--no-secmem-warning", "--status-fd", "1", "--verify", signatureFile.Path, "-");
             }
             string[] lines = result.SplitMultilineText();
 
@@ -202,73 +180,6 @@ namespace ZeroInstall.Store.Trust
             }
 
             return signatures;
-        }
-        #endregion
-
-        #region Execute
-        private static readonly object _gpgLock = new object();
-
-        /// <inheritdoc/>
-        protected override string Execute(string arguments, Action<StreamWriter> inputCallback = null)
-        {
-            // Run only one gpg instance at a time to prevent file system race conditions
-            lock (_gpgLock)
-            {
-                return base.Execute(arguments, inputCallback);
-            }
-        }
-
-        /// <inheritdoc/>
-        protected override ProcessStartInfo GetStartInfo(string arguments, bool hidden = false)
-        {
-            var startInfo = base.GetStartInfo(arguments, hidden);
-            if (Locations.IsPortable) startInfo.EnvironmentVariables["GNUPGHOME"] = Locations.GetSaveConfigPath("GnuPG", false, "gnupg");
-            return startInfo;
-        }
-
-        /// <inheritdoc/>
-        protected override string HandleStderr(string line)
-        {
-            #region Sanity checks
-            if (line == null) throw new ArgumentNullException("line");
-            #endregion
-
-            if (line.StartsWith("gpg: Signature made ") ||
-                line.StartsWith("gpg: Good signature from ") ||
-                line.StartsWith("gpg:                 aka") ||
-                line.StartsWith("gpg: WARNING: This key is not certified") ||
-                line.Contains("There is no indication") ||
-                line.StartsWith("Primary key fingerprint: ") ||
-                line.StartsWith("gpg: Can't check signature: public key not found"))
-                return null;
-
-            if (line.StartsWith("gpg: BAD signature from ") ||
-                line.StartsWith("gpg: WARNING:") ||
-                (line.StartsWith("gpg: renaming ") && line.EndsWith("failed: Permission denied")))
-            {
-                Log.Warn(line);
-                return null;
-            }
-
-            if (line.StartsWith("gpg: waiting for lock") ||
-                (line.StartsWith("gpg: keyring ") && line.EndsWith(" created")) ||
-                (line.StartsWith("gpg: ") && line.EndsWith(": trustdb created")))
-            {
-                Log.Info(line);
-                return null;
-            }
-
-            if (line.StartsWith("gpg: skipped ") && line.EndsWith(": bad passphrase")) throw new WrongPassphraseException();
-            if (line.StartsWith("gpg: signing failed: bad passphrase")) throw new WrongPassphraseException();
-            if (line.StartsWith("gpg: signing failed: file exists")) throw new IOException(Resources.SignatureAldreadyExists);
-            if (line.StartsWith("gpg: signing failed: ") ||
-                line.StartsWith("gpg: error") ||
-                line.StartsWith("gpg: critical"))
-                throw new IOException(line);
-
-            // Unknown GnuPG message
-            Log.Warn(line);
-            return null;
         }
         #endregion
     }

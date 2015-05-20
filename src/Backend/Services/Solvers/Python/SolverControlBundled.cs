@@ -43,9 +43,17 @@ namespace ZeroInstall.Services.Solvers.Python
         protected override string AppDirName { get { return "Solver"; } }
 
         /// <inheritdoc/>
-        protected override ProcessStartInfo GetStartInfo(string arguments, bool hidden = false)
+        public new string Execute(params string[] arguments)
         {
-            var startInfo = base.GetStartInfo(arguments, hidden);
+            var result = base.Execute(arguments);
+            _errorParser.Flush(); // Handle any left-over error messages
+            return result;
+        }
+
+        /// <inheritdoc/>
+        protected override ProcessStartInfo GetStartInfo(params string[] arguments)
+        {
+            var startInfo = base.GetStartInfo(arguments);
 
             // Supress unimportant warnings
             startInfo.EnvironmentVariables["PYTHONWARNINGS"] = "ignore::DeprecationWarning";
@@ -62,14 +70,6 @@ namespace ZeroInstall.Services.Solvers.Python
             if (WindowsUtils.IsWindows && File.Exists(gpgPath)) startInfo.EnvironmentVariables["ZEROINSTALL_GPG"] = gpgPath;
 
             return startInfo;
-        }
-
-        /// <inheritdoc/>
-        public string ExecuteSolver(string arguments)
-        {
-            var result = Execute(arguments);
-            _errorParser.Flush(); // Handle any left-over error messages
-            return result;
         }
 
         /// <inheritdoc/>

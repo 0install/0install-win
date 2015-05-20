@@ -62,16 +62,16 @@ namespace ZeroInstall.Store.Implementations.Archives
 
             // Read LZMA header
             if (stream.CanSeek) stream.Position = 0;
-            var properties = new byte[5];
-            if (stream.Read(properties, 0, 5) != 5)
-            { // Stream too short
-                throw new IOException(Resources.ArchiveInvalid);
-            }
             try
             {
-                decoder.SetDecoderProperties(properties);
+                decoder.SetDecoderProperties(stream.Read(5));
             }
                 #region Error handling
+            catch (IOException ex)
+            {
+                // Wrap exception to add context
+                throw new IOException(Resources.ArchiveInvalid, ex);
+            }
             catch (ApplicationException ex)
             {
                 // Wrap exception since only certain exception types are allowed

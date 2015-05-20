@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
@@ -76,10 +77,10 @@ namespace ZeroInstall.Services.Solvers
             ISolverControl control;
             if (WindowsUtils.IsWindows) control = new SolverControlBundled(_handler); // Use bundled Python on Windows
             else control = new SolverControlNative(_handler); // Use native Python everywhere else
-            string arguments = GetSolverArguments(requirements);
+            var arguments = GetSolverArguments(requirements);
 
             string result = null;
-            _handler.RunTask(new SimpleTask(Resources.ExternalSolverRunning, () => { result = control.ExecuteSolver(arguments); }));
+            _handler.RunTask(new SimpleTask(Resources.ExternalSolverRunning, () => { result = control.Execute(arguments); }));
 
             // Flush in-memory cache in case external solver updated something on-disk
             _feedManager.Flush();
@@ -109,15 +110,14 @@ namespace ZeroInstall.Services.Solvers
         /// </summary>
         /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
         /// <returns>A list of arguments terminated by a space.</returns>
-        private string GetSolverArguments(Requirements requirements)
+        private string[] GetSolverArguments(Requirements requirements)
         {
-            string arguments = "";
+            var arguments = requirements.ToCommandLineArgs();
 
             for (int i = 0; i < (int)_handler.Verbosity; i++)
-                arguments += "--verbose ";
-            if (_config.NetworkUse == NetworkLevel.Offline) arguments += "--offline ";
-            if (_feedManager.Refresh) arguments += "--refresh ";
-            arguments += requirements.ToCommandLineArgs().JoinEscapeArguments();
+                arguments = arguments.Prepend("--verbose");
+            if (_config.NetworkUse == NetworkLevel.Offline) arguments = arguments.Prepend("--offline");
+            if (_feedManager.Refresh) arguments = arguments.Prepend("--refresh");
 
             return arguments;
         }

@@ -18,6 +18,7 @@
 using System.Diagnostics;
 using System.IO;
 using NanoByte.Common.Cli;
+using NanoByte.Common.Collections;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 
@@ -39,12 +40,20 @@ namespace ZeroInstall.Services.Solvers.Python
         protected override string AppBinary { get { return "python"; } }
 
         /// <inheritdoc/>
-        protected override ProcessStartInfo GetStartInfo(string arguments, bool hidden = false)
+        public new string Execute(params string[] arguments)
+        {
+            var result = base.Execute(arguments);
+            _errorParser.Flush(); // Handle any left-over error messages
+            return result;
+        }
+
+        /// <inheritdoc/>
+        protected override ProcessStartInfo GetStartInfo(params string[] arguments)
         {
             string solverDirectory = BundledCliAppControl.GetBundledDirectory("Solver");
 
             // Launch solver script using Python
-            var startInfo = base.GetStartInfo(Path.Combine(solverDirectory, "0solve") + " " + arguments, hidden);
+            var startInfo = base.GetStartInfo(arguments.Prepend(Path.Combine(solverDirectory, "0solve")));
 
             // Supress unimportant warnings
             startInfo.EnvironmentVariables["PYTHONWARNINGS"] = "ignore::DeprecationWarning";
@@ -57,14 +66,6 @@ namespace ZeroInstall.Services.Solvers.Python
             }
 
             return startInfo;
-        }
-
-        /// <inheritdoc/>
-        public string ExecuteSolver(string arguments)
-        {
-            var result = Execute(arguments);
-            _errorParser.Flush(); // Handle any left-over error messages
-            return result;
         }
 
         /// <inheritdoc/>

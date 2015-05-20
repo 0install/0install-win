@@ -35,7 +35,7 @@ namespace ZeroInstall.Store.Trust
         {
             const string testKeyID = "5B5CB97421BAA5DC";
             using (var stream = typeof(GnuPGTest).GetEmbeddedStream(testKeyID + ".gpg"))
-                Target.ImportKey(stream.ReadToArray());
+                Target.ImportKey(stream.ReadAll());
             Assert.IsTrue(Target.GetPublicKey(testKeyID).StartsWith("-----BEGIN PGP PUBLIC KEY BLOCK-----"));
         }
 

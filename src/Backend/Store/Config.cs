@@ -111,7 +111,7 @@ namespace ZeroInstall.Store
         /// The base URL of a mirror site for keys and feeds.
         /// </summary>
         [DefaultValue(typeof(Uri), DefaultFeedMirror), Category("Sources"), DisplayName(@"Feed mirror"), Description("The base URL of a mirror site for keys and feeds.")]
-        public Uri FeedMirror { get { return _feedMirror; } set { _feedMirror = value.ReparseAsAbsolute(); } }
+        public Uri FeedMirror { get { return _feedMirror; } set { _feedMirror = (value == null ? null : value.ReparseAsAbsolute()); } }
 
         /// <summary>
         /// The default value for <see cref="KeyInfoServer"/>.
@@ -124,7 +124,7 @@ namespace ZeroInstall.Store
         /// The base URL of a key information server.
         /// </summary>
         [DefaultValue(typeof(Uri), DefaultKeyInfoServer), Category("Sources"), DisplayName(@"Key info server"), Description("The base URL of a key information server.")]
-        public Uri KeyInfoServer { get { return _keyInfoServer; } set { _keyInfoServer = value.ReparseAsAbsolute(); } }
+        public Uri KeyInfoServer { get { return _keyInfoServer; } set { _keyInfoServer = (value == null ? null : value.ReparseAsAbsolute()); } }
 
         /// <summary>
         /// The default value for <see cref="SelfUpdateUri"/>.
@@ -152,7 +152,7 @@ namespace ZeroInstall.Store
         /// <seealso cref="SyncServerUsername"/>
         /// <seealso cref="SyncServerPassword"/>
         [DefaultValue(typeof(Uri), DefaultSyncServer), Category("Sync"), DisplayName(@"Server"), Description("The base URL of the sync server.")]
-        public Uri SyncServer { get { return _syncServer; } set { _syncServer = value.ReparseAsAbsolute(); } }
+        public Uri SyncServer { get { return _syncServer; } set { _syncServer = (value == null ? null : value.ReparseAsAbsolute()); } }
 
         private string _syncServerUsername = "";
 

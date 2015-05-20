@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using ELFSharp.ELF;
+using NanoByte.Common.Streams;
 using ZeroInstall.Store.Model;
 
 namespace ZeroInstall.Publish.EntryPoints
@@ -61,9 +62,15 @@ namespace ZeroInstall.Publish.EntryPoints
         {
             using (var stream = file.OpenRead())
             {
-                var magic = new byte[4];
-                stream.Read(magic, 0, 4);
-                if (magic[0] != 0x7f || magic[1] != 0x45 || magic[2] != 0x4c || magic[3] != 0x46) return false;
+                try
+                {
+                    var magic = stream.Read(4);
+                    if (magic[0] != 0x7f || magic[1] != 0x45 || magic[2] != 0x4c || magic[3] != 0x46) return false;
+                }
+                catch (IOException)
+                {
+                    return false;
+                }
             }
             return true;
         }

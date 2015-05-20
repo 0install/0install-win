@@ -23,6 +23,7 @@ using System.Net;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Dispatch;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using NanoByte.Common.Undo;
@@ -188,7 +189,7 @@ namespace ZeroInstall.Publish
                     // Guess file name based on URL
                     if (string.IsNullOrEmpty(file.Destination))
                     {
-                        string destination = file.Href.OriginalString.GetRightPartAtLastOccurrence('/').StripCharacters(Path.GetInvalidFileNameChars());
+                        string destination = file.Href.GetLocalFileName();
                         executor.Execute(new SetValueCommand<string>(() => file.Destination, value => file.Destination = value, destination));
                     }
                 }

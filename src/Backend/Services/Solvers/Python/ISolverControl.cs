@@ -30,6 +30,6 @@ namespace ZeroInstall.Services.Solvers.Python
         /// <param name="arguments">Command-line arguments to launch the solver with.</param>
         /// <returns>The solver's complete output to the stdout-stream.</returns>
         /// <exception cref="IOException">The external solver could not be launched.</exception>
-        string ExecuteSolver(string arguments);
+        string Execute(params string[] arguments);
     }
 }

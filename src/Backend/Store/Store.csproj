@@ -49,7 +49,7 @@
       <HintPath>..\..\packages\LinqBridge.1.3.0\lib\net20\LinqBridge.dll</HintPath>
     </Reference>
     <Reference Include="NanoByte.Common">
-      <HintPath>..\..\packages\NanoByte.Common.1.1.9\lib\net20\NanoByte.Common.dll</HintPath>
+      <HintPath>..\..\packages\NanoByte.Common.1.2.0\lib\net20\NanoByte.Common.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net20\Newtonsoft.Json.dll</HintPath>
@@ -231,6 +231,7 @@
     </Compile>
     <Compile Include="Trust\Domain.cs" />
     <Compile Include="Trust\GnuPG.cs" />
+    <Compile Include="Trust\GnuPG.CliControl.cs" />
     <Compile Include="Trust\IOpenPgp.cs" />
     <Compile Include="Trust\Key.cs" />
     <Compile Include="Trust\OpenPgpFactory.cs" />

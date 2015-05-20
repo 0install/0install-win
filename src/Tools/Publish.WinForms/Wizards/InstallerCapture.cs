@@ -20,6 +20,7 @@ using System.IO;
 using System.Net;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Publish.Capture;
@@ -77,7 +78,7 @@ namespace ZeroInstall.Publish.WinForms.Wizards
 
             try
             {
-                _localPath = Path.Combine(_tempDir, Path.GetFileName(url.LocalPath));
+                _localPath = Path.Combine(_tempDir, url.GetLocalFileName());
                 handler.RunTask(new DownloadFile(url, _localPath));
             }
                 #region Error handling

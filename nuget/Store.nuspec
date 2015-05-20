@@ -11,7 +11,7 @@
 This API provides a common basis for the packages ZeroInstall.Services and ZeroInstall.Publish. You will usually get this package indirectly as a dependency from there.</description>
         <summary>Zero Install Storage API (data models and management functions)</summary>
         <dependencies>
-            <dependency id="NanoByte.Common" version="[1.1.9]" />
+            <dependency id="NanoByte.Common" version="[1.2.0]" />
             <dependency id="ICSharpCode.SharpZipLib.Patched" version="0.86.4" />
             <dependency id="SevenZipSharp" version="0.64" />
             <dependency id="Newtonsoft.Json" version="6.0.8" />
