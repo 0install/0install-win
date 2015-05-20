@@ -17,13 +17,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
+using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Values;
 using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Services.Feeds;
@@ -57,6 +60,9 @@ namespace ZeroInstall.Commands.WinForms
             LoadTrust();
             panelTrustedKeys.Controls.Add(treeViewTrustedKeys);
             treeViewTrustedKeys.CheckedEntriesChanged += treeViewTrustedKeys_CheckedEntriesChanged;
+
+            if (WindowsUtils.IsWindows) LoadLanguages();
+            else tabLanguage.Visible = false;
         }
 
         /// <summary>
@@ -93,6 +99,7 @@ namespace ZeroInstall.Commands.WinForms
             SaveImplementationDirs();
             SaveCatalogSources();
             SaveTrust();
+            SaveLanguage();
         }
         #endregion
 
@@ -370,6 +377,49 @@ namespace ZeroInstall.Commands.WinForms
         private void propertyGridAdvanced_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             ConfigToControls();
+        }
+        #endregion
+
+        #region Language
+        private sealed class LanguageWrapper
+        {
+            public readonly CultureInfo Culture;
+
+            public LanguageWrapper(CultureInfo culture)
+            {
+                Culture = culture;
+            }
+
+            public override string ToString()
+            {
+                return Culture.DisplayName;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj)) return false;
+                if (ReferenceEquals(this, obj)) return true;
+                return obj is LanguageWrapper && Culture.Equals(((LanguageWrapper)obj).Culture);
+            }
+
+            public override int GetHashCode()
+            {
+                return Culture.GetHashCode();
+            }
+        }
+
+        private void LoadLanguages()
+        {
+            comboBoxLanguage.Items.Add(Resources.UseSystemLanguage);
+            comboBoxLanguage.Items.AddRange(Languages.AllKnown.Select(x => new LanguageWrapper(x)).Cast<object>().ToArray());
+            if (ProgramUtils.UILanguage == null) comboBoxLanguage.SelectedIndex = 0;
+            else comboBoxLanguage.SelectedItem = new LanguageWrapper(ProgramUtils.UILanguage);
+        }
+
+        private void SaveLanguage()
+        {
+            var lang = comboBoxLanguage.SelectedItem as LanguageWrapper;
+            ProgramUtils.UILanguage = (lang == null ? null : lang.Culture);
         }
         #endregion
     }

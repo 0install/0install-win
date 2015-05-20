@@ -1695,6 +1695,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use system language.
+        /// </summary>
+        public static string UseSystemLanguage {
+            get {
+                return ResourceManager.GetString("UseSystemLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verify.
         /// </summary>
         public static string Verify {

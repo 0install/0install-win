@@ -72,6 +72,9 @@ namespace ZeroInstall.Commands.WinForms
             this.buttonAdvancedShow = new System.Windows.Forms.Button();
             this.labelAdvancedWarning = new System.Windows.Forms.Label();
             this.propertyGridAdvanced = new NanoByte.Common.Controls.ResettablePropertyGrid();
+            this.tabLanguage = new System.Windows.Forms.TabPage();
+            this.labelLanguage = new System.Windows.Forms.Label();
+            this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.implDirBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.tabOptions.SuspendLayout();
             this.tabPageUpdates.SuspendLayout();
@@ -84,6 +87,7 @@ namespace ZeroInstall.Commands.WinForms
             this.groupTrustedKeys.SuspendLayout();
             this.tabPageSync.SuspendLayout();
             this.tabPageAdvanced.SuspendLayout();
+            this.tabLanguage.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -164,6 +168,7 @@ namespace ZeroInstall.Commands.WinForms
             this.tabOptions.Controls.Add(this.tabPageTrust);
             this.tabOptions.Controls.Add(this.tabPageSync);
             this.tabOptions.Controls.Add(this.tabPageAdvanced);
+            this.tabOptions.Controls.Add(this.tabLanguage);
             this.tabOptions.Name = "tabOptions";
             this.tabOptions.SelectedIndex = 0;
             // 
@@ -398,6 +403,26 @@ namespace ZeroInstall.Commands.WinForms
             this.propertyGridAdvanced.ToolbarVisible = false;
             this.propertyGridAdvanced.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGridAdvanced_PropertyValueChanged);
             // 
+            // tabLanguage
+            // 
+            this.tabLanguage.Controls.Add(this.labelLanguage);
+            this.tabLanguage.Controls.Add(this.comboBoxLanguage);
+            resources.ApplyResources(this.tabLanguage, "tabLanguage");
+            this.tabLanguage.Name = "tabLanguage";
+            this.tabLanguage.UseVisualStyleBackColor = true;
+            // 
+            // labelLanguage
+            // 
+            resources.ApplyResources(this.labelLanguage, "labelLanguage");
+            this.labelLanguage.Name = "labelLanguage";
+            // 
+            // comboBoxLanguage
+            // 
+            resources.ApplyResources(this.comboBoxLanguage, "comboBoxLanguage");
+            this.comboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxLanguage.FormattingEnabled = true;
+            this.comboBoxLanguage.Name = "comboBoxLanguage";
+            // 
             // implDirBrowserDialog
             // 
             resources.ApplyResources(this.implDirBrowserDialog, "implDirBrowserDialog");
@@ -431,6 +456,7 @@ namespace ZeroInstall.Commands.WinForms
             this.tabPageSync.ResumeLayout(false);
             this.tabPageSync.PerformLayout();
             this.tabPageAdvanced.ResumeLayout(false);
+            this.tabLanguage.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -478,5 +504,8 @@ namespace ZeroInstall.Commands.WinForms
         private NanoByte.Common.Controls.ResettablePropertyGrid propertyGridAdvanced;
         private System.Windows.Forms.Label labelAdvancedWarning;
         private System.Windows.Forms.Button buttonAdvancedShow;
+        private System.Windows.Forms.TabPage tabLanguage;
+        private System.Windows.Forms.Label labelLanguage;
+        private System.Windows.Forms.ComboBox comboBoxLanguage;
     }
 }

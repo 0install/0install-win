@@ -16,12 +16,14 @@
  */
 
 using System;
+using System.Globalization;
 using System.IO;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Native;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Values;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Store.Implementations;
 
@@ -42,21 +44,52 @@ namespace ZeroInstall.Commands
             if (AppMutex.Probe(mutexName + "-update")) Environment.Exit(999);
             AppMutex.Create(mutexName);
 
-            if (WindowsUtils.IsWindows && !Locations.IsPortable && !StoreUtils.PathInAStore(Locations.InstallBase))
+            if (WindowsUtils.IsWindows)
             {
-                try
+                if (UILanguage != null) Languages.SetUI(UILanguage);
+
+                if (!Locations.IsPortable && !StoreUtils.PathInAStore(Locations.InstallBase))
                 {
-                    RegistryUtils.SetSoftwareString("Zero Install", "InstallLocation", Locations.InstallBase);
-                    RegistryUtils.SetSoftwareString(@"Microsoft\PackageManagement", "ZeroInstall", Path.Combine(Locations.InstallBase, "ZeroInstall.OneGet.dll"));
+                    try
+                    {
+                        RegistryUtils.SetSoftwareString("Zero Install", "InstallLocation", Locations.InstallBase);
+                        RegistryUtils.SetSoftwareString(@"Microsoft\PackageManagement", "ZeroInstall", Path.Combine(Locations.InstallBase, "ZeroInstall.OneGet.dll"));
+                    }
+                    catch (IOException)
+                    {}
+                    catch (UnauthorizedAccessException)
+                    {}
                 }
-                catch (IOException)
-                {}
-                catch (UnauthorizedAccessException)
-                {}
             }
 
             NetUtils.ApplyProxy();
             if (!WindowsUtils.IsWindows7) NetUtils.TrustCertificates(SyncIntegrationManager.DefaultServerPublicKey);
+        }
+
+        /// <summary>
+        /// The current UI language; <see langword="null"/> to use system default.
+        /// </summary>
+        /// <remarks>This value is only used on Windows and is stored in the Registry. For non-Windows platforms use the <code>LC_*</code> environment variables instead.</remarks>
+        [CanBeNull]
+        public static CultureInfo UILanguage
+        {
+            get
+            {
+                string language = RegistryUtils.GetSoftwareString("Zero Install", "Language");
+                if (!string.IsNullOrEmpty(language))
+                {
+                    try
+                    {
+                        return Languages.FromString(language);
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        Log.Warn(ex);
+                    }
+                }
+                return null;
+            }
+            set { RegistryUtils.SetSoftwareString("Zero Install", "Language", (value == null) ? "" : value.ToString()); }
         }
 
         /// <summary>

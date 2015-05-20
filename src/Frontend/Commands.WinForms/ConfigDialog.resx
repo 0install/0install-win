@@ -1230,6 +1230,93 @@
   <data name="&gt;&gt;tabPageAdvanced.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="labelLanguage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="labelLanguage.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 44</value>
+  </data>
+  <data name="labelLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>359, 156</value>
+  </data>
+  <data name="labelLanguage.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="labelLanguage.Text" xml:space="preserve">
+    <value>This controls the language of:
+- Zero Install itself and
+- applications downloaded by Zero Install.
+
+Notes:
+- Translations are not available for all languages.
+- You need to restart Zero Install for language changes to take effect.</value>
+  </data>
+  <data name="&gt;&gt;labelLanguage.Name" xml:space="preserve">
+    <value>labelLanguage</value>
+  </data>
+  <data name="&gt;&gt;labelLanguage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelLanguage.Parent" xml:space="preserve">
+    <value>tabLanguage</value>
+  </data>
+  <data name="&gt;&gt;labelLanguage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="comboBoxLanguage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="comboBoxLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 10</value>
+  </data>
+  <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>359, 21</value>
+  </data>
+  <data name="comboBoxLanguage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguage.Name" xml:space="preserve">
+    <value>comboBoxLanguage</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguage.Parent" xml:space="preserve">
+    <value>tabLanguage</value>
+  </data>
+  <data name="&gt;&gt;comboBoxLanguage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tabLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tabLanguage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>371, 203</value>
+  </data>
+  <data name="tabLanguage.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="tabLanguage.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="&gt;&gt;tabLanguage.Name" xml:space="preserve">
+    <value>tabLanguage</value>
+  </data>
+  <data name="&gt;&gt;tabLanguage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabLanguage.Parent" xml:space="preserve">
+    <value>tabOptions</value>
+  </data>
+  <data name="&gt;&gt;tabLanguage.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
   <data name="tabOptions.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 12</value>
   </data>

@@ -1217,4 +1217,7 @@
         /AesQfADrEHgB6xB4H+sQf//rEE=
 </value>
   </data>
+  <data name="UseSystemLanguage" xml:space="preserve">
+    <value>Use system language</value>
+  </data>
 </root>

@@ -69,5 +69,14 @@ namespace ZeroInstall.Commands.WinForms.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use system language.
+        /// </summary>
+        internal static string UseSystemLanguage {
+            get {
+                return ResourceManager.GetString("UseSystemLanguage", resourceCulture);
+            }
+        }
     }
 }
