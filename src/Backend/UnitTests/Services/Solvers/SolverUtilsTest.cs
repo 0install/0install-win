@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Globalization;
 using System.Linq;
 using NUnit.Framework;
 using ZeroInstall.Store;
@@ -32,7 +33,7 @@ namespace ZeroInstall.Services.Solvers
         public void GetEffectiveFillsInDefaultValues()
         {
             Assert.AreEqual(
-                expected: new Requirements(new FeedUri("http://test/feed.xml"), Command.NameRun, Architecture.CurrentSystem),
+                expected: new Requirements(new FeedUri("http://test/feed.xml"), Command.NameRun, Architecture.CurrentSystem) {Languages = {CultureInfo.CurrentUICulture}},
                 actual: new Requirements("http://test/feed.xml").GetEffective().First());
         }
 
@@ -44,10 +45,10 @@ namespace ZeroInstall.Services.Solvers
             CollectionAssert.AreEqual(
                 expected: new[]
                 {
-                    new Requirements("http://test/feed.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.X64)),
-                    new Requirements("http://test/feed.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.I686))
+                    new Requirements("http://test/feed.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.X64)) {Languages = {"fr"}},
+                    new Requirements("http://test/feed.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.I686)) {Languages = {"fr"}}
                 },
-                actual: new Requirements("http://test/feed.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.X64)).GetEffective());
+                actual: new Requirements("http://test/feed.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.X64)) {Languages = {"fr"}}.GetEffective());
         }
     }
 }

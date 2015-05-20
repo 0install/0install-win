@@ -510,6 +510,10 @@ Hat keine Wirkung im Text-Modus.</value>
   <data name="OptionIntegrateRemoveAll" xml:space="preserve">
     <value>Entferne alle Zugriffspunkte.</value>
   </data>
+  <data name="OptionLanguage" xml:space="preserve">
+    <value>Gibt die bevorzugte Sprache für die Implementierung an. Verwenden Sie ISO Kurz-Sprachcodes (z.B. en oder en-US).
+Sie können diese Option mehrfach verwenden um mehrere akzeptable Sprachen anzugeben.</value>
+  </data>
   <data name="OptionMachine" xml:space="preserve">
     <value>Wende die Konfiguration Maschinenweit (auf dem ganzen Computer) anstatt nur für den aktuellen User an.</value>
   </data>

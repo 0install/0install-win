@@ -360,9 +360,6 @@ Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen wom
   <data name="SelectionCandidateNoteVersionMismatch" xml:space="preserve">
     <value>Implementierungsversion zu alt oder zu neu</value>
   </data>
-  <data name="SelectionCandidateNoteWrongLanguage" xml:space="preserve">
-    <value>Falsche Sprache</value>
-  </data>
   <data name="SignatureAldreadyExists" xml:space="preserve">
     <value>Die Signaturdatei existiert bereits.</value>
   </data>

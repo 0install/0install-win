@@ -1191,6 +1191,16 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Specifies the preferred language for the implementation. Use ISO short language codes (e.g. en or en-US).
+        ///You can use this option multiple times to specify multiple acceptable languages..
+        /// </summary>
+        public static string OptionLanguage {
+            get {
+                return ResourceManager.GetString("OptionLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply the configuration machine-wide (for the entire computer) instead of just for the current user..
         /// </summary>
         public static string OptionMachine {

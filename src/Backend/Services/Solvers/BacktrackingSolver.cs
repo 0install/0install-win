@@ -80,7 +80,7 @@ namespace ZeroInstall.Services.Solvers
             Log.Info("Running Backtracking Solver for: " + requirements);
 
             var effectiveRequirements = requirements.GetEffective();
-            var candidateProvider = new SelectionCandidateProvider(_config, _feedManager, _store, _packageManager);
+            var candidateProvider = new SelectionCandidateProvider(_config, _feedManager, _store, _packageManager, requirements.Languages);
             var solverRuns = effectiveRequirements.Select(x => new Pass(x, _handler.CancellationToken, candidateProvider));
 
             var successfullSolverRun = solverRuns.FirstOrDefault(x => x.TryToSolve());

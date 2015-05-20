@@ -17,8 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store;
@@ -36,7 +34,7 @@ namespace ZeroInstall.Services.Solvers
         private readonly NetworkLevel _networkUse;
         private readonly Predicate<Implementation> _isCached;
         private readonly Stability _stabilityPolicy;
-        private readonly CultureInfo _culture;
+        private readonly LanguageSet _languages;
 
         /// <summary>
         /// Creates a new <see cref="SelectionCandidate"/> ranker.
@@ -44,13 +42,13 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="config">Used to retrieve global configuration.</param>
         /// <param name="isCached">Used to determine which implementations are already cached in the <see cref="IStore"/>.</param>
         /// <param name="stabilityPolicy">Implementations at this stability level or higher are preferred. Lower levels are used only if there is no other choice. Must not be <see cref="Stability.Unset"/>!</param>
-        /// <param name="culture">The user's culture, used to determine preferred languages.</param>
-        public SelectionCandidateComparer([NotNull] Config config, [NotNull] Predicate<Implementation> isCached, Stability stabilityPolicy, [NotNull] CultureInfo culture)
+        /// <param name="languages">The preferred languages for the implementation.</param>
+        public SelectionCandidateComparer([NotNull] Config config, [NotNull] Predicate<Implementation> isCached, Stability stabilityPolicy, [NotNull] LanguageSet languages)
         {
             #region Sanity check
             if (config == null) throw new ArgumentNullException("config");
             if (isCached == null) throw new ArgumentNullException("isCached");
-            if (culture == null) throw new ArgumentNullException("culture");
+            if (languages == null) throw new ArgumentNullException("languages");
             #endregion
 
             _networkUse = config.NetworkUse;
@@ -58,7 +56,7 @@ namespace ZeroInstall.Services.Solvers
             _stabilityPolicy = (stabilityPolicy == Stability.Unset)
                 ? (config.HelpWithTesting ? Stability.Testing : Stability.Stable)
                 : stabilityPolicy;
-            _culture = culture;
+            _languages = languages;
         }
 
         /// <inheritdoc/>
@@ -123,17 +121,20 @@ namespace ZeroInstall.Services.Solvers
             return string.CompareOrdinal(x.Implementation.ID, y.Implementation.ID);
         }
 
+        private static readonly LanguageSet _englishSet = new LanguageSet {"en", "en_US"};
+
         private int GetLanguageRank(LanguageSet languages)
         {
-            if (languages.Count == 0) return 0;
-            else if (languages.Any(x => x.TwoLetterISOLanguageName == _culture.TwoLetterISOLanguageName)) return 1;
+            if (languages.Count == 0) return 1;
+            else if (languages.ContainsAny(_languages, ignoreCountry: true)) return 2;
+            else if (languages.ContainsAny(_englishSet)) return 0; // Prefer English over other languages we do not understand
             else return -1;
         }
 
         private int GetCountryRank(LanguageSet languages)
         {
             if (languages.Count == 0) return 0;
-            else if (languages.Contains(_culture)) return 1;
+            else if (languages.ContainsAny(_languages)) return 1;
             else return -1;
         }
     }

@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using JetBrains.Annotations;
@@ -111,6 +112,8 @@ namespace ZeroInstall.Commands.CliCommands
                 (OS os) => Requirements.Architecture = new Architecture(os, Requirements.Architecture.Cpu));
             Options.Add("cpu=", () => Resources.OptionCpu + "\n" + SupportedValues(Architecture.KnownCpu),
                 (Cpu cpu) => Requirements.Architecture = new Architecture(Requirements.Architecture.OS, cpu));
+            Options.Add("language=", () => Resources.OptionLanguage,
+                (CultureInfo lang) => Requirements.Languages.Add(lang));
 
             Options.Add("xml", () => Resources.OptionXml, _ => ShowXml = true);
         }

@@ -142,8 +142,6 @@ namespace ZeroInstall.Store.Model.Selection
                 Notes = Resources.SelectionCandidateNoteSource;
             else if (!Implementation.Architecture.IsCompatible(requirements.Architecture))
                 Notes = Resources.SelectionCandidateNoteIncompatibleArchitecture;
-            else if (!Implementation.Languages.ContainsAny(requirements.Languages))
-                Notes = Resources.SelectionCandidateNoteWrongLanguage;
             else if (!Match(requirements, Version))
                 Notes = Resources.SelectionCandidateNoteVersionMismatch;
             else if (EffectiveStability == Stability.Buggy)

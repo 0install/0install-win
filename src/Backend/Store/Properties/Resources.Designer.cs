@@ -760,15 +760,6 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wrong language.
-        /// </summary>
-        internal static string SelectionCandidateNoteWrongLanguage {
-            get {
-                return ResourceManager.GetString("SelectionCandidateNoteWrongLanguage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Signature file already exists..
         /// </summary>
         internal static string SignatureAldreadyExists {

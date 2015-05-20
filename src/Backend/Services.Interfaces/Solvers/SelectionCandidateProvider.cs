@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
@@ -52,7 +51,8 @@ namespace ZeroInstall.Services.Solvers
         /// <param name="feedManager">Provides access to remote and local <see cref="Feed"/>s. Handles downloading, signature verification and caching.</param>
         /// <param name="store">Used to check which <see cref="Implementation"/>s are already cached.</param>
         /// <param name="packageManager">An external package manager that can install <see cref="PackageImplementation"/>s.</param>
-        public SelectionCandidateProvider([NotNull] Config config, [NotNull] IFeedManager feedManager, [NotNull] IStore store, [NotNull] IPackageManager packageManager)
+        /// <param name="languages">The preferred languages for the implementation.</param>
+        public SelectionCandidateProvider([NotNull] Config config, [NotNull] IFeedManager feedManager, [NotNull] IStore store, [NotNull] IPackageManager packageManager, LanguageSet languages)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
@@ -64,7 +64,7 @@ namespace ZeroInstall.Services.Solvers
             _config = config;
             _isCached = BuildCacheChecker(store);
             _packageManager = packageManager;
-            _comparer = new TransparentCache<FeedUri, SelectionCandidateComparer>(id => new SelectionCandidateComparer(config, _isCached, _interfacePreferences[id].StabilityPolicy, CultureInfo.CurrentUICulture));
+            _comparer = new TransparentCache<FeedUri, SelectionCandidateComparer>(id => new SelectionCandidateComparer(config, _isCached, _interfacePreferences[id].StabilityPolicy, languages));
             _feeds = new TransparentCache<FeedUri, Feed>(feedManager.GetFeed);
         }
 
@@ -160,10 +160,12 @@ namespace ZeroInstall.Services.Solvers
             }
 
             dictionary.Add(feedUri, feed);
-            foreach (var reference in feed.Feeds
-                .Where(reference => reference.Architecture.IsCompatible(requirements.Architecture) &&
-                                    reference.Languages.ContainsAny(requirements.Languages)))
-                AddFeed(dictionary, reference.Source, requirements);
+            foreach (var reference in feed.Feeds)
+            {
+                if (reference.Architecture.IsCompatible(requirements.Architecture) &&
+                    (reference.Languages.Count == 0 || reference.Languages.ContainsAny(requirements.Languages, ignoreCountry: true)))
+                    AddFeed(dictionary, reference.Source, requirements);
+            }
         }
 
         private IEnumerable<SelectionCandidate> GetCandidates(FeedUri feedUri, Feed feed, Requirements requirements)

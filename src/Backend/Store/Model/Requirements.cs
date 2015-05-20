@@ -199,8 +199,8 @@ namespace ZeroInstall.Store.Model
                 if (Architecture.OS != OS.All) args.AddRange(new[] {"--os", Architecture.OS.ConvertToString()});
                 if (Architecture.Cpu != Cpu.All) args.AddRange(new[] {"--cpu", Architecture.Cpu.ConvertToString()});
             }
-            //foreach (var language in Languages)
-            //    args.AddRange(new[] {"--language", language.ToString()});
+            foreach (var language in Languages)
+                args.AddRange(new[] {"--language", language.ToString()});
             foreach (var pair in ExtraRestrictions)
                 args.AddRange(new[] {"--version-for", pair.Key.ToStringRfc(), pair.Value.ToString()});
             args.Add(InterfaceUri.ToStringRfc());

@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common.Collections;
@@ -52,6 +53,7 @@ namespace ZeroInstall.Services.Solvers
             effectiveRequirements.Architecture = new Architecture(
                 (effectiveRequirements.Architecture.OS == OS.All) ? Architecture.CurrentSystem.OS : effectiveRequirements.Architecture.OS,
                 (effectiveRequirements.Architecture.Cpu == Cpu.All) ? Architecture.CurrentSystem.Cpu : effectiveRequirements.Architecture.Cpu);
+            if (effectiveRequirements.Languages.Count == 0) effectiveRequirements.Languages.Add(CultureInfo.CurrentUICulture);
 
             if (effectiveRequirements.Architecture.Cpu == Cpu.X64)
             { // x86-on-X64 compatability

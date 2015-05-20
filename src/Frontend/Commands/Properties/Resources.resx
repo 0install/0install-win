@@ -509,6 +509,10 @@ Has no effect in text-mode.</value>
   <data name="OptionIntegrateRemoveAll" xml:space="preserve">
     <value>Remove all access points.</value>
   </data>
+  <data name="OptionLanguage" xml:space="preserve">
+    <value>Specifies the preferred language for the implementation. Use ISO short language codes (e.g. en or en-US).
+You can use this option multiple times to specify multiple acceptable languages.</value>
+  </data>
   <data name="OptionMachine" xml:space="preserve">
     <value>Apply the configuration machine-wide (for the entire computer) instead of just for the current user.</value>
   </data>

@@ -360,9 +360,6 @@ You can delete the file '{1}' to fix the problem. Other settings may also be los
   <data name="SelectionCandidateNoteVersionMismatch" xml:space="preserve">
     <value>Implementation version too old or too new</value>
   </data>
-  <data name="SelectionCandidateNoteWrongLanguage" xml:space="preserve">
-    <value>Wrong language</value>
-  </data>
   <data name="SignatureAldreadyExists" xml:space="preserve">
     <value>Signature file already exists.</value>
   </data>

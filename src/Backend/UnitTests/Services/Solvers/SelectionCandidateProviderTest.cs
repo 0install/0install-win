@@ -40,6 +40,8 @@ namespace ZeroInstall.Services.Solvers
 
         protected override void Register(AutoMockContainer container)
         {
+            container.Register(new LanguageSet());
+
             _feedManagerMock = container.GetMock<IFeedManager>();
             _packageManagerMock = container.GetMock<IPackageManager>();
 
