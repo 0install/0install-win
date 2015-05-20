@@ -16,7 +16,6 @@
  */
 
 using NUnit.Framework;
-using ZeroInstall.Services;
 
 namespace ZeroInstall.Store.Model
 {

@@ -50,8 +50,9 @@ namespace ZeroInstall.Store.Trust
             typeof(GnuPGTest).WriteEmbeddedFile("secring.gpg", Locations.GetSaveConfigPath("0install.net", true, "gnupg", "secring.gpg"));
 
             var signatureData = Convert.FromBase64String(Target.DetachSign(stream, "test@0install.de"));
-            var signatures = Target.Verify(data, signatureData);
+            Assert.That(signatureData.Length, Is.GreaterThan(10));
 
+            var signatures = Target.Verify(data, signatureData);
             Assert.AreEqual(testKeyID, ((ValidSignature)signatures.Single()).Fingerprint);
         }
     }

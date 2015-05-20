@@ -36,7 +36,7 @@ namespace ZeroInstall.Commands.WinForms
 {
     public sealed partial class ConfigDialog : OKCancelDialog
     {
-        #region Startup
+        #region Global
         // Don't use WinForms designer for this, since it doesn't understand generics
         // ReSharper disable once InconsistentNaming
         private readonly FilteredTreeView<TrustNode> treeViewTrustedKeys = new FilteredTreeView<TrustNode> {Separator = '\\', CheckBoxes = true, Dock = DockStyle.Fill};
@@ -55,7 +55,6 @@ namespace ZeroInstall.Commands.WinForms
             LoadCatalogSources();
 
             LoadTrust();
-
             panelTrustedKeys.Controls.Add(treeViewTrustedKeys);
             treeViewTrustedKeys.CheckedEntriesChanged += treeViewTrustedKeys_CheckedEntriesChanged;
         }
@@ -87,6 +86,13 @@ namespace ZeroInstall.Commands.WinForms
                     tabOptions.SelectTab(tabPageAdvanced);
                     break;
             }
+        }
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            SaveImplementationDirs();
+            SaveCatalogSources();
+            SaveTrust();
         }
         #endregion
 
@@ -130,13 +136,6 @@ namespace ZeroInstall.Commands.WinForms
         {
             _config.HelpWithTesting = checkBoxHelpWithTesting.Checked;
             propertyGridAdvanced.Refresh();
-        }
-
-        private void buttonOK_Click(object sender, EventArgs e)
-        {
-            SaveImplementationDirs();
-            SaveCatalogSources();
-            SaveTrust();
         }
         #endregion
 
@@ -239,14 +238,14 @@ namespace ZeroInstall.Commands.WinForms
                 {
                     ProcessUtils.Start(listBoxCatalogSources.SelectedItem.ToString());
                 }
-                #region Error handling
-            catch (OperationCanceledException)
-            {}
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            #endregion
+                    #region Error handling
+                catch (OperationCanceledException)
+                {}
+                catch (IOException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                }
+                #endregion
             }
         }
 

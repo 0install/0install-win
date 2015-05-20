@@ -49,7 +49,6 @@
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(364, 118);
             this.labelStatus.TabIndex = 0;
-            this.labelStatus.Text = "(Status)";
             this.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // progressBar

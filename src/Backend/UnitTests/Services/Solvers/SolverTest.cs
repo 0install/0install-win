@@ -38,10 +38,10 @@ namespace ZeroInstall.Services.Solvers
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /></implementation>"}
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app'/></implementation>"}
                 },
                 requirements: new Requirements("http://test/app.xml", Command.NameRun),
-                expectedSelections: "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /></selection>");
+                expectedSelections: "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'/></selection>");
         }
 
         [Test]
@@ -50,13 +50,13 @@ namespace ZeroInstall.Services.Solvers
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' /></implementation>"},
-                    {"http://test/lib.xml", "<implementation version='1.0' id='lib1' />"}
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/lib.xml'/></implementation>"},
+                    {"http://test/lib.xml", "<implementation version='1.0' id='lib1'/>"}
                 },
                 requirements: new Requirements("http://test/app.xml", Command.NameRun),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' /></selection>" +
-                    "<selection interface='http://test/lib.xml' version='1.0' id='lib1' />");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/lib.xml'/></selection>" +
+                    "<selection interface='http://test/lib.xml' version='1.0' id='lib1'/>");
         }
 
         [Test]
@@ -66,24 +66,24 @@ namespace ZeroInstall.Services.Solvers
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' importance='recommended' /></implementation>"},
-                    {"http://test/lib.xml", "<implementation version='1.0' id='lib1' />"}
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/lib.xml' importance='recommended'/></implementation>"},
+                    {"http://test/lib.xml", "<implementation version='1.0' id='lib1'/>"}
                 },
                 requirements: new Requirements("http://test/app.xml", Command.NameRun),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' importance='recommended' /></selection>" +
-                    "<selection interface='http://test/lib.xml' version='1.0' id='lib1' />");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/lib.xml' importance='recommended'/></selection>" +
+                    "<selection interface='http://test/lib.xml' version='1.0' id='lib1'/>");
 
             // not satisfiable
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' importance='recommended' /></implementation>"},
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/lib.xml' importance='recommended'/></implementation>"},
                     {"http://test/lib.xml", ""}
                 },
                 requirements: new Requirements("http://test/app.xml", Command.NameRun),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /></selection>");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'/></selection>");
         }
 
         [Test]
@@ -91,22 +91,22 @@ namespace ZeroInstall.Services.Solvers
         {
             var feeds = new Dictionary<string, string>
             {
-                {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' os='Windows' /></implementation>"},
-                {"http://test/lib.xml", "<implementation version='1.0' id='lib1' />"}
+                {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/lib.xml' os='Windows'/></implementation>"},
+                {"http://test/lib.xml", "<implementation version='1.0' id='lib1'/>"}
             };
 
             // applicable
             RunAndAssert(feeds,
                 requirements: new Requirements("http://test/app.xml", Command.NameRun, new Architecture(OS.Windows, Cpu.All)),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' os='Windows' /></selection>" +
-                    "<selection interface='http://test/lib.xml' version='1.0' id='lib1' />");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/lib.xml' os='Windows'/></selection>" +
+                    "<selection interface='http://test/lib.xml' version='1.0' id='lib1'/>");
 
             // not applicable
             RunAndAssert(feeds,
                 requirements: new Requirements("http://test/app.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.All)),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /></selection>");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'/></selection>");
         }
 
         [Test]
@@ -115,13 +115,13 @@ namespace ZeroInstall.Services.Solvers
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><requires interface='http://test/lib.xml' /><command name='run' path='test-app' /></implementation>"},
-                    {"http://test/lib.xml", "<implementation version='1.0' id='lib1'><requires interface='http://test/app.xml' /></implementation>"}
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><requires interface='http://test/lib.xml'/><command name='run' path='test-app'/></implementation>"},
+                    {"http://test/lib.xml", "<implementation version='1.0' id='lib1'><requires interface='http://test/app.xml'/></implementation>"}
                 },
                 requirements: new Requirements("http://test/app.xml", Command.NameRun),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><requires interface='http://test/lib.xml' /><command name='run' path='test-app' /></selection>" +
-                    "<selection interface='http://test/lib.xml' version='1.0' id='lib1'><requires interface='http://test/app.xml' /></selection>");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><requires interface='http://test/lib.xml'/><command name='run' path='test-app'/></selection>" +
+                    "<selection interface='http://test/lib.xml' version='1.0' id='lib1'><requires interface='http://test/app.xml'/></selection>");
         }
 
         [Test]
@@ -130,15 +130,15 @@ namespace ZeroInstall.Services.Solvers
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><requires interface='http://test/libA.xml' /><command name='run' path='test-app' /></implementation>"},
-                    {"http://test/libA.xml", "<implementation version='1.0' id='libA1'><requires interface='http://test/libB.xml' /></implementation>"},
-                    {"http://test/libB.xml", "<implementation version='1.0' id='libB1' />"}
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><requires interface='http://test/libA.xml'/><command name='run' path='test-app'/></implementation>"},
+                    {"http://test/libA.xml", "<implementation version='1.0' id='libA1'><requires interface='http://test/libB.xml'/></implementation>"},
+                    {"http://test/libB.xml", "<implementation version='1.0' id='libB1'/>"}
                 },
                 requirements: new Requirements("http://test/app.xml", Command.NameRun),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><requires interface='http://test/libA.xml' /><command name='run' path='test-app' /></selection>" +
-                    "<selection interface='http://test/libA.xml' version='1.0' id='libA1'><requires interface='http://test/libB.xml' /></selection>" +
-                    "<selection interface='http://test/libB.xml' version='1.0' id='libB1' />");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><requires interface='http://test/libA.xml'/><command name='run' path='test-app'/></selection>" +
+                    "<selection interface='http://test/libA.xml' version='1.0' id='libA1'><requires interface='http://test/libB.xml'/></selection>" +
+                    "<selection interface='http://test/libB.xml' version='1.0' id='libB1'/>");
         }
 
         [Test]
@@ -147,13 +147,13 @@ namespace ZeroInstall.Services.Solvers
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app'><runner interface='http://test/runner.xml' /></command></implementation>"},
-                    {"http://test/runner.xml", "<implementation version='1.0' id='runner1'><command name='run' path='test-runner' /></implementation>"}
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app'><runner interface='http://test/runner.xml'/></command></implementation>"},
+                    {"http://test/runner.xml", "<implementation version='1.0' id='runner1'><command name='run' path='test-runner'/></implementation>"}
                 },
                 requirements: new Requirements("http://test/app.xml", Command.NameRun),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'><runner interface='http://test/runner.xml' /></command></selection>" +
-                    "<selection interface='http://test/runner.xml' version='1.0' id='runner1'><command name='run' path='test-runner' /></selection>");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'><runner interface='http://test/runner.xml'/></command></selection>" +
+                    "<selection interface='http://test/runner.xml' version='1.0' id='runner1'><command name='run' path='test-runner'/></selection>");
         }
 
         [Test]
@@ -162,13 +162,13 @@ namespace ZeroInstall.Services.Solvers
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml'><environment name='var1' insert='.' /></requires></implementation>"},
-                    {"http://test/lib.xml", "<implementation version='1.0' id='lib1' />"}
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/lib.xml'><environment name='var1' insert='.'/></requires></implementation>"},
+                    {"http://test/lib.xml", "<implementation version='1.0' id='lib1'/>"}
                 },
                 requirements: new Requirements("http://test/app.xml", Command.NameRun),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/lib.xml'><environment name='var1' insert='.' /></requires></selection>" +
-                    "<selection interface='http://test/lib.xml' version='1.0' id='lib1' />");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/lib.xml'><environment name='var1' insert='.'/></requires></selection>" +
+                    "<selection interface='http://test/lib.xml' version='1.0' id='lib1'/>");
         }
 
         [Test]
@@ -177,22 +177,22 @@ namespace ZeroInstall.Services.Solvers
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/helper.xml'><executable-in-path name='helperA' command='commandA'/><executable-in-path name='helperB' command='commandB'/></requires></implementation>"},
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/helper.xml'><executable-in-path name='helperA' command='commandA'/><executable-in-path name='helperB' command='commandB'/></requires></implementation>"},
                     {
                         "http://test/helper.xml",
                         "<implementation version='1.0' id='helper1'>" +
-                        "  <command name='commandA' path='helperA' />" +
-                        "  <command name='commandB' path='helperB'><runner interface='http://test/runner.xml' /></command>" +
-                        "  <command name='commandC' path='helperC' />" +
+                        "  <command name='commandA' path='helperA'/>" +
+                        "  <command name='commandB' path='helperB'><runner interface='http://test/runner.xml'/></command>" +
+                        "  <command name='commandC' path='helperC'/>" +
                         "</implementation>"
                     },
-                    {"http://test/runner.xml", "<implementation version='1.0' id='runner1'><command name='run' path='test-runner' /></implementation>"}
+                    {"http://test/runner.xml", "<implementation version='1.0' id='runner1'><command name='run' path='test-runner'/></implementation>"}
                 },
                 requirements: new Requirements("http://test/app.xml", Command.NameRun),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/helper.xml'><executable-in-path name='helperA' command='commandA'/><executable-in-path name='helperB' command='commandB'/></requires></selection>" +
-                    "<selection interface='http://test/helper.xml' version='1.0' id='helper1'><command name='commandA' path='helperA' /><command name='commandB' path='helperB'><runner interface='http://test/runner.xml' /></command></selection>" +
-                    "<selection interface='http://test/runner.xml' version='1.0' id='runner1'><command name='run' path='test-runner' /></selection>");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/helper.xml'><executable-in-path name='helperA' command='commandA'/><executable-in-path name='helperB' command='commandB'/></requires></selection>" +
+                    "<selection interface='http://test/helper.xml' version='1.0' id='helper1'><command name='commandA' path='helperA'/><command name='commandB' path='helperB'><runner interface='http://test/runner.xml'/></command></selection>" +
+                    "<selection interface='http://test/runner.xml' version='1.0' id='runner1'><command name='run' path='test-runner'/></selection>");
         }
 
         [Test]
@@ -201,13 +201,13 @@ namespace ZeroInstall.Services.Solvers
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/helper.xml'><executable-in-path/></requires></implementation>"},
-                    {"http://test/helper.xml", "<implementation version='1.0' id='helper1'><command name='run' path='test-helper' /></implementation>"}
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/helper.xml'><executable-in-path/></requires></implementation>"},
+                    {"http://test/helper.xml", "<implementation version='1.0' id='helper1'><command name='run' path='test-helper'/></implementation>"}
                 },
                 requirements: new Requirements("http://test/app.xml", Command.NameRun),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/helper.xml'><executable-in-path/></requires></selection>" +
-                    "<selection interface='http://test/helper.xml' version='1.0' id='helper1'><command name='run' path='test-helper' /></selection>");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/helper.xml'><executable-in-path/></requires></selection>" +
+                    "<selection interface='http://test/helper.xml' version='1.0' id='helper1'><command name='run' path='test-helper'/></selection>");
         }
 
         [Test]
@@ -216,13 +216,13 @@ namespace ZeroInstall.Services.Solvers
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><command name='helper' path='helper-app'><requires interface='http://test/helper.xml' /></command><executable-in-path command='helper'/></implementation>"},
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app'/><command name='helper' path='helper-app'><requires interface='http://test/helper.xml'/></command><executable-in-path command='helper'/></implementation>"},
                     {"http://test/helper.xml", "<implementation version='1.0' id='helper1'/>"}
                 },
                 requirements: new Requirements("http://test/app.xml", Command.NameRun),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><command name='helper' path='helper-app'><requires interface='http://test/helper.xml' /></command><executable-in-path command='helper'/></selection>" +
-                    "<selection interface='http://test/helper.xml' version='1.0' id='helper1' />");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'/><command name='helper' path='helper-app'><requires interface='http://test/helper.xml'/></command><executable-in-path command='helper'/></selection>" +
+                    "<selection interface='http://test/helper.xml' version='1.0' id='helper1'/>");
         }
 
         [Test]
@@ -231,13 +231,13 @@ namespace ZeroInstall.Services.Solvers
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/helper.xml'><executable-in-path command='helper'/></requires></implementation>"},
-                    {"http://test/helper.xml", "<implementation version='1.0' id='helper1'><command name='helper' path='helper-app' /></implementation>"}
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/helper.xml'><executable-in-path command='helper'/></requires></implementation>"},
+                    {"http://test/helper.xml", "<implementation version='1.0' id='helper1'><command name='helper' path='helper-app'/></implementation>"}
                 },
                 requirements: new Requirements("http://test/app.xml", Command.NameRun),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/helper.xml'><executable-in-path command='helper'/></requires></selection>" +
-                    "<selection interface='http://test/helper.xml' version='1.0' id='helper1'><command name='helper' path='helper-app' /></selection>");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/helper.xml'><executable-in-path command='helper'/></requires></selection>" +
+                    "<selection interface='http://test/helper.xml' version='1.0' id='helper1'><command name='helper' path='helper-app'/></selection>");
         }
 
         [Test]
@@ -247,29 +247,29 @@ namespace ZeroInstall.Services.Solvers
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></implementation>"},
-                    {"http://test/liba.xml", "<implementation version='1.0' id='liba1' />"},
-                    {"http://test/libb.xml", "<implementation version='1.0' id='libb1' /><implementation version='2.0' id='libb2' />"}
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/liba.xml'/><requires interface='http://test/libb.xml'/></implementation>"},
+                    {"http://test/liba.xml", "<implementation version='1.0' id='liba1'/>"},
+                    {"http://test/libb.xml", "<implementation version='1.0' id='libb1'/><implementation version='2.0' id='libb2'/>"}
                 },
                 requirements: new Requirements("http://test/app.xml", Command.NameRun),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></selection>" +
-                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1' />" +
-                    "<selection interface='http://test/libb.xml' version='2.0' id='libb2' />");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/liba.xml'/><requires interface='http://test/libb.xml'/></selection>" +
+                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1'/>" +
+                    "<selection interface='http://test/libb.xml' version='2.0' id='libb2'/>");
 
             // with restriction
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></implementation>"},
-                    {"http://test/liba.xml", "<implementation version='1.0' id='liba1'><restricts interface='http://test/libb.xml' version='1.0' /></implementation>"},
-                    {"http://test/libb.xml", "<implementation version='1.0' id='libb1' /><implementation version='2.0' id='libb2' />"}
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/liba.xml'/><requires interface='http://test/libb.xml'/></implementation>"},
+                    {"http://test/liba.xml", "<implementation version='1.0' id='liba1'><restricts interface='http://test/libb.xml' version='1.0'/></implementation>"},
+                    {"http://test/libb.xml", "<implementation version='1.0' id='libb1'/><implementation version='2.0' id='libb2'/>"}
                 },
                 requirements: new Requirements("http://test/app.xml", Command.NameRun),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></selection>" +
-                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1' />" +
-                    "<selection interface='http://test/libb.xml' version='1.0' id='libb1' />");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/liba.xml'/><requires interface='http://test/libb.xml'/></selection>" +
+                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1'/>" +
+                    "<selection interface='http://test/libb.xml' version='1.0' id='libb1'/>");
         }
 
         [Test]
@@ -277,26 +277,26 @@ namespace ZeroInstall.Services.Solvers
         {
             var feeds = new Dictionary<string, string>
             {
-                {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></implementation>"},
-                {"http://test/liba.xml", "<implementation version='1.0' id='liba1'><restricts interface='http://test/libb.xml' version='1.0' os='Windows' /></implementation>"},
-                {"http://test/libb.xml", "<implementation version='1.0' id='libb1' /><implementation version='2.0' id='libb2' />"}
+                {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/liba.xml'/><requires interface='http://test/libb.xml'/></implementation>"},
+                {"http://test/liba.xml", "<implementation version='1.0' id='liba1'><restricts interface='http://test/libb.xml' version='1.0' os='Windows'/></implementation>"},
+                {"http://test/libb.xml", "<implementation version='1.0' id='libb1'/><implementation version='2.0' id='libb2'/>"}
             };
 
             // applicable
             RunAndAssert(feeds,
                 requirements: new Requirements("http://test/app.xml", Command.NameRun, new Architecture(OS.Windows, Cpu.All)),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></selection>" +
-                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1' />" +
-                    "<selection interface='http://test/libb.xml' version='1.0' id='libb1' />");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/liba.xml'/><requires interface='http://test/libb.xml'/></selection>" +
+                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1'/>" +
+                    "<selection interface='http://test/libb.xml' version='1.0' id='libb1'/>");
 
             // not applicable
             RunAndAssert(feeds,
                 requirements: new Requirements("http://test/app.xml", Command.NameRun, new Architecture(OS.Linux, Cpu.All)),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /><requires interface='http://test/liba.xml' /><requires interface='http://test/libb.xml' /></selection>" +
-                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1' />" +
-                    "<selection interface='http://test/libb.xml' version='2.0' id='libb2' />");
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'/><requires interface='http://test/liba.xml'/><requires interface='http://test/libb.xml'/></selection>" +
+                    "<selection interface='http://test/liba.xml' version='1.0' id='liba1'/>" +
+                    "<selection interface='http://test/libb.xml' version='2.0' id='libb2'/>");
         }
 
         [Test]
@@ -305,13 +305,13 @@ namespace ZeroInstall.Services.Solvers
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app' /></implementation><implementation version='2.0' id='app2'><command name='run' path='test-app' /></implementation>"}
+                    {"http://test/app.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app'/></implementation><implementation version='2.0' id='app2'><command name='run' path='test-app'/></implementation>"}
                 },
                 requirements: new Requirements("http://test/app.xml", Command.NameRun)
                 {
                     ExtraRestrictions = {{new FeedUri("http://test/app.xml"), new VersionRange("..!2.0")}}
                 },
-                expectedSelections: "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app' /></selection>");
+                expectedSelections: "<selection interface='http://test/app.xml' version='1.0' id='app1'><command name='run' path='test-app'/></selection>");
         }
 
         [Test]
@@ -320,11 +320,11 @@ namespace ZeroInstall.Services.Solvers
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app1.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app1' /></implementation><feed src='http://test/app2.xml' />"},
-                    {"http://test/app2.xml", "<implementation version='2.0' id='app2'><command name='run' path='test-app2' /></implementation>"}
+                    {"http://test/app1.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app1'/></implementation><feed src='http://test/app2.xml'/>"},
+                    {"http://test/app2.xml", "<implementation version='2.0' id='app2'><command name='run' path='test-app2'/></implementation>"}
                 },
                 requirements: new Requirements("http://test/app1.xml", Command.NameRun),
-                expectedSelections: "<selection interface='http://test/app1.xml' from-feed='http://test/app2.xml' version='2.0' id='app2'><command name='run' path='test-app2' /></selection>");
+                expectedSelections: "<selection interface='http://test/app1.xml' from-feed='http://test/app2.xml' version='2.0' id='app2'><command name='run' path='test-app2'/></selection>");
         }
 
         [Test]
@@ -333,11 +333,11 @@ namespace ZeroInstall.Services.Solvers
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app1.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app1' /></implementation><feed src='http://test/app2.xml' />"},
-                    {"http://test/app2.xml", "<implementation version='2.0' id='app2'><command name='run' path='test-app2' /></implementation><feed src='http://test/app1.xml' />"}
+                    {"http://test/app1.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app1'/></implementation><feed src='http://test/app2.xml'/>"},
+                    {"http://test/app2.xml", "<implementation version='2.0' id='app2'><command name='run' path='test-app2'/></implementation><feed src='http://test/app1.xml'/>"}
                 },
                 requirements: new Requirements("http://test/app1.xml", Command.NameRun),
-                expectedSelections: "<selection interface='http://test/app1.xml' from-feed='http://test/app2.xml' version='2.0' id='app2'><command name='run' path='test-app2' /></selection>");
+                expectedSelections: "<selection interface='http://test/app1.xml' from-feed='http://test/app2.xml' version='2.0' id='app2'><command name='run' path='test-app2'/></selection>");
         }
 
         [Test]
@@ -347,11 +347,11 @@ namespace ZeroInstall.Services.Solvers
             RunAndAssert(
                 feeds: new Dictionary<string, string>
                 {
-                    {"http://test/app1.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app1' /></implementation>"},
-                    {"http://test/app2.xml", "<implementation version='2.0' id='app2'><command name='run' path='test-app2' /></implementation>"}
+                    {"http://test/app1.xml", "<implementation version='1.0' id='app1'><command name='run' path='test-app1'/></implementation>"},
+                    {"http://test/app2.xml", "<implementation version='2.0' id='app2'><command name='run' path='test-app2'/></implementation>"}
                 },
                 requirements: new Requirements("http://test/app1.xml", Command.NameRun),
-                expectedSelections: "<selection interface='http://test/app1.xml' from-feed='http://test/app2.xml' version='2.0' id='app2'><command name='run' path='test-app2' /></selection>");
+                expectedSelections: "<selection interface='http://test/app1.xml' from-feed='http://test/app2.xml' version='2.0' id='app2'><command name='run' path='test-app2'/></selection>");
         }
 
         [Test]
@@ -365,16 +365,16 @@ namespace ZeroInstall.Services.Solvers
                 {
                     {
                         "http://test/app.xml",
-                        "<group version='1.0'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' />" +
+                        "<group version='1.0'><command name='run' path='test-app'/><requires interface='http://test/lib.xml'/>" +
                         "<implementation arch='*-i686' id='app32'/><implementation arch='*-x86_64' id='app64'/>" +
                         "</group>"
                     },
-                    {"http://test/lib.xml", "<implementation version='1.0' id='lib' />"}
+                    {"http://test/lib.xml", "<implementation version='1.0' id='lib'/>"}
                 },
                 requirements: new Requirements("http://test/app.xml", Command.NameRun),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' arch='*-x86_64' id='app64'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' /></selection>" +
-                    "<selection interface='http://test/lib.xml' version='1.0' id='lib' />");
+                    "<selection interface='http://test/app.xml' version='1.0' arch='*-x86_64' id='app64'><command name='run' path='test-app'/><requires interface='http://test/lib.xml'/></selection>" +
+                    "<selection interface='http://test/lib.xml' version='1.0' id='lib'/>");
 
             // Fall back to x86 to avoid 32bit/64bit mixing
             RunAndAssert(
@@ -382,16 +382,16 @@ namespace ZeroInstall.Services.Solvers
                 {
                     {
                         "http://test/app.xml",
-                        "<group version='1.0'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' />" +
+                        "<group version='1.0'><command name='run' path='test-app'/><requires interface='http://test/lib.xml'/>" +
                         "<implementation arch='*-i686' id='app32'/><implementation arch='*-x86_64' id='app64'/>" +
                         "</group>"
                     },
-                    {"http://test/lib.xml", "<implementation version='1.0' arch='*-i486' id='lib' />"}
+                    {"http://test/lib.xml", "<implementation version='1.0' arch='*-i486' id='lib'/>"}
                 },
                 requirements: new Requirements("http://test/app.xml", Command.NameRun),
                 expectedSelections:
-                    "<selection interface='http://test/app.xml' version='1.0' arch='*-i686' id='app32'><command name='run' path='test-app' /><requires interface='http://test/lib.xml' /></selection>" +
-                    "<selection interface='http://test/lib.xml' version='1.0' arch='*-i486' id='lib' />");
+                    "<selection interface='http://test/app.xml' version='1.0' arch='*-i686' id='app32'><command name='run' path='test-app'/><requires interface='http://test/lib.xml'/></selection>" +
+                    "<selection interface='http://test/lib.xml' version='1.0' arch='*-i486' id='lib'/>");
         }
 
         #region Helpers

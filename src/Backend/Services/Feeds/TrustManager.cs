@@ -115,7 +115,7 @@ namespace ZeroInstall.Services.Feeds
             bool goodVote;
             var keyInformation = GetKeyInformation(signature.Fingerprint, out goodVote) ?? Resources.NoKeyInfoServerData;
 
-            // Automatically trust key for _new_ feeds if  voted good by key server
+            // Automatically trust key for _new_ feeds if voted good by key server
             if (_config.AutoApproveKeys && goodVote && !_feedCache.Contains(uri))
             {
                 Log.Info("Auto-approving key for " + uri.ToStringRfc());
@@ -124,7 +124,7 @@ namespace ZeroInstall.Services.Feeds
 
             // Otherwise ask user
             return _handler.Ask(
-                string.Format(Resources.AskKeyTrust, uri, signature.Fingerprint, keyInformation, domain),
+                string.Format(Resources.AskKeyTrust, uri.ToStringRfc(), signature.Fingerprint, keyInformation, domain),
                 defaultAnswer: false, alternateMessage: Resources.UntrustedKeys);
         }
 

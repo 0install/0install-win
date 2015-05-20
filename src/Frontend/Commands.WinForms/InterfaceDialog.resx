@@ -217,7 +217,7 @@
     <value>1</value>
   </data>
   <data name="comboBoxStability.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 6</value>
+    <value>111, 6</value>
   </data>
   <data name="comboBoxStability.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 21</value>

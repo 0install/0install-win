@@ -174,7 +174,7 @@ namespace ZeroInstall.Services.Solvers
             {
                 var implementation = element as Implementation;
                 if (implementation != null)
-                { // Each <implementation> provides one selection candidate
+                { // Each <implementation> provides 1 selection candidate
                     yield return new SelectionCandidate(feedUri, feedPreferences, implementation, requirements,
                         offlineUncached: (_config.NetworkUse == NetworkLevel.Offline) && !_isCached(implementation));
                 }
@@ -182,7 +182,7 @@ namespace ZeroInstall.Services.Solvers
                 {
                     var packageImplementation = element as PackageImplementation;
                     if (packageImplementation != null)
-                    { // Each <package-implementation> provides zero to many selection candidates
+                    { // Each <package-implementation> provides 0..n selection candidates
                         var externalImplementations = _packageManager.Query(packageImplementation, requirements.Distributions.ToArray());
                         foreach (var externalImplementation in externalImplementations)
                         {

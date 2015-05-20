@@ -78,24 +78,12 @@ namespace ZeroInstall.Store.Model
         private LanguageSet _languages = new LanguageSet();
 
         /// <summary>
-        /// The natural language(s) to look for.
+        /// The preferred languages for the implementation.
         /// </summary>
-        /// <example>For example, the value "en_GB fr" would be search for British English or French.</example>
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Complete set can be replaced by PropertyGrid.")]
-        [Description("The natural language(s) to look for.")]
+        [Description("The preferred languages for the implementation.")]
         [JsonIgnore]
-        public LanguageSet Languages
-        {
-            get { return _languages; }
-            set
-            {
-                #region Sanity checks
-                if (value == null) throw new ArgumentNullException("value");
-                #endregion
-
-                _languages = value;
-            }
-        }
+        public LanguageSet Languages { get { return _languages; } }
 
         /// <summary>Used for JSON serialization.</summary>
         /// <seealso cref="Architecture"/>
@@ -174,7 +162,8 @@ namespace ZeroInstall.Store.Model
         /// <returns>The new copy of the <see cref="Requirements"/>.</returns>
         public Requirements Clone()
         {
-            var requirements = new Requirements(InterfaceUri, Command, Architecture) {Languages = new LanguageSet(Languages)};
+            var requirements = new Requirements(InterfaceUri, Command, Architecture);
+            requirements.Languages.AddRange(Languages);
             requirements.ExtraRestrictions.AddRange(ExtraRestrictions);
             requirements.Distributions.AddRange(Distributions);
             return requirements;
@@ -193,6 +182,30 @@ namespace ZeroInstall.Store.Model
         public override string ToString()
         {
             return string.IsNullOrEmpty(Command) ? InterfaceUri.ToStringRfc() : InterfaceUri.ToStringRfc() + " (" + Command + ")";
+        }
+
+        /// <summary>
+        /// Transforms the requirements into a command-line arguments.
+        /// </summary>
+        [NotNull]
+        public string[] ToCommandLineArgs()
+        {
+            var args = new List<string>();
+
+            if (Command != null) args.AddRange(new[] {"--command", Command});
+            if (Architecture.Cpu == Cpu.Source) args.Add("--source");
+            else
+            {
+                if (Architecture.OS != OS.All) args.AddRange(new[] {"--os", Architecture.OS.ConvertToString()});
+                if (Architecture.Cpu != Cpu.All) args.AddRange(new[] {"--cpu", Architecture.Cpu.ConvertToString()});
+            }
+            //foreach (var language in Languages)
+            //    args.AddRange(new[] {"--language", language.ToString()});
+            foreach (var pair in ExtraRestrictions)
+                args.AddRange(new[] {"--version-for", pair.Key.ToStringRfc(), pair.Value.ToString()});
+            args.Add(InterfaceUri.ToStringRfc());
+
+            return args.ToArray();
         }
         #endregion
 

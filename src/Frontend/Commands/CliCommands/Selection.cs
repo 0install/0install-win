@@ -106,7 +106,7 @@ namespace ZeroInstall.Commands.CliCommands
             Options.Add("version-for==", () => Resources.OptionVersionRangeFor,
                 (FeedUri interfaceUri, VersionRange range) => Requirements.ExtraRestrictions[interfaceUri] = range);
             Options.Add("s|source", () => Resources.OptionSource,
-                _ => Requirements.Architecture = new Architecture(Requirements.Architecture.OS, Cpu.Source));
+                _ => Requirements.Source = true);
             Options.Add("os=", () => Resources.OptionOS + "\n" + SupportedValues(Architecture.KnownOS),
                 (OS os) => Requirements.Architecture = new Architecture(os, Requirements.Architecture.Cpu));
             Options.Add("cpu=", () => Resources.OptionCpu + "\n" + SupportedValues(Architecture.KnownCpu),
