@@ -24,5 +24,11 @@ namespace ZeroInstall.Services.Solvers
     /// </summary>
     [TestFixture]
     public class BacktrackingSolverTest : SolverTest<BacktrackingSolver>
-    {}
+    {
+        [Test, Ignore("Not supported by BacktrackingSolver")]
+        public override void SelfCommandDependencies()
+        {
+            base.SelfCommandDependencies();
+        }
+    }
 }

@@ -196,6 +196,28 @@ namespace ZeroInstall.Services.Solvers
         }
 
         [Test]
+        public virtual void SelfCommandDependencies()
+        {
+            RunAndAssert(
+                feeds: new Dictionary<string, string>
+                {
+                    {
+                        "http://test/app.xml",
+                        "<implementation version='1.0' id='app1'>" +
+                        "  <command name='run' path='test-app'><executable-in-path name='helperA' command='commandA'/></command>" +
+                        "  <command name='commandA' path='helperA'/>" +
+                        "</implementation>"
+                    },
+                },
+                requirements: new Requirements("http://test/app.xml", Command.NameRun),
+                expectedSelections:
+                    "<selection interface='http://test/app.xml' version='1.0' id='app1'>" +
+                    "  <command name='run' path='test-app'><executable-in-path name='helperA' command='commandA'/></command>" +
+                    "  <command name='commandA' path='helperA'/>" +
+                    "</selection>");
+        }
+
+        [Test]
         public void ExecutableBindingInDependency()
         {
             RunAndAssert(
