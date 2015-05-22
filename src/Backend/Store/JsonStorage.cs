@@ -30,11 +30,10 @@ namespace ZeroInstall.Store
         /// <summary>
         /// Returns an object as an JSON string.
         /// </summary>
-        /// <typeparam name="T">The type of object to be saved in an JSON string.</typeparam>
         /// <param name="data">The object to be stored.</param>
         /// <returns>A string containing the JSON code.</returns>
         [NotNull]
-        public static string ToJsonString<T>([NotNull] this T data)
+        public static string ToJsonString([NotNull] this object data)
         {
             return JsonConvert.SerializeObject(data);
         }
@@ -44,7 +43,7 @@ namespace ZeroInstall.Store
         /// </summary>
         /// <typeparam name="T">The type of object the JSON string shall be converted into.</typeparam>
         /// <param name="data">The JSON string to be parsed.</param>
-        /// <returns>The loaded object.</returns>
+        /// <returns>The deserialized object.</returns>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         [NotNull]
         public static T FromJsonString<T>([NotNull] string data)
@@ -54,6 +53,50 @@ namespace ZeroInstall.Store
             #endregion
 
             return JsonConvert.DeserializeObject<T>(data);
+        }
+
+        /// <summary>
+        /// Loads an object from an JSON string using an anonymous type as the target.
+        /// </summary>
+        /// <typeparam name="T">The type of object the JSON string shall be converted into.</typeparam>
+        /// <param name="data">The JSON string to be parsed.</param>
+        /// <param name="anonymousType">An instance of the anonymous type to parse to.</param>
+        /// <returns>The deserialized object.</returns>
+        [NotNull]
+        public static T FromJsonString<T>([NotNull] string data, [NotNull] T anonymousType)
+        {
+            #region Sanity checks
+            if (data == null) throw new ArgumentNullException("data");
+            if (anonymousType == null) throw new ArgumentNullException("anonymousType");
+            #endregion
+
+            return JsonConvert.DeserializeAnonymousType(data, anonymousType);
+        }
+
+        /// <summary>
+        /// Reparses an object previously deserialized from JSON into a different representation.
+        /// </summary>
+        /// <typeparam name="T">The type of object the data shall be converted into.</typeparam>
+        /// <param name="data">The object to be reparsed.</param>
+        /// <returns>The deserialized object.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
+        [NotNull]
+        public static T ReparseAsJson<T>([NotNull] this object data)
+        {
+            return FromJsonString<T>(data.ToJsonString());
+        }
+
+        /// <summary>
+        /// Reparses an object previously deserialized from JSON into a different representation using an anonymous type as the target.
+        /// </summary>
+        /// <typeparam name="T">The type of object the data shall be converted into.</typeparam>
+        /// <param name="data">The object to be reparsed.</param>
+        /// <param name="anonymousType">An instance of the anonymous type to parse to.</param>
+        /// <returns>The deserialized object.</returns>
+        [NotNull]
+        public static T ReparseAsJson<T>([NotNull] this object data, [NotNull] T anonymousType)
+        {
+            return FromJsonString(data.ToJsonString(), anonymousType);
         }
     }
 }
