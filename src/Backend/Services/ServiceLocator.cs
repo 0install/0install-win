@@ -142,9 +142,13 @@ namespace ZeroInstall.Services
         {
             get
             {
-                return Get(ref _solver, () => new FallbackSolver(
-                    new BacktrackingSolver(Config, FeedManager, Store, PackageManager, Handler, zeroInstallVersion: new ImplementationVersion(AppInfo.Current.Version)),
-                    new PythonSolver(Config, FeedManager, FeedCache, Handler)));
+                return Get(ref _solver, () =>
+                {
+                    ISolver
+                        backtrackingSolver = new BacktrackingSolver(Config, FeedManager, Store, PackageManager, Handler, zeroInstallVersion: new ImplementationVersion(AppInfo.Current.Version)),
+                        externalSolver = new ExternalSolver(backtrackingSolver, SelectionsManager, Fetcher, Executor, Config, FeedManager, Handler);
+                    return new FallbackSolver(backtrackingSolver, externalSolver);
+                });
             }
             set { _solver = value; }
         }

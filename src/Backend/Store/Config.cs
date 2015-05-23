@@ -140,6 +140,19 @@ namespace ZeroInstall.Store
         public FeedUri SelfUpdateUri { get { return _selfUpdateUri; } set { _selfUpdateUri = value; } }
 
         /// <summary>
+        /// The default value for <see cref="ExternalSolverUri"/>.
+        /// </summary>
+        public const string DefaultExternalSolverUri = "http://0install.net/tools/0install.xml";
+
+        private FeedUri _externalSolverUri = new FeedUri(DefaultExternalSolverUri);
+
+        /// <summary>
+        /// The feed URI used to get the external solver.
+        /// </summary>
+        [DefaultValue(typeof(FeedUri), DefaultExternalSolverUri), Category("Sources"), DisplayName(@"External Solver URI"), Description("The feed URI used to get the external solver.")]
+        public FeedUri ExternalSolverUri { get { return _externalSolverUri; } set { _externalSolverUri = value; } }
+
+        /// <summary>
         /// The default value for <see cref="SyncServer"/>.
         /// </summary>
         public const string DefaultSyncServer = "https://0install.de/sync/";
@@ -201,6 +214,7 @@ namespace ZeroInstall.Store
                 {"feed_mirror", new PropertyPointer<Uri>(() => FeedMirror, value => FeedMirror = value, defaultValue: new Uri(DefaultFeedMirror)).ToStringPointer()},
                 {"key_info_server", new PropertyPointer<Uri>(() => KeyInfoServer, value => KeyInfoServer = value, defaultValue: new Uri(DefaultKeyInfoServer)).ToStringPointer()},
                 {"self_update_uri", new PropertyPointer<FeedUri>(() => SelfUpdateUri, value => SelfUpdateUri = value, defaultValue: new FeedUri(DefaultSelfUpdateUri)).ToStringPointer()},
+                {"external_solver_uri", new PropertyPointer<FeedUri>(() => ExternalSolverUri, value => ExternalSolverUri = value, defaultValue: new FeedUri(DefaultExternalSolverUri)).ToStringPointer()},
                 {"sync_server", new PropertyPointer<Uri>(() => SyncServer, value => SyncServer = value, defaultValue: new Uri(DefaultSyncServer)).ToStringPointer()},
                 {"sync_server_user", new PropertyPointer<string>(() => SyncServerUsername, value => SyncServerUsername = value, defaultValue: "")},
                 {"sync_server_pw", new PropertyPointer<string>(() => SyncServerPassword, value => SyncServerPassword = value, defaultValue: "", needsEncoding: true)},
