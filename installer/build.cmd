@@ -1,5 +1,5 @@
 @echo off
-::Creates a portable ZIP archive, an Inno Setup installer and an MSI wrapper. Assumes "..\src\build.cmd Release" and "..\bundled\download-solver.ps1" have already been executed.
+::Creates a portable ZIP archive, an Inno Setup installer and an MSI wrapper. Assumes "..\src\build.cmd Release" has already been executed.
 set /p version= < "%~dp0..\VERSION"
 set /p version_updater= < "%~dp0..\VERSION_UPDATER"
 
@@ -55,11 +55,6 @@ if errorlevel 1 exit /b %errorlevel%
 
 pushd "%~dp0..\build\Release\Frontend"
 zip -q -9 -r "%~dp0..\build\Installer\zero-install.zip" . --exclude *.xml *.pdb *.mdb *.vshost.exe
-if errorlevel 1 exit /b %errorlevel%
-popd
-
-pushd "%~dp0..\bundled"
-zip -q -9 -r "%~dp0..\build\Installer\zero-install.zip" Solver
 if errorlevel 1 exit /b %errorlevel%
 popd
 

@@ -13,7 +13,6 @@ Source directory structure
 - The directory `doc` contains scripts for generating source code documentation.
 - The directory `nuget` contains NuGet spec files used to generate NuGet packages for Zero Install.
 - The directory `installer` contains scripts for creating a Windows installer for Zero Install.
-- The directory `bundled` contains an external solver (all platforms).
 - The directory `build` contains the results of various compilation processes. It is created on first usage. It can contain the following subdirectories:
   - Debug: Contains Debug builds produced from the source code.
   - Release: Contains Release builds produced from the source code.
@@ -33,8 +32,6 @@ Use `Set-Version.ps1 X.Y.Z` and `Set-Version.ps1 updater X.Y.Z` to change the ve
 
 Building on Windows
 -------------------
-The external solver (required) is not included in the repository. To get it run `bundled/download-solver.ps1`.
-
 `build.cmd` will call build scripts in subdirectories to create a Zero Install for Windows installer in `build/Frontend/Installer`.
 Note: Please read `installer/readme.txt` as well for information about required tools.
 
@@ -51,8 +48,6 @@ build.cmd
 
 Building on Linux
 -----------------
-The external solver (required) is not included in the repository. To get it run `bundled/download-solver.sh`.
-
 `build.sh` will perform a partial debug compilation using Mono's xbuild. A installer package will not be built.
 
 `cleanup.sh` will delete any temporary files created by the xbuild build process.

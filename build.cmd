@@ -11,14 +11,6 @@ call "%~dp0src\sign.cmd"
 if errorlevel 1 pause
 )
 
-::Auto-download solver if missing
-if not exist "%~dp0bundled\Solver" (
-  echo.
-  pushd "%~dp0bundled"
-  powershell -NonInteractive -Command - < download-solver.ps1
-  popd
-)
-
 echo.
 call "%~dp0nuget\build.cmd" %*
 if errorlevel 1 pause

@@ -78,7 +78,6 @@ Name: de; MessagesFile: compiler:Languages\German.isl
 Source: ..\COPYING.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\3rd party code.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\build\Release\Frontend\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,*.xml; DestDir: {app}; Flags: ignoreversion recursesubdirs
-Source: ..\bundled\Solver\*; DestDir: {app}\Solver; Flags: ignoreversion recursesubdirs
 
 [InstallDelete]
 ;Deletes obsolete files
@@ -98,6 +97,7 @@ Name: {app}\de\ZeroInstall.Injector.resources.dll; Type: files
 Name: {app}\ZeroInstall.Model.*; Type: files
 Name: {app}\de\ZeroInstall.Model.resources.dll; Type: files
 Name: {app}\GnuPG; Type: filesandordirs
+Name: {app}\Solver; Type: filesandordirs
 
 [Registry]
 #ifdef PerUser

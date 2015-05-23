@@ -136,9 +136,6 @@
   <data name="EnvironmentBindingValueInvalid" xml:space="preserve">
     <value>&lt;environment&gt; bağlantılarında bir &apos;value&apos; değer ya da &apos;insert&apos; ekleme özniteliği bulunmalıdır.</value>
   </data>
-  <data name="ExternalSolverOutputErrror" xml:space="preserve">
-    <value>Dış çözümleyici çıkışı işlenemedi.</value>
-  </data>
   <data name="ExternalSolverRunning" xml:space="preserve">
     <value>Dış çözümleyici çalışıyor</value>
   </data>

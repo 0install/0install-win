@@ -82,11 +82,6 @@
     <Compile Include="Solvers\ExternalSolver.cs" />
     <Compile Include="Solvers\ExternalSolver.JsonControl.cs" />
     <Compile Include="Solvers\FallbackSolver.cs" />
-    <Compile Include="Solvers\PythonSolver.cs" />
-    <Compile Include="Solvers\Python\ErrorParser.cs" />
-    <Compile Include="Solvers\Python\ISolverControl.cs" />
-    <Compile Include="Solvers\Python\SolverControlBundled.cs" />
-    <Compile Include="Solvers\Python\SolverControlNative.cs" />
     <None Include="Injector\runenv.cs" />
     <None Include="packages.config" />
   </ItemGroup>

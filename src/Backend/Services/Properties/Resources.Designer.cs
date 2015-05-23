@@ -110,15 +110,6 @@ namespace ZeroInstall.Services.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The output of the external solver could not be processed..
-        /// </summary>
-        internal static string ExternalSolverOutputErrror {
-            get {
-                return ResourceManager.GetString("ExternalSolverOutputErrror", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Running external solver.
         /// </summary>
         internal static string ExternalSolverRunning {

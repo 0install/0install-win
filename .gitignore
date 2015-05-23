@@ -1,5 +1,4 @@
 /build/
-/bundled/Solver/
 /src/packages/*/
 /src/_ReSharper*/
 obj/
