@@ -20,15 +20,18 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Controls;
 using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using NanoByte.Common.Values;
 using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.Commands.Properties;
+using ZeroInstall.Services;
 using ZeroInstall.Services.Feeds;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Implementations;
@@ -266,12 +269,41 @@ namespace ZeroInstall.Commands.WinForms
         {
             try
             {
-                listBoxCatalogSources.Items.Add(new FeedUri(input));
+                var uri = new FeedUri(input);
+                using (var handler = new GuiTaskHandler(this))
+                {
+                    var services = new ServiceLocator(handler);
+                    services.CatalogManager.DownloadCatalog(uri);
+                }
+                listBoxCatalogSources.Items.Add(uri);
+
+                // Trusted keys may have changed as a side-effect
+                LoadTrust();
             }
+                #region Error handling
+            catch (OperationCanceledException)
+            {}
             catch (UriFormatException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }
+            catch (WebException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (SignatureException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
 
         private void buttonRemoveCatalogSource_Click(object sender, EventArgs e)
