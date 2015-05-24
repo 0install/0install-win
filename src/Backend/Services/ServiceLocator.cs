@@ -113,7 +113,7 @@ namespace ZeroInstall.Services
         /// Provides access to remote and local <see cref="Catalog"/>s. Handles downloading, signature verification and caching.
         /// </summary>
         [NotNull]
-        public ICatalogManager CatalogManager { get { return Get(ref _catalogManager, () => new CatalogManager(TrustManager)); } set { _catalogManager = value; } }
+        public ICatalogManager CatalogManager { get { return Get(ref _catalogManager, () => new CatalogManager(TrustManager, Handler)); } set { _catalogManager = value; } }
 
         private IPackageManager _packageManager;
 

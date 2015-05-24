@@ -52,6 +52,18 @@ namespace ZeroInstall.Services.Feeds
         Catalog GetOnline();
 
         /// <summary>
+        /// Downloads and parses a remote catalog file. Mainly for internal use.
+        /// </summary>
+        /// <param name="source">The URL to download the catalog file from.</param>
+        /// <returns>The parsed <see cref="Catalog"/>.</returns>
+        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
+        /// <exception cref="SignatureException">The signature data of a remote catalog file could not be verified.</exception>
+        /// <exception cref="IOException">The OpenPGP implementation could not be launched.</exception>
+        /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
+        [NotNull]
+        Catalog DownloadCatalog([NotNull] FeedUri source);
+
+        /// <summary>
         /// Adds a new source to download <see cref="Catalog"/> files from.
         /// </summary>
         /// <param name="uri">The URI of the source to add.</param>

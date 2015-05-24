@@ -20,18 +20,17 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Net;
 using NanoByte.Common.Storage;
+using NanoByte.Common.Tasks;
 using ZeroInstall.Services.Properties;
 using ZeroInstall.Store;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Model;
-using ZeroInstall.Store.Trust;
 
 namespace ZeroInstall.Services.Feeds
 {
@@ -51,18 +50,21 @@ namespace ZeroInstall.Services.Feeds
 
         #region Dependencies
         private readonly ITrustManager _trustManager;
+        private readonly ITaskHandler _handler;
 
         /// <summary>
         /// Creates a new catalog manager.
         /// </summary>
         /// <param name="trustManager">Methods for verifying signatures and user trust.</param>
-        public CatalogManager([NotNull] ITrustManager trustManager)
+        /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
+        public CatalogManager([NotNull] ITrustManager trustManager, [NotNull] ITaskHandler handler)
         {
             #region Sanity checks
             if (trustManager == null) throw new ArgumentNullException("trustManager");
             #endregion
 
             _trustManager = trustManager;
+            _handler = handler;
         }
         #endregion
 
@@ -122,23 +124,21 @@ namespace ZeroInstall.Services.Feeds
             return mergedCatalog;
         }
 
-        /// <summary>
-        /// Downloads and parses a remote catalog file.
-        /// </summary>
-        /// <param name="source">The URL to download the catalog file from.</param>
-        /// <returns>The parsed <see cref="Catalog"/>.</returns>
-        /// <exception cref="WebException">A file could not be downloaded from the internet.</exception>
-        /// <exception cref="SignatureException">The signature data of a remote catalog file could not be verified.</exception>
-        /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
-        [NotNull]
-        private Catalog DownloadCatalog([NotNull] FeedUri source)
+        /// <inheritdoc/>
+        public Catalog DownloadCatalog(FeedUri source)
         {
+            #region Sanity checks
+            if (source == null) throw new ArgumentNullException("source");
+            #endregion
+
             if (source.IsFile) return XmlStorage.LoadXml<Catalog>(source.LocalPath);
 
-            Log.Info("Downloading catalog: " + source.ToStringRfc());
-            byte[] data;
-            using (var webClient = new WebClientTimeout())
-                data = webClient.DownloadData(source);
+            byte[] data = null;
+            _handler.RunTask(new SimpleTask(string.Format(Resources.DownloadingCatalog, source.ToStringRfc()), () =>
+            {
+                using (var webClient = new WebClientTimeout())
+                    data = webClient.DownloadData(source);
+            }));
             _trustManager.CheckTrust(data, source);
             return XmlStorage.LoadXml<Catalog>(new MemoryStream(data));
         }

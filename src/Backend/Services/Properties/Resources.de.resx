@@ -133,6 +133,9 @@ Möchten Sie diesem Key zum Signieren von Feeds von '{3}' vertrauen?
   <data name="CommandNotSpecified" xml:space="preserve">
     <value>Command für '{0}' nicht angegeben.</value>
   </data>
+  <data name="DownloadingCatalog" xml:space="preserve">
+    <value>Lade Katalog {0} runter</value>
+  </data>
   <data name="EnvironmentBindingValueInvalid" xml:space="preserve">
     <value>&lt;environment&gt; Bindings müssen entweder ein 'value' oder ein 'insert' Attribut enthalten.</value>
   </data>
