@@ -115,7 +115,6 @@ namespace ZeroInstall.Publish
                 },
                 actual: signedFeed.Feed.Elements);
             CollectionAssert.AreEqual(expected: _builder.Icons, actual: signedFeed.Feed.Icons);
-            CollectionAssert.IsEmpty(signedFeed.Feed.EntryPoints, "Should not generate entry points if there is only a single command");
             Assert.AreEqual(expected: _builder.SecretKey, actual: signedFeed.SecretKey);
         }
 

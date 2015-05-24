@@ -150,7 +150,6 @@ namespace ZeroInstall.Publish
             _entryPoints.Add(new EntryPoint
             {
                 Command = Command.NameRun,
-                Names = {MainCandidate.Name},
                 BinaryName = Path.GetFileNameWithoutExtension(MainCandidate.RelativePath)
             });
 
@@ -266,7 +265,7 @@ namespace ZeroInstall.Publish
             };
             feed.Icons.AddRange(_icons);
             if (!string.IsNullOrEmpty(MainCandidate.Category)) feed.Categories.Add(new Category {Name = MainCandidate.Category});
-            if (_commands.Count > 1) feed.EntryPoints.AddRange(_entryPoints);
+            feed.EntryPoints.AddRange(_entryPoints);
             if (CapabilityList != null && CapabilityList.Entries.Count != 0) feed.CapabilityLists.Add(CapabilityList);
 
             return new SignedFeed(feed, SecretKey);
