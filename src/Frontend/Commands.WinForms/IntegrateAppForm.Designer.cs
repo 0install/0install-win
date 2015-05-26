@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IntegrateAppForm));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageStartMenu = new System.Windows.Forms.TabPage();
@@ -117,6 +118,7 @@
             this.labelDefaultProgramsSimple = new System.Windows.Forms.Label();
             this.buttonBasicMode = new System.Windows.Forms.Button();
             this.panelBasic = new System.Windows.Forms.Panel();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl.SuspendLayout();
             this.tabPageStartMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStartMenu)).BeginInit();
@@ -701,6 +703,7 @@
             // 
             resources.ApplyResources(this.checkBoxCapabilities, "checkBoxCapabilities");
             this.checkBoxCapabilities.Name = "checkBoxCapabilities";
+            this.toolTip.SetToolTip(this.checkBoxCapabilities, resources.GetString("checkBoxCapabilities.ToolTip"));
             this.checkBoxCapabilities.UseVisualStyleBackColor = true;
             // 
             // checkBoxAutoUpdate
@@ -708,6 +711,7 @@
             resources.ApplyResources(this.checkBoxAutoUpdate, "checkBoxAutoUpdate");
             this.checkBoxAutoUpdate.Name = "checkBoxAutoUpdate";
             this.checkBoxAutoUpdate.Tag = "";
+            this.toolTip.SetToolTip(this.checkBoxAutoUpdate, resources.GetString("checkBoxAutoUpdate.ToolTip"));
             this.checkBoxAutoUpdate.UseVisualStyleBackColor = true;
             // 
             // labelLastDataError
@@ -1024,5 +1028,6 @@
         private System.Windows.Forms.Label labelAutoPlaySimple;
         private System.Windows.Forms.Label labelContextMenuSimple;
         private System.Windows.Forms.Label labelDefaultProgramsSimple;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

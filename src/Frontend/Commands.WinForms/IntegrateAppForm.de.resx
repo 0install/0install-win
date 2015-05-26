@@ -204,6 +204,9 @@
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
     <value>Fähigkeiten &amp;registrieren</value>
   </data>
+  <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
+    <value>Teilt dem Betriebsystem die Fähigeit der Anwendung, z.B. die Dateitypen die sie behandeln kann, mit.</value>
+  </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
     <value>&amp;Erweiterte Einstellungen</value>
   </data>
@@ -272,6 +275,9 @@
   </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
     <value>Auto &amp;Update</value>
+  </data>
+  <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
+    <value>Nimmt diese Anwendung in "Alle aktualisieren" Durchläufen mit auf.</value>
   </data>
   <data name="checkBoxDesktopSimple.Text" xml:space="preserve">
     <value>Desktop</value>
