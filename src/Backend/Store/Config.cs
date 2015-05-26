@@ -108,9 +108,9 @@ namespace ZeroInstall.Store
         private Uri _feedMirror = new Uri(DefaultFeedMirror);
 
         /// <summary>
-        /// The base URL of a mirror site for keys and feeds.
+        /// The mirror server used to provide feeds when the original server is unavailable.
         /// </summary>
-        [DefaultValue(typeof(Uri), DefaultFeedMirror), Category("Sources"), DisplayName(@"Feed mirror"), Description("The base URL of a mirror site for keys and feeds.")]
+        [DefaultValue(typeof(Uri), DefaultFeedMirror), Category("Sources"), DisplayName(@"Feed mirror"), Description("The mirror server used to provide feeds when the original server is unavailable.")]
         public Uri FeedMirror { get { return _feedMirror; } set { _feedMirror = (value == null ? null : value.ReparseAsAbsolute()); } }
 
         /// <summary>
@@ -121,9 +121,9 @@ namespace ZeroInstall.Store
         private Uri _keyInfoServer = new Uri(DefaultKeyInfoServer);
 
         /// <summary>
-        /// The base URL of a key information server.
+        /// The key information server used to get information about who signed a feed.
         /// </summary>
-        [DefaultValue(typeof(Uri), DefaultKeyInfoServer), Category("Sources"), DisplayName(@"Key info server"), Description("The base URL of a key information server.")]
+        [DefaultValue(typeof(Uri), DefaultKeyInfoServer), Category("Sources"), DisplayName(@"Key info server"), Description("The key information server used to get information about who signed a feed.")]
         public Uri KeyInfoServer { get { return _keyInfoServer; } set { _keyInfoServer = (value == null ? null : value.ReparseAsAbsolute()); } }
 
         /// <summary>
@@ -147,11 +147,11 @@ namespace ZeroInstall.Store
         private Uri _syncServer = new Uri(DefaultSyncServer);
 
         /// <summary>
-        /// The base URL of the sync server.
+        /// The sync server used to synchronize your app list between multiple computers.
         /// </summary>
         /// <seealso cref="SyncServerUsername"/>
         /// <seealso cref="SyncServerPassword"/>
-        [DefaultValue(typeof(Uri), DefaultSyncServer), Category("Sync"), DisplayName(@"Server"), Description("The base URL of the sync server.")]
+        [DefaultValue(typeof(Uri), DefaultSyncServer), Category("Sync"), DisplayName(@"Server"), Description("The sync server used to synchronize your app list between multiple computers.")]
         public Uri SyncServer { get { return _syncServer; } set { _syncServer = (value == null ? null : value.ReparseAsAbsolute()); } }
 
         private string _syncServerUsername = "";
