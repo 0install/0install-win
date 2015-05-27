@@ -1,5 +1,6 @@
-This folder contains an Inno Setup Script for creating a Windows installer.
-The resulting installer executable is placed in ..\build\Setup.
+This folder contains an Inno Setup Script for creating an installer.
+It also contains a WiX project that creates a thin MSI wrapper around the EXE installer for use in cases where an MSI is mandated.
+The resulting installer binaries are placed in ..\build\Setup.
 
 The "build.cmd" script assumes "..\src\build.cmd Release" has already been executed.
 An external solver must be located at ..\bundled. Please consult the main "readme.txt" for details on how to get this.

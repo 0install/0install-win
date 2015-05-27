@@ -13,3 +13,4 @@ test-results/
 *.*proj.DotSettings
 *.resources
 *.filtered.resx
+*.wixobj

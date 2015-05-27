@@ -1,0 +1,3 @@
+This file instructs Zero Install to run in portable mode.
+When this file is detected Zero Install stores all its files in its installation directory instead of the usual system directories.
+See https://0install.de/docs/portable/ for details.

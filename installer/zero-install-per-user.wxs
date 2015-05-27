@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="Zero Install (per-user)" Language="1033" Version="1.0" Manufacturer="0install.de" UpgradeCode="a4bc5e7f-527d-4897-95da-c8efd049f96e">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perUser" Description="Zero Install is a cross-platform, decentralised installation system." />
+    <MajorUpgrade AllowDowngrades="yes" />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="none" />
+
+    <!-- Hide uninstall entry in Control Panel because the EXE installer will create its own -->
+    <Property Id="ARPSYSTEMCOMPONENT" Value="1" />
+
+    <!-- Extract EXE installer to temp dir -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="LocalAppDataFolder">
+        <Directory Id="INSTALLLOCATION" Name="0install.net-deployment">
+          <Component Id="WrappedExe" DiskId="1">
+            <File Id="File0" Name="zero-install-per-user.exe" Source="..\build\Installer\zero-install-per-user.exe" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+    <Feature Id="InstallZeroInstall" Title="Install Zero Install" Level="1">
+      <ComponentRef Id="WrappedExe" />
+    </Feature>
+
+    <!-- Run extracted EXE installer on MSI install and repair -->
+    <CustomAction Id="RunWrappedExe" Return="check" Execute="deferred" FileKey="File0" ExeCommand="/verysilent /norestart /mergetasks=!desktopicon" HideTarget="no" Impersonate="yes" />
+    <InstallExecuteSequence>
+      <Custom Action="RunWrappedExe" After="InstallFiles">NOT REMOVE~="ALL"</Custom>
+    </InstallExecuteSequence>
+  </Product>
+</Wix>
