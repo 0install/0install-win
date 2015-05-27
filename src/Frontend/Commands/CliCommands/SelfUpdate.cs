@@ -93,16 +93,24 @@ namespace ZeroInstall.Commands.CliCommands
                 Solve();
             }
                 #region Error handling
-            catch (WebException)
+            catch (WebException ex)
             {
-                // Supress network-related error messages on background downloads
-                if (Handler.Background) return ExitCode.WebError;
+                if (Handler.Background)
+                {
+                    Log.Info("Suppressed network-related error message due to background mode");
+                    Log.Info(ex);
+                    return ExitCode.WebError;
+                }
                 else throw;
             }
-            catch (SolverException)
+            catch (SolverException ex)
             {
-                // Supress network-related error messages on background downloads
-                if (Handler.Background) return ExitCode.SolverError;
+                if (Handler.Background)
+                {
+                    Log.Info("Suppressed Solver-related error message due to background mode");
+                    Log.Info(ex);
+                    return ExitCode.SolverError;
+                }
                 else throw;
             }
             #endregion
