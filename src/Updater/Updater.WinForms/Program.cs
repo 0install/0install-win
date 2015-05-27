@@ -53,7 +53,7 @@ namespace ZeroInstall.Updater.WinForms
 
             try
             {
-                var updateProcess = new UpdateProcess(args[0], args[1], args[2]);
+                var updateProcess = new UpdateProcess(source: args[0], newVersion: args[1], target: args[2]);
                 Application.Run(new MainForm(updateProcess, rerun, restartCentral));
             }
                 #region Error handling

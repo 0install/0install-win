@@ -63,73 +63,24 @@ namespace ZeroInstall.Updater.WinForms
             backgroundWorker.RunWorkerAsync();
         }
 
-        //--------------------//
-
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
-                SetStatus(Resources.StopService);
-                bool serviceWasRunning = _updateProcess.ServiceStop();
-
-                SetStatus(Resources.MutexWait);
-                _updateProcess.RestartManagerShutdown();
-                _updateProcess.MutexAquire();
-
-                SetStatus(Resources.CopyFiles);
-                Retry:
-                try
-                {
-                    _updateProcess.FilesCopy();
-                }
-                    #region Error handling
-                catch (IOException ex)
-                {
-                    // If already admin, ask whether to retry
-                    if (WindowsUtils.IsAdministrator && Msg.YesNo(this, ex.Message + "\n" + Resources.TryAgain, MsgSeverity.Error)) goto Retry;
-                    else throw;
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    // If already admin, ask whether to retry
-                    if (WindowsUtils.IsAdministrator && Msg.YesNo(this, ex.Message + "\n" + Resources.TryAgain, MsgSeverity.Error)) goto Retry;
-                    else throw;
-                }
-                #endregion
-
-                SetStatus(Resources.DeleteFiles);
-                _updateProcess.FilesDelete();
-
-                SetStatus(Resources.RunNgen);
-                _updateProcess.Ngen();
-
-                SetStatus(Resources.UpdateRegistry);
-                _updateProcess.Registry();
-
-                SetStatus(Resources.StartService);
-                _updateProcess.MutexRelease();
-                _updateProcess.RestartManagerRestart();
-                _updateProcess.RestartManagerFinish();
-                if (serviceWasRunning) _updateProcess.ServiceStart();
-
-                SetStatus(Resources.Done);
+                _updateProcess.Run(ReportStatus);
             }
             catch (UnauthorizedAccessException ex)
             {
-                // Release resources in case the child process needs them
-                _updateProcess.MutexRelease();
-                _updateProcess.RestartManagerFinish();
-
-                // Do not try to elevate endlessly
+                // Do not try to elevate in an infinite loop
                 if (_rerun || WindowsUtils.IsAdministrator) throw;
 
                 Log.Info("Elevation request triggered by:");
-                Log.Warn(ex);
+                Log.Info(ex);
 
-                SetStatus(Resources.RerunElevated);
+                ReportStatus(Resources.RerunElevated);
                 RerunElevated();
 
-                SetStatus(Resources.Done);
+                ReportStatus(Resources.Done);
             }
         }
 
@@ -137,12 +88,12 @@ namespace ZeroInstall.Updater.WinForms
         {
             if (e.Error != null)
             {
-                if (e.Error is IOException || e.Error is UnauthorizedAccessException || e.Error is InvalidOperationException)
-                { // Expected error
+                if (e.Error is UnauthorizedAccessException || e.Error is IOException || e.Error is InvalidOperationException)
+                { // Expected exception type
                     Msg.Inform(null, (e.Error.InnerException ?? e.Error).Message, MsgSeverity.Error);
                 }
                 else
-                { // Unexpected error
+                { // Unexpected exception type
                     ErrorReportForm.Report(e.Error, new Uri("https://0install.de/error-report/"));
                 }
             }
@@ -156,7 +107,7 @@ namespace ZeroInstall.Updater.WinForms
         /// Changes the current status message displayed to the user.
         /// </summary>
         /// <param name="message">The message to display to the user.</param>
-        private void SetStatus(string message)
+        private void ReportStatus(string message)
         {
             Invoke(new Action(() => labelStatus.Text = message));
         }

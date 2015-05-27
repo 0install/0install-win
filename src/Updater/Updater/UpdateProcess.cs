@@ -99,7 +99,55 @@ namespace ZeroInstall.Updater
             if (!Directory.Exists(Source)) throw new DirectoryNotFoundException(Resources.SourceMissing);
         }
 
-        //--------------------//
+        /// <summary>
+        /// Runs the update process.
+        /// </summary>
+        /// <param name="reportStatus">Callback used to report the current status to the user.</param>
+        /// <exception cref="UnauthorizedAccessException">Access to a resource was denied. Retrying as admin may help.</exception>
+        /// <exception cref="IOException">An IO operation failed.</exception>
+        /// <exception cref="InvalidOperationException">A generic error occured.</exception>
+        public void Run(Action<string> reportStatus)
+        {
+            #region Sanity checks
+            if (reportStatus == null) throw new ArgumentNullException("reportStatus");
+            #endregion
+
+            try
+            {
+                reportStatus(Resources.StopService);
+                bool serviceWasRunning = ServiceStop();
+
+                reportStatus(Resources.MutexWait);
+                RestartManagerShutdown();
+                MutexAquire();
+
+                reportStatus(Resources.CopyFiles);
+                FilesCopy();
+
+                reportStatus(Resources.DeleteFiles);
+                FilesDelete();
+
+                reportStatus(Resources.RunNgen);
+                Ngen();
+
+                reportStatus(Resources.UpdateRegistry);
+                Registry();
+
+                reportStatus(Resources.StartService);
+                MutexRelease();
+                RestartManagerRestart();
+                RestartManagerFinish();
+                if (serviceWasRunning) ServiceStart();
+
+                reportStatus(Resources.Done);
+            }
+            catch
+            {
+                MutexRelease();
+                RestartManagerFinish();
+                throw;
+            }
+        }
 
         #region Service
         /// <summary>
@@ -107,7 +155,7 @@ namespace ZeroInstall.Updater
         /// </summary>
         /// <returns><see langword="true"/> if the service was running; <see langword="false"/> otherwise.</returns>
         /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
-        public bool ServiceStop()
+        private bool ServiceStop()
         {
             // Do not touch the service in portable mode
             if (IsPortable) return false;
@@ -134,7 +182,7 @@ namespace ZeroInstall.Updater
         /// </summary>
         /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
         /// <remarks>Must call this after <see cref="MutexRelease"/>.</remarks>
-        public void ServiceStart()
+        private void ServiceStart()
         {
             if (!WindowsUtils.IsAdministrator) throw new UnauthorizedAccessException();
 
@@ -155,7 +203,7 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// Waits for any Zero Install instances running in <see cref="Target"/> to terminate and then prevents new ones from starting.
         /// </summary>
-        public void MutexAquire()
+        private void MutexAquire()
         {
             // Installation paths are encoded into mutex names to allow instance detection
             // Support old versions that used SHA256 or MD5 for mutex names
@@ -188,7 +236,7 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// Counterpart to <see cref="MutexAquire"/>.
         /// </summary>
-        public void MutexRelease()
+        private void MutexRelease()
         {
             if (_blockingMutexOld != null) _blockingMutexOld.Close();
             if (_blockingMutexNew != null) _blockingMutexNew.Close();
@@ -202,30 +250,20 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// Uses the <see cref="WindowsRestartManager"/> to shut down applications holding references to files we want to update.
         /// </summary>
-        public void RestartManagerShutdown()
+        private void RestartManagerShutdown()
         {
             if (!WindowsUtils.IsWindowsVista) return;
 
             _restartManager = new WindowsRestartManager();
-            try
-            {
-                _restartManager.RegisterResources(GetFilesToWrite());
-                _restartManager.RegisterResources(GetFilesToDelete());
-                _restartManager.ShutdownApps(new SilentTaskHandler());
-            }
-                #region Error handling
-            catch
-            {
-                _restartManager.Dispose();
-                throw;
-            }
-            #endregion
+            _restartManager.RegisterResources(GetFilesToWrite());
+            _restartManager.RegisterResources(GetFilesToDelete());
+            _restartManager.ShutdownApps(new SilentTaskHandler());
         }
 
         /// <summary>
         /// Uses the <see cref="WindowsRestartManager"/> to restart applications closed by <see cref="RestartManagerShutdown"/>
         /// </summary>
-        public void RestartManagerRestart()
+        private void RestartManagerRestart()
         {
             if (_restartManager == null) return;
 
@@ -235,7 +273,7 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// Closes any open <see cref="WindowsRestartManager"/> sessions.
         /// </summary>
-        public void RestartManagerFinish()
+        private void RestartManagerFinish()
         {
             if (_restartManager == null) return;
 
@@ -249,7 +287,7 @@ namespace ZeroInstall.Updater
         /// Copies the content of <see cref="Source"/> to <see cref="Target"/>.
         /// </summary>
         /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
-        public void FilesCopy()
+        private void FilesCopy()
         {
             try
             {
@@ -278,7 +316,7 @@ namespace ZeroInstall.Updater
         /// Deletes obsolete files from <see cref="Target"/>.
         /// </summary>
         /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
-        public void FilesDelete()
+        private void FilesDelete()
         {
             foreach (string file in GetFilesToDelete())
                 File.Delete(file);
@@ -337,7 +375,7 @@ namespace ZeroInstall.Updater
         /// <summary>
         /// Runs ngen in the background to pre-compile new/updated .NET assemblies.
         /// </summary>
-        public void Ngen()
+        private void Ngen()
         {
             // Do not run Ngen in portable mode
             if (IsPortable) return;
@@ -364,7 +402,7 @@ namespace ZeroInstall.Updater
         /// Update the registry entries.
         /// </summary>
         /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
-        public void Registry()
+        private void Registry()
         {
             // Do not run touch registry in portable mode
             if (IsPortable) return;
@@ -391,7 +429,6 @@ namespace ZeroInstall.Updater
         }
         #endregion
 
-        #region Central
         /// <summary>
         /// Restarts the "0install central" GUI.
         /// </summary>
@@ -410,6 +447,5 @@ namespace ZeroInstall.Updater
             }
             #endregion
         }
-        #endregion
     }
 }

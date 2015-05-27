@@ -142,15 +142,6 @@ namespace ZeroInstall.Updater.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Try again?.
-        /// </summary>
-        public static string TryAgain {
-            get {
-                return ResourceManager.GetString("TryAgain", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Updating registry....
         /// </summary>
         public static string UpdateRegistry {
