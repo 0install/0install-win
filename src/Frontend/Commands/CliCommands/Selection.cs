@@ -124,16 +124,24 @@ namespace ZeroInstall.Commands.CliCommands
         {
             base.Parse(args);
 
-            Requirements.InterfaceUri = GetCanonicalUri(AdditionalArgs[0]);
+            SetInterfaceUri(GetCanonicalUri(AdditionalArgs[0]));
             AdditionalArgs.RemoveAt(0);
+
+            if (Requirements.InterfaceUri.IsFile && File.Exists(Requirements.InterfaceUri.LocalPath))
+                TryParseSelectionsDocument();
+        }
+
+        /// <summary>
+        /// Sets <see cref="Store.Model.Requirements.InterfaceUri"/> and applies <see cref="Requirements"/> options that need to be deferred to the end of the parsing process.
+        /// </summary>
+        protected void SetInterfaceUri(FeedUri uri)
+        {
+            Requirements.InterfaceUri = uri;
 
             if (_version != null)
                 Requirements.ExtraRestrictions[Requirements.InterfaceUri] = _version;
             else if (_notBefore != null || _before != null)
                 Requirements.ExtraRestrictions[Requirements.InterfaceUri] = new VersionRange(_notBefore, _before);
-
-            if (Requirements.InterfaceUri.IsFile && File.Exists(Requirements.InterfaceUri.LocalPath))
-                TryParseSelectionsDocument();
         }
 
         /// <inheritdoc/>

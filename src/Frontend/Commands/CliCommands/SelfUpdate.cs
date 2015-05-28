@@ -73,9 +73,11 @@ namespace ZeroInstall.Commands.CliCommands
         /// <inheritdoc/>
         public override void Parse(IEnumerable<string> args)
         {
+            // NOTE: Does not call base method
+
             if (Options.Parse(args).Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs.JoinEscapeArguments(), "");
 
-            Requirements.InterfaceUri = Config.SelfUpdateUri;
+            SetInterfaceUri(Config.SelfUpdateUri);
 
             // Pass in the installation directory to the updater as an argument
             AdditionalArgs.Add(Locations.InstallBase);
