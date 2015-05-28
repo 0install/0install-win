@@ -5,12 +5,18 @@ Directory structure
 - The directory `lib` contains pre-compiled 3rd party libraries which are not available via NuGet.
 - The directory `doc` contains scripts for generating source code and developer documentation.
 - The directory `modeling` contains UML and other diagrams.
-- The directory `installer` contains scripts for creating a Windows installer.
+- The directory `nuget` contains NuGet spec files used to generate NuGet packages for Zero Install.
+- The directory `installer` contains scripts for creating a Windows installer for Zero Install.
 - The directory `bundled` contains a portable GnuPG distribution (Windows only) and an external solver (all platforms).
 - The directory `build` contains the results of various compilation processes. It is created on first usage. It can contain the following subdirectories:
-  - Backend: Contains the libraries forming the Zero Install Backend.
-  - Frontend: Contains the executables for the Zero Install Frontend plus all required libraries (including the Backend).
-  - Tools: Contains the executables for Zero Install Tools such as the Feed Editor plus all required libraries (including the Backend).
+  - Debug: Contains Debug builds produced from the source code.
+  - Release: Contains Release builds produced from the source code.
+    - Backend: Contains the libraries forming the Zero Install Backend.
+    - Frontend: Contains the executables for the Zero Install Frontend plus all required libraries (including the Backend).
+    - Tools: Contains the executables for Zero Install Tools such as the Feed Editor plus all required libraries (including the Backend).
+    - Updater: Contains the executables for the Zero Install self-updater.
+    - Samples: Contains the executables for the Zero Install API samples.
+  - Packages: Contains the generated NuGet packages.
   - Installer: Contains the generated installers.
   - Documentation: Contains the generated source code documentation.
 - The top-level directory contains local Zero Install feeds referencing the contents of the `build` directory. They can be registered with `0install add-feed` in order to replace the online versions of Zero Install and its tools with your local builds.
@@ -26,7 +32,7 @@ Windows
 The external solver (required) is not included in the repository. To get it run `bundled/download-solver.ps1`.
 
 `build.cmd` will call build scripts in subdirectories to create a Zero Install for Windows installer in `build/Frontend/Installer`.
-Note: Please read `installer/readme.txt` aswell for information about required tools.
+Note: Please read `installer/readme.txt` as well for information about required tools.
 
 `cleanup.cmd` will delete any temporary files created by the build process or Visual Studio.
 
