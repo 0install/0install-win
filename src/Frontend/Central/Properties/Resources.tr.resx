@@ -213,10 +213,10 @@ Değişiklikleri kaydet</value>
     <value>{0} için komut seçin</value>
   </data>
   <data name="SelectCommandButton" xml:space="preserve">
-    <value>&amp;Komut seçin</value>
+    <value>&amp;Komut seç</value>
   </data>
   <data name="SelectVersionButton" xml:space="preserve">
-    <value>&amp;Sürüm seçin</value>
+    <value>&amp;Sürüm seç</value>
   </data>
   <data name="SelfUpdateAvailable" xml:space="preserve">
     <value>Zero Install v{0} sürümü kullanılabilir. Yüklemek için tıklatın.</value>

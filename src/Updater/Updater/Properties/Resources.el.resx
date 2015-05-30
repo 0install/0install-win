@@ -144,9 +144,6 @@
   <data name="StopService" xml:space="preserve">
     <value>Διακοπή Zero Install Υπηρεσίας...</value>
   </data>
-  <data name="TryAgain" xml:space="preserve">
-    <value>Δοκιμη ξανά;</value>
-  </data>
   <data name="UpdateRegistry" xml:space="preserve">
     <value>Ενημέρωση μητρώου...</value>
   </data>

@@ -240,8 +240,14 @@
   <data name="checkBoxCapabilities.Text" xml:space="preserve">
     <value>&amp;Yetenekleri kaydet</value>
   </data>
+  <data name="checkBoxCapabilities.ToolTip" xml:space="preserve">
+    <value>İşlenecek dosya tipleri gibi uygulama özelliklerini işletim sistemine iletir.</value>
+  </data>
   <data name="checkBoxAutoUpdate.Text" xml:space="preserve">
     <value>Otomatik &amp;Güncelleştir</value>
+  </data>
+  <data name="checkBoxAutoUpdate.ToolTip" xml:space="preserve">
+    <value>Bu uygulama &quot;Tümünü güncelleştir&quot; denetimlerine katılsın.</value>
   </data>
   <data name="buttonAdvancedMode.Text" xml:space="preserve">
     <value>Gelişmiş a&amp;yarlar</value>

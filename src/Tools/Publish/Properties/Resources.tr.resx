@@ -141,6 +141,9 @@ Bunu yaparsanız Zero Install katalogdaki uygulama simgelerini yer tutan genel b
     <value>Ayarları tamamlamadan devam etmek istediğinize emin misiniz?
 Bunu yaparsanız akışınız yerel kipte ve çevrimdışı olarak çalışacaktır.</value>
   </data>
+  <data name="CreatingZip" xml:space="preserve">
+    <value>{0} ZIP arşivi oluşturuluyor</value>
+  </data>
   <data name="DetectingCandidates" xml:space="preserve">
     <value>Yürütülebilir dosyalar aranıyor</value>
   </data>

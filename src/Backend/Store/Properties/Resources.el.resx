@@ -360,9 +360,6 @@
   <data name="SelectionCandidateNoteVersionMismatch" xml:space="preserve">
     <value>Η εκδοση εφαρμογής ειναι πολύ παλιά ή πολύ νέα</value>
   </data>
-  <data name="SelectionCandidateNoteWrongLanguage" xml:space="preserve">
-    <value>Λάθος γλώσσα</value>
-  </data>
   <data name="SignatureAldreadyExists" xml:space="preserve">
     <value>Η υπογραφή αρχείου υπάρχει ήδη.</value>
   </data>

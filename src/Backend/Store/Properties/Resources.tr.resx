@@ -360,9 +360,6 @@ FAT dosya sistemi ile biçimlendirilmiş bir sürücü kullanıyorsanız lütfen
   <data name="SelectionCandidateNoteVersionMismatch" xml:space="preserve">
     <value>Uygulama sürümü çok eski ya da çok yeni</value>
   </data>
-  <data name="SelectionCandidateNoteWrongLanguage" xml:space="preserve">
-    <value>Dil doğru değil</value>
-  </data>
   <data name="SignatureAldreadyExists" xml:space="preserve">
     <value>İmza dosyası zaten var.</value>
   </data>

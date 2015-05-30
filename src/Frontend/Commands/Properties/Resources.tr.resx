@@ -509,6 +509,10 @@ Metin kipinde bir etkisi yoktur.</value>
   <data name="OptionIntegrateRemoveAll" xml:space="preserve">
     <value>Tüm erişim noktalarını kaldırın.</value>
   </data>
+  <data name="OptionLanguage" xml:space="preserve">
+    <value>Uygulama için yeğlenen dili belirler. ISO kısa dil kodlarını kullanın (en ya da en-US gibi).
+Birden çok dil için bu seçenek birden çok kez kullanılabilir.</value>
+  </data>
   <data name="OptionMachine" xml:space="preserve">
     <value>Ayarları geçerli kullanıcı yerine makine çapında (tüm bilgisayar için) uygular.</value>
   </data>
@@ -694,5 +698,8 @@ Bu anahtarı gizleyin ve parolanızdan farklı olmasına özen gösterin. Böyle
   </data>
   <data name="Working" xml:space="preserve">
     <value>Çalışıyor</value>
+  </data>
+  <data name="UseSystemLanguage" xml:space="preserve">
+    <value>Sistem dili kullanılsın</value>
   </data>
 </root>

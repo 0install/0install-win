@@ -117,29 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonUpdateAllClean.Text" xml:space="preserve">
-    <value>Ενημέρωση και εκκαθαριση</value>
-  </data>
-  <data name="buttonUpdateAll.Text" xml:space="preserve">
-    <value>Ενημέρωση όλων</value>
-  </data>
   <data name="butonSyncSetup.Text" xml:space="preserve">
     <value>Εγκατάσταση</value>
   </data>
   <data name="buttonSyncTroubleshoot.Text" xml:space="preserve">
     <value>Αντιμετώπιση Προβλημάτων</value>
-  </data>
-  <data name="buttonSync.Text" xml:space="preserve">
-    <value>Συγχρονισμός</value>
-  </data>
-  <data name="tabPageAppList.Text" xml:space="preserve">
-    <value>Οι εφαρμογές μου</value>
-  </data>
-  <data name="labelLoadingCatalog.Text" xml:space="preserve">
-    <value>Φόρτωση καταλόγου από το διακομιστή...</value>
-  </data>
-  <data name="buttonMoreApps.Text" xml:space="preserve">
-    <value>Περισσότερες εφαρμογές</value>
   </data>
   <data name="buttonRefreshCatalog.Text" xml:space="preserve">
     <value>Ανανέωση λίστας</value>
@@ -147,22 +129,40 @@
   <data name="tabPageCatalog.Text" xml:space="preserve">
     <value>Κατάλογος</value>
   </data>
-  <data name="buttonOptions.Text" xml:space="preserve">
-    <value>Επιλογές</value>
+  <data name="tabPageAppList.Text" xml:space="preserve">
+    <value>Οι εφαρμογές μου</value>
   </data>
-  <data name="buttonStoreAudit.Text" xml:space="preserve">
-    <value>Έλεγχος για σφάλματα</value>
+  <data name="buttonHelp.Text" xml:space="preserve">
+    <value>Βοήθεια</value>
   </data>
-  <data name="buttonStoreOptimise.Text" xml:space="preserve">
-    <value>Συγχώνευση διπλότυπων</value>
+  <data name="buttonSync.Text" xml:space="preserve">
+    <value>Συγχρονισμός</value>
+  </data>
+  <data name="labelLoadingCatalog.Text" xml:space="preserve">
+    <value>Φόρτωση καταλόγου από το διακομιστή...</value>
   </data>
   <data name="buttonStoreManage.Text" xml:space="preserve">
     <value>Διαχείριση μνήμης cache</value>
   </data>
+  <data name="buttonStoreOptimise.Text" xml:space="preserve">
+    <value>Συγχώνευση διπλότυπων</value>
+  </data>
+  <data name="buttonOptions.Text" xml:space="preserve">
+    <value>Επιλογές</value>
+  </data>
+  <data name="buttonUpdateAllClean.Text" xml:space="preserve">
+    <value>Ενημέρωση και εκκαθαριση</value>
+  </data>
+  <data name="buttonUpdateAll.Text" xml:space="preserve">
+    <value>Ενημέρωση όλων</value>
+  </data>
+  <data name="buttonMoreApps.Text" xml:space="preserve">
+    <value>Περισσότερες εφαρμογές</value>
+  </data>
   <data name="buttonIntro.Text" xml:space="preserve">
     <value>Εισαγωγικό Βίντεο</value>
   </data>
-  <data name="buttonHelp.Text" xml:space="preserve">
-    <value>Βοήθεια</value>
+  <data name="buttonStoreAudit.Text" xml:space="preserve">
+    <value>Έλεγχος για σφάλματα</value>
   </data>
 </root>

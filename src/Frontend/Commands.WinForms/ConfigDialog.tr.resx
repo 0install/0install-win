@@ -207,6 +207,18 @@
   <data name="tabPageAdvanced.Text" xml:space="preserve">
     <value>Gelişmiş</value>
   </data>
+  <data name="labelLanguage.Text" xml:space="preserve">
+    <value>Bu seçenek şu dilleri etkiler:
+- Zero Install dili
+- Zero Install tarafından indirilen uygulamalar
+
+Notlar:
+- Tüm diller için çeviri bulunamayabilir
+- Dil değişikliğinin geçerli olması için Zero Install yeniden başlatılmalıdır.</value>
+  </data>
+  <data name="tabLanguage.Text" xml:space="preserve">
+    <value>Dil</value>
+  </data>
   <data name="implDirBrowserDialog.Description" xml:space="preserve">
     <value>Lütfen uygulama önbelleği olarak kullanılacak bir klasör seçin ya da oluşturun.</value>
   </data>
