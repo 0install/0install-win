@@ -18,7 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using NanoByte.Common.Collections;
 
 namespace ZeroInstall.Store.Model.Capabilities
@@ -43,7 +45,6 @@ namespace ZeroInstall.Store.Model.Capabilities
         public const string XsdLocation = XmlNamespace + "/capabilities.xsd";
         #endregion
 
-        #region Properties
         /// <summary>
         /// Determines for which operating system the <see cref="Capability"/>s are applicable.
         /// </summary>
@@ -59,7 +60,23 @@ namespace ZeroInstall.Store.Model.Capabilities
         [Browsable(false)]
         [XmlElement(typeof(AppRegistration)), XmlElement(typeof(AutoPlay)), XmlElement(typeof(ComServer)), XmlElement(typeof(ContextMenu)), XmlElement(typeof(DefaultProgram)), XmlElement(typeof(FileType)), XmlElement(typeof(UrlProtocol))]
         public List<Capability> Entries { get { return _entries; } }
-        #endregion
+
+        /// <summary>
+        /// Retrieves the first <see cref="Capability"/> that matches a specific type and ID. Safe for missing elements.
+        /// </summary>
+        /// <typeparam name="T">The capability type to match.</typeparam>
+        /// <param name="id">The <see cref="Capability.ID"/> to match.</param>
+        /// <returns>The first matching <see cref="Capability"/>; <see langword="null"/> if no match was found.</returns>
+        /// <exception cref="KeyNotFoundException">No capability matching <paramref name="id"/> and <typeparamref name="T"/> was found.</exception>
+        [CanBeNull]
+        public T GetCapability<T>([NotNull] string id) where T : Capability
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+            #endregion
+
+            return _entries.OfType<T>().FirstOrDefault(specificCapability => specificCapability.ID == id);
+        }
 
         //--------------------//
 
