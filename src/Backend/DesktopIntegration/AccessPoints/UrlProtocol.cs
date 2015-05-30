@@ -41,7 +41,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Store.Model.Capabilities.UrlProtocol>(Capability);
+            var capability = appEntry.LookupCapability<Store.Model.Capabilities.UrlProtocol>(Capability);
             if (capability.KnownPrefixes.Count == 0) return new[] {"protocol:" + capability.ID};
             return capability.KnownPrefixes.Select(prefix => "protocol:" + prefix.Value);
         }
@@ -56,7 +56,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var capability = appEntry.GetCapability<Store.Model.Capabilities.UrlProtocol>(Capability);
+            var capability = appEntry.LookupCapability<Store.Model.Capabilities.UrlProtocol>(Capability);
             var target = new FeedTarget(appEntry.InterfaceUri, feed);
             if (WindowsUtils.IsWindows) Windows.UrlProtocol.Register(target, capability, machineWide, handler, accessPoint: true);
         }
@@ -68,7 +68,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Store.Model.Capabilities.UrlProtocol>(Capability);
+            var capability = appEntry.LookupCapability<Store.Model.Capabilities.UrlProtocol>(Capability);
             if (WindowsUtils.IsWindows) Windows.UrlProtocol.Unregister(capability, machineWide, accessPoint: true);
         }
         #endregion

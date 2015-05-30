@@ -40,7 +40,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Store.Model.Capabilities.ContextMenu>(Capability);
+            var capability = appEntry.LookupCapability<Store.Model.Capabilities.ContextMenu>(Capability);
             return new[] {"context-menu-" + capability.Target + ":" + capability.ID + @"\" + capability.Verb};
         }
         #endregion
@@ -54,7 +54,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var capability = appEntry.GetCapability<Store.Model.Capabilities.ContextMenu>(Capability);
+            var capability = appEntry.LookupCapability<Store.Model.Capabilities.ContextMenu>(Capability);
             var target = new FeedTarget(appEntry.InterfaceUri, feed);
             if (WindowsUtils.IsWindows) Windows.ContextMenu.Apply(target, capability, machineWide, handler);
             else if (UnixUtils.IsUnix) Unix.ContextMenu.Apply(target, capability, machineWide, handler);
@@ -67,7 +67,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Store.Model.Capabilities.ContextMenu>(Capability);
+            var capability = appEntry.LookupCapability<Store.Model.Capabilities.ContextMenu>(Capability);
             if (WindowsUtils.IsWindows) Windows.ContextMenu.Remove(capability, machineWide);
             else if (UnixUtils.IsUnix) Unix.ContextMenu.Remove(capability, machineWide);
         }

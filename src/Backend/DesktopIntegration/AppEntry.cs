@@ -142,10 +142,10 @@ namespace ZeroInstall.DesktopIntegration
         /// </summary>
         /// <typeparam name="T">The capability type to match.</typeparam>
         /// <param name="id">The <see cref="Capability.ID"/> to match.</param>
-        /// <returns>The first matching <see cref="Capability"/> or <see langword="null"/> if none was found.</returns>
+        /// <returns>The first matching <see cref="Capability"/>.</returns>
         /// <exception cref="KeyNotFoundException">No capability matching <paramref name="id"/> and <typeparamref name="T"/> was found.</exception>
         [NotNull]
-        public T GetCapability<T>([NotNull] string id) where T : Capability
+        public T LookupCapability<T>([NotNull] string id) where T : Capability
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");

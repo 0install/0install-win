@@ -72,7 +72,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (!string.IsNullOrEmpty(ID))
             {
                 // Trigger exceptions in case invalid capabilities are referenced
-                appEntry.GetCapability<Store.Model.Capabilities.FileType>(Capability);
+                appEntry.LookupCapability<Store.Model.Capabilities.FileType>(Capability);
             }
 
             if (!string.IsNullOrEmpty(ApplyFlagPath)) FileUtils.Touch(ApplyFlagPath);
@@ -88,7 +88,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (!string.IsNullOrEmpty(ID))
             {
                 // Trigger exceptions in case invalid capabilities are referenced
-                appEntry.GetCapability<Store.Model.Capabilities.FileType>(Capability);
+                appEntry.LookupCapability<Store.Model.Capabilities.FileType>(Capability);
             }
 
             if (!string.IsNullOrEmpty(UnapplyFlagPath)) FileUtils.Touch(UnapplyFlagPath);

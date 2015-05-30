@@ -41,7 +41,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Store.Model.Capabilities.FileType>(Capability);
+            var capability = appEntry.LookupCapability<Store.Model.Capabilities.FileType>(Capability);
             return capability.Extensions.Select(extension => "extension:" + extension.Value);
         }
         #endregion
@@ -55,7 +55,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var capability = appEntry.GetCapability<Store.Model.Capabilities.FileType>(Capability);
+            var capability = appEntry.LookupCapability<Store.Model.Capabilities.FileType>(Capability);
             var target = new FeedTarget(appEntry.InterfaceUri, feed);
             if (WindowsUtils.IsWindows) Windows.FileType.Register(target, capability, machineWide, handler, accessPoint: true);
         }
@@ -67,7 +67,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Store.Model.Capabilities.FileType>(Capability);
+            var capability = appEntry.LookupCapability<Store.Model.Capabilities.FileType>(Capability);
             if (WindowsUtils.IsWindows) Windows.FileType.Unregister(capability, machineWide, accessPoint: true);
         }
         #endregion

@@ -41,7 +41,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Store.Model.Capabilities.AutoPlay>(Capability);
+            var capability = appEntry.LookupCapability<Store.Model.Capabilities.AutoPlay>(Capability);
             return capability.Events.Select(@event => "autoplay-event:" + @event.Name);
         }
         #endregion
@@ -55,7 +55,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var capability = appEntry.GetCapability<Store.Model.Capabilities.AutoPlay>(Capability);
+            var capability = appEntry.LookupCapability<Store.Model.Capabilities.AutoPlay>(Capability);
             var target = new FeedTarget(appEntry.InterfaceUri, feed);
             if (WindowsUtils.IsWindows) Windows.AutoPlay.Register(target, capability, machineWide, handler, accessPoint: true);
         }
@@ -67,7 +67,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Store.Model.Capabilities.AutoPlay>(Capability);
+            var capability = appEntry.LookupCapability<Store.Model.Capabilities.AutoPlay>(Capability);
             if (WindowsUtils.IsWindows) Windows.AutoPlay.Unregister(capability, machineWide, accessPoint: true);
         }
         #endregion

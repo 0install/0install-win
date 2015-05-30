@@ -40,7 +40,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Store.Model.Capabilities.DefaultProgram>(Capability);
+            var capability = appEntry.LookupCapability<Store.Model.Capabilities.DefaultProgram>(Capability);
             return new[] {"clients:" + capability.Service};
         }
         #endregion
@@ -54,7 +54,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            var capability = appEntry.GetCapability<Store.Model.Capabilities.DefaultProgram>(Capability);
+            var capability = appEntry.LookupCapability<Store.Model.Capabilities.DefaultProgram>(Capability);
             var target = new FeedTarget(appEntry.InterfaceUri, feed);
             if (WindowsUtils.IsWindows && machineWide)
                 Windows.DefaultProgram.Register(target, capability, handler, accessPoint: true);
@@ -67,7 +67,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            var capability = appEntry.GetCapability<Store.Model.Capabilities.DefaultProgram>(Capability);
+            var capability = appEntry.LookupCapability<Store.Model.Capabilities.DefaultProgram>(Capability);
             if (WindowsUtils.IsWindows && machineWide)
                 Windows.DefaultProgram.Unregister(capability, accessPoint: true);
         }
