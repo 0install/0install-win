@@ -28,7 +28,7 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store
 {
     /// <summary>
-    /// Provides utiltity methods for managing <see cref="Store.Model.Implementation"/>s.
+    /// Provides utility methods for managing <see cref="Store.Model.Implementation"/>s.
     /// </summary>
     public static class ImplementationUtils
     {

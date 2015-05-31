@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -67,7 +66,7 @@ namespace ZeroInstall.Store.Service
                     return HandleCommand(command, silent);
                 }
                     #region Error handling
-                catch (Win32Exception ex)
+                catch (IOException ex)
                 {
                     if (!silent) Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return 1;

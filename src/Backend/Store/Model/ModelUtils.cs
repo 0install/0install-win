@@ -7,7 +7,7 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Model
 {
     /// <summary>
-    /// Provides utiltity methods for interface and feed URIs.
+    /// Provides utility methods for interface and feed URIs.
     /// </summary>
     public static class ModelUtils
     {

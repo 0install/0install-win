@@ -29,7 +29,7 @@ using ZeroInstall.Store.Trust;
 namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
-    /// Provides utiltity methods for managing <see cref="Feed"/>s.
+    /// Provides utility methods for managing <see cref="Feed"/>s.
     /// </summary>
     public static class FeedUtils
     {

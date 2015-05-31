@@ -30,7 +30,7 @@ using ZeroInstall.Store.Implementations;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Provides utiltity methods for application entry points.
+    /// Provides utility methods for application entry points.
     /// </summary>
     public static class ProgramUtils
     {

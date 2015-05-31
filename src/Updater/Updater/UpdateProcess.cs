@@ -377,8 +377,7 @@ namespace ZeroInstall.Updater
         /// </summary>
         private void Ngen()
         {
-            // Do not run Ngen in portable mode
-            if (IsPortable) return;
+            if (IsPortable || !WindowsUtils.IsAdministrator) return;
 
             // Use .NET 4.0 if possible, otherwise 2.0
             string netFxDir = WindowsUtils.GetNetFxDirectory(
@@ -404,7 +403,6 @@ namespace ZeroInstall.Updater
         /// <exception cref="UnauthorizedAccessException">Administrator rights are missing.</exception>
         private void Registry()
         {
-            // Do not run touch registry in portable mode
             if (IsPortable) return;
 
             RegistryUtils.SetSoftwareString("Zero Install", "InstallLocation", Target);
