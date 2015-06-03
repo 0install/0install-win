@@ -65,13 +65,14 @@ namespace ZeroInstall.DesktopIntegration
 
         #region Constructor
         /// <summary>
-        /// Creates a new integration manager using a custom <see cref="DesktopIntegration.AppList"/>. Do not use directly except for testing purposes!
+        /// Creates a new integration manager using a custom <see cref="DesktopIntegration.AppList"/>. Performs no locking.
         /// </summary>
         /// <param name="appListPath">The storage location of the <see cref="AppList"/> file.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
-        /// <exception cref="IOException">A problem occurs while accessing the <see cref="AppList"/> file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Read or write access to the <see cref="AppList"/> file is not permitted.</exception>
+        /// <exception cref="FileNotFoundException"><paramref name="appListPath"/> does not existing.</exception>
+        /// <exception cref="IOException">A problem occurs while accessing <paramref name="appListPath"/>.</exception>
+        /// <exception cref="UnauthorizedAccessException">Read or write access to <paramref name="appListPath"/> file is not permitted.</exception>
         /// <exception cref="InvalidDataException">A problem occurs while deserializing the XML data.</exception>
         public IntegrationManager([NotNull] string appListPath, [NotNull] ITaskHandler handler, bool machineWide = false) : base(handler)
         {
@@ -82,22 +83,11 @@ namespace ZeroInstall.DesktopIntegration
 
             MachineWide = machineWide;
             AppListPath = appListPath;
-
-            if (File.Exists(AppListPath))
-            {
-                Log.Debug("Loading AppList from: " + AppListPath);
-                AppList = XmlStorage.LoadXml<AppList>(AppListPath);
-            }
-            else
-            {
-                Log.Debug("Creating new AppList: " + AppListPath);
-                AppList = new AppList();
-                AppList.SaveXml(AppListPath);
-            }
+            AppList = XmlStorage.LoadXml<AppList>(AppListPath);
         }
 
         /// <summary>
-        /// Creates a new integration manager using the default <see cref="DesktopIntegration.AppList"/>.
+        /// Creates a new integration manager using the default <see cref="DesktopIntegration.AppList"/> (creating a new one if missing). Performs Mutex-based locking.
         /// </summary>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Apply operations machine-wide instead of just for the current user.</param>
@@ -113,19 +103,30 @@ namespace ZeroInstall.DesktopIntegration
             MachineWide = machineWide;
             _mutex = AquireMutex();
 
-            AppListPath = AppList.GetDefaultPath(machineWide);
-
-            if (File.Exists(AppListPath))
+            try
             {
-                Log.Debug("Loading AppList from: " + AppListPath);
-                AppList = XmlStorage.LoadXml<AppList>(AppListPath);
+                AppListPath = AppList.GetDefaultPath(machineWide);
+                if (File.Exists(AppListPath))
+                {
+                    Log.Debug("Loading AppList for IntegrationManager from: " + AppListPath);
+                    AppList = XmlStorage.LoadXml<AppList>(AppListPath);
+                }
+                else
+                {
+                    Log.Debug("Creating new AppList for IntegrationManager: " + AppListPath);
+                    AppList = new AppList();
+                    AppList.SaveXml(AppListPath);
+                }
             }
-            else
+                #region Error handling
+            catch
             {
-                Log.Debug("Creating new AppList: " + AppListPath);
-                AppList = new AppList();
-                AppList.SaveXml(AppListPath);
+                // Avoid abandoned mutexes
+                _mutex.ReleaseMutex();
+                _mutex.Close();
+                throw;
             }
+            #endregion
         }
 
         /// <summary>
@@ -405,9 +406,9 @@ namespace ZeroInstall.DesktopIntegration
         /// <param name="disposing"><see langword="true"/> if called manually and not by the garbage collector.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (_mutex != null)
+            if (disposing && _mutex != null)
             {
-                if (disposing) _mutex.ReleaseMutex();
+                _mutex.ReleaseMutex();
                 _mutex.Close();
             }
         }
