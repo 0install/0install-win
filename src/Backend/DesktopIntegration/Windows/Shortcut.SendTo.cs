@@ -40,7 +40,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             #endregion
 
             string filePath = GetSendToPath(sendTo.Name);
-            Create(filePath, target, sendTo.Command, handler);
+            Create(filePath, target, sendTo.Command, handler, machineWide: false);
         }
 
         /// <summary>

@@ -18,7 +18,6 @@
 using System;
 using System.IO;
 using JetBrains.Annotations;
-using NanoByte.Common;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
 using ZeroInstall.DesktopIntegration.Properties;
@@ -35,7 +34,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="target">The target the shortcut shall point to.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Create the shortcut machine-wide instead of just for the current user.</param>
-        public static void Create([NotNull] DesktopIcon desktopIcon, FeedTarget target, [NotNull] ITaskHandler handler, bool machineWide = false)
+        public static void Create([NotNull] DesktopIcon desktopIcon, FeedTarget target, [NotNull] ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
             if (desktopIcon == null) throw new ArgumentNullException("desktopIcon");
@@ -51,7 +50,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="desktopIcon">Information about the shortcut to be removed.</param>
         /// <param name="machineWide">The shortcut was created machine-wide instead of just for the current user.</param>
-        public static void Remove([NotNull] DesktopIcon desktopIcon, bool machineWide = false)
+        public static void Remove([NotNull] DesktopIcon desktopIcon, bool machineWide)
         {
             #region Sanity checks
             if (desktopIcon == null) throw new ArgumentNullException("desktopIcon");
@@ -66,9 +65,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
             if (String.IsNullOrEmpty(name) || name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
                 throw new IOException(String.Format(Resources.NameInvalidChars, name));
 
-            string desktopDir = machineWide
-                ? RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Desktop")
-                : Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            const Environment.SpecialFolder commonDesktopDirectory = (Environment.SpecialFolder)0x0019;
+            string desktopDir = Environment.GetFolderPath(machineWide ? commonDesktopDirectory : Environment.SpecialFolder.DesktopDirectory);
             return Path.Combine(desktopDir, name + ".lnk");
         }
     }

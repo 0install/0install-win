@@ -41,7 +41,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
             #endregion
 
             string filePath = GetQuickLaunchPath(quickLaunch.Name);
-            Create(filePath, target, quickLaunch.Command, handler);
+            Create(filePath, target, quickLaunch.Command, handler, machineWide: false);
         }
 
         /// <summary>

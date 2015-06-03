@@ -40,7 +40,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="command">The command within <paramref name="target"/> the shorcut shall point to; can be <see langword="null"/>.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Create the shortcut machine-wide instead of just for the current user.</param>
-        private static void Create([NotNull] string path, FeedTarget target, [CanBeNull] string command, [NotNull] ITaskHandler handler, bool machineWide = false)
+        private static void Create([NotNull] string path, FeedTarget target, [CanBeNull] string command, [NotNull] ITaskHandler handler, bool machineWide)
         {
             if (string.IsNullOrEmpty(command)) command = Command.NameRun;
 

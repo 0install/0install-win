@@ -56,7 +56,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             #endregion
 
             var target = new FeedTarget(appEntry.InterfaceUri, feed);
-            if (WindowsUtils.IsWindows && !machineWide) Windows.Shortcut.Create(this, target, handler);
+            if (WindowsUtils.IsWindows) Windows.Shortcut.Create(this, target, handler, machineWide);
         }
 
         /// <inheritdoc/>
@@ -66,7 +66,7 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
             if (appEntry == null) throw new ArgumentNullException("appEntry");
             #endregion
 
-            if (WindowsUtils.IsWindows && !machineWide) Windows.Shortcut.Remove(this);
+            if (WindowsUtils.IsWindows) Windows.Shortcut.Remove(this, machineWide);
         }
         #endregion
 

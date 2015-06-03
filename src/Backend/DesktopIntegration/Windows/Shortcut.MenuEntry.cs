@@ -18,7 +18,6 @@
 using System;
 using System.IO;
 using JetBrains.Annotations;
-using NanoByte.Common;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.DesktopIntegration.AccessPoints;
@@ -36,7 +35,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="target">The target the shortcut shall point to.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
         /// <param name="machineWide">Create the shortcut machine-wide instead of just for the current user.</param>
-        public static void Create([NotNull] MenuEntry menuEntry, FeedTarget target, [NotNull] ITaskHandler handler, bool machineWide = false)
+        public static void Create([NotNull] MenuEntry menuEntry, FeedTarget target, [NotNull] ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
             if (menuEntry == null) throw new ArgumentNullException("menuEntry");
@@ -55,7 +54,7 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// </summary>
         /// <param name="menuEntry">Information about the shortcut to be removed.</param>
         /// <param name="machineWide">The shortcut was created machine-wide instead of just for the current user.</param>
-        public static void Remove([NotNull] MenuEntry menuEntry, bool machineWide = false)
+        public static void Remove([NotNull] MenuEntry menuEntry, bool machineWide)
         {
             #region Sanity checks
             if (menuEntry == null) throw new ArgumentNullException("menuEntry");
@@ -72,9 +71,8 @@ namespace ZeroInstall.DesktopIntegration.Windows
 
         private static string GetStartMenuCategoryPath(string category, bool machineWide)
         {
-            string menuDir = machineWide
-                ? RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Programs")
-                : Environment.GetFolderPath(Environment.SpecialFolder.Programs);
+            const Environment.SpecialFolder commonPrograms = (Environment.SpecialFolder)0x0017;
+            string menuDir = Environment.GetFolderPath(machineWide ? commonPrograms: Environment.SpecialFolder.Programs);
             return (string.IsNullOrEmpty(category) ? menuDir : Path.Combine(menuDir, FileUtils.UnifySlashes(category)));
         }
 

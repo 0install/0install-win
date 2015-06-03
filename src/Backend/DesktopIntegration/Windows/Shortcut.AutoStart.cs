@@ -32,14 +32,15 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// <param name="autoStart">Information about the shortcut to be created.</param>
         /// <param name="target">The target the shortcut shall point to.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about the progress of long-running operations such as downloads.</param>
-        public static void Create(AutoStart autoStart, FeedTarget target, ITaskHandler handler)
+        /// <param name="machineWide">Create the shortcut machine-wide instead of just for the current user.</param>
+        public static void Create(AutoStart autoStart, FeedTarget target, ITaskHandler handler, bool machineWide)
         {
             #region Sanity checks
             if (autoStart == null) throw new ArgumentNullException("autoStart");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            string filePath = GetStartupPath(autoStart.Name);
+            string filePath = GetStartupPath(autoStart.Name, machineWide);
             Create(filePath, target.GetRunStub(autoStart.Command, handler));
         }
 
@@ -47,22 +48,25 @@ namespace ZeroInstall.DesktopIntegration.Windows
         /// Removes a Windows shortcut from the "Startup" menu.
         /// </summary>
         /// <param name="autoStart">Information about the shortcut to be removed.</param>
-        public static void Remove(AutoStart autoStart)
+        /// <param name="machineWide">The shortcut was created machine-wide instead of just for the current user.</param>
+        public static void Remove(AutoStart autoStart, bool machineWide)
         {
             #region Sanity checks
             if (autoStart == null) throw new ArgumentNullException("autoStart");
             #endregion
 
-            string filePath = GetStartupPath(autoStart.Name);
+            string filePath = GetStartupPath(autoStart.Name, machineWide);
             if (File.Exists(filePath)) File.Delete(filePath);
         }
 
-        private static string GetStartupPath(string name)
+        private static string GetStartupPath(string name, bool machineWide)
         {
             if (string.IsNullOrEmpty(name) || name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
                 throw new IOException(string.Format(Resources.NameInvalidChars, name));
 
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), name + ".lnk");
+            const Environment.SpecialFolder commonStartup = (Environment.SpecialFolder)0x0018;
+            string startupDir = Environment.GetFolderPath(machineWide ? commonStartup : Environment.SpecialFolder.Startup);
+            return Path.Combine(startupDir, name + ".lnk");
         }
     }
 }
