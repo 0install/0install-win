@@ -75,14 +75,15 @@ namespace ZeroInstall.Commands.CliCommands
             return ExitCode.OK;
         }
 
-        #region Helpers
         /// <summary>
         /// Returns a list of <see cref="Requirements"/> that describe the applications to be updated.
         /// </summary>
         private IEnumerable<Requirements> GetTargets()
         {
+            var appList = AppList.LoadSafe(MachineWide);
+
             // Target every application in the AppList...
-            return from entry in AppList.Entries
+            return from entry in appList.Entries
                 // ... unless excluded from auto-update
                 where entry.AutoUpdate
                 // ... or excluded by a hostname filter
@@ -138,6 +139,5 @@ namespace ZeroInstall.Commands.CliCommands
             var toDelete = Store.ListAll().Except(digestsToKeep, ManifestDigestPartialEqualityComparer.Instance).ToList();
             Handler.RunTask(new ForEachTask<ManifestDigest>(Resources.RemovingOutdated, toDelete, x => Store.Remove(x, Handler)));
         }
-        #endregion
     }
 }

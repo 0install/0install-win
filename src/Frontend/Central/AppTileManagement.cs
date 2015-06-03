@@ -23,7 +23,6 @@ using System.Net;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Dispatch;
-using NanoByte.Common.Storage;
 using ZeroInstall.Central.Properties;
 using ZeroInstall.DesktopIntegration;
 using ZeroInstall.Services.Feeds;
@@ -101,7 +100,7 @@ namespace ZeroInstall.Central
         [NotNull, ItemNotNull]
         public IEnumerable<IAppTile> UpdateMyApps()
         {
-            var newAppList = LoadAppListSafe();
+            var newAppList = AppList.LoadSafe(_machineWide);
             var tiles = new List<IAppTile>();
 
             // Update the displayed AppList based on changes detected between the current and the new AppList
@@ -143,43 +142,6 @@ namespace ZeroInstall.Central
             _appList = newAppList;
 
             return tiles;
-        }
-
-        /// <summary>
-        /// Loads the current <see cref="AppList"/> from the disk.
-        /// </summary>
-        /// <returns>The loaded <see cref="AppList"/>; an empty <see cref="AppList"/> on error.</returns>
-        [NotNull]
-        private AppList LoadAppListSafe()
-        {
-            try
-            {
-                return XmlStorage.LoadXml<AppList>(AppList.GetDefaultPath(_machineWide));
-            }
-                #region Error handling
-            catch (FileNotFoundException)
-            {
-                return new AppList();
-            }
-            catch (IOException ex)
-            {
-                Log.Warn(Resources.UnableToLoadAppList);
-                Log.Warn(ex);
-                return new AppList();
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Log.Warn(Resources.UnableToLoadAppList);
-                Log.Warn(ex);
-                return new AppList();
-            }
-            catch (InvalidDataException ex)
-            {
-                Log.Warn(Resources.UnableToLoadAppList);
-                Log.Warn(ex);
-                return new AppList();
-            }
-            #endregion
         }
 
         /// <summary>

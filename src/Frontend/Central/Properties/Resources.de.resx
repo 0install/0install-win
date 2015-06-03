@@ -250,9 +250,6 @@ Sie können die Daten die auf dem Server gespeichert sind ersetzen, indem Sie au
   <data name="UnableToDownloadCatalog" xml:space="preserve">
     <value>Konnte Anwendungskatalog nicht runterladen.</value>
   </data>
-  <data name="UnableToLoadAppList" xml:space="preserve">
-    <value>Konnte Anwendungsliste nicht alden.</value>
-  </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
     <value>Konnte Feed für Anwendungslisteneintrag '{0}' nicht laden.</value>
   </data>

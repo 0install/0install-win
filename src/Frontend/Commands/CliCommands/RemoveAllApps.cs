@@ -56,11 +56,11 @@ namespace ZeroInstall.Commands.CliCommands
         {
             using (var integrationManager = new IntegrationManager(Handler, MachineWide))
             {
-                if (AppList.Entries.Count == 0) return ExitCode.OK;
+                if (integrationManager.AppList.Entries.Count == 0) return ExitCode.OK;
 
                 if (Handler.Ask(Resources.ConfirmRemoveAll, defaultAnswer: true))
                 {
-                    Handler.RunTask(new ForEachTask<AppEntry>(Resources.RemovingApplications, AppList.Entries, integrationManager.RemoveApp));
+                    Handler.RunTask(new ForEachTask<AppEntry>(Resources.RemovingApplications, integrationManager.AppList.Entries, integrationManager.RemoveApp));
 
                     // Purge sync status, otherwise next sync would remove everything from server as well instead of restoring from there
                     File.Delete(AppList.GetDefaultPath(MachineWide) + SyncIntegrationManager.AppListLastSyncSuffix);

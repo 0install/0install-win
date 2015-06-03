@@ -167,6 +167,41 @@ namespace ZeroInstall.DesktopIntegration
         }
 
         /// <summary>
+        /// Tries to load the <see cref="AppList"/> from its default location. Automatically falls back to an empty list on errors.
+        /// </summary>
+        /// <param name="machineWide">Load the machine-wide <see cref="AppList"/> instead of the one for the current user.</param>
+        /// <returns>The loaded <see cref="AppList"/>.</returns>
+        [NotNull]
+        public static AppList LoadSafe(bool machineWide = false)
+        {
+            try
+            {
+                return XmlStorage.LoadXml<AppList>(GetDefaultPath(machineWide));
+            }
+                #region Error handling
+            catch (FileNotFoundException)
+            {
+                return new AppList();
+            }
+            catch (IOException ex)
+            {
+                Log.Warn(ex);
+                return new AppList();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Warn(ex);
+                return new AppList();
+            }
+            catch (InvalidDataException ex)
+            {
+                Log.Warn(ex);
+                return new AppList();
+            }
+            #endregion
+        }
+
+        /// <summary>
         /// Loads a list from an XML file embedded in a ZIP archive.
         /// </summary>
         /// <param name="stream">The ZIP archive to load.</param>

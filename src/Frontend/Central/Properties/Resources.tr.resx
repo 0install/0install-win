@@ -251,9 +251,6 @@ Sunucudaki kayıtlı veriyi değiştirmek için Şifreleme anahtarını unuttum 
   <data name="UnableToDownloadCatalog" xml:space="preserve">
     <value>Uygulama kataloğu indirilemedi.</value>
   </data>
-  <data name="UnableToLoadAppList" xml:space="preserve">
-    <value>Uygulama listesi yüklenemedi.</value>
-  </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
     <value>&apos;{0}&apos; uygulama listesi kaydı için akış yüklenemedi.</value>
   </data>

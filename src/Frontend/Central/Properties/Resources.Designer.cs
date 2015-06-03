@@ -447,15 +447,6 @@ namespace ZeroInstall.Central.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to load the application list..
-        /// </summary>
-        public static string UnableToLoadAppList {
-            get {
-                return ResourceManager.GetString("UnableToLoadAppList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Unable to load feed for application list entry &apos;{0}&apos;..
         /// </summary>
         public static string UnableToLoadFeedForApp {

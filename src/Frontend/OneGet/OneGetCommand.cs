@@ -23,7 +23,6 @@ using System.Linq;
 using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
-using NanoByte.Common.Storage;
 using NanoByte.Common.Streams;
 using PackageManagement.Sdk;
 using ZeroInstall.Commands;
@@ -281,15 +280,14 @@ namespace ZeroInstall.OneGet
         public void UninstallPackage([NotNull] string fastPackageReference)
         {
             var requirements = ParseReference(fastPackageReference);
-            bool machineWide = _request.OptionKeys.Contains(MachineWideKey);
 
-            using (var integrationManager = new IntegrationManager(Handler, machineWide))
+            using (var integrationManager = new IntegrationManager(Handler, MachineWide))
                 integrationManager.RemoveApp(integrationManager.AppList[requirements.InterfaceUri]);
         }
 
         public void GetInstalledPackages([CanBeNull] string name)
         {
-            var appList = XmlStorage.LoadXml<AppList>(AppList.GetDefaultPath(MachineWide));
+            var appList = AppList.LoadSafe(MachineWide);
             foreach (var entry in appList.Search(name))
                 Yield(entry.EffectiveRequirements);
         }

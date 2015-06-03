@@ -251,9 +251,6 @@
   <data name="UnableToDownloadCatalog" xml:space="preserve">
     <value>Δεν είναι δυνατή η ληψη του κατάλογου της εφαρμογής.</value>
   </data>
-  <data name="UnableToLoadAppList" xml:space="preserve">
-    <value>Δεν είναι δυνατή η φόρτωση της λίστας εφαρμογών.</value>
-  </data>
   <data name="UnableToLoadFeedForApp" xml:space="preserve">
     <value>Δεν είναι δυνατή η φόρτωση τροφοδοσίας για την είσοδο λίστας εφαρμογών &apos;{0}&apos;.</value>
   </data>

@@ -22,7 +22,6 @@ using JetBrains.Annotations;
 using NanoByte.Common;
 using NanoByte.Common.Collections;
 using NanoByte.Common.Native;
-using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.CliCommands;
 using ZeroInstall.Commands.Properties;
@@ -45,49 +44,6 @@ namespace ZeroInstall.Commands
         /// <param name="handler">A callback object used when the the user needs to be asked questions or informed about download and IO tasks.</param>
         protected CommandBase([NotNull] ITaskHandler handler) : base(handler)
         {}
-
-        private AppList _appList;
-
-        /// <summary>
-        /// Lazy-loaded <see cref="AppList"/>. Not thread-safe!
-        /// </summary>
-        [NotNull]
-        protected AppList AppList
-        {
-            get
-            {
-                if (_appList == null)
-                {
-                    try
-                    {
-                        _appList = XmlStorage.LoadXml<AppList>(AppList.GetDefaultPath());
-                    }
-                        #region Error handling
-                    catch (FileNotFoundException)
-                    {
-                        _appList = new AppList();
-                    }
-                    catch (IOException ex)
-                    {
-                        Log.Warn(ex);
-                        _appList = new AppList();
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        Log.Warn(ex);
-                        _appList = new AppList();
-                    }
-                    catch (InvalidDataException ex)
-                    {
-                        Log.Warn(ex);
-                        _appList = new AppList();
-                    }
-                    #endregion
-                }
-
-                return _appList;
-            }
-        }
 
         /// <summary>
         /// Converts an interface or feed URI to its canonical representation.
@@ -130,10 +86,12 @@ namespace ZeroInstall.Commands
         }
 
         [NotNull]
-        private FeedUri ResolveAlias(string aliasName)
+        private static FeedUri ResolveAlias(string aliasName)
         {
+            var appList = AppList.LoadSafe();
+
             AppEntry appEntry;
-            AddAlias.GetAppAlias(AppList, aliasName, out appEntry);
+            AddAlias.GetAppAlias(appList, aliasName, out appEntry);
             if (appEntry == null) throw new UriFormatException(string.Format(Resources.AliasNotFound, aliasName));
             return appEntry.InterfaceUri;
         }
