@@ -21,6 +21,7 @@ using System.Threading;
 using System.Windows.Forms;
 using JetBrains.Annotations;
 using NanoByte.Common;
+using NanoByte.Common.Native;
 using NanoByte.Common.Storage;
 using NanoByte.Common.Tasks;
 using ZeroInstall.Commands.CliCommands;

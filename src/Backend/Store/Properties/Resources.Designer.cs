@@ -670,15 +670,6 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Searching for open file references.
-        /// </summary>
-        internal static string RestartManagerSearch {
-            get {
-                return ResourceManager.GetString("RestartManagerSearch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to A fully qualified/rooted path is required..
         /// </summary>
         internal static string RootedPathRequired {

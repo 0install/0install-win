@@ -330,9 +330,6 @@ Sie können die Datei '{1}' löschen, um das Problem zu beheben. Dabei gehen wom
   <data name="RelativeUriInRemoteFeed" xml:space="preserve">
     <value>Der relative HREF '{0}' wurde in einem Remote-Feed angegeben. Nur lokale Feeds dürfen relative HREFs verwenden.</value>
   </data>
-  <data name="RestartManagerSearch" xml:space="preserve">
-    <value>Suche nach offenen Dateirefernzen</value>
-  </data>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>Ein vollständig qualifizierter/gewurzelter Pfad wird benötigt.</value>
   </data>

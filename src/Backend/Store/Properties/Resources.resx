@@ -330,9 +330,6 @@ You can delete the file '{1}' to fix the problem. Other settings may also be los
   <data name="RelativeUriInRemoteFeed" xml:space="preserve">
     <value>The relative HREF '{0}' was specified in a remote feed. Only local feeds may contain relative HREFs.</value>
   </data>
-  <data name="RestartManagerSearch" xml:space="preserve">
-    <value>Searching for open file references</value>
-  </data>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>A fully qualified/rooted path is required.</value>
   </data>

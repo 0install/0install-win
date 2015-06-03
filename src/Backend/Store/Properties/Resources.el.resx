@@ -330,9 +330,6 @@
   <data name="RelativeUriInRemoteFeed" xml:space="preserve">
     <value>Η σχετική HREF &apos;{0}&apos; έχει καθοριστεί σε μια απομακρυσμένη τροφοδοσίας. Μόνο τοπικές τροφοδοσίες μπορούν να περιέχουν σχετικές HREFs.</value>
   </data>
-  <data name="RestartManagerSearch" xml:space="preserve">
-    <value>Ψάχνοντας για ανοικτές αναφορές αρχείου</value>
-  </data>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>Μια πλήρως αναγνωρισμένη/ριζωμένη διαδρομή απαιτείται.</value>
   </data>

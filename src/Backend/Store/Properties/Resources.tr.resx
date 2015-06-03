@@ -330,9 +330,6 @@ FAT dosya sistemi ile biçimlendirilmiş bir sürücü kullanıyorsanız lütfen
   <data name="RelativeUriInRemoteFeed" xml:space="preserve">
     <value>Uzak akış içinde &apos;{0}&apos; HREF belirtilmiş. Bağıl HREF yalnız yerel akışlarda kullanılabilir.</value>
   </data>
-  <data name="RestartManagerSearch" xml:space="preserve">
-    <value>Dosyayı açacak uygulamalar aranıyor</value>
-  </data>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>Tam belirtilmiş/köke göre yazılmış yol gereklidir.</value>
   </data>

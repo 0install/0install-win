@@ -527,24 +527,29 @@ namespace ZeroInstall.Store.Implementations
         /// <returns>A Restart Manager session that is to be disposed once exclusive access to the directory is no longer required; may be <see langword="null"/>.</returns>
         private static void UseRestartManager(string path, ITaskHandler handler)
         {
-            using (var restartManager = new WindowsRestartManager())
+            try
             {
-                string[] apps = null;
-                handler.RunTask(new SimpleTask(Resources.RestartManagerSearch, () =>
+                using (var restartManager = new WindowsRestartManager())
                 {
                     restartManager.RegisterResources(FileUtils.GetFilesRecursive(path));
-                    apps = restartManager.ListApps();
-                }));
-
-                if (apps.Length != 0)
-                {
-                    string appsList = string.Join(Environment.NewLine, apps);
-                    if (handler.Ask(Resources.FilesInUse + @" " + Resources.FilesInUseAskClose + Environment.NewLine + appsList,
-                        defaultAnswer: false, alternateMessage: Resources.FilesInUse + @" " + Resources.FilesInUseInform + Environment.NewLine + appsList))
-                        restartManager.ShutdownApps(handler);
-                    else throw new OperationCanceledException();
+                    var apps = restartManager.ListApps(handler);
+                
+                    if (apps.Length != 0)
+                    {
+                        string appsList = string.Join(Environment.NewLine, apps);
+                        if (handler.Ask(Resources.FilesInUse + @" " + Resources.FilesInUseAskClose + Environment.NewLine + appsList,
+                            defaultAnswer: false, alternateMessage: Resources.FilesInUse + @" " + Resources.FilesInUseInform + Environment.NewLine + appsList))
+                            restartManager.ShutdownApps(handler);
+                        else throw new OperationCanceledException();
+                    }
                 }
             }
+                #region Error handling
+            catch (TimeoutException)
+            {
+                // If the Restart Manager is unavailable just continue
+            }
+            #endregion
         }
         #endregion
 
