@@ -233,6 +233,7 @@ namespace ZeroInstall.OneGet
             Do(request, x => x.GetInstalledPackages(name));
         }
 
+        [PublicAPI]
         public void GetPackageDetails(string fastPackageReference, Request request)
         {
             Do(request, x => x.GetPackageDetails(fastPackageReference));

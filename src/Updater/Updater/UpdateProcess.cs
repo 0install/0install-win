@@ -326,9 +326,6 @@ namespace ZeroInstall.Updater
         {
             var paths = new List<string>();
 
-            string userProgams = Environment.GetFolderPath(Environment.SpecialFolder.Programs);
-            string commonPrograms = RegistryUtils.GetString(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "Common Programs");
-
             if (NewVersion >= new Version("2.3.6"))
             {
                 var appFiles = new[]
@@ -337,10 +334,6 @@ namespace ZeroInstall.Updater
                     "StoreService.exe", Path.Combine("de", "StoreService.resources.dll")
                 };
                 paths.AddRange(appFiles.Select(x => Path.Combine(Target, x)));
-
-                var shortcuts = new[] {"Cache management.lnk", "Cache Verwaltung.lnk"}.Select(x => Path.Combine("Zero Install", x)).ToArray();
-                paths.AddRange(shortcuts.Select(x => Path.Combine(userProgams, x)));
-                paths.AddRange(shortcuts.Select(x => Path.Combine(commonPrograms, x)));
             }
             if (NewVersion >= new Version("2.3.9"))
             {
