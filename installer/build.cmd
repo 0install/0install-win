@@ -1,5 +1,5 @@
 @echo off
-::Creates an Inno Setup installer and an MSI wrapper. Assumes "..\src\build.cmd Release" and "..\bundled\download-solver.ps1" have already been executed.
+::Creates a portable ZIP archive, an Inno Setup installer and an MSI wrapper. Assumes "..\src\build.cmd Release" and "..\bundled\download-solver.ps1" have already been executed.
 call "%~dp0..\version.cmd" > NUL
 
 rem Handle WOW
@@ -21,6 +21,23 @@ if not exist "%WIX_DIR%" (
   pause
   goto end
 )
+path %~dp0utils;%path%
+
+
+echo Building portable ZIP archive...
+if exist "%~dp0..\build\Installer\zero-install.zip" del "%~dp0..\build\Installer\zero-install.zip"
+if not exist "%~dp0..\build\Installer" mkdir "%~dp0..\build\Installer"
+
+zip -q -9 -j "%~dp0..\build\Installer\zero-install.zip" "%~dp0_portable" "%~dp0..\COPYING.txt" "%~dp0..\3rd party code.txt"
+if errorlevel 1 pause
+
+cd /d "%~dp0..\build\Release\Frontend"
+zip -q -9 -r "%~dp0..\build\Installer\zero-install.zip" . --exclude *.xml *.pdb *.mdb *.vshost.exe
+if errorlevel 1 pause
+
+cd /d "%~dp0..\bundled"
+zip -q -9 -r "%~dp0..\build\Installer\zero-install.zip" GnuPG Solver
+if errorlevel 1 pause
 
 
 echo Building machine-wide installer...
@@ -44,13 +61,13 @@ cd /d "%~dp0"
 
 "%WIX_DIR%\bin\candle.exe" -nologo zero-install.wxs
 if errorlevel 1 pause
-"%WIX_DIR%\bin\light.exe" -nologo zero-install.wixobj -sval -out "..\build\installer\zero-install.msi" -spdb
+"%WIX_DIR%\bin\light.exe" -nologo zero-install.wixobj -sval -out "..\build\Installer\zero-install.msi" -spdb
 if errorlevel 1 pause
 del zero-install.wixobj
 
 "%WIX_DIR%\bin\candle.exe" -nologo zero-install-per-user.wxs
 if errorlevel 1 pause
-"%WIX_DIR%\bin\light.exe" -nologo zero-install-per-user.wixobj -sval -out "..\build\installer\zero-install-per-user.msi" -spdb
+"%WIX_DIR%\bin\light.exe" -nologo zero-install-per-user.wixobj -sval -out "..\build\Installer\zero-install-per-user.msi" -spdb
 if errorlevel 1 pause
 del zero-install-per-user.wixobj
 
