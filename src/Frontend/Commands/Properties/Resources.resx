@@ -160,7 +160,7 @@ If you select 'No' Zero Install will continue to use the old capabilities.</valu
     <value>Change</value>
   </data>
   <data name="ChangesFound" xml:space="preserve">
-    <value>Changes found:</value>
+    <value>Changes found</value>
   </data>
   <data name="CheckingFeed" xml:space="preserve">
     <value>Checking feed</value>
@@ -363,8 +363,11 @@ This is similar to '0install download --refresh', except that it prints informat
   <data name="FeedReplacedAsk" xml:space="preserve">
     <value>The feed for '{0}' ({1}) has been replaced by '{2}'. Do you want to use the new feed instead?</value>
   </data>
+  <data name="FeedsCached" xml:space="preserve">
+    <value>Cached feeds</value>
+  </data>
   <data name="FeedsRegistered" xml:space="preserve">
-    <value>Feeds registered for '{0}':</value>
+    <value>Feeds registered for '{0}'</value>
   </data>
   <data name="FeedUnregistered" xml:space="preserve">
     <value>The feed was successfully unregistered for the following interfaces:
@@ -375,9 +378,6 @@ This is similar to '0install download --refresh', except that it prints informat
   </data>
   <data name="FilePrefixAbsoluteUsage" xml:space="preserve">
     <value>Use file:///path for absolute paths, not file:/path.</value>
-  </data>
-  <data name="FoundFeeds" xml:space="preserve">
-    <value>Found feeds:</value>
   </data>
   <data name="Hide" xml:space="preserve">
     <value>Hide</value>
@@ -618,7 +618,7 @@ May contain command-line arguments. Whitespaces must be escaped!</value>
     <value>Resolved '{0}' to '{1}' using a catalog.</value>
   </data>
   <data name="SelectedImplementations" xml:space="preserve">
-    <value>Selected implementations:</value>
+    <value>Selected implementations</value>
   </data>
   <data name="SelfUpdateAvailable" xml:space="preserve">
     <value>An update to Zero Install v{0} is available. Install now?</value>
@@ -687,6 +687,9 @@ Keep this key secret and use something different for your password. This way nob
   <data name="UseInstead" xml:space="preserve">
     <value>Use '{0}' instead.</value>
   </data>
+  <data name="UseSystemLanguage" xml:space="preserve">
+    <value>Use system language</value>
+  </data>
   <data name="Verify" xml:space="preserve">
     <value>Verify</value>
   </data>
@@ -694,12 +697,9 @@ Keep this key secret and use something different for your password. This way nob
     <value>Verify implementation</value>
   </data>
   <data name="VersionInformation" xml:space="preserve">
-    <value>Version information:</value>
+    <value>Version information</value>
   </data>
   <data name="Working" xml:space="preserve">
     <value>Working</value>
-  </data>
-  <data name="UseSystemLanguage" xml:space="preserve">
-    <value>Use system language</value>
   </data>
 </root>

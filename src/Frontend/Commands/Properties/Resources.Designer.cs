@@ -181,7 +181,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Changes found:.
+        ///   Looks up a localized string similar to Changes found.
         /// </summary>
         public static string ChangesFound {
             get {
@@ -763,7 +763,16 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Feeds registered for &apos;{0}&apos;:.
+        ///   Looks up a localized string similar to Cached feeds.
+        /// </summary>
+        public static string FeedsCached {
+            get {
+                return ResourceManager.GetString("FeedsCached", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feeds registered for &apos;{0}&apos;.
         /// </summary>
         public static string FeedsRegistered {
             get {
@@ -796,15 +805,6 @@ namespace ZeroInstall.Commands.Properties {
         public static string FilePrefixAbsoluteUsage {
             get {
                 return ResourceManager.GetString("FilePrefixAbsoluteUsage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Found feeds:.
-        /// </summary>
-        public static string FoundFeeds {
-            get {
-                return ResourceManager.GetString("FoundFeeds", resourceCulture);
             }
         }
         
@@ -1497,7 +1497,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selected implementations:.
+        ///   Looks up a localized string similar to Selected implementations.
         /// </summary>
         public static string SelectedImplementations {
             get {
@@ -1732,7 +1732,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Version information:.
+        ///   Looks up a localized string similar to Version information.
         /// </summary>
         public static string VersionInformation {
             get {

@@ -18,6 +18,7 @@
 using System;
 using System.Linq;
 using JetBrains.Annotations;
+using NanoByte.Common;
 using ZeroInstall.Commands.Properties;
 
 namespace ZeroInstall.Commands.CliCommands
@@ -51,9 +52,9 @@ namespace ZeroInstall.Commands.CliCommands
         public override ExitCode Execute()
         {
             var feeds = FeedCache.ListAll().Select(x => x.ToStringRfc());
-            if (AdditionalArgs.Count > 0) feeds = feeds.Where(x => x.Contains(AdditionalArgs[0]));
+            if (AdditionalArgs.Count > 0) feeds = feeds.Where(x => x.ContainsIgnoreCase(AdditionalArgs[0]));
 
-            Handler.Output(Resources.FoundFeeds, feeds);
+            Handler.Output(Resources.FeedsCached, feeds);
             return ExitCode.OK;
         }
     }

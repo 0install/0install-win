@@ -160,7 +160,7 @@ Yapılan işlemin geçerli olması için terminalinizi kapatıp yeniden açmanı
     <value>Değiştir</value>
   </data>
   <data name="ChangesFound" xml:space="preserve">
-    <value>Bulunan değişiklikler:</value>
+    <value>Bulunan değişiklikler</value>
   </data>
   <data name="CheckingFeed" xml:space="preserve">
     <value>Akış denetleniyor</value>
@@ -243,6 +243,9 @@ Dosya ağ üzerinden alınırken, sayısal olarak imzalanmış olmalıdır.</val
   </data>
   <data name="DescriptionList" xml:space="preserve">
     <value>Yerel olarak bilinen tüm akış İnternet adreslerini listeler. Bir arama ifadesi belirtilmiş ise yalnız içinde bu dizge geçen İnternet adresleri görüntülenir (büyük küçük harfe duyarlı).</value>
+  </data>
+  <data name="DescriptionListApps" xml:space="preserve">
+    <value>Uygulama listenizdeki geçerli tüm uygulamalar listelenir. Eğer bir arama terimi girdiyseniz, yalnızca uygulamaların adlarını içeren dizgelerin olduğu sonuçlar görüntülenir (büyük küçük harf duyarlı).</value>
   </data>
   <data name="DescriptionListFeeds" xml:space="preserve">
     <value>&apos;0install add-feed&apos; kullanılarak İnternet adresine eklenmiş tüm fazladan akışlar listelenir.</value>
@@ -363,8 +366,11 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
   <data name="FeedReplacedAsk" xml:space="preserve">
     <value>&apos;{0}&apos; için akış &apos;{2}&apos; tarafından ({1}) olarak değiştirildi. Yeni akışı eski akışla değiştirerek kullanmak ister misiniz?</value>
   </data>
+  <data name="FeedsCached" xml:space="preserve">
+    <value>Önbelleklenmiş akışlar</value>
+  </data>
   <data name="FeedsRegistered" xml:space="preserve">
-    <value>&apos;{0}&apos; için akış kaydedildi:</value>
+    <value>&apos;{0}&apos; için akış kaydedildi</value>
   </data>
   <data name="FeedUnregistered" xml:space="preserve">
     <value>Aşağıdaki arabirimlerin akış kaydı başarıyla silindi:
@@ -375,9 +381,6 @@ Ek değişkenler ile özel önbellek konumları belirtilebilir.</value>
   </data>
   <data name="FilePrefixAbsoluteUsage" xml:space="preserve">
     <value>Mutlak yollar için file:/path değil file:///path kullanın.</value>
-  </data>
-  <data name="FoundFeeds" xml:space="preserve">
-    <value>Bulunan akışlar:</value>
   </data>
   <data name="Hide" xml:space="preserve">
     <value>Gizle</value>
@@ -618,7 +621,7 @@ Komut satırı değişkenleri bulunabilir. Boşluklardan kaçınılmalıdır.</v
     <value>Bir katalog kullanılarak &apos;{0}&apos; yerine &apos;{1}&apos; olarak çözümlendi.</value>
   </data>
   <data name="SelectedImplementations" xml:space="preserve">
-    <value>Seçilen uygulamalar:</value>
+    <value>Seçilen uygulamalar</value>
   </data>
   <data name="SelfUpdateAvailable" xml:space="preserve">
     <value>Zero Install v{0} güncelleştirmesi kullanılabilir. Şimdi kurulsun mu?</value>
@@ -687,6 +690,9 @@ Bu anahtarı gizleyin ve parolanızdan farklı olmasına özen gösterin. Böyle
   <data name="UseInstead" xml:space="preserve">
     <value>Yerine &apos;{0}&apos; kullanın.</value>
   </data>
+  <data name="UseSystemLanguage" xml:space="preserve">
+    <value>Sistem dili kullanılsın</value>
+  </data>
   <data name="Verify" xml:space="preserve">
     <value>Onayla</value>
   </data>
@@ -694,12 +700,9 @@ Bu anahtarı gizleyin ve parolanızdan farklı olmasına özen gösterin. Böyle
     <value>Uygulamayı doğrula</value>
   </data>
   <data name="VersionInformation" xml:space="preserve">
-    <value>Sürüm bilgisi:</value>
+    <value>Sürüm bilgisi</value>
   </data>
   <data name="Working" xml:space="preserve">
     <value>Çalışıyor</value>
-  </data>
-  <data name="UseSystemLanguage" xml:space="preserve">
-    <value>Sistem dili kullanılsın</value>
   </data>
 </root>

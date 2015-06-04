@@ -159,7 +159,7 @@
     <value>Αλλαγή</value>
   </data>
   <data name="ChangesFound" xml:space="preserve">
-    <value>Αλλαγές βρέθηκαν:</value>
+    <value>Αλλαγές βρέθηκαν</value>
   </data>
   <data name="CheckingFeed" xml:space="preserve">
     <value>Έλεγχος τροφοδοσίας</value>
@@ -362,7 +362,7 @@ Additional arguments specify custom cache locations.</value>
     <value>Η τροφοδοσία για &apos;{0}&apos; ({1}) έχει αντικατασταθεί από &apos;{2}&apos;. Θέλετε να χρησιμοποιήσετε τη νέα τροφοδοσία αντ &apos;αυτού;</value>
   </data>
   <data name="FeedsRegistered" xml:space="preserve">
-    <value>Τροφοδοσίες καταχωριστηκαν για &apos;{0}&apos;:</value>
+    <value>Τροφοδοσίες καταχωριστηκαν για &apos;{0}&apos;</value>
   </data>
   <data name="FeedUnregistered" xml:space="preserve">
     <value>Η τροφοδοσία αποκαταχωρηθηκε με επιτυχία για τις ακόλουθες διεπαφές:
@@ -373,9 +373,6 @@ Additional arguments specify custom cache locations.</value>
   </data>
   <data name="FilePrefixAbsoluteUsage" xml:space="preserve">
     <value>Χρήση file:///path για απόλυτες διαδρομές, όχι file:/path.</value>
-  </data>
-  <data name="FoundFeeds" xml:space="preserve">
-    <value>Βρέθηκαν τροφοδοσίες:</value>
   </data>
   <data name="Hide" xml:space="preserve">
     <value>Απόκρυψη</value>
@@ -612,7 +609,7 @@ Additional arguments specify custom cache locations.</value>
     <value>Αποφασισμένοι &apos;{0}&apos; σε &apos;{1}&apos; χρησιμοποιώντας έναν κατάλογο.</value>
   </data>
   <data name="SelectedImplementations" xml:space="preserve">
-    <value>Επιλεγμένες υλοποιήσεις:</value>
+    <value>Επιλεγμένες υλοποιήσεις</value>
   </data>
   <data name="SelfUpdateAvailable" xml:space="preserve">
     <value>Ενημέρωση για το Zero Install ν {0} διατίθεται. Εγκατάσταση τώρα;</value>
@@ -688,7 +685,7 @@ Additional arguments specify custom cache locations.</value>
     <value>Επαλήθευση εφαρμογής</value>
   </data>
   <data name="VersionInformation" xml:space="preserve">
-    <value>Έκδοση πληροφοριών:</value>
+    <value>Έκδοση πληροφοριών</value>
   </data>
   <data name="Working" xml:space="preserve">
     <value>Εργασία</value>

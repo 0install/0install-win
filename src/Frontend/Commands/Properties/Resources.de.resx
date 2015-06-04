@@ -160,7 +160,7 @@ Wenn Sie 'Nein' wählen arbeitet Zero Install weiter mit den alten Fähigkeiten.
     <value>Ändern</value>
   </data>
   <data name="ChangesFound" xml:space="preserve">
-    <value>Gefundene Änderungen:</value>
+    <value>Gefundene Änderungen</value>
   </data>
   <data name="CheckingFeed" xml:space="preserve">
     <value>Prüfe Feed</value>
@@ -363,8 +363,11 @@ Dies ist ähnlich wie '0install download --refresh', mit dem Zusatz, dass Inform
   <data name="FeedReplacedAsk" xml:space="preserve">
     <value>Der Feed für '{0}' ({1}) wurde durch '{2}' ersetzt. Möchten Sie stattdessen den neuen Feed verwenden?</value>
   </data>
+  <data name="FeedsCached" xml:space="preserve">
+    <value>Gecachte Feeds</value>
+  </data>
   <data name="FeedsRegistered" xml:space="preserve">
-    <value>Feeds registriert für '{0}':</value>
+    <value>Feeds registriert für '{0}'</value>
   </data>
   <data name="FeedUnregistered" xml:space="preserve">
     <value>Der Feed wurde erfolgreich für die folgenden Interfaces deregistriert:
@@ -375,9 +378,6 @@ Dies ist ähnlich wie '0install download --refresh', mit dem Zusatz, dass Inform
   </data>
   <data name="FilePrefixAbsoluteUsage" xml:space="preserve">
     <value>Verwenden Sie file:///Pfad für absolute Pfade, nicht file:/Pfad.</value>
-  </data>
-  <data name="FoundFeeds" xml:space="preserve">
-    <value>Gefundene Feeds:</value>
   </data>
   <data name="Hide" xml:space="preserve">
     <value>Verstecken</value>
@@ -581,7 +581,7 @@ Eine einzelne Versionsnummer kann anstelle eines Ranges angegeben werden um nur 
 Trotzdem werden neue Downloads nicht in dieses Verzeichnis gespeichert.</value>
   </data>
   <data name="OptionWrapper" xml:space="preserve">
-    <value>Anstelle das ausgewählte Programm direkt auszuführen, führe {COMMAND} PROGRAM ARGS aus. Dies ist nützlich um Debugger und Tracing Tools auf das Programm anzuwenden (anstatt auf Zero Install!). 
+    <value>Anstelle das ausgewählte Programm direkt auszuführen, führe {COMMAND} PROGRAM ARGS aus. Dies ist nützlich um Debugger und Tracing Tools auf das Programm anzuwenden (anstatt auf Zero Install!).
 Beachten Sie, dass der Wrapper in der vom Programm festgelegten Umgebung ausgeführt wird. Somit ist dieser Mechanismus nicht für Sandboxing geeignet.
 Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</value>
   </data>
@@ -619,7 +619,7 @@ Darf Befehlszeilenargumente enthalten. Leerzeichen müssen escaped werden!</valu
     <value>'{0}' nach '{1}', unter der verwendung eines Katalogs, aufgelöst</value>
   </data>
   <data name="SelectedImplementations" xml:space="preserve">
-    <value>Ausgewählte Implementierungen:</value>
+    <value>Ausgewählte Implementierungen</value>
   </data>
   <data name="SelfUpdateAvailable" xml:space="preserve">
     <value>Ein Update auf Zero Install v{0} ist verfügbar. Jetzt installieren?</value>
@@ -698,7 +698,7 @@ Halten Sie diesen Schlüssel geheim und verwenden Sie etwas anderes für Ihr Pas
     <value>Implementierungsüberprüfung</value>
   </data>
   <data name="VersionInformation" xml:space="preserve">
-    <value>Versionsinformationen:</value>
+    <value>Versionsinformationen</value>
   </data>
   <data name="Working" xml:space="preserve">
     <value>Arbeite</value>
