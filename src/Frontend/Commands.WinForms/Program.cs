@@ -123,78 +123,78 @@ namespace ZeroInstall.Commands.WinForms
                 }
                 catch (FormatException ex)
                 {
-                    Log.Error(ex);
                     handler.DisableUI();
+                    Log.Error(ex);
                     ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.InvalidArguments;
                 }
                 catch (WebException ex)
                 {
-                    Log.Error(ex);
                     handler.DisableUI();
+                    Log.Error(ex);
                     ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.WebError;
                 }
                 catch (NotSupportedException ex)
                 {
-                    Log.Error(ex);
                     handler.DisableUI();
+                    Log.Error(ex);
                     ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.NotSupported;
                 }
                 catch (IOException ex)
                 {
-                    Log.Error(ex);
                     handler.DisableUI();
+                    Log.Error(ex);
                     ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.IOError;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    Log.Error(ex);
                     handler.DisableUI();
+                    Log.Error(ex);
                     ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.AccessDenied;
                 }
                 catch (InvalidDataException ex)
                 {
-                    Log.Error(ex);
                     handler.DisableUI();
+                    Log.Error(ex);
                     ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.InvalidData;
                 }
                 catch (SignatureException ex)
                 {
-                    Log.Error(ex);
                     handler.DisableUI();
+                    Log.Error(ex);
                     ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.InvalidSignature;
                 }
                 catch (DigestMismatchException ex)
                 {
-                    Log.Error(ex);
+                    Log.Info(ex); // Log the exception before disabling the UI because we display a higher level error message
                     handler.DisableUI();
                     ErrorBox.Show(null, Resources.DownloadDamaged, handler.ErrorLog);
                     return ExitCode.DigestMismatch;
                 }
                 catch (SolverException ex)
                 {
-                    Log.Error(ex);
                     handler.DisableUI();
+                    Log.Error(ex);
                     ErrorBox.Show(null, ex.Message.GetLeftPartAtFirstOccurrence(Environment.NewLine), handler.ErrorLog);
                     return ExitCode.SolverError;
                 }
                 catch (ExecutorException ex)
                 {
-                    Log.Error(ex);
                     handler.DisableUI();
+                    Log.Error(ex);
                     ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.ExecutorError;
                 }
                 catch (ConflictException ex)
                 {
-                    Log.Error(ex);
                     handler.DisableUI();
+                    Log.Error(ex);
                     ErrorBox.Show(null, ex.Message, handler.ErrorLog);
                     return ExitCode.Conflict;
                 }

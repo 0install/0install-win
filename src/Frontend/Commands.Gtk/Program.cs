@@ -21,8 +21,6 @@ using System.Net;
 using System.Text;
 using Gtk;
 using NanoByte.Common;
-using NanoByte.Common.Native;
-using NanoByte.Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.DesktopIntegration;
@@ -133,7 +131,7 @@ namespace ZeroInstall.Commands.Gtk
                 {
                     handler.DisableUI();
                     Log.Error(ex);
-                    Msg.Inform(null, Resources.DownloadDamaged, MsgSeverity.Error);
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return ExitCode.DigestMismatch;
                 }
                 catch (SolverException ex)
