@@ -76,6 +76,7 @@
     <Compile Include="CliCommands\IntegrateApp.cs" />
     <Compile Include="CliCommands\IntegrationCommand.cs" />
     <Compile Include="CliCommands\List.cs" />
+    <Compile Include="CliCommands\ListApps.cs" />
     <Compile Include="CliCommands\ListFeeds.cs" />
     <Compile Include="CliCommands\RemoveAllApps.cs" />
     <Compile Include="CliCommands\RemoveApp.cs" />

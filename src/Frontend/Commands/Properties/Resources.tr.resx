@@ -423,6 +423,9 @@ Bu yazılımın kopyaları GNU Kısıtlı Genel Kamu Lisansı koşullarına bağ
   <data name="MustBeAdminForMachineWide" xml:space="preserve">
     <value>Bir yöneticinin makine çapında işlem gerçekleştirmesi gerekiyor.</value>
   </data>
+  <data name="MyApps" xml:space="preserve">
+    <value>Uygulamalarım</value>
+  </data>
   <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
     <value>API çengellemesi önbelleklenmemiş uygulama nedeniyle olanaksız.</value>
   </data>

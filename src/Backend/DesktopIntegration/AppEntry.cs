@@ -105,7 +105,7 @@ namespace ZeroInstall.DesktopIntegration
         /// <summary>
         /// A set of <see cref="Capability"/> lists to be registered in the desktop environment. Only compatible architectures are handled.
         /// </summary>
-        [Description("A set of Capability lists to be registered in the desktop environment. Only compatible architectures are handled.")]
+        [Browsable(false)]
         [XmlElement("capabilities", Namespace = CapabilityList.XmlNamespace)]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public List<CapabilityList> CapabilityLists

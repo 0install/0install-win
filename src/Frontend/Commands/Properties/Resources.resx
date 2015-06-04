@@ -244,6 +244,9 @@ The file must have a trusted digital signature, as when fetching from the networ
   <data name="DescriptionList" xml:space="preserve">
     <value>Lists all locally known feed URIs. If a search term is given, only URIs containing that string are shown (case insensitive).</value>
   </data>
+  <data name="DescriptionListApps" xml:space="preserve">
+    <value>Lists all applications currently in your application list. If a search term is given, only application names containing that string are shown (case insensitive).</value>
+  </data>
   <data name="DescriptionListFeeds" xml:space="preserve">
     <value>Lists all extra feeds added to URI using '0install add-feed'.</value>
   </data>
@@ -419,6 +422,9 @@ You may redistribute copies of this program under the terms of the GNU Lesser Ge
   </data>
   <data name="MustBeAdminForMachineWide" xml:space="preserve">
     <value>You must be an administrator to perform machine-wide operations.</value>
+  </data>
+  <data name="MyApps" xml:space="preserve">
+    <value>My applications</value>
   </data>
   <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
     <value>API hooking not possible due to non-cached implementation.</value>

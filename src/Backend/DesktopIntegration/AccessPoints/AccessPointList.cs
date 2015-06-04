@@ -18,7 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Xml.Serialization;
+using NanoByte.Common;
 using NanoByte.Common.Collections;
 using ZeroInstall.Store.Model;
 
@@ -69,11 +71,11 @@ namespace ZeroInstall.DesktopIntegration.AccessPoints
 
         #region Conversion
         /// <summary>
-        /// Returns the access point list in the form "AccessPoints: Entries". Not safe for parsing!
+        /// Returns the access point list in the form "Entry; Entry; ...". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("AccessPoints: {0}", Entries);
+            return StringUtils.Join("; ", Entries.Select(x => x.ToString()));
         }
         #endregion
 

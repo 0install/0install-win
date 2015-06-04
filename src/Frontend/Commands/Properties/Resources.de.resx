@@ -244,6 +244,9 @@ Diese Datei muss eine vertrauenswürdige digitale Signatur besitzen, genauso wie
   <data name="DescriptionList" xml:space="preserve">
     <value>Listet alle lokal bekannten Feed URIs auf. Wenn ein Suchbegriff angegeben wird, werden nur URIs angezeigt die den entsprechenden Begriff enthalten (Groß- und Kleinschreibung wird ignoriert) ausgegeben.</value>
   </data>
+  <data name="DescriptionListApps" xml:space="preserve">
+    <value>Listet alle Anwendungen auf, die sich derzeit in Ihrer Anwendungsliste befinden. Wenn ein Suchbegriff angegeben wird, werden nur Anwendungsnamen angezeigt die den entsprechenden Begriff enthalten (Groß- und Kleinschreibung wird ignoriert) ausgegeben.</value>
+  </data>
   <data name="DescriptionListFeeds" xml:space="preserve">
     <value>Listet alle zusätzlichen Feeds auf, die mit '0install add-feed' hinzugefügt wurden.</value>
   </data>
@@ -419,6 +422,9 @@ Sie dürfen unter den Bedingungen der GNU Lesser General Public License Kopien d
   </data>
   <data name="MustBeAdminForMachineWide" xml:space="preserve">
     <value>Sie müssen ein Administrator sein, um maschinenweite Operationen durchführen zu können.</value>
+  </data>
+  <data name="MyApps" xml:space="preserve">
+    <value>Meine Anwendungen</value>
   </data>
   <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
     <value>API hooking nicht möglich wegen einer nicht gecachten Implementierung.</value>

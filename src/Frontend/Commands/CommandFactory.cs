@@ -36,7 +36,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// A list of command names (without alternatives) as used in command-line arguments in lower-case.
         /// </summary>
-        internal static readonly string[] CommandNames = {Central.Name, SelfUpdate.Name, Selection.Name, Download.Name, Update.Name, Run.Name, Search.Name, List.Name, Import.Name, Configure.Name, AddFeed.Name, RemoveFeed.Name, ListFeeds.Name, AddApp.Name, RemoveApp.Name, RemoveAllApps.Name, IntegrateApp.Name, AddAlias.Name, UpdateApps.Name, RepairApps.Name, SyncApps.Name, ImportApps.Name, Digest.Name, StoreMan.Name};
+        internal static readonly string[] CommandNames = {Central.Name, SelfUpdate.Name, Selection.Name, Download.Name, Update.Name, Run.Name, Search.Name, List.Name, Import.Name, Configure.Name, AddFeed.Name, RemoveFeed.Name, ListFeeds.Name, AddApp.Name, RemoveApp.Name, RemoveAllApps.Name, IntegrateApp.Name, AddAlias.Name, ListApps.Name, UpdateApps.Name, RepairApps.Name, SyncApps.Name, ImportApps.Name, Digest.Name, StoreMan.Name};
 
         /// <summary>
         /// Creates a nw <see cref="CliCommand"/> based on a name.
@@ -99,6 +99,8 @@ namespace ZeroInstall.Commands
                 case AddAlias.Name:
                 case AddAlias.AltName:
                     return new AddAlias(handler);
+                case ListApps.Name:
+                    return new ListApps(handler);
                 case UpdateApps.Name:
                 case UpdateApps.AltName:
                     return new UpdateApps(handler);

@@ -422,6 +422,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lists all applications currently in your application list. If a search term is given, only application names containing that string are shown (case insensitive)..
+        /// </summary>
+        public static string DescriptionListApps {
+            get {
+                return ResourceManager.GetString("DescriptionListApps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lists all extra feeds added to URI using &apos;0install add-feed&apos;..
         /// </summary>
         public static string DescriptionListFeeds {
@@ -924,6 +933,15 @@ namespace ZeroInstall.Commands.Properties {
         public static string MustBeAdminForMachineWide {
             get {
                 return ResourceManager.GetString("MustBeAdminForMachineWide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My applications.
+        /// </summary>
+        public static string MyApps {
+            get {
+                return ResourceManager.GetString("MyApps", resourceCulture);
             }
         }
         

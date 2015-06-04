@@ -415,6 +415,9 @@ Additional arguments specify custom cache locations.</value>
   <data name="MustBeAdminForMachineWide" xml:space="preserve">
     <value>Πρέπει να είστε διαχειριστης για να εκτελέσετε λειτουργίες του μηχανήματος κλίμακας.</value>
   </data>
+  <data name="MyApps" xml:space="preserve">
+    <value>Οι εφαρμογές μου</value>
+  </data>
   <data name="NoApiHookingNonCacheImpl" xml:space="preserve">
     <value>Η αγκίστρωση του ΑΡΙ δεν είναι δυνατή λόγω της μη εφαρμογής προσωρινής αποθήκευσης.</value>
   </data>
